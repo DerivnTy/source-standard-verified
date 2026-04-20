@@ -41,15 +41,18 @@ const Index = () => {
             We are not building a surveillance system. We are building the proof of legitimacy that good operators
             already deserve but have never had a way to show.
           </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" className="bg-primary hover:bg-primary-hover text-primary-foreground h-11 px-6 text-sm font-medium">
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary-hover text-primary-foreground h-14 px-9 text-[15px] font-semibold rounded-none">
               <Link to="/greenlist">Browse the Greenlist</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="h-11 px-6 text-sm font-medium border-border-strong">
+            <Button asChild size="lg" variant="outline" className="h-14 px-9 text-[15px] font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none">
               <Link to="/apply">Apply for Verification</Link>
             </Button>
           </div>
-          <p className="mt-8 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+          <p className="mt-10 text-sm text-muted-foreground">
+            Built from public FDA, PCAB, NSF, and USP data.
+          </p>
+          <p className="mt-3 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
             Florida Launch 2026 &nbsp;·&nbsp; Documentation-First Model
           </p>
         </div>
