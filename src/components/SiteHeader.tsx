@@ -35,7 +35,7 @@ export const SiteHeader = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center">
-          <Button asChild size="sm" className="text-[13px] h-9 px-4 bg-primary hover:bg-primary-hover text-primary-foreground font-medium">
+          <Button asChild size="sm" className="text-[13px] h-10 px-5 bg-primary hover:bg-primary-hover text-primary-foreground font-semibold rounded-none">
             <Link to="/apply">Apply for Verification</Link>
           </Button>
         </div>

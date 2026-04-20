@@ -8,7 +8,16 @@ const Greenlist = () => {
         eyebrow="Public Registry"
         title="The Source Standard Greenlist."
         description="A public list of upstream sources recognized under the Source Standard verification framework. The greenlist is the foundation against which every vendor verification is measured."
-      />
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-2 border-2 border-primary bg-verified-soft text-primary text-[11px] font-semibold uppercase tracking-[0.14em] px-3 py-2">
+            <span className="h-1.5 w-1.5 bg-primary" /> Official Regulatory Sources
+          </span>
+          <span className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            Live Database · Last Updated April 20, 2026
+          </span>
+        </div>
+      </PageHeader>
 
       <section className="border-b border-border">
         <div className="container-wide py-14 md:py-20">
@@ -96,7 +105,7 @@ const Greenlist = () => {
                     </ul>
                   ) : (
                     <div className="px-4 py-10 text-center text-sm text-muted-foreground">
-                      Initial registry publishing Q1 2026.
+                      Live Database · Last Updated April 20, 2026.
                     </div>
                   )}
                 </div>
