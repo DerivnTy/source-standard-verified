@@ -1,98 +1,139 @@
 
 
-## Institutional Redesign: From Marketing Site → Standards Platform
+## Philosophy Pass: From "Presenting a Standard" → "Operating as a Public Reference"
 
-The current site reads like a SaaS landing page — oversized centered hero text, generous luxury spacing, and section-by-section "campaign" rhythm. This plan rebuilds the visual system so the site reads like a public registry / standards body where authority is *expressed*, not *sold*.
+Keep all prior structural and visual direction. This pass tightens **copy, framing, and a few structural additions** so the site reads as an already-established public information system — not an organization explaining itself.
 
-### 1. Global typographic & spacing system (`index.css`, `tailwind.config.ts`)
+The principle driving every change: **remove persuasion, add reference.** Replace explanatory/sales-adjacent language with declarative, informational, registry-style statements. Add a visible medical/standards authority layer so weight is shown, not claimed.
 
-Reduce display scale across the site to editorial/institutional proportions:
+---
 
-- Hero `h1`: drop from `text-7xl` → roughly `text-3xl md:text-4xl` (28–36px), tighter leading, left-aligned by default.
-- Section `h2`: drop from `text-4xl` → `text-2xl md:text-[1.75rem]`, semibold, not bold-display.
-- Body: standardize on 14–15px with 1.65 line-height; muted-foreground darkened slightly for stronger contrast/gravity.
-- Add a metadata text style (`.meta`): 11px mono, tabular-nums, used for IDs, versions, timestamps, statuses.
-- Tighten section vertical rhythm: `py-20/28` → `py-14 md:py-20`. Less luxury whitespace, more density.
-- Darken `--foreground` and `--border` a touch so line work feels sharper and more registry-like.
+### 1. Homepage (`Index.tsx`) — reframe as a reference entry point
 
-### 2. Global page chrome
+**Hero copy rewrite (keep layout, tighten voice):**
+- Eyebrow: `PUBLIC REFERENCE · VERIFICATION FRAMEWORK`
+- Headline: `Source Standard.` followed by a shorter declarative line — *"The public reference for vendor documentation in peptide, TRT, and hormone optimization."*
+- Subparagraph: replace the current explanatory paragraph with a 2-sentence reference statement: what the registry contains, who maintains it, and where verification authority is anchored. No "we help…" / "we exist to…" phrasing.
+- CTAs: relabel — `View the Registry` (primary) and `Verification Process` (secondary). Remove "Apply" from the hero entirely; it lives in the header. The hero should read as informational, not transactional.
+- Supporting line: replace marketing tagline with a reference line — *"Maintained in Tampa, FL · Anchored to public FDA, PCAB, NSF, and USP records."*
 
-**`SiteHeader`**
-- Add a thin top utility strip above the main header: left side `SOURCE STANDARD · PUBLIC VERIFICATION REGISTRY`, right side `EST. 2026 · TAMPA, FL`. Sets institutional tone before the nav even renders.
-- Tighten nav typography to 12px uppercase tracked labels (reference-site feel rather than product-site feel).
-- Keep the green Apply button but reduce its visual dominance slightly.
+**New section: §1 — Authority Anchors** (replaces "Operating Philosophy" as the first section)
+- Three numbered rows in the same hairline-divider style:
+  - `01 / Medical Oversight` — physicians and licensed clinicians review framework criteria.
+  - `02 / Public Source Anchoring` — every standard maps to a publicly citable upstream record (FDA, PCAB, NSF, USP, state licensure).
+  - `03 / Documentation Custody` — verifications reference records vendors already maintain; no investigative claims, no proprietary scoring.
+- This section makes the authority structure visible without a single sentence of "trust us."
 
-**`SiteFooter`**
-- Restructure into a 4-column institutional footer: Registry / Standards / Organization / Legal — each a column of small links and metadata, plus a "Document version 2026.01" line. Reads like a gov/standards-body footer.
+**Operating Philosophy** becomes §2, copy tightened to declarative statements (drop "Authority is expressed through documentation, not assertion." headline — too thesis-like; replace with *"Framework principles."*).
 
-**New shared component: `RecordHeader`** (replaces `PageHeader` usage on registry-style pages)
-- Renders a top metadata bar (`Document ID · Version · Last Updated · Status`), a small eyebrow, a restrained left-aligned title, a formal lead paragraph, and an optional summary metadata grid below. Used on Greenlist, Verified Vendors, How It Works, About.
+**Lifecycle** stays as §3, copy unchanged structurally, language tightened to procedural verbs only.
 
-### 3. Homepage rebuild (`Index.tsx`)
+**Greenlist preview** stays as §4.
 
-Replace the centered marketing hero with a structured institutional opening:
+**Verified Vendors preview** stays as §5.
 
-```text
-┌──────────────────────────────────────────────────────────────┐
-│ DOC SS-FRAMEWORK-2026.01   STATUS: ACTIVE   UPDATED 04/20/26 │  ← metadata bar
-├──────────────────────────────────────────────────────────────┤
-│ PUBLIC VERIFICATION FRAMEWORK                                │  ← eyebrow
-│                                                              │
-│ Source Standard.            ┌────────────────────────────┐   │
-│ A documentation-first       │ FRAMEWORK SNAPSHOT         │   │
-│ verification standard for   │ ─────────────────────────  │   │
-│ peptide, TRT, and hormone   │ Greenlist categories   03  │   │
-│ optimization vendors.       │ Verified vendors       00  │   │
-│                             │ Pending review         00  │   │
-│ [supporting paragraph...]   │ Jurisdiction        FL/US  │   │
-│                             │ Launch              Q1 '26 │   │
-│ [Browse Greenlist] [Apply]  └────────────────────────────┘   │
-│ Florida Launch 2026 · Documentation-First Model              │
-└──────────────────────────────────────────────────────────────┘
-```
+**Replace the final CTA strip** with a §6 **Public Use** block — three short reference items in the same row format:
+- `For consumers` — *"Look up a vendor. Read the criteria they were verified against."*
+- `For vendors` — *"Submission requirements and process reference."*
+- `For clinicians & partners` — *"Framework documentation and citation guidelines."*
 
-- 7/5 column split, left-aligned title (~36px), no oversized centered text.
-- Right panel = always-visible "framework snapshot" data block (small registry table).
-- Buttons smaller (h-11), squared, secondary as ghost/underline rather than equally-weighted outline.
+This removes the "Apply now" sales close from the homepage and replaces it with a public-utility directory.
 
-Subsequent homepage sections become more registry-like:
-- **Operating philosophy:** numbered table-style rows (`01 / Documentation-first / definition…`) with hairline dividers, not card grids.
-- **Lifecycle:** numbered editorial list with left-rail step numbers and right-side procedural text — replaces the 3-col card grid.
-- **Greenlist preview:** kept, but styled as a compact registry table with column headers (Category / Scope / Status / Ref).
-- **Verified vendors preview:** small empty-state row inside a registry frame, not a centered hero card.
-- **Final CTA:** condensed single hairline strip, not a full section.
+---
 
-Copy tightening: replace promotional phrasings with procedural language ("Recognized upstream sources", "Time-bound verifications", "Public review identifier issued").
+### 2. New page: `/governance` (Medical & Standards Oversight)
 
-### 4. Greenlist page (`Greenlist.tsx`)
+A short institutional page — not a team/about page, an **authority disclosure page**.
 
-- Swap `PageHeader` for `RecordHeader` with metadata bar (Doc ID, version, jurisdiction, status).
-- Reduce category section headlines from `text-3xl` → `text-xl`.
-- Convert criteria from bordered list-cards into a numbered reference list (`§1.1`, `§1.2` style) with hairline dividers.
-- Tighten the entries table: smaller header type, monospaced reference codes, deep-green status dots instead of pill badges.
-- Add a left-side persistent "Section index" (01 503B / 02 503A / 03 Other) so it reads like a navigable standard.
+- `RecordHeader` with doc ID `SS-GOV-2026.01`.
+- Sections:
+  - **Medical Advisory** — describes the role of physician oversight in framework criteria. Placeholder roster table with columns `Name · Credential · Role · Jurisdiction` and an honest note: *"Initial advisory roster published Q1 2026."* (Same pattern as Verified Vendors empty state — intentional, not unfinished.)
+  - **Standards Authorities Referenced** — table of upstream bodies the framework anchors to (FDA, PCAB, NSF, USP, State Boards of Pharmacy) with their public URLs and what Source Standard references from each.
+  - **Conflict of Interest Policy** — short declarative paragraph: Source Standard does not manufacture, distribute, prescribe, or dispense.
+- Add `/governance` to the main nav between **About** and **Apply** button, **or** under About in the footer "Organization" column. (Recommend footer + a link from About; the top nav is already 7 items.)
 
-### 5. Other pages (consistent application)
+---
 
-- **Verified Vendors:** `RecordHeader` + registry frame with column headers visible even when empty; the empty state becomes one inline row stating "No published records. First entries: Q1 2026." instead of a centered hero card.
-- **How It Works:** numbered procedural sections with left-rail step numbers, hairline dividers, and a small "Process reference" metadata block at top.
-- **For Vendors:** two-column layout — left: requirements as a numbered standard; right: sticky "Submission checklist" panel.
-- **Education:** tighter table-of-contents layout. Categories become a left index, forthcoming references become a dense right-side list with `REF-###` codes, status, and publish date columns.
-- **About:** editorial article layout (single column, left-aligned, structured subheads, marginal metadata).
-- **Apply / Contact:** form layouts get a metadata header, smaller field labels, and a structured 2-column form/sidebar grid.
+### 3. Education (`Education.tsx`) — reposition as the public knowledge layer
 
-### 6. Component tweaks
+- Header copy reframed: *"Public reference material on peptide therapy, TRT, hormone optimization, sourcing, storage, and consumer due diligence."* Drop any "learn more" / "our blog" framing.
+- Expand category index to match the user's earlier list explicitly:
+  - `REF-100 series` Understanding 503B Facilities
+  - `REF-200` How to Read a Certificate of Analysis
+  - `REF-300` Licensing & Registration Basics
+  - `REF-400` Vendor Verification Standards
+  - `REF-500` Sourcing Documentation
+  - `REF-600` Consumer Due Diligence
+  - `REF-700` Storage, Stability & Shelf Life
+  - `REF-800` Risks of Unverified Sources
+- Stub entries continue to use `Forthcoming` / `Publishing 2026` status. Add a `Citation` column so each entry visually reads like a library record, not a blog card.
+- Add a top reference line: *"Educational material is informational only and is not medical advice."* — institutional disclaimer, in `.meta` style.
 
-- `StatusBadge`: switch from filled pills to small uppercase text with a leading colored square (`■ VERIFIED`) — registry/legal style.
-- `Section` primitive: reduced default padding; add a `framed` variant that draws a hairline border + metadata bar at top (used for registry sections).
-- Remove decorative `Database` lucide icon from empty states; replace with text-only "NO RECORDS" label.
+---
+
+### 4. About (`About.tsx`) — strip self-explanation
+
+- Remove any sentence that begins with "We exist to…", "Our mission is…", "We believe…".
+- Replace with declarative role statements: *"Source Standard is a documentation-first verification framework. It is maintained in Tampa, FL. It is not a clinic, pharmacy, laboratory, or enforcement body."*
+- Add a short **Role boundaries** subsection (what the organization does / does not do) as a two-column table — registry-style, not narrative.
+- Link to `/governance` for medical oversight detail rather than describing physicians inline.
+
+---
+
+### 5. For Vendors (`ForVendors.tsx`) — reposition as a reference, not a pitch
+
+- Rename page header from any "Why verification matters" framing to **Vendor Reference**.
+- Drop persuasive value-prop copy ("Stand out", "Build trust with customers", etc., if present).
+- Keep the numbered submission standard and sticky checklist; reframe the intro as a one-paragraph procedural statement: *"This page documents the submission requirements, evidence categories, and review timeline for vendors seeking verification under SS-FRAMEWORK-2026.01."*
+- Move the "Apply" CTA to a single hairline strip at the bottom — not a hero, not repeated.
+
+---
+
+### 6. How It Works (`HowItWorks.tsx`) — minor copy pass
+
+- Change page lead from explanatory ("Here's how our process works…") to declarative ("Procedural reference for the six-step verification lifecycle.").
+- Add a small `Scope` metadata row at top: *Applies to: all vendors under SS-FRAMEWORK-2026.01.*
+
+---
+
+### 7. Verified Vendors (`VerifiedVendors.tsx`) — reinforce reference framing
+
+- Header sublead rewritten as: *"Public registry of vendors whose documentation has been reviewed under SS-FRAMEWORK-2026.01. Listings include the review identifier, scope of documentation reviewed, and verification expiry."*
+- Add a permanent **How to read this registry** strip above the table — 4 short columns explaining what each column means (Review ID format, Scope, Status markers, Expiry). Turns the empty state into a usable reference even before any vendors are listed.
+
+---
+
+### 8. Greenlist (`Greenlist.tsx`) — already close, two additions
+
+- Add a top **Citation** block: *"Cite as: Source Standard Greenlist, SS-GREENLIST-2026.01. Last updated 04/20/2026."* This is the single most "this is a real reference" signal — academic/standards bodies always show citation format.
+- Drop any remaining "Live Database" marketing language; replace with `STATUS: ACTIVE · VERSION 2026.01`.
+
+---
+
+### 9. Header / Footer — small reframing
+
+- `SiteHeader` utility strip right side: change from `EST. 2026 · TAMPA, FL · DOC v.2026.01` to `PUBLIC REFERENCE · DOC v.2026.01 · TAMPA, FL`. Leads with function, not founding.
+- `SiteFooter`: under the **Organization** column add `Governance & Oversight → /governance`. Under **Legal** add a short standing statement: *"Source Standard is an information and verification framework. It does not provide medical advice, prescribe, dispense, or endorse products."*
+
+---
+
+### 10. Global copy rules (applied across all edits above)
+
+A short style guide enforced during this pass:
+- No first-person plural framing ("we help / we believe / we exist") — replace with role-based declaratives ("Source Standard maintains…", "The framework references…").
+- No persuasive adjectives (*trusted, leading, premier, robust, comprehensive*).
+- No "learn more" / "discover" / "join" language.
+- Statuses, IDs, and timestamps wherever a section makes a claim — claims become records.
+- Disclaimers stated plainly, not buried.
+
+---
 
 ### Files touched
 
-- Edit: `src/index.css`, `tailwind.config.ts`, `src/components/SiteHeader.tsx`, `src/components/SiteFooter.tsx`, `src/components/PageHeader.tsx`, `src/components/Section.tsx`, `src/components/StatusBadge.tsx`, `src/pages/Index.tsx`, `src/pages/Greenlist.tsx`, `src/pages/VerifiedVendors.tsx`, `src/pages/HowItWorks.tsx`, `src/pages/ForVendors.tsx`, `src/pages/Education.tsx`, `src/pages/About.tsx`, `src/pages/Apply.tsx`, `src/pages/Contact.tsx`.
-- Create: `src/components/RecordHeader.tsx`, `src/components/MetadataBar.tsx`.
+- **Edit:** `src/pages/Index.tsx`, `src/pages/About.tsx`, `src/pages/Education.tsx`, `src/pages/ForVendors.tsx`, `src/pages/HowItWorks.tsx`, `src/pages/VerifiedVendors.tsx`, `src/pages/Greenlist.tsx`, `src/components/SiteHeader.tsx`, `src/components/SiteFooter.tsx`, `src/App.tsx` (route).
+- **Create:** `src/pages/Governance.tsx`, `src/data/authorities.ts` (small dataset for the standards authorities table).
 
 ### Outcome
 
-After this pass, every page opens with a metadata bar, a restrained left-aligned title, and procedural body content laid out on a tighter grid. Buttons, badges, and tables read like a public registry. No centered marketing heroes. No oversized display type. The site stops asking for trust and starts behaving like the reference layer it claims to be.
+After this pass, no page on the site contains a sentence asking the visitor to trust Source Standard. Authority is shown three ways: a visible medical/standards oversight layer (`/governance` + homepage §1 Authority Anchors), citation-style framing on every reference page, and copy that reads like an institutional record rather than a company introduction. A consumer arriving from a vendor's "Verified by Source Standard" claim immediately sees a public reference system, not a brand.
 
