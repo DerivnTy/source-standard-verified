@@ -5,114 +5,102 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { CheckCircle2 } from "lucide-react";
 
 const Apply = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    toast({ title: "Application received", description: "Source Standard will follow up with intake instructions." });
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      toast({
+        title: "Application received",
+        description: "A reviewer will follow up within five business days to confirm receipt.",
+      });
+      (e.target as HTMLFormElement).reset();
+    }, 600);
   };
 
   return (
     <>
       <PageHeader
         eyebrow="Apply for Verification"
-        title="Demonstrate the legitimacy you already have."
-        description="Submit an application to begin the Source Standard documentation review. Verification is open to vendors operating in the peptide, TRT, hormone optimization, and wellness space."
+        title="Begin a Source Standard application."
+        description="Initial intake takes approximately fifteen minutes. A reviewer will follow up to confirm receipt and outline any additional documentation required."
       />
 
-      <section className="container-tight py-16 md:py-20 grid lg:grid-cols-12 gap-12">
-        <aside className="lg:col-span-4 space-y-8">
-          <div>
-            <p className="eyebrow mb-3">Eligibility</p>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Operating vendors with current business licensing and access to supplier and quality documentation.
-            </p>
-          </div>
-          <div>
-            <p className="eyebrow mb-3">What You'll Need</p>
-            <ul className="text-sm text-muted-foreground space-y-2">
-              <li>— Active business registration</li>
-              <li>— Applicable licensing records</li>
-              <li>— Supplier / sourcing documentation</li>
-              <li>— Certificates of analysis (where applicable)</li>
+      <section className="container-wide py-14 md:py-20">
+        <div className="grid md:grid-cols-12 gap-12">
+          <aside className="md:col-span-4">
+            <p className="eyebrow mb-4">Before You Begin</p>
+            <ul className="border border-border bg-surface-muted divide-y divide-border text-sm">
+              {[
+                "Active business licensing",
+                "Supplier documentation",
+                "Applicable certificates of analysis",
+                "Prescriber credentials (if clinical)",
+                "Pharmacy partnership records (if applicable)",
+              ].map((i, idx) => (
+                <li key={i} className="px-4 py-3 flex gap-3">
+                  <span className="text-[11px] font-mono text-muted-foreground tabular-nums pt-0.5">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-foreground leading-relaxed">{i}</span>
+                </li>
+              ))}
             </ul>
-          </div>
-          <div>
-            <p className="eyebrow mb-3">Review Timeline</p>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Initial documentation review typically completes within 10–15 business days following intake.
+            <p className="mt-5 text-xs text-muted-foreground leading-relaxed">
+              Documentation upload is handled in a follow-up secure intake link issued after this form is received.
             </p>
-          </div>
-        </aside>
+          </aside>
 
-        <div className="lg:col-span-8">
-          {submitted ? (
-            <div className="border border-border bg-surface p-10 text-center">
-              <CheckCircle2 className="mx-auto h-10 w-10 text-verified" strokeWidth={1.5} />
-              <h2 className="mt-5 font-serif text-2xl font-medium tracking-tight">Application received</h2>
-              <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-                Thank you. Source Standard will follow up with intake instructions and a secure documentation link.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="border border-border bg-surface p-8 md:p-10 space-y-6">
-              <div className="grid md:grid-cols-2 gap-5">
-                <Field id="name" label="Vendor / Business Name" required />
-                <Field id="category" label="Category" placeholder="e.g. Peptides, TRT Clinic" required />
-                <Field id="contact" label="Primary Contact Name" required />
-                <Field id="role" label="Role" placeholder="e.g. Compliance Officer" />
-                <Field id="email" label="Email" type="email" required />
-                <Field id="phone" label="Phone" />
-                <Field id="state" label="Primary State of Operation" required />
-                <Field id="website" label="Website" type="url" />
+          <form onSubmit={onSubmit} className="md:col-span-8 border border-border bg-background p-6 md:p-10 space-y-6">
+            <div className="grid sm:grid-cols-2 gap-5">
+              <div className="space-y-2">
+                <Label htmlFor="vendor" className="text-xs uppercase tracking-[0.12em] font-semibold">Vendor / Clinic Name</Label>
+                <Input id="vendor" required className="h-11" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="notes" className="text-xs uppercase tracking-wider text-muted-foreground">Operating Scope</Label>
-                <Textarea
-                  id="notes"
-                  rows={5}
-                  placeholder="Briefly describe your operation, jurisdictions, and the documentation you maintain."
-                  className="rounded-sm"
-                />
+                <Label htmlFor="contact" className="text-xs uppercase tracking-[0.12em] font-semibold">Primary Contact</Label>
+                <Input id="contact" required className="h-11" />
               </div>
-              <div className="pt-4 border-t border-border flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-                <p className="text-xs text-muted-foreground max-w-md">
-                  Submission acknowledges that verification is documentation-based and does not guarantee any medical
-                  or product outcome.
-                </p>
-                <Button type="submit" size="lg" className="rounded-sm">Submit Application</Button>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-xs uppercase tracking-[0.12em] font-semibold">Email</Label>
+                <Input id="email" type="email" required className="h-11" />
               </div>
-            </form>
-          )}
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="text-xs uppercase tracking-[0.12em] font-semibold">Phone</Label>
+                <Input id="phone" type="tel" className="h-11" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="category" className="text-xs uppercase tracking-[0.12em] font-semibold">Vendor Category</Label>
+                <Input id="category" placeholder="e.g. TRT Clinic, Compounding Pharmacy" required className="h-11" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="state" className="text-xs uppercase tracking-[0.12em] font-semibold">State of Operation</Label>
+                <Input id="state" required className="h-11" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="notes" className="text-xs uppercase tracking-[0.12em] font-semibold">Operating Summary</Label>
+              <Textarea id="notes" rows={5} placeholder="Briefly describe your operation, licensing, and the documentation you can provide." />
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+              <p className="text-xs text-muted-foreground max-w-md">
+                Submissions are reviewed in the order received. Verification is not guaranteed and depends on documentation provided.
+              </p>
+              <Button type="submit" disabled={submitting} className="bg-primary hover:bg-primary-hover text-primary-foreground h-11 px-6">
+                {submitting ? "Submitting…" : "Submit application"}
+              </Button>
+            </div>
+          </form>
         </div>
       </section>
     </>
   );
 };
-
-const Field = ({
-  id,
-  label,
-  type = "text",
-  required,
-  placeholder,
-}: {
-  id: string;
-  label: string;
-  type?: string;
-  required?: boolean;
-  placeholder?: string;
-}) => (
-  <div className="space-y-2">
-    <Label htmlFor={id} className="text-xs uppercase tracking-wider text-muted-foreground">
-      {label}{required && " *"}
-    </Label>
-    <Input id={id} type={type} required={required} placeholder={placeholder} className="rounded-sm h-11" />
-  </div>
-);
 
 export default Apply;
