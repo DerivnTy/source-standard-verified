@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageHeader } from "@/components/PageHeader";
+import { RecordHeader } from "@/components/RecordHeader";
 import { Button } from "@/components/ui/button";
 
 const steps = [
@@ -38,42 +38,59 @@ const steps = [
 const HowItWorks = () => {
   return (
     <>
-      <PageHeader
-        eyebrow="The Verification Lifecycle"
+      <RecordHeader
+        metadata={[
+          { label: "Doc", value: "SS-PROCESS-2026.01" },
+          { label: "Version", value: "2026.01" },
+          { label: "Status", value: "Active" },
+          { label: "Updated", value: "04 / 20 / 2026" },
+        ]}
+        eyebrow="Verification Lifecycle · Procedural Reference"
         title="How a Source Standard verification is issued."
-        description="A six-step process, applied uniformly to every applicant. Documentation-first, neutral, and recorded in the public registry."
+        lead="A six-step procedural sequence applied uniformly to every applicant. Documentation-first, neutral, and recorded in the public registry with a citable review identifier."
+        summary={[
+          { label: "Steps", value: "06" },
+          { label: "Avg. cycle time", value: "10–14 days" },
+          { label: "Renewal interval", value: "12 months" },
+          { label: "Output", value: "Public review ID" },
+        ]}
       />
 
-      <section className="container-wide py-16 md:py-24">
-        <ol className="border border-border divide-y divide-border bg-background">
-          {steps.map((s) => (
-            <li key={s.n} className="grid md:grid-cols-12 gap-6 px-6 md:px-10 py-10">
-              <div className="md:col-span-3">
-                <p className="text-[11px] font-mono text-primary tabular-nums">{s.n}</p>
-                <h3 className="mt-2 text-xl font-semibold text-foreground tracking-tight">{s.t}</h3>
-              </div>
-              <div className="md:col-span-9">
-                <p className="text-[15px] text-muted-foreground leading-relaxed max-w-2xl">{s.d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+      <section>
+        <div className="container-wide py-10 md:py-14">
+          <ol className="border-t border-border">
+            {steps.map((s) => (
+              <li key={s.n} className="grid grid-cols-12 gap-4 md:gap-6 py-7 border-b border-border">
+                <div className="col-span-2 md:col-span-1">
+                  <span className="meta text-primary">{s.n}</span>
+                </div>
+                <div className="col-span-10 md:col-span-3">
+                  <h3 className="text-[15px] font-semibold text-foreground tracking-tight">{s.t}</h3>
+                </div>
+                <div className="col-span-12 md:col-span-8">
+                  <p className="text-[14px] text-muted-foreground leading-relaxed max-w-2xl">{s.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       <section className="border-t border-border bg-surface-muted">
-        <div className="container-wide py-20 md:py-24">
-          <div className="grid md:grid-cols-12 gap-10 items-end">
-            <div className="md:col-span-8">
-              <p className="eyebrow mb-5">Ready to begin</p>
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.15] max-w-2xl">
-                If your documentation is current, the process is straightforward.
-              </h2>
+        <div className="container-wide py-10 md:py-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div>
+              <p className="meta mb-1">§ Submission</p>
+              <p className="text-[15px] text-foreground font-medium max-w-xl">
+                If your documentation is current, the application takes approximately fifteen minutes.
+              </p>
             </div>
-            <div className="md:col-span-4 flex md:justify-end">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary-hover text-primary-foreground">
-                <Link to="/apply">Apply for Verification</Link>
-              </Button>
-            </div>
+            <Button
+              asChild
+              className="bg-primary hover:bg-primary-hover text-primary-foreground h-11 px-6 text-[12px] font-semibold uppercase tracking-[0.14em] rounded-none self-start md:self-auto"
+            >
+              <Link to="/apply">Apply for Verification</Link>
+            </Button>
           </div>
         </div>
       </section>

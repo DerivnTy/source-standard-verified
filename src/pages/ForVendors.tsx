@@ -1,25 +1,25 @@
 import { Link } from "react-router-dom";
-import { PageHeader } from "@/components/PageHeader";
+import { RecordHeader } from "@/components/RecordHeader";
 import { Button } from "@/components/ui/button";
 
 const reasons = [
   {
-    t: "Establish independent credibility",
+    t: "Independent credibility",
     d: "A Source Standard verification is a third-party record of the documentation you already maintain. It gives consumers, partners, and platforms a neutral reference point.",
   },
   {
-    t: "Differentiate from unverified operators",
+    t: "Differentiation",
     d: "The peptide, TRT, and hormone optimization markets are crowded with claims. Verification establishes a clear, documented separation between operators who can prove their sourcing and those who cannot.",
   },
   {
-    t: "Reduce friction with downstream partners",
+    t: "Downstream reduction of friction",
     d: "Payment processors, advertising platforms, and clinical referral networks increasingly require documented legitimacy. A Source Standard profile consolidates that documentation in one citable record.",
   },
 ];
 
 const docs = [
-  { t: "Business licensing", d: "Active state and federal registrations applicable to your operating model." },
-  { t: "Supplier documentation", d: "Records identifying upstream sources for materials, ingredients, or compounds you handle." },
+  { t: "Business licensing", d: "Active state and federal registrations applicable to the operating model." },
+  { t: "Supplier documentation", d: "Records identifying upstream sources for materials, ingredients, or compounds handled." },
   { t: "Certificates of analysis", d: "Independent third-party testing for relevant lots or batches, where applicable." },
   { t: "Prescriber credentials", d: "For clinical operators, current credentials for prescribing practitioners." },
   { t: "Pharmacy partnerships", d: "Documentation of relationships with 503A or 503B partners, if applicable." },
@@ -35,27 +35,44 @@ const receive = [
 const ForVendors = () => {
   return (
     <>
-      <PageHeader
-        eyebrow="For Vendors"
+      <RecordHeader
+        metadata={[
+          { label: "Doc", value: "SS-VENDOR-GUIDE-2026.01" },
+          { label: "Version", value: "2026.01" },
+          { label: "Status", value: "Active" },
+          { label: "Updated", value: "04 / 20 / 2026" },
+        ]}
+        eyebrow="For Vendors · Documentation Standard"
         title="Verification, structured for operators who already do the work."
-        description="Source Standard organizes the records you already maintain into a citable, public verification. Practical, document-based, and built to be defensible."
+        lead="Source Standard organizes the records you already maintain into a citable, public verification. Practical, document-based, and built to be defensible."
+        summary={[
+          { label: "Required docs", value: "05" },
+          { label: "Intake time", value: "≈15 min" },
+          { label: "Cycle", value: "10–14 days" },
+          { label: "Cost", value: "Disclosed at intake" },
+        ]}
       />
 
       {/* Why */}
       <section className="border-b border-border">
-        <div className="container-wide py-16 md:py-24">
+        <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="eyebrow mb-5">Why verification matters</p>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
+              <p className="meta mb-3">§1 — Why verification matters</p>
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
                 A neutral record carries weight that self-claimed legitimacy cannot.
               </h2>
             </div>
-            <div className="md:col-span-8 divide-y divide-border border-t border-border">
-              {reasons.map((r) => (
-                <div key={r.t} className="py-7 first:pt-7">
-                  <h3 className="text-lg font-semibold text-foreground">{r.t}</h3>
-                  <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">{r.d}</p>
+            <div className="md:col-span-8 border-t border-border">
+              {reasons.map((r, i) => (
+                <div key={r.t} className="grid grid-cols-12 gap-4 py-5 border-b border-border">
+                  <div className="col-span-2 md:col-span-1 meta">§1.{i + 1}</div>
+                  <div className="col-span-4 md:col-span-3">
+                    <h3 className="text-[14px] font-semibold text-foreground">{r.t}</h3>
+                  </div>
+                  <div className="col-span-12 md:col-span-8">
+                    <p className="text-[14px] text-muted-foreground leading-relaxed">{r.d}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -63,79 +80,110 @@ const ForVendors = () => {
         </div>
       </section>
 
-      {/* Documents */}
+      {/* Documents — two col layout w/ sticky checklist */}
       <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-16 md:py-24">
-          <p className="eyebrow mb-5">Documentation required</p>
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight max-w-3xl">
-            What to prepare before applying.
-          </h2>
-          <div className="mt-10 border border-border bg-background divide-y divide-border">
-            {docs.map((d, i) => (
-              <div key={d.t} className="grid md:grid-cols-12 gap-6 px-6 py-6">
-                <div className="md:col-span-1 text-[11px] font-mono text-muted-foreground tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
+        <div className="container-wide py-10 md:py-14">
+          <div className="grid md:grid-cols-12 gap-10">
+            <div className="md:col-span-8">
+              <p className="meta mb-3">§2 — Documentation required</p>
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight max-w-2xl mb-8">
+                What to prepare before applying.
+              </h2>
+              <div className="border border-border bg-background">
+                <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted border-b border-border">
+                  <div className="col-span-2 meta-label">Ref</div>
+                  <div className="col-span-4 meta-label">Document</div>
+                  <div className="col-span-6 meta-label">Description</div>
                 </div>
-                <div className="md:col-span-4">
-                  <p className="font-semibold text-foreground">{d.t}</p>
+                <ul className="divide-y divide-border">
+                  {docs.map((d, i) => (
+                    <li key={d.t} className="grid grid-cols-12 px-4 py-4">
+                      <div className="col-span-2 meta">§2.{i + 1}</div>
+                      <div className="col-span-4">
+                        <p className="text-[13px] font-semibold text-foreground">{d.t}</p>
+                      </div>
+                      <div className="col-span-6">
+                        <p className="text-[13px] text-muted-foreground leading-relaxed">{d.d}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <p className="mt-5 meta-label">
+                Required documentation varies by vendor category. Reviewers identify additional materials during intake.
+              </p>
+            </div>
+
+            <aside className="md:col-span-4">
+              <div className="md:sticky md:top-28 border border-border bg-background">
+                <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
+                  <p className="meta-label text-foreground">Submission Checklist</p>
                 </div>
-                <div className="md:col-span-7">
-                  <p className="text-sm text-muted-foreground leading-relaxed">{d.d}</p>
+                <ul className="divide-y divide-border">
+                  {docs.map((d, i) => (
+                    <li key={d.t} className="flex items-start gap-3 px-4 py-3">
+                      <span className="meta mt-0.5">§2.{i + 1}</span>
+                      <span className="text-[13px] text-foreground">{d.t}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="px-4 py-3 border-t border-border bg-surface-muted">
+                  <Link
+                    to="/apply"
+                    className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+                  >
+                    Begin application →
+                  </Link>
                 </div>
               </div>
-            ))}
+            </aside>
           </div>
-          <p className="mt-6 text-xs text-muted-foreground max-w-3xl">
-            Required documentation varies by vendor category. Source Standard reviewers will identify any additional
-            materials needed during the intake phase.
-          </p>
         </div>
       </section>
 
       {/* Receive */}
       <section className="border-b border-border">
-        <div className="container-wide py-16 md:py-24">
+        <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-5">
-              <p className="eyebrow mb-5">What you receive</p>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
-                A complete, public record of your verification.
+              <p className="meta mb-3">§3 — What is issued upon verification</p>
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+                A complete, public record of the verification.
               </h2>
             </div>
-            <div className="md:col-span-7">
-              <ul className="border border-border divide-y divide-border bg-background">
-                {receive.map((r, i) => (
-                  <li key={r} className="flex gap-4 px-5 py-4">
-                    <span className="text-[11px] font-mono text-muted-foreground tabular-nums pt-1">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[15px] text-foreground leading-relaxed">{r}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="md:col-span-7 border-t border-border">
+              {receive.map((r, i) => (
+                <div key={r} className="grid grid-cols-12 gap-4 py-4 border-b border-border">
+                  <span className="col-span-2 md:col-span-1 meta">§3.{i + 1}</span>
+                  <span className="col-span-10 md:col-span-11 text-[14px] text-foreground leading-relaxed">{r}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-surface-muted">
-        <div className="container-wide py-20 md:py-24">
-          <div className="grid md:grid-cols-12 gap-10 items-end">
-            <div className="md:col-span-8">
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.15] max-w-2xl">
-                Begin a Source Standard application.
-              </h2>
-              <p className="mt-4 text-[15px] text-muted-foreground leading-relaxed max-w-2xl">
-                Initial intake takes approximately fifteen minutes. A reviewer will follow up to confirm receipt and
-                outline any additional documentation requirements.
+      <section className="bg-surface-muted border-b border-border">
+        <div className="container-wide py-10 md:py-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div>
+              <p className="meta mb-1">§ Submission</p>
+              <p className="text-[15px] text-foreground font-medium max-w-xl">
+                Begin a Source Standard application. Initial intake takes approximately fifteen minutes.
               </p>
             </div>
-            <div className="md:col-span-4 flex md:justify-end gap-3">
-              <Button asChild variant="outline" className="border-border-strong">
-                <Link to="/how-it-works">How It Works</Link>
-              </Button>
-              <Button asChild size="lg" className="bg-primary hover:bg-primary-hover text-primary-foreground">
+            <div className="flex items-center gap-4">
+              <Link
+                to="/how-it-works"
+                className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary border-b border-foreground hover:border-primary pb-1"
+              >
+                How It Works
+              </Link>
+              <Button
+                asChild
+                className="bg-primary hover:bg-primary-hover text-primary-foreground h-11 px-6 text-[12px] font-semibold uppercase tracking-[0.14em] rounded-none"
+              >
                 <Link to="/apply">Apply</Link>
               </Button>
             </div>
