@@ -46,15 +46,21 @@ const HowItWorks = () => {
           { label: "Updated", value: "04 / 20 / 2026" },
         ]}
         eyebrow="Verification Lifecycle · Procedural Reference"
-        title="How a Source Standard verification is issued."
-        lead="A six-step procedural sequence applied uniformly to every applicant. Documentation-first, neutral, and recorded in the public registry with a citable review identifier."
+        title="Procedural reference for the six-step verification lifecycle."
+        lead="Applied uniformly to every applicant under SS-FRAMEWORK-2026.01. Documentation-first, neutral, and recorded in the public registry with a citable review identifier."
         summary={[
+          { label: "Scope", value: "All vendors" },
           { label: "Steps", value: "06" },
           { label: "Avg. cycle time", value: "10–14 days" },
           { label: "Renewal interval", value: "12 months" },
-          { label: "Output", value: "Public review ID" },
         ]}
       />
+
+      <section className="border-b border-border bg-surface-muted">
+        <div className="container-wide py-4">
+          <p className="meta">Scope · Applies to all vendors under SS-FRAMEWORK-2026.01.</p>
+        </div>
+      </section>
 
       <section>
         <div className="container-wide py-10 md:py-14">

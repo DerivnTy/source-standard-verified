@@ -11,6 +11,7 @@ import Greenlist from "./pages/Greenlist.tsx";
 import VerifiedVendors from "./pages/VerifiedVendors.tsx";
 import ForVendors from "./pages/ForVendors.tsx";
 import Education from "./pages/Education.tsx";
+import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
 import Contact from "./pages/Contact.tsx";
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/verified-vendors" element={<VerifiedVendors />} />
             <Route path="/for-vendors" element={<ForVendors />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
             <Route path="/apply" element={<Apply />} />

@@ -8,7 +8,7 @@ const Greenlist = () => {
         metadata={[
           { label: "Doc", value: "SS-GREENLIST-2026.01" },
           { label: "Version", value: "2026.01" },
-          { label: "Status", value: "Active · Live" },
+          { label: "Status", value: "Active · v.2026.01" },
           { label: "Updated", value: "04 / 20 / 2026" },
           { label: "Jurisdiction", value: "FL · US" },
         ]}
@@ -147,13 +147,16 @@ const Greenlist = () => {
       </section>
 
       <section className="border-t border-border bg-surface-muted">
-        <div className="container-wide py-8">
+        <div className="container-wide py-8 space-y-3">
+          <p className="text-[12px] text-foreground leading-relaxed max-w-4xl">
+            <span className="meta-label text-foreground mr-2">Cite as ·</span>
+            Source Standard Greenlist, SS-GREENLIST-2026.01. Last updated 04 / 20 / 2026.
+          </p>
           <p className="text-[12px] text-muted-foreground leading-relaxed max-w-4xl">
             <span className="meta-label text-foreground mr-2">Disclaimer ·</span>
-            The greenlist reflects upstream sources recognized at the time of publication.
             Inclusion indicates that a source meets the criteria documented in the Source
-            Standard framework. It is not an endorsement of any specific product, treatment,
-            or clinical outcome.
+            Standard framework at the time of publication. It is not an endorsement of any
+            specific product, treatment, or clinical outcome.
           </p>
         </div>
       </section>

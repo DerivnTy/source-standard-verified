@@ -22,7 +22,7 @@ const cols = [
     title: "Organization",
     links: [
       { to: "/about", label: "About Source Standard" },
-      { to: "/about", label: "Operating Philosophy" },
+      { to: "/governance", label: "Governance & Oversight" },
       { to: "/contact", label: "Contact" },
     ],
   },
@@ -80,10 +80,11 @@ export const SiteFooter = () => {
 
         <div className="mt-12 pt-8 border-t border-border">
           <p className="text-[12px] text-muted-foreground leading-relaxed max-w-4xl">
-            Source Standard is a verification and standards organization. We are not a
-            manufacturer, pharmacy, clinic, laboratory, regulator, or enforcement agency.
-            Verification reflects documentation reviewed at the time of assessment and does
-            not guarantee medical outcomes, product safety, or treatment efficacy.
+            Source Standard is an information and verification framework. It does not
+            manufacture, distribute, prescribe, dispense, or endorse products, and it does
+            not provide medical advice. Verification reflects documentation reviewed at the
+            time of assessment and does not guarantee medical outcomes, product safety, or
+            treatment efficacy.
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-between gap-y-2">
             <p className="meta-label">

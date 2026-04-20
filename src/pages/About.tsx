@@ -1,19 +1,18 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { Button } from "@/components/ui/button";
 
 const principles = [
   { t: "Neutral", d: "Source Standard does not manufacture, dispense, prescribe, or sell. It organizes and verifies documentation." },
-  { t: "Documentation-first", d: "Evaluation is based on records vendors already maintain. No investigation, surveillance, or enforcement is conducted." },
+  { t: "Documentation-first", d: "Evaluation references records vendors already maintain. No investigation, surveillance, or enforcement is conducted." },
   { t: "Public by default", d: "Every verification is published with a citable identifier so claims of legitimacy can be independently confirmed." },
   { t: "Time-bound", d: "Verifications expire. Active status requires resubmission of current documentation at scheduled intervals." },
 ];
 
-const notWhat = [
-  "A clinic, pharmacy, or laboratory",
-  "A manufacturer or distributor",
-  "A regulator or enforcement agency",
-  "A surveillance or investigative body",
+const roles = [
+  { is: "A documentation-first verification framework", isnot: "A clinic, pharmacy, or laboratory" },
+  { is: "A public registry of vendor verifications", isnot: "A manufacturer, distributor, or reseller" },
+  { is: "A reference standard maintained under medical advisory review", isnot: "A regulator or enforcement agency" },
+  { is: "An information layer for consumers, vendors, and clinicians", isnot: "A surveillance or investigative body" },
 ];
 
 const About = () => {
@@ -27,8 +26,8 @@ const About = () => {
           { label: "Updated", value: "04 / 20 / 2026" },
         ]}
         eyebrow="About · Organization Reference"
-        title="Source Standard. Record keepers of credibility."
-        lead="A neutral verification and standards organization for the peptide, TRT, hormone optimization, and wellness vendor space."
+        title="Source Standard."
+        lead="A documentation-first verification framework for the peptide, TRT, hormone optimization, and wellness vendor space. Maintained in Tampa, FL."
         summary={[
           { label: "Founded", value: "2026" },
           { label: "Headquarters", value: "Tampa, FL" },
@@ -37,36 +36,38 @@ const About = () => {
         ]}
       />
 
+      {/* §1 Role */}
       <section className="border-b border-border">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§1 — Operating Philosophy</p>
+              <p className="meta mb-3">§1 — Role</p>
               <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
-                Good operators already have the proof. The role of Source Standard is to make it visible.
+                Source Standard is a record keeper of credibility.
               </h2>
             </div>
             <div className="md:col-span-8 text-[14px] text-muted-foreground leading-relaxed space-y-4 border-t border-border pt-6">
               <p>
-                The peptide, TRT, and hormone optimization markets are full of claims about
-                sourcing, licensing, and quality. Consumers have no neutral standard to verify
-                those claims. Legitimate vendors have no consistent way to prove what separates
-                them from operators who cannot.
+                Source Standard is a documentation-first verification framework. It is maintained in Tampa, FL. It is not a
+                clinic, pharmacy, laboratory, regulator, or enforcement body.
               </p>
               <p>
-                Source Standard exists to close that gap. The organization does not investigate,
-                enforce, or police. It organizes and validates the documentation that legitimate
-                operators already maintain — licensing records, supplier documentation,
-                certificates of analysis — and publishes a citable record of what was reviewed.
+                The framework organizes records that legitimate operators already maintain — licensing, supplier
+                documentation, certificates of analysis — and publishes a citable record of what was reviewed.
               </p>
-              <p className="text-foreground font-medium">
-                Source Standard is the record keeper of credibility. The proof exists. The framework makes it legible.
+              <p className="text-foreground">
+                Medical advisory oversight and the standards authorities the framework references are documented in{" "}
+                <Link to="/governance" className="text-primary hover:text-primary-hover underline-offset-4 hover:underline">
+                  Governance & Oversight
+                </Link>
+                .
               </p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* §2 Principles */}
       <section className="border-b border-border bg-surface-muted">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
@@ -93,54 +94,44 @@ const About = () => {
         </div>
       </section>
 
+      {/* §3 Role boundaries */}
       <section className="border-b border-border">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-5">
-              <p className="meta mb-3">§3 — Scope</p>
+            <div className="md:col-span-4">
+              <p className="meta mb-3">§3 — Role Boundaries</p>
               <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
-                What Source Standard is not.
+                What the framework is, and is not.
               </h2>
-              <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
-                Defining scope clearly is part of being credible. The following is outside the framework.
-              </p>
             </div>
-            <div className="md:col-span-7 border-t border-border">
-              {notWhat.map((n, i) => (
-                <div key={n} className="grid grid-cols-12 gap-4 py-4 border-b border-border">
-                  <span className="col-span-2 md:col-span-1 meta">§3.{i + 1}</span>
-                  <span className="col-span-10 md:col-span-11 text-[14px] text-foreground leading-relaxed">{n}</span>
+            <div className="md:col-span-8">
+              <div className="border border-border bg-background">
+                <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted border-b border-border">
+                  <div className="col-span-1 meta-label">Ref</div>
+                  <div className="col-span-5 meta-label">Is</div>
+                  <div className="col-span-6 meta-label">Is not</div>
                 </div>
-              ))}
+                <ul className="divide-y divide-border">
+                  {roles.map((r, i) => (
+                    <li key={r.is} className="grid grid-cols-12 gap-3 px-4 py-4 items-baseline">
+                      <div className="col-span-1 meta">§3.{i + 1}</div>
+                      <div className="col-span-5 text-[13px] text-foreground leading-relaxed">{r.is}</div>
+                      <div className="col-span-6 text-[13px] text-muted-foreground leading-relaxed">{r.isnot}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-surface-muted border-b border-border">
-        <div className="container-wide py-10 md:py-12">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div>
-              <p className="meta mb-1">§ Reference</p>
-              <p className="text-[15px] text-foreground font-medium max-w-xl">
-                A neutral standard, built openly, anchored to documentation.
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <Button
-                asChild
-                className="bg-primary hover:bg-primary-hover text-primary-foreground h-11 px-6 text-[12px] font-semibold uppercase tracking-[0.14em] rounded-none"
-              >
-                <Link to="/greenlist">Browse the Greenlist</Link>
-              </Button>
-              <Link
-                to="/contact"
-                className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary border-b border-foreground hover:border-primary pb-1"
-              >
-                Contact
-              </Link>
-            </div>
-          </div>
+      <section className="bg-surface-muted">
+        <div className="container-wide py-8">
+          <p className="text-[12px] text-muted-foreground leading-relaxed max-w-4xl">
+            <span className="meta-label text-foreground mr-2">Cite as ·</span>
+            Source Standard, Organization Reference, SS-ORG-2026.01. Last updated 04 / 20 / 2026.
+          </p>
         </div>
       </section>
     </>
