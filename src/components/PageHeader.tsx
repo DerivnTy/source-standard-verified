@@ -13,15 +13,15 @@ export const PageHeader = ({
 }) => {
   return (
     <section className="border-b border-border bg-surface-muted">
-      <div className="container-tight py-16 md:py-24">
-        {eyebrow && <p className="eyebrow mb-5">{eyebrow}</p>}
-        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.05] max-w-3xl">
+      <div className="container-wide py-20 md:py-28">
+        {eyebrow && <p className="eyebrow mb-6">{eyebrow}</p>}
+        <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-semibold tracking-tight text-foreground leading-[1.05] max-w-4xl">
           {title}
         </h1>
         {description && (
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">{description}</p>
+          <p className="mt-7 max-w-2xl text-lg text-muted-foreground leading-relaxed">{description}</p>
         )}
-        {children && <div className="mt-8">{children}</div>}
+        {children && <div className="mt-10">{children}</div>}
       </div>
     </section>
   );
