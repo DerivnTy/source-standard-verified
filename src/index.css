@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,53 +12,52 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 215 28% 9%;
+    --foreground: 215 32% 7%;
 
     --surface: 0 0% 100%;
-    --surface-muted: 210 14% 97%;
-    --surface-sunken: 210 14% 95%;
+    --surface-muted: 210 16% 97%;
+    --surface-sunken: 210 16% 94%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 28% 9%;
+    --card-foreground: 215 32% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 28% 9%;
+    --popover-foreground: 215 32% 7%;
 
     /* Forest green — institutional accent */
-    --primary: 152 43% 21%;
+    --primary: 152 45% 19%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 152 43% 16%;
+    --primary-hover: 152 45% 14%;
 
-    --secondary: 210 14% 96%;
-    --secondary-foreground: 215 28% 12%;
+    --secondary: 210 16% 96%;
+    --secondary-foreground: 215 32% 10%;
 
-    --muted: 210 14% 96%;
-    --muted-foreground: 215 12% 38%;
+    --muted: 210 16% 96%;
+    --muted-foreground: 215 14% 32%;
 
-    --accent: 210 14% 96%;
-    --accent-foreground: 215 28% 12%;
+    --accent: 210 16% 96%;
+    --accent-foreground: 215 32% 10%;
 
-    /* Verification — same as primary, used for badges */
-    --verified: 152 43% 21%;
+    --verified: 152 45% 19%;
     --verified-foreground: 0 0% 100%;
     --verified-soft: 152 30% 94%;
 
-    --pending: 35 60% 38%;
+    --pending: 35 60% 36%;
     --pending-soft: 35 50% 95%;
 
     --destructive: 0 60% 38%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 16% 89%;
-    --border-strong: 215 16% 78%;
-    --input: 215 16% 89%;
-    --ring: 152 43% 21%;
+    --border: 215 18% 84%;
+    --border-strong: 215 18% 70%;
+    --input: 215 18% 84%;
+    --ring: 152 45% 19%;
 
     --radius: 0.125rem;
 
-    --shadow-sm: 0 1px 0 0 hsl(215 28% 9% / 0.04);
-    --shadow-md: 0 1px 2px 0 hsl(215 28% 9% / 0.05);
-    --shadow-lg: 0 4px 16px -4px hsl(215 28% 9% / 0.08);
+    --shadow-sm: 0 1px 0 0 hsl(215 32% 7% / 0.04);
+    --shadow-md: 0 1px 2px 0 hsl(215 32% 7% / 0.05);
+    --shadow-lg: 0 4px 16px -4px hsl(215 32% 7% / 0.08);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -96,9 +95,9 @@
     --pending-soft: 35 25% 16%;
     --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 96%;
-    --border: 215 18% 18%;
-    --border-strong: 215 18% 28%;
-    --input: 215 18% 18%;
+    --border: 215 18% 22%;
+    --border-strong: 215 18% 32%;
+    --input: 215 18% 22%;
     --ring: 152 35% 55%;
   }
 }
@@ -117,6 +116,8 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "ss01", "cv11";
+    font-size: 15px;
+    line-height: 1.65;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -139,11 +140,21 @@
   }
 
   .eyebrow {
-    @apply text-[11px] font-semibold uppercase tracking-[0.16em] text-primary;
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-primary;
   }
 
   .eyebrow-muted {
-    @apply text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground;
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground;
+  }
+
+  .meta {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    @apply text-[11px] uppercase tracking-[0.12em] tabular-nums text-muted-foreground;
+  }
+
+  .meta-label {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    @apply text-[10px] uppercase tracking-[0.16em] tabular-nums text-muted-foreground;
   }
 
   .rule {
@@ -154,12 +165,11 @@
     @apply border-b border-border;
   }
 
-  /* Section spacing rhythm */
   .section {
-    @apply py-20 md:py-28;
+    @apply py-14 md:py-20;
   }
 
   .section-tight {
-    @apply py-14 md:py-20;
+    @apply py-10 md:py-14;
   }
 }

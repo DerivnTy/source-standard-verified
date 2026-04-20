@@ -1,4 +1,4 @@
-import { PageHeader } from "@/components/PageHeader";
+import { RecordHeader } from "@/components/RecordHeader";
 
 const categories = [
   { t: "Understanding 503B Facilities", d: "FDA-registered outsourcing facilities and what their oversight means for sourcing integrity." },
@@ -21,64 +21,82 @@ const articles = [
 const Education = () => {
   return (
     <>
-      <PageHeader
-        eyebrow="Education"
+      <RecordHeader
+        metadata={[
+          { label: "Doc", value: "SS-EDU-2026.01" },
+          { label: "Version", value: "2026.01" },
+          { label: "Status", value: "Forthcoming" },
+          { label: "Updated", value: "04 / 20 / 2026" },
+        ]}
+        eyebrow="Education · Reference Library"
         title="A reference library for vendors, clinicians, and consumers."
-        description="Structured, neutral material on the standards, documentation, and licensing frameworks that govern legitimate operators in the peptide, TRT, and hormone optimization space."
+        lead="Structured, neutral material on the standards, documentation, and licensing frameworks that govern legitimate operators in the peptide, TRT, and hormone optimization space."
+        summary={[
+          { label: "Categories", value: categories.length.toString().padStart(2, "0") },
+          { label: "Forthcoming refs", value: articles.length.toString().padStart(2, "0") },
+          { label: "Publication", value: "Rolling 2026" },
+          { label: "Format", value: "Reference notes" },
+        ]}
       />
 
-      {/* Categories */}
-      <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-20">
-          <div className="flex items-baseline justify-between mb-8">
-            <p className="eyebrow">Categories</p>
-            <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Publishing 2026</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
-            {categories.map((c, i) => (
-              <div key={c.t} className="bg-background p-6">
-                <p className="text-[11px] font-mono text-muted-foreground tabular-nums mb-3">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="text-base font-semibold text-foreground leading-snug">{c.t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{c.d}</p>
+      <section>
+        <div className="container-wide py-10 md:py-14">
+          <div className="grid md:grid-cols-12 gap-10">
+            {/* Categories index */}
+            <aside className="md:col-span-4">
+              <div className="md:sticky md:top-28 border border-border bg-background">
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-surface-muted">
+                  <p className="meta-label text-foreground">Categories</p>
+                  <p className="meta-label">{categories.length.toString().padStart(2, "0")}</p>
+                </div>
+                <ul className="divide-y divide-border">
+                  {categories.map((c, i) => (
+                    <li key={c.t} className="px-4 py-3">
+                      <div className="flex items-baseline gap-3">
+                        <span className="meta">§{String(i + 1).padStart(2, "0")}</span>
+                        <span className="text-[13px] font-semibold text-foreground leading-snug">{c.t}</span>
+                      </div>
+                      <p className="mt-1 ml-7 text-[12px] text-muted-foreground leading-relaxed">{c.d}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </aside>
 
-      {/* Forthcoming articles */}
-      <section className="bg-surface-muted">
-        <div className="container-wide py-14 md:py-20">
-          <div className="flex items-baseline justify-between mb-8">
-            <p className="eyebrow">Forthcoming Reference Material</p>
-            <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">Publishing 2026</p>
+            {/* Forthcoming references table */}
+            <div className="md:col-span-8">
+              <div className="flex items-baseline justify-between mb-4">
+                <p className="meta text-foreground">Forthcoming Reference Material</p>
+                <p className="meta-label">Publishing 2026</p>
+              </div>
+              <div className="border border-border bg-background">
+                <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted border-b border-border">
+                  <div className="col-span-2 meta-label">Ref</div>
+                  <div className="col-span-3 meta-label">Category</div>
+                  <div className="col-span-5 meta-label">Title</div>
+                  <div className="col-span-2 meta-label text-right">Status</div>
+                </div>
+                <ul className="divide-y divide-border">
+                  {articles.map((a, i) => (
+                    <li key={a.t} className="grid grid-cols-12 gap-3 px-4 py-4 items-baseline">
+                      <div className="col-span-2 meta">REF-{String(i + 1).padStart(3, "0")}</div>
+                      <div className="col-span-3 meta-label text-foreground">{a.c}</div>
+                      <div className="col-span-5">
+                        <h3 className="text-[13px] font-semibold text-foreground leading-snug">{a.t}</h3>
+                      </div>
+                      <div className="col-span-2 text-right meta">Forthcoming</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <p className="mt-6 text-[12px] text-muted-foreground max-w-2xl leading-relaxed">
+                <span className="meta-label text-foreground mr-2">Note ·</span>
+                Reference material is published as part of the Source Standard educational
+                program and is intended for informational purposes. It does not constitute
+                medical, legal, or regulatory advice.
+              </p>
+            </div>
           </div>
-          <div className="border border-border bg-background divide-y divide-border">
-            {articles.map((a, i) => (
-              <article key={a.t} className="grid md:grid-cols-12 gap-6 px-6 py-6 items-center">
-                <div className="md:col-span-2 text-[11px] font-mono text-muted-foreground tabular-nums">
-                  REF-{String(i + 1).padStart(3, "0")}
-                </div>
-                <div className="md:col-span-2">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-primary border border-primary/30 bg-verified-soft px-2 py-1">
-                    {a.c}
-                  </span>
-                </div>
-                <div className="md:col-span-6">
-                  <h3 className="text-[15px] font-semibold text-foreground leading-snug">{a.t}</h3>
-                </div>
-                <div className="md:col-span-2 md:text-right text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                  Forthcoming
-                </div>
-              </article>
-            ))}
-          </div>
-          <p className="mt-8 text-xs text-muted-foreground max-w-3xl">
-            Reference material is published as part of the Source Standard educational program and is intended for
-            informational purposes. It does not constitute medical, legal, or regulatory advice.
-          </p>
         </div>
       </section>
     </>
