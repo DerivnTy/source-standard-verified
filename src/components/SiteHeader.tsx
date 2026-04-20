@@ -25,7 +25,7 @@ export const SiteHeader = () => {
             Source Standard · Public Verification Registry
           </span>
           <span className="meta-label text-background/80">
-            Est. 2026 · Tampa, FL · Doc v.2026.01
+            Public Reference · Doc v.2026.01 · Tampa, FL
           </span>
         </div>
       </div>

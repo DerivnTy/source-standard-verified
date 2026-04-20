@@ -13,8 +13,8 @@ const VerifiedVendors = () => {
           { label: "Updated", value: "04 / 20 / 2026" },
         ]}
         eyebrow="Public Registry · Verified Vendors"
-        title="The public registry of verified vendors."
-        lead="Once the registry opens, this page lists every vendor whose documentation has been reviewed and verified under the Source Standard framework, together with the public review identifier issued at the time of verification."
+        title="Public registry of verified vendors."
+        lead="Public registry of vendors whose documentation has been reviewed under SS-FRAMEWORK-2026.01. Listings include the review identifier, scope of documentation reviewed, and verification expiry."
         summary={[
           { label: "Published records", value: "00" },
           { label: "Pending review", value: "00" },
@@ -25,6 +25,26 @@ const VerifiedVendors = () => {
 
       <section>
         <div className="container-wide py-10 md:py-14">
+          {/* How to read this registry */}
+          <div className="border border-border bg-background mb-6">
+            <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
+              <p className="meta-label text-foreground">How to read this registry</p>
+            </div>
+            <div className="grid md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-border">
+              {[
+                { l: "Review ID", d: "Format: SS-YYYY-##### · Citable, public, immutable." },
+                { l: "Scope", d: "The documentation categories reviewed for this listing." },
+                { l: "Status", d: "■ Active · ■ Pending · ■ Expired." },
+                { l: "Expiry", d: "Verifications are time-bound. Renewal required at interval." },
+              ].map((c) => (
+                <div key={c.l} className="px-4 py-3">
+                  <p className="meta-label text-foreground">{c.l}</p>
+                  <p className="mt-1 text-[12px] text-muted-foreground leading-relaxed">{c.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className="border border-border bg-surface-muted">
             <div className="px-4 py-2.5 border-b border-border bg-background">
               <p className="meta-label text-foreground">Registry Search</p>
