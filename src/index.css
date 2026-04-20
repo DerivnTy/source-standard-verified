@@ -1,64 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Source Standard — institutional trust design system.
-   Palette inspired by public registries, regulatory bodies, and serious financial/health institutions.
-   Deep navy authority, neutral parchment surfaces, restrained verification green.
-   All colors are HSL.
+/* Source Standard — institutional verification authority.
+   Forest green primary, white surfaces, near-black text.
+   Restrained, documentation-first. All colors HSL.
 */
 
 @layer base {
   :root {
-    --background: 40 30% 98%;
-    --foreground: 215 35% 12%;
+    --background: 0 0% 100%;
+    --foreground: 215 28% 9%;
 
     --surface: 0 0% 100%;
-    --surface-muted: 40 25% 96%;
+    --surface-muted: 210 14% 97%;
+    --surface-sunken: 210 14% 95%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 35% 12%;
+    --card-foreground: 215 28% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 35% 12%;
+    --popover-foreground: 215 28% 9%;
 
-    /* Deep institutional navy */
-    --primary: 215 55% 16%;
-    --primary-foreground: 40 30% 98%;
+    /* Forest green — institutional accent */
+    --primary: 152 43% 21%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 152 43% 16%;
 
-    --secondary: 215 25% 94%;
-    --secondary-foreground: 215 35% 16%;
+    --secondary: 210 14% 96%;
+    --secondary-foreground: 215 28% 12%;
 
-    --muted: 215 20% 95%;
-    --muted-foreground: 215 15% 40%;
+    --muted: 210 14% 96%;
+    --muted-foreground: 215 12% 38%;
 
-    --accent: 215 25% 94%;
-    --accent-foreground: 215 35% 16%;
+    --accent: 210 14% 96%;
+    --accent-foreground: 215 28% 12%;
 
-    /* Verification green — restrained, used sparingly */
-    --verified: 158 55% 28%;
-    --verified-foreground: 40 30% 98%;
-    --verified-soft: 158 35% 92%;
+    /* Verification — same as primary, used for badges */
+    --verified: 152 43% 21%;
+    --verified-foreground: 0 0% 100%;
+    --verified-soft: 152 30% 94%;
 
-    /* Pending / unverified neutrals */
-    --pending: 38 70% 45%;
-    --pending-soft: 38 60% 94%;
+    --pending: 35 60% 38%;
+    --pending-soft: 35 50% 95%;
 
-    --destructive: 0 65% 42%;
-    --destructive-foreground: 40 30% 98%;
+    --destructive: 0 60% 38%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 215 20% 88%;
-    --border-strong: 215 20% 78%;
-    --input: 215 20% 88%;
-    --ring: 215 55% 16%;
+    --border: 215 16% 89%;
+    --border-strong: 215 16% 78%;
+    --input: 215 16% 89%;
+    --ring: 152 43% 21%;
 
-    --radius: 0.25rem;
+    --radius: 0.125rem;
 
-    --shadow-sm: 0 1px 2px 0 hsl(215 35% 12% / 0.04);
-    --shadow-md: 0 4px 12px -2px hsl(215 35% 12% / 0.06), 0 2px 4px -2px hsl(215 35% 12% / 0.04);
-    --shadow-lg: 0 12px 32px -8px hsl(215 35% 12% / 0.10);
+    --shadow-sm: 0 1px 0 0 hsl(215 28% 9% / 0.04);
+    --shadow-md: 0 1px 2px 0 hsl(215 28% 9% / 0.05);
+    --shadow-lg: 0 4px 16px -4px hsl(215 28% 9% / 0.08);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -71,33 +71,35 @@
   }
 
   .dark {
-    --background: 215 40% 8%;
-    --foreground: 40 30% 96%;
-    --surface: 215 40% 10%;
-    --surface-muted: 215 35% 12%;
-    --card: 215 40% 10%;
-    --card-foreground: 40 30% 96%;
-    --popover: 215 40% 10%;
-    --popover-foreground: 40 30% 96%;
-    --primary: 40 30% 96%;
-    --primary-foreground: 215 55% 12%;
-    --secondary: 215 30% 16%;
-    --secondary-foreground: 40 30% 96%;
-    --muted: 215 30% 16%;
-    --muted-foreground: 215 15% 65%;
-    --accent: 215 30% 16%;
-    --accent-foreground: 40 30% 96%;
-    --verified: 158 50% 45%;
-    --verified-foreground: 215 55% 10%;
-    --verified-soft: 158 40% 18%;
-    --pending: 38 70% 55%;
-    --pending-soft: 38 30% 18%;
-    --destructive: 0 60% 45%;
-    --destructive-foreground: 40 30% 96%;
-    --border: 215 25% 20%;
-    --border-strong: 215 25% 30%;
-    --input: 215 25% 20%;
-    --ring: 40 30% 80%;
+    --background: 215 28% 7%;
+    --foreground: 0 0% 96%;
+    --surface: 215 28% 9%;
+    --surface-muted: 215 24% 11%;
+    --surface-sunken: 215 24% 13%;
+    --card: 215 28% 9%;
+    --card-foreground: 0 0% 96%;
+    --popover: 215 28% 9%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 152 35% 55%;
+    --primary-foreground: 215 28% 9%;
+    --primary-hover: 152 35% 60%;
+    --secondary: 215 22% 14%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 215 22% 14%;
+    --muted-foreground: 215 12% 62%;
+    --accent: 215 22% 14%;
+    --accent-foreground: 0 0% 96%;
+    --verified: 152 35% 55%;
+    --verified-foreground: 215 28% 9%;
+    --verified-soft: 152 25% 16%;
+    --pending: 35 55% 60%;
+    --pending-soft: 35 25% 16%;
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 0 0% 96%;
+    --border: 215 18% 18%;
+    --border-strong: 215 18% 28%;
+    --input: 215 18% 18%;
+    --ring: 152 35% 55%;
   }
 }
 
@@ -117,14 +119,9 @@
     font-feature-settings: "ss01", "cv11";
   }
 
-  h1, h2, h3, h4 {
-    @apply font-serif tracking-tight text-foreground;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight text-foreground;
     font-feature-settings: "ss01";
-  }
-
-  /* Subtle institutional underline for inline links */
-  .prose-link {
-    @apply underline underline-offset-4 decoration-border-strong hover:decoration-foreground transition-colors;
   }
 }
 
@@ -137,8 +134,16 @@
     @apply mx-auto w-full max-w-3xl px-6 md:px-10;
   }
 
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl px-6 md:px-10;
+  }
+
   .eyebrow {
-    @apply text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground;
+    @apply text-[11px] font-semibold uppercase tracking-[0.16em] text-primary;
+  }
+
+  .eyebrow-muted {
+    @apply text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground;
   }
 
   .rule {
@@ -149,11 +154,12 @@
     @apply border-b border-border;
   }
 
-  /* Faint registry grid backdrop */
-  .bg-registry-grid {
-    background-image:
-      linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px);
-    background-size: 64px 64px;
+  /* Section spacing rhythm */
+  .section {
+    @apply py-20 md:py-28;
+  }
+
+  .section-tight {
+    @apply py-14 md:py-20;
   }
 }
