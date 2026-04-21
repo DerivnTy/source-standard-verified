@@ -277,53 +277,50 @@ const GreenlistProfile = () => {
         </div>
       </header>
 
-      <section className="bg-surface-muted/30">
-        <div className="container-wide py-5 space-y-3">
-          <Section
-            eyebrow="01 · Regulatory & Quality"
-            title="Regulatory identity, quality systems"
-            subtitle="Licensure, inspections, and quality systems."
-          >
-            <Field label="FDA registration / FEI" value={text(p.fdaRegistration)} />
-            <Field label="States served / licensure" value={tags(p.statesServed)} />
-            <Field label="Inspection history" value={text(p.inspectionHistory)} />
-            <Field label="Last inspection date" value={text(p.lastInspectionDate)} />
-            <Field label="Standards met" value={tags(p.standards)} />
-            <Field label="Cleanroom classification" value={text(p.cleanroomClass)} />
-            <Field label="Testing protocols" value={tags(p.testingProtocols)} />
-            <Field label="Environmental monitoring" value={text(p.environmentalMonitoring)} />
+      <section className="bg-background">
+        <div className="container-wide py-8 space-y-10">
+          <Section number="01" title="Regulatory & Quality">
+            <MetaLine
+              items={[
+                !designationDuplicatesType ? p.designation : null,
+                p.fdaRegistration ? `FDA reg ${p.fdaRegistration}` : null,
+                p.lastInspectionDate ? `Last inspected ${p.lastInspectionDate}` : null,
+                p.cleanroomClass ? `Cleanroom ${p.cleanroomClass}` : null,
+              ]}
+            />
+            <TagRow label="Standards" items={p.standards} />
+            <TagRow label="States served" items={p.statesServed} />
+            <TagRow label="Testing" items={p.testingProtocols} />
+            <Prose label="Inspections" value={p.inspectionHistory} />
+            <Prose label="Environmental monitoring" value={p.environmentalMonitoring} />
           </Section>
 
-          <Section
-            eyebrow="02 · Capabilities"
-            title="Product capabilities"
-            subtitle="What this facility makes and specializes in."
-          >
-            <Field label="Dosage forms" value={tags(p.dosageForms)} />
-            <Field label="Specializations" value={tags(p.specializations)} />
-            <Field label="API sourcing policy" value={text(p.apiSourcingPolicy)} />
+          <Section number="02" title="Product Capabilities">
+            <TagRow label="Dosage forms" items={p.dosageForms} />
+            <TagRow label="Specializations" items={p.specializations} />
+            <Prose label="Clinical focus" value={entry.focus} />
+            <Prose label="API sourcing" value={p.apiSourcingPolicy} />
           </Section>
 
-          <Section
-            eyebrow="03 · Background"
-            title="Neutral facility background"
-            subtitle="Operational history and review notes."
-          >
-            <Field label="Years in operation" value={text(p.yearsInOperation)} />
-            <Field label="Facility scale" value={text(p.facilityScale)} />
-            <Field label="QA staffing" value={text(p.qaStaffing)} />
-            <Field label="SS audit date" value={text(p.ssAuditDate)} />
-            <Field label="Review notes" value={text(p.reviewNotes)} />
+          <Section number="03" title="Background">
+            <MetaLine
+              items={[
+                p.yearsInOperation ? `${p.yearsInOperation} in operation` : null,
+                p.facilityScale,
+                p.qaStaffing ? `QA: ${p.qaStaffing}` : null,
+                p.ssAuditDate ? `SS audit ${p.ssAuditDate}` : null,
+              ]}
+            />
+            <Prose value={p.background} />
+            <Prose label="Review notes" value={p.reviewNotes} />
           </Section>
 
-          <footer className="rounded-lg border border-border/60 bg-background px-4 py-2.5">
-            <p className="text-[12px] text-muted-foreground leading-snug">
-              Source Standard does not accept payment from facilities for inclusion in
-              the Greenlist. Information is derived from public regulatory filings,
-              disclosed facility information, and Source Standard review data where
-              applicable.
-            </p>
-          </footer>
+          <p className="pt-6 border-t border-border/40 text-[12px] text-muted-foreground leading-snug max-w-[68ch]">
+            Source Standard does not accept payment from facilities for inclusion in
+            the Greenlist. Information is derived from public regulatory filings,
+            disclosed facility information, and Source Standard review data where
+            applicable.
+          </p>
         </div>
       </section>
     </>
