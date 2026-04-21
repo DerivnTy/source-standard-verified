@@ -11,8 +11,8 @@ import { Section } from "@/components/Section";
 
 const Field = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="px-5 py-3 border-b border-border last:border-b-0 grid grid-cols-12 gap-3">
-    <dt className="meta-label text-foreground col-span-4">{label}</dt>
-    <dd className="text-[13.5px] text-foreground col-span-8">{value || "—"}</dd>
+    <dt className="text-[12px] font-medium uppercase tracking-[0.06em] text-muted-foreground/80 col-span-4">{label}</dt>
+    <dd className="text-[13px] text-foreground col-span-8">{value || "—"}</dd>
   </div>
 );
 
@@ -24,7 +24,7 @@ const VendorProfile = () => {
     return (
       <section className="container-narrow py-24 text-center">
         <p className="eyebrow mb-3">Not Found</p>
-        <h1 className="title-record mb-4">No vendor profile found.</h1>
+        <h1 className="title-page mb-4">No vendor profile found.</h1>
         <Link
           to="/verified-vendors"
           className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"

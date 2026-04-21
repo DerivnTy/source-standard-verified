@@ -325,11 +325,11 @@ const VerifiedVendors = () => {
               {/* Desktop table */}
               <div className="hidden md:block rounded-lg border border-border/60 bg-background overflow-hidden">
                 <div className="grid grid-cols-12 px-5 py-2.5 border-b border-border/50 bg-surface-muted/60">
-                  <div className="col-span-4 meta-label">Vendor / Clinic</div>
-                  <div className="col-span-2 meta-label">Status</div>
-                  <div className="col-span-2 meta-label">City / State</div>
-                  <div className="col-span-3 meta-label">Clinical focus</div>
-                  <div className="col-span-1 meta-label text-right">Profile</div>
+                  <div className="col-span-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Vendor / Clinic</div>
+                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Status</div>
+                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">City / State</div>
+                  <div className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Clinical focus</div>
+                  <div className="col-span-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground text-right">Profile</div>
                 </div>
                 {pageItems.map((v) => (
                   <div
@@ -347,10 +347,10 @@ const VerifiedVendors = () => {
                     <div className="col-span-2">
                       <StatusBadge status={v.status} />
                     </div>
-                    <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
+                    <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate">
                       {formatLocation(v)}
                     </div>
-                    <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
+                    <div className="col-span-3 text-[13px] text-muted-foreground truncate">
                       {(v.clinicalFocus && v.clinicalFocus.length > 0
                         ? v.clinicalFocus.join(" · ")
                         : v.category) || "—"}
