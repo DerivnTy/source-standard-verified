@@ -239,16 +239,16 @@ const VerifiedVendors = () => {
               {/* Desktop table */}
               <div className="hidden md:block border border-border bg-background">
                 <div className="grid grid-cols-12 px-3 py-2 border-b border-border bg-surface-muted">
-                  <div className="col-span-4 meta-label">Vendor</div>
-                  <div className="col-span-2 meta-label">Location</div>
+                  <div className="col-span-4 meta-label">Vendor / Clinic</div>
+                  <div className="col-span-2 meta-label">Status</div>
+                  <div className="col-span-2 meta-label">City / State</div>
                   <div className="col-span-3 meta-label">Clinical focus</div>
-                  <div className="col-span-2 meta-label">Review ID</div>
-                  <div className="col-span-1 meta-label text-right">Status</div>
+                  <div className="col-span-1 meta-label text-right">Profile</div>
                 </div>
                 {sorted.map((v) => (
                   <div
                     key={v.slug}
-                    className="grid grid-cols-12 px-3 py-2.5 border-b border-border last:border-b-0 items-center hover:bg-surface-muted/50"
+                    className="grid grid-cols-12 px-3 py-2 border-b border-border last:border-b-0 items-center hover:bg-surface-muted/50"
                   >
                     <div className="col-span-4 min-w-0">
                       <Link
@@ -257,19 +257,11 @@ const VerifiedVendors = () => {
                       >
                         {v.name}
                       </Link>
-                      {v.website && (
-                        <a
-                          href={v.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground truncate"
-                        >
-                          {v.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      )}
                     </div>
-                    <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums">
+                    <div className="col-span-2">
+                      <StatusBadge status={v.status} />
+                    </div>
+                    <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
                       {formatLocation(v)}
                     </div>
                     <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
@@ -277,11 +269,13 @@ const VerifiedVendors = () => {
                         ? v.clinicalFocus.join(" · ")
                         : v.category) || "—"}
                     </div>
-                    <div className="col-span-2 text-[12px] font-mono text-muted-foreground tabular-nums">
-                      {v.reviewId || "—"}
-                    </div>
                     <div className="col-span-1 text-right">
-                      <StatusBadge status={v.status} />
+                      <Link
+                        to={`/directory/${v.slug}`}
+                        className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                      >
+                        View →
+                      </Link>
                     </div>
                   </div>
                 ))}
@@ -307,11 +301,9 @@ const VerifiedVendors = () => {
                         {v.clinicalFocus.join(" · ")}
                       </p>
                     )}
-                    {v.reviewId && (
-                      <p className="mt-1 text-[11px] font-mono text-muted-foreground">
-                        {v.reviewId}
-                      </p>
-                    )}
+                    <p className="mt-2 text-[11px] font-mono uppercase tracking-[0.14em] text-foreground">
+                      View profile →
+                    </p>
                   </Link>
                 ))}
               </div>

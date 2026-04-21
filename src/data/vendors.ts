@@ -98,11 +98,153 @@ export const VENDOR_STATUS_DISCLOSURE: Record<VendorPublicStatus, string> = {
     "This listing has been removed from the public directory. The record is preserved for transparency.",
 };
 
-// ---------- Initial dataset ----------
-// Imports will be appended here in batches. The directory is built to be
-// populated incrementally without page-level changes.
+// ---------- Short neutral profile note ----------
+// Used on individual vendor profile pages where a brief status note is
+// needed. The full definition lives once on the directory index.
+export const VENDOR_STATUS_PROFILE_NOTE: Record<VendorPublicStatus, string> = {
+  verified:
+    "Source Standard has published a completed verification for this vendor.",
+  unverified:
+    "Source Standard verification is not currently published for this vendor.",
+  "under-review":
+    "An application for this vendor is currently under review.",
+  suspended:
+    "A previously published verification for this vendor has been suspended.",
+  removed:
+    "This listing has been removed from the public directory.",
+};
 
-export const vendors: Vendor[] = [];
+// ---------- Initial dataset ----------
+// Imports are appended here in batches.
+
+const normalizeWebsite = (url: string): string => {
+  if (!url) return url;
+  if (url.startsWith("http")) return url;
+  return `https://${url}`;
+};
+
+export const vendors: Vendor[] = [
+  {
+    slug: "mattr-biowellness-club",
+    name: "MATTR Biowellness Club",
+    status: "unverified",
+    city: "Austin",
+    state: "TX",
+    zip: "78735",
+    website: normalizeWebsite("mattrbiowellnessclub.com"),
+    medicalDirector: "Dr. Jamal",
+    clinicalFocus: ["Peptide Therapy", "Longevity"],
+    category: "Wellness",
+  },
+  {
+    slug: "austin-regenerative-therapy",
+    name: "Austin Regenerative Therapy",
+    status: "unverified",
+    city: "Austin",
+    state: "TX",
+    zip: "78701",
+    website: "https://www.google.com/search?q=austinregentherapy.com",
+    medicalDirector: "Dr. Gerald Harris",
+    clinicalFocus: ["Regenerative Medicine"],
+    category: "Wellness",
+  },
+  {
+    slug: "saving-face-austin",
+    name: "Saving Face Austin",
+    status: "unverified",
+    city: "Austin",
+    state: "TX",
+    zip: "78701",
+    website: normalizeWebsite("savingfaceaustin.com"),
+    medicalDirector: "Dr. Rocco Piazza",
+    clinicalFocus: ["Aesthetics", "Peptides"],
+    category: "Wellness",
+  },
+  {
+    slug: "ageless-mens-health-nashville",
+    name: "Ageless Men’s Health",
+    status: "unverified",
+    city: "Nashville",
+    state: "TN",
+    zip: "37203",
+    website: normalizeWebsite("agelessmenshealth.com"),
+    medicalDirector: "Dr. Andrew J. Stahl",
+    clinicalFocus: ["TRT", "HRT"],
+    category: "TRT Clinic",
+  },
+  {
+    slug: "thrivemd-dallas",
+    name: "ThriveMD",
+    status: "unverified",
+    city: "Dallas",
+    state: "TX",
+    zip: "75231",
+    website: normalizeWebsite("thrivemddallas.com"),
+    medicalDirector: "Dr. Scott T. Moore",
+    clinicalFocus: ["HRT", "Peptides"],
+    category: "Hormone Optimization",
+  },
+  {
+    slug: "defy-medical",
+    name: "Defy Medical",
+    status: "unverified",
+    city: "Tampa",
+    state: "FL",
+    zip: "33609",
+    website: normalizeWebsite("defymedical.com"),
+    medicalDirector: "Dr. Justin Saya",
+    clinicalFocus: ["Integrative Health"],
+    category: "Hormone Optimization",
+  },
+  {
+    slug: "south-florida-hrt",
+    name: "South Florida HRT",
+    status: "unverified",
+    city: "Miami",
+    state: "FL",
+    zip: "33131",
+    website: "https://www.google.com/search?q=southfloridahrt.com",
+    medicalDirector: "Dr. Oscar Hevia",
+    clinicalFocus: ["Men’s Health", "HRT"],
+    category: "Hormone Optimization",
+  },
+  {
+    slug: "infinite-wellness-scottsdale",
+    name: "Infinite Wellness",
+    status: "unverified",
+    city: "Scottsdale",
+    state: "AZ",
+    zip: "85251",
+    website: "https://www.google.com/search?q=infinitewellnessaz.com",
+    medicalDirector: "Dr. Brandon S. Wood",
+    clinicalFocus: ["Longevity", "Peptides"],
+    category: "Wellness",
+  },
+  {
+    slug: "optimal-health-spectrum",
+    name: "Optimal Health Spectrum",
+    status: "unverified",
+    city: "Los Angeles",
+    state: "CA",
+    zip: "90404",
+    website: normalizeWebsite("optimalhealthspectrums.com"),
+    medicalDirector: "Dr. Lynette Louise",
+    clinicalFocus: ["Functional Medicine"],
+    category: "Wellness",
+  },
+  {
+    slug: "revitalize-health-charlotte",
+    name: "Revitalize Health",
+    status: "unverified",
+    city: "Charlotte",
+    state: "NC",
+    zip: "28202",
+    website: "https://www.google.com/search?q=revitalizeclt.com",
+    medicalDirector: "Dr. Kevin M. Hogan",
+    clinicalFocus: ["Medical Weight Loss"],
+    category: "Wellness",
+  },
+];
 
 // ---------- Helpers ----------
 

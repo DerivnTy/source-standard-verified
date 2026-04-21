@@ -3,7 +3,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import {
   getVendor,
   VENDOR_STATUS_LABEL,
-  VENDOR_STATUS_DISCLOSURE,
+  VENDOR_STATUS_PROFILE_NOTE,
 } from "@/data/vendors";
 import { StatusBadge } from "@/components/StatusBadge";
 import { MetadataBar } from "@/components/MetadataBar";
@@ -87,11 +87,11 @@ const VendorProfile = () => {
             <div className="md:col-span-4">
               <div className="border border-border bg-surface-muted/60">
                 <div className="px-4 py-3 border-b border-border">
-                  <p className="meta-label text-foreground">Status disclosure</p>
+                  <p className="meta-label text-foreground">Status</p>
                 </div>
                 <div className="px-4 py-3">
                   <p className="text-[12px] text-muted-foreground leading-relaxed">
-                    {VENDOR_STATUS_DISCLOSURE[vendor.status]}
+                    {VENDOR_STATUS_PROFILE_NOTE[vendor.status]}
                   </p>
                 </div>
               </div>
@@ -187,16 +187,15 @@ const VendorProfile = () => {
 
               <div className="border border-border bg-surface-muted/60">
                 <div className="px-4 py-2.5 border-b border-border">
-                  <p className="meta-label text-foreground">Source Standard disclaimer</p>
+                  <p className="meta-label text-foreground">Reference</p>
                 </div>
                 <div className="px-4 py-3 space-y-2">
                   <p className="text-[12px] text-muted-foreground leading-relaxed">
-                    {VENDOR_STATUS_DISCLOSURE[vendor.status]}
+                    {VENDOR_STATUS_PROFILE_NOTE[vendor.status]}
                   </p>
                   <p className="text-[12px] text-muted-foreground leading-relaxed">
                     Directory inclusion does not constitute medical advice, product endorsement,
-                    or a guarantee of clinical outcome. Source Standard is not a regulator,
-                    pharmacy, clinic, laboratory, or enforcement agency.
+                    or a guarantee of clinical outcome.
                   </p>
                 </div>
               </div>
