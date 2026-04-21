@@ -46,8 +46,8 @@ const EducationGuides = () => {
         backHref="/education"
         backLabel="Back to Learn"
         eyebrow="Practical Guides"
-        title="Clinical guides"
-        description="How to handle these medications safely. Reviewed by our Medical Advisory Board. Not a substitute for advice from your own clinician."
+        title="Practical guides — full index"
+        description="How to handle these medications safely. Reviewed by our Medical Advisory Board."
       />
       <Section>
         <div className="border border-border/70 rounded-[2px] bg-background">

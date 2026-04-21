@@ -48,9 +48,10 @@ const Index = () => {
   return (
     <>
       <AnchorHeader
+        size="lg"
         eyebrow="Public reference"
-        title="A public record of vendor verification and recognized sources."
-        lead="Source Standard makes vendor sourcing and verification easier to understand. Review verified vendors, recognized upstream sources, and the standards used to evaluate documentation in peptide, TRT, and hormone optimization markets."
+        title="A public record of verified vendors and recognized sources."
+        lead="Independent verification for the peptide, TRT, and hormone-optimization market."
       >
         <div className="flex flex-wrap gap-3">
           <Button asChild size="lg" className="h-11">
@@ -62,12 +63,6 @@ const Index = () => {
           <Button asChild size="lg" variant="outline" className="h-11">
             <Link to="/about">About</Link>
           </Button>
-        </div>
-        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-2 text-[12px] text-muted-foreground">
-          <span><span className="text-muted-foreground/70 mr-1.5">Framework</span><span className="font-mono text-foreground/85">SS-FRAMEWORK-2026.01</span></span>
-          <span><span className="text-muted-foreground/70 mr-1.5">Status</span><span className="text-foreground/85">Active</span></span>
-          <span><span className="text-muted-foreground/70 mr-1.5">Updated</span><span className="text-foreground/85">April 20, 2026</span></span>
-          <span><span className="text-muted-foreground/70 mr-1.5">Oversight</span><span className="text-foreground/85">Medical Advisory Board</span></span>
         </div>
       </AnchorHeader>
 

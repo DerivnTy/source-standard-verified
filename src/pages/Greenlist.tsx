@@ -209,9 +209,9 @@ const Greenlist = () => {
   return (
     <>
       <AnchorHeader
-        eyebrow="Public Registry"
+        eyebrow="Sources"
         title="Recognized upstream sources."
-        lead="A public registry of upstream sources that carry Greenlisted status — recognized within the framework across 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
+        lead="503B, 503A, and other compounding sources recognized by license, registration, and credentialing."
         aside={
           <dl className="grid grid-cols-4 gap-px bg-border/50 border border-border/50 rounded-md overflow-hidden text-center">
             {[

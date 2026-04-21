@@ -158,9 +158,9 @@ const VerifiedVendors = () => {
   return (
     <>
       <AnchorHeader
-        eyebrow="Public Directory"
-        title="Verified vendor directory."
-        lead="A public directory of vendors operating in peptide, TRT, and hormone optimization. Each listing carries a public status indicating whether a Source Standard verification has been published for that vendor."
+        eyebrow="Directory"
+        title="Verified vendors."
+        lead="Clinics reviewed against the Source Standard framework, with a citable record for each listing."
         aside={
           <dl className="grid grid-cols-4 gap-px bg-border/50 border border-border/50 rounded-md overflow-hidden text-center">
             {[
