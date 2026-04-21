@@ -8,7 +8,6 @@ import {
   GreenlistCategory,
   GREENLIST_TYPES,
   FOCUS_TAGS,
-  getGreenlistLocations,
   getGreenlistCounts,
 } from "@/data/greenlist";
 
