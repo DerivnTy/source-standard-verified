@@ -269,10 +269,10 @@ const Index = () => {
             <div className="md:col-span-8">
               <p className="eyebrow mb-3">§8 — Vendor participation</p>
               <h2 className="h-section">
-                For vendors seeking listing under the standard.
+                For vendors seeking listing under the framework.
               </h2>
               <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-2xl">
-                Submission requirements, evidence categories, and review timelines are published openly. Listings are issued only after review is complete and a public review identifier has been assigned.
+                Submission requirements, evidence categories, and review timelines are published openly. A listing is issued only after compliance assessment is complete and a Unique Audit Identifier has been assigned.
               </p>
             </div>
             <div className="md:col-span-4 md:text-right flex md:justify-end gap-3">
