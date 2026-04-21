@@ -33,19 +33,19 @@ const SOURCE_TYPE_DEF: { key: GreenlistCategory; title: string; body: string }[]
     key: "503B",
     title: "503B Outsourcing Facility",
     body:
-      "FDA-registered facility producing sterile compounded medications at scale for office-use stock under cGMP-style oversight.",
+      "Facility registered with the U.S. Food and Drug Administration under Section 503B of the Federal Food, Drug, and Cosmetic Act. Subject to current good manufacturing practice (cGMP) requirements and routine FDA inspection.",
   },
   {
     key: "503A",
     title: "503A Compounding Pharmacy",
     body:
-      "State-licensed pharmacy compounding patient-specific prescriptions under state board of pharmacy oversight and USP standards.",
+      "Pharmacy operating under Section 503A of the Federal Food, Drug, and Cosmetic Act. Licensed by the applicable state board of pharmacy and required to compound in accordance with United States Pharmacopeia (USP) standards, including USP <795>, <797>, and <800>.",
   },
   {
     key: "Other",
     title: "Other Qualified Source",
     body:
-      "Additional source categories recognized within the framework, including hospital-focused suppliers and multi-location compounding networks.",
+      "Additional recognized facility categories, including NSF-certified facilities, ISO-accredited laboratories, hospital-system suppliers, and multi-location compounding networks operating under documented accreditation.",
   },
 ];
 
