@@ -1,56 +1,53 @@
 
 
-## Home page + footer copy: Public Standards Bureau tone
+## Verified Vendors page — Public Ledger copy + stamp-style status badges
 
-A targeted copy-only pass. No structural changes, no new components, no design tokens touched. Numbering note: the user's "§2/§4/§6/§7.3" map onto the home page's existing section IDs (§2 Public lookups, §4 The two registries, §6 Education, §7.3 Accountability & enforcement card). I'm preserving those section numbers and only changing labels and prose.
+A copy pass on `src/pages/VerifiedVendors.tsx` plus a small visual change to `src/components/StatusBadge.tsx` so status labels read as official ledger stamps. No structural or routing changes.
 
-### `src/pages/Index.tsx`
+### `src/pages/VerifiedVendors.tsx`
 
-**Hero**
-- Eyebrow: `Public reference` → `Public registry`
-- Title: `Verify the source.` → `Public Registry of Compounding Standards.`
-- Lead: → `An independent registry cross-referencing licensed vendors against FDA-registered compounding facilities and recognized regulatory benchmarks.`
+**Header (`AnchorHeader`)**
+- Eyebrow: `Directory` → `Public ledger`
+- Title: `Verified vendors.` → `Vendor Compliance Registry.`
+- Lead: → `Public ledger of vendors assessed against the Source Standard framework. Every listing is anchored to a unique Audit ID.`
 
-**§2 — Public lookups**
-- Card A label: `Look up a vendor` → `Vendor audit lookup`
-- Card A title: `Verified Vendors registry` → `Compliance Assessment registry`
-- Card A body: → `Each listing carries a Unique Audit Identifier, the categories assessed, and the date of the most recent compliance review.`
-- Card B label: `Look up a source` → `Upstream source lookup`
-- Card B title: `Greenlist of recognized sources` → `Registry of recognized upstream sources`
-- Card B body: → `Inclusion is based on FDA registration, state licensure, and recognized accreditation records held by the upstream facility.`
+**Statistics tiles (`aside` dl)**
+- `Total` → `Total Tracked Entities`
+- `Verified` → `Compliant (Verified)`
+- `Under review` → unchanged (kept for the fourth tile; the user did not request a change here)
+- `Unverified` → `Non-Audited (Unverified)`
 
-**§4 — The two registries**
-- H2: `Sources first. Vendors verified against them.` → `Source-First Verification. A mandatory prerequisite for every listing.`
-- Lead: → `The upstream source registry documents the compounding facilities recognized under the framework. A vendor cannot be assessed until its declared sources clear that registry. Both registries are anchored to public regulatory benchmarks.`
+**Status legend descriptions (`STATUS_LEGEND_DESC`)**
+- `verified` → `Documentation of upstream sourcing and clinical oversight has been audited and published.`
+- `unverified` → `No documentation has been submitted for audit. Source Standard has not verified the chain of custody for this entity.`
+- `suspended` → `Verification retracted pending investigation into supply-chain discrepancies.`
+- `under-review` and `removed` left intact (no user-supplied copy).
 
-**§6 — Education** *(rename to Reference Library)*
-- Eyebrow: `§6 — Education` → `§6 — Reference library`
-- H2: `Neutral, physician-reviewed reference material.` → `Administrative Reference & Compliance Library.`
-- Lead: → `Procedural notes on source authentication, document discrepancies, regulatory benchmarks, and the audit categories used in compliance assessment. Informational only; not medical advice.`
-- `eduPreview` items (REF titles refocused on authentication / document discrepancies):
-  - `REF-101` · 503B facilities → `Authenticating an FDA 503B outsourcing facility registration.`
-  - `REF-201` · Certificates of analysis → `Reading a Certificate of Analysis: structural fields and common document discrepancies.`
-  - `REF-601` · Due diligence → `Source authentication: the questions an auditor asks before a listing is issued.`
-  - `REF-801` · Document discrepancies → `Document discrepancies and unverifiable supply: indicators flagged during assessment.`
-- CTA: `Open the library` → `Open the reference library`
+**Registry note (paragraph beneath the legend grid)**
+Replace the current "Note." paragraph with:
+> An Unverified status indicates a lack of administrative transparency and documentation on file. It is an indicator of audit status, not a direct assessment of clinical safety.
+Keep the existing `Read more →` link to `/how-to-read-the-directory` appended after the sentence.
 
-**§7.3 — Accountability card** *(rename to Enforcement & Oversight; expand description to name randomized batch testing and supply-chain disclosures)*
-- `procedural[2].t`: `Accountability & enforcement` → `Enforcement & Oversight`
-- `procedural[2].d`: → `Vendor obligations, randomized batch testing, supply-chain disclosures, and the procedures for suspension or removal.`
+**Section eyebrow**
+- `How to read this directory` → `Registry note` (tightens to ledger language; still introduces the legend grid).
 
-**§8 — Vendor participation** *(minor tone alignment, no structural change)*
-- H2: `For vendors seeking listing under the standard.` → `For vendors seeking listing under the framework.`
-- Lead: → `Submission requirements, evidence categories, and review timelines are published openly. A listing is issued only after compliance assessment is complete and a Unique Audit Identifier has been assigned.`
+### `src/components/StatusBadge.tsx` — official-stamp treatment
 
-### `src/components/SiteFooter.tsx`
+Restyle the badge so it visually reads as a tag/stamp rather than a dot+label. New treatment:
 
-Footer disclaimer paragraph (currently begins "Source Standard is a public information and verification framework…") → replace with:
+- Outer: bordered pill, monospace, uppercase, +0.14em tracking, `px-2 py-[3px]`, subtle tinted background per status (e.g. `bg-verified/8 border-verified/40 text-verified` for verified; muted variants for others), `rounded-[3px]` for a square, official feel rather than fully rounded.
+- Replace the small filled dot with a thin leading vertical bar (`w-[2px] h-3 bg-current`) — reads like an inspection-stamp rule.
+- Sizes: `sm` → `text-[10px]`, `md` → `text-[11px]` (unchanged scale).
+- Variants by status (background / border / text):
+  - `verified` — verified tint, solid
+  - `under-review` — pending tint
+  - `suspended` — destructive tint
+  - `unverified`, `removed` — muted tint, dashed border to signal absence of audit
+- Accessibility: keep label text inside the badge (no icon-only). No `aria-label` change required.
 
-> Source Standard is an independent auditing and information framework. It does not manufacture, distribute, prescribe, or dispense products, and it does not provide medical advice. A listing reflects documentation reviewed at the time of compliance assessment and does not guarantee medical outcomes, product safety, or treatment efficacy.
-
-Top utility strip: `Standard SS-FRAMEWORK-2026.01 · Active` → unchanged. Right-side: `Reviewed under Medical Advisory Board · Updated April 20, 2026` → unchanged.
+This change is global — every page rendering `<StatusBadge />` (registry table, vendor profile, mobile cards) automatically picks up the stamp styling, which keeps the system consistent.
 
 ### What stays the same
 
-All routes, all components, all data files (`greenlist`, `anchors` array keys), all section numbering, all spacing and typography tokens, the `Logo`, the `MetadataBar`, the footer column structure and links. This is a copy pass, nothing else.
+All routes, filters, sort modes, pagination, table structure, mobile card layout, the data in `src/data/vendors.ts`, status keys, status sort order, the header padding/typography tokens, and the four-tile stats grid layout. Pure copy + badge restyle.
 
