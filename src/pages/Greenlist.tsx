@@ -379,16 +379,14 @@ const Greenlist = () => {
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.focus}</p>
-                    {e.website && (
-                      <a
-                        href={e.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 inline-block text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                    <div className="mt-2 flex justify-end">
+                      <Link
+                        to={`/greenlist/${e.slug}`}
+                        className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
                       >
-                        Visit website →
-                      </a>
-                    )}
+                        View →
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>
