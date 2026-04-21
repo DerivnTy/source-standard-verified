@@ -316,6 +316,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Houston, TX",
     focus:
       "Sterile compounded injectables under 503B for hospital and clinic office-use stock",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Hospital and clinic office-use stock"],
+      background:
+        "Houston-based 503B outsourcing facility producing sterile compounded injectables for hospital and clinic office-use stock.",
+    },
   },
   {
     slug: "staq-pharma-inc",
