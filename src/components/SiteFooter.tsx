@@ -8,30 +8,42 @@ const cols = [
       { to: "/greenlist", label: "Greenlist" },
       { to: "/verified-vendors", label: "Verified Vendors" },
       { to: "/apply", label: "Apply for Verification" },
+      { to: "/report-a-concern", label: "Report a Concern" },
     ],
   },
   {
     title: "Standards",
     links: [
-      { to: "/how-it-works", label: "Verification Lifecycle" },
-      { to: "/for-vendors", label: "Documentation Requirements" },
-      { to: "/education", label: "Reference Library" },
+      { to: "/how-it-works", label: "How It Works" },
+      { to: "/for-vendors", label: "For Vendors" },
+      { to: "/accountability", label: "Accountability & Enforcement" },
+      { to: "/education", label: "Education" },
     ],
   },
   {
     title: "Organization",
     links: [
-      { to: "/about", label: "About Source Standard" },
+      { to: "/about", label: "About" },
+      { to: "/medical-advisory", label: "Medical Advisory Board" },
       { to: "/governance", label: "Governance & Oversight" },
       { to: "/contact", label: "Contact" },
     ],
   },
   {
+    title: "Reference",
+    links: [
+      { to: "/faq", label: "FAQ" },
+      { to: "/status-definitions", label: "Status Definitions" },
+      { to: "/templates/vendor-profile", label: "Vendor Profile Template" },
+      { to: "/templates/greenlist-entry", label: "Greenlist Entry Template" },
+    ],
+  },
+  {
     title: "Legal",
     links: [
-      { to: "/about", label: "Privacy" },
-      { to: "/about", label: "Terms of Use" },
-      { to: "/about", label: "Disclaimers" },
+      { to: "/privacy", label: "Privacy Policy" },
+      { to: "/terms", label: "Terms of Use" },
+      { to: "/verification-disclaimer", label: "Verification Disclaimer" },
     ],
   },
 ];
@@ -48,7 +60,7 @@ export const SiteFooter = () => {
 
       <div className="container-wide py-12">
         <div className="grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
             <Logo />
             <p className="mt-5 text-[13px] text-muted-foreground leading-relaxed max-w-xs">
               Source Standard is a public verification and standards organization for the
@@ -57,7 +69,7 @@ export const SiteFooter = () => {
             <p className="mt-5 meta-label">Tampa, FL · Founded 2026</p>
           </div>
 
-          <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-5 gap-8">
             {cols.map((c) => (
               <div key={c.title}>
                 <p className="meta-label text-foreground mb-4">{c.title}</p>
