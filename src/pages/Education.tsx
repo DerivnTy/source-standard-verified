@@ -125,6 +125,7 @@ const Education = () => {
         eyebrow="Public education & standards"
         title="Clinical Reference & Standards Library."
         lead="Reference materials covering the administrative and clinical protocols that govern compounded medication sourcing, handling, and verification under the Source Standard framework."
+        reference={{ docId: "SS-LIB-2026.01", status: "Active", updated: "04/21/26" }}
       />
 
       {/* Quiet anchor row */}

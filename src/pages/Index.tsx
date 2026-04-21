@@ -65,12 +65,12 @@ const Index = () => {
   return (
     <>
       {/* Master Control Strip — homepage owns this band */}
-      <div className="border-b border-border bg-surface">
+      <div className="border-b border-border bg-background">
         <div className="container-wide flex h-9 items-center justify-between">
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-foreground/70">
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/85">
             Maintained in Tampa, FL · Public Registry
           </span>
-          <span className="hidden md:inline font-mono text-[11px] uppercase tracking-[0.12em] text-foreground/70">
+          <span className="hidden md:inline font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/85">
             SS-FRAMEWORK-2026.01 · Active / Operational · Updated 04/21/26
           </span>
         </div>
@@ -96,42 +96,36 @@ const Index = () => {
                 </p>
                 <form
                   onSubmit={handleLookup}
-                  className="flex items-stretch h-12 bg-surface border border-input rounded-[2px] overflow-hidden focus-within:border-foreground/60 transition-colors"
+                  className="flex items-stretch h-12 bg-surface border border-border rounded-[4px] overflow-hidden focus-within:border-foreground/40 transition-colors"
                 >
                   <input
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search vendor, upstream source, or audit ID (e.g. SS-V-0142)"
+                    placeholder="Search by clinic name, state, or pharmacy…"
                     className="flex-1 px-4 bg-transparent text-[14px] text-foreground placeholder:text-muted-foreground/70 outline-none"
                     aria-label="Registry lookup"
                   />
                   <button
                     type="submit"
-                    className="m-1 font-mono text-[11px] uppercase tracking-[0.12em] px-4 h-10 bg-foreground text-background rounded-[2px] hover:bg-foreground/90 transition-colors"
+                    className="m-1 font-mono text-[11px] uppercase tracking-[0.12em] px-4 h-10 bg-foreground text-background rounded-[4px] hover:bg-foreground/85 transition-colors"
                   >
                     Lookup
                   </button>
                 </form>
-                <p className="text-[12.5px] text-muted-foreground mt-2">
+                <p className="text-[12.5px] text-muted-foreground/80 mt-2">
                   Cross-references vendor records against FDA-registered 503A/503B sources.
                 </p>
               </div>
 
               {/* CTA row */}
               <div className="mt-7 flex flex-wrap gap-3">
-                <Link
-                  to="/verified-vendors"
-                  className="inline-flex items-center bg-foreground text-background hover:bg-foreground/90 rounded-[2px] h-11 px-6 text-[13.5px] font-medium transition-colors"
-                >
-                  View Verified Registry
-                </Link>
-                <Link
-                  to="/apply"
-                  className="inline-flex items-center bg-transparent border border-border-strong text-foreground hover:bg-foreground/[0.04] rounded-[2px] h-11 px-6 text-[13.5px] font-medium transition-colors"
-                >
-                  Vendor Intake
-                </Link>
+                <Button asChild size="lg">
+                  <Link to="/verified-vendors">View Verified Registry</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link to="/apply">Vendor Intake</Link>
+                </Button>
               </div>
             </div>
 
