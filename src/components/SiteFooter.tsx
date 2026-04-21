@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
-import { Button } from "./ui/button";
 
 type LinkRow = {
   to: string;
   label: string;
-  docId: string;
-  forthcoming?: boolean;
 };
 
 type Column = {
@@ -16,61 +13,48 @@ type Column = {
 
 const columns: Column[] = [
   {
-    title: "Registry & Intake",
+    title: "Registry",
     links: [
-      { to: "/verified-vendors", label: "Verified Vendor Directory", docId: "SS-REG-V" },
-      { to: "/greenlist", label: "Upstream Greenlist", docId: "SS-REG-G" },
-      { to: "/report-a-concern", label: "Report a Concern", docId: "SS-INTAKE-02" },
+      { to: "/verified-vendors", label: "Verified Vendors" },
+      { to: "/greenlist", label: "Greenlist" },
+      { to: "/report-a-concern", label: "Report a Concern" },
     ],
   },
   {
-    title: "Standards & Protocols",
+    title: "Standards",
     links: [
-      { to: "/how-it-works", label: "SOP: Audit Methodology", docId: "SS-FRAMEWORK" },
-      { to: "/status-definitions", label: "Status Definitions", docId: "SS-STATUS" },
-      { to: "/accountability", label: "Compliance & Enforcement", docId: "SS-ENFORCE-2026.01" },
-      { to: "/for-vendors", label: "Vendor Submission Standard", docId: "SS-INTAKE-01" },
+      { to: "/how-it-works", label: "Audit Methodology" },
+      { to: "/status-definitions", label: "Status Definitions" },
+      { to: "/accountability", label: "Compliance" },
     ],
   },
   {
-    title: "Educational Library",
+    title: "Library",
     links: [
-      { to: "/education#basics", label: "Foundational Sourcing", docId: "SS-SERIES" },
-      { to: "/education/how-to-read-a-certificate-of-analysis", label: "Interpreting CoAs", docId: "SS-SERIES-002" },
-      { to: "/education#guides", label: "Clinical Protocols", docId: "SS-GUIDE" },
-      { to: "/education#questions", label: "Regulatory FAQ", docId: "SS-FAQ" },
-      { to: "/contact", label: "Video Library", docId: "SS-SUP-001", forthcoming: true },
+      { to: "/education#basics", label: "Foundational Sourcing" },
+      { to: "/education/how-to-read-a-certificate-of-analysis", label: "Interpreting CoAs" },
+      { to: "/education#guides", label: "Protocols" },
+      { to: "/education#questions", label: "FAQ" },
     ],
   },
   {
-    title: "Governance & Legal",
+    title: "Governance",
     links: [
-      { to: "/medical-advisory", label: "Medical Advisory Board (MAB)", docId: "SS-MAB-2026.01" },
-      { to: "/governance", label: "Organizational Neutrality", docId: "SS-GOV-2026.01" },
-      { to: "/terms", label: "Terms of Use", docId: "SS-TERMS-2026.01" },
-      { to: "/privacy", label: "Privacy Policy", docId: "SS-PRIVACY-2026.01" },
-      { to: "/verification-disclaimer", label: "Verification Disclaimer", docId: "SS-DISCLAIMER-2026.01" },
+      { to: "/medical-advisory", label: "Advisory Board" },
+      { to: "/terms", label: "Terms" },
+      { to: "/privacy", label: "Privacy" },
+      { to: "/verification-disclaimer", label: "Disclaimer" },
     ],
   },
 ];
 
-const LinkEntry = ({ row }: { row: LinkRow }) => (
+const FooterLink = ({ row }: { row: LinkRow }) => (
   <li>
     <Link
       to={row.to}
-      className="flex items-start justify-between gap-3 py-1.5 group"
+      className="block text-[14px] leading-[1.8] text-muted-foreground hover:text-foreground transition-colors"
     >
-      <span className="text-[13px] text-muted-foreground group-hover:text-foreground transition-colors flex items-baseline gap-2 min-w-0 flex-wrap">
-        <span>{row.label}</span>
-        {row.forthcoming && (
-          <span className="shrink-0 font-mono text-[9.5px] uppercase tracking-[0.12em] text-muted-foreground/70 border border-border/60 px-1 py-px rounded-[2px]">
-            Forthcoming
-          </span>
-        )}
-      </span>
-      <span className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/60 tabular-nums">
-        {row.docId}
-      </span>
+      {row.label}
     </Link>
   </li>
 );
@@ -80,28 +64,21 @@ export const SiteFooter = () => {
     <footer className="border-t border-border bg-surface-muted/30 mt-20">
       <div className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide flex flex-wrap items-center justify-between gap-y-2 py-3">
-          <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
             Standard SS-FRAMEWORK-2026.01 · Active
           </span>
-          <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
             Reviewed under Medical Advisory Board · Updated 04/21/26
           </span>
         </div>
       </div>
 
       <div className="container-wide py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-12 gap-y-10 items-start">
           <div>
             <Logo />
-            <p className="mt-5 text-[13px] text-muted-foreground leading-relaxed">
-              Source Standard is the public verification and standards body for
-              the peptide, TRT, and hormone optimization vendor space.
-            </p>
-            <p className="mt-5 text-[12.5px] text-muted-foreground">
-              Tampa, FL · Founded 2026
-            </p>
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/70">
-              Document anchor · SS-FRAMEWORK-2026.01
+            <p className="mt-5 text-[14px] leading-[1.8] text-muted-foreground">
+              Maintained in Tampa, FL
             </p>
           </div>
 
@@ -112,31 +89,36 @@ export const SiteFooter = () => {
               </p>
               <ul className="space-y-0">
                 {col.links.map((l) => (
-                  <LinkEntry key={l.label} row={l} />
+                  <FooterLink key={l.label} row={l} />
                 ))}
+                {col.title === "Registry" && (
+                  <li>
+                    <Link
+                      to="/apply"
+                      className="inline-flex items-center gap-1 text-[14px] leading-[1.8] font-medium text-foreground hover:text-foreground/70 transition-colors"
+                    >
+                      Begin Verification <span aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                )}
               </ul>
-              {col.title === "Registry & Intake" && (
-                <Button asChild variant="default" className="mt-5 w-full">
-                  <Link to="/apply">Begin Verification (Step 1)</Link>
-                </Button>
-              )}
             </div>
           ))}
         </div>
 
         <div className="mt-14 pt-8 border-t border-border/70">
-          <p className="text-[13px] text-muted-foreground leading-relaxed max-w-4xl">
+          <p className="max-w-[900px] mx-auto text-center text-[12px] text-muted-foreground leading-relaxed">
             Source Standard is an independent auditing and information framework. It does
             not manufacture, distribute, prescribe, or dispense products, and it does not
             provide medical advice. A listing reflects documentation reviewed at the time
             of compliance assessment and does not guarantee medical outcomes, product
             safety, or treatment efficacy.
           </p>
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-y-2">
-            <p className="text-[12.5px] text-muted-foreground">
+          <div className="mt-5 max-w-[900px] mx-auto flex flex-wrap items-center justify-between gap-y-2 text-center">
+            <p className="text-[12px] text-muted-foreground">
               © {new Date().getFullYear()} Source Standard · SourceStandard.org
             </p>
-            <p className="text-[12.5px] text-muted-foreground">All rights reserved</p>
+            <p className="text-[12px] text-muted-foreground">All rights reserved</p>
           </div>
         </div>
       </div>
