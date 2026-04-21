@@ -163,16 +163,25 @@
     @apply text-[1.875rem] md:text-[2.25rem] font-medium tracking-[-0.02em] leading-[1.1];
   }
 
-  /* Document title — used inside RecordHeader. Single source of truth so
-     every regulatory/policy page has identical title scale. */
-  .title-doc {
-    @apply text-[1.625rem] md:text-[1.75rem] font-medium tracking-[-0.012em] leading-[1.2];
+  /* Page title — single H1 token used across every internal page
+     (RecordHeader, ProfileHeader, UtilityHeader, and AnchorHeader at
+     size="default"). Home is the only page one step louder (.display-1). */
+  .title-page {
+    @apply text-[1.625rem] md:text-[1.875rem] font-medium tracking-[-0.014em] leading-[1.2];
   }
 
-  /* Record/profile titles — entity name on a record page.
-     Sentence-case, medium weight, smaller than anchor headlines. */
+  /* Legacy aliases — kept so any straggler markup doesn't break. */
+  .title-doc {
+    @apply text-[1.625rem] md:text-[1.875rem] font-medium tracking-[-0.014em] leading-[1.2];
+  }
   .title-record {
-    @apply text-[1.5rem] md:text-[1.875rem] font-medium tracking-[-0.012em] leading-[1.2];
+    @apply text-[1.625rem] md:text-[1.875rem] font-medium tracking-[-0.014em] leading-[1.2];
+  }
+
+  /* Helper text — table cells, identity rows, field helper text.
+     One step below body, slightly tighter line-height. */
+  .text-helper {
+    @apply text-[13px] leading-[1.55];
   }
 
   /* In-page section heading — H2 inside any tier of page.
