@@ -8,11 +8,11 @@ import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenli
 const Field = ({ label, value }: { label: string; value: ReactNode }) => {
   if (value === null || value === undefined || value === "" || value === false) return null;
   return (
-    <div className="py-2">
+    <div className="py-1">
       <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
         {label}
       </dt>
-      <dd className="mt-1.5 text-[13.5px] text-foreground leading-[1.45]">{value}</dd>
+      <dd className="mt-1 text-[13.5px] text-foreground leading-[1.4]">{value}</dd>
     </div>
   );
 };
@@ -54,18 +54,18 @@ const Section = ({
   if (filled.length === 0) return null;
   return (
     <section className="rounded-lg border border-border/60 bg-background overflow-hidden">
-      <header className="bg-surface-muted/60 border-b border-border/60 px-4 py-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] font-mono font-semibold text-muted-foreground">
+      <header className="bg-surface-muted/60 border-b border-border/60 px-4 py-2.5">
+        <p className="text-[10px] uppercase tracking-[0.14em] font-mono font-semibold text-muted-foreground leading-tight">
           {eyebrow}
         </p>
-        <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em]">
+        <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em] leading-tight m-0">
           {title}
         </h2>
-        <p className="mt-0.5 text-[12.5px] text-muted-foreground leading-snug">
+        <p className="mt-0 text-[12px] text-muted-foreground leading-tight">
           {subtitle}
         </p>
       </header>
-      <dl className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2">
+      <dl className="px-4 py-2.5 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-1.5">
         {filled}
       </dl>
     </section>
@@ -264,7 +264,7 @@ const GreenlistProfile = () => {
       </header>
 
       <section className="bg-surface-muted/30">
-        <div className="container-wide py-6 space-y-4">
+        <div className="container-wide py-5 space-y-3">
           <Section
             eyebrow="01 · Regulatory & Quality"
             title="Regulatory identity, quality systems"
@@ -302,8 +302,8 @@ const GreenlistProfile = () => {
             <Field label="Review notes" value={text(p.reviewNotes)} />
           </Section>
 
-          <footer className="rounded-lg border border-border/60 bg-background px-4 py-3.5">
-            <p className="text-[12px] text-muted-foreground leading-relaxed">
+          <footer className="rounded-lg border border-border/60 bg-background px-4 py-2.5">
+            <p className="text-[12px] text-muted-foreground leading-snug">
               Source Standard does not accept payment from facilities for inclusion in
               the Greenlist. Information is derived from public regulatory filings,
               disclosed facility information, and Source Standard review data where
