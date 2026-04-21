@@ -48,6 +48,26 @@ export const ENTRY_STATUS_LABEL: Record<EntryStatus, string> = {
 
 export const librarySeries: LibraryEntry[] = [
   {
+    id: "SS-SERIES-000A",
+    slug: "what-are-peptides",
+    lane: "series",
+    title: "What Are Peptides?",
+    summary:
+      "A plain-language introduction to peptides — what they are, how they're used clinically, and why sourcing matters.",
+    status: "outlined",
+    level: "intro",
+  },
+  {
+    id: "SS-SERIES-000B",
+    slug: "what-is-compounding",
+    lane: "series",
+    title: "What Is Compounding?",
+    summary:
+      "An overview of pharmacy compounding, the difference between 503A and 503B facilities, and why the distinction matters.",
+    status: "outlined",
+    level: "intro",
+  },
+  {
     id: "SS-SERIES-001",
     slug: "the-2026-compounding-reclassification",
     lane: "series",
