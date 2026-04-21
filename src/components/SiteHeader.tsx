@@ -17,9 +17,9 @@ const nav = [
 export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-40 bg-background border-b border-border">
+    <header className="sticky top-0 z-40 bg-background border-b border-border/60">
       {/* Utility strip — quiet institutional band */}
-      <div className="hidden md:block bg-surface-sunken border-b border-border/60">
+      <div className="hidden md:block bg-surface-muted/60 border-b border-border/40">
         <div className="container-wide flex items-center justify-between py-1.5">
           <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
             Public reference · Standard SS-FRAMEWORK-2026.01 · Active
@@ -54,7 +54,7 @@ export const SiteHeader = () => {
           <Button
             asChild
             size="sm"
-            className="text-[13px] h-10 px-5 bg-primary hover:bg-primary-hover text-primary-foreground font-medium rounded-[2px]"
+            className="text-[13px] h-10 px-5 bg-primary hover:bg-primary-hover text-primary-foreground font-medium rounded-md"
           >
             <Link to="/apply">Apply for verification</Link>
           </Button>
@@ -89,7 +89,7 @@ export const SiteHeader = () => {
             <Button
               asChild
               size="sm"
-              className="mt-4 mb-2 h-11 bg-primary hover:bg-primary-hover text-primary-foreground rounded-[2px] font-medium"
+              className="mt-4 mb-2 h-11 bg-primary hover:bg-primary-hover text-primary-foreground rounded-md font-medium"
             >
               <Link to="/apply" onClick={() => setOpen(false)}>
                 Apply for verification

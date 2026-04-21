@@ -32,11 +32,12 @@ export const StatusBadge = ({
   const text = size === "md" ? "text-[11px]" : "text-[10px]";
   return (
     <span
-      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums ${text} ${colorFor[key]}`}
+      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums ${text} ${colorFor[key]}`}
     >
-      <span aria-hidden className="inline-block leading-none">
-        ■
-      </span>
+      <span
+        aria-hidden
+        className="inline-block w-1.5 h-1.5 rounded-full bg-current"
+      />
       {VENDOR_STATUS_LABEL[key]}
     </span>
   );
