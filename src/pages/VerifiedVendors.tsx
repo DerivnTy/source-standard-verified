@@ -27,6 +27,14 @@ const STATUS_ORDER: VendorPublicStatus[] = [
   "removed",
 ];
 
+const STATUS_LEGEND_SHORT: Record<VendorPublicStatus, string> = {
+  verified: "completed verification published",
+  "under-review": "review currently in progress",
+  unverified: "no published verification currently shown",
+  suspended: "published verification temporarily paused",
+  removed: "listing removed from the public directory",
+};
+
 const formatLocation = (v: Vendor) => {
   if (v.city && v.state) return `${v.city}, ${v.state}`;
   return v.city || v.state || "—";
