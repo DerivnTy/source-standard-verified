@@ -1,70 +1,44 @@
 
 
-## Make Greenlist Profiles More Consumer-Readable
+## De-duplicate Greenlist Profile Fields
 
-Refine the Greenlist facility profile so a non-technical visitor can grasp what the facility is, where it is, and how to reach its website within seconds — while preserving the authoritative technical scorecard underneath.
+The "At a glance" panel and the body sections currently restate the same facts (Source Type vs Designation, Location vs header, Years in operation in both sidebar and Background, FDA / SS review date in both places). Tighten the profile so each fact appears once, in the highest-signal place.
 
 ### File touched
 - `src/pages/GreenlistProfile.tsx`
 
-### 1. Hero / top section — clearer, more scannable
+### 1. "At a glance" panel — keep only non-duplicative essentials
 
-**Layout (header block):**
-- Keep the 12-column grid but rebalance: `md:col-span-7` for content, `md:col-span-5` for the At-a-glance card so the panel reads as a real summary, not a sidebar afterthought.
-- Slightly increase H1 size (`1.625rem` → `1.75rem` md) and tighten its leading.
-- Add a small Greenlisted status pill directly under the eyebrow (green dot + "Greenlisted") so the verification status is visible without scanning to the sidebar.
+Reduce the sidebar to the four facts a visitor needs at a glance, plus Designation only when it adds information beyond Source Type.
 
-**Meta line — strip the website out of it:**
-- Reduce the meta row to just `{type} · {location}` in mono.
-- Remove the inline `Website ↗` from this line entirely.
+New row order:
+- Source type (`entry.type`)
+- Location (`entry.location`)
+- Website (`entry.website` or muted "Not listed")
+- Designation — **only render when `p.designation` exists AND its normalized value differs from `entry.type`**. (Comparison: lowercase, strip punctuation/whitespace. e.g. `"503B"` vs `"503B Outsourcing Facility"` → considered duplicative when `entry.type` already conveys it; show only when it adds something like `"FDA-registered 503B Outsourcing Facility"` truly distinct, or for 503A entries where designation surfaces state board info.)
 
-**Background sentence:**
-- Render `profile.background` (or fall back to `entry.focus`) as a single, slightly larger consumer-readable paragraph: `text-[15px] text-foreground/85 leading-relaxed max-w-[58ch]`.
-- Cap to a clean one- or two-sentence feel (no change to data, just typography + measure).
+Removed from the sidebar:
+- FDA registration / FEI → still shown once in the Regulatory & Quality section.
+- Years in operation → still shown once in the Background section.
+- SS review date → still shown once in the Background section (as `ssAuditDate` / review notes); not surfaced in sidebar.
 
-**Primary CTA — "Visit website" button:**
-- Directly under the background paragraph, render a real button-styled link when `entry.website` exists:
-  - Uses the existing `Button` component, `variant="outline"`, `size="sm"`.
-  - Label: `Visit website ↗`
-  - Opens in new tab (`target="_blank" rel="noopener noreferrer"`).
-- When no website is on file, render a muted `Official website not listed` line in its place.
+### 2. Body sections — drop fields already in the header
 
-### 2. "At a glance" panel — promoted to a real summary card
+- **Regulatory & Quality**: remove `Designation` row from this section (now lives only in sidebar when distinct). Keep FDA/FEI, states served, inspections, standards, cleanroom, testing, monitoring.
+- **Capabilities**: remove the `Clinical focus` row that re-renders `entry.focus` — the focus/background sentence is already the hero summary paragraph. Keep dosage forms, specializations, API sourcing policy.
+- **Background**: unchanged structure (years in operation, facility scale, QA staffing, SS audit date, review notes) — these don't appear elsewhere on the page.
 
-Restructure into a denser, higher-signal card on the right:
-
-- Header strip stays (green dot + "Greenlisted").
-- Rows (only render when value exists, omit-empty rule preserved):
-  - Source type
-  - Location
-  - **Website** — new row; renders `entry.website` hostname as a link (`Visit ↗`), or `Not listed` in muted text when absent. This is the second, redundant-by-design surface for the website so it's impossible to miss.
-  - Designation
-  - FDA registration / FEI
-  - Years in operation
-  - SS review date
-
-Row styling: label `text-[11px] uppercase tracking-[0.06em] text-muted-foreground`, value `text-[13px] text-foreground`, `py-1.5`, hairline `border-b border-border/40` between rows (last row no border).
-
-### 3. Body sections — easier to scan, same data
-
-Keep the three existing sections (Regulatory & Quality / Capabilities / Background) and the omit-empty + omit-empty-section rules. Adjustments are typographic only:
-
-- Section header: keep eyebrow, bump title to `text-[15px] font-semibold`, add a one-line plain-language subtitle under each section title:
-  - Regulatory & Quality → "Licensure, inspections, and quality systems."
-  - Capabilities → "What this facility makes and specializes in."
-  - Background → "Operational history and review notes."
-- Field cell: increase label-to-value spacing (`mt-1` → `mt-1.5`), value `text-[13.5px] leading-[1.45]`, cell `py-2`.
-- Grid: keep `md:grid-cols-2 gap-x-10 gap-y-2` for cleaner column rhythm and longer comfortable line length on values.
-- Add a subtle background contrast: section card stays `bg-background`; section body wrapper stays on `bg-surface-muted/30` so cards pop.
-
-### 4. Footer disclosure
-- Unchanged copy. Slight padding bump (`px-4 py-3.5`) and `text-[12px]` for legibility.
-
-### Out of scope
-- Greenlist registry table, routing, filters.
-- Data model and `src/data/greenlist.ts` content.
-- Verified Vendor profile pages.
+### 3. Header — unchanged
+Hero already shows Source Type · Location in the meta line and Greenlisted pill above the title, so no changes there. Sidebar drops its redundant "Greenlisted" header strip is **kept** (it's the visual anchor of the card, not duplicative text data).
 
 ### Result
-A visitor lands on the profile and immediately sees: facility name, source type, location, a one-paragraph plain-language summary, a clearly styled **Visit website** button, and a redundant Website row in the At-a-glance card. The technical scorecard remains directly below — fully intact — but no longer dominates the first impression.
+Each fact lives in exactly one place:
+- Greenlist status → hero pill + sidebar header strip (visual anchor, intentional).
+- Source type, Location, Website → sidebar.
+- Designation → sidebar only when it adds info beyond Source Type.
+- FDA/FEI, standards, inspections → Regulatory & Quality section.
+- Years in operation, facility scale, audit notes → Background section.
+- Clinical focus → hero summary paragraph.
+
+The profile reads tighter, with no field restated across header, sidebar, and body.
 
