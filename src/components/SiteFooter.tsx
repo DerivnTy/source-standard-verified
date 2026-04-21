@@ -1,58 +1,91 @@
 import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
+import { Button } from "./ui/button";
 
-const cols = [
+type LinkRow = {
+  to: string;
+  label: string;
+  docId: string;
+  forthcoming?: boolean;
+};
+
+type Column = {
+  title: string;
+  links: LinkRow[];
+};
+
+const columns: Column[] = [
   {
-    title: "Registry",
+    title: "Registry & Intake",
     links: [
-      { to: "/verified-vendors", label: "Verified vendors" },
-      { to: "/greenlist", label: "Greenlist" },
-      { to: "/status-definitions", label: "Status definitions" },
-      { to: "/report-a-concern", label: "Report a concern" },
+      { to: "/verified-vendors", label: "Verified Vendor Directory", docId: "SS-REG-V" },
+      { to: "/greenlist", label: "Upstream Greenlist", docId: "SS-REG-G" },
+      { to: "/report-a-concern", label: "Report a Concern", docId: "SS-INTAKE-02" },
     ],
   },
   {
-    title: "Medical & Governance",
+    title: "Standards & Protocols",
     links: [
-      { to: "/medical-advisory", label: "Medical Advisory Board" },
-      { to: "/governance", label: "Governance & oversight" },
-      { to: "/accountability", label: "Accountability & enforcement" },
-      { to: "/about", label: "About" },
+      { to: "/how-it-works", label: "SOP: Audit Methodology", docId: "SS-FRAMEWORK" },
+      { to: "/status-definitions", label: "Status Definitions", docId: "SS-STATUS" },
+      { to: "/accountability", label: "Compliance & Enforcement", docId: "SS-ENFORCE-2026.01" },
+      { to: "/for-vendors", label: "Vendor Submission Standard", docId: "SS-INTAKE-01" },
     ],
   },
   {
-    title: "Standards & Process",
+    title: "Educational Library",
     links: [
-      { to: "/how-it-works", label: "How verification works" },
-      { to: "/for-vendors", label: "For vendors" },
-      { to: "/apply", label: "Apply for verification" },
-      { to: "/education", label: "Education" },
+      { to: "/education#basics", label: "Foundational Sourcing", docId: "SS-SERIES" },
+      { to: "/education/how-to-read-a-certificate-of-analysis", label: "Interpreting CoAs", docId: "SS-SERIES-002" },
+      { to: "/education#guides", label: "Clinical Protocols", docId: "SS-GUIDE" },
+      { to: "/education#questions", label: "Regulatory FAQ", docId: "SS-FAQ" },
+      { to: "/contact", label: "Video Library", docId: "SS-SUP-001", forthcoming: true },
     ],
   },
   {
-    title: "Reference",
+    title: "Governance & Legal",
     links: [
-      { to: "/faq", label: "FAQ" },
-      { to: "/contact", label: "Contact" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { to: "/privacy", label: "Privacy policy" },
-      { to: "/terms", label: "Terms of use" },
-      { to: "/verification-disclaimer", label: "Verification disclaimer" },
+      { to: "/medical-advisory", label: "Medical Advisory Board (MAB)", docId: "SS-MAB-2026.01" },
+      { to: "/governance", label: "Organizational Neutrality", docId: "SS-GOV-2026.01" },
+      { to: "/terms", label: "Terms of Use", docId: "SS-TERMS-2026.01" },
+      { to: "/privacy", label: "Privacy Policy", docId: "SS-PRIVACY-2026.01" },
+      { to: "/verification-disclaimer", label: "Verification Disclaimer", docId: "SS-DISCLAIMER-2026.01" },
     ],
   },
 ];
 
+const LinkEntry = ({ row }: { row: LinkRow }) => (
+  <li>
+    <Link
+      to={row.to}
+      className="flex items-baseline justify-between gap-3 py-1.5 group"
+    >
+      <span className="text-[13.5px] text-muted-foreground group-hover:text-foreground transition-colors flex items-baseline gap-2 min-w-0">
+        <span className="truncate">{row.label}</span>
+        {row.forthcoming && (
+          <span className="shrink-0 font-mono text-[9.5px] uppercase tracking-[0.12em] text-muted-foreground/70 border border-border/60 px-1 py-px rounded-[2px]">
+            Forthcoming
+          </span>
+        )}
+      </span>
+      <span className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/60 tabular-nums">
+        {row.docId}
+      </span>
+    </Link>
+  </li>
+);
+
 export const SiteFooter = () => {
   return (
-    <footer className="border-t border-border bg-background mt-20">
+    <footer className="border-t border-border bg-surface-muted/30 mt-20">
       <div className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide flex flex-wrap items-center justify-between gap-y-2 py-3">
-          <span className="text-[12.5px] text-muted-foreground">Standard SS-FRAMEWORK-2026.01 · Active</span>
-          <span className="text-[12.5px] text-muted-foreground">Reviewed under Medical Advisory Board · Updated April 20, 2026</span>
+          <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+            Standard SS-FRAMEWORK-2026.01 · Active
+          </span>
+          <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+            Reviewed under Medical Advisory Board · Updated 04/21/26
+          </span>
         </div>
       </div>
 
@@ -60,29 +93,34 @@ export const SiteFooter = () => {
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-3">
             <Logo />
-            <p className="mt-5 text-[14px] text-muted-foreground leading-relaxed max-w-xs">
-              Source Standard is the public verification and standards organization for the
-              peptide, TRT, and hormone optimization vendor space.
+            <p className="mt-5 text-[13.5px] text-muted-foreground leading-relaxed max-w-xs">
+              Source Standard is the public verification and standards body for
+              the peptide, TRT, and hormone optimization vendor space.
             </p>
-            <p className="mt-5 text-[12.5px] text-muted-foreground">Tampa, FL · Founded 2026</p>
+            <p className="mt-5 text-[12.5px] text-muted-foreground">
+              Tampa, FL · Founded 2026
+            </p>
+            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/70">
+              Document anchor · SS-FRAMEWORK-2026.01
+            </p>
           </div>
 
-          <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-5 gap-10">
-            {cols.map((c) => (
-              <div key={c.title}>
-                <p className="text-[13px] font-semibold text-foreground mb-4">{c.title}</p>
-                <ul className="space-y-2.5">
-                  {c.links.map((l) => (
-                    <li key={l.label}>
-                      <Link
-                        to={l.to}
-                        className="text-[13.5px] text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {l.label}
-                      </Link>
-                    </li>
+          <div className="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:divide-x lg:divide-border/60">
+            {columns.map((col, idx) => (
+              <div key={col.title} className={idx === 0 ? "lg:pr-6" : "lg:px-6 last:lg:pr-0"}>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground mb-4">
+                  {col.title}
+                </p>
+                <ul className="space-y-0">
+                  {col.links.map((l) => (
+                    <LinkEntry key={l.label} row={l} />
                   ))}
                 </ul>
+                {col.title === "Registry & Intake" && (
+                  <Button asChild variant="default" className="mt-5 w-full">
+                    <Link to="/apply">Begin Verification (Step 1)</Link>
+                  </Button>
+                )}
               </div>
             ))}
           </div>
