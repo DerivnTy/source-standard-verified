@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import HowItWorks from "./pages/HowItWorks.tsx";
 import Greenlist from "./pages/Greenlist.tsx";
+import GreenlistProfile from "./pages/GreenlistProfile.tsx";
 import VerifiedVendors from "./pages/VerifiedVendors.tsx";
 import ForVendors from "./pages/ForVendors.tsx";
 import Education from "./pages/Education.tsx";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/greenlist" element={<Greenlist />} />
+            <Route path="/greenlist/:slug" element={<GreenlistProfile />} />
             <Route path="/verified-vendors" element={<VerifiedVendors />} />
             <Route path="/for-vendors" element={<ForVendors />} />
             <Route path="/education" element={<Education />} />
