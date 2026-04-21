@@ -1,86 +1,115 @@
 import { Link, useParams } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
+import { PageHeader } from "@/components/PageHeader";
 import { Section } from "@/components/Section";
 import {
-  ENTRY_STATUS_LABEL,
   findLibraryEntry,
   libraryGuides,
   librarySeries,
+  type Lane,
+  type LibraryEntry,
 } from "@/data/library";
 
-const LANE_LABEL: Record<string, string> = {
-  series: "Source Standard Series",
-  guide: "Clinical & Practical Guide",
-  faq: "FAQ",
-  supplementary: "Supplementary",
+const LANE_EYEBROW: Record<Lane, string> = {
+  series: "The Basics",
+  guide: "Practical Guide",
+  faq: "Common Question",
+  supplementary: "Reference",
 };
 
-const LibraryEntry = () => {
+const backLinkFor = (entry: LibraryEntry): { to: string; label: string } => {
+  if (entry.lane === "guide") return { to: "/education/guides", label: "← Back to Practical Guides" };
+  if (entry.lane === "series") return { to: "/education/basics", label: "← Back to The Basics" };
+  return { to: "/education", label: "← Back to Learn" };
+};
+
+const LibraryEntryPage = () => {
   const { slug = "" } = useParams();
   const entry = findLibraryEntry(slug);
 
   if (!entry) {
     return (
       <Section>
-        <p className="eyebrow mb-3">Not found</p>
-        <h1 className="text-[1.5rem] font-semibold text-foreground">Entry not found</h1>
-        <p className="mt-3 text-[14px] text-muted-foreground">
-          No library entry matches this reference.{" "}
-          <Link to="/education" className="underline underline-offset-4 decoration-border">
-            Return to the Clinical Reference Library →
-          </Link>
-        </p>
+        <Link
+          to="/education"
+          className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
+        >
+          ← Back to Learn
+        </Link>
+        <div className="mt-8 max-w-2xl">
+          <h1 className="text-[1.5rem] font-semibold text-foreground">
+            We couldn't find that article.
+          </h1>
+          <p className="mt-4 text-[15px] text-muted-foreground leading-relaxed">
+            It may have moved or been renamed.{" "}
+            <Link to="/education" className="text-foreground underline underline-offset-4 decoration-border">
+              Head back to Learn
+            </Link>{" "}
+            to find what you're looking for.
+          </p>
+        </div>
       </Section>
     );
   }
 
-  const related = (entry.lane === "series" ? librarySeries : libraryGuides)
-    .filter((e) => e.slug !== entry.slug)
-    .slice(0, 4);
+  const back = backLinkFor(entry);
+  const sameLanePool = entry.lane === "guide" ? libraryGuides : librarySeries;
+  const related = sameLanePool.filter((e) => e.slug !== entry.slug).slice(0, 3);
 
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Reference", value: entry.id },
-          { label: "Lane", value: LANE_LABEL[entry.lane] ?? entry.lane },
-          { label: "Status", value: ENTRY_STATUS_LABEL[entry.status] },
-          ...(entry.reviewedBy ? [{ label: "Reviewed by", value: entry.reviewedBy }] : []),
-        ]}
-        eyebrow={LANE_LABEL[entry.lane] ?? "Library entry"}
+      <div className="container-wide pt-8">
+        <Link
+          to={back.to}
+          className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
+        >
+          {back.label}
+        </Link>
+      </div>
+
+      <PageHeader
+        eyebrow={LANE_EYEBROW[entry.lane]}
         title={entry.title}
-        lead={entry.summary}
-      />
+        description={entry.summary}
+      >
+        {entry.reviewedBy && (
+          <p className="text-[13px] text-muted-foreground">
+            Reviewed by {entry.reviewedBy}
+          </p>
+        )}
+      </PageHeader>
 
       <Section>
-        <div className="border border-border/70 bg-surface-muted/40 px-6 py-8 rounded-[2px] max-w-3xl">
-          <p className="eyebrow mb-3">We're still writing this one</p>
-          <p className="text-[14px] text-muted-foreground leading-relaxed">
-            Here's what it will cover: <span className="text-foreground">{entry.summary}</span>
+        <article className="max-w-2xl">
+          <h2 className="text-[1.125rem] font-semibold text-foreground">
+            This article is coming soon.
+          </h2>
+          <p className="mt-4 text-[15px] text-muted-foreground leading-relaxed">
+            We're still writing it. Here's what it will cover:
           </p>
-          <p className="mt-4 text-[13px] text-muted-foreground/90">
-            The full text will be published once it has completed editorial and, where applicable,
-            Medical Advisory Board review.
+          <p className="mt-3 text-[15px] text-foreground leading-relaxed">
+            {entry.summary}
           </p>
-          <p className="mt-4 text-[12.5px] text-muted-foreground/80">
-            Reference ID · <span className="font-mono text-foreground">{entry.id}</span>
+          <p className="mt-5 text-[15px] text-muted-foreground leading-relaxed">
+            In the meantime, you can browse other reads below or head back to Learn.
           </p>
-        </div>
+        </article>
 
         {related.length > 0 && (
-          <div className="mt-12">
-            <p className="eyebrow mb-3">Related entries</p>
-            <ul className="border-t border-border/60 divide-y divide-border/60 max-w-3xl">
+          <div className="mt-16 max-w-2xl">
+            <h2 className="text-[1.125rem] font-semibold text-foreground">Keep reading</h2>
+            <ul className="mt-5 border-t border-border/60 divide-y divide-border/60">
               {related.map((r) => (
-                <li key={r.id} className="py-3 flex items-baseline gap-4">
-                  <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground tabular-nums w-32 shrink-0">
-                    {r.id}
-                  </span>
+                <li key={r.id} className="py-4">
                   <Link
                     to={`/education/${r.slug}`}
-                    className="text-[14px] text-foreground hover:underline underline-offset-4 decoration-border"
+                    className="group block"
                   >
-                    {r.title} →
+                    <p className="text-[15px] text-foreground group-hover:underline underline-offset-4 decoration-border">
+                      {r.title} →
+                    </p>
+                    <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
+                      {r.summary}
+                    </p>
                   </Link>
                 </li>
               ))}
@@ -88,12 +117,12 @@ const LibraryEntry = () => {
           </div>
         )}
 
-        <div className="mt-12">
+        <div className="mt-16">
           <Link
             to="/education"
             className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
           >
-            ← Back to Clinical Reference Library
+            Browse all of Learn →
           </Link>
         </div>
       </Section>
@@ -101,4 +130,4 @@ const LibraryEntry = () => {
   );
 };
 
-export default LibraryEntry;
+export default LibraryEntryPage;
