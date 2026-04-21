@@ -54,18 +54,18 @@ const Section = ({
   if (filled.length === 0) return null;
   return (
     <section className="rounded-lg border border-border/60 bg-background overflow-hidden">
-      <header className="bg-surface-muted/60 border-b border-border/60 px-4 py-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] font-mono font-semibold text-muted-foreground">
+      <header className="bg-surface-muted/60 border-b border-border/60 px-4 py-2.5">
+        <p className="text-[10px] uppercase tracking-[0.14em] font-mono font-semibold text-muted-foreground leading-tight">
           {eyebrow}
         </p>
-        <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em]">
+        <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em] leading-tight m-0">
           {title}
         </h2>
-        <p className="mt-0.5 text-[12.5px] text-muted-foreground leading-snug">
+        <p className="mt-0 text-[12px] text-muted-foreground leading-tight">
           {subtitle}
         </p>
       </header>
-      <dl className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2">
+      <dl className="px-4 py-2.5 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-1.5">
         {filled}
       </dl>
     </section>
