@@ -66,8 +66,6 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="/report-a-concern" element={<ReportConcern />} />
             <Route path="/status-definitions" element={<StatusDefinitions />} />
-            <Route path="/templates/vendor-profile" element={<Navigate to="/verified-vendors" replace />} />
-            <Route path="/templates/greenlist-entry" element={<GreenlistEntryTemplate />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/verification-disclaimer" element={<VerificationDisclaimer />} />
