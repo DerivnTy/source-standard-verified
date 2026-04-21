@@ -144,6 +144,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile drug compounding from bulk substances for office stock and hospital partners",
     website: "https://apocuspharma.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-use sterile preparations", "Hospital partner stock"],
+      background:
+        "San Antonio-based 503B outsourcing facility producing sterile compounded medications from bulk substances for office-use stock and hospital partner programs.",
+    },
   },
   {
     slug: "assure-infusions-inc",
