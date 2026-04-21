@@ -34,18 +34,18 @@ export const SiteHeader = () => {
         </div>
       )}
 
-      <div className="container-wide flex h-16 items-center justify-between">
+      <div className="container-wide relative flex h-16 items-center justify-between">
         <Logo />
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-7 h-full">
           {nav.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}
               end={n.end}
               className={({ isActive }) =>
-                `relative text-[13.5px] tracking-[0] transition-colors py-5 ${
+                `relative inline-flex items-center h-10 text-[13.5px] tracking-[0] transition-colors ${
                   isActive
-                    ? "text-primary font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-px after:h-[2px] after:bg-primary"
+                    ? "text-primary font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-12px] after:h-[2px] after:bg-primary"
                     : "text-muted-foreground font-medium hover:text-foreground"
                 }`
               }
@@ -55,7 +55,7 @@ export const SiteHeader = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center">
-          <Button asChild size="sm" className="text-[13px] h-10 px-5 font-medium rounded-md">
+          <Button asChild size="sm" className="text-[13px] h-10 px-5 font-medium">
             <Link to="/apply">Apply for verification</Link>
           </Button>
         </div>
