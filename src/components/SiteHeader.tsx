@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 
 const nav = [
   { to: "/", label: "Home", end: true },
-  { to: "/verified-vendors", label: "Verified Vendors" },
+  { to: "/verified-vendors", label: "Verified vendors" },
   { to: "/greenlist", label: "Greenlist" },
   { to: "/education", label: "Education" },
-  { to: "/medical-advisory", label: "Medical Advisory" },
-  { to: "/how-it-works", label: "How It Works" },
+  { to: "/medical-advisory", label: "Medical advisory" },
+  { to: "/how-it-works", label: "How it works" },
   { to: "/about", label: "About" },
 ];
 
@@ -18,29 +18,31 @@ export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 bg-background border-b border-border">
-      {/* Utility strip */}
-      <div className="hidden md:block bg-foreground text-background">
+      {/* Utility strip — quiet institutional band */}
+      <div className="hidden md:block bg-surface-sunken border-b border-border/60">
         <div className="container-wide flex items-center justify-between py-1.5">
-          <span className="meta-label text-background/80">
-            Source Standard · Public Verification Registry
+          <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
+            Public reference · Document version 2026.01
           </span>
-          <span className="meta-label text-background/80">
-            Public Reference · Doc v.2026.01 · Tampa, FL
+          <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
+            Maintained in Tampa, FL
           </span>
         </div>
       </div>
 
-      <div className="container-wide flex h-14 items-center justify-between">
+      <div className="container-wide flex h-16 items-center justify-between">
         <Logo />
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-7">
           {nav.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}
               end={n.end}
               className={({ isActive }) =>
-                `text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors ${
-                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                `text-[13.5px] tracking-[0] transition-colors ${
+                  isActive
+                    ? "text-foreground font-semibold underline underline-offset-[6px] decoration-1"
+                    : "text-muted-foreground font-medium hover:text-foreground"
                 }`
               }
             >
@@ -52,9 +54,9 @@ export const SiteHeader = () => {
           <Button
             asChild
             size="sm"
-            className="text-[11px] uppercase tracking-[0.14em] h-9 px-4 bg-primary hover:bg-primary-hover text-primary-foreground font-semibold rounded-none"
+            className="text-[13px] h-10 px-5 bg-primary hover:bg-primary-hover text-primary-foreground font-medium rounded-[2px]"
           >
-            <Link to="/apply">Apply for Verification</Link>
+            <Link to="/apply">Apply for verification</Link>
           </Button>
         </div>
         <button
@@ -76,8 +78,8 @@ export const SiteHeader = () => {
                 end={n.end}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `py-3 text-[12px] uppercase tracking-[0.14em] font-semibold border-b border-border last:border-0 ${
-                    isActive ? "text-foreground" : "text-muted-foreground"
+                  `py-3.5 text-[15px] border-b border-border last:border-0 ${
+                    isActive ? "text-foreground font-semibold" : "text-muted-foreground font-medium"
                   }`
                 }
               >
@@ -87,10 +89,10 @@ export const SiteHeader = () => {
             <Button
               asChild
               size="sm"
-              className="mt-4 mb-2 bg-primary hover:bg-primary-hover text-primary-foreground rounded-none"
+              className="mt-4 mb-2 h-11 bg-primary hover:bg-primary-hover text-primary-foreground rounded-[2px] font-medium"
             >
               <Link to="/apply" onClick={() => setOpen(false)}>
-                Apply for Verification
+                Apply for verification
               </Link>
             </Button>
           </div>
