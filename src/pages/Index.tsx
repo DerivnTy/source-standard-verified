@@ -4,49 +4,54 @@ import { Button } from "@/components/ui/button";
 import { greenlist } from "@/data/greenlist";
 import { MetadataBar } from "@/components/MetadataBar";
 
-const anchors = [
+const pillars = [
   {
     n: "01",
     title: "Medical Oversight",
-    body: "Framework criteria are reviewed by licensed physicians and clinicians. Scope, evidence standards, and renewal intervals are set under medical advisory review.",
+    body: "Framework criteria are set and reviewed by the Medical Advisory Board. Clinical scope, evidence standards, and renewal intervals are maintained under physician review.",
+    to: "/medical-advisory",
+    cta: "Medical Advisory Board",
   },
   {
     n: "02",
-    title: "Public Source Anchoring",
-    body: "Every standard references a publicly citable upstream record — FDA, PCAB, NSF, USP, and state boards of pharmacy. No proprietary criteria.",
+    title: "Public Standards",
+    body: "Every standard references a publicly citable upstream record — FDA, PCAB, NSF, USP, and state boards of pharmacy. Governance and conflict-of-interest policy are published.",
+    to: "/governance",
+    cta: "Governance & oversight",
   },
   {
     n: "03",
-    title: "Documentation Custody",
-    body: "Verifications reference records vendors already maintain. No investigative claims. No proprietary scoring. No surveillance.",
+    title: "Independent Testing",
+    body: "Verifications are supported by independent laboratory testing and documented enforcement procedures. Spot testing and review flags are part of the public accountability layer.",
+    to: "/accountability#testing",
+    cta: "Accountability & enforcement",
   },
 ];
 
-const philosophy = [
+const dualLayer = [
   {
-    n: "01",
-    title: "Documentation-first",
-    body: "Verification is conducted against records vendors already maintain — licensing, supplier documentation, certificates of analysis.",
+    n: "A",
+    t: "Greenlist",
+    sub: "Recognized upstream sources",
+    d: "The greenlist documents the upstream sources Source Standard recognizes — 503B outsourcing facilities, 503A pharmacies, and credentialed standards. Inclusion is based on public licensing, registration, and documentation criteria.",
+    to: "/greenlist",
+    cta: "View the Greenlist",
   },
   {
-    n: "02",
-    title: "Neutral by design",
-    body: "Source Standard is not a clinic, pharmacy, laboratory, or enforcement agency. It organizes and validates existing proof.",
-  },
-  {
-    n: "03",
-    title: "Upstream-anchored",
-    body: "Every verification maps to a public greenlist of recognized upstream sources — 503B facilities, 503A pharmacies, and credentialed standards.",
+    n: "B",
+    t: "Verified Vendors",
+    sub: "Sourcing verified against the greenlist",
+    d: "Vendors are verified against the greenlist. A verification reflects the documentation reviewed at the time of assessment, the categories evaluated, and the public review identifier issued.",
+    to: "/verified-vendors",
+    cta: "View the registry",
   },
 ];
 
-const lifecycle = [
-  { n: "01", t: "Application", d: "Vendor submits a documentation package through the Source Standard intake portal." },
-  { n: "02", t: "Intake review", d: "Submitted records are organized, indexed, and checked for completeness." },
-  { n: "03", t: "Greenlist mapping", d: "Each record is mapped against recognized upstream standards on the public greenlist." },
-  { n: "04", t: "Verification decision", d: "A determination is recorded with documented rationale and a public review identifier." },
-  { n: "05", t: "Public profile", d: "Verified vendors receive a public profile reflecting documentation reviewed." },
-  { n: "06", t: "Renewal", d: "Verifications are time-bound. Vendors resubmit current documentation at scheduled intervals." },
+const eduPreview = [
+  { ref: "REF-101", c: "503B Facilities", t: "What 503B registration actually verifies — and what it does not." },
+  { ref: "REF-201", c: "Certificates of Analysis", t: "A structured guide to reading a peptide CoA without a chemistry background." },
+  { ref: "REF-601", c: "Due Diligence", t: "Five questions every consumer should ask a vendor before purchase." },
+  { ref: "REF-801", c: "Risk", t: "Unverified sources: documented risks and consumer-side warning signs." },
 ];
 
 const publicUse = [
@@ -83,32 +88,32 @@ const Index = () => {
         className="border-t-0"
       />
 
-      {/* Hero */}
+      {/* §0 Hero */}
       <section className="border-b border-border">
         <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-10 lg:gap-14">
             <div className="md:col-span-7">
               <p className="eyebrow mb-5">Public Reference · Verification Framework</p>
               <h1 className="text-[2rem] md:text-[2.5rem] lg:text-[2.75rem] font-semibold tracking-tight leading-[1.1] text-foreground">
-                Source Standard. The public reference for vendor documentation in peptide, TRT, and hormone optimization.
+                Source Standard. The public reference for vendor verification in peptide, TRT, and hormone optimization.
               </h1>
               <p className="mt-6 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-                The registry records vendors whose documentation has been reviewed under SS-FRAMEWORK-2026.01.
-                Framework criteria are maintained under medical advisory review and anchored to public FDA, PCAB, NSF, USP,
-                and state pharmacy board records.
+                Look up a vendor. Read what they were verified against. The registry is maintained
+                under medical advisory review and anchored to public FDA, PCAB, NSF, USP, and state
+                pharmacy board records.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button
                   asChild
                   className="bg-primary hover:bg-primary-hover text-primary-foreground h-11 px-6 text-[13px] font-semibold uppercase tracking-[0.12em] rounded-none"
                 >
-                  <Link to="/verified-vendors">View the Registry</Link>
+                  <Link to="/verified-vendors">Look Up a Vendor</Link>
                 </Button>
                 <Link
-                  to="/how-it-works"
+                  to="/greenlist"
                   className="text-[13px] font-semibold uppercase tracking-[0.12em] text-foreground border-b-2 border-foreground pb-1 hover:text-primary hover:border-primary transition-colors"
                 >
-                  Verification Process
+                  View the Greenlist
                 </Link>
               </div>
               <p className="mt-8 meta-label">
@@ -146,35 +151,40 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §1 Authority Anchors */}
+      {/* §1 Authority Pillars */}
       <section className="border-b border-border">
         <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§1 — Authority Anchors</p>
+              <p className="meta mb-3">§1 — Authority Pillars</p>
               <h2 className="text-2xl md:text-[1.75rem] font-semibold tracking-tight leading-[1.2]">
-                Where the framework derives its weight.
+                Where the standard derives its weight.
               </h2>
-              <Link
-                to="/governance"
-                className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
-              >
-                Governance & oversight <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed max-w-md">
+                Three independent layers support every verification on the public registry.
+              </p>
             </div>
             <div className="md:col-span-8">
               <div className="border-t border-border">
-                {anchors.map((a) => (
+                {pillars.map((a) => (
                   <div key={a.n} className="grid grid-cols-12 gap-4 py-5 border-b border-border">
                     <div className="col-span-2 md:col-span-1">
                       <span className="meta text-primary">{a.n}</span>
                     </div>
-                    <div className="col-span-4 md:col-span-3">
+                    <div className="col-span-10 md:col-span-3">
                       <h3 className="text-[14px] font-semibold text-foreground">{a.title}</h3>
                     </div>
-                    <div className="col-span-12 md:col-span-8">
+                    <div className="col-span-12 md:col-span-6">
                       <p className="text-[14px] text-muted-foreground leading-relaxed">{a.body}</p>
                     </div>
+                    <div className="col-span-12 md:col-span-2 md:text-right">
+                      <Link
+                        to={a.to}
+                        className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+                      >
+                        {a.cta} →
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -183,69 +193,68 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §2 Framework principles */}
+      {/* §2 Consumer Entry Point */}
       <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-14 md:py-20">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="meta mb-3">§2 — Framework Principles</p>
-              <h2 className="text-2xl md:text-[1.75rem] font-semibold tracking-tight leading-[1.2]">
-                Framework principles.
-              </h2>
+        <div className="container-wide py-8 md:py-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            <div className="max-w-2xl">
+              <p className="meta mb-2">§2 — Check a Vendor</p>
+              <p className="text-[15px] text-foreground leading-relaxed">
+                If a vendor told you they are verified by Source Standard, the public registry is where you confirm it.
+                Every verified listing carries a citable review identifier.
+              </p>
             </div>
-            <div className="md:col-span-8">
-              <div className="border-t border-border">
-                {philosophy.map((p) => (
-                  <div key={p.n} className="grid grid-cols-12 gap-4 py-5 border-b border-border">
-                    <div className="col-span-2 md:col-span-1">
-                      <span className="meta">{p.n}</span>
-                    </div>
-                    <div className="col-span-4 md:col-span-3">
-                      <h3 className="text-[14px] font-semibold text-foreground">{p.title}</h3>
-                    </div>
-                    <div className="col-span-12 md:col-span-8">
-                      <p className="text-[14px] text-muted-foreground leading-relaxed">{p.body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Link
+              to="/verified-vendors"
+              className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover whitespace-nowrap"
+            >
+              Look up a vendor <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* §3 Lifecycle */}
+      {/* §3 Dual-Layer Model */}
       <section className="border-b border-border">
         <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§3 — Verification Lifecycle</p>
+              <p className="meta mb-3">§3 — The Dual-Layer Model</p>
               <h2 className="text-2xl md:text-[1.75rem] font-semibold tracking-tight leading-[1.2]">
-                Six procedural steps, applied uniformly.
+                Upstream sources first. Vendors verified against them.
               </h2>
               <Link
                 to="/how-it-works"
                 className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
               >
-                Procedural reference <ArrowRight className="h-3.5 w-3.5" />
+                How it works <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
             <div className="md:col-span-8">
-              <ol className="border-t border-border bg-background">
-                {lifecycle.map((s) => (
-                  <li key={s.n} className="grid grid-cols-12 gap-4 px-5 py-5 border-b border-border">
+              <div className="border-t border-border">
+                {dualLayer.map((l) => (
+                  <div key={l.n} className="grid grid-cols-12 gap-4 py-6 border-b border-border">
                     <div className="col-span-2 md:col-span-1">
-                      <span className="meta text-primary">{s.n}</span>
+                      <span className="meta text-primary">Layer {l.n}</span>
                     </div>
                     <div className="col-span-10 md:col-span-3">
-                      <p className="text-[14px] font-semibold text-foreground">{s.t}</p>
+                      <h3 className="text-[14px] font-semibold text-foreground">{l.t}</h3>
+                      <p className="meta-label mt-1">{l.sub}</p>
                     </div>
-                    <div className="col-span-12 md:col-span-8">
-                      <p className="text-[14px] text-muted-foreground leading-relaxed">{s.d}</p>
+                    <div className="col-span-12 md:col-span-6">
+                      <p className="text-[14px] text-muted-foreground leading-relaxed">{l.d}</p>
                     </div>
-                  </li>
+                    <div className="col-span-12 md:col-span-2 md:text-right">
+                      <Link
+                        to={l.to}
+                        className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+                      >
+                        {l.cta} →
+                      </Link>
+                    </div>
+                  </div>
                 ))}
-              </ol>
+              </div>
             </div>
           </div>
         </div>
@@ -336,10 +345,10 @@ const Index = () => {
                     View Directory →
                   </Link>
                   <Link
-                    to="/how-it-works"
+                    to="/status-definitions"
                     className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
                   >
-                    Verification process →
+                    Status definitions →
                   </Link>
                 </div>
               </div>
@@ -348,12 +357,58 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §6 Public Use */}
+      {/* §6 Education preview */}
       <section className="border-b border-border bg-surface-muted">
         <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-10">
+            <div className="md:col-span-5">
+              <p className="meta mb-3">§6 — Public Reference Library</p>
+              <h2 className="text-2xl md:text-[1.75rem] font-semibold tracking-tight leading-[1.2]">
+                Neutral, physician-reviewed reference material.
+              </h2>
+              <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
+                Reference notes on peptide therapy, TRT, sourcing, storage, and the documented risks of unverified
+                supply. Material is informational only and is not medical advice.
+              </p>
+              <Link
+                to="/education"
+                className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+              >
+                Open the library <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+            <div className="md:col-span-7">
+              <div className="border border-border bg-background">
+                <div className="grid grid-cols-12 px-4 py-2 border-b border-border bg-surface-muted">
+                  <div className="col-span-2 meta-label">Ref</div>
+                  <div className="col-span-3 meta-label">Category</div>
+                  <div className="col-span-6 meta-label">Title</div>
+                  <div className="col-span-1 meta-label text-right">Status</div>
+                </div>
+                <ul className="divide-y divide-border">
+                  {eduPreview.map((e) => (
+                    <li key={e.ref} className="grid grid-cols-12 px-4 py-4 items-baseline">
+                      <div className="col-span-2 meta">{e.ref}</div>
+                      <div className="col-span-3 meta-label text-foreground">{e.c}</div>
+                      <div className="col-span-6">
+                        <p className="text-[13px] font-semibold text-foreground leading-snug">{e.t}</p>
+                      </div>
+                      <div className="col-span-1 text-right meta">—</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §7 Public Use */}
+      <section className="border-b border-border">
+        <div className="container-wide py-14 md:py-20">
+          <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§6 — Public Use</p>
+              <p className="meta mb-3">§7 — Public Use</p>
               <h2 className="text-2xl md:text-[1.75rem] font-semibold tracking-tight leading-[1.2]">
                 How the registry is used.
               </h2>

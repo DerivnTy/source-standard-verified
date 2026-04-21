@@ -100,6 +100,25 @@ const HowItWorks = () => {
           </div>
         </div>
       </section>
+
+      {/* Read deeper */}
+      <section className="border-t border-border">
+        <div className="container-wide py-6">
+          <div className="border border-border bg-background">
+            <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
+              <p className="meta-label text-foreground">Read deeper</p>
+            </div>
+            <div className="px-4 py-3">
+              <Link
+                to="/accountability"
+                className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+              >
+                Accountability & enforcement — vendor obligations, suspension, removal, and breach consequences →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

@@ -5,8 +5,8 @@ const cols = [
   {
     title: "Registry",
     links: [
-      { to: "/greenlist", label: "Greenlist" },
       { to: "/verified-vendors", label: "Verified Vendors" },
+      { to: "/greenlist", label: "Greenlist" },
       { to: "/apply", label: "Apply for Verification" },
       { to: "/report-a-concern", label: "Report a Concern" },
     ],
