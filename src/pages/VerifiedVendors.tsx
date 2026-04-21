@@ -272,6 +272,19 @@ const VerifiedVendors = () => {
               <option value="no">No published review</option>
             </select>
 
+
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortMode)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Sort records"
+            >
+              <option value="status">Sort: Status</option>
+              <option value="name-asc">Sort: Name A → Z</option>
+              <option value="name-desc">Sort: Name Z → A</option>
+              <option value="state-city">Sort: State / City</option>
+            </select>
+
             {filtersActive && (
               <button
                 onClick={reset}
@@ -282,7 +295,9 @@ const VerifiedVendors = () => {
             )}
 
             <p className="meta-label ml-auto">
-              {sorted.length} {sorted.length === 1 ? "record" : "records"}
+              {sorted.length === 0
+                ? "0 records"
+                : `${pageStart + 1}–${Math.min(pageStart + PAGE_SIZE, sorted.length)} of ${sorted.length}`}
             </p>
           </div>
         </div>
