@@ -3,12 +3,15 @@ import {
   VENDOR_STATUS_LABEL,
 } from "@/data/vendors";
 
-const colorFor: Record<VendorPublicStatus, string> = {
-  verified: "text-verified",
-  unverified: "text-muted-foreground",
-  "under-review": "text-pending",
-  suspended: "text-destructive",
-  removed: "text-muted-foreground",
+// Stamp-style variants per status: background tint + border + text color.
+const stampFor: Record<VendorPublicStatus, string> = {
+  verified: "bg-verified/10 border-verified/40 text-verified",
+  "under-review": "bg-pending/10 border-pending/40 text-pending",
+  suspended: "bg-destructive/10 border-destructive/40 text-destructive",
+  unverified:
+    "bg-muted/40 border-dashed border-muted-foreground/40 text-muted-foreground",
+  removed:
+    "bg-muted/30 border-dashed border-muted-foreground/30 text-muted-foreground",
 };
 
 // Accept either the new VendorPublicStatus or the legacy strings, so existing
@@ -32,11 +35,11 @@ export const StatusBadge = ({
   const text = size === "md" ? "text-[11px]" : "text-[10px]";
   return (
     <span
-      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums ${text} ${colorFor[key]}`}
+      className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[3px] border font-mono font-semibold uppercase tracking-[0.14em] tabular-nums ${text} ${stampFor[key]}`}
     >
       <span
         aria-hidden
-        className="inline-block w-1.5 h-1.5 rounded-full bg-current"
+        className="inline-block w-[2px] h-3 bg-current"
       />
       {VENDOR_STATUS_LABEL[key]}
     </span>
