@@ -69,7 +69,7 @@ const About = () => {
       </section>
 
       {/* §2 Our role */}
-      <section className="border-b border-border bg-surface-muted/60">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -124,7 +124,7 @@ const About = () => {
       </section>
 
       {/* §4 Beliefs */}
-      <section className="border-b border-border bg-surface-muted/60">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -180,7 +180,7 @@ const About = () => {
       </section>
 
       {/* §6 Stance */}
-      <section className="border-b border-border bg-surface-muted/60">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -239,7 +239,7 @@ const About = () => {
       </section>
 
       {/* §8 Mission */}
-      <section className="border-b border-border bg-surface-muted/60">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
