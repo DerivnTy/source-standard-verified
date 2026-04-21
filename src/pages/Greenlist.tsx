@@ -160,7 +160,7 @@ const Greenlist = () => {
         ]}
         eyebrow="Public Registry · Recognized Sources"
         title="Public registry of recognized upstream sources."
-        lead="Source Standard maintains a public registry of recognized upstream sources used in vendor review — including 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
+        lead="Source Standard maintains a public registry of upstream sources that carry Greenlisted status — recognized within the framework across source types including 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
         summary={[
           { label: "Total entries", value: counts.total.toString().padStart(2, "0") },
           { label: "503B facilities", value: counts["503B"].toString().padStart(2, "0") },
