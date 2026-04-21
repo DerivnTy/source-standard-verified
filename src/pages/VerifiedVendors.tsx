@@ -28,11 +28,19 @@ const STATUS_ORDER: VendorPublicStatus[] = [
 ];
 
 const STATUS_LEGEND_SHORT: Record<VendorPublicStatus, string> = {
-  verified: "published verification",
-  "under-review": "review in progress",
-  unverified: "no published verification",
-  suspended: "verification paused",
-  removed: "listing removed",
+  verified: "published",
+  "under-review": "in progress",
+  unverified: "not published",
+  suspended: "paused",
+  removed: "removed",
+};
+
+const STATUS_DOT_COLOR: Record<VendorPublicStatus, string> = {
+  verified: "bg-verified",
+  "under-review": "bg-pending",
+  unverified: "bg-muted-foreground",
+  suspended: "bg-destructive",
+  removed: "bg-muted-foreground",
 };
 
 const formatLocation = (v: Vendor) => {
@@ -172,25 +180,31 @@ const VerifiedVendors = () => {
         ]}
       />
 
-      {/* Status legend — compact card row */}
+      {/* Status legend — quiet orientation strip */}
       <section className="bg-surface-muted border-b border-border">
-        <div className="container-wide py-5">
-          <p className="meta-label text-foreground">How to read this directory</p>
-          <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-border border border-border">
+        <div className="container-wide py-3">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {STATUS_ORDER.map((s) => (
-              <div key={s} className="bg-surface-muted px-3 py-2.5 flex flex-col gap-1.5">
-                <StatusBadge status={s} />
-                <span className="text-[12px] text-muted-foreground leading-snug">
-                  {STATUS_LEGEND_SHORT[s]}
+              <div key={s} className="flex items-center gap-2">
+                <span
+                  aria-hidden
+                  className={`inline-block h-1.5 w-1.5 rounded-full ${STATUS_DOT_COLOR[s]}`}
+                />
+                <span className="font-mono text-[12px] uppercase tracking-[0.14em] text-foreground">
+                  {VENDOR_STATUS_LABEL[s]}
+                </span>
+                <span className="text-[12px] text-muted-foreground">
+                  — {STATUS_LEGEND_SHORT[s]}
                 </span>
               </div>
             ))}
           </div>
-          <p className="mt-3 max-w-3xl text-[12px] text-muted-foreground leading-snug">
-            <span className="text-foreground font-medium">Note.</span> “Unverified” means Source
-            Standard verification is not currently published for this vendor. It does not by
-            itself indicate that the vendor is unsafe, noncompliant, or illegitimate.
-          </p>
+          <Link
+            to="/how-to-read-the-directory"
+            className="mt-2 inline-block font-mono text-[12px] text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Read more about how to read this directory →
+          </Link>
         </div>
       </section>
 
