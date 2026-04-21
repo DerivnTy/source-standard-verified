@@ -203,7 +203,7 @@ const VerifiedVendors = () => {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search vendor name, city, state, medical director"
+                placeholder="Search by vendor or clinic name"
                 className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
                 aria-label="Search directory"
               />
