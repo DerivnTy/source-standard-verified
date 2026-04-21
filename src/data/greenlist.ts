@@ -178,6 +178,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile compounded injectables for hormone therapy and clinical wellness protocols, manufacturer of office-use sterile products",
     website: "https://farmakeio.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Office-use sterile preparations"],
+      specializations: ["Hormone therapy", "Wellness protocols"],
+      background:
+        "Texas-based 503B outsourcing facility producing office-use sterile injectables, with a focus on hormone therapy and clinical wellness protocols for prescribers.",
+    },
   },
   {
     slug: "fagron-compounding-services-dba-fagron-sterile-services",
