@@ -4,54 +4,39 @@ import { MetadataBar } from "@/components/MetadataBar";
 import { Button } from "@/components/ui/button";
 import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenlist";
 
-// Inline meta line: dot-separated mono row of short scalar values. Skips empties.
+// Inline meta line: dot-separated row of short scalar values. Skips empties.
 const MetaLine = ({ items }: { items: (string | number | null | undefined)[] }) => {
   const filled = items.filter((v) => v !== null && v !== undefined && v !== "") as (string | number)[];
   if (filled.length === 0) return null;
   return (
-    <p className="text-[12.5px] font-mono text-muted-foreground leading-relaxed">
+    <p className="text-[14px] text-foreground/85 leading-[1.55] max-w-[68ch]">
       {filled.map((v, i) => (
         <span key={i}>
           {i > 0 && <span className="mx-2 text-border">·</span>}
-          <span className="text-foreground/80">{v}</span>
+          <span>{v}</span>
         </span>
       ))}
     </p>
   );
 };
 
-// Tag row: small label + wrapped chip list. Returns null if array is empty.
+// Tag row: bold inline label + comma-separated values, same body type as Prose.
 const TagRow = ({ label, items }: { label: string; items?: string[] }) => {
   if (!items || items.length === 0) return null;
   return (
-    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
-      <span className="text-[10.5px] uppercase tracking-[0.1em] font-mono text-muted-foreground shrink-0 pt-0.5">
-        {label}
-      </span>
-      <ul className="flex flex-wrap gap-1.5">
-        {items.map((item) => (
-          <li
-            key={item}
-            className="inline-flex items-center px-1.5 py-0.5 rounded-sm border border-border/60 bg-surface-muted/40 text-[11.5px] font-mono text-foreground/90"
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <p className="text-[14px] text-foreground/85 leading-[1.55] max-w-[68ch]">
+      <span className="font-semibold text-foreground mr-2">{label}</span>
+      {items.join(", ")}
+    </p>
   );
 };
 
-// Prose paragraph with a small inline label. Returns null if value missing.
+// Prose paragraph with a bold inline label. Returns null if value missing.
 const Prose = ({ label, value }: { label?: string; value?: string }) => {
   if (!value) return null;
   return (
     <p className="text-[14px] text-foreground/85 leading-[1.55] max-w-[68ch]">
-      {label && (
-        <span className="text-[10.5px] uppercase tracking-[0.1em] font-mono text-muted-foreground mr-2">
-          {label}
-        </span>
-      )}
+      {label && <span className="font-semibold text-foreground mr-2">{label}</span>}
       {value}
     </p>
   );
