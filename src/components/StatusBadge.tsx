@@ -1,21 +1,43 @@
-import { VerificationStatus } from "@/data/vendors";
+import {
+  VendorPublicStatus,
+  VENDOR_STATUS_LABEL,
+} from "@/data/vendors";
 
-const config: Record<VerificationStatus, { label: string; color: string }> = {
-  verified: { label: "Verified", color: "text-verified" },
-  pending: { label: "Under Review", color: "text-pending" },
-  unverified: { label: "Unverified", color: "text-muted-foreground" },
-  expired: { label: "Expired", color: "text-muted-foreground" },
+const colorFor: Record<VendorPublicStatus, string> = {
+  verified: "text-verified",
+  unverified: "text-muted-foreground",
+  "under-review": "text-pending",
+  suspended: "text-destructive",
+  removed: "text-muted-foreground",
 };
 
-export const StatusBadge = ({ status, size = "sm" }: { status: VerificationStatus; size?: "sm" | "md" }) => {
-  const c = config[status];
+// Accept either the new VendorPublicStatus or the legacy strings, so existing
+// callers (e.g., older verified-vendor data) continue to render.
+type AnyStatus = VendorPublicStatus | "pending" | "expired";
+
+const normalize = (s: AnyStatus): VendorPublicStatus => {
+  if (s === "pending") return "under-review";
+  if (s === "expired") return "suspended";
+  return s;
+};
+
+export const StatusBadge = ({
+  status,
+  size = "sm",
+}: {
+  status: AnyStatus;
+  size?: "sm" | "md";
+}) => {
+  const key = normalize(status);
   const text = size === "md" ? "text-[11px]" : "text-[10px]";
   return (
     <span
-      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums ${text} ${c.color}`}
+      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums ${text} ${colorFor[key]}`}
     >
-      <span aria-hidden className="inline-block leading-none">■</span>
-      {c.label}
+      <span aria-hidden className="inline-block leading-none">
+        ■
+      </span>
+      {VENDOR_STATUS_LABEL[key]}
     </span>
   );
 };

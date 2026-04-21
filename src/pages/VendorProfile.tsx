@@ -1,8 +1,19 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ShieldCheck, AlertCircle } from "lucide-react";
-import { getVendor } from "@/data/vendors";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import {
+  getVendor,
+  VENDOR_STATUS_LABEL,
+  VENDOR_STATUS_DISCLOSURE,
+} from "@/data/vendors";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Button } from "@/components/ui/button";
+import { MetadataBar } from "@/components/MetadataBar";
+
+const Field = ({ label, value }: { label: string; value: React.ReactNode }) => (
+  <div className="px-4 py-3 border-b border-border last:border-b-0 grid grid-cols-3 gap-3">
+    <dt className="meta-label text-foreground col-span-1">{label}</dt>
+    <dd className="text-[13px] text-foreground col-span-2">{value || "—"}</dd>
+  </div>
+);
 
 const VendorProfile = () => {
   const { slug } = useParams();
@@ -12,113 +23,186 @@ const VendorProfile = () => {
     return (
       <section className="container-narrow py-32 text-center">
         <p className="eyebrow mb-4">Not Found</p>
-        <h1 className="font-serif text-3xl mb-4">No vendor profile found.</h1>
-        <Button asChild variant="outline" className="rounded-sm">
-          <Link to="/directory">Back to directory</Link>
-        </Button>
+        <h1 className="text-2xl font-semibold mb-4">No vendor profile found.</h1>
+        <Link
+          to="/verified-vendors"
+          className="text-[13px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+        >
+          ← Back to directory
+        </Link>
       </section>
     );
   }
 
-  const isVerified = vendor.status === "verified";
+  const location =
+    vendor.city && vendor.state
+      ? `${vendor.city}, ${vendor.state}${vendor.zip ? ` ${vendor.zip}` : ""}`
+      : vendor.city || vendor.state || "—";
 
   return (
     <>
-      <div className="border-b border-border bg-surface-muted">
-        <div className="container-tight pt-10">
-          <Link to="/directory" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> Vendor Directory
+      <MetadataBar
+        items={[
+          { label: "Doc", value: `SS-REG-${(vendor.slug || "").toUpperCase().slice(0, 16)}` },
+          { label: "Listing", value: VENDOR_STATUS_LABEL[vendor.status] },
+          { label: "Updated", value: vendor.reviewDate || "—" },
+          { label: "Jurisdiction", value: vendor.state ? `${vendor.state} · US` : "US" },
+        ]}
+      />
+
+      <section className="bg-background border-b border-border">
+        <div className="container-wide pt-6">
+          <Link
+            to="/verified-vendors"
+            className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Public Directory
           </Link>
         </div>
-        <div className="container-tight py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10 items-start">
+        <div className="container-wide py-8 md:py-12">
+          <div className="grid md:grid-cols-12 gap-8 items-start">
             <div className="md:col-span-8">
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-3 mb-4">
                 <StatusBadge status={vendor.status} size="md" />
                 {vendor.reviewId && (
-                  <span className="text-xs font-mono text-muted-foreground">Review ID: {vendor.reviewId}</span>
+                  <span className="text-[12px] font-mono text-muted-foreground">
+                    Review ID: {vendor.reviewId}
+                  </span>
                 )}
               </div>
-              <h1 className="font-serif text-4xl md:text-5xl font-medium tracking-tight leading-tight">
+              <p className="eyebrow mb-3">Public Directory · Vendor Listing</p>
+              <h1 className="text-[1.5rem] md:text-[1.875rem] font-semibold tracking-tight leading-[1.2]">
                 {vendor.name}
               </h1>
-              <p className="mt-3 text-muted-foreground">
-                {vendor.category} · {vendor.location}
+              <p className="mt-2 text-[13px] text-muted-foreground">
+                {(vendor.category || "Vendor")} · {location}
               </p>
-              <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">{vendor.summary}</p>
+              {vendor.summary && (
+                <p className="mt-5 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
+                  {vendor.summary}
+                </p>
+              )}
             </div>
 
             <div className="md:col-span-4">
-              <div className="border border-border bg-background p-6">
-                {isVerified ? (
-                  <div className="text-center">
-                    <ShieldCheck className="mx-auto h-10 w-10 text-verified" strokeWidth={1.5} />
-                    <p className="mt-4 font-serif text-lg">Verified Vendor</p>
-                    <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
-                      Source Standard
-                    </p>
-                    {vendor.verifiedSince && (
-                      <p className="mt-4 pt-4 border-t border-border text-xs text-muted-foreground">
-                        Verified since {vendor.verifiedSince}
-                      </p>
-                    )}
-                  </div>
-                ) : (
-                  <div className="text-center">
-                    <AlertCircle className="mx-auto h-10 w-10 text-muted-foreground" strokeWidth={1.5} />
-                    <p className="mt-4 font-serif text-lg">Not Currently Verified</p>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                      This vendor does not hold an active Source Standard verification.
-                    </p>
-                  </div>
-                )}
+              <div className="border border-border bg-surface-muted/60">
+                <div className="px-4 py-3 border-b border-border">
+                  <p className="meta-label text-foreground">Status disclosure</p>
+                </div>
+                <div className="px-4 py-3">
+                  <p className="text-[12px] text-muted-foreground leading-relaxed">
+                    {VENDOR_STATUS_DISCLOSURE[vendor.status]}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <section className="container-tight py-16 md:py-20">
-        <p className="eyebrow mb-5">Documentation Record</p>
-        <h2 className="font-serif text-2xl md:text-3xl font-medium tracking-tight mb-8">
-          Records reviewed at time of verification
-        </h2>
+      {/* Listing detail */}
+      <section>
+        <div className="container-wide py-8 md:py-10">
+          <div className="grid md:grid-cols-12 gap-6">
+            <div className="md:col-span-7 border border-border bg-background">
+              <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
+                <p className="meta-label text-foreground">Listing record</p>
+              </div>
+              <dl>
+                <Field label="Vendor" value={vendor.name} />
+                <Field label="Public status" value={VENDOR_STATUS_LABEL[vendor.status]} />
+                <Field
+                  label="Location"
+                  value={
+                    <>
+                      {vendor.city || "—"}
+                      {vendor.state ? `, ${vendor.state}` : ""}
+                      {vendor.zip ? ` ${vendor.zip}` : ""}
+                    </>
+                  }
+                />
+                <Field
+                  label="Website"
+                  value={
+                    vendor.website ? (
+                      <a
+                        href={vendor.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-foreground hover:text-primary"
+                      >
+                        {vendor.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    ) : (
+                      "—"
+                    )
+                  }
+                />
+                <Field label="Medical director" value={vendor.medicalDirector || "—"} />
+                <Field label="Category" value={vendor.category || "—"} />
+                <Field
+                  label="Clinical focus"
+                  value={
+                    vendor.clinicalFocus && vendor.clinicalFocus.length > 0
+                      ? vendor.clinicalFocus.join(" · ")
+                      : "—"
+                  }
+                />
+                <Field
+                  label="Verified categories"
+                  value={
+                    vendor.verifiedCategories && vendor.verifiedCategories.length > 0
+                      ? vendor.verifiedCategories.join(" · ")
+                      : "—"
+                  }
+                />
+                <Field
+                  label="Review ID"
+                  value={
+                    vendor.reviewId ? (
+                      <span className="font-mono">{vendor.reviewId}</span>
+                    ) : (
+                      "—"
+                    )
+                  }
+                />
+                <Field label="Review date" value={vendor.reviewDate || "—"} />
+              </dl>
+            </div>
 
-        {vendor.documentation.length > 0 ? (
-          <div className="border border-border divide-y divide-border bg-background">
-            {vendor.documentation.map((d) => (
-              <div key={d.label} className="grid md:grid-cols-12 gap-4 p-5 md:p-6">
-                <div className="md:col-span-7">
-                  <p className="font-medium text-foreground">{d.label}</p>
-                  {d.note && <p className="text-sm text-muted-foreground mt-1">{d.note}</p>}
+            <div className="md:col-span-5 space-y-6">
+              {vendor.publicNote && (
+                <div className="border border-border bg-background">
+                  <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
+                    <p className="meta-label text-foreground">Public note</p>
+                  </div>
+                  <div className="px-4 py-3">
+                    <p className="text-[13px] text-muted-foreground leading-relaxed">
+                      {vendor.publicNote}
+                    </p>
+                  </div>
                 </div>
-                <div className="md:col-span-5 md:text-right">
-                  <span
-                    className={`text-xs uppercase tracking-wider font-medium px-2.5 py-1 border ${
-                      d.status === "Verified"
-                        ? "bg-verified-soft text-verified border-verified/20"
-                        : d.status === "On file"
-                          ? "bg-secondary text-secondary-foreground border-border"
-                          : "bg-muted text-muted-foreground border-border"
-                    }`}
-                  >
-                    {d.status}
-                  </span>
+              )}
+
+              <div className="border border-border bg-surface-muted/60">
+                <div className="px-4 py-2.5 border-b border-border">
+                  <p className="meta-label text-foreground">Source Standard disclaimer</p>
+                </div>
+                <div className="px-4 py-3 space-y-2">
+                  <p className="text-[12px] text-muted-foreground leading-relaxed">
+                    {VENDOR_STATUS_DISCLOSURE[vendor.status]}
+                  </p>
+                  <p className="text-[12px] text-muted-foreground leading-relaxed">
+                    Directory inclusion does not constitute medical advice, product endorsement,
+                    or a guarantee of clinical outcome. Source Standard is not a regulator,
+                    pharmacy, clinic, laboratory, or enforcement agency.
+                  </p>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        ) : (
-          <div className="border border-border bg-surface-muted p-8 text-center text-muted-foreground">
-            No documentation has been submitted for this vendor.
-          </div>
-        )}
-
-        <p className="mt-10 text-xs text-muted-foreground max-w-3xl leading-relaxed">
-          Verification reflects documentation reviewed at the time of assessment and does not guarantee medical
-          outcomes, product safety, or treatment efficacy. Source Standard is not a regulator, pharmacy, clinic,
-          laboratory, or enforcement agency.
-        </p>
+        </div>
       </section>
     </>
   );
