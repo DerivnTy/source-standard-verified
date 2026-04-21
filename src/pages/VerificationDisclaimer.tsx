@@ -2,73 +2,110 @@ import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { Section, SectionLabel } from "@/components/Section";
 
+const DOC_ID = "SS-DISCLAIMER-2026.01";
+
+const DocId = ({ section }: { section: string }) => (
+  <p className="meta-mono text-muted-foreground mb-3">Doc {DOC_ID} · {section} · v2026.01</p>
+);
+
 const covers = [
-  "Documented business identity and operating records.",
-  "Licensing and registration status with applicable authorities.",
-  "Disclosed upstream sources, including pharmacy and supplier documentation.",
-  "Sourcing and invoice records supporting reviewed product categories.",
-  "Consistency between public claims and records on file.",
+  { n: "1.01", t: "Documented business identity, registration, and operating records of the entity." },
+  { n: "1.02", t: "Licensing, registration, and standing with applicable regulatory authorities, as evidenced by third-party records." },
+  { n: "1.03", t: "Disclosed upstream sources, including pharmacy, supplier, and laboratory documentation submitted under the Vendor Submission Standard." },
+  { n: "1.04", t: "Sourcing and invoice records supporting the product categories within the reviewed scope." },
+  { n: "1.05", t: "Consistency between the entity's public claims and the records on file with the auditing body." },
 ];
 
 const doesNotCover = [
-  "Clinical outcomes for any individual patient.",
-  "Suitability of any product or protocol for a specific person.",
-  "Product safety, efficacy, or potency testing — Source Standard does not test products.",
-  "Future vendor conduct beyond the records reviewed at the time of verification.",
-  "Activities outside the reviewed scope or category.",
+  { n: "2.01", t: "Clinical outcomes for any individual patient." },
+  { n: "2.02", t: "Suitability of any product, formulation, or protocol for a specific person." },
+  { n: "2.03", t: "Product safety, efficacy, sterility, or potency. The auditing body does not test, assay, or otherwise analyse any product." },
+  { n: "2.04", t: "Future conduct of the entity beyond the records reviewed at the time of the determination." },
+  { n: "2.05", t: "Activities, product lines, or jurisdictions outside the reviewed scope or category." },
 ];
 
 const boundaries = [
-  { t: "Not a regulator", d: "Source Standard does not have enforcement authority. Regulatory authority rests with FDA, state boards of pharmacy, state medical boards, and other competent bodies." },
-  { t: "Not a clinic", d: "Source Standard does not provide clinical care, prescribe, or dispense medication." },
-  { t: "Not a manufacturer or pharmacy", d: "Source Standard does not produce, compound, or sell any product. It references upstream sources operated by others." },
-  { t: "Not a guarantor", d: "A Verified listing is a documentation finding at a point in time, not a guarantee of any future state of affairs." },
+  {
+    t: "Not a Statutory Body.",
+    d: "Source Standard is not a regulator, accreditor, or statutory body. It holds no enforcement authority. Statutory authority rests with the FDA, state boards of pharmacy, state medical boards, attorneys general, and other competent regulatory bodies, whose determinations supersede any registry entry.",
+  },
+  {
+    t: "Not a clinic.",
+    d: "Source Standard does not provide clinical care, diagnose, prescribe, dispense, or otherwise practise medicine, pharmacy, or any other licensed health profession.",
+  },
+  {
+    t: "Not a manufacturer or pharmacy.",
+    d: "Source Standard does not manufacture, compound, repackage, distribute, or sell any product. It references upstream sources operated by independently licensed third parties.",
+  },
+  {
+    t: "Not a laboratory.",
+    d: "Source Standard does not test products and does not issue certificates of analysis. It reviews certificates produced by independent laboratories as part of the documentary record.",
+  },
+  {
+    t: "Not a guarantor.",
+    d: "A Verified determination is an administrative finding at a fixed point in time. It is not a warranty, guarantee, indemnity, or insurance of any future state of affairs concerning the entity, its operations, or any product or service it provides.",
+  },
 ];
 
 const VerificationDisclaimer = () => (
   <>
     <RecordHeader
       metadata={[
-        { label: "Doc", value: "SS-DISCLAIMER-2026.01" },
+        { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Disclaimer"
-      title="Verification disclaimer."
-      lead="Defines the scope and limits of Source Standard verification so that a Verified status is interpreted accurately."
+      eyebrow="Disclaimer · Formal regulatory attestation"
+      title="Verification Disclaimer & Attestation Scope."
+      lead="The formal attestation document of the auditing body. Defines the scope, boundaries, time-bound nature, and liability framing of every Source Standard verification determination. Issued under document SS-DISCLAIMER-2026.01."
     />
 
     <Section density="doc">
-      <SectionLabel number="§1" title="What verification covers" description="Verification is a documented review of records and claims. The following items are within the scope of every standard review." />
+      <DocId section="§1" />
+      <SectionLabel
+        number="§1"
+        title="Boundaries of Administrative Attestation"
+        description="A Source Standard verification is an Attestation of Record Consistency. It is an administrative finding that an entity's documented records — as submitted, as cross-checked against third-party regulatory and supplier data, and as reviewed at a fixed point in time — are internally consistent and consistent with the public claims associated with the entity. The registry operates as an auditing mirror of third-party records and does not produce, replace, or supersede those records."
+      />
       <ul className="space-y-3 max-w-3xl">
-        {covers.map((c, i) => (
-          <li key={i} className="flex gap-4 text-[15px]">
-            <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
-            <span className="text-foreground">{c}</span>
+        {covers.map((c) => (
+          <li key={c.n} className="flex gap-4 text-[15px]">
+            <span className="meta-mono text-muted-foreground w-12 shrink-0">{c.n}</span>
+            <span className="text-foreground">{c.t}</span>
           </li>
         ))}
       </ul>
     </Section>
 
     <Section muted density="doc">
-      <SectionLabel number="§2" title="What verification does not cover" description="The following items are explicitly outside the scope of verification and should not be inferred from a Verified status." />
+      <DocId section="§2" />
+      <SectionLabel
+        number="§2"
+        title="Items outside the attestation"
+        description="The following matters are explicitly outside the scope of any Source Standard attestation and shall not be inferred from a Verified determination."
+      />
       <ul className="space-y-3 max-w-3xl">
-        {doesNotCover.map((c, i) => (
-          <li key={i} className="flex gap-4 text-[15px]">
-            <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
-            <span className="text-muted-foreground">{c}</span>
+        {doesNotCover.map((c) => (
+          <li key={c.n} className="flex gap-4 text-[15px]">
+            <span className="meta-mono text-muted-foreground w-12 shrink-0">{c.n}</span>
+            <span className="text-muted-foreground">{c.t}</span>
           </li>
         ))}
       </ul>
     </Section>
 
     <Section density="doc">
-      <SectionLabel number="§3" title="Role boundaries" description="Source Standard occupies a specific position in the broader medical and regulatory ecosystem. Understanding what it is not is as important as understanding what it is." />
+      <DocId section="§3" />
+      <SectionLabel
+        number="§3"
+        title="Institutional Limitations"
+        description="Source Standard occupies a defined position within the broader medical, pharmaceutical, and regulatory ecosystem. The following limitations are material to the interpretation of any registry entry."
+      />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
         {boundaries.map((b) => (
           <div key={b.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-            <p className="md:col-span-3 h-card">{b.t}</p>
+            <p className="md:col-span-3 h-card font-semibold text-foreground">{b.t}</p>
             <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{b.d}</p>
           </div>
         ))}
@@ -76,22 +113,44 @@ const VerificationDisclaimer = () => (
     </Section>
 
     <Section muted density="doc">
-      <SectionLabel number="§4" title="Time-bound nature" description="Verification reflects records reviewed at a specific point in time. Listings are reviewed on a defined renewal interval and can change between renewals when material events occur. A current Verified status today does not warrant the same status at any future date." />
+      <DocId section="§4" />
+      <SectionLabel
+        number="§4"
+        title="Time-bound nature"
+        description="Every Source Standard determination is a Snapshot of Record Consistency. It reflects the records reviewed and the regulatory checks performed within a defined review window and remains valid only until the next scheduled renewal or until a Mandatory Disclosure Event triggers earlier reopening under SS-ENFORCE-2026.01. A current Verified status today does not warrant the same status at any future date and is not a representation regarding the entity's future conduct."
+      />
     </Section>
 
     <Section density="doc">
-      <SectionLabel number="§5" title="Liability framing" description="The registry is provided as a public reference. Source Standard makes no warranty, express or implied, regarding any vendor, product, or upstream source. Reliance on registry information is at the user's discretion. Source Standard is not liable for decisions made on the basis of registry entries, including decisions to engage or not engage with a listed entity. Users should consult licensed clinicians and applicable regulatory authorities for matters within those domains." />
+      <DocId section="§5" />
+      <SectionLabel
+        number="§5"
+        title="Limitation of Liability & User Discretion"
+      />
+      <div className="space-y-5 max-w-3xl text-[15px] leading-relaxed">
+        <p className="text-muted-foreground">
+          <span className="font-semibold text-foreground">No warranty; reliance at user discretion.</span>{" "}
+          The registry is provided as a public reference. The auditing body makes no warranty, express or implied, regarding any vendor, upstream source, product, or determination. Reliance on registry content is at the user's sole discretion. Users should consult a licensed clinician for clinical matters and the applicable regulatory authority for matters within statutory jurisdiction.
+        </p>
+        <p className="text-muted-foreground">
+          <span className="font-semibold text-foreground">Acknowledgment and exemption from liability.</span>{" "}
+          Access to or use of the registry constitutes the user's acknowledgment that Source Standard is exempt from liability for any direct, indirect, incidental, consequential, special, or exemplary damages arising from any decision made, action taken, or action not taken on the basis of a registry entry, including any decision to engage or not to engage with a listed entity. This acknowledgment is a material condition of access under the User Agreement & Registry Terms (SS-TERMS-2026.01).
+        </p>
+      </div>
     </Section>
 
     <Section muted density="tight">
+      <DocId section="§6" />
       <SectionLabel number="§6" title="Read deeper" />
       <ul className="space-y-2 text-[15px]">
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification — process and review →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
-        <li><Link to="/terms" className="text-foreground underline-offset-4 hover:underline">Terms of Use →</Link></li>
+        <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
+        <li><Link to="/terms" className="text-foreground underline-offset-4 hover:underline">User Agreement & Registry Terms →</Link></li>
+        <li><Link to="/governance" className="text-foreground underline-offset-4 hover:underline">Governance →</Link></li>
       </ul>
       <p className="mt-8 meta-label">
-        Cite as: Source Standard Verification Disclaimer, SS-DISCLAIMER-2026.01.
+        Cite as: Source Standard Verification Disclaimer & Attestation Scope, SS-DISCLAIMER-2026.01.
       </p>
     </Section>
   </>
