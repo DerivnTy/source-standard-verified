@@ -301,26 +301,12 @@ const Greenlist = () => {
             </div>
 
             <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
-              aria-label="Filter by category"
-            >
-              <option value={ALL}>All source groups</option>
-              {CATEGORY_ORDER.map((c) => (
-                <option key={c} value={c}>
-                  {CATEGORY_LABEL[c]}
-                </option>
-              ))}
-            </select>
-
-            <select
               value={type}
               onChange={(e) => setType(e.target.value)}
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
-              aria-label="Filter by type"
+              aria-label="Filter by source type"
             >
-              <option value={ALL}>All types</option>
+              <option value={ALL}>All source types</option>
               {GREENLIST_TYPES.map((t) => (
                 <option key={t} value={t}>
                   {t}
@@ -329,15 +315,15 @@ const Greenlist = () => {
             </select>
 
             <select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              value={state}
+              onChange={(e) => setStateFilter(e.target.value)}
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
-              aria-label="Filter by location"
+              aria-label="Filter by state"
             >
-              <option value={ALL}>All locations</option>
-              {locations.map((l) => (
-                <option key={l} value={l}>
-                  {l}
+              <option value={ALL}>All states</option>
+              {states.map((s) => (
+                <option key={s} value={s}>
+                  {s}
                 </option>
               ))}
             </select>
@@ -357,15 +343,26 @@ const Greenlist = () => {
             </select>
 
             <select
+              value={website}
+              onChange={(e) => setWebsite(e.target.value as WebsiteFilter)}
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
+              aria-label="Filter by website availability"
+            >
+              <option value="all">Website: All</option>
+              <option value="yes">Website listed</option>
+              <option value="no">No website listed</option>
+            </select>
+
+            <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Sort records"
             >
-              <option value="name-asc">Sort: Name A → Z</option>
-              <option value="name-desc">Sort: Name Z → A</option>
-              <option value="category">Sort: Category</option>
-              <option value="location">Sort: Location</option>
+              <option value="name-asc">Sort: Name A–Z</option>
+              <option value="name-desc">Sort: Name Z–A</option>
+              <option value="state">Sort: State</option>
+              <option value="type">Sort: Source type</option>
             </select>
 
             {filtersActive && (
