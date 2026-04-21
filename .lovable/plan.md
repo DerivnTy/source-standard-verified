@@ -1,93 +1,112 @@
 
 
-## Rebuild Education Page as a Consumer Knowledge Center
+## Redesign Verification Page for Trust First, Process Second
 
-Restructure `/education` around how real visitors learn — featured articles, browsable categories, and an expandable FAQ — while pushing reference IDs to a quiet secondary layer.
+Restructure `/how-it-works` (route stays the same; nav label remains "Verification") so the page leads with confidence and meaning, and treats procedure as supporting evidence — not the headline.
 
-### New page structure (top to bottom)
+### New page flow (top to bottom)
 
-1. **Hero** — Simple, consumer-facing
-   - Title: `Education`
-   - Lead: "Learn more about peptide sourcing, TRT, hormone optimization, verification, storage, and what consumers should understand before buying from any clinic or vendor."
-   - Short disclaimer line: "Educational material is informational only and is not medical advice."
-   - Replace the heavy `RecordHeader` metadata strip with a lighter header — keep one slim metadata line (Updated / Status) but drop the doc-style summary panel.
+1. **Hero — calm and confidence-building**
+   - Title: `Verification`
+   - Lead: "Source Standard verification is a structured review of vendor records, sourcing documentation, public claims, and applicable licensing. This page explains what is reviewed, how statuses are assigned, and what a published verification actually means."
+   - Replace the heavy `RecordHeader` summary panel with a lighter inline header (h1 + lead + slim metadata strip showing only Updated · Scope · Standard ref). No four-cell summary box.
 
-2. **Featured Articles** — First real content area
-   - Section title: `Featured Articles`
-   - Grid of 6 article cards (2–3 columns). Each card:
-     - Category chip (small)
-     - Title (lead element)
-     - 1–2 sentence description
-     - Status pill if not yet published (e.g. "Coming soon")
-     - `Read more →` link
-   - Initial articles:
-     - What 503B registration actually means (Sourcing)
-     - How to read a peptide CoA (Certificates of Analysis)
-     - What Source Standard verification means (Verification)
-     - Five questions to ask before buying (Consumer Safety)
-     - Warning signs of undocumented sourcing (Consumer Safety)
-     - Storage and reconstitution basics (Storage and Handling)
+2. **Why this matters** — Trust-building section (new)
+   - Short intro: why verification exists.
+   - 3 compact statements, plain prose:
+     - Sourcing records matter. Vendors are only as legitimate as the pharmacies and suppliers behind them.
+     - Public claims should match documented reality. Verified status is assigned against evidence, not marketing language.
+     - Verification is time-bound. Listings are reviewed against current records and renewed on a defined interval.
 
-3. **Browse by Category** — Topic-first, not filing-bucket
-   - Section title: `Browse by Topic`
-   - Clean tile grid (4 columns desktop, 2 mobile). Each tile: category name + 1-line description + article count.
-   - Categories: Sourcing · Verification · Certificates of Analysis · Licensing · Consumer Safety · Storage and Handling · TRT and Hormone Optimization · Peptide Basics
-   - Tiles are visual only for now (no individual category pages yet) — non-clickable, styled as a topic map.
+3. **What a verified listing means** — Moved up from §3
+   - 2x2 grid of 4 plain blocks (no border-grid matrix feel):
+     - What has been reviewed
+     - What has not been reviewed
+     - What a verified listing means
+     - What it does not mean
+   - Tight, prose-led, no reference IDs.
 
-4. **Frequently Asked Questions** — Expandable, every item readable inline
-   - Section title: `Frequently Asked Questions`
-   - Use the existing `Accordion` component (`src/components/ui/accordion.tsx`) so each item expands inline with a short answer.
-   - Each item also includes a `Read more →` link at the end of the expanded answer (for now points to `#` placeholder or the related article — see Technical Details).
-   - Questions:
-     - What does "verified" mean?
-     - What does "unverified" mean?
-     - What is a 503B facility?
-     - What is a certificate of analysis?
-     - Does Source Standard verify safety?
-     - How should peptides be stored?
-     - What should I ask before buying from a clinic?
-     - Does a professional website mean a clinic is legitimate?
-     - What records actually matter when evaluating a vendor?
+4. **Public statuses** — Moved up
+   - Clean single-column list. Each row:
+     - Status name (Verified · Unverified · Under Review · Suspended · Removed)
+     - One-line meaning
+     - "Tells the public:" short phrase
+     - "Does not imply:" short phrase
+   - Hairline dividers, no boxed grid.
 
-5. **Reference Notes** — Secondary, quiet
-   - Section title: `Reference Notes`
-   - Small one-line entries listing internal citation IDs (e.g. `SS-EDU-101.2026 — 503B registration`) in a compact list, muted styling. No cards, no tables. Visually de-emphasized so it does not dominate.
+5. **What we review** — Grouped, readable
+   - Replace the flat 8-item bordered grid with 7 grouped cards in a 2-column layout:
+     - Business identity
+     - Licenses and registrations
+     - Pharmacy and supplier records
+     - Certificates and category records
+     - Sourcing and invoice history
+     - Public claims consistency
+     - Renewal-related updates
+   - Each card: group title + 1–2 sentence description of what's actually checked.
 
-6. **Read deeper** — Keep existing footer panel linking to `/medical-advisory` and `/governance`.
+6. **Review lifecycle** — Simplified
+   - Keep 6 steps, drop the 4-quadrant matrix per step. New per-step layout:
+     - Step number + title (lead)
+     - Short explanation (1–2 sentences)
+     - "Reviewed at this stage:" one short line
+     - "Possible result:" one short line
+   - Vertical stack with hairline dividers between steps. No bordered grid cells.
+
+7. **Renewal and monitoring** — Lighter
+   - Short intro paragraph + clean bullet list of change triggers (no numbered grid rows).
+   - Closing line about pause/suspend/re-review.
+
+8. **What happens after verification** — New
+   - 5 short bullets:
+     - Public listing is created or updated
+     - Status is shown publicly
+     - Scope may be category-limited
+     - Renewal obligations continue
+     - Material changes can trigger re-review
+
+9. **Why vendors apply** — New
+   - 4 short value statements, written as plain prose, not sales copy:
+     - Public registry presence
+     - Category-specific review
+     - Confidence signal for consumers
+     - Claims supported by reviewed records
+   - Closing CTA: small inline link to `/apply` ("Begin a verification application →"). No giant CTA panel.
+
+10. **What this process is not** — Kept, simplified
+    - Plain bulleted list, muted styling. Already exists in `notProcess` array.
+
+11. **Footer reference strip** — Quiet
+    - Small line: "Standard reference · SS-FRAMEWORK-2026.01 · Updated 04 / 21 / 2026" + links to `/status-definitions` and `/accountability`.
+
+### Visual direction
+
+- Eliminate the repeated bordered-grid look (`gap-px bg-border border border-border`) that made every section feel identical.
+- Vary section rhythm: prose sections, hairline-divided lists, and only 1–2 places where cards make sense (What we review, What a verified listing means).
+- Alternate `bg-background` and `bg-surface-muted` for breathing room, but use fewer total sections than today.
+- Keep typography institutional (existing `meta`, `eyebrow`, container utilities) but reduce uppercase/mono density per section.
+- No "§1 / §2" numbering in headers — replaces with quiet eyebrow labels (e.g. "Trust", "Scope", "Statuses", "Process", "After Review", "For Vendors", "Boundaries").
 
 ### What gets removed / reduced
 
-- Doc-style `RecordHeader` summary metadata block (Doc / Version / Status / Updated grid)
-- "Popular questions" numbered grid (replaced by Featured Articles + FAQ)
-- "Learning topics" sidebar (replaced by Browse by Topic tiles)
-- "Upcoming Guides" two-column grid with prominent REF / SS-EDU citation footers
-- REF-XXX labels as primary metadata on every item
-- "Cite as" institutional footer line under guides
-
-### Tone & visual direction
-
-- Cards lead with title and description; category as small chip, status as small pill — never dominant.
-- FAQ items clearly separated with hairline dividers; expanded answers in readable prose, not citation format.
-- Category tiles use plain typography, no reference numbers.
-- Reference Notes section sits in muted-foreground tone, single-column compact list.
+- `RecordHeader` doc-style summary box (Lifecycle steps / Review basis / Public statuses / Renewal interval).
+- Per-step 4-quadrant matrix (What happens / Documents / Outcomes / Status impact) — collapsed into prose + 2 short labeled lines.
+- Standalone "Verification standards" section as a 7-card grid — its content is folded into "What we review" and the per-step explanations, so the page stops repeating the same idea three times.
+- Numbered `gap-px bg-border` grids throughout.
+- "§N — Section Name" eyebrows.
 
 ### Technical Details
 
-- **File edited:** `src/pages/Education.tsx` (full rewrite of the page body; no other files touched).
-- **Components reused:**
-  - `Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent` from `@/components/ui/accordion` for the FAQ.
-  - `Link` from `react-router-dom` for "Read more" links (point to `#` placeholders for now since no article detail routes exist; FAQ "Read more" links to `#` anchors).
-  - Keep `container-wide`, `meta`, `meta-label` utility classes from `src/index.css` for visual consistency with the rest of the site.
-- **Header treatment:** Replace `RecordHeader` import/usage with a lightweight inline header section (h1 + lead + small metadata strip showing only "Updated · Regularly" and "Informational only"). This keeps the page consistent with a learning-center feel rather than a document record.
-- **Data shape:** Three local arrays inside the page — `featuredArticles`, `categories`, `faqs` — each typed inline so future swaps to a CMS or data file are trivial.
-- **No new routes** added; article and category detail pages are out of scope for this pass. Placeholder `Read more` links use `#` and can be wired up when article pages are built.
-- **Disclaimer:** Single short line under the hero, plus the existing `border-b bg-surface-muted` strip is removed (consolidated into the hero area).
+- **File edited:** `src/pages/HowItWorks.tsx` (full rewrite of page body; data arrays restructured inline).
+- **Header:** Drop `RecordHeader` import; build a lightweight inline `<header>` using existing utility classes (`container-wide`, `eyebrow`, `meta`).
+- **Data refactor:** Replace the existing `steps` shape `{ n, t, happens, documents, outcomes, status }` with simplified `{ n, t, summary, reviewed, result }`. Introduce new arrays: `whyItMatters`, `meaningBlocks`, `reviewGroups`, `afterReview`, `vendorReasons`. Keep `statuses` and `notProcess`; drop `standards` and `reviewItems` (folded into `reviewGroups`); drop `changes` array structure but keep its content as a simple list under Renewal.
+- **Components:** No new components. Reuse `Link` from `react-router-dom` for the small `/apply`, `/status-definitions`, `/accountability` links. No accordions — every section is readable inline at a glance.
+- **No route changes**, no nav changes (label already "Verification"), no other files touched.
 
 ### Out of scope
 
-- Building individual article detail pages
-- Building category landing pages
-- Adding a search bar
-- CMS or backend wiring
-- Any changes to navigation, header, or other pages
+- Building a separate `/status-definitions` redesign (link only).
+- Adding visual diagrams or icons per step.
+- Any backend or CMS wiring.
+- Changes to header, footer, or other pages.
 
