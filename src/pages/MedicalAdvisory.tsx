@@ -24,7 +24,7 @@ const MedicalAdvisory = () => {
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§1 — Board Mandate</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
+              <h2 className="h-section">
                 The clinical authority behind the framework.
               </h2>
             </div>
@@ -54,7 +54,7 @@ const MedicalAdvisory = () => {
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§2 — Role in the Source Standard Framework</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
+              <h2 className="h-section">
                 Where the board sits in the verification chain.
               </h2>
               <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
@@ -106,7 +106,7 @@ const MedicalAdvisory = () => {
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§3 — Key Responsibilities</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
+              <h2 className="h-section">
                 What the board is accountable for.
               </h2>
               <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
@@ -143,7 +143,7 @@ const MedicalAdvisory = () => {
           <div className="flex items-end justify-between flex-wrap gap-6 mb-8">
             <div>
               <p className="meta mb-3">§4 — Board Members</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground max-w-2xl">
+              <h2 className="h-section max-w-2xl">
                 Clinicians and pharmacists serving on the Medical Advisory Board.
               </h2>
             </div>

@@ -34,27 +34,27 @@ export const ProfileHeader = ({
 }) => {
   return (
     <header className="bg-background border-b border-border/60">
-      <div className="container-wide pt-6 pb-14 md:pb-18">
+      <div className="container-wide pt-5 pb-12 md:pb-16">
         {backHref && (
           <Link
             to={backHref}
-            className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground"
+            className="inline-flex items-center gap-2 text-[11.5px] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> {backLabel ?? "Back"}
           </Link>
         )}
 
-        <div className={`grid md:grid-cols-12 gap-10 ${backHref ? "mt-6" : ""}`}>
+        <div className={`grid md:grid-cols-12 gap-10 ${backHref ? "mt-5" : ""}`}>
           <div className={rightSlot ? "md:col-span-8" : "md:col-span-12"}>
             {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
             <h1 className="title-record text-foreground">{title}</h1>
-            {identity && <div className="mt-3">{identity}</div>}
+            {identity && <div className="mt-2 text-[13px] text-muted-foreground">{identity}</div>}
             {lead && (
-              <p className="mt-5 max-w-[60ch] text-[15.5px] text-muted-foreground leading-[1.65]">
+              <p className="mt-4 max-w-[60ch] text-[15px] text-muted-foreground leading-[1.65]">
                 {lead}
               </p>
             )}
-            {children && <div className="mt-6">{children}</div>}
+            {children && <div className="mt-5">{children}</div>}
           </div>
           {rightSlot && <aside className="md:col-span-4">{rightSlot}</aside>}
         </div>

@@ -39,11 +39,11 @@ const About = () => {
 
       {/* §1 Context */}
       <section className="border-b border-border/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§1 — Context</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Why this exists.
               </h2>
             </div>
@@ -64,11 +64,11 @@ const About = () => {
 
       {/* §2 Our role */}
       <section className="border-b border-border/60 bg-surface-muted/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§2 — Our Role</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 A public reference for vendor verification.
               </h2>
             </div>
@@ -91,11 +91,11 @@ const About = () => {
 
       {/* §3 Why we formed */}
       <section className="border-b border-border/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§3 — Formation</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Formed to address an information gap.
               </h2>
             </div>
@@ -119,11 +119,11 @@ const About = () => {
 
       {/* §4 Beliefs */}
       <section className="border-b border-border/60 bg-surface-muted/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§4 — Beliefs</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Four beliefs that shape the framework.
               </h2>
             </div>
@@ -143,11 +143,11 @@ const About = () => {
 
       {/* §5 Scope */}
       <section className="border-b border-border/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§5 — Scope</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Scope of the framework.
               </h2>
             </div>
@@ -175,11 +175,11 @@ const About = () => {
 
       {/* §6 Stance */}
       <section className="border-b border-border/60 bg-surface-muted/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§6 — Stance</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 A single operating principle.
               </h2>
             </div>
@@ -202,11 +202,11 @@ const About = () => {
 
       {/* §7 Who this serves */}
       <section className="border-b border-border/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§7 — Stakeholders</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Who this serves.
               </h2>
             </div>
@@ -234,11 +234,11 @@ const About = () => {
 
       {/* §8 Mission */}
       <section className="border-b border-border/60 bg-surface-muted/60">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§8 — Mission</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Mission.
               </h2>
             </div>

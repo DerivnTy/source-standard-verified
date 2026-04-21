@@ -111,11 +111,11 @@ const Education = () => {
       {/* The Basics */}
       <Section>
         <div id="basics" className="scroll-mt-20">
-          <h2 className="text-[1.25rem] font-semibold text-foreground">The Basics</h2>
-          <p className="mt-2 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
+          <h2 className="h-section">The Basics</h2>
+          <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
             Foundational reads. Start here if you're new — these explain what peptides and compounded medications are, and how to tell a real source from a fake one.
           </p>
-          <div className="mt-8 border border-border/70 rounded-[2px] bg-background">
+          <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
             {basics.map((e) => (
               <SimpleRow key={e.id} entry={e} />
             ))}
@@ -127,11 +127,11 @@ const Education = () => {
       {/* Practical Guides */}
       <Section muted>
         <div id="guides" className="scroll-mt-20">
-          <h2 className="text-[1.25rem] font-semibold text-foreground">Practical Guides</h2>
-          <p className="mt-2 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
+          <h2 className="h-section">Practical Guides</h2>
+          <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
             How to handle these medications safely. Reviewed by our Medical Advisory Board. Not a substitute for advice from your own clinician.
           </p>
-          <div className="mt-8 border border-border/70 rounded-[2px] bg-background">
+          <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
             {guidesPreview.map((e) => (
               <SimpleRow key={e.id} entry={e} />
             ))}
@@ -143,11 +143,11 @@ const Education = () => {
       {/* Common Questions */}
       <Section>
         <div id="questions" className="scroll-mt-20">
-          <h2 className="text-[1.25rem] font-semibold text-foreground">Common Questions</h2>
-          <p className="mt-2 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
+          <h2 className="h-section">Common Questions</h2>
+          <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
             Direct, honest answers to the questions people most often ask.
           </p>
-          <div className="mt-8 space-y-8">
+          <div className="mt-6 space-y-8">
             {FAQ_BUCKETS.map((bucket) => (
               <div key={bucket.label}>
                 <h3 className="text-[14px] font-medium text-foreground mb-2">{bucket.label}</h3>
