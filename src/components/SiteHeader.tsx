@@ -5,6 +5,7 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
+  { to: "/", label: "Home", end: true },
   { to: "/verified-vendors", label: "Verified vendors" },
   { to: "/greenlist", label: "Greenlist" },
   { to: "/medical-advisory", label: "Medical advisory" },
@@ -36,7 +37,7 @@ export const SiteHeader = () => {
             <NavLink
               key={n.to}
               to={n.to}
-              
+              end={n.end}
               className={({ isActive }) =>
                 `text-[13.5px] tracking-[0] transition-colors ${
                   isActive
@@ -74,7 +75,7 @@ export const SiteHeader = () => {
               <NavLink
                 key={n.to}
                 to={n.to}
-                
+                end={n.end}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `py-3.5 text-[15px] border-b border-border last:border-0 ${
