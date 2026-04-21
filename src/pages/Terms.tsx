@@ -36,7 +36,7 @@ const Terms = () => (
         { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "FL/US" },
+        { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Policy · Registry user agreement"
       title="User Agreement & Registry Terms."
@@ -135,7 +135,7 @@ const Terms = () => (
       <SectionLabel
         number="§6"
         title="Jurisdictional Governance"
-        description="This User Agreement is governed by the laws of the State of Florida, United States, without regard to conflict-of-law principles. Any dispute arising under or in connection with this Agreement is subject to the exclusive jurisdiction of the state and federal courts located in Florida, which the user accepts as the sole and exclusive venue."
+        description="This User Agreement is governed by United States Federal Standards and the laws of the State of Florida, United States, without regard to conflict-of-law principles. Any dispute arising under or in connection with this Agreement is subject to the exclusive jurisdiction of the United States federal courts and the state courts located in Florida, which the user accepts as the sole and exclusive venue."
       />
     </Section>
 

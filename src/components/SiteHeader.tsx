@@ -28,7 +28,7 @@ export const SiteHeader = () => {
               Public reference · Standard SS-FRAMEWORK-2026.01 · Active
             </span>
             <span className="text-[11px] text-muted-foreground/75 tracking-[0.005em]">
-              Maintained in Tampa, FL · Reviewed under Medical Advisory Board
+              United States · Reviewed under Medical Advisory Board
             </span>
           </div>
         </div>

@@ -78,7 +78,7 @@ export const SiteFooter = () => {
           <div>
             <Logo />
             <p className="mt-5 text-[14px] leading-[1.8] text-muted-foreground">
-              Maintained in Tampa, FL
+              Source Standard · United States
             </p>
           </div>
 

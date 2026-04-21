@@ -31,7 +31,7 @@ const ReportConcern = () => (
         { label: "Doc", value: "SS-REPORT-2026.01" },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "FL/US" },
+        { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Compliance reporting"
       title="Reporting & Market Intelligence."

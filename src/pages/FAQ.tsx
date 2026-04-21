@@ -153,7 +153,7 @@ const FAQ = () => (
         { label: "Doc", value: "SS-FAQ-2026.01" },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "FL/US" },
+        { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Reference · Administrative briefing"
       title="Registry FAQs & Interpretations."

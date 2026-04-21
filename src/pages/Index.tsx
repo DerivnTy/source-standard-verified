@@ -48,7 +48,7 @@ const procedural = [
 const metadata = [
   { k: "Standard", v: "SS-FRAMEWORK-2026.01" },
   { k: "Status", v: "Active / Operational" },
-  { k: "Jurisdiction", v: "Tampa, FL · US" },
+  { k: "Jurisdiction", v: "United States" },
   { k: "Review cycle", v: "Annual · MAB-reviewed" },
 ];
 
@@ -68,7 +68,7 @@ const Index = () => {
       <div className="border-b border-border bg-background">
         <div className="container-wide flex h-9 items-center justify-between">
           <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/85">
-            Maintained in Tampa, FL · Public Registry
+            United States · Public Registry · SS-FRAMEWORK-2026.01
           </span>
           <span className="hidden md:inline font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground/85">
             SS-FRAMEWORK-2026.01 · Active / Operational · Updated 04/21/26

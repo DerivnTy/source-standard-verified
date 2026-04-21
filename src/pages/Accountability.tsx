@@ -69,7 +69,7 @@ const Accountability = () => (
         { label: "Doc", value: "SS-ENFORCE-2026.01" },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "FL/US" },
+        { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Compliance & sanctions"
       title="Compliance Monitoring & Enforcement Protocols."
