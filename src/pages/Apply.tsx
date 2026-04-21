@@ -6,11 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const checklist = [
-  "Active jurisdictional registrations of the operating entity",
-  "Upstream supply-chain records (procurement nodes & supplier disclosures)",
-  "Analytical lot documentation (ISO/IEC 17025-accredited certificates of analysis)",
-  "Prescriber credentials of record (clinical operating models)",
-  "Compounding pharmacy service agreements (503A / 503B partnerships)",
+  "Business licenses (state and federal registrations for your operating entity)",
+  "Pharmacy invoices (records from the 503A / 503B pharmacies you work with)",
+  "Certificates of Analysis (third-party lab results from ISO-accredited labs)",
+  "Prescriber credentials (active licenses for any prescribing practitioners)",
+  "Pharmacy service agreements (contracts with your 503A or 503B partners)",
 ];
 
 const sectionHeader = "font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground";
@@ -39,9 +39,9 @@ const Apply = () => {
   return (
     <>
       <UtilityHeader
-        eyebrow="Form SS-INTAKE-01 · Preliminary intake"
-        title="Preliminary Administrative Intake."
-        description="Submission of Form SS-INTAKE-01 opens an administrative file with the Source Standard registry. A Verification Officer of record will acknowledge receipt within five business days. Intake does not constitute forensic review and does not establish any standing."
+        eyebrow="Form SS-INTAKE-01 · Step 1 of 2"
+        title="Step 1: Registry Initialization."
+        description="Submit this form to open your audit file. A Verification Officer will review your basic details and issue a secure portal link for Step 2 (document uploads and payment)."
       />
 
       <section>
@@ -51,7 +51,7 @@ const Apply = () => {
               <div className="md:sticky md:top-28 border border-border bg-background">
                 <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
                   <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-foreground">
-                    Pre-audit evidentiary requirements · Step 2
+                    Documentation required for Step 2
                   </p>
                 </div>
                 <ul className="divide-y divide-border">
@@ -64,7 +64,7 @@ const Apply = () => {
                 </ul>
                 <div className="px-4 py-3 border-t border-border bg-surface-muted">
                   <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground leading-relaxed normal-case">
-                    Document upload protocols are initiated via secure transmission link issued by the Verification Officer of record upon acknowledgment of this filing.
+                    You'll receive a secure upload link from your Verification Officer once Step 1 is acknowledged.
                   </p>
                 </div>
               </div>
@@ -76,7 +76,7 @@ const Apply = () => {
                   Step 1 of 2 · Registry initialization
                 </p>
                 <p className="text-[13px] text-foreground leading-relaxed">
-                  Initialize your registry profile. Final document uploads and payment occur in Step 2 via our secure clinical portal.
+                  Tell us who you are. We'll open your audit file and email you a secure portal link for Step 2 (document uploads and payment) within 24 hours.
                 </p>
               </div>
 
@@ -88,7 +88,7 @@ const Apply = () => {
                   <p className="font-mono uppercase tracking-[0.08em] text-[10px] text-muted-foreground mt-1">
                     {filed
                       ? "Status · Filing acknowledged · Awaiting Verification Officer"
-                      : "Step 1 — Public registry data only · Governed by SS-VENDOR-STD-2026.01 · Required fields"}
+                      : "Step 1 — Public business details only · Required fields marked"}
                   </p>
                 </div>
 
@@ -97,19 +97,19 @@ const Apply = () => {
                     {/* §A · Public Identity */}
                     <fieldset className="space-y-5">
                       <div className="border-t border-border pt-3">
-                        <legend className={sectionHeader}>§A · Public identity</legend>
+                        <legend className={sectionHeader}>§A · Business profile</legend>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                          <Label htmlFor="LegalName" className="meta-label text-foreground">Legal entity name</Label>
+                          <Label htmlFor="LegalName" className="meta-label text-foreground">Legal business name</Label>
                           <Input id="LegalName" name="LegalName" required className="h-10 rounded-none" />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="BrandName" className="meta-label text-foreground">Public-facing brand name</Label>
+                          <Label htmlFor="BrandName" className="meta-label text-foreground">Brand name (as customers see it)</Label>
                           <Input id="BrandName" name="BrandName" required className="h-10 rounded-none" />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
-                          <Label htmlFor="Website" className="meta-label text-foreground">Primary website</Label>
+                          <Label htmlFor="Website" className="meta-label text-foreground">Website</Label>
                           <Input id="Website" name="Website" type="url" placeholder="https://" required className="h-10 rounded-none" />
                         </div>
                       </div>
@@ -118,15 +118,15 @@ const Apply = () => {
                     {/* §B · Verification Scope */}
                     <fieldset className="space-y-5">
                       <div className="border-t border-border pt-3">
-                        <legend className={sectionHeader}>§B · Verification scope</legend>
+                        <legend className={sectionHeader}>§B · Audit scope</legend>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                          <Label htmlFor="Category" className="meta-label text-foreground">Audit category requested</Label>
+                          <Label htmlFor="Category" className="meta-label text-foreground">Verification category</Label>
                           <Input
                             id="Category"
                             name="Category"
-                            placeholder="e.g. TRT clinic, 503A compounding pharmacy, 503B outsourcing facility"
+                            placeholder="e.g. TRT clinic, 503A pharmacy, 503B outsourcing facility"
                             required
                             className="h-10 rounded-none"
                           />
@@ -141,7 +141,7 @@ const Apply = () => {
                             className="h-10 rounded-none"
                           />
                           <p className="font-mono uppercase tracking-[0.08em] text-[10px] text-muted-foreground normal-case">
-                            Two-letter postal codes, comma-separated.
+                            Use two-letter state codes, separated by commas.
                           </p>
                         </div>
                       </div>
@@ -154,15 +154,15 @@ const Apply = () => {
                       </div>
                       <div className="grid sm:grid-cols-2 gap-5">
                         <div className="space-y-2">
-                          <Label htmlFor="ContactName" className="meta-label text-foreground">Authorized representative</Label>
+                          <Label htmlFor="ContactName" className="meta-label text-foreground">Contact name</Label>
                           <Input id="ContactName" name="ContactName" required className="h-10 rounded-none" />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="ContactEmail" className="meta-label text-foreground">Contact email of record</Label>
+                          <Label htmlFor="ContactEmail" className="meta-label text-foreground">Business email</Label>
                           <Input id="ContactEmail" name="ContactEmail" type="email" required className="h-10 rounded-none" />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
-                          <Label htmlFor="ContactPhone" className="meta-label text-foreground">Telephone of record</Label>
+                          <Label htmlFor="ContactPhone" className="meta-label text-foreground">Business phone</Label>
                           <Input id="ContactPhone" name="ContactPhone" type="tel" className="h-10 rounded-none" />
                         </div>
                       </div>
@@ -189,7 +189,7 @@ const Apply = () => {
                       Administrative notice · SS-INTAKE-01
                     </p>
                     <p className="text-[12.5px] text-foreground leading-relaxed">
-                      Submissions are entered into the controlled audit file in the order received. Any subsequent determination of standing is contingent upon the authenticity, completeness, and verifiability of the records produced under the verification protocol (SS-FRAMEWORK-2026.01). Intake does not constitute review and does not confer standing.
+                      This is Step 1 of 2. Submitting this form opens your audit file with the Source Standard registry — it does not complete verification. Your Verification Officer will email a secure portal link for document uploads and payment (Step 2) within 24 hours.
                     </p>
                   </div>
                   <div className="flex sm:justify-end">
@@ -199,7 +199,7 @@ const Apply = () => {
                         disabled={submitting}
                         className="bg-primary hover:bg-primary-hover text-primary-foreground h-10 px-6 text-[12px] font-semibold uppercase rounded-none font-mono tracking-[0.14em]"
                       >
-                        {submitting ? "[ SS-INTAKE-01 ]  FILING…" : "[ SS-INTAKE-01 ]  FILE DOCUMENT"}
+                        {submitting ? "[ SS-INTAKE-01 ]  SUBMITTING…" : "[ SS-INTAKE-01 ]  SUBMIT INITIAL FILING"}
                       </Button>
                     ) : (
                       <Button
@@ -208,7 +208,7 @@ const Apply = () => {
                         onClick={fileAnother}
                         className="h-10 px-6 text-[12px] font-semibold uppercase rounded-none font-mono tracking-[0.14em] border-border"
                       >
-                        [ SS-INTAKE-01 ]  FILE ANOTHER ENTITY
+                        [ SS-INTAKE-01 ]  SUBMIT ANOTHER FILING
                       </Button>
                     )}
                   </div>
@@ -217,14 +217,14 @@ const Apply = () => {
             </div>
           </div>
 
-          <div className="border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-10">
-            <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-2">
+          <div className="border-t border-border bg-background px-5 py-3 max-w-4xl mt-10">
+            <p className="font-mono uppercase tracking-[0.08em] text-[10px] text-muted-foreground mb-2">
               Official citation · SS-INTAKE-01
             </p>
-            <p className="text-[12.5px] text-foreground leading-relaxed">
+            <p className="text-[11.5px] text-muted-foreground leading-relaxed">
               Source Standard. Form SS-INTAKE-01 — Preliminary Administrative Intake. Governed by Vendor Submission Standard SS-VENDOR-STD-2026.01. Examined under SOP: Verification Protocol & Audit Methodology SS-FRAMEWORK-2026.01.
             </p>
-            <p className="font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground mt-2">
+            <p className="font-mono uppercase tracking-[0.08em] text-[10px] text-muted-foreground mt-2">
               Controlled form · See{" "}
               <Link to="/for-vendors" className="underline hover:text-foreground">
                 Vendor Submission Standard
