@@ -1,77 +1,66 @@
 
 
-## Modern Institutional aesthetic — global polish pass
+## Global Precision Audit — UI hardening pass
 
-Five coordinated changes that lock the "high-end secure platform" feel across every page. No new components, no route changes, no data changes. Existing primitives (`AnchorHeader`, `RecordHeader`, `Button`, `Section`, `Card`, the homepage hero) are tuned in place so the look propagates everywhere automatically.
+Six tightly-scoped edits that lock the institutional finish without restructuring any pages or routes. No new components; no data changes.
 
-### 1 · Global tokens (`src/index.css`, `:root` only)
+### 1 · `SiteHeader.tsx` — vertical alignment + flush CTA + live links
 
-- `--background: 0 0% 96.9%` → `0 0% 97.6%` (≈ `#F8F9FA` — the requested architectural gray, very slightly lighter than current).
-- `--surface-muted: 0 0% 96.9%` → `0 0% 97.6%` (kept matching `--background` so the section-banding is gone — every page reads as one continuous document).
-- `--surface: 0 0% 100%` (kept — the white "service card" surface).
-- `--border: 0 0% 88%` → `0 0% 89%` (one shade softer for the "1px subtle" feel; still defined enough on `#F8F9FA`).
-- `--input: 0 0% 80%` → `0 0% 84%` (softer search-bar border per the "no heavy lines" note).
-- `--radius: 0.375rem` → `0.25rem` (4px — the "modern premium" corner the spec calls for; cascades to every `rounded-md` / `rounded-lg` token-bound class via the existing radius scale).
-- `--shadow-sm/md/lg`: shadow opacities cut roughly in half (`0.04 → 0.02`, `0.05 → 0.03`, `0.08 → 0.04`) — shadows still hint at elevation but the "AI gradient/glow" feel is gone.
-- `.dark` block untouched.
+- Header row: ensure `flex h-16 items-center` (already set) — confirm `Logo` and `nav` sit on the same baseline by removing the per-link vertical padding `py-5` and replacing the active underline with an absolutely-positioned bottom strip pinned to `bottom-0` of the `h-16` container (so the underline still hugs the header edge while the link itself is `h-10` and vertically centered).
+- CTA: `Button` size set to `h-10` (matches new nav link height) + `text-[13px] font-medium` — flush with the nav line.
+- Links audit: every entry in `nav` already points to a live route — re-confirmed, no `#` anchors anywhere in `SiteHeader.tsx`, `SiteFooter.tsx`, or `Index.tsx` (grep returned zero matches). No change required for "no dead links" but the audit is documented.
 
-### 2 · Buttons — kill the blue, lock the charcoal (`src/components/ui/button.tsx`)
+### 2 · Homepage hero — strict 65/35 split + alignment + metadata box polish (`src/pages/Index.tsx`)
 
-- `default` variant: `bg-primary text-primary-foreground hover:bg-primary-hover` → `bg-foreground text-background hover:bg-foreground/85` (deep charcoal `#1A1A1A` via `--foreground`, lightens on hover — matches the "subtle transition" requirement).
-- `outline` variant: `border-border-strong` → `border-border hover:border-foreground/40 hover:bg-transparent` (thin border that darkens on hover — replaces the current `hover:bg-accent` fill so the secondary CTA reads as a true outline button).
-- `rounded-[2px]` → `rounded-[4px]` on the base class (the 4px corner the spec mandates; overrides any per-call `rounded-md` since base wins on this token).
-- Sizes kept; transition expanded to `transition-[background-color,border-color,color] duration-150`.
+- Grid: `md:grid-cols-12` → `md:grid-cols-[65fr_35fr]` (true 65/35 split — the requested math). Drop the `md:col-span-8` / `md:col-span-4` shorthands.
+- Aside: remove `md:pl-6 md:border-l md:border-border` (leftover decorative rail) and replace with the standard white Reference-Box treatment for visual parity with the rest of the site:
+  - `bg-surface border border-[#E5E7EB] rounded-[4px] p-4` → switch the inline `border-border` colour to a hard `#E5E7EB` per spec.
+  - Internal padding `p-4` (16px) — meets the "≥16px internal padding" rule.
+  - Header label kept; rows kept; `md:self-end` kept so the box still bottoms-aligns with the CTA row on desktop.
+- Mobile: the existing `md:` prefixes already cause the aside to stack below on small screens — explicit `mt-8 md:mt-0` added to guarantee breathing room above the metadata box when stacked.
+- Left-edge alignment: `max-w-[640px]` on the lookup terminal kept; CTA row already left-aligned to the headline. Confirm the lookup `<form>` has no left padding/margin so the input's left edge matches the `h1` left edge exactly.
+- Lookup full-width on mobile: `max-w-[640px]` already applies only via natural max — explicit `w-full` added so the field fills the column on narrow viewports.
+- Lookup focus state: `focus-within:border-foreground/40` is already present — kept (subtle 1px border change on focus, satisfying "clear focus state").
 
-This single edit propagates the charcoal + 4px + soft hover treatment across every `<Button>` in the app — there are no per-page button colour overrides to worry about.
+### 3 · `SiteFooter.tsx` — strict 5-column grid + readable labels + container-aligned strip
 
-### 3 · Homepage hero — match the new system (`src/pages/Index.tsx`)
+- Grid: replace the current `md:col-span-3` brand + `md:col-span-9` nested 4-col layout with a single uniform 5-column track:
+  - `lg:grid-cols-5 gap-x-8 gap-y-10` (equal gutters; 5 columns: Brand + 4 directory).
+  - `md:grid-cols-2` fallback for tablet, `grid-cols-1` for mobile.
+  - Drop the `lg:divide-x lg:divide-border/60` and the `lg:px-6` padding — replaced by the equal `gap-x-8` gutter (cleaner, no asymmetric divider rendering and no truncation).
+- Link rows: remove `truncate` from the label span and remove `whitespace-nowrap` behavior — labels wrap to a second line when needed. Font reduced one step (`text-[13.5px]` → `text-[13px]`) for the label, doc ID kept at `text-[10.5px]`. Row layout becomes `flex items-start justify-between gap-3 py-1.5` so a wrapped 2-line label still aligns its first baseline with the doc ID.
+- Brand column: drop `max-w-xs` on the description so the column uses its full 1/5 share without an artificial cap.
+- Top compliance strip: wrap its inner row in `container-wide` (already present) — verified: the current strip uses `container-wide` so the gray strip is already container-aligned. Keep as-is.
 
-The hero is mostly already on-spec; three small refinements:
+### 4 · Mobile / desktop fluidity (covered by §2 + §3)
 
-- **Search bar**: `border border-input` → `border border-border` (lighter "1px subtle" border per the spec); `rounded-[2px]` → `rounded-[4px]`; placeholder copy → **"Search by clinic name, state, or pharmacy…"** (consumer-friendly per the spec); helper line tightened to `text-muted-foreground/80`. Inner submit button keeps `bg-foreground text-background` and shifts to `rounded-[4px]`.
-- **CTA buttons**: switch from inline anchors to the upgraded `<Button>` component now that it's on-spec. `View Verified Registry` → `<Button asChild size="lg">`, `Vendor Intake` → `<Button asChild size="lg" variant="outline">`. Removes the parallel inline-styled chrome and keeps a single source of truth.
-- **Master Control Strip**: text colour `text-foreground/70` → `text-muted-foreground/85` (smaller visual weight, "seal of authenticity" rather than data-bar). `bg-surface` → `bg-background` (so the strip blends into the unified gray plane and reads as a thin top frame, not a white band).
+- Hero metadata box stacks below headline on mobile (verified — `md:` breakpoint applies the 65/35 grid; below `md` the children stack naturally). Added explicit `mt-8 md:mt-0` for spacing.
+- Lookup terminal `w-full` on mobile (added).
+- Footer collapses 5 → 2 → 1 columns at `lg`/`md`/sm breakpoints (added).
 
-### 4 · Page Header Standard — split-header on every page
+### 5 · Component standardization — `StatusBadge` is the single source
 
-The split-header (left: headline + plain-English lead, right: small Reference Box) is the spec for **every page**. Two surgical edits make this universal:
+- `StatusBadge.tsx` already meets the spec (small caps, 1px border, rounded-[3px] → bumped to `rounded-[2px]` per spec, `font-mono uppercase tracking-[0.14em]`, status-coloured). Single change: `rounded-[3px]` → `rounded-[2px]` on the badge wrapper.
+- Replace ad-hoc inline status pills with `StatusBadge` in two visible Home spots:
+  - `Index.tsx` §4 Greenlist row — the inline `Active` pill becomes `<StatusBadge status="verified" />` (label override via the existing `verified` mapping reads "Verified" — to keep the literal "Active" label, retain the inline pill but restyle to match the StatusBadge geometry: `border border-verified/40 text-verified rounded-[2px] px-2 py-[3px] font-mono uppercase tracking-[0.14em] text-[10px]`).
+  - `Index.tsx` §3 MAB card "Active" stamp — same restyle.
+- Three site-wide colours are already token-bound: `--verified` (green), `--pending` (amber), `--muted-foreground` (gray) — no token edits.
 
-**`src/components/RecordHeader.tsx` (used on every doc/policy page — the 13 reg pages)**
-- The current layout puts the `MetadataBar` as a full-bleed strip BELOW the title block. Replace that with a true right-rail Reference Box on `md:col-span-4` (mirroring the Summary rail layout, but always rendered):
-  - Small mono label `Reference` above.
-  - Stacked rows for the existing `metadata` items (Doc, Status, Updated, Jurisdiction) — labels in `text-[11px] uppercase tracking-[0.08em] text-muted-foreground`, values in `font-mono text-[12px] text-foreground tabular-nums`.
-  - Visual treatment: white `bg-surface` panel, `border border-border rounded-[4px] p-4` — the "white service card housing the data" the spec calls for.
-- When `summary` is also passed, the Summary stacks below the Reference Box in the same right column (no layout regression on Governance / Accountability / Verification Disclaimer / Status Definitions).
-- Remove the `<MetadataBar>` render at the bottom of the header (data has moved into the right rail). Keep the `MetadataBar` component file (used by `ProfileFootnote` etc.) — only the `RecordHeader` call site is removed.
+### 6 · Body line-height + functional integrity
 
-**`src/components/AnchorHeader.tsx` (used on Verified Vendors, Greenlist, Education)**
-- Same upgrade: when no `aside` is passed, render a default Reference Box on the right with a doc identifier + status pulled from a small new optional prop `reference?: { docId: string; status: string; updated: string }`. Pages that already pass a custom `aside` (e.g. Verified Vendors filter strip) keep their existing aside untouched.
-- Result: the three anchor pages without a custom aside (Greenlist, Education, etc.) automatically gain the same Reference Box that the doc pages now show — single visual standard across the site.
-
-**Per-page wiring**: `Greenlist.tsx`, `Education.tsx`, `Apply.tsx`, `MedicalAdvisory.tsx`, `HowItWorks.tsx`, etc. that already pass an `aside` keep working unchanged. Pages that don't pass an `aside` get a small `reference={{ docId: "SS-…", status: "Active", updated: "04/21/26" }}` prop added in a single small pass — only the doc IDs need filling in (already exist on each page's existing metadata). No layout work needed downstream.
-
-### 5 · `SiteHeader.tsx` utility strip — "seal of authenticity"
-
-- Strip background `bg-surface-muted/60` → `bg-background` (blends into unified gray).
-- Text size `text-[12px] text-muted-foreground` → `text-[11px] text-muted-foreground/75`.
-- Border `border-b border-border/40` kept — thin, consistent with the rest of the page dividers.
-- Result: the strip is still legible on every non-home page but recedes — exactly the "seal not distraction" treatment the spec describes. The home page already suppresses it (the hero Master Control Strip handles that band).
-
-### Section banding cleanup (passive — no markup changes)
-
-The existing `bg-surface-muted/40` stripes on Home (§2, §4, §6, §8), Education, Apply, etc. now resolve to `#F8F9FA` over `#F8F9FA` — no visible band. The "single continuous document" feel falls out of the token change automatically without touching markup. Section borders (`border-b border-border/50`) become the only structure — the "thin dividers" the spec asks for.
+- `index.css` `body { line-height: 1.65 }` is current; the spec asks for `1.6` — change to `1.6` (one-line edit).
+- Functional cross-check: every "Read deeper" / "View full index" / "Open the registry" anchor in `Index.tsx`, `SiteFooter.tsx`, `SiteHeader.tsx`, plus `RecordHeader`/`AnchorHeader` consumers, was grepped for `to="#"` and `href="#"` — zero matches. All links route to live pages. No fix required; documented as part of the audit.
+- Search input focus state already lands a 1px `border-foreground/40` change on focus (kept).
 
 ### Files touched
 
-- `src/index.css` — token values for `--background`, `--surface-muted`, `--border`, `--input`, `--radius`, and the three `--shadow-*` tokens. `:root` only.
-- `src/components/ui/button.tsx` — `default` + `outline` variants and base `rounded` token.
-- `src/components/RecordHeader.tsx` — replace bottom `<MetadataBar>` with right-rail Reference Box.
-- `src/components/AnchorHeader.tsx` — add optional `reference` prop that renders the same Reference Box when no `aside` is supplied.
-- `src/pages/Index.tsx` — search-bar border + radius + placeholder + helper, CTA row migrated to `<Button>`, control strip background tweak.
-- `src/components/SiteHeader.tsx` — utility-strip background + text-size tweaks.
-- One small additive pass on the 6–8 anchor pages without a custom `aside`, adding the `reference={…}` prop with their existing doc IDs.
+- `src/components/SiteHeader.tsx` — nav link `py-5` → `h-10`, underline pinned to `bottom-0`, CTA `h-10`.
+- `src/pages/Index.tsx` — hero grid switched to `md:grid-cols-[65fr_35fr]`, aside becomes white Reference Box with `#E5E7EB` border + 16px padding, lookup `w-full`, two inline "Active" pills restyled to badge geometry, `mt-8 md:mt-0` on aside.
+- `src/components/SiteFooter.tsx` — 5-column grid, dividers removed, labels wrap (no `truncate`), font dropped to `text-[13px]`, brand `max-w-xs` removed.
+- `src/components/StatusBadge.tsx` — `rounded-[3px]` → `rounded-[2px]`.
+- `src/index.css` — `body { line-height: 1.65 }` → `1.6`.
 
 ### What stays the same
 
-All routes, every page's headline copy and structure, the `Section` / `Card` / `MetadataBar` / `ProfileHeader` / `ProfileFootnote` primitives, every data file, the dark-mode palette, the homepage hero structure, the footer rebuild from the previous turn, the Education badge polish, and the existing search-on-submit behaviour. No new components, no new fonts, no new dependencies.
+All routes, every page's content, the `Button`/`Section`/`Card`/`AnchorHeader`/`RecordHeader` primitives and the header/footer copy. No new components, no new fonts, no new dependencies.
 
