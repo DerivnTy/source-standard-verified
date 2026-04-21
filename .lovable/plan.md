@@ -1,115 +1,117 @@
 
 
-## Privacy → Data Governance & Privacy Policy
+## Terms → User Agreement & Registry Terms
 
-A copy and light-structure refinement of `src/pages/Privacy.tsx`. Keeps the `RecordHeader` + `Section`/`SectionLabel` chrome, the `SS-PRIVACY-2026.01` anchor, and all existing layout primitives. Tone aligned with Governance / Accountability / How-It-Works overhauls.
+A copy and light-structure refinement of `src/pages/Terms.tsx`. Keeps the `RecordHeader` + `Section`/`SectionLabel` chrome, the `SS-TERMS-2026.01` anchor, and all existing layout primitives. Tone aligned with the Privacy / Governance / Accountability overhauls.
 
 ### Header (`RecordHeader`)
 
-- Eyebrow: `Policy` → `Policy · Data governance protocol`
-- Title: `Privacy policy.` → `Data Governance & Privacy Policy.`
-- Lead: → `The data governance protocol of the auditing body. Defines what information Source Standard collects, how it is partitioned between public registry content and Protected Audit Material, the infrastructure partners that process it, retention and disposal rules, and the rights of individuals whose data is held.`
-- Metadata row kept (`SS-PRIVACY-2026.01`, `Active`, `04/21/26`, `FL/US`).
+- Eyebrow: `Policy` → `Policy · Registry user agreement`
+- Title: `Terms of use.` → `User Agreement & Registry Terms.`
+- Lead: → `The binding user agreement governing access to the Source Standard public registry and any reproduction, citation, or downstream use of its contents. Issued by the auditing body as a version-controlled legal instrument under document SS-TERMS-2026.01.`
+- Metadata row kept (`SS-TERMS-2026.01`, `Active`, `04/21/26`, `FL/US`).
 
-### Per-section document identifier
+### Per-section document identifier (version-controlled header)
 
-Add a small mono identifier line above each `SectionLabel`, rendered as:
+Mirroring the Privacy page, add a small mono identifier line above each `SectionLabel`, rendered as:
 
-`Doc SS-PRIVACY-2026.01 · §N`
+`Doc SS-TERMS-2026.01 · §N · v2026.01`
 
-Implemented as a `<p className="meta-mono text-muted-foreground mb-3">` placed inside each `<Section>` immediately before its `<SectionLabel>`. Reinforces the "controlled document" feel without altering layout.
+Implemented as `<p className="meta-mono text-muted-foreground mb-3">` placed inside each `<Section>` immediately before its `<SectionLabel>`. Reinforces the "controlled legal document" feel.
 
-### §1 · Data collected (kept, language tightened)
+### §1 · Acceptance of terms (kept, tightened)
 
-Same four-row structure. Term tweaks only:
-- `Vendor application materials` description: → `Business identity, licensing records, supplier disclosures, certificates of analysis, invoice samples, and category documentation submitted under Form SS-INTAKE-01 and during subsequent audit cycles.`
-- `Contact submissions` (kept).
-- `Concern reports` (kept).
-- `Site analytics` (kept; reaffirm "no advertising trackers, no cross-site identifiers").
+Description rewritten:
+`Access to or use of this site, the public registry, or any associated framework document constitutes binding acceptance of this User Agreement together with the Data Governance & Privacy Policy (SS-PRIVACY-2026.01) and the Verification Disclaimer. If any term is not accepted, the user must discontinue use of the site and the registry.`
 
-### §2 · How data is used (kept, tightened)
+### §2 · Authorized Citation & Data Utilization (renamed + expanded)
 
-Bulleted list re-worded to four uses:
-1. Conducting time-bound verification reviews and renewal cycles.
-2. Communicating with applicants, vendors, and reporters about active matters of record.
-3. Publishing public registry entries within the scope each entity has consented to under the Vendor Submission Standard.
-4. Maintaining the integrity of the framework, its documentation, and the public site.
+Section title: `Permitted use of public content` → `Authorized Citation & Data Utilization`
 
-### §3 · Information Partitioning (renamed + expanded)
+Description (new): `Public registry entries may be cited in clinical, journalistic, academic, and consumer contexts. To preserve the integrity of every citation, the auditing body requires the following identifiers to accompany any reference.`
 
-Section title: `Published vs. internal` → `Information Partitioning`
+Mandatory citation elements — rendered as a labelled list (eyebrow `Required citation elements`):
+1. `Audit ID` — the registry record identifier of the entity cited (e.g. `SS-V-####` for vendors, `SS-G-####` for greenlist sources).
+2. `Status Date` — the issue date of the determination being cited (status as of `MM/DD/YY`).
+3. `Document anchor` — the controlling framework document (`SS-FRAMEWORK-2026.01`) and, where the citation depends on it, the relevant policy anchor (`SS-PRIVACY-2026.01`, `SS-ENFORCE-2026.01`, etc.).
+4. `Attribution` — an attribution line naming Source Standard as the auditing body, with a link to the source registry page.
 
-Description (new): `A documented separation governs every record held by the auditing body. Public registry fields are published; Protected Audit Material (PAM) is retained internally for review purposes only and is never published or shared outside the audit function.`
+Permitted use list (kept, tightened to three items):
+- Citation of public registry entries in clinical, journalistic, academic, and consumer contexts, accompanied by the required citation elements above.
+- Reference to vendor or upstream-source statuses with accurate attribution to Source Standard and the corresponding `Status Date`.
+- Non-commercial reproduction of short excerpts with attribution and a link to the source page.
 
-Two-row table preserved, relabelled and expanded:
+Citations that omit the `Audit ID` or `Status Date` are considered non-conforming and may be treated under §3.
 
-| Class | Contents |
-|---|---|
-| `Public registry data` | Business name, location, scope categories, current status, status date, public references, and any attached public note. Published under `SS-FRAMEWORK-2026.01`. |
-| `Protected Audit Material (PAM)` | Application materials, licensing records, supplier and pharmacy invoices, certificates of analysis, prescriber credentials, internal review notes, reporter identity, and unredacted contact submissions. Retained internally; not published; not shared outside the audit function except as required by lawful process. |
+### §3 · Prohibited Activity & Registry Integrity (renamed, made bold/prominent)
 
-### §4 · Infrastructure Partners (renamed)
+Section title: `Restrictions` → `Prohibited Activity & Registry Integrity`
 
-Section title: `Third-party processors` → `Infrastructure Partners`
+Description (new, rendered prominently): `The following activities are prohibited. They compromise the integrity of the registry, mislead the public, or misappropriate the auditing body's identifiers. Unauthorized use of any Source Standard mark, document anchor, or status indicator will result in administrative action under SS-ENFORCE-2026.01, including a public registry note and, where appropriate, referral to counsel and to applicable regulatory authorities.`
 
-Description (new): `A small number of infrastructure partners process data on the auditing body's behalf under written non-disclosure and privacy-preserving protocols. Partners are limited to the minimum data required to perform their function and are not authorised to use or disclose data for any other purpose.`
+Prohibition list (rewritten and expanded — five items, each rendered with a bolded lead clause so the section is impossible to miss):
+1. **No bulk extraction.** No bulk scraping, crawling, indexing, or extraction of registry data for resale, redistribution, or assembly into any derivative dataset.
+2. **No status misrepresentation.** No display, implication, or transmission of a `Verified`, `Pending Review`, `Greenlisted`, or any other Source Standard status for an entity that does not currently hold that status, or as of a date other than the published `Status Date`.
+3. **No derivative or mirror registries.** No reproduction of Source Standard registry content as if independently maintained, audited, or determined.
+4. **No unauthorized use of identifiers.** No use of the Source Standard name, marks, framework document anchors, badge artwork, or status indicators in a manner that implies affiliation, partnership, accreditation, endorsement, or any contractual relationship that does not exist.
+5. **No interference with the registry.** No automated activity, attack, or circumvention intended to disrupt, falsify, or otherwise compromise the integrity of the public registry or its underlying records.
 
-List rewritten to three items:
-1. Hosting and content delivery infrastructure for the public registry.
-2. Transactional email delivery for applicant, vendor, and reporter correspondence.
-3. Privacy-respecting site analytics (aggregate, non-identifying signals only).
+Closing line: `Confirmed violations are subject to administrative action under the Accountability & Enforcement protocol (SS-ENFORCE-2026.01).`
 
-### §5 · Retention & Disposal (new section)
+### §4 · Intellectual property (kept, tightened)
 
-Title: `Retention & Disposal`
+Description rewritten:
+`The Source Standard name, framework document anchors (including all SS- identifiers), site design, badge artwork, status indicators, and original written content are the property of the auditing body. References to third-party regulatory authorities (FDA, state boards of pharmacy, PCAB, NSF, USP, and others) remain the property of those bodies and are reproduced here for reference only.`
 
-Description: `Audit records are retained for the period necessary to maintain the integrity of the public registry. Disposal follows a documented schedule.`
+### §5 · Warranty Disclaimer & Limit of Liability (renamed, merged §5 + §6, made prominent)
 
-Body — bulleted rules:
-- `Active standing` — Protected Audit Material is retained for the full duration the entity holds an active determination (Verified, Pending Review, Under Review, Suspended) and through any subsequent renewal or re-review cycle.
-- `Historical record` — Public registry fields and the determination history are retained as a permanent record of the framework. Status transitions remain visible after Removed status.
-- `Withdrawn applications` — PAM associated with a withdrawn or denied application is retained for a defined administrative window, after which it is securely disposed of in accordance with the disposal schedule.
-- `Concern reports` — Submission content is retained for the duration of the matter and the reference period required to detect repeat patterns; reporter identity is segregated and access-controlled.
-- `Disposal` — Disposal of PAM follows controlled deletion procedures with audit logging. Aggregate, non-identifying analytics are retained without time limit.
+Section title: `Disclaimer of warranties` and `Limitation of liability` → merged into `Warranty Disclaimer & Limit of Liability`
 
-Renumbering: the new §5 pushes the remainder down — Your rights → §6, DPO contact → §7, Read deeper → §8.
+Two prominent paragraphs, each preceded by a bolded lead clause:
 
-### §6 · Your rights (kept content, renumbered)
+- **Auditing mirror; no warranty.** `The site and the public registry operate as an auditing mirror of third-party records — licensing, supplier, certificate, and regulatory data produced or maintained by third parties. The site and registry are provided on an as-is and as-available basis. The auditing body makes no warranties, express or implied, regarding the accuracy, completeness, currency, or fitness for any particular purpose of any registry entry, status, or associated metadata.`
+- **Limit of liability.** `To the fullest extent permitted by law, the auditing body is not liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from access to the site or reliance on registry content. Reliance on registry information is at the user's discretion. Users should consult licensed clinicians and the applicable regulatory authorities for matters within those domains.`
 
-List unchanged.
+### §6 · Jurisdictional Governance (renamed)
 
-### §7 · Data Privacy Officer (DPO) (renamed)
+Section title: `Governing law` → `Jurisdictional Governance`
 
-Section title: `Contact for privacy inquiries` → `Data Privacy Officer (DPO)`
+Description rewritten:
+`This User Agreement is governed by the laws of the State of Florida, United States, without regard to conflict-of-law principles. Any dispute arising under or in connection with this Agreement is subject to the exclusive jurisdiction of the state and federal courts located in Florida, which the user accepts as the sole and exclusive venue.`
 
-Description (new): `Privacy inquiries, data-subject requests, and lawful-process correspondence are handled by the Data Privacy Officer.`
+### §7 · Changes to terms (kept, renumbered)
 
-Contact card kept (`privacy@sourcestandard.org`), with the small footnote rewritten:
-`This protocol is provided in plain, controlled terms and is reviewed by counsel. Material updates are issued as a new document version under the SS-PRIVACY-2026.01 series.`
+Description rewritten:
+`This User Agreement may be revised. Material changes are issued as a new version under the SS-TERMS series (e.g., SS-TERMS-2026.02). The current version is identified in the header of every section. Continued use of the site or registry after a revision constitutes binding acceptance of the updated Agreement.`
+
+Counsel-review footnote kept and rewritten:
+`This Agreement is provided in plain, controlled legal terms and is reviewed by counsel.`
 
 ### §8 · Read deeper (renumbered, re-pointed)
 
-Replace existing three links with the high-authority set:
-- `Governance →` `/governance`
-- `Accountability & Enforcement →` `/accountability`
+Replace the existing three links with the high-authority set:
+- `Data Governance & Privacy Policy →` `/privacy`
 - `Verification Disclaimer →` `/verification-disclaimer`
-- `Terms of Use →` `/terms`
-- `Report a Concern →` `/report-a-concern`
+- `Accountability & Enforcement →` `/accountability`
+- `Status Definitions →` `/status-definitions`
+- `Governance →` `/governance`
 
-Citation footer kept: `Cite as: Source Standard Data Governance & Privacy Policy, SS-PRIVACY-2026.01.`
+Citation footer rewritten:
+`Cite as: Source Standard User Agreement & Registry Terms, SS-TERMS-2026.01.`
 
 ### Visual style
 
-- All existing tokens kept: `divide-y divide-border/70 border-y border-border/70 bg-background`, `meta-label`, `meta-mono`, `h-card`, muted-foreground body text.
-- Section densities preserved (`doc` / `tight`), alternating `muted` backgrounds preserved.
-- New per-section `Doc SS-PRIVACY-2026.01 · §N` identifier uses existing `meta-mono text-muted-foreground` token — no new CSS.
-- No new components, no color changes, no layout primitives added.
+- All existing tokens kept: `meta-mono`, `meta-label`, alternating `muted` `Section` backgrounds, `space-y-3 max-w-3xl` lists, `text-foreground` underline-offset link styling.
+- Section densities preserved (`doc` / `tight`).
+- Bolded lead clauses use existing `font-semibold text-foreground` — no new tokens.
+- New per-section `Doc SS-TERMS-2026.01 · §N · v2026.01` identifier uses existing `meta-mono` token — no new CSS, no new components.
+- No color changes, no new layout primitives.
 
 ### Files touched
 
-- `src/pages/Privacy.tsx` only — `RecordHeader` props, the four data arrays (`collected`, `uses`, `publishedVsInternal` → `partitioning`, `processors` → `partners`), a new `retention` array + section, the renamed DPO section, and the §8 "Read deeper" link list. Add the small per-section `Doc SS-PRIVACY-2026.01 · §N` identifier above each `SectionLabel`.
+- `src/pages/Terms.tsx` only — `RecordHeader` props, the `permitted` and `restrictions` arrays (rewritten + expanded), a new `citationElements` array for §2, the merged §5 disclaimer/liability block, the renamed §6 jurisdiction block, and the §8 "Read deeper" link list. Add a small per-section `Doc SS-TERMS-2026.01 · §N · v2026.01` identifier above each `SectionLabel` (small local `DocId` helper, mirroring the Privacy page pattern).
 
 ### What stays the same
 
-All routes, the `RecordHeader` / `Section` / `SectionLabel` components, container widths, the document anchor `SS-PRIVACY-2026.01`, the citation footer line pattern, the `mailto:privacy@sourcestandard.org` contact, and all design tokens.
+All routes, the `RecordHeader` / `Section` / `SectionLabel` components, container widths, the document anchor `SS-TERMS-2026.01`, the `mailto`-free structure of the page, and all design tokens.
 
