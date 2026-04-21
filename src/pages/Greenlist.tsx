@@ -213,22 +213,22 @@ const Greenlist = () => {
         title="Upstream Facility Registry."
         lead="Compounding facilities recognized under the framework on the basis of federal registration and state licensure. Inclusion is documentary; it is not a clinical endorsement."
         aside={
-          <div className="rounded-md border border-border/60 bg-surface-muted/40 overflow-hidden">
-            <div className="flex items-center justify-between px-3 py-2 border-b border-border/60">
+          <div className="rounded-md border border-border/60 bg-surface-muted/40 overflow-hidden min-w-[280px] md:min-w-[300px]">
+            <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60">
               <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground">Registry index</p>
               <span className="text-[9.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground/70">Live</span>
             </div>
-            <dl className="grid grid-cols-4 gap-px bg-border/40">
+            <dl className="divide-y divide-border/50 bg-background">
               {[
                 { l: "Total", v: counts.total, rule: "bg-border" },
                 { l: "503B", v: counts["503B"], rule: "bg-[hsl(var(--src-503b))]" },
                 { l: "503A", v: counts["503A"], rule: "bg-[hsl(var(--src-503a))]" },
                 { l: "Other", v: counts.Other, rule: "bg-[hsl(var(--src-other))]" },
               ].map((s) => (
-                <div key={s.l} className="bg-background px-3 py-3 flex flex-col gap-1.5">
-                  <dt className="text-[9.5px] font-mono uppercase tracking-[0.12em] text-muted-foreground/70">{s.l}</dt>
-                  <div className={`h-[2px] w-full ${s.rule}`} />
-                  <dd className="text-[22px] font-mono font-medium text-foreground tabular-nums leading-none">{s.v.toString().padStart(2, "0")}</dd>
+                <div key={s.l} className="flex items-center gap-3 px-3.5 py-2.5">
+                  <span aria-hidden className={`block w-[3px] h-4 ${s.rule}`} />
+                  <dt className="flex-1 whitespace-nowrap text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">{s.l}</dt>
+                  <dd className="w-10 text-right text-[18px] font-mono font-medium text-foreground tabular-nums leading-none">{s.v.toString().padStart(2, "0")}</dd>
                 </div>
               ))}
             </dl>

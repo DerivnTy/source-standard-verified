@@ -162,9 +162,9 @@ const VerifiedVendors = () => {
         title="Vendor Compliance Registry."
         lead="Public ledger of vendors assessed against the Source Standard framework. Every listing is anchored to a unique Audit ID."
         aside={
-          <div className="rounded-md border border-border/60 bg-surface-muted/40 overflow-hidden min-w-[260px]">
-            <div className="flex items-center justify-between px-3 py-2 border-b border-border/60">
-              <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground">Ledger index</p>
+          <div className="rounded-md border border-border/60 bg-surface-muted/40 overflow-hidden min-w-[280px] md:min-w-[300px]">
+            <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60">
+              <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground">Registry index</p>
               <span className="text-[9.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground/70">Live</span>
             </div>
             <dl className="divide-y divide-border/50 bg-background">
@@ -174,10 +174,10 @@ const VerifiedVendors = () => {
                 { l: "Under review", v: counts["under-review"], rule: "bg-pending" },
                 { l: "Non-Audited (Unverified)", v: counts.unverified, rule: "bg-muted-foreground/40" },
               ].map((s) => (
-                <div key={s.l} className="flex items-center gap-3 px-3 py-2.5">
-                  <span aria-hidden className={`block w-[3px] h-5 ${s.rule}`} />
-                  <dt className="flex-1 text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">{s.l}</dt>
-                  <dd className="text-[18px] font-mono font-medium text-foreground tabular-nums leading-none">{s.v.toString().padStart(2, "0")}</dd>
+                <div key={s.l} className="flex items-center gap-3 px-3.5 py-2.5">
+                  <span aria-hidden className={`block w-[3px] h-4 ${s.rule}`} />
+                  <dt className="flex-1 whitespace-nowrap text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">{s.l}</dt>
+                  <dd className="w-10 text-right text-[18px] font-mono font-medium text-foreground tabular-nums leading-none">{s.v.toString().padStart(2, "0")}</dd>
                 </div>
               ))}
             </dl>
