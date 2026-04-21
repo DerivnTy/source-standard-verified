@@ -1,90 +1,110 @@
 
 
-## Library page — Public Education & Standards overhaul
+## Process page — Technical SOP / forensic-audit tone overhaul
 
-A copy + light visual pass on `src/pages/Education.tsx`. No data file edits, no routing changes, no changes to `/education/basics`, `/education/guides`, `/education/questions`, or entry detail pages. All overrides for titles/labels are applied at render time inside the component so `src/data/library.ts` stays the single source of truth.
+A copy + light visual pass on `src/pages/HowItWorks.tsx`. No data file edits, no routing changes, no structural section reordering. All content stays in place; tone, headers, and a few step labels are rewritten for SOP/forensic-audit register, and the document metadata is visually emphasized as an official header.
 
-### Header (`AnchorHeader`)
+### Header (`RecordHeader`)
 
-- Eyebrow: `Library` → `Public education & standards`
-- Title: `Learn the landscape.` → `Clinical Reference & Standards Library.`
-- Lead: → `Reference materials covering the administrative and clinical protocols that govern compounded medication sourcing, handling, and verification under the Source Standard framework.`
+- Eyebrow: `Process` → `Standard operating procedure`
+- Title: `How verification works.` → `Verification Protocol & Audit Methodology.`
+- Lead: → `Examination of supply-chain records, regulatory credentials, and public-facing claims against the Source Standard evidentiary rubric. Determinations are recorded against a defined scope and time window.`
+- Metadata items unchanged (`Doc / Status / Updated / Scope`) but visually emphasized — see "Document header strip" below.
 
-### Anchor row (jump-to)
+### Document header strip (visual emphasis)
 
-Update labels to match new section names:
-- `The Basics` → `Foundational Standards`
-- `Practical Guides` → `Clinical Protocols`
-- `Common Questions` → `Regulatory FAQ`
-- Add: `Archive index` (new — see below)
+Directly under `RecordHeader`, add a thin full-width bar:
+- Container: `border-b border-border bg-surface-muted/40`
+- Inside `container-wide`, `flex items-center justify-between py-2.5`
+- Left: mono uppercase 10.5px → `Document · SS-FRAMEWORK-2026.01`
+- Right: mono uppercase 10.5px → `Issued 04/21/2026 · Revision 2026.01 · Controlled copy`
+- Both `font-mono tracking-[0.1em] text-muted-foreground`, with the codes themselves rendered `text-foreground` so the identifier reads as the official artifact.
 
-### Archive index strip (new, ledger-style)
+### §1 — Trust → "Audit Principles" (header + 3 cards)
 
-Directly under the anchor row, add a compact metadata strip matching the registry pages:
-- Left: `Archive index · SS-LIB-2026.01`
-- Right: `Maintained · Active`
-Small mono uppercase 10px, divider underneath. Sets the "official archive" tone.
+- Eyebrow: `Trust` → `Audit principles`
+- Heading: `Why this matters` → `Governing principles of the verification protocol.`
+- Lead (replace): `Verification examines the records behind a vendor — not their public presentation — against a consistent evidentiary standard. Three principles govern conduct of every review.`
+- Per-card title overrides (descriptions retained):
+  - `Sourcing records matter` → `Chain-of-Custody Primacy`
+  - `Public claims should match documented reality` → `Evidentiary Reconciliation`
+  - `Verification is time-bound` → `Time-Bounded Determination`
 
-### Reference ID display (general)
+### §2 — Meaning → "Audit scope & attestation"
 
-Update `SimpleRow` so each entry visibly leads with its reference code:
-- Add a fixed-width left column: `font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums w-28 shrink-0` showing `entry.id` (e.g. `SS-SERIES-002`).
-- Title and summary stay to the right; layout becomes a 2-column row that scans like an archive entry.
-- `SoftStatus` keeps its right-side placement as a small mono pill.
+- Eyebrow: `Meaning` → `Scope of attestation`
+- Heading: `What a verified listing means` → `Attestation of Record Consistency.`
+- Per-card title overrides (descriptions retained):
+  - `What has been reviewed` → `Records within examination scope`
+  - `What has not been reviewed` → `Records outside examination scope`
+  - `What a verified listing means` → `Effect of a Verified determination`
+  - `What it does not mean` → `Limits of the determination`
 
-### §1 — Foundational Sourcing Standards (was "The Basics")
+### §3 — Statuses
 
-- Section heading: `Foundational Sourcing Standards`
-- Lead: `Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.`
-- Per-entry display title override (slug-keyed map applied only on this page; data file unchanged):
-  - `how-to-read-a-certificate-of-analysis` → `Audit Protocols: Interpreting CoAs and Detecting Discrepancies`
-- `See all foundational reads` → `View full foundational index →`
+- Eyebrow: `Statuses` → `Public determinations`
+- Heading: `Public statuses` → `Registry determinations.`
+- Lead: `Each registry entry carries one of the following determinations. The determination reflects the state of the audit file at the time of last update.`
+- Row label override (rendering only): `Tells the public:` → `Public-record meaning:`
+- Status row labels themselves (`Verified`, `Unverified`, etc.) are unchanged — they map to status-definitions canon.
 
-### §2 — Clinical Handling & Aseptic Protocols (was "Practical Guides")
+### §4 — Scope ("What we review")
 
-- Section heading: `Clinical Handling & Aseptic Protocols`
-- Lead: `Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.`
-- Slug-keyed display title overrides:
-  - `safe-peptide-handling-and-reconstitution` → `Sterile Preparation Integrity: Handling & Reconstitution Protocol`
-  - `sanitization-and-aseptic-technique-fundamentals` → `Aseptic Technique: Sanitization Fundamentals`
-  - `the-science-of-aging-and-trt` → `Endocrinological Context: Age-Related Hormonal Change & TRT`
-  - `dosing-guidance-summaries-for-common-compounds` → `Reference Dosing Ranges: Selected Compounds`
-- `See all clinical guides` → `View full clinical protocol index →`
+- Eyebrow: `Scope` → `Examination domains`
+- Heading: `What we review` → `Examination domains under audit.`
+- Lead: `Each domain is examined against the evidentiary standard for the requested verification category. Findings are logged to the audit file.`
+- Card title overrides (descriptions retained):
+  - `Business identity` → `Entity identification & registration`
+  - `Licenses and registrations` → `Regulatory credentials`
+  - `Pharmacy and supplier records` → `Upstream supply-chain records`
+  - `Certificates and category records` → `Analytical certificates & lot records`
+  - `Sourcing and invoice history` → `Procurement & invoice ledger`
+  - `Public claims consistency` → `Public-claims reconciliation`
+  - `Renewal-related updates` → `Renewal-cycle delta review`
 
-### §3 — Public Inquiry & Regulatory FAQ (was "Common Questions")
+### §5 — Process → "Review lifecycle" (forensic-audit step renames)
 
-- Section heading: `Public Inquiry & Regulatory FAQ`
-- Lead: `Plain-record answers on legal distinction, regulatory status, verification methodology, and consumer due diligence.`
-- Rename FAQ buckets (display labels only — `FAQ_BUCKETS` array literal):
-  - `Is this legal?` → `Legal Distinction & Access`
-  - `Is it safe?` → `Regulatory Status & Safety Scope`
-  - `How does verification work?` → `Verification Methodology`
-  - `What should I look for?` → `Consumer Due Diligence`
-- `See all questions` → `View full regulatory FAQ →`
+- Eyebrow: `Process` → `Audit lifecycle`
+- Heading: `Review lifecycle` → `Audit lifecycle.`
+- Lead: `Every verification proceeds through six controlled stages. A file may be paused at any stage when records are incomplete or require clarification.`
+- Step row labels:
+  - `Reviewed at this stage:` → `Examined:`
+  - `Possible result:` → `Disposition:`
+- Step `t` overrides (rendering only — `summary / reviewed / result` text retained):
+  - 01 `Application` → `Intake & Scope Declaration`
+  - 02 `Document intake` → `Evidentiary Collection`
+  - 03 `Standards review` → `Regulatory Cross-Referencing`
+  - 04 `Public claims check` → `Claims-Documentation Reconciliation`
+  - 05 `Status determination` → `Determination & Scope Recordation`
+  - 06 `Publication and monitoring` → `Publication & Continuous Surveillance`
 
-### §4 — Coming soon (rename + edit one entry)
+### §6 — Maintenance ("Renewal and monitoring")
 
-- Eyebrow: `Coming soon` → `Forthcoming reference formats`
-- Render `librarySupplementary` with a small slug-keyed override applied at render time:
-  - `SS-SUP-003` (`Integrity Report Feed`) displayed as `Annual Integrity Ledger` with description override: `Annual published summary of audit findings, status changes, and methodological revisions across the directory.`
-  - Other two entries unchanged.
-- Each list item now leads with its `id` in mono (`SS-SUP-001` etc.) to match the archive treatment.
+- Eyebrow: `Maintenance` → `Continuous surveillance`
+- Heading: `Renewal and monitoring` → `Continuous Surveillance & Renewal Obligations.`
+- Lead (replace): `Verified files are re-examined at a defined renewal interval and upon any reported material change. Vendors are bound to disclose the following Mandatory Disclosure Events without delay.`
+- Above the `<ul>`, add a small mono label: `Mandatory Disclosure Events` (mono uppercase 10.5px, `text-foreground`, `mb-3`).
+- List items in `changes[]` retained verbatim.
+- Closing paragraph (replace): `A disclosed event may result in a continued determination, a Suspended status pending re-examination, or a re-review limited to the affected scope.`
 
-### §5 — Footer disclaimer (high-authority medical-legal phrasing)
+### §7 — After Review / §8 — For Vendors / §9 — Boundaries
 
-Replace the current "Everything here is informational only…" paragraph with a distinct, bordered notice block:
-- Container: `mt-6 border-l-2 border-foreground/40 bg-surface-muted/40 px-4 py-3 rounded-[2px]`
-- Eyebrow inside: `Notice · Informational use only` (mono uppercase 10px)
-- Body (small foreground text, not muted-into-invisibility):
-> The materials in this library are published for public reference and educational purposes only. They do not constitute medical advice, diagnosis, prescription, or treatment, and they do not establish a clinician–patient relationship. Clinical decisions regarding compounded medications must be made in consultation with a qualified, licensed healthcare provider. Reliance on any information contained herein is solely at the reader's own risk.
+Tone-only header tightening; bodies preserved:
+- §7 eyebrow `After Review` → `Post-determination`; heading `What happens after verification` → `Post-determination record handling.`
+- §8 eyebrow `For Vendors` → `Applicant rationale`; heading `Why vendors apply` → `Why entities submit to audit.` (Card titles in `vendorReasons` retained.)
+- §9 (boundaries / `notProcess`) — keep current eyebrow/heading; no copy change. Items already SOP-toned.
 
-The "About this library" paragraph (Medical Advisory Board / governance link) is preserved above the notice block.
+### Implementation notes
+
+- All title/label overrides applied at render time inside the component via small slug-keyed maps (`PRINCIPLE_TITLES`, `MEANING_TITLES`, `SCOPE_TITLES`, `STEP_TITLES`). Underlying arrays at the top of the file are not edited.
+- Document header strip is a new sibling element rendered immediately after `<RecordHeader … />` and before the first `<section>`.
+- No new dependencies, no new files, no token changes.
 
 ### Files touched
 
-- `src/pages/Education.tsx` — header copy, anchor labels, new archive-index strip, `SimpleRow` restyle to surface reference IDs, three section renames + leads, slug-keyed title overrides for foundational + clinical entries, FAQ bucket label rename, supplementary entry override for `SS-SUP-003`, new bordered medical-legal notice block.
+- `src/pages/HowItWorks.tsx` — header copy, new document-header strip, section-eyebrow/heading rewrites, render-time title/label overrides for principles, meaning blocks, scope cards, and lifecycle steps, copy update for renewal lead + closing paragraph, mandatory-disclosure label.
 
 ### What stays the same
 
-All routes, the data in `src/data/library.ts`, the per-entry detail pages and "see all" index pages, the `Section` / `AnchorHeader` / `Accordion` components, all design tokens, and existing focus/hover behaviors.
+All routes, the `RecordHeader` / `MetadataBar` components, the data arrays in this file (descriptions and bodies preserved verbatim), `/status-definitions` link, `/apply` link, design tokens, container widths, and section ordering.
 
