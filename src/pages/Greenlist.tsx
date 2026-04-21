@@ -199,17 +199,20 @@ const Greenlist = () => {
           <div>
             <p className="eyebrow mb-2">Source types in this registry</p>
             <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/40">
-              {SOURCE_TYPE_DEF.map((d) => (
-                <div key={d.key} className="p-4">
-                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-foreground">
-                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-                    {d.title}
-                  </span>
-                  <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
-                    {d.body}
-                  </p>
-                </div>
-              ))}
+              {SOURCE_TYPE_DEF.map((d) => {
+                const s = CATEGORY_STYLE[d.key];
+                return (
+                  <div key={d.key} className="p-4">
+                    <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-foreground">
+                      <span aria-hidden className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`} />
+                      {d.title}
+                    </span>
+                    <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
+                      {d.body}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
