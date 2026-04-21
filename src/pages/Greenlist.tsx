@@ -79,6 +79,47 @@ const focusMatches = (entry: GreenlistEntry, tagLabel: string): boolean => {
   return tag.keywords.some((k) => hay.includes(k.toLowerCase()));
 };
 
+// Condense long focus descriptions into short, scannable category labels for the table.
+// Order matters: more specific matches come first.
+const SHORT_FOCUS_RULES: { label: string; keywords: string[] }[] = [
+  { label: "Ophthalmics", keywords: ["ophthal", "eye drops", "eye-care", "cataract", "retina"] },
+  { label: "Dermatology", keywords: ["dermatology", "aesthetic"] },
+  { label: "Pediatric formulations", keywords: ["pediatric"] },
+  { label: "Veterinary compounding", keywords: ["veterinary"] },
+  { label: "Anesthesia / critical care", keywords: ["anesthesia", "critical care", "critical-care"] },
+  { label: "Pain management", keywords: ["pain"] },
+  { label: "Nuclear medicine", keywords: ["nuclear"] },
+  { label: "Hospice", keywords: ["hospice"] },
+  { label: "GLP-1 / weight management", keywords: ["glp-1", "weight"] },
+  { label: "Peptide therapy", keywords: ["peptide"] },
+  { label: "Hormone therapy", keywords: ["hormone", "trt"] },
+  { label: "Regenerative medicine", keywords: ["regenerative"] },
+  { label: "Nootropic / anti-aging", keywords: ["nootropic", "anti-aging"] },
+  { label: "Integrative / functional", keywords: ["integrative", "functional"] },
+  { label: "Vitamin / IV therapy", keywords: ["vitamin"] },
+  { label: "Nutraceutical injectables", keywords: ["nutraceutical"] },
+  { label: "Wellness protocols", keywords: ["wellness"] },
+  { label: "IV solutions", keywords: ["iv solution", "iv admixture", "infusion", "admixture", "iv bag"] },
+  { label: "Ready-to-use medications", keywords: ["ready-to-use", "ready to use", "ready-to-administer"] },
+  { label: "Hospital supply", keywords: ["hospital", "ambulatory", "surgery center", "surgical center", "health system"] },
+  { label: "Specialty / PBM compounding", keywords: ["specialty pharmacy", "pbm", "specialty compound"] },
+  { label: "Compounding network", keywords: ["network", "multi-location"] },
+  { label: "Sterile injectables", keywords: ["sterile", "injectable"] },
+];
+
+const shortFocus = (entry: GreenlistEntry): string => {
+  const hay = entry.focus.toLowerCase();
+  const hits: string[] = [];
+  for (const rule of SHORT_FOCUS_RULES) {
+    if (rule.keywords.some((k) => hay.includes(k.toLowerCase()))) {
+      if (!hits.includes(rule.label)) hits.push(rule.label);
+    }
+    if (hits.length >= 2) break;
+  }
+  if (hits.length === 0) return "Specialty compounding";
+  return hits.join(" · ");
+};
+
 const Greenlist = () => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>(ALL);
