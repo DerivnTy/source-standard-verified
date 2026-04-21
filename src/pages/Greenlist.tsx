@@ -159,18 +159,23 @@ const Greenlist = () => {
         ]}
       />
 
-      {/* How Greenlist status works — plain explanatory intro */}
+      {/* How Greenlist status works — compact explanatory bridge */}
       <section className="bg-surface-muted/60 border-b border-border/60">
-        <div className="container-wide py-8 space-y-6">
-          <div className="max-w-3xl space-y-3">
-            <h2 className="section-heading text-foreground">How Greenlist status works</h2>
-            <p className="text-[13px] text-muted-foreground leading-relaxed">
-              Every source listed in this registry is Greenlisted by definition. "Greenlisted"
-              is the Source Standard inclusion status for recognized upstream sources. What
-              varies across listings is the source type, such as 503B outsourcing facility,
-              503A compounding pharmacy, or another qualified source category.
+        <div className="container-wide pt-6 pb-5">
+          <div className="max-w-3xl">
+            <p className="eyebrow mb-1.5">How Greenlist status works</p>
+            <p className="text-[12px] text-muted-foreground leading-relaxed">
+              Every source listed in this registry is Greenlisted by definition.
+              "Greenlisted" is the inclusion status for recognized upstream sources.
+              What varies across listings is the source type.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Source types in this registry */}
+      <section className="bg-surface-muted/60 border-b border-border/60">
+        <div className="container-wide py-6 space-y-5">
 
           {/* Source types */}
           <div>
