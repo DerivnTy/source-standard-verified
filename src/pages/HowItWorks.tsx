@@ -235,9 +235,9 @@ const HowItWorks = () => {
           { label: "Updated", value: "04/21/26" },
           { label: "Scope", value: "Verification" },
         ]}
-        eyebrow="Standard operating procedure"
-        title="Verification Protocol & Audit Methodology."
-        lead="Examination of supply-chain records, regulatory credentials, and public-facing claims against the Source Standard evidentiary rubric. Determinations are recorded against a defined scope and time window."
+        eyebrow="SOP · Forensic audit methodology"
+        title="SOP: Verification Protocol & Audit Methodology."
+        lead="Forensic examination of supply-chain records, regulatory credentials, and public-facing claims against a controlled evidentiary standard. Determinations are issued under a defined scope and time window and remain subject to continuous surveillance."
       />
 
       {/* Document header strip */}
@@ -248,6 +248,9 @@ const HowItWorks = () => {
           </span>
           <span>
             Issued <span className="text-foreground">04/21/2026</span> · Revision <span className="text-foreground">2026.01</span> · Controlled copy
+          </span>
+          <span>
+            Classification · <span className="text-foreground">Public</span> · Controlled standard
           </span>
         </div>
       </div>
