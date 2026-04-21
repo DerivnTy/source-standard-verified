@@ -1,69 +1,75 @@
 
 
-## Minimize Directory Legend + Add Dedicated "How to Read" Page
+## Match Verified Vendors Legend To Greenlist Style
 
-Reduce the `VerifiedVendors` legend to a quiet single-row orientation strip, and create a new dedicated page that holds the full explanation.
+Update the "How to read this directory" section on `src/pages/VerifiedVendors.tsx` so it visually mirrors the Greenlist registry legend — a bold heading followed by a hairline-separated grid of white cards, one per status, each with a color-coded mono badge and a short description.
 
-### 1. Slim the legend on `src/pages/VerifiedVendors.tsx`
+### File edited
 
-Replace the current card-grid legend block (lines 175–195) with a much lighter strip:
+- `src/pages/VerifiedVendors.tsx` — legend block only (lines ~183–209). No data, routing, or component-library changes.
 
-- Container: `bg-surface-muted border-b`, `container-wide py-3` (down from `py-5`).
-- Single horizontal row of 5 minimal items, `flex flex-wrap items-center gap-x-5 gap-y-2`.
-- Each item: a small color marker dot (reusing the `StatusBadge` color tokens via a tiny inline marker) + status label + `—` + one-word descriptor. Compact mono label, `text-[12px]`.
-- Copy:
-  - Verified — published
-  - Under Review — in progress
-  - Unverified — not published
-  - Suspended — paused
-  - Removed — removed
-- Below the row, a single small link line: `Read more about how to read this directory →`, linking to `/how-to-read-the-directory`. Mono, `text-[12px]`, muted with hover to foreground.
-- Remove the longer "Note on Unverified" paragraph entirely from this page.
+### What changes
 
-No card boxes, no hairline grid, no second descriptor line. Quiet orientation strip only.
+**Replace the current quiet dot-strip legend with a Greenlist-style card grid.**
 
-### 2. New page: `src/pages/HowToReadTheDirectory.tsx`
+Container (unchanged shell):
+- `bg-surface-muted border-b border-border`
+- `container-wide py-6` (was `py-3`) — matches Greenlist's vertical rhythm.
 
-Create a new full page using the existing institutional design system (`RecordHeader` + numbered `Section`s, same rhythm as `StatusDefinitions.tsx` and `HowItWorks.tsx`).
+Heading:
+- `<p className="meta-label text-foreground mb-3">How to read this directory</p>` — same bold label treatment Greenlist uses (was just a plain row).
 
-- `RecordHeader`:
-  - Doc `SS-DIR-GUIDE-2026.01` · Version `2026.01` · Status `Active` · Updated `April 21, 2026` · Jurisdiction `US`
-  - Eyebrow: `Public Reference · Directory Guide`
-  - Title: `How to read the directory.`
-  - Lead: short framing sentence about how vendor listings and statuses should be interpreted.
+Grid:
+- `grid md:grid-cols-5 gap-px bg-border border border-border` — five equal cells at `md+`, collapsing to `grid-cols-2` on small screens, matching Greenlist's hairline-divider technique.
+- Each cell: `bg-background p-3` (white card on muted strip — the look the user is asking for).
 
-- Section scaffold (content to be written separately by the user — placeholder prose for now):
-  - §1 — What this directory shows
-  - §2 — How vendor listings are structured
-  - §3 — Status definitions (full version of the 5 statuses with longer meaning, what each tells the public, what it does not imply)
-  - §4 — What "Unverified" does and does not mean (the full note that previously lived on the directory page)
-  - §5 — How review status works (what triggers Under Review, what completion looks like)
-  - §6 — Suspended vs. Removed (what each indicates and what changed)
-  - §7 — What a consumer should and should not infer from status alone
-  - §8 — Cross-links: `/verified-vendors`, `/status-definitions`, `/verification-disclaimer`, `/accountability`
+Cell content (per status):
+- Line 1: existing `<StatusBadge status={s} />` — already renders the color square + uppercase mono label, parallel to Greenlist's `CategoryPill`.
+- Line 2: `text-[12px] text-muted-foreground leading-relaxed` short description from a local `STATUS_LEGEND_DESC` map.
 
-- Cite-as footer strip matching other reference pages.
+New short descriptions (slightly fuller than the current one-word labels, to match Greenlist's two-line card density without re-introducing the old long copy):
 
-Each section uses the same 4-col / 8-col grid (eyebrow + heading left, prose right), alternating `bg-background` / `bg-surface-muted`, hairline dividers — identical to `About.tsx` and `HowItWorks.tsx`.
+```ts
+const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
+  verified: "Source Standard verification has been completed and published.",
+  "under-review": "An active Source Standard review is currently in progress.",
+  unverified: "No Source Standard verification is currently published.",
+  suspended: "A previously published verification is temporarily paused.",
+  removed: "Listing has been removed from the public directory.",
+};
+```
 
-### 3. Routing — `src/App.tsx`
+The existing `STATUS_LEGEND_SHORT` and `STATUS_DOT_COLOR` constants are removed (no longer needed — `StatusBadge` provides the color marker).
 
-- Import `HowToReadTheDirectory`.
-- Add `<Route path="/how-to-read-the-directory" element={<HowToReadTheDirectory />} />` inside the `SiteLayout` route group.
+Footer link (kept, lightly restyled to match Greenlist's "Note on scope" treatment):
+- A single muted line below the grid, `mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl`:
+  > **Note.** "Unverified" means no Source Standard verification is currently published — it does not by itself indicate that a vendor is unsafe or noncompliant. [Read the full directory guide →](/how-to-read-the-directory)
 
-### Files
-
-- **Edit:** `src/pages/VerifiedVendors.tsx` (legend block only, lines ~175–195)
-- **Edit:** `src/App.tsx` (one import + one route)
-- **Create:** `src/pages/HowToReadTheDirectory.tsx`
-
-### Files NOT touched
-
-- `src/data/vendors.ts`, `src/components/StatusBadge.tsx`, `RecordHeader.tsx`, header/nav/footer.
-- Greenlist page (parallel update can be requested next if desired).
-- `StatusDefinitions.tsx` (remains as the formal status reference; new page is the consumer-facing reading guide and links to it).
+This preserves the link to the full `/how-to-read-the-directory` page while adopting Greenlist's "Note on scope" visual pattern.
 
 ### Result
 
-The directory page becomes a clean registry view with a quiet one-line legend and a single link out to the full guide. The new `/how-to-read-the-directory` page absorbs all the longer explanatory content, keeping the directory minimal while preserving public access to the full interpretation guidance.
+```text
+container-wide, py-6
+
+  How to read this directory                          ← bold meta-label
+
+  ┌────────┬────────┬────────┬────────┬────────┐
+  │ ■ VER. │ ■ UND. │ ■ UNV. │ ■ SUS. │ ■ REM. │     ← white cards on muted bg,
+  │ short  │ short  │ short  │ short  │ short  │       hairline separators
+  │ desc.  │ desc.  │ desc.  │ desc.  │ desc.  │
+  └────────┴────────┴────────┴────────┴────────┘
+
+  Note. "Unverified" means…  Read the full directory guide →
+```
+
+Side-by-side, `/verified-vendors` and `/greenlist` will now share the same legend system: bold heading → hairline grid of white cards → short note beneath.
+
+### Files NOT touched
+
+- `src/pages/Greenlist.tsx`
+- `src/pages/HowToReadTheDirectory.tsx`
+- `src/components/StatusBadge.tsx`
+- `src/data/vendors.ts`
+- Routing, header, footer.
 
