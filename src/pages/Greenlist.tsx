@@ -374,7 +374,12 @@ const Greenlist = () => {
                 {pageItems.map((e) => (
                   <div key={e.name} className="block rounded-md border border-border/60 bg-background p-4">
                     <div className="flex items-start justify-between gap-3">
-                      <p className="text-[13px] font-medium text-foreground">{e.name}</p>
+                      <Link
+                        to={`/greenlist/${e.slug}`}
+                        className="text-[13px] font-medium text-foreground hover:text-primary"
+                      >
+                        {e.name}
+                      </Link>
                       <CategoryPill category={e.category} />
                     </div>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
