@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
-import { Section, SectionLabel } from "@/components/Section";
+import { PageHeader } from "@/components/PageHeader";
+import { Section } from "@/components/Section";
 import {
   Accordion,
   AccordionContent,
@@ -10,8 +10,6 @@ import {
 import {
   ENTRY_STATUS_LABEL,
   EntryStatus,
-  FAQ_GROUP_LABEL,
-  FAQGroup,
   LibraryEntry,
   libraryFaqs,
   libraryGuides,
@@ -19,166 +17,193 @@ import {
   librarySupplementary,
 } from "@/data/library";
 
-const StatusChip = ({ status }: { status: EntryStatus }) => (
-  <span className="inline-flex items-center gap-1.5 border border-border/70 px-2 py-0.5 text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
-    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-    {ENTRY_STATUS_LABEL[status]}
-  </span>
-);
+const isReadable = (s: EntryStatus) => s === "published";
 
-const EntryRow = ({ entry }: { entry: LibraryEntry }) => (
+const SoftStatus = ({ status }: { status: EntryStatus }) =>
+  isReadable(status) ? null : (
+    <span className="text-[11.5px] text-muted-foreground/70 italic">
+      {ENTRY_STATUS_LABEL[status]}
+    </span>
+  );
+
+const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
   <Link
     to={`/education/${entry.slug}`}
-    className="grid grid-cols-12 gap-4 px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 transition-colors group"
+    className="block px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 transition-colors group"
   >
-    <div className="col-span-12 md:col-span-2 flex items-start">
-      <span className="text-[11.5px] font-mono uppercase tracking-[0.08em] text-muted-foreground tabular-nums">
-        {entry.id}
-      </span>
-    </div>
-    <div className="col-span-12 md:col-span-7">
-      <h3 className="text-[15px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
+    <div className="flex items-baseline justify-between gap-4">
+      <h3 className="text-[16px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
         {entry.title}
       </h3>
-      <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
-        {entry.summary}
+      <SoftStatus status={entry.status} />
+    </div>
+    <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
+      {entry.summary}
+    </p>
+    {entry.reviewedBy && (
+      <p className="mt-2 text-[11.5px] text-muted-foreground/80">
+        Reviewed by {entry.reviewedBy}
       </p>
-      {entry.reviewedBy && (
-        <p className="mt-2 text-[11.5px] text-muted-foreground/80">
-          Reviewed by · <span className="text-foreground/80">{entry.reviewedBy}</span>
-        </p>
-      )}
-    </div>
-    <div className="col-span-12 md:col-span-3 flex md:justify-end items-start">
-      <StatusChip status={entry.status} />
-    </div>
+    )}
   </Link>
 );
 
-const groupedFaqs = (Object.keys(FAQ_GROUP_LABEL) as FAQGroup[]).map((g) => ({
-  group: g,
-  label: FAQ_GROUP_LABEL[g],
-  items: libraryFaqs.filter((f) => f.group === g),
-}));
+// Plain-language FAQ regrouping
+const FAQ_BUCKETS: { label: string; ids: string[] }[] = [
+  {
+    label: "Is this legal?",
+    ids: ["SS-FAQ-001", "SS-FAQ-002"],
+  },
+  {
+    label: "Is it safe?",
+    ids: ["SS-FAQ-004", "SS-FAQ-007"],
+  },
+  {
+    label: "How does verification work?",
+    ids: ["SS-FAQ-003", "SS-FAQ-005", "SS-FAQ-006", "SS-FAQ-008"],
+  },
+  {
+    label: "What should I look for?",
+    ids: ["SS-FAQ-009", "SS-FAQ-010"],
+  },
+];
+
+const faqById = (id: string) => libraryFaqs.find((f) => f.id === id)!;
+
+// Pick basics: intro-level series + the foundational guide
+const basics: LibraryEntry[] = [
+  ...librarySeries.filter((e) => e.level === "intro"),
+];
 
 const Education = () => {
-  const counts = {
-    series: librarySeries.length,
-    guides: libraryGuides.length,
-    faqs: libraryFaqs.length,
-    supplementary: librarySupplementary.length,
-  };
-
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Document", value: "SS-LIBRARY-2026.01" },
-          { label: "Status", value: "Active" },
-          { label: "Reviewed under", value: "Medical Advisory Board" },
-          { label: "Updated", value: "Continuously" },
-        ]}
-        eyebrow="Clinical Reference Library"
-        title="Clinical Reference Library"
-        lead="A neutral, structured reference resource for consumers and clinicians. The library documents the framework behind Source Standard, provides physician-reviewed clinical guides, and addresses common questions about verification, methodology, and consumer due diligence. It is not editorial content and is not personalized medical advice."
-        summary={[
-          { label: "Source Standard Series", value: counts.series },
-          { label: "Clinical Guides", value: counts.guides },
-          { label: "FAQ entries", value: counts.faqs },
-          { label: "Supplementary formats", value: counts.supplementary },
-        ]}
+      <PageHeader
+        eyebrow="Learn"
+        title="Learn how this actually works"
+        description="A plain-language place to learn how compounded medications, peptides, and TRT actually work — and how to tell a trustworthy source from a risky one. Written for consumers, useful for clinicians."
       />
 
-      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border/60">
-        <div className="container-wide flex flex-wrap items-center gap-x-8 gap-y-2 py-3 text-[12.5px]">
-          <span className="text-muted-foreground/80 font-mono uppercase tracking-[0.08em] text-[11px]">
-            Index
-          </span>
-          <a href="#series" className="text-foreground hover:underline underline-offset-4">
-            I · Source Standard Series
-          </a>
-          <a href="#guides" className="text-foreground hover:underline underline-offset-4">
-            II · Clinical Guides
-          </a>
-          <a href="#faq" className="text-foreground hover:underline underline-offset-4">
-            III · FAQ
-          </a>
-          <a href="#supplementary" className="text-foreground hover:underline underline-offset-4">
-            IV · Supplementary
-          </a>
+      {/* Start Here */}
+      <Section>
+        <p className="eyebrow mb-4">Start here</p>
+        <div className="grid md:grid-cols-3 gap-px bg-border/60 border border-border/70">
+          <Link
+            to="/education/what-are-peptides"
+            className="bg-background p-6 hover:bg-surface-muted/40 transition-colors group"
+          >
+            <h3 className="text-[16px] font-medium text-foreground group-hover:underline underline-offset-4 decoration-border">
+              New to peptides?
+            </h3>
+            <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
+              Start with a plain-language explainer of what peptides are and how they're used.
+            </p>
+            <p className="mt-4 text-[13px] text-foreground">Read: What Are Peptides? →</p>
+          </Link>
+          <Link
+            to="/education/questions-to-ask-your-clinic"
+            className="bg-background p-6 hover:bg-surface-muted/40 transition-colors group"
+          >
+            <h3 className="text-[16px] font-medium text-foreground group-hover:underline underline-offset-4 decoration-border">
+              Evaluating a clinic or vendor?
+            </h3>
+            <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
+              The questions to ask before you start, plus the directory of reviewed sources.
+            </p>
+            <p className="mt-4 text-[13px] text-foreground">
+              Questions to ask · <Link to="/greenlist" className="underline underline-offset-4 decoration-border">Browse directory</Link>
+            </p>
+          </Link>
+          <Link
+            to="/education/the-2026-compounding-reclassification"
+            className="bg-background p-6 hover:bg-surface-muted/40 transition-colors group"
+          >
+            <h3 className="text-[16px] font-medium text-foreground group-hover:underline underline-offset-4 decoration-border">
+              Want to understand the rules?
+            </h3>
+            <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
+              How compounding is regulated, what's changing in 2026, and what it means for you.
+            </p>
+            <p className="mt-4 text-[13px] text-foreground">Read: The 2026 Reclassification →</p>
+          </Link>
+        </div>
+      </Section>
+
+      {/* Quiet anchor row */}
+      <div className="border-y border-border/60 bg-background">
+        <div className="container-wide flex flex-wrap items-center gap-x-6 gap-y-2 py-3 text-[12.5px] text-muted-foreground">
+          <span className="text-muted-foreground/70">Jump to:</span>
+          <a href="#basics" className="text-foreground hover:underline underline-offset-4">The Basics</a>
+          <a href="#guides" className="text-foreground hover:underline underline-offset-4">Practical Guides</a>
+          <a href="#questions" className="text-foreground hover:underline underline-offset-4">Common Questions</a>
         </div>
       </div>
 
+      {/* The Basics */}
       <Section>
-        <div id="series" className="scroll-mt-20">
-          <SectionLabel
-            number="I"
-            eyebrow="Lane I"
-            title="The Source Standard Series"
-            description="Framework and landscape pieces authored by Source Standard. These entries explain the regulatory context, the verification framework, and the reasoning behind directory methodology."
-          />
-          <div className="border border-border/70 rounded-[2px] bg-background">
-            {librarySeries.map((e) => (
-              <EntryRow key={e.id} entry={e} />
+        <div id="basics" className="scroll-mt-20">
+          <h2 className="text-[1.25rem] font-semibold text-foreground">The Basics</h2>
+          <p className="mt-2 max-w-2xl text-[14px] text-muted-foreground leading-relaxed">
+            Foundational reads. Start here if you're new — these explain what peptides and compounded medications are, and how to tell a real source from a fake one.
+          </p>
+          <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
+            {basics.map((e) => (
+              <SimpleRow key={e.id} entry={e} />
             ))}
           </div>
         </div>
       </Section>
 
+      {/* Practical Guides */}
       <Section muted>
         <div id="guides" className="scroll-mt-20">
-          <SectionLabel
-            number="II"
-            eyebrow="Lane II"
-            title="Clinical & Practical Guides"
-            description="Reviewed under the Medical Advisory Board. These guides are intended as practical clinical reference material. They are not personalized medical advice and do not establish a clinician–patient relationship."
-          />
-          <div className="border border-border/70 rounded-[2px] bg-background">
+          <h2 className="text-[1.25rem] font-semibold text-foreground">Practical Guides</h2>
+          <p className="mt-2 max-w-2xl text-[14px] text-muted-foreground leading-relaxed">
+            How to handle these medications safely. Reviewed by our Medical Advisory Board. Not a substitute for advice from your own clinician.
+          </p>
+          <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
             {libraryGuides.map((e) => (
-              <EntryRow key={e.id} entry={e} />
+              <SimpleRow key={e.id} entry={e} />
             ))}
           </div>
         </div>
       </Section>
 
+      {/* Common Questions */}
       <Section>
-        <div id="faq" className="scroll-mt-20">
-          <SectionLabel
-            number="III"
-            eyebrow="Lane III"
-            title="Unbiased FAQ"
-            description="Direct answers to common questions about legality, verification status, registry methodology, and consumer due diligence."
-          />
-          <div className="space-y-10">
-            {groupedFaqs.map((g) => (
-              <div key={g.group}>
-                <p className="eyebrow mb-4">{g.label}</p>
+        <div id="questions" className="scroll-mt-20">
+          <h2 className="text-[1.25rem] font-semibold text-foreground">Common Questions</h2>
+          <p className="mt-2 max-w-2xl text-[14px] text-muted-foreground leading-relaxed">
+            Direct, honest answers to the questions people most often ask.
+          </p>
+          <div className="mt-6 space-y-8">
+            {FAQ_BUCKETS.map((bucket) => (
+              <div key={bucket.label}>
+                <h3 className="text-[14px] font-medium text-foreground mb-2">{bucket.label}</h3>
                 <Accordion type="single" collapsible className="border-t border-border/60">
-                  {g.items.map((item) => (
-                    <AccordionItem key={item.id} value={item.id} className="border-b border-border/60">
-                      <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
-                        <span className="flex items-baseline gap-3">
-                          <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground tabular-nums">
-                            {item.id}
-                          </span>
-                          <span>{item.q}</span>
-                        </span>
-                      </AccordionTrigger>
-                      <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
-                        <p>{item.a}</p>
-                        {item.relatedSlug && (
-                          <p className="mt-3">
-                            <Link
-                              to={`/education/${item.relatedSlug}`}
-                              className="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
-                            >
-                              Read deeper →
-                            </Link>
-                          </p>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
+                  {bucket.ids.map((id) => {
+                    const item = faqById(id);
+                    return (
+                      <AccordionItem key={id} value={id} className="border-b border-border/60">
+                        <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
+                          {item.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
+                          <p>{item.a}</p>
+                          {item.relatedSlug && (
+                            <p className="mt-3">
+                              <Link
+                                to={`/education/${item.relatedSlug}`}
+                                className="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
+                              >
+                                Read more →
+                              </Link>
+                            </p>
+                          )}
+                        </AccordionContent>
+                      </AccordionItem>
+                    );
+                  })}
                 </Accordion>
               </div>
             ))}
@@ -186,79 +211,35 @@ const Education = () => {
         </div>
       </Section>
 
+      {/* Coming soon strip */}
       <Section muted>
-        <div id="supplementary" className="scroll-mt-20">
-          <SectionLabel
-            number="IV"
-            eyebrow="Lane IV"
-            title="Supplementary Infrastructure"
-            description="Additional reference formats currently being built out. Each module is scaffolded for future content and will become active as it is reviewed and released."
-          />
-          <div className="grid md:grid-cols-3 gap-px bg-border/60 border border-border/70">
-            {librarySupplementary.map((m) => (
-              <div key={m.id} className="bg-background p-6 flex flex-col">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground">
-                    {m.id}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 border border-border/70 px-2 py-0.5 text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
-                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-                    {m.status === "forthcoming" ? "Forthcoming" : "Active"}
-                  </span>
-                </div>
-                <h3 className="text-[16px] font-medium text-foreground">{m.title}</h3>
-                <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed flex-1">
-                  {m.description}
-                </p>
-                {m.cta && (
-                  <Link
-                    to={m.cta.to}
-                    className="mt-4 inline-flex items-center text-[13px] text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
-                  >
-                    {m.cta.label} →
-                  </Link>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
+        <p className="eyebrow mb-3">Coming soon</p>
+        <ul className="text-[14px] text-muted-foreground leading-relaxed space-y-1.5">
+          {librarySupplementary.map((m) => (
+            <li key={m.id}>
+              <span className="text-foreground">{m.title}</span> — {m.description}
+            </li>
+          ))}
+        </ul>
       </Section>
 
+      {/* About this library */}
       <Section bordered={false}>
-        <div className="grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-7">
-            <p className="eyebrow mb-3">Cite as</p>
-            <p className="text-[13.5px] text-muted-foreground leading-relaxed font-mono">
-              Source Standard. <span className="text-foreground">Clinical Reference Library</span>{" "}
-              (SS-LIBRARY-2026.01). sourcestandard.org/education.
-            </p>
-            <p className="mt-6 text-[12.5px] text-muted-foreground leading-relaxed max-w-2xl">
-              All material in the Clinical Reference Library is informational only and is not a
-              substitute for professional medical advice, diagnosis, or treatment. Always seek the
-              advice of a qualified health provider with any questions regarding a medical condition.
-            </p>
-          </div>
-          <div className="md:col-span-5">
-            <p className="eyebrow mb-3">Read deeper</p>
-            <ul className="border-t border-border/60 divide-y divide-border/60">
-              {[
-                { to: "/governance", label: "Governance" },
-                { to: "/medical-advisory", label: "Medical Advisory Board" },
-                { to: "/status-definitions", label: "Status Definitions" },
-                { to: "/how-to-read-the-directory", label: "How to Read the Directory" },
-              ].map((l) => (
-                <li key={l.to} className="py-3">
-                  <Link
-                    to={l.to}
-                    className="text-[14px] text-foreground hover:underline underline-offset-4 decoration-border"
-                  >
-                    {l.label} →
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <p className="eyebrow mb-3">About this library</p>
+        <p className="text-[13.5px] text-muted-foreground leading-relaxed max-w-2xl">
+          Reviewed under our{" "}
+          <Link to="/medical-advisory" className="underline underline-offset-4 decoration-border text-foreground">
+            Medical Advisory Board
+          </Link>{" "}
+          and maintained alongside our{" "}
+          <Link to="/governance" className="underline underline-offset-4 decoration-border text-foreground">
+            governance framework
+          </Link>
+          . Updated continuously.
+        </p>
+        <p className="mt-4 text-[12.5px] text-muted-foreground leading-relaxed max-w-2xl">
+          Everything here is informational only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always talk to a qualified health provider with questions about your own care.
+        </p>
       </Section>
     </>
   );
