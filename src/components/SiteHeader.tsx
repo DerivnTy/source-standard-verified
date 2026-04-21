@@ -75,7 +75,7 @@ export const SiteHeader = () => {
               <NavLink
                 key={n.to}
                 to={n.to}
-                
+                end={n.end}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `py-3.5 text-[15px] border-b border-border last:border-0 ${
@@ -92,7 +92,7 @@ export const SiteHeader = () => {
               className="mt-4 mb-2 h-11 bg-primary hover:bg-primary-hover text-primary-foreground rounded-[2px] font-medium"
             >
               <Link to="/apply" onClick={() => setOpen(false)}>
-                Apply for verification
+                Apply for Verification
               </Link>
             </Button>
           </div>
