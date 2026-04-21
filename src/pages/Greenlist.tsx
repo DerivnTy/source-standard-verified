@@ -142,7 +142,7 @@ const Greenlist = () => {
         const hay = [e.name, e.location, e.focus, e.type, e.category].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
-      if (type !== ALL && e.type !== type) return false;
+      if (type !== ALL && e.category !== type) return false;
       if (state !== ALL) {
         if (state === NATIONWIDE) {
           if (!e.serviceArea) return false;
@@ -302,11 +302,9 @@ const Greenlist = () => {
               aria-label="Filter by source type"
             >
               <option value={ALL}>All source types</option>
-              {GREENLIST_TYPES.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
+              <option value="503B">503B</option>
+              <option value="503A">503A</option>
+              <option value="Other">Other Qualified Source</option>
             </select>
 
             <select
