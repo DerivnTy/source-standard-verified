@@ -258,13 +258,12 @@ const HowItWorks = () => {
       {/* Audit principles */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Audit principles</p>
+          <p className="eyebrow mb-3">§1 · Governing principles</p>
           <h2 className="h-section max-w-3xl">
-            Governing principles of the verification protocol.
+            Governing Principles of Forensic Examination.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Verification examines the records behind a vendor — not their public presentation — against a consistent
-            evidentiary standard. Three principles govern conduct of every review.
+            The verification protocol prioritizes the source over the storefront. Every examination is conducted against a consistent evidentiary rubric, independent of marketing presentation, under the three principles below.
           </p>
           <div className="mt-10 grid md:grid-cols-3 gap-10 max-w-5xl">
             {whyItMatters.map((w, i) => (
