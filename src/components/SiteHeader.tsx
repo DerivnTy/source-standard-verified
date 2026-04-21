@@ -5,11 +5,12 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  { to: "/verified-vendors", label: "Verified vendors" },
+  { to: "/", label: "Home", end: true },
+  { to: "/verified-vendors", label: "Verified Vendors" },
   { to: "/greenlist", label: "Greenlist" },
-  { to: "/medical-advisory", label: "Medical advisory" },
   { to: "/education", label: "Education" },
-  { to: "/how-it-works", label: "How it works" },
+  { to: "/medical-advisory", label: "Medical Advisory" },
+  { to: "/how-it-works", label: "How It Works" },
   { to: "/about", label: "About" },
 ];
 
