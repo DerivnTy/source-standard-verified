@@ -3,41 +3,40 @@ import { ReactNode } from "react";
 import { MetadataBar } from "@/components/MetadataBar";
 import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenlist";
 
-const NOT_DISCLOSED = (
-  <span className="text-muted-foreground/70">Not disclosed</span>
-);
+// Compact field cell. Returns null when value is empty so empty fields collapse from the DOM.
+const Field = ({ label, value }: { label: string; value: ReactNode }) => {
+  if (value === null || value === undefined || value === "" || value === false) return null;
+  return (
+    <div className="py-1.5">
+      <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
+        {label}
+      </dt>
+      <dd className="mt-0.5 text-[13px] text-foreground leading-snug">{value}</dd>
+    </div>
+  );
+};
 
-const Field = ({ label, value }: { label: string; value: ReactNode }) => (
-  <div className="grid grid-cols-12 gap-4 py-3 border-b border-border/40 last:border-b-0">
-    <dt className="col-span-12 md:col-span-4 text-[12px] uppercase tracking-[0.08em] text-muted-foreground/80 font-medium">
-      {label}
-    </dt>
-    <dd className="col-span-12 md:col-span-8 text-[13.5px] text-foreground leading-relaxed">
-      {value ?? NOT_DISCLOSED}
-    </dd>
-  </div>
-);
-
-const renderList = (arr?: string[]) =>
-  arr && arr.length > 0 ? (
-    <ul className="flex flex-wrap gap-1.5">
+const tags = (arr?: string[]): ReactNode => {
+  if (!arr || arr.length === 0) return null;
+  return (
+    <ul className="flex flex-wrap gap-1">
       {arr.map((item) => (
         <li
           key={item}
-          className="inline-flex items-center px-2 py-0.5 rounded border border-border/60 bg-surface-muted/60 text-[12px] font-mono"
+          className="inline-flex items-center px-1.5 py-0.5 rounded border border-border/60 bg-surface-muted/60 text-[11.5px] font-mono"
         >
           {item}
         </li>
       ))}
     </ul>
-  ) : (
-    NOT_DISCLOSED
   );
+};
 
-const renderText = (v?: string | number) =>
-  v !== undefined && v !== null && v !== "" ? <>{v}</> : NOT_DISCLOSED;
+const text = (v?: string | number): ReactNode =>
+  v !== undefined && v !== null && v !== "" ? <>{v}</> : null;
 
-const ScorecardSection = ({
+// Section renders only when at least one child is non-null.
+const Section = ({
   eyebrow,
   title,
   children,
@@ -45,19 +44,28 @@ const ScorecardSection = ({
   eyebrow: string;
   title: string;
   children: ReactNode;
-}) => (
-  <section className="rounded-lg border border-border/60 bg-background overflow-hidden">
-    <header className="bg-surface-muted/60 border-b border-border/60 px-5 py-3">
-      <p className="text-[10.5px] uppercase tracking-[0.14em] font-mono font-semibold text-muted-foreground">
-        {eyebrow}
-      </p>
-      <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em] mt-0.5">
-        {title}
-      </h2>
-    </header>
-    <dl className="px-5 py-1">{children}</dl>
-  </section>
-);
+}) => {
+  // Filter out null children so we can detect an empty section.
+  const filled = (Array.isArray(children) ? children : [children]).filter(
+    (c) => c !== null && c !== false && c !== undefined
+  );
+  if (filled.length === 0) return null;
+  return (
+    <section className="rounded-lg border border-border/60 bg-background overflow-hidden">
+      <header className="bg-surface-muted/60 border-b border-border/60 px-4 py-2.5">
+        <p className="text-[10px] uppercase tracking-[0.14em] font-mono font-semibold text-muted-foreground">
+          {eyebrow}
+        </p>
+        <h2 className="text-[14px] font-semibold text-foreground tracking-[-0.005em]">
+          {title}
+        </h2>
+      </header>
+      <dl className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
+        {filled}
+      </dl>
+    </section>
+  );
+};
 
 const GreenlistProfile = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -84,6 +92,7 @@ const GreenlistProfile = () => {
   }
 
   const p: GLProfile = entry.profile ?? {};
+  const summary = p.background ?? `${entry.focus}.`;
 
   return (
     <>
@@ -97,45 +106,48 @@ const GreenlistProfile = () => {
       />
 
       <header className="bg-background border-b border-border/60">
-        <div className="container-wide pt-6 pb-10">
+        <div className="container-wide pt-4 pb-6">
           <Link
             to="/greenlist"
-            className="inline-flex items-center text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground mb-6"
+            className="inline-flex items-center text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground mb-4"
           >
             ← Back to Greenlist
           </Link>
 
-          <div className="grid md:grid-cols-12 gap-10">
+          <div className="grid md:grid-cols-12 gap-6">
             <div className="md:col-span-8">
-              <p className="eyebrow mb-3">Public Registry · Greenlist Facility</p>
-              <h1 className="text-[1.75rem] md:text-[2.125rem] font-semibold tracking-[-0.015em] text-foreground leading-[1.15]">
+              <p className="eyebrow mb-2">Public Registry · Greenlist Facility</p>
+              <h1 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-[-0.015em] text-foreground leading-[1.2]">
                 {entry.name}
               </h1>
-              <p className="mt-3 text-[14px] text-muted-foreground font-mono">
+              <p className="mt-2 text-[13px] text-muted-foreground font-mono">
                 {entry.type} · {entry.location}
+                {entry.website && (
+                  <>
+                    {" · "}
+                    <a
+                      href={entry.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground hover:text-primary"
+                    >
+                      Website ↗
+                    </a>
+                  </>
+                )}
               </p>
-              <p className="mt-5 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-                {entry.focus}.
+              <p className="mt-3 max-w-2xl text-[14px] text-muted-foreground leading-relaxed">
+                {summary}
               </p>
-              {entry.website && (
-                <a
-                  href={entry.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-block text-[12px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
-                >
-                  Visit facility website →
-                </a>
-              )}
             </div>
 
-            {/* At-a-glance scorecard sidebar */}
+            {/* At-a-glance — compact, omit-empty */}
             <aside className="md:col-span-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/80 mb-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/80 mb-2">
                 At a glance
               </p>
               <div className="rounded-lg border border-border/60 bg-background overflow-hidden">
-                <div className="px-4 py-3 border-b border-border/60 bg-surface-muted/40">
+                <div className="px-3 py-2 border-b border-border/60 bg-surface-muted/40">
                   <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.14em] text-[11px] text-foreground">
                     <span
                       aria-hidden
@@ -143,15 +155,14 @@ const GreenlistProfile = () => {
                     />
                     Greenlisted
                   </span>
-                  <p className="mt-1 text-[11px] text-muted-foreground">
-                    Inclusion status — recognized upstream source
-                  </p>
                 </div>
-                <dl className="px-4 py-2">
+                <dl className="px-3 py-1">
                   <Field label="Source type" value={entry.type} />
-                  <Field label="Designation" value={renderText(p.designation)} />
-                  <Field label="SS review date" value={renderText(p.ssReviewDate)} />
-                  <Field label="Vendor count" value={renderText(p.vendorCount)} />
+                  <Field label="Designation" value={text(p.designation)} />
+                  <Field label="FDA registration / FEI" value={text(p.fdaRegistration)} />
+                  <Field label="Years in operation" value={text(p.yearsInOperation)} />
+                  <Field label="SS review date" value={text(p.ssReviewDate)} />
+                  <Field label="Location" value={entry.location} />
                 </dl>
               </div>
             </aside>
@@ -160,71 +171,40 @@ const GreenlistProfile = () => {
       </header>
 
       <section className="bg-surface-muted/30">
-        <div className="container-wide py-10 space-y-6">
-          <ScorecardSection
-            eyebrow="01 · Regulatory"
-            title="Regulatory identity & status"
-          >
-            <Field label="Designation" value={renderText(p.designation)} />
-            <Field label="FDA registration / FEI" value={renderText(p.fdaRegistration)} />
-            <Field label="States served / licensure" value={renderList(p.statesServed)} />
-            <Field label="Inspection history" value={renderText(p.inspectionHistory)} />
-            <Field label="Last inspection date" value={renderText(p.lastInspectionDate)} />
-          </ScorecardSection>
+        <div className="container-wide py-6 space-y-4">
+          <Section eyebrow="01 · Regulatory & Quality" title="Regulatory identity, quality systems">
+            <Field label="Designation" value={text(p.designation)} />
+            <Field label="FDA registration / FEI" value={text(p.fdaRegistration)} />
+            <Field label="States served / licensure" value={tags(p.statesServed)} />
+            <Field label="Inspection history" value={text(p.inspectionHistory)} />
+            <Field label="Last inspection date" value={text(p.lastInspectionDate)} />
+            <Field label="Standards met" value={tags(p.standards)} />
+            <Field label="Cleanroom classification" value={text(p.cleanroomClass)} />
+            <Field label="Testing protocols" value={tags(p.testingProtocols)} />
+            <Field label="Environmental monitoring" value={text(p.environmentalMonitoring)} />
+          </Section>
 
-          <ScorecardSection
-            eyebrow="02 · Quality systems"
-            title="Quality systems & manufacturing standards"
-          >
-            <Field label="Standards met" value={renderList(p.standards)} />
-            <Field label="Cleanroom classification" value={renderText(p.cleanroomClass)} />
-            <Field label="Testing protocols" value={renderList(p.testingProtocols)} />
-            <Field
-              label="Environmental monitoring"
-              value={renderText(p.environmentalMonitoring)}
-            />
-          </ScorecardSection>
+          <Section eyebrow="02 · Capabilities" title="Product capabilities">
+            <Field label="Dosage forms" value={tags(p.dosageForms)} />
+            <Field label="Specializations" value={tags(p.specializations)} />
+            <Field label="Clinical focus" value={entry.focus} />
+            <Field label="API sourcing policy" value={text(p.apiSourcingPolicy)} />
+          </Section>
 
-          <ScorecardSection eyebrow="03 · Capabilities" title="Product capabilities">
-            <Field label="Dosage forms" value={renderList(p.dosageForms)} />
-            <Field label="Specializations" value={renderList(p.specializations)} />
-            <Field label="Clinical focus areas" value={entry.focus} />
-            <Field label="API sourcing policy" value={renderText(p.apiSourcingPolicy)} />
-          </ScorecardSection>
+          <Section eyebrow="03 · Background" title="Neutral facility background">
+            <Field label="Years in operation" value={text(p.yearsInOperation)} />
+            <Field label="Facility scale" value={text(p.facilityScale)} />
+            <Field label="QA staffing" value={text(p.qaStaffing)} />
+            <Field label="SS audit date" value={text(p.ssAuditDate)} />
+            <Field label="Review notes" value={text(p.reviewNotes)} />
+          </Section>
 
-          <ScorecardSection
-            eyebrow="04 · Source Standard"
-            title="Source Standard audit data"
-          >
-            <Field label="SS verification / review date" value={renderText(p.ssReviewDate)} />
-            <Field label="SS audit date" value={renderText(p.ssAuditDate)} />
-            <Field
-              label="Third-party lab validation log"
-              value={renderText(p.labValidationLog)}
-            />
-            <Field label="Vendor count" value={renderText(p.vendorCount)} />
-            <Field label="Review notes" value={renderText(p.reviewNotes)} />
-          </ScorecardSection>
-
-          <ScorecardSection
-            eyebrow="05 · Background"
-            title="Neutral facility background"
-          >
-            <Field label="Years in operation" value={renderText(p.yearsInOperation)} />
-            <Field
-              label="Facility scale / square footage"
-              value={renderText(p.facilityScale)}
-            />
-            <Field label="QA staffing" value={renderText(p.qaStaffing)} />
-            <Field label="Operational background" value={renderText(p.background)} />
-          </ScorecardSection>
-
-          <footer className="rounded-lg border border-border/60 bg-background px-5 py-4">
-            <p className="text-[12px] text-muted-foreground leading-relaxed">
+          <footer className="rounded-lg border border-border/60 bg-background px-4 py-3">
+            <p className="text-[11.5px] text-muted-foreground leading-relaxed">
               Source Standard does not accept payment from facilities for inclusion in
-              the Greenlist. Information provided is for public reference and is
-              derived from public regulatory filings, disclosed facility information,
-              and Source Standard review data where applicable.
+              the Greenlist. Information is derived from public regulatory filings,
+              disclosed facility information, and Source Standard review data where
+              applicable.
             </p>
           </footer>
         </div>

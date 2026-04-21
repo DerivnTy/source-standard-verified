@@ -90,6 +90,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile compounded injectables for pain management, nuclear medicine, hospice, and wellness protocols; long-standing 503B",
     website: "https://anazaohealth.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Pellets", "Topicals"],
+      specializations: ["Pain management", "Nuclear medicine", "Hormone therapy", "Hospice"],
+      background:
+        "AnazaoHealth is a long-standing FDA-registered 503B outsourcing facility headquartered in Las Vegas, NV, serving prescribers and clinics with office-use sterile compounded preparations across pain, hospice, and specialty practices.",
+    },
   },
   {
     slug: "apollo-care",
@@ -99,6 +107,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Columbia, MO",
     focus: "Sterile compounded injectables for hospital and clinic use",
     website: "https://apollocare.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      background:
+        "FDA-registered 503B outsourcing facility producing sterile compounded medications for hospital and clinic office-use stock.",
+    },
   },
   {
     slug: "apocus-inc",
@@ -118,6 +133,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Bartow, FL",
     focus: "Sterile IV solutions and infusions supplying hospitals and clinics",
     website: "https://assureinfusions.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["IV solutions", "Sterile infusions", "Prefilled syringes"],
+      specializations: ["Hospital admixtures", "Clinic infusion stock"],
+      background:
+        "FDA-registered 503B outsourcing facility based in Bartow, FL, producing ready-to-use sterile IV solutions and infusion products for hospital and clinic environments.",
+    },
   },
   {
     slug: "farmakeio-outsourcing-llc",
@@ -137,6 +160,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Wichita, KS",
     focus: "High-volume sterile compounding for hospitals and clinics nationwide",
     website: "https://fagronsterileservices.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "IV admixtures", "Prefilled syringes", "Ophthalmics"],
+      specializations: ["Hospital sterile compounding", "Drug-shortage support"],
+      background:
+        "Wichita, KS-based 503B outsourcing facility within the global Fagron group, producing sterile compounded medications at scale for hospitals and clinics nationwide.",
+    },
   },
   {
     slug: "ourpharma-llc",
@@ -147,6 +178,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile ready-to-use medications for hospitals, ambulatory centers, and clinics",
     website: "https://ourpharma.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Prefilled syringes", "Ready-to-use medications"],
+      specializations: ["Hospital admixtures", "Ambulatory surgical center stock"],
+      background:
+        "FDA-registered 503B outsourcing facility in Fayetteville, AR, manufacturing ready-to-use sterile medications for hospitals, ambulatory centers, and clinics.",
+    },
   },
   {
     slug: "park-avenue-compounding",
@@ -166,6 +205,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Ready-to-use sterile admixtures, prefilled syringes, and drug-shortage medications for hospital systems",
     website: "https://scapharma.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["IV admixtures", "Prefilled syringes", "IV bags", "Ready-to-use injectables"],
+      specializations: ["Hospital pharmacy support", "Drug-shortage response", "Anesthesia & critical care"],
+      background:
+        "SCA Pharmaceuticals operates FDA-registered 503B outsourcing facilities supplying ready-to-use sterile admixtures and prefilled syringes to hospital systems nationwide, with a focus on drug-shortage and critical-care medications.",
+    },
   },
   {
     slug: "sknv-formerly-sincerus-florida-llc",
@@ -186,6 +233,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Ophthalmology-focused sterile eye drops and injectables for ophthalmic practices",
     website: "https://osrxpharmaceutical.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile ophthalmic drops", "Sterile injectables"],
+      specializations: ["Ophthalmology", "Cataract & retina practice support"],
+      background:
+        "OSRX is an FDA-registered 503B outsourcing facility focused on ophthalmic sterile preparations, supplying eye-care practices with compounded drops and injectables.",
+    },
   },
   {
     slug: "quva-pharma-inc",
@@ -196,6 +251,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "National sterile compounding provider supplying IV admixtures, anesthesia, and critical-care medications",
     website: "https://quvapharma.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["IV admixtures", "Prefilled syringes", "Sterile injectables"],
+      specializations: ["Anesthesia", "Critical care", "Hospital pharmacy support"],
+      background:
+        "QuVa Pharma is a national 503B outsourcing facility provider headquartered in Sugar Land, TX, supplying ready-to-administer sterile compounded medications to hospitals across the United States.",
+    },
   },
   {
     slug: "rc-outsourcing-llc",
@@ -215,6 +278,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Pediatric and hospital sterile injectables and oral liquids; ready-to-use compounded medications for health systems",
     website: "https://staqpharma.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Oral liquids", "Prefilled syringes"],
+      specializations: ["Pediatric formulations", "Hospital ready-to-use medications"],
+      background:
+        "STAQ Pharma operates FDA-registered 503B outsourcing facilities in Denver, CO and Columbus, OH, focused on ready-to-use sterile compounded medications for hospitals and health systems, including pediatric formulations.",
+    },
   },
   {
     slug: "stokes-healthcare-inc",
@@ -243,6 +314,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Swedesboro, NJ",
     focus: "Sterile medications for hospitals and specialty practices",
     website: "https://wedgewoodconnect.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Hospital and specialty practice sterile preparations"],
+      background:
+        "Wedgewood Connect is the 503B outsourcing arm associated with the broader Wedgewood compounding organization, producing sterile compounded medications for hospitals and specialty practices.",
+    },
   },
   {
     slug: "wells-pharma-of-houston-llc",
@@ -265,6 +344,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Patient-specific peptide, hormone, GLP-1 support, and wellness medications on individual prescriptions",
     website: "https://empowerpharmacy.com",
+    profile: {
+      designation: "503A Compounding Pharmacy",
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Hormone therapy", "Peptides", "GLP-1 support", "Men's & women's health"],
+      background:
+        "Houston-based 503A compounding pharmacy serving patient-specific prescriptions across hormone, peptide, and wellness categories, paired operationally with a sister 503B facility.",
+    },
   },
   {
     slug: "empower-pharma",
@@ -275,6 +362,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sister 503B facility manufacturing bulk sterile medications used by clinics and telehealth platforms for hormones, peptides, and wellness protocols",
     website: "https://empowerpharma.com",
+    profile: {
+      designation: "503B Outsourcing Facility",
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Office-use bulk sterile preparations"],
+      specializations: ["Hormone therapy", "Peptides", "Wellness protocols"],
+      background:
+        "Sister 503B outsourcing facility to Empower Pharmacy, producing office-use sterile compounded preparations under cGMP for clinics and telehealth platforms operating in hormone, peptide, and wellness categories.",
+    },
   },
   {
     slug: "olympia-pharmacy-olympia-pharmaceuticals",
@@ -383,6 +478,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Large compounding operation with human and veterinary presence; related 503B arm handles sterile hospital products",
     website: "https://wedgewoodpharmacy.com",
+    profile: {
+      designation: "503A Compounding Pharmacy",
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral", "Topicals"],
+      specializations: ["Human compounding", "Veterinary compounding", "Specialty practice support"],
+      background:
+        "One of the largest compounding pharmacies in the United States, with both human and veterinary lines and a related 503B outsourcing arm that supplies sterile hospital products.",
+    },
   },
   {
     slug: "fagron",
@@ -403,6 +506,14 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Hospital-focused compounding and admixture services, including ready-to-use sterile solutions",
     website: "https://bbraunusa.com",
+    profile: {
+      designation: "FDA-registered drug manufacturer; hospital admixture services",
+      standards: ["cGMP"],
+      dosageForms: ["IV solutions", "Sterile admixtures", "Infusion therapy products"],
+      specializations: ["Hospital pharmacy support", "Infusion therapy", "Critical care"],
+      background:
+        "Global medical and pharmaceutical company with US headquarters in Bethlehem, PA, producing IV solutions, infusion therapy products, and providing hospital-focused admixture services under cGMP.",
+    },
   },
   {
     slug: "optum",
