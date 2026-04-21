@@ -54,7 +54,7 @@ const VerificationDisclaimer = () => (
         { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "FL/US" },
+        { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Disclaimer · Formal regulatory attestation"
       title="Verification Disclaimer & Attestation Scope."

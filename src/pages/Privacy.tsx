@@ -55,7 +55,7 @@ const Privacy = () => (
         { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "FL/US" },
+        { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Policy · Data governance protocol"
       title="Data Governance & Privacy Policy."
