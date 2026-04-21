@@ -98,51 +98,6 @@ const Education = () => {
         description="A plain-language place to learn how compounded medications, peptides, and TRT actually work — and how to tell a trustworthy source from a risky one. Written for consumers, useful for clinicians."
       />
 
-      {/* Start Here */}
-      <Section>
-        <p className="eyebrow mb-4">Start here</p>
-        <div className="grid md:grid-cols-3 gap-px bg-border/60 border border-border/70">
-          <Link
-            to="/education/what-are-peptides"
-            className="bg-background p-7 hover:bg-surface-muted/40 transition-colors group"
-          >
-            <h3 className="text-[16px] font-medium text-foreground group-hover:underline underline-offset-4 decoration-border">
-              New to peptides?
-            </h3>
-            <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
-              Start with a plain-language explainer of what peptides are and how they're used.
-            </p>
-            <p className="mt-5 text-[13px] text-foreground">Read: What Are Peptides? →</p>
-          </Link>
-          <Link
-            to="/education/questions-to-ask-your-clinic"
-            className="bg-background p-7 hover:bg-surface-muted/40 transition-colors group"
-          >
-            <h3 className="text-[16px] font-medium text-foreground group-hover:underline underline-offset-4 decoration-border">
-              Evaluating a clinic or vendor?
-            </h3>
-            <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
-              The questions to ask before you start, plus the directory of reviewed sources.
-            </p>
-            <p className="mt-5 text-[13px] text-foreground">
-              Questions to ask · <Link to="/greenlist" className="underline underline-offset-4 decoration-border">Browse directory</Link>
-            </p>
-          </Link>
-          <Link
-            to="/education/the-2026-compounding-reclassification"
-            className="bg-background p-7 hover:bg-surface-muted/40 transition-colors group"
-          >
-            <h3 className="text-[16px] font-medium text-foreground group-hover:underline underline-offset-4 decoration-border">
-              Want to understand the rules?
-            </h3>
-            <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
-              How compounding is regulated, what's changing in 2026, and what it means for you.
-            </p>
-            <p className="mt-5 text-[13px] text-foreground">Read: The 2026 Reclassification →</p>
-          </Link>
-        </div>
-      </Section>
-
       {/* Quiet anchor row */}
       <div className="border-y border-border/40 bg-background">
         <div className="container-wide flex flex-wrap items-center gap-x-6 gap-y-2 py-2.5 text-[12px] text-muted-foreground">
