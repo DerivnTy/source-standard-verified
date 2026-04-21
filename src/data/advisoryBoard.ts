@@ -3,6 +3,7 @@ import advisor02 from "@/assets/advisors/advisor-02.jpg";
 import advisor03 from "@/assets/advisors/advisor-03.jpg";
 import advisor04 from "@/assets/advisors/advisor-04.jpg";
 import advisor05 from "@/assets/advisors/advisor-05.jpg";
+import advisor06 from "@/assets/advisors/advisor-06.jpg";
 
 export type BoardMember = {
   slug: string;
@@ -218,6 +219,46 @@ export const advisoryBoard: BoardMember[] = [
     jurisdiction: "US",
     yearsPracticing: "14+",
     photo: advisor05,
+  },
+  {
+    slug: "advisor-06",
+    name: "Dr. Richard Halloran",
+    credentials: "MD, JD",
+    boardTitle: "Member · Regulatory Affairs & Ethics",
+    specialization: "Health Law · Medical Ethics",
+    shortSummary:
+      "Physician-attorney reviewing the regulatory posture of the framework and the ethical boundaries of public determinations published under it.",
+    biography:
+      "Dr. Halloran is a physician-attorney whose career has spanned bedside internal medicine, hospital general counsel work, and federal health-regulatory practice. He has advised academic medical centers on FDA enforcement matters, state medical board proceedings, and the ethical questions that arise when clinical determinations enter the public record. He brings that dual lens to the Medical Advisory Board, ensuring the framework's public-facing determinations are defensible both clinically and procedurally.",
+    background: [
+      "MD — Georgetown University School of Medicine",
+      "JD (Health Law concentration) — Georgetown University Law Center",
+      "Internal Medicine residency — MedStar Georgetown University Hospital",
+      "Prior associate general counsel role — academic medical center",
+      "Member in good standing, state bar (active)",
+    ],
+    accomplishments: [
+      "Twenty-five years combined clinical and health-law practice",
+      "Advised institutional review of FDA enforcement and warning-letter matters",
+      "Contributor on medical-ethics and informed-consent standards",
+      "Recurring lecturer on the intersection of clinical practice and health regulation",
+      "Active medical and bar licenses in good standing",
+    ],
+    whyTheyCare:
+      "Public determinations carry weight whether or not the publishing organization intends them to. The board's job on this seat is to make sure the framework's authority is matched by the procedural discipline that earns it.",
+    contribution:
+      "Reviews framework determinations for regulatory and ethical posture, advises on the boundaries between public reference and clinical advice, and helps maintain the conflict-of-interest disclosures recorded under SS-GOV-2026.01.",
+    clinicalFocus: [
+      "Regulatory posture review",
+      "Conflict-of-interest discipline",
+      "Public-determination boundaries",
+      "Ethics of disclosure & non-disclosure",
+    ],
+    philosophy:
+      "A standard earns its authority through the procedure behind it, not the language in front of it. The seat exists to make sure procedure stays ahead of language.",
+    jurisdiction: "US",
+    yearsPracticing: "25+",
+    photo: advisor06,
   },
 ];
 
