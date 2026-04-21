@@ -1,91 +1,90 @@
 
 
-## Medical Advisory Board — restructure to roster-first, Clinical Governance tone
+## Library page — Public Education & Standards overhaul
 
-A copy + reorder pass on `src/pages/MedicalAdvisory.tsx`. No data file edits, no routing changes. The roster moves to the top; mandate and responsibilities follow it.
+A copy + light visual pass on `src/pages/Education.tsx`. No data file edits, no routing changes, no changes to `/education/basics`, `/education/guides`, `/education/questions`, or entry detail pages. All overrides for titles/labels are applied at render time inside the component so `src/data/library.ts` stays the single source of truth.
 
-### New section order
+### Header (`AnchorHeader`)
 
-1. `RecordHeader` (hero)
-2. **§1 — Current Board Appointments** (was §4 — Board Members)
-3. **§2 — Regulatory Mandate & Scope** (was §1 — Board Mandate)
-4. **§3 — Role in the Source Standard Framework** (unchanged content, renumbered)
-5. **§4 — Key Responsibilities** (was §3, verbs tightened)
-6. Read deeper
-7. Cite
+- Eyebrow: `Library` → `Public education & standards`
+- Title: `Learn the landscape.` → `Clinical Reference & Standards Library.`
+- Lead: → `Reference materials covering the administrative and clinical protocols that govern compounded medication sourcing, handling, and verification under the Source Standard framework.`
 
-### Header (`RecordHeader`)
+### Anchor row (jump-to)
 
-- Title: `Medical Advisory Board.` → `Medical Advisory Board (MAB).`
-- Lead: → `The governing clinical body for the Source Standard framework. The MAB ratifies evaluation logic, authorizes versioned revisions, and confirms that public determinations are administratively defensible.`
-- Metadata: keep existing; ensure `Doc: SS-MAB-2026.01` (already present).
+Update labels to match new section names:
+- `The Basics` → `Foundational Standards`
+- `Practical Guides` → `Clinical Protocols`
+- `Common Questions` → `Regulatory FAQ`
+- Add: `Archive index` (new — see below)
 
-### §1 — Current Board Appointments (moved up)
+### Archive index strip (new, ledger-style)
 
-Section eyebrow: `§1 — Current Board Appointments`
-Heading: `Appointed members of the Medical Advisory Board.`
-Top-right meta strip becomes a faculty-directory header bar instead of a free paragraph:
-- Left: `Roster · SS-MAB-2026.01`
-- Right: `06 appointed seats · Active`
-Both rendered as small mono uppercase labels with a thin divider, matching the ledger panels on the registry pages.
+Directly under the anchor row, add a compact metadata strip matching the registry pages:
+- Left: `Archive index · SS-LIB-2026.01`
+- Right: `Maintained · Active`
+Small mono uppercase 10px, divider underneath. Sets the "official archive" tone.
 
-Card restyle (faculty-directory feel, still inside the existing 2-column `gap-px` grid):
-- Photo column: square `h-20 w-20 rounded-[2px]`, with a small mono `SEAT · 01`–`06` badge underneath the photo.
-- Right column inside the card header: name + credentials on top, board title below in primary color, specialization in muted.
-- Move `jurisdiction · years practicing` into a 2-cell metadata strip directly under the name (instead of the footer), styled as `font-mono uppercase tracking-[0.1em]`:
-  - `JURISDICTION · FL / US`
-  - `YEARS PRACTICING · 20+`
-- Short summary stays as the body paragraph.
-- Footer keeps the `View profile →` link, plus a left-side small mono tag for the slug (e.g. `MAB-01`).
+### Reference ID display (general)
 
-This makes each card scan as an appointment record rather than a marketing bio.
+Update `SimpleRow` so each entry visibly leads with its reference code:
+- Add a fixed-width left column: `font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums w-28 shrink-0` showing `entry.id` (e.g. `SS-SERIES-002`).
+- Title and summary stay to the right; layout becomes a 2-column row that scans like an archive entry.
+- `SoftStatus` keeps its right-side placement as a small mono pill.
 
-### §2 — Regulatory Mandate & Scope (moved down, retitled)
+### §1 — Foundational Sourcing Standards (was "The Basics")
 
-Eyebrow: `§2 — Regulatory Mandate & Scope`
-Heading: `Governing clinical body for the framework.`
-Body (replace existing 3 paragraphs):
-> The Medical Advisory Board governs the evaluation logic of the Source Standard framework. It ratifies criteria, authorizes versioned revisions, and confirms that every public determination is grounded in current clinical practice and administratively defensible to a reviewing physician.
->
-> The Board does not evaluate or treat patients through the framework. Its mandate is restricted to the rubric by which vendors, pharmacies, and upstream sources are assessed, and to the procedural discipline by which those assessments are recorded.
->
-> Determinations published under this framework are the product of a structured review process governed by this Board — not an editorial position of the organization.
+- Section heading: `Foundational Sourcing Standards`
+- Lead: `Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.`
+- Per-entry display title override (slug-keyed map applied only on this page; data file unchanged):
+  - `how-to-read-a-certificate-of-analysis` → `Audit Protocols: Interpreting CoAs and Detecting Discrepancies`
+- `See all foundational reads` → `View full foundational index →`
 
-### §3 — Role in the Source Standard Framework
+### §2 — Clinical Handling & Aseptic Protocols (was "Practical Guides")
 
-Renumber only. Keep the existing 4-step ordered list as-is (already uses `Defines / Ratifies / Reviews / Authorizes` verbs, which match the requested clinical tone).
+- Section heading: `Clinical Handling & Aseptic Protocols`
+- Lead: `Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.`
+- Slug-keyed display title overrides:
+  - `safe-peptide-handling-and-reconstitution` → `Sterile Preparation Integrity: Handling & Reconstitution Protocol`
+  - `sanitization-and-aseptic-technique-fundamentals` → `Aseptic Technique: Sanitization Fundamentals`
+  - `the-science-of-aging-and-trt` → `Endocrinological Context: Age-Related Hormonal Change & TRT`
+  - `dosing-guidance-summaries-for-common-compounds` → `Reference Dosing Ranges: Selected Compounds`
+- `See all clinical guides` → `View full clinical protocol index →`
 
-### §4 — Key Responsibilities (verb tightening)
+### §3 — Public Inquiry & Regulatory FAQ (was "Common Questions")
 
-Eyebrow: `§4 — Key Responsibilities`
-Heading: `What the Board is accountable for.`
-Update titles in `responsibilities` rendering only — the data file is not edited; we override the displayed title via a small in-component map keyed by code so the source data stays placeholder-safe:
+- Section heading: `Public Inquiry & Regulatory FAQ`
+- Lead: `Plain-record answers on legal distinction, regulatory status, verification methodology, and consumer due diligence.`
+- Rename FAQ buckets (display labels only — `FAQ_BUCKETS` array literal):
+  - `Is this legal?` → `Legal Distinction & Access`
+  - `Is it safe?` → `Regulatory Status & Safety Scope`
+  - `How does verification work?` → `Verification Methodology`
+  - `What should I look for?` → `Consumer Due Diligence`
+- `See all questions` → `View full regulatory FAQ →`
 
-- R-01 Audit oversight → `Confirms audit determinations`
-- R-02 Greenlist review → `Authorizes Greenlist inclusion`
-- R-03 Policy refinement → `Ratifies policy revisions`
-- R-04 Standard evolution → `Authorizes versioned standards`
-- R-05 Educational review → `Confirms reference accuracy`
-- R-06 Clinical guidance → `Ratifies clinical scope`
-- R-07 Sourcing & patient-safety perspective → `Confirms sourcing posture`
+### §4 — Coming soon (rename + edit one entry)
 
-Description text from the data file is preserved.
+- Eyebrow: `Coming soon` → `Forthcoming reference formats`
+- Render `librarySupplementary` with a small slug-keyed override applied at render time:
+  - `SS-SUP-003` (`Integrity Report Feed`) displayed as `Annual Integrity Ledger` with description override: `Annual published summary of audit findings, status changes, and methodological revisions across the directory.`
+  - Other two entries unchanged.
+- Each list item now leads with its `id` in mono (`SS-SUP-001` etc.) to match the archive treatment.
 
-### Clinical-tone updates inside cards (display overrides)
+### §5 — Footer disclaimer (high-authority medical-legal phrasing)
 
-Three members get an override to the displayed `boardTitle` only (data file unchanged; map by slug inside the page component):
+Replace the current "Everything here is informational only…" paragraph with a distinct, bordered notice block:
+- Container: `mt-6 border-l-2 border-foreground/40 bg-surface-muted/40 px-4 py-3 rounded-[2px]`
+- Eyebrow inside: `Notice · Informational use only` (mono uppercase 10px)
+- Body (small foreground text, not muted-into-invisibility):
+> The materials in this library are published for public reference and educational purposes only. They do not constitute medical advice, diagnosis, prescription, or treatment, and they do not establish a clinician–patient relationship. Clinical decisions regarding compounded medications must be made in consultation with a qualified, licensed healthcare provider. Reliance on any information contained herein is solely at the reader's own risk.
 
-- `advisor-01` (Chair, MD): `Chair · Evidentiary Standards & Framework Review`
-- `advisor-04` (PharmD): `Member · USP Sterile Compounding Standards`
-- `advisor-06` (MD/JD): `Member · Regulatory Posture & Ethical Boundaries`
-
-Other three members keep their existing board titles. Bios, credentials, jurisdictions are not edited.
+The "About this library" paragraph (Medical Advisory Board / governance link) is preserved above the notice block.
 
 ### Files touched
 
-- `src/pages/MedicalAdvisory.tsx` — section reorder, copy updates in header / mandate / responsibilities, faculty-directory card restyle, slug-keyed display overrides for 3 board titles, code-keyed display overrides for 7 responsibility titles.
+- `src/pages/Education.tsx` — header copy, anchor labels, new archive-index strip, `SimpleRow` restyle to surface reference IDs, three section renames + leads, slug-keyed title overrides for foundational + clinical entries, FAQ bucket label rename, supplementary entry override for `SS-SUP-003`, new bordered medical-legal notice block.
 
 ### What stays the same
 
-All routes, the `RecordHeader` / `Read deeper` / `Cite` blocks, the `advisoryBoard` and `responsibilities` data files, profile detail pages at `/medical-advisory/:slug`, all design tokens and container widths.
+All routes, the data in `src/data/library.ts`, the per-entry detail pages and "see all" index pages, the `Section` / `AnchorHeader` / `Accordion` components, all design tokens, and existing focus/hover behaviors.
 
