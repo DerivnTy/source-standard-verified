@@ -11,6 +11,7 @@ import {
   VENDOR_STATUS_SHORT,
   getVendorStates,
   getVendorCities,
+  getVendorCityKey,
   getClinicalFocusOptions,
 } from "@/data/vendors";
 
@@ -54,10 +55,8 @@ const VerifiedVendors = () => {
   const cities = useMemo(() => {
     const all = getVendorCities();
     if (state === ALL) return all;
-    const inState = new Set(
-      vendors.filter((v) => v.state === state && v.city).map((v) => v.city as string),
-    );
-    return all.filter((c) => inState.has(c));
+    // Filter cities to those whose key ends with ", <state>"
+    return all.filter((c) => c.endsWith(`, ${state}`));
   }, [state]);
 
   // Reset city if it's no longer valid for the selected state
@@ -69,11 +68,20 @@ const VerifiedVendors = () => {
     const q = query.trim().toLowerCase();
     return vendors.filter((v) => {
       if (q) {
-        const hay = [v.name, v.city, v.state].filter(Boolean).join(" ").toLowerCase();
+        const hay = [
+          v.name,
+          v.city,
+          v.state,
+          v.category,
+          ...(v.clinicalFocus ?? []),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
         if (!hay.includes(q)) return false;
       }
       if (state !== ALL && v.state !== state) return false;
-      if (city !== ALL && v.city !== city) return false;
+      if (city !== ALL && getVendorCityKey(v) !== city) return false;
       if (status !== ALL && v.status !== status) return false;
       if (focus !== ALL && !(v.clinicalFocus ?? []).includes(focus)) return false;
       return true;

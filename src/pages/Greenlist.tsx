@@ -9,19 +9,16 @@ import {
   GREENLIST_TYPES,
   FOCUS_TAGS,
   getGreenlistCounts,
+  getGreenlistStates,
+  entryMatchesState,
 } from "@/data/greenlist";
 
 const ALL = "__all__";
+const NATIONWIDE = "__nationwide__";
 const PAGE_SIZE = 25;
 
 type SortMode = "name-asc" | "name-desc" | "type" | "state";
 type WebsiteFilter = "all" | "yes" | "no";
-
-// Extract two-letter state code from a "City, ST" location string.
-const extractState = (location: string): string | null => {
-  const m = location.match(/,\s*([A-Z]{2})\b/);
-  return m ? m[1] : null;
-};
 
 const CATEGORY_ORDER: GreenlistCategory[] = ["503B", "503A", "Other"];
 
@@ -135,25 +132,24 @@ const Greenlist = () => {
   const [sort, setSort] = useState<SortMode>("name-asc");
   const [page, setPage] = useState(1);
 
-  const states = useMemo(() => {
-    const set = new Set<string>();
-    greenlistEntries.forEach((e) => {
-      const s = extractState(e.location);
-      if (s) set.add(s);
-    });
-    return Array.from(set).sort();
-  }, []);
+  const states = useMemo(() => getGreenlistStates(), []);
   const counts = useMemo(() => getGreenlistCounts(), []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return greenlistEntries.filter((e) => {
       if (q) {
-        const hay = [e.name, e.location, e.focus, e.type].join(" ").toLowerCase();
+        const hay = [e.name, e.location, e.focus, e.type, e.category].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
       if (type !== ALL && e.type !== type) return false;
-      if (state !== ALL && extractState(e.location) !== state) return false;
+      if (state !== ALL) {
+        if (state === NATIONWIDE) {
+          if (!e.serviceArea) return false;
+        } else if (!entryMatchesState(e, state)) {
+          return false;
+        }
+      }
       if (focus !== ALL && !focusMatches(e, focus)) return false;
       if (website === "yes" && !e.website) return false;
       if (website === "no" && e.website) return false;
@@ -174,8 +170,8 @@ const Greenlist = () => {
         });
       case "state":
         return arr.sort((a, b) => {
-          const sa = extractState(a.location) ?? "";
-          const sb = extractState(b.location) ?? "";
+          const sa = a.state ?? "";
+          const sb = b.state ?? "";
           const s = sa.localeCompare(sb);
           if (s !== 0) return s;
           return a.name.localeCompare(b.name);
@@ -320,6 +316,7 @@ const Greenlist = () => {
               aria-label="Filter by state"
             >
               <option value={ALL}>All states</option>
+              <option value={NATIONWIDE}>Nationwide / multi-location</option>
               {states.map((s) => (
                 <option key={s} value={s}>
                   {s}
