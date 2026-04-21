@@ -33,9 +33,9 @@ const Apply = () => {
   return (
     <>
       <UtilityHeader
-        eyebrow="Apply for Verification"
+        eyebrow="Apply"
         title="Begin a Source Standard application"
-        description="Initial intake takes about fifteen minutes. A reviewer will follow up to confirm receipt and outline any additional documentation required."
+        description="Initial intake takes about fifteen minutes. A reviewer follows up to confirm receipt."
       />
 
       <section>

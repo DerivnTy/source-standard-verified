@@ -33,9 +33,9 @@ const ReportConcern = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Report a Concern"
-      title="Submission pathway for vendor, sourcing, and listing concerns"
-      lead="The reporting channel exists so that consumers, clinicians, and vendors can flag issues that the registry should evaluate. This document describes what is in scope, how submissions are reviewed, and what reporters can expect."
+      eyebrow="Process"
+      title="Report a concern."
+      lead="What is in scope, how submissions are reviewed, and what reporters can expect."
     />
 
     <Section>
