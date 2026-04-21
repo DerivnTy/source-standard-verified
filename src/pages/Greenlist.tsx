@@ -1,440 +1,482 @@
-import { useMemo, useState } from "react";
-import { ExternalLink, Search, X } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+import { RecordHeader } from "@/components/RecordHeader";
 import {
   greenlistEntries,
+  GreenlistEntry,
+  GreenlistCategory,
   GREENLIST_TYPES,
   FOCUS_TAGS,
   getGreenlistLocations,
-  type GreenlistEntry,
-  type GreenlistCategory,
+  getGreenlistCounts,
 } from "@/data/greenlist";
 
 const ALL = "__all__";
+const PAGE_SIZE = 25;
 
-const META_ROW: { label: string; value: string }[] = [
-  { label: "Standard", value: "SS-FRAMEWORK-2026.01" },
-  { label: "Status", value: "Active" },
-  { label: "Jurisdiction", value: "US" },
-  { label: "Oversight", value: "Medical Advisory Board" },
-  { label: "Updated", value: "April 16, 2026" },
+type SortMode = "name-asc" | "name-desc" | "category" | "location";
+
+const CATEGORY_ORDER: GreenlistCategory[] = ["503B", "503A", "Other"];
+
+const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
+  "503B": "503B",
+  "503A": "503A",
+  Other: "Other",
+};
+
+const CATEGORY_DEF: { key: GreenlistCategory | "greenlisted"; title: string; body: string }[] = [
+  {
+    key: "greenlisted",
+    title: "Greenlisted",
+    body:
+      "Recognized as a qualified upstream source under the Source Standard framework based on FDA registration or applicable state board oversight.",
+  },
+  {
+    key: "503B",
+    title: "503B Outsourcing Facility",
+    body:
+      "FDA-registered facility producing sterile compounded medications at scale for office-use stock under cGMP-style oversight.",
+  },
+  {
+    key: "503A",
+    title: "503A Compounding Pharmacy",
+    body:
+      "State-licensed pharmacy compounding patient-specific prescriptions under state board of pharmacy oversight and USP standards.",
+  },
+  {
+    key: "Other",
+    title: "Other Qualified Source",
+    body:
+      "Additional source categories recognized within the framework, including hospital-focused suppliers and multi-location compounding networks.",
+  },
 ];
 
-function focusMatches(entry: GreenlistEntry, tagLabel: string): boolean {
+const colorForCategory: Record<GreenlistCategory, string> = {
+  "503B": "text-verified",
+  "503A": "text-pending",
+  Other: "text-muted-foreground",
+};
+
+const CategoryPill = ({ category }: { category: GreenlistCategory }) => (
+  <span
+    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums text-[10px] ${colorForCategory[category]}`}
+  >
+    <span aria-hidden className="inline-block leading-none">■</span>
+    {CATEGORY_LABEL[category]}
+  </span>
+);
+
+const focusMatches = (entry: GreenlistEntry, tagLabel: string): boolean => {
   const tag = FOCUS_TAGS.find((t) => t.label === tagLabel);
   if (!tag) return true;
-  const f = entry.focus.toLowerCase();
-  return tag.keywords.some((k) => f.includes(k));
-}
+  const hay = entry.focus.toLowerCase();
+  return tag.keywords.some((k) => hay.includes(k.toLowerCase()));
+};
 
 const Greenlist = () => {
   const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<string>(ALL);
   const [type, setType] = useState<string>(ALL);
   const [location, setLocation] = useState<string>(ALL);
-  const [category, setCategory] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
-  const [tab, setTab] = useState<GreenlistCategory>("503B");
+  const [sort, setSort] = useState<SortMode>("name-asc");
+  const [page, setPage] = useState(1);
 
   const locations = useMemo(() => getGreenlistLocations(), []);
+  const counts = useMemo(() => getGreenlistCounts(), []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return greenlistEntries.filter((e) => {
-      if (q && !e.name.toLowerCase().includes(q)) return false;
+      if (q) {
+        const hay = [e.name, e.location, e.focus, e.type].join(" ").toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      if (category !== ALL && e.category !== category) return false;
       if (type !== ALL && e.type !== type) return false;
       if (location !== ALL && e.location !== location) return false;
-      if (category !== ALL && e.category !== category) return false;
       if (focus !== ALL && !focusMatches(e, focus)) return false;
       return true;
     });
-  }, [query, type, location, category, focus]);
+  }, [query, category, type, location, focus]);
 
-  const counts = useMemo(
-    () => ({
-      "503B": filtered.filter((e) => e.category === "503B").length,
-      "503A": filtered.filter((e) => e.category === "503A").length,
-      Other: filtered.filter((e) => e.category === "Other").length,
-    }),
-    [filtered],
-  );
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    switch (sort) {
+      case "name-desc":
+        return arr.sort((a, b) => b.name.localeCompare(a.name));
+      case "category":
+        return arr.sort((a, b) => {
+          const ca = CATEGORY_ORDER.indexOf(a.category);
+          const cb = CATEGORY_ORDER.indexOf(b.category);
+          if (ca !== cb) return ca - cb;
+          return a.name.localeCompare(b.name);
+        });
+      case "location":
+        return arr.sort((a, b) => {
+          const l = a.location.localeCompare(b.location);
+          if (l !== 0) return l;
+          return a.name.localeCompare(b.name);
+        });
+      case "name-asc":
+      default:
+        return arr.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  }, [filtered, sort]);
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = sorted.slice(pageStart, pageStart + PAGE_SIZE);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query, category, type, location, focus, sort]);
 
   const filtersActive =
-    query !== "" || type !== ALL || location !== ALL || category !== ALL || focus !== ALL;
+    query !== "" ||
+    category !== ALL ||
+    type !== ALL ||
+    location !== ALL ||
+    focus !== ALL;
 
   const reset = () => {
     setQuery("");
+    setCategory(ALL);
     setType(ALL);
     setLocation(ALL);
-    setCategory(ALL);
     setFocus(ALL);
   };
 
-  const sortedFor = (cat: GreenlistCategory) =>
-    filtered.filter((e) => e.category === cat).sort((a, b) => a.name.localeCompare(b.name));
-
   return (
     <>
-      {/* §1 — Intro */}
-      <section className="border-b border-border">
-        <div className="container-wide py-8 md:py-10">
-          <p className="eyebrow mb-2">Public registry · Upstream sources</p>
-          <h1 className="text-[1.625rem] md:text-[1.875rem] font-semibold tracking-[-0.015em] leading-[1.15] text-foreground max-w-3xl">
-            Greenlist of Recognized Sources
-          </h1>
-          <p className="mt-3 max-w-3xl text-[14.5px] text-muted-foreground leading-[1.6]">
-            The Greenlist is the upstream reference layer within the Source Standard framework.
-            It includes recognized 503B outsourcing facilities, 503A compounding pharmacies, and
-            other qualified source categories used in vendor review.
-          </p>
-          <p className="mt-2 max-w-3xl text-[13px] text-muted-foreground leading-[1.55]">
-            Inclusion in the Greenlist is based on public licensing, registration, and recognized
-            credentialing standards. Greenlist inclusion does not itself mean a vendor is verified.
-            Vendors are reviewed separately against recognized source categories and documented
-            purchasing records.
-          </p>
+      <RecordHeader
+        metadata={[
+          { label: "Doc", value: "SS-GREENLIST-2026.01" },
+          { label: "Version", value: "2026.01" },
+          { label: "Status", value: "Active" },
+          { label: "Updated", value: "April 21, 2026" },
+          { label: "Jurisdiction", value: "US" },
+        ]}
+        eyebrow="Public Registry · Recognized Sources"
+        title="Public registry of recognized upstream sources."
+        lead="Source Standard maintains a public registry of recognized upstream sources used in vendor review — including 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
+        summary={[
+          { label: "Total entries", value: counts.total.toString().padStart(2, "0") },
+          { label: "503B facilities", value: counts["503B"].toString().padStart(2, "0") },
+          { label: "503A pharmacies", value: counts["503A"].toString().padStart(2, "0") },
+          { label: "Other sources", value: counts.Other.toString().padStart(2, "0") },
+        ]}
+      />
 
-          {/* Metadata strip */}
-          <dl className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border/70 pt-3">
-            {META_ROW.map((m) => (
-              <div key={m.label} className="flex items-baseline gap-2 text-[12px]">
-                <dt className="text-muted-foreground">{m.label}</dt>
-                <dd className="text-foreground font-medium">{m.value}</dd>
+      {/* Category legend */}
+      <section className="bg-surface-muted border-b border-border">
+        <div className="container-wide py-6">
+          <p className="meta-label text-foreground mb-3">How to read this registry</p>
+          <div className="grid md:grid-cols-4 gap-px bg-border border border-border">
+            {CATEGORY_DEF.map((d) => (
+              <div key={d.key} className="bg-background p-3">
+                {d.key === "greenlisted" ? (
+                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums text-[11px] text-verified">
+                    <span aria-hidden className="inline-block leading-none">■</span>
+                    Greenlisted
+                  </span>
+                ) : (
+                  <span
+                    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums text-[11px] ${colorForCategory[d.key]}`}
+                  >
+                    <span aria-hidden className="inline-block leading-none">■</span>
+                    {d.title}
+                  </span>
+                )}
+                <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
+                  {d.body}
+                </p>
               </div>
             ))}
-          </dl>
+          </div>
+          <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
+            <strong className="text-foreground font-semibold">Note on scope.</strong>{" "}
+            Greenlist status applies to upstream sources, not to vendors or clinics. A vendor's
+            verification status is determined separately on the{" "}
+            <Link to="/verified-vendors" className="underline hover:text-foreground">
+              Verified Vendors directory
+            </Link>{" "}
+            and depends on documented purchasing from recognized sources.
+          </p>
         </div>
       </section>
 
-      {/* §2 — Search & filter controls */}
-      <section className="border-b border-border bg-surface-muted/50 sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-surface-muted/80">
-        <div className="container-wide py-2.5">
+      {/* Filter row */}
+      <section className="bg-background border-b border-border sticky top-0 z-20">
+        <div className="container-wide py-3">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="relative flex-1 min-w-[220px] max-w-md">
+            <div className="relative flex-1 min-w-[220px]">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-              <Input
+              <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search by facility or pharmacy name"
-                className="h-8 pl-8 rounded-[2px] bg-background text-[13px]"
-                aria-label="Search Greenlist"
+                placeholder="Search by facility, pharmacy, or brand name"
+                className="w-full pl-8 pr-3 h-8 bg-background border border-border text-[13px] placeholder:text-muted-foreground focus:outline-none focus:border-foreground"
+                aria-label="Search registry"
               />
             </div>
 
-            <Select value={type} onValueChange={setType}>
-              <SelectTrigger className="h-8 w-[150px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by type">
-                <SelectValue placeholder="Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL}>All types</SelectItem>
-                {GREENLIST_TYPES.map((t) => (
-                  <SelectItem key={t} value={t}>
-                    {t}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Filter by category"
+            >
+              <option value={ALL}>All categories</option>
+              {CATEGORY_ORDER.map((c) => (
+                <option key={c} value={c}>
+                  {CATEGORY_LABEL[c]}
+                </option>
+              ))}
+            </select>
 
-            <Select value={location} onValueChange={setLocation}>
-              <SelectTrigger className="h-8 w-[140px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by location">
-                <SelectValue placeholder="Location" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL}>All locations</SelectItem>
-                {locations.map((l) => (
-                  <SelectItem key={l} value={l}>
-                    {l}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Filter by type"
+            >
+              <option value={ALL}>All types</option>
+              {GREENLIST_TYPES.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
 
-            <Select value={category} onValueChange={setCategory}>
-              <SelectTrigger className="h-8 w-[130px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by category">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL}>All categories</SelectItem>
-                <SelectItem value="503B">503B</SelectItem>
-                <SelectItem value="503A">503A</SelectItem>
-                <SelectItem value="Other">Other</SelectItem>
-              </SelectContent>
-            </Select>
+            <select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Filter by location"
+            >
+              <option value={ALL}>All locations</option>
+              {locations.map((l) => (
+                <option key={l} value={l}>
+                  {l}
+                </option>
+              ))}
+            </select>
 
-            <Select value={focus} onValueChange={setFocus}>
-              <SelectTrigger className="h-8 w-[160px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by focus">
-                <SelectValue placeholder="Focus" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={ALL}>All focuses</SelectItem>
-                {FOCUS_TAGS.map((f) => (
-                  <SelectItem key={f.label} value={f.label}>
-                    {f.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <select
+              value={focus}
+              onChange={(e) => setFocus(e.target.value)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Filter by focus"
+            >
+              <option value={ALL}>All focus areas</option>
+              {FOCUS_TAGS.map((f) => (
+                <option key={f.label} value={f.label}>
+                  {f.label}
+                </option>
+              ))}
+            </select>
 
-            <div className="flex items-center gap-3 ml-auto text-[12px] text-muted-foreground">
-              <span>
-                <span className="text-foreground font-medium tabular-nums">{filtered.length}</span>
-                <span className="text-muted-foreground"> / {greenlistEntries.length}</span>
-              </span>
-              {filtersActive && (
-                <button
-                  onClick={reset}
-                  className="inline-flex items-center gap-1 text-foreground hover:text-primary"
-                >
-                  <X className="h-3 w-3" /> Reset
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortMode)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Sort records"
+            >
+              <option value="name-asc">Sort: Name A → Z</option>
+              <option value="name-desc">Sort: Name Z → A</option>
+              <option value="category">Sort: Category</option>
+              <option value="location">Sort: Location</option>
+            </select>
 
-      {/* §3 — Category navigation + database */}
-      <section className="border-b border-border">
-        <div className="container-wide pt-4 pb-10 md:pt-5 md:pb-12">
-          <Tabs value={tab} onValueChange={(v) => setTab(v as GreenlistCategory)}>
-            <TabsList className="bg-transparent p-0 h-auto rounded-none border-b border-border w-full justify-start gap-0">
-              <TabTriggerCustom value="503B" label="503B Outsourcing Facilities" count={counts["503B"]} />
-              <TabTriggerCustom value="503A" label="503A Compounding Pharmacies" count={counts["503A"]} />
-              {counts.Other > 0 && (
-                <TabTriggerCustom value="Other" label="Other Recognized Sources" count={counts.Other} />
-              )}
-            </TabsList>
-
-            <TabsContent value="503B" className="mt-4">
-              <SectionIntro
-                title="503B Outsourcing Facilities"
-                description="FDA-registered 503B outsourcing facilities relevant to sterile compounded products, including TRT, peptide, IV, and wellness-related clinical use."
-              />
-              <RegistryTable rows={sortedFor("503B")} onReset={reset} filtersActive={filtersActive} />
-            </TabsContent>
-
-            <TabsContent value="503A" className="mt-4">
-              <SectionIntro
-                title="503A Compounding Pharmacies"
-                description="National 503A compounding pharmacies and related brands relevant to patient-specific hormones, peptides, TRT, wellness, and specialty compounding."
-              />
-              <RegistryTable rows={sortedFor("503A")} onReset={reset} filtersActive={filtersActive} />
-            </TabsContent>
-
-            {counts.Other > 0 && (
-              <TabsContent value="Other" className="mt-4">
-                <SectionIntro
-                  title="Other Recognized Sources"
-                  description="Additional qualified source categories recognized within the Source Standard framework."
-                />
-                <RegistryTable rows={sortedFor("Other")} onReset={reset} filtersActive={filtersActive} />
-              </TabsContent>
+            {filtersActive && (
+              <button
+                onClick={reset}
+                className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted"
+              >
+                <X className="h-3 w-3" /> Reset
+              </button>
             )}
-          </Tabs>
-        </div>
-      </section>
 
-      {/* §4 — How Greenlist entries are used */}
-      <section className="border-b border-border bg-surface-muted/40">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§ Notes</p>
-              <h2 className="text-[1.375rem] md:text-[1.5rem] font-semibold tracking-[-0.01em] leading-[1.25] text-foreground">
-                How Greenlist entries are used
-              </h2>
-            </div>
-            <div className="md:col-span-8 space-y-4 text-[15px] text-muted-foreground leading-[1.65]">
-              <p>
-                Greenlist entries are part of the upstream reference layer within the Source
-                Standard framework. Inclusion in this database does not itself indicate that a
-                vendor is verified. Vendor verification is a separate review process that
-                examines whether a vendor's documented sourcing matches recognized source
-                categories and whether the products, categories, or compounds being represented
-                publicly align with that review.
-              </p>
-              <p>
-                All information on this page is presented for public reference. Greenlist
-                inclusion does not constitute medical advice, product endorsement, or a
-                guarantee of clinical outcome.
-              </p>
-            </div>
+            <p className="meta-label ml-auto">
+              {sorted.length === 0
+                ? "0 records"
+                : `${pageStart + 1}–${Math.min(pageStart + PAGE_SIZE, sorted.length)} of ${sorted.length}`}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* §5 — Cite as / disclaimer footer */}
-      <section className="border-b border-border">
-        <div className="container-wide py-8 space-y-3">
-          <p className="text-[12.5px] text-foreground leading-relaxed max-w-4xl">
-            <span className="text-muted-foreground mr-2">Cite as ·</span>
-            Source Standard Greenlist of Recognized Sources, SS-FRAMEWORK-2026.01. Last updated
-            April 16, 2026.
+      {/* Registry table */}
+      <section>
+        <div className="container-wide py-6">
+          {sorted.length === 0 ? (
+            <div className="border border-border bg-surface-muted px-4 py-10 text-center">
+              <p className="meta">— No records match the current filters.</p>
+            </div>
+          ) : (
+            <>
+              {/* Desktop table */}
+              <div className="hidden md:block border border-border bg-background">
+                <div className="grid grid-cols-12 px-3 py-2 border-b border-border bg-surface-muted">
+                  <div className="col-span-4 meta-label">Facility / Brand</div>
+                  <div className="col-span-2 meta-label">Category</div>
+                  <div className="col-span-2 meta-label">Location</div>
+                  <div className="col-span-3 meta-label">Focus</div>
+                  <div className="col-span-1 meta-label text-right">Website</div>
+                </div>
+                {pageItems.map((e) => (
+                  <div
+                    key={e.name}
+                    className="grid grid-cols-12 px-3 py-2 border-b border-border last:border-b-0 items-center hover:bg-surface-muted/50"
+                  >
+                    <div className="col-span-4 min-w-0">
+                      <p className="text-[13px] font-medium text-foreground truncate">
+                        {e.name}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground truncate">{e.type}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <CategoryPill category={e.category} />
+                    </div>
+                    <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
+                      {e.location}
+                    </div>
+                    <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
+                      {e.focus}
+                    </div>
+                    <div className="col-span-1 text-right">
+                      {e.website ? (
+                        <a
+                          href={e.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                        >
+                          Visit →
+                        </a>
+                      ) : (
+                        <span className="text-[11px] font-mono text-muted-foreground">—</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile cards */}
+              <div className="md:hidden space-y-2">
+                {pageItems.map((e) => (
+                  <div key={e.name} className="block border border-border bg-background p-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="text-[13px] font-medium text-foreground">{e.name}</p>
+                      <CategoryPill category={e.category} />
+                    </div>
+                    <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
+                    <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
+                    <p className="mt-1 text-[12px] text-muted-foreground">{e.focus}</p>
+                    {e.website && (
+                      <a
+                        href={e.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                      >
+                        Visit website →
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {sorted.length > PAGE_SIZE && (
+            <nav
+              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3"
+              aria-label="Registry pagination"
+            >
+              <p className="meta-label">
+                Page {currentPage} of {totalPages}
+              </p>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="h-3 w-3" /> Prev
+                </button>
+                {(() => {
+                  const pages: (number | "…")[] = [];
+                  const window = 1;
+                  const add = (n: number | "…") => pages.push(n);
+                  const last = totalPages;
+                  add(1);
+                  const start = Math.max(2, currentPage - window);
+                  const end = Math.min(last - 1, currentPage + window);
+                  if (start > 2) add("…");
+                  for (let i = start; i <= end; i++) add(i);
+                  if (end < last - 1) add("…");
+                  if (last > 1) add(last);
+                  return pages.map((p, i) =>
+                    p === "…" ? (
+                      <span
+                        key={`e-${i}`}
+                        className="px-1 text-[12px] text-muted-foreground"
+                        aria-hidden
+                      >
+                        …
+                      </span>
+                    ) : (
+                      <button
+                        key={p}
+                        onClick={() => setPage(p)}
+                        aria-current={p === currentPage ? "page" : undefined}
+                        className={`h-8 min-w-8 px-2 border text-[12px] tabular-nums ${
+                          p === currentPage
+                            ? "border-foreground bg-foreground text-background"
+                            : "border-border text-foreground hover:bg-surface-muted"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ),
+                  );
+                })()}
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Next page"
+                >
+                  Next <ChevronRight className="h-3 w-3" />
+                </button>
+              </div>
+            </nav>
+          )}
+        </div>
+      </section>
+
+      {/* Cite-as / disclaimer */}
+      <section className="bg-surface-muted border-t border-border">
+        <div className="container-wide py-6 space-y-2">
+          <p className="text-[12px] text-muted-foreground leading-relaxed">
+            <strong className="text-foreground font-semibold">Cite as.</strong> Source Standard,
+            Public Registry of Recognized Sources, SS-GREENLIST-2026.01. Last updated April 21, 2026.
           </p>
-          <p className="text-[12.5px] text-muted-foreground leading-relaxed max-w-4xl">
-            <span className="text-foreground mr-2">Disclaimer ·</span>
-            Inclusion indicates that a source meets the criteria documented in the Source
-            Standard framework at the time of publication. It is not an endorsement of any
-            specific product, treatment, or clinical outcome.
+          <p className="text-[12px] text-muted-foreground leading-relaxed">
+            <strong className="text-foreground font-semibold">Disclaimer.</strong> Inclusion in
+            this registry indicates recognition as a qualified upstream source under the Source
+            Standard framework. It does not constitute endorsement of any specific product,
+            protocol, or clinical use, and does not replace independent due diligence by
+            prescribers or operators.
           </p>
         </div>
       </section>
     </>
-  );
-};
-
-// ---------- Local sub-components ----------
-
-const TabTriggerCustom = ({
-  value,
-  label,
-  count,
-}: {
-  value: string;
-  label: string;
-  count: number;
-}) => (
-  <TabsTrigger
-    value={value}
-    className="rounded-none bg-transparent border-b-2 border-transparent px-4 py-2.5 text-[13px] font-medium text-muted-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:border-primary data-[state=active]:shadow-none -mb-px"
-  >
-    {label}
-    <span className="ml-2 font-mono text-[11.5px] text-muted-foreground tabular-nums">
-      {count.toString().padStart(2, "0")}
-    </span>
-  </TabsTrigger>
-);
-
-const SectionIntro = ({ title, description }: { title: string; description: string }) => (
-  <div className="mb-3">
-    <h2 className="text-[1.0625rem] md:text-[1.125rem] font-semibold tracking-[-0.005em] text-foreground leading-tight">
-      {title}
-    </h2>
-    <p className="mt-1 max-w-3xl text-[13px] text-muted-foreground leading-[1.55]">
-      {description}
-    </p>
-  </div>
-);
-
-const RegistryTable = ({
-  rows,
-  onReset,
-  filtersActive,
-}: {
-  rows: GreenlistEntry[];
-  onReset: () => void;
-  filtersActive: boolean;
-}) => {
-  if (rows.length === 0) {
-    return (
-      <div className="border border-border/70 rounded-[2px] bg-background px-6 py-10 text-center">
-        <p className="text-[13.5px] text-muted-foreground">— No sources match the current filters.</p>
-        {filtersActive && (
-          <button onClick={onReset} className="mt-3 text-[13px] text-primary hover:text-primary-hover font-medium">
-            Reset filters
-          </button>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="border border-border/70 rounded-[2px] bg-background">
-      {/* Desktop header */}
-      <div className="hidden lg:grid grid-cols-12 px-4 py-2 bg-surface-muted/60 border-b border-border/70 text-[10.5px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-        <div className="col-span-3">Facility / Brand</div>
-        <div className="col-span-2">Type</div>
-        <div className="col-span-2">Location</div>
-        <div className="col-span-3">Focus</div>
-        <div className="col-span-1">Website</div>
-        <div className="col-span-1 text-right">Status</div>
-      </div>
-
-      <ul className="divide-y divide-border/70">
-        {rows.map((r) => (
-          <li key={r.name}>
-            {/* Desktop row */}
-            <div className="hidden lg:grid grid-cols-12 gap-3 px-4 py-2.5 items-start">
-              <div className="col-span-3">
-                <p className="text-[14px] font-medium text-foreground leading-snug">{r.name}</p>
-              </div>
-              <div className="col-span-2">
-                <span className="font-mono text-[11.5px] text-foreground">{r.type}</span>
-              </div>
-              <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums">
-                {r.location}
-              </div>
-              <div className="col-span-3">
-                <p className="text-[13px] text-muted-foreground leading-[1.5]" title={r.focus}>
-                  {r.focus}
-                </p>
-              </div>
-              <div className="col-span-1 text-[12.5px]">
-                {r.website ? (
-                  <a
-                    href={r.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-primary hover:text-primary-hover font-medium break-all"
-                  >
-                    Visit <ExternalLink className="h-3 w-3 shrink-0" />
-                  </a>
-                ) : (
-                  <span className="text-muted-foreground italic">Not listed</span>
-                )}
-              </div>
-              <div className="col-span-1 text-right">
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground whitespace-nowrap">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  Greenlisted
-                </span>
-              </div>
-            </div>
-
-            {/* Mobile / tablet stacked card */}
-            <div className="lg:hidden px-4 py-3 space-y-2">
-              <div className="flex items-start justify-between gap-3">
-                <p className="text-[14.5px] font-medium text-foreground leading-snug">{r.name}</p>
-                <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-muted-foreground whitespace-nowrap shrink-0 mt-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  Greenlisted
-                </span>
-              </div>
-              <dl className="grid grid-cols-[80px_1fr] gap-x-3 gap-y-1.5 text-[12.5px]">
-                <dt className="text-muted-foreground">Type</dt>
-                <dd className="font-mono text-foreground text-[11.5px]">{r.type}</dd>
-                <dt className="text-muted-foreground">Location</dt>
-                <dd className="text-foreground">{r.location}</dd>
-                <dt className="text-muted-foreground">Focus</dt>
-                <dd className="text-foreground leading-[1.5]">{r.focus}</dd>
-                <dt className="text-muted-foreground">Website</dt>
-                <dd>
-                  {r.website ? (
-                    <a
-                      href={r.website}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-primary hover:text-primary-hover font-medium break-all"
-                    >
-                      {r.website.replace(/^https?:\/\//, "")} <ExternalLink className="h-3 w-3 shrink-0" />
-                    </a>
-                  ) : (
-                    <span className="text-muted-foreground italic">Public-facing site not listed</span>
-                  )}
-                </dd>
-              </dl>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 };
 
