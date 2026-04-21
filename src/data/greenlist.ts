@@ -264,6 +264,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Dermatology-focused sterile and nonsterile compounded preparations including injectables and topicals",
     website: "https://sknvrx.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Topicals", "Dermatology preparations"],
+      specializations: ["Dermatology", "Aesthetic medicine"],
+      background:
+        "Florida-based 503B outsourcing facility (formerly Sincerus Florida) producing sterile and nonsterile compounded preparations for dermatology and aesthetic practices, including topicals and injectables.",
+    },
   },
   {
     slug: "osrx-inc",
