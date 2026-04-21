@@ -390,6 +390,73 @@ const VerifiedVendors = () => {
             </>
           )}
 
+          {sorted.length > PAGE_SIZE && (
+            <nav
+              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3"
+              aria-label="Directory pagination"
+            >
+              <p className="meta-label">
+                Page {currentPage} of {totalPages}
+              </p>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="h-3 w-3" /> Prev
+                </button>
+                {(() => {
+                  // Compact numeric range: up to 7 buttons centered around current
+                  const pages: (number | "…")[] = [];
+                  const window = 1;
+                  const add = (n: number | "…") => pages.push(n);
+                  const last = totalPages;
+                  add(1);
+                  const start = Math.max(2, currentPage - window);
+                  const end = Math.min(last - 1, currentPage + window);
+                  if (start > 2) add("…");
+                  for (let i = start; i <= end; i++) add(i);
+                  if (end < last - 1) add("…");
+                  if (last > 1) add(last);
+                  return pages.map((p, i) =>
+                    p === "…" ? (
+                      <span
+                        key={`e-${i}`}
+                        className="px-1 text-[12px] text-muted-foreground"
+                        aria-hidden
+                      >
+                        …
+                      </span>
+                    ) : (
+                      <button
+                        key={p}
+                        onClick={() => setPage(p)}
+                        aria-current={p === currentPage ? "page" : undefined}
+                        className={`h-8 min-w-8 px-2 border text-[12px] tabular-nums ${
+                          p === currentPage
+                            ? "border-foreground bg-foreground text-background"
+                            : "border-border text-foreground hover:bg-surface-muted"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ),
+                  );
+                })()}
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Next page"
+                >
+                  Next <ChevronRight className="h-3 w-3" />
+                </button>
+              </div>
+            </nav>
+          )}
+
           <p className="mt-6 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
             Directory inclusion does not constitute medical advice, product endorsement, or a
             guarantee of clinical outcome. Verification, when published, reflects documentation
