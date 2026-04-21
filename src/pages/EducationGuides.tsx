@@ -1,0 +1,69 @@
+import { Link } from "react-router-dom";
+import { PageHeader } from "@/components/PageHeader";
+import { Section } from "@/components/Section";
+import {
+  ENTRY_STATUS_LABEL,
+  EntryStatus,
+  LibraryEntry,
+  libraryGuides,
+} from "@/data/library";
+
+const isReadable = (s: EntryStatus) => s === "published";
+
+const SoftStatus = ({ status }: { status: EntryStatus }) =>
+  isReadable(status) ? null : (
+    <span className="text-[11.5px] text-muted-foreground/70 italic">
+      {ENTRY_STATUS_LABEL[status]}
+    </span>
+  );
+
+const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
+  <Link
+    to={`/education/${entry.slug}`}
+    className="block px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 transition-colors group"
+  >
+    <div className="flex items-baseline justify-between gap-4">
+      <h3 className="text-[16px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
+        {entry.title}
+      </h3>
+      <SoftStatus status={entry.status} />
+    </div>
+    <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
+      {entry.summary}
+    </p>
+    {entry.reviewedBy && (
+      <p className="mt-2 text-[11.5px] text-muted-foreground/80">
+        Reviewed by {entry.reviewedBy}
+      </p>
+    )}
+  </Link>
+);
+
+const EducationGuides = () => {
+  return (
+    <>
+      <div className="container-wide pt-6">
+        <Link
+          to="/education"
+          className="text-[12.5px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
+        >
+          ← Back to Learn
+        </Link>
+      </div>
+      <PageHeader
+        eyebrow="Practical Guides"
+        title="Clinical guides"
+        description="How to handle these medications safely. Reviewed by our Medical Advisory Board. Not a substitute for advice from your own clinician."
+      />
+      <Section>
+        <div className="border border-border/70 rounded-[2px] bg-background">
+          {libraryGuides.map((e) => (
+            <SimpleRow key={e.id} entry={e} />
+          ))}
+        </div>
+      </Section>
+    </>
+  );
+};
+
+export default EducationGuides;

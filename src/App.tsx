@@ -12,6 +12,9 @@ import GreenlistProfile from "./pages/GreenlistProfile.tsx";
 import VerifiedVendors from "./pages/VerifiedVendors.tsx";
 import ForVendors from "./pages/ForVendors.tsx";
 import Education from "./pages/Education.tsx";
+import EducationBasics from "./pages/EducationBasics.tsx";
+import EducationGuides from "./pages/EducationGuides.tsx";
+import EducationQuestions from "./pages/EducationQuestions.tsx";
 import LibraryEntry from "./pages/LibraryEntry.tsx";
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
@@ -49,6 +52,9 @@ const App = () => (
             <Route path="/verified-vendors" element={<VerifiedVendors />} />
             <Route path="/for-vendors" element={<ForVendors />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/education/basics" element={<EducationBasics />} />
+            <Route path="/education/guides" element={<EducationGuides />} />
+            <Route path="/education/questions" element={<EducationQuestions />} />
             <Route path="/education/:slug" element={<LibraryEntry />} />
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
