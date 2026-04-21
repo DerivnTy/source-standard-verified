@@ -39,9 +39,9 @@ export const SiteHeader = () => {
               to={n.to}
               end={n.end}
               className={({ isActive }) =>
-                `text-[13.5px] tracking-[0] transition-colors ${
+                `relative text-[13.5px] tracking-[0] transition-colors py-5 ${
                   isActive
-                    ? "text-foreground font-semibold underline underline-offset-[6px] decoration-1"
+                    ? "text-primary font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-px after:h-[2px] after:bg-primary"
                     : "text-muted-foreground font-medium hover:text-foreground"
                 }`
               }
@@ -51,11 +51,7 @@ export const SiteHeader = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center">
-          <Button
-            asChild
-            size="sm"
-            className="text-[13px] h-10 px-5 bg-primary hover:bg-primary-hover text-primary-foreground font-medium rounded-md"
-          >
+          <Button asChild size="sm" className="text-[13px] h-10 px-5 font-medium rounded-md">
             <Link to="/apply">Apply for verification</Link>
           </Button>
         </div>

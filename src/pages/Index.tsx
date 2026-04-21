@@ -202,7 +202,12 @@ const Index = () => {
                       <div className="col-span-4">
                         <p className="text-[13.5px] text-muted-foreground leading-snug">{g.title}</p>
                       </div>
-                      <div className="col-span-2 text-right text-[12.5px] text-primary font-medium">● Active</div>
+                      <div className="col-span-2 text-right">
+                        <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] text-verified">
+                          <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
+                          Active
+                        </span>
+                      </div>
                     </li>
                   ))}
                 </ul>
