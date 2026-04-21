@@ -3526,7 +3526,7 @@ export const vendors: Vendor[] = [
     website: normalizeWebsite("oakparkobgyn.com"),
     medicalDirector: "Dr. Taylor",
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "avena-natural-health",
@@ -3559,7 +3559,7 @@ export const vendors: Vendor[] = [
     zip: "92618",
     website: normalizeWebsite("integrativemedicineoc.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "valley-healthspan-phx",
@@ -3607,7 +3607,7 @@ export const vendors: Vendor[] = [
     website: normalizeWebsite("lifetimewellnesscenternw.com"),
     medicalDirector: "Dr. Amundson",
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "nyu-midlife-health",
@@ -3652,7 +3652,7 @@ export const vendors: Vendor[] = [
     zip: "94301",
     website: normalizeWebsite("svpeptides.com"),
     clinicalFocus: ["Performance"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "orange-county-regen",
@@ -3663,7 +3663,7 @@ export const vendors: Vendor[] = [
     zip: "92660",
     website: normalizeWebsite("ocregen.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "jupiter-concierge-med",
@@ -3697,7 +3697,7 @@ export const vendors: Vendor[] = [
     zip: "30305",
     website: normalizeWebsite("https://www.google.com/search?q=buckheadvitality.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "bellevue-longevity",
@@ -3741,7 +3741,7 @@ export const vendors: Vendor[] = [
     zip: "07078",
     website: normalizeWebsite("https://www.google.com/search?q=shorthillswellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "hinsdale-hrt-center",
@@ -3763,7 +3763,7 @@ export const vendors: Vendor[] = [
     zip: "19087",
     website: normalizeWebsite("https://www.google.com/search?q=radnorregen.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "wellesley-wellness",
@@ -3774,7 +3774,7 @@ export const vendors: Vendor[] = [
     zip: "02481",
     website: normalizeWebsite("https://www.google.com/search?q=wellesleywellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "birmingham-bio-identical",
@@ -3807,7 +3807,7 @@ export const vendors: Vendor[] = [
     zip: "63124",
     website: normalizeWebsite("https://www.google.com/search?q=laduelongevity.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "leawood-wellness-group",
@@ -3829,7 +3829,7 @@ export const vendors: Vendor[] = [
     zip: "80206",
     website: normalizeWebsite("https://www.google.com/search?q=cherrycreekpeptide.com"),
     clinicalFocus: ["Performance"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "boulder-bio-hacking",
@@ -3862,7 +3862,7 @@ export const vendors: Vendor[] = [
     zip: "94704",
     website: normalizeWebsite("https://www.google.com/search?q=berkeleybiomed.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "encino-wellness-ctr",
@@ -3895,7 +3895,7 @@ export const vendors: Vendor[] = [
     zip: "92612",
     website: normalizeWebsite("https://www.google.com/search?q=irvinelongevity.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "laguna-hormone-group",
@@ -3917,7 +3917,7 @@ export const vendors: Vendor[] = [
     zip: "20814",
     website: normalizeWebsite("https://www.google.com/search?q=bethesdapeptide.com"),
     clinicalFocus: ["Performance"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "silver-spring-hrt",
@@ -3939,7 +3939,7 @@ export const vendors: Vendor[] = [
     zip: "22201",
     website: normalizeWebsite("https://www.google.com/search?q=arlingtonwellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "reston-bio-med",
@@ -3961,7 +3961,7 @@ export const vendors: Vendor[] = [
     zip: "22314",
     website: normalizeWebsite("https://www.google.com/search?q=alexandrialongevity.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "mclean-hrt-group",
@@ -3994,7 +3994,7 @@ export const vendors: Vendor[] = [
     zip: "22180",
     website: normalizeWebsite("https://www.google.com/search?q=viennabiohacking.com"),
     clinicalFocus: ["Performance"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "oakton-wellness",
@@ -4016,7 +4016,7 @@ export const vendors: Vendor[] = [
     zip: "22066",
     website: normalizeWebsite("https://www.google.com/search?q=greatfallswellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "potomac-peptide",
@@ -4049,7 +4049,7 @@ export const vendors: Vendor[] = [
     zip: "20877",
     website: normalizeWebsite("https://www.google.com/search?q=gwellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "germantown-bio-med",
@@ -4082,7 +4082,7 @@ export const vendors: Vendor[] = [
     zip: "21042",
     website: normalizeWebsite("https://www.google.com/search?q=ellicottcitywellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "towson-hrt-group",
@@ -4115,7 +4115,7 @@ export const vendors: Vendor[] = [
     zip: "21030",
     website: normalizeWebsite("https://www.google.com/search?q=huntvalleypeptide.com"),
     clinicalFocus: ["Performance"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "bel-air-bio-hacking",
@@ -4126,7 +4126,7 @@ export const vendors: Vendor[] = [
     zip: "21014",
     website: normalizeWebsite("https://www.google.com/search?q=belairbiohacking.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "annapolis-longevity",
@@ -4159,7 +4159,7 @@ export const vendors: Vendor[] = [
     zip: "21012",
     website: normalizeWebsite("https://www.google.com/search?q=arnoldpeptide.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "crofton-hrt-center",
@@ -4192,7 +4192,7 @@ export const vendors: Vendor[] = [
     zip: "21113",
     website: normalizeWebsite("https://www.google.com/search?q=odentonwellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "laurel-peptide-group",
@@ -4225,7 +4225,7 @@ export const vendors: Vendor[] = [
     zip: "20770",
     website: normalizeWebsite("https://www.google.com/search?q=greenbeltwellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "hyattsville-longevity",
@@ -4247,7 +4247,7 @@ export const vendors: Vendor[] = [
     zip: "20912",
     website: normalizeWebsite("https://www.google.com/search?q=takomapeptide.com"),
     clinicalFocus: ["Performance"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "chevy-chase-wellness",
@@ -4258,7 +4258,7 @@ export const vendors: Vendor[] = [
     zip: "20815",
     website: normalizeWebsite("https://www.google.com/search?q=chevychasewellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "kensington-hrt",
@@ -4291,7 +4291,7 @@ export const vendors: Vendor[] = [
     zip: "20832",
     website: normalizeWebsite("https://www.google.com/search?q=olneypeptide.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "brookeville-bio-med",
@@ -4313,7 +4313,7 @@ export const vendors: Vendor[] = [
     zip: "20860",
     website: normalizeWebsite("https://www.google.com/search?q=sandyspringwellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "ashton-longevity",
@@ -4346,7 +4346,7 @@ export const vendors: Vendor[] = [
     zip: "20868",
     website: normalizeWebsite("https://www.google.com/search?q=spencervillepeptide.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "burtonsville-wellness",
@@ -4368,7 +4368,7 @@ export const vendors: Vendor[] = [
     zip: "21029",
     website: normalizeWebsite("https://www.google.com/search?q=clarksvillelongevity.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "dayton-peptide-clinic",
@@ -4390,7 +4390,7 @@ export const vendors: Vendor[] = [
     zip: "21737",
     website: normalizeWebsite("https://www.google.com/search?q=glenelgbiohacking.com"),
     clinicalFocus: ["Performance"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "glenwood-hrt-center",
@@ -4401,7 +4401,7 @@ export const vendors: Vendor[] = [
     zip: "21738",
     website: normalizeWebsite("https://www.google.com/search?q=glenwoodhrt.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "cooksville-wellness",
@@ -4434,7 +4434,7 @@ export const vendors: Vendor[] = [
     zip: "21797",
     website: normalizeWebsite("https://www.google.com/search?q=woodbinepeptide.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "mount-airy-longevity",
@@ -4456,7 +4456,7 @@ export const vendors: Vendor[] = [
     zip: "21784",
     website: normalizeWebsite("https://www.google.com/search?q=sykesvillehrt.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "eldersburg-wellness",
@@ -4489,7 +4489,7 @@ export const vendors: Vendor[] = [
     zip: "21074",
     website: normalizeWebsite("https://www.google.com/search?q=hampsteadpeptide.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "manchester-wellness",
@@ -4511,7 +4511,7 @@ export const vendors: Vendor[] = [
     zip: "21157",
     website: normalizeWebsite("https://www.google.com/search?q=westminsterhrt.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "taneytown-bio-med",
@@ -4533,7 +4533,7 @@ export const vendors: Vendor[] = [
     zip: "21791",
     website: normalizeWebsite("https://www.google.com/search?q=unionbridgewellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "new-windsor-longevity",
@@ -4555,7 +4555,7 @@ export const vendors: Vendor[] = [
     zip: "21757",
     website: normalizeWebsite("https://www.google.com/search?q=keymarpeptide.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "ladiesburg-wellness",
@@ -4577,7 +4577,7 @@ export const vendors: Vendor[] = [
     zip: "21798",
     website: normalizeWebsite("https://www.google.com/search?q=woodsborowellness.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "walkersville-bio-med",
@@ -4599,7 +4599,7 @@ export const vendors: Vendor[] = [
     zip: "21701",
     website: normalizeWebsite("https://www.google.com/search?q=frederickhrt.com"),
     clinicalFocus: ["Peptides"],
-    category: "Peptide Therapy",
+    category: "Peptides",
   },
   {
     slug: "ballenger-creek-wellness",
