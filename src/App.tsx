@@ -26,8 +26,8 @@ import AdvisorProfile from "./pages/AdvisorProfile.tsx";
 import FAQ from "./pages/FAQ.tsx";
 import ReportConcern from "./pages/ReportConcern.tsx";
 import StatusDefinitions from "./pages/StatusDefinitions.tsx";
-import VendorProfileTemplate from "./pages/VendorProfileTemplate.tsx";
 import GreenlistEntryTemplate from "./pages/GreenlistEntryTemplate.tsx";
+import { Navigate } from "react-router-dom";
 import Privacy from "./pages/Privacy.tsx";
 import Terms from "./pages/Terms.tsx";
 import VerificationDisclaimer from "./pages/VerificationDisclaimer.tsx";
@@ -67,7 +67,7 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="/report-a-concern" element={<ReportConcern />} />
             <Route path="/status-definitions" element={<StatusDefinitions />} />
-            <Route path="/templates/vendor-profile" element={<VendorProfileTemplate />} />
+            <Route path="/templates/vendor-profile" element={<Navigate to="/verified-vendors" replace />} />
             <Route path="/templates/greenlist-entry" element={<GreenlistEntryTemplate />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />

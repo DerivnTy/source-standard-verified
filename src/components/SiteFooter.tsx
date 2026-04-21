@@ -33,7 +33,6 @@ const cols = [
     title: "Reference & Templates",
     links: [
       { to: "/faq", label: "FAQ" },
-      { to: "/templates/vendor-profile", label: "Vendor profile template" },
       { to: "/templates/greenlist-entry", label: "Greenlist entry template" },
       { to: "/contact", label: "Contact" },
     ],
