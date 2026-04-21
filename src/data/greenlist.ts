@@ -62,6 +62,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "West Palm Beach, FL",
     focus:
       "Sterile compounded drugs from bulk substances for office use; early-stage 503B focused on provider-office sterile products",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-use sterile preparations"],
+      background:
+        "Florida-based 503B outsourcing facility producing sterile compounded medications from bulk substances for provider-office use. Operates as an early-stage 503B serving prescribers in the Southeast.",
+    },
   },
   {
     slug: "ah-nutraceutical-compounding-inc",
@@ -71,6 +78,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "McQueeny, TX",
     focus:
       "Sterile compounded injectables and nutraceutical preparations produced under 503B for clinics needing office-use stock",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Nutraceutical preparations"],
+      specializations: ["Wellness clinic stock", "Nutraceutical injectables"],
+      background:
+        "Texas-based 503B outsourcing facility producing sterile injectables and nutraceutical preparations for wellness and integrative clinics that need office-use stock.",
+    },
   },
   {
     slug: "ajenat-pharmaceuticals-llc",
@@ -80,6 +94,12 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Largo, FL",
     focus:
       "Sterile compounded products from bulk drug substances, serving prescribers and clinics; newly registered 503B",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      background:
+        "Newly registered FDA 503B outsourcing facility in Largo, FL, producing sterile compounded medications from bulk drug substances for prescribers and clinics.",
+    },
   },
   {
     slug: "anazaohealth-corporation",
@@ -124,6 +144,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile drug compounding from bulk substances for office stock and hospital partners",
     website: "https://apocuspharma.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-use sterile preparations", "Hospital partner stock"],
+      background:
+        "San Antonio-based 503B outsourcing facility producing sterile compounded medications from bulk substances for office-use stock and hospital partner programs.",
+    },
   },
   {
     slug: "assure-infusions-inc",
@@ -151,6 +178,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile compounded injectables for hormone therapy and clinical wellness protocols, manufacturer of office-use sterile products",
     website: "https://farmakeio.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Office-use sterile preparations"],
+      specializations: ["Hormone therapy", "Wellness protocols"],
+      background:
+        "Texas-based 503B outsourcing facility producing office-use sterile injectables, with a focus on hormone therapy and clinical wellness protocols for prescribers.",
+    },
   },
   {
     slug: "fagron-compounding-services-dba-fagron-sterile-services",
@@ -195,6 +229,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "St. Louis, MO",
     focus: "Sterile preparations including injectables for office-based practices",
     website: "https://parkavenuecompounding.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-based practice sterile stock"],
+      background:
+        "Missouri-based 503B outsourcing facility producing sterile compounded preparations for office-based practices and prescribers.",
+    },
   },
   {
     slug: "sca-pharmaceuticals",
@@ -223,6 +264,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Dermatology-focused sterile and nonsterile compounded preparations including injectables and topicals",
     website: "https://sknvrx.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Topicals", "Dermatology preparations"],
+      specializations: ["Dermatology", "Aesthetic medicine"],
+      background:
+        "Florida-based 503B outsourcing facility (formerly Sincerus Florida) producing sterile and nonsterile compounded preparations for dermatology and aesthetic practices, including topicals and injectables.",
+    },
   },
   {
     slug: "osrx-inc",
@@ -268,6 +316,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Houston, TX",
     focus:
       "Sterile compounded injectables under 503B for hospital and clinic office-use stock",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Hospital and clinic office-use stock"],
+      background:
+        "Houston-based 503B outsourcing facility producing sterile compounded injectables for hospital and clinic office-use stock.",
+    },
   },
   {
     slug: "staq-pharma-inc",
@@ -296,6 +351,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile compounded medications for hospitals and clinics, focusing on pain, anesthesia, and critical-care support",
     website: "https://stokeshealthcare.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Prefilled syringes"],
+      specializations: ["Pain management", "Anesthesia", "Critical care"],
+      background:
+        "New Jersey-based 503B outsourcing facility producing sterile compounded medications for hospitals and clinics, with focus on pain, anesthesia, and critical-care support.",
+    },
   },
   {
     slug: "tailstorm-health-inc",
@@ -305,6 +367,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "US",
     focus: "Sterile compounded injectables for office-based procedures and clinics",
     website: "https://tailstormhealth.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-based procedure stock"],
+      background:
+        "FDA-registered 503B outsourcing facility producing sterile compounded injectables for office-based procedures and clinics.",
+    },
   },
   {
     slug: "wedgewood-connect-llc",
@@ -332,6 +401,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile compounded IV and injectable medications for hospitals, surgery centers, and clinics",
     website: "https://wellspharma.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "IV admixtures"],
+      specializations: ["Hospitals", "Surgery centers", "Clinic infusion stock"],
+      background:
+        "Houston-based 503B outsourcing facility producing sterile compounded IV and injectable medications for hospitals, surgery centers, and clinics.",
+    },
   },
 
   // ---------- 503A Compounding Pharmacies ----------
@@ -380,6 +456,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Compounded injectables used in weight-loss and hormone programs, plus 503B support for IV and wellness therapies",
     website: "https://olympiapharmacy.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals", "IV preparations"],
+      specializations: ["Weight management", "Hormone therapy", "IV and wellness therapies"],
+      background:
+        "Orlando-based compounding organization operating both 503A and 503B lines, producing patient-specific and office-use compounded preparations across weight-loss, hormone, and wellness programs.",
+    },
   },
   {
     slug: "wells-pharmacy-network",
@@ -390,6 +473,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Hormone optimization, peptides, weight-management protocols, and wellness compounding",
     website: "https://wellsrx.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Hormone optimization", "Peptides", "Weight management", "Wellness"],
+      background:
+        "Florida-based 503A compounding pharmacy serving patient-specific prescriptions, with a focus on hormone optimization, peptides, weight-management, and wellness protocols.",
+    },
   },
   {
     slug: "tailor-made-compounding",
@@ -400,6 +490,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Tailored formulations including peptides, hormones, and regenerative medicine preparations for wellness clinics",
     website: "https://tailormadecompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Peptides", "Hormone therapy", "Regenerative medicine"],
+      background:
+        "Kentucky-based 503A compounding pharmacy producing patient-specific formulations for wellness clinics, including peptide, hormone, and regenerative medicine preparations.",
+    },
   },
   {
     slug: "newtropin-formulation-compounding-center",
@@ -410,6 +507,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Compounded peptide therapies and anti-aging protocols, including growth-hormone-related and nootropic formulations",
     website: "https://newtropin.com",
+    profile: {
+      standards: ["USP <797>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules"],
+      specializations: ["Peptide therapy", "Anti-aging protocols", "Nootropic formulations"],
+      background:
+        "503A compounding pharmacy producing patient-specific peptide and anti-aging formulations, including growth-hormone-related and nootropic preparations on individual prescriptions.",
+    },
   },
   {
     slug: "triangle-compounding",
@@ -419,6 +523,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Cary, NC",
     focus: "Sterile and nonsterile compounds including hormones and specialty injectables",
     website: "https://trianglecompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral", "Topicals"],
+      specializations: ["Hormone therapy", "Specialty injectables"],
+      background:
+        "North Carolina-based 503A compounding pharmacy producing sterile and nonsterile patient-specific preparations, including hormones and specialty injectables.",
+    },
   },
   {
     slug: "pencol-specialty-pharmacy",
@@ -428,6 +539,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Denver, CO",
     focus: "Custom compounds in pain, hormone therapy, and wellness formulations",
     website: "https://pencolpharmacy.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral", "Topicals"],
+      specializations: ["Pain management", "Hormone therapy", "Wellness"],
+      background:
+        "Denver-based 503A specialty compounding pharmacy producing patient-specific custom preparations across pain, hormone therapy, and wellness categories.",
+    },
   },
   {
     slug: "vertisis-custom-pharmacy",
@@ -438,6 +556,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Integrative and functional medicine compounds including vitamin and peptide injectables for wellness clinics",
     website: "https://vertisis.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Integrative medicine", "Functional medicine", "Vitamin and peptide injectables"],
+      background:
+        "Phoenix-based 503A compounding pharmacy serving integrative and functional medicine practices with patient-specific vitamin, peptide, and wellness preparations.",
+    },
   },
   {
     slug: "pavilion-compounding-pharmacy-llc",
@@ -448,6 +573,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile and nonsterile compounding with strong presence in hormone replacement, wellness, and dermatology formulations",
     website: "https://pavilioncompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral", "Topicals", "Dermatology preparations"],
+      specializations: ["Hormone replacement", "Wellness", "Dermatology"],
+      background:
+        "Atlanta-based 503A compounding pharmacy producing sterile and nonsterile patient-specific preparations, with focus on hormone replacement, wellness, and dermatology.",
+    },
   },
   {
     slug: "village-compounding-pharmacy",
@@ -458,6 +590,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Hormone optimization, wellness injectables, and specialty compounded medications",
     website: "https://villagecompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Hormone optimization", "Wellness injectables", "Specialty compounding"],
+      background:
+        "Houston-based 503A compounding pharmacy producing patient-specific hormone, wellness, and specialty compounded preparations.",
+    },
   },
   {
     slug: "mcguff-compounding-pharmacy",
@@ -468,6 +607,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile injectables, vitamin and IV, and wellness products for integrative and functional medicine clinics",
     website: "https://mcguffpharmacy.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "IV preparations", "Vitamin injectables"],
+      specializations: ["Integrative medicine", "Functional medicine", "IV and vitamin therapy"],
+      background:
+        "California-based 503A compounding pharmacy producing patient-specific sterile injectables, IV, and vitamin preparations for integrative and functional medicine clinics.",
+    },
   },
   {
     slug: "wedgewood-pharmacy",
@@ -496,6 +642,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Hormones, dermatology, and sterile injectables across compounding operations",
     website: "https://fagron.com",
+    profile: {
+      standards: ["cGMP", "USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Topicals", "Dermatology preparations", "Oral"],
+      specializations: ["Hormone therapy", "Dermatology", "Hospital sterile compounding"],
+      background:
+        "Global compounding network with multiple US operations spanning 503A and 503B activities, with focus areas in hormones, dermatology, and sterile injectables for hospitals and clinics.",
+    },
   },
   {
     slug: "b-braun",
@@ -524,6 +677,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Compounded medications integrated into specialty and PBM offerings, including sterile compounds for specific clinical programs",
     website: "https://optum.com",
+    profile: {
+      standards: ["cGMP", "USP <797>"],
+      dosageForms: ["Sterile injectables", "Specialty compounded preparations"],
+      specializations: ["Specialty pharmacy", "PBM-integrated compounding", "Clinical program support"],
+      background:
+        "Healthcare services organization operating specialty pharmacy and PBM programs that include compounded medications for specific clinical programs across multiple US states.",
+    },
   },
 ];
 
