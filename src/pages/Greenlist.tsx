@@ -326,7 +326,7 @@ const Greenlist = () => {
                   <div className="col-span-2 meta-label">Source Type</div>
                   <div className="col-span-2 meta-label">Location</div>
                   <div className="col-span-3 meta-label">Focus</div>
-                  <div className="col-span-1 meta-label text-right">Website</div>
+                  <div className="col-span-1 meta-label text-right">Profile</div>
                 </div>
                 {pageItems.map((e) => (
                   <div
