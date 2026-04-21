@@ -9,12 +9,47 @@ export type GreenlistType =
 export type GreenlistCategory = "503B" | "503A" | "Other";
 
 export type GreenlistEntry = {
+  slug: string;
   name: string;
   type: GreenlistType;
   category: GreenlistCategory;
   location: string;
   focus: string;
   website?: string;
+  profile?: GreenlistProfile;
+};
+
+export type GreenlistProfile = {
+  // Regulatory identity
+  designation?: string;
+  fdaRegistration?: string;
+  statesServed?: string[];
+  inspectionHistory?: string;
+  lastInspectionDate?: string;
+
+  // Quality systems
+  standards?: string[];
+  cleanroomClass?: string;
+  testingProtocols?: string[];
+  environmentalMonitoring?: string;
+
+  // Product capabilities
+  dosageForms?: string[];
+  specializations?: string[];
+  apiSourcingPolicy?: string;
+
+  // Source Standard audit data
+  ssReviewDate?: string;
+  ssAuditDate?: string;
+  labValidationLog?: string;
+  vendorCount?: number;
+  reviewNotes?: string;
+
+  // Neutral facility background
+  yearsInOperation?: string;
+  facilityScale?: string;
+  qaStaffing?: string;
+  background?: string;
 };
 
 export const greenlistEntries: GreenlistEntry[] = [
