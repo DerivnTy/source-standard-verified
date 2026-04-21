@@ -1,137 +1,62 @@
 
 
-## Education → Clinical Reference Library
+## Education Page — Restructure for New Visitors
 
-Reposition `/education` from a blog-style page into a structured Clinical Reference Library organized around four content lanes, with architecture that anticipates video, webinars, and an integrity report feed.
+Reframe `/education` so a first-time visitor (someone curious about peptides, TRT, or compounded medications) immediately understands what's here and where to start. Keep the underlying library data intact — change the surface so the expert "reference document" framing becomes a friendly, guided learning experience.
+
+### The core problem
+The current page reads like a regulatory index: monospace IDs (`SS-SERIES-001`), a four-lane taxonomy ("Lane I / II / III / IV"), status chips, and a citation footer. That works for someone auditing the library. It does not work for someone who just wants to know "what is a peptide and is it safe?"
+
+### What changes
+
+**1. Replace the reference header with a plain-English intro**
+- New title: `Learn` (or `Education`) — drop "Clinical Reference Library" as the primary label.
+- Lead paragraph in conversational tone: one or two sentences explaining "this is where you learn how compounded medications, peptides, and TRT actually work, and how to tell a trustworthy source from a risky one."
+- Remove the document ID / "Reviewed under" metadata bar from the top. (It can move to the footer as a small credibility line.)
+
+**2. Add a "Start Here" section above everything else**
+A short, friendly block with 3 entry points for new visitors — the questions they actually arrive with:
+- **New to peptides?** → links to a foundational explainer (e.g. "What are peptides?")
+- **Trying to evaluate a clinic or vendor?** → links to "Questions to Ask Your Clinic" + the directory
+- **Want to understand the rules?** → links to "The 2026 Compounding Reclassification" or a legality FAQ
+
+These render as three large, plain cards with a one-line description each — not a table row.
+
+**3. Reorganize the content by visitor intent, not by internal lane**
+Drop the "Lane I / Lane II / Lane III / Lane IV" framing. Replace with three plainly-named sections in this order:
+
+- **The Basics** — foundational explainers from the Series + selected Guides. The pieces a beginner should read first. (e.g. "What are peptides?", "How to Read a Certificate of Analysis", "The Dual-Layer Difference")
+- **Practical Guides** — the clinical/practical guides (safe handling, sanitation, TRT science, dosing summaries). Framed as "how to do this safely" not "physician-reviewed reference material."
+- **Common Questions** — the FAQ, but presented as one flat, searchable accordion grouped by plain headings ("Is this legal?", "Is it safe?", "How does verification work?", "What should I look for?") instead of the current taxonomy labels.
+
+Each section gets a short, human one-liner above it — no eyebrows, no Roman numerals, no reference IDs in the row.
+
+**4. Simplify each entry row**
+Current row shows: reference ID · title · summary · "Reviewed by" · status chip.
+New row shows: title (larger) · one-line summary · a small muted "Reviewed by Medical Advisory Board" line only where relevant. Status chips ("In Review", "Outlined") move to a subtle text label only on items not yet readable, or are hidden entirely on the index and only shown on the entry page itself.
+
+Reference IDs (`SS-SERIES-001`) are removed from the public index. They stay in the data model and on the individual entry pages for citation purposes.
+
+**5. Move "Supplementary Infrastructure" to a small footer block**
+Video Library / Webinars / Integrity Reports become a single "Coming soon" strip near the bottom — three short lines, not a full section with cards. They're not what a new visitor needs.
+
+**6. Remove the sticky lane index**
+Replace with a quiet anchor row only if the page is long, using the new plain section names ("Start here · Basics · Guides · Questions").
+
+**7. Soften the citation footer**
+Keep the medical disclaimer (it matters), but drop the "Cite as SS-LIBRARY-2026.01" block from the public-facing page. Move credibility signals (Medical Advisory Board, Governance link) to a small "About this library" line.
 
 ### Files touched
-- `src/data/library.ts` *(new)* — typed content models for articles, FAQs, and supplementary formats; canonical lane taxonomy.
-- `src/pages/Education.tsx` — full rebuild around the four lanes + future-format scaffolding.
-- `src/App.tsx` — add stub routes for individual library entries (so cards link somewhere coherent even before content is fully written).
-- `src/pages/LibraryEntry.tsx` *(new, optional stub)* — generic article shell that reads from `library.ts`; renders a "Forthcoming — outlined" state for entries without body copy yet.
-
-No changes to navigation label ("Education" stays in the header), Greenlist, Verified Vendors, Advisory Board, or any other page.
-
----
-
-### Page architecture (`/education`)
-
-Replaces the current hero + featured + topics + FAQ + reference notes layout with this structure:
-
-**1. Reference Header (RecordHeader pattern)**
-- Eyebrow: `Clinical Reference Library`
-- Title: `Clinical Reference Library`
-- Lead: One paragraph framing the library as a neutral, structured reference resource — not editorial content.
-- Metadata bar: `SS-LIBRARY-2026.01 · Active · Reviewed under Medical Advisory Board · Updated regularly`
-- Summary sidebar: lane counts (Source Standard Series, Clinical Guides, FAQ entries, Supplementary formats).
-
-**2. Lane index (sticky table-of-contents row)**
-A thin horizontal index linking to the four lane sections below. Quiet, institutional — no card chrome.
-
-**3. Lane I — The Source Standard Series**
-Framing line: explains these are framework/landscape pieces authored by Source Standard.
-Entry list (rendered as a clean, bordered list — not blog cards):
-- The 2026 Compounding Reclassification
-- How to Read a Certificate of Analysis
-- The Dual-Layer Difference
-- Questions to Ask Your Clinic
-- What Source Standard Verification Actually Means
-- Warning Signs of Undocumented Sourcing
-
-Each row: reference ID (e.g. `SS-SERIES-001`), title, one-line description, status chip (`Published` / `In review` / `Outlined`).
-
-**4. Lane II — Clinical & Practical Guides**
-Framing line: notes these are reviewed under the Medical Advisory Board and intended as practical reference, not personalized medical advice.
-Entries:
-- Safe peptide handling and reconstitution
-- Sanitization and aseptic-technique fundamentals
-- The science of aging and TRT
-- Dosing-guidance summaries for common compounds (high-level)
-- Storage and stability fundamentals
-- Sterile injectable handling for consumers
-
-Each row carries a `Reviewed by` slot (Medical Advisory Board) and a status chip.
-
-**5. Lane III — Unbiased FAQ**
-Accordion, grouped into four subsections:
-- Legality & access (e.g., "Is it legal to buy peptides online?")
-- Verification & status (e.g., "Why are some vendors listed as Unverified?", "Does Source Standard guarantee product safety?")
-- Methodology (e.g., "What is blind purchase testing?", "What does a Certificate of Analysis actually prove?")
-- Consumer due diligence
-
-Tone: short, restrained, transparent. Each answer ends with an optional "Read deeper →" link to the relevant Series or Guide entry.
-
-**6. Lane IV — Supplementary Infrastructure (forward-built)**
-Three-column grid of placeholder modules with `Forthcoming` chips:
-- **Video Library** — short clinical explainers and walkthroughs.
-- **Live Monthly Webinars** — registration + archive structure.
-- **Integrity Report Feed** — periodic published reports on directory-wide findings.
-
-Each module has a title, one-paragraph description, and a "Notify me" / "Coming 2026" affordance — wired to the contact route, not a backend.
-
-**7. Reference & citations footer**
-- Cite-as line for the library as a whole.
-- Cross-links: Governance, Medical Advisory Board, Status Definitions, How to Read the Directory.
-- Final disclosure: educational material is informational only; not medical advice.
-
----
-
-### Data model (`src/data/library.ts`)
-
-```ts
-type Lane = "series" | "guide" | "faq" | "supplementary";
-type EntryStatus = "published" | "in-review" | "outlined" | "forthcoming";
-
-type LibraryEntry = {
-  id: string;            // SS-SERIES-001, SS-GUIDE-001, etc.
-  slug: string;
-  lane: Lane;
-  title: string;
-  summary: string;       // one-line
-  status: EntryStatus;
-  reviewedBy?: string;   // "Medical Advisory Board"
-  body?: ReactNode;      // optional; absent => "Forthcoming — outlined" state
-};
-
-type FAQEntry = {
-  id: string;
-  group: "legality" | "verification" | "methodology" | "due-diligence";
-  q: string;
-  a: string;
-  relatedSlug?: string;
-};
-
-type SupplementaryFormat = {
-  id: string;
-  title: string;
-  description: string;
-  status: "forthcoming" | "active";
-  cta?: { label: string; to: string };
-};
-```
-
-Three exported arrays: `librarySeries`, `libraryGuides`, `libraryFaqs`, `librarySupplementary`. The page reads from these so future content additions are pure data edits.
-
----
-
-### Routing
-
-- Keep `/education` as the library landing page.
-- Add `/education/:slug` → `LibraryEntry` (generic shell). For entries without `body`, the shell renders a structured "Outlined — full text forthcoming" view (title, summary, lane, reference ID, status, related entries) rather than a 404. This keeps cross-links honest as content is filled in.
-
----
-
-### Visual & tone constraints
-- Reference-document aesthetic: hairline rules, tabular type, monospace IDs, restrained spacing — same system already used on Greenlist / How to Read the Directory.
-- No card shadows, no marketing CTAs, no hero imagery, no emojis.
-- Status chips reuse the existing `meta`/border-only treatment — not colored badges.
-- All language neutral and clinical; no promotional phrasing anywhere on the page.
+- `src/pages/Education.tsx` — full restructure of the page surface as described above. No changes to data structure.
+- `src/data/library.ts` — add a small `audience` or `level` hint (`"intro" | "intermediate"`) to a handful of entries so the "Basics" section can pick the right beginner pieces. Optionally add 1–2 new beginner-oriented entries ("What are peptides?", "What is compounding?") as outlined stubs so the Basics section has the right starting points.
+- `src/pages/LibraryEntry.tsx` — minor: keep the reference ID visible here (it's appropriate on the detail page), but soften the "Outlined — full text forthcoming" state into friendlier language ("We're still writing this one. Here's what it will cover.").
 
 ### What stays the same
-- Header navigation, footer, MetadataBar, RecordHeader, Section, Accordion, StatusBadge components — all reused.
-- All other routes and pages.
-- `src/data/greenlist.ts`, `src/data/vendors.ts`, `src/data/authorities.ts`, `src/data/advisoryBoard.ts`.
+- All routes, all existing data, all entry slugs.
+- The four content lanes still exist in the data — they're just not the navigation metaphor anymore.
+- Medical Advisory Board attribution, disclaimers, and the LibraryEntry detail page structure.
+- Header, footer, and every other page in the app.
 
 ### Result
-`/education` becomes a structured, four-lane Clinical Reference Library that reads like a regulatory/medical reference resource. The data layer and routing are built so the Series, Guides, FAQ, video, webinar, and integrity-report tracks can all expand without re-architecting the page.
+A first-time visitor lands on `/education` and immediately sees: a friendly intro, three "start here" doors matched to why they came, and three plainly-named sections (Basics, Guides, Questions). The clinical reference rigor is still there in the data and on detail pages — it's just no longer the first thing a beginner has to decode.
 
