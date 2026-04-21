@@ -129,14 +129,21 @@ const shortFocus = (entry: GreenlistEntry): string => {
 
 const Greenlist = () => {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<string>(ALL);
   const [type, setType] = useState<string>(ALL);
-  const [location, setLocation] = useState<string>(ALL);
+  const [state, setStateFilter] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
+  const [website, setWebsite] = useState<WebsiteFilter>("all");
   const [sort, setSort] = useState<SortMode>("name-asc");
   const [page, setPage] = useState(1);
 
-  const locations = useMemo(() => getGreenlistLocations(), []);
+  const states = useMemo(() => {
+    const set = new Set<string>();
+    greenlistEntries.forEach((e) => {
+      const s = extractState(e.location);
+      if (s) set.add(s);
+    });
+    return Array.from(set).sort();
+  }, []);
   const counts = useMemo(() => getGreenlistCounts(), []);
 
   const filtered = useMemo(() => {
@@ -146,30 +153,32 @@ const Greenlist = () => {
         const hay = [e.name, e.location, e.focus, e.type].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
-      if (category !== ALL && e.category !== category) return false;
       if (type !== ALL && e.type !== type) return false;
-      if (location !== ALL && e.location !== location) return false;
+      if (state !== ALL && extractState(e.location) !== state) return false;
       if (focus !== ALL && !focusMatches(e, focus)) return false;
+      if (website === "yes" && !e.website) return false;
+      if (website === "no" && e.website) return false;
       return true;
     });
-  }, [query, category, type, location, focus]);
+  }, [query, type, state, focus, website]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
     switch (sort) {
       case "name-desc":
         return arr.sort((a, b) => b.name.localeCompare(a.name));
-      case "category":
+      case "type":
         return arr.sort((a, b) => {
-          const ca = CATEGORY_ORDER.indexOf(a.category);
-          const cb = CATEGORY_ORDER.indexOf(b.category);
-          if (ca !== cb) return ca - cb;
+          const t = a.type.localeCompare(b.type);
+          if (t !== 0) return t;
           return a.name.localeCompare(b.name);
         });
-      case "location":
+      case "state":
         return arr.sort((a, b) => {
-          const l = a.location.localeCompare(b.location);
-          if (l !== 0) return l;
+          const sa = extractState(a.location) ?? "";
+          const sb = extractState(b.location) ?? "";
+          const s = sa.localeCompare(sb);
+          if (s !== 0) return s;
           return a.name.localeCompare(b.name);
         });
       case "name-asc":
@@ -185,21 +194,21 @@ const Greenlist = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [query, category, type, location, focus, sort]);
+  }, [query, type, state, focus, website, sort]);
 
   const filtersActive =
     query !== "" ||
-    category !== ALL ||
     type !== ALL ||
-    location !== ALL ||
-    focus !== ALL;
+    state !== ALL ||
+    focus !== ALL ||
+    website !== "all";
 
   const reset = () => {
     setQuery("");
-    setCategory(ALL);
     setType(ALL);
-    setLocation(ALL);
+    setStateFilter(ALL);
     setFocus(ALL);
+    setWebsite("all");
   };
 
   return (
