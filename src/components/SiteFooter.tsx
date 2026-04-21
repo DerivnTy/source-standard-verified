@@ -30,10 +30,9 @@ const cols = [
     ],
   },
   {
-    title: "Reference & Templates",
+    title: "Reference",
     links: [
       { to: "/faq", label: "FAQ" },
-      { to: "/templates/greenlist-entry", label: "Greenlist entry template" },
       { to: "/contact", label: "Contact" },
     ],
   },
