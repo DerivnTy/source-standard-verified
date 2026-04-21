@@ -1,97 +1,99 @@
 
 
-## Page Headers — Consistency pass + sharper copy
+## Site-wide spacing & hierarchy polish pass
 
-The four-tier system is right, but execution drifted. Anchor pages don't visually agree with each other (different lead lengths, different vertical rhythm, different right-side treatments), Home shouts louder than it should, copy is verbose, and the "document" still announces itself with a heavy metadata bar before the title. This pass locks each tier to a single, repeatable shape and rewrites every opening so it reads in one breath.
+A pure refinement pass — no new content, no new pages. We replace the ad-hoc spacing and heading sizes that have accumulated across the app with a single, enforced system, then audit every page against it. The result: the same rhythm everywhere, a clear typographic ladder, and content density that matches the authority of the mission.
 
-### Principle
+### 1 — A real type ladder (the root cause)
 
-A visitor moving Home → Vendors → Greenlist → Education should feel the **same header machine** with the volume turned slightly up on Home. A visitor moving Governance → Privacy → Terms should feel the same document. Profiles all open identically. Forms all open identically. No exceptions, no per-page improvisation.
+Right now there are 8+ informal H2/H3 sizes in use (`text-xl`, `text-2xl`, `text-[1.25rem]`, `text-[1.375rem]`, `text-[1.5rem]`, `text-[1.625rem]`, `text-[1.875rem]`, plus the `.section-heading` utility). We collapse this to **four locked utilities** in `src/index.css`:
 
-### Tier 1 — Anchor pages (Home, Vendors, Greenlist, Education)
+| Utility | Use | Size | Weight |
+|---|---|---|---|
+| `.display-1` | Home hero only (kept) | 34/42px | 500 |
+| `.display-2` | Anchor-page heroes (kept) | 30/36px | 500 |
+| `.title-doc` | Doc/regulatory page H1 (kept) | 26/28px | 500 |
+| `.title-record` | Profile/record H1 (kept) | 24/30px | 500 |
+| **`.h-section`** *(new)* | Every in-page section H2 | 20/22px | 500 |
+| **`.h-sub`** *(new)* | Sub-section H3 inside a section | 15/16px | 600 |
+| **`.h-card`** *(new)* | Card / panel title | 14/15px | 600 |
 
-One shape, one rhythm, one type scale. Home is the only page allowed a marginally larger headline.
+Body text is locked to **three sizes only**: `15px` (default prose), `13.5px` (helper / table cell), `12px` (meta / disclaimer). Anything in between gets snapped to the nearest token. The current `.section-heading` utility is deprecated — it conflicts with `.title-doc`.
 
-**Locked structure (top → bottom):**
-1. Eyebrow — one or two words, sentence case, the page's category. ("Directory", "Sources", "Library", "Reference".)
-2. Title — one short line. Sentence case. No period. **Max ~7 words.**
-3. Lead — one sentence, ≤ 22 words, capped at 56ch.
-4. Optional inline action row (buttons or a single quiet stat). Never a "Summary" rail. Never a `MetadataBar`.
+### 2 — A real spacing ladder
 
-**Visual tokens (apply uniformly to all four pages):**
-- Vertical padding: `py-20 md:py-28` (currently inconsistent — Home reads taller than Vendors).
-- Title size: `display-2` for Vendors / Greenlist / Education. Home alone uses `display-1` (the only allowed deviation, ~12% larger).
-- Eyebrow → title gap: `mb-4`. Title → lead gap: `mt-5`. Lead → action gap: `mt-8`.
-- Bottom border: `border-b border-border/50` only — no muted background fill on any anchor page.
-- Lead column width: `max-w-[56ch]` everywhere (currently 58ch and varies).
+Vertical rhythm becomes a **6-step scale**, used everywhere. Today the same "section" can be `py-8`, `py-10 md:py-14`, `py-14 md:py-20`, `py-16 md:py-24`. We collapse these:
 
-**Copy rewrites (sharper, fewer words):**
+| Token | Tailwind | Use |
+|---|---|---|
+| `space-section` | `py-16 md:py-20` | Major section on anchor pages |
+| `space-section-doc` | `py-12 md:py-16` | Section on doc/policy pages |
+| `space-section-tight` | `py-8 md:py-10` | Helper bands, status legends, scope notes |
+| Inside-section heading→body gap | `mt-3` | Title to lead |
+| Inside-section block→block gap | `mt-6` md / `mt-8` lg | Lead to grid/table |
+| Card inner padding | `p-5` (compact) / `p-6` (standard) | Locked — no `p-4` or `p-8` cards |
 
-| Page | Eyebrow | Title | Lead |
-|------|---------|-------|------|
-| Home | Public reference | A public record of verified vendors and recognized sources. | Independent verification for the peptide, TRT, and hormone-optimization market. |
-| Verified Vendors | Directory | Verified vendors. | Clinics reviewed against the Source Standard framework, with a citable record for each listing. |
-| Greenlist | Sources | Recognized upstream sources. | 503B, 503A, and other compounding sources recognized by license, registration, and credentialing. |
-| Education | Library | Learn how verification works. | Plain explanations of the framework, the documents that matter, and what to ask before you buy. |
+The existing `Section` component (currently hard-codes `py-16 md:py-24`) gets a `density?: "default" | "doc" | "tight"` prop mapped to the tokens above, so callers stop overriding by reaching into raw padding classes.
 
-Home loses the four-item framework strip under the buttons (it duplicates what the footer already says and adds visual noise). That metadata moves into the existing footer credibility line.
+### 3 — Component-level fixes
 
-### Tier 2 — Regulatory / policy documents
+- **`Section.tsx`** — add the `density` prop, drop the over-spaced default to `space-section`, change `SectionLabel` H2 from `1.5/1.625rem font-semibold` → `.h-section`, tighten `mb-12` → `mb-8`, bring metadata-to-title gap from `mb-4` → `mb-3`.
+- **`AnchorHeader.tsx`** — reduce hero padding from `py-20 md:py-28` to `py-16 md:py-24` (currently the loudest band on the site, especially on mobile).
+- **`RecordHeader.tsx`** — already on `py-14 md:py-18`; tighten title→lead from `mt-5` to `mt-4`, lead→children from `mt-7` to `mt-6`, and demote summary rail label gap from `mb-3` to `mb-2`.
+- **`ProfileHeader.tsx`** — lock identity row to single line (already planned, finish enforcement); reduce vertical padding to `pt-5 pb-12 md:pb-16`.
+- **`UtilityHeader.tsx`** — reduce padding to `pt-5 pb-8 md:pb-10`.
+- **`Card`** primitive — change default `p-6` header / `p-6 pt-0` content to `p-5` / `p-5 pt-0` so non-hero cards stop feeling oversized for their content.
 
-Locked structure stays — but the metadata bar is **visually demoted** so the title leads, not the bureaucracy.
+### 4 — Per-page audit (header + section spacing only — no copy or content changes)
 
-- `MetadataBar` becomes a thin, lower-contrast strip (`text-muted-foreground/70`, `border-border/40`, no background fill) and sits **below** the title block instead of above it. The title is the first thing the eye lands on when you open a doc page.
-- Title scale locked to `text-[1.625rem] md:text-[1.75rem]`, `font-medium`, used identically across all 13 doc pages.
-- Vertical padding locked to `py-14 md:py-18` across all doc pages (currently varies).
-- Eyebrow capped to one or two words ("Policy", "Disclosure", "Reference", "Process", "Disclaimer").
-- Lead trimmed to one sentence, ≤ 28 words, on every doc page. Where the current lead runs two sentences, keep the first; move the second into §1.
-- Summary rail kept only on **Governance, Accountability, Verification Disclaimer, Status Definitions**. Removed from Terms, Privacy, How It Works, How to Read the Directory, For Vendors, Medical Advisory, About, FAQ, Report a Concern.
+**Anchor pages** — `Index.tsx`, `VerifiedVendors.tsx`, `Greenlist.tsx`, `Education.tsx`
+- All section H2s converted to `.h-section`. Today `Index` uses `.section-heading` (large semibold) and `Education` uses `text-[1.25rem] font-semibold` — they read as different sites.
+- All section padding standardized to `space-section`. `Index` currently mixes `py-14 md:py-20` and `py-12 md:py-16`; `Education` uses the old `py-16 md:py-24`.
+- Card inner padding normalized to `p-5` across the lookup cards on Home, the source-type cards on Greenlist, and the row cards on Education.
+- Eyebrow → H2 gap unified to `mb-3` (Home currently uses `mb-4`).
+- Heading → lead gap unified to `mt-3` (Home uses `mt-4`/`mt-5` inconsistently).
+- Filter rows on Vendors & Greenlist: standardize sticky-row padding to `py-3` and the explanatory band above to `space-section-tight`.
 
-### Tier 3 — Profile / record pages
+**Doc pages** — `Governance.tsx`, `Accountability.tsx`, `Terms.tsx`, `Privacy.tsx`, `VerificationDisclaimer.tsx`, `StatusDefinitions.tsx`, `HowItWorks.tsx`, `HowToReadTheDirectory.tsx`, `ForVendors.tsx`, `MedicalAdvisory.tsx`, `About.tsx`, `FAQ.tsx`, `ReportConcern.tsx`
+- All section padding → `space-section-doc`. Most are currently on `py-10 md:py-14`, which reads cramped against the larger anchor-page sections.
+- All in-section H2s → `.h-section` (currently `text-xl md:text-2xl font-semibold` everywhere — this is the "DIY" feel persisting on doc pages).
+- Side-rail labels (`§1 — Medical Advisory` etc.) → `.eyebrow` instead of `.meta`, so they stop reading as body text.
+- Cite-as / footer strips → `space-section-tight`.
 
-All four record types open with the exact same component, exact same spacing, exact same eyebrow style. Only the eyebrow word and the right-slot content change.
+**Profile pages** — `VendorProfile.tsx`, `GreenlistProfile.tsx`, `AdvisorProfile.tsx`, `LibraryEntry.tsx`
+- `VendorProfile` and `GreenlistProfile` still use the **old pattern**: `MetadataBar` at top + `font-semibold` H1. Migrate to `ProfileHeader` (entity name leads, doc IDs move to `ProfileFootnote` at page bottom). This was scoped in the previous header pass but never landed for these two — finishing it is the single biggest consistency win.
+- Field-row dl: change `px-4 py-3` to `px-5 py-3`, label column from `col-span-1` to `col-span-4` (currently labels wrap awkwardly), value column to `col-span-8`.
+- Right-rail card padding → `p-5`.
+- Listing-detail section → `space-section-doc`.
 
-- Eyebrow: single noun ("Verified vendor", "Greenlist source", "Medical advisor", "Library entry").
-- Title: entity name, `title-record`, no decoration.
-- Identity row: locked to a single line of separator-joined facts (status badge · location · category). No second row, no chips wrapping.
-- Right slot: at most one element (advisor photo, status card, or quick-glance facts). Never both photo and metadata.
-- Vertical padding locked to `pt-6 pb-14 md:pb-18`.
-- Doc IDs stay in `ProfileFootnote` at the page bottom (already done).
+**Utility pages** — `Apply.tsx`, `Contact.tsx`, `NotFound.tsx`, Education sub-indexes, `ReportConcern` form
+- Form sections → `space-section-tight`.
+- Field label → input gap unified to `mb-1.5`.
+- Helper text → input gap unified to `mt-1.5`.
+- 404: vertical padding from `py-32` → `py-24`.
 
-### Tier 4 — Utility pages (Apply, Contact, NotFound, Education sub-indexes, ReportConcern form)
+### 5 — Tables & filter bars
 
-- Title scale locked to `text-[1.25rem] md:text-[1.375rem]` everywhere.
-- Vertical padding locked to `pt-6 pb-10 md:pb-12`.
-- Description capped to one sentence, ≤ 18 words.
-- Education sub-index titles rewritten: "All foundational reads" → "The basics — full index". "All clinical guides" → "Practical guides — full index". "All questions" → "Common questions — full index". (Keeps the landing-page vocabulary instead of inventing new names.)
+Today every table sets its own row padding (`py-3`, `py-3.5`, `py-4`, `py-2.5`). Lock to:
+- Table header row: `px-5 py-2.5`
+- Table body row: `px-5 py-3`
+- Empty-state padding: `py-10` (currently varies `py-6` to `py-10`)
+- Filter bar to table gap: `mt-0` (filter section's own padding does the work) — currently has redundant `pt-3` plus the filter section's `py-3.5`
 
-### Type system tightening (`src/index.css`)
+### 6 — What stays the same
 
-- Confirm `display-1` and `display-2` are used **only** for anchor titles, and only Home uses `display-1`. (Currently every anchor uses `display-1`, which is why they all feel the same loud size.)
-- Add `.title-doc` utility (`1.625rem md:1.75rem`, `font-medium`, `tracking-[-0.012em]`) and use it inside `RecordHeader` so doc title size is enforced in one place rather than re-typed per component.
-- Eyebrow tone unified: `text-muted-foreground/75`, `tracking-[0.08em]`, `text-[11px]` — currently three slightly different opacities are in use.
+All routes, all copy, all data, all colors, all interactive behavior. The footer, `SiteHeader`, and `MetadataBar` component itself are untouched. No new components. The only rename is deprecating `.section-heading` in favor of `.h-section`.
 
 ### Files touched
 
-- `src/index.css` — add `.title-doc`, confirm `display-1`/`display-2` separation.
-- `src/components/AnchorHeader.tsx` — lock padding/spacing/lead-width; add a `size?: "lg" | "default"` prop where `"lg"` (Home only) uses `display-1` and `"default"` (everything else) uses `display-2`.
-- `src/components/RecordHeader.tsx` — move `MetadataBar` below the title block, demote its styling, lock title to `.title-doc`, lock padding.
-- `src/components/UtilityHeader.tsx` — lock title scale + padding.
-- `src/components/ProfileHeader.tsx` — lock identity row to one line, lock padding.
-- Anchor pages — apply new copy + remove Home framework strip:
-  `Index.tsx`, `VerifiedVendors.tsx`, `Greenlist.tsx`, `Education.tsx`.
-- Doc pages — drop summary on the eight pages listed above; trim leads to one sentence; tighten eyebrows:
-  `Terms.tsx`, `Privacy.tsx`, `HowItWorks.tsx`, `HowToReadTheDirectory.tsx`, `ForVendors.tsx`, `MedicalAdvisory.tsx`, `About.tsx`, `FAQ.tsx`, `ReportConcern.tsx`. Governance, Accountability, VerificationDisclaimer, StatusDefinitions keep their summary but get the same lead/eyebrow trim.
-- Utility pages — re-title sub-indexes, trim descriptions:
-  `Apply.tsx`, `Contact.tsx`, `NotFound.tsx`, `EducationBasics.tsx`, `EducationGuides.tsx`, `EducationQuestions.tsx`.
-- Profile pages — verify identity row is single-line, no other changes:
-  `VendorProfile.tsx`, `GreenlistProfile.tsx`, `AdvisorProfile.tsx`, `LibraryEntry.tsx`.
-
-### What stays the same
-
-All routes, all data, all body content below the header. Only the header band and its copy change.
+- `src/index.css` — add `.h-section`, `.h-sub`, `.h-card`, deprecate `.section-heading` (alias to `.h-section` for safety), tighten `.section`/`.section-tight` token values.
+- `src/components/Section.tsx` — add `density` prop, retire over-spaced default, fix `SectionLabel` heading + gaps.
+- `src/components/AnchorHeader.tsx`, `RecordHeader.tsx`, `ProfileHeader.tsx`, `UtilityHeader.tsx` — locked padding values listed above.
+- `src/components/ui/card.tsx` — reduce default padding from `p-6` to `p-5`.
+- All pages listed in §4 — mechanical class swaps, no content changes.
+- `src/pages/VendorProfile.tsx`, `src/pages/GreenlistProfile.tsx` — migrate to `ProfileHeader` + `ProfileFootnote` (the one structural change in this pass; required for consistency with the other two profile types).
 
 ### Result
 
-Within a tier, every page opens identically — same height, same type scale, same rhythm, same eyebrow tone. Across tiers, the differences are deliberate (anchor vs. document vs. record vs. utility), not accidental. Home is the only page allowed a slightly larger title, and even that difference is one type step, not a different design. Copy is shorter, so the eye gets to the content fast instead of reading a paragraph at the top of every page.
+Same machine on every page. A visitor moving between Home → Vendors → a vendor profile → Governance → Apply feels four deliberately different page types but a single site — same heading scale within each tier, same vertical rhythm everywhere, same card density, same field labels. The "stacked, drag-and-drop" feeling resolves because the underlying tokens are no longer suggestions.
 
