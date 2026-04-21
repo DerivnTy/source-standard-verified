@@ -60,7 +60,6 @@ const Privacy = () => (
     />
 
     <Section density="doc">
-      <DocId section="§1" />
       <SectionLabel number="§1" title="Data collected" />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
         {collected.map((c) => (
@@ -73,7 +72,6 @@ const Privacy = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§2" />
       <SectionLabel number="§2" title="How data is used" />
       <ul className="space-y-3 max-w-3xl">
         {uses.map((u, i) => (
@@ -86,7 +84,6 @@ const Privacy = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§3" />
       <SectionLabel
         number="§3"
         title="Information Partitioning"
@@ -103,7 +100,6 @@ const Privacy = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§4" />
       <SectionLabel
         number="§4"
         title="Infrastructure Partners"
@@ -120,7 +116,6 @@ const Privacy = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§5" />
       <SectionLabel
         number="§5"
         title="Retention & Disposal"
@@ -137,7 +132,6 @@ const Privacy = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§6" />
       <SectionLabel number="§6" title="Your rights" />
       <ul className="space-y-3 max-w-3xl">
         {rights.map((r, i) => (
@@ -150,7 +144,6 @@ const Privacy = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§7" />
       <SectionLabel
         number="§7"
         title="Data Privacy Officer (DPO)"
@@ -168,7 +161,6 @@ const Privacy = () => (
     </Section>
 
     <Section density="tight">
-      <DocId section="§8" />
       <SectionLabel number="§8" title="Read deeper" />
       <ul className="space-y-2 text-[15px]">
         <li><Link to="/governance" className="text-foreground underline-offset-4 hover:underline">Governance →</Link></li>

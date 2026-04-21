@@ -59,7 +59,6 @@ const VerificationDisclaimer = () => (
     />
 
     <Section density="doc">
-      <DocId section="§1" />
       <SectionLabel
         number="§1"
         title="Boundaries of Administrative Attestation"
@@ -76,7 +75,6 @@ const VerificationDisclaimer = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§2" />
       <SectionLabel
         number="§2"
         title="Items outside the attestation"
@@ -93,7 +91,6 @@ const VerificationDisclaimer = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§3" />
       <SectionLabel
         number="§3"
         title="Institutional Limitations"
@@ -110,7 +107,6 @@ const VerificationDisclaimer = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§4" />
       <SectionLabel
         number="§4"
         title="Time-bound nature"
@@ -119,7 +115,6 @@ const VerificationDisclaimer = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§5" />
       <SectionLabel
         number="§5"
         title="Limitation of Liability & User Discretion"
@@ -137,7 +132,6 @@ const VerificationDisclaimer = () => (
     </Section>
 
     <Section muted density="tight">
-      <DocId section="§6" />
       <SectionLabel number="§6" title="Read deeper" />
       <ul className="space-y-2 text-[15px]">
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification — process and review →</Link></li>

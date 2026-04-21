@@ -40,7 +40,6 @@ const Terms = () => (
     />
 
     <Section density="doc">
-      <DocId section="§1" />
       <SectionLabel
         number="§1"
         title="Acceptance of terms"
@@ -49,7 +48,6 @@ const Terms = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§2" />
       <SectionLabel
         number="§2"
         title="Authorized Citation & Data Utilization"
@@ -82,7 +80,6 @@ const Terms = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§3" />
       <SectionLabel number="§3" title="Prohibited Activity & Registry Integrity" />
       <p className="text-[15px] text-foreground leading-[1.7] max-w-3xl font-medium">
         The following activities are prohibited. They compromise the integrity of the registry, mislead the public, or misappropriate the auditing body's identifiers. Unauthorized use of any Source Standard mark, document anchor, or status indicator will result in <span className="font-semibold">administrative action</span> under SS-ENFORCE-2026.01, including a public registry note and, where appropriate, referral to counsel and to applicable regulatory authorities.
@@ -105,7 +102,6 @@ const Terms = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§4" />
       <SectionLabel
         number="§4"
         title="Intellectual property"
@@ -114,7 +110,6 @@ const Terms = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§5" />
       <SectionLabel number="§5" title="Warranty Disclaimer & Limit of Liability" />
       <div className="space-y-5 max-w-3xl">
         <p className="text-[15px] text-muted-foreground leading-[1.7]">
@@ -127,7 +122,6 @@ const Terms = () => (
     </Section>
 
     <Section muted density="doc">
-      <DocId section="§6" />
       <SectionLabel
         number="§6"
         title="Jurisdictional Governance"
@@ -136,7 +130,6 @@ const Terms = () => (
     </Section>
 
     <Section density="doc">
-      <DocId section="§7" />
       <SectionLabel
         number="§7"
         title="Changes to terms"
@@ -148,7 +141,6 @@ const Terms = () => (
     </Section>
 
     <Section density="tight">
-      <DocId section="§8" />
       <SectionLabel number="§8" title="Read deeper" />
       <ul className="space-y-2 text-[15px]">
         <li><Link to="/privacy" className="text-foreground underline-offset-4 hover:underline">Data Governance & Privacy Policy →</Link></li>
