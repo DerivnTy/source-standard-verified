@@ -50,8 +50,8 @@ const Index = () => {
       <AnchorHeader
         size="lg"
         eyebrow="Public reference"
-        title="A public record of verified vendors and recognized sources."
-        lead="Independent verification for the peptide, TRT, and hormone-optimization market."
+        title="Verify the source."
+        lead="Search verified vendors, recognized upstream sources, and public reference standards."
       >
         <div className="flex flex-wrap gap-3">
           <Button asChild size="lg" className="h-11">
