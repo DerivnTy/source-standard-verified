@@ -1,42 +1,53 @@
 import { ReactNode } from "react";
 
-type Density = "default" | "doc" | "tight";
-
-const densityClass: Record<Density, string> = {
-  default: "py-16 md:py-20",
-  doc: "py-12 md:py-16",
-  tight: "py-8 md:py-10",
-};
-
+/**
+ * Section — centered "filing" container.
+ *
+ * Every content-heavy doc page (Terms, Privacy, Disclaimer, About, etc.)
+ * renders through this primitive. The layout is a single centered prose
+ * column (max 920px) with a unified background and consistent vertical
+ * rhythm, so the page reads like one continuous regulatory filing rather
+ * than a series of stacked blocks.
+ */
 export const Section = ({
   children,
-  muted = false,
+  // legacy props accepted for back-compat — intentionally ignored
+  muted: _muted = false,
   bordered = true,
   className = "",
-  container = "wide",
-  density = "default",
+  container: _container = "wide",
+  density: _density = "default",
 }: {
   children: ReactNode;
   muted?: boolean;
   bordered?: boolean;
   className?: string;
   container?: "tight" | "narrow" | "wide";
-  density?: Density;
+  density?: "default" | "doc" | "tight";
 }) => {
-  const containerClass =
-    container === "narrow" ? "container-narrow" : container === "tight" ? "container-tight" : "container-wide";
   return (
-    <section
-      className={`${muted ? "bg-surface-muted/60" : "bg-background"} ${bordered ? "border-b border-border/60" : ""} ${className}`}
-    >
-      <div className={`${containerClass} ${densityClass[density]}`}>{children}</div>
+    <section className={`bg-background ${className}`}>
+      <div
+        className={`mx-auto w-full max-w-[920px] px-6 md:px-10 py-14 md:py-16 ${
+          bordered ? "border-t border-[#E5E7EB]" : ""
+        }`}
+      >
+        {children}
+      </div>
     </section>
   );
 };
 
+/**
+ * SectionLabel — the "filing header".
+ *
+ * §N chip rendered inline-left of the title; description sits below at
+ * a comfortable reading width. The eyebrow slot is intentionally retired
+ * (the §N chip replaces it).
+ */
 export const SectionLabel = ({
   number,
-  eyebrow,
+  eyebrow: _eyebrow,
   title,
   description,
 }: {
@@ -45,14 +56,21 @@ export const SectionLabel = ({
   title: string;
   description?: string;
 }) => (
-  <div className="max-w-3xl mb-8">
-    <div className="flex items-center gap-3 mb-3">
-      {number && <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground/75">{number}</span>}
-      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+  <div className="mb-8">
+    <div className="flex items-baseline gap-3 mb-3 flex-wrap">
+      {number && (
+        <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+          {number}
+        </span>
+      )}
+      <h2 className="text-[1.375rem] md:text-[1.5rem] font-semibold tracking-[-0.012em] text-foreground">
+        {title}
+      </h2>
     </div>
-    <h2 className="h-section">{title}</h2>
     {description && (
-      <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-2xl">{description}</p>
+      <p className="text-[15.5px] leading-[1.7] text-muted-foreground max-w-[68ch]">
+        {description}
+      </p>
     )}
   </div>
 );
