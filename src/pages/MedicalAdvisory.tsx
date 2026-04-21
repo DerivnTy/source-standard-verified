@@ -163,9 +163,14 @@ const MedicalAdvisory = () => {
             {advisoryBoard.map((m) => (
               <li key={m.slug} className="bg-background p-6 md:p-7 flex flex-col">
                 <div className="flex items-start justify-between gap-4 mb-4 pb-4 border-b border-border">
-                  <div className="h-14 w-14 rounded-[2px] bg-surface-muted border border-border flex items-center justify-center text-[11px] meta-label text-muted-foreground">
-                    Photo
-                  </div>
+                  <img
+                    src={m.photo}
+                    alt={`Portrait of ${m.name}`}
+                    loading="lazy"
+                    width={96}
+                    height={96}
+                    className="h-16 w-16 rounded-[2px] object-cover border border-border bg-surface-muted"
+                  />
                   <span className="text-[11px] meta-label text-muted-foreground">{m.slug.toUpperCase()}</span>
                 </div>
                 <p className="meta-label text-primary mb-2">{m.boardTitle}</p>

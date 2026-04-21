@@ -60,9 +60,14 @@ const AdvisorProfile = () => {
             <div className="md:col-span-4">
               <p className="meta mb-3">§1 — Identity & Credentials</p>
               <div className="border border-border bg-background p-6">
-                <div className="h-32 w-32 rounded-[2px] bg-surface-muted border border-border flex items-center justify-center text-[11px] meta-label text-muted-foreground mb-5">
-                  Photo
-                </div>
+                <img
+                  src={member.photo}
+                  alt={`Portrait of ${member.name}`}
+                  loading="lazy"
+                  width={256}
+                  height={256}
+                  className="h-40 w-40 rounded-[2px] object-cover border border-border bg-surface-muted mb-5"
+                />
                 <h2 className="text-[18px] font-semibold tracking-tight text-foreground">{member.name}</h2>
                 <p className="mt-1 text-[13px] text-muted-foreground">{member.credentials}</p>
                 <dl className="mt-5 pt-5 border-t border-border space-y-3 text-[12.5px]">
@@ -91,7 +96,20 @@ const AdvisorProfile = () => {
                 <p className="text-[14.5px] text-foreground/90 leading-relaxed">{member.biography}</p>
               </div>
               <div>
-                <p className="meta mb-3">§3 — Key Accomplishments</p>
+                <p className="meta mb-3">§3 — Background & Training</p>
+                <ul className="border border-border bg-background divide-y divide-border">
+                  {member.background.map((b, i) => (
+                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3.5 items-baseline">
+                      <div className="col-span-1 meta text-primary">
+                        {(i + 1).toString().padStart(2, "0")}
+                      </div>
+                      <div className="col-span-11 text-[13.5px] text-foreground/90 leading-relaxed">{b}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="meta mb-3">§4 — Key Accomplishments</p>
                 <ul className="border border-border bg-background divide-y divide-border">
                   {member.accomplishments.map((a, i) => (
                     <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3.5 items-baseline">
