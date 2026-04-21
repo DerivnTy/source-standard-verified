@@ -1,112 +1,106 @@
 
 
-## Redesign Verification Page for Trust First, Process Second
+## Populate All Placeholder Reference Pages
 
-Restructure `/how-it-works` (route stays the same; nav label remains "Verification") so the page leads with confidence and meaning, and treats procedure as supporting evidence — not the headline.
+Seven pages currently render the `PlaceholderSection` ("Section in development") component. They are linked from the homepage, footer, Verification page, and elsewhere — every "Read more" trail eventually lands on one of these. This plan fully writes each page in the same institutional, documentation-first tone used across `About`, `HowItWorks`, and `Education`.
 
-### New page flow (top to bottom)
+### Pages to populate
 
-1. **Hero — calm and confidence-building**
-   - Title: `Verification`
-   - Lead: "Source Standard verification is a structured review of vendor records, sourcing documentation, public claims, and applicable licensing. This page explains what is reviewed, how statuses are assigned, and what a published verification actually means."
-   - Replace the heavy `RecordHeader` summary panel with a lighter inline header (h1 + lead + slim metadata strip showing only Updated · Scope · Standard ref). No four-cell summary box.
+| Page | Route | Doc ID | Linked from |
+|---|---|---|---|
+| Status Definitions | `/status-definitions` | SS-STATUS-2026.01 | Footer, Home §7, Verification |
+| Accountability & Enforcement | `/accountability` | SS-ENFORCE-2026.01 | Footer, Home §7, Verification |
+| FAQ | `/faq` | SS-FAQ-2026.01 | Footer |
+| Report a Concern | `/report-a-concern` | SS-REPORT-2026.01 | Footer |
+| Verification Disclaimer | `/verification-disclaimer` | SS-DISCLAIMER-2026.01 | Footer, Verification |
+| Privacy Policy | `/privacy` | SS-PRIVACY-2026.01 | Footer |
+| Terms of Use | `/terms` | SS-TERMS-2026.01 | Footer |
 
-2. **Why this matters** — Trust-building section (new)
-   - Short intro: why verification exists.
-   - 3 compact statements, plain prose:
-     - Sourcing records matter. Vendors are only as legitimate as the pharmacies and suppliers behind them.
-     - Public claims should match documented reality. Verified status is assigned against evidence, not marketing language.
-     - Verification is time-bound. Listings are reviewed against current records and renewed on a defined interval.
+### Content outline per page
 
-3. **What a verified listing means** — Moved up from §3
-   - 2x2 grid of 4 plain blocks (no border-grid matrix feel):
-     - What has been reviewed
-     - What has not been reviewed
-     - What a verified listing means
-     - What it does not mean
-   - Tight, prose-led, no reference IDs.
+**1. Status Definitions** — The canonical reference for every public status badge.
+- Hero: what a public status is and why it is assigned.
+- Definition rows for: `Verified`, `Pending Review`, `Under Review`, `Suspended`, `Removed`, `Greenlisted`, `Not Listed`. Each with: meaning, what it tells the public, what it does not imply, when it is assigned, when it changes.
+- Status lifecycle diagram (text-based vertical flow).
+- Visual treatment: small status badge swatch beside each definition.
 
-4. **Public statuses** — Moved up
-   - Clean single-column list. Each row:
-     - Status name (Verified · Unverified · Under Review · Suspended · Removed)
-     - One-line meaning
-     - "Tells the public:" short phrase
-     - "Does not imply:" short phrase
-   - Hairline dividers, no boxed grid.
+**2. Accountability & Enforcement** — Vendor obligations and consequences.
+- Vendor commitments at time of verification (truthful representation, supplier disclosure, renewal cooperation).
+- Reportable changes that require notification (supplier change, license change, ownership change, product category change, public claims change).
+- Review triggers (consumer reports, supplier delisting, regulatory action, public claim divergence).
+- Enforcement actions (clarification request, scope reduction, suspension, removal, public note).
+- Reinstatement pathway.
 
-5. **What we review** — Grouped, readable
-   - Replace the flat 8-item bordered grid with 7 grouped cards in a 2-column layout:
-     - Business identity
-     - Licenses and registrations
-     - Pharmacy and supplier records
-     - Certificates and category records
-     - Sourcing and invoice history
-     - Public claims consistency
-     - Renewal-related updates
-   - Each card: group title + 1–2 sentence description of what's actually checked.
+**3. FAQ** — Grouped consumer + vendor questions, expandable accordion.
+- Sections: About Source Standard · Verification · The Greenlist · For Consumers · For Vendors · Public statuses · Limits and disclaimers.
+- ~18–22 questions total. Each answer includes a cross-link to the relevant deeper page.
+- Uses existing `Accordion` component.
 
-6. **Review lifecycle** — Simplified
-   - Keep 6 steps, drop the 4-quadrant matrix per step. New per-step layout:
-     - Step number + title (lead)
-     - Short explanation (1–2 sentences)
-     - "Reviewed at this stage:" one short line
-     - "Possible result:" one short line
-   - Vertical stack with hairline dividers between steps. No bordered grid cells.
+**4. Report a Concern** — Public submission pathway.
+- What is in scope (sourcing concerns, claims divergence, supplier issues, listing accuracy).
+- What is out of scope (medical complaints → FDA/state board, billing disputes, personal disputes).
+- How submissions are reviewed (intake → triage → review → outcome).
+- What happens after submission (acknowledgment, possible follow-up, status updates).
+- Confidentiality and good-faith reporting.
+- Email-based submission instructions (no live form yet — `mailto:` link to a placeholder address `concerns@sourcestandard.org`, with note that a structured form is forthcoming).
 
-7. **Renewal and monitoring** — Lighter
-   - Short intro paragraph + clean bullet list of change triggers (no numbered grid rows).
-   - Closing line about pause/suspend/re-review.
+**5. Verification Disclaimer** — Trust + boundaries.
+- What verification covers (records reviewed, sourcing alignment, license confirmation, claims consistency).
+- What verification does not cover (clinical outcomes, individual prescriptions, product safety guarantees, future conduct).
+- Role boundaries (not a regulator, not a clinic, not a manufacturer).
+- Time-bound nature of verification.
+- Liability framing.
 
-8. **What happens after verification** — New
-   - 5 short bullets:
-     - Public listing is created or updated
-     - Status is shown publicly
-     - Scope may be category-limited
-     - Renewal obligations continue
-     - Material changes can trigger re-review
+**6. Privacy Policy** — Data handling.
+- What data is collected (vendor application materials, contact form submissions, concern reports, basic site analytics).
+- How data is used (verification review, communication, public listing publication).
+- What is published vs. what stays internal.
+- Third-party processors (hosting, email).
+- Consumer rights (access, correction, deletion requests).
+- Contact for privacy inquiries.
 
-9. **Why vendors apply** — New
-   - 4 short value statements, written as plain prose, not sales copy:
-     - Public registry presence
-     - Category-specific review
-     - Confidence signal for consumers
-     - Claims supported by reviewed records
-   - Closing CTA: small inline link to `/apply` ("Begin a verification application →"). No giant CTA panel.
+**7. Terms of Use** — Site terms.
+- Acceptance of terms.
+- Permitted use of public registry information (citation, reference, non-commercial reproduction).
+- Restrictions (no scraping for resale, no misrepresentation of status, no derivative listings).
+- Intellectual property (Source Standard name, framework documents).
+- Disclaimer of warranties, limitation of liability.
+- Governing law (Florida, US).
+- Changes to terms.
 
-10. **What this process is not** — Kept, simplified
-    - Plain bulleted list, muted styling. Already exists in `notProcess` array.
+### Visual & structural conventions (consistent across all 7)
 
-11. **Footer reference strip** — Quiet
-    - Small line: "Standard reference · SS-FRAMEWORK-2026.01 · Updated 04 / 21 / 2026" + links to `/status-definitions` and `/accountability`.
+- Reuse existing `RecordHeader` for the document-style header (already in place).
+- Replace `<PlaceholderSection />` with real content sections built from the existing `Section` + `SectionLabel` components in `src/components/Section.tsx`.
+- Each page uses the same rhythm: numbered eyebrow sections (§1, §2, …), prose lead, structured content blocks (definition rows, grouped lists, hairline-divided tables).
+- Footer "Cite as" line on every page matching existing pattern.
+- Cross-links: every page links to 2–3 related pages at the bottom under a "Read deeper" block.
+- FAQ uses the existing `Accordion` UI primitive.
+- Promote each page status from `Draft` to `Active` in the metadata header now that content exists.
 
-### Visual direction
+### Files edited
 
-- Eliminate the repeated bordered-grid look (`gap-px bg-border border border-border`) that made every section feel identical.
-- Vary section rhythm: prose sections, hairline-divided lists, and only 1–2 places where cards make sense (What we review, What a verified listing means).
-- Alternate `bg-background` and `bg-surface-muted` for breathing room, but use fewer total sections than today.
-- Keep typography institutional (existing `meta`, `eyebrow`, container utilities) but reduce uppercase/mono density per section.
-- No "§1 / §2" numbering in headers — replaces with quiet eyebrow labels (e.g. "Trust", "Scope", "Statuses", "Process", "After Review", "For Vendors", "Boundaries").
+- `src/pages/StatusDefinitions.tsx` — full rewrite
+- `src/pages/Accountability.tsx` — full rewrite
+- `src/pages/FAQ.tsx` — full rewrite
+- `src/pages/ReportConcern.tsx` — full rewrite
+- `src/pages/VerificationDisclaimer.tsx` — full rewrite
+- `src/pages/Privacy.tsx` — full rewrite
+- `src/pages/Terms.tsx` — full rewrite
 
-### What gets removed / reduced
+### Files NOT touched
 
-- `RecordHeader` doc-style summary box (Lifecycle steps / Review basis / Public statuses / Renewal interval).
-- Per-step 4-quadrant matrix (What happens / Documents / Outcomes / Status impact) — collapsed into prose + 2 short labeled lines.
-- Standalone "Verification standards" section as a 7-card grid — its content is folded into "What we review" and the per-step explanations, so the page stops repeating the same idea three times.
-- Numbered `gap-px bg-border` grids throughout.
-- "§N — Section Name" eyebrows.
+- `src/components/PlaceholderSection.tsx` — kept in place but no longer used by any route. Left as a utility for future stub pages.
+- No routing changes, no nav changes, no other pages affected.
+- Homepage (`Index.tsx`) links already point to the correct routes — the destinations now have real content.
 
-### Technical Details
+### Tone
 
-- **File edited:** `src/pages/HowItWorks.tsx` (full rewrite of page body; data arrays restructured inline).
-- **Header:** Drop `RecordHeader` import; build a lightweight inline `<header>` using existing utility classes (`container-wide`, `eyebrow`, `meta`).
-- **Data refactor:** Replace the existing `steps` shape `{ n, t, happens, documents, outcomes, status }` with simplified `{ n, t, summary, reviewed, result }`. Introduce new arrays: `whyItMatters`, `meaningBlocks`, `reviewGroups`, `afterReview`, `vendorReasons`. Keep `statuses` and `notProcess`; drop `standards` and `reviewItems` (folded into `reviewGroups`); drop `changes` array structure but keep its content as a simple list under Renewal.
-- **Components:** No new components. Reuse `Link` from `react-router-dom` for the small `/apply`, `/status-definitions`, `/accountability` links. No accordions — every section is readable inline at a glance.
-- **No route changes**, no nav changes (label already "Verification"), no other files touched.
+Same documentation-first, institutional tone established by `About`, the rebuilt `HowItWorks`, and `Governance`. Calm, exact, trust-building. No marketing language, no business-strategy framing. Written so a clinician, vendor, or skeptical consumer can read any page top-to-bottom and understand exactly what the framework does and does not do.
 
 ### Out of scope
 
-- Building a separate `/status-definitions` redesign (link only).
-- Adding visual diagrams or icons per step.
-- Any backend or CMS wiring.
-- Changes to header, footer, or other pages.
+- Backend forms (Report a Concern uses `mailto:` for now).
+- Per-status badge component refactor (statuses rendered with simple existing styling).
+- Legal review of Privacy/Terms text — content is drafted in plain, reasonable terms but should be reviewed by counsel before public launch (a short footer note will indicate this).
 
