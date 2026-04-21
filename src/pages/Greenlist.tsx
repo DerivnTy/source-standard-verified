@@ -64,9 +64,7 @@ const CATEGORY_STYLE: Record<GreenlistCategory, { chip: string; dot: string }> =
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
   const s = CATEGORY_STYLE[category];
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded border font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] ${s.chip}`}
-    >
+    <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] text-foreground">
       <span aria-hidden className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`} />
       {CATEGORY_LABEL[category]}
     </span>
