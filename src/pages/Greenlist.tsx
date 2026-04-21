@@ -326,7 +326,7 @@ const Greenlist = () => {
                   <div className="col-span-2 meta-label">Source Type</div>
                   <div className="col-span-2 meta-label">Location</div>
                   <div className="col-span-3 meta-label">Focus</div>
-                  <div className="col-span-1 meta-label text-right">Website</div>
+                  <div className="col-span-1 meta-label text-right">Profile</div>
                 </div>
                 {pageItems.map((e) => (
                   <div
@@ -352,18 +352,12 @@ const Greenlist = () => {
                       {e.focus}
                     </div>
                     <div className="col-span-1 text-right">
-                      {e.website ? (
-                        <a
-                          href={e.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
-                        >
-                          Visit →
-                        </a>
-                      ) : (
-                        <span className="text-[11px] font-mono text-muted-foreground">—</span>
-                      )}
+                      <Link
+                        to={`/greenlist/${e.slug}`}
+                        className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                      >
+                        View →
+                      </Link>
                     </div>
                   </div>
                 ))}
@@ -385,16 +379,14 @@ const Greenlist = () => {
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.focus}</p>
-                    {e.website && (
-                      <a
-                        href={e.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 inline-block text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                    <div className="mt-2 flex justify-end">
+                      <Link
+                        to={`/greenlist/${e.slug}`}
+                        className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
                       >
-                        Visit website →
-                      </a>
-                    )}
+                        View →
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>
