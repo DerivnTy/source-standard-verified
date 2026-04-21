@@ -5,11 +5,12 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  { to: "/verified-vendors", label: "Verified vendors" },
+  { to: "/", label: "Home", end: true },
+  { to: "/verified-vendors", label: "Verified Vendors" },
   { to: "/greenlist", label: "Greenlist" },
-  { to: "/medical-advisory", label: "Medical advisory" },
   { to: "/education", label: "Education" },
-  { to: "/how-it-works", label: "How it works" },
+  { to: "/medical-advisory", label: "Medical Advisory" },
+  { to: "/how-it-works", label: "How It Works" },
   { to: "/about", label: "About" },
 ];
 
@@ -21,10 +22,10 @@ export const SiteHeader = () => {
       <div className="hidden md:block bg-surface-sunken border-b border-border/60">
         <div className="container-wide flex items-center justify-between py-1.5">
           <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Public reference · Standard SS-FRAMEWORK-2026.01 · Active
+            Public reference • Document version 2026.01
           </span>
           <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Maintained in Tampa, FL · Reviewed under Medical Advisory Board
+            Maintained in the United States
           </span>
         </div>
       </div>
@@ -36,7 +37,7 @@ export const SiteHeader = () => {
             <NavLink
               key={n.to}
               to={n.to}
-              
+              end={n.end}
               className={({ isActive }) =>
                 `text-[13.5px] tracking-[0] transition-colors ${
                   isActive
@@ -55,7 +56,7 @@ export const SiteHeader = () => {
             size="sm"
             className="text-[13px] h-10 px-5 bg-primary hover:bg-primary-hover text-primary-foreground font-medium rounded-[2px]"
           >
-            <Link to="/apply">Apply for verification</Link>
+            <Link to="/apply">Apply for Verification</Link>
           </Button>
         </div>
         <button
@@ -74,7 +75,7 @@ export const SiteHeader = () => {
               <NavLink
                 key={n.to}
                 to={n.to}
-                
+                end={n.end}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `py-3.5 text-[15px] border-b border-border last:border-0 ${
@@ -91,7 +92,7 @@ export const SiteHeader = () => {
               className="mt-4 mb-2 h-11 bg-primary hover:bg-primary-hover text-primary-foreground rounded-[2px] font-medium"
             >
               <Link to="/apply" onClick={() => setOpen(false)}>
-                Apply for verification
+                Apply for Verification
               </Link>
             </Button>
           </div>
