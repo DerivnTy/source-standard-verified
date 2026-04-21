@@ -5,11 +5,10 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  { to: "/", label: "Home", end: true },
   { to: "/verified-vendors", label: "Verified vendors" },
   { to: "/greenlist", label: "Greenlist" },
-  { to: "/education", label: "Education" },
   { to: "/medical-advisory", label: "Medical advisory" },
+  { to: "/education", label: "Education" },
   { to: "/how-it-works", label: "How it works" },
   { to: "/about", label: "About" },
 ];
@@ -22,10 +21,10 @@ export const SiteHeader = () => {
       <div className="hidden md:block bg-surface-sunken border-b border-border/60">
         <div className="container-wide flex items-center justify-between py-1.5">
           <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Public reference · Document version 2026.01
+            Public reference · Standard SS-FRAMEWORK-2026.01 · Active
           </span>
           <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Maintained in Tampa, FL
+            Maintained in Tampa, FL · Reviewed under Medical Advisory Board
           </span>
         </div>
       </div>
@@ -37,7 +36,7 @@ export const SiteHeader = () => {
             <NavLink
               key={n.to}
               to={n.to}
-              end={n.end}
+              
               className={({ isActive }) =>
                 `text-[13.5px] tracking-[0] transition-colors ${
                   isActive
@@ -75,7 +74,7 @@ export const SiteHeader = () => {
               <NavLink
                 key={n.to}
                 to={n.to}
-                end={n.end}
+                
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `py-3.5 text-[15px] border-b border-border last:border-0 ${

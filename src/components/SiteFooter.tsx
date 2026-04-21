@@ -7,35 +7,35 @@ const cols = [
     links: [
       { to: "/verified-vendors", label: "Verified vendors" },
       { to: "/greenlist", label: "Greenlist" },
-      { to: "/apply", label: "Apply for verification" },
+      { to: "/status-definitions", label: "Status definitions" },
       { to: "/report-a-concern", label: "Report a concern" },
     ],
   },
   {
-    title: "Standards",
+    title: "Medical & Governance",
     links: [
-      { to: "/how-it-works", label: "How it works" },
-      { to: "/for-vendors", label: "For vendors" },
+      { to: "/medical-advisory", label: "Medical Advisory Board" },
+      { to: "/governance", label: "Governance & oversight" },
       { to: "/accountability", label: "Accountability & enforcement" },
+      { to: "/about", label: "About" },
+    ],
+  },
+  {
+    title: "Standards & Process",
+    links: [
+      { to: "/how-it-works", label: "How verification works" },
+      { to: "/for-vendors", label: "For vendors" },
+      { to: "/apply", label: "Apply for verification" },
       { to: "/education", label: "Education" },
     ],
   },
   {
-    title: "Organization",
-    links: [
-      { to: "/about", label: "About" },
-      { to: "/medical-advisory", label: "Medical advisory" },
-      { to: "/governance", label: "Governance & oversight" },
-      { to: "/contact", label: "Contact" },
-    ],
-  },
-  {
-    title: "Reference",
+    title: "Reference & Templates",
     links: [
       { to: "/faq", label: "FAQ" },
-      { to: "/status-definitions", label: "Status definitions" },
       { to: "/templates/vendor-profile", label: "Vendor profile template" },
       { to: "/templates/greenlist-entry", label: "Greenlist entry template" },
+      { to: "/contact", label: "Contact" },
     ],
   },
   {
@@ -53,8 +53,8 @@ export const SiteFooter = () => {
     <footer className="border-t border-border bg-background mt-20">
       <div className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide flex flex-wrap items-center justify-between gap-y-2 py-3">
-          <span className="text-[12.5px] text-muted-foreground">Document version 2026.01 · Active</span>
-          <span className="text-[12.5px] text-muted-foreground">Last updated April 20, 2026</span>
+          <span className="text-[12.5px] text-muted-foreground">Standard SS-FRAMEWORK-2026.01 · Active</span>
+          <span className="text-[12.5px] text-muted-foreground">Reviewed under Medical Advisory Board · Updated April 20, 2026</span>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ export const SiteFooter = () => {
           <div className="md:col-span-3">
             <Logo />
             <p className="mt-5 text-[14px] text-muted-foreground leading-relaxed max-w-xs">
-              Source Standard is a public verification and standards organization for the
+              Source Standard is the public verification and standards organization for the
               peptide, TRT, and hormone optimization vendor space.
             </p>
             <p className="mt-5 text-[12.5px] text-muted-foreground">Tampa, FL · Founded 2026</p>
@@ -92,7 +92,7 @@ export const SiteFooter = () => {
 
         <div className="mt-14 pt-8 border-t border-border/70">
           <p className="text-[13px] text-muted-foreground leading-relaxed max-w-4xl">
-            Source Standard is an information and verification framework. It does not
+            Source Standard is a public information and verification framework. It does not
             manufacture, distribute, prescribe, dispense, or endorse products, and it does
             not provide medical advice. Verification reflects documentation reviewed at the
             time of assessment and does not guarantee medical outcomes, product safety, or
