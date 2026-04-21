@@ -1,73 +1,79 @@
 
 
-## Footer overhaul + Education status-badge polish
+## Homepage hero rebuild + unified architectural-gray background
 
-Two scoped changes: rebuild `SiteFooter.tsx` into the four-column "Boring Bureau" institutional layout you specified, and tighten the Education page's status indicator into a small boxed badge to match. No route or data-model changes.
+Two coordinated changes: (1) shift the entire site to a single light architectural-gray surface, and (2) replace the homepage `AnchorHeader` with a custom institutional hero that includes the registry lookup field, metadata block, and rectangular CTAs.
 
-### 1 · SiteFooter.tsx — full rebuild
+### 1 · Global color profile — unified architectural gray
 
-Replace the current 5-column `cols` array and footer markup with a four-column institutional layout. Each link row becomes a high-density entry: link label on the left, document ID in `font-mono` (JetBrains Mono via the existing IBM Plex Mono fallback already loaded — see below) on the right. 1px vertical dividers between columns.
+In `src/index.css` (`:root` only — dark mode untouched):
 
-**Top compliance strip (kept, tightened)**
-- `Standard SS-FRAMEWORK-2026.01 · Active` (left)
-- `Reviewed under Medical Advisory Board · Updated MM/DD/YY` (right)
+- `--background: 0 0% 100%` → `0 0% 96.9%` (≈ `#F7F7F7`).
+- `--surface: 0 0% 100%` → `0 0% 100%` (kept — used for cards, search bar, dropdowns; lets white inputs/cards sit on the gray page).
+- `--surface-muted: 210 22% 98.7%` → `0 0% 96.9%` (matches background — eliminates the section-banding effect).
+- `--card`, `--popover` kept at white so cards remain "grounded" on the gray page.
+- `--border: 215 20% 93%` → `0 0% 88%` (slightly stronger neutral border to define edges on gray).
+- `--input` → `0 0% 80%` (the darker 1px border the search bar needs).
 
-**Brand column (left, spans full height of the 4-col grid)**
-- `Logo` + one-line institutional description
-- `Tampa, FL · Founded 2026`
-- `Document anchor: SS-FRAMEWORK-2026.01`
+Effect: every page becomes one unified `#F7F7F7` plane. White cards, the hero search bar, and footer columns now read as deliberate, grounded panels rather than section bands. No per-section background swap — the existing `bg-surface-muted/40` stripes on Home, Education, etc. now read identically to the page background, removing the "alternating" feel without touching markup.
 
-**Column 1 · Registry & Intake**
-- Verified Vendor Directory → `/verified-vendors` · `SS-REG-V`
-- Upstream Greenlist → `/greenlist` · `SS-REG-G`
-- Report a Concern → `/report-a-concern` · `SS-INTAKE-02`
-- Primary CTA button: `Begin Verification (Step 1)` → `/apply` (rendered with the existing `Button` component, `variant="default"`, full-width, mt-5)
+### 2 · Homepage hero — custom institutional rebuild
 
-**Column 2 · Standards & Protocols**
-- SOP: Audit Methodology → `/how-it-works` · `SS-FRAMEWORK`
-- Status Definitions → `/status-definitions` · `SS-STATUS`
-- Compliance & Enforcement → `/accountability` · `SS-ENFORCE-2026.01`
-- Vendor Submission Standard → `/for-vendors` · `SS-INTAKE-01`
+Replace the `<AnchorHeader … />` block at the top of `src/pages/Index.tsx` with a bespoke `<section>` (the existing `AnchorHeader` stays in place for every other page). The new hero, top to bottom:
 
-**Column 3 · Educational Library** *(new column — removed from Standards)*
-- Foundational Sourcing → `/education#basics` · `SS-SERIES`
-- Interpreting CoAs → `/education/how-to-read-a-certificate-of-analysis` · `SS-SERIES-002`
-- Clinical Protocols (Sterile Handling) → `/education#guides` · `SS-GUIDE`
-- Regulatory FAQ → `/education#questions` · `SS-FAQ`
-- Video Library *(Forthcoming, muted)* → `/contact` · `SS-SUP-001`
+**Master Control Strip (top, full-bleed band)**
+- Single thin band, `border-b border-border`, white surface (`bg-surface`).
+- Left: `MAINTAINED IN TAMPA, FL · PUBLIC REGISTRY`
+- Right: `SS-FRAMEWORK-2026.01 · ACTIVE / OPERATIONAL · UPDATED 04/21/26`
+- Both rendered in `font-mono text-[11px] uppercase tracking-[0.12em] text-foreground/70` — slightly darker than muted, reading as a technical data header.
+- Height: `h-9`, container `container-wide flex items-center justify-between`.
+- Note: the existing site-wide utility strip in `SiteHeader.tsx` is suppressed on `/` only (small `useLocation` check) so the hero owns the top band on Home and there's no duplicate strip.
 
-**Column 4 · Governance & Legal**
-- Medical Advisory Board (MAB) → `/medical-advisory` · `SS-MAB-2026.01`
-- Organizational Neutrality → `/governance` · `SS-GOV-2026.01`
-- Terms of Use → `/terms` · `SS-TERMS-2026.01`
-- Privacy Policy → `/privacy` · `SS-PRIVACY-2026.01`
-- Verification Disclaimer → `/verification-disclaimer` · `SS-DISCLAIMER-2026.01`
+**Hero body**
+- Container: `container-wide pt-10 md:pt-12 pb-12 md:pb-14` (this is the ~40% padding reduction vs. the current `py-16 md:py-24`).
+- Left column (`md:col-span-8`):
+  - Eyebrow: `Public registry · v2026.01` (`eyebrow` token, `mb-3`).
+  - Headline (`display-1`, `mt-2`): **"Source Standard: The Public Registry for Compounded Supply-Chain Integrity."**
+  - Subtext (`mt-3 max-w-[62ch] text-[15.5px] text-muted-foreground leading-[1.6]` — tightened from the current `mt-6` / `mt-8` rhythm to take ~40% off the gap): **"An independent auditing framework for the verification of 503A/503B pharmacy sourcing and clinical administrative protocols."**
+  - **Registry Lookup terminal** (`mt-7`):
+    - Tiny mono label above: `REGISTRY LOOKUP v2026.01` in `font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2`.
+    - Search field: `<form>` wrapping a single `<input>` + submit button.
+      - White background (`bg-surface`), `border border-input` (≈ `#CCCCCC`, the darker gray from the token tweak above), `rounded-[2px]`, `h-12`, full width up to `max-w-[640px]`.
+      - Placeholder: `Search vendor, upstream source, or audit ID (e.g. SS-V-0142)`.
+      - Trailing submit button inside the field: `font-mono text-[11px] uppercase tracking-[0.12em] px-4 h-10 bg-foreground text-background rounded-[2px]` — reads as a terminal "Lookup" affordance.
+      - On submit: navigate to `/verified-vendors?q={value}` (no new search infra; the existing directory page already filters; if the page does not currently read `?q=`, it still lands the user on the directory — non-blocking, can be wired later).
+    - Helper line below the field: `Cross-references vendor records against FDA-registered 503A/503B sources.` in `text-[12.5px] text-muted-foreground mt-2`.
+  - **CTA row** (`mt-7 flex flex-wrap gap-3`):
+    - Primary: `<Link to="/verified-vendors">View Verified Registry</Link>` — `bg-foreground text-background hover:bg-foreground/90 rounded-[2px] h-11 px-6 text-[13.5px] font-medium` (solid dark navy/near-black via the `--foreground` token, no gradient, no glow).
+    - Secondary: `<Link to="/apply">Vendor Intake</Link>` — `bg-transparent border border-border-strong text-foreground hover:bg-foreground/[0.04] rounded-[2px] h-11 px-6 text-[13.5px] font-medium`.
+    - Both are inline anchor tags styled directly (not the existing `Button` component) so the 2px radius and exact treatment are guaranteed without touching `button.tsx` (which is reused everywhere else).
+- Right column / aside (`md:col-span-4`, `md:pl-6 md:border-l md:border-border md:self-end`):
+  - Bottom-right institutional metadata block, right-aligned on desktop:
+    - Small mono label `INSTITUTIONAL METADATA` (eyebrow tone, `mb-3`).
+    - Two-row definition list:
+      - `Standard` — `SS-FRAMEWORK-2026.01`
+      - `Status` — `Active / Operational`
+      - `Jurisdiction` — `Tampa, FL · US`
+      - `Review cycle` — `Annual · MAB-reviewed`
+    - Rows: `flex justify-between items-baseline py-1.5 border-b border-border/60 last:border-0`. Labels in `text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground`; values in `font-mono text-[12px] text-foreground tabular-nums`.
 
-**Visual styling**
-- Background: `bg-surface-muted/30` (very light architectural tint over the existing background — the token already exists in `index.css`).
-- 4-column grid (`md:grid-cols-12`, brand col `md:col-span-3`, link cols `md:col-span-9` split into `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4`), with **1px dividers** between columns via `lg:divide-x lg:divide-border/60` and `lg:px-6` per column.
-- Each link row: `flex items-baseline justify-between gap-3 py-1.5`. Label `text-[13.5px] text-muted-foreground hover:text-foreground transition-colors`. Doc ID right-aligned in `font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/60 tabular-nums`. (Project already loads `IBM Plex Mono` in `index.css` — `font-mono` resolves to a JetBrains-Mono-equivalent monospace via Tailwind's stack. No font swap needed.)
-- "Forthcoming" rows: append a small `[Forthcoming]` chip in `font-mono text-[9.5px] uppercase tracking-[0.12em] text-muted-foreground/70 border border-border/60 px-1 py-px rounded-[2px]`.
-- Column titles: `text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground mb-4` — institutional/bureau feel.
-- Bottom legal block (kept): independent-auditing-body paragraph + copyright row, separated by the existing `border-t border-border/70`.
+**Hero base rule**
+- Single hairline `border-b border-border` under the hero — matches the rest of the page's section dividers.
 
-### 2 · Education.tsx — status pill polish
+### 3 · Spacing audit for the "snug up" requirement
 
-Single tweak in `SoftStatus` to render a boxed badge instead of the current bare uppercase mono text:
-
-- From: `<span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/70">Outlined</span>`
-- To: `<span class="shrink-0 inline-flex items-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border border-border/70 px-1.5 py-px rounded-[2px] bg-background">Outlined</span>`
-
-Apply the same boxed-badge style in the supplementary "Forthcoming" list at the bottom of the page so the visual language is consistent across the page and the footer.
-
-The existing "Jump to" anchor row (Foundational Standards | Clinical Protocols | Regulatory FAQ | Archive index) is already in place — no change needed.
+Verified all three vertical gaps shrink ~40% vs. current values:
+- Top strip → headline: `pt-10 md:pt-12` (was effectively `py-16 md:py-24` of the old `AnchorHeader`).
+- Headline → subtext: `mt-3` (was `mt-3` inside `AnchorHeader`, but the previous hero compounded with internal `gap-10 lg:gap-16` grid spacing — that compounding is gone).
+- Subtext → search terminal: `mt-7` (replaces what was previously a much larger `children` block gap).
 
 ### Files touched
 
-- `src/components/SiteFooter.tsx` — full rebuild per spec above.
-- `src/pages/Education.tsx` — `SoftStatus` component + supplementary list status text restyled as boxed badges. No structural / copy changes.
+- `src/index.css` — token values for `--background`, `--surface-muted`, `--border`, `--input` (and a small `--surface` clarification comment). `:root` only; `.dark` block untouched.
+- `src/pages/Index.tsx` — replace the opening `<AnchorHeader …>` block (lines ~50–67) with the new hero `<section>` described above. Rest of the page (`§2`–`§8`) unchanged.
+- `src/components/SiteHeader.tsx` — wrap the existing utility strip in a `useLocation().pathname !== "/"` check so the homepage hero owns the top band and there is no duplicate strip.
 
 ### What stays the same
 
-All routes, all data files (`src/data/library.ts`), the `RecordHeader` / `Section` / `AnchorHeader` primitives, design tokens, color palette, and every other page. No new components, no new fonts, no new dependencies.
+All routes, every other page's `AnchorHeader`, the `Button` component (untouched — the homepage hero uses inline anchor styling for the 2px radius), the `SiteFooter` rebuild from the previous turn, the dark-mode palette, and all data files. No new components, no new fonts, no new dependencies — the search field uses native `<input>` + `<form>` with existing tokens.
 
