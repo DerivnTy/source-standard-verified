@@ -25,13 +25,7 @@ const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
   Other: "Other",
 };
 
-const CATEGORY_DEF: { key: GreenlistCategory | "greenlisted"; title: string; body: string }[] = [
-  {
-    key: "greenlisted",
-    title: "Greenlisted",
-    body:
-      "Recognized as a qualified upstream source under the Source Standard framework based on FDA registration or applicable state board oversight.",
-  },
+const SOURCE_TYPE_DEF: { key: GreenlistCategory; title: string; body: string }[] = [
   {
     key: "503B",
     title: "503B Outsourcing Facility",
@@ -52,18 +46,23 @@ const CATEGORY_DEF: { key: GreenlistCategory | "greenlisted"; title: string; bod
   },
 ];
 
-const colorForCategory: Record<GreenlistCategory, string> = {
-  "503B": "text-verified",
-  "503A": "text-pending",
-  Other: "text-muted-foreground",
-};
-
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => (
   <span
-    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] ${colorForCategory[category]}`}
+    className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] text-foreground"
+  >
+    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+    {CATEGORY_LABEL[category]}
+  </span>
+);
+
+const GreenlistedPill = ({ size = "sm" }: { size?: "sm" | "md" }) => (
+  <span
+    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-verified ${
+      size === "md" ? "text-[11px]" : "text-[10px]"
+    }`}
   >
     <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-    {CATEGORY_LABEL[category]}
+    Greenlisted
   </span>
 );
 
@@ -161,7 +160,7 @@ const Greenlist = () => {
         ]}
         eyebrow="Public Registry · Recognized Sources"
         title="Public registry of recognized upstream sources."
-        lead="Source Standard maintains a public registry of recognized upstream sources used in vendor review — including 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
+        lead="Source Standard maintains a public registry of upstream sources that carry Greenlisted status — recognized within the framework across source types including 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
         summary={[
           { label: "Total entries", value: counts.total.toString().padStart(2, "0") },
           { label: "503B facilities", value: counts["503B"].toString().padStart(2, "0") },
@@ -170,43 +169,51 @@ const Greenlist = () => {
         ]}
       />
 
-      {/* Category legend — softened segmented panel */}
+      {/* Status + Source type legend */}
       <section className="bg-surface-muted/60 border-b border-border/60">
-        <div className="container-wide py-8">
-          <p className="meta-label text-foreground mb-4">How to read this registry</p>
-          <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-2 md:grid-cols-4">
-            {CATEGORY_DEF.map((d, i) => (
-              <div
-                key={d.key}
-                className={`p-4 ${i > 0 ? "border-t md:border-t-0 md:border-l border-border/40" : ""} ${i === 1 ? "border-t-0" : ""}`}
-              >
-                {d.key === "greenlisted" ? (
-                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-verified">
-                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-                    Greenlisted
-                  </span>
-                ) : (
-                  <span
-                    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] ${colorForCategory[d.key]}`}
-                  >
-                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
+        <div className="container-wide py-8 space-y-6">
+          <p className="meta-label text-foreground">How Greenlist status works</p>
+
+          {/* Group A — Status */}
+          <div>
+            <p className="eyebrow mb-2">Status</p>
+            <div className="rounded-lg border border-border/60 bg-background p-4">
+              <GreenlistedPill size="md" />
+              <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
+                A Source Standard designation indicating an upstream source is recognized within
+                the Greenlist framework. Greenlisted is a status, not a facility type.
+              </p>
+            </div>
+          </div>
+
+          {/* Group B — Source types */}
+          <div>
+            <p className="eyebrow mb-2">Source types in this registry</p>
+            <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/40">
+              {SOURCE_TYPE_DEF.map((d) => (
+                <div key={d.key} className="p-4">
+                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-foreground">
+                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
                     {d.title}
                   </span>
-                )}
-                <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
-                  {d.body}
-                </p>
-              </div>
-            ))}
+                  <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
+                    {d.body}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-          <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
-            <strong className="text-foreground font-semibold">Note on scope.</strong>{" "}
-            Greenlist status applies to upstream sources, not to vendors or clinics. A vendor's
-            verification status is determined separately on the{" "}
+
+          <p className="text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
+            <strong className="text-foreground font-semibold">Scope note.</strong>{" "}
+            Greenlisted is a Source Standard status for recognized upstream sources — not a
+            facility type. Source types on this page include 503B outsourcing facilities, 503A
+            compounding pharmacies, and other qualified source categories. Vendor verification is
+            tracked separately on the{" "}
             <Link to="/verified-vendors" className="underline hover:text-foreground">
               Verified Vendors directory
-            </Link>{" "}
-            and depends on documented purchasing from recognized sources.
+            </Link>
+            .
           </p>
         </div>
       </section>
@@ -232,7 +239,7 @@ const Greenlist = () => {
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by category"
             >
-              <option value={ALL}>All categories</option>
+              <option value={ALL}>All source groups</option>
               {CATEGORY_ORDER.map((c) => (
                 <option key={c} value={c}>
                   {CATEGORY_LABEL[c]}
@@ -324,10 +331,11 @@ const Greenlist = () => {
               {/* Desktop table */}
               <div className="hidden md:block rounded-lg border border-border/60 bg-background overflow-hidden">
                 <div className="grid grid-cols-12 px-4 py-2.5 border-b border-border/50 bg-surface-muted/60">
-                  <div className="col-span-4 meta-label">Facility / Brand</div>
-                  <div className="col-span-2 meta-label">Category</div>
+                  <div className="col-span-3 meta-label">Facility / Brand</div>
+                  <div className="col-span-2 meta-label">Status</div>
+                  <div className="col-span-2 meta-label">Source Type</div>
                   <div className="col-span-2 meta-label">Location</div>
-                  <div className="col-span-3 meta-label">Focus</div>
+                  <div className="col-span-2 meta-label">Focus</div>
                   <div className="col-span-1 meta-label text-right">Website</div>
                 </div>
                 {pageItems.map((e) => (
@@ -335,11 +343,14 @@ const Greenlist = () => {
                     key={e.name}
                     className="grid grid-cols-12 px-4 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
                   >
-                    <div className="col-span-4 min-w-0">
+                    <div className="col-span-3 min-w-0">
                       <p className="text-[13px] font-medium text-foreground truncate">
                         {e.name}
                       </p>
                       <p className="text-[11px] text-muted-foreground truncate">{e.type}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <GreenlistedPill />
                     </div>
                     <div className="col-span-2">
                       <CategoryPill category={e.category} />
@@ -347,7 +358,7 @@ const Greenlist = () => {
                     <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
                       {e.location}
                     </div>
-                    <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
+                    <div className="col-span-2 text-[12.5px] text-muted-foreground truncate">
                       {e.focus}
                     </div>
                     <div className="col-span-1 text-right">
@@ -372,10 +383,11 @@ const Greenlist = () => {
               <div className="md:hidden space-y-3">
                 {pageItems.map((e) => (
                   <div key={e.name} className="block rounded-md border border-border/60 bg-background p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <p className="text-[13px] font-medium text-foreground">{e.name}</p>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <GreenlistedPill />
                       <CategoryPill category={e.category} />
                     </div>
+                    <p className="text-[13px] font-medium text-foreground">{e.name}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.focus}</p>
