@@ -15,7 +15,7 @@
     --foreground: 215 32% 8%;
 
     --surface: 0 0% 100%;
-    --surface-muted: 210 20% 98.5%;
+    --surface-muted: 210 22% 98.7%;
     --surface-sunken: 210 16% 95%;
 
     --card: 0 0% 100%;
@@ -24,10 +24,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 32% 8%;
 
-    /* Forest green — institutional accent */
-    --primary: 152 45% 19%;
+    /* Slate-blue — interface accent (decoupled from status) */
+    --primary: 215 38% 28%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 152 45% 14%;
+    --primary-hover: 215 38% 22%;
+    --accent-soft: 215 36% 96%;
 
     --secondary: 210 16% 96%;
     --secondary-foreground: 215 32% 10%;
@@ -38,9 +39,9 @@
     --accent: 210 16% 96%;
     --accent-foreground: 215 32% 10%;
 
-    --verified: 152 45% 19%;
+    --verified: 152 45% 22%;
     --verified-foreground: 0 0% 100%;
-    --verified-soft: 152 30% 94%;
+    --verified-soft: 152 30% 95%;
 
     --pending: 35 60% 36%;
     --pending-soft: 35 50% 95%;
@@ -48,10 +49,10 @@
     --destructive: 0 60% 38%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 16% 92%;
-    --border-strong: 215 16% 74%;
-    --input: 215 16% 92%;
-    --ring: 152 45% 19%;
+    --border: 215 20% 93%;
+    --border-strong: 215 18% 74%;
+    --input: 215 20% 93%;
+    --ring: 215 38% 28%;
 
     --radius: 0.375rem;
 
@@ -151,15 +152,25 @@
   }
 
   .eyebrow {
-    @apply text-[11.5px] font-semibold uppercase tracking-[0.04em] text-primary;
+    @apply text-[11px] font-medium uppercase tracking-[0.08em];
+    color: hsl(var(--foreground) / 0.65);
   }
 
   .eyebrow-muted {
-    @apply text-[11.5px] font-semibold uppercase tracking-[0.04em] text-muted-foreground;
+    @apply text-[11px] font-medium uppercase tracking-[0.08em];
+    color: hsl(var(--muted-foreground) / 0.8);
   }
 
   .section-heading {
-    @apply text-[1.625rem] md:text-[1.875rem] font-semibold tracking-[-0.012em] leading-[1.2] text-foreground;
+    @apply text-[1.625rem] md:text-[1.875rem] font-semibold tracking-[-0.014em] leading-[1.2] text-foreground;
+  }
+
+  .link-accent {
+    @apply text-primary hover:text-primary-hover underline-offset-4;
+    text-decoration-color: hsl(var(--primary) / 0.3);
+  }
+  .link-accent:hover {
+    text-decoration-color: hsl(var(--primary));
   }
 
   /* Descriptive metadata — sentence case, no caps. Use .meta-mono for technical IDs. */

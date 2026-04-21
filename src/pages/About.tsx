@@ -44,7 +44,7 @@ const About = () => {
       />
 
       {/* §1 Context */}
-      <section className="border-b border-border">
+      <section className="border-b border-border/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -69,7 +69,7 @@ const About = () => {
       </section>
 
       {/* §2 Our role */}
-      <section className="border-b border-border bg-surface-muted">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -96,7 +96,7 @@ const About = () => {
       </section>
 
       {/* §3 Why we formed */}
-      <section className="border-b border-border">
+      <section className="border-b border-border/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -124,7 +124,7 @@ const About = () => {
       </section>
 
       {/* §4 Beliefs */}
-      <section className="border-b border-border bg-surface-muted">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -135,7 +135,7 @@ const About = () => {
             </div>
             <div className="md:col-span-8 border-t border-border">
               {beliefs.map((b, i) => (
-                <div key={i} className="grid grid-cols-12 gap-4 py-5 border-b border-border">
+                <div key={i} className="grid grid-cols-12 gap-4 py-5 border-b border-border/60">
                   <div className="col-span-2 md:col-span-1 meta">§4.{i + 1}</div>
                   <div className="col-span-10 md:col-span-11">
                     <p className="text-[14px] text-foreground leading-relaxed">{b}</p>
@@ -148,7 +148,7 @@ const About = () => {
       </section>
 
       {/* §5 Scope */}
-      <section className="border-b border-border">
+      <section className="border-b border-border/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -158,8 +158,8 @@ const About = () => {
               </h2>
             </div>
             <div className="md:col-span-8">
-              <div className="border border-border bg-background">
-                <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted border-b border-border">
+              <div className="rounded-lg border border-border/60 bg-background overflow-hidden">
+                <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted/60 border-b border-border/60">
                   <div className="col-span-1 meta-label">Ref</div>
                   <div className="col-span-5 meta-label">What we do</div>
                   <div className="col-span-6 meta-label">What we do not do</div>
@@ -180,7 +180,7 @@ const About = () => {
       </section>
 
       {/* §6 Stance */}
-      <section className="border-b border-border bg-surface-muted">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -207,7 +207,7 @@ const About = () => {
       </section>
 
       {/* §7 Who this serves */}
-      <section className="border-b border-border">
+      <section className="border-b border-border/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -239,7 +239,7 @@ const About = () => {
       </section>
 
       {/* §8 Mission */}
-      <section className="border-b border-border bg-surface-muted">
+      <section className="border-b border-border/60 bg-surface-muted/60">
         <div className="container-wide py-10 md:py-14">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
@@ -268,7 +268,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="bg-surface-muted">
+      <section className="bg-surface-muted/60">
         <div className="container-wide py-8">
           <p className="text-[12px] text-muted-foreground leading-relaxed max-w-4xl">
             <span className="meta-label text-foreground mr-2">Cite as ·</span>

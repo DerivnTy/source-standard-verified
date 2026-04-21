@@ -211,7 +211,7 @@ const VerifiedVendors = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search vendor name, city, state, medical director"
-                className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+                className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
                 aria-label="Search directory"
               />
             </div>
@@ -219,7 +219,7 @@ const VerifiedVendors = () => {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by status"
             >
               <option value={ALL}>All statuses</option>
@@ -233,7 +233,7 @@ const VerifiedVendors = () => {
             <select
               value={state}
               onChange={(e) => setState(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by state"
               disabled={states.length === 0}
             >
@@ -248,7 +248,7 @@ const VerifiedVendors = () => {
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by city"
               disabled={cities.length === 0}
             >
@@ -263,7 +263,7 @@ const VerifiedVendors = () => {
             <select
               value={focus}
               onChange={(e) => setFocus(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by clinical focus"
               disabled={focusOptions.length === 0}
             >
@@ -278,7 +278,7 @@ const VerifiedVendors = () => {
             <select
               value={hasReview}
               onChange={(e) => setHasReview(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by published review"
             >
               <option value={ALL}>Review: any</option>
@@ -290,7 +290,7 @@ const VerifiedVendors = () => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Sort records"
             >
               <option value="status">Sort: Status</option>
@@ -450,7 +450,7 @@ const VerifiedVendors = () => {
                         aria-current={p === currentPage ? "page" : undefined}
                         className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
                           p === currentPage
-                            ? "bg-foreground text-background"
+                            ? "bg-primary text-primary-foreground"
                             : "border border-border/70 text-foreground hover:bg-surface-muted/60"
                         }`}
                       >
