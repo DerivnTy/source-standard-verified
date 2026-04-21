@@ -1,62 +1,59 @@
 
 
-## Education Page — Restructure for New Visitors
+## Education Page — "See more" sections + spacing polish
 
-Reframe `/education` so a first-time visitor (someone curious about peptides, TRT, or compounded medications) immediately understands what's here and where to start. Keep the underlying library data intact — change the surface so the expert "reference document" framing becomes a friendly, guided learning experience.
-
-### The core problem
-The current page reads like a regulatory index: monospace IDs (`SS-SERIES-001`), a four-lane taxonomy ("Lane I / II / III / IV"), status chips, and a citation footer. That works for someone auditing the library. It does not work for someone who just wants to know "what is a peptide and is it safe?"
+Add a quiet "See more" affordance to each of the three main sections on `/education` so visitors can drill into a fuller index for that topic, and tighten the spacing/visual rhythm of the page.
 
 ### What changes
 
-**1. Replace the reference header with a plain-English intro**
-- New title: `Learn` (or `Education`) — drop "Clinical Reference Library" as the primary label.
-- Lead paragraph in conversational tone: one or two sentences explaining "this is where you learn how compounded medications, peptides, and TRT actually work, and how to tell a trustworthy source from a risky one."
-- Remove the document ID / "Reviewed under" metadata bar from the top. (It can move to the footer as a small credibility line.)
+**1. New "See all" index pages (one per section)**
+Three new lightweight index routes that show the full list for that lane in the same simplified row style used on `/education`:
 
-**2. Add a "Start Here" section above everything else**
-A short, friendly block with 3 entry points for new visitors — the questions they actually arrive with:
-- **New to peptides?** → links to a foundational explainer (e.g. "What are peptides?")
-- **Trying to evaluate a clinic or vendor?** → links to "Questions to Ask Your Clinic" + the directory
-- **Want to understand the rules?** → links to "The 2026 Compounding Reclassification" or a legality FAQ
+- `/education/basics` — shows all foundational/intro entries from `librarySeries` (not just the curated three on the landing page).
+- `/education/guides` — shows the full `libraryGuides` list with "Reviewed by Medical Advisory Board" attribution.
+- `/education/questions` — shows the full `libraryFaqs` list, grouped by the original FAQ groups (legality, verification, methodology, due-diligence) rather than the four conversational buckets used on the landing page.
 
-These render as three large, plain cards with a one-line description each — not a table row.
+Each of these pages reuses `PageHeader` + `Section` + the existing `SimpleRow` / accordion patterns. They have a small "← Back to Learn" link at the top. No new components beyond what already exists.
 
-**3. Reorganize the content by visitor intent, not by internal lane**
-Drop the "Lane I / Lane II / Lane III / Lane IV" framing. Replace with three plainly-named sections in this order:
+**2. "See more" links on the landing page**
+At the bottom of each of the three main sections on `/education`, add a single right-aligned quiet link:
 
-- **The Basics** — foundational explainers from the Series + selected Guides. The pieces a beginner should read first. (e.g. "What are peptides?", "How to Read a Certificate of Analysis", "The Dual-Layer Difference")
-- **Practical Guides** — the clinical/practical guides (safe handling, sanitation, TRT science, dosing summaries). Framed as "how to do this safely" not "physician-reviewed reference material."
-- **Common Questions** — the FAQ, but presented as one flat, searchable accordion grouped by plain headings ("Is this legal?", "Is it safe?", "How does verification work?", "What should I look for?") instead of the current taxonomy labels.
+- The Basics → `See all foundational reads →` (goes to `/education/basics`)
+- Practical Guides → `See all clinical guides →` (goes to `/education/guides`)
+- Common Questions → `See all questions →` (goes to `/education/questions`)
 
-Each section gets a short, human one-liner above it — no eyebrows, no Roman numerals, no reference IDs in the row.
+Styled as a small underlined text link in the existing muted tone — no buttons, no cards, no chrome.
 
-**4. Simplify each entry row**
-Current row shows: reference ID · title · summary · "Reviewed by" · status chip.
-New row shows: title (larger) · one-line summary · a small muted "Reviewed by Medical Advisory Board" line only where relevant. Status chips ("In Review", "Outlined") move to a subtle text label only on items not yet readable, or are hidden entirely on the index and only shown on the entry page itself.
+**3. Landing page content trim**
+To make "See more" meaningful, the landing page shows a curated subset rather than everything:
 
-Reference IDs (`SS-SERIES-001`) are removed from the public index. They stay in the data model and on the individual entry pages for citation purposes.
+- **The Basics**: show the intro-level entries only (already filtered by `level === "intro"`) — current behavior, no change.
+- **Practical Guides**: show the first 4 guides instead of the full list. The rest live on `/education/guides`.
+- **Common Questions**: keep the four conversational buckets, but cap each bucket at the top 2 questions. The full grouped FAQ lives on `/education/questions`.
 
-**5. Move "Supplementary Infrastructure" to a small footer block**
-Video Library / Webinars / Integrity Reports become a single "Coming soon" strip near the bottom — three short lines, not a full section with cards. They're not what a new visitor needs.
-
-**6. Remove the sticky lane index**
-Replace with a quiet anchor row only if the page is long, using the new plain section names ("Start here · Basics · Guides · Questions").
-
-**7. Soften the citation footer**
-Keep the medical disclaimer (it matters), but drop the "Cite as SS-LIBRARY-2026.01" block from the public-facing page. Move credibility signals (Medical Advisory Board, Governance link) to a small "About this library" line.
+**4. Spacing + visual cleanup on `/education`**
+- Increase breathing room between section headings and their row lists (current `mt-6` → `mt-8`).
+- Add a small amount of extra space above each "See more" link so it sits clearly below the list rather than crowding it.
+- Tighten the gap between the section heading and its one-line description (`mt-2` stays, but the description gets a slightly smaller max-width so it doesn't run wide on desktop).
+- The "Start here" three-up grid: add a touch more internal padding inside each card so the title and description don't feel cramped at the current 1034px viewport.
+- The "Jump to" anchor row: reduce visual weight slightly (lighter border, smaller text) so it reads as a quiet utility rather than a second nav.
+- The "Coming soon" and "About this library" footer blocks: collapse them visually closer together so the page ends cleanly instead of trailing off.
 
 ### Files touched
-- `src/pages/Education.tsx` — full restructure of the page surface as described above. No changes to data structure.
-- `src/data/library.ts` — add a small `audience` or `level` hint (`"intro" | "intermediate"`) to a handful of entries so the "Basics" section can pick the right beginner pieces. Optionally add 1–2 new beginner-oriented entries ("What are peptides?", "What is compounding?") as outlined stubs so the Basics section has the right starting points.
-- `src/pages/LibraryEntry.tsx` — minor: keep the reference ID visible here (it's appropriate on the detail page), but soften the "Outlined — full text forthcoming" state into friendlier language ("We're still writing this one. Here's what it will cover.").
+- `src/pages/Education.tsx` — add "See more" links per section, trim Practical Guides to 4 and FAQ buckets to 2 per bucket, polish spacing.
+- `src/pages/EducationBasics.tsx` *(new)* — full index of foundational reads.
+- `src/pages/EducationGuides.tsx` *(new)* — full index of clinical guides.
+- `src/pages/EducationQuestions.tsx` *(new)* — full FAQ grouped by original FAQ groups.
+- `src/App.tsx` — register the three new routes (`/education/basics`, `/education/guides`, `/education/questions`).
+
+### Routing note
+The existing `/education/:slug` route handles individual entry pages. The three new index routes use static paths (`/basics`, `/guides`, `/questions`) so they take precedence over the slug route — they need to be registered above `/education/:slug` in `App.tsx` to match correctly.
 
 ### What stays the same
-- All routes, all existing data, all entry slugs.
-- The four content lanes still exist in the data — they're just not the navigation metaphor anymore.
-- Medical Advisory Board attribution, disclaimers, and the LibraryEntry detail page structure.
+- All existing data (`src/data/library.ts`), entry slugs, and `/education/:slug` detail pages.
+- The four-lane data taxonomy underneath.
 - Header, footer, and every other page in the app.
 
 ### Result
-A first-time visitor lands on `/education` and immediately sees: a friendly intro, three "start here" doors matched to why they came, and three plainly-named sections (Basics, Guides, Questions). The clinical reference rigor is still there in the data and on detail pages — it's just no longer the first thing a beginner has to decode.
+Each section on `/education` shows a clean, curated taste with a quiet "See more" link to a full index. The landing page feels less dense, the spacing breathes properly, and visitors who want to go deeper have a clear, dedicated path into each topic without having to scroll through everything at once.
 
