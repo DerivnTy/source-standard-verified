@@ -79,8 +79,8 @@ const Index = () => {
       {/* Institutional hero */}
       <section className="border-b border-border">
         <div className="container-wide pt-10 md:pt-12 pb-12 md:pb-14">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-12">
-            <div className="md:col-span-8">
+          <div className="grid grid-cols-1 md:grid-cols-[65fr_35fr] gap-10 md:gap-12 items-start">
+            <div>
               <p className="eyebrow mb-3">Public registry · v2026.01</p>
               <h1 className="display-1 mt-2">
                 Source Standard: The Public Registry for Compounded Supply-Chain Integrity.
@@ -90,13 +90,13 @@ const Index = () => {
               </p>
 
               {/* Registry Lookup terminal */}
-              <div className="mt-7 max-w-[640px]">
+              <div className="mt-7 w-full max-w-[640px]">
                 <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2">
                   Registry Lookup v2026.01
                 </p>
                 <form
                   onSubmit={handleLookup}
-                  className="flex items-stretch h-12 bg-surface border border-border rounded-[4px] overflow-hidden focus-within:border-foreground/40 transition-colors"
+                  className="flex items-stretch h-12 w-full bg-surface border border-border rounded-[4px] overflow-hidden focus-within:border-foreground/40 transition-colors"
                 >
                   <input
                     type="text"
@@ -130,7 +130,7 @@ const Index = () => {
             </div>
 
             {/* Institutional metadata aside */}
-            <aside className="md:col-span-4 md:pl-6 md:border-l md:border-border md:self-end">
+            <aside className="mt-8 md:mt-0 md:self-end bg-surface border border-[#E5E7EB] rounded-[4px] p-4">
               <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
                 Institutional Metadata
               </p>
@@ -199,7 +199,9 @@ const Index = () => {
               <div className="border border-border/60 rounded-lg bg-surface-muted/40 overflow-hidden">
                 <div className="px-5 py-3 border-b border-border/60 bg-background flex items-center justify-between">
                   <p className="h-card">Medical Advisory Board · SS-MAB-2026.01</p>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Active</p>
+                  <span className="inline-flex items-center border border-verified/40 text-verified rounded-[2px] px-2 py-[3px] font-mono uppercase tracking-[0.14em] text-[10px]">
+                    Active
+                  </span>
                 </div>
                 <dl className="divide-y divide-border/60">
                   {[
@@ -251,8 +253,7 @@ const Index = () => {
                         <p className="text-[13px] text-muted-foreground leading-snug">{g.title}</p>
                       </div>
                       <div className="col-span-2 text-right">
-                        <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] text-verified">
-                          <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
+                        <span className="inline-flex items-center border border-verified/40 text-verified rounded-[2px] px-2 py-[3px] font-mono uppercase tracking-[0.14em] text-[10px]">
                           Active
                         </span>
                       </div>

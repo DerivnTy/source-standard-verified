@@ -35,7 +35,7 @@ export const StatusBadge = ({
   const text = size === "md" ? "text-[11px]" : "text-[10px]";
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[3px] border font-mono font-semibold uppercase tracking-[0.14em] tabular-nums ${text} ${stampFor[key]}`}
+      className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[2px] border font-mono font-semibold uppercase tracking-[0.14em] tabular-nums ${text} ${stampFor[key]}`}
     >
       <span
         aria-hidden

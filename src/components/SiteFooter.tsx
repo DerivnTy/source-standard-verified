@@ -58,10 +58,10 @@ const LinkEntry = ({ row }: { row: LinkRow }) => (
   <li>
     <Link
       to={row.to}
-      className="flex items-baseline justify-between gap-3 py-1.5 group"
+      className="flex items-start justify-between gap-3 py-1.5 group"
     >
-      <span className="text-[13.5px] text-muted-foreground group-hover:text-foreground transition-colors flex items-baseline gap-2 min-w-0">
-        <span className="truncate">{row.label}</span>
+      <span className="text-[13px] text-muted-foreground group-hover:text-foreground transition-colors flex items-baseline gap-2 min-w-0 flex-wrap">
+        <span>{row.label}</span>
         {row.forthcoming && (
           <span className="shrink-0 font-mono text-[9.5px] uppercase tracking-[0.12em] text-muted-foreground/70 border border-border/60 px-1 py-px rounded-[2px]">
             Forthcoming
@@ -90,10 +90,10 @@ export const SiteFooter = () => {
       </div>
 
       <div className="container-wide py-16">
-        <div className="grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10">
+          <div>
             <Logo />
-            <p className="mt-5 text-[13.5px] text-muted-foreground leading-relaxed max-w-xs">
+            <p className="mt-5 text-[13px] text-muted-foreground leading-relaxed">
               Source Standard is the public verification and standards body for
               the peptide, TRT, and hormone optimization vendor space.
             </p>
@@ -105,25 +105,23 @@ export const SiteFooter = () => {
             </p>
           </div>
 
-          <div className="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:divide-x lg:divide-border/60">
-            {columns.map((col, idx) => (
-              <div key={col.title} className={idx === 0 ? "lg:pr-6" : "lg:px-6 last:lg:pr-0"}>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground mb-4">
-                  {col.title}
-                </p>
-                <ul className="space-y-0">
-                  {col.links.map((l) => (
-                    <LinkEntry key={l.label} row={l} />
-                  ))}
-                </ul>
-                {col.title === "Registry & Intake" && (
-                  <Button asChild variant="default" className="mt-5 w-full">
-                    <Link to="/apply">Begin Verification (Step 1)</Link>
-                  </Button>
-                )}
-              </div>
-            ))}
-          </div>
+          {columns.map((col) => (
+            <div key={col.title}>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground mb-4">
+                {col.title}
+              </p>
+              <ul className="space-y-0">
+                {col.links.map((l) => (
+                  <LinkEntry key={l.label} row={l} />
+                ))}
+              </ul>
+              {col.title === "Registry & Intake" && (
+                <Button asChild variant="default" className="mt-5 w-full">
+                  <Link to="/apply">Begin Verification (Step 1)</Link>
+                </Button>
+              )}
+            </div>
+          ))}
         </div>
 
         <div className="mt-14 pt-8 border-t border-border/70">
