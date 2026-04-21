@@ -84,17 +84,17 @@ const Greenlist = () => {
     <>
       {/* §1 — Intro */}
       <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-20">
-          <p className="eyebrow mb-4">Public registry · Upstream sources</p>
-          <h1 className="text-[2rem] md:text-[2.5rem] font-semibold tracking-[-0.015em] leading-[1.1] text-foreground max-w-3xl">
+        <div className="container-wide py-8 md:py-10">
+          <p className="eyebrow mb-2">Public registry · Upstream sources</p>
+          <h1 className="text-[1.625rem] md:text-[1.875rem] font-semibold tracking-[-0.015em] leading-[1.15] text-foreground max-w-3xl">
             Greenlist of Recognized Sources
           </h1>
-          <p className="mt-6 max-w-3xl text-[16.5px] text-muted-foreground leading-[1.6]">
+          <p className="mt-3 max-w-3xl text-[14.5px] text-muted-foreground leading-[1.6]">
             The Greenlist is the upstream reference layer within the Source Standard framework.
             It includes recognized 503B outsourcing facilities, 503A compounding pharmacies, and
             other qualified source categories used in vendor review.
           </p>
-          <p className="mt-4 max-w-3xl text-[14.5px] text-muted-foreground leading-[1.6]">
+          <p className="mt-2 max-w-3xl text-[13px] text-muted-foreground leading-[1.55]">
             Inclusion in the Greenlist is based on public licensing, registration, and recognized
             credentialing standards. Greenlist inclusion does not itself mean a vendor is verified.
             Vendors are reviewed separately against recognized source categories and documented
@@ -102,9 +102,9 @@ const Greenlist = () => {
           </p>
 
           {/* Metadata strip */}
-          <dl className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border/70 pt-5">
+          <dl className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border/70 pt-3">
             {META_ROW.map((m) => (
-              <div key={m.label} className="flex items-baseline gap-2 text-[12.5px]">
+              <div key={m.label} className="flex items-baseline gap-2 text-[12px]">
                 <dt className="text-muted-foreground">{m.label}</dt>
                 <dd className="text-foreground font-medium">{m.value}</dd>
               </div>
@@ -114,103 +114,95 @@ const Greenlist = () => {
       </section>
 
       {/* §2 — Search & filter controls */}
-      <section className="border-b border-border bg-surface-muted/40 sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-surface-muted/70">
-        <div className="container-wide py-4">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
-            <div className="md:col-span-4 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <section className="border-b border-border bg-surface-muted/50 sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-surface-muted/80">
+        <div className="container-wide py-2.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="relative flex-1 min-w-[220px] max-w-md">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
               <Input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by facility or pharmacy name"
-                className="h-10 pl-9 rounded-[2px] bg-background"
+                className="h-8 pl-8 rounded-[2px] bg-background text-[13px]"
                 aria-label="Search Greenlist"
               />
             </div>
 
-            <div className="md:col-span-2">
-              <Select value={type} onValueChange={setType}>
-                <SelectTrigger className="h-10 rounded-[2px] bg-background text-[13px]" aria-label="Filter by type">
-                  <SelectValue placeholder="Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>All types</SelectItem>
-                  {GREENLIST_TYPES.map((t) => (
-                    <SelectItem key={t} value={t}>
-                      {t}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <Select value={type} onValueChange={setType}>
+              <SelectTrigger className="h-8 w-[150px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by type">
+                <SelectValue placeholder="Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All types</SelectItem>
+                {GREENLIST_TYPES.map((t) => (
+                  <SelectItem key={t} value={t}>
+                    {t}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-            <div className="md:col-span-2">
-              <Select value={location} onValueChange={setLocation}>
-                <SelectTrigger className="h-10 rounded-[2px] bg-background text-[13px]" aria-label="Filter by location">
-                  <SelectValue placeholder="Location" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>All locations</SelectItem>
-                  {locations.map((l) => (
-                    <SelectItem key={l} value={l}>
-                      {l}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <Select value={location} onValueChange={setLocation}>
+              <SelectTrigger className="h-8 w-[140px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by location">
+                <SelectValue placeholder="Location" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All locations</SelectItem>
+                {locations.map((l) => (
+                  <SelectItem key={l} value={l}>
+                    {l}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-            <div className="md:col-span-2">
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger className="h-10 rounded-[2px] bg-background text-[13px]" aria-label="Filter by category">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>All categories</SelectItem>
-                  <SelectItem value="503B">503B</SelectItem>
-                  <SelectItem value="503A">503A</SelectItem>
-                  <SelectItem value="Other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger className="h-8 w-[130px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by category">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All categories</SelectItem>
+                <SelectItem value="503B">503B</SelectItem>
+                <SelectItem value="503A">503A</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
+              </SelectContent>
+            </Select>
 
-            <div className="md:col-span-2">
-              <Select value={focus} onValueChange={setFocus}>
-                <SelectTrigger className="h-10 rounded-[2px] bg-background text-[13px]" aria-label="Filter by focus">
-                  <SelectValue placeholder="Focus" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>All focuses</SelectItem>
-                  {FOCUS_TAGS.map((f) => (
-                    <SelectItem key={f.label} value={f.label}>
-                      {f.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+            <Select value={focus} onValueChange={setFocus}>
+              <SelectTrigger className="h-8 w-[160px] rounded-[2px] bg-background text-[12.5px]" aria-label="Filter by focus">
+                <SelectValue placeholder="Focus" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All focuses</SelectItem>
+                {FOCUS_TAGS.map((f) => (
+                  <SelectItem key={f.label} value={f.label}>
+                    {f.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-          <div className="mt-3 flex items-center justify-between text-[12.5px] text-muted-foreground">
-            <span>
-              Showing <span className="text-foreground font-medium">{filtered.length}</span> of{" "}
-              {greenlistEntries.length} sources
-            </span>
-            {filtersActive && (
-              <button
-                onClick={reset}
-                className="inline-flex items-center gap-1.5 text-foreground hover:text-primary"
-              >
-                <X className="h-3.5 w-3.5" /> Reset filters
-              </button>
-            )}
+            <div className="flex items-center gap-3 ml-auto text-[12px] text-muted-foreground">
+              <span>
+                <span className="text-foreground font-medium tabular-nums">{filtered.length}</span>
+                <span className="text-muted-foreground"> / {greenlistEntries.length}</span>
+              </span>
+              {filtersActive && (
+                <button
+                  onClick={reset}
+                  className="inline-flex items-center gap-1 text-foreground hover:text-primary"
+                >
+                  <X className="h-3 w-3" /> Reset
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
       {/* §3 — Category navigation + database */}
       <section className="border-b border-border">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide pt-4 pb-10 md:pt-5 md:pb-12">
           <Tabs value={tab} onValueChange={(v) => setTab(v as GreenlistCategory)}>
             <TabsList className="bg-transparent p-0 h-auto rounded-none border-b border-border w-full justify-start gap-0">
               <TabTriggerCustom value="503B" label="503B Outsourcing Facilities" count={counts["503B"]} />
@@ -220,7 +212,7 @@ const Greenlist = () => {
               )}
             </TabsList>
 
-            <TabsContent value="503B" className="mt-8">
+            <TabsContent value="503B" className="mt-4">
               <SectionIntro
                 title="503B Outsourcing Facilities"
                 description="FDA-registered 503B outsourcing facilities relevant to sterile compounded products, including TRT, peptide, IV, and wellness-related clinical use."
@@ -228,7 +220,7 @@ const Greenlist = () => {
               <RegistryTable rows={sortedFor("503B")} onReset={reset} filtersActive={filtersActive} />
             </TabsContent>
 
-            <TabsContent value="503A" className="mt-8">
+            <TabsContent value="503A" className="mt-4">
               <SectionIntro
                 title="503A Compounding Pharmacies"
                 description="National 503A compounding pharmacies and related brands relevant to patient-specific hormones, peptides, TRT, wellness, and specialty compounding."
@@ -237,7 +229,7 @@ const Greenlist = () => {
             </TabsContent>
 
             {counts.Other > 0 && (
-              <TabsContent value="Other" className="mt-8">
+              <TabsContent value="Other" className="mt-4">
                 <SectionIntro
                   title="Other Recognized Sources"
                   description="Additional qualified source categories recognized within the Source Standard framework."
@@ -311,7 +303,7 @@ const TabTriggerCustom = ({
 }) => (
   <TabsTrigger
     value={value}
-    className="rounded-none bg-transparent border-b-2 border-transparent px-5 py-3 text-[13.5px] font-medium text-muted-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:border-primary data-[state=active]:shadow-none -mb-px"
+    className="rounded-none bg-transparent border-b-2 border-transparent px-4 py-2.5 text-[13px] font-medium text-muted-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:border-primary data-[state=active]:shadow-none -mb-px"
   >
     {label}
     <span className="ml-2 font-mono text-[11.5px] text-muted-foreground tabular-nums">
@@ -321,11 +313,11 @@ const TabTriggerCustom = ({
 );
 
 const SectionIntro = ({ title, description }: { title: string; description: string }) => (
-  <div className="mb-6">
-    <h2 className="text-[1.25rem] md:text-[1.375rem] font-semibold tracking-[-0.005em] text-foreground">
+  <div className="mb-3">
+    <h2 className="text-[1.0625rem] md:text-[1.125rem] font-semibold tracking-[-0.005em] text-foreground leading-tight">
       {title}
     </h2>
-    <p className="mt-2 max-w-3xl text-[14.5px] text-muted-foreground leading-[1.6]">
+    <p className="mt-1 max-w-3xl text-[13px] text-muted-foreground leading-[1.55]">
       {description}
     </p>
   </div>
@@ -356,7 +348,7 @@ const RegistryTable = ({
   return (
     <div className="border border-border/70 rounded-[2px] bg-background">
       {/* Desktop header */}
-      <div className="hidden lg:grid grid-cols-12 px-5 py-3 bg-surface-muted/60 border-b border-border/70 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+      <div className="hidden lg:grid grid-cols-12 px-4 py-2 bg-surface-muted/60 border-b border-border/70 text-[10.5px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
         <div className="col-span-3">Facility / Brand</div>
         <div className="col-span-2">Type</div>
         <div className="col-span-2">Location</div>
@@ -369,7 +361,7 @@ const RegistryTable = ({
         {rows.map((r) => (
           <li key={r.name}>
             {/* Desktop row */}
-            <div className="hidden lg:grid grid-cols-12 gap-3 px-5 py-4 items-start">
+            <div className="hidden lg:grid grid-cols-12 gap-3 px-4 py-2.5 items-start">
               <div className="col-span-3">
                 <p className="text-[14px] font-medium text-foreground leading-snug">{r.name}</p>
               </div>
@@ -407,7 +399,7 @@ const RegistryTable = ({
             </div>
 
             {/* Mobile / tablet stacked card */}
-            <div className="lg:hidden px-5 py-4 space-y-2.5">
+            <div className="lg:hidden px-4 py-3 space-y-2">
               <div className="flex items-start justify-between gap-3">
                 <p className="text-[14.5px] font-medium text-foreground leading-snug">{r.name}</p>
                 <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-muted-foreground whitespace-nowrap shrink-0 mt-1">
