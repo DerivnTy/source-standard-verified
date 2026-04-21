@@ -1,74 +1,79 @@
 
 
-## Vendor Reference → Vendor Submission Standard
+## Apply → Preliminary Administrative Intake
 
-A copy + light visual pass on `src/pages/ForVendors.tsx`. No routing, no new components, no token changes. Tone aligned with the Governance / Accountability / How-It-Works overhauls. Document anchor: `SS-VENDOR-STD-2026.01`.
+A copy + light visual pass on `src/pages/Apply.tsx`. No routing, no new components, no token changes. Tone aligned with the Governance / Accountability / How-It-Works / Vendor Submission Standard overhauls. Document anchor: `SS-INTAKE-01`, governed by `SS-VENDOR-STD-2026.01` and `SS-FRAMEWORK-2026.01`.
 
-### Header (`RecordHeader`)
+### Header (`UtilityHeader`)
 
-- Eyebrow: `Reference` → `Submission standard`
-- Title: `Vendor reference.` → `Vendor Submission Standard.`
-- Lead: → `Technical specifications for the records, credentials, and procurement evidence required at intake. Submitted materials are entered into the controlled audit file and examined under the forensic review protocol (SS-FRAMEWORK-2026.01).`
-- Metadata Doc ID: `SS-VENDOR-GUIDE-2026.01` → `SS-VENDOR-STD-2026.01`. Other metadata kept (Version `2026.01`, Status `Active`, Updated `04 / 21 / 2026`).
+- Eyebrow: `Apply` → `Form SS-INTAKE-01 · Preliminary intake`
+- Title: `Begin a Source Standard application` → `Preliminary Administrative Intake.`
+- Description: → `Submission of Form SS-INTAKE-01 opens an administrative file with the Source Standard registry. A Verification Officer of record will acknowledge receipt within five business days. Intake does not constitute forensic review and does not establish any standing.`
 
-### §1 — Documentation Required → "Mandatory Evidentiary Inventory"
+### Sidebar — "Pre-Audit Evidentiary Requirements"
 
-- Section eyebrow: `§1 — Documentation Required` → `§1 · Mandatory evidentiary inventory`
-- H2: → `Records entered into the controlled audit file.`
-- `docs` array rewritten to clinical/administrative tone (titles + descriptions, order preserved):
-  1. **Jurisdictional Registrations** — Active state and federal registrations applicable to the operating entity, including any Board of Pharmacy, Department of Health, or DEA registrations of competent jurisdiction.
-  2. **Procurement Nodes & Supplier Records** — Itemized disclosure of upstream procurement nodes — pharmacies, outsourcing facilities, qualified suppliers — supporting each reviewed product category, with corresponding records retained in the audit file.
-  3. **Certificates of Analysis (ISO-Accredited Laboratories)** — Independent third-party analytical records for relevant lots or batches, issued by ISO/IEC 17025-accredited laboratories where applicable to the category under review.
-  4. **Prescriber Credentials of Record** — For clinical operating models, current licensure and credentialing records for prescribing practitioners associated with the entity.
-  5. **503A / 503B Pharmacy Partnerships** — Documentation evidencing the relationship between the entity and any 503A compounding pharmacy or 503B outsourcing facility relied upon to fulfill listed categories.
-- Table column headers: `Ref` / `Document` / `Description` → `Ref` / `Evidentiary record` / `Specification`
-- Footnote line below table: → `Required records vary by operating model. The reviewer of record may identify additional materials during intake; all such requests are logged to the controlled audit file.`
+- Aside header label: `Before You Begin` → `Pre-audit evidentiary requirements`
+- `checklist` array rewritten (5 items, `§01–§05` markup preserved):
+  1. Active jurisdictional registrations of the operating entity
+  2. Upstream supply-chain records (procurement nodes & supplier disclosures)
+  3. Analytical lot documentation (ISO/IEC 17025-accredited certificates of analysis)
+  4. Prescriber credentials of record (clinical operating models)
+  5. Compounding pharmacy service agreements (503A / 503B partnerships)
+- Footer note (replace existing): `Document upload protocols are initiated via secure transmission link issued by the Verification Officer of record upon acknowledgment of this filing.`
 
-### Sidebar — "Submission Checklist"
+### Form panel — header strip
 
-- Header label: `Submission Checklist` → `Submission Checklist · SS-VENDOR-STD-2026.01`
-- CTA preserved (`Begin application →`, links to `/apply`).
+- Header label: `Form SS-INTAKE-01 · Required Fields` → keep, but split into a two-line mono strip:
+  - Line 1 (mono uppercase 10.5px, foreground): `FORM SS-INTAKE-01 · PRELIMINARY ADMINISTRATIVE INTAKE`
+  - Line 2 (mono uppercase 10px, muted): `Governed by SS-VENDOR-STD-2026.01 · Examined under SS-FRAMEWORK-2026.01 · Required fields`
 
-### §2 — Issued Upon Verification → "Registry Deliverables & Attribution"
+### Form fields — relabeling
 
-- Section eyebrow: `§2 — Issued Upon Verification` → `§2 · Registry deliverables & attribution`
-- H2: → `Public record issued upon verification.`
-- `issued` array rewritten:
-  1. A public Verified profile entered in the Source Standard Registry of record.
-  2. A unique **Audit ID** (format `SS-AUD-YYYY-NNNNN`) that may be cited and independently confirmed against the registry.
-  3. A **Verification Transcript** — the itemized public record of documentation reviewed, examination domains covered, and the standing issued.
-  4. A verification badge for use on vendor-controlled surfaces, governed by the framework's attribution terms.
+Current labels → new labels (no layout change, all `meta-label` styling kept):
 
-### §3 — Submission strip → "Administrative Notice"
+- `Vendor / Clinic Name` → `Entity of record`
+- `Primary Contact` → `Authorized representative`
+- `Email` → `Email of record`
+- `Phone` → `Telephone of record`
+- `Vendor Category` → `Audit category requested` (placeholder: `e.g. TRT clinic, 503A compounding pharmacy, 503B outsourcing facility`)
+- `State of Operation` → `Jurisdiction of operation`
+- `Operating Summary` → `Operational scope statement` (placeholder: `Provide a concise statement of operating model, jurisdictional registrations held, and the categories of evidentiary documentation available for examination.`)
 
-Replace the existing single-line strip with a mono advisory bar matching the Governance / Accountability / How-It-Works pattern.
+### Form panel — footer / submit
 
-- Container: `border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3`
-- Mono label (10.5px uppercase, muted): `ADMINISTRATIVE NOTICE · SS-VENDOR-STD-2026.01 · §3`
-- Body (13px, foreground, leading-relaxed): `Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake does not constitute forensic review. Submitted materials are entered into the controlled audit file and examined under the verification protocol (SS-FRAMEWORK-2026.01) prior to any determination of standing.`
-- CTA preserved (`Begin application →`, links to `/apply`), placed to the right of the notice on `md:`+ widths.
+Replace the current footer strip with an Administrative Notice block + filing action.
+
+- Container retained (`border-t border-border bg-surface-muted`) but layout switched to a stacked, full-width notice with the action button on its own row right-aligned on `sm:`+.
+- Mono notice label (10.5px uppercase, muted): `ADMINISTRATIVE NOTICE · SS-INTAKE-01`
+- Notice body (12.5px, foreground, leading-relaxed): `Submissions are entered into the controlled audit file in the order received. Any subsequent determination of standing is contingent upon the authenticity, completeness, and verifiability of the records produced under the verification protocol (SS-FRAMEWORK-2026.01). Intake does not constitute review and does not confer standing.`
+- Submit button:
+  - Label: `Submit application` → `File document`
+  - Submitting state: `Submitting…` → `Filing…`
+  - Class additions: keep existing `rounded-none` mono-uppercase styling; add a leading mono prefix span inside the button — `[ SS-INTAKE-01 ]  FILE DOCUMENT` — rendered with `font-mono tracking-[0.14em]`.
+- Toast on submit:
+  - Title: `Application received` → `Filing acknowledged · SS-INTAKE-01`
+  - Description: → `A Verification Officer of record will acknowledge receipt within five business days. Document upload protocols are initiated via secure transmission link upon acknowledgment.`
 
 ### Footer — Official citation block
 
-Append below §3 (matches Governance / Accountability / How-It-Works):
+Append below the form grid (matches Governance / Accountability / How-It-Works / Vendor Submission Standard):
 
-- Container: `border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-8`
-- Top mono label: `OFFICIAL CITATION · SS-VENDOR-STD-2026.01`
-- Body (12.5px, foreground): `Source Standard. Vendor Submission Standard. Document SS-VENDOR-STD-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on file with the issuing organization.`
-- Sub-line (mono, 11px uppercase, muted): `Controlled standard · See SOP: Verification Protocol & Audit Methodology · See Compliance Monitoring & Enforcement Protocols` — with inline `<Link>`s to `/how-it-works` and `/accountability`.
+- Container: `border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-10`
+- Top mono label (10.5px uppercase, muted): `OFFICIAL CITATION · SS-INTAKE-01`
+- Body (12.5px, foreground): `Source Standard. Form SS-INTAKE-01 — Preliminary Administrative Intake. Governed by Vendor Submission Standard SS-VENDOR-STD-2026.01. Examined under SOP: Verification Protocol & Audit Methodology SS-FRAMEWORK-2026.01.`
+- Sub-line (mono, 11px uppercase, muted): `Controlled form · See Vendor Submission Standard · See SOP: Verification Protocol & Audit Methodology` — with inline `<Link>`s to `/for-vendors` and `/how-it-works`.
 
 ### Visual style
 
-- Reinforce the "boring bureau" aesthetic by:
-  - Using mono uppercase 10.5px labels (`font-mono tracking-[0.08em]`) for every section eyebrow and the new `ADMINISTRATIVE NOTICE` / `OFFICIAL CITATION` labels.
-  - Keeping the existing 12-col bordered grid for §1 and the bordered sidebar checklist (already monochromatic).
-  - No new colors, no new borders beyond what's already used elsewhere — strictly `border-border` and `bg-surface-muted` tokens.
+- High-density monochromatic grid kept (existing `border-border` + `bg-surface-muted` tokens; no new colors).
+- All eyebrows, notice labels, and the new citation label rendered with `font-mono uppercase tracking-[0.08em] text-[10.5px]` for typographic consistency with the other compliance documents.
+- Submit button reads as a "File document" action via the bracketed mono `[ SS-INTAKE-01 ]` prefix; no shape/color changes to the button itself.
 
 ### Files touched
 
-- `src/pages/ForVendors.tsx` only — `RecordHeader` props, `docs` array, §1 column labels + footnote, sidebar header, `issued` array, replacement of the §3 strip with the Administrative Notice block, and appended Official Citation footer.
+- `src/pages/Apply.tsx` only — `UtilityHeader` props, `checklist` array + sidebar header + sidebar footnote, form-panel header strip (two-line), all six field labels + two placeholders, footer Administrative Notice + filing button, toast copy, and appended Official Citation block.
 
 ### What stays the same
 
-All routes, the `RecordHeader` component, container widths, the 12-col §1 grid, the sticky sidebar, the `Begin application →` CTA targets, and all design tokens.
+All routes, the `UtilityHeader` / `Button` / `Input` / `Textarea` / `Label` components, the 4 / 8 column grid, sticky sidebar behavior, form validation, and all design tokens.
 
