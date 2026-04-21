@@ -379,10 +379,7 @@ const Greenlist = () => {
 
       {/* Registry table */}
       <section>
-        <div className="container-wide py-8">
-          {sorted.length === 0 ? (
-            <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
-              <p className="meta">— No records match the current filters.</p>
+        <div className="container-wide pt-3 pb-8">
             </div>
           ) : (
             <>
