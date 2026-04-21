@@ -29,10 +29,10 @@ const STATUS_ORDER: VendorPublicStatus[] = [
 ];
 
 const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
-  verified: "Source Standard verification has been completed and published.",
+  verified: "Documentation of upstream sourcing and clinical oversight has been audited and published.",
   "under-review": "An active Source Standard review is currently in progress.",
-  unverified: "No Source Standard verification is currently published.",
-  suspended: "A previously published verification is temporarily paused.",
+  unverified: "No documentation has been submitted for audit. Source Standard has not verified the chain of custody for this entity.",
+  suspended: "Verification retracted pending investigation into supply-chain discrepancies.",
   removed: "Listing has been removed from the public directory.",
 };
 
@@ -158,16 +158,16 @@ const VerifiedVendors = () => {
   return (
     <>
       <AnchorHeader
-        eyebrow="Directory"
-        title="Verified vendors."
-        lead="Clinics reviewed against the Source Standard framework, with a citable record for each listing."
+        eyebrow="Public ledger"
+        title="Vendor Compliance Registry."
+        lead="Public ledger of vendors assessed against the Source Standard framework. Every listing is anchored to a unique Audit ID."
         aside={
           <dl className="grid grid-cols-4 gap-px bg-border/50 border border-border/50 rounded-md overflow-hidden text-center">
             {[
-              { l: "Total", v: vendors.length },
-              { l: "Verified", v: counts.verified },
+              { l: "Total Tracked Entities", v: vendors.length },
+              { l: "Compliant (Verified)", v: counts.verified },
               { l: "Under review", v: counts["under-review"] },
-              { l: "Unverified", v: counts.unverified },
+              { l: "Non-Audited (Unverified)", v: counts.unverified },
             ].map((s) => (
               <div key={s.l} className="bg-background px-2 py-3">
                 <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground/80">{s.l}</dt>
@@ -181,7 +181,7 @@ const VerifiedVendors = () => {
       {/* Status legend — softened segmented panel */}
       <section className="bg-surface-muted/60 border-b border-border/60">
         <div className="container-wide py-8 md:py-10">
-          <p className="eyebrow text-foreground/80 mb-3">How to read this directory</p>
+          <p className="eyebrow text-foreground/80 mb-3">Registry note</p>
           <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-2 md:grid-cols-5">
             {STATUS_ORDER.map((s, i) => (
               <div
@@ -196,7 +196,7 @@ const VerifiedVendors = () => {
             ))}
           </div>
           <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
-            <span className="font-semibold text-foreground">Note.</span> "Unverified" means no Source Standard verification is currently published — it does not by itself indicate that a vendor is unsafe or noncompliant.{" "}
+            <span className="font-semibold text-foreground">Note.</span> An Unverified status indicates a lack of administrative transparency and documentation on file. It is an indicator of audit status, not a direct assessment of clinical safety.{" "}
             <Link to="/how-to-read-the-directory" className="underline underline-offset-2 hover:no-underline">
               Read more
             </Link>
