@@ -269,27 +269,16 @@ const VerifiedVendors = () => {
             </select>
 
             <select
-              value={hasReview}
-              onChange={(e) => setHasReview(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
-              aria-label="Filter by published review"
-            >
-              <option value={ALL}>Review: any</option>
-              <option value="yes">Has published review</option>
-              <option value="no">No published review</option>
-            </select>
-
-
-            <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Sort records"
             >
+              <option value="name-asc">Sort: Name A–Z</option>
+              <option value="name-desc">Sort: Name Z–A</option>
+              <option value="state">Sort: State</option>
+              <option value="city">Sort: City</option>
               <option value="status">Sort: Status</option>
-              <option value="name-asc">Sort: Name A → Z</option>
-              <option value="name-desc">Sort: Name Z → A</option>
-              <option value="state-city">Sort: State / City</option>
             </select>
 
             {filtersActive && (
