@@ -56,7 +56,7 @@ export const SiteHeader = () => {
             size="sm"
             className="text-[13px] h-10 px-5 bg-primary hover:bg-primary-hover text-primary-foreground font-medium rounded-[2px]"
           >
-            <Link to="/apply">Apply for verification</Link>
+            <Link to="/apply">Apply for Verification</Link>
           </Button>
         </div>
         <button
