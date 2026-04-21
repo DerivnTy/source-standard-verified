@@ -15,6 +15,16 @@ import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
 import Contact from "./pages/Contact.tsx";
+import Accountability from "./pages/Accountability.tsx";
+import MedicalAdvisory from "./pages/MedicalAdvisory.tsx";
+import FAQ from "./pages/FAQ.tsx";
+import ReportConcern from "./pages/ReportConcern.tsx";
+import StatusDefinitions from "./pages/StatusDefinitions.tsx";
+import VendorProfileTemplate from "./pages/VendorProfileTemplate.tsx";
+import GreenlistEntryTemplate from "./pages/GreenlistEntryTemplate.tsx";
+import Privacy from "./pages/Privacy.tsx";
+import Terms from "./pages/Terms.tsx";
+import VerificationDisclaimer from "./pages/VerificationDisclaimer.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -39,6 +49,16 @@ const App = () => (
             <Route path="/directory/:slug" element={<VendorProfile />} />
             <Route path="/apply" element={<Apply />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/accountability" element={<Accountability />} />
+            <Route path="/medical-advisory" element={<MedicalAdvisory />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/report-a-concern" element={<ReportConcern />} />
+            <Route path="/status-definitions" element={<StatusDefinitions />} />
+            <Route path="/templates/vendor-profile" element={<VendorProfileTemplate />} />
+            <Route path="/templates/greenlist-entry" element={<GreenlistEntryTemplate />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/verification-disclaimer" element={<VerificationDisclaimer />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
