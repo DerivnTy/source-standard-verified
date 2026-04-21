@@ -93,9 +93,9 @@ const Education = () => {
   return (
     <>
       <AnchorHeader
-        eyebrow="Learn"
-        title="How this actually works."
-        lead="A plain-language place to learn how compounded medications, peptides, and TRT actually work — and how to tell a trustworthy source from a risky one. Written for consumers, useful for clinicians."
+        eyebrow="Library"
+        title="Learn how verification works."
+        lead="Plain explanations of the framework, the documents that matter, and what to ask before you buy."
       />
 
       {/* Quiet anchor row */}

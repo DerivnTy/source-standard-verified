@@ -11,9 +11,9 @@ const Governance = () => {
           { label: "Status", value: "Active" },
           { label: "Updated", value: "04 / 20 / 2026" },
         ]}
-        eyebrow="Governance · Medical & Standards Oversight"
-        title="Authority disclosure."
-        lead="Source Standard framework criteria are reviewed by licensed clinicians and anchored to publicly citable upstream authorities. This page documents both layers."
+        eyebrow="Disclosure"
+        title="Governance and authority."
+        lead="Framework criteria reviewed by licensed clinicians and anchored to publicly citable upstream authorities."
         summary={[
           { label: "Advisory body", value: "Medical" },
           { label: "Authorities referenced", value: authorities.length.toString().padStart(2, "0") },

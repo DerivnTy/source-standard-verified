@@ -32,9 +32,9 @@ const About = () => {
           { label: "Status", value: "Active" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
-        eyebrow="About · Organization Reference"
+        eyebrow="Reference"
         title="About Source Standard."
-        lead="Source Standard was created to bring more clarity to a market where sourcing claims are often easy to make and difficult to evaluate."
+        lead="An independent reference framework for vendor sourcing claims in peptide, TRT, and hormone-optimization markets."
       />
 
       {/* §1 Context */}

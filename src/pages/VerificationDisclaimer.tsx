@@ -34,9 +34,9 @@ const VerificationDisclaimer = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Verification Disclaimer · Scope of Review"
-      title="What Source Standard verification does and does not represent"
-      lead="This document defines the scope and limits of Source Standard verification. It exists so that consumers, clinicians, and vendors interpret a Verified status accurately and within its actual boundaries."
+      eyebrow="Disclaimer"
+      title="Verification disclaimer."
+      lead="Defines the scope and limits of Source Standard verification so that a Verified status is interpreted accurately."
     />
 
     <Section>

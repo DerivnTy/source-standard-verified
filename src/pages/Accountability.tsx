@@ -70,9 +70,9 @@ const Accountability = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Accountability & Enforcement"
-      title="Vendor obligations, review triggers, and enforcement actions"
-      lead="Verification is a continuing relationship, not a one-time review. This document describes what verified vendors commit to, what changes must be reported, what events can trigger a re-review, and what enforcement actions are available under the framework."
+      eyebrow="Process"
+      title="Accountability and enforcement."
+      lead="Vendor commitments, reportable changes, re-review triggers, and the enforcement actions available under the framework."
     />
 
     <Section>

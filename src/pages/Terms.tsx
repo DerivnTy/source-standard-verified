@@ -24,9 +24,9 @@ const Terms = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Terms of Use"
-      title="Site usage, public content, and liability terms"
-      lead="These terms govern the use of the Source Standard website and the public registry it publishes. By accessing the site, you accept these terms."
+      eyebrow="Policy"
+      title="Terms of use."
+      lead="Terms governing use of the Source Standard website and the public registry it publishes."
     />
 
     <Section>

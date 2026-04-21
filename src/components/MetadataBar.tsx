@@ -11,15 +11,15 @@ export const MetadataBar = ({
 }) => {
   return (
     <div
-      className={`border-b border-border/40 bg-surface-muted/40 ${className}`}
+      className={`border-t border-border/40 ${className}`}
       role="region"
       aria-label="Document metadata"
     >
-      <div className="container-wide flex flex-wrap items-center gap-x-10 gap-y-2 py-3">
+      <div className="container-wide flex flex-wrap items-center gap-x-10 gap-y-2 py-2.5">
         {items.map((it, i) => (
-          <div key={i} className="flex items-center gap-2 text-[12.5px]">
-            <span className="text-muted-foreground/80">{it.label}</span>
-            <span className="text-foreground font-medium">{it.value}</span>
+          <div key={i} className="flex items-center gap-2 text-[12px]">
+            <span className="text-muted-foreground/70">{it.label}</span>
+            <span className="text-muted-foreground/90 font-medium">{it.value}</span>
           </div>
         ))}
       </div>

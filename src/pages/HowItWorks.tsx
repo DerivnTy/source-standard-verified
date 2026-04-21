@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { RecordHeader } from "@/components/RecordHeader";
 
 const whyItMatters: { t: string; d: string }[] = [
   {
@@ -195,34 +196,17 @@ const notProcess: string[] = [
 const HowItWorks = () => {
   return (
     <div className="bg-background">
-      {/* Hero */}
-      <header className="border-b border-border">
-        <div className="container-wide py-14 md:py-20">
-          <p className="eyebrow mb-4">Standard</p>
-          <h1 className="text-[1.625rem] md:text-[2rem] font-semibold tracking-tight text-foreground leading-[1.15] max-w-3xl">
-            Verification
-          </h1>
-          <p className="mt-5 max-w-2xl text-[16px] text-muted-foreground leading-relaxed">
-            Source Standard verification is a structured review of vendor records, sourcing documentation, public
-            claims, and applicable licensing. This page explains what is reviewed, how statuses are assigned, and what
-            a published verification actually means.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-[12.5px] text-muted-foreground">
-            <span>
-              <span className="meta-label mr-2">Updated</span>
-              <span className="meta-mono">04 / 21 / 2026</span>
-            </span>
-            <span>
-              <span className="meta-label mr-2">Scope</span>
-              Vendor verification framework
-            </span>
-            <span>
-              <span className="meta-label mr-2">Standard</span>
-              <span className="meta-mono">SS-FRAMEWORK-2026.01</span>
-            </span>
-          </div>
-        </div>
-      </header>
+      <RecordHeader
+        metadata={[
+          { label: "Doc", value: "SS-FRAMEWORK-2026.01" },
+          { label: "Status", value: "Active" },
+          { label: "Updated", value: "04/21/26" },
+          { label: "Scope", value: "Verification" },
+        ]}
+        eyebrow="Process"
+        title="How verification works."
+        lead="A structured review of vendor records, sourcing documentation, public claims, and applicable licensing."
+      />
 
       {/* Why this matters */}
       <section className="border-b border-border">

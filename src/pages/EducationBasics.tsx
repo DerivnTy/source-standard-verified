@@ -46,8 +46,8 @@ const EducationBasics = () => {
         backHref="/education"
         backLabel="Back to Learn"
         eyebrow="The Basics"
-        title="Foundational reads"
-        description="Plain-language explainers for anyone new to peptides, compounded medications, or TRT. Start anywhere — these are written to stand on their own."
+        title="The basics — full index"
+        description="Plain-language explainers for anyone new to peptides, compounded medications, or TRT."
       />
       <Section>
         <div className="border border-border/70 rounded-[2px] bg-background">

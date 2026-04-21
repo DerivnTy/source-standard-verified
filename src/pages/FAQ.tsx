@@ -176,9 +176,9 @@ const FAQ = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Frequently Asked Questions"
-      title="Common questions on verification, the greenlist, and registry use"
-      lead="Reference questions and short, evidence-based answers covering how Source Standard works, what verification represents, and how consumers and vendors interact with the public registry."
+      eyebrow="Reference"
+      title="Frequently asked questions."
+      lead="Short, evidence-based answers covering verification, the greenlist, and registry use."
     />
 
     {groups.map((g, gi) => (

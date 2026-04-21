@@ -43,9 +43,9 @@ const Privacy = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Privacy Policy"
-      title="Data practices, collection, and form handling"
-      lead="This policy describes what data Source Standard collects, how it is used, what is published versus retained internally, and the rights individuals have over their data."
+      eyebrow="Policy"
+      title="Privacy policy."
+      lead="What data Source Standard collects, how it is used, what is published, and the rights individuals have over their data."
     />
 
     <Section>

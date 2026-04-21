@@ -27,8 +27,8 @@ const EducationQuestions = () => {
         backHref="/education"
         backLabel="Back to Learn"
         eyebrow="Common Questions"
-        title="All questions"
-        description="Direct answers to the questions people most often ask, organized by topic."
+        title="Common questions — full index"
+        description="Direct answers to the questions people most often ask."
       />
       <Section>
         <div className="space-y-10">

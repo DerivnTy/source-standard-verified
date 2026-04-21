@@ -26,9 +26,9 @@ const ForVendors = () => {
           { label: "Status", value: "Active" },
           { label: "Updated", value: "04 / 20 / 2026" },
         ]}
-        eyebrow="Vendor Reference · Submission Standard"
-        title="Vendor Reference."
-        lead="This page documents the submission requirements, evidence categories, and review timeline for vendors seeking verification under SS-FRAMEWORK-2026.01."
+        eyebrow="Reference"
+        title="Vendor reference."
+        lead="Submission requirements, evidence categories, and review timeline for vendors seeking verification."
       />
 
       {/* §1 Documentation required */}
