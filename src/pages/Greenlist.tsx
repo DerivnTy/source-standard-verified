@@ -55,16 +55,6 @@ const CategoryPill = ({ category }: { category: GreenlistCategory }) => (
   </span>
 );
 
-const GreenlistedPill = ({ size = "sm" }: { size?: "sm" | "md" }) => (
-  <span
-    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-verified ${
-      size === "md" ? "text-[11px]" : "text-[10px]"
-    }`}
-  >
-    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-    Greenlisted
-  </span>
-);
 
 const focusMatches = (entry: GreenlistEntry, tagLabel: string): boolean => {
   const tag = FOCUS_TAGS.find((t) => t.label === tagLabel);
