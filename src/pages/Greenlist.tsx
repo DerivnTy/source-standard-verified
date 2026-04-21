@@ -25,13 +25,7 @@ const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
   Other: "Other",
 };
 
-const CATEGORY_DEF: { key: GreenlistCategory | "greenlisted"; title: string; body: string }[] = [
-  {
-    key: "greenlisted",
-    title: "Greenlisted",
-    body:
-      "Recognized as a qualified upstream source under the Source Standard framework based on FDA registration or applicable state board oversight.",
-  },
+const SOURCE_TYPE_DEF: { key: GreenlistCategory; title: string; body: string }[] = [
   {
     key: "503B",
     title: "503B Outsourcing Facility",
@@ -52,18 +46,23 @@ const CATEGORY_DEF: { key: GreenlistCategory | "greenlisted"; title: string; bod
   },
 ];
 
-const colorForCategory: Record<GreenlistCategory, string> = {
-  "503B": "text-verified",
-  "503A": "text-pending",
-  Other: "text-muted-foreground",
-};
-
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => (
   <span
-    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] ${colorForCategory[category]}`}
+    className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] text-foreground"
+  >
+    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+    {CATEGORY_LABEL[category]}
+  </span>
+);
+
+const GreenlistedPill = ({ size = "sm" }: { size?: "sm" | "md" }) => (
+  <span
+    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-verified ${
+      size === "md" ? "text-[11px]" : "text-[10px]"
+    }`}
   >
     <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-    {CATEGORY_LABEL[category]}
+    Greenlisted
   </span>
 );
 
