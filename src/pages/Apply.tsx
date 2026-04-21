@@ -6,11 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const checklist = [
-  "Active jurisdictional registrations of the operating entity",
-  "Upstream supply-chain records (procurement nodes & supplier disclosures)",
-  "Analytical lot documentation (ISO/IEC 17025-accredited certificates of analysis)",
-  "Prescriber credentials of record (clinical operating models)",
-  "Compounding pharmacy service agreements (503A / 503B partnerships)",
+  "Business licenses (state and federal registrations for your operating entity)",
+  "Pharmacy invoices (records from the 503A / 503B pharmacies you work with)",
+  "Certificates of Analysis (third-party lab results from ISO-accredited labs)",
+  "Prescriber credentials (active licenses for any prescribing practitioners)",
+  "Pharmacy service agreements (contracts with your 503A or 503B partners)",
 ];
 
 const sectionHeader = "font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground";
