@@ -331,11 +331,10 @@ const Greenlist = () => {
               {/* Desktop table */}
               <div className="hidden md:block rounded-lg border border-border/60 bg-background overflow-hidden">
                 <div className="grid grid-cols-12 px-4 py-2.5 border-b border-border/50 bg-surface-muted/60">
-                  <div className="col-span-3 meta-label">Facility / Brand</div>
-                  <div className="col-span-2 meta-label">Status</div>
+                  <div className="col-span-4 meta-label">Facility / Brand</div>
                   <div className="col-span-2 meta-label">Source Type</div>
                   <div className="col-span-2 meta-label">Location</div>
-                  <div className="col-span-2 meta-label">Focus</div>
+                  <div className="col-span-3 meta-label">Focus</div>
                   <div className="col-span-1 meta-label text-right">Website</div>
                 </div>
                 {pageItems.map((e) => (
@@ -343,14 +342,11 @@ const Greenlist = () => {
                     key={e.name}
                     className="grid grid-cols-12 px-4 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
                   >
-                    <div className="col-span-3 min-w-0">
+                    <div className="col-span-4 min-w-0">
                       <p className="text-[13px] font-medium text-foreground truncate">
                         {e.name}
                       </p>
                       <p className="text-[11px] text-muted-foreground truncate">{e.type}</p>
-                    </div>
-                    <div className="col-span-2">
-                      <GreenlistedPill />
                     </div>
                     <div className="col-span-2">
                       <CategoryPill category={e.category} />
@@ -358,7 +354,7 @@ const Greenlist = () => {
                     <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
                       {e.location}
                     </div>
-                    <div className="col-span-2 text-[12.5px] text-muted-foreground truncate">
+                    <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
                       {e.focus}
                     </div>
                     <div className="col-span-1 text-right">
@@ -383,11 +379,10 @@ const Greenlist = () => {
               <div className="md:hidden space-y-3">
                 {pageItems.map((e) => (
                   <div key={e.name} className="block rounded-md border border-border/60 bg-background p-4">
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <GreenlistedPill />
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="text-[13px] font-medium text-foreground">{e.name}</p>
                       <CategoryPill category={e.category} />
                     </div>
-                    <p className="text-[13px] font-medium text-foreground">{e.name}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.focus}</p>
