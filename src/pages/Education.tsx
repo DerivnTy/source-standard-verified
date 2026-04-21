@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageHeader } from "@/components/PageHeader";
+import { AnchorHeader } from "@/components/AnchorHeader";
 import { Section } from "@/components/Section";
 import {
   Accordion,
@@ -92,10 +92,10 @@ const guidesPreview = libraryGuides.slice(0, 4);
 const Education = () => {
   return (
     <>
-      <PageHeader
+      <AnchorHeader
         eyebrow="Learn"
-        title="Learn how this actually works"
-        description="A plain-language place to learn how compounded medications, peptides, and TRT actually work — and how to tell a trustworthy source from a risky one. Written for consumers, useful for clinicians."
+        title="How this actually works."
+        lead="A plain-language place to learn how compounded medications, peptides, and TRT actually work — and how to tell a trustworthy source from a risky one. Written for consumers, useful for clinicians."
       />
 
       {/* Quiet anchor row */}
