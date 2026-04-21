@@ -13,13 +13,13 @@ export const PageHeader = ({
 }) => {
   return (
     <section className="border-b border-border bg-background">
-      <div className="container-wide py-12 md:py-16">
+      <div className="container-wide py-14 md:py-20">
         {eyebrow && <p className="eyebrow mb-4">{eyebrow}</p>}
-        <h1 className="text-[1.75rem] md:text-[2.25rem] font-semibold tracking-tight text-foreground leading-[1.15] max-w-3xl">
+        <h1 className="text-[1.625rem] md:text-[2rem] font-semibold tracking-tight text-foreground leading-[1.15] max-w-3xl">
           {title}
         </h1>
         {description && (
-          <p className="mt-5 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">{description}</p>
+          <p className="mt-5 max-w-2xl text-[16px] text-muted-foreground leading-relaxed">{description}</p>
         )}
         {children && <div className="mt-7">{children}</div>}
       </div>
