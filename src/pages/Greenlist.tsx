@@ -408,7 +408,7 @@ const Greenlist = () => {
                       {e.location}
                     </div>
                     <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
-                      {e.focus}
+                      {shortFocus(e)}
                     </div>
                     <div className="col-span-1 text-right">
                       <Link
@@ -437,7 +437,7 @@ const Greenlist = () => {
                     </div>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
                     <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
-                    <p className="mt-1 text-[12px] text-muted-foreground">{e.focus}</p>
+                    <p className="mt-1 text-[12px] text-muted-foreground">{shortFocus(e)}</p>
                     <div className="mt-2 flex justify-end">
                       <Link
                         to={`/greenlist/${e.slug}`}
