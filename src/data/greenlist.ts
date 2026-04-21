@@ -456,6 +456,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Compounded injectables used in weight-loss and hormone programs, plus 503B support for IV and wellness therapies",
     website: "https://olympiapharmacy.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals", "IV preparations"],
+      specializations: ["Weight management", "Hormone therapy", "IV and wellness therapies"],
+      background:
+        "Orlando-based compounding organization operating both 503A and 503B lines, producing patient-specific and office-use compounded preparations across weight-loss, hormone, and wellness programs.",
+    },
   },
   {
     slug: "wells-pharmacy-network",
@@ -466,6 +473,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Hormone optimization, peptides, weight-management protocols, and wellness compounding",
     website: "https://wellsrx.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Hormone optimization", "Peptides", "Weight management", "Wellness"],
+      background:
+        "Florida-based 503A compounding pharmacy serving patient-specific prescriptions, with a focus on hormone optimization, peptides, weight-management, and wellness protocols.",
+    },
   },
   {
     slug: "tailor-made-compounding",
@@ -476,6 +490,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Tailored formulations including peptides, hormones, and regenerative medicine preparations for wellness clinics",
     website: "https://tailormadecompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Peptides", "Hormone therapy", "Regenerative medicine"],
+      background:
+        "Kentucky-based 503A compounding pharmacy producing patient-specific formulations for wellness clinics, including peptide, hormone, and regenerative medicine preparations.",
+    },
   },
   {
     slug: "newtropin-formulation-compounding-center",
@@ -486,6 +507,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Compounded peptide therapies and anti-aging protocols, including growth-hormone-related and nootropic formulations",
     website: "https://newtropin.com",
+    profile: {
+      standards: ["USP <797>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules"],
+      specializations: ["Peptide therapy", "Anti-aging protocols", "Nootropic formulations"],
+      background:
+        "503A compounding pharmacy producing patient-specific peptide and anti-aging formulations, including growth-hormone-related and nootropic preparations on individual prescriptions.",
+    },
   },
   {
     slug: "triangle-compounding",
@@ -495,6 +523,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Cary, NC",
     focus: "Sterile and nonsterile compounds including hormones and specialty injectables",
     website: "https://trianglecompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral", "Topicals"],
+      specializations: ["Hormone therapy", "Specialty injectables"],
+      background:
+        "North Carolina-based 503A compounding pharmacy producing sterile and nonsterile patient-specific preparations, including hormones and specialty injectables.",
+    },
   },
   {
     slug: "pencol-specialty-pharmacy",
@@ -504,6 +539,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Denver, CO",
     focus: "Custom compounds in pain, hormone therapy, and wellness formulations",
     website: "https://pencolpharmacy.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral", "Topicals"],
+      specializations: ["Pain management", "Hormone therapy", "Wellness"],
+      background:
+        "Denver-based 503A specialty compounding pharmacy producing patient-specific custom preparations across pain, hormone therapy, and wellness categories.",
+    },
   },
   {
     slug: "vertisis-custom-pharmacy",
@@ -514,6 +556,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Integrative and functional medicine compounds including vitamin and peptide injectables for wellness clinics",
     website: "https://vertisis.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Integrative medicine", "Functional medicine", "Vitamin and peptide injectables"],
+      background:
+        "Phoenix-based 503A compounding pharmacy serving integrative and functional medicine practices with patient-specific vitamin, peptide, and wellness preparations.",
+    },
   },
   {
     slug: "pavilion-compounding-pharmacy-llc",
@@ -524,6 +573,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile and nonsterile compounding with strong presence in hormone replacement, wellness, and dermatology formulations",
     website: "https://pavilioncompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral", "Topicals", "Dermatology preparations"],
+      specializations: ["Hormone replacement", "Wellness", "Dermatology"],
+      background:
+        "Atlanta-based 503A compounding pharmacy producing sterile and nonsterile patient-specific preparations, with focus on hormone replacement, wellness, and dermatology.",
+    },
   },
   {
     slug: "village-compounding-pharmacy",
@@ -534,6 +590,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Hormone optimization, wellness injectables, and specialty compounded medications",
     website: "https://villagecompounding.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Oral capsules", "Topicals"],
+      specializations: ["Hormone optimization", "Wellness injectables", "Specialty compounding"],
+      background:
+        "Houston-based 503A compounding pharmacy producing patient-specific hormone, wellness, and specialty compounded preparations.",
+    },
   },
   {
     slug: "mcguff-compounding-pharmacy",
@@ -544,6 +607,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile injectables, vitamin and IV, and wellness products for integrative and functional medicine clinics",
     website: "https://mcguffpharmacy.com",
+    profile: {
+      standards: ["USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "IV preparations", "Vitamin injectables"],
+      specializations: ["Integrative medicine", "Functional medicine", "IV and vitamin therapy"],
+      background:
+        "California-based 503A compounding pharmacy producing patient-specific sterile injectables, IV, and vitamin preparations for integrative and functional medicine clinics.",
+    },
   },
   {
     slug: "wedgewood-pharmacy",
