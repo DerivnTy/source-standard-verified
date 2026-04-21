@@ -303,7 +303,7 @@ const TabTriggerCustom = ({
 }) => (
   <TabsTrigger
     value={value}
-    className="rounded-none bg-transparent border-b-2 border-transparent px-5 py-3 text-[13.5px] font-medium text-muted-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:border-primary data-[state=active]:shadow-none -mb-px"
+    className="rounded-none bg-transparent border-b-2 border-transparent px-4 py-2.5 text-[13px] font-medium text-muted-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:border-primary data-[state=active]:shadow-none -mb-px"
   >
     {label}
     <span className="ml-2 font-mono text-[11.5px] text-muted-foreground tabular-nums">
@@ -313,11 +313,11 @@ const TabTriggerCustom = ({
 );
 
 const SectionIntro = ({ title, description }: { title: string; description: string }) => (
-  <div className="mb-6">
-    <h2 className="text-[1.25rem] md:text-[1.375rem] font-semibold tracking-[-0.005em] text-foreground">
+  <div className="mb-3">
+    <h2 className="text-[1.0625rem] md:text-[1.125rem] font-semibold tracking-[-0.005em] text-foreground leading-tight">
       {title}
     </h2>
-    <p className="mt-2 max-w-3xl text-[14.5px] text-muted-foreground leading-[1.6]">
+    <p className="mt-1 max-w-3xl text-[13px] text-muted-foreground leading-[1.55]">
       {description}
     </p>
   </div>
@@ -348,7 +348,7 @@ const RegistryTable = ({
   return (
     <div className="border border-border/70 rounded-[2px] bg-background">
       {/* Desktop header */}
-      <div className="hidden lg:grid grid-cols-12 px-5 py-3 bg-surface-muted/60 border-b border-border/70 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+      <div className="hidden lg:grid grid-cols-12 px-4 py-2 bg-surface-muted/60 border-b border-border/70 text-[10.5px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
         <div className="col-span-3">Facility / Brand</div>
         <div className="col-span-2">Type</div>
         <div className="col-span-2">Location</div>
@@ -361,7 +361,7 @@ const RegistryTable = ({
         {rows.map((r) => (
           <li key={r.name}>
             {/* Desktop row */}
-            <div className="hidden lg:grid grid-cols-12 gap-3 px-5 py-4 items-start">
+            <div className="hidden lg:grid grid-cols-12 gap-3 px-4 py-2.5 items-start">
               <div className="col-span-3">
                 <p className="text-[14px] font-medium text-foreground leading-snug">{r.name}</p>
               </div>
@@ -399,7 +399,7 @@ const RegistryTable = ({
             </div>
 
             {/* Mobile / tablet stacked card */}
-            <div className="lg:hidden px-5 py-4 space-y-2.5">
+            <div className="lg:hidden px-4 py-3 space-y-2">
               <div className="flex items-start justify-between gap-3">
                 <p className="text-[14.5px] font-medium text-foreground leading-snug">{r.name}</p>
                 <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-muted-foreground whitespace-nowrap shrink-0 mt-1">
