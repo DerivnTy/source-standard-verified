@@ -1,6 +1,8 @@
 export type Lane = "series" | "guide" | "faq" | "supplementary";
 export type EntryStatus = "published" | "in-review" | "outlined" | "forthcoming";
 
+export type EntryLevel = "intro" | "intermediate";
+
 export type LibraryEntry = {
   id: string;
   slug: string;
@@ -9,6 +11,7 @@ export type LibraryEntry = {
   summary: string;
   status: EntryStatus;
   reviewedBy?: string;
+  level?: EntryLevel;
 };
 
 export type FAQGroup = "legality" | "verification" | "methodology" | "due-diligence";
