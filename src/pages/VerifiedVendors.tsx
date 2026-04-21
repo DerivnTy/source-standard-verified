@@ -35,12 +35,28 @@ const formatLocation = (v: Vendor) => {
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<string>(ALL);
+  const [city, setCity] = useState<string>(ALL);
   const [status, setStatus] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
-  const [hasReview, setHasReview] = useState<string>(ALL); // "yes" | "no" | ALL
+  const [hasReview, setHasReview] = useState<string>(ALL);
+  const [sort, setSort] = useState<SortMode>("status");
+  const [page, setPage] = useState(1);
 
   const states = useMemo(() => getVendorStates(), []);
   const focusOptions = useMemo(() => getClinicalFocusOptions(), []);
+  const cities = useMemo(() => {
+    const all = getVendorCities();
+    if (state === ALL) return all;
+    const inState = new Set(
+      vendors.filter((v) => v.state === state && v.city).map((v) => v.city as string),
+    );
+    return all.filter((c) => inState.has(c));
+  }, [state]);
+
+  // Reset city if it's no longer valid for the selected state
+  useEffect(() => {
+    if (city !== ALL && !cities.includes(city)) setCity(ALL);
+  }, [cities, city]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -53,22 +69,40 @@ const VerifiedVendors = () => {
         if (!hay.includes(q)) return false;
       }
       if (state !== ALL && v.state !== state) return false;
+      if (city !== ALL && v.city !== city) return false;
       if (status !== ALL && v.status !== status) return false;
       if (focus !== ALL && !(v.clinicalFocus ?? []).includes(focus)) return false;
       if (hasReview === "yes" && !v.reviewId) return false;
       if (hasReview === "no" && v.reviewId) return false;
       return true;
     });
-  }, [query, state, status, focus, hasReview]);
+  }, [query, state, city, status, focus, hasReview]);
 
   const sorted = useMemo(() => {
-    return [...filtered].sort((a, b) => {
-      const sa = STATUS_ORDER.indexOf(a.status);
-      const sb = STATUS_ORDER.indexOf(b.status);
-      if (sa !== sb) return sa - sb;
-      return a.name.localeCompare(b.name);
-    });
-  }, [filtered]);
+    const arr = [...filtered];
+    switch (sort) {
+      case "name-asc":
+        return arr.sort((a, b) => a.name.localeCompare(b.name));
+      case "name-desc":
+        return arr.sort((a, b) => b.name.localeCompare(a.name));
+      case "state-city":
+        return arr.sort((a, b) => {
+          const s = (a.state ?? "").localeCompare(b.state ?? "");
+          if (s !== 0) return s;
+          const c = (a.city ?? "").localeCompare(b.city ?? "");
+          if (c !== 0) return c;
+          return a.name.localeCompare(b.name);
+        });
+      case "status":
+      default:
+        return arr.sort((a, b) => {
+          const sa = STATUS_ORDER.indexOf(a.status);
+          const sb = STATUS_ORDER.indexOf(b.status);
+          if (sa !== sb) return sa - sb;
+          return a.name.localeCompare(b.name);
+        });
+    }
+  }, [filtered, sort]);
 
   const counts = useMemo(() => {
     const c: Record<VendorPublicStatus, number> = {
@@ -82,9 +116,20 @@ const VerifiedVendors = () => {
     return c;
   }, []);
 
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = sorted.slice(pageStart, pageStart + PAGE_SIZE);
+
+  // Reset to page 1 whenever filters/sort change the result set
+  useEffect(() => {
+    setPage(1);
+  }, [query, state, city, status, focus, hasReview, sort]);
+
   const filtersActive =
     query !== "" ||
     state !== ALL ||
+    city !== ALL ||
     status !== ALL ||
     focus !== ALL ||
     hasReview !== ALL;
@@ -92,6 +137,7 @@ const VerifiedVendors = () => {
   const reset = () => {
     setQuery("");
     setState(ALL);
+    setCity(ALL);
     setStatus(ALL);
     setFocus(ALL);
     setHasReview(ALL);
