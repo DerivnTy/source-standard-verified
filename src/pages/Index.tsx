@@ -7,17 +7,17 @@ import { AnchorHeader } from "@/components/AnchorHeader";
 const lookups = [
   {
     n: "A",
-    label: "Look up a vendor",
-    title: "Verified Vendors registry",
-    body: "Each listing carries a citable review identifier, the categories reviewed, and the date of assessment.",
+    label: "Vendor audit lookup",
+    title: "Compliance Assessment registry",
+    body: "Each listing carries a Unique Audit Identifier, the categories assessed, and the date of the most recent compliance review.",
     to: "/verified-vendors",
     cta: "Open the registry",
   },
   {
     n: "B",
-    label: "Look up a source",
-    title: "Greenlist of recognized sources",
-    body: "Inclusion is based on public licensing, registration, and recognized credentialing standards.",
+    label: "Upstream source lookup",
+    title: "Registry of recognized upstream sources",
+    body: "Inclusion is based on FDA registration, state licensure, and recognized accreditation records held by the upstream facility.",
     to: "/greenlist",
     cta: "Open the greenlist",
   },
@@ -31,16 +31,16 @@ const anchors = [
 ];
 
 const eduPreview = [
-  { ref: "REF-101", c: "503B facilities", t: "What 503B registration actually verifies — and what it does not." },
-  { ref: "REF-201", c: "Certificates of analysis", t: "A structured guide to reading a peptide CoA without a chemistry background." },
-  { ref: "REF-601", c: "Due diligence", t: "Five questions every consumer should ask a vendor before purchase." },
-  { ref: "REF-801", c: "Risk", t: "Unverified sources: documented risks and consumer-side warning signs." },
+  { ref: "REF-101", c: "503B facilities", t: "Authenticating an FDA 503B outsourcing facility registration." },
+  { ref: "REF-201", c: "Certificates of analysis", t: "Reading a Certificate of Analysis: structural fields and common document discrepancies." },
+  { ref: "REF-601", c: "Due diligence", t: "Source authentication: the questions an auditor asks before a listing is issued." },
+  { ref: "REF-801", c: "Document discrepancies", t: "Document discrepancies and unverifiable supply: indicators flagged during assessment." },
 ];
 
 const procedural = [
   { t: "How verification works", d: "Procedural reference for the framework, evidence categories, and review timeline.", to: "/how-it-works" },
   { t: "Status definitions", d: "Public meaning of Verified, Pending, Suspended, Removed, Greenlisted, Under Review.", to: "/status-definitions" },
-  { t: "Accountability & enforcement", d: "Vendor obligations, supplier change reporting, suspension and removal.", to: "/accountability" },
+  { t: "Enforcement & Oversight", d: "Vendor obligations, randomized batch testing, supply-chain disclosures, and the procedures for suspension or removal.", to: "/accountability" },
   { t: "Governance & oversight", d: "Charter, conflict-of-interest policy, and standard maintenance.", to: "/governance" },
 ];
 
@@ -49,9 +49,9 @@ const Index = () => {
     <>
       <AnchorHeader
         size="lg"
-        eyebrow="Public reference"
-        title="Verify the source."
-        lead="Search verified vendors, recognized upstream sources, and public reference standards."
+        eyebrow="Public registry"
+        title="Public Registry of Compounding Standards."
+        lead="An independent registry cross-referencing licensed vendors against FDA-registered compounding facilities and recognized regulatory benchmarks."
       >
         <div className="flex flex-wrap gap-3">
           <Button asChild size="lg" className="h-11">
@@ -140,10 +140,10 @@ const Index = () => {
             <div className="md:col-span-5">
               <p className="eyebrow mb-3">§4 — The two registries</p>
               <h2 className="h-section">
-                Sources first. Vendors verified against them.
+                Source-First Verification. A mandatory prerequisite for every listing.
               </h2>
               <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-md">
-                The greenlist documents the upstream sources recognized under the framework. Verified vendors are then assessed against the greenlist. Both registries are public.
+                The upstream source registry documents the compounding facilities recognized under the framework. A vendor cannot be assessed until its declared sources clear that registry. Both registries are anchored to public regulatory benchmarks.
               </p>
             </div>
             <div className="md:col-span-7">
@@ -213,15 +213,15 @@ const Index = () => {
         <div className="container-wide py-16 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
-              <p className="eyebrow mb-3">§6 — Education</p>
+              <p className="eyebrow mb-3">§6 — Reference library</p>
               <h2 className="h-section">
-                Neutral, physician-reviewed reference material.
+                Administrative Reference & Compliance Library.
               </h2>
               <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-                Reference notes on peptide therapy, TRT, sourcing, storage, and the documented risks of unverified supply. All material is informational and does not constitute medical advice.
+                Procedural notes on source authentication, document discrepancies, regulatory benchmarks, and the audit categories used in compliance assessment. Informational only; not medical advice.
               </p>
               <Link to="/education" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
-                Open the library <ArrowRight className="h-3.5 w-3.5" />
+                Open the reference library <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
             <div className="md:col-span-7">
@@ -269,10 +269,10 @@ const Index = () => {
             <div className="md:col-span-8">
               <p className="eyebrow mb-3">§8 — Vendor participation</p>
               <h2 className="h-section">
-                For vendors seeking listing under the standard.
+                For vendors seeking listing under the framework.
               </h2>
               <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-2xl">
-                Submission requirements, evidence categories, and review timelines are published openly. Listings are issued only after review is complete and a public review identifier has been assigned.
+                Submission requirements, evidence categories, and review timelines are published openly. A listing is issued only after compliance assessment is complete and a Unique Audit Identifier has been assigned.
               </p>
             </div>
             <div className="md:col-span-4 md:text-right flex md:justify-end gap-3">

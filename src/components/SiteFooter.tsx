@@ -92,11 +92,11 @@ export const SiteFooter = () => {
 
         <div className="mt-14 pt-8 border-t border-border/70">
           <p className="text-[13px] text-muted-foreground leading-relaxed max-w-4xl">
-            Source Standard is a public information and verification framework. It does not
-            manufacture, distribute, prescribe, dispense, or endorse products, and it does
-            not provide medical advice. Verification reflects documentation reviewed at the
-            time of assessment and does not guarantee medical outcomes, product safety, or
-            treatment efficacy.
+            Source Standard is an independent auditing and information framework. It does
+            not manufacture, distribute, prescribe, or dispense products, and it does not
+            provide medical advice. A listing reflects documentation reviewed at the time
+            of compliance assessment and does not guarantee medical outcomes, product
+            safety, or treatment efficacy.
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-between gap-y-2">
             <p className="text-[12.5px] text-muted-foreground">
