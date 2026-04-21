@@ -340,7 +340,6 @@ const Greenlist = () => {
                       >
                         {e.name}
                       </Link>
-                      <p className="text-[11px] text-muted-foreground truncate">{e.type}</p>
                     </div>
                     <div className="col-span-2">
                       <CategoryPill category={e.category} />
