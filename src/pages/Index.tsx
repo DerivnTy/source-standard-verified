@@ -140,10 +140,10 @@ const Index = () => {
             <div className="md:col-span-5">
               <p className="eyebrow mb-3">§4 — The two registries</p>
               <h2 className="h-section">
-                Sources first. Vendors verified against them.
+                Source-First Verification. A mandatory prerequisite for every listing.
               </h2>
               <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-md">
-                The greenlist documents the upstream sources recognized under the framework. Verified vendors are then assessed against the greenlist. Both registries are public.
+                The upstream source registry documents the compounding facilities recognized under the framework. A vendor cannot be assessed until its declared sources clear that registry. Both registries are anchored to public regulatory benchmarks.
               </p>
             </div>
             <div className="md:col-span-7">
