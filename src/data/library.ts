@@ -1,6 +1,8 @@
 export type Lane = "series" | "guide" | "faq" | "supplementary";
 export type EntryStatus = "published" | "in-review" | "outlined" | "forthcoming";
 
+export type EntryLevel = "intro" | "intermediate";
+
 export type LibraryEntry = {
   id: string;
   slug: string;
@@ -9,6 +11,7 @@ export type LibraryEntry = {
   summary: string;
   status: EntryStatus;
   reviewedBy?: string;
+  level?: EntryLevel;
 };
 
 export type FAQGroup = "legality" | "verification" | "methodology" | "due-diligence";
@@ -45,6 +48,26 @@ export const ENTRY_STATUS_LABEL: Record<EntryStatus, string> = {
 
 export const librarySeries: LibraryEntry[] = [
   {
+    id: "SS-SERIES-000A",
+    slug: "what-are-peptides",
+    lane: "series",
+    title: "What Are Peptides?",
+    summary:
+      "A plain-language introduction to peptides — what they are, how they're used clinically, and why sourcing matters.",
+    status: "outlined",
+    level: "intro",
+  },
+  {
+    id: "SS-SERIES-000B",
+    slug: "what-is-compounding",
+    lane: "series",
+    title: "What Is Compounding?",
+    summary:
+      "An overview of pharmacy compounding, the difference between 503A and 503B facilities, and why the distinction matters.",
+    status: "outlined",
+    level: "intro",
+  },
+  {
     id: "SS-SERIES-001",
     slug: "the-2026-compounding-reclassification",
     lane: "series",
@@ -61,6 +84,7 @@ export const librarySeries: LibraryEntry[] = [
     summary:
       "What a Certificate of Analysis documents, what it does not, and how to interpret common test sections.",
     status: "outlined",
+    level: "intro",
   },
   {
     id: "SS-SERIES-003",
@@ -70,6 +94,7 @@ export const librarySeries: LibraryEntry[] = [
     summary:
       "Why Source Standard verifies both the clinic and the upstream pharmacy, and what each layer is responsible for.",
     status: "in-review",
+    level: "intro",
   },
   {
     id: "SS-SERIES-004",

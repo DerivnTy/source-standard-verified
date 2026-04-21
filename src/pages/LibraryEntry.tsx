@@ -54,13 +54,15 @@ const LibraryEntry = () => {
 
       <Section>
         <div className="border border-border/70 bg-surface-muted/40 px-6 py-8 rounded-[2px] max-w-3xl">
-          <p className="eyebrow mb-3">Outlined — full text forthcoming</p>
+          <p className="eyebrow mb-3">We're still writing this one</p>
           <p className="text-[14px] text-muted-foreground leading-relaxed">
-            This entry is part of the Clinical Reference Library and is currently outlined. The full
-            reviewed text will be published here once it has completed the editorial and, where
-            applicable, Medical Advisory Board review process.
+            Here's what it will cover: <span className="text-foreground">{entry.summary}</span>
           </p>
           <p className="mt-4 text-[13px] text-muted-foreground/90">
+            The full text will be published once it has completed editorial and, where applicable,
+            Medical Advisory Board review.
+          </p>
+          <p className="mt-4 text-[12.5px] text-muted-foreground/80">
             Reference ID · <span className="font-mono text-foreground">{entry.id}</span>
           </p>
         </div>
