@@ -1,89 +1,43 @@
 
 
-## Rebuild Greenlist Profile Section Structure + Populate Fields
+## Unify Greenlist Profile Typography
 
-Replace the current triple-headed boxed sections with clean, single-headline editorial blocks, and populate profiles with verifiable public information.
+Make label/value formatting consistent across all Greenlist profile sections so every field reads the same way as the "Clinical focus" prose line.
 
-### Files touched
-- `src/pages/GreenlistProfile.tsx` — restructure section component
-- `src/data/greenlist.ts` — populate profile fields with public info where supportable
+### File touched
+- `src/pages/GreenlistProfile.tsx`
 
-### 1. Section header simplification
+### Changes
 
-**Current (repetitive):**
-```
-01 · Regulatory & Quality
-Regulatory identity, quality systems
-Licensure, inspections, and quality systems.
-```
+**1. Lightly bold the inline labels**
+Update the label spans inside `TagRow` and `Prose` components so labels like `Dosage forms`, `Specializations`, `Standards`, `States served`, `Testing`, `Inspections`, `Environmental monitoring`, `Clinical focus`, `API sourcing`, `Review notes` render with `font-semibold` (light bold) instead of the current uppercase mono micro-caps.
 
-**New (single line):**
-```
-01 · Regulatory & Quality
-─────────────────────────
-[content begins immediately]
-```
+- Labels switch from `text-[10.5px] uppercase tracking-[0.1em] font-mono text-muted-foreground` → `text-[14px] font-semibold text-foreground` (matches body prose size, lightly emphasized).
+- Label still sits inline before the value, separated by a space.
 
-Replace the boxed `<Section>` component with a flat editorial block:
-- One header line: number + title in mono uppercase, no eyebrow stack, no subtitle, no bordered box.
-- Hairline rule under the header.
-- Content sits directly below on the page background — no card surface, no nested header strip.
-- Inter-section spacing increases slightly (`space-y-8` instead of `space-y-3`) so the rule + whitespace creates the section division instead of a card border.
+**2. Unify the value typography**
+Make the values that follow each label use the same font/size/color as the "Clinical focus" paragraph (which uses `Prose`: `text-[14px] text-foreground/85 leading-[1.55]`).
 
-### 2. Content layout under each section
+- `TagRow` chips (Dosage forms, Specializations, Standards, States served, Testing): drop the mono chip styling (`font-mono`, bordered pill, muted surface). Render values as a plain comma-separated inline list in `text-[14px] text-foreground/85`, sitting on the same line as the bold label and wrapping naturally.
+- `Prose` values: already correct — only the label styling needs to change to match.
+- `MetaLine` (the dot-separated mono row at the top of each section): convert from `font-mono text-[12.5px]` to the same `text-[14px] text-foreground/85` body style, keeping the `·` separators but dropping the mono treatment so it reads as one consistent voice with the rest of the section.
 
-Drop the rigid 2-column `<dl>` grid that forces every field into an equal cell. Instead:
+**3. Result — consistent formatting per field**
+Every line in every section reads as:
 
-- **Inline metadata row** at top of each section for short scalar fields (e.g., "FDA reg · 3001234567 · 12 states served · cGMP, USP <797>") rendered as a wrapped, dot-separated mono line.
-- **Tag rows** for arrays (standards, dosage forms, specializations) on their own line with a small label.
-- **Prose paragraph** for narrative fields (inspection notes, API sourcing policy, operational summary, review notes).
+> **Label** value text in the same body font, same size, same color as Clinical focus.
 
-Result: each section reads like a brief, not a form.
-
-### 3. New section composition
-
-**01 · Regulatory & Quality**
-- Inline meta line: designation · FDA reg / FEI · last inspection date · cleanroom class
-- States served — tag chips
-- Standards met — tag chips
-- Inspection history — short paragraph if present
-- Testing protocols / environmental monitoring — short paragraph if present
-
-**02 · Product Capabilities**
-- Dosage forms — tag chips
-- Specializations — tag chips
-- Clinical focus — short paragraph (uses `entry.focus` as fallback)
-- API sourcing policy — paragraph if present
-
-**03 · Background**
-- Inline meta line: years in operation · facility scale · QA staffing
-- Operational summary — paragraph (`p.background`)
-- Review notes — paragraph if present
-
-Sections that end up empty after omit-empty filtering still skip entirely.
-
-### 4. Data population (`src/data/greenlist.ts`)
-
-For each entry, ensure the `profile` block contains verifiable public information. Cover where supportable from public sources (FDA 503B registration list, state board listings, company About pages):
-
-- `fdaRegistration` — for 503B facilities, FDA registration / FEI from the FDA 503B Registered Outsourcing Facilities list.
-- `standards` — `cGMP (503B)` for outsourcing facilities; `USP <797>`, `USP <800>`, `USP <795>` based on disclosed scope.
-- `dosageForms` — sterile injectables, oral, topicals, ophthalmic, etc., per company disclosures.
-- `specializations` — hormone therapy, peptide therapy, weight management, ophthalmic, hospital/perioperative, etc.
-- `apiSourcingPolicy` — only where the company publicly states FDA-registered API or COA practices.
-- `yearsInOperation` / `facilityScale` — only where publicly stated.
-- `background` — neutral 1–2 sentence operational summary based on public site / FDA listing.
-- `statesServed` — only where the company publishes a list; otherwise omit.
-- `inspectionHistory` — left blank unless a recent FDA Form 483 is publicly known and uncontroversial; otherwise omit (do not invent).
-
-**Rule:** if a fact is not publicly verifiable, leave it omitted. No "Not disclosed" filler.
+Example after change:
+- **Standards** cGMP (503B), USP <797>, USP <800>
+- **Dosage forms** Sterile injectables, ophthalmic
+- **Specializations** Hormone therapy, peptide therapy
+- **Clinical focus** Sterile compounded drugs from bulk substances for office use; early-stage 503B focused on provider-office sterile products.
 
 ### What stays the same
-- Hero header, At-a-glance sidebar, MetadataBar — untouched.
-- Routing, slugs, table view — untouched.
-- Section omit-empty rules.
-- Footer disclosure note (kept, but un-boxed to match new editorial style).
+- Section headers (`01 · Regulatory & Quality` etc.), hairline rules, omit-empty rules, section ordering.
+- Hero, At-a-glance sidebar, MetadataBar, footer disclosure note.
+- Data in `src/data/greenlist.ts` — untouched.
 
 ### Result
-Each profile section reads as a clean editorial block: one header line, a hairline rule, then the actual content laid out as a mix of inline meta lines, tag rows, and short paragraphs. The page feels like a facility brief, not stacked admin cards. Profile data is populated from public sources where verifiable, with sparse-but-accurate sections preferred over padded ones.
+Every field across every Greenlist profile uses one consistent typographic system: a lightly bold label followed by body-prose values in the same font as the Clinical focus line. No more mono chips next to prose paragraphs — the page reads as one cohesive brief.
 
