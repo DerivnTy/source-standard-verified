@@ -229,6 +229,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "St. Louis, MO",
     focus: "Sterile preparations including injectables for office-based practices",
     website: "https://parkavenuecompounding.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-based practice sterile stock"],
+      background:
+        "Missouri-based 503B outsourcing facility producing sterile compounded preparations for office-based practices and prescribers.",
+    },
   },
   {
     slug: "sca-pharmaceuticals",
