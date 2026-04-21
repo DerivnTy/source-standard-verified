@@ -28,11 +28,11 @@ const STATUS_ORDER: VendorPublicStatus[] = [
 ];
 
 const STATUS_LEGEND_SHORT: Record<VendorPublicStatus, string> = {
-  verified: "completed verification published",
-  "under-review": "review currently in progress",
-  unverified: "no published verification currently shown",
-  suspended: "published verification temporarily paused",
-  removed: "listing removed from the public directory",
+  verified: "published verification",
+  "under-review": "review in progress",
+  unverified: "no published verification",
+  suspended: "verification paused",
+  removed: "listing removed",
 };
 
 const formatLocation = (v: Vendor) => {
@@ -172,24 +172,24 @@ const VerifiedVendors = () => {
         ]}
       />
 
-      {/* Status legend — compact */}
+      {/* Status legend — compact card row */}
       <section className="bg-surface-muted border-b border-border">
-        <div className="container-wide py-3">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <p className="meta-label text-foreground">Legend</p>
+        <div className="container-wide py-5">
+          <p className="meta-label text-foreground">How to read this directory</p>
+          <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-border border border-border">
             {STATUS_ORDER.map((s) => (
-              <div key={s} className="flex items-center gap-2 min-w-0">
+              <div key={s} className="bg-surface-muted px-3 py-2.5 flex flex-col gap-1.5">
                 <StatusBadge status={s} />
-                <span className="text-[12px] text-muted-foreground leading-tight">
+                <span className="text-[12px] text-muted-foreground leading-snug">
                   {STATUS_LEGEND_SHORT[s]}
                 </span>
               </div>
             ))}
           </div>
-          <p className="mt-2 text-[11.5px] text-muted-foreground leading-snug">
-            <span className="text-foreground font-medium">Note:</span> “Unverified” means no
-            Source Standard verification is currently published — not that the vendor is unsafe
-            or noncompliant.
+          <p className="mt-3 max-w-3xl text-[12px] text-muted-foreground leading-snug">
+            <span className="text-foreground font-medium">Note.</span> “Unverified” means Source
+            Standard verification is not currently published for this vendor. It does not by
+            itself indicate that the vendor is unsafe, noncompliant, or illegitimate.
           </p>
         </div>
       </section>
