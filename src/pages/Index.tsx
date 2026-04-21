@@ -68,17 +68,17 @@ const Index = () => {
 
       {/* §2 Public lookups — primary entry points */}
       <section className="border-b border-border/50 bg-surface-muted/40">
-        <div className="container-wide py-14 md:py-20">
+        <div className="container-wide py-16 md:py-20">
           <div className="flex items-baseline justify-between mb-8">
             <p className="eyebrow">§2 — Public lookups</p>
-            <p className="text-[12.5px] text-muted-foreground">Primary entry points</p>
+            <p className="text-[12px] text-muted-foreground">Primary entry points</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {lookups.map((l) => (
-              <div key={l.n} className="border border-border/60 rounded-lg bg-background p-8 flex flex-col">
-                <p className="text-[12px] uppercase tracking-[0.12em] text-muted-foreground mb-3">{l.label}</p>
-                <h3 className="text-[20px] font-semibold text-foreground mb-3">{l.title}</h3>
-                <p className="text-[15px] text-muted-foreground leading-relaxed mb-6 flex-1">{l.body}</p>
+              <div key={l.n} className="border border-border/60 rounded-lg bg-background p-6 flex flex-col">
+                <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground mb-3">{l.label}</p>
+                <h3 className="h-sub mb-2">{l.title}</h3>
+                <p className="text-[14px] text-muted-foreground leading-relaxed mb-6 flex-1">{l.body}</p>
                 <Button asChild size="lg" className="h-11 self-start">
                   <Link to={l.to}>{l.cta}</Link>
                 </Button>
@@ -90,14 +90,14 @@ const Index = () => {
 
       {/* §3 Medical authority — foundational layer */}
       <section className="border-b border-border/50">
-        <div className="container-wide py-14 md:py-20">
+        <div className="container-wide py-16 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
-              <p className="eyebrow mb-4">§3 — Medical authority</p>
-              <h2 className="section-heading">
+              <p className="eyebrow mb-3">§3 — Medical authority</p>
+              <h2 className="h-section">
                 Standards are set and reviewed under the Medical Advisory Board.
               </h2>
-              <p className="mt-5 text-[15.5px] text-muted-foreground leading-relaxed max-w-md">
+              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-md">
                 Clinical scope, evidence standards, and renewal intervals for the framework are maintained under physician review. Medical oversight is structural and extends across every verification and every Greenlist entry.
               </p>
               <Link
@@ -110,7 +110,7 @@ const Index = () => {
             <div className="md:col-span-7">
               <div className="border border-border/60 rounded-lg bg-surface-muted/40 overflow-hidden">
                 <div className="px-5 py-3 border-b border-border/60 bg-background flex items-center justify-between">
-                  <p className="text-[13px] font-semibold text-foreground">Medical Advisory Board · SS-MAB-2026.01</p>
+                  <p className="h-card">Medical Advisory Board · SS-MAB-2026.01</p>
                   <p className="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Active</p>
                 </div>
                 <dl className="divide-y divide-border/60">
@@ -121,7 +121,7 @@ const Index = () => {
                     { l: "Conflict policy", v: "Disclosed · governance-published" },
                     { l: "Review cycle", v: "Annual standard review · interim flags" },
                   ].map((r) => (
-                    <div key={r.l} className="flex items-baseline justify-between px-5 py-3.5">
+                    <div key={r.l} className="flex items-baseline justify-between px-5 py-3">
                       <dt className="text-[13.5px] text-muted-foreground">{r.l}</dt>
                       <dd className="text-[13px] font-medium text-foreground text-right ml-3">{r.v}</dd>
                     </div>
@@ -135,32 +135,32 @@ const Index = () => {
 
       {/* §4 The two registries — structural explanation */}
       <section className="border-b border-border/50 bg-surface-muted/40">
-        <div className="container-wide py-14 md:py-20">
+        <div className="container-wide py-16 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
-              <p className="eyebrow mb-4">§4 — The two registries</p>
-              <h2 className="section-heading">
+              <p className="eyebrow mb-3">§4 — The two registries</p>
+              <h2 className="h-section">
                 Sources first. Vendors verified against them.
               </h2>
-              <p className="mt-5 text-[15.5px] text-muted-foreground leading-relaxed max-w-md">
+              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-md">
                 The greenlist documents the upstream sources recognized under the framework. Verified vendors are then assessed against the greenlist. Both registries are public.
               </p>
             </div>
             <div className="md:col-span-7">
               <div className="border border-border/60 rounded-lg bg-background overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-3 border-b border-border/60 bg-surface-muted/60">
-                  <p className="text-[13px] font-semibold text-foreground">Greenlist categories</p>
-                  <p className="text-[12.5px] text-muted-foreground">Active · v.2026.01</p>
+                  <p className="h-card">Greenlist categories</p>
+                  <p className="text-[12px] text-muted-foreground">Active · v.2026.01</p>
                 </div>
                 <ul className="divide-y divide-border/60">
                   {greenlist.map((g, i) => (
-                    <li key={g.category} className="grid grid-cols-12 px-5 py-4 items-center gap-3">
+                    <li key={g.category} className="grid grid-cols-12 px-5 py-3 items-center gap-3">
                       <div className="col-span-1 font-mono text-[11px] text-muted-foreground">§{i + 1}</div>
                       <div className="col-span-5">
-                        <p className="text-[14.5px] font-semibold text-foreground">{g.category}</p>
+                        <p className="text-[14px] font-semibold text-foreground">{g.category}</p>
                       </div>
                       <div className="col-span-4">
-                        <p className="text-[13.5px] text-muted-foreground leading-snug">{g.title}</p>
+                        <p className="text-[13px] text-muted-foreground leading-snug">{g.title}</p>
                       </div>
                       <div className="col-span-2 text-right">
                         <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] text-verified">
@@ -172,8 +172,8 @@ const Index = () => {
                   ))}
                 </ul>
                 <div className="px-5 py-3 border-t border-border/60 flex items-center justify-between">
-                  <Link to="/greenlist" className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary">View greenlist →</Link>
-                  <Link to="/verified-vendors" className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover">View vendor registry →</Link>
+                  <Link to="/greenlist" className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary">View greenlist →</Link>
+                  <Link to="/verified-vendors" className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover">View vendor registry →</Link>
                 </div>
               </div>
             </div>
@@ -183,11 +183,11 @@ const Index = () => {
 
       {/* §5 Standards anchoring */}
       <section className="border-b border-border/50">
-        <div className="container-wide py-14 md:py-20">
+        <div className="container-wide py-16 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-4">
-              <p className="eyebrow mb-4">§5 — Standards anchoring</p>
-              <h2 className="section-heading">
+              <p className="eyebrow mb-3">§5 — Standards anchoring</p>
+              <h2 className="h-section">
                 Anchored to public regulatory and compendial records.
               </h2>
               <Link to="/governance" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
@@ -197,9 +197,9 @@ const Index = () => {
             <div className="md:col-span-8">
               <div className="border border-border/60 rounded-lg bg-background divide-y divide-border/60 overflow-hidden">
                 {anchors.map((a) => (
-                  <div key={a.k} className="grid grid-cols-12 px-5 py-4 items-baseline gap-4">
+                  <div key={a.k} className="grid grid-cols-12 px-5 py-3 items-baseline gap-4">
                     <div className="col-span-2 font-mono text-[12px] font-semibold text-foreground tracking-[0.04em]">{a.k}</div>
-                    <div className="col-span-10 text-[14px] text-muted-foreground leading-relaxed">{a.d}</div>
+                    <div className="col-span-10 text-[13.5px] text-muted-foreground leading-relaxed">{a.d}</div>
                   </div>
                 ))}
               </div>
@@ -210,14 +210,14 @@ const Index = () => {
 
       {/* §6 Education preview */}
       <section className="border-b border-border/50 bg-surface-muted/40">
-        <div className="container-wide py-14 md:py-20">
+        <div className="container-wide py-16 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
-              <p className="eyebrow mb-4">§6 — Education</p>
-              <h2 className="section-heading">
+              <p className="eyebrow mb-3">§6 — Education</p>
+              <h2 className="h-section">
                 Neutral, physician-reviewed reference material.
               </h2>
-              <p className="mt-4 text-[15.5px] text-muted-foreground leading-relaxed">
+              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
                 Reference notes on peptide therapy, TRT, sourcing, storage, and the documented risks of unverified supply. All material is informational and does not constitute medical advice.
               </p>
               <Link to="/education" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
@@ -228,11 +228,11 @@ const Index = () => {
               <div className="border border-border/60 rounded-lg bg-background overflow-hidden">
                 <ul className="divide-y divide-border/60">
                   {eduPreview.map((e) => (
-                    <li key={e.ref} className="grid grid-cols-12 px-5 py-4 items-baseline gap-3">
+                    <li key={e.ref} className="grid grid-cols-12 px-5 py-3 items-baseline gap-3">
                       <div className="col-span-3 font-mono text-[11px] text-muted-foreground">{e.ref}</div>
-                      <div className="col-span-3 text-[13px] text-muted-foreground">{e.c}</div>
+                      <div className="col-span-3 text-[12.5px] text-muted-foreground">{e.c}</div>
                       <div className="col-span-6">
-                        <p className="text-[14.5px] font-medium text-foreground leading-snug">{e.t}</p>
+                        <p className="text-[14px] font-medium text-foreground leading-snug">{e.t}</p>
                       </div>
                     </li>
                   ))}
@@ -245,17 +245,17 @@ const Index = () => {
 
       {/* §7 Process & accountability — depth layer */}
       <section className="border-b border-border/50">
-        <div className="container-wide py-14 md:py-20">
+        <div className="container-wide py-16 md:py-20">
           <div className="flex items-baseline justify-between mb-8">
             <p className="eyebrow">§7 — Process & accountability</p>
-            <p className="text-[12.5px] text-muted-foreground">Procedural depth</p>
+            <p className="text-[12px] text-muted-foreground">Procedural depth</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {procedural.map((p, i) => (
-              <Link key={p.t} to={p.to} className="rounded-lg border border-border/60 bg-background p-6 hover:bg-surface-muted/40 transition-colors group">
+              <Link key={p.t} to={p.to} className="rounded-lg border border-border/60 bg-background p-5 hover:bg-surface-muted/40 transition-colors group">
                 <p className="font-mono text-[11px] text-muted-foreground mb-3">§7.{i + 1}</p>
-                <p className="text-[15px] font-semibold text-foreground mb-2 group-hover:text-primary">{p.t}</p>
-                <p className="text-[13.5px] text-muted-foreground leading-relaxed">{p.d}</p>
+                <p className="h-card mb-2 group-hover:text-primary">{p.t}</p>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">{p.d}</p>
               </Link>
             ))}
           </div>
@@ -268,10 +268,10 @@ const Index = () => {
           <div className="grid md:grid-cols-12 gap-8 items-center">
             <div className="md:col-span-8">
               <p className="eyebrow mb-3">§8 — Vendor participation</p>
-              <h2 className="text-[1.375rem] md:text-[1.5rem] font-semibold tracking-[-0.01em] leading-[1.25] text-foreground">
+              <h2 className="h-section">
                 For vendors seeking listing under the standard.
               </h2>
-              <p className="mt-3 text-[15.5px] text-muted-foreground leading-relaxed max-w-2xl">
+              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-2xl">
                 Submission requirements, evidence categories, and review timelines are published openly. Listings are issued only after review is complete and a public review identifier has been assigned.
               </p>
             </div>
