@@ -1,160 +1,124 @@
 
 
-## Readability & Polish Pass: Calmer Type, Easier Navigation, More Breathing Room
+## Architectural Correction: From "Startup Defining Itself" to "Established Public Reference Organization"
 
-Keep the three-layer architecture and institutional tone established in prior passes. This pass fixes the *experience* layer — typography, spacing, navigation feel, and visual rhythm — so the site reads smoothly for a normal consumer while preserving authority.
-
-The principle: **authority through clarity, not through stylization.** Less all-caps, less tracking, more whitespace, larger comfortable body text, softer borders, simpler nav.
+This plan re-sequences the site, re-anchors the homepage, and elevates the Medical Advisory layer so every page reads as a section *within* an existing institution rather than a pitch for one.
 
 ---
 
-### 1. Typography system rebuild
+### 1. Re-sequence the global navigation (outside-in hierarchy)
 
-**Font family — switch primary to Inter, keep IBM Plex Mono for technical labels only.**
+Reorder the primary nav and footer to match the stated hierarchy of importance: public authority → medical authority → vendor registry → source registry → education → process → enforcement → vendor participation.
 
-IBM Plex Sans is reading slightly mechanical at body sizes and contributing to the "stiff" feel. Inter is the standard for serious public information systems (used by GOV.UK-style and registry platforms), reads more naturally at small sizes, and has better hinting on Windows.
+**New top nav order:**
+`Verified Vendors` · `Greenlist` · `Medical Advisory` · `Education` · `How it works` · `About`
 
-- `sans` (body + headings): **Inter**, weights 400 / 500 / 600
-- `mono` (doc IDs, technical metadata only): **IBM Plex Mono**, 400
-- Drop `serif` mapping to Plex (no serif used on the site)
+(Move "Medical Advisory" up from the footer area into the primary nav as a peer of the registries. Demote "How it works" — it's process depth, not a top-layer entry point. Drop "Home" label; logo handles it.)
 
-**Body text — larger, calmer, wider line-height.**
+**Header utility strip** (already present): keep, but standardize wording to *"Public reference · Standard SS-FRAMEWORK-2026.01 · Active"* on every page so the institutional frame is constant.
 
-| Token | Current | New |
-|---|---|---|
-| Body size | 15px | **16px** |
-| Body line-height | 1.7 | **1.65** (tighter line-height with larger size reads calmer) |
-| Body weight | 400 | 400 |
-| Body letter-spacing | 0 | **-0.005em** (Inter benefits from a hair of negative tracking at 16px) |
-| Paragraph max-width | varies | **65ch** default in `.prose-readable` utility |
-
-**Headings — softer weights, more line-height, less compression.**
-
-| Element | Current | New |
-|---|---|---|
-| h1 | 500, 1.2 | **600, 1.15, tracking -0.015em** |
-| h2 | 500, 1.25 | **600, 1.2, tracking -0.01em** |
-| h3 | 600, 1.35 | **600, 1.3** |
-| h4 | 600, 1.35 | **600, 1.35** |
-
-Heading sizes reduced one notch on the homepage hero so it stops feeling like a hero headline:
-- Page title: `2.25rem → 2rem` desktop, `1.75rem → 1.625rem` mobile
-- Section title (`SectionLabel`): `1.75rem → 1.5rem`
-- Hero headline on Index: `~3rem → 2.25rem` desktop
-
-**All-caps treatment — significantly softened.**
-
-This is the single biggest "clunky" contributor. Rules:
-
-- `.eyebrow`: **stays all-caps** but tracking `0.1em → 0.06em`, weight `500 → 600`, size `11px → 11.5px`. Used sparingly — one per section max.
-- `.meta` and `.meta-label`: **drop all-caps** for descriptive labels. Become small-caps-like via `12px Inter, weight 500, tracking 0.01em, color muted-foreground`. Technical identifiers (doc IDs, version strings, status codes) stay uppercase in mono.
-- Nav links: **drop all-caps entirely**. Switch to sentence case, `13.5px Inter, weight 500, tracking 0`.
-- Footer column titles: **drop all-caps**. Sentence case, `13px, weight 600`.
-- Button labels: **drop all-caps**. Sentence case, weight 500.
-- Utility strip: keep small institutional text but drop tracking from `0.1em` to `0.02em` and switch to sentence-case phrasing.
-
-Net effect: all-caps survives only where it earns its place — eyebrows, doc IDs, status codes, version strings. Everything else becomes naturally readable.
+**Footer column reorder:** `Registry` → `Medical & Governance` (merge medical advisory + governance + accountability) → `Standards & Process` → `Reference & Templates` → `Legal`. Promotes oversight to the second column instead of burying it.
 
 ---
 
-### 2. Navigation — calmer, sentence-case, fewer items
+### 2. Rebuild the homepage around the corrected sequence
 
-**Top nav refinements:**
+The current homepage opens with a hero pitch, then explains "How Source Standard is anchored" (still a self-justification frame). Replace with sections that read as *entry points into an existing system*.
 
-- Switch all nav labels to sentence case (`Verified vendors`, `Greenlist`, `Education`, `Medical advisory`, `How it works`, `About`).
-- Reduce nav font from `11px uppercase 0.14em` to `13.5px sentence-case 0`.
-- Increase header height `h-14 → h-16` for breathing room.
-- Increase gap between nav items `gap-6 → gap-7`.
-- Active state: subtle weight bump (500 → 600) + 1px underline offset, no color shift.
-- Apply button: sentence case "Apply for verification", height `h-9 → h-10`, regular weight not heavy.
+**New homepage section order:**
 
-**Utility strip:**
-- Reduce visual weight: lighter background (use `bg-surface-sunken` instead of `bg-foreground` inverted), small sentence-case text in muted foreground. Currently the dark inverted strip reads aggressive.
-- Copy: `Public reference · Document version 2026.01` (left), `Maintained in Tampa, FL` (right).
+```text
+§0  Standing strip          Doc ID, status, version, jurisdiction (already exists)
+§1  Public statement        One short institutional sentence — what this is, in
+                            public terms. No "we are building." Present tense.
+§2  Public lookups          Two equal-weight panels:
+                              • Look up a vendor   → Verified Vendors registry
+                              • Look up a source   → Greenlist
+                            This is what the public comes here to do.
+§3  Medical authority       Medical Advisory Board panel: roster summary,
+                            physician oversight statement, link to MAB page.
+                            Treated as a foundational layer, not a footnote.
+§4  The two registries      Brief structural explanation of Greenlist (sources)
+                            and Verified Vendors (vendors verified against them).
+§5  Standards anchoring     FDA · PCAB · NSF · USP reference row + governance link.
+§6  Education reference     Library preview (existing, kept).
+§7  Process & accountability  Compact links into How it works, Accountability,
+                              Status definitions — the "deeper if you want it" layer.
+§8  For vendors             Last, not first. Vendor participation is a consequence
+                            of the standard, not the purpose of the site.
+```
 
-**Mobile nav:**
-- Larger tap targets, sentence case, no uppercase tracking.
-
----
-
-### 3. Visual rhythm — softer borders, more breathing room
-
-**Borders:**
-- Border color lightened slightly: `--border: 215 18% 84% → 215 16% 88%`
-- Drop most heavy `border-y` blocks on metadata bars to a single `border-b border-border/60`
-- Soften `MetadataBar`: change from full bordered strip to a quieter single bottom-border with reduced vertical padding `py-2.5 → py-3`, lighter background `bg-surface-muted → bg-surface-muted/50`
-
-**Spacing:**
-- Section vertical padding: `py-14 md:py-20 → py-16 md:py-24` (more air between sections)
-- `RecordHeader` body: increase top/bottom internal padding by ~25%
-- `PageHeader`: `py-12 md:py-16 → py-14 md:py-20`
-- Card/box internal padding: existing `p-6` blocks → `p-7`; `p-8` blocks → `p-10`
-- Footer columns: `gap-8 → gap-10`, footer top section `py-12 → py-16`
-
-**Box / framed sections:**
-- `FramedSection` border becomes `border-border/70`, header strip background lighter
-- Add `rounded-[2px]` to framed sections (currently `--radius: 0.125rem` = 2px but not always applied) — keeps the squared institutional feel but removes the tense-knife-edge look on light backgrounds
-- Numbered list rows (the §01, §02 patterns): increase row vertical padding, soften the divider from `border-border` to `border-border/60`
-
-**Buttons:**
-- Primary button: keep `rounded-none` is too stiff — switch to `rounded-[2px]` to match the system radius; sentence case; `h-10` default; comfortable horizontal padding `px-5`.
-- Secondary/ghost buttons: same treatment.
+Rationale: the user enters the system → sees what they can check → sees the medical authority behind it → sees the structure → can go deeper. No "here is what we're trying to be."
 
 ---
 
-### 4. Homepage clarity pass
+### 3. Standardize the "established system" interface chrome
 
-The homepage carries the biggest "is this for me?" burden. Adjustments to make it land for a consumer in under five seconds:
+Apply consistent institutional elements site-wide so structure does the trust work, not copy.
 
-**Hero:**
-- Headline becomes shorter and more direct. Two lines max. Sentence case. Weight 600 not 500.
-- Drop the second eyebrow/lead paragraph density — lead becomes a single sentence: *"The public reference for verifying vendors in peptide, TRT, and hormone optimization."*
-- Two CTAs: **Look up a vendor** (primary, filled) and **How verification works** (secondary, outline). Both sentence case, comfortable size, generous padding.
-- Right-side "Framework Snapshot" data block: simplify from a tracked-out uppercase data table to a cleaner three-row block with sentence-case labels + mono values. Less visual weight, easier to scan.
-
-**Section §1 "Authority Pillars":**
-- Title softened from "Authority pillars" eyebrow + dense subhead to a single sentence-case h2: *"How Source Standard is anchored."*
-- Each pillar card: bigger icon-less title (Inter 18px, 600), one-sentence body in 16px, single "Read more →" link.
-
-**Section §2 "Check a vendor":**
-- Most prominent block on the homepage after the hero. Simple two-row layout: short heading + short body + filled button to /verified-vendors.
-
-**Sections §3–§7:**
-- Same content, larger headings, more space between rows, sentence-case eyebrows, fewer all-caps labels.
+- **Document metadata bar** (`MetadataBar`) at the top of every content page: Doc ID, Version, Status, Updated, Jurisdiction. Already exists on several pages — extend to the remaining ones (Education, About, Apply, Contact, ForVendors, FAQ).
+- **Section numbering** (§1, §2, …) used consistently across pages, not just the homepage.
+- **"Read deeper" panel** at the bottom of every page (pattern already used on MedicalAdvisory and VerifiedVendors) linking laterally into the system. Standardize and apply to all pages.
+- **Status pill conventions**: ■ Active / ■ Pending / ■ Expired / ■ Draft, used identically wherever status appears.
+- **Reference IDs** on education entries (REF-###), registry rows (SS-YYYY-#####), and framework documents (SS-DOC-YYYY.##) — already partially in place; audit for consistency.
 
 ---
 
-### 5. Cross-page consistency
+### 4. Elevate Medical Advisory as a foundational layer
 
-Apply the same treatment everywhere automatically via global CSS changes:
-- All page `RecordHeader` titles inherit new h1 size + weight
-- All `SectionLabel` instances inherit new h2 size + weight
-- All `.meta` / `.meta-label` instances inherit new sentence-case treatment
-- All `MetadataBar` instances inherit softer border + background
-
-Per-page files mostly don't need edits — the global CSS + Tailwind config + a few component tweaks cascade everywhere.
+- Add MAB to the primary nav (see §1).
+- Add a Medical Advisory panel as homepage §3 (above the registry/model explanation).
+- Add a small "Reviewed under Medical Advisory Board · SS-MAB-2026.01" line to the document metadata of every framework / registry / standards page (Greenlist, Verified Vendors, How it works, Status definitions, Accountability).
+- Footer: move Medical Advisory into the second column (Medical & Governance), not the Organization column.
 
 ---
 
-### 6. Files touched
+### 5. Tone & copy adjustments (architecture-driven, not a rewrite)
 
-**Edit:**
-- `tailwind.config.ts` — switch `sans` to Inter, keep mono as Plex Mono
-- `src/index.css` — Google Fonts import (Inter), update body size/line-height/letter-spacing, update heading scale, rewrite `.eyebrow` / `.meta` / `.meta-label`, lighten `--border`, add `.prose-readable` utility, increase `.section` padding
-- `src/components/SiteHeader.tsx` — sentence case nav, larger nav font, taller header, softer utility strip, sentence case button
-- `src/components/SiteFooter.tsx` — sentence case column titles + links, more spacing
-- `src/components/MetadataBar.tsx` — softer border, lighter background, more padding
-- `src/components/RecordHeader.tsx` — more internal padding, sentence-case treatment for non-ID fields
-- `src/components/PageHeader.tsx` — larger vertical padding, smaller h1
-- `src/components/Section.tsx` — larger section padding, smaller `SectionLabel` h2, sentence-case eyebrow handling
-- `src/components/ui/button.tsx` — sentence case default, `rounded-[2px]`, `h-10`, weight 500
-- `src/pages/Index.tsx` — hero rewrite (shorter headline, sentence case, simpler lead, simplified Framework Snapshot block); all section eyebrows/titles updated to new sentence-case pattern; CTAs updated
+Page intros across the site should follow this template:
 
-No new files. Placeholder pages and other Layer-2/3 pages inherit the typography automatically.
+> **[Institutional title]**
+> *One sentence describing what this page is in the public system.* Not what Source Standard "does" or "believes" — what this page *is*.
+
+Examples of the shift (copy will be written page-by-page after this architectural pass):
+
+- Homepage hero: from *"The public reference for verifying vendors…"* (already close) → keep, but remove any forward-looking "we will" language elsewhere.
+- About: from "who we are / what we're building" → "Organizational reference. Mandate, jurisdiction, governance structure, founding record."
+- How it works: from explainer → "Procedural reference for the verification framework SS-FRAMEWORK-2026.01."
+- For vendors: from sales-adjacent → "Participation reference for vendors seeking listing under the standard."
+
+No marketing verbs ("discover," "unlock," "join"). Present-tense institutional language.
 
 ---
 
-### Outcome
+### 6. Page-level depth gradient
 
-The site keeps its institutional architecture but loses the mechanical, over-tracked, all-caps-heavy feel. Body copy reads at a comfortable 16px with natural Inter spacing. Headings carry weight without compression. Nav is sentence-case and immediately scannable. Borders and metadata bars breathe. The homepage hero communicates what Source Standard is in under five seconds and points the consumer straight to "Look up a vendor." Authority remains; awkwardness is gone.
+Every major page restructured to follow: **public summary → structured subsections → procedural / legal depth at the bottom.**
+
+- Top: institutional title + one-line public purpose + metadata bar.
+- Middle: structured subsections (numbered, with reference panels).
+- Bottom: procedural detail, definitions, citations, "Read deeper" lateral links.
+
+Pages to restructure under this pattern in the implementation pass: `About`, `HowItWorks`, `Greenlist`, `VerifiedVendors`, `ForVendors`, `Education`, `Governance`, `Accountability`, `MedicalAdvisory`, `StatusDefinitions`. (Templates, Privacy, Terms, Disclaimer already match the pattern.)
+
+---
+
+### Files this will touch
+
+- `src/components/SiteHeader.tsx` — nav reorder, MAB promotion, utility strip wording.
+- `src/components/SiteFooter.tsx` — column reorder, Medical & Governance grouping.
+- `src/pages/Index.tsx` — full section reorder, add MAB panel as §3, dual-lookup §2, demote vendor section to last.
+- `src/components/MetadataBar.tsx` / `RecordHeader.tsx` — add optional "Reviewed under MAB" slot.
+- All page files listed in §6 — apply standard header + metadata bar + Read-deeper footer panel; revise intro copy to institutional template.
+- `src/components/PageHeader.tsx` — extend to optionally render metadata bar so non-record pages share the same chrome.
+
+---
+
+### What this plan deliberately does NOT do
+
+- Does not change the visual design system, typography, or color tokens (those were finalized in prior passes).
+- Does not write final page copy — that is the next, page-by-page step the user has already scoped.
+- Does not add new routes or remove existing pages — the architecture set in the previous pass stays; this pass re-weights and re-sequences it.
+
+After approval, implementation will proceed in this order: (1) nav + footer reorder, (2) homepage rebuild, (3) chrome standardization across pages, (4) Medical Advisory elevation, (5) per-page intro template applied. Then we begin writing page content one by one as previously planned.
 
