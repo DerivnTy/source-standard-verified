@@ -1,104 +1,102 @@
 
 
-## Site-Wide UI Refinement Pass — Soften, Modernize, Breathe
+## Visual Refinement Pass — Decouple Brand Blue From Status Green
 
-A foundation-level pass that updates design tokens and a small set of shared components so every page benefits at once, plus targeted edits to the two highest-traffic pages (Verified Vendors, Greenlist) and the homepage. No content, routing, or data changes.
+A token-led refinement that introduces a restrained slate-blue as the **interface accent** while preserving forest green strictly as **status meaning** (Verified, Greenlisted, Active). No gradients, no glow, no animations. The change happens almost entirely in `src/index.css` with small follow-on edits where green was hardcoded as a UI accent rather than as status.
 
-### 1. Design tokens — `src/index.css`
+### 1. Color system — split brand from status
 
-The cheapest, highest-leverage move. Updating tokens softens every page that uses them.
+Currently `--primary`, `--ring`, and `--verified` all share the same forest green. That's why the site reads as "green-coded" — every link, button, focus ring, and active state uses the same hue as the Verified badge. We separate them.
 
-- **Border radius**: raise `--radius` from `0.125rem` (square) to `0.375rem`. Soft, modern, still restrained. Inputs, cards, buttons, badges all soften at once.
-- **Border color**: lighten `--border` from `215 16% 88%` → `215 16% 92%`; keep `--border-strong` for tables/dividers that need definition.
-- **Surface tones**: brighten `--surface-muted` `97.5%` → `98.5%` so panel contrast becomes a whisper rather than a band.
-- **Shadows**: keep, but introduce them sparingly via component-level changes below — no global glow added.
-- **Typography utilities** (in `@layer components`):
-  - `.eyebrow` — drop tracking from `0.06em` to `0.04em` (less mechanical), keep weight.
-  - New `.section-heading` utility: `text-[1.625rem] md:text-[1.875rem] font-semibold tracking-[-0.012em] leading-[1.2]`. Used by section H2s site-wide.
-  - `.meta` / `.meta-label` — slightly lighter color (`text-muted-foreground/90`) for less stamp-like feel.
-- **Section rhythm utility**: tighten `.section` to `py-14 md:py-20` (was `py-16 md:py-24`) — more breathing room without wasted scroll.
+**`src/index.css` — `:root` token changes:**
 
-### 2. Shared component refinements
+- **New brand accent (slate-blue, restrained):**
+  - `--primary: 215 38% 28%;` — deep slate-blue, near-navy. Flat, confident, not "tech blue." Replaces forest green for buttons, links, ring, focus.
+  - `--primary-foreground: 0 0% 100%;`
+  - `--primary-hover: 215 38% 22%;`
+  - `--ring: 215 38% 28%;`
 
-**`src/components/RecordHeader.tsx`**
-- Remove the boxed-summary panel border. Replace with a borderless right column: a small uppercase eyebrow ("Summary"), a thin top hairline, then the dl with `divide-y divide-border/60`. Drops the "framed inside a frame" feeling under the metadata bar.
-- Reduce header vertical padding from `py-14 md:py-20` → `py-12 md:py-16`.
-- Slightly larger H1 (`md:text-[2.125rem]`) for a more confident hierarchy.
+- **Soft blue surface tints (used very sparingly):**
+  - `--accent-soft: 215 36% 96%;` — for subtle hover/active backgrounds on nav, list rows, anchor cards. Replaces the gray `--surface-muted` only in selected interactive contexts, never as a section background.
 
-**`src/components/MetadataBar.tsx`**
-- Keep the strip but reduce visual weight: `bg-surface-muted/40` (was `/50`), `border-border/40` (was `/60`), gap `gap-x-10`. Reads more like a quiet caption than a banded header.
+- **Green retained, but reframed as status-only:**
+  - `--verified: 152 45% 22%;` (unchanged tone, slightly deeper for contrast against the new blue-leaning UI)
+  - `--verified-foreground: 0 0% 100%;`
+  - `--verified-soft: 152 30% 95%;`
+  - Used only by `StatusBadge`, the Greenlist "Active" indicator, and verified-status surfaces. Never on buttons, links, nav, or focus rings.
 
-**`src/components/StatusBadge.tsx`**
-- Replace the unicode `■` glyph with a real `inline-block w-1.5 h-1.5 rounded-full bg-current` dot. Cleaner, aligns properly across browsers, less "terminal", more "status indicator".
-- Keep mono label but reduce tracking from `0.16em` → `0.12em`.
+- **Eyebrows decouple from primary:**
+  - `.eyebrow` switches from `text-primary` (was green, would now be blue) to `text-foreground/70` — neutral, editorial. Prevents every section label from shouting in the new accent color. Blue is reserved for actionable elements.
 
-**`src/components/SiteHeader.tsx`**
-- Soften the utility strip: drop `bg-surface-sunken` to `bg-surface-muted/60`, lighten its bottom border. Less of a "compliance ribbon" feel.
-- Header bottom border: `border-border/60` (lighter).
+- **Borders and surfaces (one more pass for editorial calm):**
+  - `--border: 215 20% 93%;` — slightly cooler to harmonize with the new accent.
+  - `--surface-muted: 210 22% 98.7%;` — barely-there cool tint, removes the warm gray cast.
 
-### 3. Verified Vendors + Greenlist — shared registry shell
+- **Shadows:** unchanged. No new glow, no colored shadows.
 
-Both pages share the same scaffold; update them in parallel for visual parity.
+Dark mode tokens get parallel adjustments (slate-blue at higher lightness for legibility) but stay out of scope for visual review until light mode is confirmed.
 
-**Legend strip** (currently a hairline grid of white cards on muted bg):
-- Replace `gap-px bg-border border border-border` with a softer container: a single rounded panel `rounded-lg border border-border/60 bg-background`, internal cells separated by `divide-x divide-y divide-border/40` (or `border-t`/`border-l` per cell at md+). Less "pixel grid", more "segmented panel".
-- Cell padding `p-3` → `p-4`. Heading `mb-3` → `mb-4`.
-- Outer section padding `py-6` → `py-8`.
+### 2. Typography refinement (editorial, not mechanical)
 
-**Sticky filter bar**:
-- Change container border from `border-b border-border` → `border-b border-border/60` and add `backdrop-blur-sm bg-background/95` so it feels like a modern toolbar, not an admin panel.
-- Inputs/selects: replace inline `h-8 border border-border` styling with a shared lightweight class set:
-  - `h-9 px-3 rounded-md border border-border/70 bg-background text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground`
-  - Search input: same height, search icon at `left-3`, padding `pl-9`, subtle focus ring.
-- Reset button: matching `h-9 rounded-md` with hover bg.
-- Bar internal padding `py-3` → `py-3.5`, `gap-2` → `gap-2.5`.
+In `@layer components`:
 
-**Registry table**:
-- Wrapper: drop `border border-border` hard frame. Use a single `rounded-lg border border-border/60 bg-background overflow-hidden` so the table reads as one calm surface.
-- Header row: `bg-surface-muted/60` (lighter), `meta-label` text already fine.
-- Row dividers: `border-border/50` (softer); row hover `hover:bg-surface-muted/40`.
-- Row vertical padding `py-2` → `py-3` for breathing room.
-- Mobile cards: `rounded-md border-border/60 p-4` and `space-y-2` → `space-y-3`.
+- `.eyebrow` — `text-[11px] font-medium uppercase tracking-[0.08em] text-foreground/65` (down from semibold/0.04em primary). Quieter, more editorial.
+- `.eyebrow-muted` — same treatment, `text-muted-foreground/80`.
+- `.section-heading` — keep size, drop weight from `600` → `550` via `font-semibold` retained but tracking tightened to `-0.014em` for a more designed feel at large sizes.
+- Body line-height already at 1.65 — leave it.
+- Add `.link-accent` utility: `text-primary hover:text-primary-hover underline-offset-4 decoration-primary/30 hover:decoration-primary` — used for inline links so they read as crafted, not default-blue.
 
-**Pagination**:
-- Buttons inherit the new `h-9 rounded-md` input style; current page indicator gets `bg-foreground text-background rounded-md`. Cleaner active state than the current bordered look.
-- Top divider `border-t border-border` → `border-border/50`, `pt-3` → `pt-4`.
+### 3. Component touch-ups (where green was hardcoded as UI, not status)
 
-**Section spacing**: change the table section's `py-6` → `py-8` so it sits more comfortably below the filter bar.
+- **`src/pages/Index.tsx`**
+  - §4 Greenlist preview: the row indicator `text-primary` → `text-verified` (it represents "Active" status, not brand). Also change `●` glyph to a proper dot span matching `StatusBadge` for consistency.
+  - §3, §5, §6 inline `Link` arrows currently `text-primary hover:text-primary-hover` — these correctly become slate-blue automatically via the token swap. No code change needed.
+  - §1 hero CTA buttons inherit the new primary automatically.
+  - §2 lookup card padding holds; the card header eyebrow becomes neutral via the `.eyebrow` change.
 
-### 4. Homepage — `src/pages/Index.tsx`
+- **`src/components/SiteHeader.tsx`**
+  - Active nav state: currently `text-foreground font-semibold underline`. Change to `text-primary font-semibold` with a 2px bottom inset bar (`border-b-2 border-primary -mb-[1px]`) on the active link — bespoke, not default-underlined. Hover stays neutral foreground.
+  - Header CTA already uses `bg-primary` — flips to slate-blue automatically. Remove the hardcoded `bg-primary hover:bg-primary-hover` repeat (redundant with `Button` default variant) so it inherits cleanly.
 
-Targeted softening; no content changes.
+- **`src/components/StatusBadge.tsx`** — no changes needed. It uses `text-verified` / `text-pending` / `text-destructive` which remain green / amber / red. The dot stays.
 
-- All `border border-border/70 rounded-[2px]` boxes (§1 standard panel, §2 lookup cards, §3 advisory dl, §4 greenlist panel, §5 anchors, §6 education list) → `border border-border/60 rounded-lg`. The new `--radius` handles most of this automatically; the remaining hardcoded `rounded-[2px]` instances get replaced.
-- §2 lookup cards: padding `p-7` → `p-8`, drop the "Layer A/B" mono eyebrow line — keep just the uppercase label, the title, and the body. Less archival, more current.
-- §7 procedural grid: replace the `gap-px bg-border` hairline grid with a 4-up grid of `rounded-lg border border-border/60` cards with `gap-4`. Less "sheet of cells", more "set of cards".
-- Section dividers: change every `border-b border-border` between sections to `border-b border-border/50`. Keep the alternating `bg-background` / `bg-surface-muted/40` rhythm — it's the right pattern, just softer.
-- Section vertical padding pass: `py-16 md:py-24` → `py-14 md:py-20` site-wide on Index for tighter, more confident rhythm.
+- **`src/components/RecordHeader.tsx`** — eyebrow becomes neutral via `.eyebrow` change. No structural edit.
 
-### 5. Buttons
+### 4. Filter & input polish (custom feel, not default)
 
-- `src/components/ui/button.tsx` — only change: ensure default and outline variants pick up the new `--radius` (they already use `rounded-md` from the variant system, so this is automatic). The header CTA's hardcoded `rounded-[2px]` in `SiteHeader.tsx` is changed to `rounded-md` so it matches.
+In `src/pages/VerifiedVendors.tsx` and `src/pages/Greenlist.tsx` (already share the refined `h-9 rounded-md border-border/70` shell from the last pass):
 
-### Out of scope (this pass)
+- Focus state currently `focus:ring-2 focus:ring-ring/30 focus:border-foreground`. Change to:
+  - `focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60`
+  — A wider, much softer slate-blue halo. No glow, no animation; a 15% alpha ring reads as "considered" not "tech."
+- Sticky filter bar: `bg-background/95 backdrop-blur-sm` stays. Add `shadow-[0_1px_0_0_hsl(var(--border))]` instead of `border-b` so the bar's separation reads as a hairline shadow rather than a hard line.
+- Pagination active page: was `bg-foreground text-background`. Change to `bg-primary text-primary-foreground` so the active state reads in the new accent — restrained, not flashy.
 
-- No changes to content, copy, routes, navigation structure, or data files.
-- No changes to the dedicated `/how-to-read-the-directory`, `/status-definitions`, or other secondary pages — they inherit the token + component refinements automatically and can be reviewed in a follow-up pass if needed.
-- No changes to dark-mode tokens (preserved as-is).
-- No new dependencies, no animations, no gradients.
+### 5. Section transitions (softer rhythm)
+
+Across `Index.tsx` and `About.tsx`: the alternating `border-b border-border/50` between sections is correct, but a few `bg-surface-muted` blocks on `About.tsx` still use the old non-`/40` value, creating banding heavier than the new Index pattern. Normalize:
+
+- `About.tsx` §2/§4/§6/§8 `bg-surface-muted` → `bg-surface-muted/60`.
+- `About.tsx` `border-b border-border` → `border-b border-border/60`.
+- §5 scope table on `About.tsx`: drop the inner hard `border border-border` frame, replace with `rounded-lg border border-border/60` (matches Index/Greenlist registry pattern).
+
+### Out of scope
+
+- No content, copy, route, data, or component-API changes.
+- No dark mode review (tokens are adjusted in parallel; visual sign-off in a follow-up).
+- No changes to secondary pages (Education, Governance, FAQ, etc.) — they inherit the token shift automatically and can be reviewed after light mode is approved.
+- No new dependencies, animations, gradients, or shadows beyond the single hairline-shadow on the filter bar.
 
 ### Files touched
 
-- `src/index.css` — tokens + utility refinements
-- `src/components/RecordHeader.tsx`
-- `src/components/MetadataBar.tsx`
-- `src/components/StatusBadge.tsx`
-- `src/components/SiteHeader.tsx`
-- `src/pages/VerifiedVendors.tsx` — legend, filter bar, table, pagination
-- `src/pages/Greenlist.tsx` — same edits, parallel
-- `src/pages/Index.tsx` — panel softening, section rhythm, §7 card grid
+- `src/index.css` — token split, eyebrow/typography refinement, new `.link-accent` utility
+- `src/pages/Index.tsx` — §4 active dot uses `text-verified` (status, not brand); minor cleanup
+- `src/pages/About.tsx` — section divider/background normalization, scope-table softening
+- `src/pages/VerifiedVendors.tsx` — filter focus ring, pagination active state
+- `src/pages/Greenlist.tsx` — same parallel updates
+- `src/components/SiteHeader.tsx` — bespoke active nav state, redundant button class cleanup
 
 ### Result
 
-The whole site becomes lighter, more spacious, and visually unified without losing institutional weight. Borders become whispers instead of fences; corners go from square to gently rounded; filter rows feel like modern toolbars rather than legacy admin headers; tables feel like one calm surface rather than a stack of hard-edged frames. Authority intact; clunkiness gone.
+The interface shifts from green-coded to slate-blue-led, with green now reading exclusively as "verified / active / approved." Eyebrows and section labels quiet down to editorial neutral. Focus rings, active nav, and primary buttons share one restrained accent. No gradient, no glow, no template polish — just a cleaner separation of *brand* and *meaning* that makes the green status signals more legible and the overall system feel more designed.
 
