@@ -4,7 +4,7 @@ import { RecordHeader } from "@/components/RecordHeader";
 const whyItMatters: { t: string; d: string }[] = [
   {
     t: "Sourcing records matter",
-    d: "Vendors are only as legitimate as the pharmacies and suppliers behind them. Verification examines that chain rather than the storefront alone.",
+    d: "Vendors carry no greater legitimacy than the pharmacies and upstream suppliers behind them. The protocol prioritizes the source over the storefront and examines the chain of custody as the primary evidentiary record.",
   },
   {
     t: "Public claims should match documented reality",
