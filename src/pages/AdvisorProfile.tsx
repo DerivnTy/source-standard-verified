@@ -56,7 +56,7 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§1 — Identity & Credentials</p>
+              <p className="eyebrow mb-3">§1 — Identity & Credentials</p>
               <div className="border border-border bg-background p-6">
                 <img
                   src={member.photo}
@@ -90,14 +90,14 @@ const AdvisorProfile = () => {
             </div>
             <div className="md:col-span-8 space-y-10">
               <div>
-                <p className="meta mb-3">§2 — Biography</p>
-                <p className="text-[14.5px] text-foreground/90 leading-relaxed">{member.biography}</p>
+                <p className="eyebrow mb-3">§2 — Biography</p>
+                <p className="text-[15px] text-foreground/90 leading-relaxed">{member.biography}</p>
               </div>
               <div>
-                <p className="meta mb-3">§3 — Background & Training</p>
+                <p className="eyebrow mb-3">§3 — Background & Training</p>
                 <ul className="border border-border bg-background divide-y divide-border">
                   {member.background.map((b, i) => (
-                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3.5 items-baseline">
+                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline">
                       <div className="col-span-1 meta text-primary">
                         {(i + 1).toString().padStart(2, "0")}
                       </div>
@@ -107,10 +107,10 @@ const AdvisorProfile = () => {
                 </ul>
               </div>
               <div>
-                <p className="meta mb-3">§4 — Key Accomplishments</p>
+                <p className="eyebrow mb-3">§4 — Key Accomplishments</p>
                 <ul className="border border-border bg-background divide-y divide-border">
                   {member.accomplishments.map((a, i) => (
-                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3.5 items-baseline">
+                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline">
                       <div className="col-span-1 meta text-primary">
                         {(i + 1).toString().padStart(2, "0")}
                       </div>
@@ -129,12 +129,12 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§4 — Why This Sector</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
+              <p className="eyebrow mb-3">§4 — Why This Sector</p>
+              <h2 className="h-section">
                 Position on the framework's purpose.
               </h2>
             </div>
-            <div className="md:col-span-8 text-[14.5px] text-foreground/90 leading-relaxed border-t border-border pt-6">
+            <div className="md:col-span-8 text-[15px] text-foreground/90 leading-relaxed border-t border-border pt-6">
               {member.whyTheyCare}
             </div>
           </div>
@@ -146,12 +146,12 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§5 — Contribution to Source Standard</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
+              <p className="eyebrow mb-3">§5 — Contribution to Source Standard</p>
+              <h2 className="h-section">
                 What this seat is responsible for.
               </h2>
             </div>
-            <div className="md:col-span-8 text-[14.5px] text-foreground/90 leading-relaxed border-t border-border pt-6">
+            <div className="md:col-span-8 text-[15px] text-foreground/90 leading-relaxed border-t border-border pt-6">
               {member.contribution}
             </div>
           </div>
@@ -163,15 +163,15 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§6 — Clinical Focus Areas</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
+              <p className="eyebrow mb-3">§6 — Clinical Focus Areas</p>
+              <h2 className="h-section">
                 Domains of review attention.
               </h2>
             </div>
             <div className="md:col-span-8">
               <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
                 {member.clinicalFocus.map((f, i) => (
-                  <li key={i} className="bg-background px-5 py-4 flex items-baseline gap-3">
+                  <li key={i} className="bg-background px-5 py-3 flex items-baseline gap-3">
                     <span className="meta text-primary">{(i + 1).toString().padStart(2, "0")}</span>
                     <span className="text-[13.5px] text-foreground">{f}</span>
                   </li>
@@ -187,8 +187,8 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="meta mb-3">§7 — Mission Statement</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
+              <p className="eyebrow mb-3">§7 — Mission Statement</p>
+              <h2 className="h-section">
                 Personal philosophy on oversight.
               </h2>
             </div>
