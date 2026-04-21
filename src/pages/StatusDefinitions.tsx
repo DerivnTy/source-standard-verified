@@ -118,9 +118,15 @@ const StatusDefinitions = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Status Definitions"
-      title="Public status terms used across the Source Standard registry"
-      lead="Every public listing carries a status. This document defines what each status means, what it tells the public, what it does not imply, when it is assigned, and when it changes."
+      eyebrow="Reference"
+      title="Status definitions."
+      lead="What each public registry status means, what it tells the public, and what it does not imply."
+      summary={[
+        { label: "Statuses", value: statuses.length.toString().padStart(2, "0") },
+        { label: "Cycle", value: "Renewal-based" },
+        { label: "Set by", value: "Review process" },
+        { label: "Citable", value: "Yes" },
+      ]}
     />
 
     <Section>
