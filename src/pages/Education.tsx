@@ -43,7 +43,7 @@ const SUPPLEMENT_OVERRIDES: Record<string, { title?: string; description?: strin
 
 const SoftStatus = ({ status }: { status: EntryStatus }) =>
   isReadable(status) ? null : (
-    <span className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/70">
+    <span className="shrink-0 inline-flex items-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border border-border/70 px-1.5 py-px rounded-[2px] bg-background">
       {ENTRY_STATUS_LABEL[status]}
     </span>
   );
