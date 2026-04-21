@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageHeader } from "@/components/PageHeader";
+import { UtilityHeader } from "@/components/UtilityHeader";
 import { Section } from "@/components/Section";
 import {
   Accordion,
@@ -23,15 +23,9 @@ const GROUP_ORDER: FAQGroup[] = [
 const EducationQuestions = () => {
   return (
     <>
-      <div className="container-wide pt-6">
-        <Link
-          to="/education"
-          className="text-[12.5px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
-        >
-          ← Back to Learn
-        </Link>
-      </div>
-      <PageHeader
+      <UtilityHeader
+        backHref="/education"
+        backLabel="Back to Learn"
         eyebrow="Common Questions"
         title="All questions"
         description="Direct answers to the questions people most often ask, organized by topic."

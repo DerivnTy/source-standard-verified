@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { RecordHeader } from "@/components/RecordHeader";
+import { UtilityHeader } from "@/components/UtilityHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,16 +21,10 @@ const Contact = () => {
 
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Doc", value: "SS-CONTACT-2026.01" },
-          { label: "Form", value: "General Inquiry" },
-          { label: "Status", value: "Open" },
-          { label: "Updated", value: "04 / 20 / 2026" },
-        ]}
-        eyebrow="Contact · Correspondence"
-        title="Reach Source Standard."
-        lead="For verification inquiries, partnership questions, or general correspondence."
+      <UtilityHeader
+        eyebrow="Contact"
+        title="Reach Source Standard"
+        description="For verification inquiries, partnership questions, or general correspondence."
       />
 
       <section>

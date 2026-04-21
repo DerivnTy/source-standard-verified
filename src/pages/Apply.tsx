@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { RecordHeader } from "@/components/RecordHeader";
+import { UtilityHeader } from "@/components/UtilityHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,16 +32,10 @@ const Apply = () => {
 
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Doc", value: "SS-INTAKE-2026.01" },
-          { label: "Form", value: "Vendor Intake" },
-          { label: "Status", value: "Open" },
-          { label: "Updated", value: "04 / 20 / 2026" },
-        ]}
-        eyebrow="Apply for Verification · Intake Form"
-        title="Begin a Source Standard application."
-        lead="Initial intake takes approximately fifteen minutes. A reviewer will follow up to confirm receipt and outline any additional documentation required."
+      <UtilityHeader
+        eyebrow="Apply for Verification"
+        title="Begin a Source Standard application"
+        description="Initial intake takes about fifteen minutes. A reviewer will follow up to confirm receipt and outline any additional documentation required."
       />
 
       <section>
