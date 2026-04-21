@@ -347,10 +347,10 @@ const VerifiedVendors = () => {
                     <div className="col-span-2">
                       <StatusBadge status={v.status} />
                     </div>
-                    <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
+                    <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate">
                       {formatLocation(v)}
                     </div>
-                    <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
+                    <div className="col-span-3 text-[13px] text-muted-foreground truncate">
                       {(v.clinicalFocus && v.clinicalFocus.length > 0
                         ? v.clinicalFocus.join(" · ")
                         : v.category) || "—"}

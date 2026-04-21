@@ -407,10 +407,10 @@ const Greenlist = () => {
                     <div className="col-span-2">
                       <CategoryPill category={e.category} />
                     </div>
-                    <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
+                    <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate">
                       {e.location}
                     </div>
-                    <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
+                    <div className="col-span-3 text-[13px] text-muted-foreground truncate">
                       {shortFocus(e)}
                     </div>
                     <div className="col-span-1 text-right">

@@ -103,7 +103,7 @@ const GreenlistProfile = () => {
     return (
       <section className="container-wide py-24 text-center">
         <p className="eyebrow mb-3">Greenlist source</p>
-        <h1 className="title-record mb-3">No facility profile found</h1>
+        <h1 className="title-page mb-3">No facility profile found</h1>
         <p className="text-muted-foreground mb-6">
           The requested facility is not present in the Greenlist registry.
         </p>

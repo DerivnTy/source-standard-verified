@@ -116,9 +116,9 @@ const MedicalAdvisory = () => {
             <div className="md:col-span-8">
               <div className="border border-border bg-background">
                 <div className="grid grid-cols-12 px-5 py-2.5 bg-surface-muted border-b border-border">
-                  <div className="col-span-2 meta-label">Code</div>
-                  <div className="col-span-4 meta-label">Responsibility</div>
-                  <div className="col-span-6 meta-label">Description</div>
+                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Code</div>
+                  <div className="col-span-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Responsibility</div>
+                  <div className="col-span-6 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Description</div>
                 </div>
                 <ul className="divide-y divide-border">
                   {responsibilities.map((r) => (
