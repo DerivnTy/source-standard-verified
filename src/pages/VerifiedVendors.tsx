@@ -17,7 +17,7 @@ import {
 const ALL = "__all__";
 const PAGE_SIZE = 25;
 
-type SortMode = "status" | "name-asc" | "name-desc" | "state-city";
+type SortMode = "name-asc" | "name-desc" | "state" | "city" | "status";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
