@@ -53,7 +53,7 @@ const Index = () => {
           { label: "Status", value: "Active" },
           { label: "Version", value: "2026.01" },
           { label: "Updated", value: "April 20, 2026" },
-          { label: "Jurisdiction", value: "FL · US" },
+          { label: "Jurisdiction", value: "US" },
           { label: "Reviewed under", value: "Medical Advisory Board" },
         ]}
       />
