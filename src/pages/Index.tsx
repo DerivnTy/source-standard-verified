@@ -7,17 +7,17 @@ import { AnchorHeader } from "@/components/AnchorHeader";
 const lookups = [
   {
     n: "A",
-    label: "Look up a vendor",
-    title: "Verified Vendors registry",
-    body: "Each listing carries a citable review identifier, the categories reviewed, and the date of assessment.",
+    label: "Vendor audit lookup",
+    title: "Compliance Assessment registry",
+    body: "Each listing carries a Unique Audit Identifier, the categories assessed, and the date of the most recent compliance review.",
     to: "/verified-vendors",
     cta: "Open the registry",
   },
   {
     n: "B",
-    label: "Look up a source",
-    title: "Greenlist of recognized sources",
-    body: "Inclusion is based on public licensing, registration, and recognized credentialing standards.",
+    label: "Upstream source lookup",
+    title: "Registry of recognized upstream sources",
+    body: "Inclusion is based on FDA registration, state licensure, and recognized accreditation records held by the upstream facility.",
     to: "/greenlist",
     cta: "Open the greenlist",
   },
