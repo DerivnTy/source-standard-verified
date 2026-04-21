@@ -26,7 +26,7 @@ export const RecordHeader = ({
 }) => {
   const hasSummary = summary && summary.length > 0;
   return (
-    <header className="bg-background border-b border-border/60">
+    <header className="bg-background border-b border-[#E5E7EB]">
       <div className="container-wide py-14 md:py-20">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-8">
