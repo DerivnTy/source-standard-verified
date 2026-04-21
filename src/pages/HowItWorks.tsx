@@ -4,7 +4,7 @@ import { RecordHeader } from "@/components/RecordHeader";
 const whyItMatters: { t: string; d: string }[] = [
   {
     t: "Sourcing records matter",
-    d: "Vendors are only as legitimate as the pharmacies and suppliers behind them. Verification examines that chain rather than the storefront alone.",
+    d: "Vendors carry no greater legitimacy than the pharmacies and upstream suppliers behind them. The protocol prioritizes the source over the storefront and examines the chain of custody as the primary evidentiary record.",
   },
   {
     t: "Public claims should match documented reality",
@@ -207,20 +207,20 @@ const MEANING_TITLES: Record<string, string> = {
 };
 
 const SCOPE_TITLES: Record<string, string> = {
-  "Business identity": "Entity identification & registration",
-  "Licenses and registrations": "Regulatory credentials",
-  "Pharmacy and supplier records": "Upstream supply-chain records",
-  "Certificates and category records": "Analytical certificates & lot records",
-  "Sourcing and invoice history": "Procurement & invoice ledger",
-  "Public claims consistency": "Public-claims reconciliation",
-  "Renewal-related updates": "Renewal-cycle delta review",
+  "Business identity": "Entity Identification & Registration",
+  "Licenses and registrations": "Regulatory Credentials Verification",
+  "Pharmacy and supplier records": "Upstream Supply-Chain Verification",
+  "Certificates and category records": "Analytical & Lot Record Validation",
+  "Sourcing and invoice history": "Procurement & Invoice Reconciliation",
+  "Public claims consistency": "Public-Claims Reconciliation",
+  "Renewal-related updates": "Renewal-Cycle Delta Examination",
 };
 
 const STEP_TITLES: Record<string, string> = {
   "01": "Intake & Scope Declaration",
   "02": "Evidentiary Collection",
   "03": "Regulatory Cross-Referencing",
-  "04": "Claims-Documentation Reconciliation",
+  "04": "Discrepancy Analysis & Claims Reconciliation",
   "05": "Determination & Scope Recordation",
   "06": "Publication & Continuous Surveillance",
 };
@@ -235,9 +235,9 @@ const HowItWorks = () => {
           { label: "Updated", value: "04/21/26" },
           { label: "Scope", value: "Verification" },
         ]}
-        eyebrow="Standard operating procedure"
-        title="Verification Protocol & Audit Methodology."
-        lead="Examination of supply-chain records, regulatory credentials, and public-facing claims against the Source Standard evidentiary rubric. Determinations are recorded against a defined scope and time window."
+        eyebrow="SOP · Forensic audit methodology"
+        title="SOP: Verification Protocol & Audit Methodology."
+        lead="Forensic examination of supply-chain records, regulatory credentials, and public-facing claims against a controlled evidentiary standard. Determinations are issued under a defined scope and time window and remain subject to continuous surveillance."
       />
 
       {/* Document header strip */}
@@ -249,19 +249,21 @@ const HowItWorks = () => {
           <span>
             Issued <span className="text-foreground">04/21/2026</span> · Revision <span className="text-foreground">2026.01</span> · Controlled copy
           </span>
+          <span>
+            Classification · <span className="text-foreground">Public</span> · Controlled standard
+          </span>
         </div>
       </div>
 
       {/* Audit principles */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Audit principles</p>
+          <p className="eyebrow mb-3">§1 · Governing principles</p>
           <h2 className="h-section max-w-3xl">
-            Governing principles of the verification protocol.
+            Governing Principles of Forensic Examination.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Verification examines the records behind a vendor — not their public presentation — against a consistent
-            evidentiary standard. Three principles govern conduct of every review.
+            The verification protocol prioritizes the source over the storefront. Every examination is conducted against a consistent evidentiary rubric, independent of marketing presentation, under the three principles below.
           </p>
           <div className="mt-10 grid md:grid-cols-3 gap-10 max-w-5xl">
             {whyItMatters.map((w, i) => (
@@ -277,7 +279,7 @@ const HowItWorks = () => {
       {/* Scope of attestation */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Scope of attestation</p>
+          <p className="eyebrow mb-3">§2 · Scope of attestation</p>
           <h2 className="h-section max-w-3xl">
             Attestation of Record Consistency.
           </h2>
@@ -295,7 +297,7 @@ const HowItWorks = () => {
       {/* Public determinations */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Public determinations</p>
+          <p className="eyebrow mb-3">§3 · Registry determinations</p>
           <h2 className="h-section max-w-3xl">
             Registry determinations.
           </h2>
@@ -335,17 +337,19 @@ const HowItWorks = () => {
       {/* Examination domains */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Examination domains</p>
+          <p className="eyebrow mb-3">§4 · Examination domains</p>
           <h2 className="h-section max-w-3xl">
-            Examination domains under audit.
+            Administrative Examination Domains.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Each domain is examined against the evidentiary standard for the requested verification category. Findings
-            are logged to the audit file.
+            Each domain is examined against the evidentiary standard for the requested verification category. All findings are logged to the controlled audit file under document SS-FRAMEWORK-2026.01.
           </p>
           <div className="mt-10 grid md:grid-cols-2 gap-5">
             {reviewGroups.map((g, i) => (
               <div key={i} className="border border-border rounded-[2px] bg-background p-6">
+                <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-1">
+                  DOMAIN · {String(i + 1).padStart(2, "0")}
+                </p>
                 <h3 className="text-[15px] font-semibold text-foreground">{SCOPE_TITLES[g.t] ?? g.t}</h3>
                 <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{g.d}</p>
               </div>
@@ -357,13 +361,12 @@ const HowItWorks = () => {
       {/* Audit lifecycle */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Audit lifecycle</p>
+          <p className="eyebrow mb-3">§5 · Standardized review lifecycle</p>
           <h2 className="h-section max-w-3xl">
-            Audit lifecycle.
+            Standardized Review Lifecycle.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Every verification proceeds through six controlled stages. A file may be paused at any stage when records
-            are incomplete or require clarification.
+            Every verification proceeds through six controlled stages of forensic examination. A file may be paused at any stage when records are incomplete, inconsistent, or require evidentiary clarification.
           </p>
           <ol className="mt-10 max-w-4xl divide-y divide-border border-t border-b border-border">
             {steps.map((s) => (
@@ -392,15 +395,19 @@ const HowItWorks = () => {
       {/* Continuous surveillance */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Continuous surveillance</p>
+          <p className="eyebrow mb-3">§6 · Post-audit surveillance</p>
           <h2 className="h-section max-w-3xl">
-            Continuous Surveillance & Renewal Obligations.
+            Post-Audit Surveillance & Mandatory Disclosure.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Verified files are re-examined at a defined renewal interval and upon any reported material change. Vendors
-            are bound to disclose the following Mandatory Disclosure Events without delay.
+            A determination is a snapshot in time. Verified files are subject to continuous surveillance and are re-examined at a defined renewal interval and upon any reported material change. Entities of record are bound to disclose the following Mandatory Disclosure Events within seventy-two (72) hours of occurrence.
           </p>
-          <p className="mt-8 font-mono text-[10.5px] uppercase tracking-[0.1em] text-foreground mb-3">
+          <div className="mt-8 border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3 max-w-3xl mb-5">
+            <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground">
+              DISCLOSURE WINDOW · <span className="text-foreground">72 HOURS</span> · <span className="text-foreground">SS-FRAMEWORK-2026.01</span> · §6
+            </p>
+          </div>
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-foreground mb-3">
             Mandatory Disclosure Events
           </p>
           <ul className="max-w-2xl space-y-2 text-[14px] text-foreground">
@@ -421,9 +428,9 @@ const HowItWorks = () => {
       {/* Post-determination */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Post-determination</p>
+          <p className="eyebrow mb-3">§7 · Post-determination handling</p>
           <h2 className="h-section max-w-3xl">
-            Post-determination record handling.
+            Post-Determination Record Handling.
           </h2>
           <ul className="mt-8 max-w-3xl space-y-3 text-[14.5px] text-foreground">
             {afterReview.map((a, i) => (
@@ -439,7 +446,7 @@ const HowItWorks = () => {
       {/* Why vendors apply */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Applicant rationale</p>
+          <p className="eyebrow mb-3">§8 · Applicant rationale</p>
           <h2 className="h-section max-w-3xl">
             Why entities submit to audit.
           </h2>
@@ -462,10 +469,13 @@ const HowItWorks = () => {
       {/* What this process is not */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Boundaries</p>
+          <p className="eyebrow mb-3">§9 · Jurisdictional limitations</p>
           <h2 className="h-section max-w-3xl">
-            What this process is not
+            Jurisdictional Limitations.
           </h2>
+          <p className="mt-4 max-w-3xl text-[15px] text-muted-foreground leading-relaxed">
+            The following limitations are administrative boundaries of the verification framework. They define what the SOP does not constitute as a matter of legal scope, and may not be inferred or extended by reading.
+          </p>
           <ul className="mt-8 max-w-3xl space-y-3 text-[14px] text-muted-foreground">
             {notProcess.map((n, i) => (
               <li key={i} className="flex gap-3">
@@ -477,25 +487,27 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Footer reference strip */}
+      {/* Footer official citation block */}
       <section>
         <div className="container-wide py-8">
-          <p className="text-[12.5px] text-muted-foreground flex flex-wrap gap-x-6 gap-y-2">
-            <span>
-              <span className="meta-label mr-1">Standard reference</span>
-              <span className="meta-mono">SS-FRAMEWORK-2026.01</span>
-            </span>
-            <span>
-              <span className="meta-label mr-1">Updated</span>
-              <span className="meta-mono">04 / 21 / 2026</span>
-            </span>
-            <Link to="/status-definitions" className="underline underline-offset-4 hover:text-foreground">
-              Status definitions
-            </Link>
-            <Link to="/accountability" className="underline underline-offset-4 hover:text-foreground">
-              Accountability
-            </Link>
-          </p>
+          <div className="border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-8">
+            <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-2">
+              OFFICIAL CITATION · SS-FRAMEWORK-2026.01
+            </p>
+            <p className="text-[12.5px] text-foreground leading-relaxed">
+              Source Standard. SOP: Verification Protocol & Audit Methodology. Document SS-FRAMEWORK-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on file with the issuing organization.
+            </p>
+            <p className="mt-3 font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
+              <span>Controlled standard · Subject to versioned revision ·</span>
+              <Link to="/status-definitions" className="underline underline-offset-4 hover:text-foreground">
+                See Status Definitions
+              </Link>
+              <span>·</span>
+              <Link to="/accountability" className="underline underline-offset-4 hover:text-foreground">
+                See Accountability
+              </Link>
+            </p>
+          </div>
         </div>
       </section>
     </div>
