@@ -1,95 +1,90 @@
 
 
-## Apply form — Low-friction registry initialization
+## Apply page — Simplified vendor-facing copy pass
 
-A focused refactor of `src/pages/Apply.tsx`. The form becomes a three-section, public-data-only registration that initializes a backend record without demanding sensitive evidence at intake. The "Pre-Audit Evidentiary Requirements" sidebar stays in place as a forward-looking checklist for Step 2, but the form itself is trimmed and re-grouped. No routing, no new components, no token changes.
+A copy-only refinement of `src/pages/Apply.tsx`. Keeps the "Official Registry" chrome (mono labels, bordered panels, `SS-INTAKE-01` anchor) but rewrites all human-facing strings to plain, vendor-approachable language. No structural, routing, or component changes.
 
-### The hook (above the form panel)
+### Header (`UtilityHeader`)
 
-Add a single mono advisory line directly above the form's header strip, inside the same `md:col-span-8` column:
+- Eyebrow (kept, simplified): `Form SS-INTAKE-01 · Step 1 of 2`
+- Title: → `Step 1: Registry Initialization.`
+- Description: → `Submit this form to open your audit file. A Verification Officer will review your basic details and issue a secure portal link for Step 2 (document uploads and payment).`
 
-- Container: `border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3 mb-4`
-- Mono label (10.5px uppercase, muted): `STEP 1 OF 2 · REGISTRY INITIALIZATION`
-- Body (13px, foreground, leading-relaxed): `Initialize your registry profile. Final document uploads and payment occur in Step 2 via our secure clinical portal.`
+### Sidebar — "Documentation required for Step 2"
 
-### Form panel — header strip (kept, lightly revised)
+- Header label: `Pre-audit evidentiary requirements · Step 2` → `Documentation required for Step 2`
+- `checklist` array rewritten in plain terms (5 items, `§01–§05` markup preserved):
+  1. Business licenses (state and federal registrations for your operating entity)
+  2. Pharmacy invoices (records from the 503A / 503B pharmacies you work with)
+  3. Certificates of Analysis (third-party lab results from ISO-accredited labs)
+  4. Prescriber credentials (active licenses for any prescribing practitioners)
+  5. Pharmacy service agreements (contracts with your 503A or 503B partners)
+- Sidebar footnote (simplified): `You'll receive a secure upload link from your Verification Officer once Step 1 is acknowledged.`
 
-- Line 1 (unchanged): `FORM SS-INTAKE-01 · PRELIMINARY ADMINISTRATIVE INTAKE`
-- Line 2 (revised): `Step 1 — Public registry data only · Governed by SS-VENDOR-STD-2026.01 · Required fields`
+### "Step 1 of 2" hook bar (above the form)
 
-### Form fields — re-grouped into three labeled sections
+- Mono label kept: `STEP 1 OF 2 · REGISTRY INITIALIZATION`
+- Body (simplified): `Tell us who you are. We'll open your audit file and email you a secure portal link for Step 2 (document uploads and payment) within 24 hours.`
 
-Each group is rendered as a labeled fieldset with a mono section header (`font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground`) above a thin border-top divider, matching the page's existing typography. All inputs keep `h-10 rounded-none` styling.
+### Form panel — header strip
 
-**§A · Public Identity**
+- Line 1 (kept): `FORM SS-INTAKE-01 · PRELIMINARY ADMINISTRATIVE INTAKE`
+- Line 2 (simplified): `Step 1 — Public business details only · Required fields marked`
 
-| Label | `id` (DB key) | Input | Required |
-|---|---|---|---|
-| Legal entity name | `LegalName` | text | yes |
-| Public-facing brand name | `BrandName` | text | yes |
-| Primary website | `Website` | url, placeholder `https://` | yes |
+### Form fields — section headings + labels (IDs unchanged)
 
-**§B · Verification Scope**
+PascalCase `id` attributes (`LegalName`, `BrandName`, `Website`, `Category`, `StateList`, `ContactName`, `ContactEmail`, `ContactPhone`) are preserved for backend mapping. Only visible text changes.
 
-| Label | `id` (DB key) | Input | Required |
-|---|---|---|---|
-| Audit category requested | `Category` | text, placeholder `e.g. TRT clinic, 503A compounding pharmacy, 503B outsourcing facility` | yes |
-| States of operation | `StateList` | text, placeholder `Comma-separated, e.g. CA, TX, FL` + helper text `Two-letter postal codes, comma-separated.` | yes |
+**§A · Business Profile**
+- `Legal entity name` → `Legal business name`
+- `Public-facing brand name` → `Brand name (as customers see it)`
+- `Primary website` → `Website` (placeholder kept: `https://`)
+
+**§B · Audit Scope**
+- `Audit category requested` → `Verification category` (placeholder simplified: `e.g. TRT clinic, 503A pharmacy, 503B outsourcing facility`)
+- `States of operation` → `States of operation` (kept; helper text simplified: `Use two-letter state codes, separated by commas.`)
 
 **§C · Administrative Contact**
+- `Authorized representative` → `Contact name`
+- `Contact email of record` → `Business email`
+- `Telephone of record` → `Business phone`
 
-| Label | `id` (DB key) | Input | Required |
-|---|---|---|---|
-| Authorized representative | `ContactName` | text | yes |
-| Contact email of record | `ContactEmail` | email | yes |
-| Telephone of record | `ContactPhone` | tel | optional |
+### Submit button
 
-All previously-present invasive fields (`Operational scope statement` textarea, jurisdiction free-text) are removed at intake. Operational scope and jurisdictional registrations are deferred to Step 2 and remain represented in the sidebar checklist.
+- Idle: `[ SS-INTAKE-01 ]  FILE DOCUMENT` → `[ SS-INTAKE-01 ]  SUBMIT INITIAL FILING`
+- Submitting: `[ SS-INTAKE-01 ]  FILING…` → `[ SS-INTAKE-01 ]  SUBMITTING…`
+- Reset (post-success): `[ SS-INTAKE-01 ]  FILE ANOTHER ENTITY` → `[ SS-INTAKE-01 ]  SUBMIT ANOTHER FILING`
+- Styling unchanged.
 
-### Form panel — footer / submit (kept, copy unchanged)
+### Administrative Notice (form footer strip)
 
-- `ADMINISTRATIVE NOTICE · SS-INTAKE-01` strip and `[ SS-INTAKE-01 ] FILE DOCUMENT` button kept exactly as-is. The "Filing…" submitting state is also preserved.
+- Mono label kept: `ADMINISTRATIVE NOTICE · SS-INTAKE-01`
+- Body (simplified): `This is Step 1 of 2. Submitting this form opens your audit file with the Source Standard registry — it does not complete verification. Your Verification Officer will email a secure portal link for document uploads and payment (Step 2) within 24 hours.`
 
-### Success state — replace toast with in-panel confirmation
+### Success state — in-panel confirmation
 
-Replace the current `toast(...)` post-submit feedback with a clean in-panel confirmation that swaps the form body for a confirmation block. New local state: `filed: boolean`. After the simulated 600 ms submit, set `filed = true`. Form panel renders one of two views:
+Logic unchanged. Copy simplified:
+- Header strip line 2: `Status · Filing acknowledged · Awaiting Verification Officer` (kept)
+- Mono label: `FILING RECEIVED · SS-INTAKE-01` (kept)
+- Heading: `Filing Received.` (kept)
+- Body (kept): `A Verification Officer is initializing your profile. You will receive an automated email within 24 hours to set up your secure portal access.`
+- Reference line (kept): `Reference · SS-INTAKE-{YYYY}-{6-char id}`
 
-- **`filed === false`** — current form (with the new sectioning above).
-- **`filed === true`** — confirmation block inside the same bordered panel:
-  - Header strip kept; line 2 swapped to `Status · Filing acknowledged · Awaiting Verification Officer`.
-  - Body (replacing the field grid):
-    - Mono label (10.5px uppercase, foreground): `FILING RECEIVED · SS-INTAKE-01`
-    - Heading (16px semibold, foreground): `Filing Received.`
-    - Body (13px, foreground, leading-relaxed): `A Verification Officer is initializing your profile. You will receive an automated email within 24 hours to set up your secure portal access.`
-    - Mono sub-line (11px uppercase, muted): `Reference · SS-INTAKE-{YYYY}-{6-char id}` (generated client-side via `crypto.randomUUID().slice(0,6).toUpperCase()`)
-  - Footer strip kept; `File document` button replaced by a secondary `[ SS-INTAKE-01 ]  FILE ANOTHER ENTITY` ghost button that resets `filed` to `false` and clears the form.
+### Footer — Official Citation (de-emphasized)
 
-The `toast` import is removed.
+Keep the existing block but shrink and mute it so the technical codes read as a "Bureau" footer rather than a primary content card.
 
-### Sidebar — minor copy alignment
-
-- Sidebar header label appended with step context: `Pre-audit evidentiary requirements` → `Pre-audit evidentiary requirements · Step 2`
-- Sidebar footnote unchanged (already references the secure transmission link issued after acknowledgment — consistent with the new success state).
-
-### Footer — Official citation block
-
-Kept exactly as-is. No changes.
-
-### Visual style
-
-- High-density monochromatic layout preserved (existing `border-border` + `bg-surface-muted` tokens; no new colors).
-- Three section headers use the same mono treatment as the page's existing eyebrows for typographic consistency.
-- Confirmation block reuses the form panel chrome so the page does not visually "jump" on submit — only the content inside the bordered panel changes.
-
-### Database-mapping rationale (technical)
-
-Field `id` attributes are intentionally PascalCase (`LegalName`, `BrandName`, `Website`, `Category`, `StateList`, `ContactName`, `ContactEmail`, `ContactPhone`) so a future backend handler can read `e.currentTarget.elements.namedItem('LegalName')` (or a `FormData` entry) and map 1:1 onto the eventual `vendor_intake` table columns without renaming. This is a UI-only change today; no backend wiring is added in this pass.
+- Container: change `border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-10` → `border-t border-border bg-background px-5 py-3 max-w-4xl mt-10`
+- All text rendered in `text-muted-foreground`:
+  - Mono label (10.5px → 10px): `OFFICIAL CITATION · SS-INTAKE-01`
+  - Body (12.5px → 11.5px, muted): kept as-is — `Source Standard. Form SS-INTAKE-01 — Preliminary Administrative Intake. Governed by Vendor Submission Standard SS-VENDOR-STD-2026.01. Examined under SOP: Verification Protocol & Audit Methodology SS-FRAMEWORK-2026.01.`
+  - Sub-line (kept, muted): `Controlled form · See Vendor Submission Standard · See SOP: Verification Protocol & Audit Methodology` with the existing `<Link>`s to `/for-vendors` and `/how-it-works`.
 
 ### Files touched
 
-- `src/pages/Apply.tsx` only — add `filed` state + reset handler, remove `toast` import, insert the §A/§B/§C grouped fields, add the "Step 1 of 2" hook bar, swap the post-submit UX from toast to in-panel confirmation, append `· Step 2` to the sidebar header.
+- `src/pages/Apply.tsx` only — `UtilityHeader` props, sidebar header + checklist + footnote, hook bar body, form-panel header strip line 2, all field labels + helper/placeholder text, submit button labels, Administrative Notice body, and footer Official Citation styling.
 
 ### What stays the same
 
-All routes, the `UtilityHeader` / `Button` / `Input` / `Label` components, the 4 / 8 column grid, sticky sidebar behavior, the Pre-audit evidentiary requirements list, the Administrative Notice block, the `[ SS-INTAKE-01 ]` filing-button styling, the Official Citation footer, and all design tokens.
+All routes, the `UtilityHeader` / `Button` / `Input` / `Label` components, the 4 / 8 column grid, sticky sidebar behavior, the `filed` success-state logic and reference generation, all field `id`s for backend mapping, and all design tokens.
 
