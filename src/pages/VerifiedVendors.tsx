@@ -172,31 +172,29 @@ const VerifiedVendors = () => {
         ]}
       />
 
-      {/* Status legend — quiet orientation strip */}
+      {/* Status legend — Greenlist-style card grid */}
       <section className="bg-surface-muted border-b border-border">
-        <div className="container-wide py-3">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="container-wide py-6">
+          <p className="meta-label text-foreground mb-3">How to read this directory</p>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-border border border-border">
             {STATUS_ORDER.map((s) => (
-              <div key={s} className="flex items-center gap-2">
-                <span
-                  aria-hidden
-                  className={`inline-block h-1.5 w-1.5 rounded-full ${STATUS_DOT_COLOR[s]}`}
-                />
-                <span className="font-mono text-[12px] uppercase tracking-[0.14em] text-foreground">
-                  {VENDOR_STATUS_LABEL[s]}
-                </span>
-                <span className="text-[12px] text-muted-foreground">
-                  — {STATUS_LEGEND_SHORT[s]}
-                </span>
+              <div key={s} className="bg-background p-3">
+                <StatusBadge status={s} />
+                <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
+                  {STATUS_LEGEND_DESC[s]}
+                </p>
               </div>
             ))}
           </div>
-          <Link
-            to="/how-to-read-the-directory"
-            className="mt-2 inline-block font-mono text-[12px] text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Read more about how to read this directory →
-          </Link>
+          <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
+            <span className="font-semibold text-foreground">Note.</span> "Unverified" means no Source Standard verification is currently published — it does not by itself indicate that a vendor is unsafe or noncompliant.{" "}
+            <Link
+              to="/how-to-read-the-directory"
+              className="font-mono text-foreground underline underline-offset-2 hover:no-underline"
+            >
+              Read the full directory guide →
+            </Link>
+          </p>
         </div>
       </section>
 
