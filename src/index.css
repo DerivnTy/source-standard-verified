@@ -60,6 +60,14 @@
     --shadow-md: 0 1px 2px 0 hsl(215 32% 7% / 0.05);
     --shadow-lg: 0 4px 16px -4px hsl(215 32% 7% / 0.08);
 
+    /* Greenlist source-type accents — muted, professional */
+    --src-503b: 152 32% 32%;
+    --src-503b-soft: 152 28% 94%;
+    --src-503a: 35 48% 38%;
+    --src-503a-soft: 38 55% 94%;
+    --src-other: 215 18% 42%;
+    --src-other-soft: 215 18% 94%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
