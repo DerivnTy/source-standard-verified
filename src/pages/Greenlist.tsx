@@ -46,14 +46,32 @@ const SOURCE_TYPE_DEF: { key: GreenlistCategory; title: string; body: string }[]
   },
 ];
 
-const CategoryPill = ({ category }: { category: GreenlistCategory }) => (
-  <span
-    className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] text-foreground"
-  >
-    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-    {CATEGORY_LABEL[category]}
-  </span>
-);
+const CATEGORY_STYLE: Record<GreenlistCategory, { chip: string; dot: string }> = {
+  "503B": {
+    chip: "bg-[hsl(var(--src-503b-soft))] text-[hsl(var(--src-503b))] border-[hsl(var(--src-503b)/0.25)]",
+    dot: "bg-[hsl(var(--src-503b))]",
+  },
+  "503A": {
+    chip: "bg-[hsl(var(--src-503a-soft))] text-[hsl(var(--src-503a))] border-[hsl(var(--src-503a)/0.25)]",
+    dot: "bg-[hsl(var(--src-503a))]",
+  },
+  Other: {
+    chip: "bg-[hsl(var(--src-other-soft))] text-[hsl(var(--src-other))] border-[hsl(var(--src-other)/0.25)]",
+    dot: "bg-[hsl(var(--src-other))]",
+  },
+};
+
+const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
+  const s = CATEGORY_STYLE[category];
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded border font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] ${s.chip}`}
+    >
+      <span aria-hidden className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`} />
+      {CATEGORY_LABEL[category]}
+    </span>
+  );
+};
 
 
 const focusMatches = (entry: GreenlistEntry, tagLabel: string): boolean => {
@@ -181,17 +199,20 @@ const Greenlist = () => {
           <div>
             <p className="eyebrow mb-2">Source types in this registry</p>
             <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/40">
-              {SOURCE_TYPE_DEF.map((d) => (
-                <div key={d.key} className="p-4">
-                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-foreground">
-                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-                    {d.title}
-                  </span>
-                  <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
-                    {d.body}
-                  </p>
-                </div>
-              ))}
+              {SOURCE_TYPE_DEF.map((d) => {
+                const s = CATEGORY_STYLE[d.key];
+                return (
+                  <div key={d.key} className="p-4">
+                    <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-foreground">
+                      <span aria-hidden className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`} />
+                      {d.title}
+                    </span>
+                    <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
+                      {d.body}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
