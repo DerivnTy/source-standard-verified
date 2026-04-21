@@ -31,16 +31,16 @@ const anchors = [
 ];
 
 const eduPreview = [
-  { ref: "REF-101", c: "503B facilities", t: "What 503B registration actually verifies — and what it does not." },
-  { ref: "REF-201", c: "Certificates of analysis", t: "A structured guide to reading a peptide CoA without a chemistry background." },
-  { ref: "REF-601", c: "Due diligence", t: "Five questions every consumer should ask a vendor before purchase." },
-  { ref: "REF-801", c: "Risk", t: "Unverified sources: documented risks and consumer-side warning signs." },
+  { ref: "REF-101", c: "503B facilities", t: "Authenticating an FDA 503B outsourcing facility registration." },
+  { ref: "REF-201", c: "Certificates of analysis", t: "Reading a Certificate of Analysis: structural fields and common document discrepancies." },
+  { ref: "REF-601", c: "Due diligence", t: "Source authentication: the questions an auditor asks before a listing is issued." },
+  { ref: "REF-801", c: "Document discrepancies", t: "Document discrepancies and unverifiable supply: indicators flagged during assessment." },
 ];
 
 const procedural = [
   { t: "How verification works", d: "Procedural reference for the framework, evidence categories, and review timeline.", to: "/how-it-works" },
   { t: "Status definitions", d: "Public meaning of Verified, Pending, Suspended, Removed, Greenlisted, Under Review.", to: "/status-definitions" },
-  { t: "Accountability & enforcement", d: "Vendor obligations, supplier change reporting, suspension and removal.", to: "/accountability" },
+  { t: "Enforcement & Oversight", d: "Vendor obligations, randomized batch testing, supply-chain disclosures, and the procedures for suspension or removal.", to: "/accountability" },
   { t: "Governance & oversight", d: "Charter, conflict-of-interest policy, and standard maintenance.", to: "/governance" },
 ];
 
