@@ -22,10 +22,10 @@ export const SiteHeader = () => {
       <div className="hidden md:block bg-surface-sunken border-b border-border/60">
         <div className="container-wide flex items-center justify-between py-1.5">
           <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Public reference · Standard SS-FRAMEWORK-2026.01 · Active
+            Public reference • Document version 2026.01
           </span>
           <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Maintained in Tampa, FL · Reviewed under Medical Advisory Board
+            Maintained in the United States
           </span>
         </div>
       </div>
