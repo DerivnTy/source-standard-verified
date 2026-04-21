@@ -55,16 +55,6 @@ const CategoryPill = ({ category }: { category: GreenlistCategory }) => (
   </span>
 );
 
-const GreenlistedPill = ({ size = "sm" }: { size?: "sm" | "md" }) => (
-  <span
-    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-verified ${
-      size === "md" ? "text-[11px]" : "text-[10px]"
-    }`}
-  >
-    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-    Greenlisted
-  </span>
-);
 
 const focusMatches = (entry: GreenlistEntry, tagLabel: string): boolean => {
   const tag = FOCUS_TAGS.find((t) => t.label === tagLabel);
@@ -169,25 +159,20 @@ const Greenlist = () => {
         ]}
       />
 
-      {/* Status + Source type legend */}
+      {/* How Greenlist status works — plain explanatory intro */}
       <section className="bg-surface-muted/60 border-b border-border/60">
         <div className="container-wide py-8 space-y-6">
-          <p className="meta-label text-foreground">How Greenlist status works</p>
-
-          {/* Group A — Status */}
-          <div>
-            <p className="eyebrow mb-2">Status</p>
-            <div className="rounded-lg border border-border/60 bg-background p-4">
-              <GreenlistedPill size="md" />
-              <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
-                Greenlisted is the inclusion standard for this registry. Every source listed here
-                is Greenlisted by definition — recognized within the Source Standard framework.
-                What varies row to row is the source type.
-              </p>
-            </div>
+          <div className="max-w-3xl space-y-3">
+            <h2 className="section-heading text-foreground">How Greenlist status works</h2>
+            <p className="text-[13px] text-muted-foreground leading-relaxed">
+              Every source listed in this registry is Greenlisted by definition. "Greenlisted"
+              is the Source Standard inclusion status for recognized upstream sources. What
+              varies across listings is the source type, such as 503B outsourcing facility,
+              503A compounding pharmacy, or another qualified source category.
+            </p>
           </div>
 
-          {/* Group B — Source types */}
+          {/* Source types */}
           <div>
             <p className="eyebrow mb-2">Source types in this registry</p>
             <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/40">
