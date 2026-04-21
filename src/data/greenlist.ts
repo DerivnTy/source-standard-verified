@@ -451,6 +451,11 @@ export function getGreenlistCounts() {
   };
 }
 
+export function getGreenlistEntry(slug: string | undefined): GreenlistEntry | undefined {
+  if (!slug) return undefined;
+  return greenlistEntries.find((e) => e.slug === slug);
+}
+
 // ----- Legacy compatibility shim (for homepage §4 panel) -----
 // Earlier homepage code consumed a nested `greenlist` array of category sections.
 // We expose a minimal compatible shape derived from the new flat registry.
