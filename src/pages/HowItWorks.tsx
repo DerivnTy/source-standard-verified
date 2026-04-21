@@ -279,7 +279,7 @@ const HowItWorks = () => {
       {/* Scope of attestation */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Scope of attestation</p>
+          <p className="eyebrow mb-3">§2 · Scope of attestation</p>
           <h2 className="h-section max-w-3xl">
             Attestation of Record Consistency.
           </h2>
