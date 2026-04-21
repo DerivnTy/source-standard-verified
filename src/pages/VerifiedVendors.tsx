@@ -172,13 +172,16 @@ const VerifiedVendors = () => {
         ]}
       />
 
-      {/* Status legend — Greenlist-style card grid */}
-      <section className="bg-surface-muted border-b border-border">
-        <div className="container-wide py-6">
-          <p className="meta-label text-foreground mb-3">How to read this directory</p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-border border border-border">
-            {STATUS_ORDER.map((s) => (
-              <div key={s} className="bg-background p-3">
+      {/* Status legend — softened segmented panel */}
+      <section className="bg-surface-muted/60 border-b border-border/60">
+        <div className="container-wide py-8">
+          <p className="meta-label text-foreground mb-4">How to read this directory</p>
+          <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-2 md:grid-cols-5">
+            {STATUS_ORDER.map((s, i) => (
+              <div
+                key={s}
+                className={`p-4 ${i > 0 ? "border-t md:border-t-0 md:border-l border-border/40" : ""} ${i === 1 ? "border-t-0" : ""}`}
+              >
                 <StatusBadge status={s} />
                 <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
                   {STATUS_LEGEND_DESC[s]}
@@ -199,16 +202,16 @@ const VerifiedVendors = () => {
       </section>
 
       {/* Filter row */}
-      <section className="bg-background border-b border-border sticky top-0 z-20">
-        <div className="container-wide py-3">
-          <div className="flex flex-wrap items-center gap-2">
+      <section className="bg-background/95 backdrop-blur-sm border-b border-border/60 sticky top-0 z-20">
+        <div className="container-wide py-3.5">
+          <div className="flex flex-wrap items-center gap-2.5">
             <div className="relative flex-1 min-w-[220px]">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search vendor name, city, state, medical director"
-                className="w-full pl-8 pr-3 h-8 bg-background border border-border text-[13px] placeholder:text-muted-foreground focus:outline-none focus:border-foreground"
+                className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
                 aria-label="Search directory"
               />
             </div>
@@ -216,7 +219,7 @@ const VerifiedVendors = () => {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by status"
             >
               <option value={ALL}>All statuses</option>
@@ -230,7 +233,7 @@ const VerifiedVendors = () => {
             <select
               value={state}
               onChange={(e) => setState(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by state"
               disabled={states.length === 0}
             >
@@ -245,7 +248,7 @@ const VerifiedVendors = () => {
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by city"
               disabled={cities.length === 0}
             >
@@ -260,7 +263,7 @@ const VerifiedVendors = () => {
             <select
               value={focus}
               onChange={(e) => setFocus(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by clinical focus"
               disabled={focusOptions.length === 0}
             >
@@ -275,7 +278,7 @@ const VerifiedVendors = () => {
             <select
               value={hasReview}
               onChange={(e) => setHasReview(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by published review"
             >
               <option value={ALL}>Review: any</option>
@@ -287,7 +290,7 @@ const VerifiedVendors = () => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Sort records"
             >
               <option value="status">Sort: Status</option>
@@ -299,7 +302,7 @@ const VerifiedVendors = () => {
             {filtersActive && (
               <button
                 onClick={reset}
-                className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted"
+                className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60"
               >
                 <X className="h-3 w-3" /> Reset
               </button>
