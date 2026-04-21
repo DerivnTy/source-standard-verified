@@ -1,106 +1,73 @@
 
 
-## Disclaimer → Verification Disclaimer & Attestation Scope
+## Footer overhaul + Education status-badge polish
 
-A copy and light-structure refinement of `src/pages/VerificationDisclaimer.tsx`. Keeps the `RecordHeader` + `Section`/`SectionLabel` chrome, the `SS-DISCLAIMER-2026.01` anchor, and all existing layout primitives. Tone aligned with the Privacy / Terms / Governance overhauls.
+Two scoped changes: rebuild `SiteFooter.tsx` into the four-column "Boring Bureau" institutional layout you specified, and tighten the Education page's status indicator into a small boxed badge to match. No route or data-model changes.
 
-### Header (`RecordHeader`)
+### 1 · SiteFooter.tsx — full rebuild
 
-- Eyebrow: `Disclaimer` → `Disclaimer · Formal regulatory attestation`
-- Title: `Verification disclaimer.` → `Verification Disclaimer & Attestation Scope.`
-- Lead: → `The formal attestation document of the auditing body. Defines the scope, boundaries, time-bound nature, and liability framing of every Source Standard verification determination. Issued under document SS-DISCLAIMER-2026.01.`
-- Metadata row kept (`SS-DISCLAIMER-2026.01`, `Active`, `04/21/26`, `FL/US`).
+Replace the current 5-column `cols` array and footer markup with a four-column institutional layout. Each link row becomes a high-density entry: link label on the left, document ID in `font-mono` (JetBrains Mono via the existing IBM Plex Mono fallback already loaded — see below) on the right. 1px vertical dividers between columns.
 
-### Per-section document identifier (version-controlled header)
+**Top compliance strip (kept, tightened)**
+- `Standard SS-FRAMEWORK-2026.01 · Active` (left)
+- `Reviewed under Medical Advisory Board · Updated MM/DD/YY` (right)
 
-Mirroring the Privacy and Terms pages, add a small mono identifier line above each `SectionLabel`:
+**Brand column (left, spans full height of the 4-col grid)**
+- `Logo` + one-line institutional description
+- `Tampa, FL · Founded 2026`
+- `Document anchor: SS-FRAMEWORK-2026.01`
 
-`Doc SS-DISCLAIMER-2026.01 · §N · v2026.01`
+**Column 1 · Registry & Intake**
+- Verified Vendor Directory → `/verified-vendors` · `SS-REG-V`
+- Upstream Greenlist → `/greenlist` · `SS-REG-G`
+- Report a Concern → `/report-a-concern` · `SS-INTAKE-02`
+- Primary CTA button: `Begin Verification (Step 1)` → `/apply` (rendered with the existing `Button` component, `variant="default"`, full-width, mt-5)
 
-Implemented as `<p className="meta-mono text-muted-foreground mb-3">` placed inside each `<Section>` immediately before its `<SectionLabel>`. Small local `DocId` helper, mirroring the Privacy/Terms pattern.
+**Column 2 · Standards & Protocols**
+- SOP: Audit Methodology → `/how-it-works` · `SS-FRAMEWORK`
+- Status Definitions → `/status-definitions` · `SS-STATUS`
+- Compliance & Enforcement → `/accountability` · `SS-ENFORCE-2026.01`
+- Vendor Submission Standard → `/for-vendors` · `SS-INTAKE-01`
 
-### Numbered administrative clause format
+**Column 3 · Educational Library** *(new column — removed from Standards)*
+- Foundational Sourcing → `/education#basics` · `SS-SERIES`
+- Interpreting CoAs → `/education/how-to-read-a-certificate-of-analysis` · `SS-SERIES-002`
+- Clinical Protocols (Sterile Handling) → `/education#guides` · `SS-GUIDE`
+- Regulatory FAQ → `/education#questions` · `SS-FAQ`
+- Video Library *(Forthcoming, muted)* → `/contact` · `SS-SUP-001`
 
-Each list item rendered as a numbered clause (`1.01`, `1.02`, …) using the existing `meta-mono` token in the left gutter, replacing the current `·` bullet. No new components or tokens — just swap the `<span>` content and widen the gutter slightly within existing `w-` classes. This reinforces the "administrative clause" feel.
+**Column 4 · Governance & Legal**
+- Medical Advisory Board (MAB) → `/medical-advisory` · `SS-MAB-2026.01`
+- Organizational Neutrality → `/governance` · `SS-GOV-2026.01`
+- Terms of Use → `/terms` · `SS-TERMS-2026.01`
+- Privacy Policy → `/privacy` · `SS-PRIVACY-2026.01`
+- Verification Disclaimer → `/verification-disclaimer` · `SS-DISCLAIMER-2026.01`
 
-### §1 · Boundaries of Administrative Attestation (renamed, expanded)
+**Visual styling**
+- Background: `bg-surface-muted/30` (very light architectural tint over the existing background — the token already exists in `index.css`).
+- 4-column grid (`md:grid-cols-12`, brand col `md:col-span-3`, link cols `md:col-span-9` split into `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4`), with **1px dividers** between columns via `lg:divide-x lg:divide-border/60` and `lg:px-6` per column.
+- Each link row: `flex items-baseline justify-between gap-3 py-1.5`. Label `text-[13.5px] text-muted-foreground hover:text-foreground transition-colors`. Doc ID right-aligned in `font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/60 tabular-nums`. (Project already loads `IBM Plex Mono` in `index.css` — `font-mono` resolves to a JetBrains-Mono-equivalent monospace via Tailwind's stack. No font swap needed.)
+- "Forthcoming" rows: append a small `[Forthcoming]` chip in `font-mono text-[9.5px] uppercase tracking-[0.12em] text-muted-foreground/70 border border-border/60 px-1 py-px rounded-[2px]`.
+- Column titles: `text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground mb-4` — institutional/bureau feel.
+- Bottom legal block (kept): independent-auditing-body paragraph + copyright row, separated by the existing `border-t border-border/70`.
 
-Section title: `What verification covers` → `Boundaries of Administrative Attestation`
+### 2 · Education.tsx — status pill polish
 
-Description (new): `A Source Standard verification is an Attestation of Record Consistency. It is an administrative finding that an entity's documented records — as submitted, as cross-checked against third-party regulatory and supplier data, and as reviewed at a fixed point in time — are internally consistent and consistent with the public claims associated with the entity. The registry operates as an auditing mirror of third-party records and does not produce, replace, or supersede those records.`
+Single tweak in `SoftStatus` to render a boxed badge instead of the current bare uppercase mono text:
 
-Numbered clauses (rewritten, kept at 5):
-- `1.01` — Documented business identity, registration, and operating records of the entity.
-- `1.02` — Licensing, registration, and standing with applicable regulatory authorities, as evidenced by third-party records.
-- `1.03` — Disclosed upstream sources, including pharmacy, supplier, and laboratory documentation submitted under the Vendor Submission Standard.
-- `1.04` — Sourcing and invoice records supporting the product categories within the reviewed scope.
-- `1.05` — Consistency between the entity's public claims and the records on file with the auditing body.
+- From: `<span class="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/70">Outlined</span>`
+- To: `<span class="shrink-0 inline-flex items-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border border-border/70 px-1.5 py-px rounded-[2px] bg-background">Outlined</span>`
 
-### §2 · Items outside the attestation (kept, renumbered, tightened)
+Apply the same boxed-badge style in the supplementary "Forthcoming" list at the bottom of the page so the visual language is consistent across the page and the footer.
 
-Section title: `What verification does not cover` → `Items outside the attestation`
-
-Description (new): `The following matters are explicitly outside the scope of any Source Standard attestation and shall not be inferred from a Verified determination.`
-
-Numbered clauses (kept at 5):
-- `2.01` — Clinical outcomes for any individual patient.
-- `2.02` — Suitability of any product, formulation, or protocol for a specific person.
-- `2.03` — Product safety, efficacy, sterility, or potency. The auditing body does not test, assay, or otherwise analyse any product.
-- `2.04` — Future conduct of the entity beyond the records reviewed at the time of the determination.
-- `2.05` — Activities, product lines, or jurisdictions outside the reviewed scope or category.
-
-### §3 · Institutional Limitations (renamed, expanded)
-
-Section title: `Role boundaries` → `Institutional Limitations`
-
-Description (new): `Source Standard occupies a defined position within the broader medical, pharmaceutical, and regulatory ecosystem. The following limitations are material to the interpretation of any registry entry.`
-
-Two-column rows kept; left column rewritten as bolded lead clauses, right column tightened. Five rows (one added):
-
-- **Not a Statutory Body.** `Source Standard is not a regulator, accreditor, or statutory body. It holds no enforcement authority. Statutory authority rests with the FDA, state boards of pharmacy, state medical boards, attorneys general, and other competent regulatory bodies, whose determinations supersede any registry entry.`
-- **Not a clinic.** `Source Standard does not provide clinical care, diagnose, prescribe, dispense, or otherwise practise medicine, pharmacy, or any other licensed health profession.`
-- **Not a manufacturer or pharmacy.** `Source Standard does not manufacture, compound, repackage, distribute, or sell any product. It references upstream sources operated by independently licensed third parties.`
-- **Not a laboratory.** `Source Standard does not test products and does not issue certificates of analysis. It reviews certificates produced by independent laboratories as part of the documentary record.`
-- **Not a guarantor.** `A Verified determination is an administrative finding at a fixed point in time. It is not a warranty, guarantee, indemnity, or insurance of any future state of affairs concerning the entity, its operations, or any product or service it provides.`
-
-### §4 · Time-bound nature (kept, expanded)
-
-Description rewritten:
-`Every Source Standard determination is a Snapshot of Record Consistency. It reflects the records reviewed and the regulatory checks performed within a defined review window and remains valid only until the next scheduled renewal or until a Mandatory Disclosure Event triggers earlier reopening under SS-ENFORCE-2026.01. A current Verified status today does not warrant the same status at any future date and is not a representation regarding the entity's future conduct.`
-
-### §5 · Limitation of Liability & User Discretion (renamed, expanded, prominent)
-
-Section title: `Liability framing` → `Limitation of Liability & User Discretion`
-
-Two prominent paragraphs, each preceded by a bolded lead clause:
-
-- **No warranty; reliance at user discretion.** `The registry is provided as a public reference. The auditing body makes no warranty, express or implied, regarding any vendor, upstream source, product, or determination. Reliance on registry content is at the user's sole discretion. Users should consult a licensed clinician for clinical matters and the applicable regulatory authority for matters within statutory jurisdiction.`
-- **Acknowledgment and exemption from liability.** `Access to or use of the registry constitutes the user's acknowledgment that Source Standard is exempt from liability for any direct, indirect, incidental, consequential, special, or exemplary damages arising from any decision made, action taken, or action not taken on the basis of a registry entry, including any decision to engage or not to engage with a listed entity. This acknowledgment is a material condition of access under the User Agreement & Registry Terms (SS-TERMS-2026.01).`
-
-### §6 · Read deeper (renumbered, re-pointed)
-
-Replace the existing three links with the high-authority set:
-- `Verification — process and review →` `/how-it-works`
-- `Status Definitions →` `/status-definitions`
-- `Accountability & Enforcement →` `/accountability`
-- `User Agreement & Registry Terms →` `/terms`
-- `Governance →` `/governance`
-
-Citation footer rewritten:
-`Cite as: Source Standard Verification Disclaimer & Attestation Scope, SS-DISCLAIMER-2026.01.`
-
-### Visual style
-
-- All existing tokens kept: `meta-mono`, `meta-label`, alternating `muted` `Section` backgrounds, `divide-y divide-border/70 border-y border-border/70 bg-background`, `h-card`, `space-y-3 max-w-3xl` lists.
-- Section densities preserved (`doc` / `tight`).
-- Bolded lead clauses use existing `font-semibold text-foreground` — no new tokens.
-- New per-section identifier and numbered `1.01`-style clause keys both use existing `meta-mono` token — no new CSS, no new components, no color changes, no layout primitives added.
+The existing "Jump to" anchor row (Foundational Standards | Clinical Protocols | Regulatory FAQ | Archive index) is already in place — no change needed.
 
 ### Files touched
 
-- `src/pages/VerificationDisclaimer.tsx` only — `RecordHeader` props, the `covers` / `doesNotCover` arrays (rewritten as numbered clauses), the `boundaries` array (expanded to 5 with bolded leads), the merged §5 liability block, and the §6 "Read deeper" link list. Add the small per-section `Doc SS-DISCLAIMER-2026.01 · §N · v2026.01` identifier above each `SectionLabel` (small local `DocId` helper).
+- `src/components/SiteFooter.tsx` — full rebuild per spec above.
+- `src/pages/Education.tsx` — `SoftStatus` component + supplementary list status text restyled as boxed badges. No structural / copy changes.
 
 ### What stays the same
 
-All routes, the `RecordHeader` / `Section` / `SectionLabel` components, container widths, the document anchor `SS-DISCLAIMER-2026.01`, and all design tokens.
+All routes, all data files (`src/data/library.ts`), the `RecordHeader` / `Section` / `AnchorHeader` primitives, design tokens, color palette, and every other page. No new components, no new fonts, no new dependencies.
 
