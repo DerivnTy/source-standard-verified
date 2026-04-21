@@ -642,6 +642,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Hormones, dermatology, and sterile injectables across compounding operations",
     website: "https://fagron.com",
+    profile: {
+      standards: ["cGMP", "USP <797>", "USP <800>", "USP <795>"],
+      dosageForms: ["Sterile injectables", "Topicals", "Dermatology preparations", "Oral"],
+      specializations: ["Hormone therapy", "Dermatology", "Hospital sterile compounding"],
+      background:
+        "Global compounding network with multiple US operations spanning 503A and 503B activities, with focus areas in hormones, dermatology, and sterile injectables for hospitals and clinics.",
+    },
   },
   {
     slug: "b-braun",
@@ -670,6 +677,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Compounded medications integrated into specialty and PBM offerings, including sterile compounds for specific clinical programs",
     website: "https://optum.com",
+    profile: {
+      standards: ["cGMP", "USP <797>"],
+      dosageForms: ["Sterile injectables", "Specialty compounded preparations"],
+      specializations: ["Specialty pharmacy", "PBM-integrated compounding", "Clinical program support"],
+      background:
+        "Healthcare services organization operating specialty pharmacy and PBM programs that include compounded medications for specific clinical programs across multiple US states.",
+    },
   },
 ];
 
