@@ -16,19 +16,23 @@ const nav = [
 
 export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   return (
     <header className="sticky top-0 z-40 bg-background border-b border-border/60">
-      {/* Utility strip — quiet institutional band */}
-      <div className="hidden md:block bg-surface-muted/60 border-b border-border/40">
-        <div className="container-wide flex items-center justify-between py-1.5">
-          <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Public reference · Standard SS-FRAMEWORK-2026.01 · Active
-          </span>
-          <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
-            Maintained in Tampa, FL · Reviewed under Medical Advisory Board
-          </span>
+      {/* Utility strip — suppressed on home (hero owns the top band) */}
+      {!isHome && (
+        <div className="hidden md:block bg-surface-muted/60 border-b border-border/40">
+          <div className="container-wide flex items-center justify-between py-1.5">
+            <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
+              Public reference · Standard SS-FRAMEWORK-2026.01 · Active
+            </span>
+            <span className="text-[12px] text-muted-foreground tracking-[0.005em]">
+              Maintained in Tampa, FL · Reviewed under Medical Advisory Board
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="container-wide flex h-16 items-center justify-between">
         <Logo />
