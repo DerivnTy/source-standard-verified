@@ -63,13 +63,24 @@ const Index = () => {
         <div className="container-wide py-16 md:py-24">
           <div className="grid md:grid-cols-12 gap-10 lg:gap-16">
             <div className="md:col-span-8">
-              <p className="eyebrow mb-5">Public reference · Verification authority</p>
+              <p className="eyebrow mb-5">Public reference</p>
               <h1 className="text-[2rem] md:text-[2.5rem] font-semibold tracking-[-0.015em] leading-[1.1] text-foreground">
-                The public reference for verified vendors in peptide, TRT, and hormone optimization.
+                A public record of vendor verification and recognized sources.
               </h1>
               <p className="mt-6 max-w-2xl text-[17px] text-muted-foreground leading-[1.6]">
-                Source Standard maintains the public registry of verified vendors and the Greenlist of recognized upstream sources. Standards are maintained under medical advisory review and anchored to public FDA, PCAB, NSF, and USP records.
+                Source Standard was created to make vendor sourcing and verification easier to understand. The site allows visitors to review verified vendors, recognized upstream sources, and the standards used to evaluate documentation in peptide, TRT, and hormone optimization markets.
               </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button asChild size="lg" className="h-11">
+                  <Link to="/verified-vendors">Verified vendors</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-11">
+                  <Link to="/greenlist">Greenlist</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-11">
+                  <Link to="/about">About</Link>
+                </Button>
+              </div>
             </div>
             <div className="md:col-span-4">
               <div className="border border-border/70 rounded-[2px] bg-surface-muted/50 h-full">
