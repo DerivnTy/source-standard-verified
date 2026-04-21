@@ -158,16 +158,16 @@ const VerifiedVendors = () => {
   return (
     <>
       <AnchorHeader
-        eyebrow="Directory"
-        title="Verified vendors."
-        lead="Clinics reviewed against the Source Standard framework, with a citable record for each listing."
+        eyebrow="Public ledger"
+        title="Vendor Compliance Registry."
+        lead="Public ledger of vendors assessed against the Source Standard framework. Every listing is anchored to a unique Audit ID."
         aside={
           <dl className="grid grid-cols-4 gap-px bg-border/50 border border-border/50 rounded-md overflow-hidden text-center">
             {[
-              { l: "Total", v: vendors.length },
-              { l: "Verified", v: counts.verified },
+              { l: "Total Tracked Entities", v: vendors.length },
+              { l: "Compliant (Verified)", v: counts.verified },
               { l: "Under review", v: counts["under-review"] },
-              { l: "Unverified", v: counts.unverified },
+              { l: "Non-Audited (Unverified)", v: counts.unverified },
             ].map((s) => (
               <div key={s.l} className="bg-background px-2 py-3">
                 <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground/80">{s.l}</dt>
