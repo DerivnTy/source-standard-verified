@@ -221,7 +221,7 @@ const Greenlist = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by facility, pharmacy, or brand name"
-                className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+                className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
                 aria-label="Search registry"
               />
             </div>
@@ -229,7 +229,7 @@ const Greenlist = () => {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by category"
             >
               <option value={ALL}>All categories</option>
@@ -243,7 +243,7 @@ const Greenlist = () => {
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by type"
             >
               <option value={ALL}>All types</option>
@@ -257,7 +257,7 @@ const Greenlist = () => {
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by location"
             >
               <option value={ALL}>All locations</option>
@@ -271,7 +271,7 @@ const Greenlist = () => {
             <select
               value={focus}
               onChange={(e) => setFocus(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Filter by focus"
             >
               <option value={ALL}>All focus areas</option>
@@ -285,7 +285,7 @@ const Greenlist = () => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Sort records"
             >
               <option value="name-asc">Sort: Name A → Z</option>
@@ -440,7 +440,7 @@ const Greenlist = () => {
                         aria-current={p === currentPage ? "page" : undefined}
                         className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
                           p === currentPage
-                            ? "bg-foreground text-background"
+                            ? "bg-primary text-primary-foreground"
                             : "border border-border/70 text-foreground hover:bg-surface-muted/60"
                         }`}
                       >
