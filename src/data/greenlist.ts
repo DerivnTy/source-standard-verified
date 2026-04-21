@@ -20,6 +20,7 @@ export type GreenlistEntry = {
 export const greenlistEntries: GreenlistEntry[] = [
   // ---------- 503B Outsourcing Facilities ----------
   {
+    slug: "503b-outsourcing-facility-one-llc",
     name: "503B Outsourcing Facility One, LLC",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -28,6 +29,7 @@ export const greenlistEntries: GreenlistEntry[] = [
       "Sterile compounded drugs from bulk substances for office use; early-stage 503B focused on provider-office sterile products",
   },
   {
+    slug: "ah-nutraceutical-compounding-inc",
     name: "AH Nutraceutical Compounding, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -36,6 +38,7 @@ export const greenlistEntries: GreenlistEntry[] = [
       "Sterile compounded injectables and nutraceutical preparations produced under 503B for clinics needing office-use stock",
   },
   {
+    slug: "ajenat-pharmaceuticals-llc",
     name: "Ajenat Pharmaceuticals, LLC",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -44,6 +47,7 @@ export const greenlistEntries: GreenlistEntry[] = [
       "Sterile compounded products from bulk drug substances, serving prescribers and clinics; newly registered 503B",
   },
   {
+    slug: "anazaohealth-corporation",
     name: "AnazaoHealth Corporation",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -53,6 +57,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://anazaohealth.com",
   },
   {
+    slug: "apollo-care",
     name: "Apollo Care",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -61,6 +66,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://apollocare.com",
   },
   {
+    slug: "apocus-inc",
     name: "Apocus, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -70,6 +76,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://apocuspharma.com",
   },
   {
+    slug: "assure-infusions-inc",
     name: "Assure Infusions, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -78,6 +85,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://assureinfusions.com",
   },
   {
+    slug: "farmakeio-outsourcing-llc",
     name: "Farmakeio Outsourcing LLC",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -87,6 +95,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://farmakeio.com",
   },
   {
+    slug: "fagron-compounding-services-dba-fagron-sterile-services",
     name: "Fagron Compounding Services dba Fagron Sterile Services",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -95,6 +104,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://fagronsterileservices.com",
   },
   {
+    slug: "ourpharma-llc",
     name: "OurPharma LLC",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -104,6 +114,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://ourpharma.com",
   },
   {
+    slug: "park-avenue-compounding",
     name: "Park Avenue Compounding",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -112,6 +123,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://parkavenuecompounding.com",
   },
   {
+    slug: "sca-pharmaceuticals",
     name: "SCA Pharmaceuticals",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -121,6 +133,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://scapharma.com",
   },
   {
+    slug: "sknv-formerly-sincerus-florida-llc",
     name: "SKNV (formerly Sincerus Florida, LLC)",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -130,6 +143,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://sknvrx.com",
   },
   {
+    slug: "osrx-inc",
     name: "OSRX, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -139,6 +153,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://osrxpharmaceutical.com",
   },
   {
+    slug: "quva-pharma-inc",
     name: "QuVa Pharma, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -148,6 +163,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://quvapharma.com",
   },
   {
+    slug: "rc-outsourcing-llc",
     name: "RC Outsourcing, LLC",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -156,6 +172,7 @@ export const greenlistEntries: GreenlistEntry[] = [
       "Sterile compounded injectables under 503B for hospital and clinic office-use stock",
   },
   {
+    slug: "staq-pharma-inc",
     name: "STAQ Pharma, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -165,6 +182,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://staqpharma.com",
   },
   {
+    slug: "stokes-healthcare-inc",
     name: "Stokes Healthcare, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -174,6 +192,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://stokeshealthcare.com",
   },
   {
+    slug: "tailstorm-health-inc",
     name: "Tailstorm Health, Inc.",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -182,6 +201,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://tailstormhealth.com",
   },
   {
+    slug: "wedgewood-connect-llc",
     name: "Wedgewood Connect, LLC",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -190,6 +210,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://wedgewoodconnect.com",
   },
   {
+    slug: "wells-pharma-of-houston-llc",
     name: "Wells Pharma of Houston, LLC",
     type: "503B Outsourcing Facility",
     category: "503B",
@@ -201,6 +222,7 @@ export const greenlistEntries: GreenlistEntry[] = [
 
   // ---------- 503A Compounding Pharmacies ----------
   {
+    slug: "empower-pharmacy",
     name: "Empower Pharmacy",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -210,6 +232,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://empowerpharmacy.com",
   },
   {
+    slug: "empower-pharma",
     name: "Empower Pharma",
     type: "503B Partner / Sterile Facility",
     category: "503A",
@@ -219,6 +242,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://empowerpharma.com",
   },
   {
+    slug: "olympia-pharmacy-olympia-pharmaceuticals",
     name: "Olympia Pharmacy / Olympia Pharmaceuticals",
     type: "503A + 503B Brand",
     category: "503A",
@@ -228,6 +252,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://olympiapharmacy.com",
   },
   {
+    slug: "wells-pharmacy-network",
     name: "Wells Pharmacy Network",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -237,6 +262,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://wellsrx.com",
   },
   {
+    slug: "tailor-made-compounding",
     name: "Tailor Made Compounding",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -246,6 +272,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://tailormadecompounding.com",
   },
   {
+    slug: "newtropin-formulation-compounding-center",
     name: "Newtropin (Formulation Compounding Center)",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -255,6 +282,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://newtropin.com",
   },
   {
+    slug: "triangle-compounding",
     name: "Triangle Compounding",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -263,6 +291,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://trianglecompounding.com",
   },
   {
+    slug: "pencol-specialty-pharmacy",
     name: "Pencol Specialty Pharmacy",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -271,6 +300,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://pencolpharmacy.com",
   },
   {
+    slug: "vertisis-custom-pharmacy",
     name: "Vertisis Custom Pharmacy",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -280,6 +310,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://vertisis.com",
   },
   {
+    slug: "pavilion-compounding-pharmacy-llc",
     name: "Pavilion Compounding Pharmacy, LLC",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -289,6 +320,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://pavilioncompounding.com",
   },
   {
+    slug: "village-compounding-pharmacy",
     name: "Village Compounding Pharmacy",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -298,6 +330,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://villagecompounding.com",
   },
   {
+    slug: "mcguff-compounding-pharmacy",
     name: "McGuff Compounding Pharmacy",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -307,6 +340,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://mcguffpharmacy.com",
   },
   {
+    slug: "wedgewood-pharmacy",
     name: "Wedgewood Pharmacy",
     type: "503A Compounding Pharmacy",
     category: "503A",
@@ -316,6 +350,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://wedgewoodpharmacy.com",
   },
   {
+    slug: "fagron",
     name: "Fagron",
     type: "Compounding Network",
     category: "503A",
@@ -325,6 +360,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://fagron.com",
   },
   {
+    slug: "b-braun",
     name: "B. Braun",
     type: "Other Qualified Source",
     category: "503A",
@@ -334,6 +370,7 @@ export const greenlistEntries: GreenlistEntry[] = [
     website: "https://bbraunusa.com",
   },
   {
+    slug: "optum",
     name: "Optum",
     type: "Other Qualified Source",
     category: "503A",
