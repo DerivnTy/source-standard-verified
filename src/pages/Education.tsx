@@ -19,9 +19,31 @@ import {
 
 const isReadable = (s: EntryStatus) => s === "published";
 
+// Slug-keyed display title overrides (data file unchanged)
+const TITLE_OVERRIDES: Record<string, string> = {
+  "how-to-read-a-certificate-of-analysis":
+    "Audit Protocols: Interpreting CoAs and Detecting Discrepancies",
+  "safe-peptide-handling-and-reconstitution":
+    "Sterile Preparation Integrity: Handling & Reconstitution Protocol",
+  "sanitization-and-aseptic-technique-fundamentals":
+    "Aseptic Technique: Sanitization Fundamentals",
+  "the-science-of-aging-and-trt":
+    "Endocrinological Context: Age-Related Hormonal Change & TRT",
+  "dosing-guidance-summaries-for-common-compounds":
+    "Reference Dosing Ranges: Selected Compounds",
+};
+
+const SUPPLEMENT_OVERRIDES: Record<string, { title?: string; description?: string }> = {
+  "SS-SUP-003": {
+    title: "Annual Integrity Ledger",
+    description:
+      "Annual published summary of audit findings, status changes, and methodological revisions across the directory.",
+  },
+};
+
 const SoftStatus = ({ status }: { status: EntryStatus }) =>
   isReadable(status) ? null : (
-    <span className="text-[11.5px] text-muted-foreground/70 italic">
+    <span className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/70">
       {ENTRY_STATUS_LABEL[status]}
     </span>
   );
@@ -31,20 +53,27 @@ const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
     to={`/education/${entry.slug}`}
     className="block px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 transition-colors group"
   >
-    <div className="flex items-baseline justify-between gap-4">
-      <h3 className="text-[16px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
-        {entry.title}
-      </h3>
-      <SoftStatus status={entry.status} />
+    <div className="flex items-start gap-5">
+      <span className="w-28 shrink-0 pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums">
+        {entry.id}
+      </span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-baseline justify-between gap-4">
+          <h3 className="text-[16px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
+            {TITLE_OVERRIDES[entry.slug] ?? entry.title}
+          </h3>
+          <SoftStatus status={entry.status} />
+        </div>
+        <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
+          {entry.summary}
+        </p>
+        {entry.reviewedBy && (
+          <p className="mt-2 text-[11.5px] text-muted-foreground/80">
+            Reviewed by {entry.reviewedBy}
+          </p>
+        )}
+      </div>
     </div>
-    <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
-      {entry.summary}
-    </p>
-    {entry.reviewedBy && (
-      <p className="mt-2 text-[11.5px] text-muted-foreground/80">
-        Reviewed by {entry.reviewedBy}
-      </p>
-    )}
   </Link>
 );
 
@@ -62,19 +91,19 @@ const SeeMore = ({ to, label }: { to: string; label: string }) => (
 // Plain-language FAQ regrouping
 const FAQ_BUCKETS: { label: string; ids: string[] }[] = [
   {
-    label: "Is this legal?",
+    label: "Legal Distinction & Access",
     ids: ["SS-FAQ-001", "SS-FAQ-002"],
   },
   {
-    label: "Is it safe?",
+    label: "Regulatory Status & Safety Scope",
     ids: ["SS-FAQ-004", "SS-FAQ-007"],
   },
   {
-    label: "How does verification work?",
+    label: "Verification Methodology",
     ids: ["SS-FAQ-003", "SS-FAQ-005", "SS-FAQ-006", "SS-FAQ-008"],
   },
   {
-    label: "What should I look for?",
+    label: "Consumer Due Diligence",
     ids: ["SS-FAQ-009", "SS-FAQ-010"],
   },
 ];
@@ -93,59 +122,68 @@ const Education = () => {
   return (
     <>
       <AnchorHeader
-        eyebrow="Library"
-        title="Learn the landscape."
-        lead="Plain-language guidance on peptides, TRT, sourcing, storage, and what to look for before you buy."
+        eyebrow="Public education & standards"
+        title="Clinical Reference & Standards Library."
+        lead="Reference materials covering the administrative and clinical protocols that govern compounded medication sourcing, handling, and verification under the Source Standard framework."
       />
 
       {/* Quiet anchor row */}
       <div className="border-y border-border/40 bg-background">
         <div className="container-wide flex flex-wrap items-center gap-x-6 gap-y-2 py-2.5 text-[12px] text-muted-foreground">
           <span className="text-muted-foreground/60">Jump to:</span>
-          <a href="#basics" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">The Basics</a>
-          <a href="#guides" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Practical Guides</a>
-          <a href="#questions" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Common Questions</a>
+          <a href="#basics" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Foundational Standards</a>
+          <a href="#guides" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Clinical Protocols</a>
+          <a href="#questions" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Regulatory FAQ</a>
+          <a href="#archive" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Archive index</a>
         </div>
       </div>
 
-      {/* The Basics */}
+      {/* Archive index strip */}
+      <div className="border-b border-border/40 bg-surface-muted/30">
+        <div className="container-wide flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+          <span>Archive index · SS-LIB-2026.01</span>
+          <span>Maintained · Active</span>
+        </div>
+      </div>
+
+      {/* Foundational Sourcing Standards */}
       <Section>
         <div id="basics" className="scroll-mt-20">
-          <h2 className="h-section">The Basics</h2>
+          <h2 className="h-section">Foundational Sourcing Standards</h2>
           <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
-            Foundational reads. Start here if you're new — these explain what peptides and compounded medications are, and how to tell a real source from a fake one.
+            Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.
           </p>
           <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
             {basics.map((e) => (
               <SimpleRow key={e.id} entry={e} />
             ))}
           </div>
-          <SeeMore to="/education/basics" label="See all foundational reads" />
+          <SeeMore to="/education/basics" label="View full foundational index" />
         </div>
       </Section>
 
-      {/* Practical Guides */}
+      {/* Clinical Handling & Aseptic Protocols */}
       <Section muted>
         <div id="guides" className="scroll-mt-20">
-          <h2 className="h-section">Practical Guides</h2>
+          <h2 className="h-section">Clinical Handling & Aseptic Protocols</h2>
           <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
-            How to handle these medications safely. Reviewed by our Medical Advisory Board. Not a substitute for advice from your own clinician.
+            Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.
           </p>
           <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
             {guidesPreview.map((e) => (
               <SimpleRow key={e.id} entry={e} />
             ))}
           </div>
-          <SeeMore to="/education/guides" label="See all clinical guides" />
+          <SeeMore to="/education/guides" label="View full clinical protocol index" />
         </div>
       </Section>
 
-      {/* Common Questions */}
+      {/* Public Inquiry & Regulatory FAQ */}
       <Section>
         <div id="questions" className="scroll-mt-20">
-          <h2 className="h-section">Common Questions</h2>
+          <h2 className="h-section">Public Inquiry & Regulatory FAQ</h2>
           <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
-            Direct, honest answers to the questions people most often ask.
+            Plain-record answers on legal distinction, regulatory status, verification methodology, and consumer due diligence.
           </p>
           <div className="mt-6 space-y-8">
             {FAQ_BUCKETS.map((bucket) => (
@@ -179,21 +217,29 @@ const Education = () => {
               </div>
             ))}
           </div>
-          <SeeMore to="/education/questions" label="See all questions" />
+          <SeeMore to="/education/questions" label="View full regulatory FAQ" />
         </div>
       </Section>
 
-      {/* Coming soon + About — collapsed footer */}
+      {/* Forthcoming + About — collapsed footer */}
       <Section bordered={false}>
-        <div className="grid md:grid-cols-2 gap-10">
+        <div id="archive" className="scroll-mt-20 grid md:grid-cols-2 gap-10">
           <div>
-            <p className="eyebrow mb-3">Coming soon</p>
-            <ul className="text-[13.5px] text-muted-foreground leading-relaxed space-y-1.5">
-              {librarySupplementary.map((m) => (
-                <li key={m.id}>
-                  <span className="text-foreground">{m.title}</span> — {m.description}
-                </li>
-              ))}
+            <p className="eyebrow mb-3">Forthcoming reference formats</p>
+            <ul className="text-[13.5px] text-muted-foreground leading-relaxed space-y-2">
+              {librarySupplementary.map((m) => {
+                const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
+                return (
+                  <li key={m.id} className="flex items-start gap-4">
+                    <span className="w-24 shrink-0 pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/80 tabular-nums">
+                      {m.id}
+                    </span>
+                    <span className="flex-1">
+                      <span className="text-foreground">{ov.title ?? m.title}</span> — {ov.description ?? m.description}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div>
@@ -209,9 +255,14 @@ const Education = () => {
               </Link>
               . Updated continuously.
             </p>
-            <p className="mt-3 text-[12.5px] text-muted-foreground/80 leading-relaxed">
-              Everything here is informational only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always talk to a qualified health provider with questions about your own care.
-            </p>
+            <div className="mt-6 border-l-2 border-foreground/40 bg-surface-muted/40 px-4 py-3 rounded-[2px]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/70 mb-1.5">
+                Notice · Informational use only
+              </p>
+              <p className="text-[12.5px] text-foreground/85 leading-relaxed">
+                The materials in this library are published for public reference and educational purposes only. They do not constitute medical advice, diagnosis, prescription, or treatment, and they do not establish a clinician–patient relationship. Clinical decisions regarding compounded medications must be made in consultation with a qualified, licensed healthcare provider. Reliance on any information contained herein is solely at the reader's own risk.
+              </p>
+            </div>
           </div>
         </div>
       </Section>
