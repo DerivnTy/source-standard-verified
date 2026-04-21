@@ -59,8 +59,8 @@ const Index = () => {
       />
 
       {/* §1 Public statement */}
-      <section className="border-b border-border">
-        <div className="container-wide py-16 md:py-24">
+      <section className="border-b border-border/50">
+        <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-10 lg:gap-16">
             <div className="md:col-span-8">
               <p className="eyebrow mb-5">Public reference</p>
@@ -83,11 +83,11 @@ const Index = () => {
               </div>
             </div>
             <div className="md:col-span-4">
-              <div className="border border-border/70 rounded-[2px] bg-surface-muted/50 h-full">
-                <div className="px-5 py-3 border-b border-border/70 bg-background">
+              <div className="border border-border/60 rounded-lg bg-surface-muted/40 h-full overflow-hidden">
+                <div className="px-5 py-3 border-b border-border/60 bg-background">
                   <p className="text-[13px] font-semibold text-foreground">Standard at a glance</p>
                 </div>
-                <dl className="divide-y divide-border/70">
+                <dl className="divide-y divide-border/60">
                   {[
                     { l: "Document", v: "SS-FRAMEWORK-2026.01" },
                     { l: "Status", v: "Active" },
@@ -107,7 +107,7 @@ const Index = () => {
       </section>
 
       {/* §2 Public lookups — primary entry points */}
-      <section className="border-b border-border bg-surface-muted/40">
+      <section className="border-b border-border/50 bg-surface-muted/40">
         <div className="container-wide py-14 md:py-20">
           <div className="flex items-baseline justify-between mb-8">
             <p className="eyebrow">§2 — Public lookups</p>
@@ -115,11 +115,8 @@ const Index = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {lookups.map((l) => (
-              <div key={l.n} className="border border-border/70 rounded-[2px] bg-background p-7 flex flex-col">
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.04em] text-primary">Layer {l.n}</span>
-                  <p className="text-[12px] uppercase tracking-[0.12em] text-muted-foreground">{l.label}</p>
-                </div>
+              <div key={l.n} className="border border-border/60 rounded-lg bg-background p-8 flex flex-col">
+                <p className="text-[12px] uppercase tracking-[0.12em] text-muted-foreground mb-3">{l.label}</p>
                 <h3 className="text-[20px] font-semibold text-foreground mb-3">{l.title}</h3>
                 <p className="text-[15px] text-muted-foreground leading-relaxed mb-6 flex-1">{l.body}</p>
                 <Button asChild size="lg" className="h-11 self-start">
@@ -132,12 +129,12 @@ const Index = () => {
       </section>
 
       {/* §3 Medical authority — foundational layer */}
-      <section className="border-b border-border">
-        <div className="container-wide py-16 md:py-24">
+      <section className="border-b border-border/50">
+        <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
               <p className="eyebrow mb-4">§3 — Medical authority</p>
-              <h2 className="text-[1.5rem] md:text-[1.75rem] font-semibold tracking-[-0.01em] leading-[1.2]">
+              <h2 className="section-heading">
                 Standards are set and reviewed under the Medical Advisory Board.
               </h2>
               <p className="mt-5 text-[15.5px] text-muted-foreground leading-relaxed max-w-md">
@@ -151,12 +148,12 @@ const Index = () => {
               </Link>
             </div>
             <div className="md:col-span-7">
-              <div className="border border-border/70 rounded-[2px] bg-surface-muted/50">
-                <div className="px-5 py-3 border-b border-border/70 bg-background flex items-center justify-between">
+              <div className="border border-border/60 rounded-lg bg-surface-muted/40 overflow-hidden">
+                <div className="px-5 py-3 border-b border-border/60 bg-background flex items-center justify-between">
                   <p className="text-[13px] font-semibold text-foreground">Medical Advisory Board · SS-MAB-2026.01</p>
                   <p className="font-mono text-[11px] uppercase tracking-[0.04em] text-muted-foreground">Active</p>
                 </div>
-                <dl className="divide-y divide-border/70">
+                <dl className="divide-y divide-border/60">
                   {[
                     { l: "Function", v: "Clinical review of framework criteria" },
                     { l: "Scope", v: "Peptide therapy · TRT · Hormone optimization" },
@@ -177,12 +174,12 @@ const Index = () => {
       </section>
 
       {/* §4 The two registries — structural explanation */}
-      <section className="border-b border-border bg-surface-muted/40">
-        <div className="container-wide py-16 md:py-24">
+      <section className="border-b border-border/50 bg-surface-muted/40">
+        <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
               <p className="eyebrow mb-4">§4 — The two registries</p>
-              <h2 className="text-[1.5rem] md:text-[1.75rem] font-semibold tracking-[-0.01em] leading-[1.2]">
+              <h2 className="section-heading">
                 Sources first. Vendors verified against them.
               </h2>
               <p className="mt-5 text-[15.5px] text-muted-foreground leading-relaxed max-w-md">
@@ -190,12 +187,12 @@ const Index = () => {
               </p>
             </div>
             <div className="md:col-span-7">
-              <div className="border border-border/70 rounded-[2px] bg-background">
-                <div className="flex items-center justify-between px-5 py-3 border-b border-border/70 bg-surface-muted/60">
+              <div className="border border-border/60 rounded-lg bg-background overflow-hidden">
+                <div className="flex items-center justify-between px-5 py-3 border-b border-border/60 bg-surface-muted/60">
                   <p className="text-[13px] font-semibold text-foreground">Greenlist categories</p>
                   <p className="text-[12.5px] text-muted-foreground">Active · v.2026.01</p>
                 </div>
-                <ul className="divide-y divide-border/70">
+                <ul className="divide-y divide-border/60">
                   {greenlist.map((g, i) => (
                     <li key={g.category} className="grid grid-cols-12 px-5 py-4 items-center gap-3">
                       <div className="col-span-1 font-mono text-[11px] text-muted-foreground">§{i + 1}</div>
@@ -209,7 +206,7 @@ const Index = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="px-5 py-3 border-t border-border/70 flex items-center justify-between">
+                <div className="px-5 py-3 border-t border-border/60 flex items-center justify-between">
                   <Link to="/greenlist" className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary">View greenlist →</Link>
                   <Link to="/verified-vendors" className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover">View vendor registry →</Link>
                 </div>
@@ -220,12 +217,12 @@ const Index = () => {
       </section>
 
       {/* §5 Standards anchoring */}
-      <section className="border-b border-border">
+      <section className="border-b border-border/50">
         <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-4">
               <p className="eyebrow mb-4">§5 — Standards anchoring</p>
-              <h2 className="text-[1.5rem] md:text-[1.75rem] font-semibold tracking-[-0.01em] leading-[1.2]">
+              <h2 className="section-heading">
                 Anchored to public regulatory and compendial records.
               </h2>
               <Link to="/governance" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
@@ -233,7 +230,7 @@ const Index = () => {
               </Link>
             </div>
             <div className="md:col-span-8">
-              <div className="border border-border/70 rounded-[2px] bg-background divide-y divide-border/70">
+              <div className="border border-border/60 rounded-lg bg-background divide-y divide-border/60 overflow-hidden">
                 {anchors.map((a) => (
                   <div key={a.k} className="grid grid-cols-12 px-5 py-4 items-baseline gap-4">
                     <div className="col-span-2 font-mono text-[12px] font-semibold text-foreground tracking-[0.04em]">{a.k}</div>
@@ -247,12 +244,12 @@ const Index = () => {
       </section>
 
       {/* §6 Education preview */}
-      <section className="border-b border-border bg-surface-muted/40">
-        <div className="container-wide py-16 md:py-24">
+      <section className="border-b border-border/50 bg-surface-muted/40">
+        <div className="container-wide py-14 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
               <p className="eyebrow mb-4">§6 — Education</p>
-              <h2 className="text-[1.5rem] md:text-[1.75rem] font-semibold tracking-[-0.01em] leading-[1.2]">
+              <h2 className="section-heading">
                 Neutral, physician-reviewed reference material.
               </h2>
               <p className="mt-4 text-[15.5px] text-muted-foreground leading-relaxed">
@@ -263,8 +260,8 @@ const Index = () => {
               </Link>
             </div>
             <div className="md:col-span-7">
-              <div className="border border-border/70 rounded-[2px] bg-background">
-                <ul className="divide-y divide-border/70">
+              <div className="border border-border/60 rounded-lg bg-background overflow-hidden">
+                <ul className="divide-y divide-border/60">
                   {eduPreview.map((e) => (
                     <li key={e.ref} className="grid grid-cols-12 px-5 py-4 items-baseline gap-3">
                       <div className="col-span-3 font-mono text-[11px] text-muted-foreground">{e.ref}</div>
@@ -282,15 +279,15 @@ const Index = () => {
       </section>
 
       {/* §7 Process & accountability — depth layer */}
-      <section className="border-b border-border">
+      <section className="border-b border-border/50">
         <div className="container-wide py-14 md:py-20">
           <div className="flex items-baseline justify-between mb-8">
             <p className="eyebrow">§7 — Process & accountability</p>
             <p className="text-[12.5px] text-muted-foreground">Procedural depth</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {procedural.map((p, i) => (
-              <Link key={p.t} to={p.to} className="bg-background p-6 hover:bg-surface-muted/40 transition-colors group">
+              <Link key={p.t} to={p.to} className="rounded-lg border border-border/60 bg-background p-6 hover:bg-surface-muted/40 transition-colors group">
                 <p className="font-mono text-[11px] text-muted-foreground mb-3">§7.{i + 1}</p>
                 <p className="text-[15px] font-semibold text-foreground mb-2 group-hover:text-primary">{p.t}</p>
                 <p className="text-[13.5px] text-muted-foreground leading-relaxed">{p.d}</p>
@@ -301,7 +298,7 @@ const Index = () => {
       </section>
 
       {/* §8 Vendor participation — last */}
-      <section className="border-b border-border bg-surface-muted/40">
+      <section className="border-b border-border/50 bg-surface-muted/40">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-8 items-center">
             <div className="md:col-span-8">

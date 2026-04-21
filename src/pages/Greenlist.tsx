@@ -60,9 +60,9 @@ const colorForCategory: Record<GreenlistCategory, string> = {
 
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => (
   <span
-    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums text-[10px] ${colorForCategory[category]}`}
+    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[10px] ${colorForCategory[category]}`}
   >
-    <span aria-hidden className="inline-block leading-none">■</span>
+    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
     {CATEGORY_LABEL[category]}
   </span>
 );
@@ -170,23 +170,26 @@ const Greenlist = () => {
         ]}
       />
 
-      {/* Category legend */}
-      <section className="bg-surface-muted border-b border-border">
-        <div className="container-wide py-6">
-          <p className="meta-label text-foreground mb-3">How to read this registry</p>
-          <div className="grid md:grid-cols-4 gap-px bg-border border border-border">
-            {CATEGORY_DEF.map((d) => (
-              <div key={d.key} className="bg-background p-3">
+      {/* Category legend — softened segmented panel */}
+      <section className="bg-surface-muted/60 border-b border-border/60">
+        <div className="container-wide py-8">
+          <p className="meta-label text-foreground mb-4">How to read this registry</p>
+          <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-2 md:grid-cols-4">
+            {CATEGORY_DEF.map((d, i) => (
+              <div
+                key={d.key}
+                className={`p-4 ${i > 0 ? "border-t md:border-t-0 md:border-l border-border/40" : ""} ${i === 1 ? "border-t-0" : ""}`}
+              >
                 {d.key === "greenlisted" ? (
-                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums text-[11px] text-verified">
-                    <span aria-hidden className="inline-block leading-none">■</span>
+                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-verified">
+                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
                     Greenlisted
                   </span>
                 ) : (
                   <span
-                    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] tabular-nums text-[11px] ${colorForCategory[d.key]}`}
+                    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] ${colorForCategory[d.key]}`}
                   >
-                    <span aria-hidden className="inline-block leading-none">■</span>
+                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
                     {d.title}
                   </span>
                 )}
@@ -209,16 +212,16 @@ const Greenlist = () => {
       </section>
 
       {/* Filter row */}
-      <section className="bg-background border-b border-border sticky top-0 z-20">
-        <div className="container-wide py-3">
-          <div className="flex flex-wrap items-center gap-2">
+      <section className="bg-background/95 backdrop-blur-sm border-b border-border/60 sticky top-0 z-20">
+        <div className="container-wide py-3.5">
+          <div className="flex flex-wrap items-center gap-2.5">
             <div className="relative flex-1 min-w-[220px]">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by facility, pharmacy, or brand name"
-                className="w-full pl-8 pr-3 h-8 bg-background border border-border text-[13px] placeholder:text-muted-foreground focus:outline-none focus:border-foreground"
+                className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
                 aria-label="Search registry"
               />
             </div>
@@ -226,7 +229,7 @@ const Greenlist = () => {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by category"
             >
               <option value={ALL}>All categories</option>
@@ -240,7 +243,7 @@ const Greenlist = () => {
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by type"
             >
               <option value={ALL}>All types</option>
@@ -254,7 +257,7 @@ const Greenlist = () => {
             <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by location"
             >
               <option value={ALL}>All locations</option>
@@ -268,7 +271,7 @@ const Greenlist = () => {
             <select
               value={focus}
               onChange={(e) => setFocus(e.target.value)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Filter by focus"
             >
               <option value={ALL}>All focus areas</option>
@@ -282,7 +285,7 @@ const Greenlist = () => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
-              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-foreground"
               aria-label="Sort records"
             >
               <option value="name-asc">Sort: Name A → Z</option>
@@ -294,7 +297,7 @@ const Greenlist = () => {
             {filtersActive && (
               <button
                 onClick={reset}
-                className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted"
+                className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60"
               >
                 <X className="h-3 w-3" /> Reset
               </button>
@@ -311,16 +314,16 @@ const Greenlist = () => {
 
       {/* Registry table */}
       <section>
-        <div className="container-wide py-6">
+        <div className="container-wide py-8">
           {sorted.length === 0 ? (
-            <div className="border border-border bg-surface-muted px-4 py-10 text-center">
+            <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
               <p className="meta">— No records match the current filters.</p>
             </div>
           ) : (
             <>
               {/* Desktop table */}
-              <div className="hidden md:block border border-border bg-background">
-                <div className="grid grid-cols-12 px-3 py-2 border-b border-border bg-surface-muted">
+              <div className="hidden md:block rounded-lg border border-border/60 bg-background overflow-hidden">
+                <div className="grid grid-cols-12 px-4 py-2.5 border-b border-border/50 bg-surface-muted/60">
                   <div className="col-span-4 meta-label">Facility / Brand</div>
                   <div className="col-span-2 meta-label">Category</div>
                   <div className="col-span-2 meta-label">Location</div>
@@ -330,7 +333,7 @@ const Greenlist = () => {
                 {pageItems.map((e) => (
                   <div
                     key={e.name}
-                    className="grid grid-cols-12 px-3 py-2 border-b border-border last:border-b-0 items-center hover:bg-surface-muted/50"
+                    className="grid grid-cols-12 px-4 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
                   >
                     <div className="col-span-4 min-w-0">
                       <p className="text-[13px] font-medium text-foreground truncate">
@@ -366,9 +369,9 @@ const Greenlist = () => {
               </div>
 
               {/* Mobile cards */}
-              <div className="md:hidden space-y-2">
+              <div className="md:hidden space-y-3">
                 {pageItems.map((e) => (
-                  <div key={e.name} className="block border border-border bg-background p-3">
+                  <div key={e.name} className="block rounded-md border border-border/60 bg-background p-4">
                     <div className="flex items-start justify-between gap-3">
                       <p className="text-[13px] font-medium text-foreground">{e.name}</p>
                       <CategoryPill category={e.category} />
@@ -394,7 +397,7 @@ const Greenlist = () => {
 
           {sorted.length > PAGE_SIZE && (
             <nav
-              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3"
+              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
               aria-label="Registry pagination"
             >
               <p className="meta-label">
@@ -404,7 +407,7 @@ const Greenlist = () => {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="h-3 w-3" /> Prev
@@ -435,10 +438,10 @@ const Greenlist = () => {
                         key={p}
                         onClick={() => setPage(p)}
                         aria-current={p === currentPage ? "page" : undefined}
-                        className={`h-8 min-w-8 px-2 border text-[12px] tabular-nums ${
+                        className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
                           p === currentPage
-                            ? "border-foreground bg-foreground text-background"
-                            : "border-border text-foreground hover:bg-surface-muted"
+                            ? "bg-foreground text-background"
+                            : "border border-border/70 text-foreground hover:bg-surface-muted/60"
                         }`}
                       >
                         {p}
@@ -449,7 +452,7 @@ const Greenlist = () => {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                   aria-label="Next page"
                 >
                   Next <ChevronRight className="h-3 w-3" />
@@ -461,7 +464,7 @@ const Greenlist = () => {
       </section>
 
       {/* Cite-as / disclaimer */}
-      <section className="bg-surface-muted border-t border-border">
+      <section className="bg-surface-muted/60 border-t border-border/60">
         <div className="container-wide py-6 space-y-2">
           <p className="text-[12px] text-muted-foreground leading-relaxed">
             <strong className="text-foreground font-semibold">Cite as.</strong> Source Standard,
