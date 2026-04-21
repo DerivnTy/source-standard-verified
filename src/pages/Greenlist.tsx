@@ -180,8 +180,9 @@ const Greenlist = () => {
             <div className="rounded-lg border border-border/60 bg-background p-4">
               <GreenlistedPill size="md" />
               <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
-                A Source Standard designation indicating an upstream source is recognized within
-                the Greenlist framework. Greenlisted is a status, not a facility type.
+                Greenlisted is the inclusion standard for this registry. Every source listed here
+                is Greenlisted by definition — recognized within the Source Standard framework.
+                What varies row to row is the source type.
               </p>
             </div>
           </div>
