@@ -1,79 +1,77 @@
 
 
-## Homepage hero rebuild + unified architectural-gray background
+## Modern Institutional aesthetic — global polish pass
 
-Two coordinated changes: (1) shift the entire site to a single light architectural-gray surface, and (2) replace the homepage `AnchorHeader` with a custom institutional hero that includes the registry lookup field, metadata block, and rectangular CTAs.
+Five coordinated changes that lock the "high-end secure platform" feel across every page. No new components, no route changes, no data changes. Existing primitives (`AnchorHeader`, `RecordHeader`, `Button`, `Section`, `Card`, the homepage hero) are tuned in place so the look propagates everywhere automatically.
 
-### 1 · Global color profile — unified architectural gray
+### 1 · Global tokens (`src/index.css`, `:root` only)
 
-In `src/index.css` (`:root` only — dark mode untouched):
+- `--background: 0 0% 96.9%` → `0 0% 97.6%` (≈ `#F8F9FA` — the requested architectural gray, very slightly lighter than current).
+- `--surface-muted: 0 0% 96.9%` → `0 0% 97.6%` (kept matching `--background` so the section-banding is gone — every page reads as one continuous document).
+- `--surface: 0 0% 100%` (kept — the white "service card" surface).
+- `--border: 0 0% 88%` → `0 0% 89%` (one shade softer for the "1px subtle" feel; still defined enough on `#F8F9FA`).
+- `--input: 0 0% 80%` → `0 0% 84%` (softer search-bar border per the "no heavy lines" note).
+- `--radius: 0.375rem` → `0.25rem` (4px — the "modern premium" corner the spec calls for; cascades to every `rounded-md` / `rounded-lg` token-bound class via the existing radius scale).
+- `--shadow-sm/md/lg`: shadow opacities cut roughly in half (`0.04 → 0.02`, `0.05 → 0.03`, `0.08 → 0.04`) — shadows still hint at elevation but the "AI gradient/glow" feel is gone.
+- `.dark` block untouched.
 
-- `--background: 0 0% 100%` → `0 0% 96.9%` (≈ `#F7F7F7`).
-- `--surface: 0 0% 100%` → `0 0% 100%` (kept — used for cards, search bar, dropdowns; lets white inputs/cards sit on the gray page).
-- `--surface-muted: 210 22% 98.7%` → `0 0% 96.9%` (matches background — eliminates the section-banding effect).
-- `--card`, `--popover` kept at white so cards remain "grounded" on the gray page.
-- `--border: 215 20% 93%` → `0 0% 88%` (slightly stronger neutral border to define edges on gray).
-- `--input` → `0 0% 80%` (the darker 1px border the search bar needs).
+### 2 · Buttons — kill the blue, lock the charcoal (`src/components/ui/button.tsx`)
 
-Effect: every page becomes one unified `#F7F7F7` plane. White cards, the hero search bar, and footer columns now read as deliberate, grounded panels rather than section bands. No per-section background swap — the existing `bg-surface-muted/40` stripes on Home, Education, etc. now read identically to the page background, removing the "alternating" feel without touching markup.
+- `default` variant: `bg-primary text-primary-foreground hover:bg-primary-hover` → `bg-foreground text-background hover:bg-foreground/85` (deep charcoal `#1A1A1A` via `--foreground`, lightens on hover — matches the "subtle transition" requirement).
+- `outline` variant: `border-border-strong` → `border-border hover:border-foreground/40 hover:bg-transparent` (thin border that darkens on hover — replaces the current `hover:bg-accent` fill so the secondary CTA reads as a true outline button).
+- `rounded-[2px]` → `rounded-[4px]` on the base class (the 4px corner the spec mandates; overrides any per-call `rounded-md` since base wins on this token).
+- Sizes kept; transition expanded to `transition-[background-color,border-color,color] duration-150`.
 
-### 2 · Homepage hero — custom institutional rebuild
+This single edit propagates the charcoal + 4px + soft hover treatment across every `<Button>` in the app — there are no per-page button colour overrides to worry about.
 
-Replace the `<AnchorHeader … />` block at the top of `src/pages/Index.tsx` with a bespoke `<section>` (the existing `AnchorHeader` stays in place for every other page). The new hero, top to bottom:
+### 3 · Homepage hero — match the new system (`src/pages/Index.tsx`)
 
-**Master Control Strip (top, full-bleed band)**
-- Single thin band, `border-b border-border`, white surface (`bg-surface`).
-- Left: `MAINTAINED IN TAMPA, FL · PUBLIC REGISTRY`
-- Right: `SS-FRAMEWORK-2026.01 · ACTIVE / OPERATIONAL · UPDATED 04/21/26`
-- Both rendered in `font-mono text-[11px] uppercase tracking-[0.12em] text-foreground/70` — slightly darker than muted, reading as a technical data header.
-- Height: `h-9`, container `container-wide flex items-center justify-between`.
-- Note: the existing site-wide utility strip in `SiteHeader.tsx` is suppressed on `/` only (small `useLocation` check) so the hero owns the top band on Home and there's no duplicate strip.
+The hero is mostly already on-spec; three small refinements:
 
-**Hero body**
-- Container: `container-wide pt-10 md:pt-12 pb-12 md:pb-14` (this is the ~40% padding reduction vs. the current `py-16 md:py-24`).
-- Left column (`md:col-span-8`):
-  - Eyebrow: `Public registry · v2026.01` (`eyebrow` token, `mb-3`).
-  - Headline (`display-1`, `mt-2`): **"Source Standard: The Public Registry for Compounded Supply-Chain Integrity."**
-  - Subtext (`mt-3 max-w-[62ch] text-[15.5px] text-muted-foreground leading-[1.6]` — tightened from the current `mt-6` / `mt-8` rhythm to take ~40% off the gap): **"An independent auditing framework for the verification of 503A/503B pharmacy sourcing and clinical administrative protocols."**
-  - **Registry Lookup terminal** (`mt-7`):
-    - Tiny mono label above: `REGISTRY LOOKUP v2026.01` in `font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2`.
-    - Search field: `<form>` wrapping a single `<input>` + submit button.
-      - White background (`bg-surface`), `border border-input` (≈ `#CCCCCC`, the darker gray from the token tweak above), `rounded-[2px]`, `h-12`, full width up to `max-w-[640px]`.
-      - Placeholder: `Search vendor, upstream source, or audit ID (e.g. SS-V-0142)`.
-      - Trailing submit button inside the field: `font-mono text-[11px] uppercase tracking-[0.12em] px-4 h-10 bg-foreground text-background rounded-[2px]` — reads as a terminal "Lookup" affordance.
-      - On submit: navigate to `/verified-vendors?q={value}` (no new search infra; the existing directory page already filters; if the page does not currently read `?q=`, it still lands the user on the directory — non-blocking, can be wired later).
-    - Helper line below the field: `Cross-references vendor records against FDA-registered 503A/503B sources.` in `text-[12.5px] text-muted-foreground mt-2`.
-  - **CTA row** (`mt-7 flex flex-wrap gap-3`):
-    - Primary: `<Link to="/verified-vendors">View Verified Registry</Link>` — `bg-foreground text-background hover:bg-foreground/90 rounded-[2px] h-11 px-6 text-[13.5px] font-medium` (solid dark navy/near-black via the `--foreground` token, no gradient, no glow).
-    - Secondary: `<Link to="/apply">Vendor Intake</Link>` — `bg-transparent border border-border-strong text-foreground hover:bg-foreground/[0.04] rounded-[2px] h-11 px-6 text-[13.5px] font-medium`.
-    - Both are inline anchor tags styled directly (not the existing `Button` component) so the 2px radius and exact treatment are guaranteed without touching `button.tsx` (which is reused everywhere else).
-- Right column / aside (`md:col-span-4`, `md:pl-6 md:border-l md:border-border md:self-end`):
-  - Bottom-right institutional metadata block, right-aligned on desktop:
-    - Small mono label `INSTITUTIONAL METADATA` (eyebrow tone, `mb-3`).
-    - Two-row definition list:
-      - `Standard` — `SS-FRAMEWORK-2026.01`
-      - `Status` — `Active / Operational`
-      - `Jurisdiction` — `Tampa, FL · US`
-      - `Review cycle` — `Annual · MAB-reviewed`
-    - Rows: `flex justify-between items-baseline py-1.5 border-b border-border/60 last:border-0`. Labels in `text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground`; values in `font-mono text-[12px] text-foreground tabular-nums`.
+- **Search bar**: `border border-input` → `border border-border` (lighter "1px subtle" border per the spec); `rounded-[2px]` → `rounded-[4px]`; placeholder copy → **"Search by clinic name, state, or pharmacy…"** (consumer-friendly per the spec); helper line tightened to `text-muted-foreground/80`. Inner submit button keeps `bg-foreground text-background` and shifts to `rounded-[4px]`.
+- **CTA buttons**: switch from inline anchors to the upgraded `<Button>` component now that it's on-spec. `View Verified Registry` → `<Button asChild size="lg">`, `Vendor Intake` → `<Button asChild size="lg" variant="outline">`. Removes the parallel inline-styled chrome and keeps a single source of truth.
+- **Master Control Strip**: text colour `text-foreground/70` → `text-muted-foreground/85` (smaller visual weight, "seal of authenticity" rather than data-bar). `bg-surface` → `bg-background` (so the strip blends into the unified gray plane and reads as a thin top frame, not a white band).
 
-**Hero base rule**
-- Single hairline `border-b border-border` under the hero — matches the rest of the page's section dividers.
+### 4 · Page Header Standard — split-header on every page
 
-### 3 · Spacing audit for the "snug up" requirement
+The split-header (left: headline + plain-English lead, right: small Reference Box) is the spec for **every page**. Two surgical edits make this universal:
 
-Verified all three vertical gaps shrink ~40% vs. current values:
-- Top strip → headline: `pt-10 md:pt-12` (was effectively `py-16 md:py-24` of the old `AnchorHeader`).
-- Headline → subtext: `mt-3` (was `mt-3` inside `AnchorHeader`, but the previous hero compounded with internal `gap-10 lg:gap-16` grid spacing — that compounding is gone).
-- Subtext → search terminal: `mt-7` (replaces what was previously a much larger `children` block gap).
+**`src/components/RecordHeader.tsx` (used on every doc/policy page — the 13 reg pages)**
+- The current layout puts the `MetadataBar` as a full-bleed strip BELOW the title block. Replace that with a true right-rail Reference Box on `md:col-span-4` (mirroring the Summary rail layout, but always rendered):
+  - Small mono label `Reference` above.
+  - Stacked rows for the existing `metadata` items (Doc, Status, Updated, Jurisdiction) — labels in `text-[11px] uppercase tracking-[0.08em] text-muted-foreground`, values in `font-mono text-[12px] text-foreground tabular-nums`.
+  - Visual treatment: white `bg-surface` panel, `border border-border rounded-[4px] p-4` — the "white service card housing the data" the spec calls for.
+- When `summary` is also passed, the Summary stacks below the Reference Box in the same right column (no layout regression on Governance / Accountability / Verification Disclaimer / Status Definitions).
+- Remove the `<MetadataBar>` render at the bottom of the header (data has moved into the right rail). Keep the `MetadataBar` component file (used by `ProfileFootnote` etc.) — only the `RecordHeader` call site is removed.
+
+**`src/components/AnchorHeader.tsx` (used on Verified Vendors, Greenlist, Education)**
+- Same upgrade: when no `aside` is passed, render a default Reference Box on the right with a doc identifier + status pulled from a small new optional prop `reference?: { docId: string; status: string; updated: string }`. Pages that already pass a custom `aside` (e.g. Verified Vendors filter strip) keep their existing aside untouched.
+- Result: the three anchor pages without a custom aside (Greenlist, Education, etc.) automatically gain the same Reference Box that the doc pages now show — single visual standard across the site.
+
+**Per-page wiring**: `Greenlist.tsx`, `Education.tsx`, `Apply.tsx`, `MedicalAdvisory.tsx`, `HowItWorks.tsx`, etc. that already pass an `aside` keep working unchanged. Pages that don't pass an `aside` get a small `reference={{ docId: "SS-…", status: "Active", updated: "04/21/26" }}` prop added in a single small pass — only the doc IDs need filling in (already exist on each page's existing metadata). No layout work needed downstream.
+
+### 5 · `SiteHeader.tsx` utility strip — "seal of authenticity"
+
+- Strip background `bg-surface-muted/60` → `bg-background` (blends into unified gray).
+- Text size `text-[12px] text-muted-foreground` → `text-[11px] text-muted-foreground/75`.
+- Border `border-b border-border/40` kept — thin, consistent with the rest of the page dividers.
+- Result: the strip is still legible on every non-home page but recedes — exactly the "seal not distraction" treatment the spec describes. The home page already suppresses it (the hero Master Control Strip handles that band).
+
+### Section banding cleanup (passive — no markup changes)
+
+The existing `bg-surface-muted/40` stripes on Home (§2, §4, §6, §8), Education, Apply, etc. now resolve to `#F8F9FA` over `#F8F9FA` — no visible band. The "single continuous document" feel falls out of the token change automatically without touching markup. Section borders (`border-b border-border/50`) become the only structure — the "thin dividers" the spec asks for.
 
 ### Files touched
 
-- `src/index.css` — token values for `--background`, `--surface-muted`, `--border`, `--input` (and a small `--surface` clarification comment). `:root` only; `.dark` block untouched.
-- `src/pages/Index.tsx` — replace the opening `<AnchorHeader …>` block (lines ~50–67) with the new hero `<section>` described above. Rest of the page (`§2`–`§8`) unchanged.
-- `src/components/SiteHeader.tsx` — wrap the existing utility strip in a `useLocation().pathname !== "/"` check so the homepage hero owns the top band and there is no duplicate strip.
+- `src/index.css` — token values for `--background`, `--surface-muted`, `--border`, `--input`, `--radius`, and the three `--shadow-*` tokens. `:root` only.
+- `src/components/ui/button.tsx` — `default` + `outline` variants and base `rounded` token.
+- `src/components/RecordHeader.tsx` — replace bottom `<MetadataBar>` with right-rail Reference Box.
+- `src/components/AnchorHeader.tsx` — add optional `reference` prop that renders the same Reference Box when no `aside` is supplied.
+- `src/pages/Index.tsx` — search-bar border + radius + placeholder + helper, CTA row migrated to `<Button>`, control strip background tweak.
+- `src/components/SiteHeader.tsx` — utility-strip background + text-size tweaks.
+- One small additive pass on the 6–8 anchor pages without a custom `aside`, adding the `reference={…}` prop with their existing doc IDs.
 
 ### What stays the same
 
-All routes, every other page's `AnchorHeader`, the `Button` component (untouched — the homepage hero uses inline anchor styling for the 2px radius), the `SiteFooter` rebuild from the previous turn, the dark-mode palette, and all data files. No new components, no new fonts, no new dependencies — the search field uses native `<input>` + `<form>` with existing tokens.
+All routes, every page's headline copy and structure, the `Section` / `Card` / `MetadataBar` / `ProfileHeader` / `ProfileFootnote` primitives, every data file, the dark-mode palette, the homepage hero structure, the footer rebuild from the previous turn, the Education badge polish, and the existing search-on-submit behaviour. No new components, no new fonts, no new dependencies.
 
