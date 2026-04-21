@@ -37,7 +37,7 @@ export const SiteHeader = () => {
             <NavLink
               key={n.to}
               to={n.to}
-              
+              end={n.end}
               className={({ isActive }) =>
                 `text-[13.5px] tracking-[0] transition-colors ${
                   isActive
