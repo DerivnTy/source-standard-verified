@@ -27,20 +27,12 @@ const STATUS_ORDER: VendorPublicStatus[] = [
   "removed",
 ];
 
-const STATUS_LEGEND_SHORT: Record<VendorPublicStatus, string> = {
-  verified: "published",
-  "under-review": "in progress",
-  unverified: "not published",
-  suspended: "paused",
-  removed: "removed",
-};
-
-const STATUS_DOT_COLOR: Record<VendorPublicStatus, string> = {
-  verified: "bg-verified",
-  "under-review": "bg-pending",
-  unverified: "bg-muted-foreground",
-  suspended: "bg-destructive",
-  removed: "bg-muted-foreground",
+const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
+  verified: "Source Standard verification has been completed and published.",
+  "under-review": "An active Source Standard review is currently in progress.",
+  unverified: "No Source Standard verification is currently published.",
+  suspended: "A previously published verification is temporarily paused.",
+  removed: "Listing has been removed from the public directory.",
 };
 
 const formatLocation = (v: Vendor) => {
