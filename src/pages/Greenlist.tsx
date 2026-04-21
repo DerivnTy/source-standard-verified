@@ -334,9 +334,12 @@ const Greenlist = () => {
                     className="grid grid-cols-12 px-4 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
                   >
                     <div className="col-span-4 min-w-0">
-                      <p className="text-[13px] font-medium text-foreground truncate">
+                      <Link
+                        to={`/greenlist/${e.slug}`}
+                        className="text-[13px] font-medium text-foreground truncate block hover:text-primary"
+                      >
                         {e.name}
-                      </p>
+                      </Link>
                       <p className="text-[11px] text-muted-foreground truncate">{e.type}</p>
                     </div>
                     <div className="col-span-2">
