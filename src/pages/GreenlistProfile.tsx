@@ -4,48 +4,67 @@ import { MetadataBar } from "@/components/MetadataBar";
 import { Button } from "@/components/ui/button";
 import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenlist";
 
-// Compact field cell. Returns null when value is empty so empty fields collapse from the DOM.
-const Field = ({ label, value }: { label: string; value: ReactNode }) => {
-  if (value === null || value === undefined || value === "" || value === false) return null;
+// Inline meta line: dot-separated mono row of short scalar values. Skips empties.
+const MetaLine = ({ items }: { items: (string | number | null | undefined)[] }) => {
+  const filled = items.filter((v) => v !== null && v !== undefined && v !== "") as (string | number)[];
+  if (filled.length === 0) return null;
   return (
-    <div className="py-1">
-      <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
+    <p className="text-[12.5px] font-mono text-muted-foreground leading-relaxed">
+      {filled.map((v, i) => (
+        <span key={i}>
+          {i > 0 && <span className="mx-2 text-border">·</span>}
+          <span className="text-foreground/80">{v}</span>
+        </span>
+      ))}
+    </p>
+  );
+};
+
+// Tag row: small label + wrapped chip list. Returns null if array is empty.
+const TagRow = ({ label, items }: { label: string; items?: string[] }) => {
+  if (!items || items.length === 0) return null;
+  return (
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
+      <span className="text-[10.5px] uppercase tracking-[0.1em] font-mono text-muted-foreground shrink-0 pt-0.5">
         {label}
-      </dt>
-      <dd className="mt-1 text-[13.5px] text-foreground leading-[1.4]">{value}</dd>
+      </span>
+      <ul className="flex flex-wrap gap-1.5">
+        {items.map((item) => (
+          <li
+            key={item}
+            className="inline-flex items-center px-1.5 py-0.5 rounded-sm border border-border/60 bg-surface-muted/40 text-[11.5px] font-mono text-foreground/90"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-const tags = (arr?: string[]): ReactNode => {
-  if (!arr || arr.length === 0) return null;
+// Prose paragraph with a small inline label. Returns null if value missing.
+const Prose = ({ label, value }: { label?: string; value?: string }) => {
+  if (!value) return null;
   return (
-    <ul className="flex flex-wrap gap-1">
-      {arr.map((item) => (
-        <li
-          key={item}
-          className="inline-flex items-center px-1.5 py-0.5 rounded border border-border/60 bg-surface-muted/60 text-[11.5px] font-mono"
-        >
-          {item}
-        </li>
-      ))}
-    </ul>
+    <p className="text-[14px] text-foreground/85 leading-[1.55] max-w-[68ch]">
+      {label && (
+        <span className="text-[10.5px] uppercase tracking-[0.1em] font-mono text-muted-foreground mr-2">
+          {label}
+        </span>
+      )}
+      {value}
+    </p>
   );
 };
 
-const text = (v?: string | number): ReactNode =>
-  v !== undefined && v !== null && v !== "" ? <>{v}</> : null;
-
-// Section renders only when at least one child is non-null.
+// Editorial section: number + title, hairline rule, then content. Skips if no content.
 const Section = ({
-  eyebrow,
+  number,
   title,
-  subtitle,
   children,
 }: {
-  eyebrow: string;
+  number: string;
   title: string;
-  subtitle: string;
   children: ReactNode;
 }) => {
   const filled = (Array.isArray(children) ? children : [children]).filter(
@@ -53,21 +72,16 @@ const Section = ({
   );
   if (filled.length === 0) return null;
   return (
-    <section className="rounded-lg border border-border/60 bg-background overflow-hidden">
-      <header className="bg-surface-muted/60 border-b border-border/60 px-4 py-2.5">
-        <p className="text-[10px] uppercase tracking-[0.14em] font-mono font-semibold text-muted-foreground leading-tight">
-          {eyebrow}
-        </p>
-        <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em] leading-tight m-0">
+    <section>
+      <div className="flex items-baseline gap-3 pb-2 border-b border-border/60">
+        <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-muted-foreground">
+          {number}
+        </span>
+        <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em] m-0">
           {title}
         </h2>
-        <p className="mt-0 text-[12px] text-muted-foreground leading-tight">
-          {subtitle}
-        </p>
-      </header>
-      <dl className="px-4 py-2.5 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-1.5">
-        {filled}
-      </dl>
+      </div>
+      <div className="mt-4 space-y-3">{filled}</div>
     </section>
   );
 };
