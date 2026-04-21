@@ -25,10 +25,10 @@
     --popover-foreground: 215 32% 8%;
 
     /* Slate-blue — interface accent (decoupled from status) */
-    --primary: 215 38% 28%;
+    --primary: 212 32% 42%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 215 38% 22%;
-    --accent-soft: 215 36% 96%;
+    --primary-hover: 212 34% 36%;
+    --accent-soft: 212 30% 96.5%;
 
     --secondary: 210 16% 96%;
     --secondary-foreground: 215 32% 10%;
