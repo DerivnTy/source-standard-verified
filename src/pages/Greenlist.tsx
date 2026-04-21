@@ -84,17 +84,17 @@ const Greenlist = () => {
     <>
       {/* §1 — Intro */}
       <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-20">
-          <p className="eyebrow mb-4">Public registry · Upstream sources</p>
-          <h1 className="text-[2rem] md:text-[2.5rem] font-semibold tracking-[-0.015em] leading-[1.1] text-foreground max-w-3xl">
+        <div className="container-wide py-8 md:py-10">
+          <p className="eyebrow mb-2">Public registry · Upstream sources</p>
+          <h1 className="text-[1.625rem] md:text-[1.875rem] font-semibold tracking-[-0.015em] leading-[1.15] text-foreground max-w-3xl">
             Greenlist of Recognized Sources
           </h1>
-          <p className="mt-6 max-w-3xl text-[16.5px] text-muted-foreground leading-[1.6]">
+          <p className="mt-3 max-w-3xl text-[14.5px] text-muted-foreground leading-[1.6]">
             The Greenlist is the upstream reference layer within the Source Standard framework.
             It includes recognized 503B outsourcing facilities, 503A compounding pharmacies, and
             other qualified source categories used in vendor review.
           </p>
-          <p className="mt-4 max-w-3xl text-[14.5px] text-muted-foreground leading-[1.6]">
+          <p className="mt-2 max-w-3xl text-[13px] text-muted-foreground leading-[1.55]">
             Inclusion in the Greenlist is based on public licensing, registration, and recognized
             credentialing standards. Greenlist inclusion does not itself mean a vendor is verified.
             Vendors are reviewed separately against recognized source categories and documented
@@ -102,9 +102,9 @@ const Greenlist = () => {
           </p>
 
           {/* Metadata strip */}
-          <dl className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border/70 pt-5">
+          <dl className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border/70 pt-3">
             {META_ROW.map((m) => (
-              <div key={m.label} className="flex items-baseline gap-2 text-[12.5px]">
+              <div key={m.label} className="flex items-baseline gap-2 text-[12px]">
                 <dt className="text-muted-foreground">{m.label}</dt>
                 <dd className="text-foreground font-medium">{m.value}</dd>
               </div>
