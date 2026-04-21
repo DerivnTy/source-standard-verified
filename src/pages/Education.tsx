@@ -1,219 +1,283 @@
 import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+const featuredArticles = [
+  {
+    category: "Sourcing",
+    title: "What 503B registration actually means",
+    description:
+      "A plain-language guide to FDA-registered outsourcing facilities, what registration proves, and what it does not.",
+    status: "Coming soon",
+  },
+  {
+    category: "Certificates of Analysis",
+    title: "How to read a peptide CoA",
+    description:
+      "Walk through identity tests, assay results, lot numbers, and the gaps that should make you ask more questions.",
+    status: "Coming soon",
+  },
+  {
+    category: "Verification",
+    title: "What Source Standard verification means",
+    description:
+      "What our review actually checks, what it does not, and how to interpret a vendor's public verification status.",
+    status: "Coming soon",
+  },
+  {
+    category: "Consumer Safety",
+    title: "Five questions to ask before buying",
+    description:
+      "A short, practical checklist for evaluating any clinic or vendor before you place an order.",
+    status: "Coming soon",
+  },
+  {
+    category: "Consumer Safety",
+    title: "Warning signs of undocumented sourcing",
+    description:
+      "How to spot vague supplier language, missing records, and claims that cannot be independently verified.",
+    status: "Coming soon",
+  },
+  {
+    category: "Storage and Handling",
+    title: "Storage and reconstitution basics",
+    description:
+      "Temperature, light exposure, reconstitution, and shelf life — the handling fundamentals consumers should know.",
+    status: "Coming soon",
+  },
+];
 
 const categories = [
+  { name: "Sourcing", desc: "Where products originate and how that's documented.", count: 4 },
+  { name: "Verification", desc: "What review and verification actually involve.", count: 3 },
+  { name: "Certificates of Analysis", desc: "Reading lab results and assay reports.", count: 2 },
+  { name: "Licensing", desc: "Pharmacy, medical, and facility licensing basics.", count: 3 },
+  { name: "Consumer Safety", desc: "Practical due diligence before buying.", count: 5 },
+  { name: "Storage and Handling", desc: "Temperature, reconstitution, shelf life.", count: 2 },
+  { name: "TRT and Hormone Optimization", desc: "What consumers should understand first.", count: 3 },
+  { name: "Peptide Basics", desc: "Foundational concepts, terminology, and categories.", count: 4 },
+];
+
+const faqs = [
   {
-    ref: "REF-100",
-    t: "Understanding 503B Facilities",
-    d: "What FDA-registered outsourcing facilities are, why they matter, and what registration does — and does not — prove.",
+    q: 'What does "verified" mean?',
+    a: "A verified listing means Source Standard has reviewed the vendor's submitted documentation — including licensing, sourcing records, and supplier disclosures — and found it consistent with our published standards at the time of review. Verification is documentation-based and does not guarantee clinical outcomes.",
   },
   {
-    ref: "REF-200",
-    t: "Reading a Certificate of Analysis",
-    d: "How to look at a CoA without a chemistry background: identity, assay results, lot numbers, and warning signs.",
+    q: 'What does "unverified" mean?',
+    a: "Unverified means a vendor has not completed the Source Standard review process, or that submitted records were incomplete or inconsistent. It is not in itself an accusation — only a statement that no public verification exists.",
   },
   {
-    ref: "REF-300",
-    t: "Licensing & Registration Basics",
-    d: "The basic state and federal licenses consumers may see when researching clinics, pharmacies, and sourcing claims.",
+    q: "What is a 503B facility?",
+    a: "A 503B outsourcing facility is a compounding pharmacy that has registered with the FDA under Section 503B of the Federal Food, Drug, and Cosmetic Act. Registration carries specific manufacturing and reporting obligations, but registration alone does not certify any individual product.",
   },
   {
-    ref: "REF-400",
-    t: "What Verification Means",
-    d: "How Source Standard reviews documentation and what a public verification status can and cannot tell you.",
+    q: "What is a certificate of analysis?",
+    a: "A certificate of analysis (CoA) is a lab document reporting identity, purity, and assay results for a specific lot of product. A useful CoA is tied to a traceable lot number and issued by an independent laboratory.",
   },
   {
-    ref: "REF-500",
-    t: "Sourcing Documentation",
-    d: "What good sourcing records look like, where chain-of-custody can break down, and what questions to ask.",
+    q: "Does Source Standard verify safety?",
+    a: "No. Source Standard reviews documentation, sourcing records, and public claims. We do not test products, conduct clinical trials, or issue safety guarantees. Verification is a transparency layer, not a safety endorsement.",
   },
   {
-    ref: "REF-600",
-    t: "Consumer Due Diligence",
-    d: "Practical steps for comparing vendors, reading claims carefully, and avoiding unsupported safety language.",
+    q: "How should peptides be stored?",
+    a: "Most peptides require refrigeration, protection from light, and careful handling after reconstitution. Specific storage instructions vary by product — always follow the vendor's documented guidance and any clinical instructions you receive.",
   },
   {
-    ref: "REF-700",
-    t: "Storage, Stability & Shelf Life",
-    d: "Plain-language handling basics for temperature, light exposure, reconstitution, and product degradation.",
+    q: "What should I ask before buying from a clinic?",
+    a: "Ask where products are sourced, whether the upstream pharmacy is licensed and registered, whether CoAs are available, and how the clinic handles storage and shipping. A serious vendor should be able to answer these directly.",
   },
   {
-    ref: "REF-800",
-    t: "Risks of Unverified Sources",
-    d: "Common risks tied to undocumented suppliers, gray-market products, and claims that cannot be independently checked.",
+    q: "Does a professional website mean a clinic is legitimate?",
+    a: "No. A polished website is a marketing artifact, not a regulatory record. Legitimacy is established through licensing, documentation, and verifiable sourcing — none of which can be inferred from design quality alone.",
+  },
+  {
+    q: "What records actually matter when evaluating a vendor?",
+    a: "The records that matter most are pharmacy and facility licenses, supplier invoices, chain-of-custody documentation, certificates of analysis tied to specific lots, and consistency between public claims and submitted records.",
   },
 ];
 
-const popularQuestions = [
-  "What does verified mean?",
-  "What is a 503B facility?",
-  "How do I read a CoA?",
-  "What questions should I ask before buying?",
-  "How should peptides be stored?",
-];
-
-const guides = [
-  {
-    ref: "REF-101",
-    c: "503B Facilities",
-    t: "What 503B registration actually means",
-    d: "A plain-language guide to FDA-registered outsourcing facilities, the records consumers can check, and the limits of registration.",
-    cite: "SS-EDU-101.2026",
-  },
-  {
-    ref: "REF-201",
-    c: "Certificates of Analysis",
-    t: "How to read a peptide CoA",
-    d: "A practical walkthrough of assay results, identity testing, lot traceability, and common gaps that should raise questions.",
-    cite: "SS-EDU-201.2026",
-  },
-  {
-    ref: "REF-301",
-    c: "Licensing",
-    t: "Which licenses matter?",
-    d: "A consumer overview of pharmacy licensing, medical licensing, and why a website claim is not the same as a public record.",
-    cite: "SS-EDU-301.2026",
-  },
-  {
-    ref: "REF-401",
-    c: "Verification",
-    t: "What Source Standard reviews",
-    d: "What documentation-first verification checks, what it does not check, and how to interpret a vendor's public status.",
-    cite: "SS-EDU-401.2026",
-  },
-  {
-    ref: "REF-501",
-    c: "Sourcing",
-    t: "Where sourcing records break down",
-    d: "How upstream pharmacy records, invoices, lot documentation, and supplier claims connect — and where they often do not.",
-    cite: "SS-EDU-501.2026",
-  },
-  {
-    ref: "REF-601",
-    c: "Due Diligence",
-    t: "Five questions to ask before buying",
-    d: "A simple checklist consumers can use before purchasing from a clinic, vendor, or online source making safety claims.",
-    cite: "SS-EDU-601.2026",
-  },
-  {
-    ref: "REF-701",
-    c: "Storage",
-    t: "Storage, reconstitution, and refrigeration basics",
-    d: "What consumers should understand about handling, temperature exposure, and why storage instructions matter.",
-    cite: "SS-EDU-701.2026",
-  },
-  {
-    ref: "REF-801",
-    c: "Risk",
-    t: "Warning signs of unverified sources",
-    d: "How undocumented sourcing, missing records, and vague supplier language can create avoidable consumer risk.",
-    cite: "SS-EDU-801.2026",
-  },
+const referenceNotes = [
+  { id: "SS-EDU-101.2026", topic: "503B registration" },
+  { id: "SS-EDU-201.2026", topic: "Reading a certificate of analysis" },
+  { id: "SS-EDU-301.2026", topic: "Licensing basics" },
+  { id: "SS-EDU-401.2026", topic: "Verification scope" },
+  { id: "SS-EDU-501.2026", topic: "Sourcing documentation" },
+  { id: "SS-EDU-601.2026", topic: "Consumer due diligence" },
+  { id: "SS-EDU-701.2026", topic: "Storage and stability" },
+  { id: "SS-EDU-801.2026", topic: "Risks of unverified sources" },
 ];
 
 const Education = () => {
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Doc", value: "SS-EDU-2026.01" },
-          { label: "Version", value: "2026.01" },
-          { label: "Status", value: "Forthcoming" },
-          { label: "Updated", value: "04 / 20 / 2026" },
-        ]}
-        eyebrow="Education · Consumer Learning Center"
-        title="Education and Consumer Guidance"
-        lead="Clear guidance for understanding sourcing, verification, storage, due diligence, and the risks of buying from unverified sources — written for consumers, grounded in public records and clinical review."
-        summary={[
-          { label: "Topics covered", value: categories.length.toString().padStart(2, "0") },
-          { label: "Guides coming soon", value: guides.length.toString().padStart(2, "0") },
-          { label: "Updated", value: "Regularly" },
-          { label: "Use", value: "Informational only" },
-        ]}
-      />
-
-      <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-4">
-          <p className="text-[13px] text-muted-foreground leading-relaxed">
-            Educational material on this page is informational only and is not medical advice.
+      {/* Hero */}
+      <header className="bg-background border-b border-border">
+        <div className="container-wide py-14 md:py-20">
+          <p className="eyebrow mb-4">Education</p>
+          <h1 className="text-[1.875rem] md:text-[2.25rem] font-semibold tracking-tight text-foreground leading-[1.15] max-w-3xl">
+            Education
+          </h1>
+          <p className="mt-5 max-w-2xl text-[16px] text-muted-foreground leading-relaxed">
+            Learn more about peptide sourcing, TRT, hormone optimization, verification, storage,
+            and what consumers should understand before buying from any clinic or vendor.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
+            <span className="meta text-muted-foreground">Updated · Regularly</span>
+            <span className="meta text-muted-foreground">Informational only</span>
+          </div>
+          <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-2xl">
+            Educational material is informational only and is not medical advice.
           </p>
         </div>
-      </section>
+      </header>
 
+      {/* Featured Articles */}
       <section className="border-b border-border">
-        <div className="container-wide py-10 md:py-14">
-          <div className="flex items-end justify-between gap-6 flex-wrap mb-6">
+        <div className="container-wide py-12 md:py-16">
+          <div className="flex items-end justify-between gap-6 flex-wrap mb-8">
             <div>
               <p className="meta mb-3">Start here</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-foreground">
-                Popular questions from consumers.
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+                Featured Articles
               </h2>
             </div>
-            <p className="text-[13px] text-muted-foreground leading-relaxed max-w-md">
-              Quick entry points for people trying to understand vendors, sourcing claims, and safety documentation.
+            <p className="text-[13px] text-muted-foreground max-w-md leading-relaxed">
+              Short, plain-language guides to the topics consumers ask about most.
             </p>
           </div>
-          <ul className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-border border border-border">
-            {popularQuestions.map((q, i) => (
-              <li key={q} className="bg-background p-4 min-h-28 flex flex-col justify-between">
-                <span className="meta text-primary">{(i + 1).toString().padStart(2, "0")}</span>
-                <h3 className="mt-4 text-[14px] font-semibold text-foreground leading-snug">{q}</h3>
+
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {featuredArticles.map((a) => (
+              <li
+                key={a.title}
+                className="group border border-border bg-background p-6 flex flex-col hover:border-foreground/30 transition-colors"
+              >
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <span className="meta-label text-primary">{a.category}</span>
+                  <span className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground border border-border px-2 py-0.5">
+                    {a.status}
+                  </span>
+                </div>
+                <h3 className="text-[17px] font-semibold tracking-tight text-foreground leading-snug">
+                  {a.title}
+                </h3>
+                <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed flex-1">
+                  {a.description}
+                </p>
+                <Link
+                  to="#"
+                  className="mt-5 text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary self-start"
+                >
+                  Read more →
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section>
-        <div className="container-wide py-10 md:py-14">
-          <div className="grid md:grid-cols-12 gap-10">
-            <aside className="md:col-span-4">
-              <div className="md:sticky md:top-28 border border-border bg-background">
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-surface-muted">
-                  <p className="meta-label text-foreground">Learning topics</p>
-                  <p className="meta-label">{categories.length.toString().padStart(2, "0")}</p>
+      {/* Browse by Topic */}
+      <section className="border-b border-border bg-surface-muted">
+        <div className="container-wide py-12 md:py-16">
+          <div className="mb-8">
+            <p className="meta mb-3">Topics</p>
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+              Browse by Topic
+            </h2>
+            <p className="mt-3 text-[14px] text-muted-foreground max-w-2xl leading-relaxed">
+              The areas covered across our guides and reference material.
+            </p>
+          </div>
+          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
+            {categories.map((c) => (
+              <li key={c.name} className="bg-background p-5 min-h-32 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-[14.5px] font-semibold text-foreground leading-snug">
+                    {c.name}
+                  </h3>
+                  <p className="mt-2 text-[12.5px] text-muted-foreground leading-relaxed">
+                    {c.desc}
+                  </p>
                 </div>
-                <ul className="divide-y divide-border">
-                  {categories.map((c) => (
-                    <li key={c.ref} className="px-4 py-4">
-                      <h3 className="text-[13.5px] font-semibold text-foreground leading-snug">{c.t}</h3>
-                      <p className="mt-1.5 text-[12.5px] text-muted-foreground leading-relaxed">{c.d}</p>
-                      <p className="mt-3 meta text-muted-foreground">{c.ref}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
+                <p className="mt-4 meta text-muted-foreground">
+                  {c.count.toString().padStart(2, "0")} articles
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-            <div className="md:col-span-8">
-              <div className="flex items-baseline justify-between mb-4">
-                <p className="meta text-foreground">Upcoming Guides</p>
-                <p className="meta-label">Publishing 2026</p>
-              </div>
-              <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
-                {guides.map((g) => (
-                  <li key={g.ref} className="bg-background p-5 flex flex-col min-h-56">
-                    <div className="flex items-center justify-between gap-4 mb-4">
-                      <span className="meta-label text-primary">{g.c}</span>
-                      <span className="meta text-muted-foreground">Forthcoming</span>
-                    </div>
-                    <h3 className="text-[16px] font-semibold tracking-tight text-foreground leading-snug">{g.t}</h3>
-                    <p className="mt-3 text-[13.5px] text-muted-foreground leading-relaxed flex-1">{g.d}</p>
-                    <div className="mt-5 pt-4 border-t border-border flex items-center justify-between gap-3">
-                      <span className="meta text-muted-foreground">{g.ref}</span>
-                      <span className="meta text-muted-foreground">{g.cite}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-[12px] text-muted-foreground max-w-2xl leading-relaxed">
-                <span className="meta-label text-foreground mr-2">Cite as ·</span>
-                Source Standard Education, SS-EDU-2026.01. Individual guide IDs are shown as secondary metadata.
+      {/* FAQ */}
+      <section className="border-b border-border">
+        <div className="container-wide py-12 md:py-16">
+          <div className="grid md:grid-cols-12 gap-10">
+            <div className="md:col-span-4">
+              <p className="meta mb-3">Common questions</p>
+              <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground leading-tight">
+                Frequently Asked Questions
+              </h2>
+              <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
+                Quick answers to the questions consumers ask most often. Each item links to a
+                fuller explanation when one is available.
               </p>
             </div>
+            <div className="md:col-span-8">
+              <Accordion type="single" collapsible className="border-t border-border">
+                {faqs.map((f, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
+                    <AccordionTrigger className="text-[15px] font-semibold text-foreground text-left hover:no-underline hover:text-primary">
+                      {f.q}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <p className="text-[14px] text-muted-foreground leading-relaxed">{f.a}</p>
+                      <Link
+                        to="#"
+                        className="mt-4 inline-block text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                      >
+                        Read more →
+                      </Link>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-10 border border-border bg-surface-muted">
+      {/* Reference Notes */}
+      <section className="border-b border-border">
+        <div className="container-wide py-10 md:py-12">
+          <div className="mb-5">
+            <p className="meta-label text-foreground">Reference Notes</p>
+            <p className="mt-2 text-[12.5px] text-muted-foreground max-w-2xl leading-relaxed">
+              Internal citation identifiers for the educational material referenced above.
+            </p>
+          </div>
+          <ul className="divide-y divide-border border-t border-border">
+            {referenceNotes.map((r) => (
+              <li
+                key={r.id}
+                className="flex items-baseline justify-between gap-4 py-2.5 text-[12.5px]"
+              >
+                <span className="meta-mono text-muted-foreground">{r.id}</span>
+                <span className="text-muted-foreground">{r.topic}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Read deeper */}
+      <section>
+        <div className="container-wide py-10 md:py-12">
+          <div className="border border-border bg-surface-muted">
             <div className="px-4 py-2.5 border-b border-border bg-background">
               <p className="meta-label text-foreground">Read deeper</p>
             </div>
