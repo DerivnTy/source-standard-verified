@@ -136,17 +136,37 @@
     letter-spacing: -0.005em;
   }
 
+  /* Headings drop to medium (500) at H1/H2. Semibold is reserved
+     for short labels, eyebrows, and identifiers — not long titles.
+     This is the single biggest lever against the "DIY website" feel. */
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans text-foreground;
-    font-weight: 600;
+    font-weight: 500;
   }
 
-  h1 { line-height: 1.15; letter-spacing: -0.015em; }
-  h2 { line-height: 1.2; letter-spacing: -0.01em; }
-  h3 { line-height: 1.3; }
-  h4 { line-height: 1.35; }
+  h1 { line-height: 1.15; letter-spacing: -0.018em; }
+  h2 { line-height: 1.2; letter-spacing: -0.012em; }
+  h3 { line-height: 1.3; font-weight: 600; }
+  h4 { line-height: 1.35; font-weight: 600; }
 
   p { line-height: 1.65; }
+}
+
+@layer components {
+  /* Display sizes — anchor pages use display-1; document pages use the
+     RecordHeader's tighter, smaller scale so the two tiers visibly differ. */
+  .display-1 {
+    @apply text-[2rem] md:text-[2.625rem] font-medium tracking-[-0.022em] leading-[1.08];
+  }
+  .display-2 {
+    @apply text-[1.75rem] md:text-[2.25rem] font-medium tracking-[-0.02em] leading-[1.12];
+  }
+
+  /* Record/profile titles — entity name on a record page.
+     Sentence-case, medium weight, smaller than anchor headlines. */
+  .title-record {
+    @apply text-[1.5rem] md:text-[1.875rem] font-medium tracking-[-0.012em] leading-[1.2];
+  }
 }
 
 @layer components {

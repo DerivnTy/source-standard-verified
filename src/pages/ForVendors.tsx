@@ -29,12 +29,6 @@ const ForVendors = () => {
         eyebrow="Vendor Reference · Submission Standard"
         title="Vendor Reference."
         lead="This page documents the submission requirements, evidence categories, and review timeline for vendors seeking verification under SS-FRAMEWORK-2026.01."
-        summary={[
-          { label: "Required docs", value: "05" },
-          { label: "Intake time", value: "≈15 min" },
-          { label: "Cycle", value: "10–14 days" },
-          { label: "Cost", value: "Disclosed at intake" },
-        ]}
       />
 
       {/* §1 Documentation required */}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PageHeader } from "@/components/PageHeader";
+import { UtilityHeader } from "@/components/UtilityHeader";
 import { Section } from "@/components/Section";
 import {
   ENTRY_STATUS_LABEL,
@@ -42,15 +42,9 @@ const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
 const EducationGuides = () => {
   return (
     <>
-      <div className="container-wide pt-6">
-        <Link
-          to="/education"
-          className="text-[12.5px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
-        >
-          ← Back to Learn
-        </Link>
-      </div>
-      <PageHeader
+      <UtilityHeader
+        backHref="/education"
+        backLabel="Back to Learn"
         eyebrow="Practical Guides"
         title="Clinical guides"
         description="How to handle these medications safely. Reviewed by our Medical Advisory Board. Not a substitute for advice from your own clinician."

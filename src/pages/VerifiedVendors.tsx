@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { RecordHeader } from "@/components/RecordHeader";
+import { AnchorHeader } from "@/components/AnchorHeader";
 import { StatusBadge } from "@/components/StatusBadge";
 import {
   vendors,
@@ -157,23 +157,25 @@ const VerifiedVendors = () => {
 
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Doc", value: "SS-REGISTRY-2026.01" },
-          { label: "Version", value: "2026.01" },
-          { label: "Status", value: "Active" },
-          { label: "Updated", value: "April 21, 2026" },
-          { label: "Jurisdiction", value: "US" },
-        ]}
-        eyebrow="Public Directory · Verified Vendors"
-        title="Public vendor directory."
-        lead="Source Standard maintains a public directory of vendors operating in peptide, TRT, and hormone optimization. Each listing carries a public status indicating whether a Source Standard verification has been published for that vendor."
-        summary={[
-          { label: "Total listings", value: vendors.length.toString().padStart(2, "0") },
-          { label: "Verified", value: counts.verified.toString().padStart(2, "0") },
-          { label: "Under review", value: counts["under-review"].toString().padStart(2, "0") },
-          { label: "Unverified", value: counts.unverified.toString().padStart(2, "0") },
-        ]}
+      <AnchorHeader
+        eyebrow="Public Directory"
+        title="Verified vendor directory."
+        lead="A public directory of vendors operating in peptide, TRT, and hormone optimization. Each listing carries a public status indicating whether a Source Standard verification has been published for that vendor."
+        aside={
+          <dl className="grid grid-cols-4 gap-px bg-border/50 border border-border/50 rounded-md overflow-hidden text-center">
+            {[
+              { l: "Total", v: vendors.length },
+              { l: "Verified", v: counts.verified },
+              { l: "Under review", v: counts["under-review"] },
+              { l: "Unverified", v: counts.unverified },
+            ].map((s) => (
+              <div key={s.l} className="bg-background px-2 py-3">
+                <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground/80">{s.l}</dt>
+                <dd className="mt-1 text-[18px] font-medium text-foreground tabular-nums">{s.v.toString().padStart(2, "0")}</dd>
+              </div>
+            ))}
+          </dl>
+        }
       />
 
       {/* Status legend — softened segmented panel */}

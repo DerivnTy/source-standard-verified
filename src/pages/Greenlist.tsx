@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { RecordHeader } from "@/components/RecordHeader";
+import { AnchorHeader } from "@/components/AnchorHeader";
 import {
   greenlistEntries,
   GreenlistEntry,
@@ -208,23 +208,25 @@ const Greenlist = () => {
 
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Doc", value: "SS-GREENLIST-2026.01" },
-          { label: "Version", value: "2026.01" },
-          { label: "Status", value: "Active" },
-          { label: "Updated", value: "April 21, 2026" },
-          { label: "Jurisdiction", value: "US" },
-        ]}
-        eyebrow="Public Registry · Recognized Sources"
-        title="Public registry of recognized upstream sources."
-        lead="Source Standard maintains a public registry of upstream sources that carry Greenlisted status — recognized within the framework across source types including 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
-        summary={[
-          { label: "Total entries", value: counts.total.toString().padStart(2, "0") },
-          { label: "503B facilities", value: counts["503B"].toString().padStart(2, "0") },
-          { label: "503A pharmacies", value: counts["503A"].toString().padStart(2, "0") },
-          { label: "Other sources", value: counts.Other.toString().padStart(2, "0") },
-        ]}
+      <AnchorHeader
+        eyebrow="Public Registry"
+        title="Recognized upstream sources."
+        lead="A public registry of upstream sources that carry Greenlisted status — recognized within the framework across 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
+        aside={
+          <dl className="grid grid-cols-4 gap-px bg-border/50 border border-border/50 rounded-md overflow-hidden text-center">
+            {[
+              { l: "Total", v: counts.total },
+              { l: "503B", v: counts["503B"] },
+              { l: "503A", v: counts["503A"] },
+              { l: "Other", v: counts.Other },
+            ].map((s) => (
+              <div key={s.l} className="bg-background px-2 py-3">
+                <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground/80">{s.l}</dt>
+                <dd className="mt-1 text-[18px] font-medium text-foreground tabular-nums">{s.v.toString().padStart(2, "0")}</dd>
+              </div>
+            ))}
+          </dl>
+        }
       />
 
       {/* How Greenlist status works — compact explanatory bridge */}

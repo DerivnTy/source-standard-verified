@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { greenlist } from "@/data/greenlist";
-import { MetadataBar } from "@/components/MetadataBar";
+import { AnchorHeader } from "@/components/AnchorHeader";
 
 const lookups = [
   {
@@ -47,64 +47,29 @@ const procedural = [
 const Index = () => {
   return (
     <>
-      <MetadataBar
-        items={[
-          { label: "Doc", value: <span className="font-mono text-[12px]">SS-FRAMEWORK-2026.01</span> },
-          { label: "Status", value: "Active" },
-          { label: "Version", value: "2026.01" },
-          { label: "Updated", value: "April 20, 2026" },
-          { label: "Jurisdiction", value: "US" },
-          { label: "Reviewed under", value: "Medical Advisory Board" },
-        ]}
-      />
-
-      {/* §1 Public statement */}
-      <section className="border-b border-border/50">
-        <div className="container-wide py-14 md:py-20">
-          <div className="grid md:grid-cols-12 gap-10 lg:gap-16">
-            <div className="md:col-span-8">
-              <p className="eyebrow mb-5">Public reference</p>
-              <h1 className="text-[2rem] md:text-[2.5rem] font-semibold tracking-[-0.015em] leading-[1.1] text-foreground">
-                A public record of vendor verification and recognized sources.
-              </h1>
-              <p className="mt-6 max-w-2xl text-[17px] text-muted-foreground leading-[1.6]">
-                Source Standard was created to make vendor sourcing and verification easier to understand. The site allows visitors to review verified vendors, recognized upstream sources, and the standards used to evaluate documentation in peptide, TRT, and hormone optimization markets.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="h-11">
-                  <Link to="/verified-vendors">Verified vendors</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="h-11">
-                  <Link to="/greenlist">Greenlist</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="h-11">
-                  <Link to="/about">About</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="md:col-span-4">
-              <div className="border border-border/60 rounded-lg bg-surface-muted/40 h-full overflow-hidden">
-                <div className="px-5 py-3 border-b border-border/60 bg-background">
-                  <p className="text-[13px] font-semibold text-foreground">Standard at a glance</p>
-                </div>
-                <dl className="divide-y divide-border/60">
-                  {[
-                    { l: "Document", v: "SS-FRAMEWORK-2026.01" },
-                    { l: "Status", v: "Active" },
-                    { l: "Jurisdiction", v: "US" },
-                    { l: "Oversight", v: "Medical Advisory Board" },
-                  ].map((r) => (
-                    <div key={r.l} className="flex items-baseline justify-between px-5 py-3">
-                      <dt className="text-[13px] text-muted-foreground">{r.l}</dt>
-                      <dd className="text-[13px] font-medium text-foreground tabular-nums text-right ml-3">{r.v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </div>
-          </div>
+      <AnchorHeader
+        eyebrow="Public reference"
+        title="A public record of vendor verification and recognized sources."
+        lead="Source Standard makes vendor sourcing and verification easier to understand. Review verified vendors, recognized upstream sources, and the standards used to evaluate documentation in peptide, TRT, and hormone optimization markets."
+      >
+        <div className="flex flex-wrap gap-3">
+          <Button asChild size="lg" className="h-11">
+            <Link to="/verified-vendors">Verified vendors</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="h-11">
+            <Link to="/greenlist">Greenlist</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="h-11">
+            <Link to="/about">About</Link>
+          </Button>
         </div>
-      </section>
+        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-2 text-[12px] text-muted-foreground">
+          <span><span className="text-muted-foreground/70 mr-1.5">Framework</span><span className="font-mono text-foreground/85">SS-FRAMEWORK-2026.01</span></span>
+          <span><span className="text-muted-foreground/70 mr-1.5">Status</span><span className="text-foreground/85">Active</span></span>
+          <span><span className="text-muted-foreground/70 mr-1.5">Updated</span><span className="text-foreground/85">April 20, 2026</span></span>
+          <span><span className="text-muted-foreground/70 mr-1.5">Oversight</span><span className="text-foreground/85">Medical Advisory Board</span></span>
+        </div>
+      </AnchorHeader>
 
       {/* §2 Public lookups — primary entry points */}
       <section className="border-b border-border/50 bg-surface-muted/40">

@@ -35,12 +35,6 @@ const About = () => {
         eyebrow="About · Organization Reference"
         title="About Source Standard."
         lead="Source Standard was created to bring more clarity to a market where sourcing claims are often easy to make and difficult to evaluate."
-        summary={[
-          { label: "Founded", value: "2026" },
-          { label: "Headquarters", value: "Tampa, FL" },
-          { label: "Jurisdiction", value: "FL · US" },
-          { label: "Model", value: "Documentation-first" },
-        ]}
       />
 
       {/* §1 Context */}
