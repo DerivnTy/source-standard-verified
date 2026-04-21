@@ -363,7 +363,7 @@ const VerifiedVendors = () => {
 
               {/* Mobile cards */}
               <div className="md:hidden space-y-2">
-                {sorted.map((v) => (
+                {pageItems.map((v) => (
                   <Link
                     key={v.slug}
                     to={`/directory/${v.slug}`}
