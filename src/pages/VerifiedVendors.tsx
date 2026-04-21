@@ -325,7 +325,7 @@ const VerifiedVendors = () => {
                   <div className="col-span-3 meta-label">Clinical focus</div>
                   <div className="col-span-1 meta-label text-right">Profile</div>
                 </div>
-                {sorted.map((v) => (
+                {pageItems.map((v) => (
                   <div
                     key={v.slug}
                     className="grid grid-cols-12 px-3 py-2 border-b border-border last:border-b-0 items-center hover:bg-surface-muted/50"
