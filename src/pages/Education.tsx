@@ -94,8 +94,8 @@ const Education = () => {
     <>
       <AnchorHeader
         eyebrow="Library"
-        title="Learn how verification works."
-        lead="Plain explanations of the framework, the documents that matter, and what to ask before you buy."
+        title="Learn the landscape."
+        lead="Plain-language guidance on peptides, TRT, sourcing, storage, and what to look for before you buy."
       />
 
       {/* Quiet anchor row */}
