@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { RecordHeader } from "@/components/RecordHeader";
 import { StatusBadge } from "@/components/StatusBadge";
 import {
