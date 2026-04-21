@@ -171,7 +171,7 @@ const GreenlistProfile = () => {
     },
     {
       label: "Designation",
-      value: !designationDuplicatesType ? text(p.designation) : null,
+      value: !designationDuplicatesType && p.designation ? p.designation : null,
     },
   ];
   const visibleGlance = glanceData.filter(
