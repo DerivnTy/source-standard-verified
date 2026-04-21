@@ -13,54 +13,72 @@ type QA = { q: string; a: ReactNode; to?: To; toLabel?: string };
 
 const groups: { title: string; items: QA[] }[] = [
   {
-    title: "About Source Standard",
+    title: "The Organization",
     items: [
       {
         q: "What is Source Standard?",
-        a: "Source Standard is a public reference framework that reviews medical and health vendors against documented sourcing, licensing, and public-claims criteria, and publishes the results as a structured registry.",
+        a: "Source Standard is an auditing body that maintains a public registry of medical and health vendors reviewed against documented sourcing, licensing, and public-claims criteria. The registry is a reference layer; it is not a clinic, pharmacy, or manufacturer.",
         to: "/about",
         toLabel: "About Source Standard",
       },
       {
         q: "Is Source Standard a regulator?",
-        a: "No. Source Standard is not a regulator, a clinic, a manufacturer, or a pharmacy. It is a documentation and review framework that references existing regulatory authorities.",
+        a: "No. Source Standard is not a regulator. It references existing regulatory anchors (FDA, state boards of pharmacy, PCAB, NSF, USP) and publishes time-bound determinations against those anchors.",
         to: "/governance",
         toLabel: "Governance",
       },
       {
         q: "Who oversees the framework?",
-        a: "The framework is overseen by an internal review function and a medical advisory body. Authority references are drawn from FDA, state boards of pharmacy, PCAB, NSF, and USP standards.",
+        a: "An internal review function and a medical advisory body. Authority references are drawn from FDA, state boards of pharmacy, PCAB, NSF, and USP standards.",
         to: "/medical-advisory",
         toLabel: "Medical Advisory",
       },
     ],
   },
   {
-    title: "Verification",
+    title: "Verification Protocols",
     items: [
       {
-        q: "What does Verified mean?",
-        a: "Verified means the vendor has completed a documented review of records, sourcing documentation, licensing, and public claims, and the listing reflects that review at the time of publication.",
+        q: "What does \u201CVerified\u201D mean?",
+        a: "A time-bound determination by the auditing body that the entity has produced records of identity, licensing, sourcing, and public claims sufficient to satisfy the verification protocol (SS-FRAMEWORK-2026.01) at the date of issue.",
         to: "/how-it-works",
-        toLabel: "Verification process",
+        toLabel: "Verification protocol",
       },
       {
-        q: "What is reviewed during verification?",
-        a: "Business identity, licenses and registrations, pharmacy and supplier records, certificates and category records, sourcing and invoice history, public claims consistency, and renewal-related updates.",
+        q: "What is examined during verification?",
+        a: "Business identity; jurisdictional licenses and registrations; pharmacy and supplier records; certificates of analysis and category records; procurement and invoice history; consistency of public claims; and renewal-related updates.",
         to: "/how-it-works",
         toLabel: "What we review",
       },
       {
-        q: "How long does verification last?",
-        a: "Verification is time-bound and reviewed on a defined renewal interval. Material changes can also trigger an out-of-cycle re-review at any time.",
+        q: "How long does a determination last?",
+        a: "Determinations are time-bound and reviewed on a defined renewal interval. Material changes can trigger an out-of-cycle re-review at any time.",
         to: "/accountability",
         toLabel: "Accountability & Enforcement",
       },
       {
-        q: "What does Verified not mean?",
-        a: "Verified is not a clinical endorsement, not a guarantee of product safety, not a warranty of future conduct, and not a substitute for professional medical judgment.",
+        q: "What does \u201CVerified\u201D not mean?",
+        a: "It is not a clinical endorsement, not a guarantee of product safety, not a warranty of future conduct, and not a substitute for professional medical judgment.",
         to: "/verification-disclaimer",
         toLabel: "Verification Disclaimer",
+      },
+      {
+        q: "What public statuses exist?",
+        a: "Verified, Pending Review, Under Review, Suspended, Removed, Greenlisted, and Not Listed. Each is defined in the controlling reference.",
+        to: "/status-definitions",
+        toLabel: "Status Definitions",
+      },
+      {
+        q: "What does \u201CSuspended\u201D mean?",
+        a: "A previously Verified determination has been temporarily withdrawn pending clarification. It does not constitute a finding of wrongdoing.",
+        to: "/status-definitions",
+        toLabel: "Status Definitions",
+      },
+      {
+        q: "What does an audit cost?",
+        a: "Audit fees are disclosed during Step 2 of the application process and vary by category.",
+        to: "/for-vendors",
+        toLabel: "Vendor Submission Standard",
       },
     ],
   },
@@ -69,87 +87,48 @@ const groups: { title: string; items: QA[] }[] = [
     items: [
       {
         q: "What is the Greenlist?",
-        a: "The Greenlist is a registry of upstream sources — primarily 503A compounding pharmacies, 503B outsourcing facilities, and other qualified suppliers — that are documented as legitimate operating entities under recognized regulatory categories.",
+        a: "The Greenlist is a registry of upstream sources \u2014 primarily 503A compounding pharmacies, 503B outsourcing facilities, and other qualified suppliers \u2014 documented as legitimate operating entities under recognized regulatory categories.",
         to: "/greenlist",
         toLabel: "Greenlist",
       },
       {
-        q: "Does Greenlisted mean Source Standard endorses the supplier?",
-        a: "No. Greenlisted indicates that the source is documented and registered under a recognized regulatory category. It does not imply contract, affiliation, or endorsement of any specific product.",
+        q: "Does \u201CGreenlisted\u201D mean Source Standard endorses the supplier?",
+        a: "No. Greenlisted indicates the source is documented and registered under a recognized regulatory category. It does not imply contract, affiliation, or endorsement of any specific product.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
     ],
   },
   {
-    title: "For Consumers",
+    title: "Public & Consumer Use",
     items: [
       {
         q: "How should I use the registry?",
-        a: "Use the registry as a structured reference to check whether a vendor has been reviewed under the framework, what scope was reviewed, and what their current public status is. The registry is a reference layer — it does not replace consultation with a licensed clinician.",
+        a: "As a structured reference to check whether a vendor has been reviewed under the framework, what scope was reviewed, and the current public status. The registry does not replace consultation with a licensed clinician.",
       },
       {
-        q: "What if a vendor is Not Listed?",
-        a: "Not Listed only means that the entity does not appear in the registry. It does not imply the entity is illegitimate. It may simply not have entered the verification process.",
+        q: "What if a vendor is \u201CNot Listed\u201D?",
+        a: "Not Listed means the entity does not appear in the registry. It is not a finding against the entity; the entity may simply not have entered the verification process.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
       {
-        q: "I have a concern about a listed vendor — what do I do?",
-        a: "Submit a report through the Report a Concern channel. Reports are reviewed under the framework's triage process and may trigger a re-review.",
+        q: "I have a concern about a listed vendor \u2014 what do I do?",
+        a: "Submit a report through the Report a Concern channel. Reports are reviewed under the framework's triage process and may trigger an out-of-cycle re-review.",
         to: "/report-a-concern",
         toLabel: "Report a Concern",
       },
-    ],
-  },
-  {
-    title: "For Vendors",
-    items: [
       {
         q: "How does a vendor apply?",
-        a: "A vendor begins by submitting an application that includes business identity, licensing, supplier disclosure, and product category records. The review proceeds through a defined lifecycle.",
+        a: "Step 1 is a public-data registry initialization (Form SS-INTAKE-01). Step 2, issued by a Verification Officer, covers controlled document uploads and payment.",
         to: "/apply",
-        toLabel: "Begin a verification application",
+        toLabel: "Begin a filing",
       },
       {
-        q: "What does verification cost?",
-        a: "Fees are determined at the time of application based on scope and category. The application page contains current information.",
-        to: "/for-vendors",
-        toLabel: "For Vendors",
-      },
-      {
-        q: "What changes must I report after verification?",
+        q: "What changes must a verified vendor report?",
         a: "Supplier changes, license changes, ownership changes, product category additions or removals, public claim changes, and any regulatory action.",
         to: "/accountability",
         toLabel: "Reportable changes",
-      },
-    ],
-  },
-  {
-    title: "Public statuses",
-    items: [
-      {
-        q: "What statuses exist?",
-        a: "Verified, Pending Review, Under Review, Suspended, Removed, Greenlisted, and Not Listed. Each is defined in the Status Definitions reference.",
-        to: "/status-definitions",
-        toLabel: "Status Definitions",
-      },
-      {
-        q: "What does Suspended mean?",
-        a: "A previously Verified listing has been temporarily withdrawn pending clarification. It does not imply confirmed wrongdoing.",
-        to: "/status-definitions",
-        toLabel: "Status Definitions",
-      },
-    ],
-  },
-  {
-    title: "Limits and disclaimers",
-    items: [
-      {
-        q: "Does verification guarantee product safety?",
-        a: "No. Verification reviews documentation, sourcing, licensing, and claims. It does not test products, make clinical judgments, or guarantee outcomes.",
-        to: "/verification-disclaimer",
-        toLabel: "Verification Disclaimer",
       },
       {
         q: "How is my data handled?",
@@ -176,9 +155,9 @@ const FAQ = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "FL/US" },
       ]}
-      eyebrow="Reference"
-      title="Frequently asked questions."
-      lead="Short, evidence-based answers covering verification, the greenlist, and registry use."
+      eyebrow="Reference · Administrative briefing"
+      title="Registry FAQs & Interpretations."
+      lead="Direct, time-bound interpretations of the registry's verification protocols, greenlist scope, and permitted public use. Issued by the auditing body for reference; not a substitute for the controlling source documents cited in each answer."
     />
 
     {groups.map((g, gi) => (
@@ -209,9 +188,11 @@ const FAQ = () => (
     <Section density="tight">
       <SectionLabel number={`§${groups.length + 1}`} title="Read deeper" />
       <ul className="space-y-2 text-[15px]">
-        <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification →</Link></li>
-        <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
         <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
+        <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
+        <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">SOP: Verification Protocol & Audit Methodology →</Link></li>
+        <li><Link to="/governance" className="text-foreground underline-offset-4 hover:underline">Governance →</Link></li>
+        <li><Link to="/verification-disclaimer" className="text-foreground underline-offset-4 hover:underline">Verification Disclaimer →</Link></li>
       </ul>
       <p className="mt-8 meta-label">
         Cite as: Source Standard FAQ, SS-FAQ-2026.01.
