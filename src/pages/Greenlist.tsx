@@ -352,18 +352,12 @@ const Greenlist = () => {
                       {e.focus}
                     </div>
                     <div className="col-span-1 text-right">
-                      {e.website ? (
-                        <a
-                          href={e.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
-                        >
-                          Visit →
-                        </a>
-                      ) : (
-                        <span className="text-[11px] font-mono text-muted-foreground">—</span>
-                      )}
+                      <Link
+                        to={`/greenlist/${e.slug}`}
+                        className="text-[11px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                      >
+                        View →
+                      </Link>
                     </div>
                   </div>
                 ))}
