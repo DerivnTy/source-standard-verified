@@ -1,304 +1,265 @@
 import { Link } from "react-router-dom";
+import { RecordHeader } from "@/components/RecordHeader";
+import { Section, SectionLabel } from "@/components/Section";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  ENTRY_STATUS_LABEL,
+  EntryStatus,
+  FAQ_GROUP_LABEL,
+  FAQGroup,
+  LibraryEntry,
+  libraryFaqs,
+  libraryGuides,
+  librarySeries,
+  librarySupplementary,
+} from "@/data/library";
 
-const featuredArticles = [
-  {
-    category: "Sourcing",
-    title: "What 503B registration actually means",
-    description:
-      "A plain-language guide to FDA-registered outsourcing facilities, what registration proves, and what it does not.",
-    status: "Coming soon",
-  },
-  {
-    category: "Certificates of Analysis",
-    title: "How to read a peptide CoA",
-    description:
-      "Walk through identity tests, assay results, lot numbers, and the gaps that should make you ask more questions.",
-    status: "Coming soon",
-  },
-  {
-    category: "Verification",
-    title: "What Source Standard verification means",
-    description:
-      "What our review actually checks, what it does not, and how to interpret a vendor's public verification status.",
-    status: "Coming soon",
-  },
-  {
-    category: "Consumer Safety",
-    title: "Five questions to ask before buying",
-    description:
-      "A short, practical checklist for evaluating any clinic or vendor before you place an order.",
-    status: "Coming soon",
-  },
-  {
-    category: "Consumer Safety",
-    title: "Warning signs of undocumented sourcing",
-    description:
-      "How to spot vague supplier language, missing records, and claims that cannot be independently verified.",
-    status: "Coming soon",
-  },
-  {
-    category: "Storage and Handling",
-    title: "Storage and reconstitution basics",
-    description:
-      "Temperature, light exposure, reconstitution, and shelf life — the handling fundamentals consumers should know.",
-    status: "Coming soon",
-  },
-];
+const StatusChip = ({ status }: { status: EntryStatus }) => (
+  <span className="inline-flex items-center gap-1.5 border border-border/70 px-2 py-0.5 text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
+    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
+    {ENTRY_STATUS_LABEL[status]}
+  </span>
+);
 
-const categories = [
-  { name: "Sourcing", desc: "Where products originate and how that's documented.", count: 4 },
-  { name: "Verification", desc: "What review and verification actually involve.", count: 3 },
-  { name: "Certificates of Analysis", desc: "Reading lab results and assay reports.", count: 2 },
-  { name: "Licensing", desc: "Pharmacy, medical, and facility licensing basics.", count: 3 },
-  { name: "Consumer Safety", desc: "Practical due diligence before buying.", count: 5 },
-  { name: "Storage and Handling", desc: "Temperature, reconstitution, shelf life.", count: 2 },
-  { name: "TRT and Hormone Optimization", desc: "What consumers should understand first.", count: 3 },
-  { name: "Peptide Basics", desc: "Foundational concepts, terminology, and categories.", count: 4 },
-];
+const EntryRow = ({ entry }: { entry: LibraryEntry }) => (
+  <Link
+    to={`/education/${entry.slug}`}
+    className="grid grid-cols-12 gap-4 px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 transition-colors group"
+  >
+    <div className="col-span-12 md:col-span-2 flex items-start">
+      <span className="text-[11.5px] font-mono uppercase tracking-[0.08em] text-muted-foreground tabular-nums">
+        {entry.id}
+      </span>
+    </div>
+    <div className="col-span-12 md:col-span-7">
+      <h3 className="text-[15px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
+        {entry.title}
+      </h3>
+      <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
+        {entry.summary}
+      </p>
+      {entry.reviewedBy && (
+        <p className="mt-2 text-[11.5px] text-muted-foreground/80">
+          Reviewed by · <span className="text-foreground/80">{entry.reviewedBy}</span>
+        </p>
+      )}
+    </div>
+    <div className="col-span-12 md:col-span-3 flex md:justify-end items-start">
+      <StatusChip status={entry.status} />
+    </div>
+  </Link>
+);
 
-const faqs = [
-  {
-    q: 'What does "verified" mean?',
-    a: "A verified listing means Source Standard has reviewed the vendor's submitted documentation — including licensing, sourcing records, and supplier disclosures — and found it consistent with our published standards at the time of review. Verification is documentation-based and does not guarantee clinical outcomes.",
-  },
-  {
-    q: 'What does "unverified" mean?',
-    a: "Unverified means a vendor has not completed the Source Standard review process, or that submitted records were incomplete or inconsistent. It is not in itself an accusation — only a statement that no public verification exists.",
-  },
-  {
-    q: "What is a 503B facility?",
-    a: "A 503B outsourcing facility is a compounding pharmacy that has registered with the FDA under Section 503B of the Federal Food, Drug, and Cosmetic Act. Registration carries specific manufacturing and reporting obligations, but registration alone does not certify any individual product.",
-  },
-  {
-    q: "What is a certificate of analysis?",
-    a: "A certificate of analysis (CoA) is a lab document reporting identity, purity, and assay results for a specific lot of product. A useful CoA is tied to a traceable lot number and issued by an independent laboratory.",
-  },
-  {
-    q: "Does Source Standard verify safety?",
-    a: "No. Source Standard reviews documentation, sourcing records, and public claims. We do not test products, conduct clinical trials, or issue safety guarantees. Verification is a transparency layer, not a safety endorsement.",
-  },
-  {
-    q: "How should peptides be stored?",
-    a: "Most peptides require refrigeration, protection from light, and careful handling after reconstitution. Specific storage instructions vary by product — always follow the vendor's documented guidance and any clinical instructions you receive.",
-  },
-  {
-    q: "What should I ask before buying from a clinic?",
-    a: "Ask where products are sourced, whether the upstream pharmacy is licensed and registered, whether CoAs are available, and how the clinic handles storage and shipping. A serious vendor should be able to answer these directly.",
-  },
-  {
-    q: "Does a professional website mean a clinic is legitimate?",
-    a: "No. A polished website is a marketing artifact, not a regulatory record. Legitimacy is established through licensing, documentation, and verifiable sourcing — none of which can be inferred from design quality alone.",
-  },
-  {
-    q: "What records actually matter when evaluating a vendor?",
-    a: "The records that matter most are pharmacy and facility licenses, supplier invoices, chain-of-custody documentation, certificates of analysis tied to specific lots, and consistency between public claims and submitted records.",
-  },
-];
-
-const referenceNotes = [
-  { id: "SS-EDU-101.2026", topic: "503B registration" },
-  { id: "SS-EDU-201.2026", topic: "Reading a certificate of analysis" },
-  { id: "SS-EDU-301.2026", topic: "Licensing basics" },
-  { id: "SS-EDU-401.2026", topic: "Verification scope" },
-  { id: "SS-EDU-501.2026", topic: "Sourcing documentation" },
-  { id: "SS-EDU-601.2026", topic: "Consumer due diligence" },
-  { id: "SS-EDU-701.2026", topic: "Storage and stability" },
-  { id: "SS-EDU-801.2026", topic: "Risks of unverified sources" },
-];
+const groupedFaqs = (Object.keys(FAQ_GROUP_LABEL) as FAQGroup[]).map((g) => ({
+  group: g,
+  label: FAQ_GROUP_LABEL[g],
+  items: libraryFaqs.filter((f) => f.group === g),
+}));
 
 const Education = () => {
+  const counts = {
+    series: librarySeries.length,
+    guides: libraryGuides.length,
+    faqs: libraryFaqs.length,
+    supplementary: librarySupplementary.length,
+  };
+
   return (
     <>
-      {/* Hero */}
-      <header className="bg-background border-b border-border">
-        <div className="container-wide py-14 md:py-20">
-          <p className="eyebrow mb-4">Education</p>
-          <h1 className="text-[1.875rem] md:text-[2.25rem] font-semibold tracking-tight text-foreground leading-[1.15] max-w-3xl">
-            Education
-          </h1>
-          <p className="mt-5 max-w-2xl text-[16px] text-muted-foreground leading-relaxed">
-            Learn more about peptide sourcing, TRT, hormone optimization, verification, storage,
-            and what consumers should understand before buying from any clinic or vendor.
-          </p>
-          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="meta text-muted-foreground">Updated · Regularly</span>
-            <span className="meta text-muted-foreground">Informational only</span>
-          </div>
-          <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-2xl">
-            Educational material is informational only and is not medical advice.
-          </p>
+      <RecordHeader
+        metadata={[
+          { label: "Document", value: "SS-LIBRARY-2026.01" },
+          { label: "Status", value: "Active" },
+          { label: "Reviewed under", value: "Medical Advisory Board" },
+          { label: "Updated", value: "Continuously" },
+        ]}
+        eyebrow="Clinical Reference Library"
+        title="Clinical Reference Library"
+        lead="A neutral, structured reference resource for consumers and clinicians. The library documents the framework behind Source Standard, provides physician-reviewed clinical guides, and addresses common questions about verification, methodology, and consumer due diligence. It is not editorial content and is not personalized medical advice."
+        summary={[
+          { label: "Source Standard Series", value: counts.series },
+          { label: "Clinical Guides", value: counts.guides },
+          { label: "FAQ entries", value: counts.faqs },
+          { label: "Supplementary formats", value: counts.supplementary },
+        ]}
+      />
+
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border/60">
+        <div className="container-wide flex flex-wrap items-center gap-x-8 gap-y-2 py-3 text-[12.5px]">
+          <span className="text-muted-foreground/80 font-mono uppercase tracking-[0.08em] text-[11px]">
+            Index
+          </span>
+          <a href="#series" className="text-foreground hover:underline underline-offset-4">
+            I · Source Standard Series
+          </a>
+          <a href="#guides" className="text-foreground hover:underline underline-offset-4">
+            II · Clinical Guides
+          </a>
+          <a href="#faq" className="text-foreground hover:underline underline-offset-4">
+            III · FAQ
+          </a>
+          <a href="#supplementary" className="text-foreground hover:underline underline-offset-4">
+            IV · Supplementary
+          </a>
         </div>
-      </header>
+      </div>
 
-      {/* Featured Articles */}
-      <section className="border-b border-border">
-        <div className="container-wide py-12 md:py-16">
-          <div className="flex items-end justify-between gap-6 flex-wrap mb-8">
-            <div>
-              <p className="meta mb-3">Start here</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
-                Featured Articles
-              </h2>
-            </div>
-            <p className="text-[13px] text-muted-foreground max-w-md leading-relaxed">
-              Short, plain-language guides to the topics consumers ask about most.
-            </p>
+      <Section>
+        <div id="series" className="scroll-mt-20">
+          <SectionLabel
+            number="I"
+            eyebrow="Lane I"
+            title="The Source Standard Series"
+            description="Framework and landscape pieces authored by Source Standard. These entries explain the regulatory context, the verification framework, and the reasoning behind directory methodology."
+          />
+          <div className="border border-border/70 rounded-[2px] bg-background">
+            {librarySeries.map((e) => (
+              <EntryRow key={e.id} entry={e} />
+            ))}
           </div>
+        </div>
+      </Section>
 
-          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {featuredArticles.map((a) => (
-              <li
-                key={a.title}
-                className="group border border-border bg-background p-6 flex flex-col hover:border-foreground/30 transition-colors"
-              >
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <span className="meta-label text-primary">{a.category}</span>
-                  <span className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground border border-border px-2 py-0.5">
-                    {a.status}
+      <Section muted>
+        <div id="guides" className="scroll-mt-20">
+          <SectionLabel
+            number="II"
+            eyebrow="Lane II"
+            title="Clinical & Practical Guides"
+            description="Reviewed under the Medical Advisory Board. These guides are intended as practical clinical reference material. They are not personalized medical advice and do not establish a clinician–patient relationship."
+          />
+          <div className="border border-border/70 rounded-[2px] bg-background">
+            {libraryGuides.map((e) => (
+              <EntryRow key={e.id} entry={e} />
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <Section>
+        <div id="faq" className="scroll-mt-20">
+          <SectionLabel
+            number="III"
+            eyebrow="Lane III"
+            title="Unbiased FAQ"
+            description="Direct answers to common questions about legality, verification status, registry methodology, and consumer due diligence."
+          />
+          <div className="space-y-10">
+            {groupedFaqs.map((g) => (
+              <div key={g.group}>
+                <p className="eyebrow mb-4">{g.label}</p>
+                <Accordion type="single" collapsible className="border-t border-border/60">
+                  {g.items.map((item) => (
+                    <AccordionItem key={item.id} value={item.id} className="border-b border-border/60">
+                      <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
+                        <span className="flex items-baseline gap-3">
+                          <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground tabular-nums">
+                            {item.id}
+                          </span>
+                          <span>{item.q}</span>
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
+                        <p>{item.a}</p>
+                        {item.relatedSlug && (
+                          <p className="mt-3">
+                            <Link
+                              to={`/education/${item.relatedSlug}`}
+                              className="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
+                            >
+                              Read deeper →
+                            </Link>
+                          </p>
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <Section muted>
+        <div id="supplementary" className="scroll-mt-20">
+          <SectionLabel
+            number="IV"
+            eyebrow="Lane IV"
+            title="Supplementary Infrastructure"
+            description="Additional reference formats currently being built out. Each module is scaffolded for future content and will become active as it is reviewed and released."
+          />
+          <div className="grid md:grid-cols-3 gap-px bg-border/60 border border-border/70">
+            {librarySupplementary.map((m) => (
+              <div key={m.id} className="bg-background p-6 flex flex-col">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground">
+                    {m.id}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 border border-border/70 px-2 py-0.5 text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
+                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
+                    {m.status === "forthcoming" ? "Forthcoming" : "Active"}
                   </span>
                 </div>
-                <h3 className="text-[17px] font-semibold tracking-tight text-foreground leading-snug">
-                  {a.title}
-                </h3>
-                <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed flex-1">
-                  {a.description}
+                <h3 className="text-[16px] font-medium text-foreground">{m.title}</h3>
+                <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed flex-1">
+                  {m.description}
                 </p>
-                <Link
-                  to="#"
-                  className="mt-5 text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary self-start"
-                >
-                  Read more →
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Browse by Topic */}
-      <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-12 md:py-16">
-          <div className="mb-8">
-            <p className="meta mb-3">Topics</p>
-            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
-              Browse by Topic
-            </h2>
-            <p className="mt-3 text-[14px] text-muted-foreground max-w-2xl leading-relaxed">
-              The areas covered across our guides and reference material.
-            </p>
-          </div>
-          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
-            {categories.map((c) => (
-              <li key={c.name} className="bg-background p-5 min-h-32 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-[14.5px] font-semibold text-foreground leading-snug">
-                    {c.name}
-                  </h3>
-                  <p className="mt-2 text-[12.5px] text-muted-foreground leading-relaxed">
-                    {c.desc}
-                  </p>
-                </div>
-                <p className="mt-4 meta text-muted-foreground">
-                  {c.count.toString().padStart(2, "0")} articles
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="border-b border-border">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="meta mb-3">Common questions</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground leading-tight">
-                Frequently Asked Questions
-              </h2>
-              <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
-                Quick answers to the questions consumers ask most often. Each item links to a
-                fuller explanation when one is available.
-              </p>
-            </div>
-            <div className="md:col-span-8">
-              <Accordion type="single" collapsible className="border-t border-border">
-                {faqs.map((f, i) => (
-                  <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
-                    <AccordionTrigger className="text-[15px] font-semibold text-foreground text-left hover:no-underline hover:text-primary">
-                      {f.q}
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <p className="text-[14px] text-muted-foreground leading-relaxed">{f.a}</p>
-                      <Link
-                        to="#"
-                        className="mt-4 inline-block text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
-                      >
-                        Read more →
-                      </Link>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Reference Notes */}
-      <section className="border-b border-border">
-        <div className="container-wide py-10 md:py-12">
-          <div className="mb-5">
-            <p className="meta-label text-foreground">Reference Notes</p>
-            <p className="mt-2 text-[12.5px] text-muted-foreground max-w-2xl leading-relaxed">
-              Internal citation identifiers for the educational material referenced above.
-            </p>
-          </div>
-          <ul className="divide-y divide-border border-t border-border">
-            {referenceNotes.map((r) => (
-              <li
-                key={r.id}
-                className="flex items-baseline justify-between gap-4 py-2.5 text-[12.5px]"
-              >
-                <span className="meta-mono text-muted-foreground">{r.id}</span>
-                <span className="text-muted-foreground">{r.topic}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Read deeper */}
-      <section>
-        <div className="container-wide py-10 md:py-12">
-          <div className="border border-border bg-surface-muted">
-            <div className="px-4 py-2.5 border-b border-border bg-background">
-              <p className="meta-label text-foreground">Read deeper</p>
-            </div>
-            <ul className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
-              {[
-                { to: "/medical-advisory", l: "Medical Advisory Board" },
-                { to: "/governance", l: "Governance & oversight" },
-              ].map((r) => (
-                <li key={r.to} className="px-4 py-3">
+                {m.cta && (
                   <Link
-                    to={r.to}
-                    className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                    to={m.cta.to}
+                    className="mt-4 inline-flex items-center text-[13px] text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
                   >
-                    {r.l} →
+                    {m.cta.label} →
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <Section bordered={false}>
+        <div className="grid md:grid-cols-12 gap-10">
+          <div className="md:col-span-7">
+            <p className="eyebrow mb-3">Cite as</p>
+            <p className="text-[13.5px] text-muted-foreground leading-relaxed font-mono">
+              Source Standard. <span className="text-foreground">Clinical Reference Library</span>{" "}
+              (SS-LIBRARY-2026.01). sourcestandard.org/education.
+            </p>
+            <p className="mt-6 text-[12.5px] text-muted-foreground leading-relaxed max-w-2xl">
+              All material in the Clinical Reference Library is informational only and is not a
+              substitute for professional medical advice, diagnosis, or treatment. Always seek the
+              advice of a qualified health provider with any questions regarding a medical condition.
+            </p>
+          </div>
+          <div className="md:col-span-5">
+            <p className="eyebrow mb-3">Read deeper</p>
+            <ul className="border-t border-border/60 divide-y divide-border/60">
+              {[
+                { to: "/governance", label: "Governance" },
+                { to: "/medical-advisory", label: "Medical Advisory Board" },
+                { to: "/status-definitions", label: "Status Definitions" },
+                { to: "/how-to-read-the-directory", label: "How to Read the Directory" },
+              ].map((l) => (
+                <li key={l.to} className="py-3">
+                  <Link
+                    to={l.to}
+                    className="text-[14px] text-foreground hover:underline underline-offset-4 decoration-border"
+                  >
+                    {l.label} →
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-      </section>
+      </Section>
     </>
   );
 };
