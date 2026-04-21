@@ -181,7 +181,7 @@ const VerifiedVendors = () => {
       {/* Status legend — softened segmented panel */}
       <section className="bg-surface-muted/60 border-b border-border/60">
         <div className="container-wide py-8 md:py-10">
-          <p className="eyebrow text-foreground/80 mb-3">How to read this directory</p>
+          <p className="eyebrow text-foreground/80 mb-3">Registry note</p>
           <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-2 md:grid-cols-5">
             {STATUS_ORDER.map((s, i) => (
               <div
@@ -196,7 +196,7 @@ const VerifiedVendors = () => {
             ))}
           </div>
           <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
-            <span className="font-semibold text-foreground">Note.</span> "Unverified" means no Source Standard verification is currently published — it does not by itself indicate that a vendor is unsafe or noncompliant.{" "}
+            <span className="font-semibold text-foreground">Note.</span> An Unverified status indicates a lack of administrative transparency and documentation on file. It is an indicator of audit status, not a direct assessment of clinical safety.{" "}
             <Link to="/how-to-read-the-directory" className="underline underline-offset-2 hover:no-underline">
               Read more
             </Link>
