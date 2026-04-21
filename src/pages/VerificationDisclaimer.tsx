@@ -4,9 +4,6 @@ import { Section, SectionLabel } from "@/components/Section";
 
 const DOC_ID = "SS-DISCLAIMER-2026.01";
 
-const DocId = ({ section }: { section: string }) => (
-  <p className="meta-mono text-muted-foreground mb-3">Doc {DOC_ID} · {section} · v2026.01</p>
-);
 
 const covers = [
   { n: "1.01", t: "Documented business identity, registration, and operating records of the entity." },

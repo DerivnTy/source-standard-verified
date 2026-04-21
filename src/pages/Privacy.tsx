@@ -44,9 +44,6 @@ const rights = [
   "Withdraw a pending application at any time.",
 ];
 
-const DocId = ({ section }: { section: string }) => (
-  <p className="meta-mono text-muted-foreground mb-3">Doc {DOC_ID} · {section}</p>
-);
 
 const Privacy = () => (
   <>

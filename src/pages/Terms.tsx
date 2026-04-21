@@ -4,10 +4,6 @@ import { Section, SectionLabel } from "@/components/Section";
 
 const DOC_ID = "SS-TERMS-2026.01";
 
-const DocId = ({ section }: { section: string }) => (
-  <p className="meta-mono text-muted-foreground mb-3">Doc {DOC_ID} · {section} · v2026.01</p>
-);
-
 const citationElements = [
   { t: "Audit ID", d: "The registry record identifier of the entity cited (e.g. SS-V-#### for vendors, SS-G-#### for greenlist sources)." },
   { t: "Status Date", d: "The issue date of the determination being cited (status as of MM/DD/YY)." },
