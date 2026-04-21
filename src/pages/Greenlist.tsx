@@ -209,35 +209,43 @@ const Greenlist = () => {
   return (
     <>
       <AnchorHeader
-        eyebrow="Sources"
-        title="Recognized upstream sources."
-        lead="503B, 503A, and other compounding sources recognized by license, registration, and credentialing."
+        eyebrow="Public regulatory registry"
+        title="Upstream Facility Registry."
+        lead="Compounding facilities recognized under the framework on the basis of federal registration and state licensure. Inclusion is documentary; it is not a clinical endorsement."
         aside={
-          <dl className="grid grid-cols-4 gap-px bg-border/50 border border-border/50 rounded-md overflow-hidden text-center">
-            {[
-              { l: "Total", v: counts.total },
-              { l: "503B", v: counts["503B"] },
-              { l: "503A", v: counts["503A"] },
-              { l: "Other", v: counts.Other },
-            ].map((s) => (
-              <div key={s.l} className="bg-background px-2 py-3">
-                <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground/80">{s.l}</dt>
-                <dd className="mt-1 text-[18px] font-medium text-foreground tabular-nums">{s.v.toString().padStart(2, "0")}</dd>
-              </div>
-            ))}
-          </dl>
+          <div className="rounded-md border border-border/60 bg-surface-muted/40 overflow-hidden">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-border/60">
+              <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground">Registry index</p>
+              <span className="text-[9.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground/70">Live</span>
+            </div>
+            <dl className="grid grid-cols-4 gap-px bg-border/40">
+              {[
+                { l: "Total", v: counts.total, rule: "bg-border" },
+                { l: "503B", v: counts["503B"], rule: "bg-[hsl(var(--src-503b))]" },
+                { l: "503A", v: counts["503A"], rule: "bg-[hsl(var(--src-503a))]" },
+                { l: "Other", v: counts.Other, rule: "bg-[hsl(var(--src-other))]" },
+              ].map((s) => (
+                <div key={s.l} className="bg-background px-3 py-3 flex flex-col gap-1.5">
+                  <dt className="text-[9.5px] font-mono uppercase tracking-[0.12em] text-muted-foreground/70">{s.l}</dt>
+                  <div className={`h-[2px] w-full ${s.rule}`} />
+                  <dd className="text-[22px] font-mono font-medium text-foreground tabular-nums leading-none">{s.v.toString().padStart(2, "0")}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         }
       />
 
-      {/* How Greenlist status works — compact explanatory bridge */}
+      {/* Registry inclusion standards — explanatory bridge */}
       <section className="bg-surface-muted/60 border-b border-border/60">
         <div className="container-wide py-8 md:py-10">
           <div className="max-w-3xl mb-6">
-            <p className="eyebrow text-foreground/80 mb-2">How Greenlist status works</p>
+            <p className="eyebrow text-foreground/80 mb-2">Registry inclusion standards</p>
             <p className="text-[12.5px] text-muted-foreground leading-relaxed">
-              Every source listed in this registry is Greenlisted by definition.
-              "Greenlisted" is the inclusion status for recognized upstream sources.
-              What varies across listings is the source type.
+              A maintained index of compounding facilities recognized under federal registration,
+              state licensure, and accredited credentialing. Inclusion in this registry is the
+              mandatory foundation for any vendor compliance assessment; a vendor cannot be listed
+              in the Vendor Compliance Registry until each declared upstream source is present here.
             </p>
           </div>
 
@@ -262,17 +270,20 @@ const Greenlist = () => {
             </div>
           </div>
 
-          <p className="mt-4 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
-            <strong className="text-foreground font-semibold">Scope note.</strong>{" "}
-            Greenlisted is a Source Standard status for recognized upstream sources — not a
-            facility type. Source types on this page include 503B outsourcing facilities, 503A
-            compounding pharmacies, and other qualified source categories. Vendor verification is
-            tracked separately on the{" "}
-            <Link to="/verified-vendors" className="underline hover:text-foreground">
-              Verified Vendors directory
-            </Link>
-            .
-          </p>
+          <div className="mt-6 max-w-3xl">
+            <p className="eyebrow text-foreground/80 mb-2">Technical note</p>
+            <p className="text-[12px] text-muted-foreground leading-relaxed">
+              Greenlisted is an audit-framework status used to determine documentation eligibility
+              for upstream sources. It records that a facility's federal registration, state
+              licensure, or recognized accreditation has been verified for inclusion in this
+              registry. It is not a clinical endorsement and does not assess product safety or
+              therapeutic efficacy. Vendor-level audit status is tracked separately on the{" "}
+              <Link to="/verified-vendors" className="underline hover:text-foreground">
+                Vendor Compliance Registry
+              </Link>
+              .
+            </p>
+          </div>
         </div>
       </section>
 
