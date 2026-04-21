@@ -231,25 +231,19 @@ const Greenlist = () => {
 
       {/* How Greenlist status works — compact explanatory bridge */}
       <section className="bg-surface-muted/60 border-b border-border/60">
-        <div className="container-wide pt-6 pb-5">
-          <div className="max-w-3xl">
-            <p className="eyebrow mb-1.5">How Greenlist status works</p>
-            <p className="text-[12px] text-muted-foreground leading-relaxed">
+        <div className="container-wide py-8 md:py-10">
+          <div className="max-w-3xl mb-6">
+            <p className="eyebrow text-foreground/80 mb-2">How Greenlist status works</p>
+            <p className="text-[12.5px] text-muted-foreground leading-relaxed">
               Every source listed in this registry is Greenlisted by definition.
               "Greenlisted" is the inclusion status for recognized upstream sources.
               What varies across listings is the source type.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Source types in this registry */}
-      <section className="bg-surface-muted/60 border-b border-border/60">
-        <div className="container-wide py-6 space-y-5">
 
           {/* Source types */}
           <div>
-            <p className="eyebrow mb-2">Source types in this registry</p>
+            <p className="eyebrow text-foreground/80 mb-3">Source types in this registry</p>
             <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/40">
               {SOURCE_TYPE_DEF.map((d) => {
                 const s = CATEGORY_STYLE[d.key];
@@ -268,7 +262,7 @@ const Greenlist = () => {
             </div>
           </div>
 
-          <p className="text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
+          <p className="mt-4 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
             <strong className="text-foreground font-semibold">Scope note.</strong>{" "}
             Greenlisted is a Source Standard status for recognized upstream sources — not a
             facility type. Source types on this page include 503B outsourcing facilities, 503A
@@ -284,7 +278,7 @@ const Greenlist = () => {
 
       {/* Filter row */}
       <section className="bg-background/95 backdrop-blur-sm border-b border-border/60 sticky top-0 z-20">
-        <div className="container-wide py-3.5">
+        <div className="container-wide py-3">
           <div className="flex flex-wrap items-center gap-2.5">
             <div className="relative flex-1 min-w-[220px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
@@ -381,7 +375,7 @@ const Greenlist = () => {
 
       {/* Registry table */}
       <section>
-        <div className="container-wide pt-3 pb-8">
+        <div className="container-wide py-10">
           {sorted.length === 0 ? (
             <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
               <p className="meta">— No records match the current filters.</p>
@@ -390,7 +384,7 @@ const Greenlist = () => {
             <>
               {/* Desktop table */}
               <div className="hidden md:block rounded-lg border border-border/60 bg-background overflow-hidden">
-                <div className="grid grid-cols-12 px-4 py-2.5 border-b border-border/50 bg-surface-muted/60">
+                <div className="grid grid-cols-12 px-5 py-2.5 border-b border-border/50 bg-surface-muted/60">
                   <div className="col-span-4 meta-label">Facility / Brand</div>
                   <div className="col-span-2 meta-label">Source Type</div>
                   <div className="col-span-2 meta-label">Location</div>
@@ -400,7 +394,7 @@ const Greenlist = () => {
                 {pageItems.map((e) => (
                   <div
                     key={e.name}
-                    className="grid grid-cols-12 px-4 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
+                    className="grid grid-cols-12 px-5 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
                   >
                     <div className="col-span-4 min-w-0">
                       <Link

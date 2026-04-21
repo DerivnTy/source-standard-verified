@@ -180,8 +180,8 @@ const VerifiedVendors = () => {
 
       {/* Status legend — softened segmented panel */}
       <section className="bg-surface-muted/60 border-b border-border/60">
-        <div className="container-wide py-8">
-          <p className="meta-label text-foreground mb-4">How to read this directory</p>
+        <div className="container-wide py-8 md:py-10">
+          <p className="eyebrow text-foreground/80 mb-3">How to read this directory</p>
           <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-2 md:grid-cols-5">
             {STATUS_ORDER.map((s, i) => (
               <div
@@ -206,7 +206,7 @@ const VerifiedVendors = () => {
 
       {/* Filter row */}
       <section className="bg-background/95 backdrop-blur-sm border-b border-border/60 sticky top-0 z-20">
-        <div className="container-wide py-3.5">
+        <div className="container-wide py-3">
           <div className="flex flex-wrap items-center gap-2.5">
             <div className="relative flex-1 min-w-[220px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
@@ -311,7 +311,7 @@ const VerifiedVendors = () => {
 
       {/* Registry table */}
       <section>
-        <div className="container-wide py-8">
+        <div className="container-wide py-10">
           {sorted.length === 0 ? (
             <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
               <p className="meta">
@@ -324,7 +324,7 @@ const VerifiedVendors = () => {
             <>
               {/* Desktop table */}
               <div className="hidden md:block rounded-lg border border-border/60 bg-background overflow-hidden">
-                <div className="grid grid-cols-12 px-4 py-2.5 border-b border-border/50 bg-surface-muted/60">
+                <div className="grid grid-cols-12 px-5 py-2.5 border-b border-border/50 bg-surface-muted/60">
                   <div className="col-span-4 meta-label">Vendor / Clinic</div>
                   <div className="col-span-2 meta-label">Status</div>
                   <div className="col-span-2 meta-label">City / State</div>
@@ -334,7 +334,7 @@ const VerifiedVendors = () => {
                 {pageItems.map((v) => (
                   <div
                     key={v.slug}
-                    className="grid grid-cols-12 px-4 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
+                    className="grid grid-cols-12 px-5 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
                   >
                     <div className="col-span-4 min-w-0">
                       <Link
