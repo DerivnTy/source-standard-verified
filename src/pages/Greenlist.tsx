@@ -8,14 +8,20 @@ import {
   GreenlistCategory,
   GREENLIST_TYPES,
   FOCUS_TAGS,
-  getGreenlistLocations,
   getGreenlistCounts,
 } from "@/data/greenlist";
 
 const ALL = "__all__";
 const PAGE_SIZE = 25;
 
-type SortMode = "name-asc" | "name-desc" | "category" | "location";
+type SortMode = "name-asc" | "name-desc" | "type" | "state";
+type WebsiteFilter = "all" | "yes" | "no";
+
+// Extract two-letter state code from a "City, ST" location string.
+const extractState = (location: string): string | null => {
+  const m = location.match(/,\s*([A-Z]{2})\b/);
+  return m ? m[1] : null;
+};
 
 const CATEGORY_ORDER: GreenlistCategory[] = ["503B", "503A", "Other"];
 
@@ -122,14 +128,21 @@ const shortFocus = (entry: GreenlistEntry): string => {
 
 const Greenlist = () => {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<string>(ALL);
   const [type, setType] = useState<string>(ALL);
-  const [location, setLocation] = useState<string>(ALL);
+  const [state, setStateFilter] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
+  const [website, setWebsite] = useState<WebsiteFilter>("all");
   const [sort, setSort] = useState<SortMode>("name-asc");
   const [page, setPage] = useState(1);
 
-  const locations = useMemo(() => getGreenlistLocations(), []);
+  const states = useMemo(() => {
+    const set = new Set<string>();
+    greenlistEntries.forEach((e) => {
+      const s = extractState(e.location);
+      if (s) set.add(s);
+    });
+    return Array.from(set).sort();
+  }, []);
   const counts = useMemo(() => getGreenlistCounts(), []);
 
   const filtered = useMemo(() => {
@@ -139,30 +152,32 @@ const Greenlist = () => {
         const hay = [e.name, e.location, e.focus, e.type].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
-      if (category !== ALL && e.category !== category) return false;
       if (type !== ALL && e.type !== type) return false;
-      if (location !== ALL && e.location !== location) return false;
+      if (state !== ALL && extractState(e.location) !== state) return false;
       if (focus !== ALL && !focusMatches(e, focus)) return false;
+      if (website === "yes" && !e.website) return false;
+      if (website === "no" && e.website) return false;
       return true;
     });
-  }, [query, category, type, location, focus]);
+  }, [query, type, state, focus, website]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
     switch (sort) {
       case "name-desc":
         return arr.sort((a, b) => b.name.localeCompare(a.name));
-      case "category":
+      case "type":
         return arr.sort((a, b) => {
-          const ca = CATEGORY_ORDER.indexOf(a.category);
-          const cb = CATEGORY_ORDER.indexOf(b.category);
-          if (ca !== cb) return ca - cb;
+          const t = a.type.localeCompare(b.type);
+          if (t !== 0) return t;
           return a.name.localeCompare(b.name);
         });
-      case "location":
+      case "state":
         return arr.sort((a, b) => {
-          const l = a.location.localeCompare(b.location);
-          if (l !== 0) return l;
+          const sa = extractState(a.location) ?? "";
+          const sb = extractState(b.location) ?? "";
+          const s = sa.localeCompare(sb);
+          if (s !== 0) return s;
           return a.name.localeCompare(b.name);
         });
       case "name-asc":
@@ -178,21 +193,21 @@ const Greenlist = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [query, category, type, location, focus, sort]);
+  }, [query, type, state, focus, website, sort]);
 
   const filtersActive =
     query !== "" ||
-    category !== ALL ||
     type !== ALL ||
-    location !== ALL ||
-    focus !== ALL;
+    state !== ALL ||
+    focus !== ALL ||
+    website !== "all";
 
   const reset = () => {
     setQuery("");
-    setCategory(ALL);
     setType(ALL);
-    setLocation(ALL);
+    setStateFilter(ALL);
     setFocus(ALL);
+    setWebsite("all");
   };
 
   return (
@@ -285,26 +300,12 @@ const Greenlist = () => {
             </div>
 
             <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
-              aria-label="Filter by category"
-            >
-              <option value={ALL}>All source groups</option>
-              {CATEGORY_ORDER.map((c) => (
-                <option key={c} value={c}>
-                  {CATEGORY_LABEL[c]}
-                </option>
-              ))}
-            </select>
-
-            <select
               value={type}
               onChange={(e) => setType(e.target.value)}
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
-              aria-label="Filter by type"
+              aria-label="Filter by source type"
             >
-              <option value={ALL}>All types</option>
+              <option value={ALL}>All source types</option>
               {GREENLIST_TYPES.map((t) => (
                 <option key={t} value={t}>
                   {t}
@@ -313,15 +314,15 @@ const Greenlist = () => {
             </select>
 
             <select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              value={state}
+              onChange={(e) => setStateFilter(e.target.value)}
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
-              aria-label="Filter by location"
+              aria-label="Filter by state"
             >
-              <option value={ALL}>All locations</option>
-              {locations.map((l) => (
-                <option key={l} value={l}>
-                  {l}
+              <option value={ALL}>All states</option>
+              {states.map((s) => (
+                <option key={s} value={s}>
+                  {s}
                 </option>
               ))}
             </select>
@@ -341,15 +342,26 @@ const Greenlist = () => {
             </select>
 
             <select
+              value={website}
+              onChange={(e) => setWebsite(e.target.value as WebsiteFilter)}
+              className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
+              aria-label="Filter by website availability"
+            >
+              <option value="all">Website: All</option>
+              <option value="yes">Website listed</option>
+              <option value="no">No website listed</option>
+            </select>
+
+            <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortMode)}
               className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus:ring-[3px] focus:ring-primary/15 focus:border-primary/60"
               aria-label="Sort records"
             >
-              <option value="name-asc">Sort: Name A → Z</option>
-              <option value="name-desc">Sort: Name Z → A</option>
-              <option value="category">Sort: Category</option>
-              <option value="location">Sort: Location</option>
+              <option value="name-asc">Sort: Name A–Z</option>
+              <option value="name-desc">Sort: Name Z–A</option>
+              <option value="state">Sort: State</option>
+              <option value="type">Sort: Source type</option>
             </select>
 
             {filtersActive && (
