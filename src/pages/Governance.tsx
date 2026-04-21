@@ -24,11 +24,11 @@ const Governance = () => {
 
       {/* Medical Advisory */}
       <section className="border-b border-border">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§1 — Medical Advisory</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Framework criteria reviewed by licensed clinicians.
               </h2>
               <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
@@ -58,11 +58,11 @@ const Governance = () => {
 
       {/* Standards Authorities Referenced */}
       <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§2 — Standards Authorities Referenced</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Every framework criterion maps to a public upstream record.
               </h2>
               <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
@@ -105,11 +105,11 @@ const Governance = () => {
 
       {/* Conflict of Interest */}
       <section className="border-b border-border">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
               <p className="meta mb-3">§3 — Conflict of Interest Policy</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 Boundaries of the organization.
               </h2>
             </div>

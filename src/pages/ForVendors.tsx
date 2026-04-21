@@ -33,11 +33,11 @@ const ForVendors = () => {
 
       {/* §1 Documentation required */}
       <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-8">
               <p className="meta mb-3">§1 — Documentation Required</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight max-w-2xl mb-8">
+              <h2 className="h-section max-w-2xl mb-8">
                 Records reviewed during intake.
               </h2>
               <div className="border border-border bg-background">
@@ -94,11 +94,11 @@ const ForVendors = () => {
 
       {/* §2 Issued upon verification */}
       <section className="border-b border-border">
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-5">
               <p className="meta mb-3">§2 — Issued Upon Verification</p>
-              <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">
+              <h2 className="h-section">
                 A complete public record of the verification.
               </h2>
             </div>

@@ -210,9 +210,9 @@ const HowItWorks = () => {
 
       {/* Why this matters */}
       <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">Trust</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             Why this matters
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
@@ -232,9 +232,9 @@ const HowItWorks = () => {
 
       {/* What a verified listing means */}
       <section className="bg-surface-muted/40 border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">Meaning</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             What a verified listing means
           </h2>
           <div className="mt-10 grid md:grid-cols-2 gap-x-12 gap-y-10 max-w-5xl">
@@ -250,9 +250,9 @@ const HowItWorks = () => {
 
       {/* Public statuses */}
       <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">Statuses</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             Public statuses
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
@@ -290,9 +290,9 @@ const HowItWorks = () => {
 
       {/* What we review */}
       <section className="bg-surface-muted/40 border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">Scope</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             What we review
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
@@ -312,9 +312,9 @@ const HowItWorks = () => {
 
       {/* Review lifecycle */}
       <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">Process</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             Review lifecycle
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
@@ -347,9 +347,9 @@ const HowItWorks = () => {
 
       {/* Renewal and monitoring */}
       <section className="bg-surface-muted/40 border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">Maintenance</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             Renewal and monitoring
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
@@ -373,9 +373,9 @@ const HowItWorks = () => {
 
       {/* What happens after verification */}
       <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">After Review</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             What happens after verification
           </h2>
           <ul className="mt-8 max-w-3xl space-y-3 text-[14.5px] text-foreground">
@@ -391,9 +391,9 @@ const HowItWorks = () => {
 
       {/* Why vendors apply */}
       <section className="bg-surface-muted/40 border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">For Vendors</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             Why vendors apply
           </h2>
           <div className="mt-10 grid md:grid-cols-2 gap-x-12 gap-y-8 max-w-5xl">
@@ -414,9 +414,9 @@ const HowItWorks = () => {
 
       {/* What this process is not */}
       <section className="border-b border-border">
-        <div className="container-wide py-14 md:py-16">
+        <div className="container-wide py-12 md:py-16">
           <p className="eyebrow mb-3">Boundaries</p>
-          <h2 className="text-[1.375rem] md:text-[1.625rem] font-semibold tracking-tight text-foreground max-w-3xl">
+          <h2 className="h-section max-w-3xl">
             What this process is not
           </h2>
           <ul className="mt-8 max-w-3xl space-y-3 text-[14px] text-muted-foreground">
