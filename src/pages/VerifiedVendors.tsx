@@ -46,8 +46,7 @@ const VerifiedVendors = () => {
   const [city, setCity] = useState<string>(ALL);
   const [status, setStatus] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
-  const [hasReview, setHasReview] = useState<string>(ALL);
-  const [sort, setSort] = useState<SortMode>("status");
+  const [sort, setSort] = useState<SortMode>("name-asc");
   const [page, setPage] = useState(1);
 
   const states = useMemo(() => getVendorStates(), []);
@@ -70,45 +69,44 @@ const VerifiedVendors = () => {
     const q = query.trim().toLowerCase();
     return vendors.filter((v) => {
       if (q) {
-        const hay = [v.name, v.city, v.state, v.medicalDirector]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
+        const hay = [v.name, v.city, v.state].filter(Boolean).join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
       if (state !== ALL && v.state !== state) return false;
       if (city !== ALL && v.city !== city) return false;
       if (status !== ALL && v.status !== status) return false;
       if (focus !== ALL && !(v.clinicalFocus ?? []).includes(focus)) return false;
-      if (hasReview === "yes" && !v.reviewId) return false;
-      if (hasReview === "no" && v.reviewId) return false;
       return true;
     });
-  }, [query, state, city, status, focus, hasReview]);
+  }, [query, state, city, status, focus]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
     switch (sort) {
-      case "name-asc":
-        return arr.sort((a, b) => a.name.localeCompare(b.name));
       case "name-desc":
         return arr.sort((a, b) => b.name.localeCompare(a.name));
-      case "state-city":
+      case "state":
         return arr.sort((a, b) => {
           const s = (a.state ?? "").localeCompare(b.state ?? "");
           if (s !== 0) return s;
+          return a.name.localeCompare(b.name);
+        });
+      case "city":
+        return arr.sort((a, b) => {
           const c = (a.city ?? "").localeCompare(b.city ?? "");
           if (c !== 0) return c;
           return a.name.localeCompare(b.name);
         });
       case "status":
-      default:
         return arr.sort((a, b) => {
           const sa = STATUS_ORDER.indexOf(a.status);
           const sb = STATUS_ORDER.indexOf(b.status);
           if (sa !== sb) return sa - sb;
           return a.name.localeCompare(b.name);
         });
+      case "name-asc":
+      default:
+        return arr.sort((a, b) => a.name.localeCompare(b.name));
     }
   }, [filtered, sort]);
 
@@ -132,15 +130,14 @@ const VerifiedVendors = () => {
   // Reset to page 1 whenever filters/sort change the result set
   useEffect(() => {
     setPage(1);
-  }, [query, state, city, status, focus, hasReview, sort]);
+  }, [query, state, city, status, focus, sort]);
 
   const filtersActive =
     query !== "" ||
     state !== ALL ||
     city !== ALL ||
     status !== ALL ||
-    focus !== ALL ||
-    hasReview !== ALL;
+    focus !== ALL;
 
   const reset = () => {
     setQuery("");
@@ -148,7 +145,6 @@ const VerifiedVendors = () => {
     setCity(ALL);
     setStatus(ALL);
     setFocus(ALL);
-    setHasReview(ALL);
   };
 
   return (
