@@ -264,7 +264,7 @@ const GreenlistProfile = () => {
       </header>
 
       <section className="bg-surface-muted/30">
-        <div className="container-wide py-6 space-y-4">
+        <div className="container-wide py-5 space-y-3">
           <Section
             eyebrow="01 · Regulatory & Quality"
             title="Regulatory identity, quality systems"
@@ -302,8 +302,8 @@ const GreenlistProfile = () => {
             <Field label="Review notes" value={text(p.reviewNotes)} />
           </Section>
 
-          <footer className="rounded-lg border border-border/60 bg-background px-4 py-3.5">
-            <p className="text-[12px] text-muted-foreground leading-relaxed">
+          <footer className="rounded-lg border border-border/60 bg-background px-4 py-2.5">
+            <p className="text-[12px] text-muted-foreground leading-snug">
               Source Standard does not accept payment from facilities for inclusion in
               the Greenlist. Information is derived from public regulatory filings,
               disclosed facility information, and Source Standard review data where
