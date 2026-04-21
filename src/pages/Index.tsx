@@ -213,15 +213,15 @@ const Index = () => {
         <div className="container-wide py-16 md:py-20">
           <div className="grid md:grid-cols-12 gap-12">
             <div className="md:col-span-5">
-              <p className="eyebrow mb-3">§6 — Education</p>
+              <p className="eyebrow mb-3">§6 — Reference library</p>
               <h2 className="h-section">
-                Neutral, physician-reviewed reference material.
+                Administrative Reference & Compliance Library.
               </h2>
               <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-                Reference notes on peptide therapy, TRT, sourcing, storage, and the documented risks of unverified supply. All material is informational and does not constitute medical advice.
+                Procedural notes on source authentication, document discrepancies, regulatory benchmarks, and the audit categories used in compliance assessment. Informational only; not medical advice.
               </p>
               <Link to="/education" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
-                Open the library <ArrowRight className="h-3.5 w-3.5" />
+                Open the reference library <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
             <div className="md:col-span-7">
