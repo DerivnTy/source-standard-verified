@@ -1,125 +1,81 @@
 
 
-## Status Definitions — Glossary of Regulatory Standings overhaul
+## Report a Concern — Investigative Bureau tone overhaul
 
-A copy + light visual pass on `src/pages/StatusDefinitions.tsx`. No data file edits, no routing changes. Tone shifts to "Administrative Code" / regulatory glossary; the status list restyles into a denser tabular reference layout.
+A copy + light visual pass on `src/pages/ReportConcern.tsx`. No data file edits, no routing changes, no structural reordering. Tone shifts to formal compliance-reporting register; the email submission block restyles into a "secure submission point" panel.
 
 ### Header (`RecordHeader`)
 
-- Eyebrow: `Reference` → `Administrative code`
-- Title: `Status definitions.` → `Glossary of Regulatory Standings.`
-- Lead: → `Controlled glossary of public standings assigned to entities under the Source Standard framework. Each standing reflects the disposition of the audit file at the time of last update and is governed by continuous surveillance.`
-- Metadata: keep `SS-STATUS-2026.01`, `Active`, `04/21/26`, `FL/US`. Add summary cell rename: `Set by` → `Issued by`, `Cycle` → `Surveillance cycle`.
+- Eyebrow: `Process` → `Compliance reporting`
+- Title: `Report a concern.` → `Reporting & Market Intelligence.`
+- Lead: → `Intake channel for Registry discrepancies, supply-chain alignment concerns, and unauthorized attribution of Source Standard standings. Submissions are screened, triaged, and reconciled against the audit file.`
+- Metadata items unchanged (`SS-REPORT-2026.01 / Active / 04/21/26 / FL/US`).
 
-### §1 — Why public statuses exist → "Purpose of the controlled glossary"
+### §1 — In scope → "Investigative Scope"
 
-- Eyebrow stays `§1`; title → `Purpose of the controlled glossary.`
-- Description (replace): `A regulatory standing is a short, controlled label affixed to every entity in the registry. It enables consumers, clinicians, and licensed entities to read the registry consistently without interpreting individual audit files. Standings are issued against reviewed evidence — never against marketing language or self-declaration.`
+- Title: `In scope` → `Investigative Scope.`
+- Description: `Reports falling within the surveillance mandate of the Source Standard framework. The following categories are accepted for review against the audit file.`
+- Item rewrites (`inScope`):
+  1. `Sourcing concerns — claimed upstream supplier does not match documented chain-of-custody records on file.`
+  2. `Marketing-Documentation Divergence — vendor's public-facing website, advertising, or claims contradict reviewed records within the declared examination scope.`
+  3. `Upstream-supplier compromise — a disclosed manufacturing anchor has been delisted, suspended, or has lapsed FDA registration or state licensure.`
+  4. `Listing accuracy — incorrect category, scope, jurisdiction, or contact information of record.`
+  5. `Unauthorized Attribution — entity displaying, implying, or otherwise asserting a Source Standard standing it does not hold.`
 
-### §2 — Status definitions (tabular reference restyle + copy overhaul)
+### §2 — Out of scope → "Jurisdictional Boundaries"
 
-Eyebrow: `§2` title → `Glossary of standings.`
+- Title: `Out of scope` → `Jurisdictional Boundaries.`
+- Description: `Source Standard is an Auditing Body, not a regulator, clinical authority, or court of competent jurisdiction. The following matters fall outside the surveillance mandate and must be directed to the appropriate authority.`
+- Item rewrites (`outOfScope`):
+  1. `Clinical or medical complaints — refer to FDA MedWatch or the appropriate state medical board.`
+  2. `Pharmacy compounding complaints — refer to the relevant state board of pharmacy or FDA.`
+  3. `Billing, refund, or payment disputes — pursue directly with the vendor or the originating payment processor.`
+  4. `Personal disputes, employment matters, or non-public commercial disputes between private parties.`
 
-Add a thin header row above the entries (matches the registry ledger panels):
-- Left mono uppercase 10.5px: `Code · SS-STATUS-2026.01 · §2`
-- Right mono uppercase 10.5px: `07 controlled standings · Continuously surveilled`
+### §3 — Lifecycle → forensic stage renames
 
-Restyle each status entry as a reference-manual row inside the existing `divide-y` container:
-- Left column (md:col-span-3): swatch + label as today, plus a mono code line beneath: `STANDING · 01`–`07` (`text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground mt-2`).
-- Right column (md:col-span-9): keep the 5-row `<dl>` but tighten label tokens to look like field rows in a technical manual:
-  - Render each `dt` as `meta-label` with a fixed-width treatment (`md:w-44 shrink-0`) and the `dd` beside it (`md:flex md:gap-6` per row) so all labels align vertically across rows like a spec sheet.
-  - Row `dt` text overrides: `Meaning` → `Definition`, `Tells the public` → `Public-record signal`, `Does not imply` → `Limits / does not imply`, `When assigned` → `Conditions of issuance`, `When it changes` → `Conditions of revision`.
+- Title: `How submissions are reviewed` → `Submission lifecycle.`
+- Above the lifecycle list, add a small mono label: `Controlled intake · Four-stage flow` (mono uppercase 10.5px, `text-foreground`, `mb-3`).
+- `lifecycle` rewrites (titles + descriptions):
+  1. `Administrative Acknowledgment` — `Submission is logged into the intake register and acknowledged. A reference identifier may be issued for follow-up correspondence.`
+  2. `Credibility Screening` — `Submission is screened against scope, completeness, and credibility thresholds. Out-of-jurisdiction reports are referred to the appropriate authority.`
+  3. `Evidentiary Reconciliation` — `In-scope submissions are reconciled against records on file. The relevant listing may be transitioned to Under Review pending the outcome.`
+  4. `Disposition` — `Possible dispositions include no change, clarification request, scope reduction, Suspended standing, Removal (De-listing), or attachment of a public note. The reporter is not entitled to internal review details but may receive a status acknowledgment.`
 
-Per-status text overrides (data file untouched — overrides applied via two slug-keyed maps inside the component, then merged with the existing `statuses` array at render):
+### §4 — Confidentiality → "Confidentiality & Integrity Standards"
 
-**Verified**
-- Definition: `Positive determination of record consistency. The entity has completed a documented examination against the Source Standard evidentiary rubric, and the listing reflects records reviewed at the time of publication.`
-- Public-record signal: `Records, regulatory credentials, and supply-chain documentation have been Reconciled with public claims within the declared examination scope.`
-- Limits / does not imply: `Does not constitute endorsement of clinical outcomes, individual prescriptions, or product safety guarantees.`
-- Conditions of issuance: `Issued upon successful completion of intake, evidentiary review, supply-chain reconciliation, and category-scope confirmation.`
-- Conditions of revision: `Revised upon lapse of renewal, occurrence of a Mandatory Disclosure Event (MDE), or initiation of a triggered re-examination.`
+- Title: `Confidentiality and good faith` → `Confidentiality & Integrity Standards.`
+- Description: `Reporter Anonymity is a controlling principle of the intake process. Reporter identity is treated as confidential within the review file and is never published. Submissions made in good faith — even those that do not result in a status change — are valued and contribute to the integrity of the registry. Knowingly false, harassing, or vexatious submissions are disregarded and may themselves be referred to the appropriate authority.`
 
-**Pending Review**
-- Definition: `Application received; audit file opened but examination has not yet commenced.`
-- Public-record signal: `The entity has formally entered the verification pipeline.`
-- Limits / does not imply: `Does not imply that any portion of the evidentiary review has been conducted.`
-- Conditions of issuance: `Issued at intake when the application package is received and acknowledged.`
-- Conditions of revision: `Revised when examination commences (Under Review) or upon withdrawal of the application.`
+### §5 — Submitting a report → "Secure submission point"
 
-**Under Review**
-- Definition: `Active examination in progress. Records, regulatory credentials, and supply-chain documentation are being examined against the rubric.`
-- Public-record signal: `The audit file is currently open and undergoing examination.`
-- Limits / does not imply: `Does not imply any conclusion regarding the entity's records, sourcing, or compliance posture.`
-- Conditions of issuance: `Issued at the commencement of evidentiary review, or upon re-opening of a Verified file following a triggering event.`
-- Conditions of revision: `Revised to Verified, Suspended, or Removed upon conclusion of the examination.`
+- Title: `Submitting a report` → `Submission channel.`
+- Description: `A structured intake portal is forthcoming. In the interim, submissions are accepted at the secure address below. All correspondence is logged to the intake register.`
+- Restyle the email card into a "secure submission point" panel:
+  - Container: keep the existing `border border-border/70 rounded-[2px] bg-background p-5 max-w-2xl` but add a thin top accent (`border-t-2 border-t-foreground`) and a small mono header row at the top: `SECURE SUBMISSION POINT · SS-REPORT-INTAKE` (mono uppercase 10.5px, `text-muted-foreground`, with `SS-REPORT-INTAKE` rendered `text-foreground`).
+  - Below that header row, render the existing `Email` label and `concerns@sourcestandard.org` mailto link unchanged in markup but with the link bumped to `text-[16px]` so it reads as the primary action.
+  - Replace the helper paragraph: `Submissions should include: the listing or entity name, the nature of the discrepancy, supporting links or documents, and a means of follow-up correspondence should clarification be required. Mark sensitive material accordingly.`
 
-**Suspended**
-- Definition: `Administrative hold pending evidentiary clarification. A previously Verified standing is temporarily withdrawn.`
-- Public-record signal: `An open question, undisclosed Mandatory Disclosure Event (MDE), or unresolved discrepancy prevents the Verified standing from being maintained.`
-- Limits / does not imply: `Does not constitute a finding of misconduct, fraud, or regulatory enforcement action by any governmental body.`
-- Conditions of issuance: `Issued upon failure to renew on schedule, failure to respond to a clarification request, or surfacing of material discrepancies.`
-- Conditions of revision: `Revised back to Verified upon resolution; revised to Removed (De-listed) if the matter remains unresolved.`
+### §6 — Read deeper / Cite
 
-**Removed**
-- Label override: `Removed (De-listed)`
-- Definition: `De-listing. The entity has been withdrawn from the public registry and the audit file is no longer maintained.`
-- Public-record signal: `The entity is no longer represented in the registry under the Source Standard framework.`
-- Limits / does not imply: `Does not constitute a specific finding of misconduct unless explicitly stated in an attached public note.`
-- Conditions of issuance: `Issued where the entity has Defaulted on compliance obligations through sustained non-response, voluntary withdrawal, sustained material misrepresentation, or upstream-supplier delisting that cannot be remediated.`
-- Conditions of revision: `Reinstatement requires submission of a new application and a fresh examination cycle.`
-
-**Greenlisted**
-- Label override: `Greenlisted (Qualified Upstream Designation)`
-- Definition: `Qualified Upstream Designation. An upstream source — 503A pharmacy, 503B outsourcing facility, or qualified supplier — recognized as a documented, FDA-registered or state-licensed manufacturing anchor from which Verified vendors may legitimately source.`
-- Public-record signal: `The upstream source is documented, traceable, and operates within recognized regulatory categories as a manufacturing anchor of the supply chain.`
-- Limits / does not imply: `Does not imply contract, endorsement, or affiliation with Source Standard, and does not certify every product manufactured by the source.`
-- Conditions of issuance: `Issued upon confirmation of registration, licensing category, and operating record.`
-- Conditions of revision: `Revised upon lapse of registration, withdrawal of licensing, or removal of the source by the relevant regulator.`
-
-**Not Listed**
-- Label override: `Not Listed (Null Standing)`
-- Definition: `Null Standing. The entity is outside the surveillance scope of the Source Standard framework. It has not applied, has not been examined, or has been previously De-listed.`
-- Public-record signal: `No public record exists under the Source Standard framework for this entity.`
-- Limits / does not imply: `Does not imply that the entity is illegitimate, unsafe, or non-compliant under any external regulatory regime. It indicates only the absence of a Source Standard record.`
-- Conditions of issuance: `Default standing for any entity that has not entered the registry.`
-- Conditions of revision: `Revised only upon entry into the verification or Greenlist examination process.`
-
-### §3 — Status lifecycle → "Temporal Nature of Determinations"
-
-- Eyebrow `§3`; title → `Temporal Nature of Determinations.`
-- Description (replace): `No standing is permanent. Every audit file moves through the same controlled flow under continuous surveillance, and every Verified determination is bounded by a renewal interval.`
-- Above the `<ol>`, add a small mono label `Continuous surveillance · Standard flow` (mono uppercase 10.5px, `text-foreground`, `mb-3`).
-- Lifecycle list items rewritten in administrative register:
-  1. `Application received → Pending Review`
-  2. `Examination commences → Under Review`
-  3. `Examination concludes → Verified or Removed (De-listed)`
-  4. `Renewal interval reached → Under Review (renewal cycle)`
-  5. `Triggering event (public report, supply-chain change, claims divergence, MDE) → Under Review or Suspended`
-  6. `Resolution → Verified, Suspended, or Removed (De-listed)`
-
-### §4 — Read deeper / Cite
-
-- Eyebrow stays `§4`; title `Read deeper` → `Cross-references.`
-- Link labels tightened:
-  - `Verification — how reviews are conducted` → `Verification Protocol & Audit Methodology →`
-  - `Accountability & Enforcement — what triggers status changes` → `Accountability & Enforcement — triggering events →`
-  - `Verification Disclaimer — scope and boundaries` → `Verification Disclaimer — scope of attestation →`
-- Citation line: → `Cite as: Source Standard, Glossary of Regulatory Standings, SS-STATUS-2026.01.`
+- Title: `Read deeper` → `Cross-references.`
+- Link label tightening:
+  - `Accountability & Enforcement →` → `Accountability & Enforcement — triggering events →`
+  - `Status Definitions →` → `Glossary of Regulatory Standings →`
+  - `Verification →` → `Verification Protocol & Audit Methodology →`
+- Citation line: → `Cite as: Source Standard, Reporting & Market Intelligence, SS-REPORT-2026.01.`
 
 ### Implementation notes
 
-- All text changes applied at render time via two small maps inside the component:
-  - `STATUS_LABEL_OVERRIDES: Record<string, string>` for the three labels that gain parenthetical codes.
-  - `STATUS_COPY_OVERRIDES: Record<string, { meaning; tells; notImply; assigned; changes }>` for the per-row copy.
-- Field-row labels live in a constant `FIELD_LABELS` object so the `<dl>` can render the new label set without touching individual entries.
-- A `STANDING · NN` index is computed from the array order at render.
-- No new dependencies, no new files, no token changes.
+- All copy rewrites applied directly to the four data arrays at the top of the file (`inScope`, `outOfScope`, `lifecycle`) and inline within the JSX. No new files, no new dependencies, no token changes.
+- The "secure submission point" panel is a small markup tweak inside the existing §5 card — header row added above the existing label/link, helper text replaced.
+- All section numbering (§1–§6), `RecordHeader`, `Section`, `SectionLabel`, and `Link` components remain in place.
 
 ### Files touched
 
-- `src/pages/StatusDefinitions.tsx` — header copy, `§1`/`§2`/`§3`/`§4` heading + lead rewrites, new ledger header strip above the glossary, restyled tabular rows with aligned field labels and `STANDING · NN` codes, slug-keyed label and copy overrides for all 7 standings, lifecycle list rewrite + continuous-surveillance label, cross-reference label tightening, citation update.
+- `src/pages/ReportConcern.tsx` — header copy, §1–§6 title/description rewrites, `inScope` / `outOfScope` / `lifecycle` array content rewrites, lifecycle mono label, secure-submission-point panel restyle, cross-reference label tightening, citation update.
 
 ### What stays the same
 
-All routes, the `RecordHeader` / `Section` / `SectionLabel` components, the swatch color tokens (`text-verified`, `text-pending`, `text-destructive`, `text-muted-foreground`), the 7-status order, the `divide-y` container structure, and all design tokens and container widths.
+All routes, the `RecordHeader` / `Section` / `SectionLabel` components, the section ordering and numbering, the `concerns@sourcestandard.org` mailto target, design tokens, and container widths.
 
