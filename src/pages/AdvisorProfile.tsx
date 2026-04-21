@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
+import { ProfileHeader, ProfileFootnote } from "@/components/ProfileHeader";
 import { advisoryBoard } from "@/data/advisoryBoard";
 
 const AdvisorProfile = () => {
@@ -26,32 +26,30 @@ const AdvisorProfile = () => {
 
   return (
     <>
-      <RecordHeader
-        metadata={[
-          { label: "Doc", value: `SS-MAB-${member.slug.toUpperCase()}` },
-          { label: "Seat", value: member.slug.toUpperCase() },
-          { label: "Status", value: "Active" },
-          { label: "Jurisdiction", value: member.jurisdiction },
-        ]}
+      <ProfileHeader
+        backHref="/medical-advisory"
+        backLabel="Medical Advisory Board"
         eyebrow={`Medical Advisory Board · ${member.boardTitle}`}
         title={`${member.name}, ${member.credentials}`}
+        identity={
+          <p className="text-[13px] text-muted-foreground">
+            {member.specialization} · {member.yearsPracticing} practicing · {member.jurisdiction}
+          </p>
+        }
         lead={member.shortSummary}
-        summary={[
-          { label: "Specialization", value: member.specialization },
-          { label: "Years practicing", value: member.yearsPracticing },
-          { label: "Board role", value: member.boardTitle },
-          { label: "Jurisdiction", value: member.jurisdiction },
-        ]}
-      >
-        <div className="mt-2">
-          <Link
-            to="/medical-advisory"
-            className="text-[12px] font-semibold uppercase tracking-[0.14em] text-muted-foreground hover:text-primary"
-          >
-            ← Medical Advisory Board
-          </Link>
-        </div>
-      </RecordHeader>
+        rightSlot={
+          <div className="border border-border/60 bg-surface-muted/40 p-5 rounded-md">
+            <img
+              src={member.photo}
+              alt={`Portrait of ${member.name}`}
+              loading="lazy"
+              width={256}
+              height={256}
+              className="h-32 w-32 rounded-[2px] object-cover border border-border bg-surface-muted"
+            />
+          </div>
+        }
+      />
 
       {/* §1 — Identity */}
       <section className="border-b border-border">

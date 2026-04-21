@@ -16,12 +16,6 @@ const MedicalAdvisory = () => {
         eyebrow="Medical Advisory Board · Clinical Oversight Layer"
         title="Physician oversight of the Source Standard framework."
         lead="The Medical Advisory Board is the clinical oversight layer behind the Source Standard framework. It shapes standards, guides the Greenlist, reviews educational material, and supports the credibility of the public verification system."
-        summary={[
-          { label: "Board seats", value: advisoryBoard.length.toString().padStart(2, "0") },
-          { label: "Review cadence", value: "Quarterly" },
-          { label: "Conflicts policy", value: "Disclosed" },
-          { label: "Reports to", value: "Public record" },
-        ]}
       />
 
       {/* §1 — Board Mandate */}
