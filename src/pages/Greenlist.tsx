@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { greenlist } from "@/data/greenlist";
 
@@ -142,6 +143,33 @@ const Greenlist = () => {
                 </article>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Read deeper */}
+      <section className="border-t border-border">
+        <div className="container-wide py-6">
+          <div className="border border-border bg-surface-muted">
+            <div className="px-4 py-2.5 border-b border-border bg-background">
+              <p className="meta-label text-foreground">Read deeper</p>
+            </div>
+            <ul className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
+              {[
+                { to: "/templates/greenlist-entry", l: "Greenlist entry template" },
+                { to: "/how-it-works", l: "How verification works" },
+                { to: "/governance", l: "Governance & oversight" },
+              ].map((r) => (
+                <li key={r.to} className="px-4 py-3">
+                  <Link
+                    to={r.to}
+                    className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  >
+                    {r.l} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

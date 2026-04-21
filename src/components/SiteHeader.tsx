@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 
 const nav = [
   { to: "/", label: "Home", end: true },
-  { to: "/greenlist", label: "Greenlist" },
   { to: "/verified-vendors", label: "Verified Vendors" },
-  { to: "/how-it-works", label: "How It Works" },
-  { to: "/for-vendors", label: "For Vendors" },
+  { to: "/greenlist", label: "Greenlist" },
   { to: "/education", label: "Education" },
+  { to: "/medical-advisory", label: "Medical Advisory" },
+  { to: "/how-it-works", label: "How It Works" },
   { to: "/about", label: "About" },
 ];
 

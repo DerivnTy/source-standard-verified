@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 
 const categories = [
@@ -108,6 +109,28 @@ const Education = () => {
                 Source Standard Education, SS-EDU-2026.01, with the per-entry citation ID shown above.
               </p>
             </div>
+          </div>
+
+          {/* Read deeper */}
+          <div className="mt-10 border border-border bg-surface-muted">
+            <div className="px-4 py-2.5 border-b border-border bg-background">
+              <p className="meta-label text-foreground">Read deeper</p>
+            </div>
+            <ul className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+              {[
+                { to: "/medical-advisory", l: "Medical Advisory Board" },
+                { to: "/governance", l: "Governance & oversight" },
+              ].map((r) => (
+                <li key={r.to} className="px-4 py-3">
+                  <Link
+                    to={r.to}
+                    className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  >
+                    {r.l} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
