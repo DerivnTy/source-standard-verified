@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { RecordHeader } from "@/components/RecordHeader";
 import { StatusBadge } from "@/components/StatusBadge";
 import {
@@ -10,10 +10,14 @@ import {
   VENDOR_STATUS_LABEL,
   VENDOR_STATUS_SHORT,
   getVendorStates,
+  getVendorCities,
   getClinicalFocusOptions,
 } from "@/data/vendors";
 
 const ALL = "__all__";
+const PAGE_SIZE = 25;
+
+type SortMode = "status" | "name-asc" | "name-desc" | "state-city";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
@@ -31,12 +35,28 @@ const formatLocation = (v: Vendor) => {
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [state, setState] = useState<string>(ALL);
+  const [city, setCity] = useState<string>(ALL);
   const [status, setStatus] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
-  const [hasReview, setHasReview] = useState<string>(ALL); // "yes" | "no" | ALL
+  const [hasReview, setHasReview] = useState<string>(ALL);
+  const [sort, setSort] = useState<SortMode>("status");
+  const [page, setPage] = useState(1);
 
   const states = useMemo(() => getVendorStates(), []);
   const focusOptions = useMemo(() => getClinicalFocusOptions(), []);
+  const cities = useMemo(() => {
+    const all = getVendorCities();
+    if (state === ALL) return all;
+    const inState = new Set(
+      vendors.filter((v) => v.state === state && v.city).map((v) => v.city as string),
+    );
+    return all.filter((c) => inState.has(c));
+  }, [state]);
+
+  // Reset city if it's no longer valid for the selected state
+  useEffect(() => {
+    if (city !== ALL && !cities.includes(city)) setCity(ALL);
+  }, [cities, city]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -49,22 +69,40 @@ const VerifiedVendors = () => {
         if (!hay.includes(q)) return false;
       }
       if (state !== ALL && v.state !== state) return false;
+      if (city !== ALL && v.city !== city) return false;
       if (status !== ALL && v.status !== status) return false;
       if (focus !== ALL && !(v.clinicalFocus ?? []).includes(focus)) return false;
       if (hasReview === "yes" && !v.reviewId) return false;
       if (hasReview === "no" && v.reviewId) return false;
       return true;
     });
-  }, [query, state, status, focus, hasReview]);
+  }, [query, state, city, status, focus, hasReview]);
 
   const sorted = useMemo(() => {
-    return [...filtered].sort((a, b) => {
-      const sa = STATUS_ORDER.indexOf(a.status);
-      const sb = STATUS_ORDER.indexOf(b.status);
-      if (sa !== sb) return sa - sb;
-      return a.name.localeCompare(b.name);
-    });
-  }, [filtered]);
+    const arr = [...filtered];
+    switch (sort) {
+      case "name-asc":
+        return arr.sort((a, b) => a.name.localeCompare(b.name));
+      case "name-desc":
+        return arr.sort((a, b) => b.name.localeCompare(a.name));
+      case "state-city":
+        return arr.sort((a, b) => {
+          const s = (a.state ?? "").localeCompare(b.state ?? "");
+          if (s !== 0) return s;
+          const c = (a.city ?? "").localeCompare(b.city ?? "");
+          if (c !== 0) return c;
+          return a.name.localeCompare(b.name);
+        });
+      case "status":
+      default:
+        return arr.sort((a, b) => {
+          const sa = STATUS_ORDER.indexOf(a.status);
+          const sb = STATUS_ORDER.indexOf(b.status);
+          if (sa !== sb) return sa - sb;
+          return a.name.localeCompare(b.name);
+        });
+    }
+  }, [filtered, sort]);
 
   const counts = useMemo(() => {
     const c: Record<VendorPublicStatus, number> = {
@@ -78,9 +116,20 @@ const VerifiedVendors = () => {
     return c;
   }, []);
 
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = sorted.slice(pageStart, pageStart + PAGE_SIZE);
+
+  // Reset to page 1 whenever filters/sort change the result set
+  useEffect(() => {
+    setPage(1);
+  }, [query, state, city, status, focus, hasReview, sort]);
+
   const filtersActive =
     query !== "" ||
     state !== ALL ||
+    city !== ALL ||
     status !== ALL ||
     focus !== ALL ||
     hasReview !== ALL;
@@ -88,6 +137,7 @@ const VerifiedVendors = () => {
   const reset = () => {
     setQuery("");
     setState(ALL);
+    setCity(ALL);
     setStatus(ALL);
     setFocus(ALL);
     setHasReview(ALL);
@@ -182,6 +232,21 @@ const VerifiedVendors = () => {
             </select>
 
             <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Filter by city"
+              disabled={cities.length === 0}
+            >
+              <option value={ALL}>All cities</option>
+              {cities.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
+            <select
               value={focus}
               onChange={(e) => setFocus(e.target.value)}
               className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
@@ -207,6 +272,19 @@ const VerifiedVendors = () => {
               <option value="no">No published review</option>
             </select>
 
+
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortMode)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Sort records"
+            >
+              <option value="status">Sort: Status</option>
+              <option value="name-asc">Sort: Name A → Z</option>
+              <option value="name-desc">Sort: Name Z → A</option>
+              <option value="state-city">Sort: State / City</option>
+            </select>
+
             {filtersActive && (
               <button
                 onClick={reset}
@@ -217,7 +295,9 @@ const VerifiedVendors = () => {
             )}
 
             <p className="meta-label ml-auto">
-              {sorted.length} {sorted.length === 1 ? "record" : "records"}
+              {sorted.length === 0
+                ? "0 records"
+                : `${pageStart + 1}–${Math.min(pageStart + PAGE_SIZE, sorted.length)} of ${sorted.length}`}
             </p>
           </div>
         </div>
@@ -245,7 +325,7 @@ const VerifiedVendors = () => {
                   <div className="col-span-3 meta-label">Clinical focus</div>
                   <div className="col-span-1 meta-label text-right">Profile</div>
                 </div>
-                {sorted.map((v) => (
+                {pageItems.map((v) => (
                   <div
                     key={v.slug}
                     className="grid grid-cols-12 px-3 py-2 border-b border-border last:border-b-0 items-center hover:bg-surface-muted/50"
@@ -283,7 +363,7 @@ const VerifiedVendors = () => {
 
               {/* Mobile cards */}
               <div className="md:hidden space-y-2">
-                {sorted.map((v) => (
+                {pageItems.map((v) => (
                   <Link
                     key={v.slug}
                     to={`/directory/${v.slug}`}
@@ -308,6 +388,73 @@ const VerifiedVendors = () => {
                 ))}
               </div>
             </>
+          )}
+
+          {sorted.length > PAGE_SIZE && (
+            <nav
+              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3"
+              aria-label="Directory pagination"
+            >
+              <p className="meta-label">
+                Page {currentPage} of {totalPages}
+              </p>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="h-3 w-3" /> Prev
+                </button>
+                {(() => {
+                  // Compact numeric range: up to 7 buttons centered around current
+                  const pages: (number | "…")[] = [];
+                  const window = 1;
+                  const add = (n: number | "…") => pages.push(n);
+                  const last = totalPages;
+                  add(1);
+                  const start = Math.max(2, currentPage - window);
+                  const end = Math.min(last - 1, currentPage + window);
+                  if (start > 2) add("…");
+                  for (let i = start; i <= end; i++) add(i);
+                  if (end < last - 1) add("…");
+                  if (last > 1) add(last);
+                  return pages.map((p, i) =>
+                    p === "…" ? (
+                      <span
+                        key={`e-${i}`}
+                        className="px-1 text-[12px] text-muted-foreground"
+                        aria-hidden
+                      >
+                        …
+                      </span>
+                    ) : (
+                      <button
+                        key={p}
+                        onClick={() => setPage(p)}
+                        aria-current={p === currentPage ? "page" : undefined}
+                        className={`h-8 min-w-8 px-2 border text-[12px] tabular-nums ${
+                          p === currentPage
+                            ? "border-foreground bg-foreground text-background"
+                            : "border-border text-foreground hover:bg-surface-muted"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ),
+                  );
+                })()}
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  aria-label="Next page"
+                >
+                  Next <ChevronRight className="h-3 w-3" />
+                </button>
+              </div>
+            </nav>
           )}
 
           <p className="mt-6 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
