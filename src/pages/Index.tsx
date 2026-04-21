@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { greenlist } from "@/data/greenlist";
@@ -44,27 +45,120 @@ const procedural = [
   { t: "Governance & oversight", d: "Charter, conflict-of-interest policy, and standard maintenance.", to: "/governance" },
 ];
 
+const metadata = [
+  { k: "Standard", v: "SS-FRAMEWORK-2026.01" },
+  { k: "Status", v: "Active / Operational" },
+  { k: "Jurisdiction", v: "Tampa, FL · US" },
+  { k: "Review cycle", v: "Annual · MAB-reviewed" },
+];
+
 const Index = () => {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+
+  const handleLookup = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    navigate(q ? `/verified-vendors?q=${encodeURIComponent(q)}` : "/verified-vendors");
+  };
+
   return (
     <>
-      <AnchorHeader
-        size="lg"
-        eyebrow="Public registry"
-        title="Public Registry of Compounding Standards."
-        lead="An independent registry cross-referencing licensed vendors against FDA-registered compounding facilities and recognized regulatory benchmarks."
-      >
-        <div className="flex flex-wrap gap-3">
-          <Button asChild size="lg" className="h-11">
-            <Link to="/verified-vendors">Verified vendors</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="h-11">
-            <Link to="/greenlist">Greenlist</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="h-11">
-            <Link to="/about">About</Link>
-          </Button>
+      {/* Master Control Strip — homepage owns this band */}
+      <div className="border-b border-border bg-surface">
+        <div className="container-wide flex h-9 items-center justify-between">
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-foreground/70">
+            Maintained in Tampa, FL · Public Registry
+          </span>
+          <span className="hidden md:inline font-mono text-[11px] uppercase tracking-[0.12em] text-foreground/70">
+            SS-FRAMEWORK-2026.01 · Active / Operational · Updated 04/21/26
+          </span>
         </div>
-      </AnchorHeader>
+      </div>
+
+      {/* Institutional hero */}
+      <section className="border-b border-border">
+        <div className="container-wide pt-10 md:pt-12 pb-12 md:pb-14">
+          <div className="grid md:grid-cols-12 gap-10 md:gap-12">
+            <div className="md:col-span-8">
+              <p className="eyebrow mb-3">Public registry · v2026.01</p>
+              <h1 className="display-1 mt-2">
+                Source Standard: The Public Registry for Compounded Supply-Chain Integrity.
+              </h1>
+              <p className="mt-3 max-w-[62ch] text-[15.5px] text-muted-foreground leading-[1.6]">
+                An independent auditing framework for the verification of 503A/503B pharmacy sourcing and clinical administrative protocols.
+              </p>
+
+              {/* Registry Lookup terminal */}
+              <div className="mt-7 max-w-[640px]">
+                <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2">
+                  Registry Lookup v2026.01
+                </p>
+                <form
+                  onSubmit={handleLookup}
+                  className="flex items-stretch h-12 bg-surface border border-input rounded-[2px] overflow-hidden focus-within:border-foreground/60 transition-colors"
+                >
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search vendor, upstream source, or audit ID (e.g. SS-V-0142)"
+                    className="flex-1 px-4 bg-transparent text-[14px] text-foreground placeholder:text-muted-foreground/70 outline-none"
+                    aria-label="Registry lookup"
+                  />
+                  <button
+                    type="submit"
+                    className="m-1 font-mono text-[11px] uppercase tracking-[0.12em] px-4 h-10 bg-foreground text-background rounded-[2px] hover:bg-foreground/90 transition-colors"
+                  >
+                    Lookup
+                  </button>
+                </form>
+                <p className="text-[12.5px] text-muted-foreground mt-2">
+                  Cross-references vendor records against FDA-registered 503A/503B sources.
+                </p>
+              </div>
+
+              {/* CTA row */}
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link
+                  to="/verified-vendors"
+                  className="inline-flex items-center bg-foreground text-background hover:bg-foreground/90 rounded-[2px] h-11 px-6 text-[13.5px] font-medium transition-colors"
+                >
+                  View Verified Registry
+                </Link>
+                <Link
+                  to="/apply"
+                  className="inline-flex items-center bg-transparent border border-border-strong text-foreground hover:bg-foreground/[0.04] rounded-[2px] h-11 px-6 text-[13.5px] font-medium transition-colors"
+                >
+                  Vendor Intake
+                </Link>
+              </div>
+            </div>
+
+            {/* Institutional metadata aside */}
+            <aside className="md:col-span-4 md:pl-6 md:border-l md:border-border md:self-end">
+              <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
+                Institutional Metadata
+              </p>
+              <dl>
+                {metadata.map((m) => (
+                  <div
+                    key={m.k}
+                    className="flex justify-between items-baseline gap-4 py-1.5 border-b border-border/60 last:border-0"
+                  >
+                    <dt className="text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
+                      {m.k}
+                    </dt>
+                    <dd className="font-mono text-[12px] text-foreground tabular-nums text-right">
+                      {m.v}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </aside>
+          </div>
+        </div>
+      </section>
 
       {/* §2 Public lookups — primary entry points */}
       <section className="border-b border-border/50 bg-surface-muted/40">
