@@ -9,7 +9,7 @@ const lookups = [
     n: "A",
     label: "Look up a vendor",
     title: "Verified Vendors registry",
-    body: "Confirm whether a vendor has been verified under SS-FRAMEWORK-2026.01. Each listing carries a citable review identifier, the documentation categories reviewed, and the date of assessment.",
+    body: "Each listing carries a citable review identifier, the categories reviewed, and the date of assessment.",
     to: "/verified-vendors",
     cta: "Open the registry",
   },
@@ -17,7 +17,7 @@ const lookups = [
     n: "B",
     label: "Look up a source",
     title: "Greenlist of recognized sources",
-    body: "Reference the upstream sources Source Standard recognizes — 503B outsourcing facilities, 503A pharmacies, and credentialed standards. Inclusion is based on public licensing and registration.",
+    body: "Inclusion is based on public licensing, registration, and recognized credentialing standards.",
     to: "/greenlist",
     cta: "Open the greenlist",
   },
@@ -65,10 +65,10 @@ const Index = () => {
             <div className="md:col-span-8">
               <p className="eyebrow mb-5">Public reference · Verification authority</p>
               <h1 className="text-[2rem] md:text-[2.5rem] font-semibold tracking-[-0.015em] leading-[1.1] text-foreground">
-                The public reference for verifying vendors in peptide, TRT, and hormone optimization.
+                The public reference for verified vendors in peptide, TRT, and hormone optimization.
               </h1>
               <p className="mt-6 max-w-2xl text-[17px] text-muted-foreground leading-[1.6]">
-                Source Standard maintains the public registry of verified vendors and the greenlist of recognized upstream sources. Standards are set under medical advisory review and anchored to public FDA, PCAB, NSF, and USP records.
+                Source Standard maintains the public registry of verified vendors and the Greenlist of recognized upstream sources. Standards are maintained under medical advisory review and anchored to public FDA, PCAB, NSF, and USP records.
               </p>
             </div>
             <div className="md:col-span-4">
@@ -80,9 +80,8 @@ const Index = () => {
                   {[
                     { l: "Document", v: "SS-FRAMEWORK-2026.01" },
                     { l: "Status", v: "Active" },
-                    { l: "Jurisdiction", v: "FL · US" },
+                    { l: "Jurisdiction", v: "US" },
                     { l: "Oversight", v: "Medical Advisory Board" },
-                    { l: "First registry entries", v: "Q1 2026" },
                   ].map((r) => (
                     <div key={r.l} className="flex items-baseline justify-between px-5 py-3">
                       <dt className="text-[13px] text-muted-foreground">{r.l}</dt>
@@ -131,7 +130,7 @@ const Index = () => {
                 Standards are set and reviewed under the Medical Advisory Board.
               </h2>
               <p className="mt-5 text-[15.5px] text-muted-foreground leading-relaxed max-w-md">
-                Clinical scope, evidence standards, and renewal intervals for the framework are maintained under physician review. Medical oversight is structural — it sits beneath every verification and every greenlist entry.
+                Clinical scope, evidence standards, and renewal intervals for the framework are maintained under physician review. Medical oversight is structural and extends across every verification and every Greenlist entry.
               </p>
               <Link
                 to="/medical-advisory"
@@ -246,7 +245,7 @@ const Index = () => {
                 Neutral, physician-reviewed reference material.
               </h2>
               <p className="mt-4 text-[15.5px] text-muted-foreground leading-relaxed">
-                Reference notes on peptide therapy, TRT, sourcing, storage, and the documented risks of unverified supply. Material is informational and is not medical advice.
+                Reference notes on peptide therapy, TRT, sourcing, storage, and the documented risks of unverified supply. All material is informational and does not constitute medical advice.
               </p>
               <Link to="/education" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
                 Open the library <ArrowRight className="h-3.5 w-3.5" />
@@ -300,7 +299,7 @@ const Index = () => {
                 For vendors seeking listing under the standard.
               </h2>
               <p className="mt-3 text-[15.5px] text-muted-foreground leading-relaxed max-w-2xl">
-                Submission requirements, evidence categories, and review timeline are published openly. Listings are issued only after documentation has been reviewed and a public review identifier assigned.
+                Submission requirements, evidence categories, and review timelines are published openly. Listings are issued only after review is complete and a public review identifier has been assigned.
               </p>
             </div>
             <div className="md:col-span-4 md:text-right flex md:justify-end gap-3">
