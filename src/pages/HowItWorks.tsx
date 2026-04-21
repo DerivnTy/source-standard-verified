@@ -193,6 +193,38 @@ const notProcess: string[] = [
   "Source Standard does not act as a regulator or substitute for federal or state authorities.",
 ];
 
+const PRINCIPLE_TITLES: Record<string, string> = {
+  "Sourcing records matter": "Chain-of-Custody Primacy",
+  "Public claims should match documented reality": "Evidentiary Reconciliation",
+  "Verification is time-bound": "Time-Bounded Determination",
+};
+
+const MEANING_TITLES: Record<string, string> = {
+  "What has been reviewed": "Records within examination scope",
+  "What has not been reviewed": "Records outside examination scope",
+  "What a verified listing means": "Effect of a Verified determination",
+  "What it does not mean": "Limits of the determination",
+};
+
+const SCOPE_TITLES: Record<string, string> = {
+  "Business identity": "Entity identification & registration",
+  "Licenses and registrations": "Regulatory credentials",
+  "Pharmacy and supplier records": "Upstream supply-chain records",
+  "Certificates and category records": "Analytical certificates & lot records",
+  "Sourcing and invoice history": "Procurement & invoice ledger",
+  "Public claims consistency": "Public-claims reconciliation",
+  "Renewal-related updates": "Renewal-cycle delta review",
+};
+
+const STEP_TITLES: Record<string, string> = {
+  "01": "Intake & Scope Declaration",
+  "02": "Evidentiary Collection",
+  "03": "Regulatory Cross-Referencing",
+  "04": "Claims-Documentation Reconciliation",
+  "05": "Determination & Scope Recordation",
+  "06": "Publication & Continuous Surveillance",
+};
+
 const HowItWorks = () => {
   return (
     <div className="bg-background">
@@ -203,26 +235,38 @@ const HowItWorks = () => {
           { label: "Updated", value: "04/21/26" },
           { label: "Scope", value: "Verification" },
         ]}
-        eyebrow="Process"
-        title="How verification works."
-        lead="A structured review of vendor records, sourcing documentation, public claims, and applicable licensing."
+        eyebrow="Standard operating procedure"
+        title="Verification Protocol & Audit Methodology."
+        lead="Examination of supply-chain records, regulatory credentials, and public-facing claims against the Source Standard evidentiary rubric. Determinations are recorded against a defined scope and time window."
       />
 
-      {/* Why this matters */}
+      {/* Document header strip */}
+      <div className="border-b border-border bg-surface-muted/40">
+        <div className="container-wide flex items-center justify-between py-2.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground gap-4 flex-wrap">
+          <span>
+            Document · <span className="text-foreground">SS-FRAMEWORK-2026.01</span>
+          </span>
+          <span>
+            Issued <span className="text-foreground">04/21/2026</span> · Revision <span className="text-foreground">2026.01</span> · Controlled copy
+          </span>
+        </div>
+      </div>
+
+      {/* Audit principles */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Trust</p>
+          <p className="eyebrow mb-3">Audit principles</p>
           <h2 className="h-section max-w-3xl">
-            Why this matters
+            Governing principles of the verification protocol.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Verification exists so that the records behind a vendor — not just their presentation — can be examined
-            against a consistent standard. A few principles shape how that review is conducted.
+            Verification examines the records behind a vendor — not their public presentation — against a consistent
+            evidentiary standard. Three principles govern conduct of every review.
           </p>
           <div className="mt-10 grid md:grid-cols-3 gap-10 max-w-5xl">
             {whyItMatters.map((w, i) => (
               <div key={i}>
-                <h3 className="text-[15px] font-semibold text-foreground">{w.t}</h3>
+                <h3 className="text-[15px] font-semibold text-foreground">{PRINCIPLE_TITLES[w.t] ?? w.t}</h3>
                 <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{w.d}</p>
               </div>
             ))}
@@ -230,17 +274,17 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* What a verified listing means */}
+      {/* Scope of attestation */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Meaning</p>
+          <p className="eyebrow mb-3">Scope of attestation</p>
           <h2 className="h-section max-w-3xl">
-            What a verified listing means
+            Attestation of Record Consistency.
           </h2>
           <div className="mt-10 grid md:grid-cols-2 gap-x-12 gap-y-10 max-w-5xl">
             {meaningBlocks.map((m, i) => (
               <div key={i}>
-                <h3 className="text-[15px] font-semibold text-foreground">{m.t}</h3>
+                <h3 className="text-[15px] font-semibold text-foreground">{MEANING_TITLES[m.t] ?? m.t}</h3>
                 <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{m.d}</p>
               </div>
             ))}
@@ -248,16 +292,16 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Public statuses */}
+      {/* Public determinations */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Statuses</p>
+          <p className="eyebrow mb-3">Public determinations</p>
           <h2 className="h-section max-w-3xl">
-            Public statuses
+            Registry determinations.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Each listing in the public registry carries one of the following statuses. Status reflects the state of the
-            file at the time it was last updated.
+            Each registry entry carries one of the following determinations. The determination reflects the state of the
+            audit file at the time of last update.
           </p>
           <div className="mt-10 max-w-4xl divide-y divide-border border-t border-b border-border">
             {statuses.map((s, i) => (
@@ -268,7 +312,7 @@ const HowItWorks = () => {
                 <div className="md:col-span-9 space-y-2">
                   <p className="text-[14px] text-foreground leading-relaxed">{s.meaning}</p>
                   <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    <span className="meta-label mr-1">Tells the public:</span>
+                    <span className="meta-label mr-1">Public-record meaning:</span>
                     {s.tells}
                   </p>
                   <p className="text-[13.5px] text-muted-foreground leading-relaxed">
@@ -288,21 +332,21 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* What we review */}
+      {/* Examination domains */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Scope</p>
+          <p className="eyebrow mb-3">Examination domains</p>
           <h2 className="h-section max-w-3xl">
-            What we review
+            Examination domains under audit.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Review is grouped into the following areas. Each is examined against the standard for the verification
-            category requested.
+            Each domain is examined against the evidentiary standard for the requested verification category. Findings
+            are logged to the audit file.
           </p>
           <div className="mt-10 grid md:grid-cols-2 gap-5">
             {reviewGroups.map((g, i) => (
               <div key={i} className="border border-border rounded-[2px] bg-background p-6">
-                <h3 className="text-[15px] font-semibold text-foreground">{g.t}</h3>
+                <h3 className="text-[15px] font-semibold text-foreground">{SCOPE_TITLES[g.t] ?? g.t}</h3>
                 <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{g.d}</p>
               </div>
             ))}
@@ -310,32 +354,32 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Review lifecycle */}
+      {/* Audit lifecycle */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Process</p>
+          <p className="eyebrow mb-3">Audit lifecycle</p>
           <h2 className="h-section max-w-3xl">
-            Review lifecycle
+            Audit lifecycle.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Every verification follows the same six stages. A file may pause at any stage if records are incomplete or
-            require clarification.
+            Every verification proceeds through six controlled stages. A file may be paused at any stage when records
+            are incomplete or require clarification.
           </p>
           <ol className="mt-10 max-w-4xl divide-y divide-border border-t border-b border-border">
             {steps.map((s) => (
               <li key={s.n} className="grid md:grid-cols-12 gap-6 py-8">
                 <div className="md:col-span-2">
                   <p className="meta-mono text-[12.5px] text-muted-foreground">Step {s.n}</p>
-                  <h3 className="mt-1 text-[15px] font-semibold text-foreground">{s.t}</h3>
+                  <h3 className="mt-1 text-[15px] font-semibold text-foreground">{STEP_TITLES[s.n] ?? s.t}</h3>
                 </div>
                 <div className="md:col-span-10 space-y-3">
                   <p className="text-[14.5px] text-foreground leading-relaxed">{s.summary}</p>
                   <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    <span className="meta-label mr-1">Reviewed at this stage:</span>
+                    <span className="meta-label mr-1">Examined:</span>
                     {s.reviewed}
                   </p>
                   <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    <span className="meta-label mr-1">Possible result:</span>
+                    <span className="meta-label mr-1">Disposition:</span>
                     {s.result}
                   </p>
                 </div>
@@ -345,18 +389,21 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Renewal and monitoring */}
+      {/* Continuous surveillance */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">Maintenance</p>
+          <p className="eyebrow mb-3">Continuous surveillance</p>
           <h2 className="h-section max-w-3xl">
-            Renewal and monitoring
+            Continuous Surveillance & Renewal Obligations.
           </h2>
           <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Verified listings are reviewed at a defined renewal interval and any time a material change is reported.
-            Vendors are required to notify Source Standard when any of the following occur:
+            Verified files are re-examined at a defined renewal interval and upon any reported material change. Vendors
+            are bound to disclose the following Mandatory Disclosure Events without delay.
           </p>
-          <ul className="mt-8 max-w-2xl space-y-2 text-[14px] text-foreground">
+          <p className="mt-8 font-mono text-[10.5px] uppercase tracking-[0.1em] text-foreground mb-3">
+            Mandatory Disclosure Events
+          </p>
+          <ul className="max-w-2xl space-y-2 text-[14px] text-foreground">
             {changes.map((c, i) => (
               <li key={i} className="flex gap-3">
                 <span className="text-muted-foreground">·</span>
@@ -365,18 +412,18 @@ const HowItWorks = () => {
             ))}
           </ul>
           <p className="mt-8 max-w-2xl text-[14px] text-muted-foreground leading-relaxed">
-            A change report can result in a continued listing, a paused or suspended status pending review, or a
-            re-review of the affected scope.
+            A disclosed event may result in a continued determination, a Suspended status pending re-examination, or a
+            re-review limited to the affected scope.
           </p>
         </div>
       </section>
 
-      {/* What happens after verification */}
+      {/* Post-determination */}
       <section className="border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">After Review</p>
+          <p className="eyebrow mb-3">Post-determination</p>
           <h2 className="h-section max-w-3xl">
-            What happens after verification
+            Post-determination record handling.
           </h2>
           <ul className="mt-8 max-w-3xl space-y-3 text-[14.5px] text-foreground">
             {afterReview.map((a, i) => (
@@ -392,9 +439,9 @@ const HowItWorks = () => {
       {/* Why vendors apply */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">For Vendors</p>
+          <p className="eyebrow mb-3">Applicant rationale</p>
           <h2 className="h-section max-w-3xl">
-            Why vendors apply
+            Why entities submit to audit.
           </h2>
           <div className="mt-10 grid md:grid-cols-2 gap-x-12 gap-y-8 max-w-5xl">
             {vendorReasons.map((v, i) => (
