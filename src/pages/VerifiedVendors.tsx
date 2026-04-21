@@ -191,11 +191,8 @@ const VerifiedVendors = () => {
           </div>
           <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
             <span className="font-semibold text-foreground">Note.</span> "Unverified" means no Source Standard verification is currently published — it does not by itself indicate that a vendor is unsafe or noncompliant.{" "}
-            <Link
-              to="/how-to-read-the-directory"
-              className="font-mono text-foreground underline underline-offset-2 hover:no-underline"
-            >
-              Read the full directory guide →
+            <Link to="/how-to-read-the-directory" className="underline underline-offset-2 hover:no-underline">
+              Read more
             </Link>
           </p>
         </div>
