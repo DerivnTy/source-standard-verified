@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { RecordHeader } from "@/components/RecordHeader";
 import { StatusBadge } from "@/components/StatusBadge";
 import {
@@ -10,10 +10,14 @@ import {
   VENDOR_STATUS_LABEL,
   VENDOR_STATUS_SHORT,
   getVendorStates,
+  getVendorCities,
   getClinicalFocusOptions,
 } from "@/data/vendors";
 
 const ALL = "__all__";
+const PAGE_SIZE = 25;
+
+type SortMode = "status" | "name-asc" | "name-desc" | "state-city";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
