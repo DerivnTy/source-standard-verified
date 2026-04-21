@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import HowItWorks from "./pages/HowItWorks.tsx";
 import Greenlist from "./pages/Greenlist.tsx";
+import GreenlistProfile from "./pages/GreenlistProfile.tsx";
 import VerifiedVendors from "./pages/VerifiedVendors.tsx";
 import ForVendors from "./pages/ForVendors.tsx";
 import Education from "./pages/Education.tsx";
