@@ -128,6 +128,14 @@ const GreenlistProfile = () => {
   const p: GLProfile = entry.profile ?? {};
   const summary = p.background ?? `${entry.focus}.`;
 
+  // Normalize for duplicate detection: lowercase, strip non-alphanumerics.
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const designationDuplicatesType =
+    !!p.designation &&
+    (norm(p.designation) === norm(entry.type) ||
+      norm(entry.type).includes(norm(p.designation)) ||
+      norm(p.designation).includes(norm(entry.type)));
+
   // Build glance rows so we can mark the last visible one without a border.
   const glanceData: { label: string; value: ReactNode }[] = [
     { label: "Source type", value: entry.type },
@@ -147,10 +155,10 @@ const GreenlistProfile = () => {
         <span className="text-muted-foreground italic">Not listed</span>
       ),
     },
-    { label: "Designation", value: text(p.designation) },
-    { label: "FDA registration / FEI", value: text(p.fdaRegistration) },
-    { label: "Years in operation", value: text(p.yearsInOperation) },
-    { label: "SS review date", value: text(p.ssReviewDate) },
+    {
+      label: "Designation",
+      value: !designationDuplicatesType ? text(p.designation) : null,
+    },
   ];
   const visibleGlance = glanceData.filter(
     (r) => r.value !== null && r.value !== undefined && r.value !== "" && r.value !== false
@@ -262,7 +270,6 @@ const GreenlistProfile = () => {
             title="Regulatory identity, quality systems"
             subtitle="Licensure, inspections, and quality systems."
           >
-            <Field label="Designation" value={text(p.designation)} />
             <Field label="FDA registration / FEI" value={text(p.fdaRegistration)} />
             <Field label="States served / licensure" value={tags(p.statesServed)} />
             <Field label="Inspection history" value={text(p.inspectionHistory)} />
@@ -280,7 +287,6 @@ const GreenlistProfile = () => {
           >
             <Field label="Dosage forms" value={tags(p.dosageForms)} />
             <Field label="Specializations" value={tags(p.specializations)} />
-            <Field label="Clinical focus" value={entry.focus} />
             <Field label="API sourcing policy" value={text(p.apiSourcingPolicy)} />
           </Section>
 
