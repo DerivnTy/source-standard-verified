@@ -8,11 +8,11 @@ import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenli
 const Field = ({ label, value }: { label: string; value: ReactNode }) => {
   if (value === null || value === undefined || value === "" || value === false) return null;
   return (
-    <div className="py-2">
+    <div className="py-1">
       <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
         {label}
       </dt>
-      <dd className="mt-1.5 text-[13.5px] text-foreground leading-[1.45]">{value}</dd>
+      <dd className="mt-1 text-[13.5px] text-foreground leading-[1.4]">{value}</dd>
     </div>
   );
 };
