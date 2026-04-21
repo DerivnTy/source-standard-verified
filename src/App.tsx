@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -26,7 +26,6 @@ import AdvisorProfile from "./pages/AdvisorProfile.tsx";
 import FAQ from "./pages/FAQ.tsx";
 import ReportConcern from "./pages/ReportConcern.tsx";
 import StatusDefinitions from "./pages/StatusDefinitions.tsx";
-import VendorProfileTemplate from "./pages/VendorProfileTemplate.tsx";
 import GreenlistEntryTemplate from "./pages/GreenlistEntryTemplate.tsx";
 import Privacy from "./pages/Privacy.tsx";
 import Terms from "./pages/Terms.tsx";
@@ -67,7 +66,7 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="/report-a-concern" element={<ReportConcern />} />
             <Route path="/status-definitions" element={<StatusDefinitions />} />
-            <Route path="/templates/vendor-profile" element={<VendorProfileTemplate />} />
+            <Route path="/templates/vendor-profile" element={<Navigate to="/verified-vendors" replace />} />
             <Route path="/templates/greenlist-entry" element={<GreenlistEntryTemplate />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
