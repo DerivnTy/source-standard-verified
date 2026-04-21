@@ -75,23 +75,23 @@ const Accountability = () => (
       lead="Vendor commitments, reportable changes, re-review triggers, and the enforcement actions available under the framework."
     />
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§1" title="Vendor commitments at verification" description="At the time a Verified status is assigned, the vendor accepts the following standing commitments. These commitments form the basis on which the public listing is published and maintained." />
       <div className="grid md:grid-cols-2 gap-x-10 gap-y-8 max-w-4xl">
         {commitments.map((c) => (
           <div key={c.t}>
-            <p className="text-[14px] font-semibold text-foreground mb-2">{c.t}</p>
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">{c.d}</p>
+            <p className="h-card mb-2">{c.t}</p>
+            <p className="text-[15px] text-muted-foreground leading-relaxed">{c.d}</p>
           </div>
         ))}
       </div>
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§2" title="Reportable changes" description="The following changes require notification within a reasonable period after they occur. Failure to report does not invalidate the change but may itself become a triggering event." />
       <ul className="divide-y divide-border/70 border-y border-border/70 bg-background max-w-3xl">
         {reportable.map((r, i) => (
-          <li key={i} className="flex gap-4 px-5 py-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 px-5 py-3 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">{String(i + 1).padStart(2, "0")}</span>
             <span className="text-foreground">{r}</span>
           </li>
@@ -99,11 +99,11 @@ const Accountability = () => (
       </ul>
     </Section>
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§3" title="Review triggers" description="Any of the following may open a re-review of an existing Verified listing, regardless of where the listing is in its renewal cycle." />
       <ul className="space-y-3 max-w-3xl">
         {triggers.map((t, i) => (
-          <li key={i} className="flex gap-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-foreground">{t}</span>
           </li>
@@ -111,30 +111,30 @@ const Accountability = () => (
       </ul>
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§4" title="Enforcement actions" description="When a re-review identifies an issue, the framework uses a graduated set of responses scaled to the nature and severity of the issue." />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
         {actions.map((a) => (
-          <div key={a.t} className="grid md:grid-cols-12 gap-6 px-6 py-6">
-            <p className="md:col-span-3 text-[14px] font-semibold text-foreground">{a.t}</p>
-            <p className="md:col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{a.d}</p>
+          <div key={a.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
+            <p className="md:col-span-3 h-card">{a.t}</p>
+            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{a.d}</p>
           </div>
         ))}
       </div>
     </Section>
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§5" title="Reinstatement" description="A Suspended listing may return to Verified once the underlying issue is resolved and documented. A Removed listing requires a new application and a fresh review cycle; prior history is retained for reference but does not shorten the renewed review process." />
     </Section>
 
-    <Section muted>
+    <Section muted density="tight">
       <SectionLabel number="§6" title="Read deeper" />
-      <ul className="space-y-2 text-[14.5px]">
+      <ul className="space-y-2 text-[15px]">
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification — what is reviewed and how →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions — what each status means →</Link></li>
         <li><Link to="/report-a-concern" className="text-foreground underline-offset-4 hover:underline">Report a Concern — how to submit a triggering report →</Link></li>
       </ul>
-      <p className="mt-10 meta-label">
+      <p className="mt-8 meta-label">
         Cite as: Source Standard Accountability & Enforcement, SS-ENFORCE-2026.01.
       </p>
     </Section>

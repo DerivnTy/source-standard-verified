@@ -48,23 +48,23 @@ const Privacy = () => (
       lead="What data Source Standard collects, how it is used, what is published, and the rights individuals have over their data."
     />
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§1" title="Data collected" />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
         {collected.map((c) => (
-          <div key={c.t} className="grid md:grid-cols-12 gap-6 px-6 py-6">
-            <p className="md:col-span-3 text-[14px] font-semibold text-foreground">{c.t}</p>
-            <p className="md:col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{c.d}</p>
+          <div key={c.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
+            <p className="md:col-span-3 h-card">{c.t}</p>
+            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{c.d}</p>
           </div>
         ))}
       </div>
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§2" title="How data is used" />
       <ul className="space-y-3 max-w-3xl">
         {uses.map((u, i) => (
-          <li key={i} className="flex gap-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-foreground">{u}</span>
           </li>
@@ -72,23 +72,23 @@ const Privacy = () => (
       </ul>
     </Section>
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§3" title="Published vs. internal" description="A clear line separates information published in the public registry from information retained internally for review purposes only." />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background max-w-4xl">
         {publishedVsInternal.map((row) => (
-          <div key={row.p} className="grid md:grid-cols-12 gap-6 px-6 py-5">
-            <p className="md:col-span-3 text-[14px] font-semibold text-foreground">{row.p}</p>
-            <p className="md:col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{row.v}</p>
+          <div key={row.p} className="grid md:grid-cols-12 gap-6 px-5 py-5">
+            <p className="md:col-span-3 h-card">{row.p}</p>
+            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{row.v}</p>
           </div>
         ))}
       </div>
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§4" title="Third-party processors" description="A small number of service providers process data on Source Standard's behalf under standard data-processing terms." />
       <ul className="space-y-3 max-w-3xl">
         {processors.map((p, i) => (
-          <li key={i} className="flex gap-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-foreground">{p}</span>
           </li>
@@ -96,11 +96,11 @@ const Privacy = () => (
       </ul>
     </Section>
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§5" title="Your rights" />
       <ul className="space-y-3 max-w-3xl">
         {rights.map((r, i) => (
-          <li key={i} className="flex gap-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-foreground">{r}</span>
           </li>
@@ -108,27 +108,27 @@ const Privacy = () => (
       </ul>
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§6" title="Contact for privacy inquiries" />
-      <div className="border border-border/70 rounded-[2px] bg-background p-6 max-w-2xl">
+      <div className="border border-border/70 rounded-[2px] bg-background p-5 max-w-2xl">
         <p className="meta-label mb-2">Email</p>
         <a href="mailto:privacy@sourcestandard.org" className="text-[15px] font-medium text-foreground underline-offset-4 hover:underline">
           privacy@sourcestandard.org
         </a>
       </div>
-      <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-2xl">
+      <p className="mt-5 text-[13.5px] text-muted-foreground leading-relaxed max-w-2xl">
         This policy is provided in plain, reasonable terms and should be reviewed by counsel before public launch. Material updates will be reflected in a new document version.
       </p>
     </Section>
 
-    <Section>
+    <Section density="tight">
       <SectionLabel number="§7" title="Read deeper" />
-      <ul className="space-y-2 text-[14.5px]">
+      <ul className="space-y-2 text-[15px]">
         <li><Link to="/terms" className="text-foreground underline-offset-4 hover:underline">Terms of Use →</Link></li>
         <li><Link to="/verification-disclaimer" className="text-foreground underline-offset-4 hover:underline">Verification Disclaimer →</Link></li>
         <li><Link to="/report-a-concern" className="text-foreground underline-offset-4 hover:underline">Report a Concern →</Link></li>
       </ul>
-      <p className="mt-10 meta-label">
+      <p className="mt-8 meta-label">
         Cite as: Source Standard Privacy Policy, SS-PRIVACY-2026.01.
       </p>
     </Section>

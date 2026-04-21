@@ -30,14 +30,14 @@ const EducationQuestions = () => {
         title="Common questions — full index"
         description="Direct answers to the questions people most often ask."
       />
-      <Section>
+      <Section density="doc">
         <div className="space-y-10">
           {GROUP_ORDER.map((group) => {
             const items = libraryFaqs.filter((f) => f.group === group);
             if (items.length === 0) return null;
             return (
               <div key={group}>
-                <h2 className="text-[14px] font-medium text-foreground mb-2">
+                <h2 className="h-card mb-2">
                   {FAQ_GROUP_LABEL[group]}
                 </h2>
                 <Accordion type="single" collapsible className="border-t border-border/60">

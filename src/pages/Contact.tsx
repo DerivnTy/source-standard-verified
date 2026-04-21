@@ -28,7 +28,7 @@ const Contact = () => {
       />
 
       <section>
-        <div className="container-wide py-10 md:py-14">
+        <div className="container-wide py-8 md:py-10">
           <div className="grid md:grid-cols-12 gap-10">
             <aside className="md:col-span-4">
               <div className="border border-border bg-background">

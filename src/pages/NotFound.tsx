@@ -17,7 +17,7 @@ const NotFound = () => {
     >
       <Link
         to="/"
-        className="text-[13px] text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
+        className="text-[13.5px] text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
       >
         ← Return home
       </Link>

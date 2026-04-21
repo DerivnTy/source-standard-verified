@@ -38,11 +38,11 @@ const ReportConcern = () => (
       lead="What is in scope, how submissions are reviewed, and what reporters can expect."
     />
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§1" title="In scope" description="Reports relevant to the integrity of a Source Standard listing or registry entry." />
       <ul className="space-y-3 max-w-3xl">
         {inScope.map((s, i) => (
-          <li key={i} className="flex gap-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-foreground">{s}</span>
           </li>
@@ -50,11 +50,11 @@ const ReportConcern = () => (
       </ul>
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§2" title="Out of scope" description="The framework is not a substitute for regulatory or clinical authorities. The following matters should be directed elsewhere." />
       <ul className="space-y-3 max-w-3xl">
         {outOfScope.map((s, i) => (
-          <li key={i} className="flex gap-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-muted-foreground">{s}</span>
           </li>
@@ -62,28 +62,28 @@ const ReportConcern = () => (
       </ul>
     </Section>
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§3" title="How submissions are reviewed" />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
         {lifecycle.map((s, i) => (
-          <div key={s.t} className="grid md:grid-cols-12 gap-6 px-6 py-6">
+          <div key={s.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
             <div className="md:col-span-3 flex items-baseline gap-3">
               <span className="meta-mono text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
-              <p className="text-[14px] font-semibold text-foreground">{s.t}</p>
+              <p className="h-card">{s.t}</p>
             </div>
-            <p className="md:col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{s.d}</p>
+            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{s.d}</p>
           </div>
         ))}
       </div>
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§4" title="Confidentiality and good faith" description="Reporter identity is treated as confidential within the review process and is not published. Submissions made in good faith — even if they do not result in a status change — are valued and contribute to the registry's integrity. Knowingly false or harassing submissions are disregarded and may themselves be referred elsewhere." />
     </Section>
 
-    <Section>
+    <Section density="doc">
       <SectionLabel number="§5" title="Submitting a report" description="A structured intake form is forthcoming. In the interim, submit reports by email." />
-      <div className="border border-border/70 rounded-[2px] bg-background p-6 max-w-2xl">
+      <div className="border border-border/70 rounded-[2px] bg-background p-5 max-w-2xl">
         <p className="meta-label mb-2">Email</p>
         <a
           href="mailto:concerns@sourcestandard.org?subject=Concern%20Report"
@@ -91,20 +91,20 @@ const ReportConcern = () => (
         >
           concerns@sourcestandard.org
         </a>
-        <p className="mt-5 text-[14px] text-muted-foreground leading-relaxed">
+        <p className="mt-4 text-[13.5px] text-muted-foreground leading-relaxed">
           Please include: the listing or entity name, the nature of the concern, any supporting links or documents, and a way to follow up if clarification is needed.
         </p>
       </div>
     </Section>
 
-    <Section muted>
+    <Section muted density="tight">
       <SectionLabel number="§6" title="Read deeper" />
-      <ul className="space-y-2 text-[14.5px]">
+      <ul className="space-y-2 text-[15px]">
         <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification →</Link></li>
       </ul>
-      <p className="mt-10 meta-label">
+      <p className="mt-8 meta-label">
         Cite as: Source Standard Report a Concern, SS-REPORT-2026.01.
       </p>
     </Section>

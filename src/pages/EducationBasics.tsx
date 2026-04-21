@@ -49,7 +49,7 @@ const EducationBasics = () => {
         title="The basics — full index"
         description="Plain-language explainers for anyone new to peptides, compounded medications, or TRT."
       />
-      <Section>
+      <Section density="doc">
         <div className="border border-border/70 rounded-[2px] bg-background">
           {librarySeries.map((e) => (
             <SimpleRow key={e.id} entry={e} />

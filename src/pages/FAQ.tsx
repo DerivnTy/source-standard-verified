@@ -182,7 +182,7 @@ const FAQ = () => (
     />
 
     {groups.map((g, gi) => (
-      <Section key={g.title} muted={gi % 2 === 1}>
+      <Section key={g.title} muted={gi % 2 === 1} density="doc">
         <SectionLabel number={`§${gi + 1}`} title={g.title} />
         <Accordion type="single" collapsible className="max-w-3xl">
           {g.items.map((item, i) => (
@@ -190,7 +190,7 @@ const FAQ = () => (
               <AccordionTrigger className="text-left text-[15px] font-medium text-foreground">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="text-[14.5px] text-muted-foreground leading-relaxed">
+              <AccordionContent className="text-[15px] text-muted-foreground leading-relaxed">
                 <p>{item.a}</p>
                 {item.to && (
                   <p className="mt-3">
@@ -206,14 +206,14 @@ const FAQ = () => (
       </Section>
     ))}
 
-    <Section>
+    <Section density="tight">
       <SectionLabel number={`§${groups.length + 1}`} title="Read deeper" />
-      <ul className="space-y-2 text-[14.5px]">
+      <ul className="space-y-2 text-[15px]">
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
         <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
       </ul>
-      <p className="mt-10 meta-label">
+      <p className="mt-8 meta-label">
         Cite as: Source Standard FAQ, SS-FAQ-2026.01.
       </p>
     </Section>
