@@ -1,42 +1,81 @@
 
 
-## Refine Brand Blue — Lighter, Softer, More Medical
+## Separate Status From Source Type On The Greenlist Page
 
-A token-only adjustment to `src/index.css`. No component edits, no structural changes — just a more refined shade for `--primary` and its supporting tokens. The decoupling from green status colors stays intact.
+Rework the Greenlist page so "Greenlisted" reads clearly as the **status** applied to recognized upstream sources, while 503B, 503A, and Other read as **source types** those sources fall into. No data or routing changes — just the legend panel, a couple of labels, and light wording updates in `src/pages/Greenlist.tsx`.
 
-### The shift
+### 1. Rename the legend section
 
-Current `--primary` is `215 38% 28%` — a deep slate-navy. It reads heavy and slightly corporate-tech. The refined value moves it lighter, cooler, and slightly less saturated to land in a "muted medical blue" register — closer to what you'd see on a high-end clinical interface than a SaaS dashboard.
+- Heading: `"How to read this registry"` → `"How Greenlist status works"`.
+- Remove the single 4-up grid that mixes Greenlisted with 503B/503A/Other.
 
-### Token changes — `src/index.css` `:root`
+### 2. New two-tier legend layout
 
-- `--primary: 212 32% 42%;` — a lifted slate-blue. Lighter (42% vs 28%), slightly cooler hue (212 vs 215), gently desaturated (32% vs 38%). Reads calm, medical, elevated — not navy, not electric, not pastel.
-- `--primary-hover: 212 34% 36%;` — one step deeper for hover; still lighter than the current resting state.
-- `--primary-foreground: 0 0% 100%;` — unchanged. White text remains AA-compliant on the new shade (contrast ratio ~5.1, above 4.5 threshold for normal text and 3.0 for UI components).
-- `--ring: 212 32% 42%;` — matches new primary so focus halos shift in lockstep.
-- `--accent-soft: 212 30% 96.5%;` — barely-there cool tint for nav hover / list-row hover; softer and a touch cooler than the current `215 36% 96%`.
+Replace the current `grid-cols-2 md:grid-cols-4` panel with two stacked groups inside the same softened container style:
 
-### What stays exactly as-is
+**Group A — Status** (full-width row, one card)
+- Small eyebrow above the card: `STATUS`
+- Card content:
+  - Mono pill in green: `● GREENLISTED`
+  - Body: "A Source Standard designation indicating an upstream source is recognized within the Greenlist framework. Greenlisted is a status, not a facility type."
 
-- All green status tokens (`--verified`, `--verified-soft`, `--verified-foreground`) — green continues to mean Verified / Greenlisted / Active only.
-- `--pending`, `--destructive`, `--border`, `--surface-muted`, `--foreground`, `--background` — untouched.
-- All component code, all page code, all utility classes (`.link-accent`, `.eyebrow`, etc.) — untouched. They reference `--primary` via tokens, so they pick up the new shade automatically.
-- Dark-mode primary stays its current lighter green (out of scope until light mode is signed off).
+**Group B — Source types** (3-up grid beneath Group A)
+- Small eyebrow above the grid: `SOURCE TYPES IN THIS REGISTRY`
+- Three cards (503B / 503A / Other), each in their own neutral mono pill color (`text-foreground` for all three — drop the green/amber coding here so green stays bound to the Greenlisted status pill only):
+  - **503B Outsourcing Facility** — unchanged body copy.
+  - **503A Compounding Pharmacy** — unchanged body copy.
+  - **Other Qualified Source** — unchanged body copy.
 
-### Where the new blue shows up automatically
+Both groups share the refined `rounded-lg border border-border/60 bg-background` panel treatment already in place, with `divide-y` / `divide-x` hairlines between source-type cards.
 
-- Primary buttons (header CTA, hero CTAs, Apply buttons)
-- Active nav underline bar in `SiteHeader`
-- Inline link arrows on Index §3/§5/§6
-- Filter input focus halos on Verified Vendors + Greenlist
-- Pagination active-page background
-- `.link-accent` inline links
+### 3. Replace the scope note
+
+Current note talks about vendor verification. Tighten it to the distinction the user asked for, keeping the existing vendor-directory cross-link:
+
+> **Scope note.** Greenlisted is a Source Standard status for recognized upstream sources — not a facility type. Source types on this page include 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories. Vendor verification is tracked separately on the [Verified Vendors directory](/verified-vendors).
+
+### 4. Table & row changes (reinforce the distinction)
+
+In the desktop table header and mobile cards:
+
+- Rename the `"Category"` column → `"Source Type"`.
+- Under each facility name, keep the full `e.type` subtitle (already there) — it reads as the source type.
+- Add a small `STATUS` column inline with source type on desktop: each row shows a compact green `● GREENLISTED` pill next to the source-type pill. Since every entry on this page is by definition Greenlisted, this reinforces that status is the umbrella, not the type. Implementation: a single static `StatusPill` component reused across rows.
+  - Layout adjustment: `grid-cols-12` splits become `col-span-3` (Facility/Brand) / `col-span-2` (Status) / `col-span-2` (Source Type) / `col-span-2` (Location) / `col-span-2` (Focus) / `col-span-1` (Website).
+- Mobile cards: show `GREENLISTED` pill + source-type pill on the same top row, stacked cleanly above name.
+
+### 5. Filter label tweak
+
+- The "All categories" filter dropdown label → "All source types" (the underlying `category` state stays the same — pure wording).
+- Actually simpler: the existing `type` filter already covers source type granularly, and `category` duplicates it. Leave `category` in place but relabel its `<option>` text from `"All categories"` → `"All source groups"` and keep the rest unchanged to avoid filter-UX regressions.
+
+### 6. RecordHeader lead copy
+
+Minor clarification so the header mirrors the new framing:
+
+- Lead becomes: "Source Standard maintains a public registry of upstream sources that carry **Greenlisted** status — recognized within the framework across source types including 503B outsourcing facilities, 503A compounding pharmacies, and other qualified source categories."
 
 ### Files touched
 
-- `src/index.css` — five token value changes inside `:root`. Nothing else.
+- `src/pages/Greenlist.tsx` — legend restructure, scope note rewrite, table column rename + inline status pill, small filter/header wording.
+
+### Out of scope
+
+- No changes to `src/data/greenlist.ts` (types, categories, entries all preserved).
+- No changes to routing, other pages, or shared components.
+- No visual system changes (reuses existing `rounded-lg border-border/60`, `bg-surface-muted/60`, mono pill, and `.eyebrow` / `.meta-label` patterns already on the page).
 
 ### Result
 
-The interface accent moves from a heavier slate-navy to a calmer, lighter medical-leaning blue. The system feels more elevated and breathable without losing institutional weight. Green status meaning becomes even more legible against the cooler, lighter brand color.
+Visitors immediately see two distinct ideas on the page:
+
+```text
+STATUS
+● GREENLISTED — recognized upstream source
+
+SOURCE TYPES IN THIS REGISTRY
+503B Outsourcing Facility  │  503A Compounding Pharmacy  │  Other Qualified Source
+```
+
+The table then shows each row carrying Greenlisted status and a specific source type, so status and type never look like peers again.
 
