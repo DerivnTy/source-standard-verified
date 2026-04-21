@@ -1,44 +1,44 @@
 
 
-## De-duplicate Greenlist Profile Fields
+## Tighten Greenlist Profile Body Sections
 
-The "At a glance" panel and the body sections currently restate the same facts (Source Type vs Designation, Location vs header, Years in operation in both sidebar and Background, FDA / SS review date in both places). Tighten the profile so each fact appears once, in the highest-signal place.
+Reduce wasted vertical space in the three stacked profile cards (Regulatory & Quality, Capabilities, Background) and footer note. Header and At-a-glance card are out of scope.
 
 ### File touched
 - `src/pages/GreenlistProfile.tsx`
 
-### 1. "At a glance" panel — keep only non-duplicative essentials
+### Changes
 
-Reduce the sidebar to the four facts a visitor needs at a glance, plus Designation only when it adds information beyond Source Type.
+**Section card header (the `<header>` strip inside each `Section`)**
+- Padding: `px-4 py-3` → `px-4 py-2.5`.
+- Eyebrow → title gap: title currently sits directly under eyebrow; tighten with explicit `leading-tight` and remove default margin.
+- Subtitle: `mt-0.5` → `mt-0` and `leading-snug` → `leading-tight`; reduce to `text-[12px]`.
+- Result: header strip becomes one tight 3-line block instead of an airy stack.
 
-New row order:
-- Source type (`entry.type`)
-- Location (`entry.location`)
-- Website (`entry.website` or muted "Not listed")
-- Designation — **only render when `p.designation` exists AND its normalized value differs from `entry.type`**. (Comparison: lowercase, strip punctuation/whitespace. e.g. `"503B"` vs `"503B Outsourcing Facility"` → considered duplicative when `entry.type` already conveys it; show only when it adds something like `"FDA-registered 503B Outsourcing Facility"` truly distinct, or for 503A entries where designation surfaces state board info.)
+**Section card body (the `<dl>` grid)**
+- Padding: `px-4 py-3` → `px-4 py-2.5`.
+- Grid row gap: `gap-y-2` → `gap-y-1.5`.
+- Column gap unchanged (`gap-x-10`) — preserves readable line length.
 
-Removed from the sidebar:
-- FDA registration / FEI → still shown once in the Regulatory & Quality section.
-- Years in operation → still shown once in the Background section.
-- SS review date → still shown once in the Background section (as `ssAuditDate` / review notes); not surfaced in sidebar.
+**Field cell**
+- Cell padding: `py-2` → `py-1`.
+- Label → value gap: `mt-1.5` → `mt-1`.
+- Value line-height: `leading-[1.45]` → `leading-[1.4]`.
 
-### 2. Body sections — drop fields already in the header
+**Inter-section spacing**
+- Section stack: `space-y-4` → `space-y-3`.
+- Outer body wrapper: `py-6` → `py-5`.
 
-- **Regulatory & Quality**: remove `Designation` row from this section (now lives only in sidebar when distinct). Keep FDA/FEI, states served, inspections, standards, cleanroom, testing, monitoring.
-- **Capabilities**: remove the `Clinical focus` row that re-renders `entry.focus` — the focus/background sentence is already the hero summary paragraph. Keep dosage forms, specializations, API sourcing policy.
-- **Background**: unchanged structure (years in operation, facility scale, QA staffing, SS audit date, review notes) — these don't appear elsewhere on the page.
+**Footer disclosure note**
+- Padding: `px-4 py-3.5` → `px-4 py-2.5`.
+- Line-height: `leading-relaxed` → `leading-snug`.
 
-### 3. Header — unchanged
-Hero already shows Source Type · Location in the meta line and Greenlisted pill above the title, so no changes there. Sidebar drops its redundant "Greenlisted" header strip is **kept** (it's the visual anchor of the card, not duplicative text data).
+### What stays the same
+- Omit-empty rules for fields and sections.
+- 2-column grid on `md+`, single column on mobile.
+- Card borders, radius, surface colors, eyebrow styling, font sizes for values.
+- Header hero block and At-a-glance sidebar — untouched.
 
 ### Result
-Each fact lives in exactly one place:
-- Greenlist status → hero pill + sidebar header strip (visual anchor, intentional).
-- Source type, Location, Website → sidebar.
-- Designation → sidebar only when it adds info beyond Source Type.
-- FDA/FEI, standards, inspections → Regulatory & Quality section.
-- Years in operation, facility scale, audit notes → Background section.
-- Clinical focus → hero summary paragraph.
-
-The profile reads tighter, with no field restated across header, sidebar, and body.
+Each profile card reads as one cohesive block: tight header → immediately the content. Sparse sections (one or two tags) no longer look like oversized empty panels, and the three cards plus footer collapse into a noticeably shorter, denser column without feeling cramped.
 
