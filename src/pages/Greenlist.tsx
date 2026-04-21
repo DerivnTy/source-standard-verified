@@ -169,43 +169,51 @@ const Greenlist = () => {
         ]}
       />
 
-      {/* Category legend — softened segmented panel */}
+      {/* Status + Source type legend */}
       <section className="bg-surface-muted/60 border-b border-border/60">
-        <div className="container-wide py-8">
-          <p className="meta-label text-foreground mb-4">How to read this registry</p>
-          <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-2 md:grid-cols-4">
-            {CATEGORY_DEF.map((d, i) => (
-              <div
-                key={d.key}
-                className={`p-4 ${i > 0 ? "border-t md:border-t-0 md:border-l border-border/40" : ""} ${i === 1 ? "border-t-0" : ""}`}
-              >
-                {d.key === "greenlisted" ? (
-                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-verified">
-                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
-                    Greenlisted
-                  </span>
-                ) : (
-                  <span
-                    className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] ${colorForCategory[d.key]}`}
-                  >
-                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-current" />
+        <div className="container-wide py-8 space-y-6">
+          <p className="meta-label text-foreground">How Greenlist status works</p>
+
+          {/* Group A — Status */}
+          <div>
+            <p className="eyebrow mb-2">Status</p>
+            <div className="rounded-lg border border-border/60 bg-background p-4">
+              <GreenlistedPill size="md" />
+              <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
+                A Source Standard designation indicating an upstream source is recognized within
+                the Greenlist framework. Greenlisted is a status, not a facility type.
+              </p>
+            </div>
+          </div>
+
+          {/* Group B — Source types */}
+          <div>
+            <p className="eyebrow mb-2">Source types in this registry</p>
+            <div className="rounded-lg border border-border/60 bg-background overflow-hidden grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/40">
+              {SOURCE_TYPE_DEF.map((d) => (
+                <div key={d.key} className="p-4">
+                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] tabular-nums text-[11px] text-foreground">
+                    <span aria-hidden className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground" />
                     {d.title}
                   </span>
-                )}
-                <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
-                  {d.body}
-                </p>
-              </div>
-            ))}
+                  <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
+                    {d.body}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-          <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
-            <strong className="text-foreground font-semibold">Note on scope.</strong>{" "}
-            Greenlist status applies to upstream sources, not to vendors or clinics. A vendor's
-            verification status is determined separately on the{" "}
+
+          <p className="text-[12px] text-muted-foreground leading-relaxed max-w-3xl">
+            <strong className="text-foreground font-semibold">Scope note.</strong>{" "}
+            Greenlisted is a Source Standard status for recognized upstream sources — not a
+            facility type. Source types on this page include 503B outsourcing facilities, 503A
+            compounding pharmacies, and other qualified source categories. Vendor verification is
+            tracked separately on the{" "}
             <Link to="/verified-vendors" className="underline hover:text-foreground">
               Verified Vendors directory
-            </Link>{" "}
-            and depends on documented purchasing from recognized sources.
+            </Link>
+            .
           </p>
         </div>
       </section>
