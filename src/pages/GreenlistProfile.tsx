@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { ReactNode } from "react";
-import { MetadataBar } from "@/components/MetadataBar";
+import { ProfileHeader, ProfileFootnote } from "@/components/ProfileHeader";
+import { Section } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenlist";
 
@@ -20,7 +21,6 @@ const MetaLine = ({ items }: { items: (string | number | null | undefined)[] }) 
   );
 };
 
-// Tag row: bold inline label + comma-separated values, same body type as Prose.
 const TagRow = ({ label, items }: { label: string; items?: string[] }) => {
   if (!items || items.length === 0) return null;
   return (
@@ -31,7 +31,6 @@ const TagRow = ({ label, items }: { label: string; items?: string[] }) => {
   );
 };
 
-// Prose paragraph with a bold inline label. Returns null if value missing.
 const Prose = ({ label, value }: { label?: string; value?: string }) => {
   if (!value) return null;
   return (
@@ -42,8 +41,7 @@ const Prose = ({ label, value }: { label?: string; value?: string }) => {
   );
 };
 
-// Editorial section: number + title, hairline rule, then content. Skips if no content.
-const Section = ({
+const SubSection = ({
   number,
   title,
   children,
@@ -59,19 +57,16 @@ const Section = ({
   return (
     <section>
       <div className="flex items-baseline gap-3 pb-2 border-b border-border/60">
-        <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-muted-foreground">
+        <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground/75">
           {number}
         </span>
-        <h2 className="text-[15px] font-semibold text-foreground tracking-[-0.005em] m-0">
-          {title}
-        </h2>
+        <h2 className="h-sub m-0">{title}</h2>
       </div>
       <div className="mt-4 space-y-3">{filled}</div>
     </section>
   );
 };
 
-// Row in the At-a-glance card. Returns null when value missing.
 const GlanceRow = ({
   label,
   value,
@@ -87,7 +82,7 @@ const GlanceRow = ({
       <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
         {label}
       </dt>
-      <dd className="mt-0.5 text-[13px] text-foreground leading-snug">{value}</dd>
+      <dd className="mt-0.5 text-[13.5px] text-foreground leading-snug">{value}</dd>
     </div>
   );
 };
@@ -107,16 +102,14 @@ const GreenlistProfile = () => {
   if (!entry) {
     return (
       <section className="container-wide py-24 text-center">
-        <p className="eyebrow mb-3">Public Registry · Greenlist Facility</p>
-        <h1 className="text-2xl font-semibold text-foreground mb-3">
-          No facility profile found
-        </h1>
+        <p className="eyebrow mb-3">Greenlist source</p>
+        <h1 className="title-record mb-3">No facility profile found</h1>
         <p className="text-muted-foreground mb-6">
           The requested facility is not present in the Greenlist registry.
         </p>
         <Link
           to="/greenlist"
-          className="text-[13px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+          className="text-[12px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
         >
           ← Back to Greenlist
         </Link>
@@ -127,7 +120,6 @@ const GreenlistProfile = () => {
   const p: GLProfile = entry.profile ?? {};
   const summary = p.background ?? `${entry.focus}.`;
 
-  // Normalize for duplicate detection: lowercase, strip non-alphanumerics.
   const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
   const designationDuplicatesType =
     !!p.designation &&
@@ -135,7 +127,6 @@ const GreenlistProfile = () => {
       norm(entry.type).includes(norm(p.designation)) ||
       norm(p.designation).includes(norm(entry.type)));
 
-  // Build glance rows so we can mark the last visible one without a border.
   const glanceData: { label: string; value: ReactNode }[] = [
     { label: "Source type", value: entry.type },
     { label: "Location", value: entry.location },
@@ -165,106 +156,68 @@ const GreenlistProfile = () => {
 
   return (
     <>
-      <MetadataBar
-        items={[
-          { label: "Doc", value: `SS-GL-${entry.slug.toUpperCase().slice(0, 18)}` },
-          { label: "Listing", value: "Greenlist Facility" },
-          { label: "Updated", value: "April 21, 2026" },
-          { label: "Jurisdiction", value: "US" },
-        ]}
-      />
-
-      <header className="bg-background border-b border-border/60">
-        <div className="container-wide pt-4 pb-6">
-          <Link
-            to="/greenlist"
-            className="inline-flex items-center text-[12px] font-mono uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground mb-4"
-          >
-            ← Back to Greenlist
-          </Link>
-
-          <div className="grid md:grid-cols-12 gap-6">
-            <div className="md:col-span-7">
-              <p className="eyebrow mb-2">Public Registry · Greenlist Facility</p>
-
-              <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.14em] text-[10.5px] text-foreground mb-2">
-                <span
-                  aria-hidden
-                  className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--verified))]"
-                />
-                Greenlisted
-              </span>
-
-              <h1 className="text-[1.5rem] md:text-[1.75rem] font-semibold tracking-[-0.015em] text-foreground leading-[1.15]">
-                {entry.name}
-              </h1>
-
-              <p className="mt-2 text-[13px] text-muted-foreground font-mono">
-                {entry.type} · {entry.location}
-              </p>
-
-              <p className="mt-3 max-w-[58ch] text-[15px] text-foreground/85 leading-relaxed">
-                {summary}
-              </p>
-
-              <div className="mt-4">
-                {entry.website ? (
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="sm"
-                    className="font-mono uppercase tracking-[0.1em] text-[11.5px]"
-                  >
-                    <a
-                      href={entry.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Visit website ↗
-                    </a>
-                  </Button>
-                ) : (
-                  <p className="text-[12.5px] text-muted-foreground italic">
-                    Official website not listed
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* At-a-glance — promoted summary card */}
-            <aside className="md:col-span-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/80 mb-2">
+      <ProfileHeader
+        backHref="/greenlist"
+        backLabel="Back to Greenlist"
+        eyebrow="Greenlist source"
+        title={entry.name}
+        identity={
+          <span className="inline-flex items-center gap-3">
+            <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] text-[10.5px] text-foreground">
+              <span
+                aria-hidden
+                className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--verified))]"
+              />
+              Greenlisted
+            </span>
+            <span className="text-border">·</span>
+            <span>{entry.type}</span>
+            <span className="text-border">·</span>
+            <span>{entry.location}</span>
+          </span>
+        }
+        lead={summary}
+        rightSlot={
+          <div className="rounded-md border border-border/60 bg-background overflow-hidden">
+            <div className="px-3 py-2 border-b border-border/60 bg-surface-muted/40">
+              <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground/75">
                 At a glance
-              </p>
-              <div className="rounded-lg border border-border/60 bg-background overflow-hidden">
-                <div className="px-3 py-2 border-b border-border/60 bg-surface-muted/40">
-                  <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.14em] text-[11px] text-foreground">
-                    <span
-                      aria-hidden
-                      className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--verified))]"
-                    />
-                    Greenlisted
-                  </span>
-                </div>
-                <dl className="px-3 py-1">
-                  {visibleGlance.map((r, i) => (
-                    <GlanceRow
-                      key={r.label}
-                      label={r.label}
-                      value={r.value}
-                      isLast={i === visibleGlance.length - 1}
-                    />
-                  ))}
-                </dl>
-              </div>
-            </aside>
+              </span>
+            </div>
+            <dl className="px-3 py-1">
+              {visibleGlance.map((r, i) => (
+                <GlanceRow
+                  key={r.label}
+                  label={r.label}
+                  value={r.value}
+                  isLast={i === visibleGlance.length - 1}
+                />
+              ))}
+            </dl>
           </div>
-        </div>
-      </header>
+        }
+      >
+        {entry.website ? (
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="font-mono uppercase tracking-[0.1em] text-[11.5px]"
+          >
+            <a href={entry.website} target="_blank" rel="noopener noreferrer">
+              Visit website ↗
+            </a>
+          </Button>
+        ) : (
+          <p className="text-[12.5px] text-muted-foreground italic">
+            Official website not listed
+          </p>
+        )}
+      </ProfileHeader>
 
-      <section className="bg-background">
-        <div className="container-wide py-8 space-y-10">
-          <Section number="01" title="Regulatory & Quality">
+      <Section density="doc">
+        <div className="space-y-10">
+          <SubSection number="01" title="Regulatory & Quality">
             <MetaLine
               items={[
                 !designationDuplicatesType ? p.designation : null,
@@ -278,16 +231,16 @@ const GreenlistProfile = () => {
             <TagRow label="Testing" items={p.testingProtocols} />
             <Prose label="Inspections" value={p.inspectionHistory} />
             <Prose label="Environmental monitoring" value={p.environmentalMonitoring} />
-          </Section>
+          </SubSection>
 
-          <Section number="02" title="Product Capabilities">
+          <SubSection number="02" title="Product Capabilities">
             <TagRow label="Dosage forms" items={p.dosageForms} />
             <TagRow label="Specializations" items={p.specializations} />
             <Prose label="Clinical focus" value={entry.focus} />
             <Prose label="API sourcing" value={p.apiSourcingPolicy} />
-          </Section>
+          </SubSection>
 
-          <Section number="03" title="Background">
+          <SubSection number="03" title="Background">
             <MetaLine
               items={[
                 p.yearsInOperation ? `${p.yearsInOperation} in operation` : null,
@@ -298,16 +251,19 @@ const GreenlistProfile = () => {
             />
             <Prose value={p.background} />
             <Prose label="Review notes" value={p.reviewNotes} />
-          </Section>
-
-          <p className="pt-6 border-t border-border/40 text-[12px] text-muted-foreground leading-snug max-w-[68ch]">
-            Source Standard does not accept payment from facilities for inclusion in
-            the Greenlist. Information is derived from public regulatory filings,
-            disclosed facility information, and Source Standard review data where
-            applicable.
-          </p>
+          </SubSection>
         </div>
-      </section>
+      </Section>
+
+      <ProfileFootnote
+        items={[
+          { label: "Doc", value: `SS-GL-${entry.slug.toUpperCase().slice(0, 18)}` },
+          { label: "Listing", value: "Greenlist Facility" },
+          { label: "Updated", value: "April 21, 2026" },
+          { label: "Jurisdiction", value: "US" },
+        ]}
+        note="Source Standard does not accept payment from facilities for inclusion in the Greenlist. Information is derived from public regulatory filings, disclosed facility information, and Source Standard review data where applicable."
+      />
     </>
   );
 };

@@ -49,7 +49,7 @@ const EducationGuides = () => {
         title="Practical guides — full index"
         description="How to handle these medications safely. Reviewed by our Medical Advisory Board."
       />
-      <Section>
+      <Section density="doc">
         <div className="border border-border/70 rounded-[2px] bg-background">
           {libraryGuides.map((e) => (
             <SimpleRow key={e.id} entry={e} />

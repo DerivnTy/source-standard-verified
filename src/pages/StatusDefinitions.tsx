@@ -129,7 +129,7 @@ const StatusDefinitions = () => (
       ]}
     />
 
-    <Section>
+    <Section density="doc">
       <SectionLabel
         number="§1"
         title="Why public statuses exist"
@@ -137,20 +137,20 @@ const StatusDefinitions = () => (
       />
     </Section>
 
-    <Section muted>
+    <Section muted density="doc">
       <SectionLabel number="§2" title="Status definitions" />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
         {statuses.map((s) => (
-          <div key={s.key} className="grid md:grid-cols-12 gap-6 px-6 py-8">
+          <div key={s.key} className="grid md:grid-cols-12 gap-6 px-5 py-6">
             <div className="md:col-span-3">
               <div
-                className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.16em] text-[11px] ${s.swatch}`}
+                className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.14em] text-[11px] ${s.swatch}`}
               >
                 <span aria-hidden>■</span>
                 {s.label}
               </div>
             </div>
-            <dl className="md:col-span-9 space-y-3 text-[14.5px] leading-relaxed">
+            <dl className="md:col-span-9 space-y-3 text-[15px] leading-relaxed">
               <div>
                 <dt className="meta-label">Meaning</dt>
                 <dd className="text-foreground mt-1">{s.meaning}</dd>
@@ -177,7 +177,7 @@ const StatusDefinitions = () => (
       </div>
     </Section>
 
-    <Section>
+    <Section density="doc">
       <SectionLabel
         number="§3"
         title="Status lifecycle"
@@ -185,7 +185,7 @@ const StatusDefinitions = () => (
       />
       <ol className="space-y-3 max-w-2xl">
         {lifecycle.map((step, i) => (
-          <li key={i} className="flex gap-4 text-[14.5px]">
+          <li key={i} className="flex gap-4 text-[15px]">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">
               {String(i + 1).padStart(2, "0")}
             </span>
@@ -195,9 +195,9 @@ const StatusDefinitions = () => (
       </ol>
     </Section>
 
-    <Section muted>
+    <Section muted density="tight">
       <SectionLabel number="§4" title="Read deeper" />
-      <ul className="space-y-2 text-[14.5px]">
+      <ul className="space-y-2 text-[15px]">
         <li>
           <Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">
             Verification — how reviews are conducted →
@@ -214,7 +214,7 @@ const StatusDefinitions = () => (
           </Link>
         </li>
       </ul>
-      <p className="mt-10 meta-label">
+      <p className="mt-8 meta-label">
         Cite as: Source Standard Status Definitions, SS-STATUS-2026.01.
       </p>
     </Section>

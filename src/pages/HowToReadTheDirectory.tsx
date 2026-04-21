@@ -90,7 +90,7 @@ const HowToReadTheDirectory = () => {
         lead="Interpreting vendor listings and what each public status does — and does not — say about a vendor."
       />
 
-      <Section>
+      <Section density="doc">
         {sectionRow(
           "§1",
           "Scope",
@@ -108,7 +108,7 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <Section muted>
+      <Section muted density="doc">
         {sectionRow(
           "§2",
           "Listing structure",
@@ -134,7 +134,7 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <Section>
+      <Section density="doc">
         {sectionRow(
           "§3",
           "Definitions",
@@ -158,7 +158,7 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <Section muted>
+      <Section muted density="doc">
         {sectionRow(
           "§4",
           "Clarification",
@@ -184,7 +184,7 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <Section>
+      <Section density="doc">
         {sectionRow(
           "§5",
           "Process",
@@ -204,7 +204,7 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <Section muted>
+      <Section muted density="doc">
         {sectionRow(
           "§6",
           "Distinction",
@@ -224,7 +224,7 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <Section>
+      <Section density="doc">
         {sectionRow(
           "§7",
           "Interpretation",
@@ -244,7 +244,7 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <Section muted bordered={false}>
+      <Section muted bordered={false} density="doc">
         {sectionRow(
           "§8",
           "Cross-reference",
@@ -274,14 +274,12 @@ const HowToReadTheDirectory = () => {
         )}
       </Section>
 
-      <section className="bg-background border-t border-border">
-        <div className="container-wide py-8">
-          <p className="font-mono text-[12px] text-muted-foreground">
-            Cite as: Source Standard, “How to read the directory,” Doc SS-DIR-GUIDE-2026.01,
-            Version 2026.01 (April 21, 2026).
-          </p>
-        </div>
-      </section>
+      <Section density="tight">
+        <p className="meta-label">
+          Cite as: Source Standard, "How to read the directory," Doc SS-DIR-GUIDE-2026.01,
+          Version 2026.01 (April 21, 2026).
+        </p>
+      </Section>
     </>
   );
 };
