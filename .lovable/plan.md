@@ -1,97 +1,74 @@
 
 
-## How It Works (SOP) — Forensic Audit tone overhaul
+## Vendor Reference → Vendor Submission Standard
 
-A copy + light visual pass on `src/pages/HowItWorks.tsx`. No data file edits, no routing changes, no structural reordering. Tone aligned with the just-completed Governance, Accountability, Status Definitions, and Report-a-Concern overhauls. Document-ID `SS-FRAMEWORK-2026.01` becomes the visual anchor.
+A copy + light visual pass on `src/pages/ForVendors.tsx`. No routing, no new components, no token changes. Tone aligned with the Governance / Accountability / How-It-Works overhauls. Document anchor: `SS-VENDOR-STD-2026.01`.
 
 ### Header (`RecordHeader`)
 
-- Eyebrow: `Standard operating procedure` → `SOP · Forensic audit methodology`
-- Title: `Verification Protocol & Audit Methodology.` → `SOP: Verification Protocol & Audit Methodology.`
-- Lead → `Forensic examination of supply-chain records, regulatory credentials, and public-facing claims against a controlled evidentiary standard. Determinations are issued under a defined scope and time window and remain subject to continuous surveillance.`
-- Metadata unchanged.
+- Eyebrow: `Reference` → `Submission standard`
+- Title: `Vendor reference.` → `Vendor Submission Standard.`
+- Lead: → `Technical specifications for the records, credentials, and procurement evidence required at intake. Submitted materials are entered into the controlled audit file and examined under the forensic review protocol (SS-FRAMEWORK-2026.01).`
+- Metadata Doc ID: `SS-VENDOR-GUIDE-2026.01` → `SS-VENDOR-STD-2026.01`. Other metadata kept (Version `2026.01`, Status `Active`, Updated `04 / 21 / 2026`).
 
-### Document header strip (existing mono bar under header)
+### §1 — Documentation Required → "Mandatory Evidentiary Inventory"
 
-- Add a third mono cell to make the strip feel like an SOP cover page:
-  - `Document · SS-FRAMEWORK-2026.01`
-  - `Issued 04/21/2026 · Revision 2026.01 · Controlled copy`
-  - New: `Classification · Public · Controlled standard`
+- Section eyebrow: `§1 — Documentation Required` → `§1 · Mandatory evidentiary inventory`
+- H2: → `Records entered into the controlled audit file.`
+- `docs` array rewritten to clinical/administrative tone (titles + descriptions, order preserved):
+  1. **Jurisdictional Registrations** — Active state and federal registrations applicable to the operating entity, including any Board of Pharmacy, Department of Health, or DEA registrations of competent jurisdiction.
+  2. **Procurement Nodes & Supplier Records** — Itemized disclosure of upstream procurement nodes — pharmacies, outsourcing facilities, qualified suppliers — supporting each reviewed product category, with corresponding records retained in the audit file.
+  3. **Certificates of Analysis (ISO-Accredited Laboratories)** — Independent third-party analytical records for relevant lots or batches, issued by ISO/IEC 17025-accredited laboratories where applicable to the category under review.
+  4. **Prescriber Credentials of Record** — For clinical operating models, current licensure and credentialing records for prescribing practitioners associated with the entity.
+  5. **503A / 503B Pharmacy Partnerships** — Documentation evidencing the relationship between the entity and any 503A compounding pharmacy or 503B outsourcing facility relied upon to fulfill listed categories.
+- Table column headers: `Ref` / `Document` / `Description` → `Ref` / `Evidentiary record` / `Specification`
+- Footnote line below table: → `Required records vary by operating model. The reviewer of record may identify additional materials during intake; all such requests are logged to the controlled audit file.`
 
-### §1 — Audit principles → "Governing Principles of Forensic Examination"
+### Sidebar — "Submission Checklist"
 
-- Eyebrow: `Audit principles` → `§1 · Governing principles`
-- H2: → `Governing Principles of Forensic Examination.`
-- Lead: → `The verification protocol prioritizes the source over the storefront. Every examination is conducted against a consistent evidentiary rubric, independent of marketing presentation, under the three principles below.`
-- `PRINCIPLE_TITLES` already forensic — keep.
-- Tighten `whyItMatters[0].d` → `Vendors carry no greater legitimacy than the pharmacies and upstream suppliers behind them. The protocol prioritizes the source over the storefront and examines the chain of custody as the primary evidentiary record.`
+- Header label: `Submission Checklist` → `Submission Checklist · SS-VENDOR-STD-2026.01`
+- CTA preserved (`Begin application →`, links to `/apply`).
 
-### §2 — Scope of attestation (kept; light tone tightening)
+### §2 — Issued Upon Verification → "Registry Deliverables & Attribution"
 
-- Eyebrow: `Scope of attestation` → `§2 · Scope of attestation`
-- H2: `Attestation of Record Consistency.` (kept).
+- Section eyebrow: `§2 — Issued Upon Verification` → `§2 · Registry deliverables & attribution`
+- H2: → `Public record issued upon verification.`
+- `issued` array rewritten:
+  1. A public Verified profile entered in the Source Standard Registry of record.
+  2. A unique **Audit ID** (format `SS-AUD-YYYY-NNNNN`) that may be cited and independently confirmed against the registry.
+  3. A **Verification Transcript** — the itemized public record of documentation reviewed, examination domains covered, and the standing issued.
+  4. A verification badge for use on vendor-controlled surfaces, governed by the framework's attribution terms.
 
-### §3 — Public determinations (kept; numbered)
+### §3 — Submission strip → "Administrative Notice"
 
-- Eyebrow: `Public determinations` → `§3 · Registry determinations`
+Replace the existing single-line strip with a mono advisory bar matching the Governance / Accountability / How-It-Works pattern.
 
-### §4 — Examination domains → "Administrative Examination Domains"
+- Container: `border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3`
+- Mono label (10.5px uppercase, muted): `ADMINISTRATIVE NOTICE · SS-VENDOR-STD-2026.01 · §3`
+- Body (13px, foreground, leading-relaxed): `Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake does not constitute forensic review. Submitted materials are entered into the controlled audit file and examined under the verification protocol (SS-FRAMEWORK-2026.01) prior to any determination of standing.`
+- CTA preserved (`Begin application →`, links to `/apply`), placed to the right of the notice on `md:`+ widths.
 
-- Eyebrow: `Examination domains` → `§4 · Examination domains`
-- H2: → `Administrative Examination Domains.`
-- Lead: → `Each domain is examined against the evidentiary standard for the requested verification category. All findings are logged to the controlled audit file under document SS-FRAMEWORK-2026.01.`
-- Update `SCOPE_TITLES` map values:
-  - `Certificates and category records` → `Analytical & Lot Record Validation`
-  - `Sourcing and invoice history` → `Procurement & Invoice Reconciliation`
-  - `Pharmacy and supplier records` → `Upstream Supply-Chain Verification`
-  - `Public claims consistency` → `Public-Claims Reconciliation`
-  - `Business identity` → `Entity Identification & Registration`
-  - `Licenses and registrations` → `Regulatory Credentials Verification`
-  - `Renewal-related updates` → `Renewal-Cycle Delta Examination`
-- Add a small mono code label above each domain card title: `DOMAIN · NN` (`text-muted-foreground`, mono uppercase 10.5px).
+### Footer — Official citation block
 
-### §5 — Audit lifecycle → "Standardized Review Lifecycle"
+Append below §3 (matches Governance / Accountability / How-It-Works):
 
-- Eyebrow: `Audit lifecycle` → `§5 · Standardized review lifecycle`
-- H2: → `Standardized Review Lifecycle.`
-- Lead: → `Every verification proceeds through six controlled stages of forensic examination. A file may be paused at any stage when records are incomplete, inconsistent, or require evidentiary clarification.`
-- `STEP_TITLES` already includes `Regulatory Cross-Referencing` (03). Adjust 04 → `Discrepancy Analysis & Claims Reconciliation` to make "Discrepancy Analysis" explicit.
+- Container: `border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-8`
+- Top mono label: `OFFICIAL CITATION · SS-VENDOR-STD-2026.01`
+- Body (12.5px, foreground): `Source Standard. Vendor Submission Standard. Document SS-VENDOR-STD-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on file with the issuing organization.`
+- Sub-line (mono, 11px uppercase, muted): `Controlled standard · See SOP: Verification Protocol & Audit Methodology · See Compliance Monitoring & Enforcement Protocols` — with inline `<Link>`s to `/how-it-works` and `/accountability`.
 
-### §6 — Continuous surveillance → "Post-Audit Surveillance & Mandatory Disclosure"
+### Visual style
 
-- Eyebrow: `Continuous surveillance` → `§6 · Post-audit surveillance`
-- H2: → `Post-Audit Surveillance & Mandatory Disclosure.`
-- Lead: → `A determination is a snapshot in time. Verified files are subject to continuous surveillance and are re-examined at a defined renewal interval and upon any reported material change. Entities of record are bound to disclose the following Mandatory Disclosure Events within seventy-two (72) hours of occurrence.`
-- Add a mono advisory bar above the MDE list (matches Accountability §2): `border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3 max-w-3xl mb-5`, label `DISCLOSURE WINDOW · 72 HOURS · SS-FRAMEWORK-2026.01 · §6`.
-
-### §7 — Post-determination (kept; numbered)
-
-- Eyebrow: `Post-determination` → `§7 · Post-determination handling`
-- H2: → `Post-Determination Record Handling.`
-
-### §8 — Applicant rationale (kept; numbered)
-
-- Eyebrow: `Applicant rationale` → `§8 · Applicant rationale`
-
-### §9 — Boundaries → "Jurisdictional Limitations"
-
-- Eyebrow: `Boundaries` → `§9 · Jurisdictional limitations`
-- H2: → `Jurisdictional Limitations.`
-- Lead (new short paragraph above the list): `The following limitations are administrative boundaries of the verification framework. They define what the SOP does not constitute as a matter of legal scope, and may not be inferred or extended by reading.`
-
-### Footer reference strip → Official citation block
-
-Replace the current single-line strip with a citation block matching Governance / Accountability:
-- Container: `border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl`
-- Top mono label: `OFFICIAL CITATION · SS-FRAMEWORK-2026.01`
-- Body: `Source Standard. SOP: Verification Protocol & Audit Methodology. Document SS-FRAMEWORK-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on file with the issuing organization.`
-- Sub-line (mono, 11px uppercase, muted): `Controlled standard · Subject to versioned revision · See Status Definitions · See Accountability` (with the two existing `<Link>` elements rendered inline within the sub-line).
+- Reinforce the "boring bureau" aesthetic by:
+  - Using mono uppercase 10.5px labels (`font-mono tracking-[0.08em]`) for every section eyebrow and the new `ADMINISTRATIVE NOTICE` / `OFFICIAL CITATION` labels.
+  - Keeping the existing 12-col bordered grid for §1 and the bordered sidebar checklist (already monochromatic).
+  - No new colors, no new borders beyond what's already used elsewhere — strictly `border-border` and `bg-surface-muted` tokens.
 
 ### Files touched
 
-- `src/pages/HowItWorks.tsx` only — header, document strip, §1–§9 eyebrows / titles / leads, `SCOPE_TITLES` + `STEP_TITLES` value tweaks, `whyItMatters[0]` description tightening, §4 per-domain mono code label, §6 mono advisory bar, footer citation block.
+- `src/pages/ForVendors.tsx` only — `RecordHeader` props, `docs` array, §1 column labels + footnote, sidebar header, `issued` array, replacement of the §3 strip with the Administrative Notice block, and appended Official Citation footer.
 
 ### What stays the same
 
-All routes, the `RecordHeader` component, all data array shapes, section ordering, the 5-status determination table, the 6-step lifecycle, design tokens, and container widths.
+All routes, the `RecordHeader` component, container widths, the 12-col §1 grid, the sticky sidebar, the `Begin application →` CTA targets, and all design tokens.
 
