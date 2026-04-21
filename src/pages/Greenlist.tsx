@@ -15,7 +15,14 @@ import {
 const ALL = "__all__";
 const PAGE_SIZE = 25;
 
-type SortMode = "name-asc" | "name-desc" | "category" | "location";
+type SortMode = "name-asc" | "name-desc" | "type" | "state";
+type WebsiteFilter = "all" | "yes" | "no";
+
+// Extract two-letter state code from a "City, ST" location string.
+const extractState = (location: string): string | null => {
+  const m = location.match(/,\s*([A-Z]{2})\b/);
+  return m ? m[1] : null;
+};
 
 const CATEGORY_ORDER: GreenlistCategory[] = ["503B", "503A", "Other"];
 
