@@ -84,6 +84,7 @@ export const librarySeries: LibraryEntry[] = [
     summary:
       "What a Certificate of Analysis documents, what it does not, and how to interpret common test sections.",
     status: "outlined",
+    level: "intro",
   },
   {
     id: "SS-SERIES-003",
@@ -93,6 +94,7 @@ export const librarySeries: LibraryEntry[] = [
     summary:
       "Why Source Standard verifies both the clinic and the upstream pharmacy, and what each layer is responsible for.",
     status: "in-review",
+    level: "intro",
   },
   {
     id: "SS-SERIES-004",
