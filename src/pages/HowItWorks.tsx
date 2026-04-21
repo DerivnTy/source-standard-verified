@@ -207,20 +207,20 @@ const MEANING_TITLES: Record<string, string> = {
 };
 
 const SCOPE_TITLES: Record<string, string> = {
-  "Business identity": "Entity identification & registration",
-  "Licenses and registrations": "Regulatory credentials",
-  "Pharmacy and supplier records": "Upstream supply-chain records",
-  "Certificates and category records": "Analytical certificates & lot records",
-  "Sourcing and invoice history": "Procurement & invoice ledger",
-  "Public claims consistency": "Public-claims reconciliation",
-  "Renewal-related updates": "Renewal-cycle delta review",
+  "Business identity": "Entity Identification & Registration",
+  "Licenses and registrations": "Regulatory Credentials Verification",
+  "Pharmacy and supplier records": "Upstream Supply-Chain Verification",
+  "Certificates and category records": "Analytical & Lot Record Validation",
+  "Sourcing and invoice history": "Procurement & Invoice Reconciliation",
+  "Public claims consistency": "Public-Claims Reconciliation",
+  "Renewal-related updates": "Renewal-Cycle Delta Examination",
 };
 
 const STEP_TITLES: Record<string, string> = {
   "01": "Intake & Scope Declaration",
   "02": "Evidentiary Collection",
   "03": "Regulatory Cross-Referencing",
-  "04": "Claims-Documentation Reconciliation",
+  "04": "Discrepancy Analysis & Claims Reconciliation",
   "05": "Determination & Scope Recordation",
   "06": "Publication & Continuous Surveillance",
 };
