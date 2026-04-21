@@ -1,90 +1,140 @@
 
 
-## Apply page — Simplified vendor-facing copy pass
+## FAQ → Registry FAQs & Interpretations
 
-A copy-only refinement of `src/pages/Apply.tsx`. Keeps the "Official Registry" chrome (mono labels, bordered panels, `SS-INTAKE-01` anchor) but rewrites all human-facing strings to plain, vendor-approachable language. No structural, routing, or component changes.
+A copy-only refinement of `src/pages/FAQ.tsx`. Keeps the existing accordion layout, `RecordHeader`, `Section`/`SectionLabel` chrome, and document-anchor `SS-FAQ-2026.01`. Tone aligned with the Governance / Accountability / How-It-Works / Apply overhauls. No structural, routing, or component changes.
 
-### Header (`UtilityHeader`)
+### Header (`RecordHeader`)
 
-- Eyebrow (kept, simplified): `Form SS-INTAKE-01 · Step 1 of 2`
-- Title: → `Step 1: Registry Initialization.`
-- Description: → `Submit this form to open your audit file. A Verification Officer will review your basic details and issue a secure portal link for Step 2 (document uploads and payment).`
+- Eyebrow: `Reference` → `Reference · Administrative briefing`
+- Title: `Frequently asked questions.` → `Registry FAQs & Interpretations.`
+- Lead: → `Direct, time-bound interpretations of the registry's verification protocols, greenlist scope, and permitted public use. Issued by the auditing body for reference; not a substitute for the controlling source documents cited in each answer.`
+- Metadata row kept (`SS-FAQ-2026.01`, `Active`, `04/21/26`, `FL/US`).
 
-### Sidebar — "Documentation required for Step 2"
+### Section headers (4 categories, consolidated from 7)
 
-- Header label: `Pre-audit evidentiary requirements · Step 2` → `Documentation required for Step 2`
-- `checklist` array rewritten in plain terms (5 items, `§01–§05` markup preserved):
-  1. Business licenses (state and federal registrations for your operating entity)
-  2. Pharmacy invoices (records from the 503A / 503B pharmacies you work with)
-  3. Certificates of Analysis (third-party lab results from ISO-accredited labs)
-  4. Prescriber credentials (active licenses for any prescribing practitioners)
-  5. Pharmacy service agreements (contracts with your 503A or 503B partners)
-- Sidebar footnote (simplified): `You'll receive a secure upload link from your Verification Officer once Step 1 is acknowledged.`
+The seven existing groups collapse into the four requested categories. All Q&A items are preserved (no deletions); a few are re-homed and rewritten in plainer-but-official language.
 
-### "Step 1 of 2" hook bar (above the form)
+- §1 — `The Organization` (formerly "About Source Standard")
+- §2 — `Verification Protocols` (merges "Verification" + "Public statuses" + "Limits and disclaimers" items that pertain to verification scope)
+- §3 — `The Greenlist` (kept)
+- §4 — `Public & Consumer Use` (merges "For Consumers" + "For Vendors" + remaining "Limits and disclaimers" items)
 
-- Mono label kept: `STEP 1 OF 2 · REGISTRY INITIALIZATION`
-- Body (simplified): `Tell us who you are. We'll open your audit file and email you a secure portal link for Step 2 (document uploads and payment) within 24 hours.`
+A trailing §5 — `Read deeper` reference list is kept and re-pointed (see Linking below).
 
-### Form panel — header strip
+### Q&A rewrite — full text
 
-- Line 1 (kept): `FORM SS-INTAKE-01 · PRELIMINARY ADMINISTRATIVE INTAKE`
-- Line 2 (simplified): `Step 1 — Public business details only · Required fields marked`
+Language is direct and "boring." Marketing phrasing removed. Terms standardised: `auditing body`, `regulatory anchors`, `time-bound determination`, `controlling document`, `Verification Officer`, `controlled record`.
 
-### Form fields — section headings + labels (IDs unchanged)
+**§1 · The Organization**
 
-PascalCase `id` attributes (`LegalName`, `BrandName`, `Website`, `Category`, `StateList`, `ContactName`, `ContactEmail`, `ContactPhone`) are preserved for backend mapping. Only visible text changes.
+1. **What is Source Standard?**
+   Source Standard is an auditing body that maintains a public registry of medical and health vendors reviewed against documented sourcing, licensing, and public-claims criteria. The registry is a reference layer; it is not a clinic, pharmacy, or manufacturer.
+   _Read more — About Source Standard →_ `/about`
 
-**§A · Business Profile**
-- `Legal entity name` → `Legal business name`
-- `Public-facing brand name` → `Brand name (as customers see it)`
-- `Primary website` → `Website` (placeholder kept: `https://`)
+2. **Is Source Standard a regulator?**
+   No. Source Standard is not a regulator. It references existing regulatory anchors (FDA, state boards of pharmacy, PCAB, NSF, USP) and publishes time-bound determinations against those anchors.
+   _Read more — Governance →_ `/governance`
 
-**§B · Audit Scope**
-- `Audit category requested` → `Verification category` (placeholder simplified: `e.g. TRT clinic, 503A pharmacy, 503B outsourcing facility`)
-- `States of operation` → `States of operation` (kept; helper text simplified: `Use two-letter state codes, separated by commas.`)
+3. **Who oversees the framework?**
+   An internal review function and a medical advisory body. Authority references are drawn from FDA, state boards of pharmacy, PCAB, NSF, and USP standards.
+   _Read more — Medical Advisory →_ `/medical-advisory`
 
-**§C · Administrative Contact**
-- `Authorized representative` → `Contact name`
-- `Contact email of record` → `Business email`
-- `Telephone of record` → `Business phone`
+**§2 · Verification Protocols**
 
-### Submit button
+1. **What does "Verified" mean?**
+   A time-bound determination by the auditing body that the entity has produced records of identity, licensing, sourcing, and public claims sufficient to satisfy the verification protocol (`SS-FRAMEWORK-2026.01`) at the date of issue.
+   _Read more — Verification protocol →_ `/how-it-works`
 
-- Idle: `[ SS-INTAKE-01 ]  FILE DOCUMENT` → `[ SS-INTAKE-01 ]  SUBMIT INITIAL FILING`
-- Submitting: `[ SS-INTAKE-01 ]  FILING…` → `[ SS-INTAKE-01 ]  SUBMITTING…`
-- Reset (post-success): `[ SS-INTAKE-01 ]  FILE ANOTHER ENTITY` → `[ SS-INTAKE-01 ]  SUBMIT ANOTHER FILING`
-- Styling unchanged.
+2. **What is examined during verification?**
+   Business identity; jurisdictional licenses and registrations; pharmacy and supplier records; certificates of analysis and category records; procurement and invoice history; consistency of public claims; and renewal-related updates.
+   _Read more — What we review →_ `/how-it-works`
 
-### Administrative Notice (form footer strip)
+3. **How long does a determination last?**
+   Determinations are time-bound and reviewed on a defined renewal interval. Material changes can trigger an out-of-cycle re-review at any time.
+   _Read more — Accountability & Enforcement →_ `/accountability`
 
-- Mono label kept: `ADMINISTRATIVE NOTICE · SS-INTAKE-01`
-- Body (simplified): `This is Step 1 of 2. Submitting this form opens your audit file with the Source Standard registry — it does not complete verification. Your Verification Officer will email a secure portal link for document uploads and payment (Step 2) within 24 hours.`
+4. **What does "Verified" not mean?**
+   It is not a clinical endorsement, not a guarantee of product safety, not a warranty of future conduct, and not a substitute for professional medical judgment.
+   _Read more — Verification Disclaimer →_ `/verification-disclaimer`
 
-### Success state — in-panel confirmation
+5. **What public statuses exist?**
+   Verified, Pending Review, Under Review, Suspended, Removed, Greenlisted, and Not Listed. Each is defined in the controlling reference.
+   _Read more — Status Definitions →_ `/status-definitions`
 
-Logic unchanged. Copy simplified:
-- Header strip line 2: `Status · Filing acknowledged · Awaiting Verification Officer` (kept)
-- Mono label: `FILING RECEIVED · SS-INTAKE-01` (kept)
-- Heading: `Filing Received.` (kept)
-- Body (kept): `A Verification Officer is initializing your profile. You will receive an automated email within 24 hours to set up your secure portal access.`
-- Reference line (kept): `Reference · SS-INTAKE-{YYYY}-{6-char id}`
+6. **What does "Suspended" mean?**
+   A previously Verified determination has been temporarily withdrawn pending clarification. It does not constitute a finding of wrongdoing.
+   _Read more — Status Definitions →_ `/status-definitions`
 
-### Footer — Official Citation (de-emphasized)
+7. **What does an audit cost?**
+   Audit fees are disclosed during Step 2 of the application process and vary by category.
+   _Read more — Vendor Submission Standard →_ `/for-vendors`
 
-Keep the existing block but shrink and mute it so the technical codes read as a "Bureau" footer rather than a primary content card.
+**§3 · The Greenlist**
 
-- Container: change `border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-10` → `border-t border-border bg-background px-5 py-3 max-w-4xl mt-10`
-- All text rendered in `text-muted-foreground`:
-  - Mono label (10.5px → 10px): `OFFICIAL CITATION · SS-INTAKE-01`
-  - Body (12.5px → 11.5px, muted): kept as-is — `Source Standard. Form SS-INTAKE-01 — Preliminary Administrative Intake. Governed by Vendor Submission Standard SS-VENDOR-STD-2026.01. Examined under SOP: Verification Protocol & Audit Methodology SS-FRAMEWORK-2026.01.`
-  - Sub-line (kept, muted): `Controlled form · See Vendor Submission Standard · See SOP: Verification Protocol & Audit Methodology` with the existing `<Link>`s to `/for-vendors` and `/how-it-works`.
+1. **What is the Greenlist?**
+   The Greenlist is a registry of upstream sources — primarily 503A compounding pharmacies, 503B outsourcing facilities, and other qualified suppliers — documented as legitimate operating entities under recognized regulatory categories.
+   _Read more — Greenlist →_ `/greenlist`
+
+2. **Does "Greenlisted" mean Source Standard endorses the supplier?**
+   No. Greenlisted indicates the source is documented and registered under a recognized regulatory category. It does not imply contract, affiliation, or endorsement of any specific product.
+   _Read more — Status Definitions →_ `/status-definitions`
+
+**§4 · Public & Consumer Use**
+
+1. **How should I use the registry?**
+   As a structured reference to check whether a vendor has been reviewed under the framework, what scope was reviewed, and the current public status. The registry does not replace consultation with a licensed clinician.
+
+2. **What if a vendor is "Not Listed"?**
+   Not Listed means the entity does not appear in the registry. It is not a finding against the entity; the entity may simply not have entered the verification process.
+   _Read more — Status Definitions →_ `/status-definitions`
+
+3. **I have a concern about a listed vendor — what do I do?**
+   Submit a report through the Report a Concern channel. Reports are reviewed under the framework's triage process and may trigger an out-of-cycle re-review.
+   _Read more — Report a Concern →_ `/report-a-concern`
+
+4. **How does a vendor apply?**
+   Step 1 is a public-data registry initialization (Form `SS-INTAKE-01`). Step 2, issued by a Verification Officer, covers controlled document uploads and payment.
+   _Read more — Begin a filing →_ `/apply`
+
+5. **What changes must a verified vendor report?**
+   Supplier changes, license changes, ownership changes, product category additions or removals, public claim changes, and any regulatory action.
+   _Read more — Reportable changes →_ `/accountability`
+
+6. **How is my data handled?**
+   Vendor application materials, contact submissions, and concern reports are handled under the Privacy Policy. Public listing content is published; internal records are retained only for review purposes.
+   _Read more — Privacy Policy →_ `/privacy`
+
+7. **Can I cite a Source Standard listing?**
+   Yes. Public registry entries may be cited and referenced. Reuse is governed by the Terms of Use.
+   _Read more — Terms of Use →_ `/terms`
+
+### §5 · Read deeper (re-pointed)
+
+Replace the current three links with the high-authority set:
+
+- `Accountability & Enforcement →` `/accountability`
+- `Status Definitions →` `/status-definitions`
+- `SOP: Verification Protocol & Audit Methodology →` `/how-it-works`
+- `Governance →` `/governance`
+- `Verification Disclaimer →` `/verification-disclaimer`
+
+Footer cite line kept: `Cite as: Source Standard FAQ, SS-FAQ-2026.01.`
+
+### Visual style
+
+- Existing accordion layout retained (single-open, collapsible) — already matches a "clean, organized list of documents."
+- `Section` alternating muted backgrounds preserved.
+- Q text: `text-[15px] font-medium text-foreground` (kept).
+- A text: `text-[15px] text-muted-foreground leading-relaxed` (kept).
+- "Read more" link styling kept (`text-foreground underline-offset-4 hover:underline`).
+- No new tokens, no new components, no color changes.
 
 ### Files touched
 
-- `src/pages/Apply.tsx` only — `UtilityHeader` props, sidebar header + checklist + footnote, hook bar body, form-panel header strip line 2, all field labels + helper/placeholder text, submit button labels, Administrative Notice body, and footer Official Citation styling.
+- `src/pages/FAQ.tsx` only — `RecordHeader` props, `groups` array (4 categories with rewritten Q&A), and the §5 "Read deeper" link list.
 
 ### What stays the same
 
-All routes, the `UtilityHeader` / `Button` / `Input` / `Label` components, the 4 / 8 column grid, sticky sidebar behavior, the `filed` success-state logic and reference generation, all field `id`s for backend mapping, and all design tokens.
+All routes, the `RecordHeader` / `Section` / `SectionLabel` / `Accordion*` components, the single-open accordion behavior, container widths, the document anchor `SS-FAQ-2026.01`, the citation footer line, and all design tokens.
 
