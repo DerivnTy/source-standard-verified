@@ -232,6 +232,21 @@ const VerifiedVendors = () => {
             </select>
 
             <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
+              aria-label="Filter by city"
+              disabled={cities.length === 0}
+            >
+              <option value={ALL}>All cities</option>
+              {cities.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
+            <select
               value={focus}
               onChange={(e) => setFocus(e.target.value)}
               className="h-8 px-2 bg-background border border-border text-[12px] text-foreground"
