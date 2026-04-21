@@ -5898,6 +5898,165 @@ export const vendors: Vendor[] = [
 
 ];
 
+// ---------- Normalization layer ----------
+// Cleans state, city, and clinicalFocus values at module load so every
+// downstream consumer (filters, search, dropdowns) reads from a stable,
+// canonical taxonomy. Source records below are left as-authored; this pass
+// rewrites them in place once.
+
+// Canonical clinical focus taxonomy. Maps raw label → canonical bucket.
+const FOCUS_CANONICAL_MAP: Record<string, string> = {
+  // TRT
+  "trt": "TRT",
+  "tele-trt": "TRT",
+  // HRT
+  "hrt": "HRT",
+  "hormones": "HRT",
+  "hormone": "HRT",
+  "bhrt": "HRT",
+  "hormone pellets": "HRT",
+  "biote": "HRT",
+  "menopause": "HRT",
+  "endocrinology": "HRT",
+  // Peptides
+  "peptides": "Peptides",
+  "peptide therapy": "Peptides",
+  "immune peptides": "Peptides",
+  "tissue repair": "Peptides",
+  // Weight Loss
+  "weight loss": "Weight Loss",
+  "medical weight loss": "Weight Loss",
+  "obesity": "Weight Loss",
+  "obesity medicine": "Weight Loss",
+  "glp-1": "Weight Loss",
+  "glp1": "Weight Loss",
+  "tirzepatide": "Weight Loss",
+  // Men's / Women's Health
+  "men's health": "Men's Health",
+  "mens health": "Men's Health",
+  "sexual health": "Men's Health",
+  "women's health": "Women's Health",
+  "womens health": "Women's Health",
+  // Longevity
+  "longevity": "Longevity",
+  "anti-aging": "Longevity",
+  "anti aging": "Longevity",
+  "aging": "Longevity",
+  "age mgmt": "Longevity",
+  "age management": "Longevity",
+  "nad+": "Longevity",
+  "nad": "Longevity",
+  // Performance
+  "performance": "Performance",
+  "sports medicine": "Performance",
+  "sports med": "Performance",
+  "bio-hacking": "Performance",
+  "biohacking": "Performance",
+  "optimization": "Performance",
+  // Regenerative
+  "regenerative": "Regenerative",
+  "regenerative medicine": "Regenerative",
+  // Aesthetics
+  "aesthetics": "Aesthetics",
+  // Wellness
+  "wellness": "Wellness",
+  "iv": "Wellness",
+  "iv therapy": "Wellness",
+  // Functional / Integrative
+  "functional": "Functional / Integrative",
+  "functional medicine": "Functional / Integrative",
+  "integrative": "Functional / Integrative",
+  "integrative medicine": "Functional / Integrative",
+  "integrative health": "Functional / Integrative",
+  "naturopathic": "Functional / Integrative",
+  // Telehealth
+  "telehealth": "Telehealth",
+  "concierge": "Telehealth",
+  // Other clinical
+  "neurology": "Other clinical",
+  "diagnostics": "Other clinical",
+  "distribution": "Other clinical",
+  "clinical": "Other clinical",
+};
+
+export const CLINICAL_FOCUS_OPTIONS: string[] = [
+  "TRT",
+  "HRT",
+  "Peptides",
+  "Weight Loss",
+  "Men's Health",
+  "Women's Health",
+  "Longevity",
+  "Performance",
+  "Regenerative",
+  "Aesthetics",
+  "Wellness",
+  "Functional / Integrative",
+  "Telehealth",
+  "Other clinical",
+];
+
+const normalizeFocusValue = (raw: string): string | null => {
+  if (!raw) return null;
+  const cleaned = raw.trim().replace(/[\u2018\u2019]/g, "'"); // curly → straight apostrophe
+  const key = cleaned.toLowerCase();
+  if (FOCUS_CANONICAL_MAP[key]) return FOCUS_CANONICAL_MAP[key];
+  // Already canonical?
+  const direct = CLINICAL_FOCUS_OPTIONS.find((o) => o.toLowerCase() === key);
+  return direct ?? null;
+};
+
+const CITY_FIXES: Record<string, string> = {
+  "Ft Lauderdale": "Fort Lauderdale",
+  "Ft. Lauderdale": "Fort Lauderdale",
+};
+
+const normalizeCity = (raw: string | undefined): { city?: string; serviceArea?: string } => {
+  if (!raw) return {};
+  let c = raw.trim();
+  // Strip parenthetical annotations: "Dorset (Tele)" → "Dorset" + serviceArea
+  let serviceArea: string | undefined;
+  const paren = c.match(/^(.+?)\s*\(([^)]+)\)\s*$/);
+  if (paren) {
+    c = paren[1].trim();
+    const tag = paren[2].toLowerCase();
+    if (tag.includes("tele")) serviceArea = "Telehealth";
+  }
+  if (CITY_FIXES[c]) c = CITY_FIXES[c];
+  return { city: c, serviceArea };
+};
+
+// Apply normalization in place — runs once at module load.
+for (const v of vendors) {
+  // State: "US" → nationwide flag
+  if (v.state) {
+    const s = v.state.trim().toUpperCase();
+    if (s === "US" || s === "USA") {
+      delete v.state;
+      (v as Vendor & { serviceArea?: string }).serviceArea = "Nationwide";
+    } else {
+      v.state = s;
+    }
+  }
+  // City
+  if (v.city) {
+    const { city, serviceArea } = normalizeCity(v.city);
+    v.city = city;
+    if (serviceArea && !(v as Vendor & { serviceArea?: string }).serviceArea) {
+      (v as Vendor & { serviceArea?: string }).serviceArea = serviceArea;
+    }
+  }
+  // Clinical focus: normalize, dedupe, drop unmappable
+  if (v.clinicalFocus && v.clinicalFocus.length) {
+    const normalized: string[] = [];
+    for (const raw of v.clinicalFocus) {
+      const canon = normalizeFocusValue(raw);
+      if (canon && !normalized.includes(canon)) normalized.push(canon);
+    }
+    v.clinicalFocus = normalized;
+  }
+}
+
 // ---------- Helpers ----------
 
 export const getVendor = (slug: string): Vendor | undefined =>
@@ -5908,6 +6067,7 @@ export const getVendorStates = (): string[] =>
     new Set(vendors.map((v) => v.state).filter((s): s is string => Boolean(s))),
   ).sort();
 
+// Returns "City, ST" composite keys — the same format used as city filter values.
 export const getVendorCities = (): string[] =>
   Array.from(
     new Set(
@@ -5917,8 +6077,16 @@ export const getVendorCities = (): string[] =>
     ),
   ).sort();
 
-export const getClinicalFocusOptions = (): string[] =>
-  Array.from(new Set(vendors.flatMap((v) => v.clinicalFocus ?? []))).sort();
+// Stable per-vendor city key matching getVendorCities() format.
+export const getVendorCityKey = (v: Vendor): string | null => {
+  if (!v.city) return null;
+  return v.state ? `${v.city}, ${v.state}` : v.city;
+};
+
+export const getClinicalFocusOptions = (): string[] => {
+  const present = new Set(vendors.flatMap((v) => v.clinicalFocus ?? []));
+  return CLINICAL_FOCUS_OPTIONS.filter((o) => present.has(o));
+};
 
 // ---------- Back-compat (legacy) ----------
 // Older components may still reference VerificationStatus. Map it to the

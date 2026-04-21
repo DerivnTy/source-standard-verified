@@ -17,6 +17,12 @@ export type GreenlistEntry = {
   focus: string;
   website?: string;
   profile?: GreenlistProfile;
+  // Discrete location fields (populated at module load by the normalization
+  // pass below — derived from `location`). Filters read from these.
+  city?: string;
+  state?: string;
+  additionalLocations?: { city?: string; state?: string }[];
+  serviceArea?: "Nationwide" | "Multi-state" | "Multi-location";
 };
 
 export type GreenlistProfile = {
@@ -708,7 +714,65 @@ export const FOCUS_TAGS: { label: string; keywords: string[] }[] = [
   { label: "Wellness", keywords: ["wellness", "nutraceutical", "vitamin", "anti-aging", "regenerative", "functional", "integrative"] },
 ];
 
-// Extract a sorted list of unique location values present in the data.
+// ---------- Location normalization ----------
+// Parses each entry's `location` string once at module load and populates
+// the discrete `city` / `state` / `additionalLocations` / `serviceArea`
+// fields. Filters and sort logic read these instead of regex-on-display.
+
+const parseLocationFragment = (frag: string): { city?: string; state?: string } => {
+  const m = frag.trim().match(/^(.+?),\s*([A-Za-z]{2})\s*$/);
+  if (m) return { city: m[1].trim(), state: m[2].toUpperCase() };
+  return { city: frag.trim() || undefined };
+};
+
+for (const e of greenlistEntries) {
+  const loc = (e.location ?? "").trim();
+  if (!loc) continue;
+  const lower = loc.toLowerCase();
+
+  if (lower === "multi-location") {
+    e.serviceArea = "Multi-location";
+    continue;
+  }
+  if (lower === "us" || lower === "usa" || lower === "nationwide") {
+    e.serviceArea = "Nationwide";
+    continue;
+  }
+  if (lower.includes("multi-state") || lower.includes("multi state")) {
+    e.serviceArea = "Multi-state";
+    continue;
+  }
+
+  // Split combined locations on " and " or ";"
+  const parts = loc.split(/\s+and\s+|;\s*/i).map((p) => p.trim()).filter(Boolean);
+  if (parts.length === 0) continue;
+
+  const [first, ...rest] = parts;
+  const primary = parseLocationFragment(first);
+  if (primary.city) e.city = primary.city;
+  if (primary.state) e.state = primary.state;
+  if (rest.length > 0) {
+    e.additionalLocations = rest.map(parseLocationFragment);
+  }
+}
+
+// Returns sorted unique state codes including additionalLocations.
+export function getGreenlistStates(): string[] {
+  const set = new Set<string>();
+  for (const e of greenlistEntries) {
+    if (e.state) set.add(e.state);
+    e.additionalLocations?.forEach((a) => a.state && set.add(a.state));
+  }
+  return Array.from(set).sort();
+}
+
+// True if entry operates in the given 2-letter state code.
+export function entryMatchesState(e: GreenlistEntry, state: string): boolean {
+  if (e.state === state) return true;
+  return Boolean(e.additionalLocations?.some((a) => a.state === state));
+}
+
+// Extract a sorted list of unique location display strings present in the data.
 export function getGreenlistLocations(): string[] {
   return Array.from(new Set(greenlistEntries.map((e) => e.location))).sort();
 }
