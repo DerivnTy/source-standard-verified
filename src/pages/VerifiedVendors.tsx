@@ -29,10 +29,10 @@ const STATUS_ORDER: VendorPublicStatus[] = [
 ];
 
 const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
-  verified: "Source Standard verification has been completed and published.",
+  verified: "Documentation of upstream sourcing and clinical oversight has been audited and published.",
   "under-review": "An active Source Standard review is currently in progress.",
-  unverified: "No Source Standard verification is currently published.",
-  suspended: "A previously published verification is temporarily paused.",
+  unverified: "No documentation has been submitted for audit. Source Standard has not verified the chain of custody for this entity.",
+  suspended: "Verification retracted pending investigation into supply-chain discrepancies.",
   removed: "Listing has been removed from the public directory.",
 };
 
