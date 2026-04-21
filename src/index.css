@@ -153,13 +153,20 @@
 }
 
 @layer components {
-  /* Display sizes — anchor pages use display-1; document pages use the
-     RecordHeader's tighter, smaller scale so the two tiers visibly differ. */
+  /* Display sizes — anchor pages only. display-1 is reserved for Home;
+     all other anchor pages use display-2. The size difference is
+     deliberately small (one type step) — same machine, slightly louder. */
   .display-1 {
-    @apply text-[2rem] md:text-[2.625rem] font-medium tracking-[-0.022em] leading-[1.08];
+    @apply text-[2.125rem] md:text-[2.625rem] font-medium tracking-[-0.022em] leading-[1.08];
   }
   .display-2 {
-    @apply text-[1.75rem] md:text-[2.25rem] font-medium tracking-[-0.02em] leading-[1.12];
+    @apply text-[1.875rem] md:text-[2.25rem] font-medium tracking-[-0.02em] leading-[1.1];
+  }
+
+  /* Document title — used inside RecordHeader. Single source of truth so
+     every regulatory/policy page has identical title scale. */
+  .title-doc {
+    @apply text-[1.625rem] md:text-[1.75rem] font-medium tracking-[-0.012em] leading-[1.2];
   }
 
   /* Record/profile titles — entity name on a record page.
@@ -186,14 +193,15 @@
     max-width: 65ch;
   }
 
+  /* Unified eyebrow — same tone everywhere. Sentence case in markup. */
   .eyebrow {
     @apply text-[11px] font-medium uppercase tracking-[0.08em];
-    color: hsl(var(--foreground) / 0.65);
+    color: hsl(var(--muted-foreground) / 0.75);
   }
 
   .eyebrow-muted {
     @apply text-[11px] font-medium uppercase tracking-[0.08em];
-    color: hsl(var(--muted-foreground) / 0.8);
+    color: hsl(var(--muted-foreground) / 0.75);
   }
 
   .section-heading {

@@ -34,7 +34,7 @@ export const ProfileHeader = ({
 }) => {
   return (
     <header className="bg-background border-b border-border/60">
-      <div className="container-wide pt-6 pb-12 md:pb-16">
+      <div className="container-wide pt-6 pb-14 md:pb-18">
         {backHref && (
           <Link
             to={backHref}

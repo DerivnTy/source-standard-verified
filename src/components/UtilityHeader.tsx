@@ -26,7 +26,7 @@ export const UtilityHeader = ({
 }) => {
   return (
     <section className="border-b border-border/50 bg-background">
-      <div className="container-wide pt-6 pb-10 md:pb-14">
+      <div className="container-wide pt-6 pb-10 md:pb-12">
         {backHref && (
           <Link
             to={backHref}
@@ -37,11 +37,11 @@ export const UtilityHeader = ({
         )}
         <div className={backHref ? "mt-5" : ""}>
           {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
-          <h1 className="text-[1.25rem] md:text-[1.4rem] font-medium tracking-[-0.012em] text-foreground leading-[1.3] max-w-3xl">
+          <h1 className="text-[1.25rem] md:text-[1.375rem] font-medium tracking-[-0.012em] text-foreground leading-[1.3] max-w-3xl">
             {title}
           </h1>
           {description && (
-            <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.6]">
+            <p className="mt-3 max-w-[56ch] text-[14.5px] text-muted-foreground leading-[1.6]">
               {description}
             </p>
           )}
