@@ -49,9 +49,9 @@ const Index = () => {
     <>
       <AnchorHeader
         size="lg"
-        eyebrow="Public reference"
-        title="Verify the source."
-        lead="Search verified vendors, recognized upstream sources, and public reference standards."
+        eyebrow="Public registry"
+        title="Public Registry of Compounding Standards."
+        lead="An independent registry cross-referencing licensed vendors against FDA-registered compounding facilities and recognized regulatory benchmarks."
       >
         <div className="flex flex-wrap gap-3">
           <Button asChild size="lg" className="h-11">
