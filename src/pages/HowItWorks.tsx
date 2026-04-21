@@ -439,9 +439,9 @@ const HowItWorks = () => {
       {/* Why vendors apply */}
       <section className="bg-surface-muted/40 border-b border-border">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">For Vendors</p>
+          <p className="eyebrow mb-3">Applicant rationale</p>
           <h2 className="h-section max-w-3xl">
-            Why vendors apply
+            Why entities submit to audit.
           </h2>
           <div className="mt-10 grid md:grid-cols-2 gap-x-12 gap-y-8 max-w-5xl">
             {vendorReasons.map((v, i) => (
