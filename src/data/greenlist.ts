@@ -351,6 +351,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile compounded medications for hospitals and clinics, focusing on pain, anesthesia, and critical-care support",
     website: "https://stokeshealthcare.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Prefilled syringes"],
+      specializations: ["Pain management", "Anesthesia", "Critical care"],
+      background:
+        "New Jersey-based 503B outsourcing facility producing sterile compounded medications for hospitals and clinics, with focus on pain, anesthesia, and critical-care support.",
+    },
   },
   {
     slug: "tailstorm-health-inc",
@@ -360,6 +367,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "US",
     focus: "Sterile compounded injectables for office-based procedures and clinics",
     website: "https://tailstormhealth.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-based procedure stock"],
+      background:
+        "FDA-registered 503B outsourcing facility producing sterile compounded injectables for office-based procedures and clinics.",
+    },
   },
   {
     slug: "wedgewood-connect-llc",
@@ -387,6 +401,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     focus:
       "Sterile compounded IV and injectable medications for hospitals, surgery centers, and clinics",
     website: "https://wellspharma.com",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "IV admixtures"],
+      specializations: ["Hospitals", "Surgery centers", "Clinic infusion stock"],
+      background:
+        "Houston-based 503B outsourcing facility producing sterile compounded IV and injectable medications for hospitals, surgery centers, and clinics.",
+    },
   },
 
   // ---------- 503A Compounding Pharmacies ----------
