@@ -1,53 +1,45 @@
 
 
-## Verified Vendors page — Public Ledger copy + stamp-style status badges
+## Sources page — Public Regulatory Registry tone + dashboard-style stats
 
-A copy pass on `src/pages/VerifiedVendors.tsx` plus a small visual change to `src/components/StatusBadge.tsx` so status labels read as official ledger stamps. No structural or routing changes.
+A copy + light-visual pass on `src/pages/Greenlist.tsx`. No structural, routing, filter, or data changes.
 
-### `src/pages/VerifiedVendors.tsx`
+### Header (`AnchorHeader`)
+- Eyebrow: `Sources` → `Public regulatory registry`
+- Title: `Recognized upstream sources.` → `Upstream Facility Registry.`
+- Lead: → `Compounding facilities recognized under the framework on the basis of federal registration and state licensure. Inclusion is documentary; it is not a clinical endorsement.`
 
-**Header (`AnchorHeader`)**
-- Eyebrow: `Directory` → `Public ledger`
-- Title: `Verified vendors.` → `Vendor Compliance Registry.`
-- Lead: → `Public ledger of vendors assessed against the Source Standard framework. Every listing is anchored to a unique Audit ID.`
+### Stats tiles (`aside` dl) — dashboard treatment
+Restyle from a flat 4-cell strip into a data-dashboard panel:
+- Wrap the grid in a titled panel: small uppercase header `Registry index` (`text-[10px] tracking-[0.1em] font-mono text-muted-foreground`) with a thin divider rule.
+- Each cell:
+  - Label on top: `text-[9.5px] font-mono uppercase tracking-[0.12em] text-muted-foreground/70`
+  - Number larger and monospaced: `text-[22px] font-mono font-medium tabular-nums text-foreground`
+  - A status colour rule above the number for category cells (2px tall, full width, in `--src-503b/--src-503a/--src-other`); the Total cell uses `--border`.
+- Background: `bg-surface-muted/40` panel, `border-border/60`, internal grid lines via `bg-border/40` (already present).
+- Labels stay: `Total`, `503B`, `503A`, `Other` (numerals keep `padStart(2,"0")` for "37/21" tabular feel).
 
-**Statistics tiles (`aside` dl)**
-- `Total` → `Total Tracked Entities`
-- `Verified` → `Compliant (Verified)`
-- `Under review` → unchanged (kept for the fourth tile; the user did not request a change here)
-- `Unverified` → `Non-Audited (Unverified)`
+### Status section (currently "How Greenlist status works")
+- Eyebrow: `How Greenlist status works` → `Registry inclusion standards`
+- Body paragraph → :
+> A maintained index of compounding facilities recognized under federal registration, state licensure, and accredited credentialing. Inclusion in this registry is the mandatory foundation for any vendor compliance assessment; a vendor cannot be listed in the Vendor Compliance Registry until each declared upstream source is present here.
 
-**Status legend descriptions (`STATUS_LEGEND_DESC`)**
-- `verified` → `Documentation of upstream sourcing and clinical oversight has been audited and published.`
-- `unverified` → `No documentation has been submitted for audit. Source Standard has not verified the chain of custody for this entity.`
-- `suspended` → `Verification retracted pending investigation into supply-chain discrepancies.`
-- `under-review` and `removed` left intact (no user-supplied copy).
+### Source types (`SOURCE_TYPE_DEF`)
+Replace the three definitions with technical, citation-style text:
 
-**Registry note (paragraph beneath the legend grid)**
-Replace the current "Note." paragraph with:
-> An Unverified status indicates a lack of administrative transparency and documentation on file. It is an indicator of audit status, not a direct assessment of clinical safety.
-Keep the existing `Read more →` link to `/how-to-read-the-directory` appended after the sentence.
+- **503B Outsourcing Facility** — `Facility registered with the U.S. Food and Drug Administration under Section 503B of the Federal Food, Drug, and Cosmetic Act. Subject to current good manufacturing practice (cGMP) requirements and routine FDA inspection.`
+- **503A Compounding Pharmacy** — `Pharmacy operating under Section 503A of the Federal Food, Drug, and Cosmetic Act. Licensed by the applicable state board of pharmacy and required to compound in accordance with United States Pharmacopeia (USP) standards, including USP <795>, <797>, and <800>.`
+- **Other Qualified Source** — `Additional recognized facility categories, including NSF-certified facilities, ISO-accredited laboratories, hospital-system suppliers, and multi-location compounding networks operating under documented accreditation.`
 
-**Section eyebrow**
-- `How to read this directory` → `Registry note` (tightens to ledger language; still introduces the legend grid).
-
-### `src/components/StatusBadge.tsx` — official-stamp treatment
-
-Restyle the badge so it visually reads as a tag/stamp rather than a dot+label. New treatment:
-
-- Outer: bordered pill, monospace, uppercase, +0.14em tracking, `px-2 py-[3px]`, subtle tinted background per status (e.g. `bg-verified/8 border-verified/40 text-verified` for verified; muted variants for others), `rounded-[3px]` for a square, official feel rather than fully rounded.
-- Replace the small filled dot with a thin leading vertical bar (`w-[2px] h-3 bg-current`) — reads like an inspection-stamp rule.
-- Sizes: `sm` → `text-[10px]`, `md` → `text-[11px]` (unchanged scale).
-- Variants by status (background / border / text):
-  - `verified` — verified tint, solid
-  - `under-review` — pending tint
-  - `suspended` — destructive tint
-  - `unverified`, `removed` — muted tint, dashed border to signal absence of audit
-- Accessibility: keep label text inside the badge (no icon-only). No `aria-label` change required.
-
-This change is global — every page rendering `<StatusBadge />` (registry table, vendor profile, mobile cards) automatically picks up the stamp styling, which keeps the system consistent.
+### Scope note → Technical note
+- Section eyebrow above the paragraph (new): `Technical note` (`eyebrow` class).
+- Replace the existing "Scope note." paragraph with:
+> Greenlisted is an audit-framework status used to determine documentation eligibility for upstream sources. It records that a facility's federal registration, state licensure, or recognized accreditation has been verified for inclusion in this registry. It is not a clinical endorsement and does not assess product safety or therapeutic efficacy. Vendor-level audit status is tracked separately on the [Vendor Compliance Registry](/verified-vendors).
+- Keep the inline link to `/verified-vendors`.
 
 ### What stays the same
+All routes, filter/sort/pagination logic, data in `src/data/greenlist.ts`, table and mobile card layouts, category color tokens, focus-tag mapping, the `CategoryPill` component, and all typography tokens introduced in the previous consistency pass.
 
-All routes, filters, sort modes, pagination, table structure, mobile card layout, the data in `src/data/vendors.ts`, status keys, status sort order, the header padding/typography tokens, and the four-tile stats grid layout. Pure copy + badge restyle.
+### Files touched
+- `src/pages/Greenlist.tsx` — copy updates in `AnchorHeader`, `SOURCE_TYPE_DEF`, the explanatory section, the scope/technical note; restyle of the stats `aside` into a dashboard panel.
 
