@@ -314,16 +314,16 @@ const Greenlist = () => {
 
       {/* Registry table */}
       <section>
-        <div className="container-wide py-6">
+        <div className="container-wide py-8">
           {sorted.length === 0 ? (
-            <div className="border border-border bg-surface-muted px-4 py-10 text-center">
+            <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
               <p className="meta">— No records match the current filters.</p>
             </div>
           ) : (
             <>
               {/* Desktop table */}
-              <div className="hidden md:block border border-border bg-background">
-                <div className="grid grid-cols-12 px-3 py-2 border-b border-border bg-surface-muted">
+              <div className="hidden md:block rounded-lg border border-border/60 bg-background overflow-hidden">
+                <div className="grid grid-cols-12 px-4 py-2.5 border-b border-border/50 bg-surface-muted/60">
                   <div className="col-span-4 meta-label">Facility / Brand</div>
                   <div className="col-span-2 meta-label">Category</div>
                   <div className="col-span-2 meta-label">Location</div>
@@ -333,7 +333,7 @@ const Greenlist = () => {
                 {pageItems.map((e) => (
                   <div
                     key={e.name}
-                    className="grid grid-cols-12 px-3 py-2 border-b border-border last:border-b-0 items-center hover:bg-surface-muted/50"
+                    className="grid grid-cols-12 px-4 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/40"
                   >
                     <div className="col-span-4 min-w-0">
                       <p className="text-[13px] font-medium text-foreground truncate">
@@ -369,9 +369,9 @@ const Greenlist = () => {
               </div>
 
               {/* Mobile cards */}
-              <div className="md:hidden space-y-2">
+              <div className="md:hidden space-y-3">
                 {pageItems.map((e) => (
-                  <div key={e.name} className="block border border-border bg-background p-3">
+                  <div key={e.name} className="block rounded-md border border-border/60 bg-background p-4">
                     <div className="flex items-start justify-between gap-3">
                       <p className="text-[13px] font-medium text-foreground">{e.name}</p>
                       <CategoryPill category={e.category} />
@@ -397,7 +397,7 @@ const Greenlist = () => {
 
           {sorted.length > PAGE_SIZE && (
             <nav
-              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3"
+              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
               aria-label="Registry pagination"
             >
               <p className="meta-label">
@@ -407,7 +407,7 @@ const Greenlist = () => {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="h-3 w-3" /> Prev
@@ -438,10 +438,10 @@ const Greenlist = () => {
                         key={p}
                         onClick={() => setPage(p)}
                         aria-current={p === currentPage ? "page" : undefined}
-                        className={`h-8 min-w-8 px-2 border text-[12px] tabular-nums ${
+                        className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
                           p === currentPage
-                            ? "border-foreground bg-foreground text-background"
-                            : "border-border text-foreground hover:bg-surface-muted"
+                            ? "bg-foreground text-background"
+                            : "border border-border/70 text-foreground hover:bg-surface-muted/60"
                         }`}
                       >
                         {p}
@@ -452,7 +452,7 @@ const Greenlist = () => {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="h-8 px-2 inline-flex items-center gap-1 border border-border text-[12px] text-foreground hover:bg-surface-muted disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                   aria-label="Next page"
                 >
                   Next <ChevronRight className="h-3 w-3" />
@@ -464,7 +464,7 @@ const Greenlist = () => {
       </section>
 
       {/* Cite-as / disclaimer */}
-      <section className="bg-surface-muted border-t border-border">
+      <section className="bg-surface-muted/60 border-t border-border/60">
         <div className="container-wide py-6 space-y-2">
           <p className="text-[12px] text-muted-foreground leading-relaxed">
             <strong className="text-foreground font-semibold">Cite as.</strong> Source Standard,
