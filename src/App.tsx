@@ -17,6 +17,7 @@ import Apply from "./pages/Apply.tsx";
 import Contact from "./pages/Contact.tsx";
 import Accountability from "./pages/Accountability.tsx";
 import MedicalAdvisory from "./pages/MedicalAdvisory.tsx";
+import AdvisorProfile from "./pages/AdvisorProfile.tsx";
 import FAQ from "./pages/FAQ.tsx";
 import ReportConcern from "./pages/ReportConcern.tsx";
 import StatusDefinitions from "./pages/StatusDefinitions.tsx";
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/accountability" element={<Accountability />} />
             <Route path="/medical-advisory" element={<MedicalAdvisory />} />
+            <Route path="/medical-advisory/:slug" element={<AdvisorProfile />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/report-a-concern" element={<ReportConcern />} />
             <Route path="/status-definitions" element={<StatusDefinitions />} />
