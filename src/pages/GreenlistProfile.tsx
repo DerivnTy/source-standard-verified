@@ -270,7 +270,6 @@ const GreenlistProfile = () => {
             title="Regulatory identity, quality systems"
             subtitle="Licensure, inspections, and quality systems."
           >
-            <Field label="Designation" value={text(p.designation)} />
             <Field label="FDA registration / FEI" value={text(p.fdaRegistration)} />
             <Field label="States served / licensure" value={tags(p.statesServed)} />
             <Field label="Inspection history" value={text(p.inspectionHistory)} />
@@ -288,7 +287,6 @@ const GreenlistProfile = () => {
           >
             <Field label="Dosage forms" value={tags(p.dosageForms)} />
             <Field label="Specializations" value={tags(p.specializations)} />
-            <Field label="Clinical focus" value={entry.focus} />
             <Field label="API sourcing policy" value={text(p.apiSourcingPolicy)} />
           </Section>
 
