@@ -30,21 +30,21 @@ export const RecordHeader = ({
   const hasSummary = summary && summary.length > 0;
   return (
     <header className="bg-background border-b border-border/60">
-      <div className="container-wide py-14 md:py-18">
+      <div className="container-wide py-12 md:py-16">
         <div className="grid md:grid-cols-12 gap-10">
           <div className={hasSummary ? "md:col-span-8" : "md:col-span-12"}>
-            {eyebrow && <p className="eyebrow mb-4">{eyebrow}</p>}
+            {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
             <h1 className="title-doc text-foreground max-w-3xl">{title}</h1>
             {lead && (
-              <p className="mt-5 max-w-[64ch] text-[15.5px] text-muted-foreground leading-[1.65]">
+              <p className="mt-4 max-w-[64ch] text-[15px] text-muted-foreground leading-[1.6]">
                 {lead}
               </p>
             )}
-            {children && <div className="mt-7">{children}</div>}
+            {children && <div className="mt-6">{children}</div>}
           </div>
           {hasSummary && (
             <div className="md:col-span-4">
-              <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground/75 mb-3">
+              <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground/75 mb-2">
                 Summary
               </p>
               <dl className="border-t border-border/60 divide-y divide-border/60">

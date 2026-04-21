@@ -1,37 +1,59 @@
 import { ReactNode } from "react";
 
+type Density = "default" | "doc" | "tight";
+
+const densityClass: Record<Density, string> = {
+  default: "py-16 md:py-20",
+  doc: "py-12 md:py-16",
+  tight: "py-8 md:py-10",
+};
+
 export const Section = ({
   children,
   muted = false,
   bordered = true,
   className = "",
   container = "wide",
+  density = "default",
 }: {
   children: ReactNode;
   muted?: boolean;
   bordered?: boolean;
   className?: string;
   container?: "tight" | "narrow" | "wide";
+  density?: Density;
 }) => {
   const containerClass =
     container === "narrow" ? "container-narrow" : container === "tight" ? "container-tight" : "container-wide";
   return (
     <section
-      className={`${muted ? "bg-surface-muted" : "bg-background"} ${bordered ? "border-b border-border" : ""} ${className}`}
+      className={`${muted ? "bg-surface-muted/60" : "bg-background"} ${bordered ? "border-b border-border/60" : ""} ${className}`}
     >
-      <div className={`${containerClass} py-16 md:py-24`}>{children}</div>
+      <div className={`${containerClass} ${densityClass[density]}`}>{children}</div>
     </section>
   );
 };
 
-export const SectionLabel = ({ number, eyebrow, title, description }: { number?: string; eyebrow?: string; title: string; description?: string }) => (
-  <div className="max-w-3xl mb-12">
-    <div className="flex items-center gap-4 mb-4">
-      {number && <span className="text-[12.5px] text-muted-foreground font-medium">{number}</span>}
+export const SectionLabel = ({
+  number,
+  eyebrow,
+  title,
+  description,
+}: {
+  number?: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+}) => (
+  <div className="max-w-3xl mb-8">
+    <div className="flex items-center gap-3 mb-3">
+      {number && <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground/75">{number}</span>}
       {eyebrow && <span className="eyebrow">{eyebrow}</span>}
     </div>
-    <h2 className="text-[1.5rem] md:text-[1.625rem] font-semibold tracking-tight leading-[1.2] text-foreground">{title}</h2>
-    {description && <p className="mt-4 text-[15.5px] text-muted-foreground leading-relaxed max-w-2xl">{description}</p>}
+    <h2 className="h-section">{title}</h2>
+    {description && (
+      <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-2xl">{description}</p>
+    )}
   </div>
 );
 
