@@ -62,6 +62,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "West Palm Beach, FL",
     focus:
       "Sterile compounded drugs from bulk substances for office use; early-stage 503B focused on provider-office sterile products",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      specializations: ["Office-use sterile preparations"],
+      background:
+        "Florida-based 503B outsourcing facility producing sterile compounded medications from bulk substances for provider-office use. Operates as an early-stage 503B serving prescribers in the Southeast.",
+    },
   },
   {
     slug: "ah-nutraceutical-compounding-inc",
@@ -71,6 +78,13 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "McQueeny, TX",
     focus:
       "Sterile compounded injectables and nutraceutical preparations produced under 503B for clinics needing office-use stock",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables", "Nutraceutical preparations"],
+      specializations: ["Wellness clinic stock", "Nutraceutical injectables"],
+      background:
+        "Texas-based 503B outsourcing facility producing sterile injectables and nutraceutical preparations for wellness and integrative clinics that need office-use stock.",
+    },
   },
   {
     slug: "ajenat-pharmaceuticals-llc",
@@ -80,6 +94,12 @@ export const greenlistEntries: GreenlistEntry[] = [
     location: "Largo, FL",
     focus:
       "Sterile compounded products from bulk drug substances, serving prescribers and clinics; newly registered 503B",
+    profile: {
+      standards: ["cGMP (503B)"],
+      dosageForms: ["Sterile injectables"],
+      background:
+        "Newly registered FDA 503B outsourcing facility in Largo, FL, producing sterile compounded medications from bulk drug substances for prescribers and clinics.",
+    },
   },
   {
     slug: "anazaohealth-corporation",
