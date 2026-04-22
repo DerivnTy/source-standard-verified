@@ -119,6 +119,8 @@
     --src-503a-soft: 35 25% 16%;
     --src-other: 215 14% 64%;
     --src-other-soft: 215 18% 18%;
+    --src-unverified: 0 65% 65%;
+    --src-unverified-soft: 0 35% 16%;
   }
 }
 
