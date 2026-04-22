@@ -243,13 +243,9 @@ const Education = () => {
             <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.
             </p>
-            {filteredBasics.length ? (
-              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredBasics.map((e) => <LibraryTile key={e.id} entry={e} />)}
-              </div>
-            ) : (
-              <EmptyNote />
-            )}
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {basics.map((e) => <LibraryTile key={e.id} entry={e} />)}
+            </div>
             <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
               <Link
                 to="/education/basics"
