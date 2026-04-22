@@ -199,51 +199,74 @@ const VerifiedVendors = () => {
 
   return (
     <>
-      <AnchorHeader
-        eyebrow="Public ledger"
-        title="Vendor Compliance Registry."
-        lead="Public ledger of vendors assessed against the Source Standard framework. Every listing is anchored to a unique Audit ID."
-      />
+      {/* Board-style split hero: title left, stat reference card right */}
+      <section className="border-b border-border bg-background">
+        <div className="container-wide py-12 md:py-16">
+          <div className="grid md:grid-cols-12 gap-10 items-start">
+            <div className="md:col-span-8">
+              <p className="meta mb-3">SS-DIRECTORY-2026.01 · Public ledger</p>
+              <h1 className="title-page text-foreground tracking-[-0.02em]">
+                Vendor Compliance Registry.
+              </h1>
+              <p className="mt-4 max-w-[58ch] text-[15px] text-muted-foreground leading-[1.65]">
+                Public ledger of vendors assessed against the Source Standard framework. Every
+                listing is anchored to a unique Audit ID.
+              </p>
+            </div>
+            <div className="md:col-span-4">
+              <div className="border border-border bg-background">
+                <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-surface-muted">
+                  <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
+                    Reference · Status counts
+                  </span>
+                  <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
+                    Active
+                  </span>
+                </div>
+                <dl className="divide-y divide-border">
+                  {statCards.map((s) => (
+                    <HoverCard key={s.key} openDelay={120} closeDelay={60}>
+                      <HoverCardTrigger asChild>
+                        <div
+                          className={`grid grid-cols-12 gap-2 px-4 py-2.5 items-center cursor-default ${
+                            s.accent ? "bg-primary/[0.04]" : ""
+                          }`}
+                        >
+                          <dt className="col-span-8 flex items-center gap-2 text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
+                            {s.glyph === "check" ? (
+                              <SourceCheck size="xs" />
+                            ) : (
+                              <span
+                                aria-hidden
+                                className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`}
+                              />
+                            )}
+                            <span className="font-semibold text-foreground/80 truncate">
+                              {s.label}
+                            </span>
+                          </dt>
+                          <dd className="col-span-4 text-right text-[15px] font-mono font-semibold tabular-nums text-foreground">
+                            {s.value.toString().padStart(2, "0")}
+                          </dd>
+                        </div>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-72 text-[12.5px] leading-[1.6] text-muted-foreground">
+                        <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground">
+                          {s.label}
+                        </p>
+                        {s.desc}
+                      </HoverCardContent>
+                    </HoverCard>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-background">
         <div className="container-wide py-8 md:py-10">
-          {/* At-a-Glance stat strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {statCards.map((s) => (
-              <HoverCard key={s.key} openDelay={120} closeDelay={60}>
-                <HoverCardTrigger asChild>
-                  <div
-                    className={`card-elevated p-4 cursor-default ${
-                      s.accent ? "border-primary/40 ring-1 ring-primary/15" : ""
-                    }`}
-                  >
-                    <div className="flex items-center gap-1.5 mb-2">
-                      {s.glyph === "check" ? (
-                        <SourceCheck size="xs" />
-                      ) : (
-                        <span
-                          aria-hidden
-                          className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`}
-                        />
-                      )}
-                      <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-muted-foreground truncate">
-                        {s.label}
-                      </p>
-                    </div>
-                    <p className="text-[1.75rem] font-semibold tabular-nums leading-none text-foreground">
-                      {s.value.toString().padStart(2, "0")}
-                    </p>
-                  </div>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-72 text-[12.5px] leading-[1.6] text-muted-foreground">
-                  <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground">
-                    {s.label}
-                  </p>
-                  {s.desc}
-                </HoverCardContent>
-              </HoverCard>
-            ))}
-          </div>
 
           {/* Sticky filter bar */}
           <div className="sticky top-[57px] z-20 -mx-4 md:-mx-6 mt-6 px-4 md:px-6 py-2.5 bg-background/90 backdrop-blur-md shadow-[0_1px_0_hsl(var(--border)/0.6)]">
