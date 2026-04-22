@@ -1,84 +1,82 @@
 
 
-## Education page → "Clinical Knowledge Hub"
+## Education page — final precision pass
 
-A focused rebuild of `src/pages/Education.tsx`. Adds sticky in-page nav, library search, clearer row affordances, an FAQ category grid, a new "Latest Clinical Analysis" card archive, and pivot CTAs between sections. No new routes, no data-shape changes.
+A surgical cleanup of `src/pages/Education.tsx`. No new components, no data changes, no route changes.
 
-### 1 · Sticky jump bar + library search
+### 1 · Remove the redundant FAQ accordion
 
-- Wrap the existing "Jump to:" strip in `sticky top-0 z-30 bg-background/95 backdrop-blur border-y border-border/60`. (It sits below the global `SiteHeader`; on this page the local strip becomes the sticky in-page nav. Adequate per the spec — the global header is already its own sticky element.)
-- Below the `AnchorHeader`, before the sticky strip, add a **Search the Library** input row inside `container-wide`:
-  - Plain `<input>` styled as a 4px-radius bordered field, full-width up to `max-w-[640px]`, monospace placeholder `Search standards, FAQs, and articles…`.
-  - Local `useState` filter string. Filtering applies to `basics`, `guidesPreview`, `FAQ_BUCKETS` items, and the new article archive — case-insensitive match on `id`, title, and summary/question/answer.
-  - When the query is non-empty, sections render only matching rows; empty sections collapse to a one-line "No matches in this section" note.
+Currently the FAQ section renders the 4 category cards AND an active-category accordion below them. Per spec, navigation should be **solely through the category cards**.
 
-### 2 · §1 Foundational Sourcing Standards — clickable card rows
+- Delete the entire "Active category accordion" block (lines ~366–399), the `activeCategory`/`setActiveCategory` state, the `activeCat`/`activeFaqs` derivations, and the `Accordion*` imports.
+- Each category card already exposes a "View on full FAQ page →" link to `/education/questions#<anchor>` — that becomes the sole click target for inquiry browsing.
+- Replace the per-card secondary link wording with a single bottom-right CTA on each card that uses the same chevron affordance for visual consistency: `Browse category →`.
 
-Reuse the existing `SimpleRow` `<Link>` (already a full clickable row), with two visual additions:
+### 2 · Promote the FAQ category grid to 4 columns
 
-- Add a right-edge **"Read full article →"** text link inside each row, sitting next to the `SoftStatus` badge. Stacked vertically on the right: badge on top, link beneath. The whole row remains the click target; the inner link is `pointer-events-none` cosmetics so we don't nest interactive elements.
-- Hover state already shifts background; bump to `hover:border-foreground/30` on the outer card border and add a subtle right-side chevron.
-- Rows already span `container-wide` (1280px) — no width change.
+Spec says "4-column 'Category Cards'." Update the grid:
+- `grid-cols-1 md:grid-cols-2 gap-4` → `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4`
+- Cards remain bordered, 4px radius, with hover lifting border to `foreground/40` and a subtle `hover:shadow-[0_0_0_1px_rgba(0,0,0,0.04)]`.
 
-Pivot CTA at section bottom (replaces `SeeMore`):
-- Left: existing "View full foundational index" link.
-- Right: new outline button **"Have a specific question? View the Regulatory FAQ →"** (4px radius, bordered, anchors to `#questions`).
+### 3 · Search field — institutional monospace placeholder
 
-### 3 · §2 Clinical Protocols — same row treatment
+`src/pages/Education.tsx` (search input):
+- Placeholder text → `FILTER BY DOC ID OR KEYWORD…`
+- Uppercase + `tracking-[0.08em]` on the placeholder via class additions; field already uses `font-mono`. The label "Search the library" stays.
+- Field aligned inside `container-wide` (already correct) — no width drift.
 
-Apply identical row enhancements (right-side "Read full article" + chevron) to the `guidesPreview` rows. Pivot CTA at bottom: keep the existing "View full clinical protocol index" + add an outline button **"Looking for safe-handling answers? Jump to FAQ →"** anchored to `#questions`.
+### 4 · Sticky jump bar + search alignment
 
-### 4 · §3 Public Inquiry — FAQ category grid
+Confirmed both already wrap in `container-wide`. No change needed; verify visually they share the same left/right gutter as the section content below.
 
-Replace the four inline accordion buckets with a **2-column category grid** above a single accordion:
+### 5 · Row affordance — vertically center the "Read full article" link
+
+Currently the right column of `SimpleRow` stacks the status badge above the chevron link (`flex-col items-end`). Spec says the chevron link should be **vertically centered and anchored to the far right**. Restructure the row:
 
 ```text
-┌──────────────────────────┬──────────────────────────┐
-│ [Legal & Regulatory]     │ [Clinical Safety]        │
-├──────────────────────────┼──────────────────────────┤
-│ [Verification Process]   │ [Consumer Diligence]     │
-└──────────────────────────┴──────────────────────────┘
+[ DOC-ID ]  [ Title + summary (flex-1) ]   [ Status badge ]   [ Read full article › ]
+                                                                  (vertically centered)
 ```
 
-- Four large bordered category buttons (1px border, 4px radius, hover lifts border to foreground). Each shows: monospace category code (e.g. `FAQ-CAT-01`), bold label, one-line description, count badge ("4 entries").
-- Mapping:
-  - **Legal & Regulatory** → `SS-FAQ-001`, `SS-FAQ-002`
-  - **Clinical Safety** → `SS-FAQ-004`, `SS-FAQ-007`
-  - **Verification Process** → `SS-FAQ-003`, `SS-FAQ-005`, `SS-FAQ-006`, `SS-FAQ-008`
-  - **Consumer Diligence** → `SS-FAQ-009`, `SS-FAQ-010`
-- Clicking a category sets local `activeCategory` state and reveals an accordion below the grid populated only with that category's questions. Default category on load: Legal & Regulatory. Each button also exposes a "View on full FAQ page →" link to `/education/questions#<group>`.
-- Pivot CTA at section bottom: black 4px-radius button **"Browse the full Regulatory FAQ archive →"** linking to `/education/questions`.
+- Outer row: `flex items-center gap-5` (was `items-start`).
+- Title column stays `flex-1 min-w-0` with description.
+- Status badge: own column, `self-center`.
+- "Read full article" + chevron: separate rightmost column, `self-center`, `pl-2 border-l border-border/40` for a subtle separator.
+- Row padding bumped slightly to `px-6 py-5` for vertical breathing room. Rows continue to span the full `container-wide` (1280px) by virtue of their parent.
 
-### 5 · §4 Latest Clinical Analysis (new section)
+### 6 · §2 Clinical Protocols — full-width Pivot Bar
 
-New section between FAQ and the Forthcoming/About footer. Pulls from existing `librarySeries` entries that are not in `basics` (the non-intro Source Standard series — 5 entries: 2026 Reclassification, Dual-Layer, Questions to Ask, What Verification Means, Warning Signs).
+Replace the existing inline "View full clinical protocol index" + outline FAQ button with a **full-width pivot bar** beneath the rows:
 
-- Header: `h-section` "Latest Clinical Analysis" + 78ch description "Newest entries from the Source Standard analysis series. Reviewed under the Medical Advisory framework."
-- Layout: 3-column responsive grid (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`).
-- Card style: white background, 1px `border-border/70`, 4px radius, `p-6`, hover lifts border to `foreground/30`. Card content top→bottom:
-  1. **Category label** — monospace, uppercase, tracking-wide, muted (e.g., `SS-SERIES · ANALYSIS`).
-  2. **Title** — bold, `text-[16px]`, two-line clamp.
-  3. **Summary** — `text-[13.5px]` muted, three-line clamp.
-  4. **Status chip** + **"Read more"** button on the same row at card bottom (`mt-auto`). Button uses the standard `Button` primitive (default variant — 4px radius, off-black) linking to `/education/<slug>`.
-- Pivot CTA at section bottom: outline button **"View the full standards archive →"** anchored to `#archive`.
+```text
+┌──────────────────────────────────────────────────────────────────┐
+│  Seeking regulatory clarity?                  [Browse FAQ Categories →] │
+└──────────────────────────────────────────────────────────────────┘
+```
 
-### 6 · Footer / Archive section — keep, with monospace touch-up
+- Container: full-width inside `container-wide`, `mt-8`, `border border-border/70 bg-background rounded-[4px] px-6 py-5 flex items-center justify-between gap-6`.
+- Left: bold `text-[15px]` "Seeking regulatory clarity?" with a muted subline "Browse the FAQ categories grouped by topic."
+- Right: `Button` (default — 4px black) labelled **Browse FAQ Categories** with `onClick` that calls `document.getElementById('questions')?.scrollIntoView({ behavior: 'smooth', block: 'start' })`. Falls back to `#questions` href.
+- The smaller "View full clinical protocol index →" link moves above the pivot bar as a quiet trailing link (`mt-6 text-[13px] muted`).
 
-- Section heading "Archive index" stays.
-- Add a row of monospace metadata above the two-column grid: `ARCHIVE · SS-LIB-2026.01 · UNITED STATES · MAINTAINED ACTIVE · UPDATED 04/21/26` — single line, `font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border/40 py-2`. Reinforces the institutional credibility with no copy bloat.
-- Two-column grid (Forthcoming + About) untouched.
+The §1 Foundational pivot stays as-is (already meets spec).
 
-### 7 · Cleanup
+### 7 · §4 Latest Clinical Analysis — card hover polish
 
-- All "Tampa, FL" already removed in earlier passes; reconfirm the new strings (search placeholder, archive monospace bar, card category labels) use **United States** / **National** language only.
-- Status badges and archive monospace metadata both use `font-mono` (already established).
-- All new buttons use the existing `Button` primitive (4px radius, off-black) — no new variants.
+- Card class today: `border border-border/70 ... hover:border-foreground/30`.
+- Add subtle interactive cue: `transition-[border-color,box-shadow] duration-150 hover:shadow-[0_2px_0_0_rgba(0,0,0,0.06)] hover:border-foreground/40`.
+- Grid layout already 3-column responsive; no change.
+
+### 8 · Global verification
+
+- **"Tampa, FL" sweep**: confirmed remaining matches are all in `src/data/vendors.ts` (real vendor city/state records — intentionally preserved as factual business data per the project's "regulatory directory" purpose). No copy/branding instances remain. Documented as verified, no edits.
+- **Jurisdiction "United States"**: `AnchorHeader` reference badge, archive index strip ("Archive index · SS-LIB-2026.01 · United States"), and footer monospace bar all confirmed. No edits.
 
 ### Files touched
 
-- `src/pages/Education.tsx` — full rewrite of the page body (sticky nav + search, row affordances, FAQ grid, new article archive, pivot CTAs, monospace archive bar). All other site components and data files untouched.
+- `src/pages/Education.tsx` — remove accordion + state, 4-col category grid, monospace placeholder, row restructure, §2 pivot bar, card hover.
 
 ### What stays the same
 
-`AnchorHeader`, `Section`, `RecordHeader`, the global `SiteHeader`/`SiteFooter`, every route, every other page, the `library.ts` data file, the `Button`/`Accordion`/`StatusBadge` primitives, the 1280px `container-wide` token, and the 900px filing column on legal/policy pages.
+`AnchorHeader`, `Section`, the global `SiteHeader`/`SiteFooter`, every route, `library.ts`, the `Button` primitive, the `container-wide` token, the sticky nav structure, the archive footer grid, and `src/data/vendors.ts` (real vendor records).
 
