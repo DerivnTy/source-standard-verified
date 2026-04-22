@@ -242,29 +242,57 @@ const Greenlist = () => {
         </div>
       </section>
 
-      <section className="bg-background">
-        <div className="container-wide py-10 md:py-12">
-          {/* Quiet stats line */}
-          <p className="font-mono text-[12px] tabular-nums text-muted-foreground">
-            <span className="text-foreground font-medium">{counts.total}</span> recognized
-            <span className="mx-2 text-border">·</span>
-            <span className="text-foreground font-medium">{counts["503B"]}</span> 503B
-            <span className="mx-2 text-border">·</span>
-            <span className="text-foreground font-medium">{counts["503A"]}</span> 503A
-            {unverifiedCount > 0 && (
-              <>
-                <span className="mx-2 text-border">·</span>
-                <span className="text-foreground font-medium">{unverifiedCount}</span> not currently recognized
-              </>
-            )}
-          </p>
+      {/* Registry summary — institutional record strip */}
+      <section className="border-b border-border bg-background">
+        <div className="container-wide py-8 md:py-10">
+          {/* Eyebrow row */}
+          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-5">
+            <p className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground">
+              Registry Summary
+              <span className="mx-2 text-border">·</span>
+              As of {new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })}
+            </p>
+            <p className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground tabular-nums">
+              Total recognized
+              <span className="mx-2 text-border">·</span>
+              <span className="text-foreground">{counts.total}</span>
+            </p>
+          </div>
+
+          {/* Count grid */}
+          <div className="grid grid-cols-2 md:grid-cols-5 border-t border-border/60 md:divide-x md:divide-border/60">
+            {[
+              { label: "503B", value: counts["503B"], tick: "bg-[hsl(var(--src-503b))]" },
+              { label: "503A", value: counts["503A"], tick: "bg-[hsl(var(--src-503a))]" },
+              { label: "Other", value: counts.Other, tick: "bg-[hsl(var(--src-unverified))]" },
+              { label: "Not currently recognized", value: unverifiedCount, tick: "bg-destructive" },
+              { label: "Total", value: counts.total, tick: "bg-foreground/40" },
+            ].map((cell) => (
+              <div key={cell.label} className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <span aria-hidden className={`inline-block w-[2px] h-[10px] ${cell.tick}`} />
+                  <span className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground">
+                    {cell.label}
+                  </span>
+                </div>
+                <div className="font-mono text-[22px] tabular-nums text-foreground leading-none">
+                  {cell.value}
+                </div>
+              </div>
+            ))}
+          </div>
 
           {/* Interpretation note */}
-          <div className="mt-5 border-l-2 border-border/70 pl-4 py-1">
+          <div className="mt-6 border-l-2 border-border/70 pl-4 py-1">
             <p className="text-[13px] leading-[1.7] text-muted-foreground max-w-[78ch]">
               Inclusion means the facility appears within the recognized upstream reference set used by the framework. It does not mean Source Standard is certifying any downstream vendor that uses the source. Vendor verification is a separate review.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-background">
+        <div className="container-wide py-10 md:py-12">
 
           {/* Filter bar — calmer */}
           <div className="mt-8 border-t border-border/60 pt-4">
