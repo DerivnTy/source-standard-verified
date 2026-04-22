@@ -26,7 +26,7 @@ import {
   getVendorCityKey,
   getClinicalFocusOptions,
   getVendorFulfillment,
-  getVendorFulfillmentCounts,
+  
   VendorFulfillment,
   VENDOR_FULFILLMENT_LABEL,
   VENDOR_FULFILLMENT_DESC,
@@ -69,11 +69,6 @@ const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
   removed: "Listing removed from the public directory; record preserved for transparency.",
 };
 
-const FULFILLMENT_TICK: Record<VendorFulfillment, string> = {
-  "in-person": "bg-[hsl(var(--src-503a))]",
-  online: "bg-[hsl(var(--src-503b))]",
-  hybrid: "bg-[hsl(var(--src-other))]",
-};
 
 const FulfillmentChip = ({ kind }: { kind: VendorFulfillment }) => {
   const Icon =
@@ -137,7 +132,7 @@ const VerifiedVendors = () => {
     return c;
   }, []);
 
-  const fulfillmentCounts = useMemo(() => getVendorFulfillmentCounts(), []);
+  
   const statesRepresented = states.length;
 
   const filtered = useMemo(() => {
@@ -458,44 +453,6 @@ const VerifiedVendors = () => {
         ]}
         caption="Verified means a completed Source Standard review is on file as a published record. Unverified does not imply unsafe or noncompliant — only that no completed verification has been published."
       />
-
-      {/* Fulfillment summary band — secondary live signal */}
-      <section className="bg-background border-b border-border">
-        <div className="page-shell pb-6 md:pb-8">
-          <div className="mx-auto w-wide flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
-            <span className="t-utility-xs text-muted-foreground">
-              Fulfillment mix
-            </span>
-            {(
-              [
-                { kind: "in-person", value: fulfillmentCounts["in-person"] },
-                { kind: "online", value: fulfillmentCounts.online },
-                { kind: "hybrid", value: fulfillmentCounts.hybrid },
-              ] as { kind: VendorFulfillment; value: number }[]
-            ).map((f) => (
-              <button
-                key={f.kind}
-                onClick={() =>
-                  setFulfillment((cur) => (cur === f.kind ? "all" : f.kind))
-                }
-                className="group inline-flex items-center gap-2 text-[12.5px] text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={`Filter by ${VENDOR_FULFILLMENT_LABEL[f.kind]} fulfillment`}
-              >
-                <span
-                  aria-hidden
-                  className={`inline-block w-[2px] h-[10px] ${FULFILLMENT_TICK[f.kind]}`}
-                />
-                <span className="uppercase tracking-[0.08em] text-[11px]">
-                  {VENDOR_FULFILLMENT_LABEL[f.kind]}
-                </span>
-                <span className="font-mono tabular-nums text-foreground">
-                  {f.value.toLocaleString()}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Query + result surface */}
       <section className="bg-background">
