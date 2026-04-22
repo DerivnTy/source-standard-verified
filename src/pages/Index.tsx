@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
+import { Stat, StatRow } from "@/components/system/Stat";
+import { vendors } from "@/data/vendors";
+import { greenlistEntries, getGreenlistStates } from "@/data/greenlist";
 
 /* ───────────────── Hero actions ───────────────── */
 
@@ -21,67 +24,43 @@ const HeroActions = () => (
   </>
 );
 
-/* ───────────────── Static section data ───────────────── */
+/* Dark-on-light primary button used below the hero */
+const darkBtnPrimary =
+  "border-2 border-foreground text-foreground px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground hover:text-background transition-colors";
 
-const whyExists = [
-  {
-    h: "Claims are easy to make.",
-    b: "In this market, any clinic can describe its sourcing in marketing language.",
-  },
-  {
-    h: "Documentation is harder to verify.",
-    b: "Licensed pharmacy relationships, invoices, and accreditation records rarely reach the public.",
-  },
-  {
-    h: "Source Standard makes that difference visible.",
-    b: "The registry publishes which vendors can substantiate their sourcing and which cannot.",
-  },
-];
+const darkBtnSecondary =
+  "border border-foreground/40 text-foreground px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:border-foreground hover:bg-foreground/5 transition-colors";
+
+/* ───────────────── Static section data ───────────────── */
 
 const howItWorks = [
   {
     h: "Upstream sources are reviewed.",
-    b: "FDA registration, state licensure, and accreditation records of 503A and 503B pharmacies.",
+    b: "Public records, registration data, and facility information are gathered into the upstream reference layer.",
   },
   {
     h: "Vendors are assessed against those sources.",
-    b: "Clinic relationships, invoices, and supply chain are reconciled against the upstream record.",
+    b: "Public claims, sourcing relationships, and documentation are reconciled against the reviewed record.",
   },
   {
     h: "Status is published in the public registry.",
-    b: "Verified, pending, suspended, or removed, with the date of the most recent review.",
+    b: "The registry records whether verification is on file, under review, or not currently published.",
   },
 ];
 
 const registryFields = [
   { h: "Verification status", b: "The current public standing of each listing." },
   { h: "City and state", b: "The operating jurisdiction of the clinic." },
+  { h: "Fulfillment model", b: "Whether the vendor operates in-person, online, or hybrid." },
   { h: "Clinical focus", b: "The therapeutic categories the clinic serves." },
-  { h: "Upstream source relationships", b: "The licensed pharmacies the clinic substantiates." },
+  { h: "Upstream source relationships", b: "The licensed pharmacies the listing substantiates." },
   { h: "Last review date", b: "When the listing was most recently reconciled." },
-  { h: "Status changes", b: "A record of suspensions, reinstatements, and removals." },
 ];
 
 const whyMatters = [
-  {
-    h: "For consumers",
-    b: "A documented reference point beyond marketing claims.",
-  },
-  {
-    h: "For responsible vendors",
-    b: "A public trust signal tied to reviewed records.",
-  },
-  {
-    h: "For the market",
-    b: "A clearer line between documented and undocumented sourcing.",
-  },
-];
-
-const anchors = [
-  { k: "FDA", d: "Drug establishment and 503B outsourcing facility records." },
-  { k: "USP", d: "Compendial monographs and quality standards." },
-  { k: "PCAB", d: "Pharmacy compounding accreditation credentials." },
-  { k: "NSF", d: "Public health and supply-chain standards." },
+  { h: "For consumers", b: "A documented reference point beyond marketing claims." },
+  { h: "For responsible vendors", b: "A public trust signal tied to reviewed records." },
+  { h: "For the market", b: "A clearer line between documented and undocumented sourcing." },
 ];
 
 const basics = [
@@ -91,14 +70,9 @@ const basics = [
     to: "/library/what-source-standard-verification-actually-means",
   },
   {
-    t: "503A vs 503B",
+    t: "What is compounding",
     s: "The two regulatory categories of compounding pharmacy and what distinguishes them.",
     to: "/library/what-is-compounding",
-  },
-  {
-    t: "How to read a CoA",
-    s: "The structural fields of a Certificate of Analysis and the discrepancies to look for.",
-    to: "/library/how-to-read-a-certificate-of-analysis",
   },
   {
     t: "Questions to ask your clinic",
@@ -107,17 +81,53 @@ const basics = [
   },
 ];
 
+const governanceLinks = [
+  { k: "Advisory Board", to: "/medical-advisory" },
+  { k: "Audit Methodology", to: "/governance" },
+  { k: "Status Definitions", to: "/status-definitions" },
+];
+
 /* ───────────────── Reusable atoms ───────────────── */
 
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
-  <p className="t-eyebrow-sm text-muted-foreground">
-    {children}
-  </p>
+  <p className="t-eyebrow-sm text-muted-foreground">{children}</p>
 );
+
+/* ───────────────── Live registry counts ───────────────── */
+
+const computeRegistryStats = () => {
+  const total = vendors.length;
+  const verified = vendors.filter((v) => v.status === "verified").length;
+  const underReview = vendors.filter((v) => v.status === "under-review").length;
+  const facilities = greenlistEntries.length;
+  const states = getGreenlistStates().length;
+
+  // Most recent review date across vendors (ISO yyyy-mm-dd). Falls back to today.
+  const dates = vendors
+    .map((v) => v.reviewDate)
+    .filter((d): d is string => Boolean(d))
+    .sort();
+  const mostRecent = dates.length ? dates[dates.length - 1] : null;
+  const lastUpdated = mostRecent
+    ? new Date(mostRecent).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+
+  return { total, verified, underReview, facilities, states, lastUpdated };
+};
 
 /* ───────────────── Page ───────────────── */
 
 const Index = () => {
+  const stats = computeRegistryStats();
+
   return (
     <>
       <PageMeta
@@ -136,30 +146,32 @@ const Index = () => {
         actions={<HeroActions />}
       />
 
-      {/* §2 — Why this exists */}
-      <section aria-labelledby="why-exists" className="border-b border-border bg-background">
+      {/* §1 — The trust problem */}
+      <section aria-labelledby="trust-problem" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Why this exists</Eyebrow>
-            <h2 id="why-exists" className="sr-only">Why Source Standard exists</h2>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
-              {whyExists.map((x, i) => (
-                <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
-                  <h3 className="t-h4 text-foreground max-w-[24ch]">{x.h}</h3>
-                  <p className="mt-5 t-body-sm text-muted-foreground max-w-[36ch]">{x.b}</p>
-                </div>
-              ))}
-            </div>
+            <Eyebrow>The trust problem</Eyebrow>
+            <h2
+              id="trust-problem"
+              className="mt-4 t-section-title-sm text-foreground max-w-[28ch]"
+            >
+              Marketing claims are easy. Documentation is harder to verify.
+            </h2>
+            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
+              Consumers and clinicians are often asked to rely on branding, website language, and
+              trust signals without clear public visibility into sourcing and documentation. Source
+              Standard exists to make those records easier to interpret.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* §3 — How it works */}
+      {/* §2 — How Source Standard works */}
       <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <Eyebrow>How it works</Eyebrow>
-            <h2 id="how-it-works" className="sr-only">How the framework works</h2>
+            <h2 id="how-it-works" className="sr-only">How Source Standard works</h2>
             <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
               {howItWorks.map((s, i) => (
                 <div key={i}>
@@ -167,7 +179,7 @@ const Index = () => {
                     {(i + 1).toString().padStart(2, "0")}
                   </p>
                   <div className="mt-3 h-px w-8 bg-border" aria-hidden="true" />
-                  <h3 className="mt-5 t-h4 text-foreground max-w-[22ch]">{s.h}</h3>
+                  <h3 className="mt-5 t-h4 text-foreground max-w-[24ch]">{s.h}</h3>
                   <p className="mt-5 t-body-sm text-muted-foreground max-w-[38ch]">{s.b}</p>
                 </div>
               ))}
@@ -176,18 +188,57 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §4 — What the registry shows */}
-      <section aria-labelledby="registry-shows" className="border-b border-border bg-background">
+      {/* §3 — Live registry proof */}
+      <section aria-labelledby="live-registry" className="border-b border-border bg-background">
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <Eyebrow>Live registry</Eyebrow>
+            <h2
+              id="live-registry"
+              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+            >
+              An active public reference, updated on a published cadence.
+            </h2>
+
+            <div className="mt-10">
+              <StatRow>
+                <Stat label="Vendors tracked" value={stats.total} />
+                <Stat label="Verified" value={stats.verified} />
+                <Stat label="Under review" value={stats.underReview} />
+                <Stat label="Facilities recognized" value={stats.facilities} />
+                <Stat label="States represented" value={stats.states} />
+                <Stat label="Last updated" value={stats.lastUpdated} />
+              </StatRow>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link to="/directory" className={darkBtnPrimary}>
+                Search Verified Vendors
+              </Link>
+              <Link to="/greenlist" className={darkBtnSecondary}>
+                Explore Greenlist
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §4 — What you can verify */}
+      <section aria-labelledby="registry-shows" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <div className="grid grid-cols-12 gap-8 md:gap-12">
               <div className="col-span-12 md:col-span-4">
                 <Eyebrow>What you can verify</Eyebrow>
-                <h2 id="registry-shows" className="mt-4 t-section-title-sm text-foreground max-w-[18ch]">
+                <h2
+                  id="registry-shows"
+                  className="mt-4 t-section-title-sm text-foreground max-w-[18ch]"
+                >
                   A working public utility, not a concept.
                 </h2>
                 <p className="mt-5 t-body-sm text-muted-foreground max-w-[40ch]">
-                  Each registry entry is a structured record. The fields are consistent across listings and reviewed on a published cadence.
+                  Each registry entry is a structured record. The fields are consistent across
+                  listings and reviewed on a published cadence.
                 </p>
                 <Link
                   to="/directory"
@@ -212,12 +263,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §5 — Why verification matters */}
-      <section aria-labelledby="why-matters" className="border-b border-border bg-surface-muted/30">
+      {/* §5 — Why this matters */}
+      <section aria-labelledby="why-matters" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Why verification matters</Eyebrow>
-            <h2 id="why-matters" className="sr-only">Why verification matters</h2>
+            <Eyebrow>Why this matters</Eyebrow>
+            <h2 id="why-matters" className="sr-only">Why this matters</h2>
             <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
               {whyMatters.map((w, i) => (
                 <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
@@ -230,56 +281,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §6 — Governance & standards */}
-      <section aria-labelledby="governance" className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
-          <div className="mx-auto w-standard">
-            <Eyebrow>Governance &amp; standards</Eyebrow>
-            <h2 id="governance" className="sr-only">Governance and standards</h2>
-            <div className="mt-10 grid grid-cols-12 gap-8 md:gap-12">
-              <div className="col-span-12 md:col-span-5">
-                <p className="t-body-md text-foreground max-w-[44ch]">
-                  The framework is reviewed under medical oversight and anchored to recognized regulatory and compendial records.
-                </p>
-                <Link
-                  to="/medical-advisory"
-                  className="mt-6 inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-                >
-                  Medical Advisory Board →
-                </Link>
-              </div>
-              <div className="col-span-12 md:col-span-7">
-                <ul className="divide-y divide-border border-y border-border">
-                  {anchors.map((a) => (
-                    <li key={a.k} className="grid grid-cols-12 gap-4 py-4 items-baseline">
-                      <span className="col-span-3 sm:col-span-2 t-utility-xs text-foreground">
-                        {a.k}
-                      </span>
-                      <span className="col-span-9 sm:col-span-10 t-body-sm text-muted-foreground">
-                        {a.d}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/governance"
-                  className="mt-6 inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-                >
-                  Governance &amp; oversight →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §7 — Resource Library entry */}
+      {/* §6 — Start here */}
       <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Start with the basics</Eyebrow>
-            <h2 id="basics" className="sr-only">Start with the basics</h2>
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
+            <Eyebrow>Start here</Eyebrow>
+            <h2 id="basics" className="sr-only">Start here</h2>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
               {basics.map((b) => (
                 <Link
                   key={b.t}
@@ -299,13 +307,43 @@ const Index = () => {
                 to="/education"
                 className="inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
               >
-                Resource Library →
+                Browse Resource Library →
               </Link>
             </div>
           </div>
         </div>
       </section>
 
+      {/* §7 — Governance & standards */}
+      <section aria-labelledby="governance" className="border-b border-border bg-background">
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <Eyebrow>Governance &amp; standards</Eyebrow>
+            <h2 id="governance" className="sr-only">Governance and standards</h2>
+            <p className="mt-4 t-body-md text-foreground max-w-[60ch]">
+              The framework operates under published standards, recurring review, and medical
+              advisory oversight.
+            </p>
+            <ul className="mt-10 divide-y divide-border border-y border-border">
+              {governanceLinks.map((g) => (
+                <li key={g.k}>
+                  <Link
+                    to={g.to}
+                    className="grid grid-cols-12 gap-4 py-5 items-baseline group hover:bg-surface-muted/40 transition-colors"
+                  >
+                    <span className="col-span-9 sm:col-span-10 t-body-md text-foreground pl-0 sm:pl-4">
+                      {g.k}
+                    </span>
+                    <span className="col-span-3 sm:col-span-2 t-utility-xs text-muted-foreground text-right pr-0 sm:pr-4 group-hover:text-foreground transition-colors">
+                      View →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
