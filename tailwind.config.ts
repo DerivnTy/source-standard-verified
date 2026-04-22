@@ -45,6 +45,18 @@ export default {
           DEFAULT: "hsl(var(--pending))",
           soft: "hsl(var(--pending-soft))",
         },
+        "under-review": {
+          DEFAULT: "hsl(var(--under-review))",
+          soft: "hsl(var(--under-review-soft))",
+        },
+        suspended: {
+          DEFAULT: "hsl(var(--suspended))",
+          soft: "hsl(var(--suspended-soft))",
+        },
+        unverified: {
+          DEFAULT: "hsl(var(--unverified))",
+          soft: "hsl(var(--unverified-soft))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
