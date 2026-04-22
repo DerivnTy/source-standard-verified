@@ -497,10 +497,10 @@ const HowItWorks = () => {
               body="A determination is a snapshot in time. Verified files are subject to continuous surveillance and re-examined at a defined renewal interval and upon any reported material change."
             />
             <div className="md:col-span-8">
-              <div className="border-l-2 border-l-foreground bg-background px-4 py-3 mb-5">
+              <div className="border border-border bg-surface-muted px-4 py-3 mb-5">
                 <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground">
                   DISCLOSURE WINDOW · <span className="text-foreground">72 HOURS</span> ·{" "}
-                  <span className="text-foreground">SS-FRAMEWORK-2026.01</span> · §6
+                  <span className="text-foreground">{DOC_ID}</span> · §6
                 </p>
               </div>
               <ol className="border border-border bg-background divide-y divide-border">
@@ -616,36 +616,10 @@ const HowItWorks = () => {
       </section>
 
       {/* Official citation block */}
-      <section>
-        <div className="container-wide py-8">
-          <div className="border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl">
-            <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-2">
-              OFFICIAL CITATION · SS-FRAMEWORK-2026.01
-            </p>
-            <p className="text-[12.5px] text-foreground leading-relaxed">
-              Source Standard. SOP: Verification Protocol & Audit Methodology. Document
-              SS-FRAMEWORK-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on
-              file with the issuing organization.
-            </p>
-            <p className="mt-3 font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
-              <span>Controlled standard · Subject to versioned revision ·</span>
-              <Link
-                to="/status-definitions"
-                className="underline underline-offset-4 hover:text-foreground"
-              >
-                See Status Definitions
-              </Link>
-              <span>·</span>
-              <Link
-                to="/accountability"
-                className="underline underline-offset-4 hover:text-foreground"
-              >
-                See Accountability
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
+      <BoardCiteFooter
+        citation={`Source Standard. SOP: Verification Protocol & Audit Methodology. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Revision 2026.01. Controlled copy on file with the issuing organization.`}
+      />
+      <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
     </div>
   );
 };
