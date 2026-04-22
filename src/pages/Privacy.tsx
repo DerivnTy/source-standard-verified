@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { Section, SectionLabel } from "@/components/Section";
+import { DocLayout, DocSection } from "@/components/DocLayout";
+import { RelatedDocs } from "@/components/RelatedDocs";
 
 const DOC_ID = "SS-PRIVACY-2026.01";
 
@@ -44,6 +44,16 @@ const rights = [
   "Withdraw a pending application at any time.",
 ];
 
+const waypoints = [
+  { id: "data", number: "01", label: "Data collected" },
+  { id: "use", number: "02", label: "How data is used" },
+  { id: "partition", number: "03", label: "Partitioning" },
+  { id: "partners", number: "04", label: "Partners" },
+  { id: "retention", number: "05", label: "Retention" },
+  { id: "rights", number: "06", label: "Your rights" },
+  { id: "dpo", number: "07", label: "Data Privacy Officer" },
+  { id: "deeper", number: "08", label: "Read deeper" },
+];
 
 const Privacy = () => (
   <>
@@ -59,120 +69,123 @@ const Privacy = () => (
       lead="The data governance protocol of the auditing body. Defines what information Source Standard collects, how it is partitioned between public registry content and Protected Audit Material, the infrastructure partners that process it, retention and disposal rules, and the rights of individuals whose data is held."
     />
 
-    <Section density="doc" bordered={false}>
-      <SectionLabel number="§1" title="Data collected" />
-      <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
-        {collected.map((c) => (
-          <div key={c.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-            <p className="md:col-span-3 h-card">{c.t}</p>
-            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{c.d}</p>
-          </div>
-        ))}
-      </div>
-    </Section>
+    <DocLayout waypoints={waypoints} variant="certificate">
+      <DocSection id="data" number="§1" title="Data collected" first>
+        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
+          {collected.map((c) => (
+            <div key={c.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
+              <p className="md:col-span-3 h-card">{c.t}</p>
+              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{c.d}</p>
+            </div>
+          ))}
+        </div>
+      </DocSection>
 
-    <Section muted density="doc">
-      <SectionLabel number="§2" title="How data is used" />
-      <ul className="space-y-3 max-w-3xl">
-        {uses.map((u, i) => (
-          <li key={i} className="flex gap-4 text-[15px]">
-            <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
-            <span className="text-foreground">{u}</span>
-          </li>
-        ))}
-      </ul>
-    </Section>
+      <DocSection id="use" number="§2" title="How data is used">
+        <ul className="space-y-3 not-prose">
+          {uses.map((u, i) => (
+            <li key={i} className="flex gap-4 text-[15px]">
+              <span className="meta-mono text-primary w-6 shrink-0">·</span>
+              <span className="text-foreground">{u}</span>
+            </li>
+          ))}
+        </ul>
+      </DocSection>
 
-    <Section density="doc">
-      <SectionLabel
+      <DocSection
+        id="partition"
         number="§3"
         title="Information Partitioning"
         description="A documented separation governs every record held by the auditing body. Public registry fields are published; Protected Audit Material (PAM) is retained internally for review purposes only and is never published or shared outside the audit function."
-      />
-      <div className="divide-y divide-border/70 border-y border-border/70 bg-background max-w-4xl">
-        {partitioning.map((row) => (
-          <div key={row.p} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-            <p className="md:col-span-3 h-card">{row.p}</p>
-            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{row.v}</p>
-          </div>
-        ))}
-      </div>
-    </Section>
+      >
+        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
+          {partitioning.map((row) => (
+            <div key={row.p} className="grid md:grid-cols-12 gap-6 px-5 py-5">
+              <p className="md:col-span-3 h-card">{row.p}</p>
+              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{row.v}</p>
+            </div>
+          ))}
+        </div>
+      </DocSection>
 
-    <Section muted density="doc">
-      <SectionLabel
+      <DocSection
+        id="partners"
         number="§4"
         title="Infrastructure Partners"
         description="A small number of infrastructure partners process data on the auditing body's behalf under written non-disclosure and privacy-preserving protocols. Partners are limited to the minimum data required to perform their function and are not authorised to use or disclose data for any other purpose."
-      />
-      <ul className="space-y-3 max-w-3xl">
-        {partners.map((p, i) => (
-          <li key={i} className="flex gap-4 text-[15px]">
-            <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
-            <span className="text-foreground">{p}</span>
-          </li>
-        ))}
-      </ul>
-    </Section>
+      >
+        <ul className="space-y-3 not-prose">
+          {partners.map((p, i) => (
+            <li key={i} className="flex gap-4 text-[15px]">
+              <span className="meta-mono text-primary w-6 shrink-0">·</span>
+              <span className="text-foreground">{p}</span>
+            </li>
+          ))}
+        </ul>
+      </DocSection>
 
-    <Section density="doc">
-      <SectionLabel
+      <DocSection
+        id="retention"
         number="§5"
         title="Retention & Disposal"
         description="Audit records are retained for the period necessary to maintain the integrity of the public registry. Disposal follows a documented schedule."
-      />
-      <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
-        {retention.map((r) => (
-          <div key={r.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-            <p className="md:col-span-3 h-card">{r.t}</p>
-            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{r.d}</p>
-          </div>
-        ))}
-      </div>
-    </Section>
+      >
+        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
+          {retention.map((r) => (
+            <div key={r.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
+              <p className="md:col-span-3 h-card">{r.t}</p>
+              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{r.d}</p>
+            </div>
+          ))}
+        </div>
+      </DocSection>
 
-    <Section muted density="doc">
-      <SectionLabel number="§6" title="Your rights" />
-      <ul className="space-y-3 max-w-3xl">
-        {rights.map((r, i) => (
-          <li key={i} className="flex gap-4 text-[15px]">
-            <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
-            <span className="text-foreground">{r}</span>
-          </li>
-        ))}
-      </ul>
-    </Section>
+      <DocSection id="rights" number="§6" title="Your rights">
+        <ul className="space-y-3 not-prose">
+          {rights.map((r, i) => (
+            <li key={i} className="flex gap-4 text-[15px]">
+              <span className="meta-mono text-primary w-6 shrink-0">·</span>
+              <span className="text-foreground">{r}</span>
+            </li>
+          ))}
+        </ul>
+      </DocSection>
 
-    <Section density="doc">
-      <SectionLabel
+      <DocSection
+        id="dpo"
         number="§7"
         title="Data Privacy Officer (DPO)"
         description="Privacy inquiries, data-subject requests, and lawful-process correspondence are handled by the Data Privacy Officer."
-      />
-      <div className="border border-border/70 rounded-[2px] bg-background p-5 max-w-2xl">
-        <p className="meta-label mb-2">Email</p>
-        <a href="mailto:privacy@sourcestandard.org" className="text-[15px] font-medium text-foreground underline-offset-4 hover:underline">
-          privacy@sourcestandard.org
-        </a>
-      </div>
-      <p className="mt-5 text-[13.5px] text-muted-foreground leading-relaxed max-w-2xl">
-        This protocol is provided in plain, controlled terms and is reviewed by counsel. Material updates are issued as a new document version under the SS-PRIVACY-2026.01 series.
-      </p>
-    </Section>
+      >
+        <div className="border border-border/60 rounded-lg bg-surface shadow-sm p-5 max-w-2xl not-prose">
+          <p className="meta-label mb-2">Email</p>
+          <a
+            href="mailto:privacy@sourcestandard.org"
+            className="text-[15px] font-medium text-primary underline-offset-4 hover:underline"
+          >
+            privacy@sourcestandard.org
+          </a>
+        </div>
+        <p className="mt-5 text-[13.5px] text-muted-foreground leading-relaxed max-w-2xl">
+          This protocol is provided in plain, controlled terms and is reviewed by counsel. Material updates are issued as a new document version under the SS-PRIVACY-2026.01 series.
+        </p>
+      </DocSection>
 
-    <Section density="tight">
-      <SectionLabel number="§8" title="Read deeper" />
-      <ul className="space-y-2 text-[15px]">
-        <li><Link to="/governance" className="text-foreground underline-offset-4 hover:underline">Governance →</Link></li>
-        <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
-        <li><Link to="/verification-disclaimer" className="text-foreground underline-offset-4 hover:underline">Verification Disclaimer →</Link></li>
-        <li><Link to="/terms" className="text-foreground underline-offset-4 hover:underline">Terms of Use →</Link></li>
-        <li><Link to="/report-a-concern" className="text-foreground underline-offset-4 hover:underline">Report a Concern →</Link></li>
-      </ul>
-      <p className="mt-8 meta-label">
-        Cite as: Source Standard Data Governance & Privacy Policy, SS-PRIVACY-2026.01.
-      </p>
-    </Section>
+      <DocSection id="deeper" number="§8" title="Read deeper">
+        <RelatedDocs
+          items={[
+            { to: "/governance", label: "Governance" },
+            { to: "/accountability", label: "Accountability & Enforcement" },
+            { to: "/verification-disclaimer", label: "Verification Disclaimer" },
+            { to: "/terms", label: "Terms of Use" },
+            { to: "/report-a-concern", label: "Report a Concern" },
+          ]}
+        />
+        <p className="mt-8 meta-label">
+          Cite as: Source Standard Data Governance & Privacy Policy, SS-PRIVACY-2026.01.
+        </p>
+      </DocSection>
+    </DocLayout>
   </>
 );
 
