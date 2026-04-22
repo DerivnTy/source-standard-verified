@@ -251,7 +251,7 @@ const VendorProfile = () => {
       />
 
       <section className="bg-background">
-        <div className="container-wide pt-5 pb-16">
+        <div className="container-wide pt-4 pb-6">
           {/* Top nav row */}
           <Link
             to="/verified-vendors"
