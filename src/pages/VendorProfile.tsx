@@ -306,7 +306,7 @@ const VendorProfile = () => {
                 {/* Status + CTA cluster */}
                 <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
                   <StatusBadge status={status} size="md" />
-                  <p className="t-body-sm text-muted-foreground leading-[1.45] max-w-[28ch] lg:text-right">
+                  <p className="t-body-sm text-muted-foreground max-w-[28ch] lg:text-right">
                     {VENDOR_STATUS_PROFILE_NOTE[status]}
                   </p>
                   {vendor.website && (
@@ -365,11 +365,11 @@ const VendorProfile = () => {
                   <SectionHeading eyebrow="Profile">About</SectionHeading>
                   <div>
                     {aboutText ? (
-                      <p className="t-body-sm text-foreground/90 leading-[1.65] max-w-[68ch]">
+                      <p className="t-body-md text-foreground/90 max-w-[68ch]">
                         {aboutText}
                       </p>
                     ) : (
-                      <p className="t-body-sm text-muted-foreground italic leading-[1.55] max-w-[68ch]">
+                      <p className="t-body-md text-muted-foreground italic max-w-[68ch]">
                         No public description on file. Source Standard has not
                         published an editorial summary for this vendor.
                       </p>
