@@ -1,53 +1,46 @@
 
 
-## New article page: `/library/what-is-compounding`
+## New article page: `/library/what-are-peptides`
 
-A new whitepaper-style article page using the established 900px centered filing layout, plus a route registration and one link update on the Education page.
+A second whitepaper page mirroring the `What Is Compounding?` pattern exactly, plus one route registration and one Education-row link override.
 
-### 1 · New file: `src/pages/LibraryWhatIsCompounding.tsx`
+### 1 · New file: `src/pages/LibraryWhatArePeptides.tsx`
 
-Standard whitepaper structure mirroring the existing filing pages (About, Terms, etc.):
+Same structure as `LibraryWhatIsCompounding.tsx`:
 
-- **Header**: `RecordHeader` (split-header with right-aligned Reference metadata box)
+- **Header** — `RecordHeader`
   - Eyebrow: `Source Standard · Foundational Series`
-  - Title: `What Is Compounding?`
-  - Lead: `An overview of pharmacy compounding, the 503A vs. 503B regulatory framework, and supply-chain implications.`
-  - Reference box:
-    - Doc: `SS-SERIES-000B`
-    - Status: `Active / Public Reference`
-    - Jurisdiction: `United States`
-    - Updated: `April 21, 2026`
+  - Title: `What Are Peptides?`
+  - Lead: `A plain-language introduction to peptides, their clinical utility, and the critical importance of sourcing integrity.`
+  - Reference box: Doc `SS-SERIES-000A` · Status `Active / Public Reference` · Jurisdiction `United States` · Updated `April 21, 2026`
 
-- **Body**: 900px centered column via the `Section` + `SectionLabel` primitives (the established whitepaper pattern). Four sections:
-  - `§1 Overview` — two paragraphs as supplied.
-  - `§2 503A Pharmacies: Patient-Specific` — intro paragraph + a definition list (`Requirement`, `Standards`, `Oversight`) styled as the existing institutional `<dl>` (mono term, serif description) used elsewhere.
-  - `§3 503B Pharmacies: Outsourcing Facilities` — same pattern: intro + definition list.
-  - `§4 Clinical Implications` — single paragraph as supplied.
-  - Body uses the established `prose-filing` serif treatment (Source Serif 4) at ≥16px / 1.7 line-height.
+- **Body** — 900px centered column via `Section` + `SectionLabel`, `prose-filing` serif:
+  - `§1 The Biological Blueprint` — single paragraph as supplied.
+  - `§2 Clinical Utility` — intro paragraph + a definition list (`Regulate Metabolic Function`, `Support Tissue Repair`, `Optimize Hormonal Balance`) using the established `DefList` (mono term / serif description), then the closing paragraph beneath the list.
+  - `§3 The Sourcing Crisis` — intro paragraph + a definition list (`Research Use Only (RUO)`, `The Source Standard Goal`), then the closing paragraph beneath the list.
 
-- **Pivot footer** (inside the centered column, above the page bottom): horizontal bar with a hairline top border.
-  - Left: `Button` (default — 4px black) `← Back to Clinical Library` linking to `/education`.
-  - Right: muted text link `Next: What Are Peptides? (SS-SERIES-000A) →` linking to `/library/what-are-peptides` (placeholder route — page not built in this pass; link is wired so the next article slots in cleanly).
+- **Pivot footer** (hairline-top bar inside the centered column):
+  - Left: `Button` (default — 4px black) `← Back to Clinical Library` → `/education`.
+  - Right: muted text link `Next: Interpreting CoAs (SS-SERIES-002) →` → `/library/interpreting-coas` (placeholder route, wired for the next article).
 
 ### 2 · Route registration: `src/App.tsx`
 
-Add one route inside the existing `SiteLayout` block:
+Add one import and one `<Route>` inside `SiteLayout`:
 ```tsx
-<Route path="/library/what-is-compounding" element={<LibraryWhatIsCompounding />} />
+<Route path="/library/what-are-peptides" element={<LibraryWhatArePeptides />} />
 ```
-Plus the matching import.
 
-### 3 · Link the Education row: `src/pages/Education.tsx`
+### 3 · Education link override: `src/pages/Education.tsx`
 
-In the §1 Foundational Sourcing Standards rows, the entry whose `id === "SS-SERIES-000B"` currently links to `/education/<slug>`. Override that single row's destination to `/library/what-is-compounding` so the row card and the right-edge "Read full article ›" affordance both navigate to the new page. All other rows untouched.
+Extend the existing `SLUG_ROUTE_OVERRIDES` lookup with the SS-SERIES-000A entry's slug → `/library/what-are-peptides`. The row card and right-edge "Read full article ›" both navigate to the new page. All other rows untouched.
 
 ### Files touched
 
-- `src/pages/LibraryWhatIsCompounding.tsx` — new
+- `src/pages/LibraryWhatArePeptides.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
-- `src/pages/Education.tsx` — conditional `to` for the `SS-SERIES-000B` row only
+- `src/pages/Education.tsx` — one new key in `SLUG_ROUTE_OVERRIDES`
 
 ### What stays the same
 
-`AnchorHeader`, `RecordHeader`, `Section`, the global `SiteHeader`/`SiteFooter`, the 900px filing column, the `container-wide` token, the `Button` primitive, `library.ts`, every other route, and every other Education page element (search, sticky nav, FAQ grid, Clinical Analysis cards, archive footer).
+`RecordHeader`, `Section`/`SectionLabel`, `DefList`, the global `SiteHeader`/`SiteFooter`, the 900px filing column, the `Button` primitive, `library.ts`, every other route, and every other Education page element.
 
