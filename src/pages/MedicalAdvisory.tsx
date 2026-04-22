@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { DocSignature } from "@/components/DocSignature";
 import { advisoryBoard, responsibilities } from "@/data/advisoryBoard";
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
@@ -21,6 +23,10 @@ const RESPONSIBILITY_TITLE_OVERRIDES: Record<string, string> = {
 const MedicalAdvisory = () => {
   return (
     <>
+      <PageMeta
+        title="Medical Advisory Board"
+        description="The governing clinical body for the Source Standard framework. Ratifies evaluation logic and authorizes versioned revisions."
+      />
       <RecordHeader
         metadata={[
           { label: "Doc", value: "SS-MAB-2026.01" },

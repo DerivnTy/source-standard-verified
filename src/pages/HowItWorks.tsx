@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
 
 const whyItMatters: { t: string; d: string }[] = [
   {
@@ -251,6 +252,10 @@ const Rail = ({
 const HowItWorks = () => {
   return (
     <div className="bg-background">
+      <PageMeta
+        title="How Verification Works"
+        description="The Source Standard verification process — intake, evidentiary review, board ratification, and renewal cadence."
+      />
       <RecordHeader
         metadata={[
           { label: "Doc", value: "SS-FRAMEWORK-2026.01" },

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+import { PageMeta } from "@/components/PageMeta";
 
 import { StatusBadge } from "@/components/StatusBadge";
 import { SourceCheck } from "@/components/SourceCheck";
@@ -200,6 +201,10 @@ const VerifiedVendors = () => {
 
   return (
     <>
+      <PageMeta
+        title="Verified Vendors · Public Directory"
+        description="Public directory of vendors audited against documented upstream sourcing and clinical oversight."
+      />
       {/* Board-style split hero: title left, stat reference card right */}
       <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">

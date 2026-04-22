@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+import { PageMeta } from "@/components/PageMeta";
 
 import { SourceCheck } from "@/components/SourceCheck";
 import { EmptyState } from "@/components/EmptyState";
@@ -276,6 +277,10 @@ const Greenlist = () => {
 
   return (
     <>
+      <PageMeta
+        title="Greenlist · Recognized Upstream Sources"
+        description="Public registry of upstream compounding facilities recognized under federal registration, state licensure, or accredited credentialing."
+      />
       {/* Board-style split hero: title left, stat reference card right */}
       <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">

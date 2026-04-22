@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardCiteFooter,
