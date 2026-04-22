@@ -328,33 +328,33 @@ const Index = () => {
         className="bg-[hsl(var(--navy-surface))] text-white"
       >
         <h2 id="final-cta" className="sr-only">Next steps</h2>
-        <div className="container-wide py-20 md:py-28">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-white/15">
-            <div className="md:pr-12 pb-10 md:pb-0">
+        <div className="container-wide py-14 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-white/15 items-start">
+            <div className="md:pr-16 pb-12 md:pb-0">
               <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55">
                 For consumers
               </p>
-              <h3 className="mt-5 text-[28px] md:text-[32px] font-semibold tracking-[-0.015em] leading-tight max-w-[16ch]">
+              <h3 className="mt-3 text-[28px] md:text-[32px] font-semibold tracking-[-0.015em] leading-tight max-w-[14ch]">
                 Search the Registry
               </h3>
-              <p className="mt-5 text-[14.5px] text-white/70 leading-[1.7] max-w-[40ch]">
+              <p className="mt-4 text-[14.5px] text-white/70 leading-[1.7] max-w-[34ch]">
                 Look up a clinic and see what its public record actually documents.
               </p>
-              <Link to="/directory" className={`${ghostBtnSecondary} mt-8 inline-block`}>
+              <Link to="/directory" className={`${ghostBtnSecondary} mt-6 inline-block`}>
                 Open the Registry
               </Link>
             </div>
-            <div className="md:pl-12 pt-10 md:pt-0">
+            <div className="md:pl-16 pt-12 md:pt-0 border-t border-white/15 md:border-t-0">
               <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55">
                 For vendors
               </p>
-              <h3 className="mt-5 text-[28px] md:text-[32px] font-semibold tracking-[-0.015em] leading-tight max-w-[16ch]">
+              <h3 className="mt-3 text-[28px] md:text-[32px] font-semibold tracking-[-0.015em] leading-tight max-w-[14ch]">
                 Apply for Verification
               </h3>
-              <p className="mt-5 text-[14.5px] text-white/70 leading-[1.7] max-w-[40ch]">
+              <p className="mt-4 text-[14.5px] text-white/70 leading-[1.7] max-w-[34ch]">
                 A public listing is a trust asset, not just a status marker.
               </p>
-              <Link to="/apply" className={`${ghostBtnSecondary} mt-8 inline-block`}>
+              <Link to="/apply" className={`${ghostBtnSecondary} mt-6 inline-block`}>
                 Begin Verification
               </Link>
             </div>
