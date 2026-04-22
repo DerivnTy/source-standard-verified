@@ -287,7 +287,7 @@ const Education = () => {
                 <Link
                   key={entry.slug}
                   to={routeFor(entry.slug)}
-                  className="group relative flex flex-col min-h-[260px] rounded-lg border border-border/60 bg-blue-50/40 dark:bg-blue-950/10 p-7 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
+                  className="group relative flex flex-col min-h-[260px] rounded-lg border border-border/60 bg-surface-muted/60 p-7 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
                 >
                   <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground mb-4">
                     Start Here · {String(i + 1).padStart(2, "0")}
