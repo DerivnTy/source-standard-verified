@@ -39,16 +39,16 @@ const SOURCE_TYPE_DEF: Record<GreenlistCategory, { title: string; body: string }
       "Pharmacy operating under Section 503A of the Federal Food, Drug, and Cosmetic Act. Licensed by the applicable state board of pharmacy and required to compound in accordance with USP <795>, <797>, and <800>.",
   },
   Other: {
-    title: "Other Qualified Source",
+    title: "Unverified Facilities",
     body:
-      "Additional recognized facility categories, including NSF-certified facilities, ISO-accredited laboratories, hospital-system suppliers, and multi-location compounding networks.",
+      "Entities that have not yet undergone the Source Standard audit process or have failed to provide necessary transparency regarding their supply chain and clinical protocols.",
   },
 };
 
 const CATEGORY_STYLE: Record<GreenlistCategory, { dot: string }> = {
   "503B": { dot: "bg-[hsl(var(--src-503b))]" },
   "503A": { dot: "bg-[hsl(var(--src-503a))]" },
-  Other: { dot: "bg-[hsl(var(--src-other))]" },
+  Other: { dot: "bg-[hsl(var(--src-unverified))]" },
 };
 
 const CATEGORY_PILL: Record<GreenlistCategory, { wrap: string; dot: string }> = {
@@ -61,9 +61,21 @@ const CATEGORY_PILL: Record<GreenlistCategory, { wrap: string; dot: string }> = 
     dot: "bg-[hsl(var(--src-503a))]",
   },
   Other: {
-    wrap: "bg-[hsl(var(--src-other-soft))] text-[hsl(var(--src-other))] ring-1 ring-[hsl(var(--src-other))]/20",
-    dot: "bg-[hsl(var(--src-other))]",
+    wrap: "bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25",
+    dot: "bg-[hsl(var(--src-unverified))]",
   },
+};
+
+const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
+  "503B": "503B",
+  "503A": "503A",
+  Other: "Unverified",
+};
+
+const CATEGORY_SUBLABEL: Record<GreenlistCategory, string> = {
+  "503B": "Outsourcing facility",
+  "503A": "Compounding pharmacy",
+  Other: "Audit pending / non-transparent",
 };
 
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
@@ -73,7 +85,7 @@ const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
       className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] tabular-nums ${styles.wrap}`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${styles.dot}`} aria-hidden="true" />
-      {category}
+      {CATEGORY_LABEL[category]}
     </span>
   );
 };
@@ -264,7 +276,9 @@ const Greenlist = () => {
                         />
                       )}
                       <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-muted-foreground truncate">
-                        {s.key === "total" ? s.label : s.key}
+                        {s.key === "total"
+                          ? s.label
+                          : CATEGORY_LABEL[s.key as GreenlistCategory] ?? s.key}
                       </p>
                     </div>
                     <p className="text-[1.75rem] font-semibold tabular-nums leading-none text-foreground">
@@ -272,7 +286,7 @@ const Greenlist = () => {
                     </p>
                     {s.key !== "total" && (
                       <p className="mt-1 text-[11px] text-muted-foreground truncate">
-                        {s.label.replace(/^503[AB] /, "").replace(/^Other /, "")}
+                        {CATEGORY_SUBLABEL[s.key as GreenlistCategory] ?? s.label}
                       </p>
                     )}
                   </div>
@@ -310,7 +324,7 @@ const Greenlist = () => {
                 <option value={ALL}>All source types</option>
                 {CATEGORY_ORDER.map((c) => (
                   <option key={c} value={c}>
-                    {c}
+                    {CATEGORY_LABEL[c]}
                   </option>
                 ))}
               </select>

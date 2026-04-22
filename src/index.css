@@ -69,6 +69,8 @@
     --src-503a-soft: 38 55% 94%;
     --src-other: 215 18% 42%;
     --src-other-soft: 215 18% 94%;
+    --src-unverified: 0 55% 38%;
+    --src-unverified-soft: 0 60% 95%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -117,6 +119,8 @@
     --src-503a-soft: 35 25% 16%;
     --src-other: 215 14% 64%;
     --src-other-soft: 215 18% 18%;
+    --src-unverified: 0 65% 65%;
+    --src-unverified-soft: 0 35% 16%;
   }
 }
 
