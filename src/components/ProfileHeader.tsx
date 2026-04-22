@@ -50,7 +50,7 @@ export const ProfileHeader = ({
             <h1 className="title-page text-foreground">{title}</h1>
             {identity && <div className="mt-2 text-helper text-muted-foreground">{identity}</div>}
             {lead && (
-              <p className="mt-3 max-w-[58ch] text-[15px] text-muted-foreground leading-[1.65]">
+              <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.65]">
                 {lead}
               </p>
             )}

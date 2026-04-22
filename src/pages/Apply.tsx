@@ -71,7 +71,7 @@ const Apply = () => {
                   {checklist.map((i, idx) => (
                     <li key={i} className="flex gap-3 px-4 py-3">
                       <span className="meta pt-0.5">§{String(idx + 1).padStart(2, "0")}</span>
-                      <span className="text-[13px] text-foreground leading-relaxed">{i}</span>
+                      <span className="text-[14.5px] text-foreground leading-relaxed">{i}</span>
                     </li>
                   ))}
                 </ul>
@@ -186,8 +186,8 @@ const Apply = () => {
                     <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-foreground">
                       Filing received · SS-INTAKE-01
                     </p>
-                    <h2 className="text-[16px] font-semibold text-foreground">Filing Received.</h2>
-                    <p className="text-[13px] text-foreground leading-relaxed max-w-2xl">
+                    <h2 className="text-[14.5px] font-semibold text-foreground">Filing Received.</h2>
+                    <p className="text-[14.5px] text-foreground leading-relaxed max-w-2xl">
                       A Verification Officer is initializing your profile. You will receive an automated email within 24 hours to set up your secure portal access.
                     </p>
                     <p className="font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground pt-2">

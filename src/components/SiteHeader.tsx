@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
@@ -13,12 +13,67 @@ const nav = [
   { to: "/about", label: "About" },
 ];
 
+// Module-level subscription so DocJumpBar (and others) can mirror the header's
+// hide-on-scroll-down / show-on-scroll-up behavior without prop drilling.
+const visibilityListeners = new Set<(v: boolean) => void>();
+let _headerVisible = true;
+const setHeaderVisibleGlobal = (v: boolean) => {
+  if (v === _headerVisible) return;
+  _headerVisible = v;
+  visibilityListeners.forEach((fn) => fn(v));
+};
+
+export const useHeaderVisible = () => {
+  const [v, setV] = useState(_headerVisible);
+  useEffect(() => {
+    visibilityListeners.add(setV);
+    setV(_headerVisible);
+    return () => {
+      visibilityListeners.delete(setV);
+    };
+  }, []);
+  return v;
+};
+
 export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
   const location = useLocation();
   const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY;
+        if (y <= 0) {
+          setVisible(true);
+          setHeaderVisibleGlobal(true);
+        } else if (y > 120 && delta > 0) {
+          setVisible(false);
+          setHeaderVisibleGlobal(false);
+        } else if (delta < -8) {
+          setVisible(true);
+          setHeaderVisibleGlobal(true);
+        }
+        lastY = y;
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/40">
+    <header
+      className={`sticky top-0 z-40 bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/40 transition-transform duration-200 ease-out ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* Utility strip — suppressed on home (hero owns the top band) */}
       {!isHome && (
         <div className="hidden md:block bg-background border-b border-border/40">
@@ -77,7 +132,7 @@ export const SiteHeader = () => {
                 end
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `py-3.5 text-[15px] border-b border-border last:border-0 ${
+                  `py-3.5 text-[14.5px] border-b border-border last:border-0 ${
                     isActive ? "text-foreground font-semibold" : "text-muted-foreground font-medium"
                   }`
                 }

@@ -99,7 +99,7 @@ const ReportConcern = () => (
 
     <Section density="doc">
       <SectionLabel number="§5" title="Submission channel." description="A structured intake portal is forthcoming. In the interim, submissions are accepted at the secure address below. All correspondence is logged to the intake register." />
-      <div className="border border-border/70 border-t-2 border-t-foreground rounded-[2px] bg-background p-5 max-w-2xl">
+      <div className="border border-border rounded-[2px] bg-background p-5 max-w-2xl">
         <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground mb-4">
           SECURE SUBMISSION POINT · <span className="text-foreground">SS-REPORT-INTAKE</span>
         </p>
