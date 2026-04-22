@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { AnchorHeader } from "@/components/AnchorHeader";
-import { Section } from "@/components/Section";
+
 import {
   Accordion,
   AccordionContent,
