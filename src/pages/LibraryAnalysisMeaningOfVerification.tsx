@@ -1,25 +1,12 @@
-import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { Section, SectionLabel } from "@/components/Section";
-import { Button } from "@/components/ui/button";
+import {
+  BoardSection,
+  BoardDefList,
+  BoardFooterNav,
+  BoardCiteFooter,
+} from "@/components/BoardSection";
 
-const DefList = ({ items }: { items: { term: string; description: string }[] }) => (
-  <dl className="mt-4 divide-y divide-border/60 border-y border-border/60">
-    {items.map((it) => (
-      <div
-        key={it.term}
-        className="grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 py-4"
-      >
-        <dt className="text-[13.5px] font-semibold text-foreground leading-snug">
-          {it.term}
-        </dt>
-        <dd className="text-[15px] leading-[1.75] text-foreground/90 m-0">
-          {it.description}
-        </dd>
-      </div>
-    ))}
-  </dl>
-);
+const DOC_ID = "SS-ANALYSIS-005";
 
 const LibraryAnalysisMeaningOfVerification = () => {
   return (
@@ -29,97 +16,94 @@ const LibraryAnalysisMeaningOfVerification = () => {
         title="What Source Standard Verification Actually Means"
         lead="A disclosure of the scope, limits, and reviewable evidence behind a verified listing in the Source Standard registry."
         metadata={[
-          { label: "Doc", value: "SS-SERIES-005" },
+          { label: "Doc", value: DOC_ID },
           { label: "Status", value: "Analysis / Public Record" },
           { label: "Jurisdiction", value: "United States" },
-          { label: "Updated", value: "April 21, 2026" },
+          { label: "Updated", value: "04 / 21 / 2026" },
         ]}
       />
 
-      <Section>
-        <SectionLabel number="§1" title="Defining the Standard" />
-        <p className="text-[15px] leading-[1.75] text-foreground/90">
-          A &lsquo;Source Standard Verified&rsquo; badge is not a participation trophy; it is a point-in-time attestation that a clinic has passed our multi-point institutional audit. Our verification focus is narrow and deep, targeting the intersection of medical oversight and pharmaceutical supply chains.
+      <BoardSection n={1} category="Definition" title="Defining the standard.">
+        <p className="text-foreground font-medium">
+          A 'Source Standard Verified' badge is not a participation trophy; it is a point-in-time attestation that a clinic has passed our multi-point institutional audit. Our verification focus is narrow and deep, targeting the intersection of medical oversight and pharmaceutical supply chains.
         </p>
+      </BoardSection>
 
-        <div className="mt-12">
-          <SectionLabel
-            number="§2"
-            title="What We Verify"
-            description="When a clinic carries our verification, we have confirmed the following."
-          />
-          <DefList
-            items={[
-              {
-                term: "Documented Procurement",
-                description:
-                  "We have reviewed redacted invoices or shipping manifests proving the clinic buys from the pharmacies they claim.",
-              },
-              {
-                term: "Facility Standing",
-                description:
-                  "We have confirmed their partner pharmacies hold active licenses and are not currently under FDA 'Do Not Compound' orders.",
-              },
-              {
-                term: "Credential Authenticity",
-                description:
-                  "We have verified the medical director's NPI and state licensure status.",
-              },
-              {
-                term: "CoA Reconciliation",
-                description:
-                  "We have performed 'spot-check' authentications of the lab reports provided by their sources.",
-              },
-            ]}
-          />
-        </div>
+      <BoardSection
+        n={2}
+        category="Inside scope"
+        title="What we verify."
+        rationale="When a clinic carries our verification, we have confirmed the following."
+        muted
+      >
+        <BoardDefList
+          prefix={(i) => `§2.${i + 1}`}
+          items={[
+            {
+              term: "Documented procurement",
+              description: "We have reviewed redacted invoices or shipping manifests proving the clinic buys from the pharmacies they claim.",
+            },
+            {
+              term: "Facility standing",
+              description: "We have confirmed their partner pharmacies hold active licenses and are not currently under FDA 'Do Not Compound' orders.",
+            },
+            {
+              term: "Credential authenticity",
+              description: "We have verified the medical director's NPI and state licensure status.",
+            },
+            {
+              term: "CoA reconciliation",
+              description: "We have performed 'spot-check' authentications of the lab reports provided by their sources.",
+            },
+          ]}
+        />
+      </BoardSection>
 
-        <div className="mt-12">
-          <SectionLabel
-            number="§3"
-            title="What We Do Not Do (The Limits of Scope)"
-            description="To remain a neutral auditing body, we must maintain clear boundaries."
-          />
-          <DefList
-            items={[
-              {
-                term: "No Medical Endorsement",
-                description:
-                  "We verify the source of the medicine, not the necessity of the treatment. We do not provide medical advice.",
-              },
-              {
-                term: "No Primary Lab Testing",
-                description:
-                  "We do not operate a laboratory. We audit the laboratory reports generated by the pharmacies.",
-              },
-              {
-                term: "No Financial Interest",
-                description:
-                  "Source Standard does not take commissions from pharmacies or clinics. Our fee is strictly for the administrative labor of the audit.",
-              },
-            ]}
-          />
-        </div>
+      <BoardSection
+        n={3}
+        category="Outside scope"
+        title="What we do not do — limits of scope."
+        rationale="To remain a neutral auditing body, we must maintain clear boundaries."
+      >
+        <BoardDefList
+          prefix={(i) => `§3.${i + 1}`}
+          items={[
+            {
+              term: "No medical endorsement",
+              description: "We verify the source of the medicine, not the necessity of the treatment. We do not provide medical advice.",
+            },
+            {
+              term: "No primary lab testing",
+              description: "We do not operate a laboratory. We audit the laboratory reports generated by the pharmacies.",
+            },
+            {
+              term: "No financial interest",
+              description: "Source Standard does not take commissions from pharmacies or clinics. Our fee is strictly for the administrative labor of the audit.",
+            },
+          ]}
+        />
+      </BoardSection>
 
-        <div className="mt-12">
-          <SectionLabel number="§4" title="The 'Active' Nature of Verification" />
-          <p className="text-[15px] leading-[1.75] text-foreground/90">
-            Verification is a dynamic state, not a static one. Because supply chains can change overnight, our registry is updated in real-time. If a clinic moves to an undocumented source, their verification is suspended immediately. For the consumer, the registry represents the most current &lsquo;snapshot&rsquo; of institutional integrity available in the compounding industry.
-          </p>
-        </div>
+      <BoardSection
+        n={4}
+        category="Active state"
+        title="The 'active' nature of verification."
+        muted
+      >
+        <p>
+          Verification is a dynamic state, not a static one. Because supply chains can change overnight, our registry is updated in real-time. If a clinic moves to an undocumented source, their verification is suspended immediately.{" "}
+          <span className="text-foreground font-medium">
+            For the consumer, the registry represents the most current 'snapshot' of institutional integrity available in the compounding industry.
+          </span>
+        </p>
+      </BoardSection>
 
-        <div className="mt-16 pt-6 border-t border-border/70 flex items-center justify-between gap-6">
-          <Button asChild variant="outline">
-            <Link to="/education">← Back to Education Hub</Link>
-          </Button>
-          <Link
-            to="/library/analysis/undocumented-sourcing-signs"
-            className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
-          >
-            Final Analysis: Warning Signs of Undocumented Sourcing (SS-SERIES-006) →
-          </Link>
-        </div>
-      </Section>
+      <BoardFooterNav
+        back={{ to: "/education", label: "Back to Education Hub" }}
+        next={{ to: "/library/analysis/undocumented-sourcing-signs", label: "Final Analysis · Warning Signs of Undocumented Sourcing (SS-ANALYSIS-006)" }}
+      />
+
+      <BoardCiteFooter citation={`Source Standard, Clinical Analysis — Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
     </>
   );
 };
