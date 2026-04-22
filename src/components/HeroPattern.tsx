@@ -10,13 +10,17 @@ export const HeroPattern = ({
   className = "",
   opacity = 0.08,
   stroke = "foreground",
+  cellSize = 32,
 }: {
   className?: string;
   opacity?: number;
   stroke?: "foreground" | "white";
+  cellSize?: number;
 }) => {
   const strokeColor =
     stroke === "white" ? "#ffffff" : "hsl(var(--foreground))";
+  const patternId = `hero-grid-${cellSize}`;
+  const dotsId = `hero-dots-${cellSize}`;
   return (
     <div
       aria-hidden
