@@ -451,7 +451,6 @@ const VerifiedVendors = () => {
             tickClassName: "bg-foreground/40",
           },
         ]}
-        caption="Verified means a completed Source Standard review is on file as a published record. Unverified does not imply unsafe or noncompliant — only that no completed verification has been published."
       />
 
       {/* Query + result surface */}
