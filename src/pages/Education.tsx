@@ -468,6 +468,7 @@ const Education = () => {
             relationship. Clinical decisions regarding compounded medications must be
             made in consultation with a qualified, licensed healthcare provider.
           </p>
+          </div>
         </div>
       </section>
     </>
