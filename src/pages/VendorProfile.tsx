@@ -360,31 +360,10 @@ const VendorProfile = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-stretch lg:divide-x lg:divide-border">
               {/* ===== Main column (8/12) ===== */}
               <div className="lg:col-span-8">
-                {/* About — locked py-8 md:py-10, min-h to stabilize layout */}
-                <section className="px-6 md:px-10 py-8 md:py-10 border-b border-border">
-                  <SectionHeading eyebrow="Profile">About</SectionHeading>
-                  <div className="min-h-[5.5rem]">
-                    {aboutText ? (
-                      <p className="t-body text-foreground/90 leading-[1.7] max-w-[68ch]">
-                        {aboutText}
-                      </p>
-                    ) : (
-                      <p className="t-body-sm text-muted-foreground italic leading-[1.6] max-w-[68ch]">
-                        No public description on file. Source Standard has not
-                        published an editorial summary for this vendor.
-                      </p>
-                    )}
-                  </div>
-                </section>
-
-                {/* Public Record — locked 6-row, 2-col matrix */}
-                <section
-                  className={`px-6 md:px-10 py-8 md:py-10 ${
-                    isVerified ? "border-b border-border" : ""
-                  }`}
-                >
+                {/* Public Record — locked 6-row, 2-col matrix (first) */}
+                <section className="px-6 md:px-8 py-6 border-b border-border">
                   <SectionHeading eyebrow="Record">Public Record</SectionHeading>
-                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4">
                     <Field label="Category" value={vendor.category} />
                     <Field
                       label="Fulfillment"
@@ -408,6 +387,27 @@ const VendorProfile = () => {
                       />
                     )}
                   </dl>
+                </section>
+
+                {/* About — moved below Public Record */}
+                <section
+                  className={`px-6 md:px-8 py-6 ${
+                    isVerified ? "border-b border-border" : ""
+                  }`}
+                >
+                  <SectionHeading eyebrow="Profile">About</SectionHeading>
+                  <div>
+                    {aboutText ? (
+                      <p className="t-body-sm text-foreground/90 leading-[1.65] max-w-[68ch]">
+                        {aboutText}
+                      </p>
+                    ) : (
+                      <p className="t-body-sm text-muted-foreground italic leading-[1.55] max-w-[68ch]">
+                        No public description on file. Source Standard has not
+                        published an editorial summary for this vendor.
+                      </p>
+                    )}
+                  </div>
                 </section>
 
                 {/* Verified Scope — verified only */}
