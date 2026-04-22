@@ -11,35 +11,35 @@
 
 @layer base {
   :root {
-    /* Institutional Modern — Authority Navy + Clinical Teal */
-    --background: 0 0% 98.5%;
-    --foreground: 216 45% 12%;
+    /* Institutional Modern v2 — Authority Navy #0F172A + Safety Blue #0EA5E9 + Cool Gray #F8FAFC */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
 
-    /* --surface stays white so cards / inputs / dropdowns sit grounded on the page */
+    /* --surface stays white so cards / inputs / dropdowns sit elevated on the cool-gray page */
     --surface: 0 0% 100%;
-    --surface-muted: 210 24% 97%;
-    --surface-sunken: 210 24% 96%;
+    --surface-muted: 210 40% 97%;
+    --surface-sunken: 210 40% 96%;
 
     --card: 0 0% 100%;
-    --card-foreground: 216 45% 12%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 216 45% 12%;
+    --popover-foreground: 222 47% 11%;
 
-    /* Clinical teal — primary interactive / safety-action tone */
-    --primary: 198 78% 36%;
+    /* Safety Blue — primary interactive / verification accent tone */
+    --primary: 199 89% 48%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 198 78% 30%;
-    --accent-soft: 198 60% 96%;
+    --primary-hover: 199 89% 42%;
+    --accent-soft: 199 89% 96%;
 
-    --secondary: 210 24% 96%;
-    --secondary-foreground: 216 45% 12%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 24% 96%;
+    --muted: 210 40% 96%;
     --muted-foreground: 215 16% 38%;
 
-    --accent: 210 24% 96%;
-    --accent-foreground: 216 45% 12%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
 
     --verified: 158 52% 30%;
     --verified-foreground: 0 0% 100%;
@@ -51,10 +51,10 @@
     --destructive: 0 60% 38%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 22% 90%;
-    --border-strong: 215 22% 78%;
-    --input: 215 22% 86%;
-    --ring: 198 78% 36%;
+    --border: 214 32% 91%;
+    --border-strong: 214 28% 80%;
+    --input: 214 32% 88%;
+    --ring: 199 89% 48%;
 
     --radius: 0.625rem;
 
@@ -81,18 +81,18 @@
   }
 
   .dark {
-    --background: 216 45% 6%;
-    --foreground: 210 24% 96%;
-    --surface: 216 40% 9%;
-    --surface-muted: 216 36% 11%;
-    --surface-sunken: 216 36% 13%;
-    --card: 216 40% 9%;
-    --card-foreground: 210 24% 96%;
-    --popover: 216 40% 9%;
-    --popover-foreground: 210 24% 96%;
-    --primary: 198 78% 52%;
-    --primary-foreground: 216 45% 6%;
-    --primary-hover: 198 78% 58%;
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --surface: 222 40% 9%;
+    --surface-muted: 222 36% 11%;
+    --surface-sunken: 222 36% 13%;
+    --card: 222 40% 9%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 40% 9%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 199 89% 58%;
+    --primary-foreground: 222 47% 6%;
+    --primary-hover: 199 89% 64%;
     --secondary: 215 22% 14%;
     --secondary-foreground: 0 0% 96%;
     --muted: 215 22% 14%;
@@ -109,7 +109,7 @@
     --border: 215 18% 22%;
     --border-strong: 215 18% 32%;
     --input: 215 18% 22%;
-    --ring: 152 35% 55%;
+    --ring: 199 89% 58%;
 
     --src-503b: 152 35% 60%;
     --src-503b-soft: 152 25% 16%;
@@ -298,7 +298,7 @@
     @apply bg-surface border border-border/60 rounded-xl shadow-sm transition-all duration-200;
   }
   .card-elevated:hover {
-    @apply shadow-md border-border-strong/50;
+    @apply shadow-md border-border-strong/50 -translate-y-0.5;
   }
 
   /* Soft surface band — replacement for flat gray separators. */
