@@ -211,7 +211,6 @@ const VendorProfile = () => {
   const hasScope = hasGroups || hasFlatCompounds || hasCategoryFallback;
 
   const serviceArea = (vendor as Vendor & { serviceArea?: string }).serviceArea;
-  const monogram = monogramOf(vendor.name);
   const aboutText = vendor.summary || vendor.publicNote;
 
   return (
@@ -248,31 +247,21 @@ const VendorProfile = () => {
             {/* ---------- IDENTITY BAND ---------- */}
             <header className="px-6 md:px-8 pt-6 pb-5 border-b border-border">
               <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
-                {/* Monogram tile */}
-                <div
-                  className={`hidden sm:flex h-16 w-16 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
-                  aria-hidden
-                >
-                  <span className="t-section-title-sm font-semibold tracking-tight text-foreground">
-                    {monogram}
-                  </span>
-                </div>
-
                 {/* Identity */}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-3 flex-wrap mb-2">
                     {vendor.category && (
-                      <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                      <span className="t-eyebrow-sm text-muted-foreground">
                         {vendor.category}
                       </span>
                     )}
                     <span className="text-border" aria-hidden>·</span>
-                    <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                    <span className="t-eyebrow-sm text-muted-foreground">
                       Source Standard Public Record
                     </span>
                   </div>
 
-                  <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
+                  <h1 className="t-page-title text-foreground break-words max-w-[24ch]">
                     {vendor.name}
                   </h1>
 
