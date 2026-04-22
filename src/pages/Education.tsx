@@ -57,6 +57,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "how-to-read-a-certificate-of-analysis": "/library/interpreting-coas",
   "the-dual-layer-difference": "/library/dual-layer-difference",
   "safe-peptide-handling-and-reconstitution": "/library/sterile-preparation-integrity",
+  "sanitization-and-aseptic-technique-fundamentals": "/library/aseptic-technique",
 };
 
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
