@@ -129,13 +129,6 @@ const VendorProfile = () => {
       ? vendor.category
       : undefined;
 
-  const verifiedScope =
-    isVerified && vendor.verifiedCategories && vendor.verifiedCategories.length > 0
-      ? vendor.verifiedCategories.join(" · ")
-      : isVerified
-      ? vendor.category
-      : undefined;
-
   // Verified Drug Scope rendering data
   const hasGroups =
     isVerified &&
