@@ -295,18 +295,14 @@ const Education = () => {
 
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {CATEGORIES.map((c) => {
-                const count = categoryCounts[c.key];
                 const Icon = c.Icon;
                 return (
                   <div
                     key={c.key}
-                    className="flex flex-col rounded-lg border border-border/60 bg-background p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
+                    className="flex flex-col rounded-lg border border-border/50 bg-background p-6 transition-all duration-200 hover:shadow-md hover:border-foreground/30"
                   >
-                    <Icon className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
-                    <p className="mt-4 text-[11.5px] text-muted-foreground/80 tabular-nums">
-                      {count} {count === 1 ? "entry" : "entries"}
-                    </p>
-                    <h3 className="mt-1 text-[18px] font-semibold text-foreground leading-snug">
+                    <Icon className="h-7 w-7 text-muted-foreground" strokeWidth={1.5} />
+                    <h3 className="mt-5 text-[19px] font-semibold text-foreground leading-snug">
                       {c.label}
                     </h3>
                     <p className="mt-2 text-[13.5px] text-muted-foreground leading-[1.7]">
