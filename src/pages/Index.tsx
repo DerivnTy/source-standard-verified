@@ -110,7 +110,7 @@ const basics = [
 /* ───────────────── Reusable atoms ───────────────── */
 
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
-  <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
+  <p className="t-eyebrow-sm text-muted-foreground">
     {children}
   </p>
 );
@@ -138,89 +138,75 @@ const Index = () => {
 
       {/* §2 — Why this exists */}
       <section aria-labelledby="why-exists" className="border-b border-border bg-background">
-        <div className="container-wide py-16 md:py-20">
-          <Eyebrow>Why this exists</Eyebrow>
-          <h2
-            id="why-exists"
-            className="sr-only"
-          >
-            Why Source Standard exists
-          </h2>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
-            {whyExists.map((x, i) => (
-              <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
-                <h3 className="text-[18px] font-semibold tracking-[-0.01em] text-foreground leading-snug max-w-[24ch]">
-                  {x.h}
-                </h3>
-                <p className="mt-4 text-[14.5px] text-muted-foreground leading-[1.7] max-w-[36ch]">
-                  {x.b}
-                </p>
-              </div>
-            ))}
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <Eyebrow>Why this exists</Eyebrow>
+            <h2 id="why-exists" className="sr-only">Why Source Standard exists</h2>
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
+              {whyExists.map((x, i) => (
+                <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
+                  <h3 className="t-h4 text-foreground max-w-[24ch]">{x.h}</h3>
+                  <p className="mt-5 t-body-sm text-muted-foreground max-w-[36ch]">{x.b}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* §3 — How it works */}
       <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
-        <div className="container-wide py-16 md:py-20">
-          <Eyebrow>How it works</Eyebrow>
-          <h2 id="how-it-works" className="sr-only">How the framework works</h2>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-            {howItWorks.map((s, i) => (
-              <div key={i}>
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                  {(i + 1).toString().padStart(2, "0")}
-                </p>
-                <div className="mt-3 h-px w-8 bg-border" aria-hidden="true" />
-                <h3 className="mt-5 text-[18px] font-semibold tracking-[-0.01em] text-foreground leading-snug max-w-[22ch]">
-                  {s.h}
-                </h3>
-                <p className="mt-4 text-[14.5px] text-muted-foreground leading-[1.7] max-w-[38ch]">
-                  {s.b}
-                </p>
-              </div>
-            ))}
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <Eyebrow>How it works</Eyebrow>
+            <h2 id="how-it-works" className="sr-only">How the framework works</h2>
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+              {howItWorks.map((s, i) => (
+                <div key={i}>
+                  <p className="t-utility-xs text-muted-foreground">
+                    {(i + 1).toString().padStart(2, "0")}
+                  </p>
+                  <div className="mt-3 h-px w-8 bg-border" aria-hidden="true" />
+                  <h3 className="mt-5 t-h4 text-foreground max-w-[22ch]">{s.h}</h3>
+                  <p className="mt-5 t-body-sm text-muted-foreground max-w-[38ch]">{s.b}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* §4 — What the registry shows */}
       <section aria-labelledby="registry-shows" className="border-b border-border bg-background">
-        <div className="container-wide py-16 md:py-20">
-          <div className="grid grid-cols-12 gap-8 md:gap-12">
-            <div className="col-span-12 md:col-span-4">
-              <Eyebrow>What you can verify</Eyebrow>
-              <h2
-                id="registry-shows"
-                className="mt-4 text-[22px] font-semibold tracking-[-0.01em] text-foreground leading-snug max-w-[18ch]"
-              >
-                A working public utility, not a concept.
-              </h2>
-              <p className="mt-5 text-[14.5px] text-muted-foreground leading-[1.7] max-w-[40ch]">
-                Each registry entry is a structured record. The fields are consistent across listings and reviewed on a published cadence.
-              </p>
-              <Link
-                to="/directory"
-                className="mt-7 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-              >
-                Open the registry →
-              </Link>
-            </div>
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <div className="grid grid-cols-12 gap-8 md:gap-12">
+              <div className="col-span-12 md:col-span-4">
+                <Eyebrow>What you can verify</Eyebrow>
+                <h2 id="registry-shows" className="mt-4 t-section-title-sm text-foreground max-w-[18ch]">
+                  A working public utility, not a concept.
+                </h2>
+                <p className="mt-5 t-body-sm text-muted-foreground max-w-[40ch]">
+                  Each registry entry is a structured record. The fields are consistent across listings and reviewed on a published cadence.
+                </p>
+                <Link
+                  to="/directory"
+                  className="mt-7 inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
+                >
+                  Open the registry →
+                </Link>
+              </div>
 
-            <div className="col-span-12 md:col-span-8">
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-7">
-                {registryFields.map((f) => (
-                  <li key={f.h}>
-                    <p className="text-[14.5px] font-semibold text-foreground tracking-[-0.005em]">
-                      {f.h}
-                    </p>
-                    <p className="mt-1.5 text-[14px] text-muted-foreground leading-[1.65]">
-                      {f.b}
-                    </p>
-                  </li>
-                ))}
-              </ul>
+              <div className="col-span-12 md:col-span-8">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-7">
+                  {registryFields.map((f) => (
+                    <li key={f.h}>
+                      <p className="t-body-sm font-semibold text-foreground">{f.h}</p>
+                      <p className="mt-1.5 t-body-sm text-muted-foreground">{f.b}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -228,60 +214,60 @@ const Index = () => {
 
       {/* §5 — Why verification matters */}
       <section aria-labelledby="why-matters" className="border-b border-border bg-surface-muted/30">
-        <div className="container-wide py-16 md:py-20">
-          <Eyebrow>Why verification matters</Eyebrow>
-          <h2 id="why-matters" className="sr-only">Why verification matters</h2>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
-            {whyMatters.map((w, i) => (
-              <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
-                  {w.h}
-                </p>
-                <p className="mt-5 text-[16px] text-foreground leading-[1.6] max-w-[32ch]">
-                  {w.b}
-                </p>
-              </div>
-            ))}
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <Eyebrow>Why verification matters</Eyebrow>
+            <h2 id="why-matters" className="sr-only">Why verification matters</h2>
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
+              {whyMatters.map((w, i) => (
+                <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
+                  <p className="t-utility-xs text-muted-foreground">{w.h}</p>
+                  <p className="mt-5 t-body-md text-foreground max-w-[32ch]">{w.b}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* §6 — Governance & standards */}
       <section aria-labelledby="governance" className="border-b border-border bg-background">
-        <div className="container-wide py-16 md:py-20">
-          <Eyebrow>Governance &amp; standards</Eyebrow>
-          <h2 id="governance" className="sr-only">Governance and standards</h2>
-          <div className="mt-10 grid grid-cols-12 gap-8 md:gap-12">
-            <div className="col-span-12 md:col-span-5">
-              <p className="text-[16px] text-foreground leading-[1.65] max-w-[44ch]">
-                The framework is reviewed under medical oversight and anchored to recognized regulatory and compendial records.
-              </p>
-              <Link
-                to="/medical-advisory"
-                className="mt-6 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-              >
-                Medical Advisory Board →
-              </Link>
-            </div>
-            <div className="col-span-12 md:col-span-7">
-              <ul className="divide-y divide-border border-y border-border">
-                {anchors.map((a) => (
-                  <li key={a.k} className="grid grid-cols-12 gap-4 py-3.5 items-baseline">
-                    <span className="col-span-3 sm:col-span-2 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground">
-                      {a.k}
-                    </span>
-                    <span className="col-span-9 sm:col-span-10 text-[14.5px] text-muted-foreground leading-[1.6]">
-                      {a.d}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/governance"
-                className="mt-6 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-              >
-                Governance &amp; oversight →
-              </Link>
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <Eyebrow>Governance &amp; standards</Eyebrow>
+            <h2 id="governance" className="sr-only">Governance and standards</h2>
+            <div className="mt-10 grid grid-cols-12 gap-8 md:gap-12">
+              <div className="col-span-12 md:col-span-5">
+                <p className="t-body-md text-foreground max-w-[44ch]">
+                  The framework is reviewed under medical oversight and anchored to recognized regulatory and compendial records.
+                </p>
+                <Link
+                  to="/medical-advisory"
+                  className="mt-6 inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
+                >
+                  Medical Advisory Board →
+                </Link>
+              </div>
+              <div className="col-span-12 md:col-span-7">
+                <ul className="divide-y divide-border border-y border-border">
+                  {anchors.map((a) => (
+                    <li key={a.k} className="grid grid-cols-12 gap-4 py-4 items-baseline">
+                      <span className="col-span-3 sm:col-span-2 t-utility-xs text-foreground">
+                        {a.k}
+                      </span>
+                      <span className="col-span-9 sm:col-span-10 t-body-sm text-muted-foreground">
+                        {a.d}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to="/governance"
+                  className="mt-6 inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
+                >
+                  Governance &amp; oversight →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -289,35 +275,33 @@ const Index = () => {
 
       {/* §7 — Resource Library entry */}
       <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
-        <div className="container-wide py-16 md:py-20">
-          <Eyebrow>Start with the basics</Eyebrow>
-          <h2 id="basics" className="sr-only">Start with the basics</h2>
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
-            {basics.map((b) => (
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <Eyebrow>Start with the basics</Eyebrow>
+            <h2 id="basics" className="sr-only">Start with the basics</h2>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
+              {basics.map((b) => (
+                <Link
+                  key={b.t}
+                  to={b.to}
+                  className="bg-background p-6 flex flex-col group hover:bg-surface-muted/50 transition-colors"
+                >
+                  <h3 className="t-h4 text-foreground">{b.t}</h3>
+                  <p className="mt-3 t-body-sm text-muted-foreground flex-1">{b.s}</p>
+                  <span className="mt-5 t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors">
+                    Read →
+                  </span>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-6">
               <Link
-                key={b.t}
-                to={b.to}
-                className="bg-background p-6 flex flex-col group hover:bg-surface-muted/50 transition-colors"
+                to="/education"
+                className="inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
               >
-                <h3 className="text-[15.5px] font-semibold text-foreground tracking-[-0.005em] leading-snug">
-                  {b.t}
-                </h3>
-                <p className="mt-3 text-[14px] text-muted-foreground leading-[1.6] flex-1">
-                  {b.s}
-                </p>
-                <span className="mt-5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground group-hover:text-foreground transition-colors">
-                  Read →
-                </span>
+                Resource Library →
               </Link>
-            ))}
-          </div>
-          <div className="mt-6">
-            <Link
-              to="/education"
-              className="inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-            >
-              Resource Library →
-            </Link>
+            </div>
           </div>
         </div>
       </section>

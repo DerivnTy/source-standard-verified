@@ -155,14 +155,14 @@ const FeatureCard = ({
       to={routeFor(entry.slug)}
       className="group bg-background p-7 flex flex-col h-full transition-colors hover:bg-surface-muted"
     >
-      <p className="text-[11px] font-mono text-muted-foreground mb-5">{ref}</p>
-      <h3 className="text-[19px] font-semibold leading-snug tracking-tight text-foreground">
+      <p className="t-utility-xs text-muted-foreground mb-5">{ref}</p>
+      <h3 className="t-h3 text-foreground">
         {ov?.title ?? displayTitle(entry)}
       </h3>
-      <p className="mt-2.5 text-[13.5px] text-muted-foreground leading-[1.65]">
+      <p className="mt-3 t-body-sm text-muted-foreground">
         {ov?.blurb ?? entry.summary}
       </p>
-      <span className="mt-5 text-[13px] font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+      <span className="mt-6 t-utility-xs text-foreground/80 group-hover:text-foreground transition-colors">
         Read article →
       </span>
     </Link>
@@ -179,19 +179,19 @@ const EntryRow = ({ entry }: { entry: LibraryEntry }) => {
       >
         <div className="flex items-start justify-between gap-6">
           <div className="flex-1 min-w-0">
-            <h3 className="text-[16px] font-semibold leading-snug text-foreground tracking-tight group-hover:text-primary transition-colors">
+            <h3 className="t-h4 text-foreground group-hover:text-primary transition-colors">
               {displayTitle(entry)}
             </h3>
-            <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-[1.6]">
+            <p className="mt-2 t-body-sm text-muted-foreground max-w-[68ch]">
               {entry.summary}
             </p>
             {reviewed && (
-              <p className="mt-2 text-[12px] text-muted-foreground/80">
+              <p className="mt-2 t-utility-xs text-muted-foreground/80">
                 Reviewed by Medical Advisory Board
               </p>
             )}
           </div>
-          <span className="text-[12.5px] text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-0.5">
+          <span className="t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-1">
             Read →
           </span>
         </div>
@@ -209,16 +209,10 @@ const SectionHeader = ({
   title: string;
   lede?: string;
 }) => (
-  <div className="mb-8 max-w-2xl">
-    <p className="text-[11.5px] font-mono uppercase tracking-[0.14em] text-muted-foreground mb-3">
-      {eyebrow}
-    </p>
-    <h2 className="text-[24px] md:text-[26px] font-semibold tracking-tight text-foreground">
-      {title}
-    </h2>
-    {lede && (
-      <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed">{lede}</p>
-    )}
+  <div className="mb-10 max-w-2xl">
+    <p className="t-eyebrow-sm text-muted-foreground mb-4">{eyebrow}</p>
+    <h2 className="t-section-title-sm text-foreground">{title}</h2>
+    {lede && <p className="mt-5 t-body-md text-muted-foreground">{lede}</p>}
   </div>
 );
 
@@ -245,20 +239,22 @@ const CategorySection = ({
     id={id}
     className={`border-b border-border ${surface === "muted" ? "bg-surface-muted" : "bg-background"}`}
   >
-    <div className="container-wide py-12 md:py-16">
-      <SectionHeader eyebrow={eyebrow} title={title} lede={lede} />
-      <ul className="divide-y divide-border border-t border-b border-border">
-        {entries.map((e) => (
-          <EntryRow key={e.id} entry={e} />
-        ))}
-      </ul>
-      <div className="mt-6 flex justify-end">
-        <Link
-          to={footerTo}
-          className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
-        >
-          {footerLabel} →
-        </Link>
+    <div className="page-shell section-pad">
+      <div className="mx-auto w-standard">
+        <SectionHeader eyebrow={eyebrow} title={title} lede={lede} />
+        <ul className="divide-y divide-border border-t border-b border-border">
+          {entries.map((e) => (
+            <EntryRow key={e.id} entry={e} />
+          ))}
+        </ul>
+        <div className="mt-6 flex justify-end">
+          <Link
+            to={footerTo}
+            className="t-utility-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {footerLabel} →
+          </Link>
+        </div>
       </div>
     </div>
   </section>
@@ -286,19 +282,21 @@ const Education = () => {
 
       {/* Start here — featured trio */}
       <section className="border-b border-border bg-background">
-        <div className="container-wide py-12 md:py-16">
-          <SectionHeader
-            eyebrow="Start here"
-            title="Start here."
-            lede="Three short reads that frame everything else in the library."
-          />
-          <ul className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
-            {featuredEntries.map((entry, i) => (
-              <li key={entry.slug} className="bg-background">
-                <FeatureCard entry={entry} index={i} />
-              </li>
-            ))}
-          </ul>
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <SectionHeader
+              eyebrow="Start here"
+              title="Start here."
+              lede="Three short reads that frame everything else in the library."
+            />
+            <ul className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
+              {featuredEntries.map((entry, i) => (
+                <li key={entry.slug} className="bg-background">
+                  <FeatureCard entry={entry} index={i} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -340,83 +338,115 @@ const Education = () => {
 
       {/* Regulatory FAQ — navigational utility row */}
       <section className="border-b border-border bg-background" id="questions">
-        <div className="container-wide py-12 md:py-16">
-          <SectionHeader
-            eyebrow="Regulatory FAQ"
-            title="Regulatory FAQ."
-            lede="Plain-record answers, organized by inquiry category."
-          />
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-b border-border lg:divide-x divide-y lg:divide-y-0 divide-border">
-            {CATEGORIES.map((c) => {
-              const route =
-                CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`;
-              return (
-                <li key={c.key}>
-                  <Link
-                    to={route}
-                    className="group block px-5 py-6 h-full transition-colors hover:bg-surface-muted"
-                  >
-                    <p className="text-[15px] font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {c.label}
-                    </p>
-                    <p className="mt-1.5 text-[13px] text-muted-foreground leading-[1.6]">
-                      {c.description}
-                    </p>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="mt-6 flex justify-end">
-            <Link
-              to="/education/questions"
-              className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Browse the full FAQ archive →
-            </Link>
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <SectionHeader
+              eyebrow="Regulatory FAQ"
+              title="Regulatory FAQ."
+              lede="Plain-record answers, organized by inquiry category."
+            />
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-b border-border lg:divide-x divide-y lg:divide-y-0 divide-border">
+              {CATEGORIES.map((c) => {
+                const route =
+                  CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`;
+                return (
+                  <li key={c.key}>
+                    <Link
+                      to={route}
+                      className="group block px-5 py-6 h-full transition-colors hover:bg-surface-muted"
+                    >
+                      <p className="t-h4 text-foreground group-hover:text-primary transition-colors">
+                        {c.label}
+                      </p>
+                      <p className="mt-2 t-body-sm text-muted-foreground">
+                        {c.description}
+                      </p>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="mt-6 flex justify-end">
+              <Link
+                to="/education/questions"
+                className="t-utility-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Browse the full FAQ archive →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Latest analysis — smaller strip */}
       <section className="border-b border-border bg-surface-muted" id="analysis">
-        <div className="container-wide py-12 md:py-16">
-          <SectionHeader
-            eyebrow="Latest analysis"
-            title="Latest analysis."
-            lede="Recent additions to the analysis series."
-          />
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-t border-border">
-            {analysisEntries.map((e) => (
-              <li key={e.id} className="border-b border-border py-5">
-                <Link
-                  to={routeFor(e.slug)}
-                  className="group block transition-colors"
-                >
-                  <div className="flex items-start justify-between gap-6">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-[15.5px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
-                        {displayTitle(e)}
-                      </h3>
-                      <p className="mt-1.5 text-[13px] text-muted-foreground leading-[1.6]">
-                        {e.summary}
-                      </p>
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <SectionHeader
+              eyebrow="Latest analysis"
+              title="Latest analysis."
+              lede="Recent additions to the analysis series."
+            />
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-t border-border">
+              {analysisEntries.map((e) => (
+                <li key={e.id} className="border-b border-border py-5">
+                  <Link
+                    to={routeFor(e.slug)}
+                    className="group block transition-colors"
+                  >
+                    <div className="flex items-start justify-between gap-6">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="t-h4 text-foreground group-hover:text-primary transition-colors">
+                          {displayTitle(e)}
+                        </h3>
+                        <p className="mt-2 t-body-sm text-muted-foreground">
+                          {e.summary}
+                        </p>
+                      </div>
+                      <span className="t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-1">
+                        Read →
+                      </span>
                     </div>
-                    <span className="text-[12.5px] text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-0.5">
-                      Read →
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex justify-end">
+              <a
+                href="#archive"
+                className="t-utility-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                View archive →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Forthcoming formats — de-emphasized */}
+      <section className="border-b border-border bg-background" id="archive">
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-standard">
+            <SectionHeader
+              eyebrow="Forthcoming formats"
+              title="Forthcoming formats."
+              lede="Future extensions of the library."
+            />
+            <ul className="divide-y divide-border border-t border-b border-border max-w-3xl">
+              {librarySupplementary.map((m) => {
+                const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
+                return (
+                  <li key={m.id} className="py-4 t-body-sm">
+                    <span className="text-foreground font-semibold">
+                      {ov.title ?? m.title}
+                    </span>{" "}
+                    <span className="text-muted-foreground">
+                      {ov.description ?? m.description}
                     </span>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 flex justify-end">
-            <a
-              href="#archive"
-              className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
-            >
-              View archive →
-            </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </section>

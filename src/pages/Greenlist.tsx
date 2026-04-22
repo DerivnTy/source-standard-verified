@@ -209,34 +209,36 @@ const Greenlist = () => {
 
       {/* Why this page exists */}
       <section className="bg-background border-b border-border/60">
-        <div className="container-wide py-14 md:py-16">
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mb-6">
-            Why this page exists
-          </p>
-          <div className="grid md:grid-cols-3 md:divide-x divide-border/60">
-            <div className="md:pr-8 pb-6 md:pb-0">
-              <h3 className="text-[15px] font-semibold text-foreground mb-2">
-                Recognized upstream sources
-              </h3>
-              <p className="text-[13.5px] leading-[1.65] text-muted-foreground max-w-[42ch]">
-                Source Standard first identifies compounding facilities recognized under federal registration, state licensure, or accredited credentialing.
-              </p>
-            </div>
-            <div className="md:px-8 py-6 md:py-0">
-              <h3 className="text-[15px] font-semibold text-foreground mb-2">
-                Vendor assessment
-              </h3>
-              <p className="text-[13.5px] leading-[1.65] text-muted-foreground max-w-[42ch]">
-                Clinics and vendors are then assessed against those upstream sources.
-              </p>
-            </div>
-            <div className="md:pl-8 pt-6 md:pt-0">
-              <h3 className="text-[15px] font-semibold text-foreground mb-2">
-                One layer of the chain
-              </h3>
-              <p className="text-[13.5px] leading-[1.65] text-muted-foreground max-w-[42ch]">
-                The Greenlist is a reference layer. It is not, on its own, a vendor verification.
-              </p>
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-wide">
+            <p className="t-eyebrow-sm text-muted-foreground mb-6">
+              Why this page exists
+            </p>
+            <div className="grid md:grid-cols-3 md:divide-x divide-border/60">
+              <div className="md:pr-8 pb-6 md:pb-0">
+                <h3 className="t-h4 text-foreground mb-2">
+                  Recognized upstream sources
+                </h3>
+                <p className="t-body-sm text-muted-foreground max-w-[42ch]">
+                  Source Standard first identifies compounding facilities recognized under federal registration, state licensure, or accredited credentialing.
+                </p>
+              </div>
+              <div className="md:px-8 py-6 md:py-0">
+                <h3 className="t-h4 text-foreground mb-2">
+                  Vendor assessment
+                </h3>
+                <p className="t-body-sm text-muted-foreground max-w-[42ch]">
+                  Clinics and vendors are then assessed against those upstream sources.
+                </p>
+              </div>
+              <div className="md:pl-8 pt-6 md:pt-0">
+                <h3 className="t-h4 text-foreground mb-2">
+                  One layer of the chain
+                </h3>
+                <p className="t-body-sm text-muted-foreground max-w-[42ch]">
+                  The Greenlist is a reference layer. It is not, on its own, a vendor verification.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -244,49 +246,49 @@ const Greenlist = () => {
 
       {/* Registry summary — institutional record strip */}
       <section className="border-b border-border bg-background">
-        <div className="container-wide py-8 md:py-10">
-          {/* Eyebrow row */}
-          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-5">
-            <p className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground">
-              Registry Summary
-              <span className="mx-2 text-border">·</span>
-              As of {new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })}
-            </p>
-            <p className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground tabular-nums">
-              Total recognized
-              <span className="mx-2 text-border">·</span>
-              <span className="text-foreground">{counts.total}</span>
-            </p>
-          </div>
+        <div className="page-shell py-8 md:py-10">
+          <div className="mx-auto w-wide">
+            {/* Eyebrow row */}
+            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-5">
+              <p className="t-utility-xs text-muted-foreground">
+                Registry Summary
+                <span className="mx-2 text-border">·</span>
+                As of {new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })}
+              </p>
+              <p className="t-utility-xs text-muted-foreground tabular-nums">
+                Total recognized
+                <span className="mx-2 text-border">·</span>
+                <span className="text-foreground">{counts.total}</span>
+              </p>
+            </div>
 
-          {/* Count grid */}
-          <div className="grid grid-cols-2 md:grid-cols-5 border-t border-border/60 md:divide-x md:divide-border/60">
-            {[
-              { label: "503B", value: counts["503B"], tick: "bg-[hsl(var(--src-503b))]" },
-              { label: "503A", value: counts["503A"], tick: "bg-[hsl(var(--src-503a))]" },
-              { label: "Other", value: counts.Other, tick: "bg-[hsl(var(--src-unverified))]" },
-              { label: "Not currently recognized", value: unverifiedCount, tick: "bg-destructive" },
-              { label: "Total", value: counts.total, tick: "bg-foreground/40" },
-            ].map((cell) => (
-              <div key={cell.label} className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <span aria-hidden className={`inline-block w-[2px] h-[10px] ${cell.tick}`} />
-                  <span className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground">
-                    {cell.label}
-                  </span>
+            {/* Count grid */}
+            <div className="grid grid-cols-2 md:grid-cols-5 border-t border-border/60 md:divide-x md:divide-border/60">
+              {[
+                { label: "503B", value: counts["503B"], tick: "bg-[hsl(var(--src-503b))]" },
+                { label: "503A", value: counts["503A"], tick: "bg-[hsl(var(--src-503a))]" },
+                { label: "Other", value: counts.Other, tick: "bg-[hsl(var(--src-unverified))]" },
+                { label: "Not currently recognized", value: unverifiedCount, tick: "bg-destructive" },
+                { label: "Total", value: counts.total, tick: "bg-foreground/40" },
+              ].map((cell) => (
+                <div key={cell.label} className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0 min-h-[120px] flex flex-col">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span aria-hidden className={`inline-block w-[2px] h-[10px] ${cell.tick}`} />
+                    <span className="t-utility-xs text-muted-foreground">{cell.label}</span>
+                  </div>
+                  <div className="font-mono text-[20px] leading-[28px] font-medium tabular-nums text-foreground mt-auto">
+                    {cell.value}
+                  </div>
                 </div>
-                <div className="font-mono text-[22px] tabular-nums text-foreground leading-none">
-                  {cell.value}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* Interpretation note */}
-          <div className="mt-6 border-l-2 border-border/70 pl-4 py-1">
-            <p className="text-[13px] leading-[1.7] text-muted-foreground max-w-[78ch]">
-              Inclusion means the facility appears within the recognized upstream reference set used by the framework. It does not mean Source Standard is certifying any downstream vendor that uses the source. Vendor verification is a separate review.
-            </p>
+            {/* Interpretation note */}
+            <div className="mt-6 border-l-2 border-border/70 pl-4 py-1">
+              <p className="t-body-sm text-muted-foreground max-w-[78ch]">
+                Inclusion means the facility appears within the recognized upstream reference set used by the framework. It does not mean Source Standard is certifying any downstream vendor that uses the source. Vendor verification is a separate review.
+              </p>
+            </div>
           </div>
         </div>
       </section>

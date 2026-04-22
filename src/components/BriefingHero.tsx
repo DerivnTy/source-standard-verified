@@ -140,25 +140,25 @@ export const BriefingHero = ({
       >
         <HeroPattern opacity={0.018} stroke="white" cellSize={32} />
 
-        <div className="relative z-10 container-wide py-14 md:py-20">
-          <div className="max-w-[760px]">
+        <div className="relative z-10 page-shell section-pad">
+          <div className="w-hero">
             <p
               aria-hidden="true"
-              className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55 mb-5"
+              className="t-eyebrow-sm text-white/55 mb-4"
             >
               {category}
             </p>
             <h1
               id="briefing-title"
-              className="text-white tracking-[-0.015em] leading-[1.1] text-[28px] sm:text-[32px] md:text-[38px] font-semibold max-w-[22ch]"
+              className="text-white t-chapter-title max-w-[22ch]"
             >
               {title}
             </h1>
-            <p className="mt-5 max-w-[60ch] text-[14.5px] text-white/70 leading-[1.7]">
+            <p className="mt-5 max-w-[68ch] t-body-md text-white/70">
               {statement}
             </p>
             {actions && (
-              <div className="mt-7 flex flex-col sm:flex-row items-start gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row items-start gap-3">
                 {actions}
               </div>
             )}
@@ -213,21 +213,21 @@ export const BriefingHero = ({
           </div>
         </div>
       ) : (
-        <div className="relative container-wide py-14 md:py-20">
-          <div className="max-w-[760px]">
+        <div className="relative page-shell section-pad">
+          <div className="w-hero">
             <p
               aria-hidden="true"
-              className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted-foreground mb-5"
+              className="t-eyebrow-sm text-muted-foreground mb-4"
             >
               {category}
             </p>
             <h1
               id="briefing-title"
-              className="text-foreground tracking-[-0.015em] leading-[1.1] text-[28px] sm:text-[32px] md:text-[38px] font-semibold max-w-[22ch]"
+              className="text-foreground t-chapter-title max-w-[22ch]"
             >
               {title}
             </h1>
-            <p className="mt-5 max-w-[60ch] text-[14.5px] text-muted-foreground leading-[1.7]">
+            <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">
               {statement}
             </p>
           </div>

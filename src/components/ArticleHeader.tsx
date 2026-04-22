@@ -26,34 +26,34 @@ export const ArticleHeader = ({
   backLabel?: string;
 }) => (
   <header className="border-b border-border bg-background">
-    <div className="container-wide py-10 md:py-14">
-      <div className="max-w-[880px] mx-auto">
+    <div className="page-shell section-pad">
+      <div className="mx-auto w-reading-wide">
         <Link
           to={backHref}
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-8 group"
+          className="inline-flex items-center gap-1.5 t-utility-xs text-muted-foreground hover:text-foreground transition-colors mb-8 group"
         >
           <span className="transition-transform group-hover:-translate-x-0.5">←</span>
-          <span className="underline-offset-4 group-hover:underline">{backLabel}</span>
+          <span className="underline-offset-4 group-hover:underline normal-case tracking-normal">{backLabel}</span>
         </Link>
 
         {eyebrow && (
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground mb-3">
+          <p className="t-eyebrow-sm text-muted-foreground mb-4">
             {eyebrow}
           </p>
         )}
 
-        <h1 className="font-serif text-[30px] md:text-[38px] leading-[1.1] tracking-[-0.015em] text-foreground max-w-[26ch] mb-5">
+        <h1 className="t-article-title text-foreground max-w-[26ch] mb-5">
           {title}
         </h1>
 
         {lead && (
-          <p className="text-[16.5px] leading-[1.55] text-muted-foreground max-w-[68ch]">
+          <p className="t-body-md text-muted-foreground max-w-[68ch]">
             {lead}
           </p>
         )}
 
         {metadata.length > 0 && (
-          <div className="mt-7 pt-4 border-t border-border flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
+          <div className="mt-7 pt-4 border-t border-border flex flex-wrap items-center gap-x-2 gap-y-1.5 t-utility-xs text-muted-foreground">
             {metadata.map((m, i) => (
               <span key={i} className="inline-flex items-center gap-2">
                 {i > 0 && <span aria-hidden className="text-border">·</span>}
