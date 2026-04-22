@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -78,7 +77,6 @@ const LibraryAsepticTechnique = () => {
         next={{ to: "/library/endocrinological-context", label: "Endocrinological Context (SS-GUIDE-003)" }}
         citation={`Source Standard, Clinical Guide — Aseptic Technique, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

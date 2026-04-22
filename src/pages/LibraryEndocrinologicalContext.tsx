@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -75,7 +74,6 @@ const LibraryEndocrinologicalContext = () => {
         next={{ to: "/library/reference-dosing-ranges", label: "Reference Dosing Ranges (SS-GUIDE-004)" }}
         citation={`Source Standard, Clinical Guide — Endocrinological Context, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

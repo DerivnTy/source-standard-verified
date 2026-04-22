@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-import { DocSignature } from "@/components/DocSignature";
 import { advisoryBoard, responsibilities } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
@@ -310,7 +309,6 @@ const MedicalAdvisory = () => {
         </div>
       </section>
 
-      <DocSignature docId="SS-MAB-2026.01" verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

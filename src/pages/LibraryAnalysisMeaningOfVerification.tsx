@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -74,7 +73,6 @@ const LibraryAnalysisMeaningOfVerification = () => {
         next={{ to: "/library/analysis/undocumented-sourcing-signs", label: "Warning Signs of Undocumented Sourcing (SS-ANALYSIS-006)" }}
         citation={`Source Standard, Clinical Analysis — Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

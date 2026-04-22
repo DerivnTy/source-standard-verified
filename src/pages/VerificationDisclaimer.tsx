@@ -3,7 +3,6 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
-import { DocSignature } from "@/components/DocSignature";
 import { Callout, CalloutTitle } from "@/components/Callout";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -189,7 +188,6 @@ const VerificationDisclaimer = () => (
     <BoardCiteFooter
       citation={`Source Standard. Verification Disclaimer & Attestation Scope. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
     />
-    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

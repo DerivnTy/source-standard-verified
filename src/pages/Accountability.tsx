@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
-import { DocSignature } from "@/components/DocSignature";
 import { Callout } from "@/components/Callout";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -196,7 +195,6 @@ const Accountability = () => (
     <BoardCiteFooter
       citation={`Source Standard. Compliance Monitoring & Enforcement Protocols. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
     />
-    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

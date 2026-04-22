@@ -3,7 +3,6 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
-import { DocSignature } from "@/components/DocSignature";
 import { Callout } from "@/components/Callout";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -214,7 +213,6 @@ const Terms = () => (
     <BoardCiteFooter
       citation={`Source Standard. User Agreement & Registry Terms. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
     />
-    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

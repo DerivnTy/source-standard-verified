@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -71,7 +70,6 @@ const LibrarySterilePreparationIntegrity = () => {
         next={{ to: "/library/aseptic-technique-fundamentals", label: "Aseptic Technique Fundamentals (SS-GUIDE-002)" }}
         citation={`Source Standard, Clinical Guide — Sterile Preparation Integrity, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

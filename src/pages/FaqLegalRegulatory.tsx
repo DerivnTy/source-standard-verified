@@ -1,7 +1,6 @@
 import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardFooterNav,
@@ -93,7 +92,6 @@ const FaqLegalRegulatory = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Legal & Regulatory, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
-    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

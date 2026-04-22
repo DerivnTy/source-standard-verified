@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
-import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardCiteFooter,
@@ -289,7 +288,6 @@ const StatusDefinitions = () => (
     </BoardSection>
 
     <BoardCiteFooter citation={`Source Standard, Glossary of Regulatory Standings, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
-    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
   </>
 );
 

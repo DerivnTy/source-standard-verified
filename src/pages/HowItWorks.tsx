@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import { BriefingHero } from "@/components/BriefingHero";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BoardSection } from "@/components/BoardSection";
@@ -373,7 +372,6 @@ const HowItWorks = () => {
         </ul>
       </BoardSection>
 
-      <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
     </div>
   );
 };
