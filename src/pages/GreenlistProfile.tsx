@@ -183,6 +183,17 @@ const GreenlistProfile = () => {
 
   return (
     <>
+      <PageMeta
+        title={`${entry.name} · ${entry.type}`}
+        description={`Source Standard public registry record for ${entry.name}. ${entry.type} · ${entry.location}.`}
+      />
+      <Breadcrumb
+        items={[
+          { label: "Registry", to: "/greenlist" },
+          { label: entry.category === "503B" ? "503B" : entry.category === "503A" ? "503A" : entry.category },
+          { label: entry.name },
+        ]}
+      />
       <ProfileHeader
         backHref="/greenlist"
         backLabel="Back to Greenlist"
