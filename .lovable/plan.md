@@ -1,80 +1,97 @@
 
 
-## "Other" → "Unverified Facilities" rebrand + red alert badge
+## Unified Registry Integration — Unverified & Flagged Facilities
 
-Reframe the third Greenlist category as a serious "Unverified Facilities" status with an institutional red soft-badge, completing the Green → Amber → Red traffic-light system.
+Weave Unverified / Flagged / Shut-Down entries directly into the Greenlist (and Verified Vendors where applicable), alphabetically alongside 503B and 503A entries. The table stays clean — a soft-red status badge is the only signal. The Profile page does the heavy lifting with a dedicated **Regulatory Alert** block exposing status, reason, and source proof.
 
 ---
 
-### 1 · New token — institutional red
+### 1 · Data model — extend `GreenlistEntry`
 
-`src/index.css` — add to `:root`:
+`src/data/greenlist.ts`:
 
-```css
---src-unverified: 0 55% 38%;        /* deep crimson text */
---src-unverified-soft: 0 60% 95%;   /* light alert-red bg */
+**a. New alert subtypes** under the existing `Other` category (no new top-level category needed — keeps the Green/Amber/Red traffic light intact):
+
+```ts
+export type AlertStatus =
+  | "shut-down"          // FDA action / ceased operations
+  | "no-longer-registered" // present on FDA list previously, absent now
+  | "not-on-fda-list"    // claims registration but never listed
+  | "unverified";        // generic, no audit submitted
 ```
 
-And to `.dark`:
+**b. New `regulatoryAlert` field** on `GreenlistEntry` (optional — only populated for flagged/unverified facilities):
 
-```css
---src-unverified: 0 65% 65%;
---src-unverified-soft: 0 35% 16%;
+```ts
+regulatoryAlert?: {
+  status: AlertStatus;        // drives badge label + alert banner
+  shortLabel?: string;        // table cell override, e.g. "No Active Registration"
+  asOf: string;               // ISO date (e.g. "2026-04-16")
+  reason: string;             // 1–3 sentence objective summary
+  proof: { label: string; url: string }[]; // FDA links, snapshots, warning letters
+};
 ```
 
-Keep the existing `--src-other` tokens in place for safety (orphaned, not referenced after this change). Token-driven so dark mode auto-resolves.
+**c. Type addition** — extend `GreenlistType` with `"Unverified Facility"` so the type column has a valid label for non-503-status entries.
 
-### 2 · Greenlist — rename + recolor
+**d. Two seed records** (Examples A & B from the brief) appended to `greenlistEntries`, both `category: "Other"`, with full `regulatoryAlert` blocks and proof links.
+
+### 2 · Table integration — clean & alphabetical
 
 `src/pages/Greenlist.tsx`:
 
-**Source-type definition (line 41-45)** — rewrite the `Other` entry copy:
-```ts
-Other: {
-  title: "Unverified Facilities",
-  body:
-    "Entities that have not yet undergone the Source Standard audit process or have failed to provide necessary transparency regarding their supply chain and clinical protocols.",
-},
+- **No structural change** to filtering/sorting/pagination — entries with `category: "Other"` already flow through. Default `name-asc` sort already interleaves them alphabetically.
+- **Status column** (currently shows `<CategoryPill>` for 503B/503A): for entries with `regulatoryAlert`, render an additional **soft-red status badge** (e.g. "UNVERIFIED" / "NO ACTIVE REGISTRATION") *underneath* the `CategoryPill` using the existing `--src-unverified` / `--src-unverified-soft` tokens. Same soft-badge style as the `Other` pill but using `regulatoryAlert.shortLabel` when present (else a default mapped from `AlertStatus`).
+- **Alphabetical interleaving** — confirmed by default `name-asc`. No new "Flagged" section; entries appear inline like everyone else.
+- **Filter dropdown** — the existing `Unverified` option already filters `category === "Other"`, which now correctly captures these entries. No filter-logic change.
+- **Mobile card** — same soft-red badge appended below the source-type pill.
+
+### 3 · Profile page — Regulatory Alert block
+
+`src/pages/GreenlistProfile.tsx`:
+
+When `entry.regulatoryAlert` is present, render a new **`SubSection` "00 — Regulatory Alert"** *above* "01 Regulatory & Quality":
+
+```
+┌────────────────────────────────────────────────────────┐
+│  00  REGULATORY ALERT                                  │
+├────────────────────────────────────────────────────────┤
+│  Current status      [SHUT DOWN / NO LONGER REGISTERED]│
+│  As of               April 16, 2026                    │
+│  Reason for alert    Present on FDA's 503B registry…   │
+│  Source proof        ↗ FDA Registry Snapshot           │
+│                      ↗ Warning Letter (2024)           │
+└────────────────────────────────────────────────────────┘
 ```
 
-**Category style + pill maps (lines 48-67)** — point `Other` at the new red tokens:
-```ts
-Other: { dot: "bg-[hsl(var(--src-unverified))]" }
-// and
-Other: {
-  wrap: "bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25",
-  dot:  "bg-[hsl(var(--src-unverified))]",
-},
-```
+Container uses red token chrome (`bg-[hsl(var(--src-unverified-soft))]/40`, `border-[hsl(var(--src-unverified))]/30`) so it reads as an alert banner, not a generic block. Soft, institutional — not loud.
 
-**Stat strip label (line 267)** — the card currently shows the raw key (`"Other"`) when not the total card. Map `Other → "Unverified"` for the eyebrow and keep the full title in the hover-card body. Implementation: replace `s.key === "total" ? s.label : s.key` with a small label resolver: `total → "Total Recognized"`, `503B / 503A → as-is`, `Other → "Unverified"`.
+**Header changes** for alert entries:
+- `identity` row: replace the green "Greenlisted" pill with a soft-red badge using `regulatoryAlert.shortLabel` (e.g. "UNVERIFIED — NOT ON FDA LIST"). Dot uses `--src-unverified`.
+- `eyebrow`: `"Greenlist source"` → `"Unverified facility"` when alert is present.
+- `lead`: pulls from `regulatoryAlert.reason` (truncated) instead of `background` when alert exists, so the "what's wrong" lands above the fold.
 
-**Pill label (line 76)** — currently renders the raw category (`"Other"`). Map to `"Unverified"` display string while keeping the underlying `GreenlistCategory` value `"Other"` (no data migration). Tracking/uppercase styling unchanged so it sits at identical visual weight to the 503B/503A pills.
+**Footnote**: `Listing` field changes from `"Greenlist Facility"` → `"Unverified Facility"` when alert is present.
 
-**Type filter `<option>` (lines 311-315)** — show "Unverified" as the visible label for the `Other` option; value stays `"Other"`.
+### 4 · Verified Vendors — already supports this pattern
 
-**Card sub-label (line 275)** — the strip currently does `s.label.replace(/^503[AB] /, "").replace(/^Other /, "")`. With the new title `"Unverified Facilities"`, replace this with a tiny per-key descriptor map so the third card reads "Audit pending / non-transparent" beneath the `00` count, matching the secondary lines under 503B / 503A.
+`src/pages/VerifiedVendors.tsx` already has `unverified` / `under-review` / `suspended` statuses with `<StatusBadge>` rendering soft-red for `suspended`. **No change needed** — the brief's "weave unverified into the table" is already true here.
 
-### 3 · Underlying data type — unchanged
+We will add an optional `regulatoryAlert` block to `VendorProfile.tsx` mirroring the Greenlist treatment, surfaced when `vendor.publicNote` is upgraded to a structured alert. Out of scope for this pass unless data is added; type definition added now so future entries slot in cleanly.
 
-`GreenlistCategory = "503B" | "503A" | "Other"` stays. `data/greenlist.ts` is untouched. "Other" becomes a purely internal key; every user-facing surface renders "Unverified" / "Unverified Facilities."
+### 5 · Tokens — already exist
 
-### 4 · Verified Vendors — no change
-
-`VerifiedVendors.tsx` uses `StatusBadge` (verified / under-review / suspended), not the Greenlist category system. Its red is already reserved for `suspended`. No edits needed — the rebrand is scoped to the Upstream Facility Registry where the traffic-light system lives.
-
-### 5 · Layout / density — preserved
-
-No changes to: container chrome (`rounded-[12px]`, soft layered shadow), hairline dividers, sticky filter bar, row hover (`hover:bg-primary/[0.04]`), typography, "View →" treatment, methodology accordion, pagination.
+`--src-unverified` (deep crimson) and `--src-unverified-soft` (light alert red) tokens added in the previous pass. No CSS changes required.
 
 ---
 
 ### Files touched
 
-- `src/index.css` — add `--src-unverified` + `--src-unverified-soft` tokens (light + dark).
-- `src/pages/Greenlist.tsx` — rename `Other` copy, repoint `CATEGORY_STYLE` + `CATEGORY_PILL` `Other` to unverified tokens, remap display labels in stat card eyebrow / pill / filter dropdown / card sub-label.
+- `src/data/greenlist.ts` — add `AlertStatus` type, `regulatoryAlert` optional field on `GreenlistEntry`, extend `GreenlistType` with `"Unverified Facility"`, append two seed entries (Examples A & B).
+- `src/pages/Greenlist.tsx` — render soft-red status badge under `CategoryPill` for entries with `regulatoryAlert` (desktop row + mobile card). Tiny helper `AlertBadge` component co-located.
+- `src/pages/GreenlistProfile.tsx` — render new "00 — Regulatory Alert" `SubSection` above "01"; swap header eyebrow / identity pill / lead when alert present; footnote `Listing` label updates.
 
 ### What stays the same
 
-All routes, all data, the `GreenlistCategory` type and underlying `"Other"` key, every other page, `StatusBadge`, `SourceCheck`, the 503B (green) / 503A (amber) styling, dark-mode behavior, filtering / sorting / pagination logic. Presentational + copy only.
+All routes, filtering / sorting / pagination logic, `CategoryPill` styling for 503B / 503A / generic Other, stat strip, sticky filter bar, methodology accordion, `StatusBadge`, `SourceCheck`, every other page, the global token system, dark-mode behavior. Additive changes only — existing entries without `regulatoryAlert` render exactly as today.
 
