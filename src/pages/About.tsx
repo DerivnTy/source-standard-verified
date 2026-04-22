@@ -66,6 +66,10 @@ const About = () => {
 
   return (
     <>
+      <PageMeta
+        title="About Source Standard"
+        description="Source Standard is a public, version-controlled record establishing transparency standards for clinical sourcing and verification."
+      />
       <RecordHeader
         metadata={[
           { label: "Doc", value: "SS-ORG-2026.01" },
