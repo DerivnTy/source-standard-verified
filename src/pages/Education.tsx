@@ -121,8 +121,6 @@ const CATEGORIES: {
   },
 ];
 
-const faqById = (id: string) => libraryFaqs.find((f) => f.id === id);
-
 // Foundational basics: intro-level series
 const basics: LibraryEntry[] = librarySeries.filter((e) => e.level === "intro");
 const basicSlugs = new Set(basics.map((b) => b.slug));
@@ -163,52 +161,7 @@ const featuredEntries = FEATURED_SLUGS.map((slug) =>
   allEntries.find((e) => e.slug === slug),
 ).filter((e): e is LibraryEntry => Boolean(e));
 
-const matches = (q: string, ...fields: (string | undefined)[]) => {
-  if (!q) return true;
-  const needle = q.toLowerCase();
-  return fields.some((f) => f && f.toLowerCase().includes(needle));
-};
-
 const Education = () => {
-  const [query, setQuery] = useState("");
-
-  const q = query.trim();
-
-  const filteredBasics = useMemo(
-    () => basics.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
-    [q],
-  );
-  const filteredGuides = useMemo(
-    () => guidesPreview.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
-    [q],
-  );
-  const filteredAnalysis = useMemo(
-    () => analysisCards.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
-    [q],
-  );
-
-  // Per-category match counts (respect search)
-  const categoryCounts = useMemo(() => {
-    const out: Record<CategoryKey, number> = {
-      legal: 0,
-      clinical: 0,
-      verification: 0,
-      diligence: 0,
-    };
-    for (const c of CATEGORIES) {
-      out[c.key] = c.ids
-        .map(faqById)
-        .filter((f): f is FAQEntry => Boolean(f))
-        .filter((f) => matches(q, f.id, f.q, f.a)).length;
-    }
-    return out;
-  }, [q]);
-
-  const EmptyNote = () => (
-    <p className="px-1 py-4 text-[13px] text-muted-foreground italic">
-      No matches in this section.
-    </p>
-  );
 
   return (
     <>
