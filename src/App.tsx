@@ -25,6 +25,7 @@ import LibraryAsepticTechnique from "./pages/LibraryAsepticTechnique.tsx";
 import LibraryEndocrinologicalContext from "./pages/LibraryEndocrinologicalContext.tsx";
 import LibraryReferenceDosingRanges from "./pages/LibraryReferenceDosingRanges.tsx";
 import LibraryAnalysis2026Reclassification from "./pages/LibraryAnalysis2026Reclassification.tsx";
+import LibraryAnalysisQuestionsForYourClinic from "./pages/LibraryAnalysisQuestionsForYourClinic.tsx";
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
 import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
