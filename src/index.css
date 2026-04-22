@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth in-page anchor jumps; padding accounts for sticky header + breadcrumb */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
 /* Source Standard — institutional verification authority.
    Calmer typography: Inter for prose/UI, Plex Mono for technical IDs only.
    Authority through clarity, not stylization.
