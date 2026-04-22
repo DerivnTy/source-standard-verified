@@ -271,10 +271,14 @@
   }
 
   /* Vertical rhythm — single 3-step ladder used across the site.
+     section-band        → premium ~100px+ band, primary rhythm
      space-section       → major sections on anchor pages
      space-section-doc   → sections on doc / policy pages
      space-section-tight → helper bands, status legends, scope notes,
                             cite-as strips, form sections */
+  .section-band {
+    @apply py-24 md:py-28 lg:py-32;
+  }
   .space-section {
     @apply py-20 md:py-28;
   }
@@ -291,6 +295,16 @@
   }
   .section-tight {
     @apply py-12 md:py-16;
+  }
+
+  /* Trust list — replaces bullet markers with the SourceCheck glyph
+     for the institutional list pattern. Wrap each <li> with
+     <SourceCheck/> manually for full control. */
+  .trust-list {
+    @apply list-none pl-0 space-y-2.5;
+  }
+  .trust-list > li {
+    @apply flex items-start gap-3 text-[14px] leading-[1.6] text-foreground;
   }
 
   /* Elevated card chrome — institutional depth without Material flatness. */
