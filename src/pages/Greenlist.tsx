@@ -39,9 +39,9 @@ const SOURCE_TYPE_DEF: Record<GreenlistCategory, { title: string; body: string }
       "Pharmacy operating under Section 503A of the Federal Food, Drug, and Cosmetic Act. Licensed by the applicable state board of pharmacy and required to compound in accordance with USP <795>, <797>, and <800>.",
   },
   Other: {
-    title: "Other Qualified Source",
+    title: "Unverified Facilities",
     body:
-      "Additional recognized facility categories, including NSF-certified facilities, ISO-accredited laboratories, hospital-system suppliers, and multi-location compounding networks.",
+      "Entities that have not yet undergone the Source Standard audit process or have failed to provide necessary transparency regarding their supply chain and clinical protocols.",
   },
 };
 
