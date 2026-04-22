@@ -207,16 +207,13 @@ const VendorProfile = () => {
                 }
               />
               <Row label="Legal / public name" value={vendor.name} />
-              {vendor.brandName && vendor.brandName !== vendor.name && (
-                <Row label="Brand name" value={vendor.brandName} />
-              )}
               <Row label="Location" value={location} />
               <Row label="Website" value={websiteLink} />
               <Row label="Medical director" value={vendor.medicalDirector} />
               <Row label="Category" value={vendor.category} />
               <Row label="Clinical focus" value={vendor.clinicalFocus} />
-              {vendor.statesOfOperation && (
-                <Row label="States of operation" value={vendor.statesOfOperation} />
+              {vendor.state && (
+                <Row label="State" value={vendor.state} />
               )}
               {isVerified && verifiedScope && (
                 <Row label="Verified scope" value={verifiedScope} />
