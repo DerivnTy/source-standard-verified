@@ -152,7 +152,6 @@ const matches = (q: string, ...fields: (string | undefined)[]) => {
 
 const Education = () => {
   const [query, setQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState<CategoryKey>("legal");
 
   const q = query.trim();
 
@@ -168,12 +167,6 @@ const Education = () => {
     () => analysisCards.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
     [q],
   );
-
-  const activeCat = CATEGORIES.find((c) => c.key === activeCategory)!;
-  const activeFaqs: FAQEntry[] = activeCat.ids
-    .map(faqById)
-    .filter((f): f is FAQEntry => Boolean(f))
-    .filter((f) => matches(q, f.id, f.q, f.a));
 
   // Per-category match counts (respect search)
   const categoryCounts = useMemo(() => {
