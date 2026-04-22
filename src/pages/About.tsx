@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { DocSignature } from "@/components/DocSignature";
-import { PageMeta } from "@/components/PageMeta";
-import { DocSignature } from "@/components/DocSignature";
 
 const beliefs = [
   "Consumers deserve more than marketing language when evaluating a vendor.",
