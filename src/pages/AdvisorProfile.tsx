@@ -249,18 +249,6 @@ const AdvisorProfile = () => {
           </div>
         </div>
       </section>
-
-      <section className="bg-surface-muted">
-        <div className="container-wide py-8">
-          <p className="text-[12px] text-muted-foreground leading-relaxed max-w-4xl">
-            <span className="meta-label text-foreground mr-2">Cite as ·</span>
-            Source Standard, Medical Advisory Board, Seat {member.slug.toUpperCase()}, SS-MAB-2026.01.
-            <span className="ml-2 italic">
-              Placeholder profile for design and structural review only — not a published board appointment.
-            </span>
-          </p>
-        </div>
-      </section>
     </>
   );
 };

@@ -123,9 +123,6 @@ const ReportConcern = () => (
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Glossary of Regulatory Standings →</Link></li>
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification Protocol & Audit Methodology →</Link></li>
       </ul>
-      <p className="mt-8 meta-label">
-        Cite as: Source Standard, Reporting & Market Intelligence, SS-REPORT-2026.01.
-      </p>
     </Section>
   </>
 );

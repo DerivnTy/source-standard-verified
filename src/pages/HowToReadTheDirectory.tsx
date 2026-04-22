@@ -286,13 +286,6 @@ const HowToReadTheDirectory = () => {
           </ul>,
         )}
       </Section>
-
-      <Section density="tight">
-        <p className="meta-label">
-          Cite as: Source Standard, "How to read the directory," Doc SS-DIR-GUIDE-2026.01,
-          Version 2026.01 (April 21, 2026).
-        </p>
-      </Section>
     </>
   );
 };

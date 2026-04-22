@@ -300,14 +300,6 @@ const MedicalAdvisory = () => {
         </div>
       </section>
 
-      {/* Cite */}
-      <section className="bg-background">
-        <div className="container-wide py-8">
-          <p className="text-[12px] text-muted-foreground leading-relaxed max-w-4xl">
-            Source Standard, Medical Advisory Board, SS-MAB-2026.01. Last updated 04 / 21 / 2026.
-          </p>
-        </div>
-      </section>
 
     </>
   );
