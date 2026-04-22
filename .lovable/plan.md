@@ -1,38 +1,38 @@
 
 
-## New article page: `/library/interpreting-coas`
+## New article page: `/library/dual-layer-difference`
 
-Third whitepaper in the series. Mirrors the `LibraryWhatArePeptides` / `LibraryWhatIsCompounding` pattern exactly.
+Fourth whitepaper. Mirrors the established `LibraryInterpretingCoAs` / `LibraryWhatArePeptides` / `LibraryWhatIsCompounding` pattern exactly.
 
-### 1 · New file: `src/pages/LibraryInterpretingCoAs.tsx`
+### 1 · New file: `src/pages/LibraryDualLayerDifference.tsx`
 
 - **Header** — `RecordHeader`
-  - Eyebrow: `Source Standard · Audit Protocols`
-  - Title: `Audit Protocols: Interpreting CoAs and Detecting Discrepancies`
-  - Lead: `A guide to understanding Certificates of Analysis, verifying laboratory authenticity, and identifying common red flags in pharmaceutical testing.`
-  - Reference box: Doc `SS-SERIES-002` · Status `Active / Public Reference` · Jurisdiction `United States` · Updated `April 21, 2026`
+  - Eyebrow: `Source Standard · Foundational Philosophy`
+  - Title: `The Dual-Layer Difference`
+  - Lead: `Understanding the symbiotic verification of both the clinical entity and the upstream pharmacy provider.`
+  - Reference box: Doc `SS-SERIES-003` · Status `In Review / Public Reference` · Jurisdiction `United States` · Updated `April 21, 2026`
 
 - **Body** — 900px centered column via `Section` + `SectionLabel`, `prose-filing` serif:
-  - `§1 What is a CoA?` — single paragraph as supplied.
-  - `§2 The Anatomy of a Verified CoA` — intro paragraph + `DefList` (`Identity`, `Potency (Assay)`, `Purity`, `Sterility & Endotoxins`).
-  - `§3 Common Red Flags & Discrepancies` — intro paragraph + `DefList` (`Mismatched Lot Numbers`, `Opaque Lab Identity`, `Missing Dates`, `Photoshop Artifacts`).
-  - `§4 The Source Standard Verification Protocol` — single paragraph as supplied.
+  - `§1 The "Single-Point" Failure` — single paragraph as supplied.
+  - `§2 Layer One: The Clinical Entity` — intro paragraph + `DefList` (`Medical Oversight`, `Prescribing Integrity`, `Transparency`).
+  - `§3 Layer Two: The Upstream Pharmacy` — intro paragraph + `DefList` (`Licensure Reconciliation`, `Facility Classification`, `Evidence of Sourcing`).
+  - `§4 The Symbiotic Result` — single paragraph as supplied.
 
 - **Pivot footer** (hairline-top bar inside the centered column):
   - Left: `Button` `← Back to Clinical Library` → `/education`.
-  - Right: muted text link `Next: The Dual-Layer Difference (SS-SERIES-003) →` → `/library/dual-layer-difference` (placeholder route, wired for the next article).
+  - Right: muted text link `Next: Clinical Handling & Aseptic Protocols (SS-GUIDE-001) →` → `/library/aseptic-protocols` (placeholder route, wired for the next article).
 
 ### 2 · Route registration: `src/App.tsx`
 
-Add one import and one `<Route path="/library/interpreting-coas" element={<LibraryInterpretingCoAs />} />` inside `SiteLayout`.
+Add one import and one `<Route path="/library/dual-layer-difference" element={<LibraryDualLayerDifference />} />` inside `SiteLayout`.
 
 ### 3 · Education link override: `src/pages/Education.tsx`
 
-Extend `SLUG_ROUTE_OVERRIDES` with the SS-SERIES-002 entry's slug → `/library/interpreting-coas`.
+Extend `SLUG_ROUTE_OVERRIDES` with the SS-SERIES-003 entry's slug → `/library/dual-layer-difference`.
 
 ### Files touched
 
-- `src/pages/LibraryInterpretingCoAs.tsx` — new
+- `src/pages/LibraryDualLayerDifference.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
 - `src/pages/Education.tsx` — one new key in `SLUG_ROUTE_OVERRIDES`
 
