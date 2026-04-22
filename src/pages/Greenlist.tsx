@@ -269,29 +269,23 @@ const Greenlist = () => {
         ))}
       </FacetSelect>
 
-      <div className="flex items-center gap-1.5" role="group" aria-label="Filter by website availability">
+      <FacetGroup ariaLabel="Filter by website availability">
         {([
           { value: "yes", label: "Website listed" },
           { value: "no", label: "No website" },
         ] as { value: WebsiteFilter; label: string }[]).map((opt) => {
           const active = website === opt.value;
           return (
-            <button
+            <FacetToggle
               key={opt.value}
-              type="button"
-              aria-pressed={active}
+              active={active}
               onClick={() => setWebsite(active ? "all" : opt.value)}
-              className={`h-10 px-3 rounded-[2px] border border-border text-xs font-medium uppercase tracking-[0.06em] transition-colors ${
-                active
-                  ? "bg-foreground text-background border-foreground"
-                  : "bg-background text-muted-foreground hover:text-foreground"
-              }`}
             >
               {opt.label}
-            </button>
+            </FacetToggle>
           );
         })}
-      </div>
+      </FacetGroup>
     </>
   );
 
