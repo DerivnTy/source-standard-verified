@@ -26,24 +26,14 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 
 type Theme = {
   hairline: string; // top hairline above hero
-  monogramRing: string; // monogram tile border tint
 };
 
 const THEME: Record<VendorPublicStatus, Theme> = {
-  verified: { hairline: "bg-verified", monogramRing: "border-verified/40" },
-  "under-review": { hairline: "bg-pending", monogramRing: "border-pending/40" },
-  unverified: {
-    hairline: "bg-muted-foreground/30",
-    monogramRing: "border-border",
-  },
-  suspended: {
-    hairline: "bg-destructive",
-    monogramRing: "border-destructive/40",
-  },
-  removed: {
-    hairline: "bg-muted-foreground/30",
-    monogramRing: "border-border",
-  },
+  verified: { hairline: "bg-verified" },
+  "under-review": { hairline: "bg-pending" },
+  unverified: { hairline: "bg-muted-foreground/30" },
+  suspended: { hairline: "bg-destructive" },
+  removed: { hairline: "bg-muted-foreground/30" },
 };
 
 const FULFILLMENT_ICON: Record<VendorFulfillment, typeof Building2> = {
@@ -77,13 +67,7 @@ const formatFullAddress = (vendor: Vendor): string | null => {
 
 const sourceTypeFor = (_v: Vendor): string => "503A / 503B / Retail";
 
-const monogramOf = (name: string): string =>
-  name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("") || "·";
+// (monogram helper removed — no auto-generated logo block)
 
 const isPresent = (v: ReactNode | string[] | undefined | null | false): boolean => {
   if (v === null || v === undefined || v === "" || v === false) return false;
@@ -94,7 +78,7 @@ const isPresent = (v: ReactNode | string[] | undefined | null | false): boolean 
 // ---------- Locked primitives ----------
 
 const FallbackLine = ({ children }: { children: ReactNode }) => (
-  <span className="t-body-sm text-muted-foreground italic">{children}</span>
+  <span className="t-body-md text-muted-foreground italic">{children}</span>
 );
 
 /**
@@ -113,11 +97,9 @@ const Field = ({
   const present = isPresent(value);
   return (
     <div>
-      <dt className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground">
-        {label}
-      </dt>
+      <dt className="t-utility-xs text-muted-foreground">{label}</dt>
       <dd
-        className={`mt-1.5 t-body-sm font-medium leading-[1.5] ${
+        className={`mt-1.5 t-body-md leading-snug ${
           present ? "text-foreground" : "text-muted-foreground"
         } ${mono && present ? "font-mono tabular-nums" : ""}`}
       >
@@ -147,12 +129,12 @@ const RailRow = ({
   const present = isPresent(value);
   return (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-border/50 last:border-0">
-      <span className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground shrink-0">
+      <span className="t-utility-xs text-muted-foreground shrink-0">
         {label}
       </span>
       {present ? (
         <span
-          className={`t-body-sm text-foreground text-right leading-[1.45] ${
+          className={`t-body-sm text-foreground text-right leading-snug ${
             mono ? "font-mono tabular-nums" : ""
           }`}
         >
@@ -174,13 +156,9 @@ const SectionHeading = ({
 }) => (
   <div className="mb-5">
     {eyebrow && (
-      <p className="t-utility-xs uppercase tracking-[0.16em] text-muted-foreground font-semibold mb-1.5">
-        {eyebrow}
-      </p>
+      <p className="t-eyebrow-sm text-muted-foreground mb-1.5">{eyebrow}</p>
     )}
-    <h2 className="t-section-title-sm font-semibold tracking-tight text-foreground">
-      {children}
-    </h2>
+    <h2 className="t-section-title-sm text-foreground">{children}</h2>
   </div>
 );
 
@@ -233,7 +211,6 @@ const VendorProfile = () => {
   const hasScope = hasGroups || hasFlatCompounds || hasCategoryFallback;
 
   const serviceArea = (vendor as Vendor & { serviceArea?: string }).serviceArea;
-  const monogram = monogramOf(vendor.name);
   const aboutText = vendor.summary || vendor.publicNote;
 
   return (
@@ -270,31 +247,21 @@ const VendorProfile = () => {
             {/* ---------- IDENTITY BAND ---------- */}
             <header className="px-6 md:px-8 pt-6 pb-5 border-b border-border">
               <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
-                {/* Monogram tile */}
-                <div
-                  className={`hidden sm:flex h-16 w-16 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
-                  aria-hidden
-                >
-                  <span className="t-section-title-sm font-semibold tracking-tight text-foreground">
-                    {monogram}
-                  </span>
-                </div>
-
                 {/* Identity */}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-3 flex-wrap mb-2">
                     {vendor.category && (
-                      <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                      <span className="t-eyebrow-sm text-muted-foreground">
                         {vendor.category}
                       </span>
                     )}
                     <span className="text-border" aria-hidden>·</span>
-                    <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                    <span className="t-eyebrow-sm text-muted-foreground">
                       Source Standard Public Record
                     </span>
                   </div>
 
-                  <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
+                  <h1 className="t-page-title text-foreground break-words max-w-[24ch]">
                     {vendor.name}
                   </h1>
 
@@ -339,7 +306,7 @@ const VendorProfile = () => {
                 {/* Status + CTA cluster */}
                 <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
                   <StatusBadge status={status} size="md" />
-                  <p className="t-body-sm text-muted-foreground leading-[1.45] max-w-[28ch] lg:text-right">
+                  <p className="t-body-sm text-muted-foreground max-w-[28ch] lg:text-right">
                     {VENDOR_STATUS_PROFILE_NOTE[status]}
                   </p>
                   {vendor.website && (
@@ -398,11 +365,11 @@ const VendorProfile = () => {
                   <SectionHeading eyebrow="Profile">About</SectionHeading>
                   <div>
                     {aboutText ? (
-                      <p className="t-body-sm text-foreground/90 leading-[1.65] max-w-[68ch]">
+                      <p className="t-body-md text-foreground/90 max-w-[68ch]">
                         {aboutText}
                       </p>
                     ) : (
-                      <p className="t-body-sm text-muted-foreground italic leading-[1.55] max-w-[68ch]">
+                      <p className="t-body-md text-muted-foreground italic max-w-[68ch]">
                         No public description on file. Source Standard has not
                         published an editorial summary for this vendor.
                       </p>

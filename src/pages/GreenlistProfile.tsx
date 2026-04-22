@@ -27,26 +27,14 @@ import {
 
 // ---------- Status theming ----------
 
-type Theme = { hairline: string; monogramRing: string };
+type Theme = { hairline: string };
 
 const THEME: Record<"recognized" | AlertStatus, Theme> = {
-  recognized: { hairline: "bg-verified", monogramRing: "border-verified/40" },
-  "shut-down": {
-    hairline: "bg-destructive",
-    monogramRing: "border-destructive/40",
-  },
-  "no-longer-registered": {
-    hairline: "bg-destructive",
-    monogramRing: "border-destructive/40",
-  },
-  "not-on-fda-list": {
-    hairline: "bg-pending",
-    monogramRing: "border-pending/40",
-  },
-  unverified: {
-    hairline: "bg-muted-foreground/30",
-    monogramRing: "border-border",
-  },
+  recognized: { hairline: "bg-verified" },
+  "shut-down": { hairline: "bg-destructive" },
+  "no-longer-registered": { hairline: "bg-destructive" },
+  "not-on-fda-list": { hairline: "bg-pending" },
+  unverified: { hairline: "bg-muted-foreground/30" },
 };
 
 const ALERT_STATUS_LABEL: Record<AlertStatus, string> = {
@@ -78,13 +66,7 @@ const formatAsOf = (iso: string) => {
   }
 };
 
-const monogramOf = (name: string): string =>
-  name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("") || "·";
+// (monogram helper removed — no auto-generated logo block)
 
 const isPresent = (
   v: ReactNode | string[] | undefined | null | false
@@ -120,7 +102,7 @@ const form483Display = (
 // ---------- Locked primitives ----------
 
 const FallbackLine = ({ children }: { children: ReactNode }) => (
-  <span className="t-body-sm text-muted-foreground italic">{children}</span>
+  <span className="t-body-md text-muted-foreground italic">{children}</span>
 );
 
 const Field = ({
@@ -139,12 +121,12 @@ const Field = ({
   const present = isPresent(value);
   return (
     <div>
-      <dt className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground inline-flex items-center gap-1.5">
+      <dt className="t-utility-xs text-muted-foreground inline-flex items-center gap-1.5">
         {label}
         {labelExtra}
       </dt>
       <dd
-        className={`mt-1.5 t-body-sm font-medium leading-[1.5] ${
+        className={`mt-1.5 t-body-md leading-snug ${
           present || forceForeground ? "text-foreground" : "text-muted-foreground"
         } ${mono && present ? "font-mono tabular-nums" : ""}`}
       >
@@ -170,12 +152,12 @@ const RailRow = ({
   const present = isPresent(value);
   return (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-border/50 last:border-0">
-      <span className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground shrink-0">
+      <span className="t-utility-xs text-muted-foreground shrink-0">
         {label}
       </span>
       {present ? (
         <span
-          className={`t-body-sm text-foreground text-right leading-[1.45] ${
+          className={`t-body-sm text-foreground text-right leading-snug ${
             mono ? "font-mono tabular-nums" : ""
           }`}
         >
@@ -200,13 +182,9 @@ const SectionHeading = ({
   <div className="mb-5 flex items-baseline justify-between gap-4 flex-wrap">
     <div>
       {eyebrow && (
-        <p className="t-utility-xs uppercase tracking-[0.16em] text-muted-foreground font-semibold mb-1.5">
-          {eyebrow}
-        </p>
+        <p className="t-eyebrow-sm text-muted-foreground mb-1.5">{eyebrow}</p>
       )}
-      <h2 className="t-section-title-sm font-semibold tracking-tight text-foreground">
-        {children}
-      </h2>
+      <h2 className="t-section-title-sm text-foreground">{children}</h2>
     </div>
     {trailing}
   </div>
@@ -223,11 +201,9 @@ const RecordRow = ({
   paragraph?: boolean;
 }) => (
   <div className="py-3 border-b border-border/40 last:border-0">
-    <p className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground">
-      {label}
-    </p>
+    <p className="t-utility-xs text-muted-foreground">{label}</p>
     <p
-      className={`mt-1.5 t-body-sm text-foreground leading-[1.6] ${
+      className={`mt-1.5 t-body-md text-foreground ${
         paragraph ? "max-w-[68ch]" : ""
       }`}
     >
@@ -254,7 +230,7 @@ const CapabilityRow = ({
       />
     )}
     <span
-      className={`t-body-sm leading-[1.45] ${
+      className={`t-body-md leading-snug ${
         on ? "text-foreground" : "text-muted-foreground"
       }`}
     >
@@ -295,7 +271,7 @@ const GreenlistProfile = () => {
     ? alert!.shortLabel ?? ALERT_STATUS_LABEL[alert!.status]
     : "Recognized";
 
-  const monogram = monogramOf(entry.name);
+  // (monogram removed)
   const lastInspection = p.lastInspectionDate
     ? formatAsOf(p.lastInspectionDate)
     : undefined;
@@ -352,27 +328,18 @@ const GreenlistProfile = () => {
               {/* ---------- IDENTITY BAND ---------- */}
               <header className="px-6 md:px-8 pt-6 pb-5 border-b border-border">
                 <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
-                  <div
-                    className={`hidden sm:flex h-16 w-16 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
-                    aria-hidden
-                  >
-                    <span className="t-section-title-sm font-semibold tracking-tight text-foreground">
-                      {monogram}
-                    </span>
-                  </div>
-
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-3 flex-wrap mb-2">
-                      <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                      <span className="t-eyebrow-sm text-muted-foreground">
                         {entry.type}
                       </span>
                       <span className="text-border" aria-hidden>·</span>
-                      <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                      <span className="t-eyebrow-sm text-muted-foreground">
                         Source Standard Public Registry
                       </span>
                     </div>
 
-                    <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
+                    <h1 className="t-page-title text-foreground break-words max-w-[24ch]">
                       {entry.name}
                     </h1>
 
@@ -431,7 +398,7 @@ const GreenlistProfile = () => {
                         Recognized
                       </span>
                     )}
-                    <p className="t-body-sm text-muted-foreground leading-[1.45] max-w-[28ch] lg:text-right">
+                    <p className="t-body-sm text-muted-foreground max-w-[28ch] lg:text-right">
                       Recognition reflects published upstream role only. It does
                       not certify downstream vendors.
                     </p>
@@ -645,7 +612,7 @@ const GreenlistProfile = () => {
                       <p className="t-utility-xs uppercase tracking-[0.1em] text-destructive font-semibold mb-2">
                         Regulatory Alert · {statusLabel}
                       </p>
-                      <p className="t-body-sm text-foreground/90 leading-[1.65] max-w-[68ch]">
+                      <p className="t-body-md text-foreground/90 max-w-[68ch]">
                         {alert!.reason}
                       </p>
                       <p className="mt-1.5 t-utility-xs text-muted-foreground tabular-nums">
