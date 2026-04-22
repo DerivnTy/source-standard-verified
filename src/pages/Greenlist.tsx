@@ -576,16 +576,6 @@ const Greenlist = () => {
             </Link>
           </div>
         </div>
-        <div className="border-t border-border/50">
-          <div className="px-4 md:px-6 pt-4 pb-2">
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground">
-              Note
-            </span>
-            <p className="mt-1.5 text-[12.5px] leading-[1.6] text-muted-foreground">
-              Source Standard does not accept payment from facilities for inclusion in the Greenlist. Information is derived from public regulatory filings, disclosed facility information, and Source Standard review data where applicable. Inclusion does not constitute endorsement of any specific product, protocol, or clinical use, and does not replace independent due diligence by prescribers or operators.
-            </p>
-          </div>
-        </div>
       </section>
     </>
   );
