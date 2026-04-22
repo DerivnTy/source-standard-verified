@@ -1,16 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-
-import { SourceCheck } from "@/components/SourceCheck";
 import { EmptyState } from "@/components/EmptyState";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import {
   greenlistEntries,
   GreenlistEntry,
@@ -38,86 +31,16 @@ type WebsiteFilter = "all" | "yes" | "no";
 
 const CATEGORY_ORDER: GreenlistCategory[] = ["503B", "503A", "Other"];
 
-const SOURCE_TYPE_DEF: Record<GreenlistCategory, { title: string; body: string }> = {
-  "503B": {
-    title: "503B Outsourcing Facility",
-    body:
-      "Facility registered with the U.S. Food and Drug Administration under Section 503B of the Federal Food, Drug, and Cosmetic Act. Subject to current good manufacturing practice (cGMP) requirements and routine FDA inspection.",
-  },
-  "503A": {
-    title: "503A Compounding Pharmacy",
-    body:
-      "Pharmacy operating under Section 503A of the Federal Food, Drug, and Cosmetic Act. Licensed by the applicable state board of pharmacy and required to compound in accordance with USP <795>, <797>, and <800>.",
-  },
-  Other: {
-    title: "Unverified Facilities",
-    body:
-      "Entities that have not yet undergone the Source Standard audit process or have failed to provide necessary transparency regarding their supply chain and clinical protocols.",
-  },
-};
-
-const CATEGORY_STYLE: Record<GreenlistCategory, { dot: string }> = {
-  "503B": { dot: "bg-[hsl(var(--src-503b))]" },
-  "503A": { dot: "bg-[hsl(var(--src-503a))]" },
-  Other: { dot: "bg-[hsl(var(--src-unverified))]" },
-};
-
-const CATEGORY_PILL: Record<GreenlistCategory, { wrap: string; dot: string }> = {
-  "503B": {
-    wrap: "bg-[hsl(var(--src-503b-soft))] text-[hsl(var(--src-503b))] ring-1 ring-[hsl(var(--src-503b))]/20",
-    dot: "bg-[hsl(var(--src-503b))]",
-  },
-  "503A": {
-    wrap: "bg-[hsl(var(--src-503a-soft))] text-[hsl(var(--src-503a))] ring-1 ring-[hsl(var(--src-503a))]/20",
-    dot: "bg-[hsl(var(--src-503a))]",
-  },
-  Other: {
-    wrap: "bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25",
-    dot: "bg-[hsl(var(--src-unverified))]",
-  },
+const CATEGORY_DOT: Record<GreenlistCategory, string> = {
+  "503B": "bg-[hsl(var(--src-503b))]",
+  "503A": "bg-[hsl(var(--src-503a))]",
+  Other: "bg-[hsl(var(--src-unverified))]",
 };
 
 const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
   "503B": "503B",
   "503A": "503A",
   Other: "Unverified",
-};
-
-const CATEGORY_SUBLABEL: Record<GreenlistCategory, string> = {
-  "503B": "Outsourcing facility",
-  "503A": "Compounding pharmacy",
-  Other: "Audit pending / non-transparent",
-};
-
-const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
-  const styles = CATEGORY_PILL[category];
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] tabular-nums ${styles.wrap}`}
-    >
-      <span className={`h-1.5 w-1.5 rounded-full ${styles.dot}`} aria-hidden="true" />
-      {CATEGORY_LABEL[category]}
-    </span>
-  );
-};
-
-const AlertBadge = ({ entry }: { entry: GreenlistEntry }) => {
-  if (!entry.regulatoryAlert) return null;
-  const label =
-    entry.regulatoryAlert.shortLabel ??
-    ALERT_STATUS_LABEL[entry.regulatoryAlert.status];
-  return (
-    <span
-      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-[0.1em] bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25"
-      title={entry.regulatoryAlert.reason}
-    >
-      <span
-        aria-hidden="true"
-        className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
-      />
-      {label}
-    </span>
-  );
 };
 
 const focusMatches = (entry: GreenlistEntry, tagLabel: string): boolean => {
@@ -164,6 +87,25 @@ const shortFocus = (entry: GreenlistEntry): string => {
   }
   if (hits.length === 0) return "Specialty compounding";
   return hits.join(" · ");
+};
+
+const AlertInline = ({ entry }: { entry: GreenlistEntry }) => {
+  if (!entry.regulatoryAlert) return null;
+  const label =
+    entry.regulatoryAlert.shortLabel ??
+    ALERT_STATUS_LABEL[entry.regulatoryAlert.status];
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]"
+      title={entry.regulatoryAlert.reason}
+    >
+      <span
+        aria-hidden="true"
+        className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
+      />
+      {label}
+    </span>
+  );
 };
 
 const Greenlist = () => {
@@ -249,110 +191,91 @@ const Greenlist = () => {
     setWebsite("all");
   };
 
-  const statCards: {
-    key: string;
-    label: string;
-    value: number;
-    desc: string;
-    glyph: "check" | "dot";
-    dot?: string;
-    accent?: boolean;
-  }[] = [
-    {
-      key: "total",
-      label: "Total Recognized",
-      value: counts.total,
-      desc: "Live count of upstream facilities recognized under federal registration, state licensure, or accredited credentialing.",
-      glyph: "check",
-      accent: true,
-    },
-    ...CATEGORY_ORDER.map((c) => ({
-      key: c,
-      label: SOURCE_TYPE_DEF[c].title,
-      value: counts[c],
-      desc: SOURCE_TYPE_DEF[c].body,
-      glyph: "dot" as const,
-      dot: CATEGORY_STYLE[c].dot,
-    })),
-  ];
+  const unverifiedCount = greenlistEntries.filter((e) => !!e.regulatoryAlert).length;
 
   return (
     <>
       <PageMeta
-        title="Greenlist · Recognized Upstream Sources"
-        description="Public registry of upstream compounding facilities recognized under federal registration, state licensure, or accredited credentialing."
+        title="Upstream Greenlist · Source Standard"
+        description="Maintained reference set of recognized upstream compounding facilities used within the Source Standard framework."
       />
       <BriefingHero
-        category="REGISTRY · UPSTREAM · SS-02"
-        docId="SS-GREENLIST-2026.01"
-        title="Upstream Registry."
-        statement="Technical data and registration status for pharmaceutical compounding and manufacturing facilities."
-        metadata={[
-          { label: "Doc", value: "SS-GREENLIST-2026.01" },
-          { label: "Status", value: "Active" },
-          { label: "Jurisdiction", value: "United States" },
-          { label: "Updated", value: "04 / 21 / 2026" },
-        ]}
-        verifiedOn="04 / 21 / 2026"
+        tone="navy"
+        category="Reference Registry"
+        docId=""
+        title="Upstream Greenlist"
+        statement="The maintained reference set of recognized upstream compounding facilities used within the Source Standard framework. Inclusion supports upstream reference only — vendor verification is assessed separately."
       />
 
-      {/* Registry counts strip */}
-      <section className="border-b border-border bg-background">
-        <div className="container-wide">
-          <ul className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border border-x border-border">
-            {statCards.map((s) => (
-              <HoverCard key={s.key} openDelay={120} closeDelay={60}>
-                <HoverCardTrigger asChild>
-                  <li
-                    className={`bg-background px-4 py-4 cursor-default ${
-                      s.accent ? "bg-primary/[0.04]" : ""
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      {s.glyph === "check" ? (
-                        <SourceCheck size="xs" />
-                      ) : (
-                        <span
-                          aria-hidden
-                          className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`}
-                        />
-                      )}
-                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground truncate">
-                        {s.key === "total"
-                          ? s.label
-                          : CATEGORY_LABEL[s.key as GreenlistCategory] ?? s.key}
-                      </span>
-                    </div>
-                    <p className="text-[20px] font-mono font-semibold tabular-nums text-foreground">
-                      {s.value.toString().padStart(2, "0")}
-                    </p>
-                  </li>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-80 text-[12.5px] leading-[1.6] text-muted-foreground">
-                  <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground">
-                    {s.label}
-                  </p>
-                  {s.desc}
-                </HoverCardContent>
-              </HoverCard>
-            ))}
-          </ul>
+      {/* Why this page exists */}
+      <section className="bg-background border-b border-border/60">
+        <div className="container-wide py-14 md:py-16">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mb-6">
+            Why this page exists
+          </p>
+          <div className="grid md:grid-cols-3 md:divide-x divide-border/60">
+            <div className="md:pr-8 pb-6 md:pb-0">
+              <h3 className="text-[15px] font-semibold text-foreground mb-2">
+                Recognized upstream sources
+              </h3>
+              <p className="text-[13.5px] leading-[1.65] text-muted-foreground max-w-[42ch]">
+                Source Standard first identifies compounding facilities recognized under federal registration, state licensure, or accredited credentialing.
+              </p>
+            </div>
+            <div className="md:px-8 py-6 md:py-0">
+              <h3 className="text-[15px] font-semibold text-foreground mb-2">
+                Vendor assessment
+              </h3>
+              <p className="text-[13.5px] leading-[1.65] text-muted-foreground max-w-[42ch]">
+                Clinics and vendors are then assessed against those upstream sources.
+              </p>
+            </div>
+            <div className="md:pl-8 pt-6 md:pt-0">
+              <h3 className="text-[15px] font-semibold text-foreground mb-2">
+                One layer of the chain
+              </h3>
+              <p className="text-[13.5px] leading-[1.65] text-muted-foreground max-w-[42ch]">
+                The Greenlist is a reference layer. It is not, on its own, a vendor verification.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="bg-background">
-        <div className="container-wide py-8 md:py-10">
+        <div className="container-wide py-10 md:py-12">
+          {/* Quiet stats line */}
+          <p className="font-mono text-[12px] tabular-nums text-muted-foreground">
+            <span className="text-foreground font-medium">{counts.total}</span> recognized
+            <span className="mx-2 text-border">·</span>
+            <span className="text-foreground font-medium">{counts["503B"]}</span> 503B
+            <span className="mx-2 text-border">·</span>
+            <span className="text-foreground font-medium">{counts["503A"]}</span> 503A
+            {unverifiedCount > 0 && (
+              <>
+                <span className="mx-2 text-border">·</span>
+                <span className="text-foreground font-medium">{unverifiedCount}</span> not currently recognized
+              </>
+            )}
+          </p>
 
-          {/* Sticky filter bar */}
-          <div className="sticky top-[57px] z-20 -mx-4 md:-mx-6 mt-6 px-4 md:px-6 py-2.5 bg-background/90 backdrop-blur-md shadow-[0_1px_0_hsl(var(--border)/0.6)]">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <div className="relative flex-1 min-w-[280px]">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          {/* Interpretation note */}
+          <div className="mt-5 border-l-2 border-border/70 pl-4 py-1">
+            <p className="text-[13px] leading-[1.7] text-muted-foreground max-w-[78ch]">
+              Inclusion means the facility appears within the recognized upstream reference set used by the framework. It does not mean Source Standard is certifying any downstream vendor that uses the source. Vendor verification is a separate review.
+            </p>
+          </div>
+
+          {/* Filter bar — calmer */}
+          <div className="mt-8 border-t border-border/60 pt-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="relative flex-1 min-w-[260px]">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search facilities, pharmacies, brands, or focus areas…"
-                  className="w-full pl-10 pr-3 h-10 bg-card border border-border/50 rounded-[10px] text-[13.5px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                  placeholder="Search facilities, locations, or focus areas…"
+                  className="w-full pl-9 pr-3 h-9 bg-background border border-border/40 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                   aria-label="Search registry"
                 />
               </div>
@@ -360,7 +283,7 @@ const Greenlist = () => {
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by source type"
               >
                 <option value={ALL}>All source types</option>
@@ -374,11 +297,11 @@ const Greenlist = () => {
               <select
                 value={state}
                 onChange={(e) => setStateFilter(e.target.value)}
-                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by state"
               >
                 <option value={ALL}>All states</option>
-                <option value={NATIONWIDE}>Nationwide / multi-location</option>
+                <option value={NATIONWIDE}>Nationwide</option>
                 {states.map((s) => (
                   <option key={s} value={s}>
                     {s}
@@ -389,7 +312,7 @@ const Greenlist = () => {
               <select
                 value={focus}
                 onChange={(e) => setFocus(e.target.value)}
-                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by focus"
               >
                 <option value={ALL}>All focus areas</option>
@@ -403,36 +326,36 @@ const Greenlist = () => {
               <select
                 value={website}
                 onChange={(e) => setWebsite(e.target.value as WebsiteFilter)}
-                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by website availability"
               >
-                <option value="all">Website: All</option>
+                <option value="all">Website: any</option>
                 <option value="yes">Website listed</option>
-                <option value="no">No website listed</option>
+                <option value="no">No website</option>
               </select>
 
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortMode)}
-                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Sort records"
               >
-                <option value="name-asc">Sort: Name A–Z</option>
-                <option value="name-desc">Sort: Name Z–A</option>
-                <option value="state">Sort: State</option>
-                <option value="type">Sort: Source type</option>
+                <option value="name-asc">Name A–Z</option>
+                <option value="name-desc">Name Z–A</option>
+                <option value="state">State</option>
+                <option value="type">Source type</option>
               </select>
 
               {filtersActive && (
                 <button
                   onClick={reset}
-                  className="h-9 px-3 inline-flex items-center gap-1 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:bg-surface-muted/60 hover:border-border-strong"
+                  className="h-9 px-2 text-[12.5px] text-muted-foreground hover:text-foreground underline-offset-2 hover:underline"
                 >
-                  <X className="h-3 w-3" /> Reset
+                  Reset
                 </button>
               )}
 
-              <p className="meta-label ml-auto tabular-nums">
+              <p className="text-[12px] text-muted-foreground tabular-nums ml-auto">
                 {sorted.length === 0
                   ? "0 records"
                   : `${pageStart + 1}–${Math.min(
@@ -443,88 +366,106 @@ const Greenlist = () => {
             </div>
           </div>
 
-          {/* Dense table / cards */}
-          <div className="mt-4">
+          {/* Editorial table */}
+          <div className="mt-6">
             {sorted.length === 0 ? (
               <EmptyState
                 eyebrow="No Recognized Sources Found"
-                body="Source Standard has not yet recognized an upstream facility matching these filters."
+                body="No upstream facility matches these filters."
               />
             ) : (
               <>
-                <div className="hidden md:block rounded-[12px] border border-border/40 bg-card overflow-hidden shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">
-                  <div className="grid grid-cols-12 px-5 py-3 border-b border-border/50">
-                    <div className="col-span-4 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
-                      Facility / Brand
+                {/* Desktop: clean divided list */}
+                <div className="hidden md:block border-t border-border/60">
+                  <div className="grid grid-cols-12 px-1 py-3 border-b border-border/60">
+                    <div className="col-span-5 text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
+                      Facility
                     </div>
-                    <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
-                      Source Type
+                    <div className="col-span-2 text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
+                      Source type
                     </div>
-                    <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
+                    <div className="col-span-2 text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
                       Location
                     </div>
-                    <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
+                    <div className="col-span-2 text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
                       Focus
                     </div>
-                    <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70 text-right">
-                      Profile
+                    <div className="col-span-1 text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground text-right">
+                      &nbsp;
                     </div>
                   </div>
-                  {pageItems.map((e) => (
-                    <div
-                      key={e.name}
-                      className="grid grid-cols-12 px-5 py-2 border-b border-border/40 last:border-b-0 items-center hover:bg-primary/[0.04] transition-colors cursor-pointer"
-                    >
-                      <div className="col-span-4 min-w-0">
-                        <Link
-                          to={`/greenlist/${e.slug}`}
-                          className="text-[13px] font-semibold text-foreground truncate hover:text-primary leading-tight block"
-                        >
-                          {e.name}
-                        </Link>
-                      </div>
-                      <div className="col-span-2">
-                        <div className="flex flex-col items-start gap-1">
-                          <CategoryPill category={e.category} />
-                          <AlertBadge entry={e} />
+                  <div className="divide-y divide-border/50">
+                    {pageItems.map((e) => (
+                      <Link
+                        key={e.name}
+                        to={`/greenlist/${e.slug}`}
+                        className="grid grid-cols-12 px-1 py-3.5 items-center hover:bg-surface-muted/40 transition-colors"
+                      >
+                        <div className="col-span-5 min-w-0 pr-4">
+                          <div className="text-[14px] font-semibold text-foreground leading-tight truncate">
+                            {e.name}
+                          </div>
+                          {e.regulatoryAlert && (
+                            <div className="mt-1">
+                              <AlertInline entry={e} />
+                            </div>
+                          )}
                         </div>
-                      </div>
-                      <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate leading-tight">
-                        {e.location}
-                      </div>
-                      <div className="col-span-3 text-[13px] text-muted-foreground truncate leading-tight">
-                        {shortFocus(e)}
-                      </div>
-                      <div className="col-span-1 text-right">
-                        <Link
-                          to={`/greenlist/${e.slug}`}
-                          className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70 hover:text-primary transition-colors"
-                        >
-                          View →
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
+                        <div className="col-span-2 flex items-center gap-2">
+                          <span
+                            aria-hidden
+                            className={`h-1.5 w-1.5 rounded-full ${CATEGORY_DOT[e.category]}`}
+                          />
+                          <span className="text-[12px] uppercase tracking-[0.1em] text-muted-foreground">
+                            {CATEGORY_LABEL[e.category]}
+                          </span>
+                        </div>
+                        <div className="col-span-2 text-[12.5px] text-muted-foreground truncate">
+                          {e.location}
+                        </div>
+                        <div className="col-span-2 text-[12.5px] text-muted-foreground truncate pr-3">
+                          {shortFocus(e)}
+                        </div>
+                        <div className="col-span-1 text-right">
+                          <span className="text-[12.5px] text-muted-foreground/80">
+                            View →
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="md:hidden space-y-3">
+                {/* Mobile: divided list */}
+                <div className="md:hidden border-t border-border/60 divide-y divide-border/50">
                   {pageItems.map((e) => (
-                    <div key={e.name} className="card-elevated p-3.5 rounded-[12px] hover:bg-primary/[0.04] transition-colors cursor-pointer">
+                    <Link
+                      key={e.name}
+                      to={`/greenlist/${e.slug}`}
+                      className="block py-3.5 hover:bg-surface-muted/40 transition-colors"
+                    >
                       <div className="flex items-start justify-between gap-3">
-                        <Link
-                          to={`/greenlist/${e.slug}`}
-                          className="text-[13px] font-semibold text-foreground hover:text-primary"
-                        >
+                        <div className="text-[14px] font-semibold text-foreground">
                           {e.name}
-                        </Link>
-                        <div className="flex flex-col items-end gap-1 shrink-0">
-                          <CategoryPill category={e.category} />
-                          <AlertBadge entry={e} />
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span
+                            aria-hidden
+                            className={`h-1.5 w-1.5 rounded-full ${CATEGORY_DOT[e.category]}`}
+                          />
+                          <span className="text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
+                            {CATEGORY_LABEL[e.category]}
+                          </span>
                         </div>
                       </div>
-                      <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
-                      <p className="mt-1 text-[12px] text-muted-foreground">{shortFocus(e)}</p>
-                    </div>
+                      <p className="mt-1 text-[12.5px] text-muted-foreground">{e.location}</p>
+                      <p className="mt-0.5 text-[12.5px] text-muted-foreground">{shortFocus(e)}</p>
+                      {e.regulatoryAlert && (
+                        <div className="mt-1.5">
+                          <AlertInline entry={e} />
+                        </div>
+                      )}
+                    </Link>
                   ))}
                 </div>
               </>
@@ -532,17 +473,17 @@ const Greenlist = () => {
 
             {sorted.length > PAGE_SIZE && (
               <nav
-                className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
+                className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
                 aria-label="Registry pagination"
               >
-                <p className="meta-label">
+                <p className="text-[12px] text-muted-foreground">
                   Page {currentPage} of {totalPages}
                 </p>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     aria-label="Previous page"
                   >
                     <ChevronLeft className="h-3 w-3" /> Prev
@@ -575,8 +516,8 @@ const Greenlist = () => {
                           aria-current={p === currentPage ? "page" : undefined}
                           className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
                             p === currentPage
-                              ? "bg-primary text-primary-foreground"
-                              : "border border-border/70 text-foreground hover:bg-surface-muted/60"
+                              ? "bg-foreground text-background"
+                              : "border border-border/60 text-foreground hover:bg-surface-muted/60"
                           }`}
                         >
                           {p}
@@ -587,7 +528,7 @@ const Greenlist = () => {
                   <button
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     aria-label="Next page"
                   >
                     Next <ChevronRight className="h-3 w-3" />
@@ -596,55 +537,37 @@ const Greenlist = () => {
               </nav>
             )}
           </div>
+        </div>
+      </section>
 
-          {/* Inclusion Standards — collapsed footer */}
-          <details className="mt-10 group rounded-lg border border-border/60 bg-surface">
-            <summary className="cursor-pointer list-none px-5 py-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground">
-              <span>Inclusion Standards &amp; Disclaimer</span>
-              <span className="text-[11px] tabular-nums opacity-60 group-open:rotate-180 transition-transform">▾</span>
-            </summary>
-            <div className="px-5 pb-5 pt-1 space-y-4 border-t border-border/50">
-              <p className="text-[13.5px] text-muted-foreground leading-[1.7]">
-                A maintained index of compounding facilities recognized under
-                federal registration, state licensure, and accredited
-                credentialing. Inclusion in this registry is the mandatory
-                foundation for any vendor compliance assessment; a vendor cannot
-                be listed in the Vendor Compliance Registry until each declared
-                upstream source is present here.
+      {/* Bridge to vendor registry */}
+      <section className="bg-surface-muted/30 border-t border-border/60">
+        <div className="container-wide py-14 md:py-16">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mb-6">
+            Two layers, one framework
+          </p>
+          <div className="grid md:grid-cols-12 gap-8 items-start">
+            <div className="md:col-span-8">
+              <p className="text-[15px] leading-[1.7] text-foreground/85 max-w-[68ch]">
+                The Greenlist establishes the upstream reference set — the recognized facilities a vendor may legitimately source from. Vendor verification is the second layer: it assesses whether a specific clinic or vendor can actually substantiate its sourcing through licensed upstream pharmacies and documented records.
               </p>
-              <p className="text-[13px] text-muted-foreground leading-[1.7]">
-                <span className="font-semibold text-foreground">Technical note.</span>{" "}
-                Greenlisted is an audit-framework status used to determine
-                documentation eligibility for upstream sources. It records that a
-                facility's federal registration, state licensure, or recognized
-                accreditation has been verified for inclusion. It is not a
-                clinical endorsement and does not assess product safety. Vendor
-                audit status is tracked separately on the{" "}
-                <Link
-                  to="/verified-vendors"
-                  className="text-primary hover:text-primary-hover underline-offset-2 hover:underline"
-                >
-                  Vendor Compliance Registry
-                </Link>
-                .
+              <p className="mt-3 text-[14px] leading-[1.7] text-muted-foreground max-w-[68ch]">
+                To see who is currently verified, open the Vendor Registry.
               </p>
-              <div className="pt-3 border-t border-border/50 space-y-2">
-                <p className="text-[12px] text-muted-foreground leading-[1.7]">
-                  <span className="font-semibold text-foreground">Cite as.</span>{" "}
-                  Source Standard, Public Registry of Recognized Sources,
-                  SS-GREENLIST-2026.01. Last updated April 21, 2026.
-                </p>
-                <p className="text-[12px] text-muted-foreground leading-[1.7]">
-                  <span className="font-semibold text-foreground">Disclaimer.</span>{" "}
-                  Inclusion in this registry indicates recognition as a qualified
-                  upstream source under the Source Standard framework. It does
-                  not constitute endorsement of any specific product, protocol,
-                  or clinical use, and does not replace independent due diligence
-                  by prescribers or operators.
-                </p>
-              </div>
             </div>
-          </details>
+            <div className="md:col-span-4 md:text-right">
+              <Link
+                to="/directory"
+                className="inline-flex items-center text-[14px] font-medium text-foreground hover:text-primary underline-offset-4 hover:underline"
+              >
+                Open the Vendor Registry →
+              </Link>
+            </div>
+          </div>
+
+          <p className="mt-10 pt-6 border-t border-border/40 text-[12px] leading-[1.7] text-muted-foreground max-w-[88ch]">
+            Source Standard does not accept payment from facilities for inclusion in the Greenlist. Information is derived from public regulatory filings, disclosed facility information, and Source Standard review data where applicable. Inclusion does not constitute endorsement of any specific product, protocol, or clinical use, and does not replace independent due diligence by prescribers or operators.
+          </p>
         </div>
       </section>
     </>
