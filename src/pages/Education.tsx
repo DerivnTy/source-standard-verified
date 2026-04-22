@@ -162,8 +162,8 @@ const FeatureCard = ({
       <p className="mt-2.5 text-[13.5px] text-muted-foreground leading-[1.65]">
         {ov?.blurb ?? entry.summary}
       </p>
-      <span className="mt-5 text-[13px] text-muted-foreground group-hover:text-foreground transition-colors">
-        Read →
+      <span className="mt-5 text-[13px] font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+        Read article →
       </span>
     </Link>
   );
@@ -177,17 +177,24 @@ const EntryRow = ({ entry }: { entry: LibraryEntry }) => {
         to={routeFor(entry.slug)}
         className="group block px-1 py-5 transition-colors hover:bg-surface-muted/60"
       >
-        <h3 className="text-[16px] font-semibold leading-snug text-foreground tracking-tight group-hover:text-primary transition-colors">
-          {displayTitle(entry)}
-        </h3>
-        <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-[1.6]">
-          {entry.summary}
-        </p>
-        {reviewed && (
-          <p className="mt-2 text-[12px] text-muted-foreground/80">
-            Reviewed by Medical Advisory Board
-          </p>
-        )}
+        <div className="flex items-start justify-between gap-6">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-[16px] font-semibold leading-snug text-foreground tracking-tight group-hover:text-primary transition-colors">
+              {displayTitle(entry)}
+            </h3>
+            <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-[1.6]">
+              {entry.summary}
+            </p>
+            {reviewed && (
+              <p className="mt-2 text-[12px] text-muted-foreground/80">
+                Reviewed by Medical Advisory Board
+              </p>
+            )}
+          </div>
+          <span className="text-[12.5px] text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-0.5">
+            Read →
+          </span>
+        </div>
       </Link>
     </li>
   );
@@ -386,12 +393,19 @@ const Education = () => {
                   to={routeFor(e.slug)}
                   className="group block transition-colors"
                 >
-                  <h3 className="text-[15.5px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
-                    {displayTitle(e)}
-                  </h3>
-                  <p className="mt-1.5 text-[13px] text-muted-foreground leading-[1.6]">
-                    {e.summary}
-                  </p>
+                  <div className="flex items-start justify-between gap-6">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-[15.5px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                        {displayTitle(e)}
+                      </h3>
+                      <p className="mt-1.5 text-[13px] text-muted-foreground leading-[1.6]">
+                        {e.summary}
+                      </p>
+                    </div>
+                    <span className="text-[12.5px] text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-0.5">
+                      Read →
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))}
