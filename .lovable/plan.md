@@ -1,87 +1,102 @@
 
 
-## Verified Vendor Profile Rebuild — Premium Trust Record
+## Lock the Vendor Profile Template
 
-A full structural rebuild of `/verified-vendors/:slug` (`src/pages/VendorProfile.tsx`). Same data shape, same backward compatibility, but reorganized into a layered trust record that scales across all five status states.
+Goal: stop tweaking the vendor profile page-by-page. Define one disciplined template with fixed spacing tokens, fixed section structure, and a fixed two-column body. Every vendor — verified, under-review, unverified, suspended, removed — renders through the exact same shell.
 
-### Page architecture (top → bottom)
+### The locked template
 
-**1. Trust Header (status-toned)**
-- Back link → Directory
-- Eyebrow: vendor category
-- H1: vendor name (`break-words max-w-[24ch]` for clean wrap)
-- Identity row: `StatusBadge` + `VerificationShield` (when verified) · location · fulfillment label · clinical focus[0]
-- Right slot: "Visit website" CTA (single, primary)
-- Status-tinted top accent bar (verified=green, pending=amber, suspended=red, etc.)
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  ← Back to Directory                          (top nav row)  │
+├──────────────────────────────────────────────────────────────┤
+│  ▔▔▔▔▔▔▔▔ status hairline ▔▔▔▔▔▔▔▔                          │
+│                                                              │
+│  IDENTITY BAND                              [Status Badge]   │
+│  [MG]  CATEGORY · PUBLIC RECORD             status sentence  │
+│        Vendor Name                          [Visit website]  │
+│        ⏵ fulfillment · location · focus · hostname           │
+│                                                              │
+├───────────────────────────────────┬──────────────────────────┤
+│  ABOUT                            │  TRUST RECORD            │
+│  paragraph or fallback            │  Status                  │
+│                                   │  Last reviewed           │
+│  ───────────────────              │  Review ID               │
+│                                   │  Source type             │
+│  PUBLIC RECORD                    │  Clinical focus          │
+│  Category      | Fulfillment      │  Medical director        │
+│  Clinical foc. | Medical director │                          │
+│  Source type   | Address          │  REVIEWED COMPONENTS     │
+│                                   │  (verified only)         │
+│  ───────────────────              │                          │
+│                                   │  ─────────────           │
+│  VERIFIED SCOPE (verified only)   │                          │
+│                                   │  [ Report a concern ]    │
+├───────────────────────────────────┴──────────────────────────┤
+│  Public record footer line                                   │
+└──────────────────────────────────────────────────────────────┘
+```
 
-**2. At-a-glance trust strip**
-A dense, mono-tagged 6-cell strip directly below the header. Always visible, always scannable:
-- Status · Fulfillment · Source type · Location · Clinical focus · Last reviewed
-- Cells use `t-utility-xs` labels + `t-body-sm` values, mono where appropriate
-- This is the "decision in 5 seconds" surface
+Every profile uses this exact shell. Sections that don't apply for a status collapse cleanly without breaking the rhythm.
 
-**3. Verified Scope block** (verified only)
-- Header: "Verified Scope" + scope review date
-- Description sentence framing what verification covers in this context
-- Grouped compound list (uses existing `verifiedScopeGroups` / `verifiedCompounds` / `verifiedCategories` fallback chain)
-- Closing line: "Verification applies only to the products listed. Other products offered by this vendor are not within the published scope."
+### Spacing & rhythm tokens (locked, used everywhere on this page)
 
-**4. Not Covered by This Verification block** (verified only)
-- Bulleted list, calm/clarifying tone (not defensive):
-  - Individual treatment outcomes
-  - Products or categories outside the reviewed scope
-  - Future conduct beyond the audit date
-  - Source relationships not disclosed in the reviewed record
-  - Medical efficacy or safety guarantees
+- Section vertical padding: `py-10` desktop, `py-8` mobile — identical for About, Public Record, Verified Scope, and the Trust Rail.
+- Section horizontal padding: `px-6 md:px-10` left column, `px-6 md:px-8` rail.
+- Eyebrow → title gap: `mb-1.5`.
+- Title → body gap: `mb-5`.
+- Public Record `<dl>` row gap: `gap-x-12 gap-y-6`, fixed two-column on `sm+`.
+- Rail row vertical: `py-3` with `border-b border-border/50`.
+- Identity band: `px-6 md:px-10 pt-9 pb-8` (single fixed value, no per-page variation).
 
-**5. Status posture block** (non-verified statuses)
-Replaces blocks 3+4 when status ≠ verified. Uses `Callout` with appropriate tone:
-- `under-review` → info: "An application is under review under SS-FRAMEWORK-2026.01."
-- `unverified` → notice: existing `VENDOR_STATUS_DISCLOSURE.unverified`
-- `suspended` → warning: existing suspended disclosure
-- `removed` → notice: existing removed disclosure
+### Column alignment
 
-**6. Structured Record card**
-Two-column dense `<dl>` (single-col on mobile). Same `Row` primitive, but reorganized into clear groups separated by subhead rules:
-- **Identity** — Public name, Medical director, Category
-- **Service** — Fulfillment, Clinical focus, Location, States served (when serviceArea present)
-- **Source** — Source type (placeholder "503A / 503B / Retail" when not modeled), Verified scope summary
-- **Verification record** (verified only) — Review ID (mono), Last review date, Scope reviewed
-- **Public** — Website
+- Body grid: `lg:grid-cols-12`, `lg:col-span-8` main / `lg:col-span-4` rail, with `lg:divide-x divide-border` so the vertical rule is one continuous line.
+- Add `lg:items-stretch` on the grid and a min-height baseline so the rail's tinted background matches the main column's full height — no detached "card floating" feel.
+- Each section in the main column ends with `border-b border-border last:border-b-0`. The rail uses the same internal divider rhythm.
 
-**7. Footer micro-line**
-- "Public record · Updated {reviewDate} · No payment influences inclusion or status."
+### Locked section primitives
 
-### Status-driven theming
+- `SectionHeading` already exists — standardize all eyebrow + title pairs through it (no inline `<p>+<h2>` variants).
+- `Field` (dl item, label above value) — used **only** inside Public Record. Locked label style: `t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground`. Locked value style: `t-body-sm text-foreground font-medium`.
+- `RailRow` (label left, value right) — used **only** inside Trust Record. Same label tokens; right-aligned value.
+- `FallbackLine` (new, tiny) — single italic muted line used by About, Verified Scope, and any "Not on file" rail value, so the missing-data state is consistent.
 
-Per-status `theme` object controls:
-- Header top-border color
-- At-a-glance strip border accent
-- Status-block tone (Callout tone)
+### About section: stable height fallback
 
-| Status | Accent | Block tone |
-|---|---|---|
-| verified | `border-verified` | scope+exclusions blocks |
-| under-review | `border-pending` | Callout info |
-| unverified | `border-muted-foreground/40` | Callout notice |
-| suspended | `border-destructive` | Callout warning |
-| removed | `border-muted-foreground/40` | Callout notice |
+When `summary`/`publicNote` is empty, render the fallback inside a fixed `min-h-[5.5rem]` block so About always reserves the same vertical space. This is the single biggest fix for "some pages feel top-heavy and some feel too open."
+
+### Public Record: locked field matrix
+
+Always six rows in a fixed two-column grid (sm+):
+
+1. Category | Fulfillment
+2. Clinical focus | Medical director
+3. Source type | Address (in-person/hybrid) **or** Service area (online)
+
+Empty values render as a muted `—` instead of being removed, so the grid never collapses unevenly. This kills the "random stacking" behavior.
+
+### Trust Rail: locked order
+
+Status → Last reviewed → Review ID → Source type → Clinical focus → Medical director. Verified-only fields show "Not on file" (muted italic) for non-verified statuses instead of disappearing, so rail height is comparable across statuses. Reviewed Components block only renders for verified.
+
+### Status theming (unchanged, just confirmed locked)
+
+Hairline + monogram ring only — no other color variation between statuses. Theme map already exists in `THEME`.
 
 ### Mobile
 
-- Header CTA stacks below identity (already conditional)
-- At-a-glance strip becomes 2-col then 1-col grid via `grid-cols-2 md:grid-cols-3 lg:grid-cols-6`
-- Record card collapses to single column `dl`
-- Long vendor names wrap via `break-words`
+Grid collapses to single column. Rail moves below main. All padding tokens drop one step (`py-10` → `py-8`, `px-10` → `px-6`). Identity band stacks: monogram + identity, then status cluster. No new mobile decisions — same template, vertical.
 
 ### Files touched
 
-- **`src/pages/VendorProfile.tsx`** — full rewrite. Keeps `getVendor`, `StatusBadge`, `Breadcrumb`, `PageMeta`. Adds imports for `VerificationShield`, `Callout`, `getVendorFulfillment`, `VENDOR_FULFILLMENT_LABEL`, `VENDOR_STATUS_DISCLOSURE`.
-- No data changes. No new components. No token changes. No impact on registry page or any other surface.
+- `src/pages/VendorProfile.tsx` — refactor in place. Apply the locked tokens, normalize all section padding, switch Public Record to fixed six-row matrix with `—` fallbacks, add `min-h` to About, normalize rail to always-rendered ordered rows, ensure last-section borders collapse cleanly. No structural changes outside what's described.
+
+No new components, no token/CSS changes, no impact on any other page.
 
 ### Out of scope
 
-- Map/geo on profile (deferred with registry-side geo work)
-- NPI field (not in current data model — show only when populated; otherwise omitted)
-- Failed/Flagged status (not in current type union)
+- Greenlist profile (separate template, separate pass if requested).
+- Any new content (logos, accreditations, license fields, audit notes) — template first, content later.
+- Color/typography token changes.
 
