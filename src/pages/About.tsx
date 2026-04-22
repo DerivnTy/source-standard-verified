@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
+import { BriefingHero } from "@/components/BriefingHero";
 import { DocSignature } from "@/components/DocSignature";
 
 const beliefs = [
@@ -68,18 +68,19 @@ const About = () => {
     <>
       <PageMeta
         title="About Source Standard"
-        description="Source Standard is a public, version-controlled record establishing transparency standards for clinical sourcing and verification."
+        description="The organizational structure and operational intent of the Source Standard framework."
       />
-      <RecordHeader
+      <BriefingHero
+        category="CHARTER · SS-ORG"
+        docId="SS-ORG-2026.01"
+        title="About."
+        statement="The organizational structure and operational intent of the Source Standard framework."
         metadata={[
           { label: "Doc", value: "SS-ORG-2026.01" },
-          { label: "Version", value: "2026.01" },
           { label: "Status", value: "Active" },
+          { label: "Jurisdiction", value: "United States" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
-        eyebrow="Reference · Organization profile"
-        title="About Source Standard."
-        lead="An independent reference framework for vendor sourcing claims in peptide, TRT, and hormone-optimization markets."
         verifiedOn="04 / 21 / 2026"
       />
 

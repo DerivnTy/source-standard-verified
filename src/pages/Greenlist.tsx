@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
+import { BriefingHero } from "@/components/BriefingHero";
 
 import { SourceCheck } from "@/components/SourceCheck";
 import { EmptyState } from "@/components/EmptyState";
@@ -281,72 +282,61 @@ const Greenlist = () => {
         title="Greenlist · Recognized Upstream Sources"
         description="Public registry of upstream compounding facilities recognized under federal registration, state licensure, or accredited credentialing."
       />
-      {/* Board-style split hero: title left, stat reference card right */}
+      <BriefingHero
+        category="REGISTRY · UPSTREAM · SS-02"
+        docId="SS-GREENLIST-2026.01"
+        title="Upstream Registry."
+        statement="Technical data and registration status for pharmaceutical compounding and manufacturing facilities."
+        metadata={[
+          { label: "Doc", value: "SS-GREENLIST-2026.01" },
+          { label: "Status", value: "Active" },
+          { label: "Jurisdiction", value: "United States" },
+          { label: "Updated", value: "04 / 21 / 2026" },
+        ]}
+        verifiedOn="04 / 21 / 2026"
+      />
+
+      {/* Registry counts strip */}
       <section className="border-b border-border bg-background">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10 items-start">
-            <div className="md:col-span-8">
-              <p className="meta mb-3">SS-GREENLIST-2026.01 · Public regulatory registry</p>
-              <h1 className="title-page text-foreground tracking-[-0.02em]">
-                Upstream Facility Registry.
-              </h1>
-              <p className="mt-4 max-w-[58ch] text-[15px] text-muted-foreground leading-[1.65]">
-                Compounding facilities recognized under the framework on the basis of federal
-                registration and state licensure. Inclusion is documentary; it is not a clinical
-                endorsement.
-              </p>
-            </div>
-            <div className="md:col-span-4">
-              <div className="border border-border bg-background">
-                <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-surface-muted">
-                  <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
-                    Reference · Registry counts
-                  </span>
-                  <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
-                    Active
-                  </span>
-                </div>
-                <dl className="divide-y divide-border">
-                  {statCards.map((s) => (
-                    <HoverCard key={s.key} openDelay={120} closeDelay={60}>
-                      <HoverCardTrigger asChild>
-                        <div
-                          className={`grid grid-cols-12 gap-2 px-4 py-2.5 items-center cursor-default ${
-                            s.accent ? "bg-primary/[0.04]" : ""
-                          }`}
-                        >
-                          <dt className="col-span-8 flex items-center gap-2 text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
-                            {s.glyph === "check" ? (
-                              <SourceCheck size="xs" />
-                            ) : (
-                              <span
-                                aria-hidden
-                                className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`}
-                              />
-                            )}
-                            <span className="font-semibold text-foreground/80 truncate">
-                              {s.key === "total"
-                                ? s.label
-                                : CATEGORY_LABEL[s.key as GreenlistCategory] ?? s.key}
-                            </span>
-                          </dt>
-                          <dd className="col-span-4 text-right text-[15px] font-mono font-semibold tabular-nums text-foreground">
-                            {s.value.toString().padStart(2, "0")}
-                          </dd>
-                        </div>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-80 text-[12.5px] leading-[1.6] text-muted-foreground">
-                        <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground">
-                          {s.label}
-                        </p>
-                        {s.desc}
-                      </HoverCardContent>
-                    </HoverCard>
-                  ))}
-                </dl>
-              </div>
-            </div>
-          </div>
+        <div className="container-wide">
+          <ul className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border border-x border-border">
+            {statCards.map((s) => (
+              <HoverCard key={s.key} openDelay={120} closeDelay={60}>
+                <HoverCardTrigger asChild>
+                  <li
+                    className={`bg-background px-4 py-4 cursor-default ${
+                      s.accent ? "bg-primary/[0.04]" : ""
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      {s.glyph === "check" ? (
+                        <SourceCheck size="xs" />
+                      ) : (
+                        <span
+                          aria-hidden
+                          className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`}
+                        />
+                      )}
+                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground truncate">
+                        {s.key === "total"
+                          ? s.label
+                          : CATEGORY_LABEL[s.key as GreenlistCategory] ?? s.key}
+                      </span>
+                    </div>
+                    <p className="text-[20px] font-mono font-semibold tabular-nums text-foreground">
+                      {s.value.toString().padStart(2, "0")}
+                    </p>
+                  </li>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80 text-[12.5px] leading-[1.6] text-muted-foreground">
+                  <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground">
+                    {s.label}
+                  </p>
+                  {s.desc}
+                </HoverCardContent>
+              </HoverCard>
+            ))}
+          </ul>
         </div>
       </section>
 

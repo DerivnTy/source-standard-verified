@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { DocJumpBar } from "@/components/DocJumpBar";
 import { DocSignature } from "@/components/DocSignature";
 import { BoardCiteFooter } from "@/components/BoardSection";
+import { BriefingHero } from "@/components/BriefingHero";
 
 const DOC_ID = "SS-PROTO-2026.01";
 const VERIFIED_ON = "04/21/2026";
@@ -272,21 +272,22 @@ const HowItWorks = () => {
   return (
     <div className="bg-background">
       <PageMeta
-        title="How Verification Works"
-        description="The Source Standard verification process — intake, evidentiary review, board ratification, and renewal cadence."
+        title="Verification Protocol"
+        description="The active auditing requirements and clinical criteria utilized for third-party validation."
       />
-      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "How verification works" }]} />
-      <RecordHeader
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Protocol" }]} />
+      <BriefingHero
+        category="PROTOCOL · SS-PROT"
+        docId={DOC_ID}
+        title="Verification Protocol."
+        statement="The active auditing requirements and clinical criteria utilized for third-party validation."
         metadata={[
           { label: "Doc", value: DOC_ID },
           { label: "Status", value: "Active" },
-          { label: "Updated", value: "04/21/26" },
-          { label: "Scope", value: "Verification" },
+          { label: "Jurisdiction", value: "United States" },
+          { label: "Updated", value: "04 / 21 / 2026" },
         ]}
         verifiedOn={VERIFIED_ON}
-        eyebrow="SOP · Forensic audit methodology"
-        title="SOP: Verification Protocol & Audit Methodology."
-        lead="Forensic examination of supply-chain records, regulatory credentials, and public-facing claims against a controlled evidentiary standard. Determinations are issued under a defined scope and time window and remain subject to continuous surveillance."
       />
 
       <DocJumpBar waypoints={jumpWaypoints} />
