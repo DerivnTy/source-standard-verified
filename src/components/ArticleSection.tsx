@@ -56,9 +56,9 @@ export const ArticleFooter = ({
   next?: { to: string; label: string };
   citation?: string;
 }) => (
-  <footer className="bg-background border-t border-border mt-12">
+  <footer className="bg-background border-t border-border mt-10">
     <div className="container-wide py-8">
-      <div className="max-w-[760px] mx-auto">
+      <div className="max-w-[880px] mx-auto">
         {(back || next) && (
           <div className="grid md:grid-cols-2 gap-6 md:gap-10">
             <div>
