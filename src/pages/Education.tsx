@@ -86,46 +86,36 @@ const LibraryTile = ({ entry }: { entry: LibraryEntry }) => (
 
 const CATEGORIES: {
   key: CategoryKey;
-  code: string;
   label: string;
   description: string;
-  ids: string[];
   groupAnchor: string;
   Icon: typeof Scale;
 }[] = [
   {
     key: "legal",
-    code: "FAQ-CAT-01",
-    label: "Legal & Regulatory",
+    label: "Legal",
     description: "Statutory framework, federal scheduling, and lawful access.",
-    ids: ["SS-FAQ-001", "SS-FAQ-002"],
     groupAnchor: "legality",
     Icon: Scale,
   },
   {
     key: "clinical",
-    code: "FAQ-CAT-02",
-    label: "Clinical Safety",
+    label: "Safety",
     description: "Sterility, handling integrity, and clinical-use scope.",
-    ids: ["SS-FAQ-004", "SS-FAQ-007"],
     groupAnchor: "methodology",
     Icon: ShieldCheck,
   },
   {
     key: "verification",
-    code: "FAQ-CAT-03",
-    label: "Verification Process",
+    label: "Verification",
     description: "How clinics and upstream pharmacies are audited and confirmed.",
-    ids: ["SS-FAQ-003", "SS-FAQ-005", "SS-FAQ-006", "SS-FAQ-008"],
     groupAnchor: "verification",
     Icon: BadgeCheck,
   },
   {
     key: "diligence",
-    code: "FAQ-CAT-04",
-    label: "Consumer Diligence",
+    label: "Diligence",
     description: "Public-facing checks before engaging any compounded source.",
-    ids: ["SS-FAQ-009", "SS-FAQ-010"],
     groupAnchor: "due-diligence",
     Icon: Compass,
   },
