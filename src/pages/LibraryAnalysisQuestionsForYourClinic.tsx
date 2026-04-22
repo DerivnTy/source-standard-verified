@@ -151,7 +151,7 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
             <Link to="/education">← Back to Education Hub</Link>
           </Button>
           <Link
-            to="/library/analysis/what-verification-actually-means"
+            to="/library/analysis/meaning-of-verification"
             className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
           >
             Next Analysis: What Verification Actually Means (SS-SERIES-005) →
