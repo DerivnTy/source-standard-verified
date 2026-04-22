@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-ANALYSIS-001";
 const LibraryAnalysis2026Reclassification = () => {
   return (
     <>
+      <PageMeta title="The 2026 Compounding Reclassification · Analysis" description="Regulatory analysis of the 2026 compounding reclassification and its downstream impact." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Analysis" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Analysis"
         title="The 2026 Compounding Reclassification"
@@ -87,6 +95,7 @@ const LibraryAnalysis2026Reclassification = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Analysis — 2026 Compounding Reclassification, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

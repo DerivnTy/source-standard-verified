@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-GUIDE-001";
 const LibrarySterilePreparationIntegrity = () => {
   return (
     <>
+      <PageMeta title="Sterile Preparation Integrity · Clinical Guide" description="Handling and reconstitution protocol for sterile injectable compounds." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Clinical Guides" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Guide"
         title="Sterile Preparation Integrity: Handling & Reconstitution Protocol"
@@ -102,6 +110,7 @@ const LibrarySterilePreparationIntegrity = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Guide — Sterile Preparation Integrity, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

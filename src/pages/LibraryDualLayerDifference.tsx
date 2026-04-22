@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-SERIES-003";
 const LibraryDualLayerDifference = () => {
   return (
     <>
+      <PageMeta title="The Dual-Layer Difference · Clinical Guide" description="Why Source Standard audits both the vendor and the upstream pharmacy." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Clinical Guides" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Foundational Philosophy"
         title="The Dual-Layer Difference"
@@ -95,6 +103,7 @@ const LibraryDualLayerDifference = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Foundational Philosophy — The Dual-Layer Difference, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

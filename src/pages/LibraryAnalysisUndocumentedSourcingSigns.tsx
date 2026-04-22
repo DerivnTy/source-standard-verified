@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-ANALYSIS-006";
 const LibraryAnalysisUndocumentedSourcingSigns = () => {
   return (
     <>
+      <PageMeta title="Undocumented Sourcing — Warning Signs · Analysis" description="Recognizing red flags of undocumented medication sourcing." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Analysis" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Analysis"
         title="Warning Signs of Undocumented Sourcing"
@@ -107,6 +115,7 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Analysis — Warning Signs of Undocumented Sourcing, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

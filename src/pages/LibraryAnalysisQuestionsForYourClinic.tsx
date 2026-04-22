@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -51,6 +54,11 @@ const FLAGS = [
 const LibraryAnalysisQuestionsForYourClinic = () => {
   return (
     <>
+      <PageMeta title="Questions to Ask Your Clinic · Analysis" description="A standardized checklist for evaluating clinic transparency." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Analysis" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Analysis"
         title="Questions to Ask Your Clinic"
@@ -112,6 +120,7 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Analysis — Questions to Ask Your Clinic, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

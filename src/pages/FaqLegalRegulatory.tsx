@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardFooterNav,
@@ -34,6 +37,11 @@ const QA = [
 const FaqLegalRegulatory = () => {
   return (
     <>
+      <PageMeta title="Legal & Regulatory FAQ" description="Plain-language answers to legal and regulatory questions about compounded peptides." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "FAQ" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Regulatory FAQ"
         title="FAQ: Legal & Regulatory"
@@ -84,6 +92,7 @@ const FaqLegalRegulatory = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Legal & Regulatory, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

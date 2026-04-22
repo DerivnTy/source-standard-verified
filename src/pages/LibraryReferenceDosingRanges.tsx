@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -34,6 +37,11 @@ const REFERENCE_ROWS = [
 const LibraryReferenceDosingRanges = () => {
   return (
     <>
+      <PageMeta title="Reference Dosing Ranges · Foundational Series" description="Conservative reference dosing ranges drawn from peer-reviewed literature." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Foundational Series" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Guide"
         title="Reference Dosing Ranges: Selected Compounds"
@@ -144,6 +152,7 @@ const LibraryReferenceDosingRanges = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Guide — Reference Dosing Ranges, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

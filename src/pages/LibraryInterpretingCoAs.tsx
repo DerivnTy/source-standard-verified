@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-SERIES-002";
 const LibraryInterpretingCoAs = () => {
   return (
     <>
+      <PageMeta title="Interpreting Certificates of Analysis · Clinical Guide" description="Audit protocols for interpreting CoAs and detecting documentary discrepancies." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Clinical Guides" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Audit Protocols"
         title="Audit Protocols: Interpreting CoAs and Detecting Discrepancies"
@@ -109,6 +117,7 @@ const LibraryInterpretingCoAs = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Audit Protocols — Interpreting CoAs, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };
