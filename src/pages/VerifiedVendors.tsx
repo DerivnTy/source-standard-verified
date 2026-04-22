@@ -304,45 +304,27 @@ const VerifiedVendors = () => {
 
   const facets = (
     <>
-      {/* Verified-only — primary trust filter, gets pill treatment */}
-      <div
-        className="flex items-center gap-1.5"
-        role="group"
-        aria-label="Verification filter"
-      >
-        {(
-          [
-            { value: "all", label: "Show all" },
-            { value: "verified", label: "Verified only" },
-          ] as { value: VerifiedOnlyFilter; label: string }[]
-        ).map((opt) => {
-          const active = verifiedOnly === opt.value;
-          return (
-            <button
-              key={opt.value}
-              type="button"
-              aria-pressed={active}
-              onClick={() => setVerifiedOnly(opt.value)}
-              className={`h-10 px-3 rounded-[2px] border text-xs font-medium uppercase tracking-[0.06em] transition-colors ${
-                active
-                  ? opt.value === "verified"
-                    ? "bg-verified text-verified-foreground border-verified"
-                    : "bg-foreground text-background border-foreground"
-                  : "bg-background text-muted-foreground border-border hover:text-foreground"
-              }`}
-            >
-              {opt.label}
-            </button>
-          );
-        })}
-      </div>
+      {/* Verified-only — primary trust filter */}
+      <FacetGroup ariaLabel="Verification filter">
+        <FacetToggle
+          active={verifiedOnly === "all"}
+          onClick={() => setVerifiedOnly("all")}
+        >
+          Show all
+        </FacetToggle>
+        <FacetToggle
+          tone="verified"
+          active={verifiedOnly === "verified"}
+          onClick={() => setVerifiedOnly("verified")}
+        >
+          Verified only
+        </FacetToggle>
+      </FacetGroup>
+
+      <FacetDivider />
 
       {/* Fulfillment — second core filter */}
-      <div
-        className="flex items-center gap-1.5"
-        role="group"
-        aria-label="Fulfillment filter"
-      >
+      <FacetGroup ariaLabel="Fulfillment filter">
         {(
           [
             { value: "in-person", label: "In-Person" },
@@ -352,22 +334,18 @@ const VerifiedVendors = () => {
         ).map((opt) => {
           const active = fulfillment === opt.value;
           return (
-            <button
+            <FacetToggle
               key={opt.value}
-              type="button"
-              aria-pressed={active}
+              active={active}
               onClick={() => setFulfillment(active ? "all" : opt.value)}
-              className={`h-10 px-3 rounded-[2px] border text-xs font-medium uppercase tracking-[0.06em] transition-colors ${
-                active
-                  ? "bg-foreground text-background border-foreground"
-                  : "bg-background text-muted-foreground border-border hover:text-foreground"
-              }`}
             >
               {opt.label}
-            </button>
+            </FacetToggle>
           );
         })}
-      </div>
+      </FacetGroup>
+
+      <FacetDivider />
 
       <FacetSelect
         value={state}
