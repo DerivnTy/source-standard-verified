@@ -283,6 +283,7 @@ const MedicalAdvisory = () => {
           </p>
         </div>
       </section>
+      <DocSignature docId="SS-MAB-2026.01" verifiedOn="04 / 21 / 2026" />
     </>
   );
 };
