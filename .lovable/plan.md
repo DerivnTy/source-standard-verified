@@ -1,79 +1,100 @@
 
 
-## Apply for Verification — Intake Restructure
+## Greenlist Profile — Upstream Reference Restructure
 
-Rebuild `src/pages/Apply.tsx` to match the real operating flow: this public page is intake-only. Vendors submit basic business info, Source Standard reviews, then emails an invitation into the internal onboarding system where documents are uploaded. Strip the "Step 1 of 2 / SS-INTAKE-01 / §A§B§C / [ SS-INTAKE-01 ] SUBMIT INITIAL FILING" administrative coding and reframe as a calm, conversion-oriented intake.
+Rebuild `src/pages/GreenlistProfile.tsx` so each Greenlisted facility page reads as a clean upstream reference record — supporting infrastructure, not a vendor-style trust product. Tighten the hero, lift interpretation up, drop empty data scaffolding, and consistently surface what Greenlisted means and does not mean.
 
 ---
 
 ### Section sequence
 
-**1 · Hero** (replace `UtilityHeader`)
-Centered, calm opening — match the editorial rhythm used on About / Education.
-- Eyebrow: `Apply for Verification`
-- Title: `Apply for Verification`
-- Subhead: `Submit your basic business information to open a Source Standard review file. Once intake is acknowledged, your team will receive an email invitation to continue onboarding and upload documentation through our internal verification system.`
-- No `Form SS-INTAKE-01 · Step 1 of 2` chip, no doc codes.
+**1 · Top intro block** (`bg-background`)
+Keep `ProfileHeader` but tighten it.
+- Eyebrow: `Greenlist source` (or `Unverified facility` when `regulatoryAlert` is present).
+- Title: facility `name`.
+- Identity row (compact, one line): `Recognized` (or alert label) · `entry.type` · `entry.location`.
+- Lead: one-sentence plain description — prefer `firstSentence(p.background)`, fall back to `entry.focus`. Trim to a single sentence; never paste the full multi-sentence background here.
+- Drop the `Visit website ↗` outline button under the title (the website lives in the glance panel — removes redundancy and the stretched empty hero feel).
+- Reduce hero vertical padding so the at-a-glance panel sits closer to the title.
 
-**2 · How it works** (`bg-surface-muted`)
-Centered `SectionHeader` (eyebrow `How it works`, lede `Three steps from intake to review.`). Three numbered blocks (`01 / 02 / 03`) in a 3-col grid (single column on mobile), hairline dividers:
-- `01 · Submit business details` — Share general business information through this short intake form.
-- `02 · Receive onboarding invitation` — If accepted for onboarding, your team is emailed a secure access link to our internal verification system.
-- `03 · Complete onboarding and enter review` — Inside the internal system, upload documentation, complete onboarding, and move into formal review.
+**2 · At-a-glance panel** (right slot of hero — keep, refine)
+Compact summary, restrained. Order:
+- `Source type` — `entry.type`
+- `Location` — `entry.location`
+- `Status` — `Recognized` or alert label
+- `Website` — hostname link, or `Not listed` (muted)
+- `Last reviewed` — `April 21, 2026` (single shared review date)
+- Optional, only when present: `States served` (from `p.statesServed`) and `FDA registration` (from `p.fdaRegistration`)
+Filter out empty rows. Keep the bordered-card treatment used today.
 
-**3 · What this step requires** (`bg-background`)
-Centered `SectionHeader` (`What this step requires`, lede `Step 1 collects general business details only — full documentation is requested later through the internal onboarding system.`). Below, a `max-w-3xl` plain bulleted list with hairline dividers:
-- Legal business name
-- Brand name
-- Website
-- Doctor or prescriber name (where applicable)
-- States of operation
-- Administrative contact details
+**3 · What Greenlisted means** (`bg-surface-muted`, new — lifted to top)
+The most important interpretive section. Centered `SectionHeader` (eyebrow `Interpretation`, title `What Greenlisted means`). Below, in a `max-w-3xl` column, four short plain bullets with hairline dividers:
+- This facility appears in the upstream reference set used by the Source Standard framework.
+- Greenlisted status means the facility meets the recognition criteria for upstream reference.
+- Greenlisted status does not mean Source Standard is certifying every downstream vendor that claims to use it.
+- Vendor verification requires a separate review of the vendor's own records.
+This block renders on every Greenlisted profile, identical wording, so the interpretive frame is consistent across the registry.
 
-**4 · Documents typically requested during onboarding** (`bg-surface-muted`)
-Quiet preview, de-emphasized. Centered `SectionHeader` (eyebrow `Later — during internal onboarding`, title `Documents typically requested during onboarding`, lede `Provided here for transparency. Not required at this step.`). Plain bulleted list with hairline dividers, muted tone:
-- Business licenses and registrations
-- Pharmacy invoices
-- Certificates of analysis
-- Prescriber credentials (where applicable)
-- Supplier or pharmacy agreements (where applicable)
+**4 · Regulatory alert** (conditional, `bg-background`)
+Only renders when `entry.regulatoryAlert` exists. Keep the existing alert block (status pill, `as of` date, reason, proof links) but reposition it directly under "What Greenlisted means" so unverified context is read before any standards data. Keep the unverified color treatment.
 
-**5 · Intake form** (`bg-background`)
-Centered `SectionHeader` (`Begin intake`, lede `Tell us who you are. We'll review and reach out with next steps.`). Form rendered in a `max-w-2xl` centered column — no bordered card shell, no `Form SS-INTAKE-01` header strip, no `§A / §B / §C` mono legends. Three plain section labels (regular weight, no mono):
-- **Business profile** — `Legal business name`, `Brand name`, `Website`
-- **Operating scope** — `Verification category`, `Prescriber name (if applicable)`, `States of operation`
-- **Administrative contact** — `Contact name`, `Business email`, `Business phone`
+**5 · Regulatory & standards anchors** (`bg-background`)
+Centered `SectionHeader` (`Regulatory & standards`, lede `The recognition basis for this facility.`). Render as a plain stacked definition list with hairline dividers in a `max-w-3xl` column — drop the 180px label-grid look. Show only fields with values:
+- `Designation` (skip when it duplicates `entry.type`)
+- `FDA registration`
+- `Standards` (e.g. `cGMP (503B)`)
+- `Cleanroom class`
+- `States served`
+- `Last inspection`
+- `Inspection history`
+- `Environmental monitoring`
+- `Testing`
+If fewer than 2 fields populate, render a single muted line instead: `Recognition basis: {entry.type} · public regulatory record.` — prevents the section from rendering as one lonely row.
 
-Inputs use default rounded styling (drop `rounded-none`, drop mono `meta-label` class — use plain `Label`). Add the new `Prescriber name` field as optional.
+**6 · Facility characteristics** (`bg-surface-muted`)
+Centered `SectionHeader` (`Facility characteristics`, lede `What this facility is known to do.`). Same plain stacked list pattern, only populated fields shown:
+- `Dosage forms`
+- `Specializations`
+- `Clinical focus` — `entry.focus`
+- `API sourcing`
+- `Years in operation`
+- `Facility scale`
+- `QA staffing`
+- `Background` — full paragraph (`text-[14px] leading-[1.7] max-w-[68ch]`)
+Same fallback behavior: if only `Background` and `Clinical focus` populate, render them as two short labeled paragraphs without the list chrome. Drop `Review notes` from the public view (internal-feeling, often empty).
 
-CTA: a single primary `Button` labeled **`Submit Intake`** (drop the `[ SS-INTAKE-01 ] SUBMIT INITIAL FILING` mono chrome, drop forced uppercase/mono). Submitting state: `Submitting…`.
+**7 · Relationship to the Source Standard framework** (`bg-background`, new explicit section)
+Centered `SectionHeader` (eyebrow `Within the framework`, title `How this page fits the dual-layer model`). One short paragraph in `max-w-3xl`:
+> This facility is part of the upstream reference layer. Vendor verification requires a separate review of invoices, sourcing records, and other documentation to confirm that a listed vendor is actively sourcing from a recognized facility.
+Replaces the small left-bordered footnote currently buried at the bottom — same idea, properly elevated.
 
-**6 · Submission notice** (immediately below the form, same section)
-Single muted paragraph in `max-w-2xl`:
-> Submitting this form opens your intake file. If your application is accepted for onboarding, Source Standard will email your team with the next-step access link for document submission and review.
+**8 · Continue reading — quiet bridge** (`bg-surface-muted`)
+Small eyebrow `Continue reading`, then three quiet text links in a single row (single column on mobile), hairline dividers between:
+- `Back to Upstream Greenlist →` `/greenlist`
+- `View Verified Vendors →` `/verified-vendors`
+- `How Verification Works →` `/how-it-works`
 
-**7 · Filed confirmation state** (replaces the form when `filed === true`)
-Same centered column. Plain heading `Intake received.` + paragraph: `Your file has been opened. If accepted for onboarding, your team will receive an email invitation with secure access to continue onboarding.` Muted reference line: `Reference: {reference}`. Quiet `Submit another intake` ghost link below.
-
-**8 · Footer**
-Drop the `Official citation · SS-INTAKE-01` band entirely. Replace with a single muted line of two quiet text links: `Vendor submission standard →` `/for-vendors` · `How verification works →` `/how-it-works`.
+**9 · Footer**
+Keep `ProfileFootnote` as-is: `Listing` · `Updated` · `Jurisdiction` plus the no-payment / public-record note. No changes.
 
 ---
 
 ### Visual rules
 
-- No `§A / §B / §C` legends, no `Form SS-INTAKE-01`, no `[ SS-INTAKE-01 ]` button chrome, no `Step 1 of 2` chip, no `Administrative notice · SS-INTAKE-01` band, no `Official citation` footer.
-- Drop `font-mono uppercase tracking-[0.08em]` from all visible UI labels in the form area.
-- Drop `rounded-none` on inputs and the CTA — use the project's default rounded styling so the form feels like an intake form, not a regulatory portal.
-- Centered `SectionHeader` rhythm + `max-w-2xl/3xl` content columns — matches About / Education / How Verification Works.
-- Surfaces alternate `bg-background` ↔ `bg-surface-muted`. Hairline dividers via `border-border`. No card shadows, no left-rail sticky checklist.
-- Spacing: `container-wide` + `py-12 md:py-16`.
+- One consistent profile structure across every Greenlisted facility page.
+- Centered `SectionHeader` rhythm + `max-w-3xl` content columns — matches About / Education / How Verification Works / Apply.
+- Surfaces alternate `bg-background` ↔ `bg-surface-muted` between sections 3–8.
+- Hairline dividers via `border-border`. No card shadows. Keep the existing bordered glance panel and the bordered alert block (those are intentional micro-cards).
+- Drop the dense 180px label / value grid for Regulatory and Capabilities — replace with plain stacked rows so missing fields collapse cleanly instead of leaving the 180px column empty.
+- Drop `Review notes` from public render. Drop the redundant hero `Visit website ↗` button.
+- Tighten hero vertical padding so the page leads with information, not whitespace.
+- No vendor-style trust language anywhere; no promotional phrasing about the facility.
 
 ### Files touched
 
-- `src/pages/Apply.tsx` — full body rewrite. Replace `UtilityHeader` with centered hero, drop sticky-rail checklist layout, restructure into the 8 sections above, add 3-step process overview, reframe checklist as "documents typically requested during onboarding" (de-emphasized), simplify form (plain section labels, default input styling, new optional `Prescriber name` field), replace mono CTA with `Submit Intake`, drop citation footer.
+- `src/pages/GreenlistProfile.tsx` — full body rewrite. Tighten hero, drop redundant website CTA, expand glance panel with optional `Last reviewed` / `States served` / `FDA registration` rows, add the new "What Greenlisted means" interpretive block (lifted to top, identical wording across all profiles), reposition the regulatory-alert block under it, replace the two dense `<dl>` grids with plain stacked rows that auto-collapse empty fields and degrade to a single muted line when sparse, add an explicit "How this page fits the dual-layer model" section, replace the bottom footnote band with a quiet 3-link continue-reading row, keep `ProfileFootnote`.
 
 ### What stays the same
 
-`PageMeta`, `Breadcrumb`, `Button` / `Input` / `Label` primitives, the simulated submit logic (`onSubmit` + `setTimeout` + `SS-INTAKE-{YYYY}-{ID}` reference generation + `filed` / `fileAnother` state), the route `/apply`, and every other page on the site.
+`ProfileHeader`, `ProfileFootnote`, `Section`, `PageMeta`, `Breadcrumb`, the `getGreenlistEntry` data lookup, the `GreenlistEntry` / `GreenlistProfile` types, the regulatory-alert color treatment, the route `/greenlist/:slug`, every other page on the site, and the registry data in `src/data/greenlist.ts` (no schema changes).
 
