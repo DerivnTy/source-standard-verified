@@ -32,11 +32,12 @@ html {
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Safety Blue — primary interactive / verification accent tone */
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 199 89% 42%;
-    --accent-soft: 199 89% 96%;
+    /* Hero Navy — primary interactive accent (matches --navy-surface) */
+    --primary: 222 47% 11%;
+    --primary-foreground: 40 30% 96%;
+    --primary-hover: 222 40% 16%;
+    --accent-soft: 222 35% 94%;
+    --cream: 40 30% 96%;
 
     --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
@@ -60,7 +61,7 @@ html {
     --border: 214 32% 91%;
     --border-strong: 214 28% 80%;
     --input: 214 32% 88%;
-    --ring: 199 89% 48%;
+    --ring: 222 47% 11%;
 
     --radius: 0.625rem;
 
@@ -102,9 +103,11 @@ html {
     --card-foreground: 210 40% 96%;
     --popover: 222 40% 9%;
     --popover-foreground: 210 40% 96%;
-    --primary: 199 89% 58%;
-    --primary-foreground: 222 47% 6%;
-    --primary-hover: 199 89% 64%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 40 30% 96%;
+    --primary-hover: 222 40% 22%;
+    --accent-soft: 222 30% 18%;
+    --cream: 40 30% 96%;
     --secondary: 215 22% 14%;
     --secondary-foreground: 0 0% 96%;
     --muted: 215 22% 14%;
@@ -121,7 +124,7 @@ html {
     --border: 215 18% 22%;
     --border-strong: 215 18% 32%;
     --input: 215 18% 22%;
-    --ring: 199 89% 58%;
+    --ring: 222 47% 11%;
 
     --src-503b: 152 35% 60%;
     --src-503b-soft: 152 25% 16%;
@@ -333,6 +336,9 @@ html {
   .surface-band {
     background-color: hsl(var(--surface-sunken) / 0.6);
   }
+
+  /* Cream text on navy plates (badges/chips opting into bg-primary outside Button). */
+  .on-navy { color: hsl(var(--cream)); }
 }
 
 @layer components {
