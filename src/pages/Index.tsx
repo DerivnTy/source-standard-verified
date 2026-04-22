@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { greenlist, greenlistEntries } from "@/data/greenlist";
+import { greenlist } from "@/data/greenlist";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 
