@@ -176,20 +176,6 @@ const Education = () => {
             Your guide to the science, safety, and standards of compounded medicine. Empowering patients with clinical transparency.
           </p>
 
-          {/* Search bar — softer */}
-          <div className="mt-10 max-w-[560px] mx-auto relative">
-            <Search
-              aria-hidden
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
-            />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search the library by topic, doc ID, or keyword…"
-              className="w-full h-12 pl-11 pr-4 rounded-full border border-border/60 bg-background text-[14px] text-foreground placeholder:text-muted-foreground shadow-sm focus:outline-none focus:border-foreground/40 focus:ring-2 focus:ring-ring/30 transition-all"
-            />
-          </div>
         </div>
       </section>
 
