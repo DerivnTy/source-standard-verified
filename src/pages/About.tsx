@@ -5,13 +5,6 @@ import { BriefingHero } from "@/components/BriefingHero";
 import { BoardSection } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
 
-const beliefs = [
-  "Consumers deserve more than marketing language when evaluating a vendor.",
-  "Vendors who operate with transparency should be easier to distinguish.",
-  "Public clarity helps everyone understand the landscape more accurately.",
-  "Documentation matters.",
-];
-
 const weVerify = [
   "Maintain a public system to review verified vendors.",
   "Publish recognized upstream sources.",
@@ -36,7 +29,7 @@ const isNotItems = [
 ];
 
 const readDeeper = [
-  { to: "/governance", label: "Governance & Oversight", desc: "Clinical advisory and statutory anchors." },
+  { to: "/governance", label: "Governance & oversight", desc: "Clinical advisory and statutory anchors." },
   { to: "/how-it-works", label: "How verification works", desc: "Process, review, and renewal." },
   { to: "/status-definitions", label: "Status definitions", desc: "Glossary of regulatory standings." },
   { to: "/accountability", label: "Accountability & enforcement", desc: "Compliance protocol." },
@@ -47,8 +40,7 @@ const waypoints = [
   { id: "definition", number: "2", label: "Definition" },
   { id: "boundaries", number: "3", label: "Boundaries" },
   { id: "audiences", number: "4", label: "Audiences" },
-  { id: "principles", number: "5", label: "Principles" },
-  { id: "scope", number: "6", label: "Scope" },
+  { id: "scope", number: "5", label: "Scope" },
 ];
 
 const About = () => {
@@ -72,7 +64,7 @@ const About = () => {
         id="context"
         n="1"
         category="Context"
-        title="Consumers shouldn't have to decode marketing claims."
+        title="Consumers shouldn't have to decode marketing claims"
       >
         <p>
           In peptide, TRT, and hormone optimization markets, consumers are routinely asked to make
@@ -90,7 +82,7 @@ const About = () => {
         id="definition"
         n="2"
         category="Definition"
-        title="A public reference and verification framework."
+        title="A public reference and verification framework"
         muted
       >
         <p>
@@ -104,42 +96,27 @@ const About = () => {
         id="boundaries"
         n="3"
         category="Boundaries"
-        title="Boundaries of the framework."
+        title="Boundaries of the framework"
       >
         <ul className="border-y border-border divide-y divide-border">
           {isNotItems.map((item, i) => (
-            <li key={i} className="py-4 t-body-sm font-medium text-foreground">
+            <li key={i} className="py-4 t-body-md text-foreground">
               {item}
             </li>
           ))}
         </ul>
       </BoardSection>
 
-      {/* Operating principle — kept centered (single emphatic statement) */}
-      <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide space-section-tight">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="meta-mono mb-6">Operating principle</p>
-            <p className="t-h3 font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
-              "If documentation is present and supports the published status, that status can be shown
-              publicly. If it is not, it cannot."
-            </p>
-            <p className="mt-6 t-body-sm text-muted-foreground leading-relaxed">
-              The role here is not to persuade. The role is to provide a clearer public reference.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <BoardSection
         id="audiences"
         n="4"
         category="Audiences"
-        title="Two audiences, one framework."
+        title="Two audiences, one framework"
+        muted
       >
         <div className="grid md:grid-cols-2 md:divide-x divide-border">
           <div className="md:pr-8 pb-8 md:pb-0 border-b md:border-b-0 border-border">
-            <p className="h-card mb-3">For consumers</p>
+            <p className="t-h4 text-foreground mb-3">For consumers</p>
             <p>
               Source Standard helps consumers understand what has been reviewed, what has not, and
               how to interpret vendor claims more clearly, so decisions rest on evidence rather
@@ -147,7 +124,7 @@ const About = () => {
             </p>
           </div>
           <div className="md:pl-8 pt-8 md:pt-0">
-            <p className="h-card mb-3">For responsible vendors</p>
+            <p className="t-h4 text-foreground mb-3">For responsible vendors</p>
             <p>
               Source Standard makes transparency more visible, distinguishing operators who are
               willing to stand behind their documentation from those who are not.
@@ -157,46 +134,27 @@ const About = () => {
       </BoardSection>
 
       <BoardSection
-        id="principles"
-        n="5"
-        category="Principles"
-        title="Four ideas that shape the framework."
-        muted
-      >
-        <ol className="border-y border-border divide-y divide-border">
-          {beliefs.map((b, i) => (
-            <li key={i} className="grid grid-cols-12 gap-4 py-5 items-baseline">
-              <div className="col-span-2 meta-mono text-primary">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <p className="col-span-10 t-body-sm text-foreground leading-relaxed">{b}</p>
-            </li>
-          ))}
-        </ol>
-      </BoardSection>
-
-      <BoardSection
         id="scope"
-        n="6"
+        n="5"
         category="Scope"
-        title="What falls within the framework, and what falls outside it."
+        title="Within the framework, and outside it"
       >
         <div className="grid md:grid-cols-2 md:divide-x divide-border">
           <div className="md:pr-8 pb-8 md:pb-0 border-b md:border-b-0 border-border">
-            <p className="h-card mb-4">Within the framework</p>
+            <p className="t-h4 text-foreground mb-4">Within the framework</p>
             <ul className="space-y-2.5">
               {weVerify.map((item, i) => (
-                <li key={i} className="t-body-sm text-muted-foreground leading-relaxed">
+                <li key={i} className="t-body-md text-muted-foreground">
                   · {item}
                 </li>
               ))}
             </ul>
           </div>
           <div className="md:pl-8 pt-8 md:pt-0">
-            <p className="h-card mb-4">Outside the framework</p>
+            <p className="t-h4 text-foreground mb-4">Outside the framework</p>
             <ul className="space-y-2.5">
               {weFlag.map((item, i) => (
-                <li key={i} className="t-body-sm text-muted-foreground leading-relaxed">
+                <li key={i} className="t-body-md text-muted-foreground">
                   · {item}
                 </li>
               ))}
@@ -205,24 +163,7 @@ const About = () => {
         </div>
       </BoardSection>
 
-      {/* Mission — kept centered (single emphatic statement) */}
-      <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide space-section-tight">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="meta-mono mb-6">Mission</p>
-            <p className="t-h3 font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
-              To bring greater clarity, consistency, and transparency to vendor sourcing and
-              verification in peptide, TRT, and hormone optimization markets.
-            </p>
-            <p className="mt-6 t-body-sm text-muted-foreground leading-relaxed">
-              Source Standard exists to make the market easier to understand for the people moving
-              through it.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <BoardSection n="7" category="Continue reading" title="Read deeper into the framework.">
+      <BoardSection n="6" title="Read deeper into the framework" muted>
         <ul className="grid grid-cols-1 sm:grid-cols-2 border-t border-border">
           {readDeeper.map((d, i) => (
             <li
@@ -235,7 +176,7 @@ const About = () => {
                 to={d.to}
                 className="group block px-5 py-5 hover:bg-surface-muted transition-colors"
               >
-                <p className="t-body-sm font-medium text-foreground group-hover:text-primary">
+                <p className="t-body-md font-medium text-foreground group-hover:text-primary">
                   {d.label} <span className="text-primary">→</span>
                 </p>
                 <p className="mt-1 t-body-sm text-muted-foreground">{d.desc}</p>

@@ -384,7 +384,7 @@ const Education = () => {
           <div className="mx-auto w-standard">
             <SectionHeader
               eyebrow="Latest analysis"
-              title="Latest analysis."
+              title="Latest analysis"
               lede="Recent additions to the analysis series."
             />
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-t border-border">
@@ -429,14 +429,14 @@ const Education = () => {
           <div className="mx-auto w-standard">
             <SectionHeader
               eyebrow="Forthcoming formats"
-              title="Forthcoming formats."
+              title="Forthcoming formats"
               lede="Future extensions of the library."
             />
             <ul className="divide-y divide-border border-t border-b border-border max-w-3xl">
               {librarySupplementary.map((m) => {
                 const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
                 return (
-                  <li key={m.id} className="py-4 t-body-sm">
+                  <li key={m.id} className="py-4 t-body-md">
                     <span className="text-foreground font-semibold">
                       {ov.title ?? m.title}
                     </span>{" "}
@@ -448,32 +448,6 @@ const Education = () => {
               })}
             </ul>
           </div>
-        </div>
-      </section>
-
-      {/* Forthcoming formats — de-emphasized */}
-      <section className="border-b border-border bg-background" id="archive">
-        <div className="container-wide py-10 md:py-12">
-          <SectionHeader
-            eyebrow="Forthcoming formats"
-            title="Forthcoming formats."
-            lede="Future extensions of the library."
-          />
-          <ul className="divide-y divide-border border-t border-b border-border max-w-3xl">
-            {librarySupplementary.map((m) => {
-              const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
-              return (
-                <li key={m.id} className="py-3.5 text-[13.5px] leading-relaxed">
-                  <span className="text-foreground font-semibold">
-                    {ov.title ?? m.title}
-                  </span>{" "}
-                  <span className="text-muted-foreground">
-                   {ov.description ?? m.description}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
         </div>
       </section>
 
