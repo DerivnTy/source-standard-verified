@@ -1,83 +1,74 @@
 
 
-## Vendor Profile — Single-Card Restructure
+## Vendor Profile — Navigation Cleanup + Verified Drug Scope
 
-Aggressively simplify `src/pages/VendorProfile.tsx`. Strip every interpretive/explanatory section. Replace the multi-section scroll with **one full-width profile card** that holds identity, all record fields, and action buttons. Dense in information, sparse in explanation.
-
----
-
-### What gets removed
-
-- §2 "What this status means" (entire interpretation block)
-- §5 "Verified scope" as a separate section
-- §6 "Upstream sourcing" as a separate section
-- §7 "Status history" as a separate section
-- §8 "How to read this listing" (consumer guidance)
-- §9 "Vendor pathway" as a separate section
-- §10 "Continue reading" bridge section
-- The `STATUS_INTERPRETATION` map (no longer needed)
-- The right-slot "Status capsule" card in the hero
-- The current `ProfileHeader` invocation with eyebrow/identity/lead/rightSlot scaffolding
-- The bottom `ProfileFootnote` band
-
-### New page structure (one screen, one card)
-
-**1 · Compact identity row** (`bg-background`, tight top padding)
-`container-wide`, `pt-8 pb-4`. Single horizontal row:
-- Left: `vendor.name` as `h1` (text-[28px] md:text-[32px] semibold) · directly underneath, a single inline meta line: `StatusBadge` · `location` · `category` · `clinicalFocus[0]` (when present) — separated by middot dividers, all on one line on desktop, wrapping cleanly on mobile.
-- Right (same row, hidden on mobile): primary `Visit website ↗` button + ghost `← Directory` link.
-- No eyebrow, no lead paragraph, no breadcrumbs row above. Keep `Breadcrumb` component but compact.
-
-**2 · Main profile card** (`bg-background`, full-width inside `container-wide`)
-One bordered card (`border border-border`, no shadow, status-tinted 2px top border using existing `CAPSULE_BORDER` map). Internal padding `p-8 md:p-10`. Inside the card, a **2-column grid of record rows** (`grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0`) so the card reads as dense, not stacked. Each row is `label / value`, hairline divider underneath, only populated rows render.
-
-Fields rendered (in order, distributed across the 2 columns):
-- Public status (with inline `StatusBadge`)
-- Legal / public name
-- Brand name (when distinct from `name`)
-- Location
-- Website (hostname link)
-- Medical director
-- Category
-- Clinical focus
-- States of operation (when available)
-- Verified scope (verified only)
-- Last review date (when present)
-- Review ID (verified only, mono)
-- Upstream source summary (verified + `publicNote` only — spans both columns as a short paragraph at the bottom of the grid)
-- Verification status note (non-verified only — single muted line at bottom of grid spanning both columns, e.g. unverified → `No completed Source Standard verification is currently published.`)
-
-**3 · Action area** (inside the same card, separated by a hairline divider, `pt-6 mt-6`)
-Right-aligned cluster of small actions:
-- Primary: `Visit website ↗` (when `vendor.website` exists)
-- Ghost: `← Vendor Registry` → `/verified-vendors`
-- For `unverified` / `removed` only: a quiet additional link `Begin Verification →` `/apply`
-- For `verified`: no extra CTA
-- For `under-review` / `suspended`: no extra CTA
-
-**4 · Footer micro-line** (outside the card, `pt-6 pb-12`)
-Single muted line, centered, `text-[11.5px] text-muted-foreground`:
-`Public record · Updated {reviewDate || "—"} · No payment influences inclusion or status.`
-
-That is the entire page. No additional sections.
+Refine `src/pages/VendorProfile.tsx`. Strip vendor-facing CTAs and competing nav, add a single quiet "Back to Directory" link above the vendor name, and introduce a precise **Verified Drug Scope** section inside the existing profile card.
 
 ---
+
+### Navigation changes
+
+**Remove:**
+- Top-right desktop `← Directory` link in the identity row
+- Bottom action-row `← Vendor Registry` link
+- Bottom action-row `Begin Verification →` link (vendor-facing — does not belong on a consumer page)
+
+**Add:**
+- A single small `← Back to Directory` link rendered above the vendor name (left-aligned, sits between the `Breadcrumb` and the `h1`). Style: `text-[12px] text-muted-foreground hover:text-foreground mb-3 inline-block`. This becomes the only directory-return path on the page.
+
+**Action area (inside card, right-aligned, after hairline divider):**
+- Only `Visit website ↗` remains (when `vendor.website` exists). For all statuses. If no website exists, the action row collapses entirely (no empty divider).
+
+### New section: Verified Drug Scope
+
+Render **inside the same profile card**, immediately after the 2-column metadata grid and before the action divider. Full-width within the card (spans both columns). Treated as a core record field, not a separate visual block — same border-bottom rhythm as the grid rows above.
+
+Structure:
+- Label row: small uppercase eyebrow `Verified drug scope` (matches the `Row` label style — `text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground`).
+- Body, status-aware:
+
+**Verified vendors:**
+- If `vendor.verifiedCompounds` exists (new optional field — see data note below): render as a clean list. Group by category when `vendor.verifiedScopeGroups` is provided (object: `{ [category: string]: string[] }`); otherwise render a flat list of compound names. Each compound on its own line, `text-[14px] text-foreground/90 leading-[1.7]`. Categories rendered as small label rows above their compound list.
+- Fallback when only `verifiedCategories` exists (no compound-level data yet): render the categories as the scope, prefixed by a small note: `Verified at category level. Specific compound list pending publication.`
+- Below the list, a single muted disclosure line: `Verification applies only to the products listed above. Other products offered by this vendor are not within the published scope.`
+- When a per-scope review date exists (`vendor.scopeReviewDate`, optional), render below the disclosure: `Scope reviewed {date}.`
+
+**Non-verified vendors (unverified / under-review / suspended / removed):**
+- Single muted line: `No verified drug scope is currently published.`
+- No list, no disclosure tail.
+
+### Data note (additive, no breaking changes)
+
+Extend the `Vendor` type in `src/data/vendors.ts` with three optional fields:
+- `verifiedCompounds?: string[]` — flat list of specific reviewed compounds
+- `verifiedScopeGroups?: Record<string, string[]>` — optional grouping by category (e.g. `{ "Peptides": ["BPC-157", "TB-500"], "Hormones": ["Testosterone Cypionate"] }`)
+- `scopeReviewDate?: string` — optional per-scope review date
+
+No existing data needs to change. The page renders correctly whether these fields are populated or absent (graceful degradation: groups → flat list → categories → muted note).
+
+### Updated card field order
+
+Inside the 2-column grid (unchanged from current):
+Public status · Legal name · Location · Website · Medical director · Category · Clinical focus · State · Verified scope (header-level, verified only) · Last review date · Review ID · Upstream source summary (verified+publicNote, spans columns) · Non-verified status note (non-verified, spans columns)
+
+Then **new**: Verified Drug Scope block (full-width inside card, spans both columns).
+
+Then: hairline divider → action area (Visit website only, or omitted) → footer micro-line outside card (unchanged).
 
 ### Visual rules
 
-- One section, one card. No alternating `bg-surface-muted` bands.
-- Tight vertical rhythm: hero identity sits at `pt-8`, card immediately below, footer micro-line below card. Whole page should fit on one screen at 1056×865 with minimal scroll.
-- Status accents are subtle: status-tinted 2px top border on the card only (reuses existing `CAPSULE_BORDER` map).
-- Verified prestige cue retained: small mono `REVIEW ID · {reviewId}` in the card, no other ornament.
-- No interpretive copy anywhere. No "what it means / what it tells the public / what it does not imply." No "How to read this listing." No "Status history" section.
-- Drop the page-level `SectionHeader` component usage on this page.
-- Keep `PageMeta`, `Breadcrumb`, `StatusBadge`, `getVendor`, the `CAPSULE_BORDER` map, the `hostname` and `formatLocation` helpers, the `Row` primitive (refit to grid).
+- Stays one section, one card. No new bands or sections outside the card.
+- New scope block uses the same border-bottom hairline + label/value rhythm as existing `Row`s — feels native to the card, not bolted on.
+- Status-tinted top border on the card unchanged.
+- No pills, no badges in the compound list — plain typography, one compound per line, optional category sublabels.
+- Keep `PageMeta`, `Breadcrumb`, `StatusBadge`, `getVendor`, `CAPSULE_BORDER`, `NON_VERIFIED_NOTE`, `hostname`, `formatLocation`, `Row` primitive.
 
 ### Files touched
 
-- `src/pages/VendorProfile.tsx` — full body rewrite to the single-card structure above. Remove `STATUS_INTERPRETATION` map, `NOTE_BORDER` map, `firstSentence` helper, `populatedHistory` logic, and `CapsuleRow`. Remove imports of `VENDOR_STATUS_PROFILE_NOTE`, `ProfileHeader`, `ProfileFootnote` (page now owns its own header layout). Repurpose the `Row` primitive to fit a 2-column grid.
+- `src/pages/VendorProfile.tsx` — remove top-right `← Directory`, remove bottom `← Vendor Registry` and `Begin Verification` links, add `← Back to Directory` above the `h1`, add the `VerifiedScope` block inside the card after the grid.
+- `src/data/vendors.ts` — extend the `Vendor` type with three new optional fields (`verifiedCompounds`, `verifiedScopeGroups`, `scopeReviewDate`). No existing data modified.
 
 ### What stays the same
 
-`StatusBadge`, `PageMeta`, `Breadcrumb`, `getVendor`, the `Vendor` / `VendorPublicStatus` types, `VENDOR_STATUS_LABEL`, the route `/directory/:slug`, all data in `src/data/vendors.ts` (no schema changes), and every other page on the site (Greenlist profile keeps its current structure — this change is scoped to vendor profiles only).
+`StatusBadge`, `PageMeta`, `Breadcrumb`, `getVendor`, the `Vendor` core fields, `VENDOR_STATUS_LABEL`, the `CAPSULE_BORDER` map, the route `/directory/:slug`, the 2-column grid layout, the footer micro-line, all existing vendor data, every other page on the site.
 
