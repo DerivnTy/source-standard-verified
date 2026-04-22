@@ -1,11 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { ArrowRight, MapPin, Globe, Building2 } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
-import { BriefingHero } from "@/components/BriefingHero";
-
-import { StatusBadge } from "@/components/StatusBadge";
 import { EmptyState } from "@/components/EmptyState";
+import { StatusBadge } from "@/components/StatusBadge";
+import { RegistryHeader } from "@/components/registry/RegistryHeader";
+import { RegistrySummaryStrip } from "@/components/registry/RegistrySummaryStrip";
+import {
+  QueryBar,
+  FacetSelect,
+  ActiveChip,
+} from "@/components/registry/QueryBar";
+import { RegistryPagination } from "@/components/registry/RegistryPagination";
+import { VerificationShield } from "@/components/registry/VerificationShield";
 import {
   vendors,
   Vendor,
@@ -15,12 +22,25 @@ import {
   getVendorCities,
   getVendorCityKey,
   getClinicalFocusOptions,
+  getVendorFulfillment,
+  getVendorFulfillmentCounts,
+  VendorFulfillment,
+  VENDOR_FULFILLMENT_LABEL,
+  VENDOR_FULFILLMENT_DESC,
 } from "@/data/vendors";
 
 const ALL = "__all__";
-const PAGE_SIZE = 25;
 
-type SortMode = "name-asc" | "name-desc" | "state" | "city" | "status";
+type SortMode =
+  | "trust"
+  | "name-asc"
+  | "name-desc"
+  | "state"
+  | "city"
+  | "status";
+
+type FulfillmentFilter = "all" | VendorFulfillment;
+type VerifiedOnlyFilter = "all" | "verified";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
@@ -30,27 +50,58 @@ const STATUS_ORDER: VendorPublicStatus[] = [
   "removed",
 ];
 
+const STATUS_RANK: Record<VendorPublicStatus, number> = {
+  verified: 0,
+  "under-review": 1,
+  unverified: 2,
+  suspended: 3,
+  removed: 4,
+};
+
 const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
-  verified: "Completed review on file.",
-  "under-review": "Active review in progress.",
-  unverified: "No completed verification on file.",
-  suspended: "Previously verified status temporarily paused.",
-  removed: "Verification no longer in effect.",
+  verified: "Source Standard has published a completed verification on file.",
+  "under-review": "An application is currently undergoing review.",
+  unverified: "No completed verification on file. Not a judgment of safety or compliance.",
+  suspended: "A previously published verification has been temporarily paused.",
+  removed: "Listing removed from the public directory; record preserved for transparency.",
+};
+
+const FULFILLMENT_TICK: Record<VendorFulfillment, string> = {
+  "in-person": "bg-[hsl(var(--src-503a))]",
+  online: "bg-[hsl(var(--src-503b))]",
+  hybrid: "bg-[hsl(var(--src-other))]",
+};
+
+const FulfillmentChip = ({ kind }: { kind: VendorFulfillment }) => {
+  const Icon =
+    kind === "in-person" ? Building2 : kind === "online" ? Globe : MapPin;
+  return (
+    <span
+      title={VENDOR_FULFILLMENT_DESC[kind]}
+      className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded-[2px] border border-border/70 bg-surface-muted/40 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted-foreground"
+    >
+      <Icon className="h-2.5 w-2.5" aria-hidden />
+      {VENDOR_FULFILLMENT_LABEL[kind]}
+    </span>
+  );
 };
 
 const formatLocation = (v: Vendor) => {
   if (v.city && v.state) return `${v.city}, ${v.state}`;
-  return v.city || v.state || "--";
+  return v.city || v.state || "—";
 };
 
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
+  const [verifiedOnly, setVerifiedOnly] = useState<VerifiedOnlyFilter>("all");
+  const [fulfillment, setFulfillment] = useState<FulfillmentFilter>("all");
   const [state, setState] = useState<string>(ALL);
   const [city, setCity] = useState<string>(ALL);
   const [status, setStatus] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
-  const [sort, setSort] = useState<SortMode>("name-asc");
+  const [sort, setSort] = useState<SortMode>("trust");
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(25);
 
   const states = useMemo(() => getVendorStates(), []);
   const focusOptions = useMemo(() => getClinicalFocusOptions(), []);
@@ -64,59 +115,12 @@ const VerifiedVendors = () => {
     if (city !== ALL && !cities.includes(city)) setCity(ALL);
   }, [cities, city]);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return vendors.filter((v) => {
-      if (q) {
-        const hay = [
-          v.name,
-          v.city,
-          v.state,
-          v.category,
-          ...(v.clinicalFocus ?? []),
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
-      if (state !== ALL && v.state !== state) return false;
-      if (city !== ALL && getVendorCityKey(v) !== city) return false;
-      if (status !== ALL && v.status !== status) return false;
-      if (focus !== ALL && !(v.clinicalFocus ?? []).includes(focus)) return false;
-      return true;
-    });
-  }, [query, state, city, status, focus]);
-
-  const sorted = useMemo(() => {
-    const arr = [...filtered];
-    switch (sort) {
-      case "name-desc":
-        return arr.sort((a, b) => b.name.localeCompare(a.name));
-      case "state":
-        return arr.sort((a, b) => {
-          const s = (a.state ?? "").localeCompare(b.state ?? "");
-          if (s !== 0) return s;
-          return a.name.localeCompare(b.name);
-        });
-      case "city":
-        return arr.sort((a, b) => {
-          const c = (a.city ?? "").localeCompare(b.city ?? "");
-          if (c !== 0) return c;
-          return a.name.localeCompare(b.name);
-        });
-      case "status":
-        return arr.sort((a, b) => {
-          const sa = STATUS_ORDER.indexOf(a.status);
-          const sb = STATUS_ORDER.indexOf(b.status);
-          if (sa !== sb) return sa - sb;
-          return a.name.localeCompare(b.name);
-        });
-      case "name-asc":
-      default:
-        return arr.sort((a, b) => a.name.localeCompare(b.name));
-    }
-  }, [filtered, sort]);
+  // Pre-compute fulfillment per vendor once.
+  const fulfillmentByVendor = useMemo(() => {
+    const m = new Map<string, VendorFulfillment>();
+    for (const v of vendors) m.set(v.slug, getVendorFulfillment(v));
+    return m;
+  }, []);
 
   const counts = useMemo(() => {
     const c: Record<VendorPublicStatus, number> = {
@@ -130,17 +134,89 @@ const VerifiedVendors = () => {
     return c;
   }, []);
 
-  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const fulfillmentCounts = useMemo(() => getVendorFulfillmentCounts(), []);
+  const statesRepresented = states.length;
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return vendors.filter((v) => {
+      if (q) {
+        const hay = [
+          v.name,
+          v.medicalDirector,
+          v.city,
+          v.state,
+          v.category,
+          ...(v.clinicalFocus ?? []),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      if (verifiedOnly === "verified" && v.status !== "verified") return false;
+      if (fulfillment !== "all" && fulfillmentByVendor.get(v.slug) !== fulfillment)
+        return false;
+      if (state !== ALL && v.state !== state) return false;
+      if (city !== ALL && getVendorCityKey(v) !== city) return false;
+      if (status !== ALL && v.status !== status) return false;
+      if (focus !== ALL && !(v.clinicalFocus ?? []).includes(focus)) return false;
+      return true;
+    });
+  }, [query, verifiedOnly, fulfillment, state, city, status, focus, fulfillmentByVendor]);
+
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    const byName = (a: Vendor, b: Vendor) => a.name.localeCompare(b.name);
+    switch (sort) {
+      case "name-desc":
+        return arr.sort((a, b) => b.name.localeCompare(a.name));
+      case "state":
+        return arr.sort((a, b) => {
+          const s = (a.state ?? "").localeCompare(b.state ?? "");
+          return s !== 0 ? s : byName(a, b);
+        });
+      case "city":
+        return arr.sort((a, b) => {
+          const c = (a.city ?? "").localeCompare(b.city ?? "");
+          return c !== 0 ? c : byName(a, b);
+        });
+      case "status":
+        return arr.sort((a, b) => {
+          const sa = STATUS_RANK[a.status];
+          const sb = STATUS_RANK[b.status];
+          return sa !== sb ? sa - sb : byName(a, b);
+        });
+      case "name-asc":
+        return arr.sort(byName);
+      case "trust":
+      default:
+        // Verified pinned to top, then by review date (newest first), then name.
+        return arr.sort((a, b) => {
+          const sa = STATUS_RANK[a.status];
+          const sb = STATUS_RANK[b.status];
+          if (sa !== sb) return sa - sb;
+          const da = a.reviewDate ?? "";
+          const db = b.reviewDate ?? "";
+          if (da !== db) return db.localeCompare(da);
+          return byName(a, b);
+        });
+    }
+  }, [filtered, sort]);
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
   const currentPage = Math.min(page, totalPages);
-  const pageStart = (currentPage - 1) * PAGE_SIZE;
-  const pageItems = sorted.slice(pageStart, pageStart + PAGE_SIZE);
+  const pageStart = (currentPage - 1) * pageSize;
+  const pageItems = sorted.slice(pageStart, pageStart + pageSize);
 
   useEffect(() => {
     setPage(1);
-  }, [query, state, city, status, focus, sort]);
+  }, [query, verifiedOnly, fulfillment, state, city, status, focus, sort, pageSize]);
 
   const filtersActive =
     query !== "" ||
+    verifiedOnly !== "all" ||
+    fulfillment !== "all" ||
     state !== ALL ||
     city !== ALL ||
     status !== ALL ||
@@ -148,398 +224,506 @@ const VerifiedVendors = () => {
 
   const reset = () => {
     setQuery("");
+    setVerifiedOnly("all");
+    setFulfillment("all");
     setState(ALL);
     setCity(ALL);
     setStatus(ALL);
     setFocus(ALL);
   };
 
-  const fmt = (n: number) => n.toLocaleString();
+  // Active chips
+  const activeChips: ActiveChip[] = [];
+  if (verifiedOnly === "verified") {
+    activeChips.push({
+      key: "verified-only",
+      label: "Verified only",
+      onRemove: () => setVerifiedOnly("all"),
+    });
+  }
+  if (fulfillment !== "all") {
+    activeChips.push({
+      key: "fulfillment",
+      label: VENDOR_FULFILLMENT_LABEL[fulfillment],
+      onRemove: () => setFulfillment("all"),
+    });
+  }
+  if (status !== ALL) {
+    activeChips.push({
+      key: "status",
+      label: `Status: ${VENDOR_STATUS_LABEL[status as VendorPublicStatus]}`,
+      onRemove: () => setStatus(ALL),
+    });
+  }
+  if (state !== ALL) {
+    activeChips.push({
+      key: "state",
+      label: `State: ${state}`,
+      onRemove: () => setState(ALL),
+    });
+  }
+  if (city !== ALL) {
+    activeChips.push({
+      key: "city",
+      label: `City: ${city}`,
+      onRemove: () => setCity(ALL),
+    });
+  }
+  if (focus !== ALL) {
+    activeChips.push({
+      key: "focus",
+      label: `Focus: ${focus}`,
+      onRemove: () => setFocus(ALL),
+    });
+  }
+  if (query) {
+    activeChips.push({
+      key: "query",
+      label: `“${query}”`,
+      onRemove: () => setQuery(""),
+    });
+  }
+
+  const sortControl = (
+    <FacetSelect
+      value={sort}
+      onChange={(v) => setSort(v as SortMode)}
+      ariaLabel="Sort records"
+    >
+      <option value="trust">Sort: Most trusted first</option>
+      <option value="name-asc">Sort: Name A–Z</option>
+      <option value="name-desc">Sort: Name Z–A</option>
+      <option value="status">Sort: Status</option>
+      <option value="state">Sort: State</option>
+      <option value="city">Sort: City</option>
+    </FacetSelect>
+  );
+
+  const facets = (
+    <>
+      {/* Verified-only — primary trust filter, gets pill treatment */}
+      <div
+        className="flex items-center gap-1.5"
+        role="group"
+        aria-label="Verification filter"
+      >
+        {(
+          [
+            { value: "all", label: "Show all" },
+            { value: "verified", label: "Verified only" },
+          ] as { value: VerifiedOnlyFilter; label: string }[]
+        ).map((opt) => {
+          const active = verifiedOnly === opt.value;
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setVerifiedOnly(opt.value)}
+              className={`h-10 px-3 rounded-[2px] border text-xs font-medium uppercase tracking-[0.06em] transition-colors ${
+                active
+                  ? opt.value === "verified"
+                    ? "bg-verified text-verified-foreground border-verified"
+                    : "bg-foreground text-background border-foreground"
+                  : "bg-background text-muted-foreground border-border hover:text-foreground"
+              }`}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Fulfillment — second core filter */}
+      <div
+        className="flex items-center gap-1.5"
+        role="group"
+        aria-label="Fulfillment filter"
+      >
+        {(
+          [
+            { value: "in-person", label: "In-Person" },
+            { value: "online", label: "Online" },
+            { value: "hybrid", label: "Hybrid" },
+          ] as { value: VendorFulfillment; label: string }[]
+        ).map((opt) => {
+          const active = fulfillment === opt.value;
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setFulfillment(active ? "all" : opt.value)}
+              className={`h-10 px-3 rounded-[2px] border text-xs font-medium uppercase tracking-[0.06em] transition-colors ${
+                active
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-background text-muted-foreground border-border hover:text-foreground"
+              }`}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <FacetSelect
+        value={state}
+        onChange={setState}
+        ariaLabel="Filter by state"
+      >
+        <option value={ALL}>All states</option>
+        {states.map((s) => (
+          <option key={s} value={s}>
+            {s}
+          </option>
+        ))}
+      </FacetSelect>
+
+      <FacetSelect
+        value={city}
+        onChange={setCity}
+        ariaLabel="Filter by city"
+      >
+        <option value={ALL}>All cities</option>
+        {cities.map((c) => (
+          <option key={c} value={c}>
+            {c}
+          </option>
+        ))}
+      </FacetSelect>
+
+      <FacetSelect
+        value={focus}
+        onChange={setFocus}
+        ariaLabel="Filter by clinical focus"
+      >
+        <option value={ALL}>All clinical focus</option>
+        {focusOptions.map((f) => (
+          <option key={f} value={f}>
+            {f}
+          </option>
+        ))}
+      </FacetSelect>
+
+      <FacetSelect
+        value={status}
+        onChange={setStatus}
+        ariaLabel="Filter by status"
+      >
+        <option value={ALL}>All statuses</option>
+        {STATUS_ORDER.map((s) => (
+          <option key={s} value={s}>
+            {VENDOR_STATUS_LABEL[s]}
+          </option>
+        ))}
+      </FacetSelect>
+    </>
+  );
 
   return (
     <>
       <PageMeta
-        title="Verified Vendors · Public Record"
-        description="The public record of vendors and clinics tracked under the Source Standard framework, verified, under review, and unverified listings."
-      />
-      <BriefingHero
-        tone="navy"
-        category="Public Vendor Record"
-        docId="SS-DIRECTORY"
-        title="Verified Vendors"
-        statement="The public record of vendors and clinics tracked under the Source Standard framework. Each listing reflects whether a documented verification has been completed, is in progress, or is not on file."
+        title="Verified Vendors · Public Trust Registry"
+        description="The public verification registry of clinics and vendors tracked under the Source Standard framework. Verified listings are pinned to the top."
       />
 
-      {/* Why this page matters — three plain statements */}
-      <section className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
-          <div className="mx-auto w-wide grid grid-cols-1 md:grid-cols-3 md:divide-x md:divide-border/60">
-            {[
-              {
-                title: "A documented reference point",
-                body: "Consumers can check whether a vendor has completed Source Standard verification.",
-              },
-              {
-                title: "What verified means",
-                body: "A completed review against documented sourcing records is on file.",
-              },
-              {
-                title: "What unverified means",
-                body: "No completed verification is on file. It does not imply unsafe or noncompliant.",
-              },
-            ].map((c) => (
-              <div key={c.title} className="px-0 md:px-8 first:pl-0 last:pr-0 py-2 md:py-0">
-                <p className="t-h4 text-foreground mb-2">{c.title}</p>
-                <p className="t-body-sm text-muted-foreground">{c.body}</p>
-              </div>
+      <RegistryHeader
+        eyebrow="Public Trust Registry · Live"
+        title="Verified Vendors"
+        description="Where consumers find clinics and vendors with documented sourcing review. Verified listings rise to the top. Unverified listings are visible but distinct — verification reflects records, not medical-outcome promises."
+        scopeText="How verification works"
+        scopeHref="/how-it-works"
+        recordCount={vendors.length}
+      />
+
+      <RegistrySummaryStrip
+        cells={[
+          {
+            label: "Verified",
+            value: counts.verified,
+            tickClassName: "bg-verified",
+            shareOf: vendors.length,
+          },
+          {
+            label: "Under review",
+            value: counts["under-review"],
+            tickClassName: "bg-pending",
+            shareOf: vendors.length,
+          },
+          {
+            label: "Unverified",
+            value: counts.unverified,
+            tickClassName: "bg-muted-foreground",
+            shareOf: vendors.length,
+          },
+          {
+            label: "Suspended",
+            value: counts.suspended,
+            tickClassName: "bg-destructive",
+            shareOf: vendors.length,
+            tone: counts.suspended > 0 ? "destructive" : "default",
+          },
+          {
+            label: "Removed",
+            value: counts.removed,
+            tickClassName: "bg-muted-foreground/60",
+            shareOf: vendors.length,
+          },
+          {
+            label: "States represented",
+            value: statesRepresented,
+            tickClassName: "bg-foreground/40",
+          },
+        ]}
+        caption="Verified means a completed Source Standard review is on file as a published record. Unverified does not imply unsafe or noncompliant — only that no completed verification has been published."
+      />
+
+      {/* Fulfillment summary band — secondary live signal */}
+      <section className="bg-background border-b border-border">
+        <div className="page-shell pb-6 md:pb-8">
+          <div className="mx-auto w-wide flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
+            <span className="t-utility-xs text-muted-foreground">
+              Fulfillment mix
+            </span>
+            {(
+              [
+                { kind: "in-person", value: fulfillmentCounts["in-person"] },
+                { kind: "online", value: fulfillmentCounts.online },
+                { kind: "hybrid", value: fulfillmentCounts.hybrid },
+              ] as { kind: VendorFulfillment; value: number }[]
+            ).map((f) => (
+              <button
+                key={f.kind}
+                onClick={() =>
+                  setFulfillment((cur) => (cur === f.kind ? "all" : f.kind))
+                }
+                className="group inline-flex items-center gap-2 text-[12.5px] text-muted-foreground hover:text-foreground transition-colors"
+                aria-label={`Filter by ${VENDOR_FULFILLMENT_LABEL[f.kind]} fulfillment`}
+              >
+                <span
+                  aria-hidden
+                  className={`inline-block w-[2px] h-[10px] ${FULFILLMENT_TICK[f.kind]}`}
+                />
+                <span className="uppercase tracking-[0.08em] text-[11px]">
+                  {VENDOR_FULFILLMENT_LABEL[f.kind]}
+                </span>
+                <span className="font-mono tabular-nums text-foreground">
+                  {f.value.toLocaleString()}
+                </span>
+              </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Registry summary — institutional record strip */}
-      <section className="border-b border-border bg-background">
-        <div className="page-shell py-8 md:py-10">
-          <div className="mx-auto w-wide">
-            {/* Eyebrow row */}
-            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-5">
-              <p className="t-utility-xs text-muted-foreground">
-                Registry Summary
-                <span className="mx-2 text-border">·</span>
-                As of {new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })}
-              </p>
-              <p className="t-utility-xs text-muted-foreground tabular-nums">
-                Total tracked
-                <span className="mx-2 text-border">·</span>
-                <span className="text-foreground">{fmt(vendors.length)}</span>
-              </p>
-            </div>
-
-            {/* Six-cell count grid */}
-            <div className="grid grid-cols-2 md:grid-cols-6 border-t border-border/60 md:divide-x md:divide-border/60">
-              {[
-                { label: "Verified", value: counts.verified, tick: "bg-verified" },
-                { label: "Under review", value: counts["under-review"], tick: "bg-pending" },
-                { label: "Unverified", value: counts.unverified, tick: "bg-muted-foreground" },
-                { label: "Suspended", value: counts.suspended, tick: "bg-destructive" },
-                { label: "Removed", value: counts.removed, tick: "bg-muted-foreground/60" },
-                { label: "Total", value: vendors.length, tick: "bg-foreground/40" },
-              ].map((cell) => (
-                <div key={cell.label} className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0 min-h-[120px] flex flex-col">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span aria-hidden className={`inline-block w-[2px] h-[10px] ${cell.tick}`} />
-                    <span className="t-utility-xs text-muted-foreground">{cell.label}</span>
-                  </div>
-                  <div className="font-mono text-[20px] leading-[28px] font-medium tabular-nums text-foreground mt-auto">
-                    {fmt(cell.value)}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* Query + result surface */}
       <section className="bg-background">
-        <div className="container-wide py-8 md:py-10">
-          {/* Filter bar — calmer */}
-          <div className="sticky top-[57px] z-20 -mx-4 md:-mx-6 px-4 md:px-6 py-3 bg-background border-t border-b border-border/50">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <div className="relative flex-1 min-w-[260px]">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search vendors, clinics, cities, or clinical focus…"
-                  className="w-full pl-10 pr-3 h-9 bg-background border border-border/40 rounded-md text-[13.5px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
-                  aria-label="Search directory"
+        <div className="page-shell pt-8 md:pt-10 pb-12 md:pb-14">
+          <div className="mx-auto w-wide">
+            <QueryBar
+              query={query}
+              onQueryChange={setQuery}
+              searchPlaceholder="Search vendors, physicians, cities, clinical focus…"
+              resultLabel={
+                sorted.length === 0
+                  ? "0 of 0 records"
+                  : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()} records`
+              }
+              sortControl={sortControl}
+              facets={facets}
+              hasActiveFilters={filtersActive}
+              onReset={reset}
+              activeChips={activeChips}
+            />
+
+            <div className="mt-5">
+              {sorted.length === 0 ? (
+                <EmptyState
+                  eyebrow="No matching vendors"
+                  body={
+                    vendors.length === 0
+                      ? "Directory pending population."
+                      : "No vendors match these filters. Try clearing one."
+                  }
                 />
-              </div>
+              ) : (
+                <>
+                  {/* Desktop table */}
+                  <div className="hidden md:block border-t border-border">
+                    <div className="grid grid-cols-12 px-3 py-3 border-b border-border bg-surface-muted/30">
+                      <div className="col-span-4 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Vendor / Clinic
+                      </div>
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Status
+                      </div>
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Location
+                      </div>
+                      <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Mode
+                      </div>
+                      <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Focus
+                      </div>
+                    </div>
 
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
-                aria-label="Filter by status"
-              >
-                <option value={ALL}>All statuses</option>
-                {STATUS_ORDER.map((s) => (
-                  <option key={s} value={s}>
-                    {VENDOR_STATUS_LABEL[s]}
-                  </option>
-                ))}
-              </select>
+                    <div className="divide-y divide-border/60">
+                      {pageItems.map((v) => {
+                        const isVerified = v.status === "verified";
+                        const ful = fulfillmentByVendor.get(v.slug)!;
+                        return (
+                          <Link
+                            key={v.slug}
+                            to={`/directory/${v.slug}`}
+                            aria-label={`${v.name} — ${VENDOR_STATUS_LABEL[v.status]}, ${formatLocation(v)}`}
+                            className="group relative grid grid-cols-12 px-3 py-3.5 items-center min-h-[68px] hover:bg-surface-muted/50 transition-colors duration-150"
+                          >
+                            <span
+                              aria-hidden
+                              className={`absolute left-0 top-0 bottom-0 w-[2px] transition-opacity duration-150 ${
+                                isVerified
+                                  ? "bg-verified opacity-100"
+                                  : "bg-foreground opacity-0 group-hover:opacity-100"
+                              }`}
+                            />
 
-              <select
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
-                aria-label="Filter by state"
-                disabled={states.length === 0}
-              >
-                <option value={ALL}>All states</option>
-                {states.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
+                            <div className="col-span-4 min-w-0 pr-4">
+                              <div className="text-[15px] font-semibold text-foreground leading-[22px] truncate">
+                                {v.name}
+                              </div>
+                              {v.medicalDirector && (
+                                <div className="mt-0.5 text-[11.5px] text-muted-foreground truncate">
+                                  {v.medicalDirector}
+                                </div>
+                              )}
+                            </div>
 
-              <select
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
-                aria-label="Filter by city"
-                disabled={cities.length === 0}
-              >
-                <option value={ALL}>All cities</option>
-                {cities.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
+                            <div className="col-span-2 pr-3">
+                              {isVerified ? (
+                                <VerificationShield
+                                  reviewId={v.reviewId}
+                                  reviewDate={v.reviewDate}
+                                />
+                              ) : (
+                                <StatusBadge status={v.status} />
+                              )}
+                              {isVerified && v.reviewDate && (
+                                <div className="mt-1 text-[10.5px] text-muted-foreground tabular-nums">
+                                  Reviewed {v.reviewDate}
+                                </div>
+                              )}
+                            </div>
 
-              <select
-                value={focus}
-                onChange={(e) => setFocus(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
-                aria-label="Filter by clinical focus"
-                disabled={focusOptions.length === 0}
-              >
-                <option value={ALL}>All clinical focus</option>
-                {focusOptions.map((f) => (
-                  <option key={f} value={f}>{f}</option>
-                ))}
-              </select>
+                            <div className="col-span-2 text-[13px] text-muted-foreground truncate pr-3">
+                              {formatLocation(v)}
+                            </div>
 
-              {filtersActive && (
-                <button
-                  onClick={reset}
-                  className="h-9 px-1 text-[12.5px] text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
-                >
-                  Reset
-                </button>
+                            <div className="col-span-1 pr-3">
+                              <FulfillmentChip kind={ful} />
+                            </div>
+
+                            <div className="col-span-3 flex items-center justify-between gap-3 pr-1">
+                              <span className="text-[13px] text-muted-foreground truncate">
+                                {(v.clinicalFocus && v.clinicalFocus.length > 0
+                                  ? v.clinicalFocus.join(" · ")
+                                  : v.category) || "—"}
+                              </span>
+                              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/60 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-foreground" />
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Mobile list */}
+                  <div className="md:hidden border-t border-border divide-y divide-border/60">
+                    {pageItems.map((v) => {
+                      const isVerified = v.status === "verified";
+                      const ful = fulfillmentByVendor.get(v.slug)!;
+                      return (
+                        <Link
+                          key={v.slug}
+                          to={`/directory/${v.slug}`}
+                          className="relative block py-4 pl-3 pr-2 hover:bg-surface-muted/40 transition-colors"
+                        >
+                          {isVerified && (
+                            <span
+                              aria-hidden
+                              className="absolute left-0 top-0 bottom-0 w-[2px] bg-verified"
+                            />
+                          )}
+                          <div className="flex items-start justify-between gap-3">
+                            <p className="text-[14.5px] font-semibold text-foreground leading-snug">
+                              {v.name}
+                            </p>
+                            {isVerified ? (
+                              <VerificationShield
+                                reviewId={v.reviewId}
+                                reviewDate={v.reviewDate}
+                              />
+                            ) : (
+                              <StatusBadge status={v.status} />
+                            )}
+                          </div>
+                          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground">
+                            <span>{formatLocation(v)}</span>
+                            <FulfillmentChip kind={ful} />
+                          </div>
+                          {v.clinicalFocus && v.clinicalFocus.length > 0 && (
+                            <p className="mt-1 text-[12px] text-muted-foreground">
+                              {v.clinicalFocus.join(" · ")}
+                            </p>
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </>
               )}
 
-              <div className="ml-auto flex items-center gap-3">
-                <select
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value as SortMode)}
-                  className="h-9 px-2 bg-transparent border-0 text-[12.5px] text-muted-foreground hover:text-foreground focus:outline-none"
-                  aria-label="Sort records"
-                >
-                  <option value="name-asc">Sort: Name A–Z</option>
-                  <option value="name-desc">Sort: Name Z–A</option>
-                  <option value="state">Sort: State</option>
-                  <option value="city">Sort: City</option>
-                  <option value="status">Sort: Status</option>
-                </select>
-                <p className="font-mono text-[12px] text-muted-foreground tabular-nums whitespace-nowrap">
-                  {sorted.length === 0
-                    ? "0 records"
-                    : `${pageStart + 1}–${Math.min(pageStart + PAGE_SIZE, sorted.length)} of ${sorted.length}`}
-                </p>
-              </div>
+              {sorted.length > pageSize && (
+                <RegistryPagination
+                  page={currentPage}
+                  totalPages={totalPages}
+                  pageSize={pageSize}
+                  totalRecords={sorted.length}
+                  onPageChange={setPage}
+                  onPageSizeChange={setPageSize}
+                />
+              )}
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Editorial table */}
-          <div className="mt-6">
-            {sorted.length === 0 ? (
-              <EmptyState
-                eyebrow="No records"
-                body={
-                  vendors.length === 0
-                    ? "Directory pending population."
-                    : "No vendors match these filters."
-                }
-              />
-            ) : (
-              <>
-                <div className="hidden md:block">
-                  <div className="grid grid-cols-12 px-1 py-3 border-b border-border/60">
-                    <div className="col-span-4 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">Vendor / Clinic</div>
-                    <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">Status</div>
-                    <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">City / State</div>
-                    <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">Clinical focus</div>
-                    <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70 text-right">Profile</div>
+      {/* Status meaning legend — reference layer at the bottom */}
+      <section className="border-t border-border bg-surface-muted/30">
+        <div className="page-shell py-12 md:py-14">
+          <div className="mx-auto w-wide">
+            <p className="t-utility-xs text-muted-foreground mb-5">
+              What each status means
+            </p>
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 border-t border-border/50 pt-5">
+              {STATUS_ORDER.map((s) => (
+                <div key={s} className="flex items-start gap-4">
+                  <div className="shrink-0 pt-0.5">
+                    {s === "verified" ? (
+                      <VerificationShield />
+                    ) : (
+                      <StatusBadge status={s} />
+                    )}
                   </div>
-                  <div className="divide-y divide-border/50">
-                    {pageItems.map((v) => (
-                      <div
-                        key={v.slug}
-                        className="grid grid-cols-12 px-1 py-3 items-center hover:bg-surface-muted/40 transition-colors"
-                      >
-                        <div className="col-span-4 min-w-0">
-                          <Link
-                            to={`/directory/${v.slug}`}
-                            className="text-[14.5px] font-semibold text-foreground hover:text-primary truncate leading-snug block"
-                          >
-                            {v.name}
-                          </Link>
-                        </div>
-                        <div className="col-span-2">
-                          <StatusBadge status={v.status} />
-                        </div>
-                        <div className="col-span-2 text-[12.5px] text-muted-foreground tabular-nums truncate">
-                          {formatLocation(v)}
-                        </div>
-                        <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
-                          {(v.clinicalFocus && v.clinicalFocus.length > 0
-                            ? v.clinicalFocus.join(" · ")
-                            : v.category) || "--"}
-                        </div>
-                        <div className="col-span-1 text-right">
-                          <Link
-                            to={`/directory/${v.slug}`}
-                            className="text-[12.5px] text-muted-foreground hover:text-foreground"
-                          >
-                            View →
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
+                    {STATUS_LEGEND_DESC[s]}
+                  </p>
                 </div>
-
-                <div className="md:hidden divide-y divide-border/50 border-t border-border/50">
-                  {pageItems.map((v) => (
-                    <Link
-                      key={v.slug}
-                      to={`/directory/${v.slug}`}
-                      className="block py-4 hover:bg-surface-muted/40 transition-colors"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <p className="text-[14px] font-semibold text-foreground leading-snug">
-                          {v.name}
-                        </p>
-                        <StatusBadge status={v.status} />
-                      </div>
-                      <p className="mt-1 text-[12.5px] text-muted-foreground">
-                        {formatLocation(v)}
-                      </p>
-                      {v.clinicalFocus && v.clinicalFocus.length > 0 && (
-                        <p className="mt-1 text-[12.5px] text-muted-foreground">
-                          {v.clinicalFocus.join(" · ")}
-                        </p>
-                      )}
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {sorted.length > PAGE_SIZE && (
-              <nav
-                className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
-                aria-label="Directory pagination"
-              >
-                <p className="font-mono text-[12px] text-muted-foreground tabular-nums">
-                  Page {currentPage} of {totalPages}
-                </p>
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => setPage((p) => Math.max(1, p - 1))}
-                    disabled={currentPage === 1}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md t-body-sm text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
-                    aria-label="Previous page"
-                  >
-                    <ChevronLeft className="h-3 w-3" /> Prev
-                  </button>
-                  {(() => {
-                    const pages: (number | "…")[] = [];
-                    const window = 1;
-                    const add = (n: number | "…") => pages.push(n);
-                    const last = totalPages;
-                    add(1);
-                    const start = Math.max(2, currentPage - window);
-                    const end = Math.min(last - 1, currentPage + window);
-                    if (start > 2) add("…");
-                    for (let i = start; i <= end; i++) add(i);
-                    if (end < last - 1) add("…");
-                    if (last > 1) add(last);
-                    return pages.map((p, i) =>
-                      p === "…" ? (
-                        <span key={`e-${i}`} className="px-1 text-[12px] text-muted-foreground" aria-hidden>…</span>
-                      ) : (
-                        <button
-                          key={p}
-                          onClick={() => setPage(p)}
-                          aria-current={p === currentPage ? "page" : undefined}
-                          className={`h-9 min-w-9 px-3 rounded-md t-body-sm tabular-nums ${
-                            p === currentPage
-                              ? "bg-primary text-primary-foreground"
-                              : "border border-border/60 text-foreground hover:bg-surface-muted/60"
-                          }`}
-                        >
-                          {p}
-                        </button>
-                      ),
-                    );
-                  })()}
-                  <button
-                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                    disabled={currentPage === totalPages}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md t-body-sm text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
-                    aria-label="Next page"
-                  >
-                    Next <ChevronRight className="h-3 w-3" />
-                  </button>
-                </div>
-              </nav>
-            )}
+              ))}
+            </dl>
           </div>
         </div>
       </section>
-
-      {/* Status meaning legend */}
-      <section className="border-t border-border bg-background">
-        <div className="container-wide py-12 md:py-14">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-5">
-            What each status means
-          </p>
-          <dl className="divide-y divide-border/50 border-t border-border/50">
-            {STATUS_ORDER.map((s) => (
-              <div key={s} className="grid grid-cols-12 gap-4 py-3 items-center">
-                <dt className="col-span-12 md:col-span-3 flex items-center gap-3">
-                  <StatusBadge status={s} />
-                </dt>
-                <dd className="col-span-12 md:col-span-9 text-[13.5px] text-muted-foreground leading-relaxed">
-                  {STATUS_LEGEND_DESC[s]}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* Why verified status matters */}
-      <section className="border-t border-border bg-surface-muted/40">
-        <div className="container-wide py-14 md:py-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-6">
-            Why verified status matters
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {[
-              {
-                t: "For consumers",
-                b: "A documented reference point beyond marketing claims.",
-              },
-              {
-                t: "For vendors",
-                b: "Public differentiation tied to reviewed records.",
-              },
-              {
-                t: "For the market",
-                b: "Sourcing transparency becomes easier to interpret when documented and undocumented operators are publicly distinguishable.",
-              },
-            ].map((c) => (
-              <div key={c.t}>
-                <p className="t-body-sm font-semibold text-foreground mb-2">{c.t}</p>
-                <p className="text-[13.5px] text-muted-foreground leading-[1.7]">{c.b}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
     </>
   );
 };
