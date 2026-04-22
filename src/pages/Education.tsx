@@ -77,12 +77,10 @@ const LibraryTile = ({ entry }: { entry: LibraryEntry }) => (
         Reviewed by {entry.reviewedBy}
       </p>
     )}
-    <div className="mt-auto pt-5 flex items-center justify-between gap-3 border-t border-border/40">
-      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/70 tabular-nums">
-        {entry.id}
-      </span>
-      <SoftStatus status={entry.status} />
-    </div>
+    <span className="mt-auto pt-5 inline-flex items-center gap-1 text-[13px] font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+      Read article
+      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+    </span>
   </Link>
 );
 
