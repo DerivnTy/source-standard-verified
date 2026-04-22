@@ -53,6 +53,7 @@ const SoftStatus = ({ status }: { status: EntryStatus }) =>
 
 const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "what-is-compounding": "/library/what-is-compounding",
+  "what-are-peptides": "/library/what-are-peptides",
 };
 
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
