@@ -78,9 +78,9 @@ const LibraryEntry = () => {
       {related.length > 0 && (
         <ArticleSection n={2} title="Adjacent entries.">
           <p>Other entries published in the same lane.</p>
-          <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border my-2">
+          <ul className="grid sm:grid-cols-2 border-y border-border divide-y sm:divide-y-0 sm:divide-x divide-border/60 my-2">
             {related.map((r, i) => (
-              <li key={r.id} className="bg-background p-5">
+              <li key={r.id} className="p-5">
                 <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground mb-2">
                   Entry · {(i + 1).toString().padStart(2, "0")}
                 </p>
