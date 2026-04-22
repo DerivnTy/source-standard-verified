@@ -4,10 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth in-page anchor jumps; padding accounts for sticky header + breadcrumb */
+/* Smooth in-page anchor jumps; padding accounts for sticky header + DocJumpBar */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  scroll-padding-top: 144px;
 }
 
 /* Source Standard — institutional verification authority.
