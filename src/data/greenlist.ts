@@ -852,11 +852,15 @@ export function getGreenlistLocations(): string[] {
 }
 
 export function getGreenlistCounts() {
+  const recognized = greenlistEntries.filter((e) => !e.regulatoryAlert);
   return {
     total: greenlistEntries.length,
-    "503B": greenlistEntries.filter((e) => e.category === "503B").length,
-    "503A": greenlistEntries.filter((e) => e.category === "503A").length,
-    Other: greenlistEntries.filter((e) => e.category === "Other").length,
+    recognized: recognized.length,
+    "503B": recognized.filter((e) => e.category === "503B").length,
+    "503A": recognized.filter((e) => e.category === "503A").length,
+    Other: recognized.filter((e) => e.category === "Other").length,
+    notRecognized: greenlistEntries.filter((e) => !!e.regulatoryAlert).length,
+    statesRepresented: getGreenlistStates().length,
   };
 }
 
