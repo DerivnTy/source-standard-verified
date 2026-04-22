@@ -191,52 +191,24 @@ html {
 }
 
 @layer components {
-  /* Display sizes — anchor pages only. display-1 is reserved for Home;
-     all other anchor pages use display-2. The size difference is
-     deliberately small (one type step) — same machine, slightly louder. */
-  .display-1 {
-    @apply text-[2.25rem] md:text-[2.875rem] font-semibold tracking-[-0.028em] leading-[1.05];
-  }
-  .display-2 {
-    @apply text-[2rem] md:text-[2.375rem] font-semibold tracking-[-0.024em] leading-[1.08];
-  }
+  /* ── Legacy heading aliases ────────────────────────────────────────
+     These class names are preserved for backward compatibility but now
+     redirect to the canonical t-* tokens. Any straggler markup snaps
+     into the locked sitewide spec automatically. New code MUST use
+     t-page-title / t-section-title-sm / t-h3 / t-h4 directly. */
+  .display-1     { @apply t-page-title; }
+  .display-2     { @apply t-page-title; }
+  .title-page    { @apply t-page-title; }
+  .title-doc     { @apply t-page-title; }
+  .title-record  { @apply t-page-title; }
+  .h-section     { @apply t-section-title-sm; }
+  .section-heading { @apply t-section-title-sm; }
+  .h-sub         { @apply t-h3; }
+  .h-card        { @apply t-h4; }
 
-  /* Page title — single H1 token used across every internal page
-     (RecordHeader, ProfileHeader, UtilityHeader, and AnchorHeader at
-     size="default"). Home is the only page one step louder (.display-1). */
-  .title-page {
-    @apply text-[1.625rem] md:text-[1.875rem] font-medium tracking-[-0.014em] leading-[1.2];
-  }
-
-  /* Legacy aliases — kept so any straggler markup doesn't break. */
-  .title-doc {
-    @apply text-[1.625rem] md:text-[1.875rem] font-medium tracking-[-0.014em] leading-[1.2];
-  }
-  .title-record {
-    @apply text-[1.625rem] md:text-[1.875rem] font-medium tracking-[-0.014em] leading-[1.2];
-  }
-
-  /* Helper text — table cells, identity rows, field helper text.
-     One step below body, slightly tighter line-height. */
+  /* Helper text — table cells, identity rows, field helper text. */
   .text-helper {
     @apply text-[13px] leading-[1.55];
-  }
-
-  /* In-page section heading — H2 inside any tier of page.
-     Single locked size used everywhere; replaces the old .section-heading
-     and the dozen ad-hoc text-xl / text-2xl / text-[1.25rem] variants. */
-  .h-section {
-    @apply text-[1.25rem] md:text-[1.375rem] font-medium tracking-[-0.01em] leading-[1.25] text-foreground;
-  }
-
-  /* Sub-section heading inside a section. */
-  .h-sub {
-    @apply text-[15px] md:text-[16px] font-semibold tracking-[-0.005em] leading-[1.35] text-foreground;
-  }
-
-  /* Card / panel title. */
-  .h-card {
-    @apply text-[14px] md:text-[15px] font-semibold tracking-[-0.003em] leading-[1.35] text-foreground;
   }
 }
 
@@ -299,13 +271,13 @@ html {
   /* Typography tokens — exact spec sizes, no improvisation. */
   .t-utility-xs       { font-size: 12px; line-height: 16px; letter-spacing: 0.16em; font-weight: 500; text-transform: uppercase; }
   .t-eyebrow-sm       { font-size: 13px; line-height: 18px; letter-spacing: 0.14em; font-weight: 500; text-transform: uppercase; }
-  .t-label-sm         { font-size: 14px; line-height: 20px; letter-spacing: 0.08em; font-weight: 500; }
+  .t-label-sm         { font-size: 14px; line-height: 18px; letter-spacing: 0.08em; font-weight: 500; }
   .t-body-sm          { font-size: 16px; line-height: 26px; font-weight: 400; }
   .t-body-md          { font-size: 18px; line-height: 30px; font-weight: 400; }
   .t-body-lg          { font-size: 19px; line-height: 32px; font-weight: 400; }
-  .t-body-strong      { font-size: 18px; line-height: 30px; font-weight: 500; }
-  .t-section-title-sm { font-size: 28px; line-height: 36px; font-weight: 600; letter-spacing: -0.014em; }
-  .t-section-title-md { font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -0.016em; }
+  .t-body-strong      { font-size: 18px; line-height: 30px; font-weight: 600; }
+  .t-section-title-sm { font-size: 30px; line-height: 38px; font-weight: 600; letter-spacing: -0.014em; }
+  .t-section-title-md { font-size: 36px; line-height: 44px; font-weight: 600; letter-spacing: -0.016em; }
   .t-page-title       { font-size: 36px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
   .t-h3               { font-size: 22px; line-height: 30px; font-weight: 600; letter-spacing: -0.01em; }
   .t-h4               { font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: -0.005em; }
@@ -343,22 +315,10 @@ html {
     max-width: 65ch;
   }
 
-  /* Unified eyebrow — same tone everywhere. Sentence case in markup. */
-  .eyebrow {
-    @apply text-[11px] font-medium uppercase tracking-[0.08em];
-    color: hsl(var(--muted-foreground) / 0.75);
-  }
-
-  .eyebrow-muted {
-    @apply text-[11px] font-medium uppercase tracking-[0.08em];
-    color: hsl(var(--muted-foreground) / 0.75);
-  }
-
-  /* Deprecated — aliased to .h-section so legacy uses don't shout.
-     New code should use .h-section directly. */
-  .section-heading {
-    @apply text-[1.25rem] md:text-[1.375rem] font-medium tracking-[-0.01em] leading-[1.25] text-foreground;
-  }
+  /* Unified eyebrow — aliased to canonical t-eyebrow-sm. Legacy callers
+     now inherit the locked 13/18 spec automatically. */
+  .eyebrow        { @apply t-eyebrow-sm text-muted-foreground; }
+  .eyebrow-muted  { @apply t-eyebrow-sm text-muted-foreground; }
 
   .link-accent {
     @apply text-primary hover:text-primary-hover underline-offset-4;
@@ -377,11 +337,11 @@ html {
     @apply text-[12.5px] font-medium tracking-[0.005em] text-muted-foreground/90;
   }
 
-  /* Technical identifiers — doc IDs, version strings, status codes */
+  /* Technical identifiers — doc IDs, version strings, status codes.
+     Aligned to the t-utility-xs spec but retains the mono face. */
   .meta-mono {
     font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    @apply text-[11.5px] uppercase tracking-[0.04em] tabular-nums text-muted-foreground;
-    font-weight: 400;
+    @apply t-utility-xs tabular-nums text-muted-foreground;
   }
 
   .rule {
