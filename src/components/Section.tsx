@@ -28,7 +28,7 @@ export const Section = ({
   return (
     <section className={`bg-background ${className}`}>
       <div
-        className={`mx-auto w-full max-w-[920px] px-6 md:px-10 py-14 md:py-16 ${
+        className={`prose-filing mx-auto w-full max-w-[900px] px-6 md:px-10 py-16 md:py-20 ${
           bordered ? "border-t border-[#E5E7EB]" : ""
         }`}
       >
