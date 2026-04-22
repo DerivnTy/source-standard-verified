@@ -60,6 +60,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "sanitization-and-aseptic-technique-fundamentals": "/library/aseptic-technique",
   "the-science-of-aging-and-trt": "/library/endocrinological-context",
   "dosing-guidance-summaries-for-common-compounds": "/library/reference-dosing-ranges",
+  "the-2026-compounding-reclassification": "/library/analysis/2026-reclassification",
 };
 
 const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
@@ -404,7 +405,7 @@ const Education = () => {
                     <div className="mt-auto pt-5 flex items-center justify-between gap-3">
                       <SoftStatus status={entry.status} />
                       <Button asChild size="sm">
-                        <Link to={`/education/${entry.slug}`}>Read more →</Link>
+                        <Link to={SLUG_ROUTE_OVERRIDES[entry.slug] ?? `/education/${entry.slug}`}>Read more →</Link>
                       </Button>
                     </div>
                   </article>

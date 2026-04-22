@@ -24,6 +24,7 @@ import LibrarySterilePreparationIntegrity from "./pages/LibrarySterilePreparatio
 import LibraryAsepticTechnique from "./pages/LibraryAsepticTechnique.tsx";
 import LibraryEndocrinologicalContext from "./pages/LibraryEndocrinologicalContext.tsx";
 import LibraryReferenceDosingRanges from "./pages/LibraryReferenceDosingRanges.tsx";
+import LibraryAnalysis2026Reclassification from "./pages/LibraryAnalysis2026Reclassification.tsx";
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
 import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
@@ -74,6 +75,7 @@ const App = () => (
             <Route path="/library/aseptic-technique" element={<LibraryAsepticTechnique />} />
             <Route path="/library/endocrinological-context" element={<LibraryEndocrinologicalContext />} />
             <Route path="/library/reference-dosing-ranges" element={<LibraryReferenceDosingRanges />} />
+            <Route path="/library/analysis/2026-reclassification" element={<LibraryAnalysis2026Reclassification />} />
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
             <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />
