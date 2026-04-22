@@ -1,38 +1,38 @@
 
 
-## New article page: `/library/dual-layer-difference`
+## New article page: `/library/sterile-preparation-integrity`
 
-Fourth whitepaper. Mirrors the established `LibraryInterpretingCoAs` / `LibraryWhatArePeptides` / `LibraryWhatIsCompounding` pattern exactly.
+Fifth whitepaper. Mirrors the established `LibraryDualLayerDifference` / `LibraryInterpretingCoAs` / `LibraryWhatArePeptides` / `LibraryWhatIsCompounding` pattern exactly.
 
-### 1 · New file: `src/pages/LibraryDualLayerDifference.tsx`
+### 1 · New file: `src/pages/LibrarySterilePreparationIntegrity.tsx`
 
 - **Header** — `RecordHeader`
-  - Eyebrow: `Source Standard · Foundational Philosophy`
-  - Title: `The Dual-Layer Difference`
-  - Lead: `Understanding the symbiotic verification of both the clinical entity and the upstream pharmacy provider.`
-  - Reference box: Doc `SS-SERIES-003` · Status `In Review / Public Reference` · Jurisdiction `United States` · Updated `April 21, 2026`
+  - Eyebrow: `Source Standard · Clinical Guide`
+  - Title: `Sterile Preparation Integrity: Handling & Reconstitution Protocol`
+  - Lead: `Clinical standards for the handling, reconstitution, and storage of compounded sterile preparations to ensure therapeutic efficacy and microbial safety.`
+  - Reference box: Doc `SS-GUIDE-001` · Status `MAB Reviewed / Active` · Jurisdiction `United States` · Updated `April 21, 2026`
 
 - **Body** — 900px centered column via `Section` + `SectionLabel`, `prose-filing` serif:
-  - `§1 The "Single-Point" Failure` — single paragraph as supplied.
-  - `§2 Layer One: The Clinical Entity` — intro paragraph + `DefList` (`Medical Oversight`, `Prescribing Integrity`, `Transparency`).
-  - `§3 Layer Two: The Upstream Pharmacy` — intro paragraph + `DefList` (`Licensure Reconciliation`, `Facility Classification`, `Evidence of Sourcing`).
-  - `§4 The Symbiotic Result` — single paragraph as supplied.
+  - `§1 The Importance of Sterile Integrity` — single paragraph as supplied.
+  - `§2 Reconstitution Standards` — intro paragraph + `DefList` (`Diluent Verification`, `The 'Gentle Swirl' Rule`, `Pressure Equalization`).
+  - `§3 Storage & Stability` — intro paragraph + `DefList` (`Cold Chain Maintenance`, `Light Sensitivity`, `Beyond-Use Date (BUD)`).
+  - `§4 Clinical Best Practices` — single paragraph as supplied.
 
 - **Pivot footer** (hairline-top bar inside the centered column):
   - Left: `Button` `← Back to Clinical Library` → `/education`.
-  - Right: muted text link `Next: Clinical Handling & Aseptic Protocols (SS-GUIDE-001) →` → `/library/aseptic-protocols` (placeholder route, wired for the next article).
+  - Right: muted text link `Next: Aseptic Technique Fundamentals (SS-GUIDE-002) →` → `/library/aseptic-technique-fundamentals` (placeholder route, wired for the next article).
 
 ### 2 · Route registration: `src/App.tsx`
 
-Add one import and one `<Route path="/library/dual-layer-difference" element={<LibraryDualLayerDifference />} />` inside `SiteLayout`.
+Add one import and one `<Route path="/library/sterile-preparation-integrity" element={<LibrarySterilePreparationIntegrity />} />` inside `SiteLayout`.
 
 ### 3 · Education link override: `src/pages/Education.tsx`
 
-Extend `SLUG_ROUTE_OVERRIDES` with the SS-SERIES-003 entry's slug → `/library/dual-layer-difference`.
+Extend `SLUG_ROUTE_OVERRIDES` with the SS-GUIDE-001 entry's slug → `/library/sterile-preparation-integrity`.
 
 ### Files touched
 
-- `src/pages/LibraryDualLayerDifference.tsx` — new
+- `src/pages/LibrarySterilePreparationIntegrity.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
 - `src/pages/Education.tsx` — one new key in `SLUG_ROUTE_OVERRIDES`
 
