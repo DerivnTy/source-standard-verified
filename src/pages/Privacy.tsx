@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { DocLayout, DocSection } from "@/components/DocLayout";
-import { RelatedDocs } from "@/components/RelatedDocs";
+import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
+import { DocJumpBar } from "@/components/DocJumpBar";
+import { DocSignature } from "@/components/DocSignature";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 const DOC_ID = "SS-PRIVACY-2026.01";
+const VERIFIED_ON = "04/21/2026";
 
 const collected = [
   { t: "Vendor application materials", d: "Business identity, licensing records, supplier disclosures, certificates of analysis, invoice samples, and category documentation submitted under Form SS-INTAKE-01 and during subsequent audit cycles." },
@@ -46,16 +49,46 @@ const rights = [
   "Withdraw a pending application at any time.",
 ];
 
-const waypoints = [
-  { id: "data", number: "01", label: "Data collected" },
-  { id: "use", number: "02", label: "How data is used" },
-  { id: "partition", number: "03", label: "Partitioning" },
-  { id: "partners", number: "04", label: "Partners" },
-  { id: "retention", number: "05", label: "Retention" },
-  { id: "rights", number: "06", label: "Your rights" },
-  { id: "dpo", number: "07", label: "Data Privacy Officer" },
-  { id: "deeper", number: "08", label: "Read deeper" },
+const deeper = [
+  { to: "/governance", label: "Governance" },
+  { to: "/accountability", label: "Accountability & Enforcement" },
+  { to: "/verification-disclaimer", label: "Verification Disclaimer" },
+  { to: "/terms", label: "User Agreement & Registry Terms" },
+  { to: "/report-a-concern", label: "Report a Concern" },
 ];
+
+const waypoints = [
+  { id: "data", number: "1", label: "Data collected" },
+  { id: "use", number: "2", label: "Use" },
+  { id: "partition", number: "3", label: "Partitioning" },
+  { id: "partners", number: "4", label: "Partners" },
+  { id: "retention", number: "5", label: "Retention" },
+  { id: "rights", number: "6", label: "Rights" },
+  { id: "dpo", number: "7", label: "DPO" },
+  { id: "deeper", number: "8", label: "Read deeper" },
+];
+
+const KVList = ({ items }: { items: { t: string; d: string }[] }) => (
+  <ol className="border border-border bg-background divide-y divide-border">
+    {items.map((it, i) => (
+      <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
+        <div className="col-span-3 meta text-primary">{it.t}</div>
+        <p className="col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{it.d}</p>
+      </li>
+    ))}
+  </ol>
+);
+
+const SimpleList = ({ items }: { items: string[] }) => (
+  <ol className="border border-border bg-background divide-y divide-border">
+    {items.map((it, i) => (
+      <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
+        <div className="col-span-2 meta text-primary">{String(i + 1).padStart(2, "0")}</div>
+        <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{it}</p>
+      </li>
+    ))}
+  </ol>
+);
 
 const Privacy = () => (
   <>
@@ -63,12 +96,7 @@ const Privacy = () => (
       title="Privacy Policy"
       description="How Source Standard collects, partitions, retains, and protects information across the public registry and audit file."
     />
-    <Breadcrumb
-      items={[
-      { label: "Legal" },
-      { label: "Privacy" },
-      ]}
-    />
+    <Breadcrumb items={[{ label: "Legal" }, { label: "Privacy" }]} />
 
     <RecordHeader
       metadata={[
@@ -77,128 +105,98 @@ const Privacy = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "United States" },
       ]}
+      verifiedOn={VERIFIED_ON}
       eyebrow="Policy · Data governance protocol"
       title="Data Governance & Privacy Policy."
       lead="The data governance protocol of the auditing body. Defines what information Source Standard collects, how it is partitioned between public registry content and Protected Audit Material, the infrastructure partners that process it, retention and disposal rules, and the rights of individuals whose data is held."
     />
 
-    <DocLayout waypoints={waypoints} variant="certificate">
-      <DocSection id="data" number="§1" title="Data collected" first>
-        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
-          {collected.map((c) => (
-            <div key={c.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-              <p className="md:col-span-3 h-card">{c.t}</p>
-              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{c.d}</p>
-            </div>
-          ))}
-        </div>
-      </DocSection>
+    <DocJumpBar waypoints={waypoints} />
 
-      <DocSection id="use" number="§2" title="How data is used">
-        <ul className="space-y-3 not-prose">
-          {uses.map((u, i) => (
-            <li key={i} className="flex gap-4 text-[15px]">
-              <span className="meta-mono text-primary w-6 shrink-0">·</span>
-              <span className="text-foreground">{u}</span>
-            </li>
-          ))}
-        </ul>
-      </DocSection>
+    <BoardSection id="data" n="1" category="Data collected" title="Information collected by the auditing body.">
+      <KVList items={collected} />
+    </BoardSection>
 
-      <DocSection
-        id="partition"
-        number="§3"
-        title="Information Partitioning"
-        description="A documented separation governs every record held by the auditing body. Public registry fields are published; Protected Audit Material (PAM) is retained internally for review purposes only and is never published or shared outside the audit function."
-      >
-        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
-          {partitioning.map((row) => (
-            <div key={row.p} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-              <p className="md:col-span-3 h-card">{row.p}</p>
-              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{row.v}</p>
-            </div>
-          ))}
-        </div>
-      </DocSection>
+    <BoardSection id="use" n="2" category="Use" title="How collected data is used." muted>
+      <SimpleList items={uses} />
+    </BoardSection>
 
-      <DocSection
-        id="partners"
-        number="§4"
-        title="Infrastructure Partners"
-        description="A small number of infrastructure partners process data on the auditing body's behalf under written non-disclosure and privacy-preserving protocols. Partners are limited to the minimum data required to perform their function and are not authorised to use or disclose data for any other purpose."
-      >
-        <ul className="space-y-3 not-prose">
-          {partners.map((p, i) => (
-            <li key={i} className="flex gap-4 text-[15px]">
-              <span className="meta-mono text-primary w-6 shrink-0">·</span>
-              <span className="text-foreground">{p}</span>
-            </li>
-          ))}
-        </ul>
-      </DocSection>
+    <BoardSection
+      id="partition"
+      n="3"
+      category="Partitioning"
+      title="Information partitioning."
+      rationale="A documented separation governs every record held by the auditing body. Public registry fields are published; Protected Audit Material (PAM) is retained internally for review purposes only and is never published or shared outside the audit function."
+    >
+      <KVList items={partitioning.map((r) => ({ t: r.p, d: r.v }))} />
+    </BoardSection>
 
-      <DocSection
-        id="retention"
-        number="§5"
-        title="Retention & Disposal"
-        description="Audit records are retained for the period necessary to maintain the integrity of the public registry. Disposal follows a documented schedule."
-      >
-        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
-          {retention.map((r) => (
-            <div key={r.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-              <p className="md:col-span-3 h-card">{r.t}</p>
-              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{r.d}</p>
-            </div>
-          ))}
-        </div>
-      </DocSection>
+    <BoardSection
+      id="partners"
+      n="4"
+      category="Partners"
+      title="Infrastructure partners."
+      rationale="A small number of infrastructure partners process data on the auditing body's behalf under written non-disclosure and privacy-preserving protocols. Partners are limited to the minimum data required to perform their function and are not authorised to use or disclose data for any other purpose."
+      muted
+    >
+      <SimpleList items={partners} />
+    </BoardSection>
 
-      <DocSection id="rights" number="§6" title="Your rights">
-        <ul className="space-y-3 not-prose">
-          {rights.map((r, i) => (
-            <li key={i} className="flex gap-4 text-[15px]">
-              <span className="meta-mono text-primary w-6 shrink-0">·</span>
-              <span className="text-foreground">{r}</span>
-            </li>
-          ))}
-        </ul>
-      </DocSection>
+    <BoardSection
+      id="retention"
+      n="5"
+      category="Retention"
+      title="Retention & disposal."
+      rationale="Audit records are retained for the period necessary to maintain the integrity of the public registry. Disposal follows a documented schedule."
+    >
+      <KVList items={retention} />
+    </BoardSection>
 
-      <DocSection
-        id="dpo"
-        number="§7"
-        title="Data Privacy Officer (DPO)"
-        description="Privacy inquiries, data-subject requests, and lawful-process correspondence are handled by the Data Privacy Officer."
-      >
-        <div className="border border-border/60 rounded-lg bg-surface shadow-sm p-5 max-w-2xl not-prose">
-          <p className="meta-label mb-2">Email</p>
-          <a
-            href="mailto:privacy@sourcestandard.org"
-            className="text-[15px] font-medium text-primary underline-offset-4 hover:underline"
-          >
-            privacy@sourcestandard.org
-          </a>
-        </div>
-        <p className="mt-5 text-[13.5px] text-muted-foreground leading-relaxed max-w-2xl">
-          This protocol is provided in plain, controlled terms and is reviewed by counsel. Material updates are issued as a new document version under the SS-PRIVACY-2026.01 series.
-        </p>
-      </DocSection>
+    <BoardSection id="rights" n="6" category="Rights" title="Rights of individuals." muted>
+      <SimpleList items={rights} />
+    </BoardSection>
 
-      <DocSection id="deeper" number="§8" title="Read deeper">
-        <RelatedDocs
-          items={[
-            { to: "/governance", label: "Governance" },
-            { to: "/accountability", label: "Accountability & Enforcement" },
-            { to: "/verification-disclaimer", label: "Verification Disclaimer" },
-            { to: "/terms", label: "Terms of Use" },
-            { to: "/report-a-concern", label: "Report a Concern" },
-          ]}
-        />
-        <p className="mt-8 meta-label">
-          Cite as: Source Standard Data Governance & Privacy Policy, SS-PRIVACY-2026.01.
-        </p>
-      </DocSection>
-    </DocLayout>
+    <BoardSection
+      id="dpo"
+      n="7"
+      category="DPO"
+      title="Data Privacy Officer."
+      rationale="Privacy inquiries, data-subject requests, and lawful-process correspondence are handled by the Data Privacy Officer."
+    >
+      <div className="border border-border bg-background p-5 max-w-2xl">
+        <p className="meta-mono text-foreground/70 mb-2">EMAIL</p>
+        <a
+          href="mailto:privacy@sourcestandard.org"
+          className="text-[14.5px] font-medium text-primary underline-offset-4 hover:underline"
+        >
+          privacy@sourcestandard.org
+        </a>
+      </div>
+      <p className="text-[13.5px] text-muted-foreground leading-relaxed max-w-2xl">
+        This protocol is provided in plain, controlled terms and is reviewed by counsel. Material updates are issued as a new document version under the {DOC_ID} series.
+      </p>
+    </BoardSection>
+
+    <BoardSection id="deeper" n="8" category="Read deeper" title="Cross-references." muted>
+      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
+        {deeper.map((d, i) => (
+          <li key={d.to} className="bg-background">
+            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
+              <div>
+                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
+                <p className="text-[14.5px] font-semibold text-foreground leading-snug">{d.label}</p>
+              </div>
+              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </BoardSection>
+
+    <BoardCiteFooter
+      citation={`Source Standard. Data Governance & Privacy Policy. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
+    />
+    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

@@ -1,11 +1,14 @@
+import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { DocLayout, DocSection } from "@/components/DocLayout";
+import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
+import { DocJumpBar } from "@/components/DocJumpBar";
+import { DocSignature } from "@/components/DocSignature";
 import { Callout } from "@/components/Callout";
-import { RelatedDocs } from "@/components/RelatedDocs";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 const DOC_ID = "SS-TERMS-2026.01";
+const VERIFIED_ON = "04/21/2026";
 
 const citationElements = [
   { t: "Audit ID", d: "The registry record identifier of the entity cited (e.g. SS-V-#### for vendors, SS-G-#### for greenlist sources)." },
@@ -28,15 +31,23 @@ const restrictions = [
   { lead: "No interference with the registry.", body: "No automated activity, attack, or circumvention intended to disrupt, falsify, or otherwise compromise the integrity of the public registry or its underlying records." },
 ];
 
+const deeper = [
+  { to: "/privacy", label: "Data Governance & Privacy Policy" },
+  { to: "/verification-disclaimer", label: "Verification Disclaimer" },
+  { to: "/accountability", label: "Accountability & Enforcement" },
+  { to: "/status-definitions", label: "Status Definitions" },
+  { to: "/governance", label: "Governance" },
+];
+
 const waypoints = [
-  { id: "acceptance", number: "01", label: "Acceptance" },
-  { id: "citation", number: "02", label: "Authorized citation" },
-  { id: "prohibited", number: "03", label: "Prohibited activity" },
-  { id: "ip", number: "04", label: "Intellectual property" },
-  { id: "warranty", number: "05", label: "Warranty & liability" },
-  { id: "jurisdiction", number: "06", label: "Jurisdiction" },
-  { id: "changes", number: "07", label: "Changes" },
-  { id: "deeper", number: "08", label: "Read deeper" },
+  { id: "acceptance", number: "1", label: "Acceptance" },
+  { id: "citation", number: "2", label: "Citation" },
+  { id: "prohibited", number: "3", label: "Prohibited" },
+  { id: "ip", number: "4", label: "IP" },
+  { id: "warranty", number: "5", label: "Warranty" },
+  { id: "jurisdiction", number: "6", label: "Jurisdiction" },
+  { id: "changes", number: "7", label: "Changes" },
+  { id: "deeper", number: "8", label: "Read deeper" },
 ];
 
 const Terms = () => (
@@ -45,12 +56,7 @@ const Terms = () => (
       title="Terms of Use"
       description="Permitted use, citation requirements, and restrictions governing access to the Source Standard registry."
     />
-    <Breadcrumb
-      items={[
-      { label: "Legal" },
-      { label: "Terms" },
-      ]}
-    />
+    <Breadcrumb items={[{ label: "Legal" }, { label: "Terms" }]} />
 
     <RecordHeader
       metadata={[
@@ -59,126 +65,149 @@ const Terms = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "United States" },
       ]}
+      verifiedOn={VERIFIED_ON}
       eyebrow="Policy · Registry user agreement"
       title="User Agreement & Registry Terms."
-      lead="The binding user agreement governing access to the Source Standard public registry and any reproduction, citation, or downstream use of its contents. Issued by the auditing body as a version-controlled legal instrument under document SS-TERMS-2026.01."
+      lead={`The binding user agreement governing access to the Source Standard public registry and any reproduction, citation, or downstream use of its contents. Issued by the auditing body as a version-controlled legal instrument under document ${DOC_ID}.`}
     />
 
-    <DocLayout waypoints={waypoints} variant="certificate">
-      <DocSection
-        id="acceptance"
-        number="§1"
-        title="Acceptance of terms"
-        description="Access to or use of this site, the public registry, or any associated framework document constitutes binding acceptance of this User Agreement together with the Data Governance & Privacy Policy (SS-PRIVACY-2026.01) and the Verification Disclaimer. If any term is not accepted, the user must discontinue use of the site and the registry."
-        first
-      />
+    <DocJumpBar waypoints={waypoints} />
 
-      <DocSection
-        id="citation"
-        number="§2"
-        title="Authorized Citation & Data Utilization"
-        description="Public registry entries may be cited in clinical, journalistic, academic, and consumer contexts. To preserve the integrity of every citation, the auditing body requires the following identifiers to accompany any reference."
-      >
-        <p className="eyebrow mt-2 mb-4">Required citation elements</p>
-        <dl className="border border-border/60 rounded-lg bg-surface shadow-sm divide-y divide-border/60 overflow-hidden not-prose">
-          {citationElements.map((c, i) => (
-            <div key={i} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-6 px-5 py-4">
-              <dt className="md:col-span-3 text-[13.5px] font-semibold text-foreground">{c.t}</dt>
-              <dd className="md:col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{c.d}</dd>
-            </div>
-          ))}
-        </dl>
+    <BoardSection
+      id="acceptance"
+      n="1"
+      category="Acceptance"
+      title="Acceptance of terms."
+      rationale="Access to or use of this site, the public registry, or any associated framework document constitutes binding acceptance of this User Agreement together with the Data Governance & Privacy Policy (SS-PRIVACY-2026.01) and the Verification Disclaimer. If any term is not accepted, the user must discontinue use of the site and the registry."
+    >
+      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+        Continued access constitutes binding acceptance of every section that follows.
+      </p>
+    </BoardSection>
 
-        <p className="eyebrow mt-8 mb-4">Permitted use</p>
-        <ul className="space-y-3 not-prose">
-          {permitted.map((p, i) => (
-            <li key={i} className="flex gap-4 text-[15px]">
-              <span className="meta-mono text-primary w-6 shrink-0">·</span>
-              <span className="text-foreground">{p}</span>
-            </li>
-          ))}
-        </ul>
+    <BoardSection
+      id="citation"
+      n="2"
+      category="Citation"
+      title="Authorized citation & data utilization."
+      rationale="Public registry entries may be cited in clinical, journalistic, academic, and consumer contexts. To preserve the integrity of every citation, the auditing body requires the following identifiers to accompany any reference."
+      muted
+    >
+      <p className="meta-mono text-foreground/70">REQUIRED CITATION ELEMENTS</p>
+      <dl className="border border-border bg-background divide-y divide-border">
+        {citationElements.map((c, i) => (
+          <div key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
+            <dt className="col-span-3 meta text-primary">{c.t}</dt>
+            <dd className="col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{c.d}</dd>
+          </div>
+        ))}
+      </dl>
 
-        <p className="mt-6 text-[13.5px] text-muted-foreground leading-relaxed">
-          Citations that omit the <strong>Audit ID</strong> or <strong>Status Date</strong> are considered non-conforming and may be treated under §3.
+      <p className="meta-mono text-foreground/70 mt-2">PERMITTED USE</p>
+      <ol className="border border-border bg-background divide-y divide-border">
+        {permitted.map((p, i) => (
+          <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
+            <div className="col-span-2 meta text-primary">{String(i + 1).padStart(2, "0")}</div>
+            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{p}</p>
+          </li>
+        ))}
+      </ol>
+
+      <p className="text-[13.5px] text-muted-foreground leading-relaxed">
+        Citations that omit the <strong className="text-foreground font-semibold">Audit ID</strong> or <strong className="text-foreground font-semibold">Status Date</strong> are considered non-conforming and may be treated under §3.
+      </p>
+    </BoardSection>
+
+    <BoardSection id="prohibited" n="3" category="Prohibited" title="Prohibited activity & registry integrity.">
+      <Callout tone="warning" eyebrow="Warning · Prohibited activity">
+        <p className="text-[14.5px] text-foreground leading-relaxed font-medium">
+          The following activities are prohibited. They compromise the integrity of the registry, mislead the public, or misappropriate the auditing body's identifiers. Unauthorized use of any Source Standard mark, document anchor, or status indicator will result in administrative action under SS-ENFORCE-2026.01, including a public registry note and, where appropriate, referral to counsel and to applicable regulatory authorities.
         </p>
-      </DocSection>
+      </Callout>
 
-      <DocSection id="prohibited" number="§3" title="Prohibited Activity & Registry Integrity">
-        <Callout tone="warning" eyebrow="Warning · Prohibited activity">
-          <p className="text-[15px] text-foreground leading-[1.7] font-medium">
-            The following activities are prohibited. They compromise the integrity of the registry, mislead the public, or misappropriate the auditing body's identifiers. Unauthorized use of any Source Standard mark, document anchor, or status indicator will result in <strong>administrative action</strong> under SS-ENFORCE-2026.01, including a public registry note and, where appropriate, referral to counsel and to applicable regulatory authorities.
-          </p>
-        </Callout>
+      <ol className="border border-border bg-background divide-y divide-border">
+        {restrictions.map((r, i) => (
+          <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
+            <div className="col-span-2 meta text-primary">{String(i + 1).padStart(2, "0")}</div>
+            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">
+              <span className="font-semibold text-foreground">{r.lead}</span> {r.body}
+            </p>
+          </li>
+        ))}
+      </ol>
 
-        <ul className="mt-6 space-y-4 not-prose">
-          {restrictions.map((r, i) => (
-            <li
-              key={i}
-              className="flex gap-4 text-[15px] bg-surface border border-border/60 rounded-lg p-4 shadow-sm"
-            >
-              <span className="meta-mono text-primary w-8 shrink-0 pt-0.5">{String(i + 1).padStart(2, "0")}</span>
-              <span className="text-muted-foreground leading-relaxed">
-                <span className="font-semibold text-foreground">{r.lead}</span> {r.body}
-              </span>
-            </li>
-          ))}
-        </ul>
+      <p className="text-[13.5px] text-muted-foreground leading-relaxed">
+        Confirmed violations are subject to administrative action under the Accountability & Enforcement protocol (SS-ENFORCE-2026.01).
+      </p>
+    </BoardSection>
 
-        <p className="mt-6 text-[13.5px] text-muted-foreground leading-relaxed">
-          Confirmed violations are subject to administrative action under the Accountability & Enforcement protocol (SS-ENFORCE-2026.01).
-        </p>
-      </DocSection>
+    <BoardSection
+      id="ip"
+      n="4"
+      category="Intellectual property"
+      title="Intellectual property."
+      rationale="The Source Standard name, framework document anchors (including all SS- identifiers), site design, badge artwork, status indicators, and original written content are the property of the auditing body. References to third-party regulatory authorities (FDA, state boards of pharmacy, PCAB, NSF, USP, and others) remain the property of those bodies and are reproduced here for reference only."
+      muted
+    >
+      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+        All trademarks, document anchors, and original written content remain the exclusive property of Source Standard.
+      </p>
+    </BoardSection>
 
-      <DocSection
-        id="ip"
-        number="§4"
-        title="Intellectual property"
-        description="The Source Standard name, framework document anchors (including all SS- identifiers), site design, badge artwork, status indicators, and original written content are the property of the auditing body. References to third-party regulatory authorities (FDA, state boards of pharmacy, PCAB, NSF, USP, and others) remain the property of those bodies and are reproduced here for reference only."
-      />
+    <BoardSection id="warranty" n="5" category="Warranty" title="Warranty disclaimer & limit of liability.">
+      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+        <strong className="text-foreground font-semibold">Auditing mirror; no warranty.</strong> The site and the public registry operate as an auditing mirror of third-party records — licensing, supplier, certificate, and regulatory data produced or maintained by third parties. The site and registry are provided on an as-is and as-available basis. The auditing body makes no warranties, express or implied, regarding the accuracy, completeness, currency, or fitness for any particular purpose of any registry entry, status, or associated metadata.
+      </p>
+      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+        <strong className="text-foreground font-semibold">Limit of liability.</strong> To the fullest extent permitted by law, the auditing body is not liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from access to the site or reliance on registry content. Reliance on registry information is at the user's discretion. Users should consult licensed clinicians and the applicable regulatory authorities for matters within those domains.
+      </p>
+    </BoardSection>
 
-      <DocSection id="warranty" number="§5" title="Warranty Disclaimer & Limit of Liability">
-        <p>
-          <strong>Auditing mirror; no warranty.</strong> The site and the public registry operate as an auditing mirror of third-party records — licensing, supplier, certificate, and regulatory data produced or maintained by third parties. The site and registry are provided on an as-is and as-available basis. The auditing body makes no warranties, express or implied, regarding the accuracy, completeness, currency, or fitness for any particular purpose of any registry entry, status, or associated metadata.
-        </p>
-        <p>
-          <strong>Limit of liability.</strong> To the fullest extent permitted by law, the auditing body is not liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from access to the site or reliance on registry content. Reliance on registry information is at the user's discretion. Users should consult licensed clinicians and the applicable regulatory authorities for matters within those domains.
-        </p>
-      </DocSection>
+    <BoardSection
+      id="jurisdiction"
+      n="6"
+      category="Jurisdiction"
+      title="Jurisdictional governance."
+      rationale="This User Agreement is governed by United States Federal Standards and the laws of the State of Florida, United States, without regard to conflict-of-law principles. Any dispute arising under or in connection with this Agreement is subject to the exclusive jurisdiction of the United States federal courts and the state courts located in Florida, which the user accepts as the sole and exclusive venue."
+      muted
+    >
+      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+        Florida, United States — exclusive venue for any matter arising under this Agreement.
+      </p>
+    </BoardSection>
 
-      <DocSection
-        id="jurisdiction"
-        number="§6"
-        title="Jurisdictional Governance"
-        description="This User Agreement is governed by United States Federal Standards and the laws of the State of Florida, United States, without regard to conflict-of-law principles. Any dispute arising under or in connection with this Agreement is subject to the exclusive jurisdiction of the United States federal courts and the state courts located in Florida, which the user accepts as the sole and exclusive venue."
-      />
+    <BoardSection
+      id="changes"
+      n="7"
+      category="Changes"
+      title="Changes to terms."
+      rationale="This User Agreement may be revised. Material changes are issued as a new version under the SS-TERMS series (e.g., SS-TERMS-2026.02). The current version is identified in the header of every section. Continued use of the site or registry after a revision constitutes binding acceptance of the updated Agreement."
+    >
+      <p className="text-[13.5px] text-muted-foreground leading-relaxed">
+        This Agreement is provided in plain, controlled legal terms and is reviewed by counsel.
+      </p>
+    </BoardSection>
 
-      <DocSection
-        id="changes"
-        number="§7"
-        title="Changes to terms"
-        description="This User Agreement may be revised. Material changes are issued as a new version under the SS-TERMS series (e.g., SS-TERMS-2026.02). The current version is identified in the header of every section. Continued use of the site or registry after a revision constitutes binding acceptance of the updated Agreement."
-      >
-        <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-          This Agreement is provided in plain, controlled legal terms and is reviewed by counsel.
-        </p>
-      </DocSection>
+    <BoardSection id="deeper" n="8" category="Read deeper" title="Cross-references." muted>
+      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
+        {deeper.map((d, i) => (
+          <li key={d.to} className="bg-background">
+            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
+              <div>
+                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
+                <p className="text-[14.5px] font-semibold text-foreground leading-snug">{d.label}</p>
+              </div>
+              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </BoardSection>
 
-      <DocSection id="deeper" number="§8" title="Read deeper">
-        <RelatedDocs
-          items={[
-            { to: "/privacy", label: "Data Governance & Privacy Policy" },
-            { to: "/verification-disclaimer", label: "Verification Disclaimer" },
-            { to: "/accountability", label: "Accountability & Enforcement" },
-            { to: "/status-definitions", label: "Status Definitions" },
-            { to: "/governance", label: "Governance" },
-          ]}
-        />
-        <p className="mt-8 meta-label">
-          Cite as: Source Standard User Agreement & Registry Terms, SS-TERMS-2026.01.
-        </p>
-      </DocSection>
-    </DocLayout>
+    <BoardCiteFooter
+      citation={`Source Standard. User Agreement & Registry Terms. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
+    />
+    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 
