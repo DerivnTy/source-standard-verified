@@ -221,6 +221,35 @@ html {
   }
 }
 
+/* ============================================================
+   Sitewide Design System — canonical tokens
+   Build pages from these classes. Do not invent new sizes.
+   ------------------------------------------------------------
+   TYPE TOKENS
+     .t-utility-xs         12 / 16, 0.16em, 500, uppercase
+     .t-eyebrow-sm         13 / 18, 0.14em, 500, uppercase
+     .t-label-sm           14 / 20, 0.08em, 500
+     .t-body-sm            16 / 26, 400
+     .t-body-md            18 / 30, 400      (default body)
+     .t-body-lg            19 / 32, 400      (long-form articles)
+     .t-body-strong        18 / 30, 500
+     .t-section-title-sm   28 / 36, 600
+     .t-section-title-md   32 / 40, 600
+     .t-page-title         48 / 56, 600
+     .t-chapter-title      56 / 64, 600
+     .t-home-title         72 / 80, 600      (homepage only)
+     .t-article-title      48 / 56, 600
+     .t-h3                 24 / 32, 600
+     .t-h4                 20 / 28, 600
+   WIDTH TOKENS
+     .w-page-shell         1440px
+     .w-standard           1120px
+     .w-wide               1240px
+     .w-reading            760px
+     .w-reading-wide       820px
+     .w-hero               720px
+     .w-two-col            520px
+   ============================================================ */
 @layer components {
   .container-tight {
     @apply mx-auto w-full max-w-6xl px-6 md:px-10;
@@ -232,6 +261,63 @@ html {
 
   .container-wide {
     @apply mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14;
+  }
+
+  /* New canonical page shell — preferred over container-wide for new work. */
+  .page-shell {
+    @apply mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12;
+  }
+
+  /* Width tokens — apply to inner content blocks. */
+  .w-page-shell    { max-width: 1440px; }
+  .w-standard      { max-width: 1120px; }
+  .w-wide          { max-width: 1240px; }
+  .w-reading       { max-width: 760px;  }
+  .w-reading-wide  { max-width: 820px;  }
+  .w-hero          { max-width: 720px;  }
+  .w-two-col       { max-width: 520px;  }
+
+  /* Typography tokens — exact spec sizes, no improvisation. */
+  .t-utility-xs       { font-size: 12px; line-height: 16px; letter-spacing: 0.16em; font-weight: 500; text-transform: uppercase; }
+  .t-eyebrow-sm       { font-size: 13px; line-height: 18px; letter-spacing: 0.14em; font-weight: 500; text-transform: uppercase; }
+  .t-label-sm         { font-size: 14px; line-height: 20px; letter-spacing: 0.08em; font-weight: 500; }
+  .t-body-sm          { font-size: 16px; line-height: 26px; font-weight: 400; }
+  .t-body-md          { font-size: 18px; line-height: 30px; font-weight: 400; }
+  .t-body-lg          { font-size: 19px; line-height: 32px; font-weight: 400; }
+  .t-body-strong      { font-size: 18px; line-height: 30px; font-weight: 500; }
+  .t-section-title-sm { font-size: 28px; line-height: 36px; font-weight: 600; letter-spacing: -0.014em; }
+  .t-section-title-md { font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -0.016em; }
+  .t-page-title       { font-size: 36px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
+  .t-h3               { font-size: 22px; line-height: 30px; font-weight: 600; letter-spacing: -0.01em; }
+  .t-h4               { font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: -0.005em; }
+  @media (min-width: 768px) {
+    .t-page-title      { font-size: 48px; line-height: 56px; }
+    .t-h3              { font-size: 24px; line-height: 32px; }
+    .t-h4              { font-size: 20px; line-height: 28px; }
+  }
+  .t-chapter-title    { font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.022em; }
+  @media (min-width: 768px) { .t-chapter-title { font-size: 56px; line-height: 64px; } }
+  .t-home-title       { font-size: 48px; line-height: 56px; font-weight: 600; letter-spacing: -0.024em; }
+  @media (min-width: 768px) { .t-home-title { font-size: 72px; line-height: 80px; } }
+  .t-article-title    { font-size: 36px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
+  @media (min-width: 768px) { .t-article-title { font-size: 48px; line-height: 56px; } }
+
+  /* Section vertical rhythm (sitewide constitution).
+     section-pad        — top/bottom of standard sections
+     section-gap        — gap between adjacent sections in same page
+     hero-gap           — gap from hero to first body section */
+  .section-pad   { padding-top: 32px;  padding-bottom: 32px; }
+  .section-gap   { margin-top: 40px; }
+  .hero-gap      { margin-top: 56px; }
+  @media (min-width: 768px) {
+    .section-pad { padding-top: 48px; padding-bottom: 48px; }
+    .section-gap { margin-top: 56px; }
+    .hero-gap    { margin-top: 72px; }
+  }
+  @media (min-width: 1024px) {
+    .section-pad { padding-top: 64px; padding-bottom: 64px; }
+    .section-gap { margin-top: 80px; }
+    .hero-gap    { margin-top: 96px; }
   }
 
   .prose-readable {
