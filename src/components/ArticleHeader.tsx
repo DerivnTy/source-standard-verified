@@ -26,34 +26,34 @@ export const ArticleHeader = ({
   backLabel?: string;
 }) => (
   <header className="border-b border-border bg-background">
-    <div className="container-wide py-12 md:py-16">
-      <div className="max-w-[760px] mx-auto">
+    <div className="container-wide py-10 md:py-14">
+      <div className="max-w-[880px] mx-auto">
         <Link
           to={backHref}
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-10 group"
+          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-8 group"
         >
           <span className="transition-transform group-hover:-translate-x-0.5">←</span>
           <span className="underline-offset-4 group-hover:underline">{backLabel}</span>
         </Link>
 
         {eyebrow && (
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground mb-4">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground mb-3">
             {eyebrow}
           </p>
         )}
 
-        <h1 className="font-serif text-[34px] md:text-[44px] leading-[1.1] tracking-[-0.015em] text-foreground max-w-[22ch] mb-6">
+        <h1 className="font-serif text-[30px] md:text-[38px] leading-[1.1] tracking-[-0.015em] text-foreground max-w-[26ch] mb-5">
           {title}
         </h1>
 
         {lead && (
-          <p className="text-[18px] leading-[1.6] text-muted-foreground max-w-[58ch]">
+          <p className="text-[16.5px] leading-[1.55] text-muted-foreground max-w-[68ch]">
             {lead}
           </p>
         )}
 
         {metadata.length > 0 && (
-          <div className="mt-8 pt-5 border-t border-border flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
+          <div className="mt-7 pt-4 border-t border-border flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
             {metadata.map((m, i) => (
               <span key={i} className="inline-flex items-center gap-2">
                 {i > 0 && <span aria-hidden className="text-border">·</span>}
