@@ -54,7 +54,7 @@ export const HeroPattern = ({
             height="32"
             patternUnits="userSpaceOnUse"
           >
-            <circle cx="0" cy="0" r="1" fill="hsl(var(--primary))" />
+            <circle cx="0" cy="0" r="1" fill={stroke === "white" ? "#ffffff" : "hsl(var(--primary))"} />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#hero-grid)" />

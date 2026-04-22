@@ -5,13 +5,12 @@ import type { MetadataItem } from "./MetadataBar";
 /**
  * BriefingHero — 100vh "First Contact" institutional plaque.
  *
- * Default mode: centered single-column plaque (eyebrow · H1 · statement).
- * Dense mode (when `rightRail` is provided): two-rail 12-col grid where the
- * left rail keeps the title group (plus optional `rationale` chit) and the
- * right rail receives arbitrary terminal-style content. Used by Index.tsx.
- *
- * `metadata` and `verifiedOn` remain accepted for API stability — they are
- * surfaced via the GlobalUtilityBar.
+ * Default mode: centered single-column plaque on the white surface.
+ * Dense mode (when `rightRail` is provided AND tone !== "navy"): two-rail
+ * 12-col grid for terminal-style content.
+ * Navy mode (`tone="navy"`): centered "Sovereign Plaque" on deep-navy
+ * surface with white typography. `actions` slot renders below the statement.
+ * Navy mode forces the centered layout regardless of `rightRail` / `rationale`.
  */
 export interface BriefingHeroProps {
   category: string;
@@ -22,6 +21,8 @@ export interface BriefingHeroProps {
   verifiedOn?: string;
   rationale?: string;
   rightRail?: ReactNode;
+  tone?: "default" | "navy";
+  actions?: ReactNode;
 }
 
 export const BriefingHero = ({
@@ -30,6 +31,8 @@ export const BriefingHero = ({
   statement,
   rationale,
   rightRail,
+  tone = "default",
+  actions,
 }: BriefingHeroProps) => {
   const [showCue, setShowCue] = useState(true);
 
@@ -39,7 +42,64 @@ export const BriefingHero = ({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isDense = Boolean(rightRail);
+  const isNavy = tone === "navy";
+  const isDense = !isNavy && Boolean(rightRail);
+
+  if (isNavy) {
+    return (
+      <section
+        aria-labelledby="briefing-title"
+        className="relative min-h-[100svh] border-b border-white/10 overflow-hidden bg-[hsl(var(--navy-surface))]"
+      >
+        {/* Soft radial gradient atop the navy */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 60% at 50% 35%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
+          }}
+        />
+        <HeroPattern opacity={0.03} stroke="white" />
+
+        <div className="relative container-wide flex flex-col items-center justify-center min-h-[100svh] py-24 text-center">
+          <p
+            aria-hidden="true"
+            className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55 mb-8"
+          >
+            {category}
+          </p>
+          <h1
+            id="briefing-title"
+            className="title-page text-white tracking-[-0.02em] uppercase max-w-[18ch]"
+          >
+            {title}
+          </h1>
+          <div className="mt-10 h-px w-12 bg-white/20" aria-hidden="true" />
+          <p className="mt-10 max-w-[58ch] text-[14.5px] text-white/75 leading-[1.7]">
+            {statement}
+          </p>
+          {actions && (
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+              {actions}
+            </div>
+          )}
+        </div>
+
+        {/* Scroll cue */}
+        <div
+          aria-hidden="true"
+          className={`absolute bottom-8 left-0 right-0 flex justify-center transition-opacity duration-300 ${
+            showCue ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55">
+            ▼&nbsp;&nbsp;CONTINUE
+          </span>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
