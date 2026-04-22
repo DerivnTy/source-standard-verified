@@ -2,6 +2,8 @@ import { Link, To } from "react-router-dom";
 import { ReactNode } from "react";
 import { RecordHeader } from "@/components/RecordHeader";
 import { Section, SectionLabel } from "@/components/Section";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import {
   Accordion,
   AccordionItem,
@@ -148,6 +150,17 @@ const groups: { title: string; items: QA[] }[] = [
 
 const FAQ = () => (
   <>
+    <PageMeta
+      title="Frequently Asked Questions"
+      description="Answers to common questions about Source Standard, the verification framework, and how the public registry operates."
+    />
+    <Breadcrumb
+      items={[
+      { label: "Education", to: "/education" },
+      { label: "FAQ" },
+      ]}
+    />
+
     <RecordHeader
       metadata={[
         { label: "Doc", value: "SS-FAQ-2026.01" },

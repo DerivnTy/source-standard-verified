@@ -2,6 +2,8 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { DocLayout, DocSection } from "@/components/DocLayout";
 import { Callout } from "@/components/Callout";
 import { RelatedDocs } from "@/components/RelatedDocs";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const commitments = [
   { t: "Integrity of Submission", d: "All records, claims, and category descriptions submitted at intake are accurate as of the date of submission and remain accurate throughout the verification term. Material inaccuracies discovered post-issuance are treated as a Mandatory Disclosure Event under §2." },
@@ -47,6 +49,17 @@ const waypoints = [
 
 const Accountability = () => (
   <>
+    <PageMeta
+      title="Accountability & Enforcement"
+      description="Mandatory disclosure events, audit re-opening triggers, and the administrative actions available to Source Standard."
+    />
+    <Breadcrumb
+      items={[
+      { label: "About", to: "/about" },
+      { label: "Accountability" },
+      ]}
+    />
+
     <RecordHeader
       metadata={[
         { label: "Doc", value: "SS-ENFORCE-2026.01" },

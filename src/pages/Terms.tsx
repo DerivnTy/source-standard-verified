@@ -2,6 +2,8 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { DocLayout, DocSection } from "@/components/DocLayout";
 import { Callout } from "@/components/Callout";
 import { RelatedDocs } from "@/components/RelatedDocs";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const DOC_ID = "SS-TERMS-2026.01";
 
@@ -39,6 +41,17 @@ const waypoints = [
 
 const Terms = () => (
   <>
+    <PageMeta
+      title="Terms of Use"
+      description="Permitted use, citation requirements, and restrictions governing access to the Source Standard registry."
+    />
+    <Breadcrumb
+      items={[
+      { label: "Legal" },
+      { label: "Terms" },
+      ]}
+    />
+
     <RecordHeader
       metadata={[
         { label: "Doc", value: DOC_ID },
