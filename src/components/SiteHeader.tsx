@@ -5,7 +5,6 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  { to: "/", label: "Home", end: true },
   { to: "/verified-vendors", label: "Verified vendors" },
   { to: "/greenlist", label: "Greenlist" },
   { to: "/medical-advisory", label: "Advisory Board" },
@@ -19,7 +18,7 @@ export const SiteHeader = () => {
   const location = useLocation();
   const isHome = location.pathname === "/";
   return (
-    <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-md border-b border-border/60 shadow-sm">
+    <header className="sticky top-0 z-40 bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/40">
       {/* Utility strip — suppressed on home (hero owns the top band) */}
       {!isHome && (
         <div className="hidden md:block bg-background border-b border-border/40">
@@ -36,17 +35,17 @@ export const SiteHeader = () => {
 
       <div className="container-wide relative flex h-16 items-center justify-between">
         <Logo />
-        <nav className="hidden lg:flex items-center gap-7 h-full">
+        <nav className="hidden lg:flex items-center gap-9 h-full">
           {nav.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}
-              end={n.end}
+              end
               className={({ isActive }) =>
-                `relative inline-flex items-center h-10 text-[13.5px] tracking-[0] transition-colors ${
+                `relative inline-flex items-center h-10 text-[13px] font-medium tracking-[0.005em] transition-colors ${
                   isActive
-                    ? "text-primary font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-12px] after:h-[2px] after:bg-primary"
-                    : "text-muted-foreground font-medium hover:text-foreground"
+                    ? "text-primary font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[2px] after:bg-primary"
+                    : "text-muted-foreground hover:text-foreground"
                 }`
               }
             >
@@ -75,7 +74,7 @@ export const SiteHeader = () => {
               <NavLink
                 key={n.to}
                 to={n.to}
-                end={n.end}
+                end
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `py-3.5 text-[15px] border-b border-border last:border-0 ${
