@@ -1,38 +1,38 @@
 
 
-## New article page: `/library/sterile-preparation-integrity`
+## New article page: `/library/aseptic-technique`
 
-Fifth whitepaper. Mirrors the established `LibraryDualLayerDifference` / `LibraryInterpretingCoAs` / `LibraryWhatArePeptides` / `LibraryWhatIsCompounding` pattern exactly.
+Sixth whitepaper. Mirrors the established `LibrarySterilePreparationIntegrity` / `LibraryDualLayerDifference` pattern exactly.
 
-### 1 · New file: `src/pages/LibrarySterilePreparationIntegrity.tsx`
+### 1 · New file: `src/pages/LibraryAsepticTechnique.tsx`
 
 - **Header** — `RecordHeader`
   - Eyebrow: `Source Standard · Clinical Guide`
-  - Title: `Sterile Preparation Integrity: Handling & Reconstitution Protocol`
-  - Lead: `Clinical standards for the handling, reconstitution, and storage of compounded sterile preparations to ensure therapeutic efficacy and microbial safety.`
-  - Reference box: Doc `SS-GUIDE-001` · Status `MAB Reviewed / Active` · Jurisdiction `United States` · Updated `April 21, 2026`
+  - Title: `Aseptic Technique: Sanitization Fundamentals`
+  - Lead: `Foundational principles of aseptic handling for clinicians and patients to minimize the risk of microbial introduction during medication administration.`
+  - Reference box: Doc `SS-GUIDE-002` · Status `MAB Reviewed / Active` · Jurisdiction `United States` · Updated `April 21, 2026`
 
 - **Body** — 900px centered column via `Section` + `SectionLabel`, `prose-filing` serif:
-  - `§1 The Importance of Sterile Integrity` — single paragraph as supplied.
-  - `§2 Reconstitution Standards` — intro paragraph + `DefList` (`Diluent Verification`, `The 'Gentle Swirl' Rule`, `Pressure Equalization`).
-  - `§3 Storage & Stability` — intro paragraph + `DefList` (`Cold Chain Maintenance`, `Light Sensitivity`, `Beyond-Use Date (BUD)`).
-  - `§4 Clinical Best Practices` — single paragraph as supplied.
+  - `§1 Defining the Aseptic Field` — single paragraph as supplied.
+  - `§2 Hand Hygiene & Barrier Protection` — intro paragraph + `DefList` (`Mechanical Cleaning`, `Gloves`).
+  - `§3 The 'Swab and Wait' Protocol` — intro paragraph + `DefList` (`Septum Sanitization`, `The 10-Second Rule`, `Single Use`).
+  - `§4 'Critical Sites' Safety` — intro paragraph + `DefList` (`The Needle`, `The Syringe Hub`, `The Vial Septum`) + closing sentence about compromised equipment.
 
 - **Pivot footer** (hairline-top bar inside the centered column):
   - Left: `Button` `← Back to Clinical Library` → `/education`.
-  - Right: muted text link `Next: Aseptic Technique Fundamentals (SS-GUIDE-002) →` → `/library/aseptic-technique-fundamentals` (placeholder route, wired for the next article).
+  - Right: muted text link `Next: Endocrinological Context (SS-GUIDE-003) →` → `/library/endocrinological-context` (placeholder route, wired for the next article).
 
 ### 2 · Route registration: `src/App.tsx`
 
-Add one import and one `<Route path="/library/sterile-preparation-integrity" element={<LibrarySterilePreparationIntegrity />} />` inside `SiteLayout`.
+Add one import and one `<Route path="/library/aseptic-technique" element={<LibraryAsepticTechnique />} />` inside `SiteLayout`.
 
 ### 3 · Education link override: `src/pages/Education.tsx`
 
-Extend `SLUG_ROUTE_OVERRIDES` with the SS-GUIDE-001 entry's slug → `/library/sterile-preparation-integrity`.
+Extend `SLUG_ROUTE_OVERRIDES` with the SS-GUIDE-002 entry's slug → `/library/aseptic-technique`.
 
 ### Files touched
 
-- `src/pages/LibrarySterilePreparationIntegrity.tsx` — new
+- `src/pages/LibraryAsepticTechnique.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
 - `src/pages/Education.tsx` — one new key in `SLUG_ROUTE_OVERRIDES`
 
