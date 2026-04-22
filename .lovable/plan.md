@@ -1,103 +1,149 @@
 
 
-## Rebuild the homepage below the hero
+## Site-wide refinement pass
 
-Replace the existing six sections under the hero with a tighter, sequenced institutional layout: **Problem → Method → Proof → Utility → Why it matters → Start here → Governance**. Same visual language already locked across the site (eyebrows, page-shell, w-standard, hairline dividers, alternating background/surface-muted bands). No new components, no token changes.
+A single coordinated cleanup that takes the homepage standard and enforces it across the entire site. Token spec, shared headers, eyebrow discipline, voice, and dead-content removal — all in one pass. Not a redesign. Alignment, tightening, authority.
 
-### Page sequence (below the existing `<BriefingHero>`)
+### Sequence of work
 
 ```text
-§1  The trust problem            (background)
-§2  How Source Standard works    (surface-muted)   01 / 02 / 03
-§3  Live registry proof          (background)      stats strip + 2 CTAs
-§4  What you can verify          (surface-muted)   6-field utility list
-§5  Why this matters             (background)      3-column positioning
-§6  Start here                   (surface-muted)   3 foundational articles
-§7  Governance & standards       (background)      3 institutional links
+1. Token spec        → fix CSS to match the locked spec
+2. Shared headers    → BriefingHero / RecordHeader / AnchorHeader cleanup
+3. Page sweep        → every page in src/pages/*, alphabetical
+4. Editorial pass    → eyebrow trims, redundancy removal, voice fixes
 ```
 
-Hero stays exactly as it is. Footer stays exactly as it is.
+---
 
-### Section specs
+### 1 · Token spec (src/index.css)
 
-**§1 — The trust problem**
-- Eyebrow: `The trust problem`
-- Heading (h2, `t-section-title-sm`): *Marketing claims are easy. Documentation is harder to verify.*
-- Single supporting paragraph (`t-body-md`, max ~70ch): *Consumers and clinicians are often asked to rely on branding, website language, and trust signals without clear public visibility into sourcing and documentation. Source Standard exists to make those records easier to interpret.*
-- Centered/left-aligned single column inside `w-standard`. No 3-column split here — this is the institutional statement, not a grid.
+The CSS spec drifted from the locked numbers the user just stated. Bring the token classes into exact alignment so every page that uses them inherits the fix.
 
-**§2 — How Source Standard works**
-- Eyebrow: `How it works`
-- Three numbered columns (01 / 02 / 03), same visual treatment as the current "How it works" block (numeric eyebrow, 8px hairline, h4 title, body-sm description).
-- Content:
-  1. **Upstream sources are reviewed** — Public records, registration data, and facility information are gathered into the upstream reference layer.
-  2. **Vendors are assessed against those sources** — Public claims, sourcing relationships, and documentation are reconciled against the reviewed record.
-  3. **Status is published in the public registry** — The registry records whether verification is on file, under review, or not currently published.
+| Token | Current | Locked | Action |
+|---|---|---|---|
+| `.t-section-title-sm` | 28/36 | **30/38** | update |
+| `.t-page-title` (md+) | 48/56 | 48/56 | keep |
+| `.t-page-title` (mobile) | 36/44 | 36/44 | keep (graceful step-down) |
+| `.t-section-title-md` | 32/40 | **36/44** | update |
+| `.t-h3` | 24/32 (md) | 24/32 | keep |
+| `.t-h4` | 20/28 (md) | 20/28 | keep |
+| `.t-body-md` | 18/30 | 18/30 | keep |
+| `.t-body-lg` | 19/32 | 19/32 | keep |
+| `.t-body-strong` | 18/30 weight 500 | **18/30 weight 600** | update |
+| `.t-utility-xs` | 12/16 | 12/16 | keep |
+| `.t-eyebrow-sm` | 13/18 | 13/18 | keep |
+| `.t-label-sm` | 14/20 | **14/18** | update |
 
-**§3 — Live registry proof**
-- Eyebrow: `Live registry`
-- Short heading (`t-section-title-sm`): *An active public reference, updated on a published cadence.*
-- Stats strip using the existing `Stat` / `StatRow` primitives from `src/components/system/Stat.tsx` (mono numerals, 6 cells, hairline dividers — same pattern as registry pages):
-  - Vendors tracked · Verified · Under review · Facilities recognized · States represented · Last updated
-- Values derived at render time from `vendors` and `greenlist` data (counts) so the numbers are real, not hard-coded. `Last updated` shown as a short date string (today's build date or most recent `lastReviewed` across vendors — pick the latter for honesty).
-- Two primary actions below the strip, same ghost-button pattern as the hero but in dark-on-light:
-  - `Search Verified Vendors` → `/directory`
-  - `Explore Greenlist` → `/greenlist`
+Also: deprecate (visually no-op alias to canonical tokens) the legacy `.title-page`, `.title-doc`, `.h-section`, `.h-sub`, `.h-card`, `.display-1`, `.display-2`, `.section-heading` so any straggler markup snaps into the new system instead of holding old sizes. Leave the class names in place to avoid breakage; redirect their `@apply` to the canonical `t-*` tokens.
 
-**§4 — What you can verify**
-- Eyebrow: `What you can verify`
-- Left column (4/12): short heading (`t-section-title-sm`, max ~18ch) — *A working public utility, not a concept.* + one-line `t-body-sm` lede + `Open the registry →` link.
-- Right column (8/12): 2-col grid of 6 fields (label `t-body-sm` semibold + description `t-body-sm` muted):
-  - Verification status · City and state · Fulfillment model · Clinical focus · Upstream source relationships · Last review date
-- Reuses the exact layout already in the current §4. Replace "Upstream source relationships" copy slightly to match the new wording; swap "Status changes" out for "Fulfillment model" per your spec.
+---
 
-**§5 — Why this matters**
-- Eyebrow: `Why this matters`
-- Three columns with `md:divide-x` (same pattern as current §5):
-  - **For consumers** — A documented reference point beyond marketing claims.
-  - **For responsible vendors** — A public trust signal tied to reviewed records.
-  - **For the market** — A clearer line between documented and undocumented sourcing.
+### 2 · Shared headers
 
-**§6 — Start here**
-- Eyebrow: `Start here`
-- 3-card grid (not 4) using the existing card treatment (bordered, hairline gaps, hover surface-muted). Cards:
-  1. *What verification actually means* → `/library/what-source-standard-verification-actually-means`
-  2. *What is compounding* → `/library/what-is-compounding`
-  3. *Questions to ask your clinic* → `/library/questions-to-ask-your-clinic`
-- Secondary link below: `Browse Resource Library →` → `/education`
+**`BriefingHero` (chapter variant)**
+- Already correct: uses `t-chapter-title`, `t-body-md`, `t-eyebrow-sm`. No structural change.
+- Remove the legacy "dense" branch (`isDense`/`rightRail` path) — unused, drifts to `text-[28px]/[32px]/[38px]` ad-hoc sizes. If never called, delete the branch; if called, route it through the same tokens as the chapter branch.
+- Drop the cover-only inner mini-eyebrow on white surface (kept on navy cover for the homepage rhythm).
 
-**§7 — Governance & standards**
-- Eyebrow: `Governance & standards`
-- One short lede line (`t-body-md`, max ~60ch): *The framework operates under published standards, recurring review, and medical advisory oversight.*
-- Three-link institutional row (hairline-separated list, same `divide-y` pattern as current §6 anchors block, but values are links not descriptions):
-  - **Advisory Board** → `/medical-advisory`
-  - **Audit Methodology** → `/governance`
-  - **Status Definitions** → `/status-definitions`
+**`RecordHeader`**
+- Replace `eyebrow` rendered with `.eyebrow` (11px) → `t-eyebrow-sm` (13px).
+- Replace `title` rendered with `.title-page` → `t-page-title`.
+- Replace `lead` rendered with `t-body-sm` → `t-body-md`.
+- Remove the `Reference` aside box's "Download · PDF" link from policy pages where no PDF actually downloads (it's a dead link). Keep the metadata `<dl>`. The `downloadable` prop already exists — flip default to `false`, opt back in only when a real PDF is attached.
 
-### Removed from current homepage
+**`AnchorHeader`**
+- Replace `.eyebrow` (11px) → `t-eyebrow-sm`.
+- Replace `.display-1`/`.title-page` → `t-page-title` (one canonical H1 token across all anchor pages).
+- Replace lead `t-body-sm leading-[1.65]` → `t-body-md`.
+- Add a thin 12px hairline rule above the eyebrow on the centered (no-aside) variant — gives the opening section the subtle structural anchor the user asked for without visual noise.
 
-- Current §2 "Why this exists" (3-card claims/documentation/visibility block) — folded into the new §1 single-statement section.
-- Current §6 anchors block (FDA / USP / PCAB / NSF) — removed from homepage. (Still lives on `/governance` and `/about` where it belongs. Homepage governance section now points to internal authority pages, not external standards bodies — cleaner positioning.)
-- The 4th basics card ("How to read a CoA") — homepage drops to 3 foundational articles per spec; the CoA article remains accessible from `/education`.
+**`PageHeader`** — already on the canonical `Eyebrow` / `PageTitle` / `Lead` system. No change.
+
+**`BoardSection`**
+- Already on canonical tokens. Tighten the right-rail body from `t-body-md` muted → keep `t-body-md` but switch color to `text-foreground/85` so multi-paragraph rationale doesn't read as faint as metadata. (Inner `<p>` overrides preserved.)
+- Strip the `category` eyebrow when a section is the *first* `BoardSection` on a page that already has a `BriefingHero` showing a section number — the duplicate `§N · CATEGORY` echoes the hero. Make the eyebrow optional and only render when explicitly passed.
+
+---
+
+### 3 · Page sweep
+
+Every page in `src/pages/`. The recurring fixes applied across the board:
+
+**Typography drift fixes (every page)**
+- Replace ad-hoc `text-[14.5px]`, `text-[15px]`, `text-[1.25rem]`, `text-[26px]`, `text-[28px]/[32px]/[38px]` with the closest canonical `t-*` token.
+- Replace `.eyebrow` (11px) usages with `t-eyebrow-sm`.
+- Replace `.h-section`, `.h-sub`, `.h-card`, `.title-page`, `.title-doc` with `t-section-title-sm`, `t-h3`, `t-h4`, `t-page-title` respectively.
+- Replace `meta-mono` eyebrow patterns (e.g. `font-mono uppercase tracking-[0.18em]`) with `t-utility-xs` — same visual weight, single token.
+
+**Eyebrow discipline (every page)**
+- Hero may carry one eyebrow (the hero's `category` prop already does this).
+- Section eyebrows: only when the section title alone doesn't orient the reader. Default = no eyebrow.
+- Concretely: strip eyebrow from sections where the H2 is self-explanatory ("Read deeper", "Continue reading", "Why this matters", "Begin intake"). Keep on ordinal/structural sections (`§N · Anchors`, `§N · Lifecycle`) on policy/governance pages where the numbering carries authority.
+- Never two eyebrows above one heading. Audit and remove.
+
+**First-section anchor (every page)**
+- After the hero, the first section currently lands flat. Add a 1px hairline rule above the eyebrow line (or directly above the H2 when no eyebrow), 32px wide, `bg-border` — same restrained accent the homepage uses. One token, no decoration.
+
+**Spacing rhythm (every page)**
+- Replace `py-12 md:py-16`, `py-14`, `py-16 md:py-20`, `space-section-tight`, `space-section`, `section-tight` with the canonical `section-pad` utility.
+- Replace `container-wide` with `page-shell` + a `w-standard` inner wrapper. (`container-wide` already aliases to a different max-width — 1280 vs the spec's 1440 outer / 1120 content. This is the single largest source of width drift.)
+
+**Per-page editorial fixes (highlights, not exhaustive)**
+
+- **About** — Cut beliefs/operating-principle/mission centered emphatic blocks (§ duplicate the same idea three times). Keep §1 Context, §2 Definition, §3 Boundaries, §4 Audiences, §6 Scope, §7 Continue reading. Drop §5 Principles (redundant with §2+§3). Result: 6 sections instead of 9.
+- **HowItWorks** — Keep the 10-section structure (it's the SOP and earns the depth). Apply token + eyebrow + spacing fixes. Strip duplicated `category` eyebrows where the section title repeats it ("Definition" eyebrow over "Definition" title — drop the eyebrow).
+- **Education / Resource Library** — Delete the duplicated "Forthcoming formats" section (lines 454–478, an exact second copy with `container-wide` instead of `page-shell`). Collapse "Latest analysis" + "Verification & due diligence" into one (they currently render the same `verificationEntries` array twice). Drop redundant period at end of section titles ("Start here." → "Start here").
+- **MedicalAdvisory** — Replace the bespoke `py-14 border-b border-border/40` sections with `section-pad`. Replace `.h-section` → `t-section-title-sm`. Strip the "Why this Board exists" / "Role in the framework" / "Scope & boundaries" / "Responsibilities" eyebrow on each section — let the H2 carry it. The page currently has 5 stacked eyebrows in a row.
+- **Governance** — Strip `.eyebrow`/`meta-mono` mixing in the anchors table; use `t-utility-xs` consistently. Drop the "advisory roster pending publication" callout's mono "FILING WINDOW, Q1 2026." line — the date is already in the metadata bar.
+- **Apply** — Replace centered `.eyebrow` + `.title-page` hero with the canonical `BriefingHero tone="default" variant="chapter"`. Replace each section's centered `SectionHeader` (eyebrow + title + lede stacked centered) with left-aligned headers using `t-section-title-sm` — matches every other page. Drop the "Begin intake / Begin intake" duplicate eyebrow-and-title pair.
+- **StatusDefinitions** — Replace the bespoke §2 grid header (mono "Roster · DOC_ID" tag) with the standard `BoardSection` chrome. The custom card uses `.h-section`, `meta`, and ad-hoc mono — collapse into tokens.
+- **FAQ** — Replace `RecordHeader` with `BriefingHero tone="navy" variant="chapter"` for visual continuity with About/HowItWorks/Education. Drop the doc-ID metadata box on the FAQ — it's an editorial reference page, not a controlled policy document.
+- **Accountability / VerificationDisclaimer / ReportConcern / Privacy / Terms** — Keep `RecordHeader` (these *are* controlled docs). Apply the token cleanup inside `RecordHeader` once and these pages inherit it. Trim duplicate `category` eyebrows on inner `BoardSection`s.
+- **HowToReadTheDirectory** — Replace `RecordHeader` → `BriefingHero` (it's a public reading page, not a policy doc). Apply token sweep.
+- **ForVendors / Contact / VerificationDisclaimer** — Token sweep + eyebrow trim + spacing rhythm.
+- **EducationBasics / EducationGuides / EducationQuestions / FaqClinicalSafety / FaqLegalRegulatory / FaqVerificationProcess** — Token sweep + first-section hairline + width discipline. No content rewrite (these are content-driven listing pages).
+- **Library article pages** (12 files) — Already on `ArticleHeader` + `ArticleSection`. Audit those two components once; pages inherit. Single change: ensure `ArticleHeader` uses `t-page-title` not `t-article-title` per the spec ("page hero title uses page-title 48/56 unless homepage" — article-title is 48/56 anyway, but consolidating to page-title removes one token).
+- **VerifiedVendors / Greenlist / VendorProfile / GreenlistProfile** — Already cleaned in prior passes. Token verification only; no copy edits.
+- **Index (homepage)** — Already at the new standard. No change.
+- **NotFound** — Token sweep only.
+
+**Removals (only the clearly dead/redundant)**
+- Education: duplicate "Forthcoming formats" section.
+- About: §5 Principles, the Operating Principle centered block, the Mission centered block (the same idea is already established in §1 + §2).
+- Apply: duplicate "Begin intake" eyebrow over "Begin intake" title.
+- Governance: redundant filing-window mono line.
+- Several pages: `category` eyebrow on first `BoardSection` when hero already shows the same word.
+
+**What is preserved**
+- All factual content, every status definition, every policy clause, every advisory boundary, every regulatory reference, every CTA, every link target. Nothing gets removed because it's "complex" — only because it's duplicated or weakening.
+
+---
+
+### 4 · Voice (editorial pass)
+
+Apply across rewritten copy where the existing tone drifts:
+
+- **Cut**: "matters", "matters more than ever", "the role here is not to persuade", "real operational value", drama markers.
+- **Cut**: dual-period redundancy ("Start here.", "Foundational sourcing.") — section titles are not sentences.
+- **Replace**: "We verify" / "We flag" → "Within scope" / "Outside scope" (already partially done).
+- **Replace**: emphatic centered single-statement blocks ("If documentation is present…") → integrate as a normal paragraph in the relevant section. The site should not feel like it's quoting itself.
+- **Standardize**: section title sentence case, no trailing period. H2s read as labels, not sentences.
+- **Standardize**: eyebrow text sentence case, not Title Case. ("Read deeper" not "Read Deeper".)
+
+---
 
 ### Files touched
 
-- `src/pages/Index.tsx` — rewrite everything below `<BriefingHero>`. Hero block and `HeroActions` stay untouched.
-- No other files modified. `Stat` / `StatRow` imported from `src/components/system/Stat.tsx`. Vendor and greenlist counts computed inline from `src/data/vendors.ts` and `src/data/greenlist.ts`.
+System (3): `src/index.css`, `src/components/BriefingHero.tsx`, `src/components/RecordHeader.tsx`, `src/components/AnchorHeader.tsx`, `src/components/BoardSection.tsx`, `src/components/Section.tsx`, `src/components/ArticleHeader.tsx`.
 
-### Typography & spacing rules (locked)
-
-- Eyebrows: `t-eyebrow-sm text-muted-foreground`
-- Section titles: `t-section-title-sm text-foreground`
-- Body: `t-body-md` for ledes, `t-body-sm` for descriptions and grid cells
-- Numeric stats: existing `Stat` primitive (mono 20/28, weight 500)
-- Section padding: existing `section-pad` utility, alternating `bg-background` and `bg-surface-muted/30`, all bordered with `border-b border-border`
+Pages (every page in `src/pages/` except the four already-clean profile/registry pages and Index): About, HowItWorks, Education, EducationBasics, EducationGuides, EducationQuestions, MedicalAdvisory, AdvisorProfile, Governance, Apply, FAQ, FaqClinicalSafety, FaqLegalRegulatory, FaqVerificationProcess, Accountability, StatusDefinitions, ReportConcern, VerificationDisclaimer, HowToReadTheDirectory, ForVendors, Contact, Privacy, Terms, NotFound, and the 12 Library article pages.
 
 ### Out of scope
 
-- Hero changes
-- Footer changes
-- Any new components, tokens, or color changes
-- Any data-model changes (counts read from existing arrays)
-- Routes (all destination URLs already exist)
+- No new components, no new tokens, no color changes, no font changes.
+- No data-model changes.
+- No route changes.
+- No homepage changes (already at the standard).
+- No registry/profile page changes (already at the standard).
+- No PDF generation, no new explanatory articles.
 
