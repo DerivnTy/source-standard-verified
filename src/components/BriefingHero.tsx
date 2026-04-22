@@ -89,6 +89,11 @@ export const BriefingHero = ({
               <img
                 src={logoLight}
                 alt="Source Standard"
+                width={384}
+                height={108}
+                loading="eager"
+                decoding="sync"
+                fetchPriority="high"
                 className="mx-auto h-16 sm:h-20 md:h-24 w-auto mb-8"
               />
               {brandMark && <span className="sr-only">{brandMark}</span>}

@@ -179,7 +179,8 @@ const MedicalAdvisory = () => {
                         <img
                           src={m.photo}
                           alt={`Portrait of ${m.name}`}
-                          loading="lazy"
+                          loading="eager"
+                          decoding="async"
                           width={96}
                           height={96}
                           className="h-20 w-20 rounded-[2px] object-cover border border-border bg-surface-muted shrink-0"

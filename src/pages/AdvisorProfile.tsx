@@ -54,7 +54,9 @@ const AdvisorProfile = () => {
             <img
               src={member.photo}
               alt={`Portrait of ${member.name}`}
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               width={256}
               height={256}
               className="h-32 w-32 rounded-[2px] object-cover border border-border bg-surface-muted"
@@ -73,7 +75,8 @@ const AdvisorProfile = () => {
                 <img
                   src={member.photo}
                   alt={`Portrait of ${member.name}`}
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                   width={256}
                   height={256}
                   className="h-40 w-40 rounded-[2px] object-cover border border-border bg-surface-muted mb-5"
