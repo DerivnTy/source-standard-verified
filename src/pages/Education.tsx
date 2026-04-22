@@ -1,13 +1,9 @@
-import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight, Search, Scale, ShieldCheck, BadgeCheck, Compass } from "lucide-react";
+import { ChevronRight, Scale, ShieldCheck, BadgeCheck, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  ENTRY_STATUS_LABEL,
   EntryStatus,
-  FAQEntry,
   LibraryEntry,
-  libraryFaqs,
   libraryGuides,
   librarySeries,
   librarySupplementary,
