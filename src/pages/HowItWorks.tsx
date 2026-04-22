@@ -275,33 +275,21 @@ const HowItWorks = () => {
         title="How Verification Works"
         description="The Source Standard verification process — intake, evidentiary review, board ratification, and renewal cadence."
       />
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "How verification works" }]} />
       <RecordHeader
         metadata={[
-          { label: "Doc", value: "SS-FRAMEWORK-2026.01" },
+          { label: "Doc", value: DOC_ID },
           { label: "Status", value: "Active" },
           { label: "Updated", value: "04/21/26" },
           { label: "Scope", value: "Verification" },
         ]}
+        verifiedOn={VERIFIED_ON}
         eyebrow="SOP · Forensic audit methodology"
         title="SOP: Verification Protocol & Audit Methodology."
         lead="Forensic examination of supply-chain records, regulatory credentials, and public-facing claims against a controlled evidentiary standard. Determinations are issued under a defined scope and time window and remain subject to continuous surveillance."
       />
 
-      {/* Document header strip */}
-      <div className="border-b border-border bg-surface-muted">
-        <div className="container-wide flex items-center justify-between py-2.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground gap-4 flex-wrap">
-          <span>
-            Document · <span className="text-foreground">SS-FRAMEWORK-2026.01</span>
-          </span>
-          <span>
-            Issued <span className="text-foreground">04/21/2026</span> · Revision{" "}
-            <span className="text-foreground">2026.01</span> · Controlled copy
-          </span>
-          <span>
-            Classification · <span className="text-foreground">Public</span> · Controlled standard
-          </span>
-        </div>
-      </div>
+      <DocJumpBar waypoints={jumpWaypoints} />
 
       {/* §1 Governing principles */}
       <section className="border-b border-border bg-background">
