@@ -51,11 +51,17 @@ const CATEGORY_STYLE: Record<GreenlistCategory, { dot: string }> = {
   Other: { dot: "bg-[hsl(var(--src-other))]" },
 };
 
+const CATEGORY_PILL: Record<GreenlistCategory, string> = {
+  "503B": "bg-primary/10 text-primary ring-1 ring-primary/15",
+  "503A": "bg-surface-muted text-foreground/80 ring-1 ring-border/60",
+  Other: "bg-[hsl(var(--src-other))]/10 text-foreground/80 ring-1 ring-border/60",
+};
+
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
-  const s = CATEGORY_STYLE[category];
   return (
-    <span className="inline-flex items-center gap-2 font-semibold uppercase tracking-[0.1em] tabular-nums text-[10.5px] text-foreground">
-      <span aria-hidden className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`} />
+    <span
+      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] tabular-nums ${CATEGORY_PILL[category]}`}
+    >
       {category}
     </span>
   );
@@ -271,7 +277,7 @@ const Greenlist = () => {
           </div>
 
           {/* Sticky filter bar */}
-          <div className="sticky top-[57px] z-20 -mx-4 md:-mx-6 mt-6 px-4 md:px-6 py-2.5 bg-background/85 backdrop-blur-md border-y border-border/60">
+          <div className="sticky top-[57px] z-20 -mx-4 md:-mx-6 mt-6 px-4 md:px-6 py-2.5 bg-background/90 backdrop-blur-md shadow-[0_1px_0_hsl(var(--border)/0.6)]">
             <div className="flex flex-wrap items-center gap-2.5">
               <div className="relative flex-1 min-w-[280px]">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -279,7 +285,7 @@ const Greenlist = () => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search facilities, pharmacies, brands, or focus areas…"
-                  className="w-full pl-10 pr-3 h-10 bg-background border border-border/70 rounded-md text-[13.5px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                  className="w-full pl-10 pr-3 h-10 bg-card border border-border/50 rounded-[10px] text-[13.5px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                   aria-label="Search registry"
                 />
               </div>
@@ -287,7 +293,7 @@ const Greenlist = () => {
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by source type"
               >
                 <option value={ALL}>All source types</option>
@@ -301,7 +307,7 @@ const Greenlist = () => {
               <select
                 value={state}
                 onChange={(e) => setStateFilter(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by state"
               >
                 <option value={ALL}>All states</option>
@@ -316,7 +322,7 @@ const Greenlist = () => {
               <select
                 value={focus}
                 onChange={(e) => setFocus(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by focus"
               >
                 <option value={ALL}>All focus areas</option>
@@ -330,7 +336,7 @@ const Greenlist = () => {
               <select
                 value={website}
                 onChange={(e) => setWebsite(e.target.value as WebsiteFilter)}
-                className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by website availability"
               >
                 <option value="all">Website: All</option>
@@ -341,7 +347,7 @@ const Greenlist = () => {
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortMode)}
-                className="h-9 px-3 bg-background border border-border/70 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                className="h-9 px-3 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Sort records"
               >
                 <option value="name-asc">Sort: Name A–Z</option>
@@ -353,7 +359,7 @@ const Greenlist = () => {
               {filtersActive && (
                 <button
                   onClick={reset}
-                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60"
+                  className="h-9 px-3 inline-flex items-center gap-1 bg-card border border-border/50 rounded-[10px] text-[13px] text-foreground hover:bg-surface-muted/60 hover:border-border-strong"
                 >
                   <X className="h-3 w-3" /> Reset
                 </button>
@@ -378,28 +384,28 @@ const Greenlist = () => {
               </div>
             ) : (
               <>
-                <div className="hidden md:block rounded-xl border border-border/60 bg-surface overflow-hidden shadow-sm">
-                  <div className="grid grid-cols-12 px-5 py-2 border-b border-border/60 bg-surface-muted/60">
-                    <div className="col-span-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                <div className="hidden md:block rounded-[12px] border border-border/40 bg-card overflow-hidden shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">
+                  <div className="grid grid-cols-12 px-5 py-3 border-b border-border/50">
+                    <div className="col-span-4 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
                       Facility / Brand
                     </div>
-                    <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                    <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
                       Source Type
                     </div>
-                    <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                    <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
                       Location
                     </div>
-                    <div className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                    <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
                       Focus
                     </div>
-                    <div className="col-span-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground text-right">
+                    <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70 text-right">
                       Profile
                     </div>
                   </div>
                   {pageItems.map((e) => (
                     <div
                       key={e.name}
-                      className="grid grid-cols-12 px-5 py-2 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/50 transition-colors"
+                      className="grid grid-cols-12 px-5 py-2 border-b border-border/40 last:border-b-0 items-center hover:bg-primary/[0.04] transition-colors cursor-pointer"
                     >
                       <div className="col-span-4 min-w-0">
                         <Link
@@ -432,7 +438,7 @@ const Greenlist = () => {
 
                 <div className="md:hidden space-y-3">
                   {pageItems.map((e) => (
-                    <div key={e.name} className="card-elevated p-3.5">
+                    <div key={e.name} className="card-elevated p-3.5 rounded-[12px] hover:bg-primary/[0.04] transition-colors cursor-pointer">
                       <div className="flex items-start justify-between gap-3">
                         <Link
                           to={`/greenlist/${e.slug}`}
