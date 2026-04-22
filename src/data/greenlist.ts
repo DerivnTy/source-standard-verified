@@ -72,6 +72,37 @@ export type GreenlistProfile = {
   facilityScale?: string;
   qaStaffing?: string;
   background?: string;
+
+  // --- Regulatory identity (additions) ---
+  feiNumber?: string;
+  form483Issued?: boolean | "unknown";
+  form483Date?: string;
+
+  // --- FDA Registration History (replaces "background" semantically) ---
+  initialRegistrationYear?: string;
+  currentRegistrationStatus?:
+    | "Active"
+    | "Inactive"
+    | "Lapsed"
+    | "Withdrawn"
+    | "Not Registered";
+  mostRecentRegistrationYear?: string;
+  selfReportedIntent?: string;
+  registrationCategory?: string;
+  registrationNotes?: string;
+
+  // --- Compounding scope (structured capability flags) ---
+  compoundingScope?: {
+    sterile?: boolean;
+    nonSterile?: boolean;
+    bulkDrugSubstances?: boolean;
+    officeUse?: boolean;
+    patientSpecific?: boolean;
+    hazardous?: boolean;
+  };
+
+  // --- Cross-reference (architecture seed) ---
+  verifiedVendorSlugs?: string[];
 };
 
 export const greenlistEntries: GreenlistEntry[] = [
