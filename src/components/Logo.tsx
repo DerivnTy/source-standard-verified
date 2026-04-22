@@ -13,7 +13,7 @@ export const Logo = ({ className = "", variant = "dark" }: LogoProps) => {
     <Link
       to="/"
       className={`inline-flex items-center hover:opacity-80 transition-opacity ${className}`}
-      aria-label="Source Standard — Clinical Transparency Framework, home"
+      aria-label="Source Standard, Clinical Transparency Framework, home"
     >
       <img
         src={src}

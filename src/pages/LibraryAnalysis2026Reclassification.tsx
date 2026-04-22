@@ -65,7 +65,7 @@ const LibraryAnalysis2026Reclassification = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Education Hub" }}
         next={{ to: "/library/analysis/questions-for-your-clinic", label: "Questions to Ask Your Clinic (SS-ANALYSIS-004)" }}
-        citation={`Source Standard, Clinical Analysis — 2026 Compounding Reclassification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard, Clinical Analysis, 2026 Compounding Reclassification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

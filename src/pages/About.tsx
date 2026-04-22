@@ -78,7 +78,7 @@ const About = () => {
           In peptide, TRT, and hormone optimization markets, consumers are routinely asked to make
           decisions based on website language, branding, and trust signals that are difficult to
           verify independently. Operators who invest in proper sourcing, documentation, and
-          oversight share the same landscape as those who do not — and from the outside, the
+          oversight share the same landscape as those who do not, and from the outside, the
           differences are not always easy to see.
         </p>
         <p className="text-foreground font-medium">
@@ -142,7 +142,7 @@ const About = () => {
             <p className="h-card mb-3">For consumers</p>
             <p>
               Source Standard helps consumers understand what has been reviewed, what has not, and
-              how to interpret vendor claims more clearly — so decisions rest on evidence rather
+              how to interpret vendor claims more clearly, so decisions rest on evidence rather
               than presentation.
             </p>
           </div>
@@ -187,7 +187,7 @@ const About = () => {
             <ul className="space-y-2.5">
               {weVerify.map((item, i) => (
                 <li key={i} className="text-[14px] text-muted-foreground leading-relaxed">
-                  — {item}
+                 , {item}
                 </li>
               ))}
             </ul>
@@ -197,7 +197,7 @@ const About = () => {
             <ul className="space-y-2.5">
               {weFlag.map((item, i) => (
                 <li key={i} className="text-[14px] text-muted-foreground leading-relaxed">
-                  — {item}
+                 , {item}
                 </li>
               ))}
             </ul>

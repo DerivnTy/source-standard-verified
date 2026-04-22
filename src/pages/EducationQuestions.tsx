@@ -40,7 +40,7 @@ const EducationQuestions = () => {
         backHref="/education"
         backLabel="Back to Learn"
         eyebrow="Common Questions"
-        title="Common questions — full index"
+        title="Common questions, full index"
         description="Direct answers to the questions people most often ask."
       />
       <Section density="doc">

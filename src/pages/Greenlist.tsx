@@ -204,7 +204,7 @@ const Greenlist = () => {
         category="Reference Registry"
         docId=""
         title="Upstream Greenlist"
-        statement="The maintained reference set of recognized upstream compounding facilities used within the Source Standard framework. Inclusion supports upstream reference only — vendor verification is assessed separately."
+        statement="The maintained reference set of recognized upstream compounding facilities used within the Source Standard framework. Inclusion supports upstream reference only, vendor verification is assessed separately."
       />
 
       {/* Why this page exists */}
@@ -566,7 +566,7 @@ const Greenlist = () => {
               Two layers, one framework
             </p>
             <p className="text-[15px] leading-[1.7] text-foreground/85 max-w-[78ch]">
-              The Greenlist establishes the upstream reference set — the recognized facilities a vendor may legitimately source from. Vendor verification is the second layer: it assesses whether a specific clinic or vendor can actually substantiate its sourcing through licensed upstream pharmacies and documented records.
+              The Greenlist establishes the upstream reference set, the recognized facilities a vendor may legitimately source from. Vendor verification is the second layer: it assesses whether a specific clinic or vendor can actually substantiate its sourcing through licensed upstream pharmacies and documented records.
             </p>
             <Link
               to="/directory"

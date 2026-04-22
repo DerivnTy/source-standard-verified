@@ -11,7 +11,7 @@ const AdvisorProfile = () => {
   if (!member) {
     return (
       <section className="container-wide py-24">
-        <p className="meta mb-3">§ — Not Found</p>
+        <p className="meta mb-3">§, Not Found</p>
         <h1 className="text-2xl font-semibold tracking-tight">Advisor profile not found.</h1>
         <p className="mt-3 text-[14px] text-muted-foreground">
           This board seat record does not exist or has been retired.
@@ -30,7 +30,7 @@ const AdvisorProfile = () => {
     <>
       <PageMeta
         title={`${member.name} · ${member.boardTitle}`}
-        description={`Medical Advisory Board profile — ${member.name}, ${member.credentials}. ${member.specialization}.`}
+        description={`Medical Advisory Board profile, ${member.name}, ${member.credentials}. ${member.specialization}.`}
       />
       <Breadcrumb
         items={[
@@ -68,7 +68,7 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§1 — Identity & Credentials</p>
+              <p className="eyebrow mb-3">§1, Identity & Credentials</p>
               <div className="border border-border bg-background p-6">
                 <img
                   src={member.photo}
@@ -102,11 +102,11 @@ const AdvisorProfile = () => {
             </div>
             <div className="md:col-span-8 space-y-10">
               <div>
-                <p className="eyebrow mb-3">§2 — Biography</p>
+                <p className="eyebrow mb-3">§2, Biography</p>
                 <p className="text-[15px] text-foreground/90 leading-relaxed">{member.biography}</p>
               </div>
               <div>
-                <p className="eyebrow mb-3">§3 — Background & Training</p>
+                <p className="eyebrow mb-3">§3, Background & Training</p>
                 <ul className="border border-border bg-background divide-y divide-border">
                   {member.background.map((b, i) => (
                     <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline">
@@ -119,7 +119,7 @@ const AdvisorProfile = () => {
                 </ul>
               </div>
               <div>
-                <p className="eyebrow mb-3">§4 — Key Accomplishments</p>
+                <p className="eyebrow mb-3">§4, Key Accomplishments</p>
                 <ul className="border border-border bg-background divide-y divide-border">
                   {member.accomplishments.map((a, i) => (
                     <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline">
@@ -141,7 +141,7 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§4 — Why This Sector</p>
+              <p className="eyebrow mb-3">§4, Why This Sector</p>
               <h2 className="h-section">
                 Position on the framework's purpose.
               </h2>
@@ -158,7 +158,7 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§5 — Contribution to Source Standard</p>
+              <p className="eyebrow mb-3">§5, Contribution to Source Standard</p>
               <h2 className="h-section">
                 What this seat is responsible for.
               </h2>
@@ -175,7 +175,7 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§6 — Clinical Focus Areas</p>
+              <p className="eyebrow mb-3">§6, Clinical Focus Areas</p>
               <h2 className="h-section">
                 Domains of review attention.
               </h2>
@@ -199,7 +199,7 @@ const AdvisorProfile = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§7 — Mission Statement</p>
+              <p className="eyebrow mb-3">§7, Mission Statement</p>
               <h2 className="h-section">
                 Personal philosophy on oversight.
               </h2>

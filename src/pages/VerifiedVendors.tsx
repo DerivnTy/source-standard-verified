@@ -40,7 +40,7 @@ const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
 
 const formatLocation = (v: Vendor) => {
   if (v.city && v.state) return `${v.city}, ${v.state}`;
-  return v.city || v.state || "—";
+  return v.city || v.state || "--";
 };
 
 const VerifiedVendors = () => {
@@ -160,7 +160,7 @@ const VerifiedVendors = () => {
     <>
       <PageMeta
         title="Verified Vendors · Public Record"
-        description="The public record of vendors and clinics tracked under the Source Standard framework — verified, under review, and unverified listings."
+        description="The public record of vendors and clinics tracked under the Source Standard framework, verified, under review, and unverified listings."
       />
       <BriefingHero
         tone="navy"
@@ -384,7 +384,7 @@ const VerifiedVendors = () => {
                         <div className="col-span-3 text-[12.5px] text-muted-foreground truncate">
                           {(v.clinicalFocus && v.clinicalFocus.length > 0
                             ? v.clinicalFocus.join(" · ")
-                            : v.category) || "—"}
+                            : v.category) || "--"}
                         </div>
                         <div className="col-span-1 text-right">
                           <Link

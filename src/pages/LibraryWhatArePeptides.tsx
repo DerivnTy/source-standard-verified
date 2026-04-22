@@ -30,7 +30,7 @@ const LibraryWhatArePeptides = () => {
 
       <ArticleSection n={1} title="The biological blueprint.">
         <p>
-          Peptides are short chains of amino acids, linked together by peptide bonds. Think of them as smaller versions of proteins. While proteins are long, complex chains, peptides are typically comprised of 50 or fewer amino acids. In the human body, these molecules act as highly specific signaling messengers, telling your cells and systems exactly how to function — regulating everything from hormone production and immune response to tissue repair.
+          Peptides are short chains of amino acids, linked together by peptide bonds. Think of them as smaller versions of proteins. While proteins are long, complex chains, peptides are typically comprised of 50 or fewer amino acids. In the human body, these molecules act as highly specific signaling messengers, telling your cells and systems exactly how to function, regulating everything from hormone production and immune response to tissue repair.
         </p>
       </ArticleSection>
 
@@ -87,7 +87,7 @@ const LibraryWhatArePeptides = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/interpreting-coas", label: "Interpreting CoAs (SS-SERIES-002)" }}
-        citation={`Source Standard, Foundational Series — What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard, Foundational Series, What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

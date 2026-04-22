@@ -26,7 +26,7 @@ const reportable = [
 ];
 
 const triggers = [
-  "Consumer Reports — submissions from consumers, clinicians, or third parties received through the public reporting channel and screened as in-scope under the Reporting & Market Intelligence protocol.",
+  "Consumer Reports, submissions from consumers, clinicians, or third parties received through the public reporting channel and screened as in-scope under the Reporting & Market Intelligence protocol.",
   "Delisting, suspension, voluntary surrender, or removal of a disclosed upstream source or manufacturing anchor.",
   "Public regulatory action against the entity or any disclosed supplier by an authority of competent jurisdiction.",
   "Divergence between public-facing claims and the records on file under the audit register.",
@@ -172,7 +172,7 @@ const Accountability = () => (
         </p>
       </Callout>
       <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-        An entity under Status Revocation (Suspension) may return to Verified once the underlying matter is resolved and documented in the audit file. An entity under Registry Expulsion (Removal) may apply for re-entry only by submitting a new application and undergoing a fresh examination cycle in full. Prior audit history — including the original determination, the triggering events, and the disposition — is retained on the permanent record of the entity and is referenced in any subsequent examination.
+        An entity under Status Revocation (Suspension) may return to Verified once the underlying matter is resolved and documented in the audit file. An entity under Registry Expulsion (Removal) may apply for re-entry only by submitting a new application and undergoing a fresh examination cycle in full. Prior audit history, including the original determination, the triggering events, and the disposition, is retained on the permanent record of the entity and is referenced in any subsequent examination.
       </p>
     </BoardSection>
 

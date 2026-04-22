@@ -13,7 +13,7 @@ const REFERENCE_ROWS = [
   { category: "TRT (Testosterone Cypionate / Enanthate)", frequency: "Weekly or Bi-Weekly", range: "50 mg – 200 mg / week" },
   { category: "Incretin Mimetics (GLP-1)", frequency: "Weekly (Titrated)", range: "0.25 mg – 2.4 mg / week" },
   { category: "Growth Hormone Secretagogues", frequency: "Daily (Nightly)", range: "100 mcg – 300 mcg / dose" },
-  { category: "Metabolic Signaling Peptides", frequency: "Variable", range: "Compound specific — see SS-SERIES-001" },
+  { category: "Metabolic Signaling Peptides", frequency: "Variable", range: "Compound specific, see SS-SERIES-001" },
 ];
 
 const LibraryReferenceDosingRanges = () => {
@@ -101,7 +101,7 @@ const LibraryReferenceDosingRanges = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/education#faq", label: "Proceed to Regulatory FAQ Categories" }}
-        citation={`Source Standard, Clinical Guide — Reference Dosing Ranges, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard, Clinical Guide, Reference Dosing Ranges, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

@@ -91,7 +91,7 @@ const FaqClinicalSafety = () => {
         next={{ to: "/library/faq/verification-process", label: "Next Category · Verification Process (SS-FAQ-CAT-03)" }}
       />
 
-      <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Clinical Safety, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+      <BoardCiteFooter citation={`Source Standard, Regulatory FAQ, Clinical Safety, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
     </>
   );
 };

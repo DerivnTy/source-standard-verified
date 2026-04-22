@@ -60,7 +60,7 @@ const statuses: {
     t: "Unverified",
     meaning: "No completed verification on record.",
     tells: "The vendor has not been reviewed under this standard.",
-    notImply: "That the vendor is illegitimate — only that no verification exists.",
+    notImply: "That the vendor is illegitimate, only that no verification exists.",
   },
   {
     key: "under-review",
@@ -74,7 +74,7 @@ const statuses: {
     t: "Suspended",
     meaning: "A previously verified listing has been temporarily paused.",
     tells: "An issue has been identified that requires resolution before status continues.",
-    notImply: "A final determination — the listing may be reinstated after review.",
+    notImply: "A final determination, the listing may be reinstated after review.",
   },
   {
     key: "removed",
@@ -172,7 +172,7 @@ const HowItWorks = () => {
         title="Verified means records were reviewed and support the published scope at the time of review."
       >
         <p>It is not a medical endorsement, and not a guarantee of safety, efficacy, or outcome.</p>
-        <p>It reflects documented consistency within the reviewed scope — nothing more, nothing less.</p>
+        <p>It reflects documented consistency within the reviewed scope, nothing more, nothing less.</p>
       </BoardSection>
 
       <BoardSection
@@ -239,10 +239,10 @@ const HowItWorks = () => {
               </div>
               <p className="text-[14.5px] text-foreground leading-relaxed">{s.meaning}</p>
               <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
-                <span className="font-semibold text-foreground">Tells</span> — {s.tells}
+                <span className="font-semibold text-foreground">Tells</span>, {s.tells}
               </p>
               <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
-                <span className="font-semibold text-foreground">Does not imply</span> — {s.notImply}
+                <span className="font-semibold text-foreground">Does not imply</span>, {s.notImply}
               </p>
             </li>
           ))}

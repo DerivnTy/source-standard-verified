@@ -150,7 +150,7 @@ const Apply = () => {
       <section className="bg-surface-muted border-b border-border">
         <div className="container-wide py-12 md:py-16">
           <SectionHeader
-            eyebrow="Later — during internal onboarding"
+            eyebrow="Later, during internal onboarding"
             title="Documents typically requested during onboarding"
             lede="Provided here for transparency. Not required at this step."
           />

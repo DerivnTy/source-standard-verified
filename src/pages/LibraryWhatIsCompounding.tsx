@@ -60,7 +60,7 @@ const LibraryWhatIsCompounding = () => {
           items={[
             { term: "Requirement", description: "They can compound without individual patient prescriptions and sell directly to clinics for 'office use.'" },
             { term: "Oversight", description: "They are regulated directly by the FDA." },
-            { term: "Standards", description: "They must adhere to cGMP (current Good Manufacturing Practices) — the same rigorous standards followed by major pharmaceutical manufacturers. This includes mandatory stability testing for every batch." },
+            { term: "Standards", description: "They must adhere to cGMP (current Good Manufacturing Practices), the same rigorous standards followed by major pharmaceutical manufacturers. This includes mandatory stability testing for every batch." },
           ]}
         />
       </ArticleSection>
@@ -74,7 +74,7 @@ const LibraryWhatIsCompounding = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/what-are-peptides", label: "What Are Peptides? (SS-SERIES-000A)" }}
-        citation={`Source Standard, Foundational Series — What Is Compounding?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard, Foundational Series, What Is Compounding?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

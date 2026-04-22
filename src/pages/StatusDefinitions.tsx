@@ -102,7 +102,7 @@ const STATUS_COPY: Record<
   },
   greenlisted: {
     meaning:
-      "Qualified Upstream Designation. An upstream source — 503A pharmacy, 503B outsourcing facility, or qualified supplier — recognized as a documented, FDA-registered or state-licensed manufacturing anchor from which Verified vendors may legitimately source.",
+      "Qualified Upstream Designation. An upstream source, 503A pharmacy, 503B outsourcing facility, or qualified supplier, recognized as a documented, FDA-registered or state-licensed manufacturing anchor from which Verified vendors may legitimately source.",
     tells:
       "The upstream source is documented, traceable, and operates within recognized regulatory categories as a manufacturing anchor of the supply chain.",
     notImply:
@@ -142,7 +142,7 @@ const StatusDefinitions = () => (
   <>
     <PageMeta
       title="Status Definitions · Glossary"
-      description="The official Source Standard glossary of regulatory standings — verified, pending, suspended, and revoked."
+      description="The official Source Standard glossary of regulatory standings, verified, pending, suspended, and revoked."
     />
     <RecordHeader
       metadata={[
@@ -162,7 +162,7 @@ const StatusDefinitions = () => (
       n={1}
       category="Purpose"
       title="Purpose of the controlled glossary."
-      rationale="Standings are issued against reviewed evidence — never against marketing language or self-declaration."
+      rationale="Standings are issued against reviewed evidence, never against marketing language or self-declaration."
     >
       <p>
         A regulatory standing is a short, controlled label affixed to every entity in the registry. It enables consumers, clinicians, and licensed entities to read the registry consistently without interpreting individual audit files.
@@ -272,8 +272,8 @@ const StatusDefinitions = () => (
       <ul className="border border-border bg-background divide-y divide-border">
         {[
           { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
-          { to: "/accountability", label: "Accountability & Enforcement — triggering events" },
-          { to: "/verification-disclaimer", label: "Verification Disclaimer — scope of attestation" },
+          { to: "/accountability", label: "Accountability & Enforcement, triggering events" },
+          { to: "/verification-disclaimer", label: "Verification Disclaimer, scope of attestation" },
         ].map((r) => (
           <li key={r.to} className="px-5 py-4">
             <Link

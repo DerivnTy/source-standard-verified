@@ -53,7 +53,7 @@ export const librarySeries: LibraryEntry[] = [
     lane: "series",
     title: "What Are Peptides?",
     summary:
-      "A plain-language introduction to peptides — what they are, how they're used clinically, and why sourcing matters.",
+      "A plain-language introduction to peptides, what they are, how they're used clinically, and why sourcing matters.",
     status: "outlined",
     level: "intro",
   },

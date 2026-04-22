@@ -35,7 +35,7 @@ const boundaries = [
 ];
 
 const deeper = [
-  { to: "/how-it-works", label: "Verification — process and review" },
+  { to: "/how-it-works", label: "Verification, process and review" },
   { to: "/status-definitions", label: "Status Definitions" },
   { to: "/accountability", label: "Accountability & Enforcement" },
   { to: "/terms", label: "User Agreement & Registry Terms" },
@@ -55,7 +55,7 @@ const VerificationDisclaimer = () => (
   <>
     <PageMeta
       title="Verification Disclaimer"
-      description="Scope of a Source Standard determination — what verification covers, what it does not cover, and the institutional boundaries of the auditing body."
+      description="Scope of a Source Standard determination, what verification covers, what it does not cover, and the institutional boundaries of the auditing body."
     />
     <Breadcrumb items={[{ label: "Legal" }, { label: "Disclaimer" }]} />
 
@@ -85,7 +85,7 @@ const VerificationDisclaimer = () => (
       n="1"
       category="Coverage"
       title="Boundaries of administrative attestation."
-      rationale="A Source Standard verification is an Attestation of Record Consistency. It is an administrative finding that an entity's documented records — as submitted, as cross-checked against third-party regulatory and supplier data, and as reviewed at a fixed point in time — are internally consistent and consistent with the public claims associated with the entity. The registry operates as an auditing mirror of third-party records and does not produce, replace, or supersede those records."
+      rationale="A Source Standard verification is an Attestation of Record Consistency. It is an administrative finding that an entity's documented records, as submitted, as cross-checked against third-party regulatory and supplier data, and as reviewed at a fixed point in time, are internally consistent and consistent with the public claims associated with the entity. The registry operates as an auditing mirror of third-party records and does not produce, replace, or supersede those records."
     >
       <ol className="border border-border bg-background divide-y divide-border">
         {covers.map((c) => (
@@ -143,7 +143,7 @@ const VerificationDisclaimer = () => (
       muted
     >
       <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-        Every determination is anchored to a fixed review window and lapses or reopens by protocol — never by inference.
+        Every determination is anchored to a fixed review window and lapses or reopens by protocol, never by inference.
       </p>
     </BoardSection>
 

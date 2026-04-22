@@ -103,7 +103,7 @@ const MedicalAdvisory = () => {
         category="Governance & Oversight"
         docId="SS-MAB-2026.01"
         title="Medical Advisory Board"
-        statement="The Source Standard framework is reviewed under independent medical and legal oversight. The Board governs the standards behind every public determination — it does not produce listings, market clinics, or treat patients."
+        statement="The Source Standard framework is reviewed under independent medical and legal oversight. The Board governs the standards behind every public determination, it does not produce listings, market clinics, or treat patients."
       />
 
       <div className="bg-background">
@@ -140,7 +140,7 @@ const MedicalAdvisory = () => {
                     Where the Board sits in the verification chain.
                   </h2>
                   <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed max-w-[40ch]">
-                    The Board is the layer above the operational registry. It does not produce listings — it governs the logic by which listings are produced.
+                    The Board is the layer above the operational registry. It does not produce listings, it governs the logic by which listings are produced.
                   </p>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
@@ -221,7 +221,7 @@ const MedicalAdvisory = () => {
                     Scope & boundaries
                   </p>
                   <h2 className="h-section">
-                    What the Board does — and does not — do.
+                    What the Board does, and does not, do.
                   </h2>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
