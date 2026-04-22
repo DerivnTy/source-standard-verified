@@ -201,46 +201,43 @@ const Index = () => {
       {/* §4 The two registries — structural explanation */}
       <section className="border-b border-border/50 bg-surface-muted/40">
         <div className="container-wide py-16 md:py-20">
-          <div className="grid md:grid-cols-12 gap-12">
-            <div className="md:col-span-5">
-              <p className="eyebrow mb-3">§4 — The two registries</p>
-              <h2 className="h-section">
-                Source-First Verification. A mandatory prerequisite for every listing.
-              </h2>
-              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-md">
-                The upstream source registry documents the compounding facilities recognized under the framework. A vendor cannot be assessed until its declared sources clear that registry. Both registries are anchored to public regulatory benchmarks.
-              </p>
-            </div>
-            <div className="md:col-span-7">
-              <div className="border border-border/60 rounded-lg bg-background overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-3 border-b border-border/60 bg-surface-muted/60">
-                  <p className="h-card">Greenlist categories</p>
-                  <p className="text-[12px] text-muted-foreground">Active · v.2026.01</p>
+          <div className="max-w-3xl mb-10">
+            <p className="eyebrow mb-3">§4 — The two registries</p>
+            <h2 className="h-section">
+              Source-First Verification. A mandatory prerequisite for every listing.
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
+              The upstream source registry documents the compounding facilities recognized under the framework. A vendor cannot be assessed until its declared sources clear that registry. Both registries are anchored to public regulatory benchmarks.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {greenlist.map((g) => (
+              <Link
+                key={g.category}
+                to="/greenlist"
+                className="card-elevated p-6 flex flex-col group"
+              >
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <h3 className="text-[15px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                    {g.category}
+                  </h3>
+                  <span className="shrink-0 inline-flex items-center bg-verified-soft text-verified rounded-full px-2.5 py-[3px] text-[10.5px] font-semibold uppercase tracking-[0.08em]">
+                    Active
+                  </span>
                 </div>
-                <ul className="divide-y divide-border/60">
-                  {greenlist.map((g, i) => (
-                    <li key={g.category} className="grid grid-cols-12 px-5 py-3 items-center gap-3">
-                      <div className="col-span-1 font-mono text-[11px] text-muted-foreground">§{i + 1}</div>
-                      <div className="col-span-5">
-                        <p className="text-[14px] font-semibold text-foreground">{g.category}</p>
-                      </div>
-                      <div className="col-span-4">
-                        <p className="text-[13px] text-muted-foreground leading-snug">{g.title}</p>
-                      </div>
-                      <div className="col-span-2 text-right">
-                        <span className="inline-flex items-center border border-verified/40 text-verified rounded-[2px] px-2 py-[3px] font-mono uppercase tracking-[0.14em] text-[10px]">
-                          Active
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <div className="px-5 py-3 border-t border-border/60 flex items-center justify-between">
-                  <Link to="/greenlist" className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary">View greenlist →</Link>
-                  <Link to="/verified-vendors" className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover">View vendor registry →</Link>
-                </div>
-              </div>
-            </div>
+                <p className="text-[13.5px] text-muted-foreground leading-relaxed">
+                  {g.title}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+            <Link to="/greenlist" className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-foreground hover:text-primary">
+              View greenlist <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <Link to="/verified-vendors" className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
+              View vendor registry <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </section>
@@ -248,26 +245,24 @@ const Index = () => {
       {/* §5 Standards anchoring */}
       <section className="border-b border-border/50">
         <div className="container-wide py-16 md:py-20">
-          <div className="grid md:grid-cols-12 gap-12">
-            <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§5 — Standards anchoring</p>
-              <h2 className="h-section">
-                Anchored to public regulatory and compendial records.
-              </h2>
-              <Link to="/governance" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
-                Governance & oversight <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-            <div className="md:col-span-8">
-              <div className="border border-border/60 rounded-lg bg-background divide-y divide-border/60 overflow-hidden">
-                {anchors.map((a) => (
-                  <div key={a.k} className="grid grid-cols-12 px-5 py-3 items-baseline gap-4">
-                    <div className="col-span-2 font-mono text-[12px] font-semibold text-foreground tracking-[0.04em]">{a.k}</div>
-                    <div className="col-span-10 text-[13.5px] text-muted-foreground leading-relaxed">{a.d}</div>
-                  </div>
-                ))}
+          <div className="max-w-3xl mb-10">
+            <p className="eyebrow mb-3">§5 — Standards anchoring</p>
+            <h2 className="h-section">
+              Anchored to public regulatory and compendial records.
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {anchors.map((a) => (
+              <div key={a.k} className="card-elevated p-6">
+                <p className="font-mono text-[12px] font-semibold text-primary tracking-[0.06em] mb-2">{a.k}</p>
+                <p className="text-[14px] text-foreground leading-relaxed">{a.d}</p>
               </div>
-            </div>
+            ))}
+          </div>
+          <div className="mt-8">
+            <Link to="/governance" className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
+              Governance & oversight <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </section>
@@ -275,34 +270,33 @@ const Index = () => {
       {/* §6 Education preview */}
       <section className="border-b border-border/50 bg-surface-muted/40">
         <div className="container-wide py-16 md:py-20">
-          <div className="grid md:grid-cols-12 gap-12">
-            <div className="md:col-span-5">
-              <p className="eyebrow mb-3">§6 — Reference library</p>
-              <h2 className="h-section">
-                Administrative Reference & Compliance Library.
-              </h2>
-              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-                Procedural notes on source authentication, document discrepancies, regulatory benchmarks, and the audit categories used in compliance assessment. Informational only; not medical advice.
-              </p>
-              <Link to="/education" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
-                Open the reference library <ArrowRight className="h-3.5 w-3.5" />
+          <div className="max-w-3xl mb-10">
+            <p className="eyebrow mb-3">§6 — Reference library</p>
+            <h2 className="h-section">
+              Administrative Reference & Compliance Library.
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
+              Procedural notes on source authentication, document discrepancies, regulatory benchmarks, and the audit categories used in compliance assessment. Informational only; not medical advice.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {eduPreview.map((e) => (
+              <Link
+                key={e.ref}
+                to="/education"
+                className="card-elevated p-6 flex flex-col group"
+              >
+                <p className="text-[11px] uppercase tracking-[0.1em] text-muted-foreground mb-3">{e.c}</p>
+                <p className="text-[15px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                  {e.t}
+                </p>
               </Link>
-            </div>
-            <div className="md:col-span-7">
-              <div className="border border-border/60 rounded-lg bg-background overflow-hidden">
-                <ul className="divide-y divide-border/60">
-                  {eduPreview.map((e) => (
-                    <li key={e.ref} className="grid grid-cols-12 px-5 py-3 items-baseline gap-3">
-                      <div className="col-span-3 font-mono text-[11px] text-muted-foreground">{e.ref}</div>
-                      <div className="col-span-3 text-[12.5px] text-muted-foreground">{e.c}</div>
-                      <div className="col-span-6">
-                        <p className="text-[14px] font-medium text-foreground leading-snug">{e.t}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            ))}
+          </div>
+          <div className="mt-8">
+            <Link to="/education" className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-primary hover:text-primary-hover">
+              Open the reference library <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </section>
