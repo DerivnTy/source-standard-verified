@@ -27,9 +27,9 @@ export const RegistrySummaryStrip = ({
 }) => {
   return (
     <section className="bg-background border-b border-border">
-      <div className="page-shell pb-10 md:pb-12">
+      <div className="page-shell pt-10 md:pt-14 pb-10 md:pb-12">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-2 md:grid-cols-6 border-t border-border/60 md:divide-x md:divide-border/60">
+          <div className="grid grid-cols-2 md:grid-cols-6 md:divide-x md:divide-border/60">
             {cells.map((cell) => {
               const pct =
                 cell.shareOf && cell.shareOf > 0
