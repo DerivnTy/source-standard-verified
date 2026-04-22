@@ -8,7 +8,7 @@ const nav = [
   { to: "/verified-vendors", label: "Verified vendors" },
   { to: "/greenlist", label: "Greenlist" },
   { to: "/medical-advisory", label: "Advisory Board" },
-  { to: "/education", label: "Education" },
+  { to: "/education", label: "Resource Library" },
   { to: "/how-it-works", label: "Verification" },
   { to: "/about", label: "About" },
 ];

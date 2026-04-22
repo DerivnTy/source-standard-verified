@@ -16,7 +16,7 @@ const LibraryInterpretingCoAs = () => {
     <>
       <PageMeta title="Interpreting Certificates of Analysis · Clinical Guide" description="Audit protocols for interpreting CoAs and detecting documentary discrepancies." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Clinical Guides" },
         ]} />
       <RecordHeader

@@ -39,7 +39,7 @@ const LibraryReferenceDosingRanges = () => {
     <>
       <PageMeta title="Reference Dosing Ranges · Foundational Series" description="Conservative reference dosing ranges drawn from peer-reviewed literature." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Foundational Series" },
         ]} />
       <RecordHeader

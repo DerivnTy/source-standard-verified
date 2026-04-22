@@ -56,7 +56,7 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
     <>
       <PageMeta title="Questions to Ask Your Clinic · Analysis" description="A standardized checklist for evaluating clinic transparency." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Analysis" },
         ]} />
       <RecordHeader

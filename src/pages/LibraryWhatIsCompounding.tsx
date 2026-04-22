@@ -16,7 +16,7 @@ const LibraryWhatIsCompounding = () => {
     <>
       <PageMeta title="What Is Compounding? · Foundational Series" description="The legal and clinical meaning of pharmaceutical compounding under §503A and §503B." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Foundational Series" },
         ]} />
       <RecordHeader

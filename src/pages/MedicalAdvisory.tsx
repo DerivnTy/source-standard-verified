@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
+import { BriefingHero } from "@/components/BriefingHero";
 import { DocSignature } from "@/components/DocSignature";
 import { advisoryBoard, responsibilities } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -32,20 +32,20 @@ const MedicalAdvisory = () => {
       />
 
       <PageMeta
-        title="Medical Advisory Board"
-        description="The governing clinical body for the Source Standard framework. Ratifies evaluation logic and authorizes versioned revisions."
+        title="Governance · Advisory Board"
+        description="Independent medical and legal oversight responsible for framework maintenance and facility ratification."
       />
-      <RecordHeader
+      <BriefingHero
+        category="GOVERNANCE · SS-GOV"
+        docId="SS-MAB-2026.01"
+        title="Governance."
+        statement="Independent medical and legal oversight responsible for framework maintenance and facility ratification."
         metadata={[
           { label: "Doc", value: "SS-MAB-2026.01" },
-          { label: "Version", value: "2026.01" },
           { label: "Status", value: "Active" },
+          { label: "Jurisdiction", value: "United States" },
           { label: "Updated", value: "04 / 21 / 2026" },
-          { label: "Jurisdiction", value: "US" },
         ]}
-        eyebrow="Reference"
-        title="Medical Advisory Board (MAB)."
-        lead="The governing clinical body for the Source Standard framework. The MAB ratifies evaluation logic, authorizes versioned revisions, and confirms that public determinations are administratively defensible."
         verifiedOn="04 / 21 / 2026"
       />
 

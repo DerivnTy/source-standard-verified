@@ -16,7 +16,7 @@ const LibrarySterilePreparationIntegrity = () => {
     <>
       <PageMeta title="Sterile Preparation Integrity · Clinical Guide" description="Handling and reconstitution protocol for sterile injectable compounds." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Clinical Guides" },
         ]} />
       <RecordHeader

@@ -29,7 +29,7 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "Library",
+    title: "Resource Library",
     links: [
       { to: "/education#basics", label: "Foundational Sourcing" },
       { to: "/education/how-to-read-a-certificate-of-analysis", label: "Interpreting CoAs" },

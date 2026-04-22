@@ -16,7 +16,7 @@ const LibraryAnalysis2026Reclassification = () => {
     <>
       <PageMeta title="The 2026 Compounding Reclassification · Analysis" description="Regulatory analysis of the 2026 compounding reclassification and its downstream impact." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Analysis" },
         ]} />
       <RecordHeader

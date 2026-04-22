@@ -50,7 +50,7 @@ const EducationGuides = () => {
       />
       <Breadcrumb
         items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Guides" },
         ]}
       />

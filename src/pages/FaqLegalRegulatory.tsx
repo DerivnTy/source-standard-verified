@@ -39,7 +39,7 @@ const FaqLegalRegulatory = () => {
     <>
       <PageMeta title="Legal & Regulatory FAQ" description="Plain-language answers to legal and regulatory questions about compounded peptides." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "FAQ" },
         ]} />
       <RecordHeader

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { SourceCheck } from "@/components/SourceCheck";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { BriefingHero } from "@/components/BriefingHero";
 import {
   EntryStatus,
   LibraryEntry,
@@ -188,31 +188,27 @@ const Education = () => {
     <>
       <Breadcrumb
         items={[
-          { label: "Education" },
+          { label: "Resource Library" },
         ]}
       />
 
       <PageMeta
-        title="Education Library"
-        description="Foundational series, clinical guides, and analyses on compounding, sourcing, and verification."
+        title="Resource Library"
+        description="Technical documentation, regulatory references, and foundational analysis regarding the industry."
       />
-      {/* Hero — Board-style left-aligned, no center, no display-2 */}
-      <section className="border-b border-border bg-background">
-        <div className="container-wide py-12 md:py-16">
-          <p className="meta mb-3">SS-LIB-2026.01 · Public education &amp; standards</p>
-          <h1 className="h-section max-w-[28ch] text-foreground">
-            Clinical Reference &amp; Standards Library.
-          </h1>
-          <p className="mt-4 max-w-[60ch] text-[15px] text-muted-foreground leading-[1.7]">
-            Your reference to the science, safety, and standards of compounded medicine.
-            Empowering patients and clinicians with documented, citable clinical transparency.
-          </p>
-          <p className="mt-5 inline-flex items-center gap-2 text-[12px] text-muted-foreground">
-            <SourceCheck size="sm" aria-label="Reviewed by Medical Advisory Board" />
-            Reviewed by the Medical Advisory Board
-          </p>
-        </div>
-      </section>
+      <BriefingHero
+        category="RESOURCE LIBRARY · SS-EDU"
+        docId="SS-LIB-2026.01"
+        title="Resource Library."
+        statement="Technical documentation, regulatory references, and foundational analysis regarding the industry."
+        metadata={[
+          { label: "Doc", value: "SS-LIB-2026.01" },
+          { label: "Status", value: "Active" },
+          { label: "Jurisdiction", value: "United States" },
+          { label: "Updated", value: "04 / 21 / 2026" },
+        ]}
+        verifiedOn="04 / 21 / 2026"
+      />
 
       {/* §1 Start here — 12-col split, flat Board tiles */}
       <section className="border-b border-border bg-surface-muted">
