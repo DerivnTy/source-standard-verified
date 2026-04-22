@@ -294,12 +294,12 @@ const VendorProfile = () => {
                     </span>
                   </div>
 
-                  <h1 className="t-page-title font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
+                  <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
                     {vendor.name}
                   </h1>
 
                   {/* Identity meta line */}
-                  <div className="mt-4 flex items-center gap-x-5 gap-y-2 flex-wrap t-body-sm text-foreground">
+                  <div className="mt-3 flex items-center gap-x-4 gap-y-1.5 flex-wrap t-body-sm text-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <FulfillmentIcon
                         className="h-4 w-4 text-muted-foreground"
