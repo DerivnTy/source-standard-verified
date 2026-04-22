@@ -398,7 +398,7 @@ const GreenlistProfile = () => {
                         Recognized
                       </span>
                     )}
-                    <p className="t-body-sm text-muted-foreground leading-[1.45] max-w-[28ch] lg:text-right">
+                    <p className="t-body-sm text-muted-foreground max-w-[28ch] lg:text-right">
                       Recognition reflects published upstream role only. It does
                       not certify downstream vendors.
                     </p>
@@ -612,7 +612,7 @@ const GreenlistProfile = () => {
                       <p className="t-utility-xs uppercase tracking-[0.1em] text-destructive font-semibold mb-2">
                         Regulatory Alert · {statusLabel}
                       </p>
-                      <p className="t-body-sm text-foreground/90 leading-[1.65] max-w-[68ch]">
+                      <p className="t-body-md text-foreground/90 max-w-[68ch]">
                         {alert!.reason}
                       </p>
                       <p className="mt-1.5 t-utility-xs text-muted-foreground tabular-nums">
