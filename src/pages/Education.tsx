@@ -54,10 +54,10 @@ const SoftStatus = ({ status }: { status: EntryStatus }) =>
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
   <Link
     to={`/education/${entry.slug}`}
-    className="group block px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 hover:border-foreground/20 transition-colors"
+    className="group block px-6 py-5 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 hover:border-foreground/20 transition-colors"
   >
-    <div className="flex items-start gap-5">
-      <span className="w-28 shrink-0 pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums">
+    <div className="flex items-center gap-5">
+      <span className="w-28 shrink-0 self-center font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums">
         {entry.id}
       </span>
       <div className="flex-1 min-w-0">
@@ -73,16 +73,16 @@ const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
           </p>
         )}
       </div>
-      <div className="shrink-0 flex flex-col items-end gap-2 pt-0.5 min-w-[140px]">
+      <div className="shrink-0 self-center">
         <SoftStatus status={entry.status} />
-        <span
-          aria-hidden
-          className="pointer-events-none inline-flex items-center gap-1 text-[12px] text-muted-foreground group-hover:text-foreground transition-colors"
-        >
-          Read full article
-          <ChevronRight className="h-3.5 w-3.5" />
-        </span>
       </div>
+      <span
+        aria-hidden
+        className="shrink-0 self-center pl-4 border-l border-border/40 inline-flex items-center gap-1 text-[12px] text-muted-foreground group-hover:text-foreground transition-colors pointer-events-none"
+      >
+        Read full article
+        <ChevronRight className="h-3.5 w-3.5" />
+      </span>
     </div>
   </Link>
 );
