@@ -59,7 +59,7 @@ const EducationBasics = () => {
         backHref="/education"
         backLabel="Back to Learn"
         eyebrow="The Basics"
-        title="The basics, full index"
+        title="The basics: full index"
         description="Plain-language explainers for anyone new to peptides, compounded medications, or TRT."
       />
       <Section density="doc">

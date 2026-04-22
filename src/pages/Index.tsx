@@ -121,7 +121,7 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard, The public standard for documented peptide sourcing"
+        title="Source Standard · The public standard for documented peptide sourcing"
         description="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
       />
 
