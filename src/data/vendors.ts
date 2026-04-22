@@ -44,6 +44,9 @@ export type Vendor = {
   reviewId?: string; // Format: SS-YYYY-#####
   reviewDate?: string; // ISO yyyy-mm-dd
   verifiedCategories?: string[]; // categories/compounds reviewed under SS framework
+  verifiedCompounds?: string[]; // flat list of specific reviewed compounds
+  verifiedScopeGroups?: Record<string, string[]>; // optional grouping by category
+  scopeReviewDate?: string; // optional per-scope review date
 
   // Public-facing notes (optional, surfaced on profile)
   publicNote?: string;
