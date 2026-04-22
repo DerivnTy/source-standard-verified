@@ -1,46 +1,57 @@
 
 
-## Verified Vendors — Refined Registry Summary
+## Remove Pseudo-Official Chrome Sitewide
 
-Replace the awkward two-tier summary (mono count strip + oversized "0 Verified vendors…" line) with a single disciplined record-summary block. Same six numbers, restrained institutional presentation, no dashboard energy.
+Strip the decorative bureaucracy — `DocSignature` bands ("Authorized by · Auth-ID · Data Verified"), the `SS-FRAMEWORK-2026.01 · Active` footer strip, and similar coded metadata theater — and replace the closing language with one disciplined, real statement that does the actual legal/scope work.
 
 ---
 
-### The change
+### 1 · Delete `DocSignature` everywhere
 
-In `src/pages/VerifiedVendors.tsx`, replace the entire `{/* Refined status summary */}` section (lines 200–225) with one unified band:
+The "Authorized by · Source Standard Editorial Board · AUTH-XX-YY## · Data Verified · 04/21/2026" band is exactly the document-cosplay the user is calling out. It appears at the bottom of ~25 pages.
 
-- **Eyebrow row** — small mono label `REGISTRY SUMMARY · AS OF [date]` on the left, paired on the right with a quiet `Total tracked · 000` mono pill. Sets context as a public-record summary, not analytics.
-- **Six-column count grid** — one row, evenly distributed, divided by hairline vertical rules (`md:divide-x divide-border/60`). Order: **Verified · Under review · Unverified · Suspended · Removed · Total tracked**. Each cell:
-  - Uppercase mono label `text-[10.5px] tracking-[0.14em] text-muted-foreground` (e.g. `VERIFIED`).
-  - Count beneath in `font-mono text-[22px] tabular-nums text-foreground` — present and scannable, but no theatrical 44–52px numerals.
-  - A 2px wide × 10px tall colored "stamp tick" to the left of each label using the existing status color tokens (`bg-verified`, `bg-pending`, `bg-muted-foreground`, `bg-destructive`, `bg-muted-foreground/60`, and a neutral `bg-foreground/40` for Total) — ties each cell back to the `StatusBadge` system already used on the page without repeating the badge chrome.
-- Stacks to a 2-column grid on mobile (`grid-cols-2 md:grid-cols-6`), no vertical dividers on mobile.
-- Container framing kept consistent with surrounding bands: `border-b border-border bg-background`, `container-wide py-8 md:py-10`. Slightly tighter vertical rhythm than the current `py-10` so the summary reads as a metadata strip between the "Why this page matters" band above and the filter bar below.
+- Remove the `<DocSignature ... />` render and its `import { DocSignature } from "@/components/DocSignature"` line from every page that uses it: `Accountability`, `Privacy`, `Terms`, `VerificationDisclaimer`, `Governance`, `MedicalAdvisory`, `About`, `HowItWorks`, `StatusDefinitions`, `ForVendors`, `FAQ`, `FaqClinicalSafety`, `FaqLegalRegulatory`, `FaqVerificationProcess`, and the 13 Library article pages (`LibraryWhatArePeptides`, `LibraryWhatIsCompounding`, `LibraryDualLayerDifference`, `LibraryEndocrinologicalContext`, `LibraryAsepticTechnique`, `LibrarySterilePreparationIntegrity`, `LibraryInterpretingCoAs`, `LibraryReferenceDosingRanges`, `LibraryAnalysisMeaningOfVerification`, `LibraryAnalysisQuestionsForYourClinic`, `LibraryAnalysisUndocumentedSourcingSigns`, `LibraryAnalysis2026Reclassification`, `LibraryEntry`).
+- Delete the file `src/components/DocSignature.tsx` once unreferenced.
+- No empty space replaces it — the existing `ArticleFooter` / `BoardCiteFooter` / page bottoms already terminate cleanly. The `SiteFooter` immediately follows.
 
-### What stays the same
+### 2 · Strip the top-of-footer "Standard SS-FRAMEWORK-2026.01 · Active" bar
 
-- All six counts (`vendors.length`, `counts.verified`, `counts["under-review"]`, `counts.unverified`, `counts.suspended`, `counts.removed`).
-- The "Why this page matters" three-statement band above (lines 174–198) — untouched.
-- The legend section further down the page — untouched.
-- `BriefingHero`, filter bar, table, pagination, all data logic.
+In `src/components/SiteFooter.tsx`, remove the entire top strip (lines 65–74): the `<div className="border-b border-border/60 bg-surface-muted/60">` block containing `Standard SS-FRAMEWORK-2026.01 · Active` and `Reviewed under Medical Advisory Board · Updated 04/21/26`. This is the most visible piece of fake-bureaucracy on every page.
 
-### Visual hierarchy
+### 3 · Replace the footer closing statement
 
-```text
-REGISTRY SUMMARY · AS OF 04/22/2026                  Total tracked · 248
-─────────────────────────────────────────────────────────────────────────
-| VERIFIED  | UNDER REVIEW | UNVERIFIED | SUSPENDED |  REMOVED  |  TOTAL |
-|    12     |      3       |    230     |     2     |     1     |   248  |
-```
+In `src/components/SiteFooter.tsx`, replace the existing centered paragraph (lines 110–116) with the user's recommended statement, lightly polished for rhythm:
 
-Quiet, evenly weighted, scannable in one pass. Reads as registry metadata, not as a stat widget.
+> Source Standard is an independent public-reference and verification framework. Listings reflect documentation reviewed within a defined scope and at a defined point in time. Verification does not constitute medical advice, regulatory approval, or a guarantee of safety, efficacy, or outcome.
+
+Same typography (`text-[12px] text-muted-foreground leading-relaxed`, centered, `max-w-[900px]`). The `© / All rights reserved` row beneath is kept as-is.
+
+### 4 · Remove residual coded-metadata phrasing in body copy
+
+Light, surgical edits — only where the phrase reads as ornamental, not where it's a real reference:
+
+- `src/pages/ForVendors.tsx` line 59 and line 161 — drop the parenthetical `(SS-FRAMEWORK-2026.01)` mentions; the surrounding sentences carry the meaning without the code suffix.
+- `src/pages/FAQ.tsx` line 45 — drop the `(SS-FRAMEWORK-2026.01)` parenthetical from the "What does Verified mean?" answer.
+- `src/pages/Privacy.tsx` line 28 — drop "Published under SS-FRAMEWORK-2026.01." trailing sentence.
+- `src/pages/Terms.tsx` line 17 — keep the citation-format definition (this one is functional: it tells the reader what to write when citing the registry), but tighten to a single document name without the policy-anchor enumeration.
+- `src/pages/Index.tsx` `docId` prop on the cover hero — remove the `docId="SS-FRAMEWORK-2026.01"` prop usage so the cover hero stops surfacing a code as a label. (If `BriefingHero` requires it, pass an empty string and conditionally hide.)
+
+`BoardCiteFooter` / `ArticleFooter` "Cite as · …" lines are kept — these are real, useful citation references, not theater.
+
+### 5 · What stays
+
+- `Doc · SS-…` chips in `RecordHeader` / `ArticleHeader` metadata strips — these are actual document identifiers, restrained, useful for citation.
+- "Cite as · Source Standard, …" lines in article and board footers — real attribution.
+- All `DOC_ID` constants in page files (still consumed by headers and citations).
+- `SiteFooter` columns, logo block, copyright row — untouched.
+- Page structure, copy elsewhere, all hero / chapter / article systems.
 
 ### Files touched
 
-- `src/pages/VerifiedVendors.tsx` — replace lines 200–225 only.
+- **Modified:** `src/components/SiteFooter.tsx` (strip top bar + replace closing paragraph), `src/pages/Index.tsx`, `src/pages/ForVendors.tsx`, `src/pages/FAQ.tsx`, `src/pages/Privacy.tsx`, `src/pages/Terms.tsx`, plus all ~25 pages that import/render `DocSignature` (mechanical 2-line removal per file).
+- **Deleted:** `src/components/DocSignature.tsx`.
 
 ### Outcome
 
-The oversized single-numeral treatment is gone. The page now opens (after the chapter hero and the three-statement explainer) into a single restrained six-cell registry summary that matches the institutional voice of the rest of the site — same family as the metadata strips on the article and policy pages, no dashboard styling.
+The bottom of every page loses its fake-official chrome. There's no more `AUTH-XX-YY##`, no more "Authorized by · Source Standard Editorial Board," no more `SS-FRAMEWORK-2026.01 · Active` strip riding above the footer on every route. In their place, one disciplined sentence in the global footer carries the real scope/disclaimer weight — and that sentence is now the only closing legal statement the site needs.
 
