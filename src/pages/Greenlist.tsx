@@ -577,7 +577,7 @@ const Greenlist = () => {
           </div>
         </div>
         <div className="border-t border-border/50">
-          <div className="px-4 md:px-6 py-4">
+          <div className="px-4 md:px-6 pt-4 pb-2">
             <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground">
               Note
             </span>
