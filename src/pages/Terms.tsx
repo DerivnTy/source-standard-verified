@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
+import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
 import { DocSignature } from "@/components/DocSignature";
 import { Callout } from "@/components/Callout";
@@ -58,7 +59,16 @@ const Terms = () => (
     />
     <Breadcrumb items={[{ label: "Legal" }, { label: "Terms" }]} />
 
+    <BriefingHero
+      variant="chapter"
+      category="Policy · Registry user agreement"
+      docId={DOC_ID}
+      title="User Agreement & Registry Terms"
+      statement="The binding user agreement governing access to the public registry and any reproduction, citation, or downstream use of its contents."
+    />
+
     <RecordHeader
+      compact
       metadata={[
         { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
@@ -66,9 +76,6 @@ const Terms = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       verifiedOn={VERIFIED_ON}
-      eyebrow="Policy · Registry user agreement"
-      title="User Agreement & Registry Terms."
-      lead={`The binding user agreement governing access to the Source Standard public registry and any reproduction, citation, or downstream use of its contents. Issued by the auditing body as a version-controlled legal instrument under document ${DOC_ID}.`}
     />
 
     <DocJumpBar waypoints={waypoints} />
