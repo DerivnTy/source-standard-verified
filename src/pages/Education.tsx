@@ -62,6 +62,10 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "dosing-guidance-summaries-for-common-compounds": "/library/reference-dosing-ranges",
 };
 
+const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
+  legal: "/library/faq/legal-regulatory",
+};
+
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
   <Link
     to={SLUG_ROUTE_OVERRIDES[entry.slug] ?? `/education/${entry.slug}`}
@@ -335,7 +339,7 @@ const Education = () => {
                 return (
                   <Link
                     key={c.key}
-                    to={`/education/questions#${c.groupAnchor}`}
+                    to={CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`}
                     className="flex flex-col text-left rounded-[4px] border border-border/70 bg-background px-5 py-4 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 hover:shadow-[0_0_0_1px_rgba(0,0,0,0.04)]"
                   >
                     <div className="flex items-start justify-between gap-4">
