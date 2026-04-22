@@ -389,7 +389,7 @@ const VerifiedVendors = () => {
                       <div className="col-span-4 min-w-0">
                         <Link
                           to={`/directory/${v.slug}`}
-                          className="text-[13px] font-medium text-foreground hover:text-primary truncate leading-tight block"
+                          className="text-[13px] font-semibold text-foreground hover:text-primary truncate leading-tight block"
                         >
                           {v.name}
                         </Link>
@@ -408,7 +408,7 @@ const VerifiedVendors = () => {
                       <div className="col-span-1 text-right">
                         <Link
                           to={`/directory/${v.slug}`}
-                          className="text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary"
+                          className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70 hover:text-primary transition-colors"
                         >
                           View →
                         </Link>
@@ -425,7 +425,7 @@ const VerifiedVendors = () => {
                       className="block card-elevated p-3.5 rounded-[12px] hover:bg-primary/[0.04] transition-colors cursor-pointer"
                     >
                       <div className="flex items-start justify-between gap-3">
-                        <p className="text-[13px] font-medium text-foreground">
+                        <p className="text-[13px] font-semibold text-foreground">
                           {v.name}
                         </p>
                         <StatusBadge status={v.status} />
