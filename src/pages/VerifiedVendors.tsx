@@ -498,10 +498,10 @@ const VerifiedVendors = () => {
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Location
                       </div>
-                      <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Mode
                       </div>
-                      <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Focus
                       </div>
                     </div>
@@ -526,7 +526,7 @@ const VerifiedVendors = () => {
                               }`}
                             />
 
-                            <div className="col-span-4 min-w-0 pr-4">
+                            <div className="col-span-4 min-w-0 pr-2">
                               <div className="text-[15px] font-semibold text-foreground leading-[22px] truncate">
                                 {v.name}
                               </div>
@@ -557,11 +557,11 @@ const VerifiedVendors = () => {
                               {formatLocation(v)}
                             </div>
 
-                            <div className="col-span-1 pr-3">
+                            <div className="col-span-2 pr-3">
                               <FulfillmentChip kind={ful} />
                             </div>
 
-                            <div className="col-span-3 flex items-center justify-between gap-3 pr-1">
+                            <div className="col-span-2 flex items-center justify-between gap-3 pr-1">
                               <span className="text-[13px] text-muted-foreground truncate">
                                 {(v.clinicalFocus && v.clinicalFocus.length > 0
                                   ? v.clinicalFocus.join(" · ")
