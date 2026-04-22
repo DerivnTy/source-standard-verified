@@ -267,8 +267,8 @@ const VendorProfile = () => {
             {/* Status hairline */}
             <div className={`h-[3px] w-full ${theme.hairline}`} aria-hidden />
 
-            {/* ---------- IDENTITY BAND (locked: px-6 md:px-10 pt-9 pb-8) ---------- */}
-            <header className="px-6 md:px-10 pt-9 pb-8 border-b border-border">
+            {/* ---------- IDENTITY BAND ---------- */}
+            <header className="px-6 md:px-8 pt-6 pb-5 border-b border-border">
               <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
                 {/* Monogram tile */}
                 <div
