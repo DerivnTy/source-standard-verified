@@ -1,7 +1,115 @@
 import { Link } from "react-router-dom";
-import { greenlist } from "@/data/greenlist";
+import { greenlist, greenlistEntries } from "@/data/greenlist";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
+
+/* ───────────────── Hero — right-rail data blocks ─────────────────────────── */
+
+const HERO_METRICS = {
+  vendorsUnderReview: 24,
+  vendorsListed: 11,
+  upstreamSources: greenlistEntries.length,
+  jurisdictions: 9,
+};
+
+const HERO_GOVERNANCE: { l: string; v: string }[] = [
+  { l: "Board status", v: "Active · ratified 2026.02" },
+  { l: "Seats filled", v: "6 / 7" },
+  { l: "Review cycle", v: "Annual · interim flags" },
+  { l: "Conflict policy", v: "Disclosed · public" },
+];
+
+const HERO_PORTALS: { code: string; label: string; to: string }[] = [
+  { code: "§I.A", label: "Vendor Registry", to: "/verified-vendors" },
+  { code: "§I.B", label: "Upstream Registry", to: "/greenlist" },
+  { code: "§IV.C", label: "Audit Request", to: "/apply" },
+];
+
+const HeroRightRail = () => (
+  <div className="flex flex-col gap-px bg-border border border-border">
+    {/* Block A · REGISTRY METRICS */}
+    <div className="bg-background">
+      <div className="px-4 py-2 border-b border-border">
+        <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
+          Registry metrics
+        </span>
+      </div>
+      <div className="grid grid-cols-2 divide-x divide-border">
+        {[
+          { l: "Vendors under review", v: HERO_METRICS.vendorsUnderReview },
+          { l: "Vendors listed", v: HERO_METRICS.vendorsListed },
+          { l: "Upstream sources", v: HERO_METRICS.upstreamSources },
+          { l: "Jurisdictions", v: HERO_METRICS.jurisdictions },
+        ].map((m, i) => (
+          <div
+            key={m.l}
+            className={`px-4 py-4 ${i < 2 ? "border-b border-border" : ""}`}
+          >
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              {m.l}
+            </p>
+            <p className="mt-2 text-[22px] font-semibold tabular-nums text-foreground leading-none">
+              {m.v}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Block B · GOVERNANCE */}
+    <div className="bg-background">
+      <div className="px-4 py-2 border-b border-border">
+        <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
+          Governance
+        </span>
+      </div>
+      <dl className="divide-y divide-border">
+        {HERO_GOVERNANCE.map((r) => (
+          <div
+            key={r.l}
+            className="grid grid-cols-12 gap-3 px-4 py-2.5 items-baseline"
+          >
+            <dt className="col-span-5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              {r.l}
+            </dt>
+            <dd className="col-span-7 text-[14.5px] text-foreground leading-snug">
+              {r.v}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    {/* Block C · ACCESS PORTALS */}
+    <div className="bg-background">
+      <div className="px-4 py-2 border-b border-border">
+        <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
+          Access portals
+        </span>
+      </div>
+      <ul className="divide-y divide-border">
+        {HERO_PORTALS.map((p) => (
+          <li key={p.code}>
+            <Link
+              to={p.to}
+              className="grid grid-cols-12 gap-3 px-4 py-3 items-center hover:bg-muted/40 transition-colors group"
+            >
+              <span className="col-span-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
+                {p.code}
+              </span>
+              <span className="col-span-8 text-[14.5px] uppercase tracking-[0.04em] text-foreground group-hover:text-primary transition-colors">
+                {p.label}
+              </span>
+              <span className="col-span-1 text-right font-mono text-[14.5px] text-muted-foreground group-hover:text-primary transition-colors">
+                →
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+);
 
 /* ───────────────── Block I — REGISTRIES (vendor + upstream) ───────────────── */
 
