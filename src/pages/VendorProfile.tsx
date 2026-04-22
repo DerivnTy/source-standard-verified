@@ -85,60 +85,82 @@ const monogramOf = (name: string): string =>
     .map((w) => w[0]?.toUpperCase() ?? "")
     .join("") || "·";
 
-// ---------- Primitives ----------
+const isPresent = (v: ReactNode | string[] | undefined | null | false): boolean => {
+  if (v === null || v === undefined || v === "" || v === false) return false;
+  if (Array.isArray(v) && v.length === 0) return false;
+  return true;
+};
 
+// ---------- Locked primitives ----------
+
+const FallbackLine = ({ children }: { children: ReactNode }) => (
+  <span className="t-body-sm text-muted-foreground italic">{children}</span>
+);
+
+/**
+ * Field — used ONLY inside Public Record (label above value).
+ * Renders a muted em-dash when value is empty, so the 6-row matrix never collapses.
+ */
 const Field = ({
   label,
   value,
   mono,
 }: {
   label: string;
-  value: ReactNode;
+  value: ReactNode | string[];
   mono?: boolean;
 }) => {
-  if (value === null || value === undefined || value === "" || value === false)
-    return null;
-  if (Array.isArray(value) && value.length === 0) return null;
+  const present = isPresent(value);
   return (
     <div>
-      <p className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-semibold">
+      <dt className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground">
         {label}
-      </p>
-      <p
-        className={`mt-1 t-body-sm text-foreground font-medium leading-[1.5] ${
-          mono ? "font-mono tabular-nums" : ""
-        }`}
+      </dt>
+      <dd
+        className={`mt-1.5 t-body-sm font-medium leading-[1.5] ${
+          present ? "text-foreground" : "text-muted-foreground"
+        } ${mono && present ? "font-mono tabular-nums" : ""}`}
       >
-        {Array.isArray(value) ? (value as string[]).join(", ") : value}
-      </p>
+        {present
+          ? Array.isArray(value)
+            ? (value as string[]).join(", ")
+            : value
+          : "—"}
+      </dd>
     </div>
   );
 };
 
+/**
+ * RailRow — used ONLY inside Trust Record (label left, value right).
+ * Renders "Not on file" when empty, so the rail never collapses.
+ */
 const RailRow = ({
   label,
   value,
   mono,
 }: {
   label: string;
-  value: ReactNode;
+  value: ReactNode | string[];
   mono?: boolean;
 }) => {
-  if (value === null || value === undefined || value === "" || value === false)
-    return null;
-  if (Array.isArray(value) && value.length === 0) return null;
+  const present = isPresent(value);
   return (
-    <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-border/50 last:border-0">
-      <span className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-semibold shrink-0">
+    <div className="flex items-baseline justify-between gap-4 py-3 border-b border-border/50 last:border-0">
+      <span className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground shrink-0">
         {label}
       </span>
-      <span
-        className={`t-body-sm text-foreground text-right leading-[1.45] ${
-          mono ? "font-mono tabular-nums" : ""
-        }`}
-      >
-        {Array.isArray(value) ? (value as string[]).join(", ") : value}
-      </span>
+      {present ? (
+        <span
+          className={`t-body-sm text-foreground text-right leading-[1.45] ${
+            mono ? "font-mono tabular-nums" : ""
+          }`}
+        >
+          {Array.isArray(value) ? (value as string[]).join(", ") : value}
+        </span>
+      ) : (
+        <FallbackLine>Not on file</FallbackLine>
+      )}
     </div>
   );
 };
@@ -150,9 +172,9 @@ const SectionHeading = ({
   eyebrow?: string;
   children: ReactNode;
 }) => (
-  <div className="mb-4">
+  <div className="mb-5">
     {eyebrow && (
-      <p className="t-utility-xs uppercase tracking-[0.16em] text-muted-foreground font-semibold mb-1">
+      <p className="t-utility-xs uppercase tracking-[0.16em] text-muted-foreground font-semibold mb-1.5">
         {eyebrow}
       </p>
     )}
@@ -212,6 +234,7 @@ const VendorProfile = () => {
 
   const serviceArea = (vendor as Vendor & { serviceArea?: string }).serviceArea;
   const monogram = monogramOf(vendor.name);
+  const aboutText = vendor.summary || vendor.publicNote;
 
   return (
     <>
@@ -229,6 +252,7 @@ const VendorProfile = () => {
 
       <section className="bg-background">
         <div className="container-wide pt-5 pb-16">
+          {/* Top nav row */}
           <Link
             to="/verified-vendors"
             className="t-utility-xs text-muted-foreground hover:text-foreground mb-4 inline-block"
@@ -237,15 +261,14 @@ const VendorProfile = () => {
           </Link>
 
           {/* ============================================================
-              UNIFIED PROFILE SURFACE
-              One bordered article — hero band + integrated body grid.
+              UNIFIED PROFILE SURFACE — locked template
           ============================================================ */}
           <article className="border border-border bg-background">
             {/* Status hairline */}
             <div className={`h-[3px] w-full ${theme.hairline}`} aria-hidden />
 
-            {/* ---------- HERO / IDENTITY BAND ---------- */}
-            <header className="px-6 md:px-10 pt-8 pb-7 border-b border-border">
+            {/* ---------- IDENTITY BAND (locked: px-6 md:px-10 pt-9 pb-8) ---------- */}
+            <header className="px-6 md:px-10 pt-9 pb-8 border-b border-border">
               <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
                 {/* Monogram tile */}
                 <div
@@ -333,37 +356,44 @@ const VendorProfile = () => {
               </div>
             </header>
 
-            {/* ---------- INTEGRATED BODY GRID ---------- */}
-            <div className="grid grid-cols-1 lg:grid-cols-12">
-              {/* Main column */}
-              <div className="lg:col-span-8 lg:border-r border-border">
-                {/* About */}
-                <div className="px-6 md:px-10 py-8 border-b border-border">
+            {/* ---------- BODY GRID — 12-col, items-stretch, divide-x ---------- */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-stretch lg:divide-x lg:divide-border">
+              {/* ===== Main column (8/12) ===== */}
+              <div className="lg:col-span-8">
+                {/* About — locked py-8 md:py-10, min-h to stabilize layout */}
+                <section className="px-6 md:px-10 py-8 md:py-10 border-b border-border">
                   <SectionHeading eyebrow="Profile">About</SectionHeading>
-                  {vendor.summary || vendor.publicNote ? (
-                    <p className="t-body text-foreground/90 leading-[1.7] max-w-[68ch]">
-                      {vendor.summary || vendor.publicNote}
-                    </p>
-                  ) : (
-                    <p className="t-body-sm text-muted-foreground italic leading-[1.6] max-w-[68ch]">
-                      No public description on file. Source Standard has not
-                      published an editorial summary for this vendor.
-                    </p>
-                  )}
-                </div>
+                  <div className="min-h-[5.5rem]">
+                    {aboutText ? (
+                      <p className="t-body text-foreground/90 leading-[1.7] max-w-[68ch]">
+                        {aboutText}
+                      </p>
+                    ) : (
+                      <p className="t-body-sm text-muted-foreground italic leading-[1.6] max-w-[68ch]">
+                        No public description on file. Source Standard has not
+                        published an editorial summary for this vendor.
+                      </p>
+                    )}
+                  </div>
+                </section>
 
-                {/* Public Record */}
-                <div className="px-6 md:px-10 py-8 border-b border-border lg:border-b-0">
-                  <SectionHeading eyebrow="Record">
-                    Public Record
-                  </SectionHeading>
-                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
+                {/* Public Record — locked 6-row, 2-col matrix */}
+                <section
+                  className={`px-6 md:px-10 py-8 md:py-10 ${
+                    isVerified ? "border-b border-border" : ""
+                  }`}
+                >
+                  <SectionHeading eyebrow="Record">Public Record</SectionHeading>
+                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
                     <Field label="Category" value={vendor.category} />
                     <Field
                       label="Fulfillment"
                       value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
                     />
-                    <Field label="Clinical focus" value={vendor.clinicalFocus} />
+                    <Field
+                      label="Clinical focus"
+                      value={vendor.clinicalFocus}
+                    />
                     <Field
                       label="Medical director"
                       value={vendor.medicalDirector}
@@ -378,17 +408,17 @@ const VendorProfile = () => {
                       />
                     )}
                   </dl>
-                </div>
+                </section>
 
-                {/* Verified Scope (verified only) */}
+                {/* Verified Scope — verified only */}
                 {isVerified && (
-                  <div className="px-6 md:px-10 py-8 border-t border-border">
-                    <div className="flex items-baseline justify-between gap-4 flex-wrap mb-4">
+                  <section className="px-6 md:px-10 py-8 md:py-10">
+                    <div className="flex items-baseline justify-between gap-4 flex-wrap">
                       <SectionHeading eyebrow="Verification">
                         Verified Scope
                       </SectionHeading>
                       {vendor.scopeReviewDate && (
-                        <span className="t-utility-xs font-mono tabular-nums text-muted-foreground">
+                        <span className="t-utility-xs font-mono tabular-nums text-muted-foreground -mt-3">
                           Reviewed {vendor.scopeReviewDate}
                         </span>
                       )}
@@ -434,17 +464,15 @@ const VendorProfile = () => {
                         </p>
                       </>
                     ) : (
-                      <p className="t-body-sm text-muted-foreground italic">
-                        Scope detail not yet published.
-                      </p>
+                      <FallbackLine>Scope detail not yet published.</FallbackLine>
                     )}
-                  </div>
+                  </section>
                 )}
               </div>
 
-              {/* Trust rail */}
+              {/* ===== Trust Rail (4/12) ===== */}
               <aside className="lg:col-span-4 bg-muted/20">
-                <div className="px-6 md:px-8 py-8">
+                <div className="px-6 md:px-8 py-8 md:py-10">
                   <div className="flex items-center gap-2 mb-5">
                     <ShieldCheck
                       className="h-4 w-4 text-muted-foreground"
@@ -455,44 +483,34 @@ const VendorProfile = () => {
                     </p>
                   </div>
 
-                  <dl className="border-t border-border/60">
-                    <RailRow label="Status" value={VENDOR_STATUS_LABEL[status]} />
-                    {isVerified && vendor.reviewDate && (
-                      <RailRow label="Last reviewed" value={vendor.reviewDate} />
-                    )}
+                  {/* Locked rail order — always-rendered rows */}
+                  <dl className="border-t border-border/50">
+                    <RailRow
+                      label="Status"
+                      value={VENDOR_STATUS_LABEL[status]}
+                    />
+                    <RailRow
+                      label="Last reviewed"
+                      value={isVerified ? vendor.reviewDate : undefined}
+                    />
                     <RailRow
                       label="Review ID"
-                      value={
-                        isVerified && vendor.reviewId ? (
-                          vendor.reviewId
-                        ) : (
-                          <span className="text-muted-foreground italic">
-                            Not on file
-                          </span>
-                        )
-                      }
+                      value={isVerified ? vendor.reviewId : undefined}
                       mono={isVerified && !!vendor.reviewId}
                     />
                     <RailRow label="Source type" value={sourceType} mono />
-                    {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
-                      <RailRow
-                        label="Clinical focus"
-                        value={vendor.clinicalFocus}
-                      />
-                    )}
-                    {serviceArea && (
-                      <RailRow label="States served" value={serviceArea} />
-                    )}
-                    {vendor.medicalDirector && (
-                      <RailRow
-                        label="Medical director"
-                        value={vendor.medicalDirector}
-                      />
-                    )}
+                    <RailRow
+                      label="Clinical focus"
+                      value={vendor.clinicalFocus}
+                    />
+                    <RailRow
+                      label="Medical director"
+                      value={vendor.medicalDirector}
+                    />
                   </dl>
 
                   {isVerified && (
-                    <div className="mt-6 pt-5 border-t border-border/60">
+                    <div className="mt-6 pt-5 border-t border-border/50">
                       <p className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold mb-3">
                         Reviewed Components
                       </p>
@@ -539,7 +557,7 @@ const VendorProfile = () => {
               </aside>
             </div>
 
-            {/* ---------- FOOTER STRIP (inside the card) ---------- */}
+            {/* ---------- FOOTER STRIP ---------- */}
             <div className="px-6 md:px-10 py-4 border-t border-border bg-muted/10 flex items-center justify-between gap-4 flex-wrap">
               <p className="t-utility-xs text-muted-foreground">
                 Source Standard public record ·{" "}
