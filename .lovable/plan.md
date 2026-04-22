@@ -1,90 +1,86 @@
 
 
-## Resource Library — Curated Editorial Restructure
+## About — Public Definition Restructure
 
-Rebuild `src/pages/Education.tsx` as a disciplined editorial library: navy hero, one elevated "Start here" trio, four clearly-differentiated category sections sharing one consistent system, a quieter FAQ utility row, a small "Latest analysis" strip, a de-emphasized archive, and a calm closing notice. Strip the repeated `ENTRY · NN`, `START · NN`, `CAT · NN`, `SS-LIB`, and `§1–§6` chips that currently make the page feel coded and noisy.
+Rebuild `src/pages/About.tsx` as the clearest public explanation of Source Standard. Strip the charter-style scaffolding (`§1–§8`, sticky contents nav, `Doc / Status / Jurisdiction` metadata strip, `Cite as` chip) and resequence the page so a first-time visitor understands what Source Standard is, why it exists, what it does not do, who it serves, and how it operates — in plain language, in that order.
 
 ---
 
 ### Section sequence
 
 **1 · Hero (replace `BriefingHero` invocation)**
-Match the navy hero used on Home / Greenlist / Verified Vendors / Medical Advisory.
+Match the navy hero used on Home / Greenlist / Verified Vendors / Medical Advisory / Education.
 - `tone`: `navy`
-- `category`: `Resource Library`
-- `title`: `Resource Library`
-- `statement`: `A curated reference library for sourcing, compounding, verification, and public due diligence. Reviewed under independent medical oversight.`
+- `category`: `About Source Standard`
+- `title`: `About Source Standard`
+- `statement`: `An independent verification and public-reference framework for vendor sourcing transparency in peptide, TRT, and hormone optimization markets.`
 - Drop `docId`, `metadata`, `verifiedOn`. No actions.
+- Remove the sticky `§1–§8` contents nav entirely (and the IntersectionObserver / `activeId` state).
 
-**2 · Start here — featured trio, elevated**
-Light surface, generous spacing. Single section heading + short lede above a 3-column row of featured entries.
-- Section eyebrow: `Start here` (plain text, no `§` prefix).
-- Lede: `Three short reads that frame everything else in the library.`
-- Cards: `What Are Peptides?`, `What Is Compounding? (503A vs 503B)`, `Questions to Ask Your Clinic`. Rebuild card: numbered eyebrow `01 / 02 / 03` (no `START · NN` chip, no `SS-LIB` chip), title as the dominant anchor (`text-[19px] font-semibold`), one-line blurb, single quiet `Read →` text link. Hairline dividers via existing `gap-px bg-border` pattern. No `border-t` action footer.
+**2 · Why this exists** (`bg-background`)
+Centered `SectionHeader` (eyebrow `Why this exists`, title `Consumers shouldn't have to decode marketing claims.`, no `§1` chip), followed by two short plain paragraphs in a `max-w-3xl` column. Combines the current §1 + §3 substance into one cleaner statement: consumers are asked to rely on branding they can't verify; responsible operators are hard to distinguish from less transparent ones; Source Standard exists to make the landscape easier to interpret.
 
-**3 · Library — four category sections sharing one system**
-One consistent layout repeated four times so every category reads the same way. Each section has: section heading (no `§`), one-sentence description, a clean entry list, and one quiet `View full section →` link. Surfaces alternate `bg-background` ↔ `bg-surface-muted` for rhythm only.
+**3 · What Source Standard is** (`bg-surface-muted`)
+Centered `SectionHeader` + a single editorial paragraph. Plain definition: a public reference and verification framework that publishes vendor verification status and recognized upstream sources, organized so the public can interpret sourcing and documentation more clearly. No bordered card.
 
-Each entry row inside a category uses the **same** simplified pattern (replaces `LibraryTile`):
-- No `ENTRY · NN` mono chip.
-- Title (`text-[16px] font-semibold text-foreground`) — the visual anchor.
-- One-line muted summary beneath.
-- Optional `Reviewed by Medical Advisory Board` micro-note (guides only), muted.
-- Whole row is the link; hover tints background. Hairline divider between rows.
+**4 · What Source Standard is not** (`bg-background`)
+Centered `SectionHeader` (`What Source Standard is not`). Below, a clean two-column list (single column on mobile) of six plain statements with hairline dividers — no numbered chips, no `§` codes, no surface tint:
+- Does not prescribe treatment
+- Does not provide medical advice
+- Does not replace physician judgment
+- Does not function as a regulator
+- Does not market clinics or act as a promotional partner
+- Does not guarantee medical outcomes, product safety, or treatment efficacy
+Each item: bold lead phrase, no description needed. This is one of the most prominent sections on the page by virtue of its calm clarity, not by visual weight.
 
-The four categories:
+**5 · Operating principle** (`bg-surface-muted`)
+Centered, intentionally spare. Single eyebrow (`Operating principle`), then the doctrine line rendered as a large pull-quote (`text-[20-22px]` serif or semibold sans, max-w-2xl, centered):
+> If documentation is present and supports the published status, that status can be shown publicly. If it is not, it cannot.
+Below, one muted line: `The role here is not to persuade. The role is to provide a clearer public reference.` No bordered card, no `§6` chip, no mono `Operating principle · §6` header.
 
-- **Foundational sourcing** (`bg-surface-muted`) — entries from `librarySeries.filter(level === "intro")` (compounding/peptides foundations). Footer link → `/education/basics`.
-- **Clinical handling & sterile reference** (`bg-background`) — `libraryGuides.slice(0, 6)`. Footer link → `/education/guides`.
-- **Verification & due diligence** (`bg-surface-muted`) — series entries about verification meaning, dual-layer, undocumented sourcing signs, questions to ask (drawn from `librarySeries`, excluding the intro pair). Footer link → `/education/questions` (or analysis index).
-- **Latest analysis** (`bg-background`) — see §5 below; smaller treatment, distinct from the four foundational categories.
+**6 · Who this serves** (`bg-background`)
+Centered `SectionHeader` (`Who this serves`). Below, a two-column row (single column on mobile) divided by a hairline. Each column has a small label (`For consumers` / `For responsible vendors`) and one short paragraph. No `§7.1 / §7.2` mono prefixes, no bordered card grid, no `gap-px bg-border` cell shell — just two clean columns.
 
-(If only three foundational categories are needed for clarity, "Verification & due diligence" can be promoted while leaving the FAQ row to handle quick answers — see §4.)
+**7 · Principles** (`bg-surface-muted`)
+Centered `SectionHeader` (`Principles`, lede `Four ideas that shape the framework.`). Render the four `beliefs` as a clean numbered list (`01–04`) with hairline dividers, no `§4.N` mono codes, no bordered card. Each row: number eyebrow + statement on one line at `text-[15px]`.
 
-**4 · Regulatory FAQ — navigational utility row**
-Light surface. Reframe as a quiet four-column nav row, not a card grid.
-- Section eyebrow: `Regulatory FAQ`.
-- Lede: `Plain-record answers, organized by inquiry category.`
-- Render the four categories (`Legal`, `Safety`, `Verification`, `Diligence`) as a horizontal row of four equal-width plain links separated by hairline dividers (`divide-x divide-border`). No card backgrounds, no `CAT · NN` chips, no `FAQ` chips, no `Browse →` action footer. Each column: category label (`text-[15px] font-semibold`), one-line description, route to its FAQ page.
-- Single quiet `Browse the full FAQ archive →` text link below, right-aligned.
+**8 · Scope & boundaries** (`bg-background`)
+Centered `SectionHeader` (`Scope & boundaries`, lede `What falls within the framework, and what falls outside it.`). Below, two side-by-side columns (single column on mobile) — left column heading `Within the framework` lists the four `weVerify` items as plain bullets; right column heading `Outside the framework` lists the four `weFlag` items as plain bullets. Hairline divider between the two columns. No `Ref / What we verify / What we flag` table header strip, no `§5.N` codes, no bordered table shell.
 
-**5 · Latest analysis — smaller, recent-additions strip**
-Muted surface, intentionally lighter weight than the foundational categories.
-- Section eyebrow: `Latest analysis`.
-- Lede: `Recent additions to the analysis series.`
-- Render as a simple two-column list of titles + one-line summaries (no card grid, no numbered chips). Source: `librarySeries.filter((e) => !basicSlugs.has(e.slug))`.
-- Quiet `View archive →` link.
+**9 · Mission** (`bg-surface-muted`)
+Centered, spare. Eyebrow `Mission`. Below, the mission statement rendered as the closing thesis at `text-[20px] font-semibold`, max-w-2xl, centered:
+> To bring greater clarity, consistency, and transparency to vendor sourcing and verification in peptide, TRT, and hormone optimization markets.
+Single muted line beneath: `Source Standard exists to make the market easier to understand for the people moving through it.`
 
-**6 · Forthcoming formats — de-emphasized archive**
-Light surface, single tight block, deliberately quieter than everything above.
-- Section eyebrow: `Forthcoming formats`.
-- Lede: `Future extensions of the library.`
-- Render `librarySupplementary` as a plain bulleted list (one row each: bold title — muted description). No numbered ref column, no card. This makes it clearly secondary.
+**10 · Continue reading — quiet bridge** (`bg-background`)
+Replace the bordered "Read deeper" band. Small eyebrow `Continue reading`, then four quiet text links in a single row (or 2×2 on mobile), each a label + one-line description, hairline dividers between:
+- `Governance & Oversight →` `/governance` — Clinical advisory and statutory anchors.
+- `How verification works →` `/how-it-works` — Process, review, and renewal.
+- `Status definitions →` `/status-definitions` — Glossary of regulatory standings.
+- `Accountability & enforcement →` `/accountability` — Compliance protocol.
 
-**7 · Library notice — clean closing reference block**
-Muted surface, full-width, single editorial paragraph, no left border accent, no `Notice · Informational use only` mono label.
-- Heading: `About this library` (small, muted).
-- One paragraph combining: reviewed under Medical Advisory Board (link), informational use only, not medical advice, no clinician–patient relationship created. Plain typography, no boxed callout.
+**11 · Footer**
+Keep `DocSignature`. Remove the `Cite as · Source Standard, Organization Reference, SS-ORG-2026.01…` band entirely (the doc ID lives inside `DocSignature` already).
 
 ---
 
 ### Visual rules across the page
 
-- No visible `§1 / §2 / §3 / §4 / §5 / §6` codes anywhere.
-- No visible `ENTRY · NN`, `START · NN`, `CAT · NN`, `SS-LIB`, `FAQ` mono chips.
-- Section headings use plain phrases (`Start here`, `Foundational sourcing`, `Clinical handling & sterile reference`, `Verification & due diligence`, `Regulatory FAQ`, `Latest analysis`, `Forthcoming formats`, `About this library`).
-- One consistent rhythm: every section uses `container-wide` + `py-12 md:py-16`, hairline dividers, no card shadows, no rounded corners.
-- One consistent action style: `View full section →` / `Read →` / `Browse →` all rendered as quiet muted text links, no uppercase/tracking treatment.
-- Typography hierarchy is strict: section heading > entry title > description > metadata. Section headings are `text-[24-28px]`, entry titles `text-[16-19px]`, descriptions `text-[13.5px] text-muted-foreground`.
-- Surfaces alternate `bg-background` ↔ `bg-surface-muted` for rhythm, no new tokens, no blue tag highlights.
-
----
+- No visible `§1 / §2 / §3 / §4 / §5 / §6 / §7 / §8` or `§N.M` codes anywhere.
+- No sticky contents nav, no `IntersectionObserver`, no `activeId` state.
+- No `CHARTER · SS-ORG` / `Doc / Status / Jurisdiction / Updated` metadata strip in the hero.
+- Section eyebrows are plain phrases (`Why this exists`, `What Source Standard is`, `What Source Standard is not`, `Operating principle`, `Who this serves`, `Principles`, `Scope & boundaries`, `Mission`, `Continue reading`).
+- Layout switches from the current 4/8 left-rail grid to centered `SectionHeader` + `max-w-3xl` content columns — matches `Education.tsx` rhythm.
+- Surfaces alternate `bg-background` ↔ `bg-surface-muted` for rhythm only, no new tokens.
+- Hairline dividers via existing `border-border`. No card shadows, no rounded corners introduced.
+- Spacing uses existing `container-wide` + `py-12 md:py-16`.
+- Typography hierarchy: section heading > body text > muted detail. Operating principle and Mission rendered as elevated pull-quotes for emphasis.
 
 ### Files touched
 
-- `src/pages/Education.tsx` — full body rewrite: replace hero invocation; remove `LibraryTile` and `SectionRail` helpers in favor of two simpler shared helpers (`FeatureCard` for Start here, `EntryRow` for category lists); restructure the page into the seven sections above; strip every `§NN`, `ENTRY · NN`, `START · NN`, `CAT · NN`, `SS-LIB`, `FAQ` chip; flatten the closing notice.
+- `src/pages/About.tsx` — full body rewrite. Replace navy hero, remove sticky contents nav and IntersectionObserver, restructure into the 10 sections above, add new `What Source Standard is not` section, flatten Scope into a clean two-column list, elevate Operating principle + Mission as centered pull-quotes, replace Read deeper band with quiet bridge row, drop the Cite footer band.
 
 ### What stays the same
 
-`BriefingHero`, `Breadcrumb`, `PageMeta`, all data and routes in `src/data/library.ts`, the `TITLE_OVERRIDES` / `FEATURED_OVERRIDES` / `SUPPLEMENT_OVERRIDES` / `SLUG_ROUTE_OVERRIDES` / `CATEGORY_ROUTE_OVERRIDES` maps, every linked target page, the navy/cream global accent system, and every other page on the site.
+`BriefingHero`, `PageMeta`, `DocSignature`, the `beliefs` / `weVerify` / `weFlag` / `readDeeper` data arrays (substance preserved, presentation rebuilt), all routes, the navy/cream global accent system, and every other page on the site.
 
