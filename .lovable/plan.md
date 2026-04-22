@@ -1,51 +1,72 @@
 
 
-## Refine §8 — Compact, Symmetric Pathway Panel
+## Refine Greenlist Bottom Section — Tightened Closing Block
 
-Tighten the existing split-pathway section into a more compact, balanced, higher-contrast closing panel. No new structure — just spacing, sizing, and color discipline so both cells lock to the same vertical rhythm.
+Restructure the bridge-to-vendor-registry section at the end of `/greenlist` so the eyebrow, explanation, CTA, and disclaimer read as one unified closing block instead of three loose pieces.
 
 ---
 
-### Changes (single edit, `src/pages/Index.tsx` lines 325–379)
+### Design
 
-**1 · Shrink the band**
-- Outer padding: `py-12 md:py-14` → `py-10 md:py-12`. Reduces dead vertical air.
-- Eyebrow band bottom margin: `mb-8` → `mb-6`.
+```text
+TWO LAYERS, ONE FRAMEWORK ──────────────────────────────
 
-**2 · Larger, brighter "Choose your path"**
-- `text-[10.5px] text-white/45` → `text-[12px] text-white/75`, tracking stays at `0.22em`.
-- §8 marker matches new size: `text-[12px] text-white/40`.
-- Border under band: `border-white/10` → `border-white/15` for slightly cleaner separation.
+The Greenlist establishes the upstream reference set —
+the recognized facilities a vendor may legitimately
+source from. Vendor verification is the second layer:
+it assesses whether a specific clinic can substantiate
+its sourcing through licensed upstream pharmacies and
+documented records.
 
-**3 · Stronger panel labels (01 / 02)**
-- `text-[10.5px] text-white/50` → `text-[12px] text-white` on both cells. More presence, equal weight.
+▸ Open the Vendor Registry
+─────────────────────────────────────────────────────────
+Note · Source Standard does not accept payment from
+facilities for inclusion in the Greenlist. Information
+is derived from public regulatory filings…
+```
 
-**4 · Symmetric internal rhythm (lock both cells to identical vertical positions)**
-- Cell padding equalized: `p-8 md:p-10` → `p-9 md:p-11` on both — uniform.
-- Body copy gets a fixed-height container so the CTA sits at the same y on both sides regardless of copy length. Apply `min-h-[3.6rem]` to the `<p>` body line on each cell. Both bodies are short single-line/two-line strings; reserving the same minimum height guarantees the two CTAs align to the same baseline.
-- Stack rhythm becomes consistent and symmetric:
-  - eyebrow → `mt-5` heading → `mt-3` body (fixed min-height) → `mt-6` CTA.
+CTA sits directly under the explanation as a natural continuation. Disclaimer is anchored beneath a thin rule with a "Note ·" lead-in so it reads as integrated supporting copy, not an afterthought.
 
-**5 · Higher-contrast body copy**
-- `text-white/70` → `text-white/80` for both body paragraphs. Still restrained, no longer washed out.
+---
 
-**6 · CTA polish**
-- Underline border: `border-white/40` → `border-white/55` for slightly clearer affordance. Hover stays `border-white`. Size unchanged.
+### Changes (single edit, `src/pages/Greenlist.tsx` lines 562–590)
 
-**7 · Frame contrast**
-- Outer panel border + dividers: `border-white/10` → `border-white/15`. Marginally stronger structural seams without adding visual weight.
+**1 · Compact the band**
+- `py-14 md:py-16` → `py-10 md:py-12`. Removes dead vertical space.
+- Cap inner content at `max-w-[760px]` (single editorial column) so the explanation, CTA, and note share one anchored measure.
+
+**2 · Stronger eyebrow**
+- `text-[10.5px] text-muted-foreground mb-6` → `text-[11px] text-foreground/70 mb-4`. Slightly more presence; tracking unchanged.
+
+**3 · Collapse the 12-col split into a single editorial stack**
+- Drop the `grid md:grid-cols-12` two-column layout entirely. Explanation paragraph stays as the primary weight.
+- Remove the secondary "To see who is currently verified…" line (now redundant — the CTA itself communicates it).
+- CTA moves directly beneath the paragraph: `mt-6 inline-flex` arrow link, same styling as today (`text-[14px] font-medium text-foreground hover:text-primary`, trailing `→`). Reads as a continuation of the sentence rather than a floating right-side button.
+
+**4 · Integrated disclaimer block**
+- Replace the loose `mt-10 pt-6 border-t` paragraph with a tighter framed note:
+  - `mt-8 pt-5 border-t border-border/50`
+  - Lead-in: small mono label `Note` in `font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground` on its own line.
+  - Body: `mt-2 text-[12.5px] leading-[1.65] text-muted-foreground` — same copy, slightly tighter measure (`max-w-[68ch]` aligned to the editorial column).
+- Reads as a labelled supporting note, not a stranded paragraph.
+
+**5 · Hierarchy lock**
+- Eyebrow (`Two layers, one framework`) — overline.
+- Body paragraph — primary weight, `text-[15px] text-foreground/85`.
+- CTA — secondary, inline arrow link with underline-offset hover.
+- Note — tertiary, mono-labelled, smaller and dimmer.
 
 ---
 
 ### What stays the same
 
-- Two-column framed panel structure, eyebrow + §8 header row, numbered labels, inline arrow-link CTAs, mobile stacking via `divide-y`. No content additions, no layout rebuild.
+- Section background (`bg-surface-muted/30`), top border separating it from the table, copy content, CTA destination (`/directory`), disclaimer wording.
 
 ### Files touched
 
-- **Modified:** `src/pages/Index.tsx` — single contained edit to the §8 block (lines 325–379).
+- **Modified:** `src/pages/Greenlist.tsx` — replace lines 562–590 with the unified single-column composition above.
 
 ### Outcome
 
-A more compact navy band with a slightly larger, brighter eyebrow, stronger white panel labels, equalized cell padding, body copy with reserved height so both CTAs sit at the same vertical line, and a touch more contrast on body text and dividers. Reads as a polished, symmetric final pathway panel.
+A compact, editorial closing section: clear overline, one substantive paragraph, an arrow CTA that reads as the next sentence's natural step, and a properly labelled disclaimer note beneath a thin rule. No floating right-side button, no awkward whitespace between pieces.
 
