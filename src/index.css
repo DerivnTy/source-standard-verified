@@ -213,7 +213,7 @@
   }
 
   .container-wide {
-    @apply mx-auto w-full max-w-7xl px-6 md:px-10;
+    @apply mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14;
   }
 
   .prose-readable {
