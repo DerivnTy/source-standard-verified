@@ -63,19 +63,31 @@ const resolveSignature = (pathname: string): RouteSignature => {
 export const GlobalUtilityBar = () => {
   const { pathname } = useLocation();
   const sig = resolveSignature(pathname);
+  const isNavy = pathname === "/";
 
   return (
     <div
       role="contentinfo"
       aria-label="Document signature"
-      className="bg-background border-b border-border/60"
+      className={
+        isNavy
+          ? "bg-[hsl(var(--navy-surface))] border-b border-white/10"
+          : "bg-background border-b border-border/60"
+      }
     >
-      <div className="container-wide flex items-center justify-between gap-6 py-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground/80">
+      <div
+        className={`container-wide flex items-center justify-between gap-6 py-1 font-mono text-[10.5px] uppercase tracking-[0.14em] ${
+          isNavy ? "text-white/65" : "text-muted-foreground/80"
+        }`}
+      >
         <div className="flex items-center gap-5 min-w-0">
           <span className="truncate">DOC · {sig.docId}</span>
           <span className="hidden sm:inline">VER · {sig.version}</span>
           <span className="hidden sm:inline">
-            STATUS · <span className="text-foreground/85">{sig.status}</span>
+            STATUS ·{" "}
+            <span className={isNavy ? "text-white/90" : "text-foreground/85"}>
+              {sig.status}
+            </span>
           </span>
         </div>
         <div className="flex items-center gap-5 shrink-0">
