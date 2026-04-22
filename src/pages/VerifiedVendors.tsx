@@ -172,8 +172,8 @@ const VerifiedVendors = () => {
 
       {/* Why this page matters — three plain statements */}
       <section className="border-b border-border bg-background">
-        <div className="container-wide py-12 md:py-14">
-          <div className="grid grid-cols-1 md:grid-cols-3 md:divide-x md:divide-border/60">
+        <div className="page-shell section-pad">
+          <div className="mx-auto w-wide grid grid-cols-1 md:grid-cols-3 md:divide-x md:divide-border/60">
             {[
               {
                 title: "A documented reference point",
@@ -189,8 +189,8 @@ const VerifiedVendors = () => {
               },
             ].map((c) => (
               <div key={c.title} className="px-0 md:px-8 first:pl-0 last:pr-0 py-2 md:py-0">
-                <p className="text-[13px] font-semibold text-foreground mb-2">{c.title}</p>
-                <p className="text-[13.5px] text-muted-foreground leading-[1.7]">{c.body}</p>
+                <p className="t-h4 text-foreground mb-2">{c.title}</p>
+                <p className="t-body-sm text-muted-foreground">{c.body}</p>
               </div>
             ))}
           </div>
@@ -199,43 +199,43 @@ const VerifiedVendors = () => {
 
       {/* Registry summary — institutional record strip */}
       <section className="border-b border-border bg-background">
-        <div className="container-wide py-8 md:py-10">
-          {/* Eyebrow row */}
-          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-5">
-            <p className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground">
-              Registry Summary
-              <span className="mx-2 text-border">·</span>
-              As of {new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })}
-            </p>
-            <p className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground tabular-nums">
-              Total tracked
-              <span className="mx-2 text-border">·</span>
-              <span className="text-foreground">{fmt(vendors.length)}</span>
-            </p>
-          </div>
+        <div className="page-shell py-8 md:py-10">
+          <div className="mx-auto w-wide">
+            {/* Eyebrow row */}
+            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-5">
+              <p className="t-utility-xs text-muted-foreground">
+                Registry Summary
+                <span className="mx-2 text-border">·</span>
+                As of {new Date().toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })}
+              </p>
+              <p className="t-utility-xs text-muted-foreground tabular-nums">
+                Total tracked
+                <span className="mx-2 text-border">·</span>
+                <span className="text-foreground">{fmt(vendors.length)}</span>
+              </p>
+            </div>
 
-          {/* Six-cell count grid */}
-          <div className="grid grid-cols-2 md:grid-cols-6 border-t border-border/60 md:divide-x md:divide-border/60">
-            {[
-              { label: "Verified", value: counts.verified, tick: "bg-verified" },
-              { label: "Under review", value: counts["under-review"], tick: "bg-pending" },
-              { label: "Unverified", value: counts.unverified, tick: "bg-muted-foreground" },
-              { label: "Suspended", value: counts.suspended, tick: "bg-destructive" },
-              { label: "Removed", value: counts.removed, tick: "bg-muted-foreground/60" },
-              { label: "Total", value: vendors.length, tick: "bg-foreground/40" },
-            ].map((cell) => (
-              <div key={cell.label} className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <span aria-hidden className={`inline-block w-[2px] h-[10px] ${cell.tick}`} />
-                  <span className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-muted-foreground">
-                    {cell.label}
-                  </span>
+            {/* Six-cell count grid */}
+            <div className="grid grid-cols-2 md:grid-cols-6 border-t border-border/60 md:divide-x md:divide-border/60">
+              {[
+                { label: "Verified", value: counts.verified, tick: "bg-verified" },
+                { label: "Under review", value: counts["under-review"], tick: "bg-pending" },
+                { label: "Unverified", value: counts.unverified, tick: "bg-muted-foreground" },
+                { label: "Suspended", value: counts.suspended, tick: "bg-destructive" },
+                { label: "Removed", value: counts.removed, tick: "bg-muted-foreground/60" },
+                { label: "Total", value: vendors.length, tick: "bg-foreground/40" },
+              ].map((cell) => (
+                <div key={cell.label} className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0 min-h-[120px] flex flex-col">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span aria-hidden className={`inline-block w-[2px] h-[10px] ${cell.tick}`} />
+                    <span className="t-utility-xs text-muted-foreground">{cell.label}</span>
+                  </div>
+                  <div className="font-mono text-[20px] leading-[28px] font-medium tabular-nums text-foreground mt-auto">
+                    {fmt(cell.value)}
+                  </div>
                 </div>
-                <div className="font-mono text-[22px] tabular-nums text-foreground leading-none">
-                  {fmt(cell.value)}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
