@@ -1,48 +1,84 @@
 
 
-## Wide-Horizon container expansion
+## Education page → "Clinical Knowledge Hub"
 
-Two scoped changes: widen the site-wide anchor/registry container, and stretch the Education page rows to use that full width. The 900px filing column on legal/policy pages (Terms, Privacy, etc.) stays — that's a deliberate readability choice for prose, not a defect.
+A focused rebuild of `src/pages/Education.tsx`. Adds sticky in-page nav, library search, clearer row affordances, an FAQ category grid, a new "Latest Clinical Analysis" card archive, and pivot CTAs between sections. No new routes, no data-shape changes.
 
-### 1 · `container-wide` → 1280px with breathing padding
+### 1 · Sticky jump bar + library search
 
-`src/index.css` — single token, propagates to every page that uses `container-wide` (Education, Greenlist, VerifiedVendors, MAB, Index control strip, RecordHeader, AnchorHeader, footer, header):
+- Wrap the existing "Jump to:" strip in `sticky top-0 z-30 bg-background/95 backdrop-blur border-y border-border/60`. (It sits below the global `SiteHeader`; on this page the local strip becomes the sticky in-page nav. Adequate per the spec — the global header is already its own sticky element.)
+- Below the `AnchorHeader`, before the sticky strip, add a **Search the Library** input row inside `container-wide`:
+  - Plain `<input>` styled as a 4px-radius bordered field, full-width up to `max-w-[640px]`, monospace placeholder `Search standards, FAQs, and articles…`.
+  - Local `useState` filter string. Filtering applies to `basics`, `guidesPreview`, `FAQ_BUCKETS` items, and the new article archive — case-insensitive match on `id`, title, and summary/question/answer.
+  - When the query is non-empty, sections render only matching rows; empty sections collapse to a one-line "No matches in this section" note.
 
-```css
-.container-wide {
-  @apply mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14;
-}
+### 2 · §1 Foundational Sourcing Standards — clickable card rows
+
+Reuse the existing `SimpleRow` `<Link>` (already a full clickable row), with two visual additions:
+
+- Add a right-edge **"Read full article →"** text link inside each row, sitting next to the `SoftStatus` badge. Stacked vertically on the right: badge on top, link beneath. The whole row remains the click target; the inner link is `pointer-events-none` cosmetics so we don't nest interactive elements.
+- Hover state already shifts background; bump to `hover:border-foreground/30` on the outer card border and add a subtle right-side chevron.
+- Rows already span `container-wide` (1280px) — no width change.
+
+Pivot CTA at section bottom (replaces `SeeMore`):
+- Left: existing "View full foundational index" link.
+- Right: new outline button **"Have a specific question? View the Regulatory FAQ →"** (4px radius, bordered, anchors to `#questions`).
+
+### 3 · §2 Clinical Protocols — same row treatment
+
+Apply identical row enhancements (right-side "Read full article" + chevron) to the `guidesPreview` rows. Pivot CTA at bottom: keep the existing "View full clinical protocol index" + add an outline button **"Looking for safe-handling answers? Jump to FAQ →"** anchored to `#questions`.
+
+### 4 · §3 Public Inquiry — FAQ category grid
+
+Replace the four inline accordion buckets with a **2-column category grid** above a single accordion:
+
+```text
+┌──────────────────────────┬──────────────────────────┐
+│ [Legal & Regulatory]     │ [Clinical Safety]        │
+├──────────────────────────┼──────────────────────────┤
+│ [Verification Process]   │ [Consumer Diligence]     │
+└──────────────────────────┴──────────────────────────┘
 ```
 
-- `max-w-7xl` (1280px) is kept as the ceiling — sits in the requested 1200–1300px band.
-- Padding ladder: 24 / 40 / 56px so content never kisses the viewport edge but still fills a 1440px screen.
+- Four large bordered category buttons (1px border, 4px radius, hover lifts border to foreground). Each shows: monospace category code (e.g. `FAQ-CAT-01`), bold label, one-line description, count badge ("4 entries").
+- Mapping:
+  - **Legal & Regulatory** → `SS-FAQ-001`, `SS-FAQ-002`
+  - **Clinical Safety** → `SS-FAQ-004`, `SS-FAQ-007`
+  - **Verification Process** → `SS-FAQ-003`, `SS-FAQ-005`, `SS-FAQ-006`, `SS-FAQ-008`
+  - **Consumer Diligence** → `SS-FAQ-009`, `SS-FAQ-010`
+- Clicking a category sets local `activeCategory` state and reveals an accordion below the grid populated only with that category's questions. Default category on load: Legal & Regulatory. Each button also exposes a "View on full FAQ page →" link to `/education/questions#<group>`.
+- Pivot CTA at section bottom: black 4px-radius button **"Browse the full Regulatory FAQ archive →"** linking to `/education/questions`.
 
-Result everywhere automatically:
-- **Hero (`AnchorHeader` / `RecordHeader`)** — headline (left, `md:col-span-8`) and Reference metadata box (right, `md:col-span-4`) anchor to the far edges of the new 1280px track.
-- **Site header, footer, control strip, jump-to nav, archive index strip** — already wrapped in `container-wide`, all re-align to the same grid.
+### 5 · §4 Latest Clinical Analysis (new section)
 
-### 2 · Education page — fill the wider track + balanced row ends
+New section between FAQ and the Forthcoming/About footer. Pulls from existing `librarySeries` entries that are not in `basics` (the non-intro Source Standard series — 5 entries: 2026 Reclassification, Dual-Layer, Questions to Ask, What Verification Means, Warning Signs).
 
-`src/pages/Education.tsx`:
+- Header: `h-section` "Latest Clinical Analysis" + 78ch description "Newest entries from the Source Standard analysis series. Reviewed under the Medical Advisory framework."
+- Layout: 3-column responsive grid (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`).
+- Card style: white background, 1px `border-border/70`, 4px radius, `p-6`, hover lifts border to `foreground/30`. Card content top→bottom:
+  1. **Category label** — monospace, uppercase, tracking-wide, muted (e.g., `SS-SERIES · ANALYSIS`).
+  2. **Title** — bold, `text-[16px]`, two-line clamp.
+  3. **Summary** — `text-[13.5px]` muted, three-line clamp.
+  4. **Status chip** + **"Read more"** button on the same row at card bottom (`mt-auto`). Button uses the standard `Button` primitive (default variant — 4px radius, off-black) linking to `/education/<slug>`.
+- Pivot CTA at section bottom: outline button **"View the full standards archive →"** anchored to `#archive`.
 
-- Wrap the three section bodies (`#basics`, `#guides`, `#questions`) and the footer grid (`#archive`) in `container-wide` instead of the centered 900px `Section`. The `Section` primitive stays untouched (still serves the legal filings).
-- Replace `<Section>…</Section>` calls in Education with a thin local wrapper: a top hairline (`border-t border-[#E5E7EB]`) + `container-wide` + `py-16 md:py-20`.
-- `SimpleRow` already uses `flex items-start gap-5` with `id` mono-pill on the left and `SoftStatus` on the right via `justify-between` — at 1280px this naturally pushes the **Doc ID hard left** and **OUTLINED badge hard right**, matching the spec. No structural change to the row itself; it just stretches.
-- Section description paragraphs: drop the `max-w-xl` cap (currently pinches lines) → `max-w-[78ch]` so prose breathes without becoming uncomfortably long.
-- `#archive` footer grid: `md:grid-cols-2` columns redistribute evenly across the 1280px container — no change needed beyond the wider parent.
+### 6 · Footer / Archive section — keep, with monospace touch-up
 
-### 3 · Confirm the small ones
+- Section heading "Archive index" stays.
+- Add a row of monospace metadata above the two-column grid: `ARCHIVE · SS-LIB-2026.01 · UNITED STATES · MAINTAINED ACTIVE · UPDATED 04/21/26` — single line, `font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border/40 py-2`. Reinforces the institutional credibility with no copy bloat.
+- Two-column grid (Forthcoming + About) untouched.
 
-- **4px black buttons** — `src/components/ui/button.tsx` already renders `rounded-[4px] bg-foreground text-background`. No change.
-- **"Tampa, FL" sweep** — already migrated in prior pass; data files (real vendor addresses) intentionally untouched. No change.
-- **Filing pages stay at 900px** — `Section` primitive (Terms, Privacy, Disclaimer, About, etc.) keeps its centered serif column. Stretching legal prose to 1280px would *reduce* readability; this plan deliberately scopes the widen to anchor/registry/index pages where the user pointed (Education).
+### 7 · Cleanup
+
+- All "Tampa, FL" already removed in earlier passes; reconfirm the new strings (search placeholder, archive monospace bar, card category labels) use **United States** / **National** language only.
+- Status badges and archive monospace metadata both use `font-mono` (already established).
+- All new buttons use the existing `Button` primitive (4px radius, off-black) — no new variants.
 
 ### Files touched
 
-- `src/index.css` — `container-wide` width + padding tokens.
-- `src/pages/Education.tsx` — swap `Section` wrappers for `container-wide` blocks; drop `max-w-xl` on section descriptions.
+- `src/pages/Education.tsx` — full rewrite of the page body (sticky nav + search, row affordances, FAQ grid, new article archive, pivot CTAs, monospace archive bar). All other site components and data files untouched.
 
 ### What stays the same
 
-`Section` / `SectionLabel` / `RecordHeader` / `AnchorHeader` components; the 900px filing column on Terms/Privacy/Disclaimer/About/Accountability/StatusDefinitions/FAQ/ReportConcern/HowItWorks; every route, every piece of copy, every data file, the footer link set, the homepage hero, and all other pages that already use `container-wide` (which now simply breathe wider).
+`AnchorHeader`, `Section`, `RecordHeader`, the global `SiteHeader`/`SiteFooter`, every route, every other page, the `library.ts` data file, the `Button`/`Accordion`/`StatusBadge` primitives, the 1280px `container-wide` token, and the 900px filing column on legal/policy pages.
 
