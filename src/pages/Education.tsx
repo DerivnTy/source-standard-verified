@@ -65,7 +65,7 @@ const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
 const LibraryTile = ({ entry }: { entry: LibraryEntry }) => (
   <Link
     to={routeFor(entry.slug)}
-    className="group flex flex-col min-h-[240px] rounded-lg border border-border/60 bg-background p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
+    className="group flex flex-col min-h-[260px] card-elevated p-6"
   >
     <h3 className="text-[17px] font-semibold leading-snug text-foreground group-hover:text-foreground">
       {displayTitle(entry)}
@@ -74,7 +74,8 @@ const LibraryTile = ({ entry }: { entry: LibraryEntry }) => (
       {entry.summary}
     </p>
     {entry.reviewedBy && (
-      <p className="mt-3 text-[11.5px] text-muted-foreground/80">
+      <p className="mt-3 inline-flex items-center gap-1.5 text-[11.5px] text-muted-foreground/90">
+        <SourceCheck size="xs" aria-label="Reviewed" />
         Reviewed by {entry.reviewedBy}
       </p>
     )}
@@ -166,24 +167,27 @@ const Education = () => {
 
   return (
     <>
-      {/* Hero — centered, no reference box */}
+      {/* Hero — premium band, no reference box */}
       <section className="border-b border-border/50 bg-background">
-        <div className="container-wide py-20 md:py-28 text-center">
+        <div className="container-wide section-band text-center">
           <p className="eyebrow mb-4">Public education &amp; standards</p>
-          <h1 className="title-page text-foreground max-w-[22ch] mx-auto">
+          <h1 className="display-2 text-foreground max-w-[22ch] mx-auto tracking-[-0.02em]">
             Clinical Reference &amp; Standards Library
           </h1>
           <p className="mt-5 max-w-[60ch] mx-auto text-[16px] text-muted-foreground leading-[1.7]">
             Your guide to the science, safety, and standards of compounded medicine. Empowering patients with clinical transparency.
           </p>
-
+          <p className="mt-6 inline-flex items-center gap-2 text-[12px] text-muted-foreground">
+            <SourceCheck size="sm" aria-label="Reviewed by Medical Advisory Board" />
+            Reviewed by the Medical Advisory Board
+          </p>
         </div>
       </section>
 
-      {/* Highly Recommended — Start Here trio */}
+      {/* Highly Recommended — premium Start Here trio */}
       <section className="border-b border-border/50 bg-surface-muted/40">
-        <div className="container-wide py-20 md:py-28">
-          <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
+        <div className="container-wide section-band">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
             <div>
               <p className="eyebrow mb-2">Highly Recommended</p>
               <h2 className="h-section">Start here</h2>
@@ -200,16 +204,23 @@ const Education = () => {
                 <Link
                   key={entry.slug}
                   to={routeFor(entry.slug)}
-                  className="group relative flex flex-col min-h-[260px] rounded-lg border border-border/60 bg-surface-muted/60 p-7 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
+                  className="group relative flex flex-col min-h-[300px] card-elevated p-7"
                 >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground mb-4">
-                    Start Here · {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="text-[20px] font-semibold leading-snug text-foreground">
+                  <div className="flex items-center justify-between mb-5">
+                    <span className="inline-flex items-center justify-center min-w-[34px] h-[26px] px-2 rounded-md bg-primary/10 text-primary text-[12px] font-semibold tabular-nums tracking-[0.04em]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="eyebrow">Start Here</span>
+                  </div>
+                  <h3 className="text-[22px] font-semibold leading-[1.25] tracking-[-0.012em] text-foreground">
                     {ov?.title ?? displayTitle(entry)}
                   </h3>
                   <p className="mt-3 text-[14px] text-muted-foreground leading-[1.7]">
                     {ov?.blurb ?? entry.summary}
+                  </p>
+                  <p className="mt-5 inline-flex items-center gap-1.5 text-[11.5px] text-muted-foreground/90">
+                    <SourceCheck size="xs" aria-label="Reviewed" />
+                    Reviewed by Medical Advisory
                   </p>
                   <span
                     aria-hidden
@@ -224,17 +235,6 @@ const Education = () => {
         </div>
       </section>
 
-      {/* Sticky jump bar — lightened */}
-      <div className="sticky top-0 z-30 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="container-wide flex flex-wrap items-center gap-x-6 gap-y-2 py-2.5 text-[12px] text-muted-foreground/80">
-          <span className="text-muted-foreground/60">Jump to:</span>
-          <a href="#basics" className="hover:text-foreground transition-colors">Foundational</a>
-          <a href="#guides" className="hover:text-foreground transition-colors">Clinical Protocols</a>
-          <a href="#questions" className="hover:text-foreground transition-colors">Regulatory FAQ</a>
-          <a href="#analysis" className="hover:text-foreground transition-colors">Latest Analysis</a>
-          <a href="#archive" className="hover:text-foreground transition-colors">Archive</a>
-        </div>
-      </div>
 
       {/* §1 Foundational Sourcing Standards — tile grid */}
       <section className="border-b border-border/50">
@@ -356,45 +356,42 @@ const Education = () => {
       <section className="border-t border-border/60">
         <div className="container-wide py-20 md:py-28">
           <div id="archive" className="scroll-mt-20">
-            <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border/40 py-2 mb-10">
-              Archive · SS-LIB-2026.01 · United States · Maintained Active · Updated 04/21/26
-            </div>
-            <div className="grid md:grid-cols-2 gap-10">
-              <div>
+            <p className="eyebrow mb-6">Archive · SS-LIB-2026.01</p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="card-elevated p-7">
                 <p className="eyebrow mb-3">Forthcoming reference formats</p>
-                <ul className="text-[13.5px] text-muted-foreground leading-relaxed space-y-2">
+                <ul className="text-[13.5px] text-muted-foreground leading-relaxed space-y-3">
                   {librarySupplementary.map((m) => {
                     const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
                     return (
-                      <li key={m.id} className="flex items-start gap-4">
-                        <span className="w-24 shrink-0 pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/80 tabular-nums">
-                          {m.id}
-                        </span>
+                      <li key={m.id} className="flex items-start gap-3">
+                        <SourceCheck size="xs" aria-label="Forthcoming" className="mt-1.5" />
                         <span className="flex-1">
-                          <span className="text-foreground">{ov.title ?? m.title}</span> — {ov.description ?? m.description}
+                          <span className="text-foreground font-medium">
+                            {ov.title ?? m.title}
+                          </span>{" "}
+                          — {ov.description ?? m.description}
                         </span>
                       </li>
                     );
                   })}
                 </ul>
               </div>
-              <div>
+              <div className="card-elevated p-7">
                 <p className="eyebrow mb-3">About this library</p>
                 <p className="text-[13.5px] text-muted-foreground leading-relaxed">
                   Reviewed under our{" "}
-                  <Link to="/medical-advisory" className="underline underline-offset-4 decoration-border text-foreground">
+                  <Link to="/medical-advisory" className="text-primary hover:text-primary-hover underline-offset-2 hover:underline">
                     Medical Advisory Board
                   </Link>{" "}
                   and maintained alongside our{" "}
-                  <Link to="/governance" className="underline underline-offset-4 decoration-border text-foreground">
+                  <Link to="/governance" className="text-primary hover:text-primary-hover underline-offset-2 hover:underline">
                     governance framework
                   </Link>
                   . Updated continuously.
                 </p>
-                <div className="mt-6 border-l-2 border-foreground/40 bg-surface-muted/40 px-4 py-3 rounded-[2px]">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/70 mb-1.5">
-                    Notice · Informational use only
-                  </p>
+                <div className="mt-5 border-l-2 border-primary/40 bg-surface-muted/50 px-4 py-3 rounded-r-md">
+                  <p className="eyebrow mb-1.5">Notice · Informational use only</p>
                   <p className="text-[12.5px] text-foreground/85 leading-relaxed">
                     The materials in this library are published for public reference and educational purposes only. They do not constitute medical advice, diagnosis, prescription, or treatment, and they do not establish a clinician–patient relationship. Clinical decisions regarding compounded medications must be made in consultation with a qualified, licensed healthcare provider. Reliance on any information contained herein is solely at the reader's own risk.
                   </p>
