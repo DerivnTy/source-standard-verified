@@ -1,11 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { ReactNode } from "react";
-import { ExternalLink, MapPin, Globe, Building2 } from "lucide-react";
+import { ExternalLink, MapPin, Globe, Building2, Flag } from "lucide-react";
 import {
   getVendor,
   Vendor,
   VendorPublicStatus,
   VENDOR_STATUS_LABEL,
+  VENDOR_STATUS_PROFILE_NOTE,
   VENDOR_FULFILLMENT_LABEL,
   getVendorFulfillment,
   VendorFulfillment,
@@ -18,15 +19,16 @@ import { VerificationShield } from "@/components/registry/VerificationShield";
 // ---------- Status theming ----------
 
 type Theme = {
-  tickAccent: string; // 2px tick color used inside the public record
+  tickAccent: string;
+  identityRule: string;
 };
 
 const THEME: Record<VendorPublicStatus, Theme> = {
-  verified: { tickAccent: "bg-verified" },
-  "under-review": { tickAccent: "bg-pending" },
-  unverified: { tickAccent: "bg-muted-foreground/50" },
-  suspended: { tickAccent: "bg-destructive" },
-  removed: { tickAccent: "bg-muted-foreground/50" },
+  verified: { tickAccent: "bg-verified", identityRule: "bg-verified" },
+  "under-review": { tickAccent: "bg-pending", identityRule: "bg-pending" },
+  unverified: { tickAccent: "bg-muted-foreground/40", identityRule: "bg-muted-foreground/30" },
+  suspended: { tickAccent: "bg-destructive", identityRule: "bg-destructive" },
+  removed: { tickAccent: "bg-muted-foreground/40", identityRule: "bg-muted-foreground/30" },
 };
 
 const FULFILLMENT_ICON: Record<VendorFulfillment, typeof Building2> = {
@@ -50,9 +52,6 @@ const formatLocation = (vendor: Vendor): string =>
     ? `${vendor.city}, ${vendor.state}`
     : vendor.city || vendor.state || "—";
 
-// Full address for in-person / hybrid listings.
-// Street address isn't in the data model yet; we render the most complete
-// address we can build from city/state/zip and label it clearly.
 const formatFullAddress = (vendor: Vendor): string | null => {
   const parts: string[] = [];
   const cityState = [vendor.city, vendor.state].filter(Boolean).join(", ");
@@ -61,43 +60,59 @@ const formatFullAddress = (vendor: Vendor): string | null => {
   return parts.length ? parts.join(" ") : null;
 };
 
-// Source type — placeholder until modeled in data.
 const sourceTypeFor = (_v: Vendor): string => "503A / 503B / Retail";
 
-// ---------- Public Record field primitive ----------
-// Inherits the modular, ticked-cell language from the registry summary strip.
+// ---------- Primitives ----------
 
-const Field = ({
+// Compact label/value pair used inside the right rail and center record.
+const Datum = ({
   label,
   value,
-  tickClassName = "bg-foreground",
   mono,
-  span,
 }: {
   label: string;
   value: ReactNode;
-  tickClassName?: string;
   mono?: boolean;
-  span?: boolean;
 }) => {
   if (value === null || value === undefined || value === "" || value === false)
     return null;
   if (Array.isArray(value) && value.length === 0) return null;
   return (
-    <div
-      className={`relative pl-3 py-2 ${
-        span ? "md:col-span-2 lg:col-span-4" : ""
-      }`}
-    >
-      <span
-        aria-hidden
-        className={`absolute left-0 top-2 bottom-2 w-[2px] ${tickClassName}`}
-      />
-      <p className="t-utility-xs uppercase tracking-[0.1em] text-foreground font-semibold">
+    <div className="py-2 first:pt-0 last:pb-0 border-b border-border/50 last:border-0">
+      <dt className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-semibold">
+        {label}
+      </dt>
+      <dd
+        className={`mt-1 t-body-sm text-foreground leading-[1.45] ${
+          mono ? "font-mono tabular-nums" : ""
+        }`}
+      >
+        {Array.isArray(value) ? (value as string[]).join(", ") : value}
+      </dd>
+    </div>
+  );
+};
+
+// Larger structured field used inside the center record grid.
+const Field = ({
+  label,
+  value,
+  mono,
+}: {
+  label: string;
+  value: ReactNode;
+  mono?: boolean;
+}) => {
+  if (value === null || value === undefined || value === "" || value === false)
+    return null;
+  if (Array.isArray(value) && value.length === 0) return null;
+  return (
+    <div>
+      <p className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-semibold">
         {label}
       </p>
       <p
-        className={`mt-1 t-body-sm text-foreground leading-[1.45] ${
+        className={`mt-1 t-body-sm text-foreground font-medium leading-[1.5] ${
           mono ? "font-mono tabular-nums" : ""
         }`}
       >
@@ -106,6 +121,20 @@ const Field = ({
     </div>
   );
 };
+
+// Section heading inside the center column.
+const SectionTitle = ({ children }: { children: ReactNode }) => (
+  <h2 className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold mb-3">
+    {children}
+  </h2>
+);
+
+// Calm "withheld" line used when verification-only data is unavailable.
+const Withheld = ({ children }: { children: ReactNode }) => (
+  <p className="t-body-sm text-muted-foreground leading-[1.55] italic">
+    {children}
+  </p>
+);
 
 // ---------- Page ----------
 
@@ -138,7 +167,7 @@ const VendorProfile = () => {
   const isPhysical = fulfillment === "in-person" || fulfillment === "hybrid";
   const fullAddress = isPhysical ? formatFullAddress(vendor) : null;
 
-  // Verified Drug Scope rendering data
+  // Verified scope rendering data
   const hasGroups =
     isVerified &&
     vendor.verifiedScopeGroups &&
@@ -153,26 +182,9 @@ const VendorProfile = () => {
     !hasFlatCompounds &&
     vendor.verifiedCategories &&
     vendor.verifiedCategories.length > 0;
-  const verifiedScopeSummary =
-    isVerified && vendor.verifiedCategories && vendor.verifiedCategories.length > 0
-      ? vendor.verifiedCategories.join(" · ")
-      : isVerified
-      ? vendor.category
-      : undefined;
+  const hasScope = hasGroups || hasFlatCompounds || hasCategoryFallback;
 
-  const websiteLink = vendor.website ? (
-    <a
-      href={vendor.website}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 text-foreground hover:text-primary"
-    >
-      {hostname(vendor.website)}
-      <ExternalLink className="h-3 w-3" />
-    </a>
-  ) : (
-    <span className="text-muted-foreground">Not listed</span>
-  );
+  const serviceArea = (vendor as Vendor & { serviceArea?: string }).serviceArea;
 
   return (
     <>
@@ -189,182 +201,274 @@ const VendorProfile = () => {
       />
 
       <section className="bg-background">
-        <div className="container-wide pt-6 pb-12">
+        <div className="container-wide pt-6 pb-16">
           <Link
             to="/verified-vendors"
-            className="t-utility-xs text-muted-foreground hover:text-foreground mb-4 inline-block"
+            className="t-utility-xs text-muted-foreground hover:text-foreground mb-5 inline-block"
           >
             ← Back to Directory
           </Link>
 
-          {/* Unified Profile Card */}
-          <article className="border border-border bg-background">
-            {/* Header band */}
-            <header className="px-6 md:px-8 pt-6 pb-5 border-b border-border/70">
-              <div className="flex items-start justify-between gap-5 flex-wrap">
-                <div className="min-w-0 flex-1">
+          {/* Trust dossier — 12-col grid on desktop */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+            {/* ---------- LEFT: Identity ---------- */}
+            <aside className="lg:col-span-3 lg:sticky lg:top-6 lg:self-start">
+              <div className="border border-border bg-background">
+                <div className={`h-[3px] w-full ${theme.identityRule}`} aria-hidden />
+                <div className="p-5">
                   {vendor.category && (
                     <p className="t-utility-xs uppercase tracking-[0.12em] text-muted-foreground font-medium mb-1.5">
                       {vendor.category}
                     </p>
                   )}
-                  <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-tight break-words max-w-[28ch]">
+                  <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-tight break-words">
                     {vendor.name}
                   </h1>
-                  <div className="mt-2.5 flex items-center gap-2 flex-wrap t-body-sm text-muted-foreground">
+
+                  <div className="mt-3">
                     <StatusBadge status={status} size="md" />
-                    {isVerified && (
-                      <VerificationShield
-                        reviewId={vendor.reviewId}
-                        reviewDate={vendor.reviewDate}
-                        size="md"
-                      />
-                    )}
-                    <span className="text-border">·</span>
-                    <span className="inline-flex items-center gap-1">
-                      <FulfillmentIcon className="h-3.5 w-3.5" aria-hidden />
-                      {VENDOR_FULFILLMENT_LABEL[fulfillment]}
-                    </span>
-                    <span className="text-border">·</span>
-                    <span>{location}</span>
                   </div>
-                </div>
 
-                {vendor.website && (
-                  <a
-                    href={vendor.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-foreground text-background hover:bg-foreground/90 t-utility-xs font-medium tracking-tight shrink-0"
-                  >
-                    Visit website <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                )}
-              </div>
-            </header>
+                  <p className="mt-3 t-body-sm text-muted-foreground leading-[1.5]">
+                    {VENDOR_STATUS_PROFILE_NOTE[status]}
+                  </p>
 
-            {/* Compact record grid */}
-            <div className="px-6 md:px-8 py-5">
-              <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-3">
-                {/* Row 1 — identity & service */}
-                <Field
-                  label="Status"
-                  value={VENDOR_STATUS_LABEL[status]}
-                  tickClassName={theme.tickAccent}
-                />
-                <Field
-                  label="Fulfillment"
-                  value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
-                />
-                <Field label="Category" value={vendor.category} />
-                <Field label="Clinical focus" value={vendor.clinicalFocus} />
+                  <dl className="mt-4 pt-4 border-t border-border/70 space-y-2.5">
+                    <div className="flex items-start gap-2 t-body-sm text-foreground">
+                      <FulfillmentIcon
+                        className="h-3.5 w-3.5 mt-[3px] text-muted-foreground shrink-0"
+                        aria-hidden
+                      />
+                      <span>{VENDOR_FULFILLMENT_LABEL[fulfillment]}</span>
+                    </div>
+                    <div className="flex items-start gap-2 t-body-sm text-foreground">
+                      <MapPin
+                        className="h-3.5 w-3.5 mt-[3px] text-muted-foreground shrink-0"
+                        aria-hidden
+                      />
+                      <span>{location}</span>
+                    </div>
+                    {vendor.website && (
+                      <div className="flex items-start gap-2 t-body-sm text-foreground">
+                        <Globe
+                          className="h-3.5 w-3.5 mt-[3px] text-muted-foreground shrink-0"
+                          aria-hidden
+                        />
+                        <a
+                          href={vendor.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary break-all"
+                        >
+                          {hostname(vendor.website)}
+                        </a>
+                      </div>
+                    )}
+                  </dl>
 
-                {/* Row 2 — operational & contact */}
-                <Field
-                  label="Medical director"
-                  value={vendor.medicalDirector}
-                />
-                <Field label="Source type" value={sourceType} mono />
-                {isPhysical ? (
-                  <Field label="Address" value={fullAddress || location} />
-                ) : (
-                  <Field label="Service area" value="Online — nationwide" />
-                )}
-                <Field label="Website" value={websiteLink} />
-
-                {/* Row 3 — overflow (states served, verification) */}
-                {(vendor as Vendor & { serviceArea?: string }).serviceArea && (
-                  <Field
-                    label="States served"
-                    value={
-                      (vendor as Vendor & { serviceArea?: string }).serviceArea
-                    }
-                  />
-                )}
-                {isVerified && vendor.reviewId && (
-                  <Field
-                    label="Review ID"
-                    value={vendor.reviewId}
-                    mono
-                    tickClassName={theme.tickAccent}
-                  />
-                )}
-                {isVerified && vendor.reviewDate && (
-                  <Field label="Last reviewed" value={vendor.reviewDate} />
-                )}
-                {isVerified && verifiedScopeSummary && (
-                  <Field label="Verified scope" value={verifiedScopeSummary} />
-                )}
-              </dl>
-            </div>
-
-            {/* About */}
-            {(vendor.summary || vendor.publicNote) && (
-              <div className="px-6 md:px-8 py-5 border-t border-border/70">
-                <h2 className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold mb-2">
-                  About
-                </h2>
-                <p className="t-body-sm text-foreground/85 leading-[1.6]">
-                  {vendor.summary || vendor.publicNote}
-                </p>
-              </div>
-            )}
-
-            {/* Verified scope detail (verified only, compact) */}
-            {isVerified && (hasGroups || hasFlatCompounds || hasCategoryFallback) && (
-              <div className="px-6 md:px-8 py-5 border-t border-border/70">
-                <div className="flex items-baseline justify-between gap-4 flex-wrap mb-2">
-                  <h2 className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold">
-                    Verified Scope
-                  </h2>
-                  {vendor.scopeReviewDate && (
-                    <span className="t-utility-xs font-mono tabular-nums text-muted-foreground">
-                      Reviewed {vendor.scopeReviewDate}
-                    </span>
+                  {vendor.website && (
+                    <a
+                      href={vendor.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-foreground text-background hover:bg-foreground/90 t-utility-xs font-medium tracking-tight"
+                    >
+                      Visit website <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
                   )}
                 </div>
+              </div>
+            </aside>
 
-                {hasGroups && (
-                  <div className="space-y-2.5">
-                    {Object.entries(vendor.verifiedScopeGroups!).map(
-                      ([category, compounds]) => (
-                        <div key={category}>
-                          <p className="t-utility-xs uppercase tracking-[0.06em] text-foreground font-semibold mb-1">
-                            {category}
-                          </p>
-                          <p className="t-body-sm text-foreground/85 leading-[1.55]">
-                            {compounds.join(" · ")}
-                          </p>
-                        </div>
-                      )
+            {/* ---------- CENTER: Record & narrative ---------- */}
+            <main className="lg:col-span-6 space-y-6">
+              {/* About */}
+              <div className="border border-border bg-background p-6">
+                <SectionTitle>About</SectionTitle>
+                {vendor.summary || vendor.publicNote ? (
+                  <p className="t-body-sm text-foreground/85 leading-[1.65]">
+                    {vendor.summary || vendor.publicNote}
+                  </p>
+                ) : (
+                  <Withheld>
+                    No public description on file. Source Standard has not
+                    published an editorial summary for this vendor.
+                  </Withheld>
+                )}
+              </div>
+
+              {/* Public Record */}
+              <div className="border border-border bg-background p-6">
+                <SectionTitle>Public Record</SectionTitle>
+                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                  <Field label="Category" value={vendor.category} />
+                  <Field label="Fulfillment" value={VENDOR_FULFILLMENT_LABEL[fulfillment]} />
+                  <Field label="Clinical focus" value={vendor.clinicalFocus} />
+                  <Field label="Medical director" value={vendor.medicalDirector} />
+                  <Field label="Source type" value={sourceType} mono />
+                  {isPhysical ? (
+                    <Field label="Address" value={fullAddress || location} />
+                  ) : (
+                    <Field label="Service area" value={serviceArea || "Online — nationwide"} />
+                  )}
+                </dl>
+              </div>
+
+              {/* Verified Scope (verified vendors only) */}
+              {isVerified && (
+                <div className="border border-border bg-background p-6">
+                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-3">
+                    <SectionTitle>Verified Scope</SectionTitle>
+                    {vendor.scopeReviewDate && (
+                      <span className="t-utility-xs font-mono tabular-nums text-muted-foreground">
+                        Reviewed {vendor.scopeReviewDate}
+                      </span>
                     )}
                   </div>
-                )}
 
-                {!hasGroups && hasFlatCompounds && (
-                  <p className="t-body-sm text-foreground/85 leading-[1.55]">
-                    {vendor.verifiedCompounds!.join(" · ")}
+                  {hasScope ? (
+                    <>
+                      {hasGroups && (
+                        <div className="space-y-3">
+                          {Object.entries(vendor.verifiedScopeGroups!).map(
+                            ([category, compounds]) => (
+                              <div key={category}>
+                                <p className="t-utility-xs uppercase tracking-[0.06em] text-foreground font-semibold mb-1">
+                                  {category}
+                                </p>
+                                <p className="t-body-sm text-foreground/85 leading-[1.55]">
+                                  {compounds.join(" · ")}
+                                </p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      )}
+
+                      {!hasGroups && hasFlatCompounds && (
+                        <p className="t-body-sm text-foreground/85 leading-[1.55]">
+                          {vendor.verifiedCompounds!.join(" · ")}
+                        </p>
+                      )}
+
+                      {hasCategoryFallback && (
+                        <p className="t-body-sm text-foreground/85 leading-[1.55]">
+                          {vendor.verifiedCategories!.join(" · ")}
+                          <span className="block mt-1 t-utility-xs text-muted-foreground italic">
+                            Verified at category level. Specific compound list
+                            pending publication.
+                          </span>
+                        </p>
+                      )}
+
+                      <p className="mt-4 pt-3 border-t border-border/60 t-utility-xs text-muted-foreground leading-[1.55]">
+                        Verification applies only to the products listed.
+                      </p>
+                    </>
+                  ) : (
+                    <Withheld>Scope detail not yet published.</Withheld>
+                  )}
+                </div>
+              )}
+
+              {/* Reviewed Components (verified vendors only) */}
+              {isVerified && (
+                <div className="border border-border bg-background p-6">
+                  <SectionTitle>Reviewed Components</SectionTitle>
+                  <ul className="space-y-2.5">
+                    {[
+                      "Sourcing documents reviewed",
+                      "Pharmacy relationship reviewed",
+                      "Public claims reconciled",
+                      "Clinical oversight reviewed",
+                    ].map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 t-body-sm text-foreground"
+                      >
+                        <span
+                          aria-hidden
+                          className="mt-[7px] h-[6px] w-[6px] bg-verified shrink-0"
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {vendor.reviewDate && (
+                    <p className="mt-4 pt-3 border-t border-border/60 t-utility-xs text-muted-foreground">
+                      Last audit: <span className="font-mono tabular-nums text-foreground">{vendor.reviewDate}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            </main>
+
+            {/* ---------- RIGHT: Trust rail ---------- */}
+            <aside className="lg:col-span-3 space-y-6">
+              <div className="border border-border bg-background">
+                <div className="px-5 py-3 border-b border-border/70 bg-muted/30">
+                  <p className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold">
+                    Trust Record
                   </p>
+                </div>
+                <dl className="px-5 py-2">
+                  <Datum label="Status" value={VENDOR_STATUS_LABEL[status]} />
+                  {isVerified && vendor.reviewDate && (
+                    <Datum label="Last reviewed" value={vendor.reviewDate} />
+                  )}
+                  {isVerified && vendor.reviewId ? (
+                    <Datum label="Review ID" value={vendor.reviewId} mono />
+                  ) : !isVerified ? (
+                    <Datum
+                      label="Review ID"
+                      value={
+                        <span className="text-muted-foreground italic">
+                          Not on file
+                        </span>
+                      }
+                    />
+                  ) : null}
+                  <Datum label="Source type" value={sourceType} mono />
+                  {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
+                    <Datum label="Clinical focus" value={vendor.clinicalFocus} />
+                  )}
+                  {serviceArea && (
+                    <Datum label="States served" value={serviceArea} />
+                  )}
+                </dl>
+                {isVerified && (
+                  <div className="px-5 py-3 border-t border-border/70 flex items-center justify-center">
+                    <VerificationShield
+                      reviewId={vendor.reviewId}
+                      reviewDate={vendor.reviewDate}
+                      size="md"
+                    />
+                  </div>
                 )}
-
-                {hasCategoryFallback && (
-                  <p className="t-body-sm text-foreground/85 leading-[1.55]">
-                    {vendor.verifiedCategories!.join(" · ")}
-                    <span className="block mt-1 t-utility-xs text-muted-foreground italic">
-                      Verified at category level. Specific compound list pending publication.
-                    </span>
-                  </p>
-                )}
-
-                <p className="mt-3 t-utility-xs text-muted-foreground leading-[1.55]">
-                  Verification applies only to the products listed.
-                </p>
               </div>
-            )}
-          </article>
+
+              <Link
+                to="/report-concern"
+                className="group flex items-center justify-between gap-2 border border-border bg-background px-5 py-4 hover:border-foreground/40 transition-colors"
+              >
+                <div>
+                  <p className="t-utility-xs uppercase tracking-[0.12em] text-foreground font-semibold">
+                    Report a concern
+                  </p>
+                  <p className="mt-1 t-utility-xs text-muted-foreground leading-[1.45]">
+                    Flag an inaccuracy or sourcing issue.
+                  </p>
+                </div>
+                <Flag
+                  className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0"
+                  aria-hidden
+                />
+              </Link>
+            </aside>
+          </div>
 
           {/* Footer micro-line */}
-          <p className="mt-5 text-center t-utility-xs text-muted-foreground">
+          <p className="mt-8 text-center t-utility-xs text-muted-foreground">
             Public record ·{" "}
             {isVerified && vendor.reviewDate
               ? `Updated ${vendor.reviewDate}`
