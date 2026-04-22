@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
-import { AnchorHeader } from "@/components/AnchorHeader";
+
 import { StatusBadge } from "@/components/StatusBadge";
 import { SourceCheck } from "@/components/SourceCheck";
 import {
