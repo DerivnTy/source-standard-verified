@@ -76,6 +76,7 @@ const App = () => (
             <Route path="/library/reference-dosing-ranges" element={<LibraryReferenceDosingRanges />} />
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
+            <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
