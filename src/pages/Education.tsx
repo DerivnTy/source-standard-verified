@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight, Scale, ShieldCheck, BadgeCheck, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SourceCheck } from "@/components/SourceCheck";
 import {
   EntryStatus,
   LibraryEntry,
