@@ -1,8 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { ReactNode } from "react";
 import { ProfileHeader, ProfileFootnote } from "@/components/ProfileHeader";
-import { Section } from "@/components/Section";
-import { Button } from "@/components/ui/button";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenlist";
@@ -27,19 +25,40 @@ const GlanceRow = ({
   );
 };
 
-const DLRow = ({ label, value }: { label: string; value: ReactNode }) => {
+const StackedRow = ({ label, value }: { label: string; value: ReactNode }) => {
   if (value === null || value === undefined || value === "" || value === false) return null;
+  if (Array.isArray(value) && value.length === 0) return null;
   return (
-    <>
-      <dt className="text-[12px] uppercase tracking-[0.06em] text-muted-foreground font-medium pt-1">
+    <div className="py-3 border-b border-border/50 last:border-b-0">
+      <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
         {label}
       </dt>
-      <dd className="text-[14px] text-foreground/90 leading-[1.6] max-w-[68ch]">
+      <dd className="mt-1 text-[14px] text-foreground/90 leading-[1.6] max-w-[68ch]">
         {Array.isArray(value) ? (value as string[]).join(", ") : value}
       </dd>
-    </>
+    </div>
   );
 };
+
+const SectionHeader = ({
+  eyebrow,
+  title,
+  lede,
+}: {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+}) => (
+  <div className="text-center max-w-2xl mx-auto mb-10">
+    {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
+    <h2 className="text-[22px] md:text-[26px] font-semibold text-foreground tracking-tight">
+      {title}
+    </h2>
+    {lede && (
+      <p className="mt-3 text-[14.5px] text-muted-foreground leading-[1.65]">{lede}</p>
+    )}
+  </div>
+);
 
 const hostname = (url: string): string => {
   try {
@@ -55,6 +74,13 @@ const firstSentence = (text?: string): string | undefined => {
   const m = trimmed.match(/^(.*?[.!?])(\s|$)/);
   return (m ? m[1] : trimmed).replace(/\.+$/, "") + ".";
 };
+
+const GREENLIST_MEANING = [
+  "This facility appears in the upstream reference set used by the Source Standard framework.",
+  "Greenlisted status means the facility meets the recognition criteria for upstream reference.",
+  "Greenlisted status does not mean Source Standard is certifying every downstream vendor that claims to use it.",
+  "Vendor verification requires a separate review of the vendor's own records.",
+];
 
 const GreenlistProfile = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -117,10 +143,7 @@ const GreenlistProfile = () => {
   const glanceData: { label: string; value: ReactNode }[] = [
     { label: "Source type", value: entry.type },
     { label: "Location", value: entry.location },
-    {
-      label: "Status",
-      value: isAlert ? alertLabel : "Recognized",
-    },
+    { label: "Status", value: isAlert ? alertLabel : "Recognized" },
     {
       label: "Website",
       value: entry.website ? (
@@ -136,10 +159,53 @@ const GreenlistProfile = () => {
         <span className="text-muted-foreground italic">Not listed</span>
       ),
     },
+    { label: "Last reviewed", value: "April 21, 2026" },
+    {
+      label: "States served",
+      value: p.statesServed && p.statesServed.length > 0 ? p.statesServed.join(", ") : null,
+    },
+    { label: "FDA registration", value: p.fdaRegistration ?? null },
   ];
-  const visibleGlance = glanceData
-    .filter((r) => r.value !== null && r.value !== undefined && r.value !== "" && r.value !== false)
-    .slice(0, 4);
+  const visibleGlance = glanceData.filter(
+    (r) => r.value !== null && r.value !== undefined && r.value !== "" && r.value !== false
+  );
+
+  // Regulatory section field count for sparse fallback
+  const regulatoryFields: { label: string; value: ReactNode }[] = [
+    { label: "Designation", value: !designationDuplicatesType ? p.designation : null },
+    { label: "FDA registration", value: p.fdaRegistration },
+    { label: "Standards", value: p.standards },
+    { label: "Cleanroom class", value: p.cleanroomClass },
+    { label: "States served", value: p.statesServed },
+    { label: "Last inspection", value: p.lastInspectionDate },
+    { label: "Inspection history", value: p.inspectionHistory },
+    { label: "Environmental monitoring", value: p.environmentalMonitoring },
+    { label: "Testing", value: p.testingProtocols },
+  ];
+  const populatedRegulatory = regulatoryFields.filter((f) => {
+    const v = f.value;
+    if (v === null || v === undefined || v === "" || v === false) return false;
+    if (Array.isArray(v) && v.length === 0) return false;
+    return true;
+  });
+
+  const characteristicFields: { label: string; value: ReactNode }[] = [
+    { label: "Dosage forms", value: p.dosageForms },
+    { label: "Specializations", value: p.specializations },
+    { label: "Clinical focus", value: entry.focus },
+    { label: "API sourcing", value: p.apiSourcingPolicy },
+    { label: "Years in operation", value: p.yearsInOperation },
+    { label: "Facility scale", value: p.facilityScale },
+    { label: "QA staffing", value: p.qaStaffing },
+  ];
+  const populatedCharacteristics = characteristicFields.filter((f) => {
+    const v = f.value;
+    if (v === null || v === undefined || v === "" || v === false) return false;
+    if (Array.isArray(v) && v.length === 0) return false;
+    return true;
+  });
+  const characteristicsSparse =
+    populatedCharacteristics.length <= 1 && !!p.background;
 
   return (
     <>
@@ -154,6 +220,8 @@ const GreenlistProfile = () => {
           { label: entry.name },
         ]}
       />
+
+      {/* 1 · Top intro block */}
       <ProfileHeader
         backHref="/greenlist"
         backLabel="Back to Greenlist"
@@ -204,30 +272,34 @@ const GreenlistProfile = () => {
             </dl>
           </div>
         }
-      >
-        {entry.website ? (
-          <Button
-            asChild
-            variant="outline"
-            size="sm"
-            className="text-[12.5px]"
-          >
-            <a href={entry.website} target="_blank" rel="noopener noreferrer">
-              Visit website ↗
-            </a>
-          </Button>
-        ) : (
-          <p className="text-[12.5px] text-muted-foreground italic">
-            Official website not listed
-          </p>
-        )}
-      </ProfileHeader>
+      />
 
-      <Section density="doc">
-        <div className="space-y-12">
-          {isAlert && (
-            <section className="border border-[hsl(var(--src-unverified))]/30 rounded-md p-5">
-              <div className="flex items-baseline gap-3 mb-3">
+      {/* 3 · What Greenlisted means */}
+      <section className="bg-surface-muted border-t border-border/60">
+        <div className="container-wide py-12 md:py-16">
+          <SectionHeader
+            eyebrow="Interpretation"
+            title="What Greenlisted means"
+          />
+          <ul className="max-w-3xl mx-auto">
+            {GREENLIST_MEANING.map((line, i) => (
+              <li
+                key={i}
+                className="py-4 border-b border-border/60 last:border-b-0 text-[14.5px] text-foreground/90 leading-[1.65]"
+              >
+                {line}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 4 · Regulatory alert (conditional) */}
+      {isAlert && (
+        <section className="bg-background border-t border-border/60">
+          <div className="container-wide py-12 md:py-16">
+            <div className="max-w-3xl mx-auto border border-[hsl(var(--src-unverified))]/30 rounded-md p-5">
+              <div className="flex items-baseline flex-wrap gap-3 mb-3">
                 <span className="text-[11px] uppercase tracking-[0.1em] text-[hsl(var(--src-unverified))] font-semibold">
                   Regulatory alert
                 </span>
@@ -261,51 +333,131 @@ const GreenlistProfile = () => {
                   ))}
                 </ul>
               )}
-            </section>
-          )}
+            </div>
+          </div>
+        </section>
+      )}
 
-          <section>
-            <h2 className="text-[18px] font-semibold text-foreground mb-5 pb-2 border-b border-border/60">
-              Regulatory & standards
-            </h2>
-            <dl className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-6 gap-y-3">
-              <DLRow label="Designation" value={!designationDuplicatesType ? p.designation : null} />
-              <DLRow label="FDA registration" value={p.fdaRegistration} />
-              <DLRow label="Last inspection" value={p.lastInspectionDate} />
-              <DLRow label="Cleanroom class" value={p.cleanroomClass} />
-              <DLRow label="Standards" value={p.standards} />
-              <DLRow label="States served" value={p.statesServed} />
-              <DLRow label="Testing" value={p.testingProtocols} />
-              <DLRow label="Inspection history" value={p.inspectionHistory} />
-              <DLRow label="Environmental monitoring" value={p.environmentalMonitoring} />
-            </dl>
-          </section>
-
-          <section>
-            <h2 className="text-[18px] font-semibold text-foreground mb-5 pb-2 border-b border-border/60">
-              Operating focus & capabilities
-            </h2>
-            <dl className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-6 gap-y-3">
-              <DLRow label="Dosage forms" value={p.dosageForms} />
-              <DLRow label="Specializations" value={p.specializations} />
-              <DLRow label="Clinical focus" value={entry.focus} />
-              <DLRow label="API sourcing" value={p.apiSourcingPolicy} />
-              <DLRow label="Years in operation" value={p.yearsInOperation} />
-              <DLRow label="Facility scale" value={p.facilityScale} />
-              <DLRow label="QA staffing" value={p.qaStaffing} />
-              <DLRow label="Background" value={p.background} />
-              <DLRow label="Review notes" value={p.reviewNotes} />
-            </dl>
-          </section>
-
-          <section className="border-l-2 border-border/70 pl-4 py-1">
-            <p className="text-[13px] leading-[1.7] text-muted-foreground max-w-[78ch]">
-              This facility appears in the Source Standard upstream reference set. Inclusion reflects recognized federal registration, state licensure, or accredited credentialing. It is not a clinical endorsement and does not constitute verification of any downstream vendor or product that may source from this facility.
-            </p>
-          </section>
+      {/* 5 · Regulatory & standards anchors */}
+      <section className={`${isAlert ? "bg-surface-muted" : "bg-background"} border-t border-border/60`}>
+        <div className="container-wide py-12 md:py-16">
+          <SectionHeader
+            title="Regulatory & standards"
+            lede="The recognition basis for this facility."
+          />
+          <div className="max-w-3xl mx-auto">
+            {populatedRegulatory.length >= 2 ? (
+              <dl>
+                {populatedRegulatory.map((f) => (
+                  <StackedRow key={f.label} label={f.label} value={f.value} />
+                ))}
+              </dl>
+            ) : (
+              <p className="text-[14px] text-muted-foreground leading-[1.65] text-center">
+                Recognition basis: {entry.type} · public regulatory record.
+              </p>
+            )}
+          </div>
         </div>
-      </Section>
+      </section>
 
+      {/* 6 · Facility characteristics */}
+      <section className={`${isAlert ? "bg-background" : "bg-surface-muted"} border-t border-border/60`}>
+        <div className="container-wide py-12 md:py-16">
+          <SectionHeader
+            title="Facility characteristics"
+            lede="What this facility is known to do."
+          />
+          <div className="max-w-3xl mx-auto">
+            {characteristicsSparse ? (
+              <div className="space-y-6">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium mb-1">
+                    Clinical focus
+                  </p>
+                  <p className="text-[14px] text-foreground/90 leading-[1.65] max-w-[68ch]">
+                    {entry.focus}
+                  </p>
+                </div>
+                {p.background && (
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium mb-1">
+                      Background
+                    </p>
+                    <p className="text-[14px] text-foreground/90 leading-[1.7] max-w-[68ch]">
+                      {p.background}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <dl>
+                {populatedCharacteristics.map((f) => (
+                  <StackedRow key={f.label} label={f.label} value={f.value} />
+                ))}
+                {p.background && (
+                  <div className="py-3 border-b border-border/50 last:border-b-0">
+                    <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
+                      Background
+                    </dt>
+                    <dd className="mt-1 text-[14px] text-foreground/90 leading-[1.7] max-w-[68ch]">
+                      {p.background}
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 7 · Relationship to the framework */}
+      <section className={`${isAlert ? "bg-surface-muted" : "bg-background"} border-t border-border/60`}>
+        <div className="container-wide py-12 md:py-16">
+          <SectionHeader
+            eyebrow="Within the framework"
+            title="How this page fits the dual-layer model"
+          />
+          <p className="max-w-3xl mx-auto text-[15px] text-foreground/90 leading-[1.7] text-center">
+            This facility is part of the upstream reference layer. Vendor verification requires a separate review of invoices, sourcing records, and other documentation to confirm that a listed vendor is actively sourcing from a recognized facility.
+          </p>
+        </div>
+      </section>
+
+      {/* 8 · Continue reading */}
+      <section className={`${isAlert ? "bg-background" : "bg-surface-muted"} border-t border-border/60`}>
+        <div className="container-wide py-10 md:py-12">
+          <p className="eyebrow text-center mb-6">Continue reading</p>
+          <ul className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border/60">
+            <li className="py-3 md:py-0 md:px-4 border-b md:border-b-0 border-border/60 text-center">
+              <Link
+                to="/greenlist"
+                className="text-[13.5px] text-foreground hover:text-primary underline-offset-2 hover:underline"
+              >
+                Back to Upstream Greenlist →
+              </Link>
+            </li>
+            <li className="py-3 md:py-0 md:px-4 border-b md:border-b-0 border-border/60 text-center">
+              <Link
+                to="/verified-vendors"
+                className="text-[13.5px] text-foreground hover:text-primary underline-offset-2 hover:underline"
+              >
+                View Verified Vendors →
+              </Link>
+            </li>
+            <li className="py-3 md:py-0 md:px-4 text-center">
+              <Link
+                to="/how-it-works"
+                className="text-[13.5px] text-foreground hover:text-primary underline-offset-2 hover:underline"
+              >
+                How Verification Works →
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 9 · Footer */}
       <ProfileFootnote
         items={[
           { label: "Listing", value: isAlert ? "Unverified Facility" : "Greenlist Facility" },
