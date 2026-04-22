@@ -344,7 +344,6 @@ const Greenlist = () => {
             tickClassName: "bg-foreground/40",
           },
         ]}
-        caption="Inclusion means the facility appears within the recognized upstream reference set used by the framework. It does not mean Source Standard is certifying any downstream vendor that uses the source."
       />
 
       {/* Query + table — one instrument */}
