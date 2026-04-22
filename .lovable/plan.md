@@ -1,44 +1,48 @@
 
 
-## New page: `/library/faq/verification-process`
+## New page: `/library/analysis/2026-reclassification`
 
-Third regulatory FAQ category (FAQ-CAT-03). Mirrors `FaqClinicalSafety` / `FaqLegalRegulatory` exactly — same `RecordHeader`, 900px filing column, accordion treatment, pivot footer. Only difference: four Q&A items instead of three.
+First Clinical Analysis whitepaper (SS-SERIES-001). Mirrors the existing FAQ/clinical-guide pattern — `RecordHeader`, 900px filing column via `Section` + `SectionLabel`, hairline pivot footer.
 
-### 1 · New file: `src/pages/FaqVerificationProcess.tsx`
+### 1 · New file: `src/pages/LibraryAnalysis2026Reclassification.tsx`
 
 - **Header** — `RecordHeader`
-  - Eyebrow: `Source Standard · Regulatory FAQ`
-  - Title: `FAQ: Verification Process`
-  - Lead: `Details on the Source Standard auditing protocol, facility reconciliation, and the criteria for institutional verification.`
-  - Reference box: Doc `FAQ-CAT-03` · Status `Public Record` · Jurisdiction `United States` · Updated `April 21, 2026`
+  - Eyebrow: `Source Standard · Clinical Analysis`
+  - Title: `The 2026 Compounding Reclassification`
+  - Lead: `Background and implications of the recent regulatory shifts across 503A and 503B compounding categories.`
+  - Reference box: Doc `SS-SERIES-001` · Status `Analysis / Public Record` · Jurisdiction `United States` · Updated `April 21, 2026`
 
-- **Body** — 900px centered column via `Section` + `SectionLabel`:
-  - `§1 Category Overview` — short framing line covering the four questions (verification stages, audit scope, status revocation, re-audit cadence).
-  - `Accordion type="single" collapsible defaultValue="Q1"` with four items, identical mono `Q1–Q4` label + bold question + indented answer treatment used on FAQ-CAT-01/02:
-    - **Q1** — Three-stage verification process
-    - **Q2** — Auditing scope vs. primary lab testing
-    - **Q3** — Causes for status revocation
-    - **Q4** — Re-audit cadence (quarterly + 12-month)
+- **Body** — 900px centered column, four numbered sections:
+  - `§1 The Regulatory Catalyst` — single prose paragraph on the FDA / state-board update to the Bulk Drug Substances lists.
+  - `§2 Key Changes in 503B Availability` — short framing sentence, then a `DefList` (same helper used across the clinical guide pages) with two terms: **Enhanced Stability Requirements**, **Batch-Size Limitations**.
+  - `§3 The 'Trickle-Down' to 503A Pharmacies` — short framing sentence, then a `DefList` with two terms: **Individual Prescription Necessity**, **Verification Necessity**.
+  - `§4 Looking Ahead` — closing prose paragraph on legal/safety liability and state-level enforcement.
 
 - **Pivot footer** (hairline-top bar inside the centered column):
-  - Left: `Button` outline `← Back to FAQ Index` → `/education#questions`.
-  - Right: muted text link `Next Category: Consumer Diligence (FAQ-CAT-04) →` → `/library/faq/consumer-diligence` (placeholder route, wired for the next category).
+  - Left: `Button` outline `← Back to Education Hub` → `/education`.
+  - Right: muted text link `Next Analysis: Questions to Ask Your Clinic (SS-SERIES-004) →` → `/library/analysis/questions-to-ask-your-clinic` (placeholder for the next analysis page).
 
 ### 2 · Route registration: `src/App.tsx`
 
-Add one import and one `<Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />` inside `SiteLayout`.
+One import + one `<Route path="/library/analysis/2026-reclassification" element={<LibraryAnalysis2026Reclassification />} />` inside `SiteLayout`.
 
-### 3 · Education category override: `src/pages/Education.tsx`
+### 3 · Wire the SS-SERIES-001 card: `src/pages/Education.tsx`
 
-Extend the existing `CATEGORY_ROUTE_OVERRIDES` map with the FAQ-CAT-03 category key → `/library/faq/verification-process`, so the "Browse category" button routes to the new dedicated page instead of the default anchor.
+In the `Latest Clinical Analysis` grid (around line 407), the `Read more →` button currently always points to `/education/${entry.slug}`. Replace that with the existing `SLUG_ROUTE_OVERRIDES[entry.slug] ?? \`/education/${entry.slug}\`` pattern already used by `SimpleRow`, then add one new key:
+
+```ts
+"the-2026-compounding-reclassification": "/library/analysis/2026-reclassification",
+```
+
+This keeps every other series card on its current behavior and only redirects SS-SERIES-001 to the new dedicated page.
 
 ### Files touched
 
-- `src/pages/FaqVerificationProcess.tsx` — new
+- `src/pages/LibraryAnalysis2026Reclassification.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
-- `src/pages/Education.tsx` — one new key in `CATEGORY_ROUTE_OVERRIDES`
+- `src/pages/Education.tsx` — one new `SLUG_ROUTE_OVERRIDES` key + apply the override map to the analysis grid's `Read more` button
 
 ### What stays the same
 
-`RecordHeader`, `Section`/`SectionLabel`, the `Accordion` primitive, the global layout, the 900px filing column, `library.ts`, every other route, and every other Education page element.
+`RecordHeader`, `Section`/`SectionLabel`, `DefList`, `Button`, the global layout, the 900px filing column, `library.ts`, every other route, and every other Education page card.
 
