@@ -1,76 +1,80 @@
 
 
-## Restore category-coded badges + table polish
+## "Other" → "Unverified Facilities" rebrand + red alert badge
 
-The current pills are flat Safety-Blue, which collides with the Safety-Blue used for interactive accents. Restore the assigned green (503B) and gold/amber (503A) using the existing `--src-*` tokens, applied as soft badges (faint tinted bg + full-strength text + matching dot).
+Reframe the third Greenlist category as a serious "Unverified Facilities" status with an institutional red soft-badge, completing the Green → Amber → Red traffic-light system.
 
 ---
 
-### 1 · CategoryPill — soft badge with assigned colors
+### 1 · New token — institutional red
 
-`src/pages/Greenlist.tsx` — replace `CATEGORY_PILL` and `CategoryPill`:
+`src/index.css` — add to `:root`:
 
-```tsx
-const CATEGORY_PILL: Record<GreenlistCategory, { wrap: string; dot: string }> = {
-  "503B": {
-    wrap: "bg-[hsl(var(--src-503b-soft))] text-[hsl(var(--src-503b))] ring-1 ring-[hsl(var(--src-503b))]/20",
-    dot:  "bg-[hsl(var(--src-503b))]",
-  },
-  "503A": {
-    wrap: "bg-[hsl(var(--src-503a-soft))] text-[hsl(var(--src-503a))] ring-1 ring-[hsl(var(--src-503a))]/20",
-    dot:  "bg-[hsl(var(--src-503a))]",
-  },
-  Other: {
-    wrap: "bg-[hsl(var(--src-other-soft))] text-[hsl(var(--src-other))] ring-1 ring-[hsl(var(--src-other))]/20",
-    dot:  "bg-[hsl(var(--src-other))]",
-  },
-};
+```css
+--src-unverified: 0 55% 38%;        /* deep crimson text */
+--src-unverified-soft: 0 60% 95%;   /* light alert-red bg */
 ```
 
-`CategoryPill` renders `inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] tabular-nums` with a `1.5×1.5` rounded-full dot before the label. Faint tinted background, full-strength dot + text — soft badge, not heavy pill. Uses existing `--src-503b/503a/other` + `-soft` tokens (green / amber / slate), so dark mode is automatically correct.
+And to `.dark`:
 
-### 2 · Table typography polish
+```css
+--src-unverified: 0 65% 65%;
+--src-unverified-soft: 0 35% 16%;
+```
 
-In the desktop row (Greenlist + the equivalent vendor cell in `VerifiedVendors.tsx`):
-- Facility / Vendor name: `font-medium` → `font-semibold`, color stays `text-foreground`. Anchor weight for the eye.
-- Location, Focus, secondary cells: stay `text-[13px] text-muted-foreground`, weight `font-normal` (already).
-- Confirm `font-sans` (Geist/Inter) inheritance — no serif leak. The body already uses Tailwind `font-sans` mapped to Geist/Inter via `tailwind.config.ts`; no class change needed but we add an explicit `font-sans` on the table wrapper as a defensive lock.
-- Mobile card: same `font-semibold` on the name.
+Keep the existing `--src-other` tokens in place for safety (orphaned, not referenced after this change). Token-driven so dark mode auto-resolves.
 
-### 3 · "View →" — subtle muted link
+### 2 · Greenlist — rename + recolor
 
-Right-most cell:
-- Before: `text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary`
-- After:  `text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70 hover:text-primary transition-colors`
+`src/pages/Greenlist.tsx`:
 
-Reads as a quiet affordance; lights up Safety Blue only on hover. The whole row is already `cursor-pointer` + hover-tinted, so the link doesn't need to shout.
+**Source-type definition (line 41-45)** — rewrite the `Other` entry copy:
+```ts
+Other: {
+  title: "Unverified Facilities",
+  body:
+    "Entities that have not yet undergone the Source Standard audit process or have failed to provide necessary transparency regarding their supply chain and clinical protocols.",
+},
+```
 
-### 4 · Container — keep what's working
+**Category style + pill maps (lines 48-67)** — point `Other` at the new red tokens:
+```ts
+Other: { dot: "bg-[hsl(var(--src-unverified))]" }
+// and
+Other: {
+  wrap: "bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25",
+  dot:  "bg-[hsl(var(--src-unverified))]",
+},
+```
 
-No change to:
-- `rounded-[12px]` table wrapper
-- Soft layered shadow `shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]`
-- Hairline row dividers `border-border/40`
-- Sticky filter bar styling
-- Stat strip at top
-- Methodology accordion at bottom
+**Stat strip label (line 267)** — the card currently shows the raw key (`"Other"`) when not the total card. Map `Other → "Unverified"` for the eyebrow and keep the full title in the hover-card body. Implementation: replace `s.key === "total" ? s.label : s.key` with a small label resolver: `total → "Total Recognized"`, `503B / 503A → as-is`, `Other → "Unverified"`.
 
-### 5 · Verified Vendors — typography parity
+**Pill label (line 76)** — currently renders the raw category (`"Other"`). Map to `"Unverified"` display string while keeping the underlying `GreenlistCategory` value `"Other"` (no data migration). Tracking/uppercase styling unchanged so it sits at identical visual weight to the 503B/503A pills.
 
-`src/pages/VerifiedVendors.tsx` only needs:
-- Vendor-name cell: `font-medium` → `font-semibold`.
-- "View →" cell: same muted-gray → primary-on-hover treatment.
+**Type filter `<option>` (lines 311-315)** — show "Unverified" as the visible label for the `Other` option; value stays `"Other"`.
 
-Status pills there already use the verified/pending/destructive token system (correct), no color change needed.
+**Card sub-label (line 275)** — the strip currently does `s.label.replace(/^503[AB] /, "").replace(/^Other /, "")`. With the new title `"Unverified Facilities"`, replace this with a tiny per-key descriptor map so the third card reads "Audit pending / non-transparent" beneath the `00` count, matching the secondary lines under 503B / 503A.
+
+### 3 · Underlying data type — unchanged
+
+`GreenlistCategory = "503B" | "503A" | "Other"` stays. `data/greenlist.ts` is untouched. "Other" becomes a purely internal key; every user-facing surface renders "Unverified" / "Unverified Facilities."
+
+### 4 · Verified Vendors — no change
+
+`VerifiedVendors.tsx` uses `StatusBadge` (verified / under-review / suspended), not the Greenlist category system. Its red is already reserved for `suspended`. No edits needed — the rebrand is scoped to the Upstream Facility Registry where the traffic-light system lives.
+
+### 5 · Layout / density — preserved
+
+No changes to: container chrome (`rounded-[12px]`, soft layered shadow), hairline dividers, sticky filter bar, row hover (`hover:bg-primary/[0.04]`), typography, "View →" treatment, methodology accordion, pagination.
 
 ---
 
 ### Files touched
 
-- `src/pages/Greenlist.tsx` — `CATEGORY_PILL` + `CategoryPill` reskin, name `font-semibold`, "View →" muted.
-- `src/pages/VerifiedVendors.tsx` — name `font-semibold`, "View →" muted.
+- `src/index.css` — add `--src-unverified` + `--src-unverified-soft` tokens (light + dark).
+- `src/pages/Greenlist.tsx` — rename `Other` copy, repoint `CATEGORY_STYLE` + `CATEGORY_PILL` `Other` to unverified tokens, remap display labels in stat card eyebrow / pill / filter dropdown / card sub-label.
 
 ### What stays the same
 
-All routes, all data, filtering / sorting / pagination, stat strip, sticky filter bar, methodology accordion, container chrome, dark-mode behavior, every other page. Presentational only.
+All routes, all data, the `GreenlistCategory` type and underlying `"Other"` key, every other page, `StatusBadge`, `SourceCheck`, the 503B (green) / 503A (amber) styling, dark-mode behavior, filtering / sorting / pagination logic. Presentational + copy only.
 
