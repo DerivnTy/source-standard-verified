@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
+import { SourceBot } from "./SourceBot";
 
 export const SiteLayout = () => {
   return (
@@ -10,6 +11,7 @@ export const SiteLayout = () => {
         <Outlet />
       </main>
       <SiteFooter />
+      <SourceBot />
     </div>
   );
 };

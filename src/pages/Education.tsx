@@ -1,13 +1,9 @@
-import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight, Search, Scale, ShieldCheck, BadgeCheck, Compass } from "lucide-react";
+import { ChevronRight, Scale, ShieldCheck, BadgeCheck, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  ENTRY_STATUS_LABEL,
   EntryStatus,
-  FAQEntry,
   LibraryEntry,
-  libraryFaqs,
   libraryGuides,
   librarySeries,
   librarySupplementary,
@@ -38,17 +34,6 @@ const SUPPLEMENT_OVERRIDES: Record<string, { title?: string; description?: strin
 };
 
 const displayTitle = (e: LibraryEntry) => TITLE_OVERRIDES[e.slug] ?? e.title;
-
-const SoftStatus = ({ status }: { status: EntryStatus }) =>
-  isReadable(status) ? (
-    <span className="shrink-0 inline-flex items-center font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/70 border border-border/70 px-1.5 py-px rounded-[2px] bg-background">
-      Published
-    </span>
-  ) : (
-    <span className="shrink-0 inline-flex items-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border border-border/70 px-1.5 py-px rounded-[2px] bg-background">
-      {ENTRY_STATUS_LABEL[status]}
-    </span>
-  );
 
 const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "what-is-compounding": "/library/what-is-compounding",
@@ -92,63 +77,49 @@ const LibraryTile = ({ entry }: { entry: LibraryEntry }) => (
         Reviewed by {entry.reviewedBy}
       </p>
     )}
-    <div className="mt-auto pt-5 flex items-center justify-between gap-3 border-t border-border/40">
-      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/70 tabular-nums">
-        {entry.id}
-      </span>
-      <SoftStatus status={entry.status} />
-    </div>
+    <span className="mt-auto pt-5 inline-flex items-center gap-1 text-[13px] font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+      Read article
+      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+    </span>
   </Link>
 );
 
 const CATEGORIES: {
   key: CategoryKey;
-  code: string;
   label: string;
   description: string;
-  ids: string[];
   groupAnchor: string;
   Icon: typeof Scale;
 }[] = [
   {
     key: "legal",
-    code: "FAQ-CAT-01",
-    label: "Legal & Regulatory",
+    label: "Legal",
     description: "Statutory framework, federal scheduling, and lawful access.",
-    ids: ["SS-FAQ-001", "SS-FAQ-002"],
     groupAnchor: "legality",
     Icon: Scale,
   },
   {
     key: "clinical",
-    code: "FAQ-CAT-02",
-    label: "Clinical Safety",
+    label: "Safety",
     description: "Sterility, handling integrity, and clinical-use scope.",
-    ids: ["SS-FAQ-004", "SS-FAQ-007"],
     groupAnchor: "methodology",
     Icon: ShieldCheck,
   },
   {
     key: "verification",
-    code: "FAQ-CAT-03",
-    label: "Verification Process",
+    label: "Verification",
     description: "How clinics and upstream pharmacies are audited and confirmed.",
-    ids: ["SS-FAQ-003", "SS-FAQ-005", "SS-FAQ-006", "SS-FAQ-008"],
     groupAnchor: "verification",
     Icon: BadgeCheck,
   },
   {
     key: "diligence",
-    code: "FAQ-CAT-04",
-    label: "Consumer Diligence",
+    label: "Diligence",
     description: "Public-facing checks before engaging any compounded source.",
-    ids: ["SS-FAQ-009", "SS-FAQ-010"],
     groupAnchor: "due-diligence",
     Icon: Compass,
   },
 ];
-
-const faqById = (id: string) => libraryFaqs.find((f) => f.id === id);
 
 // Foundational basics: intro-level series
 const basics: LibraryEntry[] = librarySeries.filter((e) => e.level === "intro");
@@ -190,52 +161,7 @@ const featuredEntries = FEATURED_SLUGS.map((slug) =>
   allEntries.find((e) => e.slug === slug),
 ).filter((e): e is LibraryEntry => Boolean(e));
 
-const matches = (q: string, ...fields: (string | undefined)[]) => {
-  if (!q) return true;
-  const needle = q.toLowerCase();
-  return fields.some((f) => f && f.toLowerCase().includes(needle));
-};
-
 const Education = () => {
-  const [query, setQuery] = useState("");
-
-  const q = query.trim();
-
-  const filteredBasics = useMemo(
-    () => basics.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
-    [q],
-  );
-  const filteredGuides = useMemo(
-    () => guidesPreview.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
-    [q],
-  );
-  const filteredAnalysis = useMemo(
-    () => analysisCards.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
-    [q],
-  );
-
-  // Per-category match counts (respect search)
-  const categoryCounts = useMemo(() => {
-    const out: Record<CategoryKey, number> = {
-      legal: 0,
-      clinical: 0,
-      verification: 0,
-      diligence: 0,
-    };
-    for (const c of CATEGORIES) {
-      out[c.key] = c.ids
-        .map(faqById)
-        .filter((f): f is FAQEntry => Boolean(f))
-        .filter((f) => matches(q, f.id, f.q, f.a)).length;
-    }
-    return out;
-  }, [q]);
-
-  const EmptyNote = () => (
-    <p className="px-1 py-4 text-[13px] text-muted-foreground italic">
-      No matches in this section.
-    </p>
-  );
 
   return (
     <>
@@ -250,20 +176,6 @@ const Education = () => {
             Your guide to the science, safety, and standards of compounded medicine. Empowering patients with clinical transparency.
           </p>
 
-          {/* Search bar — softer */}
-          <div className="mt-10 max-w-[560px] mx-auto relative">
-            <Search
-              aria-hidden
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
-            />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search the library by topic, doc ID, or keyword…"
-              className="w-full h-12 pl-11 pr-4 rounded-full border border-border/60 bg-background text-[14px] text-foreground placeholder:text-muted-foreground shadow-sm focus:outline-none focus:border-foreground/40 focus:ring-2 focus:ring-ring/30 transition-all"
-            />
-          </div>
         </div>
       </section>
 
@@ -331,13 +243,9 @@ const Education = () => {
             <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.
             </p>
-            {filteredBasics.length ? (
-              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredBasics.map((e) => <LibraryTile key={e.id} entry={e} />)}
-              </div>
-            ) : (
-              <EmptyNote />
-            )}
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {basics.map((e) => <LibraryTile key={e.id} entry={e} />)}
+            </div>
             <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
               <Link
                 to="/education/basics"
@@ -361,13 +269,9 @@ const Education = () => {
             <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.
             </p>
-            {filteredGuides.length ? (
-              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredGuides.map((e) => <LibraryTile key={e.id} entry={e} />)}
-              </div>
-            ) : (
-              <EmptyNote />
-            )}
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {guidesPreview.map((e) => <LibraryTile key={e.id} entry={e} />)}
+            </div>
             <div className="mt-10 flex justify-end">
               <Link
                 to="/education/guides"
@@ -391,18 +295,14 @@ const Education = () => {
 
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {CATEGORIES.map((c) => {
-                const count = categoryCounts[c.key];
                 const Icon = c.Icon;
                 return (
                   <div
                     key={c.key}
-                    className="flex flex-col rounded-lg border border-border/60 bg-background p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
+                    className="flex flex-col rounded-lg border border-border/50 bg-background p-6 transition-all duration-200 hover:shadow-md hover:border-foreground/30"
                   >
-                    <Icon className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
-                    <p className="mt-4 text-[11.5px] text-muted-foreground/80 tabular-nums">
-                      {count} {count === 1 ? "entry" : "entries"}
-                    </p>
-                    <h3 className="mt-1 text-[18px] font-semibold text-foreground leading-snug">
+                    <Icon className="h-7 w-7 text-muted-foreground" strokeWidth={1.5} />
+                    <h3 className="mt-5 text-[19px] font-semibold text-foreground leading-snug">
                       {c.label}
                     </h3>
                     <p className="mt-2 text-[13.5px] text-muted-foreground leading-[1.7]">
@@ -438,15 +338,9 @@ const Education = () => {
               Newest entries from the Source Standard analysis series. Reviewed under the Medical Advisory framework.
             </p>
 
-            {filteredAnalysis.length ? (
-              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredAnalysis.map((entry) => <LibraryTile key={entry.id} entry={entry} />)}
-              </div>
-            ) : (
-              <p className="mt-8 text-[13px] text-muted-foreground italic">
-                No matches in this section.
-              </p>
-            )}
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {analysisCards.map((entry) => <LibraryTile key={entry.id} entry={entry} />)}
+            </div>
 
             <div className="mt-10 flex justify-end">
               <Button asChild variant="outline" size="sm">
