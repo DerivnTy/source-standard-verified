@@ -1,9 +1,14 @@
+import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { DocLayout, DocSection } from "@/components/DocLayout";
+import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
+import { DocJumpBar } from "@/components/DocJumpBar";
+import { DocSignature } from "@/components/DocSignature";
 import { Callout } from "@/components/Callout";
-import { RelatedDocs } from "@/components/RelatedDocs";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
+
+const DOC_ID = "SS-ENFORCE-2026.01";
+const VERIFIED_ON = "04/21/2026";
 
 const commitments = [
   { t: "Integrity of Submission", d: "All records, claims, and category descriptions submitted at intake are accurate as of the date of submission and remain accurate throughout the verification term. Material inaccuracies discovered post-issuance are treated as a Mandatory Disclosure Event under §2." },
@@ -38,13 +43,20 @@ const actions = [
   { t: "Public Note", d: "A short, factual notation attached to the public listing where public clarification is administratively warranted. Public notes are limited to verifiable, non-speculative statements and are recorded in the audit file with rationale." },
 ];
 
+const deeper = [
+  { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
+  { to: "/status-definitions", label: "Glossary of Regulatory Standings" },
+  { to: "/report-a-concern", label: "Reporting & Market Intelligence" },
+  { to: "/governance", label: "Regulatory Alignment & Oversight" },
+];
+
 const waypoints = [
-  { id: "attestations", number: "01", label: "Attestations" },
-  { id: "mde", number: "02", label: "Disclosure events" },
-  { id: "triggers", number: "03", label: "Re-opening triggers" },
-  { id: "actions", number: "04", label: "Administrative actions" },
-  { id: "reentry", number: "05", label: "Re-entry protocol" },
-  { id: "deeper", number: "06", label: "Cross-references" },
+  { id: "attestations", number: "1", label: "Attestations" },
+  { id: "mde", number: "2", label: "Disclosure" },
+  { id: "triggers", number: "3", label: "Triggers" },
+  { id: "actions", number: "4", label: "Actions" },
+  { id: "reentry", number: "5", label: "Re-entry" },
+  { id: "deeper", number: "6", label: "Read deeper" },
 ];
 
 const Accountability = () => (
@@ -53,138 +65,138 @@ const Accountability = () => (
       title="Accountability & Enforcement"
       description="Mandatory disclosure events, audit re-opening triggers, and the administrative actions available to Source Standard."
     />
-    <Breadcrumb
-      items={[
-      { label: "About", to: "/about" },
-      { label: "Accountability" },
-      ]}
-    />
+    <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Accountability" }]} />
 
     <RecordHeader
       metadata={[
-        { label: "Doc", value: "SS-ENFORCE-2026.01" },
+        { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "United States" },
       ]}
+      verifiedOn={VERIFIED_ON}
       eyebrow="Compliance & sanctions"
       title="Compliance Monitoring & Enforcement Protocols."
       lead="Attestations accepted by Verified entities, Mandatory Disclosure Events, audit re-opening triggers, and the graduated enforcement actions available to the framework when compliance obligations are not met."
     />
 
-    <DocLayout waypoints={waypoints}>
-      <DocSection
-        id="attestations"
-        number="§1"
-        title="Attestations of Continuous Compliance."
-        description="Upon assignment of a Verified standing, the entity formally accepts the following standing attestations. These attestations form the controlling basis on which the public listing is issued, maintained, and renewed."
-        first
-      >
-        <div className="grid md:grid-cols-2 gap-4 not-prose">
-          {commitments.map((c) => (
-            <div key={c.t} className="bg-surface border border-border/60 rounded-lg p-5 shadow-sm">
-              <p className="h-card mb-2">{c.t}</p>
-              <p className="text-[14.5px] text-muted-foreground leading-relaxed">{c.d}</p>
-            </div>
-          ))}
+    <DocJumpBar waypoints={waypoints} />
+
+    <BoardSection
+      id="attestations"
+      n="1"
+      category="Attestations"
+      title="Attestations of continuous compliance."
+      rationale="Upon assignment of a Verified standing, the entity formally accepts the following standing attestations. These attestations form the controlling basis on which the public listing is issued, maintained, and renewed."
+    >
+      <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
+        {commitments.map((c, i) => (
+          <li key={c.t} className="bg-background p-5">
+            <p className="meta text-primary mb-1">ATTESTATION · {String(i + 1).padStart(2, "0")}</p>
+            <p className="text-[14.5px] font-semibold text-foreground mb-2">{c.t}</p>
+            <p className="text-[14.5px] text-muted-foreground leading-relaxed">{c.d}</p>
+          </li>
+        ))}
+      </ul>
+    </BoardSection>
+
+    <BoardSection
+      id="mde"
+      n="2"
+      category="Disclosure"
+      title="Mandatory Disclosure Events (MDE)."
+      rationale="The following events are designated Mandatory Disclosure Events and must be reported to the framework within seventy-two (72) hours of occurrence. Failure to report within the disclosure window does not invalidate the underlying event and is itself an audit re-opening trigger under §3."
+      muted
+    >
+      <Callout tone="warning" eyebrow={`Disclosure window · ${DOC_ID} · §2`}>
+        <div className="flex items-baseline gap-3">
+          <span className="font-mono text-[28px] md:text-[32px] font-semibold tabular-nums text-foreground leading-none">
+            72h
+          </span>
+          <span className="text-[14.5px] text-muted-foreground">
+            maximum window from event occurrence to disclosure to the framework.
+          </span>
         </div>
-      </DocSection>
+      </Callout>
+      <ol className="border border-border bg-background divide-y divide-border">
+        {reportable.map((r, i) => (
+          <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
+            <div className="col-span-2 meta text-primary">{String(i + 1).padStart(2, "0")}</div>
+            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{r}</p>
+          </li>
+        ))}
+      </ol>
+    </BoardSection>
 
-      <DocSection
-        id="mde"
-        number="§2"
-        title="Mandatory Disclosure Events (MDE)."
-        description="The following events are designated Mandatory Disclosure Events and must be reported to the framework within seventy-two (72) hours of occurrence. Failure to report within the disclosure window does not invalidate the underlying event and is itself an audit re-opening trigger under §3."
-      >
-        <Callout tone="warning" eyebrow="Disclosure window · SS-ENFORCE-2026.01 · §2">
-          <div className="flex items-baseline gap-3">
-            <span className="font-mono text-[28px] md:text-[32px] font-semibold tabular-nums text-foreground leading-none">
-              72h
-            </span>
-            <span className="text-[14px] text-muted-foreground">
-              maximum window from event occurrence to disclosure to the framework.
-            </span>
-          </div>
-        </Callout>
-        <ul className="mt-6 divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
-          {reportable.map((r, i) => (
-            <li key={i} className="flex gap-4 px-5 py-3 text-[15px]">
-              <span className="meta-mono text-primary w-6 shrink-0">{String(i + 1).padStart(2, "0")}</span>
-              <span className="text-foreground">{r}</span>
-            </li>
-          ))}
-        </ul>
-      </DocSection>
+    <BoardSection
+      id="triggers"
+      n="3"
+      category="Triggers"
+      title="Audit re-opening triggers."
+      rationale="Any of the following constitutes an audit re-opening trigger and may open a re-examination of an existing Verified listing, regardless of the listing's position in the renewal cycle. Consumer and clinician reports submitted through the public reporting channel are a primary source of data for this surveillance function."
+    >
+      <ol className="border border-border bg-background divide-y divide-border">
+        {triggers.map((t, i) => (
+          <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
+            <div className="col-span-2 meta text-primary">TRIG · {String(i + 1).padStart(2, "0")}</div>
+            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{t}</p>
+          </li>
+        ))}
+      </ol>
+    </BoardSection>
 
-      <DocSection
-        id="triggers"
-        number="§3"
-        title="Audit Re-opening Triggers."
-        description="Any of the following constitutes an audit re-opening trigger and may open a re-examination of an existing Verified listing, regardless of the listing's position in the renewal cycle. Consumer and clinician reports submitted through the public reporting channel are a primary source of data for this surveillance function."
-      >
-        <ul className="space-y-3 not-prose">
-          {triggers.map((t, i) => (
-            <li key={i} className="flex gap-4 text-[15px]">
-              <span className="meta-mono text-primary w-6 shrink-0">·</span>
-              <span className="text-foreground">{t}</span>
-            </li>
-          ))}
-        </ul>
-      </DocSection>
-
-      <DocSection
-        id="actions"
-        number="§4"
-        title="Graduated Administrative Actions."
-        description="When a re-examination identifies non-compliance, the framework applies a graduated set of administrative actions scaled to the nature, severity, and recurrence of the underlying conduct. Actions are recorded in the audit file and, where applicable, reflected in the public listing."
-      >
-        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
-          {actions.map((a, i) => (
-            <div key={a.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-              <div className="md:col-span-3">
-                <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-primary mb-1">
-                  ACTION · {String(i + 1).padStart(2, "0")}
-                </p>
-                <p className="h-card">{a.t}</p>
-              </div>
-              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{a.d}</p>
+    <BoardSection
+      id="actions"
+      n="4"
+      category="Actions"
+      title="Graduated administrative actions."
+      rationale="When a re-examination identifies non-compliance, the framework applies a graduated set of administrative actions scaled to the nature, severity, and recurrence of the underlying conduct. Actions are recorded in the audit file and, where applicable, reflected in the public listing."
+      muted
+    >
+      <ol className="border border-border bg-background divide-y divide-border">
+        {actions.map((a, i) => (
+          <li key={a.t} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
+            <div className="col-span-3">
+              <p className="meta text-primary mb-1">ACTION · {String(i + 1).padStart(2, "0")}</p>
+              <p className="text-[14.5px] font-semibold text-foreground">{a.t}</p>
             </div>
-          ))}
-        </div>
-      </DocSection>
+            <p className="col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{a.d}</p>
+          </li>
+        ))}
+      </ol>
+    </BoardSection>
 
-      <DocSection id="reentry" number="§5" title="Re-entry Protocol.">
-        <Callout tone="notice" eyebrow="Permanent record · SS-ENFORCE-2026.01 · §5">
-          <p className="text-[15px] text-foreground leading-[1.7]">
-            Prior history retained. Re-entry is not granted on the basis of time elapsed alone.
-          </p>
-        </Callout>
-        <p className="mt-6">
-          An entity under Status Revocation (Suspension) may return to Verified once the underlying matter is resolved and documented in the audit file. An entity under Registry Expulsion (Removal) may apply for re-entry only by submitting a new application and undergoing a fresh examination cycle in full. Prior audit history — including the original determination, the triggering events, and the disposition — is retained on the permanent record of the entity and is referenced in any subsequent examination.
+    <BoardSection id="reentry" n="5" category="Re-entry" title="Re-entry protocol.">
+      <Callout tone="notice" eyebrow={`Permanent record · ${DOC_ID} · §5`}>
+        <p className="text-[14.5px] text-foreground leading-relaxed">
+          Prior history retained. Re-entry is not granted on the basis of time elapsed alone.
         </p>
-      </DocSection>
+      </Callout>
+      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+        An entity under Status Revocation (Suspension) may return to Verified once the underlying matter is resolved and documented in the audit file. An entity under Registry Expulsion (Removal) may apply for re-entry only by submitting a new application and undergoing a fresh examination cycle in full. Prior audit history — including the original determination, the triggering events, and the disposition — is retained on the permanent record of the entity and is referenced in any subsequent examination.
+      </p>
+    </BoardSection>
 
-      <DocSection id="deeper" number="§6" title="Cross-references.">
-        <RelatedDocs
-          items={[
-            { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
-            { to: "/status-definitions", label: "Glossary of Regulatory Standings" },
-            { to: "/report-a-concern", label: "Reporting & Market Intelligence", description: "Submit a triggering event." },
-          ]}
-        />
-        <div className="border-t-2 border-t-foreground bg-surface px-5 py-4 mt-8 rounded-b-lg shadow-sm">
-          <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-foreground mb-2">
-            OFFICIAL CITATION · SS-ENFORCE-2026.01
-          </p>
-          <p className="text-[12.5px] text-foreground leading-relaxed">
-            Source Standard. Compliance Monitoring & Enforcement Protocols. Document SS-ENFORCE-2026.01. Issued 04 / 21 / 2026. On file with the issuing organization.
-          </p>
-          <p className="font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground mt-2">
-            Controlled copy · Subject to versioned revision under §1
-          </p>
-        </div>
-      </DocSection>
-    </DocLayout>
+    <BoardSection id="deeper" n="6" category="Read deeper" title="Cross-references." muted>
+      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
+        {deeper.map((d, i) => (
+          <li key={d.to} className="bg-background">
+            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
+              <div>
+                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
+                <p className="text-[14.5px] font-semibold text-foreground leading-snug">{d.label}</p>
+              </div>
+              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </BoardSection>
+
+    <BoardCiteFooter
+      citation={`Source Standard. Compliance Monitoring & Enforcement Protocols. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
+    />
+    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

@@ -1,6 +1,25 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocJumpBar } from "@/components/DocJumpBar";
+import { DocSignature } from "@/components/DocSignature";
+import { BoardCiteFooter } from "@/components/BoardSection";
+
+const DOC_ID = "SS-PROTO-2026.01";
+const VERIFIED_ON = "04/21/2026";
+
+const jumpWaypoints = [
+  { id: "principles", number: "1", label: "Principles" },
+  { id: "scope", number: "2", label: "Scope" },
+  { id: "determinations", number: "3", label: "Determinations" },
+  { id: "domains", number: "4", label: "Domains" },
+  { id: "lifecycle", number: "5", label: "Lifecycle" },
+  { id: "surveillance", number: "6", label: "Surveillance" },
+  { id: "post", number: "7", label: "Post-determination" },
+  { id: "rationale", number: "8", label: "Rationale" },
+  { id: "limits", number: "9", label: "Limits" },
+];
 
 const whyItMatters: { t: string; d: string }[] = [
   {
@@ -256,36 +275,24 @@ const HowItWorks = () => {
         title="How Verification Works"
         description="The Source Standard verification process — intake, evidentiary review, board ratification, and renewal cadence."
       />
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "How verification works" }]} />
       <RecordHeader
         metadata={[
-          { label: "Doc", value: "SS-FRAMEWORK-2026.01" },
+          { label: "Doc", value: DOC_ID },
           { label: "Status", value: "Active" },
           { label: "Updated", value: "04/21/26" },
           { label: "Scope", value: "Verification" },
         ]}
+        verifiedOn={VERIFIED_ON}
         eyebrow="SOP · Forensic audit methodology"
         title="SOP: Verification Protocol & Audit Methodology."
         lead="Forensic examination of supply-chain records, regulatory credentials, and public-facing claims against a controlled evidentiary standard. Determinations are issued under a defined scope and time window and remain subject to continuous surveillance."
       />
 
-      {/* Document header strip */}
-      <div className="border-b border-border bg-surface-muted">
-        <div className="container-wide flex items-center justify-between py-2.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground gap-4 flex-wrap">
-          <span>
-            Document · <span className="text-foreground">SS-FRAMEWORK-2026.01</span>
-          </span>
-          <span>
-            Issued <span className="text-foreground">04/21/2026</span> · Revision{" "}
-            <span className="text-foreground">2026.01</span> · Controlled copy
-          </span>
-          <span>
-            Classification · <span className="text-foreground">Public</span> · Controlled standard
-          </span>
-        </div>
-      </div>
+      <DocJumpBar waypoints={jumpWaypoints} />
 
       {/* §1 Governing principles */}
-      <section className="border-b border-border bg-background">
+      <section id="principles" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -318,7 +325,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §2 Scope of attestation */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="scope" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -349,7 +356,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §3 Registry determinations — Board-style table */}
-      <section className="border-b border-border bg-background">
+      <section id="determinations" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -410,7 +417,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §4 Examination domains */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="domains" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -441,7 +448,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §5 Standardized review lifecycle — Board ol pattern */}
-      <section className="border-b border-border bg-background">
+      <section id="lifecycle" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -480,7 +487,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §6 Post-audit surveillance */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="surveillance" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -490,10 +497,10 @@ const HowItWorks = () => {
               body="A determination is a snapshot in time. Verified files are subject to continuous surveillance and re-examined at a defined renewal interval and upon any reported material change."
             />
             <div className="md:col-span-8">
-              <div className="border-l-2 border-l-foreground bg-background px-4 py-3 mb-5">
+              <div className="border border-border bg-surface-muted px-4 py-3 mb-5">
                 <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground">
                   DISCLOSURE WINDOW · <span className="text-foreground">72 HOURS</span> ·{" "}
-                  <span className="text-foreground">SS-FRAMEWORK-2026.01</span> · §6
+                  <span className="text-foreground">{DOC_ID}</span> · §6
                 </p>
               </div>
               <ol className="border border-border bg-background divide-y divide-border">
@@ -518,7 +525,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §7 Post-determination handling */}
-      <section className="border-b border-border bg-background">
+      <section id="post" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -545,7 +552,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §8 Applicant rationale */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="rationale" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -581,7 +588,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §9 Jurisdictional limitations */}
-      <section className="border-b border-border bg-background">
+      <section id="limits" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -609,36 +616,10 @@ const HowItWorks = () => {
       </section>
 
       {/* Official citation block */}
-      <section>
-        <div className="container-wide py-8">
-          <div className="border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl">
-            <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-2">
-              OFFICIAL CITATION · SS-FRAMEWORK-2026.01
-            </p>
-            <p className="text-[12.5px] text-foreground leading-relaxed">
-              Source Standard. SOP: Verification Protocol & Audit Methodology. Document
-              SS-FRAMEWORK-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on
-              file with the issuing organization.
-            </p>
-            <p className="mt-3 font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
-              <span>Controlled standard · Subject to versioned revision ·</span>
-              <Link
-                to="/status-definitions"
-                className="underline underline-offset-4 hover:text-foreground"
-              >
-                See Status Definitions
-              </Link>
-              <span>·</span>
-              <Link
-                to="/accountability"
-                className="underline underline-offset-4 hover:text-foreground"
-              >
-                See Accountability
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
+      <BoardCiteFooter
+        citation={`Source Standard. SOP: Verification Protocol & Audit Methodology. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Revision 2026.01. Controlled copy on file with the issuing organization.`}
+      />
+      <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
     </div>
   );
 };

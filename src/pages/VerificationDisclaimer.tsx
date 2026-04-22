@@ -1,11 +1,14 @@
+import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { DocLayout, DocSection } from "@/components/DocLayout";
+import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
+import { DocJumpBar } from "@/components/DocJumpBar";
+import { DocSignature } from "@/components/DocSignature";
 import { Callout, CalloutTitle } from "@/components/Callout";
-import { RelatedDocs } from "@/components/RelatedDocs";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
-const DOC_ID = "SS-DISCLAIMER-2026.01";
+const DOC_ID = "SS-DISCLAIM-2026.01";
+const VERIFIED_ON = "04/21/2026";
 
 const covers = [
   { n: "1.01", t: "Documented business identity, registration, and operating records of the entity." },
@@ -31,13 +34,21 @@ const boundaries = [
   { t: "Not a guarantor.", d: "A Verified determination is an administrative finding at a fixed point in time. It is not a warranty, guarantee, indemnity, or insurance of any future state of affairs concerning the entity, its operations, or any product or service it provides." },
 ];
 
+const deeper = [
+  { to: "/how-it-works", label: "Verification — process and review" },
+  { to: "/status-definitions", label: "Status Definitions" },
+  { to: "/accountability", label: "Accountability & Enforcement" },
+  { to: "/terms", label: "User Agreement & Registry Terms" },
+  { to: "/governance", label: "Governance" },
+];
+
 const waypoints = [
-  { id: "coverage", number: "01", label: "Coverage" },
-  { id: "out-of-scope", number: "02", label: "Out of scope" },
-  { id: "limits", number: "03", label: "Institutional limits" },
-  { id: "timebound", number: "04", label: "Time-bound" },
-  { id: "liability", number: "05", label: "Liability" },
-  { id: "deeper", number: "06", label: "Read deeper" },
+  { id: "coverage", number: "1", label: "Coverage" },
+  { id: "out-of-scope", number: "2", label: "Out of scope" },
+  { id: "limits", number: "3", label: "Limits" },
+  { id: "timebound", number: "4", label: "Time-bound" },
+  { id: "liability", number: "5", label: "Liability" },
+  { id: "deeper", number: "6", label: "Read deeper" },
 ];
 
 const VerificationDisclaimer = () => (
@@ -46,12 +57,7 @@ const VerificationDisclaimer = () => (
       title="Verification Disclaimer"
       description="Scope of a Source Standard determination — what verification covers, what it does not cover, and the institutional boundaries of the auditing body."
     />
-    <Breadcrumb
-      items={[
-      { label: "Legal" },
-      { label: "Disclaimer" },
-      ]}
-    />
+    <Breadcrumb items={[{ label: "Legal" }, { label: "Disclaimer" }]} />
 
     <RecordHeader
       metadata={[
@@ -60,107 +66,123 @@ const VerificationDisclaimer = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "United States" },
       ]}
+      verifiedOn={VERIFIED_ON}
       eyebrow="Disclaimer · Formal regulatory attestation"
       title="Verification Disclaimer & Attestation Scope."
-      lead="The formal attestation document of the auditing body. Defines the scope, boundaries, time-bound nature, and liability framing of every Source Standard verification determination. Issued under document SS-DISCLAIMER-2026.01."
+      lead={`The formal attestation document of the auditing body. Defines the scope, boundaries, time-bound nature, and liability framing of every Source Standard verification determination. Issued under document ${DOC_ID}.`}
     />
 
-    <DocLayout waypoints={waypoints} variant="certificate">
-      <DocSection
-        id="coverage"
-        number="§1"
-        title="Boundaries of Administrative Attestation"
-        description="A Source Standard verification is an Attestation of Record Consistency. It is an administrative finding that an entity's documented records — as submitted, as cross-checked against third-party regulatory and supplier data, and as reviewed at a fixed point in time — are internally consistent and consistent with the public claims associated with the entity. The registry operates as an auditing mirror of third-party records and does not produce, replace, or supersede those records."
-        first
-      >
-        <ul className="space-y-3 not-prose">
-          {covers.map((c) => (
-            <li key={c.n} className="flex gap-4 text-[15px]">
-              <span className="meta-mono text-primary w-12 shrink-0">{c.n}</span>
-              <span className="text-foreground">{c.t}</span>
-            </li>
-          ))}
-        </ul>
-      </DocSection>
+    <DocJumpBar waypoints={waypoints} />
 
-      <DocSection
-        id="out-of-scope"
-        number="§2"
-        title="Items outside the attestation"
-        description="The following matters are explicitly outside the scope of any Source Standard attestation and shall not be inferred from a Verified determination."
-      >
-        <ul className="space-y-3 not-prose">
-          {doesNotCover.map((c) => (
-            <li key={c.n} className="flex gap-4 text-[15px]">
-              <span className="meta-mono text-muted-foreground w-12 shrink-0">{c.n}</span>
-              <span className="text-muted-foreground">{c.t}</span>
-            </li>
-          ))}
-        </ul>
-      </DocSection>
+    <BoardSection
+      id="coverage"
+      n="1"
+      category="Coverage"
+      title="Boundaries of administrative attestation."
+      rationale="A Source Standard verification is an Attestation of Record Consistency. It is an administrative finding that an entity's documented records — as submitted, as cross-checked against third-party regulatory and supplier data, and as reviewed at a fixed point in time — are internally consistent and consistent with the public claims associated with the entity. The registry operates as an auditing mirror of third-party records and does not produce, replace, or supersede those records."
+    >
+      <ol className="border border-border bg-background divide-y divide-border">
+        {covers.map((c) => (
+          <li key={c.n} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
+            <div className="col-span-2 meta text-primary tabular-nums">{c.n}</div>
+            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{c.t}</p>
+          </li>
+        ))}
+      </ol>
+    </BoardSection>
 
-      <DocSection
-        id="limits"
-        number="§3"
-        title="Institutional Limitations"
-        description="Source Standard occupies a defined position within the broader medical, pharmaceutical, and regulatory ecosystem. The following limitations are material to the interpretation of any registry entry."
-      >
-        <div className="divide-y divide-border/60 border border-border/60 rounded-lg bg-surface shadow-sm overflow-hidden not-prose">
-          {boundaries.map((b) => (
-            <div key={b.t} className="grid md:grid-cols-12 gap-6 px-5 py-5">
-              <p className="md:col-span-3 h-card font-semibold text-foreground">{b.t}</p>
-              <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{b.d}</p>
+    <BoardSection
+      id="out-of-scope"
+      n="2"
+      category="Out of scope"
+      title="Items outside the attestation."
+      rationale="The following matters are explicitly outside the scope of any Source Standard attestation and shall not be inferred from a Verified determination."
+      muted
+    >
+      <ol className="border border-border bg-background divide-y divide-border">
+        {doesNotCover.map((c) => (
+          <li key={c.n} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
+            <div className="col-span-2 meta text-muted-foreground tabular-nums">{c.n}</div>
+            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{c.t}</p>
+          </li>
+        ))}
+      </ol>
+    </BoardSection>
+
+    <BoardSection
+      id="limits"
+      n="3"
+      category="Limits"
+      title="Institutional limitations."
+      rationale="Source Standard occupies a defined position within the broader medical, pharmaceutical, and regulatory ecosystem. The following limitations are material to the interpretation of any registry entry."
+    >
+      <ol className="border border-border bg-background divide-y divide-border">
+        {boundaries.map((b, i) => (
+          <li key={b.t} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
+            <div className="col-span-3 meta text-primary">
+              <span className="text-foreground font-semibold">{String(i + 1).padStart(2, "0")} ·</span> {b.t}
             </div>
-          ))}
-        </div>
-      </DocSection>
+            <p className="col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{b.d}</p>
+          </li>
+        ))}
+      </ol>
+    </BoardSection>
 
-      <DocSection
-        id="timebound"
-        number="§4"
-        title="Time-bound nature"
-        description="Every Source Standard determination is a Snapshot of Record Consistency. It reflects the records reviewed and the regulatory checks performed within a defined review window and remains valid only until the next scheduled renewal or until a Mandatory Disclosure Event triggers earlier reopening under SS-ENFORCE-2026.01. A current Verified status today does not warrant the same status at any future date and is not a representation regarding the entity's future conduct."
-      />
+    <BoardSection
+      id="timebound"
+      n="4"
+      category="Time-bound"
+      title="Time-bound nature."
+      rationale="Every Source Standard determination is a Snapshot of Record Consistency. It reflects the records reviewed and the regulatory checks performed within a defined review window and remains valid only until the next scheduled renewal or until a Mandatory Disclosure Event triggers earlier reopening under SS-ENFORCE-2026.01. A current Verified status today does not warrant the same status at any future date and is not a representation regarding the entity's future conduct."
+      muted
+    >
+      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+        Every determination is anchored to a fixed review window and lapses or reopens by protocol — never by inference.
+      </p>
+    </BoardSection>
 
-      <DocSection id="liability" number="§5" title="Limitation of Liability & User Discretion">
-        <div className="space-y-5 not-prose">
-          <Callout tone="warning" eyebrow="Warning · §5.1">
-            <CalloutTitle>No warranty; reliance at user discretion.</CalloutTitle>
-            <p className="text-[15px] text-foreground leading-[1.7]">
-              The registry is provided as a public reference. The auditing body makes no warranty, express or implied,
-              regarding any vendor, upstream source, product, or determination. Reliance on registry content is at the
-              user's sole discretion. Users should consult a licensed clinician for clinical matters and the applicable
-              regulatory authority for matters within statutory jurisdiction.
-            </p>
-          </Callout>
-          <Callout tone="warning" eyebrow="Warning · §5.2">
-            <CalloutTitle>Acknowledgment and exemption from liability.</CalloutTitle>
-            <p className="text-[15px] text-foreground leading-[1.7]">
-              Access to or use of the registry constitutes the user's acknowledgment that Source Standard is exempt from
-              liability for any direct, indirect, incidental, consequential, special, or exemplary damages arising from
-              any decision made, action taken, or action not taken on the basis of a registry entry, including any
-              decision to engage or not to engage with a listed entity. This acknowledgment is a material condition of
-              access under the User Agreement & Registry Terms (SS-TERMS-2026.01).
-            </p>
-          </Callout>
-        </div>
-      </DocSection>
-
-      <DocSection id="deeper" number="§6" title="Read deeper">
-        <RelatedDocs
-          items={[
-            { to: "/how-it-works", label: "Verification — process and review" },
-            { to: "/status-definitions", label: "Status Definitions" },
-            { to: "/accountability", label: "Accountability & Enforcement" },
-            { to: "/terms", label: "User Agreement & Registry Terms" },
-            { to: "/governance", label: "Governance" },
-          ]}
-        />
-        <p className="mt-8 meta-label">
-          Cite as: Source Standard Verification Disclaimer & Attestation Scope, SS-DISCLAIMER-2026.01.
+    <BoardSection id="liability" n="5" category="Liability" title="Limitation of liability & user discretion.">
+      <Callout tone="warning" eyebrow="Warning · §5.1">
+        <CalloutTitle>No warranty; reliance at user discretion.</CalloutTitle>
+        <p className="text-[14.5px] text-foreground leading-relaxed">
+          The registry is provided as a public reference. The auditing body makes no warranty, express or implied,
+          regarding any vendor, upstream source, product, or determination. Reliance on registry content is at the
+          user's sole discretion. Users should consult a licensed clinician for clinical matters and the applicable
+          regulatory authority for matters within statutory jurisdiction.
         </p>
-      </DocSection>
-    </DocLayout>
+      </Callout>
+      <Callout tone="warning" eyebrow="Warning · §5.2">
+        <CalloutTitle>Acknowledgment and exemption from liability.</CalloutTitle>
+        <p className="text-[14.5px] text-foreground leading-relaxed">
+          Access to or use of the registry constitutes the user's acknowledgment that Source Standard is exempt from
+          liability for any direct, indirect, incidental, consequential, special, or exemplary damages arising from
+          any decision made, action taken, or action not taken on the basis of a registry entry, including any
+          decision to engage or not to engage with a listed entity. This acknowledgment is a material condition of
+          access under the User Agreement & Registry Terms (SS-TERMS-2026.01).
+        </p>
+      </Callout>
+    </BoardSection>
+
+    <BoardSection id="deeper" n="6" category="Read deeper" title="Cross-references." muted>
+      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
+        {deeper.map((d, i) => (
+          <li key={d.to} className="bg-background">
+            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
+              <div>
+                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
+                <p className="text-[14.5px] font-semibold text-foreground leading-snug">{d.label}</p>
+              </div>
+              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </BoardSection>
+
+    <BoardCiteFooter
+      citation={`Source Standard. Verification Disclaimer & Attestation Scope. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
+    />
+    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 
