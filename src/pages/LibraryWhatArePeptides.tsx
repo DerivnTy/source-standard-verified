@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -90,7 +89,6 @@ const LibraryWhatArePeptides = () => {
         next={{ to: "/library/interpreting-coas", label: "Interpreting CoAs (SS-SERIES-002)" }}
         citation={`Source Standard, Foundational Series — What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

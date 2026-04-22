@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
-import { DocSignature } from "@/components/DocSignature";
 import { BoardSection } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
 
@@ -246,7 +245,6 @@ const About = () => {
         </ul>
       </BoardSection>
 
-      <DocSignature docId="SS-ORG-2026.01" verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

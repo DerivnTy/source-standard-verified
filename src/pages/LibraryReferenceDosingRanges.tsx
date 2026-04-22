@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -104,7 +103,6 @@ const LibraryReferenceDosingRanges = () => {
         next={{ to: "/education#faq", label: "Proceed to Regulatory FAQ Categories" }}
         citation={`Source Standard, Clinical Guide — Reference Dosing Ranges, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

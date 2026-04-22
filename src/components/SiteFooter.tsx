@@ -62,17 +62,6 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
 export const SiteFooter = () => {
   return (
     <footer className="border-t border-border bg-surface-muted/30 mt-20">
-      <div className="border-b border-border/60 bg-surface-muted/60">
-        <div className="container-wide flex flex-wrap items-center justify-between gap-y-2 py-3">
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-            Standard SS-FRAMEWORK-2026.01 · Active
-          </span>
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-            Reviewed under Medical Advisory Board · Updated 04/21/26
-          </span>
-        </div>
-      </div>
-
       <div className="container-wide py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-12 gap-y-10 items-start">
           <div>
@@ -108,11 +97,7 @@ export const SiteFooter = () => {
 
         <div className="mt-14 pt-8 border-t border-border/70">
           <p className="max-w-[900px] mx-auto text-center text-[12px] text-muted-foreground leading-relaxed">
-            Source Standard is an independent auditing and information framework. It does
-            not manufacture, distribute, prescribe, or dispense products, and it does not
-            provide medical advice. A listing reflects documentation reviewed at the time
-            of compliance assessment and does not guarantee medical outcomes, product
-            safety, or treatment efficacy.
+            Source Standard is an independent public-reference and verification framework. Listings reflect documentation reviewed within a defined scope and at a defined point in time. Verification does not constitute medical advice, regulatory approval, or a guarantee of safety, efficacy, or outcome.
           </p>
           <div className="mt-5 max-w-[900px] mx-auto flex flex-wrap items-center justify-between gap-y-2 text-center">
             <p className="text-[12px] text-muted-foreground">

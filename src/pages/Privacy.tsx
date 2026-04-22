@@ -3,7 +3,6 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
-import { DocSignature } from "@/components/DocSignature";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
@@ -25,7 +24,7 @@ const uses = [
 ];
 
 const partitioning = [
-  { p: "Public registry data", v: "Business name, location, scope categories, current status, status date, public references, and any attached public note. Published under SS-FRAMEWORK-2026.01." },
+  { p: "Public registry data", v: "Business name, location, scope categories, current status, status date, public references, and any attached public note." },
   { p: "Protected Audit Material (PAM)", v: "Application materials, licensing records, supplier and pharmacy invoices, certificates of analysis, prescriber credentials, internal review notes, reporter identity, and unredacted contact submissions. Retained internally; not published; not shared outside the audit function except as required by lawful process." },
 ];
 
@@ -203,7 +202,6 @@ const Privacy = () => (
     <BoardCiteFooter
       citation={`Source Standard. Data Governance & Privacy Policy. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
     />
-    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

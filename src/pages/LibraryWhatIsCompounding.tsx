@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -77,7 +76,6 @@ const LibraryWhatIsCompounding = () => {
         next={{ to: "/library/what-are-peptides", label: "What Are Peptides? (SS-SERIES-000A)" }}
         citation={`Source Standard, Foundational Series — What Is Compounding?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

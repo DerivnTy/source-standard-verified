@@ -3,7 +3,6 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
-import { DocSignature } from "@/components/DocSignature";
 import { Callout } from "@/components/Callout";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -14,7 +13,7 @@ const VERIFIED_ON = "04/21/2026";
 const citationElements = [
   { t: "Audit ID", d: "The registry record identifier of the entity cited (e.g. SS-V-#### for vendors, SS-G-#### for greenlist sources)." },
   { t: "Status Date", d: "The issue date of the determination being cited (status as of MM/DD/YY)." },
-  { t: "Document anchor", d: "The controlling framework document (SS-FRAMEWORK-2026.01) and, where the citation depends on it, the relevant policy anchor (SS-PRIVACY-2026.01, SS-ENFORCE-2026.01, etc.)." },
+  { t: "Document anchor", d: "The controlling framework document under which the determination was issued." },
   { t: "Attribution", d: "An attribution line naming Source Standard as the auditing body, with a link to the source registry page." },
 ];
 
@@ -214,7 +213,6 @@ const Terms = () => (
     <BoardCiteFooter
       citation={`Source Standard. User Agreement & Registry Terms. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
     />
-    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

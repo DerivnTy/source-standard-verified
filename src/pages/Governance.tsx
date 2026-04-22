@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
-import { DocSignature } from "@/components/DocSignature";
 import { Callout } from "@/components/Callout";
 import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
@@ -169,7 +168,6 @@ const Governance = () => (
     <BoardCiteFooter
       citation={`Source Standard. Regulatory Alignment & Oversight. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
     />
-    <DocSignature docId={DOC_ID} verifiedOn={VERIFIED_ON} />
   </>
 );
 

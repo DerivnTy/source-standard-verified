@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -74,7 +73,6 @@ const LibraryInterpretingCoAs = () => {
         next={{ to: "/library/dual-layer-difference", label: "The Dual-Layer Difference (SS-SERIES-003)" }}
         citation={`Source Standard, Audit Protocols — Interpreting CoAs, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

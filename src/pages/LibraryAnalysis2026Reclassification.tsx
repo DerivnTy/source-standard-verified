@@ -1,7 +1,6 @@
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { DocSignature } from "@/components/DocSignature";
 import {
   ArticleSection,
   ArticleFooter,
@@ -68,7 +67,6 @@ const LibraryAnalysis2026Reclassification = () => {
         next={{ to: "/library/analysis/questions-for-your-clinic", label: "Questions to Ask Your Clinic (SS-ANALYSIS-004)" }}
         citation={`Source Standard, Clinical Analysis — 2026 Compounding Reclassification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };
