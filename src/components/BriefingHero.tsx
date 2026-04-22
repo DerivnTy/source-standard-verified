@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { HeroPattern } from "./HeroPattern";
 import type { MetadataItem } from "./MetadataBar";
 
@@ -35,6 +35,13 @@ export const BriefingHero = ({
   actions,
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
+  const [showCue, setShowCue] = useState(true);
+
+  useEffect(() => {
+    const onScroll = () => setShowCue(window.scrollY < 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const isDense = !isNavy && Boolean(rightRail);
 
   if (isNavy) {
