@@ -59,6 +59,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "safe-peptide-handling-and-reconstitution": "/library/sterile-preparation-integrity",
   "sanitization-and-aseptic-technique-fundamentals": "/library/aseptic-technique",
   "the-science-of-aging-and-trt": "/library/endocrinological-context",
+  "dosing-guidance-summaries-for-common-compounds": "/library/reference-dosing-ranges",
 };
 
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
