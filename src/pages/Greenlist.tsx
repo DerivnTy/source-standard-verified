@@ -433,18 +433,13 @@ const Greenlist = () => {
                           <div className="text-[14px] font-semibold text-foreground leading-tight truncate">
                             {e.name}
                           </div>
-                          {e.regulatoryAlert && (
-                            <div className="mt-1">
-                              <AlertInline entry={e} />
-                            </div>
-                          )}
                         </div>
                         <div className="col-span-2 flex items-center gap-2">
                           <span
                             aria-hidden
-                            className={`h-1.5 w-1.5 rounded-full ${CATEGORY_DOT[e.category]}`}
+                            className={`h-1.5 w-1.5 rounded-full ${e.regulatoryAlert ? "bg-destructive" : CATEGORY_DOT[e.category]}`}
                           />
-                          <span className="text-[12px] uppercase tracking-[0.1em] text-muted-foreground">
+                          <span className={`text-[12px] uppercase tracking-[0.1em] ${e.regulatoryAlert ? "text-destructive" : "text-muted-foreground"}`}>
                             {CATEGORY_LABEL[e.category]}
                           </span>
                         </div>
@@ -479,20 +474,15 @@ const Greenlist = () => {
                         <div className="flex items-center gap-1.5 shrink-0">
                           <span
                             aria-hidden
-                            className={`h-1.5 w-1.5 rounded-full ${CATEGORY_DOT[e.category]}`}
+                            className={`h-1.5 w-1.5 rounded-full ${e.regulatoryAlert ? "bg-destructive" : CATEGORY_DOT[e.category]}`}
                           />
-                          <span className="text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
+                          <span className={`text-[11.5px] uppercase tracking-[0.1em] ${e.regulatoryAlert ? "text-destructive" : "text-muted-foreground"}`}>
                             {CATEGORY_LABEL[e.category]}
                           </span>
                         </div>
                       </div>
                       <p className="mt-1 text-[12.5px] text-muted-foreground">{e.location}</p>
                       <p className="mt-0.5 text-[12.5px] text-muted-foreground">{shortFocus(e)}</p>
-                      {e.regulatoryAlert && (
-                        <div className="mt-1.5">
-                          <AlertInline entry={e} />
-                        </div>
-                      )}
                     </Link>
                   ))}
                 </div>
