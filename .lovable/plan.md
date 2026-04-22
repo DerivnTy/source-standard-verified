@@ -1,105 +1,62 @@
 
 
-## Institutional Absolute — Final Production Refinements
+## Deep-Link Polish — Scroll, Smooth Anchors, Coverage Gaps
 
-Layer six tracks of "regulatory chrome" across the platform without disturbing existing copy or routes. All additions are presentational + small utility components.
+Most of this directive is already in place: every Library / FAQ / Analysis / Glossary / About page already carries `RecordHeader` + Reference box + 12-col `BoardSection` split + 14.5px lock + mono accents + `verifiedOn` in `DocSignature` + `Breadcrumb` + `PageMeta` + footnote primitive. This pass closes the four remaining gaps.
 
 ---
 
-### 1 · Data Integrity & Document Metadata
+### 1 · Scroll restoration on route change
 
-**New `DocSignature` component** (`src/components/DocSignature.tsx`)
-Renders below `BoardCiteFooter` on long-form pages:
-```
-AUTHORIZED BY · Source Standard Editorial Board
-AUTH-ID · {hash}     DATA VERIFIED · 04 / 21 / 2026
-```
-Hash is deterministic — derived from the page's `docId` (e.g. `SS-ART-04` → `AUTH-04-XB12`). All-mono, hairline top divider, sits inside the cite band.
+New `src/components/ScrollToTop.tsx` — a route listener that fires `window.scrollTo({ top: 0, left: 0, behavior: "instant" })` on every `location.pathname` change, **unless** the URL carries a `#hash` (in which case it defers to the smooth-anchor handler below).
 
-**`Data Verified` chip in `RecordHeader`**
-Add a `verifiedOn` field to the Reference box rendered as `VERIFIED · 04 / 21 / 26` row, mono. Already present on most docs as `UPDATED` — split into `UPDATED` (last edit) and `VERIFIED` (last factual review). Applied to: every Library / FAQ / Analysis / Glossary / About page, and every `GreenlistProfile` / `VendorProfile`.
+Wired into `App.tsx` as the first child of `<BrowserRouter>`, above `<Routes>`. Zero visual footprint.
 
-### 2 · Typography & Micro-Copy
+### 2 · Smooth anchor jumps (500–800ms)
 
-**Mono accent lock** — audit pass: ensure registration numbers, FDA IDs, dates, version strings, and `§N` markers all use `font-mono` (most already do via `meta` / `tabular-nums`). Add a tiny `<Mono>` helper (`src/components/Mono.tsx`) for inline use in body copy: wraps in `font-mono text-[12.5px] tracking-[0.02em] text-foreground`.
+- Add `html { scroll-behavior: smooth; scroll-padding-top: 96px; }` to `src/index.css` (the padding accounts for `SiteHeader` + sticky `Breadcrumb`/contents bar so anchored sections don't sit under fixed chrome).
+- New `src/hooks/useHashScroll.ts` — on mount and on `location.hash` change, if hash present, `requestAnimationFrame` → `document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth", block: "start" })`. Mounted once inside `SiteLayout` so it covers every route.
+- Harden `Breadcrumb` and any in-page jump links: the existing `<a href="#…">` markup already works with `scroll-behavior: smooth`; no per-page edits required.
 
-**Footnote system** — new `<Footnote>` + `<FootnoteList>` primitives (`src/components/Footnotes.tsx`):
-- `<Footnote n={1}>` → renders `<sup>1</sup>` superscript link to `#fn-1`
-- `<FootnoteList items=[…]>` → bordered band at page bottom, mono `NOTES · §`, ordered list with backlinks
-Wire into `LibraryEndocrinologicalContext`, `LibraryReferenceDosingRanges`, `LibraryAnalysis2026Reclassification`, `FaqLegalRegulatory` where claims need citation.
+### 3 · `Verified` row in the Reference box (RecordHeader)
 
-### 3 · Navigational Intelligence
+`RecordHeader` already accepts `verifiedOn` (added in the prior phase). Audit pass: every page that passes `verifiedOn` to `DocSignature` should also pass it to `RecordHeader` so the chip shows in the right rail at the top, not only at the bottom. Apply to all 18 pages currently using `RecordHeader` + `DocSignature`. One-line edit each — no copy or layout change.
 
-**Contextual breadcrumb** — new `<Breadcrumb>` component (`src/components/Breadcrumb.tsx`, NOT the shadcn one — uses our `meta` mono style):
-```
-REGISTRY · 503B · {FacilityName}
-```
-Hairline bottom border, sits between `SiteHeader` and page header. Applied to:
-- `GreenlistProfile` / `VendorProfile` → Registry > [503B|503A] > Name
-- `LibraryEntry` and all `Library*` pages → Education > [Series] > Title
-- `Faq*` pages → FAQ > [Category]
-- `AdvisorProfile` → Medical Advisory > [Name]
+### 4 · Breadcrumb + PageMeta coverage on remaining deep-link pages
 
-**Download as PDF** — new `<DownloadPdfLink>` component, top-right of `RecordHeader` content rail. Phase 1: print-stylesheet-driven (`window.print()` with a `@media print` block in `index.css` that hides nav/footer and forces single-column). Adds `Download · PDF` mono link with a minimal lucide `Download` icon at 14px. Applied to all Library / FAQ / Analysis / About / Status pages.
+The technical library is covered. Add `<Breadcrumb>` + `<PageMeta>` (and surface `verifiedOn` where the doc has a verified date) on:
 
-### 4 · Visual Security Branding
+- `Governance.tsx` → `About > Governance`
+- `Accountability.tsx` → `About > Accountability`
+- `FAQ.tsx` → `Education > FAQ`
+- `HowToReadTheDirectory.tsx` → `Registry > How to Read`
+- `VendorProfile.tsx` → `Registry > Verified Vendors > {Name}`
+- `MedicalAdvisory.tsx` → `About > Medical Advisory`
+- `AdvisorProfile.tsx` → already has `PageMeta`; confirm and add `Breadcrumb` if missing → `About > Medical Advisory > {Name}`
+- `Privacy.tsx`, `Terms.tsx`, `VerificationDisclaimer.tsx` → `Legal > {Doc}`
+- `Apply.tsx`, `Contact.tsx`, `ReportConcern.tsx`, `ForVendors.tsx` → `Vendors > {Action}`
+- `Education.tsx`, `EducationBasics.tsx`, `EducationGuides.tsx`, `EducationQuestions.tsx` → `Education > {Hub}`
 
-**Faint logo watermark** — add to `BoardSection` an optional `watermark` band for long-form pages. Renders an oversized `Logo` SVG at `opacity-[0.025]` absolute-positioned bottom-right of the section, `pointer-events-none`, `select-none`. Enabled on `MedicalAdvisory`, `About`, `Governance`, `Accountability` only.
-
-**Border discipline pass** — global audit:
-- All cards/tables → `border border-border` with `rounded-[4px]` (containers) / `rounded-[2px]` (chips) / `rounded-[4px]` (buttons — already in `button.tsx`)
-- Kill any remaining `rounded-lg` / `rounded-md` / `rounded-2xl` / opacity-drift borders (`border-border/40` etc.) on top-level surfaces. Confined to: `Education.tsx`, `HowItWorks.tsx`, `Greenlist.tsx`, `VerifiedVendors.tsx`, `Index.tsx`, `MetadataBar.tsx`.
-
-### 5 · Semantic SEO & Accessibility
-
-**Title tag standardization** — install `react-helmet-async` and add a `<PageMeta title="…" description="…" />` wrapper. Wire `Provider` into `App.tsx`. Format: `{Page Name} | Source Standard — The Clinical Transparency Framework`. Apply to every page (one-line addition each).
-
-**Alt-text + aria audit** — pass over: `Logo.tsx` (add `aria-label`), every `<table>` (add `<caption className="sr-only">`), every status swatch / colored dot (add `role="img" aria-label="…"`), every icon-only button (add `aria-label`). Confined to existing components — no copy changes.
-
-### 6 · Interactive Friction Fixes
-
-**Glossary tooltips** — new `<GlossaryTerm term="aseptic">…</GlossaryTerm>` component using existing `tooltip.tsx`. Pulls from a new `src/data/glossary.ts` (~25 terms: aseptic, cGMP, OAI, 503A, 503B, CoA, USP, peptide, sterile, FDA, MOA, NDC, …). Renders the term with a dotted underline, hover/focus shows a 240px tooltip with definition + `Read full → /status-definitions#term`. Wired into the highest-density technical pages (`LibraryAsepticTechnique`, `LibrarySterilePreparationIntegrity`, `LibraryInterpretingCoAs`, `LibraryDualLayerDifference`, `Greenlist`, `VerifiedVendors`).
-
-**Empty states** — `Greenlist.tsx` and `VerifiedVendors.tsx` filter result handlers: when zero rows, render a bordered `bg-surface-muted` block:
-```
-NO VERIFIED ENTITIES FOUND
-Source Standard has not yet audited a facility matching these filters.
-[ Suggest a Facility for Audit → /report-a-concern ]
-```
-Mono eyebrow, 14.5px body, mono CTA. Replaces current blank-tbody behavior.
+All breadcrumbs use the existing custom `<Breadcrumb>` (mono, hairline-bottom). All `<PageMeta>` follow the standard format `{Page} | Source Standard — The Clinical Transparency Framework`.
 
 ---
 
 ### Files touched
 
-**New components/data**
-- `src/components/DocSignature.tsx`
-- `src/components/Mono.tsx`
-- `src/components/Footnotes.tsx`
-- `src/components/Breadcrumb.tsx` (custom, not shadcn)
-- `src/components/DownloadPdfLink.tsx`
-- `src/components/PageMeta.tsx`
-- `src/components/GlossaryTerm.tsx`
-- `src/components/EmptyState.tsx`
-- `src/data/glossary.ts`
+**New**
+- `src/components/ScrollToTop.tsx`
+- `src/hooks/useHashScroll.ts`
 
 **Modified primitives**
-- `src/components/RecordHeader.tsx` — add `verifiedOn` row + `<DownloadPdfLink>` slot
-- `src/components/BoardSection.tsx` — optional `watermark` prop
-- `src/components/Logo.tsx` — `aria-label`
-- `src/index.css` — `@media print` block, watermark utility
+- `src/App.tsx` — mount `<ScrollToTop />` inside `<BrowserRouter>`
+- `src/components/SiteLayout.tsx` — call `useHashScroll()` once
+- `src/index.css` — add `html { scroll-behavior: smooth; scroll-padding-top: 96px; }`
 
-**Wired in**
-- `src/App.tsx` — `HelmetProvider` wrap
-- All Library / FAQ / Analysis / About / Status / Governance / Accountability pages — `<PageMeta>`, `<Breadcrumb>`, `<DocSignature>`, footnotes where applicable, glossary terms where applicable
-- `GreenlistProfile.tsx` / `VendorProfile.tsx` / `AdvisorProfile.tsx` — `<PageMeta>` + `<Breadcrumb>` + verified timestamp
-- `Greenlist.tsx` / `VerifiedVendors.tsx` — `<EmptyState>` for zero-result filters, glossary tooltips on column headers, border discipline pass
-- `Education.tsx` / `HowItWorks.tsx` / `Index.tsx` — border discipline pass
-
-**Dependencies**
-- `react-helmet-async` (single dev dep)
+**Wired in (additive only — copy/layout unchanged)**
+- 18 pages: pass `verifiedOn` into `RecordHeader` alongside `DocSignature`
+- ~14 supporting pages: add `<PageMeta>` + `<Breadcrumb>` headers
 
 ### What stays the same
 
-All routes, all written copy, all data, `RecordHeader` API (additive), `BoardSection` API (additive), `StatusBadge`, `CategoryPill`, `AlertBadge`, `RegulatoryAlert`, the entire MAB DNA layout, registry filtering/sorting/pagination logic, dark-mode behavior, design tokens. Strictly additive chrome + a11y/SEO hygiene.
+All routes, all written copy, all data, the entire MAB DNA layout, registry filtering / sorting / pagination logic, the existing `RecordHeader` / `BoardSection` / `DocSignature` / `Footnote` / `GlossaryTerm` APIs, dark-mode behavior, design tokens. Strictly additive — scroll mechanics + remaining a11y/nav coverage.
 
