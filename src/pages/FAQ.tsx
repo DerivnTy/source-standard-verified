@@ -42,7 +42,7 @@ const groups: { title: string; items: QA[] }[] = [
     items: [
       {
         q: "What does \u201CVerified\u201D mean?",
-        a: "A time-bound determination by the auditing body that the entity has produced records of identity, licensing, sourcing, and public claims sufficient to satisfy the verification protocol (SS-FRAMEWORK-2026.01) at the date of issue.",
+        a: "A time-bound determination by the auditing body that the entity has produced records of identity, licensing, sourcing, and public claims sufficient to satisfy the verification protocol at the date of issue.",
         to: "/how-it-works",
         toLabel: "Verification protocol",
       },

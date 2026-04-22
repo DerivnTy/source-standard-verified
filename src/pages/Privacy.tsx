@@ -25,7 +25,7 @@ const uses = [
 ];
 
 const partitioning = [
-  { p: "Public registry data", v: "Business name, location, scope categories, current status, status date, public references, and any attached public note. Published under SS-FRAMEWORK-2026.01." },
+  { p: "Public registry data", v: "Business name, location, scope categories, current status, status date, public references, and any attached public note." },
   { p: "Protected Audit Material (PAM)", v: "Application materials, licensing records, supplier and pharmacy invoices, certificates of analysis, prescriber credentials, internal review notes, reporter identity, and unredacted contact submissions. Retained internally; not published; not shared outside the audit function except as required by lawful process." },
 ];
 

@@ -56,7 +56,7 @@ const ForVendors = () => {
         ]}
         eyebrow="Submission standard"
         title="Vendor Submission Standard."
-        lead="Technical specifications for the records, credentials, and procurement evidence required at intake. Submitted materials are entered into the controlled audit file and examined under the forensic review protocol (SS-FRAMEWORK-2026.01)."
+        lead="Technical specifications for the records, credentials, and procurement evidence required at intake. Submitted materials are entered into the controlled audit file and examined under the forensic review protocol."
       />
 
       {/* §1 Mandatory Evidentiary Inventory */}
@@ -158,7 +158,7 @@ const ForVendors = () => {
                   Administrative notice · SS-VENDOR-STD-2026.01 · §3
                 </p>
                 <p className="text-[13px] text-foreground leading-relaxed">
-                  Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake does not constitute forensic review. Submitted materials are entered into the controlled audit file and examined under the verification protocol (SS-FRAMEWORK-2026.01) prior to any determination of standing.
+                  Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake does not constitute forensic review. Submitted materials are entered into the controlled audit file and examined under the verification protocol prior to any determination of standing.
                 </p>
               </div>
             </div>
