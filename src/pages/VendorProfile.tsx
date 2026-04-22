@@ -129,7 +129,26 @@ const VendorProfile = () => {
       ? vendor.category
       : undefined;
 
-  const showBeginVerification = status === "unverified" || status === "removed";
+  const verifiedScope =
+    isVerified && vendor.verifiedCategories && vendor.verifiedCategories.length > 0
+      ? vendor.verifiedCategories.join(" · ")
+      : isVerified
+      ? vendor.category
+      : undefined;
+
+  // Verified Drug Scope rendering data
+  const hasGroups =
+    isVerified &&
+    vendor.verifiedScopeGroups &&
+    Object.keys(vendor.verifiedScopeGroups).length > 0;
+  const hasFlatCompounds =
+    isVerified && vendor.verifiedCompounds && vendor.verifiedCompounds.length > 0;
+  const hasCategoryFallback =
+    isVerified &&
+    !hasGroups &&
+    !hasFlatCompounds &&
+    vendor.verifiedCategories &&
+    vendor.verifiedCategories.length > 0;
 
   return (
     <>
@@ -150,6 +169,12 @@ const VendorProfile = () => {
           {/* §1 — Identity row */}
           <div className="flex items-start justify-between gap-6 flex-wrap">
             <div className="min-w-0">
+              <Link
+                to="/verified-vendors"
+                className="text-[12px] text-muted-foreground hover:text-foreground mb-3 inline-block"
+              >
+                ← Back to Directory
+              </Link>
               <h1 className="text-[28px] md:text-[32px] font-semibold tracking-tight text-foreground leading-tight">
                 {vendor.name}
               </h1>
@@ -172,8 +197,8 @@ const VendorProfile = () => {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-4 text-[12.5px]">
-              {vendor.website && (
+            {vendor.website && (
+              <div className="hidden md:flex items-center gap-4 text-[12.5px]">
                 <a
                   href={vendor.website}
                   target="_blank"
@@ -182,14 +207,8 @@ const VendorProfile = () => {
                 >
                   Visit website <ExternalLink className="h-3.5 w-3.5" />
                 </a>
-              )}
-              <Link
-                to="/verified-vendors"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                ← Directory
-              </Link>
-            </div>
+              </div>
+            )}
           </div>
 
           {/* §2 — Profile card */}
@@ -212,9 +231,7 @@ const VendorProfile = () => {
               <Row label="Medical director" value={vendor.medicalDirector} />
               <Row label="Category" value={vendor.category} />
               <Row label="Clinical focus" value={vendor.clinicalFocus} />
-              {vendor.state && (
-                <Row label="State" value={vendor.state} />
-              )}
+              {vendor.state && <Row label="State" value={vendor.state} />}
               {isVerified && verifiedScope && (
                 <Row label="Verified scope" value={verifiedScope} />
               )}
@@ -240,25 +257,91 @@ const VendorProfile = () => {
                   </p>
                 </div>
               )}
+
+              {/* Verified Drug Scope — full-width inside card */}
+              <div className="md:col-span-2 py-4 border-b border-border/50">
+                <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground font-medium">
+                  Verified drug scope
+                </dt>
+                <dd className="mt-2">
+                  {!isVerified && (
+                    <p className="text-[13px] text-muted-foreground leading-[1.6]">
+                      No verified drug scope is currently published.
+                    </p>
+                  )}
+
+                  {isVerified && hasGroups && (
+                    <div className="space-y-4">
+                      {Object.entries(vendor.verifiedScopeGroups!).map(
+                        ([category, compounds]) => (
+                          <div key={category}>
+                            <p className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium mb-1.5">
+                              {category}
+                            </p>
+                            <ul className="text-[14px] text-foreground/90 leading-[1.7]">
+                              {compounds.map((c) => (
+                                <li key={c}>{c}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+
+                  {isVerified && !hasGroups && hasFlatCompounds && (
+                    <ul className="text-[14px] text-foreground/90 leading-[1.7]">
+                      {vendor.verifiedCompounds!.map((c) => (
+                        <li key={c}>{c}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {isVerified && hasCategoryFallback && (
+                    <>
+                      <p className="text-[12.5px] text-muted-foreground italic mb-2">
+                        Verified at category level. Specific compound list pending
+                        publication.
+                      </p>
+                      <ul className="text-[14px] text-foreground/90 leading-[1.7]">
+                        {vendor.verifiedCategories!.map((c) => (
+                          <li key={c}>{c}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+
+                  {isVerified &&
+                    (hasGroups || hasFlatCompounds || hasCategoryFallback) && (
+                      <>
+                        <p className="mt-4 text-[12.5px] text-muted-foreground leading-[1.6]">
+                          Verification applies only to the products listed above.
+                          Other products offered by this vendor are not within the
+                          published scope.
+                        </p>
+                        {vendor.scopeReviewDate && (
+                          <p className="mt-1 text-[12.5px] text-muted-foreground">
+                            Scope reviewed {vendor.scopeReviewDate}.
+                          </p>
+                        )}
+                      </>
+                    )}
+
+                  {isVerified &&
+                    !hasGroups &&
+                    !hasFlatCompounds &&
+                    !hasCategoryFallback && (
+                      <p className="text-[13px] text-muted-foreground leading-[1.6]">
+                        No verified drug scope is currently published.
+                      </p>
+                    )}
+                </dd>
+              </div>
             </dl>
 
             {/* §3 — Action area */}
-            <div className="mt-6 pt-6 border-t border-border/60 flex items-center justify-end gap-5 flex-wrap text-[12.5px]">
-              {showBeginVerification && (
-                <Link
-                  to="/apply"
-                  className="text-primary hover:text-primary-hover font-medium"
-                >
-                  Begin Verification →
-                </Link>
-              )}
-              <Link
-                to="/verified-vendors"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                ← Vendor Registry
-              </Link>
-              {vendor.website && (
+            {vendor.website && (
+              <div className="mt-6 pt-6 border-t border-border/60 flex items-center justify-end gap-5 flex-wrap text-[12.5px]">
                 <a
                   href={vendor.website}
                   target="_blank"
@@ -267,8 +350,8 @@ const VendorProfile = () => {
                 >
                   Visit website <ExternalLink className="h-3.5 w-3.5" />
                 </a>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {/* §4 — Footer micro-line */}
