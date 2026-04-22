@@ -187,7 +187,7 @@ const FAQ = () => (
                 {item.to && (
                   <p className="mt-3">
                     <Link to={item.to} className="text-foreground underline-offset-4 hover:underline">
-                      Read more, {item.toLabel} →
+                      Read more: {item.toLabel} →
                     </Link>
                   </p>
                 )}

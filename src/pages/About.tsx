@@ -187,7 +187,7 @@ const About = () => {
             <ul className="space-y-2.5">
               {weVerify.map((item, i) => (
                 <li key={i} className="text-[14px] text-muted-foreground leading-relaxed">
-                 , {item}
+                  · {item}
                 </li>
               ))}
             </ul>
@@ -197,7 +197,7 @@ const About = () => {
             <ul className="space-y-2.5">
               {weFlag.map((item, i) => (
                 <li key={i} className="text-[14px] text-muted-foreground leading-relaxed">
-                 , {item}
+                  · {item}
                 </li>
               ))}
             </ul>

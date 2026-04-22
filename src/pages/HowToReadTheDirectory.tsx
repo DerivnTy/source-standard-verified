@@ -128,19 +128,19 @@ const HowToReadTheDirectory = () => {
           "How vendor listings are structured.",
           <ul className="space-y-2 list-disc pl-5 text-muted-foreground">
             <li>
-              <span className="text-foreground">Name and location</span>, vendor name and the
+              <span className="text-foreground">Name and location:</span> vendor name and the
               primary city/state of operation.
             </li>
             <li>
-              <span className="text-foreground">Status</span>, current public verification
+              <span className="text-foreground">Status:</span> current public verification
               status (one of five values defined below).
             </li>
             <li>
-              <span className="text-foreground">Review reference</span>, when present, links
+              <span className="text-foreground">Review reference:</span> when present, links
               to the published review record for the vendor.
             </li>
             <li>
-              <span className="text-foreground">Clinical focus</span>, categorization of the
+              <span className="text-foreground">Clinical focus:</span> categorization of the
               vendor's stated clinical scope.
             </li>
           </ul>,
