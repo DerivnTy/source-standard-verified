@@ -8,6 +8,8 @@ import { RegistrySummaryStrip } from "@/components/registry/RegistrySummaryStrip
 import {
   QueryBar,
   FacetSelect,
+  FacetGroup,
+  FacetToggle,
   ActiveChip,
 } from "@/components/registry/QueryBar";
 import { SourceTypeCell } from "@/components/registry/SourceTypeCell";

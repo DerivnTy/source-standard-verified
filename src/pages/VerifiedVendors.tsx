@@ -9,6 +9,9 @@ import { RegistrySummaryStrip } from "@/components/registry/RegistrySummaryStrip
 import {
   QueryBar,
   FacetSelect,
+  FacetGroup,
+  FacetToggle,
+  FacetDivider,
   ActiveChip,
 } from "@/components/registry/QueryBar";
 import { RegistryPagination } from "@/components/registry/RegistryPagination";
