@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
+import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
 import { DocSignature } from "@/components/DocSignature";
 import { Callout, CalloutTitle } from "@/components/Callout";
@@ -59,7 +60,16 @@ const VerificationDisclaimer = () => (
     />
     <Breadcrumb items={[{ label: "Legal" }, { label: "Disclaimer" }]} />
 
+    <BriefingHero
+      variant="chapter"
+      category="Disclaimer · Formal regulatory attestation"
+      docId={DOC_ID}
+      title="Verification Disclaimer & Attestation Scope"
+      statement="The scope, boundaries, time-bound nature, and liability framing of every Source Standard verification determination."
+    />
+
     <RecordHeader
+      compact
       metadata={[
         { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
@@ -67,9 +77,6 @@ const VerificationDisclaimer = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       verifiedOn={VERIFIED_ON}
-      eyebrow="Disclaimer · Formal regulatory attestation"
-      title="Verification Disclaimer & Attestation Scope."
-      lead={`The formal attestation document of the auditing body. Defines the scope, boundaries, time-bound nature, and liability framing of every Source Standard verification determination. Issued under document ${DOC_ID}.`}
     />
 
     <DocJumpBar waypoints={waypoints} />

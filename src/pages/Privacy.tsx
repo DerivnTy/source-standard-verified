@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
+import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
 import { DocSignature } from "@/components/DocSignature";
 import { PageMeta } from "@/components/PageMeta";
@@ -98,7 +99,16 @@ const Privacy = () => (
     />
     <Breadcrumb items={[{ label: "Legal" }, { label: "Privacy" }]} />
 
+    <BriefingHero
+      variant="chapter"
+      category="Policy · Data governance protocol"
+      docId={DOC_ID}
+      title="Data Governance & Privacy Policy"
+      statement="What Source Standard collects, how it is partitioned between public registry and Protected Audit Material, the partners that process it, retention rules, and the rights of individuals whose data is held."
+    />
+
     <RecordHeader
+      compact
       metadata={[
         { label: "Doc", value: DOC_ID },
         { label: "Status", value: "Active" },
@@ -106,9 +116,6 @@ const Privacy = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       verifiedOn={VERIFIED_ON}
-      eyebrow="Policy · Data governance protocol"
-      title="Data Governance & Privacy Policy."
-      lead="The data governance protocol of the auditing body. Defines what information Source Standard collects, how it is partitioned between public registry content and Protected Audit Material, the infrastructure partners that process it, retention and disposal rules, and the rights of individuals whose data is held."
     />
 
     <DocJumpBar waypoints={waypoints} />
