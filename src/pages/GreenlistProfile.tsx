@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 import { ProfileHeader, ProfileFootnote } from "@/components/ProfileHeader";
 import { Section } from "@/components/Section";
 import { Button } from "@/components/ui/button";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenlist";
 
 // Inline meta line: dot-separated row of short scalar values. Skips empties.
