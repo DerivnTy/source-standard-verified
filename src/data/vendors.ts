@@ -6091,6 +6091,50 @@ export const getClinicalFocusOptions = (): string[] => {
   return CLINICAL_FOCUS_OPTIONS.filter((o) => present.has(o));
 };
 
+// ---------- Fulfillment derivation ----------
+// Inferred until vendor records carry an explicit fulfillment field.
+//   - "online":   no physical location, or serviceArea === "Telehealth"
+//   - "hybrid":   physical location AND nationwide / multi-state service area,
+//                 or telehealth focus listed alongside a physical address
+//   - "in-person": physical city/state only
+export type VendorFulfillment = "in-person" | "online" | "hybrid";
+
+export const VENDOR_FULFILLMENT_LABEL: Record<VendorFulfillment, string> = {
+  "in-person": "In-Person",
+  online: "Online",
+  hybrid: "Hybrid",
+};
+
+export const VENDOR_FULFILLMENT_DESC: Record<VendorFulfillment, string> = {
+  "in-person": "Physical clinic or office serving local patients.",
+  online: "Telehealth-only or fully remote care delivery.",
+  hybrid: "Physical presence with broader telehealth or multi-state reach.",
+};
+
+export const getVendorFulfillment = (v: Vendor): VendorFulfillment => {
+  const sv = (v as Vendor & { serviceArea?: string }).serviceArea?.toLowerCase();
+  const focus = (v.clinicalFocus ?? []).map((f) => f.toLowerCase());
+  const hasTelehealthFocus = focus.includes("telehealth");
+  const hasPhysical = Boolean(v.city || v.state);
+
+  if (sv === "telehealth" && !hasPhysical) return "online";
+  if (sv === "telehealth" && hasPhysical) return "hybrid";
+  if (sv === "nationwide" || sv === "multi-state" || sv === "multi-location") {
+    return hasPhysical ? "hybrid" : "online";
+  }
+  if (hasTelehealthFocus && hasPhysical) return "hybrid";
+  if (hasTelehealthFocus && !hasPhysical) return "online";
+  if (!hasPhysical) return "online";
+  return "in-person";
+};
+
+export const getVendorFulfillmentCounts = (): Record<VendorFulfillment, number> => {
+  const c: Record<VendorFulfillment, number> = { "in-person": 0, online: 0, hybrid: 0 };
+  for (const v of vendors) c[getVendorFulfillment(v)]++;
+  return c;
+};
+
+
 // ---------- Back-compat (legacy) ----------
 // Older components may still reference VerificationStatus. Map it to the
 // new public status type.
