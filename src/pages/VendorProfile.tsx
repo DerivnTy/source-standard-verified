@@ -251,7 +251,7 @@ const VendorProfile = () => {
       />
 
       <section className="bg-background">
-        <div className="container-wide pt-5 pb-16">
+        <div className="container-wide pt-4 pb-6">
           {/* Top nav row */}
           <Link
             to="/verified-vendors"
@@ -267,15 +267,15 @@ const VendorProfile = () => {
             {/* Status hairline */}
             <div className={`h-[3px] w-full ${theme.hairline}`} aria-hidden />
 
-            {/* ---------- IDENTITY BAND (locked: px-6 md:px-10 pt-9 pb-8) ---------- */}
-            <header className="px-6 md:px-10 pt-9 pb-8 border-b border-border">
+            {/* ---------- IDENTITY BAND ---------- */}
+            <header className="px-6 md:px-8 pt-6 pb-5 border-b border-border">
               <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
                 {/* Monogram tile */}
                 <div
-                  className={`hidden sm:flex h-20 w-20 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
+                  className={`hidden sm:flex h-16 w-16 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
                   aria-hidden
                 >
-                  <span className="t-section-title-md font-semibold tracking-tight text-foreground">
+                  <span className="t-section-title-sm font-semibold tracking-tight text-foreground">
                     {monogram}
                   </span>
                 </div>
@@ -294,12 +294,12 @@ const VendorProfile = () => {
                     </span>
                   </div>
 
-                  <h1 className="t-page-title font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
+                  <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
                     {vendor.name}
                   </h1>
 
                   {/* Identity meta line */}
-                  <div className="mt-4 flex items-center gap-x-5 gap-y-2 flex-wrap t-body-sm text-foreground">
+                  <div className="mt-3 flex items-center gap-x-4 gap-y-1.5 flex-wrap t-body-sm text-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <FulfillmentIcon
                         className="h-4 w-4 text-muted-foreground"
@@ -360,31 +360,10 @@ const VendorProfile = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-stretch lg:divide-x lg:divide-border">
               {/* ===== Main column (8/12) ===== */}
               <div className="lg:col-span-8">
-                {/* About — locked py-8 md:py-10, min-h to stabilize layout */}
-                <section className="px-6 md:px-10 py-8 md:py-10 border-b border-border">
-                  <SectionHeading eyebrow="Profile">About</SectionHeading>
-                  <div className="min-h-[5.5rem]">
-                    {aboutText ? (
-                      <p className="t-body text-foreground/90 leading-[1.7] max-w-[68ch]">
-                        {aboutText}
-                      </p>
-                    ) : (
-                      <p className="t-body-sm text-muted-foreground italic leading-[1.6] max-w-[68ch]">
-                        No public description on file. Source Standard has not
-                        published an editorial summary for this vendor.
-                      </p>
-                    )}
-                  </div>
-                </section>
-
-                {/* Public Record — locked 6-row, 2-col matrix */}
-                <section
-                  className={`px-6 md:px-10 py-8 md:py-10 ${
-                    isVerified ? "border-b border-border" : ""
-                  }`}
-                >
+                {/* Public Record — locked 6-row, 2-col matrix (first) */}
+                <section className="px-6 md:px-8 py-6 border-b border-border">
                   <SectionHeading eyebrow="Record">Public Record</SectionHeading>
-                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
+                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4">
                     <Field label="Category" value={vendor.category} />
                     <Field
                       label="Fulfillment"
@@ -410,9 +389,30 @@ const VendorProfile = () => {
                   </dl>
                 </section>
 
+                {/* About — moved below Public Record */}
+                <section
+                  className={`px-6 md:px-8 py-6 ${
+                    isVerified ? "border-b border-border" : ""
+                  }`}
+                >
+                  <SectionHeading eyebrow="Profile">About</SectionHeading>
+                  <div>
+                    {aboutText ? (
+                      <p className="t-body-sm text-foreground/90 leading-[1.65] max-w-[68ch]">
+                        {aboutText}
+                      </p>
+                    ) : (
+                      <p className="t-body-sm text-muted-foreground italic leading-[1.55] max-w-[68ch]">
+                        No public description on file. Source Standard has not
+                        published an editorial summary for this vendor.
+                      </p>
+                    )}
+                  </div>
+                </section>
+
                 {/* Verified Scope — verified only */}
                 {isVerified && (
-                  <section className="px-6 md:px-10 py-8 md:py-10">
+                  <section className="px-6 md:px-8 py-6">
                     <div className="flex items-baseline justify-between gap-4 flex-wrap">
                       <SectionHeading eyebrow="Verification">
                         Verified Scope
@@ -472,7 +472,7 @@ const VendorProfile = () => {
 
               {/* ===== Trust Rail (4/12) ===== */}
               <aside className="lg:col-span-4 bg-muted/20">
-                <div className="px-6 md:px-8 py-8 md:py-10">
+                <div className="px-6 md:px-7 py-6">
                   <div className="flex items-center gap-2 mb-5">
                     <ShieldCheck
                       className="h-4 w-4 text-muted-foreground"
