@@ -80,7 +80,7 @@ export const RecordHeader = ({
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-8">
             {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
-            <h1 className="title-page text-foreground max-w-3xl">{title}</h1>
+            {title && <h1 className="title-page text-foreground max-w-3xl">{title}</h1>}
             {lead && (
               <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.65]">
                 {lead}
