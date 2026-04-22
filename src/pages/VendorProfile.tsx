@@ -85,19 +85,19 @@ const Field = ({
   if (Array.isArray(value) && value.length === 0) return null;
   return (
     <div
-      className={`relative pl-4 py-4 border-b border-border/50 ${
-        span ? "md:col-span-2" : ""
+      className={`relative pl-3 py-2 ${
+        span ? "md:col-span-2 lg:col-span-3" : ""
       }`}
     >
       <span
         aria-hidden
-        className={`absolute left-0 top-4 bottom-4 w-[2px] ${tickClassName}`}
+        className={`absolute left-0 top-2 bottom-2 w-[2px] ${tickClassName}`}
       />
       <p className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-medium">
         {label}
       </p>
       <p
-        className={`mt-1.5 t-body-sm text-foreground leading-[1.55] ${
+        className={`mt-1 t-body-sm text-foreground leading-[1.45] ${
           mono ? "font-mono tabular-nums" : ""
         }`}
       >
@@ -106,14 +106,6 @@ const Field = ({
     </div>
   );
 };
-
-const GroupHeader = ({ children }: { children: ReactNode }) => (
-  <div className="md:col-span-2 pt-7 pb-1 first:pt-0">
-    <h3 className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold">
-      {children}
-    </h3>
-  </div>
-);
 
 // ---------- Page ----------
 
