@@ -161,7 +161,7 @@ const FAQ = () => (
     />
 
     {groups.map((g, gi) => (
-      <Section key={g.title} muted={gi % 2 === 1} density="doc">
+      <Section key={g.title} muted={gi % 2 === 1} density="doc" bordered={gi !== 0}>
         <SectionLabel number={`§${gi + 1}`} title={g.title} />
         <Accordion type="single" collapsible className="max-w-3xl">
           {g.items.map((item, i) => (
