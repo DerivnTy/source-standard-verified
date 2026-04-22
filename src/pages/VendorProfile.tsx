@@ -6,7 +6,6 @@ import {
   Vendor,
   VendorPublicStatus,
   VENDOR_STATUS_LABEL,
-  VENDOR_STATUS_DISCLOSURE,
   VENDOR_FULFILLMENT_LABEL,
   getVendorFulfillment,
   VendorFulfillment,
@@ -15,36 +14,19 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { VerificationShield } from "@/components/registry/VerificationShield";
-import { Callout } from "@/components/Callout";
 
 // ---------- Status theming ----------
 
 type Theme = {
-  accent: string; // top border accent class
-  tickAccent: string; // 2px tick on at-a-glance cells
+  tickAccent: string; // 2px tick color used inside the public record
 };
 
 const THEME: Record<VendorPublicStatus, Theme> = {
-  verified: {
-    accent: "border-t-verified",
-    tickAccent: "bg-verified",
-  },
-  "under-review": {
-    accent: "border-t-pending",
-    tickAccent: "bg-pending",
-  },
-  unverified: {
-    accent: "border-t-muted-foreground/40",
-    tickAccent: "bg-muted-foreground/50",
-  },
-  suspended: {
-    accent: "border-t-destructive",
-    tickAccent: "bg-destructive",
-  },
-  removed: {
-    accent: "border-t-muted-foreground/40",
-    tickAccent: "bg-muted-foreground/50",
-  },
+  verified: { tickAccent: "bg-verified" },
+  "under-review": { tickAccent: "bg-pending" },
+  unverified: { tickAccent: "bg-muted-foreground/50" },
+  suspended: { tickAccent: "bg-destructive" },
+  removed: { tickAccent: "bg-muted-foreground/50" },
 };
 
 const FULFILLMENT_ICON: Record<VendorFulfillment, typeof Building2> = {
@@ -68,79 +50,68 @@ const formatLocation = (vendor: Vendor): string =>
     ? `${vendor.city}, ${vendor.state}`
     : vendor.city || vendor.state || "—";
 
+// Full address for in-person / hybrid listings.
+// Street address isn't in the data model yet; we render the most complete
+// address we can build from city/state/zip and label it clearly.
+const formatFullAddress = (vendor: Vendor): string | null => {
+  const parts: string[] = [];
+  const cityState = [vendor.city, vendor.state].filter(Boolean).join(", ");
+  if (cityState) parts.push(cityState);
+  if (vendor.zip) parts.push(vendor.zip);
+  return parts.length ? parts.join(" ") : null;
+};
+
 // Source type — placeholder until modeled in data.
 const sourceTypeFor = (_v: Vendor): string => "503A / 503B / Retail";
 
-// ---------- Primitives ----------
+// ---------- Public Record field primitive ----------
+// Inherits the modular, ticked-cell language from the registry summary strip.
 
-const Row = ({
+const Field = ({
   label,
   value,
-  span,
+  tickClassName = "bg-foreground",
   mono,
+  span,
 }: {
   label: string;
   value: ReactNode;
-  span?: boolean;
+  tickClassName?: string;
   mono?: boolean;
+  span?: boolean;
 }) => {
   if (value === null || value === undefined || value === "" || value === false)
     return null;
   if (Array.isArray(value) && value.length === 0) return null;
   return (
     <div
-      className={`py-3 border-b border-border/50 ${
+      className={`relative pl-4 py-4 border-b border-border/50 ${
         span ? "md:col-span-2" : ""
       }`}
     >
-      <dt className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground font-medium">
+      <span
+        aria-hidden
+        className={`absolute left-0 top-4 bottom-4 w-[2px] ${tickClassName}`}
+      />
+      <p className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-medium">
         {label}
-      </dt>
-      <dd
-        className={`mt-1 t-body-sm text-foreground/90 leading-[1.55] ${
-          mono ? "font-mono" : ""
+      </p>
+      <p
+        className={`mt-1.5 t-body-sm text-foreground leading-[1.55] ${
+          mono ? "font-mono tabular-nums" : ""
         }`}
       >
         {Array.isArray(value) ? (value as string[]).join(", ") : value}
-      </dd>
+      </p>
     </div>
   );
 };
 
 const GroupHeader = ({ children }: { children: ReactNode }) => (
-  <div className="md:col-span-2 pt-5 pb-2">
-    <h3 className="t-utility-xs uppercase tracking-[0.12em] text-foreground font-semibold">
+  <div className="md:col-span-2 pt-7 pb-1 first:pt-0">
+    <h3 className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold">
       {children}
     </h3>
-  </div>
-);
-
-const GlanceCell = ({
-  label,
-  value,
-  tickClassName,
-  mono,
-}: {
-  label: string;
-  value: ReactNode;
-  tickClassName: string;
-  mono?: boolean;
-}) => (
-  <div className="relative pl-3 py-1">
-    <span
-      aria-hidden
-      className={`absolute left-0 top-1 bottom-1 w-[2px] ${tickClassName}`}
-    />
-    <p className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground font-medium">
-      {label}
-    </p>
-    <p
-      className={`mt-1 t-body-sm text-foreground leading-[1.4] ${
-        mono ? "font-mono tabular-nums" : ""
-      }`}
-    >
-      {value}
-    </p>
   </div>
 );
 
@@ -172,6 +143,8 @@ const VendorProfile = () => {
   const fulfillment = getVendorFulfillment(vendor);
   const FulfillmentIcon = FULFILLMENT_ICON[fulfillment];
   const sourceType = sourceTypeFor(vendor);
+  const isPhysical = fulfillment === "in-person" || fulfillment === "hybrid";
+  const fullAddress = isPhysical ? formatFullAddress(vendor) : null;
 
   // Verified Drug Scope rendering data
   const hasGroups =
@@ -209,39 +182,6 @@ const VendorProfile = () => {
     <span className="text-muted-foreground">Not listed</span>
   );
 
-  // Status posture (non-verified)
-  const renderStatusPosture = () => {
-    if (isVerified) return null;
-    if (status === "under-review") {
-      return (
-        <Callout tone="info" eyebrow="Under review">
-          An application is currently under review under the Source Standard
-          framework. No completed verification has been published for this
-          vendor.
-        </Callout>
-      );
-    }
-    if (status === "suspended") {
-      return (
-        <Callout tone="warning" eyebrow="Verification suspended">
-          {VENDOR_STATUS_DISCLOSURE.suspended}
-        </Callout>
-      );
-    }
-    if (status === "removed") {
-      return (
-        <Callout tone="notice" eyebrow="Verification removed">
-          {VENDOR_STATUS_DISCLOSURE.removed}
-        </Callout>
-      );
-    }
-    return (
-      <Callout tone="notice" eyebrow="Not yet verified">
-        {VENDOR_STATUS_DISCLOSURE.unverified}
-      </Callout>
-    );
-  };
-
   return (
     <>
       <PageMeta
@@ -258,7 +198,7 @@ const VendorProfile = () => {
 
       <section className="bg-background">
         <div className="container-wide pt-8 pb-16">
-          {/* §1 — Trust Header */}
+          {/* §1 — Profile Header */}
           <div className="flex items-start justify-between gap-6 flex-wrap">
             <div className="min-w-0 flex-1">
               <Link
@@ -286,10 +226,7 @@ const VendorProfile = () => {
                 )}
                 <span className="text-border">·</span>
                 <span className="inline-flex items-center gap-1">
-                  <FulfillmentIcon
-                    className="h-3.5 w-3.5"
-                    aria-hidden
-                  />
+                  <FulfillmentIcon className="h-3.5 w-3.5" aria-hidden />
                   {VENDOR_FULFILLMENT_LABEL[fulfillment]}
                 </span>
                 <span className="text-border">·</span>
@@ -317,197 +254,165 @@ const VendorProfile = () => {
             )}
           </div>
 
-          {/* §2 — At-a-glance trust strip */}
-          <div
-            className={`mt-6 border border-border border-t-2 ${theme.accent} bg-background`}
-          >
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-4 px-6 py-5">
-              <GlanceCell
-                label="Status"
-                value={VENDOR_STATUS_LABEL[status]}
-                tickClassName={theme.tickAccent}
-              />
-              <GlanceCell
-                label="Fulfillment"
-                value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
-                tickClassName="bg-foreground"
-              />
-              <GlanceCell
-                label="Source type"
-                value={sourceType}
-                tickClassName="bg-foreground"
-                mono
-              />
-              <GlanceCell
-                label="Location"
-                value={location}
-                tickClassName="bg-foreground"
-              />
-              <GlanceCell
-                label="Clinical focus"
-                value={
-                  vendor.clinicalFocus && vendor.clinicalFocus.length > 0
-                    ? vendor.clinicalFocus.slice(0, 2).join(", ")
-                    : "—"
-                }
-                tickClassName="bg-foreground"
-              />
-              <GlanceCell
-                label="Last reviewed"
-                value={vendor.reviewDate || "—"}
-                tickClassName="bg-foreground"
-                mono
-              />
-            </div>
-          </div>
+          {/* §2 — Verified Scope + Exclusions (verified only) */}
+          {isVerified && (
+            <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Verified Scope */}
+              <div className="border border-border bg-background p-7">
+                <div className="flex items-baseline justify-between gap-4 flex-wrap mb-3">
+                  <h2 className="t-section-title-sm font-semibold text-foreground">
+                    Verified Scope
+                  </h2>
+                  {vendor.scopeReviewDate && (
+                    <span className="t-utility-xs font-mono tabular-nums text-muted-foreground">
+                      Scope reviewed {vendor.scopeReviewDate}
+                    </span>
+                  )}
+                </div>
+                <p className="t-body-sm text-muted-foreground leading-[1.6] mb-5">
+                  Verification covers the documented sourcing scope listed
+                  below, reviewed against the Source Standard framework as of
+                  the audit date.
+                </p>
 
-          {/* §3+§4 — Verified Scope + Exclusions, OR §5 Status posture */}
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {isVerified ? (
-              <>
-                {/* Verified Scope */}
-                <div className="border border-border bg-background p-7">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-3">
-                    <h2 className="t-section-title-sm font-semibold text-foreground">
-                      Verified Scope
-                    </h2>
-                    {vendor.scopeReviewDate && (
-                      <span className="t-utility-xs font-mono tabular-nums text-muted-foreground">
-                        Scope reviewed {vendor.scopeReviewDate}
-                      </span>
+                {hasGroups && (
+                  <div className="space-y-4">
+                    {Object.entries(vendor.verifiedScopeGroups!).map(
+                      ([category, compounds]) => (
+                        <div key={category}>
+                          <p className="t-utility-xs uppercase tracking-[0.06em] text-foreground font-semibold mb-1.5">
+                            {category}
+                          </p>
+                          <ul className="t-body-sm text-foreground/90 leading-[1.7] list-disc pl-5">
+                            {compounds.map((c) => (
+                              <li key={c}>{c}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )
                     )}
                   </div>
-                  <p className="t-body-sm text-muted-foreground leading-[1.6] mb-5">
-                    Verification covers the documented sourcing scope listed
-                    below, reviewed against the Source Standard framework as of
-                    the audit date.
-                  </p>
+                )}
 
-                  {hasGroups && (
-                    <div className="space-y-4">
-                      {Object.entries(vendor.verifiedScopeGroups!).map(
-                        ([category, compounds]) => (
-                          <div key={category}>
-                            <p className="t-utility-xs uppercase tracking-[0.06em] text-foreground font-semibold mb-1.5">
-                              {category}
-                            </p>
-                            <ul className="t-body-sm text-foreground/90 leading-[1.7] list-disc pl-5">
-                              {compounds.map((c) => (
-                                <li key={c}>{c}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  )}
+                {!hasGroups && hasFlatCompounds && (
+                  <ul className="t-body-sm text-foreground/90 leading-[1.7] list-disc pl-5">
+                    {vendor.verifiedCompounds!.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                )}
 
-                  {!hasGroups && hasFlatCompounds && (
+                {hasCategoryFallback && (
+                  <>
+                    <p className="t-utility-xs text-muted-foreground italic mb-2">
+                      Verified at category level. Specific compound list
+                      pending publication.
+                    </p>
                     <ul className="t-body-sm text-foreground/90 leading-[1.7] list-disc pl-5">
-                      {vendor.verifiedCompounds!.map((c) => (
+                      {vendor.verifiedCategories!.map((c) => (
                         <li key={c}>{c}</li>
                       ))}
                     </ul>
-                  )}
+                  </>
+                )}
 
-                  {hasCategoryFallback && (
-                    <>
-                      <p className="t-utility-xs text-muted-foreground italic mb-2">
-                        Verified at category level. Specific compound list
-                        pending publication.
-                      </p>
-                      <ul className="t-body-sm text-foreground/90 leading-[1.7] list-disc pl-5">
-                        {vendor.verifiedCategories!.map((c) => (
-                          <li key={c}>{c}</li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-
-                  {!hasGroups &&
-                    !hasFlatCompounds &&
-                    !hasCategoryFallback && (
-                      <p className="t-body-sm text-muted-foreground leading-[1.6]">
-                        No verified drug scope is currently published.
-                      </p>
-                    )}
-
-                  <p className="mt-5 pt-4 border-t border-border/60 t-utility-xs text-muted-foreground leading-[1.6]">
-                    Verification applies only to the products listed.
-                    Other products offered by this vendor are not within the
-                    published scope.
+                {!hasGroups && !hasFlatCompounds && !hasCategoryFallback && (
+                  <p className="t-body-sm text-muted-foreground leading-[1.6]">
+                    No verified drug scope is currently published.
                   </p>
-                </div>
+                )}
 
-                {/* Not Covered */}
-                <div className="border border-border bg-surface/40 p-7">
-                  <h2 className="t-section-title-sm font-semibold text-foreground mb-3">
-                    Not Covered by This Verification
-                  </h2>
-                  <p className="t-body-sm text-muted-foreground leading-[1.6] mb-4">
-                    Verification is bounded. The following are explicitly
-                    outside the scope of this record.
-                  </p>
-                  <ul className="t-body-sm text-foreground/85 leading-[1.7] space-y-2">
-                    {[
-                      "Individual treatment outcomes",
-                      "Products or categories outside the reviewed scope",
-                      "Future conduct beyond the audit date",
-                      "Source relationships not disclosed in the reviewed record",
-                      "Medical efficacy or safety guarantees",
-                    ].map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <span
-                          aria-hidden
-                          className="mt-[0.55em] inline-block h-[3px] w-[3px] rounded-full bg-muted-foreground shrink-0"
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            ) : (
-              <div className="lg:col-span-2">{renderStatusPosture()}</div>
-            )}
-          </div>
+                <p className="mt-5 pt-4 border-t border-border/60 t-utility-xs text-muted-foreground leading-[1.6]">
+                  Verification applies only to the products listed. Other
+                  products offered by this vendor are not within the published
+                  scope.
+                </p>
+              </div>
 
-          {/* §6 — Structured Record */}
-          <div className="mt-8 border border-border bg-background p-7 md:p-9">
-            <h2 className="t-section-title-sm font-semibold text-foreground mb-2">
-              Public Record
-            </h2>
-            <p className="t-body-sm text-muted-foreground leading-[1.6] mb-2">
-              Structured fields tracked for this vendor in the Source Standard
-              registry.
-            </p>
+              {/* Not Covered */}
+              <div className="border border-border bg-surface/40 p-7">
+                <h2 className="t-section-title-sm font-semibold text-foreground mb-3">
+                  Not Covered by This Verification
+                </h2>
+                <p className="t-body-sm text-muted-foreground leading-[1.6] mb-4">
+                  Verification is bounded. The following are explicitly outside
+                  the scope of this record.
+                </p>
+                <ul className="t-body-sm text-foreground/85 leading-[1.7] space-y-2">
+                  {[
+                    "Individual treatment outcomes",
+                    "Products or categories outside the reviewed scope",
+                    "Future conduct beyond the audit date",
+                    "Source relationships not disclosed in the reviewed record",
+                    "Medical efficacy or safety guarantees",
+                  ].map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span
+                        aria-hidden
+                        className="mt-[0.55em] inline-block h-[3px] w-[3px] rounded-full bg-muted-foreground shrink-0"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* §3 — Public Record */}
+          <div className="mt-10 border border-border bg-background px-7 md:px-9 py-8">
+            <div className="flex items-baseline justify-between gap-4 flex-wrap mb-6">
+              <h2 className="t-section-title-sm font-semibold text-foreground">
+                Public Record
+              </h2>
+              <span className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground">
+                Source Standard Directory
+              </span>
+            </div>
 
             <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0">
               <GroupHeader>Identity</GroupHeader>
-              <Row label="Public name" value={vendor.name} />
-              <Row label="Medical director" value={vendor.medicalDirector} />
-              <Row label="Category" value={vendor.category} />
+              <Field
+                label="Public name"
+                value={vendor.name}
+                tickClassName={theme.tickAccent}
+              />
+              <Field label="Category" value={vendor.category} />
+              <Field
+                label="Medical director"
+                value={vendor.medicalDirector}
+                span
+              />
 
               <GroupHeader>Service</GroupHeader>
-              <Row
+              <Field
                 label="Fulfillment"
                 value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
               />
-              <Row label="Clinical focus" value={vendor.clinicalFocus} />
-              <Row label="Location" value={location} />
+              <Field label="Clinical focus" value={vendor.clinicalFocus} />
+              {isPhysical ? (
+                <Field
+                  label="Address"
+                  value={fullAddress || location}
+                  span
+                />
+              ) : (
+                <Field label="Service area" value="Online — nationwide" span />
+              )}
               {(vendor as Vendor & { serviceArea?: string }).serviceArea && (
-                <Row
+                <Field
                   label="States served"
                   value={
                     (vendor as Vendor & { serviceArea?: string }).serviceArea
                   }
+                  span
                 />
               )}
 
               <GroupHeader>Source</GroupHeader>
-              <Row label="Source type" value={sourceType} mono />
+              <Field label="Source type" value={sourceType} mono />
               {isVerified && verifiedScopeSummary && (
-                <Row
+                <Field
                   label="Verified scope summary"
                   value={verifiedScopeSummary}
                 />
@@ -517,19 +422,21 @@ const VendorProfile = () => {
                 <>
                   <GroupHeader>Verification record</GroupHeader>
                   {vendor.reviewId && (
-                    <Row label="Review ID" value={vendor.reviewId} mono />
-                  )}
-                  {vendor.reviewDate && (
-                    <Row label="Last review date" value={vendor.reviewDate} />
-                  )}
-                  {vendor.scopeReviewDate && (
-                    <Row
-                      label="Scope reviewed"
-                      value={vendor.scopeReviewDate}
+                    <Field
+                      label="Review ID"
+                      value={vendor.reviewId}
+                      mono
+                      tickClassName={theme.tickAccent}
                     />
                   )}
+                  {vendor.reviewDate && (
+                    <Field label="Last review date" value={vendor.reviewDate} />
+                  )}
+                  {vendor.scopeReviewDate && (
+                    <Field label="Scope reviewed" value={vendor.scopeReviewDate} />
+                  )}
                   {vendor.publicNote && (
-                    <Row
+                    <Field
                       span
                       label="Upstream source summary"
                       value={vendor.publicNote}
@@ -539,14 +446,16 @@ const VendorProfile = () => {
               )}
 
               <GroupHeader>Public</GroupHeader>
-              <Row label="Website" value={websiteLink} span />
+              <Field label="Website" value={websiteLink} span />
             </dl>
           </div>
 
-          {/* §7 — Footer micro-line */}
+          {/* §4 — Footer micro-line */}
           <p className="mt-8 text-center t-utility-xs text-muted-foreground">
-            Public record · Updated {vendor.reviewDate || "—"} · No payment
-            influences inclusion or status.
+            Public record · {isVerified && vendor.reviewDate
+              ? `Updated ${vendor.reviewDate}`
+              : "Listed in the Source Standard directory"}{" "}
+            · No payment influences inclusion or status.
           </p>
         </div>
       </section>
