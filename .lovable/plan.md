@@ -1,100 +1,83 @@
 
 
-## Vendor Profile — Public Trust Product Restructure
+## Vendor Profile — Single-Card Restructure
 
-Rebuild `src/pages/VendorProfile.tsx` so each profile reads as the public trust product of Source Standard — prestigious for verified vendors, plainly factual for unverified, calmly serious for under-review/suspended/removed. Replace the flat single-column record with a status-led identity hero, an interpretive status panel, an explicit verified-scope block, and a quiet vendor pathway. One structure for all five statuses; status-aware accents only.
-
----
-
-### Section sequence
-
-**1 · Identity hero** (`bg-background`, replaces current `ProfileHeader` invocation — keep the component, refine usage)
-- Eyebrow: existing `EYEBROW_BY_STATUS[vendor.status]`.
-- Title: `vendor.name`.
-- Identity row (one compact line): `StatusBadge` (size `md`) · location (`city, ST`) · `category` · `clinicalFocus[0]` (when present).
-- Lead: one-sentence plain description — prefer `vendor.summary` trimmed to first sentence; otherwise `VENDOR_STATUS_PROFILE_NOTE[status]`. Never paste a multi-paragraph summary in the hero.
-- Right-slot **Status capsule** (refined, replaces current "Status at a glance"): bordered card, status-tinted top border (`border-t-2` in the same color family as the existing `StatusBadge` variant — `verified`, `pending`, `destructive`, `muted-foreground`). Rows: `Status`, `Public since` (when verified — uses `reviewDate`), `Last review`, `Review ID` (verified only, mono), `Renewal interval` (verified — `Annual` constant), `Website` (hostname link, or `Not listed` muted). Filter empty rows.
-- Tighten hero vertical padding so the page leads with information, not whitespace.
-- Remove the existing free-floating `Current note` block from the body — it relocates into Section 4 below.
-
-**2 · What this status means** (`bg-surface-muted`, NEW interpretive anchor)
-Centered `SectionHeader` (eyebrow `Interpretation`, title status-aware: `What "Verified" means` / `What "Unverified" means` / `What "Under Review" means` / `What "Suspended" means` / `What "Removed" means`).
-Below, in a `max-w-3xl` column, three plain rows with hairline dividers:
-- `What it means` — one sentence, status-aware.
-- `What it tells the public` — one sentence.
-- `What it does not imply` — one sentence.
-Status copy lives in a new local `STATUS_INTERPRETATION` map inside the file (not a data-file change). Wording matches the user spec (e.g. Verified: `Records have been reviewed and support the published scope at the time of review.` / Unverified: `No completed Source Standard verification is currently published for this vendor.` / etc.). This block renders on every profile, identical structure, status-swapped wording.
-
-**3 · Public record summary** (`bg-background`)
-Centered `SectionHeader` (`Public record`, lede `The factual record on file with Source Standard.`). Replace the dense 12-col `<dl>` grid with the same plain stacked definition list pattern used on Greenlist profiles in a `max-w-3xl` column — `label-w-44 / value` rows, hairline dividers, only populated rows render. Show:
-- Vendor · Public status · Location · Website · Medical director · Category · Clinical focus · Last review (when present) · Verified scope (verified only) · Review ID (verified only, mono).
-Drop `DLRow` helper; use a small local `Row` matching the Greenlist pattern so the two record types share one visual language.
-
-**4 · Current review note** (conditional, `bg-background`)
-Only renders when `vendor.publicNote` exists AND `status` ∈ {`under-review`, `suspended`, `removed`}. Bordered card with status-tinted left border, eyebrow `Current note · as of {reviewDate || "—"}`, plain paragraph body. Repositioned here so it sits between record and verified-scope, never floating above the record.
-
-**5 · Verified scope** (`bg-surface-muted`)
-Centered `SectionHeader` (`Verified scope`, lede status-aware).
-- **Verified path:** Plain stacked rows in `max-w-3xl`: `Verified category` (joined `verifiedCategories`), `Review date`, `Renewal interval` (`Annual`), `Review ID` (mono). If `verifiedCategories` is empty, fall back to `vendor.category`. Below the rows, a single muted line: `The listing reflects reviewed documentation within this scope at the time of review.`
-- **Non-verified path** (unverified / under-review / suspended / removed): Render a quiet inset block titled `Verification not currently published` with a status-aware one-liner (e.g. unverified → `No completed Source Standard verification is currently published for this vendor. A vendor seeking review may begin the verification process.`). No empty record-grid scaffold.
-
-**6 · Upstream sourcing relationship** (conditional, `bg-background`)
-Renders only when `vendor.publicNote` exists AND `status === "verified"`. Centered `SectionHeader` (`Upstream sourcing`, lede `How this vendor connects to the upstream reference layer.`). One short paragraph in `max-w-3xl` using `vendor.publicNote`. No fabricated relationships when data is absent — the section simply omits.
-
-**7 · Status history** (`bg-surface-muted`)
-Centered `SectionHeader` (`Status history`). Plain stacked rows in `max-w-3xl`, hairline dividers, only populated rows render:
-- `Current status` — `VENDOR_STATUS_LABEL[status]`
-- `Status since` — `reviewDate` (verified) / `—` otherwise
-- `Last review date` — `reviewDate`
-- `Active review` — `Yes` (under-review) / `No` (others)
-- `Lapsed / suspended / removed` — `reviewDate` (when status ∈ those three)
-If fewer than 2 rows populate, render a single muted line: `No prior status events on file.` — prevents a one-row section.
-
-**8 · How to read this listing** (`bg-background`, NEW consumer guidance)
-Centered `SectionHeader` (`How to read this listing`). Three short bullets in `max-w-3xl` with hairline dividers, identical wording across profiles:
-- A verified listing reflects completed review within the published scope.
-- An unverified listing means no completed review is currently published.
-- This page is a public reference. Clinical decisions still belong with licensed providers.
-
-**9 · Vendor pathway** (`bg-surface-muted`, status-aware tone)
-- **Unverified / removed:** Centered `SectionHeader` (`For this vendor`). One factual sentence: `This vendor does not currently have a published Source Standard verification.` + a single quiet primary link `Begin verification → /apply`. Restrained, not salesy.
-- **Verified:** A single quiet line: `This listing is a published Source Standard verification record.` No CTA.
-- **Under review / suspended:** A single muted line stating current standing; no CTA.
-
-**10 · Continue reading — quiet bridge** (`bg-background`)
-Small eyebrow `Continue reading`, four quiet text links in a single row (single column on mobile), hairline dividers between:
-- `Back to Verified Vendors → /verified-vendors`
-- `How Verification Works → /how-it-works`
-- `View Upstream Greenlist → /greenlist`
-- `Status Definitions → /status-definitions`
-
-**11 · Footer**
-Keep `ProfileFootnote` as-is: `Listing` · `Updated` · `Jurisdiction`. Add a short `note` slot beneath: `Public record. No payment influences inclusion or status.` — matches the Greenlist profile footer rhythm.
+Aggressively simplify `src/pages/VendorProfile.tsx`. Strip every interpretive/explanatory section. Replace the multi-section scroll with **one full-width profile card** that holds identity, all record fields, and action buttons. Dense in information, sparse in explanation.
 
 ---
 
-### Status-aware accents (subtle, never loud)
+### What gets removed
 
-- Status capsule uses a 2px top border in the existing `StatusBadge` color family (`verified`, `pending`, `destructive`, `muted-foreground`). No background tints elsewhere — the rest of the page stays neutral.
-- Verified profiles get one extra dignity cue: a small mono `REVIEW ID · {reviewId}` line under the title in the hero (only when `reviewId` exists). This makes verified feel like an indexed public asset.
-- Unverified profiles get no negative styling — neutrality with the absence framed plainly in §2 and §5.
-- Suspended / removed use the existing `destructive` and `muted-foreground` palette only on the status capsule border and the §4 left border.
+- §2 "What this status means" (entire interpretation block)
+- §5 "Verified scope" as a separate section
+- §6 "Upstream sourcing" as a separate section
+- §7 "Status history" as a separate section
+- §8 "How to read this listing" (consumer guidance)
+- §9 "Vendor pathway" as a separate section
+- §10 "Continue reading" bridge section
+- The `STATUS_INTERPRETATION` map (no longer needed)
+- The right-slot "Status capsule" card in the hero
+- The current `ProfileHeader` invocation with eyebrow/identity/lead/rightSlot scaffolding
+- The bottom `ProfileFootnote` band
+
+### New page structure (one screen, one card)
+
+**1 · Compact identity row** (`bg-background`, tight top padding)
+`container-wide`, `pt-8 pb-4`. Single horizontal row:
+- Left: `vendor.name` as `h1` (text-[28px] md:text-[32px] semibold) · directly underneath, a single inline meta line: `StatusBadge` · `location` · `category` · `clinicalFocus[0]` (when present) — separated by middot dividers, all on one line on desktop, wrapping cleanly on mobile.
+- Right (same row, hidden on mobile): primary `Visit website ↗` button + ghost `← Directory` link.
+- No eyebrow, no lead paragraph, no breadcrumbs row above. Keep `Breadcrumb` component but compact.
+
+**2 · Main profile card** (`bg-background`, full-width inside `container-wide`)
+One bordered card (`border border-border`, no shadow, status-tinted 2px top border using existing `CAPSULE_BORDER` map). Internal padding `p-8 md:p-10`. Inside the card, a **2-column grid of record rows** (`grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0`) so the card reads as dense, not stacked. Each row is `label / value`, hairline divider underneath, only populated rows render.
+
+Fields rendered (in order, distributed across the 2 columns):
+- Public status (with inline `StatusBadge`)
+- Legal / public name
+- Brand name (when distinct from `name`)
+- Location
+- Website (hostname link)
+- Medical director
+- Category
+- Clinical focus
+- States of operation (when available)
+- Verified scope (verified only)
+- Last review date (when present)
+- Review ID (verified only, mono)
+- Upstream source summary (verified + `publicNote` only — spans both columns as a short paragraph at the bottom of the grid)
+- Verification status note (non-verified only — single muted line at bottom of grid spanning both columns, e.g. unverified → `No completed Source Standard verification is currently published.`)
+
+**3 · Action area** (inside the same card, separated by a hairline divider, `pt-6 mt-6`)
+Right-aligned cluster of small actions:
+- Primary: `Visit website ↗` (when `vendor.website` exists)
+- Ghost: `← Vendor Registry` → `/verified-vendors`
+- For `unverified` / `removed` only: a quiet additional link `Begin Verification →` `/apply`
+- For `verified`: no extra CTA
+- For `under-review` / `suspended`: no extra CTA
+
+**4 · Footer micro-line** (outside the card, `pt-6 pb-12`)
+Single muted line, centered, `text-[11.5px] text-muted-foreground`:
+`Public record · Updated {reviewDate || "—"} · No payment influences inclusion or status.`
+
+That is the entire page. No additional sections.
+
+---
 
 ### Visual rules
 
-- One consistent profile structure across all 5 statuses; status only swaps copy and the capsule accent.
-- Centered `SectionHeader` rhythm + `max-w-3xl` content columns — matches About / Education / How Verification Works / Greenlist Profile.
-- Surfaces alternate `bg-background` ↔ `bg-surface-muted` between sections 2–10.
-- Hairline dividers via `border-border`. No card shadows. Bordered micro-cards only on the hero status capsule and the §4 current note.
-- Drop the dense 12-col `<dl>` grid; use the same plain stacked rows the Greenlist profile now uses, so the two record types share one visual language.
-- Tighten hero vertical padding so status, identity, and capsule sit above the fold.
-- No promotional language anywhere; no marketing CTAs on verified profiles.
+- One section, one card. No alternating `bg-surface-muted` bands.
+- Tight vertical rhythm: hero identity sits at `pt-8`, card immediately below, footer micro-line below card. Whole page should fit on one screen at 1056×865 with minimal scroll.
+- Status accents are subtle: status-tinted 2px top border on the card only (reuses existing `CAPSULE_BORDER` map).
+- Verified prestige cue retained: small mono `REVIEW ID · {reviewId}` in the card, no other ornament.
+- No interpretive copy anywhere. No "what it means / what it tells the public / what it does not imply." No "How to read this listing." No "Status history" section.
+- Drop the page-level `SectionHeader` component usage on this page.
+- Keep `PageMeta`, `Breadcrumb`, `StatusBadge`, `getVendor`, the `CAPSULE_BORDER` map, the `hostname` and `formatLocation` helpers, the `Row` primitive (refit to grid).
 
 ### Files touched
 
-- `src/pages/VendorProfile.tsx` — full body rewrite. Refine hero (compact identity row, status capsule with status-tinted top border, optional `REVIEW ID` micro-line for verified), add new local `STATUS_INTERPRETATION` map and §2 interpretive block, replace the dense `<dl>` with a Greenlist-style stacked row pattern, reposition the current-note block, add §5 Verified scope (with non-verified fallback), conditionally render §6 Upstream sourcing for verified, add §7 Status history, add §8 How to read this listing, add status-aware §9 Vendor pathway, replace the disclosure block with the §10 Continue-reading bridge, extend `ProfileFootnote` with a one-line public-record note.
+- `src/pages/VendorProfile.tsx` — full body rewrite to the single-card structure above. Remove `STATUS_INTERPRETATION` map, `NOTE_BORDER` map, `firstSentence` helper, `populatedHistory` logic, and `CapsuleRow`. Remove imports of `VENDOR_STATUS_PROFILE_NOTE`, `ProfileHeader`, `ProfileFootnote` (page now owns its own header layout). Repurpose the `Row` primitive to fit a 2-column grid.
 
 ### What stays the same
 
-`ProfileHeader`, `ProfileFootnote`, `StatusBadge`, `Section`, `PageMeta`, `Breadcrumb`, `getVendor`, the `Vendor` / `VendorPublicStatus` types, `VENDOR_STATUS_LABEL`, `VENDOR_STATUS_PROFILE_NOTE`, `VENDOR_STATUS_DISCLOSURE`, the route `/directory/:slug`, all data in `src/data/vendors.ts` (no schema changes), and every other page on the site.
+`StatusBadge`, `PageMeta`, `Breadcrumb`, `getVendor`, the `Vendor` / `VendorPublicStatus` types, `VENDOR_STATUS_LABEL`, the route `/directory/:slug`, all data in `src/data/vendors.ts` (no schema changes), and every other page on the site (Greenlist profile keeps its current structure — this change is scoped to vendor profiles only).
 
