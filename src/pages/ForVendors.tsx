@@ -171,26 +171,6 @@ const ForVendors = () => {
               </Link>
             </div>
           </div>
-
-          {/* Official Citation footer */}
-          <div className="border-t border-border bg-surface-muted px-5 py-6 max-w-4xl mt-8">
-            <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-2">
-              Cite as · SS-VENDOR-STD-2026.01
-            </p>
-            <p className="text-[12.5px] text-foreground leading-relaxed">
-              Source Standard. Vendor Submission Standard. Document SS-VENDOR-STD-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on file with the issuing organization.
-            </p>
-            <p className="font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground mt-2">
-              Controlled standard · See{" "}
-              <Link to="/how-it-works" className="text-foreground hover:text-primary underline-offset-2 hover:underline">
-                SOP: Verification Protocol & Audit Methodology
-              </Link>{" "}
-              · See{" "}
-              <Link to="/accountability" className="text-foreground hover:text-primary underline-offset-2 hover:underline">
-                Compliance Monitoring & Enforcement Protocols
-              </Link>
-            </p>
-          </div>
         </div>
       </section>
     </>

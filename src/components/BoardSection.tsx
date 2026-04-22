@@ -130,15 +130,7 @@ export const BoardFooterNav = ({
 /**
  * BoardCiteFooter — final "Cite as ·" band shared by every MAB-DNA page.
  */
-export const BoardCiteFooter = ({ citation }: { citation: string }) => (
-  <section className="bg-surface-muted py-8">
-    <div className="container-wide">
-      <p className="text-[12.5px] text-muted-foreground leading-[1.7] max-w-4xl">
-        <span className="font-mono uppercase tracking-[0.12em] text-foreground mr-2">
-          Cite as ·
-        </span>
-        {citation}
-      </p>
-    </div>
-  </section>
-);
+export const BoardCiteFooter = ({ citation: _citation }: { citation?: string }) => {
+  // Citation removed sitewide — doc ID + updated date live in top metadata bar
+  return null;
+};

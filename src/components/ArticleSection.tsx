@@ -58,8 +58,8 @@ export const ArticleFooter = ({
   next?: { to: string; label: string };
   citation?: string;
 }) => (
-  <footer className="bg-background border-t border-border mt-16">
-    <div className="container-wide py-10">
+  <footer className="bg-background border-t border-border mt-12">
+    <div className="container-wide py-8">
       <div className="max-w-[760px] mx-auto">
         {(back || next) && (
           <div className="grid md:grid-cols-2 gap-6 md:gap-10">
@@ -89,14 +89,8 @@ export const ArticleFooter = ({
             </div>
           </div>
         )}
-        {citation && (
-          <p className="mt-10 pt-6 border-t border-border text-[12px] leading-[1.7] text-muted-foreground/80">
-            <span className="font-mono uppercase tracking-[0.12em] text-foreground/80 mr-2">
-              Cite as ·
-            </span>
-            {citation}
-          </p>
-        )}
+        {/* Citation removed sitewide — doc ID + updated date live in top metadata bar */}
+        {void citation}
       </div>
     </div>
   </footer>

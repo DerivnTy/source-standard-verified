@@ -207,9 +207,6 @@ const FAQ = () => (
         <li><Link to="/governance" className="text-foreground underline-offset-4 hover:underline">Governance →</Link></li>
         <li><Link to="/verification-disclaimer" className="text-foreground underline-offset-4 hover:underline">Verification Disclaimer →</Link></li>
       </ul>
-      <p className="mt-8 meta-label">
-        Cite as: Source Standard FAQ, SS-FAQ-2026.01.
-      </p>
     </Section>
   </>
 );

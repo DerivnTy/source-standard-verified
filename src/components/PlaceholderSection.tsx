@@ -9,9 +9,6 @@ export const PlaceholderSection = ({ docId, citeName }: { docId: string; citeNam
         version 2026.01. Structural placement and document identifier are final; copy and
         records will be added in a subsequent revision.
       </p>
-      <p className="mt-8 meta-label">
-        Cite as: Source Standard {citeName}, {docId}.
-      </p>
     </Section>
   );
 };
