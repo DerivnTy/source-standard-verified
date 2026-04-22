@@ -3,6 +3,8 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { Section, SectionLabel } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
 import { VendorPublicStatus } from "@/data/vendors";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
@@ -77,6 +79,17 @@ const sectionRow = (
 const HowToReadTheDirectory = () => {
   return (
     <>
+      <PageMeta
+        title="How to Read the Directory"
+        description="Reference guide for interpreting the Source Standard registry: status definitions, scope categories, and citation discipline."
+      />
+      <Breadcrumb
+        items={[
+          { label: "Registry", to: "/verified-vendors" },
+          { label: "How to Read" },
+        ]}
+      />
+
       <RecordHeader
         metadata={[
           { label: "Doc", value: "SS-DIR-GUIDE-2026.01" },

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { SourceCheck } from "@/components/SourceCheck";
 import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import {
   EntryStatus,
   LibraryEntry,
@@ -185,6 +186,12 @@ const SectionRail = ({
 const Education = () => {
   return (
     <>
+      <Breadcrumb
+        items={[
+          { label: "Education" },
+        ]}
+      />
+
       <PageMeta
         title="Education Library"
         description="Foundational series, clinical guides, and analyses on compounding, sourcing, and verification."

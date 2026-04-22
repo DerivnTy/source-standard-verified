@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { UtilityHeader } from "@/components/UtilityHeader";
 import { Section } from "@/components/Section";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import {
   Accordion,
   AccordionContent,
@@ -23,6 +25,17 @@ const GROUP_ORDER: FAQGroup[] = [
 const EducationQuestions = () => {
   return (
     <>
+      <PageMeta
+        title="Common Questions"
+        description="Indexed FAQs across legality, verification methodology, and clinical due diligence."
+      />
+      <Breadcrumb
+        items={[
+          { label: "Education", to: "/education" },
+          { label: "Common Questions" },
+        ]}
+      />
+
       <UtilityHeader
         backHref="/education"
         backLabel="Back to Learn"

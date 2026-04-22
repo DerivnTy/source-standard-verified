@@ -3,6 +3,7 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { DocSignature } from "@/components/DocSignature";
 import { advisoryBoard, responsibilities } from "@/data/advisoryBoard";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
   "advisor-01": "Chair · Evidentiary Standards & Framework Review",
@@ -23,6 +24,13 @@ const RESPONSIBILITY_TITLE_OVERRIDES: Record<string, string> = {
 const MedicalAdvisory = () => {
   return (
     <>
+      <Breadcrumb
+        items={[
+          { label: "About", to: "/about" },
+          { label: "Medical Advisory" },
+        ]}
+      />
+
       <PageMeta
         title="Medical Advisory Board"
         description="The governing clinical body for the Source Standard framework. Ratifies evaluation logic and authorizes versioned revisions."
