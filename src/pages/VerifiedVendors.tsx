@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { AnchorHeader } from "@/components/AnchorHeader";
 import { StatusBadge } from "@/components/StatusBadge";
-import { RegistryLayout, RegistrySection } from "@/components/RegistryLayout";
 import { SourceCheck } from "@/components/SourceCheck";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import {
   vendors,
   Vendor,
@@ -40,7 +44,6 @@ const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
   removed: "Listing has been removed from the public directory.",
 };
 
-// Tone dots used on non-verified status cards.
 const STATUS_DOT: Record<VendorPublicStatus, string> = {
   verified: "bg-[hsl(var(--verified))]",
   "under-review": "bg-[hsl(var(--pending))]",
@@ -165,6 +168,35 @@ const VerifiedVendors = () => {
     setFocus(ALL);
   };
 
+  // Stat strip configuration: Total + 5 statuses
+  const statCards: {
+    key: string;
+    label: string;
+    value: number;
+    desc: string;
+    glyph: "check" | "dot";
+    dot?: string;
+    accent?: boolean;
+  }[] = [
+    {
+      key: "total",
+      label: "Total Tracked",
+      value: vendors.length,
+      desc: "Live count of vendors enrolled in the Source Standard registry, regardless of current status.",
+      glyph: "dot",
+      dot: "bg-foreground/70",
+    },
+    ...STATUS_ORDER.map((s) => ({
+      key: s,
+      label: VENDOR_STATUS_LABEL[s],
+      value: counts[s],
+      desc: STATUS_LEGEND_DESC[s],
+      glyph: (s === "verified" ? "check" : "dot") as "check" | "dot",
+      dot: STATUS_DOT[s],
+      accent: s === "verified",
+    })),
+  ];
+
   return (
     <>
       <AnchorHeader
@@ -173,132 +205,56 @@ const VerifiedVendors = () => {
         lead="Public ledger of vendors assessed against the Source Standard framework. Every listing is anchored to a unique Audit ID."
       />
 
-      <RegistryLayout
-        waypoints={[
-          { id: "total-tracked", number: "01", label: "Total Tracked" },
-          { id: "verified", number: "02", label: "Verified" },
-          { id: "under-review", number: "03", label: "Under Review" },
-          { id: "browse", number: "04", label: "Browse Registry" },
-          { id: "methodology", number: "05", label: "Methodology" },
-        ]}
-      >
-        {/* §01 — Total Tracked headline card */}
-        <RegistrySection
-          id="total-tracked"
-          number="01"
-          title="Total Tracked Entities"
-          description="Live count of vendors enrolled in the Source Standard registry. Each entity is anchored to a permanent audit file regardless of current status."
-          first
-        >
-          <div className="card-elevated p-7 flex items-baseline justify-between">
-            <div>
-              <p className="eyebrow mb-2">Registry population</p>
-              <p className="text-[2.5rem] md:text-[3rem] font-semibold tracking-[-0.02em] text-foreground tabular-nums leading-none">
-                {vendors.length.toString().padStart(2, "0")}
-              </p>
-            </div>
-            <p className="text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
-              Live · SS-REG-2026.01
-            </p>
-          </div>
-        </RegistrySection>
-
-        {/* §02 — Verified card with SourceCheck */}
-        <RegistrySection
-          id="verified"
-          number="02"
-          title="Verified & Status Legend"
-          description="Each listing carries one of five public statuses. Verified records have completed documentation review under the Source Standard framework."
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {STATUS_ORDER.map((s) => {
-              const isVerified = s === "verified";
-              return (
-                <div
-                  key={s}
-                  className={`card-elevated p-5 flex flex-col ${
-                    isVerified ? "border-primary/40 ring-1 ring-primary/15" : ""
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      {isVerified ? (
-                        <SourceCheck size="md" />
+      <section className="bg-background">
+        <div className="container-wide py-8 md:py-10">
+          {/* At-a-Glance stat strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {statCards.map((s) => (
+              <HoverCard key={s.key} openDelay={120} closeDelay={60}>
+                <HoverCardTrigger asChild>
+                  <div
+                    className={`card-elevated p-4 cursor-default ${
+                      s.accent ? "border-primary/40 ring-1 ring-primary/15" : ""
+                    }`}
+                  >
+                    <div className="flex items-center gap-1.5 mb-2">
+                      {s.glyph === "check" ? (
+                        <SourceCheck size="xs" />
                       ) : (
                         <span
                           aria-hidden
-                          className={`inline-block w-2.5 h-2.5 rounded-full ${STATUS_DOT[s]}`}
+                          className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`}
                         />
                       )}
-                      <p className="text-[13px] font-semibold text-foreground">
-                        {VENDOR_STATUS_LABEL[s]}
+                      <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-muted-foreground truncate">
+                        {s.label}
                       </p>
                     </div>
-                    <p className="text-[18px] font-semibold tabular-nums text-foreground leading-none">
-                      {counts[s].toString().padStart(2, "0")}
+                    <p className="text-[1.75rem] font-semibold tabular-nums leading-none text-foreground">
+                      {s.value.toString().padStart(2, "0")}
                     </p>
                   </div>
-                  <p className="text-[12.5px] text-muted-foreground leading-[1.55]">
-                    {STATUS_LEGEND_DESC[s]}
+                </HoverCardTrigger>
+                <HoverCardContent className="w-72 text-[12.5px] leading-[1.6] text-muted-foreground">
+                  <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground">
+                    {s.label}
                   </p>
-                </div>
-              );
-            })}
+                  {s.desc}
+                </HoverCardContent>
+              </HoverCard>
+            ))}
           </div>
-        </RegistrySection>
 
-        {/* §03 — Under Review activity row */}
-        <RegistrySection
-          id="under-review"
-          number="03"
-          title="Active Reviews"
-          description="Vendors currently undergoing audit. Status will resolve to Verified, Unverified, or Suspended once review concludes."
-        >
-          <div className="card-elevated p-5 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span
-                aria-hidden
-                className={`inline-block w-2.5 h-2.5 rounded-full ${STATUS_DOT["under-review"]}`}
-              />
-              <p className="text-[13.5px] text-foreground">
-                <span className="font-semibold tabular-nums">
-                  {counts["under-review"].toString().padStart(2, "0")}
-                </span>{" "}
-                vendors are presently under active review.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setStatus("under-review");
-                document
-                  .getElementById("browse")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="text-[12px] font-medium uppercase tracking-[0.1em] text-primary hover:text-primary-hover"
-            >
-              Filter →
-            </button>
-          </div>
-        </RegistrySection>
-
-        {/* §04 — Browse Registry: filters + table */}
-        <RegistrySection
-          id="browse"
-          number="04"
-          title="Browse Registry"
-          description="Filter, sort, and inspect every record in the registry. Each row links to the full audit profile."
-        >
-          {/* Filter row */}
-          <div className="rounded-lg border border-border/60 bg-surface p-3 mb-4">
+          {/* Sticky filter bar */}
+          <div className="sticky top-[57px] z-20 -mx-4 md:-mx-6 mt-6 px-4 md:px-6 py-2.5 bg-background/85 backdrop-blur-md border-y border-border/60">
             <div className="flex flex-wrap items-center gap-2.5">
-              <div className="relative flex-1 min-w-[200px]">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <div className="relative flex-1 min-w-[280px]">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search by vendor or clinic name"
-                  className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                  placeholder="Search vendors, clinics, cities, or clinical focus…"
+                  className="w-full pl-10 pr-3 h-10 bg-background border border-border/70 rounded-md text-[13.5px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
                   aria-label="Search directory"
                 />
               </div>
@@ -384,7 +340,7 @@ const VerifiedVendors = () => {
                 </button>
               )}
 
-              <p className="meta-label ml-auto">
+              <p className="meta-label ml-auto tabular-nums">
                 {sorted.length === 0
                   ? "0 records"
                   : `${pageStart + 1}–${Math.min(
@@ -395,199 +351,200 @@ const VerifiedVendors = () => {
             </div>
           </div>
 
-          {/* Table / cards */}
-          {sorted.length === 0 ? (
-            <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
-              <p className="meta">
-                {vendors.length === 0
-                  ? "— Directory pending population. First batch import scheduled."
-                  : "— No records match the current filters."}
+          {/* Dense table / cards */}
+          <div className="mt-4">
+            {sorted.length === 0 ? (
+              <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
+                <p className="meta">
+                  {vendors.length === 0
+                    ? "— Directory pending population. First batch import scheduled."
+                    : "— No records match the current filters."}
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="hidden md:block rounded-xl border border-border/60 bg-surface overflow-hidden shadow-sm">
+                  <div className="grid grid-cols-12 px-5 py-2 border-b border-border/60 bg-surface-muted/60">
+                    <div className="col-span-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      Vendor / Clinic
+                    </div>
+                    <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      Status
+                    </div>
+                    <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      City / State
+                    </div>
+                    <div className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      Clinical focus
+                    </div>
+                    <div className="col-span-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground text-right">
+                      Profile
+                    </div>
+                  </div>
+                  {pageItems.map((v) => (
+                    <div
+                      key={v.slug}
+                      className="grid grid-cols-12 px-5 py-2 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/50 transition-colors"
+                    >
+                      <div className="col-span-4 min-w-0 flex items-center gap-2">
+                        {v.status === "verified" && <SourceCheck size="xs" />}
+                        <Link
+                          to={`/directory/${v.slug}`}
+                          className="text-[13px] font-medium text-foreground hover:text-primary truncate leading-tight"
+                        >
+                          {v.name}
+                        </Link>
+                      </div>
+                      <div className="col-span-2">
+                        <StatusBadge status={v.status} />
+                      </div>
+                      <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate leading-tight">
+                        {formatLocation(v)}
+                      </div>
+                      <div className="col-span-3 text-[13px] text-muted-foreground truncate leading-tight">
+                        {(v.clinicalFocus && v.clinicalFocus.length > 0
+                          ? v.clinicalFocus.join(" · ")
+                          : v.category) || "—"}
+                      </div>
+                      <div className="col-span-1 text-right">
+                        <Link
+                          to={`/directory/${v.slug}`}
+                          className="text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary"
+                        >
+                          View →
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="md:hidden space-y-3">
+                  {pageItems.map((v) => (
+                    <Link
+                      key={v.slug}
+                      to={`/directory/${v.slug}`}
+                      className="block card-elevated p-3.5"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                          {v.status === "verified" && <SourceCheck size="xs" />}
+                          <p className="text-[13px] font-medium text-foreground">
+                            {v.name}
+                          </p>
+                        </div>
+                        <StatusBadge status={v.status} />
+                      </div>
+                      <p className="mt-1 text-[12px] text-muted-foreground">
+                        {formatLocation(v)}
+                      </p>
+                      {v.clinicalFocus && v.clinicalFocus.length > 0 && (
+                        <p className="mt-1 text-[12px] text-muted-foreground">
+                          {v.clinicalFocus.join(" · ")}
+                        </p>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {sorted.length > PAGE_SIZE && (
+              <nav
+                className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
+                aria-label="Directory pagination"
+              >
+                <p className="meta-label">
+                  Page {currentPage} of {totalPages}
+                </p>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="h-3 w-3" /> Prev
+                  </button>
+                  {(() => {
+                    const pages: (number | "…")[] = [];
+                    const window = 1;
+                    const add = (n: number | "…") => pages.push(n);
+                    const last = totalPages;
+                    add(1);
+                    const start = Math.max(2, currentPage - window);
+                    const end = Math.min(last - 1, currentPage + window);
+                    if (start > 2) add("…");
+                    for (let i = start; i <= end; i++) add(i);
+                    if (end < last - 1) add("…");
+                    if (last > 1) add(last);
+                    return pages.map((p, i) =>
+                      p === "…" ? (
+                        <span
+                          key={`e-${i}`}
+                          className="px-1 text-[12px] text-muted-foreground"
+                          aria-hidden
+                        >
+                          …
+                        </span>
+                      ) : (
+                        <button
+                          key={p}
+                          onClick={() => setPage(p)}
+                          aria-current={p === currentPage ? "page" : undefined}
+                          className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
+                            p === currentPage
+                              ? "bg-primary text-primary-foreground"
+                              : "border border-border/70 text-foreground hover:bg-surface-muted/60"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      ),
+                    );
+                  })()}
+                  <button
+                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    aria-label="Next page"
+                  >
+                    Next <ChevronRight className="h-3 w-3" />
+                  </button>
+                </div>
+              </nav>
+            )}
+          </div>
+
+          {/* Methodology — collapsed footer */}
+          <details className="mt-10 group rounded-lg border border-border/60 bg-surface">
+            <summary className="cursor-pointer list-none px-5 py-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground">
+              <span>Methodology &amp; Disclaimer</span>
+              <span className="text-[11px] tabular-nums opacity-60 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <div className="px-5 pb-5 pt-1 space-y-3 border-t border-border/50">
+              <p className="text-[13px] text-muted-foreground leading-[1.7]">
+                <span className="font-semibold text-foreground">Note.</span> An
+                Unverified status indicates a lack of administrative transparency
+                and documentation on file. It is an indicator of audit status,
+                not a direct assessment of clinical safety.{" "}
+                <Link
+                  to="/how-to-read-the-directory"
+                  className="text-primary hover:text-primary-hover underline-offset-2 hover:underline"
+                >
+                  Read more
+                </Link>
+                .
+              </p>
+              <p className="text-[13px] text-muted-foreground leading-[1.7]">
+                Directory inclusion does not constitute medical advice, product
+                endorsement, or a guarantee of clinical outcome. Verification,
+                when published, reflects documentation reviewed at the time of
+                assessment under SS-FRAMEWORK-2026.01.
               </p>
             </div>
-          ) : (
-            <>
-              <div className="hidden md:block rounded-xl border border-border/60 bg-surface overflow-hidden shadow-sm">
-                <div className="grid grid-cols-12 px-5 py-2.5 border-b border-border/60 bg-surface-muted/60">
-                  <div className="col-span-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    Vendor / Clinic
-                  </div>
-                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    Status
-                  </div>
-                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    City / State
-                  </div>
-                  <div className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    Clinical focus
-                  </div>
-                  <div className="col-span-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground text-right">
-                    Profile
-                  </div>
-                </div>
-                {pageItems.map((v) => (
-                  <div
-                    key={v.slug}
-                    className="grid grid-cols-12 px-5 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/50 transition-colors"
-                  >
-                    <div className="col-span-4 min-w-0 flex items-center gap-2">
-                      {v.status === "verified" && <SourceCheck size="xs" />}
-                      <Link
-                        to={`/directory/${v.slug}`}
-                        className="text-[13px] font-medium text-foreground hover:text-primary truncate"
-                      >
-                        {v.name}
-                      </Link>
-                    </div>
-                    <div className="col-span-2">
-                      <StatusBadge status={v.status} />
-                    </div>
-                    <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate">
-                      {formatLocation(v)}
-                    </div>
-                    <div className="col-span-3 text-[13px] text-muted-foreground truncate">
-                      {(v.clinicalFocus && v.clinicalFocus.length > 0
-                        ? v.clinicalFocus.join(" · ")
-                        : v.category) || "—"}
-                    </div>
-                    <div className="col-span-1 text-right">
-                      <Link
-                        to={`/directory/${v.slug}`}
-                        className="text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary"
-                      >
-                        View →
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="md:hidden space-y-3">
-                {pageItems.map((v) => (
-                  <Link
-                    key={v.slug}
-                    to={`/directory/${v.slug}`}
-                    className="block card-elevated p-4"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        {v.status === "verified" && <SourceCheck size="xs" />}
-                        <p className="text-[13px] font-medium text-foreground">
-                          {v.name}
-                        </p>
-                      </div>
-                      <StatusBadge status={v.status} />
-                    </div>
-                    <p className="mt-1 text-[12px] text-muted-foreground">
-                      {formatLocation(v)}
-                    </p>
-                    {v.clinicalFocus && v.clinicalFocus.length > 0 && (
-                      <p className="mt-1 text-[12px] text-muted-foreground">
-                        {v.clinicalFocus.join(" · ")}
-                      </p>
-                    )}
-                    <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground">
-                      View profile →
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
-
-          {sorted.length > PAGE_SIZE && (
-            <nav
-              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
-              aria-label="Directory pagination"
-            >
-              <p className="meta-label">
-                Page {currentPage} of {totalPages}
-              </p>
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
-                  aria-label="Previous page"
-                >
-                  <ChevronLeft className="h-3 w-3" /> Prev
-                </button>
-                {(() => {
-                  const pages: (number | "…")[] = [];
-                  const window = 1;
-                  const add = (n: number | "…") => pages.push(n);
-                  const last = totalPages;
-                  add(1);
-                  const start = Math.max(2, currentPage - window);
-                  const end = Math.min(last - 1, currentPage + window);
-                  if (start > 2) add("…");
-                  for (let i = start; i <= end; i++) add(i);
-                  if (end < last - 1) add("…");
-                  if (last > 1) add(last);
-                  return pages.map((p, i) =>
-                    p === "…" ? (
-                      <span
-                        key={`e-${i}`}
-                        className="px-1 text-[12px] text-muted-foreground"
-                        aria-hidden
-                      >
-                        …
-                      </span>
-                    ) : (
-                      <button
-                        key={p}
-                        onClick={() => setPage(p)}
-                        aria-current={p === currentPage ? "page" : undefined}
-                        className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
-                          p === currentPage
-                            ? "bg-primary text-primary-foreground"
-                            : "border border-border/70 text-foreground hover:bg-surface-muted/60"
-                        }`}
-                      >
-                        {p}
-                      </button>
-                    ),
-                  );
-                })()}
-                <button
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
-                  aria-label="Next page"
-                >
-                  Next <ChevronRight className="h-3 w-3" />
-                </button>
-              </div>
-            </nav>
-          )}
-        </RegistrySection>
-
-        {/* §05 — Methodology footer (demoted) */}
-        <RegistrySection
-          id="methodology"
-          number="05"
-          title="Methodology & Disclaimer"
-          description="Technical reference for how this registry is constructed and what its statuses do — and do not — represent."
-        >
-          <div className="card-elevated p-6 space-y-3">
-            <p className="text-[13px] text-muted-foreground leading-[1.7]">
-              <span className="font-semibold text-foreground">Note.</span> An
-              Unverified status indicates a lack of administrative transparency
-              and documentation on file. It is an indicator of audit status, not
-              a direct assessment of clinical safety.{" "}
-              <Link to="/how-to-read-the-directory" className="text-primary hover:text-primary-hover underline-offset-2 hover:underline">
-                Read more
-              </Link>
-              .
-            </p>
-            <p className="text-[13px] text-muted-foreground leading-[1.7]">
-              Directory inclusion does not constitute medical advice, product
-              endorsement, or a guarantee of clinical outcome. Verification, when
-              published, reflects documentation reviewed at the time of
-              assessment under SS-FRAMEWORK-2026.01.
-            </p>
-          </div>
-        </RegistrySection>
-      </RegistryLayout>
+          </details>
+        </div>
+      </section>
     </>
   );
 };

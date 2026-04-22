@@ -2,8 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { AnchorHeader } from "@/components/AnchorHeader";
-import { RegistryLayout, RegistrySection } from "@/components/RegistryLayout";
 import { SourceCheck } from "@/components/SourceCheck";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import {
   greenlistEntries,
   GreenlistEntry,
@@ -23,26 +27,23 @@ type WebsiteFilter = "all" | "yes" | "no";
 
 const CATEGORY_ORDER: GreenlistCategory[] = ["503B", "503A", "Other"];
 
-const SOURCE_TYPE_DEF: { key: GreenlistCategory; title: string; body: string }[] = [
-  {
-    key: "503B",
+const SOURCE_TYPE_DEF: Record<GreenlistCategory, { title: string; body: string }> = {
+  "503B": {
     title: "503B Outsourcing Facility",
     body:
       "Facility registered with the U.S. Food and Drug Administration under Section 503B of the Federal Food, Drug, and Cosmetic Act. Subject to current good manufacturing practice (cGMP) requirements and routine FDA inspection.",
   },
-  {
-    key: "503A",
+  "503A": {
     title: "503A Compounding Pharmacy",
     body:
-      "Pharmacy operating under Section 503A of the Federal Food, Drug, and Cosmetic Act. Licensed by the applicable state board of pharmacy and required to compound in accordance with United States Pharmacopeia (USP) standards, including USP <795>, <797>, and <800>.",
+      "Pharmacy operating under Section 503A of the Federal Food, Drug, and Cosmetic Act. Licensed by the applicable state board of pharmacy and required to compound in accordance with USP <795>, <797>, and <800>.",
   },
-  {
-    key: "Other",
+  Other: {
     title: "Other Qualified Source",
     body:
-      "Additional recognized facility categories, including NSF-certified facilities, ISO-accredited laboratories, hospital-system suppliers, and multi-location compounding networks operating under documented accreditation.",
+      "Additional recognized facility categories, including NSF-certified facilities, ISO-accredited laboratories, hospital-system suppliers, and multi-location compounding networks.",
   },
-];
+};
 
 const CATEGORY_STYLE: Record<GreenlistCategory, { dot: string }> = {
   "503B": { dot: "bg-[hsl(var(--src-503b))]" },
@@ -189,11 +190,32 @@ const Greenlist = () => {
     setWebsite("all");
   };
 
-  const TYPE_COUNT: Record<GreenlistCategory, number> = {
-    "503B": counts["503B"],
-    "503A": counts["503A"],
-    Other: counts.Other,
-  };
+  const statCards: {
+    key: string;
+    label: string;
+    value: number;
+    desc: string;
+    glyph: "check" | "dot";
+    dot?: string;
+    accent?: boolean;
+  }[] = [
+    {
+      key: "total",
+      label: "Total Recognized",
+      value: counts.total,
+      desc: "Live count of upstream facilities recognized under federal registration, state licensure, or accredited credentialing.",
+      glyph: "check",
+      accent: true,
+    },
+    ...CATEGORY_ORDER.map((c) => ({
+      key: c,
+      label: SOURCE_TYPE_DEF[c].title,
+      value: counts[c],
+      desc: SOURCE_TYPE_DEF[c].body,
+      glyph: "dot" as const,
+      dot: CATEGORY_STYLE[c].dot,
+    })),
+  ];
 
   return (
     <>
@@ -203,86 +225,61 @@ const Greenlist = () => {
         lead="Compounding facilities recognized under the framework on the basis of federal registration and state licensure. Inclusion is documentary; it is not a clinical endorsement."
       />
 
-      <RegistryLayout
-        waypoints={[
-          { id: "total", number: "01", label: "Total Recognized" },
-          { id: "type-503b", number: "02", label: "503B Outsourcing" },
-          { id: "type-503a", number: "03", label: "503A Compounding" },
-          { id: "type-other", number: "04", label: "Other Qualified" },
-          { id: "browse", number: "05", label: "Browse Registry" },
-          { id: "standards", number: "06", label: "Inclusion Standards" },
-        ]}
-      >
-        {/* §01 — Total */}
-        <RegistrySection
-          id="total"
-          number="01"
-          title="Total Recognized Facilities"
-          description="Live count of upstream facilities recognized under federal registration, state licensure, or accredited credentialing."
-          first
-        >
-          <div className="card-elevated p-7 flex items-baseline justify-between">
-            <div className="flex items-center gap-4">
-              <SourceCheck size="lg" />
-              <div>
-                <p className="eyebrow mb-2">Greenlist population</p>
-                <p className="text-[2.5rem] md:text-[3rem] font-semibold tracking-[-0.02em] text-foreground tabular-nums leading-none">
-                  {counts.total.toString().padStart(2, "0")}
-                </p>
-              </div>
-            </div>
-            <p className="text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
-              Live · SS-GREENLIST-2026.01
-            </p>
-          </div>
-        </RegistrySection>
-
-        {/* §02–§04 — Source-type cards */}
-        {SOURCE_TYPE_DEF.map((d, i) => (
-          <RegistrySection
-            key={d.key}
-            id={`type-${d.key.toLowerCase()}`}
-            number={String(i + 2).padStart(2, "0")}
-            title={d.title}
-          >
-            <div className="card-elevated p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <span
-                    aria-hidden
-                    className={`inline-block w-2.5 h-2.5 rounded-full ${CATEGORY_STYLE[d.key].dot}`}
-                  />
-                  <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-foreground">
-                    {d.key}
+      <section className="bg-background">
+        <div className="container-wide py-8 md:py-10">
+          {/* At-a-Glance stat strip */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {statCards.map((s) => (
+              <HoverCard key={s.key} openDelay={120} closeDelay={60}>
+                <HoverCardTrigger asChild>
+                  <div
+                    className={`card-elevated p-4 cursor-default ${
+                      s.accent ? "border-primary/40 ring-1 ring-primary/15" : ""
+                    }`}
+                  >
+                    <div className="flex items-center gap-1.5 mb-2">
+                      {s.glyph === "check" ? (
+                        <SourceCheck size="xs" />
+                      ) : (
+                        <span
+                          aria-hidden
+                          className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`}
+                        />
+                      )}
+                      <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-muted-foreground truncate">
+                        {s.key === "total" ? s.label : s.key}
+                      </p>
+                    </div>
+                    <p className="text-[1.75rem] font-semibold tabular-nums leading-none text-foreground">
+                      {s.value.toString().padStart(2, "0")}
+                    </p>
+                    {s.key !== "total" && (
+                      <p className="mt-1 text-[11px] text-muted-foreground truncate">
+                        {s.label.replace(/^503[AB] /, "").replace(/^Other /, "")}
+                      </p>
+                    )}
+                  </div>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80 text-[12.5px] leading-[1.6] text-muted-foreground">
+                  <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground">
+                    {s.label}
                   </p>
-                </div>
-                <p className="text-[22px] font-semibold tabular-nums text-foreground leading-none">
-                  {TYPE_COUNT[d.key].toString().padStart(2, "0")}
-                </p>
-              </div>
-              <p className="text-[13.5px] text-muted-foreground leading-[1.7]">
-                {d.body}
-              </p>
-            </div>
-          </RegistrySection>
-        ))}
+                  {s.desc}
+                </HoverCardContent>
+              </HoverCard>
+            ))}
+          </div>
 
-        {/* §05 — Browse */}
-        <RegistrySection
-          id="browse"
-          number="05"
-          title="Browse Registry"
-          description="Filter, sort, and inspect every recognized facility. Each row links to the full facility profile."
-        >
-          <div className="rounded-lg border border-border/60 bg-surface p-3 mb-4">
+          {/* Sticky filter bar */}
+          <div className="sticky top-[57px] z-20 -mx-4 md:-mx-6 mt-6 px-4 md:px-6 py-2.5 bg-background/85 backdrop-blur-md border-y border-border/60">
             <div className="flex flex-wrap items-center gap-2.5">
-              <div className="relative flex-1 min-w-[200px]">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <div className="relative flex-1 min-w-[280px]">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search by facility, pharmacy, or brand name"
-                  className="w-full pl-9 pr-3 h-9 bg-background border border-border/70 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
+                  placeholder="Search facilities, pharmacies, brands, or focus areas…"
+                  className="w-full pl-10 pr-3 h-10 bg-background border border-border/70 rounded-md text-[13.5px] text-foreground placeholder:text-muted-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/20 focus:border-primary/60"
                   aria-label="Search registry"
                 />
               </div>
@@ -362,7 +359,7 @@ const Greenlist = () => {
                 </button>
               )}
 
-              <p className="meta-label ml-auto">
+              <p className="meta-label ml-auto tabular-nums">
                 {sorted.length === 0
                   ? "0 records"
                   : `${pageStart + 1}–${Math.min(
@@ -373,212 +370,207 @@ const Greenlist = () => {
             </div>
           </div>
 
-          {sorted.length === 0 ? (
-            <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
-              <p className="meta">— No records match the current filters.</p>
-            </div>
-          ) : (
-            <>
-              <div className="hidden md:block rounded-xl border border-border/60 bg-surface overflow-hidden shadow-sm">
-                <div className="grid grid-cols-12 px-5 py-2.5 border-b border-border/60 bg-surface-muted/60">
-                  <div className="col-span-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    Facility / Brand
-                  </div>
-                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    Source Type
-                  </div>
-                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    Location
-                  </div>
-                  <div className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-                    Focus
-                  </div>
-                  <div className="col-span-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground text-right">
-                    Profile
-                  </div>
-                </div>
-                {pageItems.map((e) => (
-                  <div
-                    key={e.name}
-                    className="grid grid-cols-12 px-5 py-3 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/50 transition-colors"
-                  >
-                    <div className="col-span-4 min-w-0 flex items-center gap-2">
-                      <SourceCheck size="xs" />
-                      <Link
-                        to={`/greenlist/${e.slug}`}
-                        className="text-[13px] font-medium text-foreground truncate hover:text-primary"
-                      >
-                        {e.name}
-                      </Link>
-                    </div>
-                    <div className="col-span-2">
-                      <CategoryPill category={e.category} />
-                    </div>
-                    <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate">
-                      {e.location}
-                    </div>
-                    <div className="col-span-3 text-[13px] text-muted-foreground truncate">
-                      {shortFocus(e)}
-                    </div>
-                    <div className="col-span-1 text-right">
-                      <Link
-                        to={`/greenlist/${e.slug}`}
-                        className="text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary"
-                      >
-                        View →
-                      </Link>
-                    </div>
-                  </div>
-                ))}
+          {/* Dense table / cards */}
+          <div className="mt-4">
+            {sorted.length === 0 ? (
+              <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
+                <p className="meta">— No records match the current filters.</p>
               </div>
-
-              <div className="md:hidden space-y-3">
-                {pageItems.map((e) => (
-                  <div key={e.name} className="card-elevated p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-2">
+            ) : (
+              <>
+                <div className="hidden md:block rounded-xl border border-border/60 bg-surface overflow-hidden shadow-sm">
+                  <div className="grid grid-cols-12 px-5 py-2 border-b border-border/60 bg-surface-muted/60">
+                    <div className="col-span-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      Facility / Brand
+                    </div>
+                    <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      Source Type
+                    </div>
+                    <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      Location
+                    </div>
+                    <div className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                      Focus
+                    </div>
+                    <div className="col-span-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground text-right">
+                      Profile
+                    </div>
+                  </div>
+                  {pageItems.map((e) => (
+                    <div
+                      key={e.name}
+                      className="grid grid-cols-12 px-5 py-2 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/50 transition-colors"
+                    >
+                      <div className="col-span-4 min-w-0 flex items-center gap-2">
                         <SourceCheck size="xs" />
                         <Link
                           to={`/greenlist/${e.slug}`}
-                          className="text-[13px] font-medium text-foreground hover:text-primary"
+                          className="text-[13px] font-medium text-foreground truncate hover:text-primary leading-tight"
                         >
                           {e.name}
                         </Link>
                       </div>
-                      <CategoryPill category={e.category} />
+                      <div className="col-span-2">
+                        <CategoryPill category={e.category} />
+                      </div>
+                      <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate leading-tight">
+                        {e.location}
+                      </div>
+                      <div className="col-span-3 text-[13px] text-muted-foreground truncate leading-tight">
+                        {shortFocus(e)}
+                      </div>
+                      <div className="col-span-1 text-right">
+                        <Link
+                          to={`/greenlist/${e.slug}`}
+                          className="text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary"
+                        >
+                          View →
+                        </Link>
+                      </div>
                     </div>
-                    <p className="mt-1 text-[12px] text-muted-foreground">{e.type}</p>
-                    <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
-                    <p className="mt-1 text-[12px] text-muted-foreground">{shortFocus(e)}</p>
-                    <div className="mt-2 flex justify-end">
-                      <Link
-                        to={`/greenlist/${e.slug}`}
-                        className="text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary"
-                      >
-                        View →
-                      </Link>
+                  ))}
+                </div>
+
+                <div className="md:hidden space-y-3">
+                  {pageItems.map((e) => (
+                    <div key={e.name} className="card-elevated p-3.5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                          <SourceCheck size="xs" />
+                          <Link
+                            to={`/greenlist/${e.slug}`}
+                            className="text-[13px] font-medium text-foreground hover:text-primary"
+                          >
+                            {e.name}
+                          </Link>
+                        </div>
+                        <CategoryPill category={e.category} />
+                      </div>
+                      <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
+                      <p className="mt-1 text-[12px] text-muted-foreground">{shortFocus(e)}</p>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
+                  ))}
+                </div>
+              </>
+            )}
 
-          {sorted.length > PAGE_SIZE && (
-            <nav
-              className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
-              aria-label="Registry pagination"
-            >
-              <p className="meta-label">
-                Page {currentPage} of {totalPages}
-              </p>
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
-                  aria-label="Previous page"
-                >
-                  <ChevronLeft className="h-3 w-3" /> Prev
-                </button>
-                {(() => {
-                  const pages: (number | "…")[] = [];
-                  const window = 1;
-                  const add = (n: number | "…") => pages.push(n);
-                  const last = totalPages;
-                  add(1);
-                  const start = Math.max(2, currentPage - window);
-                  const end = Math.min(last - 1, currentPage + window);
-                  if (start > 2) add("…");
-                  for (let i = start; i <= end; i++) add(i);
-                  if (end < last - 1) add("…");
-                  if (last > 1) add(last);
-                  return pages.map((p, i) =>
-                    p === "…" ? (
-                      <span
-                        key={`e-${i}`}
-                        className="px-1 text-[12px] text-muted-foreground"
-                        aria-hidden
-                      >
-                        …
-                      </span>
-                    ) : (
-                      <button
-                        key={p}
-                        onClick={() => setPage(p)}
-                        aria-current={p === currentPage ? "page" : undefined}
-                        className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
-                          p === currentPage
-                            ? "bg-primary text-primary-foreground"
-                            : "border border-border/70 text-foreground hover:bg-surface-muted/60"
-                        }`}
-                      >
-                        {p}
-                      </button>
-                    ),
-                  );
-                })()}
-                <button
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
-                  aria-label="Next page"
-                >
-                  Next <ChevronRight className="h-3 w-3" />
-                </button>
-              </div>
-            </nav>
-          )}
-        </RegistrySection>
-
-        {/* §06 — Inclusion Standards (demoted to footer per directive) */}
-        <RegistrySection
-          id="standards"
-          number="06"
-          title="Inclusion Standards & Disclaimer"
-          description="Technical reference for inclusion criteria. This information was previously displayed above the registry; it has been moved here so that the registry index and data are the first things users see."
-        >
-          <div className="card-elevated p-6 space-y-4">
-            <p className="text-[13.5px] text-muted-foreground leading-[1.7]">
-              A maintained index of compounding facilities recognized under
-              federal registration, state licensure, and accredited credentialing.
-              Inclusion in this registry is the mandatory foundation for any
-              vendor compliance assessment; a vendor cannot be listed in the
-              Vendor Compliance Registry until each declared upstream source is
-              present here.
-            </p>
-            <p className="text-[13px] text-muted-foreground leading-[1.7]">
-              <span className="font-semibold text-foreground">Technical note.</span>{" "}
-              Greenlisted is an audit-framework status used to determine
-              documentation eligibility for upstream sources. It records that a
-              facility's federal registration, state licensure, or recognized
-              accreditation has been verified for inclusion in this registry. It
-              is not a clinical endorsement and does not assess product safety or
-              therapeutic efficacy. Vendor-level audit status is tracked
-              separately on the{" "}
-              <Link to="/verified-vendors" className="text-primary hover:text-primary-hover underline-offset-2 hover:underline">
-                Vendor Compliance Registry
-              </Link>
-              .
-            </p>
-            <div className="pt-3 border-t border-border/50 space-y-2">
-              <p className="text-[12px] text-muted-foreground leading-[1.7]">
-                <span className="font-semibold text-foreground">Cite as.</span>{" "}
-                Source Standard, Public Registry of Recognized Sources,
-                SS-GREENLIST-2026.01. Last updated April 21, 2026.
-              </p>
-              <p className="text-[12px] text-muted-foreground leading-[1.7]">
-                <span className="font-semibold text-foreground">Disclaimer.</span>{" "}
-                Inclusion in this registry indicates recognition as a qualified
-                upstream source under the Source Standard framework. It does not
-                constitute endorsement of any specific product, protocol, or
-                clinical use, and does not replace independent due diligence by
-                prescribers or operators.
-              </p>
-            </div>
+            {sorted.length > PAGE_SIZE && (
+              <nav
+                className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/50 pt-4"
+                aria-label="Registry pagination"
+              >
+                <p className="meta-label">
+                  Page {currentPage} of {totalPages}
+                </p>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="h-3 w-3" /> Prev
+                  </button>
+                  {(() => {
+                    const pages: (number | "…")[] = [];
+                    const window = 1;
+                    const add = (n: number | "…") => pages.push(n);
+                    const last = totalPages;
+                    add(1);
+                    const start = Math.max(2, currentPage - window);
+                    const end = Math.min(last - 1, currentPage + window);
+                    if (start > 2) add("…");
+                    for (let i = start; i <= end; i++) add(i);
+                    if (end < last - 1) add("…");
+                    if (last > 1) add(last);
+                    return pages.map((p, i) =>
+                      p === "…" ? (
+                        <span
+                          key={`e-${i}`}
+                          className="px-1 text-[12px] text-muted-foreground"
+                          aria-hidden
+                        >
+                          …
+                        </span>
+                      ) : (
+                        <button
+                          key={p}
+                          onClick={() => setPage(p)}
+                          aria-current={p === currentPage ? "page" : undefined}
+                          className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
+                            p === currentPage
+                              ? "bg-primary text-primary-foreground"
+                              : "border border-border/70 text-foreground hover:bg-surface-muted/60"
+                          }`}
+                        >
+                          {p}
+                        </button>
+                      ),
+                    );
+                  })()}
+                  <button
+                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/70 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    aria-label="Next page"
+                  >
+                    Next <ChevronRight className="h-3 w-3" />
+                  </button>
+                </div>
+              </nav>
+            )}
           </div>
-        </RegistrySection>
-      </RegistryLayout>
+
+          {/* Inclusion Standards — collapsed footer */}
+          <details className="mt-10 group rounded-lg border border-border/60 bg-surface">
+            <summary className="cursor-pointer list-none px-5 py-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground">
+              <span>Inclusion Standards &amp; Disclaimer</span>
+              <span className="text-[11px] tabular-nums opacity-60 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <div className="px-5 pb-5 pt-1 space-y-4 border-t border-border/50">
+              <p className="text-[13.5px] text-muted-foreground leading-[1.7]">
+                A maintained index of compounding facilities recognized under
+                federal registration, state licensure, and accredited
+                credentialing. Inclusion in this registry is the mandatory
+                foundation for any vendor compliance assessment; a vendor cannot
+                be listed in the Vendor Compliance Registry until each declared
+                upstream source is present here.
+              </p>
+              <p className="text-[13px] text-muted-foreground leading-[1.7]">
+                <span className="font-semibold text-foreground">Technical note.</span>{" "}
+                Greenlisted is an audit-framework status used to determine
+                documentation eligibility for upstream sources. It records that a
+                facility's federal registration, state licensure, or recognized
+                accreditation has been verified for inclusion. It is not a
+                clinical endorsement and does not assess product safety. Vendor
+                audit status is tracked separately on the{" "}
+                <Link
+                  to="/verified-vendors"
+                  className="text-primary hover:text-primary-hover underline-offset-2 hover:underline"
+                >
+                  Vendor Compliance Registry
+                </Link>
+                .
+              </p>
+              <div className="pt-3 border-t border-border/50 space-y-2">
+                <p className="text-[12px] text-muted-foreground leading-[1.7]">
+                  <span className="font-semibold text-foreground">Cite as.</span>{" "}
+                  Source Standard, Public Registry of Recognized Sources,
+                  SS-GREENLIST-2026.01. Last updated April 21, 2026.
+                </p>
+                <p className="text-[12px] text-muted-foreground leading-[1.7]">
+                  <span className="font-semibold text-foreground">Disclaimer.</span>{" "}
+                  Inclusion in this registry indicates recognition as a qualified
+                  upstream source under the Source Standard framework. It does
+                  not constitute endorsement of any specific product, protocol,
+                  or clinical use, and does not replace independent due diligence
+                  by prescribers or operators.
+                </p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
     </>
   );
 };
