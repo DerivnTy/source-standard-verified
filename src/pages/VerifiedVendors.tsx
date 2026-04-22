@@ -386,11 +386,10 @@ const VerifiedVendors = () => {
                       key={v.slug}
                       className="grid grid-cols-12 px-5 py-2 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/50 transition-colors"
                     >
-                      <div className="col-span-4 min-w-0 flex items-center gap-2">
-                        {v.status === "verified" && <SourceCheck size="xs" />}
+                      <div className="col-span-4 min-w-0">
                         <Link
                           to={`/directory/${v.slug}`}
-                          className="text-[13px] font-medium text-foreground hover:text-primary truncate leading-tight"
+                          className="text-[13px] font-medium text-foreground hover:text-primary truncate leading-tight block"
                         >
                           {v.name}
                         </Link>
@@ -426,12 +425,9 @@ const VerifiedVendors = () => {
                       className="block card-elevated p-3.5"
                     >
                       <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-2">
-                          {v.status === "verified" && <SourceCheck size="xs" />}
-                          <p className="text-[13px] font-medium text-foreground">
-                            {v.name}
-                          </p>
-                        </div>
+                        <p className="text-[13px] font-medium text-foreground">
+                          {v.name}
+                        </p>
                         <StatusBadge status={v.status} />
                       </div>
                       <p className="mt-1 text-[12px] text-muted-foreground">

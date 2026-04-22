@@ -401,11 +401,10 @@ const Greenlist = () => {
                       key={e.name}
                       className="grid grid-cols-12 px-5 py-2 border-b border-border/50 last:border-b-0 items-center hover:bg-surface-muted/50 transition-colors"
                     >
-                      <div className="col-span-4 min-w-0 flex items-center gap-2">
-                        <SourceCheck size="xs" />
+                      <div className="col-span-4 min-w-0">
                         <Link
                           to={`/greenlist/${e.slug}`}
-                          className="text-[13px] font-medium text-foreground truncate hover:text-primary leading-tight"
+                          className="text-[13px] font-medium text-foreground truncate hover:text-primary leading-tight block"
                         >
                           {e.name}
                         </Link>
@@ -435,15 +434,12 @@ const Greenlist = () => {
                   {pageItems.map((e) => (
                     <div key={e.name} className="card-elevated p-3.5">
                       <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-2">
-                          <SourceCheck size="xs" />
-                          <Link
-                            to={`/greenlist/${e.slug}`}
-                            className="text-[13px] font-medium text-foreground hover:text-primary"
-                          >
-                            {e.name}
-                          </Link>
-                        </div>
+                        <Link
+                          to={`/greenlist/${e.slug}`}
+                          className="text-[13px] font-medium text-foreground hover:text-primary"
+                        >
+                          {e.name}
+                        </Link>
                         <CategoryPill category={e.category} />
                       </div>
                       <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
