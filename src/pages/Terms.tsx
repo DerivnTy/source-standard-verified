@@ -39,7 +39,7 @@ const Terms = () => (
       lead="The binding user agreement governing access to the Source Standard public registry and any reproduction, citation, or downstream use of its contents. Issued by the auditing body as a version-controlled legal instrument under document SS-TERMS-2026.01."
     />
 
-    <Section density="doc">
+    <Section density="doc" bordered={false}>
       <SectionLabel
         number="§1"
         title="Acceptance of terms"

@@ -38,7 +38,7 @@ const ReportConcern = () => (
       lead="Intake channel for Registry discrepancies, supply-chain alignment concerns, and unauthorized attribution of Source Standard standings. Submissions are screened, triaged, and reconciled against the audit file."
     />
 
-    <Section density="doc">
+    <Section density="doc" bordered={false}>
       <SectionLabel number="§1" title="Investigative Scope." description="Reports falling within the surveillance mandate of the Source Standard framework. The following categories are accepted for review against the audit file." />
       <ul className="space-y-3 max-w-3xl">
         {inScope.map((s, i) => (
