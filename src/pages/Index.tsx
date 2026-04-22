@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { greenlist } from "@/data/greenlist";
 import { AnchorHeader } from "@/components/AnchorHeader";
+import { HeroPattern } from "@/components/HeroPattern";
 
 const lookups = [
   {
@@ -77,8 +78,9 @@ const Index = () => {
       </div>
 
       {/* Institutional hero */}
-      <section className="border-b border-border">
-        <div className="container-wide pt-10 md:pt-12 pb-12 md:pb-14">
+      <section className="relative border-b border-border overflow-hidden">
+        <HeroPattern />
+        <div className="relative container-wide pt-10 md:pt-12 pb-12 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-[65fr_35fr] gap-10 md:gap-12 items-start">
             <div>
               <p className="eyebrow mb-3">Public registry · v2026.01</p>

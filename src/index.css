@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,38 +11,39 @@
 
 @layer base {
   :root {
-    --background: 0 0% 97.6%;
-    --foreground: 215 32% 8%;
+    /* Institutional Modern — Authority Navy + Clinical Teal */
+    --background: 0 0% 98.5%;
+    --foreground: 216 45% 12%;
 
-    /* --surface stays white so cards / inputs / dropdowns sit grounded on the gray page */
+    /* --surface stays white so cards / inputs / dropdowns sit grounded on the page */
     --surface: 0 0% 100%;
-    --surface-muted: 0 0% 97.6%;
-    --surface-sunken: 210 16% 95%;
+    --surface-muted: 210 24% 97%;
+    --surface-sunken: 210 24% 96%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 32% 8%;
+    --card-foreground: 216 45% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 32% 8%;
+    --popover-foreground: 216 45% 12%;
 
-    /* Slate-blue — interface accent (decoupled from status) */
-    --primary: 212 32% 42%;
+    /* Clinical teal — primary interactive / safety-action tone */
+    --primary: 198 78% 36%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 212 34% 36%;
-    --accent-soft: 212 30% 96.5%;
+    --primary-hover: 198 78% 30%;
+    --accent-soft: 198 60% 96%;
 
-    --secondary: 210 16% 96%;
-    --secondary-foreground: 215 32% 10%;
+    --secondary: 210 24% 96%;
+    --secondary-foreground: 216 45% 12%;
 
-    --muted: 210 16% 96%;
-    --muted-foreground: 215 14% 36%;
+    --muted: 210 24% 96%;
+    --muted-foreground: 215 16% 38%;
 
-    --accent: 210 16% 96%;
-    --accent-foreground: 215 32% 10%;
+    --accent: 210 24% 96%;
+    --accent-foreground: 216 45% 12%;
 
-    --verified: 152 45% 22%;
+    --verified: 158 52% 30%;
     --verified-foreground: 0 0% 100%;
-    --verified-soft: 152 30% 95%;
+    --verified-soft: 158 40% 95%;
 
     --pending: 35 60% 36%;
     --pending-soft: 35 50% 95%;
@@ -50,16 +51,16 @@
     --destructive: 0 60% 38%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 89%;
-    --border-strong: 215 18% 74%;
-    --input: 0 0% 84%;
-    --ring: 212 32% 42%;
+    --border: 215 22% 90%;
+    --border-strong: 215 22% 78%;
+    --input: 215 22% 86%;
+    --ring: 198 78% 36%;
 
-    --radius: 0.25rem;
+    --radius: 0.625rem;
 
-    --shadow-sm: 0 1px 0 0 hsl(215 32% 7% / 0.02);
-    --shadow-md: 0 1px 2px 0 hsl(215 32% 7% / 0.03);
-    --shadow-lg: 0 4px 16px -4px hsl(215 32% 7% / 0.04);
+    --shadow-sm: 0 1px 2px 0 hsl(216 45% 12% / 0.04);
+    --shadow-md: 0 6px 20px -8px hsl(216 45% 12% / 0.10);
+    --shadow-lg: 0 16px 40px -12px hsl(216 45% 12% / 0.14);
 
     /* Greenlist source-type accents — muted, professional */
     --src-503b: 152 32% 32%;
@@ -80,18 +81,18 @@
   }
 
   .dark {
-    --background: 215 28% 7%;
-    --foreground: 0 0% 96%;
-    --surface: 215 28% 9%;
-    --surface-muted: 215 24% 11%;
-    --surface-sunken: 215 24% 13%;
-    --card: 215 28% 9%;
-    --card-foreground: 0 0% 96%;
-    --popover: 215 28% 9%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 152 35% 55%;
-    --primary-foreground: 215 28% 9%;
-    --primary-hover: 152 35% 60%;
+    --background: 216 45% 6%;
+    --foreground: 210 24% 96%;
+    --surface: 216 40% 9%;
+    --surface-muted: 216 36% 11%;
+    --surface-sunken: 216 36% 13%;
+    --card: 216 40% 9%;
+    --card-foreground: 210 24% 96%;
+    --popover: 216 40% 9%;
+    --popover-foreground: 210 24% 96%;
+    --primary: 198 78% 52%;
+    --primary-foreground: 216 45% 6%;
+    --primary-hover: 198 78% 58%;
     --secondary: 215 22% 14%;
     --secondary-foreground: 0 0% 96%;
     --muted: 215 22% 14%;
@@ -142,13 +143,13 @@
      This is the single biggest lever against the "DIY website" feel. */
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans text-foreground;
-    font-weight: 500;
+    font-weight: 600;
   }
 
-  h1 { line-height: 1.15; letter-spacing: -0.018em; }
-  h2 { line-height: 1.2; letter-spacing: -0.012em; }
-  h3 { line-height: 1.3; font-weight: 600; }
-  h4 { line-height: 1.35; font-weight: 600; }
+  h1 { line-height: 1.12; letter-spacing: -0.022em; }
+  h2 { line-height: 1.18; letter-spacing: -0.018em; }
+  h3 { line-height: 1.3; font-weight: 600; letter-spacing: -0.012em; }
+  h4 { line-height: 1.35; font-weight: 600; letter-spacing: -0.008em; }
 
   p { line-height: 1.6; }
 }
@@ -158,10 +159,10 @@
      all other anchor pages use display-2. The size difference is
      deliberately small (one type step) — same machine, slightly louder. */
   .display-1 {
-    @apply text-[2.125rem] md:text-[2.625rem] font-medium tracking-[-0.022em] leading-[1.08];
+    @apply text-[2.25rem] md:text-[2.875rem] font-semibold tracking-[-0.028em] leading-[1.05];
   }
   .display-2 {
-    @apply text-[1.875rem] md:text-[2.25rem] font-medium tracking-[-0.02em] leading-[1.1];
+    @apply text-[2rem] md:text-[2.375rem] font-semibold tracking-[-0.024em] leading-[1.08];
   }
 
   /* Page title — single H1 token used across every internal page
@@ -275,21 +276,34 @@
      space-section-tight → helper bands, status legends, scope notes,
                             cite-as strips, form sections */
   .space-section {
-    @apply py-16 md:py-20;
+    @apply py-20 md:py-28;
   }
   .space-section-doc {
-    @apply py-12 md:py-16;
+    @apply py-16 md:py-20;
   }
   .space-section-tight {
-    @apply py-8 md:py-10;
+    @apply py-12 md:py-16;
   }
 
   /* Legacy aliases — keep old class names working until callers migrate. */
   .section {
-    @apply py-16 md:py-20;
+    @apply py-20 md:py-28;
   }
   .section-tight {
-    @apply py-8 md:py-10;
+    @apply py-12 md:py-16;
+  }
+
+  /* Elevated card chrome — institutional depth without Material flatness. */
+  .card-elevated {
+    @apply bg-surface border border-border/60 rounded-xl shadow-sm transition-all duration-200;
+  }
+  .card-elevated:hover {
+    @apply shadow-md border-border-strong/50;
+  }
+
+  /* Soft surface band — replacement for flat gray separators. */
+  .surface-band {
+    background-color: hsl(var(--surface-sunken) / 0.6);
   }
 }
 

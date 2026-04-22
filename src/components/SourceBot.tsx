@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Send, ShieldCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HeroPattern } from "./HeroPattern";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
 const SEED_MESSAGE: ChatMessage = {
   role: "assistant",
   content:
-    "Hello! I am the Source Standard Assistant. I can help you understand peptide safety, 503A/B regulations, or how our verification process works. What can I help you find today?",
+    "Hello! I am the Clinical Assistant. I can help you understand peptide safety, 503A/B regulations, or how our verification process works. What can I help you find today?",
 };
 
 export const SourceBot = () => {
@@ -46,18 +47,19 @@ export const SourceBot = () => {
       {open && (
         <div
           role="dialog"
-          aria-label="Source Standard Assistant"
-          className="fixed bottom-24 right-6 z-50 flex flex-col w-[380px] max-w-[calc(100vw-3rem)] h-[560px] max-h-[calc(100vh-8rem)] rounded-xl border border-border/60 bg-background shadow-xl overflow-hidden"
+          aria-label="Clinical Assistant"
+          className="fixed bottom-24 right-6 z-50 flex flex-col w-[380px] max-w-[calc(100vw-3rem)] h-[560px] max-h-[calc(100vh-8rem)] rounded-xl border border-border/60 bg-background shadow-lg overflow-hidden"
         >
           {/* Header */}
-          <div className="flex items-start justify-between gap-3 border-b border-border/50 px-4 py-3">
-            <div className="flex items-start gap-3">
+          <div className="relative flex items-start justify-between gap-3 border-b border-border/50 px-4 py-3 overflow-hidden">
+            <HeroPattern opacity={0.05} />
+            <div className="relative flex items-start gap-3">
               <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background">
                 <ShieldCheck className="h-4 w-4" />
               </div>
               <div>
                 <p className="text-[13.5px] font-semibold text-foreground leading-tight">
-                  Source Standard Assistant
+                  Clinical Assistant
                 </p>
                 <p className="mt-0.5 text-[11px] text-muted-foreground">
                   Educational reference · not medical advice
@@ -67,7 +69,7 @@ export const SourceBot = () => {
             <button
               onClick={() => setOpen(false)}
               aria-label="Close assistant"
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="relative text-muted-foreground hover:text-foreground transition-colors"
             >
               <X className="h-4 w-4" />
             </button>
@@ -124,7 +126,7 @@ export const SourceBot = () => {
       {/* Floating Action Button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close Source Standard Assistant" : "Open Source Standard Assistant"}
+        aria-label={open ? "Close Clinical Assistant" : "Open Clinical Assistant"}
         aria-expanded={open}
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
