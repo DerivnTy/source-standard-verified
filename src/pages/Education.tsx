@@ -269,13 +269,9 @@ const Education = () => {
             <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.
             </p>
-            {filteredGuides.length ? (
-              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredGuides.map((e) => <LibraryTile key={e.id} entry={e} />)}
-              </div>
-            ) : (
-              <EmptyNote />
-            )}
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {guidesPreview.map((e) => <LibraryTile key={e.id} entry={e} />)}
+            </div>
             <div className="mt-10 flex justify-end">
               <Link
                 to="/education/guides"
