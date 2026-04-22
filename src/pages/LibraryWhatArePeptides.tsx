@@ -1,13 +1,12 @@
-import { RecordHeader } from "@/components/RecordHeader";
+import { ArticleHeader } from "@/components/ArticleHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { DocSignature } from "@/components/DocSignature";
 import {
-  BoardSection,
+  ArticleSection,
+  ArticleFooter,
   BoardDefList,
-  BoardFooterNav,
-  BoardCiteFooter,
-} from "@/components/BoardSection";
+} from "@/components/ArticleSection";
 
 const DOC_ID = "SS-SERIES-000A";
 
@@ -19,31 +18,24 @@ const LibraryWhatArePeptides = () => {
           { label: "Resource Library", to: "/education" },
           { label: "Foundational Series" },
         ]} />
-      <RecordHeader
+      <ArticleHeader
         eyebrow="Source Standard · Foundational Series"
         title="What Are Peptides?"
         lead="A plain-language introduction to peptides, their clinical utility, and the critical importance of sourcing integrity."
         metadata={[
-          { label: "Doc", value: DOC_ID },
-          { label: "Status", value: "Active / Public Reference" },
-          { label: "Jurisdiction", value: "United States" },
           { label: "Updated", value: "04 / 21 / 2026" },
+          { label: "Status", value: "Active / Public Reference" },
+          { label: "Doc", value: DOC_ID },
         ]}
-        verifiedOn="04 / 21 / 2026"
       />
 
-      <BoardSection n={1} category="Foundation" title="The biological blueprint.">
+      <ArticleSection n={1} title="The biological blueprint.">
         <p>
           Peptides are short chains of amino acids, linked together by peptide bonds. Think of them as smaller versions of proteins. While proteins are long, complex chains, peptides are typically comprised of 50 or fewer amino acids. In the human body, these molecules act as highly specific signaling messengers, telling your cells and systems exactly how to function — regulating everything from hormone production and immune response to tissue repair.
         </p>
-      </BoardSection>
+      </ArticleSection>
 
-      <BoardSection
-        n={2}
-        category="Clinical utility"
-        title="How peptides are used in modern care."
-        muted
-      >
+      <ArticleSection n={2} title="How peptides are used in modern care.">
         <p>
           Because peptides are naturally occurring signaling molecules, clinical research has focused on harnessing them for targeted therapies. In modern clinical settings, synthesized peptides are used to:
         </p>
@@ -67,13 +59,9 @@ const LibraryWhatArePeptides = () => {
         <p className="text-foreground font-medium">
           Unlike many synthetic drugs, peptides are designed to mimic the body's own natural processes, which often results in a more favorable safety profile when sourced and administered correctly.
         </p>
-      </BoardSection>
+      </ArticleSection>
 
-      <BoardSection
-        n={3}
-        category="Sourcing crisis"
-        title="Why provenance matters."
-      >
+      <ArticleSection n={3} title="Why provenance matters.">
         <p>
           The rise in peptide popularity has led to a fragmented and high-risk supply chain. Because peptides are complex to manufacture, many 'direct-to-consumer' sources bypass traditional pharmacy regulations.
         </p>
@@ -95,15 +83,14 @@ const LibraryWhatArePeptides = () => {
         <p className="text-foreground font-medium">
           Peptides are powerful biological tools. Their efficacy is entirely dependent on their purity and the sterile integrity of their source.
         </p>
-      </BoardSection>
+      </ArticleSection>
 
-      <BoardFooterNav
+      <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
-        next={{ to: "/library/interpreting-coas", label: "Next · Interpreting CoAs (SS-SERIES-002)" }}
+        next={{ to: "/library/interpreting-coas", label: "Interpreting CoAs (SS-SERIES-002)" }}
+        citation={`Source Standard, Foundational Series — What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
-
-      <BoardCiteFooter citation={`Source Standard, Foundational Series — What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
-    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
+      <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };
