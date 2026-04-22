@@ -230,7 +230,7 @@ const StatusDefinitions = () => (
       ]}
     />
 
-    <Section density="doc">
+    <Section density="doc" bordered={false}>
       <SectionLabel
         number="§1"
         title="Purpose of the controlled glossary."

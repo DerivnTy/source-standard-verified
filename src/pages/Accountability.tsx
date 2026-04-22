@@ -76,7 +76,7 @@ const Accountability = () => (
       lead="Attestations accepted by Verified entities, Mandatory Disclosure Events, audit re-opening triggers, and the graduated enforcement actions available to the framework when compliance obligations are not met."
     />
 
-    <Section density="doc">
+    <Section density="doc" bordered={false}>
       <SectionLabel
         number="§1"
         title="Attestations of Continuous Compliance."

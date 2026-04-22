@@ -58,7 +58,7 @@ const VerificationDisclaimer = () => (
       lead="The formal attestation document of the auditing body. Defines the scope, boundaries, time-bound nature, and liability framing of every Source Standard verification determination. Issued under document SS-DISCLAIMER-2026.01."
     />
 
-    <Section density="doc">
+    <Section density="doc" bordered={false}>
       <SectionLabel
         number="§1"
         title="Boundaries of Administrative Attestation"

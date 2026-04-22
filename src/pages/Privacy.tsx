@@ -59,7 +59,7 @@ const Privacy = () => (
       lead="The data governance protocol of the auditing body. Defines what information Source Standard collects, how it is partitioned between public registry content and Protected Audit Material, the infrastructure partners that process it, retention and disposal rules, and the rights of individuals whose data is held."
     />
 
-    <Section density="doc">
+    <Section density="doc" bordered={false}>
       <SectionLabel number="§1" title="Data collected" />
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
         {collected.map((c) => (
