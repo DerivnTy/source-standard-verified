@@ -3,14 +3,11 @@ import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import {
-  EntryStatus,
   LibraryEntry,
   libraryGuides,
   librarySeries,
   librarySupplementary,
 } from "@/data/library";
-
-const isReadable = (s: EntryStatus) => s === "published";
 
 // Slug-keyed display title overrides (data file unchanged)
 const TITLE_OVERRIDES: Record<string, string> = {
@@ -98,11 +95,19 @@ const CATEGORIES: {
 const basics: LibraryEntry[] = librarySeries.filter((e) => e.level === "intro");
 const basicSlugs = new Set(basics.map((b) => b.slug));
 
-// Trim guides preview
-const guidesPreview = libraryGuides.slice(0, 6);
+// Foundational sourcing entries (intro-level series, plus CoA primer)
+const foundationalEntries: LibraryEntry[] = basics;
 
-// Latest analysis: non-intro series
-const analysisCards: LibraryEntry[] = librarySeries.filter((e) => !basicSlugs.has(e.slug));
+// Clinical handling guides
+const clinicalEntries: LibraryEntry[] = libraryGuides.slice(0, 6);
+
+// Verification & due diligence: non-intro series
+const verificationEntries: LibraryEntry[] = librarySeries.filter(
+  (e) => !basicSlugs.has(e.slug),
+);
+
+// Latest analysis (same source, lighter treatment)
+const analysisEntries: LibraryEntry[] = verificationEntries;
 
 // Featured "Start Here" trio — hardcoded by slug
 const FEATURED_SLUGS = [
@@ -134,360 +139,320 @@ const featuredEntries = FEATURED_SLUGS.map((slug) =>
   allEntries.find((e) => e.slug === slug),
 ).filter((e): e is LibraryEntry => Boolean(e));
 
-// Board-style flat tile (no shadow, hairline border, mono ref + uppercase link)
-const LibraryTile = ({ entry, index }: { entry: LibraryEntry; index: number }) => {
-  const ref = (index + 1).toString().padStart(2, "0");
+// ---------- Shared editorial helpers ----------
+
+const FeatureCard = ({
+  entry,
+  index,
+}: {
+  entry: LibraryEntry;
+  index: number;
+}) => {
+  const ov = FEATURED_OVERRIDES[entry.slug];
+  const ref = String(index + 1).padStart(2, "0");
   return (
     <Link
       to={routeFor(entry.slug)}
-      className="group bg-background p-6 flex flex-col h-full transition-colors hover:bg-surface-muted"
+      className="group bg-background p-7 flex flex-col h-full transition-colors hover:bg-surface-muted"
     >
-      <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground mb-3">
-        ENTRY · {ref}
-      </p>
-      <h3 className="text-[18px] font-semibold leading-snug text-foreground tracking-tight">
-        {displayTitle(entry)}
+      <p className="text-[11px] font-mono text-muted-foreground mb-5">{ref}</p>
+      <h3 className="text-[19px] font-semibold leading-snug tracking-tight text-foreground">
+        {ov?.title ?? displayTitle(entry)}
       </h3>
-      <p className="mt-2 text-[13.5px] text-muted-foreground leading-[1.65]">
-        {entry.summary}
+      <p className="mt-2.5 text-[13.5px] text-muted-foreground leading-[1.65]">
+        {ov?.blurb ?? entry.summary}
       </p>
-      <div className="mt-auto pt-5 flex items-center justify-end border-t border-border mt-5">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground group-hover:text-primary transition-colors">
-          Read article →
-        </span>
-      </div>
+      <span className="mt-5 text-[13px] text-muted-foreground group-hover:text-foreground transition-colors">
+        Read →
+      </span>
     </Link>
   );
 };
 
-// Section header: 12-col left rail (Board pattern)
-const SectionRail = ({
-  ref,
-  label,
+const EntryRow = ({ entry }: { entry: LibraryEntry }) => {
+  const reviewed = entry.lane === "guide";
+  return (
+    <li>
+      <Link
+        to={routeFor(entry.slug)}
+        className="group block px-1 py-5 transition-colors hover:bg-surface-muted/60"
+      >
+        <h3 className="text-[16px] font-semibold leading-snug text-foreground tracking-tight group-hover:text-primary transition-colors">
+          {displayTitle(entry)}
+        </h3>
+        <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-[1.6]">
+          {entry.summary}
+        </p>
+        {reviewed && (
+          <p className="mt-2 text-[12px] text-muted-foreground/80">
+            Reviewed by Medical Advisory Board
+          </p>
+        )}
+      </Link>
+    </li>
+  );
+};
+
+const SectionHeader = ({
+  eyebrow,
   title,
-  body,
+  lede,
 }: {
-  ref: string;
-  label: string;
+  eyebrow: string;
   title: string;
-  body?: string;
+  lede?: string;
 }) => (
-  <div className="md:col-span-4">
-    <p className="meta mb-3">
-      {ref} · {label}
+  <div className="mb-8 max-w-2xl">
+    <p className="text-[11.5px] font-mono uppercase tracking-[0.14em] text-muted-foreground mb-3">
+      {eyebrow}
     </p>
-    <h2 className="h-section">{title}</h2>
-    {body && (
-      <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">{body}</p>
+    <h2 className="text-[24px] md:text-[26px] font-semibold tracking-tight text-foreground">
+      {title}
+    </h2>
+    {lede && (
+      <p className="mt-3 text-[14px] text-muted-foreground leading-relaxed">{lede}</p>
     )}
   </div>
 );
 
+const CategorySection = ({
+  eyebrow,
+  title,
+  lede,
+  entries,
+  footerLabel,
+  footerTo,
+  surface,
+  id,
+}: {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  entries: LibraryEntry[];
+  footerLabel: string;
+  footerTo: string;
+  surface: "background" | "muted";
+  id?: string;
+}) => (
+  <section
+    id={id}
+    className={`border-b border-border ${surface === "muted" ? "bg-surface-muted" : "bg-background"}`}
+  >
+    <div className="container-wide py-12 md:py-16">
+      <SectionHeader eyebrow={eyebrow} title={title} lede={lede} />
+      <ul className="divide-y divide-border border-t border-b border-border">
+        {entries.map((e) => (
+          <EntryRow key={e.id} entry={e} />
+        ))}
+      </ul>
+      <div className="mt-6 flex justify-end">
+        <Link
+          to={footerTo}
+          className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+        >
+          {footerLabel} →
+        </Link>
+      </div>
+    </div>
+  </section>
+);
+
+// ---------- Page ----------
+
 const Education = () => {
   return (
     <>
-      <Breadcrumb
-        items={[
-          { label: "Resource Library" },
-        ]}
-      />
+      <Breadcrumb items={[{ label: "Resource Library" }]} />
 
       <PageMeta
         title="Resource Library"
-        description="Technical documentation, regulatory references, and foundational analysis regarding the industry."
+        description="A curated reference library for sourcing, compounding, verification, and public due diligence."
       />
+
       <BriefingHero
-        category="RESOURCE LIBRARY · SS-EDU"
-        docId="SS-LIB-2026.01"
-        title="Resource Library."
-        statement="Technical documentation, regulatory references, and foundational analysis regarding the industry."
-        metadata={[
-          { label: "Doc", value: "SS-LIB-2026.01" },
-          { label: "Status", value: "Active" },
-          { label: "Jurisdiction", value: "United States" },
-          { label: "Updated", value: "04 / 21 / 2026" },
-        ]}
-        verifiedOn="04 / 21 / 2026"
+        tone="navy"
+        category="Resource Library"
+        docId=""
+        title="Resource Library"
+        statement="A curated reference library for sourcing, compounding, verification, and public due diligence. Reviewed under independent medical oversight."
       />
 
-      {/* §1 Start here — 12-col split, flat Board tiles */}
-      <section className="border-b border-border bg-surface-muted">
+      {/* Start here — featured trio */}
+      <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <SectionRail
-              ref="§1"
-              label="Highly recommended"
-              title="Start here."
-              body="Three short reads that frame everything else in the library."
-            />
-            <div className="md:col-span-8">
-              <ul className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
-                {featuredEntries.map((entry, i) => {
-                  const ov = FEATURED_OVERRIDES[entry.slug];
-                  const ref = String(i + 1).padStart(2, "0");
-                  return (
-                    <li key={entry.slug} className="bg-background">
-                      <Link
-                        to={routeFor(entry.slug)}
-                        className="group flex flex-col h-full p-6 transition-colors hover:bg-surface-muted"
-                      >
-                        <div className="flex items-center justify-between mb-4">
-                          <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-primary">
-                            START · {ref}
-                          </span>
-                          <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
-                            SS-LIB
-                          </span>
-                        </div>
-                        <h3 className="text-[18px] font-semibold leading-snug tracking-tight text-foreground">
-                          {ov?.title ?? displayTitle(entry)}
-                        </h3>
-                        <p className="mt-2 text-[13.5px] text-muted-foreground leading-[1.65]">
-                          {ov?.blurb ?? entry.summary}
-                        </p>
-                        <div className="mt-auto pt-5 mt-5 border-t border-border flex items-center justify-end">
-                          <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground group-hover:text-primary transition-colors">
-                            View →
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
+          <SectionHeader
+            eyebrow="Start here"
+            title="Start here."
+            lede="Three short reads that frame everything else in the library."
+          />
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
+            {featuredEntries.map((entry, i) => (
+              <li key={entry.slug} className="bg-background">
+                <FeatureCard entry={entry} index={i} />
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* §2 Foundational sourcing standards */}
-      <section className="border-b border-border bg-background" id="basics">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <SectionRail
-              ref="§2"
-              label="Foundational sourcing standards"
-              title="Reference foundations."
-              body="Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one."
-            />
-            <div className="md:col-span-8">
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
-                {basics.map((e, i) => (
-                  <li key={e.id} className="bg-background">
-                    <LibraryTile entry={e} index={i} />
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-                <Link
-                  to="/education/basics"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
-                >
-                  View full foundational index →
-                </Link>
-                <a
-                  href="#questions"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground"
-                >
-                  Have a specific question? Regulatory FAQ →
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Foundational sourcing */}
+      <CategorySection
+        id="basics"
+        eyebrow="Foundational sourcing"
+        title="Foundational sourcing."
+        lede="Reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one."
+        entries={foundationalEntries}
+        footerLabel="View full foundational index"
+        footerTo="/education/basics"
+        surface="muted"
+      />
 
-      {/* §3 Clinical handling & aseptic protocols */}
-      <section className="border-b border-border bg-surface-muted" id="guides">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <SectionRail
-              ref="§3"
-              label="Clinical handling & aseptic protocols"
-              title="Technical reference."
-              body="Sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice."
-            />
-            <div className="md:col-span-8">
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
-                {guidesPreview.map((e, i) => (
-                  <li key={e.id} className="bg-background">
-                    <LibraryTile entry={e} index={i} />
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 flex justify-end border-t border-border pt-4">
-                <Link
-                  to="/education/guides"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
-                >
-                  View full clinical protocol index →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Clinical handling & sterile reference */}
+      <CategorySection
+        id="guides"
+        eyebrow="Clinical handling & sterile reference"
+        title="Clinical handling & sterile reference."
+        lede="Sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice."
+        entries={clinicalEntries}
+        footerLabel="View full clinical protocol index"
+        footerTo="/education/guides"
+        surface="background"
+      />
 
-      {/* §4 Public Inquiry — flat FAQ grid (no icons) */}
+      {/* Verification & due diligence */}
+      <CategorySection
+        id="verification"
+        eyebrow="Verification & due diligence"
+        title="Verification & due diligence."
+        lede="What verification actually means, what it does not, and how to read sourcing disclosures from clinics and pharmacies."
+        entries={verificationEntries}
+        footerLabel="View the verification archive"
+        footerTo="/education/questions"
+        surface="muted"
+      />
+
+      {/* Regulatory FAQ — navigational utility row */}
       <section className="border-b border-border bg-background" id="questions">
         <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <SectionRail
-              ref="§4"
-              label="Public inquiry & regulatory FAQ"
-              title="Plain-record answers."
-              body="Organized by inquiry category. Select a category to review its questions, or browse the full archive."
-            />
-            <div className="md:col-span-8">
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-border border border-border">
-                {CATEGORIES.map((c, i) => {
-                  const ref = String(i + 1).padStart(2, "0");
-                  const route =
-                    CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`;
-                  return (
-                    <li key={c.key} className="bg-background">
-                      <Link
-                        to={route}
-                        className="group flex flex-col h-full p-6 transition-colors hover:bg-surface-muted"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-primary">
-                            CAT · {ref}
-                          </span>
-                          <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
-                            FAQ
-                          </span>
-                        </div>
-                        <h3 className="text-[17px] font-semibold text-foreground leading-snug tracking-tight">
-                          {c.label}
-                        </h3>
-                        <p className="mt-2 text-[13.5px] text-muted-foreground leading-[1.65]">
-                          {c.description}
-                        </p>
-                        <div className="mt-auto pt-5 mt-5 border-t border-border flex items-center justify-end">
-                          <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground group-hover:text-primary transition-colors">
-                            Browse →
-                          </span>
-                        </div>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-              <div className="mt-6 flex justify-end border-t border-border pt-4">
-                <Link
-                  to="/education/questions"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
-                >
-                  Browse the full Regulatory FAQ archive →
-                </Link>
-              </div>
-            </div>
+          <SectionHeader
+            eyebrow="Regulatory FAQ"
+            title="Regulatory FAQ."
+            lede="Plain-record answers, organized by inquiry category."
+          />
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-b border-border lg:divide-x divide-y lg:divide-y-0 divide-border">
+            {CATEGORIES.map((c) => {
+              const route =
+                CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`;
+              return (
+                <li key={c.key}>
+                  <Link
+                    to={route}
+                    className="group block px-5 py-6 h-full transition-colors hover:bg-surface-muted"
+                  >
+                    <p className="text-[15px] font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {c.label}
+                    </p>
+                    <p className="mt-1.5 text-[13px] text-muted-foreground leading-[1.6]">
+                      {c.description}
+                    </p>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <div className="mt-6 flex justify-end">
+            <Link
+              to="/education/questions"
+              className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Browse the full FAQ archive →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* §5 Latest clinical analysis */}
+      {/* Latest analysis — smaller strip */}
       <section className="border-b border-border bg-surface-muted" id="analysis">
         <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <SectionRail
-              ref="§5"
-              label="Latest clinical analysis"
-              title="Newest entries."
-              body="Newest entries from the Source Standard analysis series. Reviewed under the Medical Advisory framework."
-            />
-            <div className="md:col-span-8">
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
-                {analysisCards.map((entry, i) => (
-                  <li key={entry.id} className="bg-background">
-                    <LibraryTile entry={entry} index={i} />
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 flex justify-end border-t border-border pt-4">
-                <a
-                  href="#archive"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+          <SectionHeader
+            eyebrow="Latest analysis"
+            title="Latest analysis."
+            lede="Recent additions to the analysis series."
+          />
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-t border-border">
+            {analysisEntries.map((e) => (
+              <li key={e.id} className="border-b border-border py-5">
+                <Link
+                  to={routeFor(e.slug)}
+                  className="group block transition-colors"
                 >
-                  View the full standards archive →
-                </a>
-              </div>
-            </div>
+                  <h3 className="text-[15.5px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                    {displayTitle(e)}
+                  </h3>
+                  <p className="mt-1.5 text-[13px] text-muted-foreground leading-[1.6]">
+                    {e.summary}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex justify-end">
+            <a
+              href="#archive"
+              className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
+            >
+              View archive →
+            </a>
           </div>
         </div>
       </section>
 
-      {/* §6 Archive + About */}
+      {/* Forthcoming formats — de-emphasized */}
       <section className="border-b border-border bg-background" id="archive">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <SectionRail
-              ref="§6"
-              label="Archive · SS-LIB-2026.01"
-              title="Library archive."
-              body="Forthcoming reference formats and publication notes."
-            />
-            <div className="md:col-span-8">
-              <div className="grid md:grid-cols-2 gap-px bg-border border border-border">
-                <div className="bg-background p-6">
-                  <p className="meta-label text-foreground mb-4">Forthcoming reference formats</p>
-                  <ul className="divide-y divide-border border-t border-border">
-                    {librarySupplementary.map((m, i) => {
-                      const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
-                      const ref = String(i + 1).padStart(2, "0");
-                      return (
-                        <li key={m.id} className="grid grid-cols-12 gap-3 py-3 items-baseline">
-                          <span className="col-span-2 text-[10.5px] font-mono uppercase tracking-[0.1em] text-primary">
-                            {ref}
-                          </span>
-                          <span className="col-span-10 text-[13.5px] text-muted-foreground leading-relaxed">
-                            <span className="text-foreground font-semibold">
-                              {ov.title ?? m.title}
-                            </span>{" "}
-                            — {ov.description ?? m.description}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-                <div className="bg-background p-6">
-                  <p className="meta-label text-foreground mb-4">About this library</p>
-                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    Reviewed under our{" "}
-                    <Link
-                      to="/medical-advisory"
-                      className="text-primary hover:text-primary-hover underline-offset-2 hover:underline"
-                    >
-                      Medical Advisory Board
-                    </Link>{" "}
-                    and maintained alongside our{" "}
-                    <Link
-                      to="/governance"
-                      className="text-primary hover:text-primary-hover underline-offset-2 hover:underline"
-                    >
-                      governance framework
-                    </Link>
-                    . Updated continuously.
-                  </p>
-                  <div className="mt-5 border-l-2 border-primary/40 bg-surface-muted px-4 py-3">
-                    <p className="meta-label text-foreground mb-1.5">
-                      Notice · Informational use only
-                    </p>
-                    <p className="text-[12.5px] text-foreground/85 leading-relaxed">
-                      The materials in this library are published for public reference and
-                      educational purposes only. They do not constitute medical advice,
-                      diagnosis, prescription, or treatment, and do not establish a
-                      clinician–patient relationship. Clinical decisions regarding compounded
-                      medications must be made in consultation with a qualified, licensed
-                      healthcare provider.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="container-wide py-10 md:py-12">
+          <SectionHeader
+            eyebrow="Forthcoming formats"
+            title="Forthcoming formats."
+            lede="Future extensions of the library."
+          />
+          <ul className="divide-y divide-border border-t border-b border-border max-w-3xl">
+            {librarySupplementary.map((m) => {
+              const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
+              return (
+                <li key={m.id} className="py-3.5 text-[13.5px] leading-relaxed">
+                  <span className="text-foreground font-semibold">
+                    {ov.title ?? m.title}
+                  </span>{" "}
+                  <span className="text-muted-foreground">
+                    — {ov.description ?? m.description}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
+      {/* About this library — calm closing notice */}
+      <section className="bg-surface-muted">
+        <div className="container-wide py-10 md:py-12">
+          <p className="text-[11.5px] font-mono uppercase tracking-[0.14em] text-muted-foreground mb-3">
+            About this library
+          </p>
+          <p className="max-w-3xl text-[13.5px] text-muted-foreground leading-relaxed">
+            Reviewed under our{" "}
+            <Link
+              to="/medical-advisory"
+              className="text-foreground underline-offset-2 hover:underline"
+            >
+              Medical Advisory Board
+            </Link>{" "}
+            and published for public reference and educational purposes only. The
+            materials in this library do not constitute medical advice, diagnosis,
+            prescription, or treatment, and do not establish a clinician–patient
+            relationship. Clinical decisions regarding compounded medications must be
+            made in consultation with a qualified, licensed healthcare provider.
+          </p>
         </div>
       </section>
     </>
