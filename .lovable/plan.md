@@ -1,68 +1,68 @@
 
 
-## Final Retouch — Legal & Protocol Pages → Board DNA
+## Zero-Tolerance Alignment — Site-Wide Hard Reset
 
-`HowItWorks`, `Privacy`, `Terms`, `VerificationDisclaimer`, `Governance`, `Accountability` are the last pages still drifting from the MAB standard. They use `DocLayout` (sticky sidebar, `prose-filing`, `text-[15.5px]`, `border-border/60` opacity drift) and stray `border-t-2 border-t-foreground` black bars. This pass converts them to the same `BoardSection` chrome already used everywhere else, replaces sticky sidebars with a horizontal jump-bar, and kills every heavy black artifact.
+Final pass. Three concrete deliverables: (1) smart hide-on-scroll header, (2) typographic lock to 14.5px on every remaining body surface, (3) elimination of every heavy black bar still present. Scroll restoration is already in place via `ScrollToTop` + `useHashScroll` — confirmed working.
 
 ---
 
-### 1 · New `DocJumpBar` component
+### 1 · Smart Header (hide on scroll-down / show on scroll-up)
 
-`src/components/DocJumpBar.tsx` — a sticky horizontal contents bar that sits directly under `RecordHeader`. Mono `CONTENTS ·` label + horizontally-scrollable `§N · Label` chips, hairline bottom border, `bg-background/95 backdrop-blur` so it stays legible while overlapping content. Uses the same active-section `IntersectionObserver` pattern from `DocLayout`, but renders inline (no left rail). Replaces the entire `DocLayout` shell on legal/protocol pages.
+`src/components/SiteHeader.tsx` — add a `useEffect` that tracks `window.scrollY` deltas. When user scrolls **down past 120px**, slide the entire `<header>` up via `-translate-y-full`. When user scrolls **up by ≥ 8px**, slide it back down. Always show at the absolute top. Transition `transform 200ms ease-out`. Leaves the existing sticky `top-0 z-40` intact.
 
-### 2 · Convert 5 pages from `DocLayout` → `BoardSection` chrome
+Side-effect: `DocJumpBar` (`sticky top-[64px]`) needs to follow the header. Add a matching transform binding driven by the same scroll state — easiest via a small Zustand-free pattern: export a `useHeaderVisible()` hook from `SiteHeader.tsx`, consume it in `DocJumpBar` to toggle `top-[64px]` ↔ `top-0`.
 
-For `Privacy`, `Terms`, `VerificationDisclaimer`, `Governance`, `Accountability`:
+### 2 · Typographic Lock — 14.5px Body Standard
 
-- Drop `DocLayout` + `DocSection` + `prose-filing` wrappers entirely.
-- Replace each `<DocSection>` with a `<BoardSection n="1" category="…" title="…" muted={i % 2 === 1}>` — alternating `bg-background` ↔ `bg-surface-muted` per section, `py-12 md:py-16`, 12-col split (4-col rail with `§N · CATEGORY` mono eyebrow + `h-section` title + optional `text-[13.5px]` rationale; 8-col content).
-- Body copy locked to `text-[14.5px] text-muted-foreground leading-relaxed`.
-- Mount `<DocJumpBar waypoints={…} />` immediately after `<RecordHeader>`.
-- Internal data tables (citation elements, partitioning, retention, MDE list, actions, authorities roster) keep their grid structure but swap `border-border/60 rounded-lg shadow-sm bg-surface` → `border border-border bg-background` with `divide-y divide-border` (no opacity, no shadow, no rounding drift). All inner row text → `text-[14.5px]`.
-- Doc IDs normalized per directive: `SS-PROTO-2026.01` (HowItWorks), `SS-DISCLAIM-2026.01` (Disclaimer), `SS-PRIVACY-2026.01`, `SS-TERMS-2026.01`, `SS-GOV-2026.01`, `SS-ENFORCE-2026.01`. (Most already correct — only HowItWorks and Disclaimer renamed.)
-- "Read deeper" sections: replace `<RelatedDocs>` card grid with a `bg-border gap-px` MAB-style grid of bordered cells (`bg-background p-5`, `meta` mono `REF · NN` chip + label + `→`), matching the Advisory Board roster footer exactly. `RelatedDocs` component itself stays for any other consumers.
+Surgical downsizing pass. Every body paragraph drops to `text-[14.5px]`; every lead/intro to `text-[15px]` max; component-level fixes:
 
-### 3 · `HowItWorks` cleanup
+**Components**
+- `src/components/RecordHeader.tsx` — lead `text-[15px]` → `text-[14.5px]`
+- `src/components/AnchorHeader.tsx` — both leads `text-[15px]/[16px]` → `text-[14.5px]`
+- `src/components/UtilityHeader.tsx` — description `text-[15px]` → `text-[14.5px]`
+- `src/components/ProfileHeader.tsx` — lead `text-[15px]` → `text-[14.5px]`
+- `src/components/Callout.tsx` — `CalloutTitle` `text-[15px]` → `text-[14.5px]`
+- `src/components/PlaceholderSection.tsx` — `text-[15px]` → `text-[14.5px]`
+- `src/components/Logo.tsx` — wordmark `text-[15.5px]` → `text-[14.5px]` (header chrome)
+- `src/components/SiteHeader.tsx` — mobile nav `text-[15px]` → `text-[14.5px]`
 
-Already on Board chrome. Two surgical edits:
-- Kill the `border-t-2 border-t-foreground` black bar on the §10 OFFICIAL CITATION block — replace with the standard `bg-surface-muted` cite footer band (`border-t border-border`, mono `Cite as · {ID}`, `DocSignature`).
-- Replace the in-page Document header strip (lines 272-285, the dense metadata bar) with `<DocJumpBar>` so the page gets the same horizontal contents nav as the legal pages.
-- Update `DOC` value in `RecordHeader` metadata + everywhere referenced from `SS-FRAMEWORK-2026.01` → `SS-PROTO-2026.01`.
+**Pages with stray oversized prose**
+- `src/pages/Index.tsx` — hero lead `text-[16px]` → `text-[14.5px]`; the `text-[15px]` cluster (lines 166-180, 209+) → `text-[14.5px]`
+- `src/pages/About.tsx` — §6 callout `text-[15px]` → `text-[14.5px]`; mission block `text-[17px] md:text-[18px]` → `text-[15px]` (kept slightly larger for the single hero quote, still institutional)
+- `src/pages/Apply.tsx` — filing card `text-[16px]/[13px]` → `text-[14.5px]`
 
-### 4 · Footer citation discipline (global)
+### 3 · Kill remaining heavy black bars
 
-Across all six pages, the closing citation block becomes uniform:
-```
-[ border-t border-border, bg-surface-muted, py-8 ]
-  CITE AS · SS-XXXX-2026.01
-  Source Standard. {Title}. Document {ID}. Issued 04/21/2026.
-  [DocSignature: AUTH-ID + DATA VERIFIED]
-```
-No more `border-t-2 border-t-foreground`, no `rounded-b-lg shadow-sm`, no inline `OFFICIAL CITATION` boxes inside §-sections.
+- `src/pages/ReportConcern.tsx` line 102 — `border-t-2 border-t-foreground` → `border border-border`
+- `src/pages/ForVendors.tsx` line 176 — `border-t-2 border-t-foreground bg-background` → wrap into a `BoardCiteFooter`-style band (`border-t border-border bg-surface-muted`)
 
-### 5 · Scroll/anchor hardening (already present — confirmed)
+### 4 · Sub-page audit — confirm coverage
 
-`ScrollToTop` + `useHashScroll` + `scroll-padding-top: 96px` are already in place from the Deep-Link phase. The new `DocJumpBar` uses smooth `scrollIntoView` for chip clicks (matches the existing system), and its sticky offset is accounted for by extending `scroll-padding-top` to `144px` (header 96 + jump-bar 48) in `index.css`.
+Spot-check confirms every Library / FAQ / Analysis / Glossary / Legal / Protocol / About page already carries `RecordHeader` + `Breadcrumb` + `PageMeta` + `BoardSection` 12-col + `DocSignature` + MAB-style `bg-border gap-px` cross-reference grid. No further structural rebuilds required.
+
+Two pages still on `Section`/`SectionLabel` chrome (acceptable — they're transactional, not records): `Apply.tsx`, `ReportConcern.tsx`, `Contact.tsx`, `ForVendors.tsx`. These get the typographic lock + bar-removal pass only — full MAB conversion would require a copy rewrite outside the scope of this retouch.
+
+### 5 · Scroll restoration (confirmed in place)
+
+`<ScrollToTop />` mounted in `App.tsx` already fires `window.scrollTo(0,0)` on every `pathname` change. `useHashScroll` handles smooth `#anchor` jumps. No changes.
 
 ---
 
 ### Files touched
 
-**New**
-- `src/components/DocJumpBar.tsx` — sticky horizontal `§N` jump-bar
-
 **Modified primitives**
-- `src/index.css` — bump `scroll-padding-top` to `144px`
+- `src/components/SiteHeader.tsx` — hide/show on scroll, expose `useHeaderVisible()`, typographic fix
+- `src/components/DocJumpBar.tsx` — bind sticky offset to header visibility
+- `src/components/RecordHeader.tsx`, `AnchorHeader.tsx`, `UtilityHeader.tsx`, `ProfileHeader.tsx`, `Callout.tsx`, `PlaceholderSection.tsx`, `Logo.tsx` — 14.5px lock
 
-**Rewritten (chrome only — copy/data verbatim)**
-- `src/pages/Privacy.tsx`
-- `src/pages/Terms.tsx`
-- `src/pages/VerificationDisclaimer.tsx`
-- `src/pages/Governance.tsx`
-- `src/pages/Accountability.tsx`
-- `src/pages/HowItWorks.tsx` — citation strip + jump-bar swap, `DOC` rename to `SS-PROTO-2026.01`
+**Pages**
+- `src/pages/Index.tsx` — hero + cluster downsize
+- `src/pages/About.tsx` — §6 + mission downsize
+- `src/pages/Apply.tsx` — filing card downsize
+- `src/pages/ReportConcern.tsx` — kill black bar
+- `src/pages/ForVendors.tsx` — kill black bar, normalize citation footer
 
 ### What stays the same
 
-All routes, all written copy, all data, the Board DNA already shipped on Library/FAQ/Status/About/MAB pages, `RecordHeader`/`BoardSection`/`DocSignature`/`Footnote`/`GlossaryTerm`/`Breadcrumb`/`PageMeta` APIs, registry filtering, dark mode, design tokens. `DocLayout` and `RelatedDocs` components remain in the codebase (unused on these six pages, available for any future doc that wants a sticky rail). Strictly presentational alignment + one new shared primitive.
+All routes, all written copy, all data, all MAB DNA layout, `BoardSection` / `RecordHeader` / `DocSignature` / `Breadcrumb` / `PageMeta` / `DocJumpBar` / `Footnote` / `GlossaryTerm` APIs, design tokens, dark mode, registry filtering, `ScrollToTop` + `useHashScroll`. Strictly typographic + chrome alignment + one new scroll behavior.
 
