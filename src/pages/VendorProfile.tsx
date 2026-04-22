@@ -412,7 +412,7 @@ const VendorProfile = () => {
 
                 {/* Verified Scope — verified only */}
                 {isVerified && (
-                  <section className="px-6 md:px-10 py-8 md:py-10">
+                  <section className="px-6 md:px-8 py-6">
                     <div className="flex items-baseline justify-between gap-4 flex-wrap">
                       <SectionHeading eyebrow="Verification">
                         Verified Scope
