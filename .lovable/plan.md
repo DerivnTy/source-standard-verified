@@ -1,46 +1,42 @@
 
 
-## New article page: `/library/what-are-peptides`
+## New article page: `/library/interpreting-coas`
 
-A second whitepaper page mirroring the `What Is Compounding?` pattern exactly, plus one route registration and one Education-row link override.
+Third whitepaper in the series. Mirrors the `LibraryWhatArePeptides` / `LibraryWhatIsCompounding` pattern exactly.
 
-### 1 · New file: `src/pages/LibraryWhatArePeptides.tsx`
-
-Same structure as `LibraryWhatIsCompounding.tsx`:
+### 1 · New file: `src/pages/LibraryInterpretingCoAs.tsx`
 
 - **Header** — `RecordHeader`
-  - Eyebrow: `Source Standard · Foundational Series`
-  - Title: `What Are Peptides?`
-  - Lead: `A plain-language introduction to peptides, their clinical utility, and the critical importance of sourcing integrity.`
-  - Reference box: Doc `SS-SERIES-000A` · Status `Active / Public Reference` · Jurisdiction `United States` · Updated `April 21, 2026`
+  - Eyebrow: `Source Standard · Audit Protocols`
+  - Title: `Audit Protocols: Interpreting CoAs and Detecting Discrepancies`
+  - Lead: `A guide to understanding Certificates of Analysis, verifying laboratory authenticity, and identifying common red flags in pharmaceutical testing.`
+  - Reference box: Doc `SS-SERIES-002` · Status `Active / Public Reference` · Jurisdiction `United States` · Updated `April 21, 2026`
 
 - **Body** — 900px centered column via `Section` + `SectionLabel`, `prose-filing` serif:
-  - `§1 The Biological Blueprint` — single paragraph as supplied.
-  - `§2 Clinical Utility` — intro paragraph + a definition list (`Regulate Metabolic Function`, `Support Tissue Repair`, `Optimize Hormonal Balance`) using the established `DefList` (mono term / serif description), then the closing paragraph beneath the list.
-  - `§3 The Sourcing Crisis` — intro paragraph + a definition list (`Research Use Only (RUO)`, `The Source Standard Goal`), then the closing paragraph beneath the list.
+  - `§1 What is a CoA?` — single paragraph as supplied.
+  - `§2 The Anatomy of a Verified CoA` — intro paragraph + `DefList` (`Identity`, `Potency (Assay)`, `Purity`, `Sterility & Endotoxins`).
+  - `§3 Common Red Flags & Discrepancies` — intro paragraph + `DefList` (`Mismatched Lot Numbers`, `Opaque Lab Identity`, `Missing Dates`, `Photoshop Artifacts`).
+  - `§4 The Source Standard Verification Protocol` — single paragraph as supplied.
 
 - **Pivot footer** (hairline-top bar inside the centered column):
-  - Left: `Button` (default — 4px black) `← Back to Clinical Library` → `/education`.
-  - Right: muted text link `Next: Interpreting CoAs (SS-SERIES-002) →` → `/library/interpreting-coas` (placeholder route, wired for the next article).
+  - Left: `Button` `← Back to Clinical Library` → `/education`.
+  - Right: muted text link `Next: The Dual-Layer Difference (SS-SERIES-003) →` → `/library/dual-layer-difference` (placeholder route, wired for the next article).
 
 ### 2 · Route registration: `src/App.tsx`
 
-Add one import and one `<Route>` inside `SiteLayout`:
-```tsx
-<Route path="/library/what-are-peptides" element={<LibraryWhatArePeptides />} />
-```
+Add one import and one `<Route path="/library/interpreting-coas" element={<LibraryInterpretingCoAs />} />` inside `SiteLayout`.
 
 ### 3 · Education link override: `src/pages/Education.tsx`
 
-Extend the existing `SLUG_ROUTE_OVERRIDES` lookup with the SS-SERIES-000A entry's slug → `/library/what-are-peptides`. The row card and right-edge "Read full article ›" both navigate to the new page. All other rows untouched.
+Extend `SLUG_ROUTE_OVERRIDES` with the SS-SERIES-002 entry's slug → `/library/interpreting-coas`.
 
 ### Files touched
 
-- `src/pages/LibraryWhatArePeptides.tsx` — new
+- `src/pages/LibraryInterpretingCoAs.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
 - `src/pages/Education.tsx` — one new key in `SLUG_ROUTE_OVERRIDES`
 
 ### What stays the same
 
-`RecordHeader`, `Section`/`SectionLabel`, `DefList`, the global `SiteHeader`/`SiteFooter`, the 900px filing column, the `Button` primitive, `library.ts`, every other route, and every other Education page element.
+`RecordHeader`, `Section`/`SectionLabel`, `DefList`, the global layout, the 900px filing column, `library.ts`, every other route, and every other Education page element.
 
