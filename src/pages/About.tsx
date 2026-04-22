@@ -242,7 +242,7 @@ const About = () => {
               <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
                 Operating principle · §6
               </p>
-              <p className="text-[15px] text-foreground leading-relaxed font-medium">
+              <p className="text-[14.5px] text-foreground leading-relaxed font-medium">
                 If documentation is present and supports the published status, that status can be shown publicly. If
                 it is not, it cannot.
               </p>
@@ -298,7 +298,7 @@ const About = () => {
             <h2 className="h-section">Mission.</h2>
           </div>
           <div className="md:col-span-8 space-y-5">
-            <p className="text-[17px] md:text-[18px] text-foreground leading-[1.6] font-semibold">
+            <p className="text-[15px] text-foreground leading-[1.6] font-semibold">
               To bring greater clarity, consistency, and transparency to vendor sourcing and verification in peptide,
               TRT, and hormone optimization markets.
             </p>

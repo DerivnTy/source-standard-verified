@@ -91,7 +91,7 @@ const Index = () => {
             <h1 className="display-1 mt-2 tracking-[-0.025em]">
               Source Standard: The Public Registry for Compounded Supply-Chain Integrity.
             </h1>
-            <p className="mt-5 mx-auto max-w-[62ch] text-[16px] text-muted-foreground leading-[1.65]">
+            <p className="mt-5 mx-auto max-w-[62ch] text-[14.5px] text-muted-foreground leading-[1.65]">
               An independent auditing framework for the verification of 503A/503B pharmacy sourcing and clinical administrative protocols.
             </p>
 
@@ -165,7 +165,7 @@ const Index = () => {
               <h2 className="h-section">
                 Standards are set and reviewed under the Medical Advisory Board.
               </h2>
-              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-md">
+              <p className="mt-3 text-[14.5px] text-muted-foreground leading-relaxed max-w-md">
                 Clinical scope, evidence standards, and renewal intervals for the framework are maintained under physician review. Medical oversight is structural and extends across every verification and every Greenlist entry.
               </p>
               <Link
@@ -211,7 +211,7 @@ const Index = () => {
             <h2 className="h-section">
               Source-First Verification. A mandatory prerequisite for every listing.
             </h2>
-            <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
+            <p className="mt-3 text-[14.5px] text-muted-foreground leading-relaxed">
               The upstream source registry documents the compounding facilities recognized under the framework. A vendor cannot be assessed until its declared sources clear that registry. Both registries are anchored to public regulatory benchmarks.
             </p>
           </div>
@@ -280,7 +280,7 @@ const Index = () => {
             <h2 className="h-section">
               Administrative Reference & Compliance Library.
             </h2>
-            <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
+            <p className="mt-3 text-[14.5px] text-muted-foreground leading-relaxed">
               Procedural notes on source authentication, document discrepancies, regulatory benchmarks, and the audit categories used in compliance assessment. Informational only; not medical advice.
             </p>
           </div>
@@ -334,7 +334,7 @@ const Index = () => {
               <h2 className="h-section">
                 For vendors seeking listing under the framework.
               </h2>
-              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed max-w-2xl">
+              <p className="mt-3 text-[14.5px] text-muted-foreground leading-relaxed max-w-2xl">
                 Submission requirements, evidence categories, and review timelines are published openly. A listing is issued only after compliance assessment is complete and a Unique Audit Identifier has been assigned.
               </p>
             </div>

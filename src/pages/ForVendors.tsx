@@ -173,9 +173,9 @@ const ForVendors = () => {
           </div>
 
           {/* Official Citation footer */}
-          <div className="border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-8">
+          <div className="border-t border-border bg-surface-muted px-5 py-6 max-w-4xl mt-8">
             <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-2">
-              Official citation · SS-VENDOR-STD-2026.01
+              Cite as · SS-VENDOR-STD-2026.01
             </p>
             <p className="text-[12.5px] text-foreground leading-relaxed">
               Source Standard. Vendor Submission Standard. Document SS-VENDOR-STD-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on file with the issuing organization.
