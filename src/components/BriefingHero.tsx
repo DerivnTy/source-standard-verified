@@ -88,7 +88,7 @@ export const BriefingHero = ({
               {brandMark && (
                 <p
                   aria-hidden="true"
-                  className="font-serif text-white tracking-[-0.02em] leading-[0.95] text-[44px] sm:text-[64px] md:text-[88px] lg:text-[104px] mb-8"
+                  className="font-serif text-white tracking-[-0.02em] leading-[0.95] text-[36px] sm:text-[52px] md:text-[68px] lg:text-[80px] mb-8"
                   style={{ fontWeight: 400 }}
                 >
                   {brandMark}
