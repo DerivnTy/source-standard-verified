@@ -1,131 +1,112 @@
 
 
-## Global "Dashboard/Report" layout for secondary pages
+## Sitewide Institutional Modern rollout — execution plan
 
-The `Section` primitive currently forces every doc page into a centered 900px prose column — that's the "amateur centered text" the brief calls out. This pass introduces a proper 2-column report layout with a sticky waypoint rail, applies it to About / Disclaimer / Privacy / Terms / Accountability / Governance, and adds the certificate-style polish for legal pages. Header, CTA, and chat bubble items are confirmed already shipped.
+Executes the previously-approved rollout. Adds the three new directives: SourceCheck as primary trust anchor, Inclusion Standards demoted to registry footer, and final confirmations on header/search.
 
 ---
 
-### 1 · New layout primitive — `DocLayout`
+### 1 · Foundation — universal polish
 
-New file `src/components/DocLayout.tsx`. A single component that wraps a doc page's body sections in the report grid:
+**`src/components/SourceCheck.tsx`** (new)
+- SVG glyph: Safety-Blue (`hsl(var(--primary))`) filled circle + white check.
+- Sizes: `xs` (12px), `sm` (16px), `md` (20px), `lg` (28px).
+- Variants: `solid` (default, filled circle) and `outline` (ring only, for dense lists).
+- Used everywhere trust is asserted: status badges, "Reviewed by Medical Advisory" labels, list bullets in About / How It Works / Apply, verified-state rows in registries, registry summary cards.
+
+**`src/index.css`**
+- Lock typography: remove IBM Plex Mono fallback in `.meta-mono`; remap to Geist sans at `text-[11px] tracking-[0.14em] uppercase` so "technical" labels stay legible without the typewriter texture.
+- Remove `font-mono` from `RecordHeader`, `MetadataBar`, registry ID columns — replaced by sans-at-smaller-size.
+- New utility `.section-band { @apply py-24 md:py-28 lg:py-32; }` for ~100px+ vertical rhythm.
+- New utility `.trust-list` — `<ul>` resets bullets and inlines `<SourceCheck size="sm">` via marker styling for the About / Apply / How It Works trust lists.
+
+### 2 · New layout primitives
+
+**`src/components/RegistryLayout.tsx`** (new) — DocLayout wrapper for data pages. AnchorHeader on top, then a 12-col grid: `aside col-span-3 sticky top-24` rail + `main col-span-9` content. Rail entries auto-render with active-section highlighting.
+
+**`src/components/ArticleLayout.tsx`** (new) — DocLayout wrapper for library articles. RecordHeader stays on top. Same rail + content grid. Auto-builds rail from a `sections` prop.
+
+**`src/components/ArticleNav.tsx`** (new) — prev/next card pair (replaces the current text link footer on every Library page).
+
+### 3 · Registry pages — rail + cards, Inclusion Standards demoted
 
 ```text
-┌─────────────────────────────────────────────────────────────┐
-│ container-wide                                              │
-│ ┌─────────────┐  ┌──────────────────────────────────────┐  │
-│ │ Sticky      │  │ Wide content column                  │  │
-│ │ Waypoints   │  │ §1 Purpose ........................  │  │
-│ │ 01 Purpose  │  │ §2 Scope ..........................  │  │
-│ │ 02 Scope    │  │ §3 Boundaries .....................  │  │
-│ │ 03 Bounds   │  │ ...                                  │  │
-│ │ ...         │  │                                      │  │
-│ └─────────────┘  └──────────────────────────────────────┘  │
-│   col-span-3          col-span-9                            │
-└─────────────────────────────────────────────────────────────┘
+┌── AnchorHeader (no aside) ─────────────────────────────────┐
+│ ┌── Sticky rail ─┐  ┌── Wide content ───────────────────┐  │
+│ │ 01 Total       │  │ Status summary card grid          │  │
+│ │ 02 Verified    │  │ (5 elevated cards w/ SourceCheck) │  │
+│ │ 03 Under review│  │ ───────────────────────────────── │  │
+│ │ 04 Browse      │  │ Sticky filter row                 │  │
+│ │ 05 Methodology │  │ Table / cards + pagination        │  │
+│ └────────────────┘  │ ───────────────────────────────── │  │
+│                     │ Methodology / Inclusion Standards │  │
+│                     │ (footer band, demoted)            │  │
+│                     └───────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────┘
 ```
 
-API:
-```tsx
-<DocLayout
-  waypoints={[
-    { id: "purpose", number: "01", label: "Purpose" },
-    { id: "scope",   number: "02", label: "Scope" },
-    ...
-  ]}
-  variant="default" | "certificate"
->
-  <DocSection id="purpose" number="§1" title="..." description="...">
-     ...content...
-  </DocSection>
-  ...
-</DocLayout>
-```
+- **`src/pages/VerifiedVendors.tsx`** — drop legend `aside`. Status legend → 5-card elevated grid (Verified card carries `<SourceCheck size="md">`, others use tone dots). Rail anchors: 01 Total Tracked, 02 Verified, 03 Under Review, 04 Browse Registry, 05 Methodology. Methodology section moved to bottom of right column inside its own `section-band` with `border-t`.
+- **`src/pages/Greenlist.tsx`** — same shell. Source-type cards (503B / 503A / Other) replace the divided strip. Rail: 01 Total, 02 503B, 03 503A, 04 Other, 05 Browse Registry, 06 Inclusion Standards. Inclusion Standards explicitly placed in the footer position per directive.
 
-Behavior:
-- Desktop (≥lg): `grid-cols-12`, `aside col-span-3 sticky top-24` rail of waypoints, `main col-span-9` content. `gap-12` so the rail breathes.
-- Tablet/mobile: rail collapses to a horizontal pill scroller above the content (or hides; keeps page from feeling cramped).
-- Waypoint links are `<a href="#id">` with smooth-scroll, active-state highlight via `IntersectionObserver` (current section's number turns Safety Blue, label turns Authority Navy).
-- Rail typography: mono `01` `02` numbers in muted, label in `text-[13px] font-medium` foreground.
-- `variant="certificate"` adds: a subtle parchment-like background tint to the page wrapper (`bg-[hsl(210_40%_99%)]` with a hairline navy top accent bar) and a thin double-rule above the first section — reads as "Certificate of Disclosure" without being kitsch.
+### 4 · Education Hub
 
-### 2 · Section primitives — `DocSection`
+**`src/pages/Education.tsx`**
+- Hero raised to `section-band`, `font-semibold tracking-[-0.02em]`.
+- **Confirm + remove**: any residual "Search Library" input (current page has none — directive satisfied; verified during exploration).
+- Start Here trio = premium `card-elevated` with Safety-Blue numbered chip ("01 / 02 / 03"), `<SourceCheck size="sm">` next to "Reviewed by Medical Advisory", `min-h-[300px]`, `text-[22px]` headline.
+- Wrap §1–§4 in `DocLayout` rail: 01 Foundational, 02 Clinical Protocols, 03 Regulatory FAQ, 04 Latest Analysis, 05 Archive.
+- `LibraryTile` reskinned to `card-elevated` with hover lift; sticky jump bar removed (rail replaces it).
+- Archive footer → 2-col `card-elevated` block (drops the mono band).
 
-Drop-in replacement for the old centered `Section` *inside DocLayout*. Renders:
-- The §N + title block (replaces inline `SectionLabel` repetition).
-- Generous `py-10` rhythm between sections, `border-t border-border/60` between adjacent sections (no more whole-page-width band switching).
-- Body content fills its column (`max-w-[68ch]` for prose, full width for tables/grids) — no more centered 900px straitjacket.
-- Heading scale tightened: section titles `text-[1.625rem] font-semibold tracking-[-0.015em] text-foreground`. Eyebrow §N chip in Safety Blue when section is in view (via `data-active`), muted otherwise.
+### 5 · Library articles (13 pages)
 
-The legacy `Section` stays exported (so non-doc pages that use it continue to work), but the targeted doc pages migrate to `DocLayout` + `DocSection`.
+Migrate to `<ArticleLayout sections={[…]}>`: `LibraryWhatIsCompounding`, `LibraryWhatArePeptides`, `LibraryInterpretingCoAs`, `LibraryDualLayerDifference`, `LibrarySterilePreparationIntegrity`, `LibraryAsepticTechnique`, `LibraryEndocrinologicalContext`, `LibraryReferenceDosingRanges`, `LibraryAnalysis2026Reclassification`, `LibraryAnalysisQuestionsForYourClinic`, `LibraryAnalysisMeaningOfVerification`, `LibraryAnalysisUndocumentedSourcingSigns`, `LibraryEntry`. RecordHeader stays. Footer Back/Next → `<ArticleNav>`.
 
-### 3 · "Bordered Content Block" callout — `Callout`
+### 6 · FAQ + secondary documents
 
-New small component for critical legal language:
+`DocLayout` migration (variant `default`):
+- `FAQ.tsx`, `FaqLegalRegulatory.tsx`, `FaqClinicalSafety.tsx`, `FaqVerificationProcess.tsx`, `EducationQuestions.tsx`, `EducationBasics.tsx`, `EducationGuides.tsx` — rail = FAQ categories; accordion stays.
+- `HowItWorks.tsx`, `ForVendors.tsx`, `HowToReadTheDirectory.tsx`, `StatusDefinitions.tsx`, `MedicalAdvisory.tsx`, `ReportConcern.tsx` — rail = section anchors. Trust lists swap bullets for `<SourceCheck>`.
 
-```tsx
-<Callout tone="warning" | "notice" | "info">
-   <CalloutTitle>No warranty; reliance at user discretion.</CalloutTitle>
-   <p>...</p>
-</Callout>
-```
+### 7 · Forms, profiles, NotFound
 
-Renders a left-accent-bar block:
-- `notice` (default): navy left bar, white surface, `shadow-sm`, `rounded-lg`.
-- `warning`: amber left bar for the Disclaimer §5 liability paragraphs and the "Not a guarantor" item.
-- `info`: Safety Blue left bar for definitional asides.
+- **`Apply.tsx` / `Contact.tsx`** — `card-elevated` form panel, Safety-Blue focus rings (`focus-visible:ring-primary`), single navy submit. No rail (forms don't need waypoints).
+- **`VendorProfile.tsx` / `GreenlistProfile.tsx` / `AdvisorProfile.tsx`** — 2-col asymmetric: sticky meta panel left (status + ID + last audit + `<SourceCheck size="lg">` trust seal when verified), profile body right.
+- **`NotFound.tsx`** — centered `card-elevated`, navy headline, Safety-Blue link home.
 
-Used on Disclaimer (§5 liability) and Terms (prohibited activities) so the dry text gets visual punctuation instead of a flat paragraph wall.
+### 8 · Header / chat — confirmation only
 
-### 4 · Page migrations
+- "Home" link removed from header — confirmed in current `SiteHeader.tsx` (no `/` entry in `nav`).
+- Glassmorphism `bg-background/70 backdrop-blur-xl backdrop-saturate-150` — confirmed.
+- `SourceBot` Clinical Assistant FAB globally mounted via `SiteLayout` — confirmed; serves as the search replacement per directive.
 
-Convert these six pages to `DocLayout`. Same content, no copy changes — only structural wrap:
+### 9 · GitHub commit + Pre-Launch posture
 
-- `src/pages/VerificationDisclaimer.tsx` — `variant="certificate"`. Waypoints: 01 Coverage, 02 Out of scope, 03 Institutional limits, 04 Time-bound, 05 Liability, 06 Read deeper. §5 wrapped in two `Callout tone="warning"` blocks.
-- `src/pages/Privacy.tsx` — `variant="certificate"`. 8 waypoints (Data, Use, Partition, Partners, Retention, Rights, DPO, Read deeper). DPO contact stays in its existing bordered card.
-- `src/pages/Terms.tsx` — `variant="certificate"`. Waypoints for each §. Restrictions list wrapped in `Callout tone="warning"`.
-- `src/pages/Accountability.tsx` — `variant="default"`. Waypoints for the 5 sections. The "72 HOURS" banner becomes a `Callout tone="warning"` with a larger, bolder count chip.
-- `src/pages/About.tsx` — `variant="default"`. Waypoints: 01 Why, 02 Reference, 03 Gap, 04 Beliefs, 05 Scope, 06 Principle, 07 Audience, 08 Mission. The §6 "single operating principle" block becomes a navy `Callout tone="notice"` for emphasis.
-- `src/pages/Governance.tsx` — `variant="default"`. Waypoints for each governance section + the authorities anchor list.
-
-`RecordHeader` stays on each page (it's the document's metadata bar — appropriate for legal/policy docs per the prior round's decision). It already renders full-width above the body, so the new sticky rail starts cleanly under it.
-
-### 5 · Read-deeper rail — consistent pattern
-
-The repeated "Read deeper" link list at the bottom of each doc gets standardized into a small `RelatedDocs` component (links rendered as a 2-column grid of compact cards rather than a bare bullet list), giving the page a clean off-ramp instead of trailing into list bullets.
-
-### 6 · Header / CTA / chat — confirmation only
-
-Already shipped from previous rounds; the brief reiterates them so I'll verify and leave in place:
-- Header: glassmorphism (`bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/40`) — confirmed.
-- "Home" link removed from nav, Logo is sole homepage path — confirmed.
-- "Apply for verification" CTA: navy `bg-foreground` with the global 10px radius — confirmed. (Brief mentions "12px"; current is 10px globally. Keeping 10px to preserve system consistency across every component — bumping just buttons would break the radius scale.)
-- `SourceBot` Clinical Assistant FAB: globally mounted via `SiteLayout` — confirmed.
-
-### 7 · Typography polish for body prose
-
-In `index.css`, tighten `.prose-filing` (already used by the doc pages):
-- `font-size: 16px`, `line-height: 1.75` (up from 1.7) for the requested generous reading rhythm.
-- Paragraph spacing `margin-block: 1.1em`.
-- Inline links: Safety Blue with `underline-offset-4 decoration-primary/40 hover:decoration-primary` — replaces the current foreground-underline so links read as interactive in the institutional palette.
-- Bold inline emphasis stays Authority Navy.
+GitHub sync is bidirectional and automatic once Connectors → GitHub is linked: every file written in this rollout commits to the connected repo's default branch in real time. No manual push required. The work itself is presentational only — no auth, telemetry, or data exposure changes — so the "Pre-Launch / Private" posture is unaffected. Locked-down feel comes from the institutional palette, hairline borders, and certificate tints already shipped.
 
 ---
 
 ### Files touched
 
-- `src/components/DocLayout.tsx` — **new**, the report-grid primitive + sticky waypoint rail.
-- `src/components/Callout.tsx` — **new**, bordered content blocks (notice / warning / info).
-- `src/components/RelatedDocs.tsx` — **new**, the standardized "read deeper" card grid.
-- `src/index.css` — `.prose-filing` polish, sticky-rail active-state utility, certificate-tint utility.
-- `src/pages/About.tsx` — migrate to `DocLayout`.
-- `src/pages/VerificationDisclaimer.tsx` — migrate, add `Callout`s, certificate variant.
-- `src/pages/Privacy.tsx` — migrate, certificate variant.
-- `src/pages/Terms.tsx` — migrate, add `Callout`s, certificate variant.
-- `src/pages/Accountability.tsx` — migrate, 72-hour `Callout`.
-- `src/pages/Governance.tsx` — migrate.
+**New (4)**
+- `src/components/SourceCheck.tsx`
+- `src/components/RegistryLayout.tsx`
+- `src/components/ArticleLayout.tsx`
+- `src/components/ArticleNav.tsx`
+
+**Edited (~28)**
+- `src/index.css` — typography lock, `.section-band`, `.trust-list`.
+- `src/components/RecordHeader.tsx`, `src/components/MetadataBar.tsx` — drop mono.
+- `src/pages/VerifiedVendors.tsx`, `src/pages/Greenlist.tsx` — RegistryLayout + status cards + Inclusion Standards demoted.
+- `src/pages/Education.tsx` — DocLayout shell + premium Start Here.
+- 13 `Library*.tsx` pages — ArticleLayout migration.
+- 7 FAQ / Education-sub pages — DocLayout migration.
+- 6 secondary doc pages (`HowItWorks`, `ForVendors`, `HowToReadTheDirectory`, `StatusDefinitions`, `MedicalAdvisory`, `ReportConcern`) — DocLayout migration.
+- `Apply.tsx`, `Contact.tsx` — form reskin.
+- `VendorProfile.tsx`, `GreenlistProfile.tsx`, `AdvisorProfile.tsx` — 2-col asymmetric.
+- `NotFound.tsx` — reskin.
 
 ### What stays the same
 
-All routes, all data, every other page (Education, Greenlist, Verified Vendors, Index, vendor/advisor/library detail pages), the legacy `Section` export, `RecordHeader`, `SiteHeader`, `SourceBot`, `HeroPattern`, `Logo`, button variants, and the global token system. The change is additive — the new primitives sit alongside the old ones; only the six identified doc pages adopt them.
+All routes, all data files, all data shapes, every page's copy, `SiteHeader`, `SiteFooter`, `SourceBot`, `HeroPattern`, `Logo`, `Button`, `Callout`, `RelatedDocs`, `DocLayout`, `Section` (legacy export retained), the global token system, and registry filtering/sorting/pagination logic. Presentational only — no behavior is altered, no data exposed.
 
