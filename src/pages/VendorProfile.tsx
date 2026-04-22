@@ -1,6 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { ReactNode } from "react";
-import { ExternalLink, MapPin, Globe, Building2, Flag } from "lucide-react";
+import {
+  ExternalLink,
+  MapPin,
+  Globe,
+  Building2,
+  Flag,
+  ShieldCheck,
+} from "lucide-react";
 import {
   getVendor,
   Vendor,
@@ -14,21 +21,29 @@ import {
 import { StatusBadge } from "@/components/StatusBadge";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { VerificationShield } from "@/components/registry/VerificationShield";
 
 // ---------- Status theming ----------
 
 type Theme = {
-  tickAccent: string;
-  identityRule: string;
+  hairline: string; // top hairline above hero
+  monogramRing: string; // monogram tile border tint
 };
 
 const THEME: Record<VendorPublicStatus, Theme> = {
-  verified: { tickAccent: "bg-verified", identityRule: "bg-verified" },
-  "under-review": { tickAccent: "bg-pending", identityRule: "bg-pending" },
-  unverified: { tickAccent: "bg-muted-foreground/40", identityRule: "bg-muted-foreground/30" },
-  suspended: { tickAccent: "bg-destructive", identityRule: "bg-destructive" },
-  removed: { tickAccent: "bg-muted-foreground/40", identityRule: "bg-muted-foreground/30" },
+  verified: { hairline: "bg-verified", monogramRing: "border-verified/40" },
+  "under-review": { hairline: "bg-pending", monogramRing: "border-pending/40" },
+  unverified: {
+    hairline: "bg-muted-foreground/30",
+    monogramRing: "border-border",
+  },
+  suspended: {
+    hairline: "bg-destructive",
+    monogramRing: "border-destructive/40",
+  },
+  removed: {
+    hairline: "bg-muted-foreground/30",
+    monogramRing: "border-border",
+  },
 };
 
 const FULFILLMENT_ICON: Record<VendorFulfillment, typeof Building2> = {
@@ -62,38 +77,16 @@ const formatFullAddress = (vendor: Vendor): string | null => {
 
 const sourceTypeFor = (_v: Vendor): string => "503A / 503B / Retail";
 
+const monogramOf = (name: string): string =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("") || "·";
+
 // ---------- Primitives ----------
 
-// Compact label/value pair used inside the right rail and center record.
-const Datum = ({
-  label,
-  value,
-  mono,
-}: {
-  label: string;
-  value: ReactNode;
-  mono?: boolean;
-}) => {
-  if (value === null || value === undefined || value === "" || value === false)
-    return null;
-  if (Array.isArray(value) && value.length === 0) return null;
-  return (
-    <div className="py-2 first:pt-0 last:pb-0 border-b border-border/50 last:border-0">
-      <dt className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-semibold">
-        {label}
-      </dt>
-      <dd
-        className={`mt-1 t-body-sm text-foreground leading-[1.45] ${
-          mono ? "font-mono tabular-nums" : ""
-        }`}
-      >
-        {Array.isArray(value) ? (value as string[]).join(", ") : value}
-      </dd>
-    </div>
-  );
-};
-
-// Larger structured field used inside the center record grid.
 const Field = ({
   label,
   value,
@@ -122,18 +115,51 @@ const Field = ({
   );
 };
 
-// Section heading inside the center column.
-const SectionTitle = ({ children }: { children: ReactNode }) => (
-  <h2 className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold mb-3">
-    {children}
-  </h2>
-);
+const RailRow = ({
+  label,
+  value,
+  mono,
+}: {
+  label: string;
+  value: ReactNode;
+  mono?: boolean;
+}) => {
+  if (value === null || value === undefined || value === "" || value === false)
+    return null;
+  if (Array.isArray(value) && value.length === 0) return null;
+  return (
+    <div className="flex items-baseline justify-between gap-4 py-2.5 border-b border-border/50 last:border-0">
+      <span className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-semibold shrink-0">
+        {label}
+      </span>
+      <span
+        className={`t-body-sm text-foreground text-right leading-[1.45] ${
+          mono ? "font-mono tabular-nums" : ""
+        }`}
+      >
+        {Array.isArray(value) ? (value as string[]).join(", ") : value}
+      </span>
+    </div>
+  );
+};
 
-// Calm "withheld" line used when verification-only data is unavailable.
-const Withheld = ({ children }: { children: ReactNode }) => (
-  <p className="t-body-sm text-muted-foreground leading-[1.55] italic">
-    {children}
-  </p>
+const SectionHeading = ({
+  eyebrow,
+  children,
+}: {
+  eyebrow?: string;
+  children: ReactNode;
+}) => (
+  <div className="mb-4">
+    {eyebrow && (
+      <p className="t-utility-xs uppercase tracking-[0.16em] text-muted-foreground font-semibold mb-1">
+        {eyebrow}
+      </p>
+    )}
+    <h2 className="t-section-title-sm font-semibold tracking-tight text-foreground">
+      {children}
+    </h2>
+  </div>
 );
 
 // ---------- Page ----------
@@ -185,6 +211,7 @@ const VendorProfile = () => {
   const hasScope = hasGroups || hasFlatCompounds || hasCategoryFallback;
 
   const serviceArea = (vendor as Vendor & { serviceArea?: string }).serviceArea;
+  const monogram = monogramOf(vendor.name);
 
   return (
     <>
@@ -201,280 +228,330 @@ const VendorProfile = () => {
       />
 
       <section className="bg-background">
-        <div className="container-wide pt-6 pb-16">
+        <div className="container-wide pt-5 pb-16">
           <Link
             to="/verified-vendors"
-            className="t-utility-xs text-muted-foreground hover:text-foreground mb-5 inline-block"
+            className="t-utility-xs text-muted-foreground hover:text-foreground mb-4 inline-block"
           >
             ← Back to Directory
           </Link>
 
-          {/* Trust dossier — 12-col grid on desktop */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            {/* ---------- LEFT: Identity ---------- */}
-            <aside className="lg:col-span-3 lg:sticky lg:top-6 lg:self-start">
-              <div className="border border-border bg-background">
-                <div className={`h-[3px] w-full ${theme.identityRule}`} aria-hidden />
-                <div className="p-5">
-                  {vendor.category && (
-                    <p className="t-utility-xs uppercase tracking-[0.12em] text-muted-foreground font-medium mb-1.5">
-                      {vendor.category}
-                    </p>
-                  )}
-                  <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-tight break-words">
+          {/* ============================================================
+              UNIFIED PROFILE SURFACE
+              One bordered article — hero band + integrated body grid.
+          ============================================================ */}
+          <article className="border border-border bg-background">
+            {/* Status hairline */}
+            <div className={`h-[3px] w-full ${theme.hairline}`} aria-hidden />
+
+            {/* ---------- HERO / IDENTITY BAND ---------- */}
+            <header className="px-6 md:px-10 pt-8 pb-7 border-b border-border">
+              <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
+                {/* Monogram tile */}
+                <div
+                  className={`hidden sm:flex h-20 w-20 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
+                  aria-hidden
+                >
+                  <span className="t-section-title-md font-semibold tracking-tight text-foreground">
+                    {monogram}
+                  </span>
+                </div>
+
+                {/* Identity */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-3 flex-wrap mb-2">
+                    {vendor.category && (
+                      <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                        {vendor.category}
+                      </span>
+                    )}
+                    <span className="text-border" aria-hidden>·</span>
+                    <span className="t-utility-xs uppercase tracking-[0.14em] text-muted-foreground font-semibold">
+                      Source Standard Public Record
+                    </span>
+                  </div>
+
+                  <h1 className="t-page-title font-semibold tracking-tight text-foreground leading-[1.1] break-words max-w-[24ch]">
                     {vendor.name}
                   </h1>
 
-                  <div className="mt-3">
-                    <StatusBadge status={status} size="md" />
-                  </div>
-
-                  <p className="mt-3 t-body-sm text-muted-foreground leading-[1.5]">
-                    {VENDOR_STATUS_PROFILE_NOTE[status]}
-                  </p>
-
-                  <dl className="mt-4 pt-4 border-t border-border/70 space-y-2.5">
-                    <div className="flex items-start gap-2 t-body-sm text-foreground">
+                  {/* Identity meta line */}
+                  <div className="mt-4 flex items-center gap-x-5 gap-y-2 flex-wrap t-body-sm text-foreground">
+                    <span className="inline-flex items-center gap-1.5">
                       <FulfillmentIcon
-                        className="h-3.5 w-3.5 mt-[3px] text-muted-foreground shrink-0"
+                        className="h-4 w-4 text-muted-foreground"
                         aria-hidden
                       />
-                      <span>{VENDOR_FULFILLMENT_LABEL[fulfillment]}</span>
-                    </div>
-                    <div className="flex items-start gap-2 t-body-sm text-foreground">
+                      {VENDOR_FULFILLMENT_LABEL[fulfillment]}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
                       <MapPin
-                        className="h-3.5 w-3.5 mt-[3px] text-muted-foreground shrink-0"
+                        className="h-4 w-4 text-muted-foreground"
                         aria-hidden
                       />
-                      <span>{location}</span>
-                    </div>
+                      {location}
+                    </span>
+                    {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
+                      <span className="text-muted-foreground">
+                        {vendor.clinicalFocus.join(" · ")}
+                      </span>
+                    )}
                     {vendor.website && (
-                      <div className="flex items-start gap-2 t-body-sm text-foreground">
+                      <a
+                        href={vendor.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-foreground hover:text-primary"
+                      >
                         <Globe
-                          className="h-3.5 w-3.5 mt-[3px] text-muted-foreground shrink-0"
+                          className="h-4 w-4 text-muted-foreground"
                           aria-hidden
                         />
-                        <a
-                          href={vendor.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-primary break-all"
-                        >
-                          {hostname(vendor.website)}
-                        </a>
-                      </div>
+                        {hostname(vendor.website)}
+                      </a>
                     )}
-                  </dl>
+                  </div>
+                </div>
 
+                {/* Status + CTA cluster */}
+                <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
+                  <StatusBadge status={status} size="md" />
+                  <p className="t-body-sm text-muted-foreground leading-[1.45] max-w-[28ch] lg:text-right">
+                    {VENDOR_STATUS_PROFILE_NOTE[status]}
+                  </p>
                   {vendor.website && (
                     <a
                       href={vendor.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-5 w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-foreground text-background hover:bg-foreground/90 t-utility-xs font-medium tracking-tight"
+                      className="mt-1 inline-flex items-center gap-1.5 px-4 py-2 bg-foreground text-background hover:bg-foreground/90 t-utility-xs font-medium tracking-tight"
                     >
                       Visit website <ExternalLink className="h-3.5 w-3.5" />
                     </a>
                   )}
                 </div>
               </div>
-            </aside>
+            </header>
 
-            {/* ---------- CENTER: Record & narrative ---------- */}
-            <main className="lg:col-span-6 space-y-6">
-              {/* About */}
-              <div className="border border-border bg-background p-6">
-                <SectionTitle>About</SectionTitle>
-                {vendor.summary || vendor.publicNote ? (
-                  <p className="t-body-sm text-foreground/85 leading-[1.65]">
-                    {vendor.summary || vendor.publicNote}
-                  </p>
-                ) : (
-                  <Withheld>
-                    No public description on file. Source Standard has not
-                    published an editorial summary for this vendor.
-                  </Withheld>
-                )}
-              </div>
-
-              {/* Public Record */}
-              <div className="border border-border bg-background p-6">
-                <SectionTitle>Public Record</SectionTitle>
-                <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
-                  <Field label="Category" value={vendor.category} />
-                  <Field label="Fulfillment" value={VENDOR_FULFILLMENT_LABEL[fulfillment]} />
-                  <Field label="Clinical focus" value={vendor.clinicalFocus} />
-                  <Field label="Medical director" value={vendor.medicalDirector} />
-                  <Field label="Source type" value={sourceType} mono />
-                  {isPhysical ? (
-                    <Field label="Address" value={fullAddress || location} />
+            {/* ---------- INTEGRATED BODY GRID ---------- */}
+            <div className="grid grid-cols-1 lg:grid-cols-12">
+              {/* Main column */}
+              <div className="lg:col-span-8 lg:border-r border-border">
+                {/* About */}
+                <div className="px-6 md:px-10 py-8 border-b border-border">
+                  <SectionHeading eyebrow="Profile">About</SectionHeading>
+                  {vendor.summary || vendor.publicNote ? (
+                    <p className="t-body text-foreground/90 leading-[1.7] max-w-[68ch]">
+                      {vendor.summary || vendor.publicNote}
+                    </p>
                   ) : (
-                    <Field label="Service area" value={serviceArea || "Online — nationwide"} />
-                  )}
-                </dl>
-              </div>
-
-              {/* Verified Scope (verified vendors only) */}
-              {isVerified && (
-                <div className="border border-border bg-background p-6">
-                  <div className="flex items-baseline justify-between gap-4 flex-wrap mb-3">
-                    <SectionTitle>Verified Scope</SectionTitle>
-                    {vendor.scopeReviewDate && (
-                      <span className="t-utility-xs font-mono tabular-nums text-muted-foreground">
-                        Reviewed {vendor.scopeReviewDate}
-                      </span>
-                    )}
-                  </div>
-
-                  {hasScope ? (
-                    <>
-                      {hasGroups && (
-                        <div className="space-y-3">
-                          {Object.entries(vendor.verifiedScopeGroups!).map(
-                            ([category, compounds]) => (
-                              <div key={category}>
-                                <p className="t-utility-xs uppercase tracking-[0.06em] text-foreground font-semibold mb-1">
-                                  {category}
-                                </p>
-                                <p className="t-body-sm text-foreground/85 leading-[1.55]">
-                                  {compounds.join(" · ")}
-                                </p>
-                              </div>
-                            )
-                          )}
-                        </div>
-                      )}
-
-                      {!hasGroups && hasFlatCompounds && (
-                        <p className="t-body-sm text-foreground/85 leading-[1.55]">
-                          {vendor.verifiedCompounds!.join(" · ")}
-                        </p>
-                      )}
-
-                      {hasCategoryFallback && (
-                        <p className="t-body-sm text-foreground/85 leading-[1.55]">
-                          {vendor.verifiedCategories!.join(" · ")}
-                          <span className="block mt-1 t-utility-xs text-muted-foreground italic">
-                            Verified at category level. Specific compound list
-                            pending publication.
-                          </span>
-                        </p>
-                      )}
-
-                      <p className="mt-4 pt-3 border-t border-border/60 t-utility-xs text-muted-foreground leading-[1.55]">
-                        Verification applies only to the products listed.
-                      </p>
-                    </>
-                  ) : (
-                    <Withheld>Scope detail not yet published.</Withheld>
-                  )}
-                </div>
-              )}
-
-              {/* Reviewed Components (verified vendors only) */}
-              {isVerified && (
-                <div className="border border-border bg-background p-6">
-                  <SectionTitle>Reviewed Components</SectionTitle>
-                  <ul className="space-y-2.5">
-                    {[
-                      "Sourcing documents reviewed",
-                      "Pharmacy relationship reviewed",
-                      "Public claims reconciled",
-                      "Clinical oversight reviewed",
-                    ].map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 t-body-sm text-foreground"
-                      >
-                        <span
-                          aria-hidden
-                          className="mt-[7px] h-[6px] w-[6px] bg-verified shrink-0"
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {vendor.reviewDate && (
-                    <p className="mt-4 pt-3 border-t border-border/60 t-utility-xs text-muted-foreground">
-                      Last audit: <span className="font-mono tabular-nums text-foreground">{vendor.reviewDate}</span>
+                    <p className="t-body-sm text-muted-foreground italic leading-[1.6] max-w-[68ch]">
+                      No public description on file. Source Standard has not
+                      published an editorial summary for this vendor.
                     </p>
                   )}
                 </div>
-              )}
-            </main>
 
-            {/* ---------- RIGHT: Trust rail ---------- */}
-            <aside className="lg:col-span-3 space-y-6">
-              <div className="border border-border bg-background">
-                <div className="px-5 py-3 border-b border-border/70 bg-muted/30">
-                  <p className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold">
-                    Trust Record
-                  </p>
+                {/* Public Record */}
+                <div className="px-6 md:px-10 py-8 border-b border-border lg:border-b-0">
+                  <SectionHeading eyebrow="Record">
+                    Public Record
+                  </SectionHeading>
+                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
+                    <Field label="Category" value={vendor.category} />
+                    <Field
+                      label="Fulfillment"
+                      value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
+                    />
+                    <Field label="Clinical focus" value={vendor.clinicalFocus} />
+                    <Field
+                      label="Medical director"
+                      value={vendor.medicalDirector}
+                    />
+                    <Field label="Source type" value={sourceType} mono />
+                    {isPhysical ? (
+                      <Field label="Address" value={fullAddress || location} />
+                    ) : (
+                      <Field
+                        label="Service area"
+                        value={serviceArea || "Online — nationwide"}
+                      />
+                    )}
+                  </dl>
                 </div>
-                <dl className="px-5 py-2">
-                  <Datum label="Status" value={VENDOR_STATUS_LABEL[status]} />
-                  {isVerified && vendor.reviewDate && (
-                    <Datum label="Last reviewed" value={vendor.reviewDate} />
-                  )}
-                  {isVerified && vendor.reviewId ? (
-                    <Datum label="Review ID" value={vendor.reviewId} mono />
-                  ) : !isVerified ? (
-                    <Datum
-                      label="Review ID"
-                      value={
-                        <span className="text-muted-foreground italic">
-                          Not on file
-                        </span>
-                      }
-                    />
-                  ) : null}
-                  <Datum label="Source type" value={sourceType} mono />
-                  {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
-                    <Datum label="Clinical focus" value={vendor.clinicalFocus} />
-                  )}
-                  {serviceArea && (
-                    <Datum label="States served" value={serviceArea} />
-                  )}
-                </dl>
+
+                {/* Verified Scope (verified only) */}
                 {isVerified && (
-                  <div className="px-5 py-3 border-t border-border/70 flex items-center justify-center">
-                    <VerificationShield
-                      reviewId={vendor.reviewId}
-                      reviewDate={vendor.reviewDate}
-                      size="md"
-                    />
+                  <div className="px-6 md:px-10 py-8 border-t border-border">
+                    <div className="flex items-baseline justify-between gap-4 flex-wrap mb-4">
+                      <SectionHeading eyebrow="Verification">
+                        Verified Scope
+                      </SectionHeading>
+                      {vendor.scopeReviewDate && (
+                        <span className="t-utility-xs font-mono tabular-nums text-muted-foreground">
+                          Reviewed {vendor.scopeReviewDate}
+                        </span>
+                      )}
+                    </div>
+
+                    {hasScope ? (
+                      <>
+                        {hasGroups && (
+                          <div className="space-y-4">
+                            {Object.entries(vendor.verifiedScopeGroups!).map(
+                              ([category, compounds]) => (
+                                <div key={category}>
+                                  <p className="t-utility-xs uppercase tracking-[0.08em] text-foreground font-semibold mb-1.5">
+                                    {category}
+                                  </p>
+                                  <p className="t-body-sm text-foreground/85 leading-[1.6]">
+                                    {compounds.join(" · ")}
+                                  </p>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        )}
+
+                        {!hasGroups && hasFlatCompounds && (
+                          <p className="t-body-sm text-foreground/85 leading-[1.6]">
+                            {vendor.verifiedCompounds!.join(" · ")}
+                          </p>
+                        )}
+
+                        {hasCategoryFallback && (
+                          <p className="t-body-sm text-foreground/85 leading-[1.6]">
+                            {vendor.verifiedCategories!.join(" · ")}
+                            <span className="block mt-1 t-utility-xs text-muted-foreground italic">
+                              Verified at category level. Specific compound list
+                              pending publication.
+                            </span>
+                          </p>
+                        )}
+
+                        <p className="mt-5 pt-4 border-t border-border/60 t-utility-xs text-muted-foreground leading-[1.55]">
+                          Verification applies only to the products listed.
+                        </p>
+                      </>
+                    ) : (
+                      <p className="t-body-sm text-muted-foreground italic">
+                        Scope detail not yet published.
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
 
-              <Link
-                to="/report-concern"
-                className="group flex items-center justify-between gap-2 border border-border bg-background px-5 py-4 hover:border-foreground/40 transition-colors"
-              >
-                <div>
-                  <p className="t-utility-xs uppercase tracking-[0.12em] text-foreground font-semibold">
-                    Report a concern
-                  </p>
-                  <p className="mt-1 t-utility-xs text-muted-foreground leading-[1.45]">
-                    Flag an inaccuracy or sourcing issue.
-                  </p>
-                </div>
-                <Flag
-                  className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0"
-                  aria-hidden
-                />
-              </Link>
-            </aside>
-          </div>
+              {/* Trust rail */}
+              <aside className="lg:col-span-4 bg-muted/20">
+                <div className="px-6 md:px-8 py-8">
+                  <div className="flex items-center gap-2 mb-5">
+                    <ShieldCheck
+                      className="h-4 w-4 text-muted-foreground"
+                      aria-hidden
+                    />
+                    <p className="t-utility-xs uppercase tracking-[0.16em] text-foreground font-semibold">
+                      Trust Record
+                    </p>
+                  </div>
 
-          {/* Footer micro-line */}
-          <p className="mt-8 text-center t-utility-xs text-muted-foreground">
-            Public record ·{" "}
-            {isVerified && vendor.reviewDate
-              ? `Updated ${vendor.reviewDate}`
-              : "Listed in the Source Standard directory"}{" "}
-            · No payment influences inclusion or status.
-          </p>
+                  <dl className="border-t border-border/60">
+                    <RailRow label="Status" value={VENDOR_STATUS_LABEL[status]} />
+                    {isVerified && vendor.reviewDate && (
+                      <RailRow label="Last reviewed" value={vendor.reviewDate} />
+                    )}
+                    <RailRow
+                      label="Review ID"
+                      value={
+                        isVerified && vendor.reviewId ? (
+                          vendor.reviewId
+                        ) : (
+                          <span className="text-muted-foreground italic">
+                            Not on file
+                          </span>
+                        )
+                      }
+                      mono={isVerified && !!vendor.reviewId}
+                    />
+                    <RailRow label="Source type" value={sourceType} mono />
+                    {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
+                      <RailRow
+                        label="Clinical focus"
+                        value={vendor.clinicalFocus}
+                      />
+                    )}
+                    {serviceArea && (
+                      <RailRow label="States served" value={serviceArea} />
+                    )}
+                    {vendor.medicalDirector && (
+                      <RailRow
+                        label="Medical director"
+                        value={vendor.medicalDirector}
+                      />
+                    )}
+                  </dl>
+
+                  {isVerified && (
+                    <div className="mt-6 pt-5 border-t border-border/60">
+                      <p className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold mb-3">
+                        Reviewed Components
+                      </p>
+                      <ul className="space-y-2">
+                        {[
+                          "Sourcing documents",
+                          "Pharmacy relationship",
+                          "Public claims",
+                          "Clinical oversight",
+                        ].map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-start gap-2.5 t-body-sm text-foreground"
+                          >
+                            <span
+                              aria-hidden
+                              className="mt-[7px] h-[6px] w-[6px] bg-verified shrink-0"
+                            />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <Link
+                    to="/report-concern"
+                    className="group mt-6 flex items-center justify-between gap-3 border border-border bg-background px-4 py-3.5 hover:border-foreground/40 transition-colors"
+                  >
+                    <div>
+                      <p className="t-utility-xs uppercase tracking-[0.12em] text-foreground font-semibold">
+                        Report a concern
+                      </p>
+                      <p className="mt-0.5 t-utility-xs text-muted-foreground leading-[1.45]">
+                        Flag an inaccuracy or sourcing issue.
+                      </p>
+                    </div>
+                    <Flag
+                      className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0"
+                      aria-hidden
+                    />
+                  </Link>
+                </div>
+              </aside>
+            </div>
+
+            {/* ---------- FOOTER STRIP (inside the card) ---------- */}
+            <div className="px-6 md:px-10 py-4 border-t border-border bg-muted/10 flex items-center justify-between gap-4 flex-wrap">
+              <p className="t-utility-xs text-muted-foreground">
+                Source Standard public record ·{" "}
+                {isVerified && vendor.reviewDate
+                  ? `Updated ${vendor.reviewDate}`
+                  : "Listed in the directory"}
+              </p>
+              <p className="t-utility-xs text-muted-foreground">
+                No payment influences inclusion or status.
+              </p>
+            </div>
+          </article>
         </div>
       </section>
     </>
