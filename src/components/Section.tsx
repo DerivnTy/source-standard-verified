@@ -57,18 +57,16 @@ export const SectionLabel = ({
   description?: string;
 }) => (
   <div className="mb-8">
-    <div className="flex items-baseline gap-3 mb-3 flex-wrap">
+    <h2 className="text-[1.5rem] md:text-[1.625rem] font-semibold tracking-[-0.012em] leading-[1.25] text-foreground font-sans">
       {number && (
-        <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+        <span className="font-mono text-[0.78em] uppercase tracking-[0.08em] text-muted-foreground mr-3 align-baseline">
           {number}
         </span>
       )}
-      <h2 className="text-[1.375rem] md:text-[1.5rem] font-semibold tracking-[-0.012em] text-foreground">
-        {title}
-      </h2>
-    </div>
+      {title}
+    </h2>
     {description && (
-      <p className="text-[15.5px] leading-[1.7] text-muted-foreground max-w-[68ch]">
+      <p className="mt-3 text-[16px] leading-[1.7] text-muted-foreground">
         {description}
       </p>
     )}
