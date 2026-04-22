@@ -70,7 +70,7 @@ export const SiteHeader = () => {
 
   return (
     <header
-      className={`sticky top-0 z-40 bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/40 transition-transform duration-200 ease-out ${
+      className={`sticky top-0 z-40 bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/60 transition-transform duration-200 ease-out ${
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -78,7 +78,7 @@ export const SiteHeader = () => {
 
       <div className="container-wide relative flex h-16 items-center justify-between">
         <Logo />
-        <nav className="hidden lg:flex items-center gap-9 h-full">
+        <nav className="hidden lg:flex items-center gap-7 h-full">
           {nav.map((n) => (
             <NavLink
               key={n.to}
@@ -87,7 +87,7 @@ export const SiteHeader = () => {
               className={({ isActive }) =>
                 `relative inline-flex items-center h-10 text-[13px] font-medium tracking-[0.005em] transition-colors ${
                   isActive
-                    ? "text-primary font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[2px] after:bg-primary"
+                    ? "text-foreground font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`
               }
@@ -97,8 +97,13 @@ export const SiteHeader = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center">
-          <Button asChild size="sm" className="text-[13px] h-10 px-5 font-medium bg-foreground text-background hover:bg-foreground/90 rounded-lg">
-            <Link to="/apply">Apply for verification</Link>
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="h-9 px-4 text-[12.5px] font-medium tracking-[0.01em] rounded-md border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40"
+          >
+            <Link to="/apply">Apply for Verification</Link>
           </Button>
         </div>
         <button
@@ -130,11 +135,12 @@ export const SiteHeader = () => {
             ))}
             <Button
               asChild
+              variant="outline"
               size="sm"
-              className="mt-4 mb-2 h-11 bg-primary hover:bg-primary-hover text-primary-foreground rounded-md font-medium"
+              className="mt-4 mb-2 h-11 border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40 rounded-md font-medium text-[13px] tracking-[0.01em]"
             >
               <Link to="/apply" onClick={() => setOpen(false)}>
-                Apply for verification
+                Apply for Verification
               </Link>
             </Button>
           </div>
