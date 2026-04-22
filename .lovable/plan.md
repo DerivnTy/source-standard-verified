@@ -1,74 +1,66 @@
 
 
-## Vendor Profile — Navigation Cleanup + Verified Drug Scope
+## Global Header Refinement
 
-Refine `src/pages/VendorProfile.tsx`. Strip vendor-facing CTAs and competing nav, add a single quiet "Back to Directory" link above the vendor name, and introduce a precise **Verified Drug Scope** section inside the existing profile card.
+Tighten the global utility bar to a single sitewide framework strip, and refine `SiteHeader` so the navigation and verification action read as one composed institutional system.
 
 ---
 
-### Navigation changes
+### 1 · Global utility bar — single static strip
 
-**Remove:**
-- Top-right desktop `← Directory` link in the identity row
-- Bottom action-row `← Vendor Registry` link
-- Bottom action-row `Begin Verification →` link (vendor-facing — does not belong on a consumer page)
+Rewrite `src/components/GlobalUtilityBar.tsx` to remove all route-specific content. No more per-page `DOC ID`, version, or status — that metadata belongs on individual document pages, not the global chrome.
 
-**Add:**
-- A single small `← Back to Directory` link rendered above the vendor name (left-aligned, sits between the `Breadcrumb` and the `h1`). Style: `text-[12px] text-muted-foreground hover:text-foreground mb-3 inline-block`. This becomes the only directory-return path on the page.
+**New content (identical on every route):**
+```
+SOURCE STANDARD FRAMEWORK  ·  PUBLIC REFERENCE SYSTEM  ·  ACTIVE  ·  UNITED STATES  ·  UPDATED 04 / 21 / 2026
+```
 
-**Action area (inside card, right-aligned, after hairline divider):**
-- Only `Visit website ↗` remains (when `vendor.website` exists). For all statuses. If no website exists, the action row collapses entirely (no empty divider).
+**Implementation:**
+- Delete the `RouteSignature` type, `DEFAULT_SIG`, `ROUTE_SIGNATURES` map, and `resolveSignature()` helper.
+- Keep the `useLocation` check only to detect the home route (`/`) for the navy-surface variant — same color logic as today.
+- Render a single horizontal row of mono segments separated by middots. On narrow viewports, hide secondary segments progressively (`hidden sm:inline`, `hidden md:inline`) so the bar never wraps:
+  - Always visible: `SOURCE STANDARD FRAMEWORK`
+  - `sm+`: `PUBLIC REFERENCE SYSTEM`
+  - `sm+`: `STATUS · ACTIVE` (with the word "ACTIVE" slightly brighter, matching today's status emphasis)
+  - `md+`: `UNITED STATES`
+  - Always visible (right-aligned): `UPDATED 04 / 21 / 2026`
+- Keep the existing styling: `font-mono text-[10.5px] uppercase tracking-[0.14em]`, hairline bottom border, navy variant on `/`, neutral elsewhere. No structural change to height or padding.
 
-### New section: Verified Drug Scope
+### 2 · `SiteHeader` — refined institutional balance
 
-Render **inside the same profile card**, immediately after the 2-column metadata grid and before the action divider. Full-width within the card (spans both columns). Treated as a core record field, not a separate visual block — same border-bottom rhythm as the grid rows above.
+Edit `src/components/SiteHeader.tsx` to make the header read as one composed unit.
 
-Structure:
-- Label row: small uppercase eyebrow `Verified drug scope` (matches the `Row` label style — `text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground`).
-- Body, status-aware:
+**Verification action — refine the button:**
+Replace the current solid black-on-white button with a quieter, tailored, header-native treatment:
+- Component: keep `<Button asChild>` but switch to `variant="outline"` styling overridden inline.
+- Visual: thin 1px border in `border-foreground/20`, transparent background, `text-foreground` label, hover lifts to `border-foreground/40` and `bg-foreground/[0.03]` (no color shift, no scale, no shadow).
+- Sizing: `h-9 px-4 text-[12.5px] font-medium tracking-[0.01em] rounded-md` — slightly shorter than today's `h-10 px-5`, so the action sits at nav weight rather than dominating.
+- Copy: keep `Apply for Verification` (Title Case — currently sentence case). Title Case reads as a formal action label, matches the institutional tone.
+- No icon, no arrow, no accent color.
 
-**Verified vendors:**
-- If `vendor.verifiedCompounds` exists (new optional field — see data note below): render as a clean list. Group by category when `vendor.verifiedScopeGroups` is provided (object: `{ [category: string]: string[] }`); otherwise render a flat list of compound names. Each compound on its own line, `text-[14px] text-foreground/90 leading-[1.7]`. Categories rendered as small label rows above their compound list.
-- Fallback when only `verifiedCategories` exists (no compound-level data yet): render the categories as the scope, prefixed by a small note: `Verified at category level. Specific compound list pending publication.`
-- Below the list, a single muted disclosure line: `Verification applies only to the products listed above. Other products offered by this vendor are not within the published scope.`
-- When a per-scope review date exists (`vendor.scopeReviewDate`, optional), render below the disclosure: `Scope reviewed {date}.`
+**Nav + spacing balance:**
+- Reduce nav gap from `gap-9` to `gap-7` so the nav cluster feels tighter and the button sits closer to the nav as part of the same composition.
+- Nav links: keep current `text-[13px] font-medium` but soften the active-state underline — change `after:bg-primary` to `after:bg-foreground` and reduce `after:h-[2px]` to `after:h-[1.5px]`. The active link still anchors visually but stops feeling like a brand accent.
+- Logo: leave `Logo.tsx` untouched (already restrained).
 
-**Non-verified vendors (unverified / under-review / suspended / removed):**
-- Single muted line: `No verified drug scope is currently published.`
-- No list, no disclosure tail.
+**Header surface:**
+- Keep the sticky behavior, scroll hide/show, and backdrop-blur. No changes there.
+- Tighten the bottom border from `border-border/40` to `border-border/60` so the header has a slightly crisper terminal edge — reads as a defined band rather than a fade.
 
-### Data note (additive, no breaking changes)
+**Mobile menu:**
+- Replace the mobile primary `Apply for verification` button with the same outline treatment (`border border-foreground/20 bg-transparent text-foreground`) so the mobile menu inherits the refined institutional tone. Copy: `Apply for Verification`.
 
-Extend the `Vendor` type in `src/data/vendors.ts` with three optional fields:
-- `verifiedCompounds?: string[]` — flat list of specific reviewed compounds
-- `verifiedScopeGroups?: Record<string, string[]>` — optional grouping by category (e.g. `{ "Peptides": ["BPC-157", "TB-500"], "Hormones": ["Testosterone Cypionate"] }`)
-- `scopeReviewDate?: string` — optional per-scope review date
+### 3 · No other changes
 
-No existing data needs to change. The page renders correctly whether these fields are populated or absent (graceful degradation: groups → flat list → categories → muted note).
-
-### Updated card field order
-
-Inside the 2-column grid (unchanged from current):
-Public status · Legal name · Location · Website · Medical director · Category · Clinical focus · State · Verified scope (header-level, verified only) · Last review date · Review ID · Upstream source summary (verified+publicNote, spans columns) · Non-verified status note (non-verified, spans columns)
-
-Then **new**: Verified Drug Scope block (full-width inside card, spans both columns).
-
-Then: hairline divider → action area (Visit website only, or omitted) → footer micro-line outside card (unchanged).
-
-### Visual rules
-
-- Stays one section, one card. No new bands or sections outside the card.
-- New scope block uses the same border-bottom hairline + label/value rhythm as existing `Row`s — feels native to the card, not bolted on.
-- Status-tinted top border on the card unchanged.
-- No pills, no badges in the compound list — plain typography, one compound per line, optional category sublabels.
-- Keep `PageMeta`, `Breadcrumb`, `StatusBadge`, `getVendor`, `CAPSULE_BORDER`, `NON_VERIFIED_NOTE`, `hostname`, `formatLocation`, `Row` primitive.
+- `Logo.tsx`, `SiteLayout.tsx`, `SiteFooter.tsx`, route definitions, and every page remain untouched.
+- The per-page `DocJumpBar`, `RecordHeader`, `ProfileFooter`, and other document-level metadata continue to display page-specific identifiers — they were never the global bar's job.
 
 ### Files touched
 
-- `src/pages/VendorProfile.tsx` — remove top-right `← Directory`, remove bottom `← Vendor Registry` and `Begin Verification` links, add `← Back to Directory` above the `h1`, add the `VerifiedScope` block inside the card after the grid.
-- `src/data/vendors.ts` — extend the `Vendor` type with three new optional fields (`verifiedCompounds`, `verifiedScopeGroups`, `scopeReviewDate`). No existing data modified.
+- `src/components/GlobalUtilityBar.tsx` — full rewrite to a single static framework strip; remove route signature map and resolver.
+- `src/components/SiteHeader.tsx` — refine the desktop and mobile verification button, tighten nav spacing, soften the active underline accent, crisp the bottom border. Update copy to `Apply for Verification`.
 
 ### What stays the same
 
-`StatusBadge`, `PageMeta`, `Breadcrumb`, `getVendor`, the `Vendor` core fields, `VENDOR_STATUS_LABEL`, the `CAPSULE_BORDER` map, the route `/directory/:slug`, the 2-column grid layout, the footer micro-line, all existing vendor data, every other page on the site.
+`Logo`, `SiteLayout`, `SiteFooter`, `SourceBot`, the sticky/hide-on-scroll behavior, the `useHeaderVisible` hook, all routes, all page-level metadata components, and the home-page navy treatment of the utility bar.
 
