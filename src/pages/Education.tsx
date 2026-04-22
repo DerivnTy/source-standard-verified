@@ -4,12 +4,6 @@ import { ChevronRight } from "lucide-react";
 import { AnchorHeader } from "@/components/AnchorHeader";
 import { Button } from "@/components/ui/button";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   ENTRY_STATUS_LABEL,
   EntryStatus,
   FAQEntry,
