@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
@@ -25,334 +24,262 @@ const weFlag = [
   "Function as a marketing arm for any clinic or vendor.",
 ];
 
-const sections = [
-  { id: "why", number: "§1", label: "Why this exists" },
-  { id: "reference", number: "§2", label: "Public reference" },
-  { id: "gap", number: "§3", label: "Information gap" },
-  { id: "beliefs", number: "§4", label: "Four beliefs" },
-  { id: "scope", number: "§5", label: "Scope" },
-  { id: "principle", number: "§6", label: "Operating principle" },
-  { id: "audience", number: "§7", label: "Who it serves" },
-  { id: "mission", number: "§8", label: "Mission" },
+const isNotItems = [
+  "Does not prescribe treatment.",
+  "Does not provide medical advice.",
+  "Does not replace physician judgment.",
+  "Does not function as a regulator.",
+  "Does not market clinics or act as a promotional partner.",
+  "Does not guarantee medical outcomes, product safety, or treatment efficacy.",
 ];
 
 const readDeeper = [
   { to: "/governance", label: "Governance & Oversight", desc: "Clinical advisory and statutory anchors." },
   { to: "/how-it-works", label: "How verification works", desc: "Process, review, and renewal." },
-  { to: "/status-definitions", label: "Status Definitions", desc: "Glossary of regulatory standings." },
-  { to: "/accountability", label: "Accountability & Enforcement", desc: "Compliance protocol." },
+  { to: "/status-definitions", label: "Status definitions", desc: "Glossary of regulatory standings." },
+  { to: "/accountability", label: "Accountability & enforcement", desc: "Compliance protocol." },
 ];
 
+const SectionHeader = ({
+  eyebrow,
+  title,
+  lede,
+}: {
+  eyebrow: string;
+  title: string;
+  lede?: string;
+}) => (
+  <div className="mx-auto max-w-3xl text-center mb-10 md:mb-12">
+    <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted-foreground mb-4">
+      {eyebrow}
+    </p>
+    <h2 className="text-[1.625rem] md:text-[1.875rem] font-semibold tracking-[-0.012em] leading-[1.25] text-foreground">
+      {title}
+    </h2>
+    {lede && (
+      <p className="mt-4 text-[15px] leading-[1.7] text-muted-foreground">{lede}</p>
+    )}
+  </div>
+);
+
 const About = () => {
-  const [activeId, setActiveId] = useState<string>(sections[0].id);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => {
-      const el = document.getElementById(s.id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
       <PageMeta
         title="About Source Standard"
-        description="The organizational structure and operational intent of the Source Standard framework."
+        description="An independent verification and public-reference framework for vendor sourcing transparency in peptide, TRT, and hormone optimization markets."
       />
       <BriefingHero
-        category="CHARTER · SS-ORG"
-        docId="SS-ORG-2026.01"
-        title="About."
-        statement="The organizational structure and operational intent of the Source Standard framework."
-        metadata={[
-          { label: "Doc", value: "SS-ORG-2026.01" },
-          { label: "Status", value: "Active" },
-          { label: "Jurisdiction", value: "United States" },
-          { label: "Updated", value: "04 / 21 / 2026" },
-        ]}
-        verifiedOn="04 / 21 / 2026"
+        tone="navy"
+        category="About Source Standard"
+        docId=""
+        title="About Source Standard"
+        statement="An independent verification and public-reference framework for vendor sourcing transparency in peptide, TRT, and hormone optimization markets."
       />
 
-      {/* Sticky horizontal contents bar */}
-      <nav
-        aria-label="Document sections"
-        className="sticky top-0 z-30 border-b border-border bg-background"
-      >
-        <div className="container-wide overflow-x-auto">
-          <ul className="flex gap-x-6 py-2.5 min-w-max">
-            {sections.map((s) => {
-              const active = activeId === s.id;
-              return (
-                <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    className={`font-mono text-[10.5px] uppercase tracking-[0.1em] whitespace-nowrap transition-colors ${
-                      active
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {s.number} · {s.label}
-                  </a>
-                </li>
-              );
-            })}
+      {/* Why this exists */}
+      <section className="bg-background border-b border-border py-12 md:py-16">
+        <div className="container-wide">
+          <SectionHeader
+            eyebrow="Why this exists"
+            title="Consumers shouldn't have to decode marketing claims."
+          />
+          <div className="mx-auto max-w-3xl space-y-5">
+            <p className="text-[15.5px] text-muted-foreground leading-[1.75]">
+              In peptide, TRT, and hormone optimization markets, consumers are routinely asked to make
+              decisions based on website language, branding, and trust signals that are difficult to verify
+              independently. Operators who invest in proper sourcing, documentation, and oversight share the
+              same landscape as those who do not — and from the outside, the differences are not always
+              easy to see.
+            </p>
+            <p className="text-[15.5px] text-foreground leading-[1.75] font-medium">
+              Source Standard exists to make that landscape easier to interpret.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* What Source Standard is */}
+      <section className="bg-surface-muted border-b border-border py-12 md:py-16">
+        <div className="container-wide">
+          <SectionHeader
+            eyebrow="What Source Standard is"
+            title="A public reference and verification framework."
+          />
+          <div className="mx-auto max-w-3xl">
+            <p className="text-[15.5px] text-muted-foreground leading-[1.75]">
+              Source Standard publishes vendor verification status and recognized upstream sources, and
+              organizes sourcing and documentation information so the public can interpret it more clearly.
+              It is a reference layer for an industry that has not had one.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* What Source Standard is not */}
+      <section className="bg-background border-b border-border py-12 md:py-16">
+        <div className="container-wide">
+          <SectionHeader
+            eyebrow="What Source Standard is not"
+            title="Boundaries of the framework."
+          />
+          <ul className="mx-auto max-w-4xl grid md:grid-cols-2 md:gap-x-12">
+            {isNotItems.map((item, i) => (
+              <li
+                key={i}
+                className="border-b border-border py-4 text-[15px] font-medium text-foreground leading-[1.6]"
+              >
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
-      </nav>
-
-      {/* §1 — Why this exists */}
-      <section id="why" className="scroll-mt-20 border-b border-border bg-background py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§1 · Foundation</p>
-            <h2 className="h-section">Why this exists.</h2>
-          </div>
-          <div className="md:col-span-8 space-y-4">
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-              In peptide, TRT, and hormone optimization markets, consumers are frequently asked to make decisions
-              based on website language, branding, and trust signals that are not always easy to verify
-              independently. At the same time, vendors who invest in proper sourcing, documentation, and oversight
-              often operate in the same landscape as those who do not.
-            </p>
-            <p className="text-[14.5px] text-foreground font-medium leading-relaxed">
-              Source Standard exists to make that landscape easier to understand.
-            </p>
-          </div>
-        </div>
       </section>
 
-      {/* §2 — Public reference */}
-      <section id="reference" className="scroll-mt-20 border-b border-border bg-surface-muted py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§2 · Mandate</p>
-            <h2 className="h-section">A public reference for vendor verification.</h2>
-          </div>
-          <div className="md:col-span-8 space-y-4">
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-              Source Standard serves as a public reference for vendor verification and recognized upstream sources.
-              Its purpose is not to market clinics, promote treatments, or influence care decisions. Its purpose is
-              to help make sourcing and verification information more visible, more structured, and easier to
-              interpret.
-            </p>
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-              When documentation is clearer, consumers are better informed and responsible operators are easier to
-              recognize.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* §3 — Information gap */}
-      <section id="gap" className="scroll-mt-20 border-b border-border bg-background py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§3 · Context</p>
-            <h2 className="h-section">Formed to address an information gap.</h2>
-          </div>
-          <div className="md:col-span-8 space-y-4">
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-              A growing industry now carries real consumer demand, real clinical interest, and real variation in how
-              claims are presented. Some operators invest heavily in documentation, sourcing standards, and
-              oversight. Others present similar claims with far less visibility into what stands behind them. To the
-              outside observer, those differences are not always easy to see.
-            </p>
-            <p className="text-[14.5px] text-foreground font-medium leading-relaxed">
-              Source Standard did not form to control the market. It formed to make it more legible.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* §4 — Four beliefs */}
-      <section id="beliefs" className="scroll-mt-20 border-b border-border bg-surface-muted py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§4 · Principles</p>
-            <h2 className="h-section">Four beliefs that shape the framework.</h2>
-            <p className="mt-3 text-[14.5px] text-muted-foreground leading-relaxed">
-              Foundational tenets that govern every editorial and verification decision.
-            </p>
-          </div>
-          <div className="md:col-span-8">
-            <ol className="border border-border bg-background divide-y divide-border">
-              {beliefs.map((b, i) => (
-                <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
-                  <div className="col-span-2 meta text-primary">§4.{i + 1}</div>
-                  <p className="col-span-10 text-[14.5px] text-foreground leading-relaxed">{b}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      {/* §5 — Scope */}
-      <section id="scope" className="scroll-mt-20 border-b border-border bg-background py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§5 · Audit boundary</p>
-            <h2 className="h-section">Scope of the framework — verified vs. flagged.</h2>
-            <p className="mt-3 text-[14.5px] text-muted-foreground leading-relaxed">
-              A legal definition of what falls inside the auditing body's mandate, and what is recorded as outside
-              it. Source Standard is the census of the industry — verified, unverified, and flagged alike.
-            </p>
-          </div>
-          <div className="md:col-span-8">
-            <div className="border border-border bg-background">
-              <div className="grid grid-cols-12 gap-3 px-5 py-2.5 bg-surface-muted border-b border-border">
-                <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Ref</div>
-                <div className="col-span-5 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">What we verify</div>
-                <div className="col-span-5 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">What we flag / exclude</div>
-              </div>
-              <ul className="divide-y divide-border">
-                {weVerify.map((item, i) => (
-                  <li key={i} className="grid grid-cols-12 gap-3 px-5 py-4 items-baseline">
-                    <div className="col-span-2 meta text-primary">§5.{i + 1}</div>
-                    <div className="col-span-5 text-[14.5px] text-foreground leading-relaxed">{item}</div>
-                    <div className="col-span-5 text-[14.5px] text-muted-foreground leading-relaxed">{weFlag[i]}</div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §6 — Operating principle */}
-      <section id="principle" className="scroll-mt-20 border-b border-border bg-surface-muted py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§6 · Doctrine</p>
-            <h2 className="h-section">A single operating principle.</h2>
-          </div>
-          <div className="md:col-span-8">
-            <div className="border border-border bg-background px-6 py-6">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
-                Operating principle · §6
-              </p>
-              <p className="text-[14.5px] text-foreground leading-relaxed font-medium">
-                If documentation is present and supports the published status, that status can be shown publicly. If
-                it is not, it cannot.
-              </p>
-              <div className="mt-4 pt-4 border-t border-border">
-                <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-                  The role here is not to persuade. The role is to provide a clearer public reference.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §7 — Audience */}
-      <section id="audience" className="scroll-mt-20 border-b border-border bg-background py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§7 · Audience</p>
-            <h2 className="h-section">Who this serves.</h2>
-          </div>
-          <div className="md:col-span-8">
-            <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
-              <li className="bg-background p-6">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-primary mb-2">
-                  §7.1 · For consumers
-                </p>
-                <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-                  Consumers should be able to understand more about the vendors they are evaluating. That does not
-                  make every decision simple. It does mean the public has better tools for interpreting what is being
-                  claimed, what has been reviewed, and what has not.
-                </p>
-              </li>
-              <li className="bg-background p-6">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-primary mb-2">
-                  §7.2 · For responsible vendors
-                </p>
-                <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-                  Responsible operators often absorb the cost of doing things carefully while competing in markets
-                  where those differences are not immediately visible. When transparency is easier to see, the market
-                  becomes easier to interpret — fairer to vendors willing to stand behind their documentation.
-                </p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* §8 — Mission */}
-      <section id="mission" className="scroll-mt-20 border-b border-border bg-surface-muted py-12 md:py-16">
-        <div className="container-wide grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§8 · Mission</p>
-            <h2 className="h-section">Mission.</h2>
-          </div>
-          <div className="md:col-span-8 space-y-5">
-            <p className="text-[15px] text-foreground leading-[1.6] font-semibold">
-              To bring greater clarity, consistency, and transparency to vendor sourcing and verification in peptide,
-              TRT, and hormone optimization markets.
-            </p>
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-              Source Standard exists to make the market easier to understand for the people moving through it.
-            </p>
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-              Medical advisory oversight and the standards authorities the framework references are documented in{" "}
-              <Link to="/governance" className="text-primary underline-offset-4 hover:underline">
-                Governance & Oversight
-              </Link>
-              .
-            </p>
-
-            {/* Read deeper bar */}
-            <div className="mt-8 border border-border bg-background">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground px-5 py-3 border-b border-border bg-surface-muted">
-                Read deeper
-              </p>
-              <ul className="divide-y divide-border">
-                {readDeeper.map((d) => (
-                  <li key={d.to}>
-                    <Link
-                      to={d.to}
-                      className="group grid grid-cols-12 gap-4 items-baseline px-5 py-4 hover:bg-surface-muted transition-colors"
-                    >
-                      <p className="col-span-12 sm:col-span-4 text-[14px] font-medium text-foreground group-hover:text-primary">
-                        {d.label}
-                      </p>
-                      <p className="col-span-12 sm:col-span-7 text-[13px] text-muted-foreground leading-relaxed">
-                        {d.desc}
-                      </p>
-                      <span className="hidden sm:block col-span-1 text-right text-primary text-[14px] group-hover:translate-x-0.5 transition-transform">
-                        →
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Cite footer */}
-      <section className="bg-surface-muted py-8">
-        <div className="container-wide">
-          <p className="text-[12.5px] text-muted-foreground leading-[1.7]">
-            <span className="font-mono uppercase tracking-[0.12em] text-foreground mr-2">Cite as ·</span>
-            Source Standard, Organization Reference, SS-ORG-2026.01. Last updated 04 / 21 / 2026.
+      {/* Operating principle */}
+      <section className="bg-surface-muted border-b border-border py-16 md:py-20">
+        <div className="container-wide text-center">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted-foreground mb-6">
+            Operating principle
+          </p>
+          <p className="mx-auto max-w-2xl text-[20px] md:text-[22px] font-semibold tracking-[-0.01em] leading-[1.45] text-foreground">
+            “If documentation is present and supports the published status, that status can be shown
+            publicly. If it is not, it cannot.”
+          </p>
+          <p className="mx-auto max-w-xl mt-6 text-[14.5px] text-muted-foreground leading-[1.7]">
+            The role here is not to persuade. The role is to provide a clearer public reference.
           </p>
         </div>
       </section>
+
+      {/* Who this serves */}
+      <section className="bg-background border-b border-border py-12 md:py-16">
+        <div className="container-wide">
+          <SectionHeader eyebrow="Who this serves" title="Two audiences, one framework." />
+          <div className="mx-auto max-w-4xl grid md:grid-cols-2 md:divide-x divide-border">
+            <div className="md:pr-10 pb-8 md:pb-0 border-b md:border-b-0 border-border">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-foreground mb-3">
+                For consumers
+              </p>
+              <p className="text-[15px] text-muted-foreground leading-[1.75]">
+                Source Standard helps consumers understand what has been reviewed, what has not, and how to
+                interpret vendor claims more clearly — so decisions rest on evidence rather than presentation.
+              </p>
+            </div>
+            <div className="md:pl-10 pt-8 md:pt-0">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-foreground mb-3">
+                For responsible vendors
+              </p>
+              <p className="text-[15px] text-muted-foreground leading-[1.75]">
+                Source Standard makes transparency more visible, distinguishing operators who are willing to
+                stand behind their documentation from those who are not.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Principles */}
+      <section className="bg-surface-muted border-b border-border py-12 md:py-16">
+        <div className="container-wide">
+          <SectionHeader
+            eyebrow="Principles"
+            title="Four ideas that shape the framework."
+          />
+          <ol className="mx-auto max-w-3xl">
+            {beliefs.map((b, i) => (
+              <li
+                key={i}
+                className="grid grid-cols-12 gap-6 items-baseline border-b border-border py-5"
+              >
+                <span className="col-span-2 md:col-span-1 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
+                  0{i + 1}
+                </span>
+                <p className="col-span-10 md:col-span-11 text-[15px] text-foreground leading-[1.65]">
+                  {b}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Scope & boundaries */}
+      <section className="bg-background border-b border-border py-12 md:py-16">
+        <div className="container-wide">
+          <SectionHeader
+            eyebrow="Scope & boundaries"
+            title="What falls within the framework, and what falls outside it."
+          />
+          <div className="mx-auto max-w-4xl grid md:grid-cols-2 md:divide-x divide-border">
+            <div className="md:pr-10 pb-8 md:pb-0 border-b md:border-b-0 border-border">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-foreground mb-4">
+                Within the framework
+              </p>
+              <ul className="space-y-3">
+                {weVerify.map((item, i) => (
+                  <li key={i} className="text-[14.5px] text-muted-foreground leading-[1.7]">
+                    — {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="md:pl-10 pt-8 md:pt-0">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.1em] text-foreground mb-4">
+                Outside the framework
+              </p>
+              <ul className="space-y-3">
+                {weFlag.map((item, i) => (
+                  <li key={i} className="text-[14.5px] text-muted-foreground leading-[1.7]">
+                    — {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission */}
+      <section className="bg-surface-muted border-b border-border py-16 md:py-20">
+        <div className="container-wide text-center">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted-foreground mb-6">
+            Mission
+          </p>
+          <p className="mx-auto max-w-2xl text-[20px] md:text-[22px] font-semibold tracking-[-0.01em] leading-[1.45] text-foreground">
+            To bring greater clarity, consistency, and transparency to vendor sourcing and verification in
+            peptide, TRT, and hormone optimization markets.
+          </p>
+          <p className="mx-auto max-w-xl mt-6 text-[14.5px] text-muted-foreground leading-[1.7]">
+            Source Standard exists to make the market easier to understand for the people moving through it.
+          </p>
+        </div>
+      </section>
+
+      {/* Continue reading */}
+      <section className="bg-background py-12 md:py-16">
+        <div className="container-wide">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted-foreground mb-6 text-center">
+            Continue reading
+          </p>
+          <ul className="mx-auto max-w-4xl grid grid-cols-1 sm:grid-cols-2 border-t border-border">
+            {readDeeper.map((d) => (
+              <li key={d.to} className="border-b border-border sm:[&:nth-child(odd)]:border-r">
+                <Link
+                  to={d.to}
+                  className="group block px-5 py-5 hover:bg-surface-muted transition-colors"
+                >
+                  <p className="text-[14.5px] font-medium text-foreground group-hover:text-primary">
+                    {d.label} <span className="text-primary">→</span>
+                  </p>
+                  <p className="mt-1 text-[13px] text-muted-foreground leading-[1.6]">{d.desc}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <DocSignature docId="SS-ORG-2026.01" verifiedOn="04 / 21 / 2026" />
     </>
   );
