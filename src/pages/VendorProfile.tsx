@@ -44,8 +44,6 @@ const VendorProfile = () => {
 
   return (
     <>
-  return (
-    <>
       <PageMeta
         title={`${vendor.name} · Verified Vendor`}
         description={`Source Standard verified vendor profile for ${vendor.name}. ${VENDOR_STATUS_LABEL[vendor.status]} · ${location}.`}
