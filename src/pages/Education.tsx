@@ -55,6 +55,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "what-is-compounding": "/library/what-is-compounding",
   "what-are-peptides": "/library/what-are-peptides",
   "how-to-read-a-certificate-of-analysis": "/library/interpreting-coas",
+  "the-dual-layer-difference": "/library/dual-layer-difference",
 };
 
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (

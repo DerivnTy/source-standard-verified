@@ -19,6 +19,7 @@ import LibraryEntry from "./pages/LibraryEntry.tsx";
 import LibraryWhatIsCompounding from "./pages/LibraryWhatIsCompounding.tsx";
 import LibraryWhatArePeptides from "./pages/LibraryWhatArePeptides.tsx";
 import LibraryInterpretingCoAs from "./pages/LibraryInterpretingCoAs.tsx";
+import LibraryDualLayerDifference from "./pages/LibraryDualLayerDifference.tsx";
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
@@ -61,6 +62,7 @@ const App = () => (
             <Route path="/library/what-is-compounding" element={<LibraryWhatIsCompounding />} />
             <Route path="/library/what-are-peptides" element={<LibraryWhatArePeptides />} />
             <Route path="/library/interpreting-coas" element={<LibraryInterpretingCoAs />} />
+            <Route path="/library/dual-layer-difference" element={<LibraryDualLayerDifference />} />
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
