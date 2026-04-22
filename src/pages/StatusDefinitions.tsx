@@ -156,7 +156,8 @@ const StatusDefinitions = () => (
       eyebrow="Administrative code"
       title="Glossary of Regulatory Standings."
       lead="Controlled glossary of public standings assigned to entities under the Source Standard framework. Each standing reflects the disposition of the audit file at the time of last update and is governed by continuous surveillance."
-    />
+        verifiedOn="04 / 21 / 2026"
+      />
 
     <BoardSection
       n={1}

@@ -80,6 +80,7 @@ const About = () => {
         eyebrow="Reference · Organization profile"
         title="About Source Standard."
         lead="An independent reference framework for vendor sourcing claims in peptide, TRT, and hormone-optimization markets."
+        verifiedOn="04 / 21 / 2026"
       />
 
       {/* Sticky horizontal contents bar */}

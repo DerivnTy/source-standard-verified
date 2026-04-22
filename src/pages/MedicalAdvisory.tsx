@@ -38,6 +38,7 @@ const MedicalAdvisory = () => {
         eyebrow="Reference"
         title="Medical Advisory Board (MAB)."
         lead="The governing clinical body for the Source Standard framework. The MAB ratifies evaluation logic, authorizes versioned revisions, and confirms that public determinations are administratively defensible."
+        verifiedOn="04 / 21 / 2026"
       />
 
       {/* §1 — Current Board Appointments */}
