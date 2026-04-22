@@ -1,89 +1,79 @@
 
 
-## Verification Protocol — Public Standard Restructure
+## Apply for Verification — Intake Restructure
 
-Rebuild `src/pages/HowItWorks.tsx` from a coded SOP into a clear public explanation of how Source Standard verification works. Strip the `§1–§9`, `STATUS · NN`, `DOMAIN · NN`, `ATTESTATION · NN`, `RATIONALE · NN`, `LIMIT · NN`, `EVENT · NN`, and `DISCLOSURE WINDOW · 72 HOURS · SS-PROTO-2026.01 · §6` chips, replace the 12-col left-rail layout with the same centered editorial rhythm now used on About / Education / Medical Advisory, and re-sequence so verification meaning lands before deep process detail.
+Rebuild `src/pages/Apply.tsx` to match the real operating flow: this public page is intake-only. Vendors submit basic business info, Source Standard reviews, then emails an invitation into the internal onboarding system where documents are uploaded. Strip the "Step 1 of 2 / SS-INTAKE-01 / §A§B§C / [ SS-INTAKE-01 ] SUBMIT INITIAL FILING" administrative coding and reframe as a calm, conversion-oriented intake.
 
 ---
 
 ### Section sequence
 
-**1 · Hero** (replace `BriefingHero` invocation)
-Match navy hero used sitewide.
-- `tone`: `navy`
-- `category`: `How Verification Works`
-- `title`: `How Verification Works`
-- `statement`: `The review standard, what the process examines, how status is assigned, and what a determination means.`
-- Drop `docId`, `metadata`, `verifiedOn`. No actions.
-- Remove `DocJumpBar` entirely (and the `jumpWaypoints` array).
+**1 · Hero** (replace `UtilityHeader`)
+Centered, calm opening — match the editorial rhythm used on About / Education.
+- Eyebrow: `Apply for Verification`
+- Title: `Apply for Verification`
+- Subhead: `Submit your basic business information to open a Source Standard review file. Once intake is acknowledged, your team will receive an email invitation to continue onboarding and upload documentation through our internal verification system.`
+- No `Form SS-INTAKE-01 · Step 1 of 2` chip, no doc codes.
 
-**2 · What verification means** (`bg-background`)
-Centered `SectionHeader` (eyebrow `What verification means`, title `Verified means records were reviewed and support the published scope at the time of review.`). Below, two stacked muted lines in a `max-w-3xl` column:
-- `It is not a medical endorsement, and not a guarantee of safety, efficacy, or outcome.`
-- `It reflects documented consistency within the reviewed scope — nothing more, nothing less.`
-Lifted to the top so it lands before any process detail. No bordered card, no `§` label.
+**2 · How it works** (`bg-surface-muted`)
+Centered `SectionHeader` (eyebrow `How it works`, lede `Three steps from intake to review.`). Three numbered blocks (`01 / 02 / 03`) in a 3-col grid (single column on mobile), hairline dividers:
+- `01 · Submit business details` — Share general business information through this short intake form.
+- `02 · Receive onboarding invitation` — If accepted for onboarding, your team is emailed a secure access link to our internal verification system.
+- `03 · Complete onboarding and enter review` — Inside the internal system, upload documentation, complete onboarding, and move into formal review.
 
-**3 · Core principles** (`bg-surface-muted`)
-Centered `SectionHeader` (`Core principles`, lede `Three ideas the framework operates from.`). Render `whyItMatters` (3 items) as a clean numbered list (`01–03`) with hairline dividers, plain phrasing (use the simpler `t` field, not the `PRINCIPLE_TITLES` overrides). Each row: number eyebrow + bold lead + one-line muted explanation. No bordered card.
+**3 · What this step requires** (`bg-background`)
+Centered `SectionHeader` (`What this step requires`, lede `Step 1 collects general business details only — full documentation is requested later through the internal onboarding system.`). Below, a `max-w-3xl` plain bulleted list with hairline dividers:
+- Legal business name
+- Brand name
+- Website
+- Doctor or prescriber name (where applicable)
+- States of operation
+- Administrative contact details
 
-**4 · What falls inside and outside the review** (`bg-background`)
-Centered `SectionHeader` (`Scope of the review`, lede `What falls within the review, and what falls outside it.`). Below, two side-by-side columns (single column on mobile) divided by a hairline:
-- Left: `Within scope` — five plain bullets (business identity; applicable licenses and registrations; pharmacy and supplier records; certificates and lot records within the reviewed category; consistency of public-facing claims).
-- Right: `Outside scope` — five plain bullets (clinical outcomes; patient experiences; pricing; marketing channels; anything outside the documented verified category).
-No `ATTESTATION · NN` chips, no `gap-px bg-border` cell shell, no bordered table.
+**4 · Documents typically requested during onboarding** (`bg-surface-muted`)
+Quiet preview, de-emphasized. Centered `SectionHeader` (eyebrow `Later — during internal onboarding`, title `Documents typically requested during onboarding`, lede `Provided here for transparency. Not required at this step.`). Plain bulleted list with hairline dividers, muted tone:
+- Business licenses and registrations
+- Pharmacy invoices
+- Certificates of analysis
+- Prescriber credentials (where applicable)
+- Supplier or pharmacy agreements (where applicable)
 
-**5 · Status definitions** (`bg-surface-muted`)
-Centered `SectionHeader` (`Status definitions`, lede `Each registry entry carries one of these standings.`). Replace the 12-col coded table with a clean stacked list of 5 status blocks separated by hairline dividers. Each block:
-- `StatusBadge` + status name as the dominant anchor.
-- One-line `meaning` paragraph (`text-[15px] text-foreground`).
-- Two micro-rows: `Tells — …` and `Does not imply — …` (`text-[13.5px] text-muted-foreground`, plain inline labels, no mono uppercase).
-No `STATUS · NN` chips, no `Code / Status / Public-record meaning` header strip. Quiet `Full status definitions →` link to `/status-definitions` below the list.
+**5 · Intake form** (`bg-background`)
+Centered `SectionHeader` (`Begin intake`, lede `Tell us who you are. We'll review and reach out with next steps.`). Form rendered in a `max-w-2xl` centered column — no bordered card shell, no `Form SS-INTAKE-01` header strip, no `§A / §B / §C` mono legends. Three plain section labels (regular weight, no mono):
+- **Business profile** — `Legal business name`, `Brand name`, `Website`
+- **Operating scope** — `Verification category`, `Prescriber name (if applicable)`, `States of operation`
+- **Administrative contact** — `Contact name`, `Business email`, `Business phone`
 
-**6 · What the review looks at** (`bg-background`)
-Centered `SectionHeader` (`What the review looks at`, lede `Seven areas examined against the standard for the requested category.`). Render `reviewGroups` (7 items) as a clean numbered list (`01–07`) with hairline dividers — number eyebrow + plain `t` (not `SCOPE_TITLES` overrides) as bold lead + one-line muted `d`. No `DOMAIN · NN` chips, no bordered card.
+Inputs use default rounded styling (drop `rounded-none`, drop mono `meta-label` class — use plain `Label`). Add the new `Prescriber name` field as optional.
 
-**7 · Review lifecycle** (`bg-surface-muted`)
-Centered `SectionHeader` (`Review lifecycle`, lede `Six stages from application to publication.`). Render `steps` (6 items) as a clean numbered timeline. Each step:
-- Large `01–06` numeral on the left.
-- Plain `t` (not `STEP_TITLES` overrides) as bold title.
-- `summary` as one paragraph beneath.
-- Flatten the `Examined / Disposition` micro-labels into a single muted line: `Examined: … · Result: …` rendered in `text-[12.5px] text-muted-foreground`, no mono uppercase chips.
-Hairline dividers between steps. No bordered card.
+CTA: a single primary `Button` labeled **`Submit Intake`** (drop the `[ SS-INTAKE-01 ] SUBMIT INITIAL FILING` mono chrome, drop forced uppercase/mono). Submitting state: `Submitting…`.
 
-**8 · Ongoing surveillance and change disclosure** (`bg-background`)
-Centered `SectionHeader` (`Ongoing surveillance`, lede `Verification is a snapshot in time. Files are monitored, renewed, and re-reviewed when material changes occur.`). Below, a single calm sentence: `Material changes must be disclosed within 72 hours and may trigger re-review or a Suspended status.` Then `changes` (6 items) rendered as a plain two-column bullet list (single column on mobile) with hairline dividers — no `EVENT · NN` chips, no `DISCLOSURE WINDOW · 72 HOURS · SS-PROTO-2026.01 · §6` mono band.
+**6 · Submission notice** (immediately below the form, same section)
+Single muted paragraph in `max-w-2xl`:
+> Submitting this form opens your intake file. If your application is accepted for onboarding, Source Standard will email your team with the next-step access link for document submission and review.
 
-**9 · After a determination** (`bg-surface-muted`)
-Centered `SectionHeader` (`After a determination`). Render `afterReview` (5 items) as a plain numbered list (`01–05`) with hairline dividers — single line per item, no bordered card.
+**7 · Filed confirmation state** (replaces the form when `filed === true`)
+Same centered column. Plain heading `Intake received.` + paragraph: `Your file has been opened. If accepted for onboarding, your team will receive an email invitation with secure access to continue onboarding.` Muted reference line: `Reference: {reference}`. Quiet `Submit another intake` ghost link below.
 
-**10 · Why entities apply** (`bg-background`)
-Centered `SectionHeader` (`Why entities apply`). Render `vendorReasons` (4 items) as a clean 2×2 grid (single column on mobile) with hairline dividers — bold title + one-line muted description, no `RATIONALE · NN` chips. Single quiet `Begin a verification application →` link to `/apply` below, right-aligned.
-
-**11 · Jurisdictional limitations** (`bg-surface-muted`)
-Centered `SectionHeader` (`Jurisdictional limitations`, lede `Boundaries of the verification framework.`). Render `notProcess` (4 items) as plain bulleted list with hairline dividers — no `LIMIT · NN` chips, no bordered table shell.
-
-**12 · Footer**
-Keep `DocSignature`. Remove `BoardCiteFooter` band; if a citation is needed, render a single muted inline line beneath in plain prose.
+**8 · Footer**
+Drop the `Official citation · SS-INTAKE-01` band entirely. Replace with a single muted line of two quiet text links: `Vendor submission standard →` `/for-vendors` · `How verification works →` `/how-it-works`.
 
 ---
 
-### Visual rules across the page
+### Visual rules
 
-- No visible `§1 / §2 / §3 / §4 / §5 / §6 / §7 / §8 / §9` codes anywhere.
-- No visible `STATUS · NN`, `DOMAIN · NN`, `ATTESTATION · NN`, `RATIONALE · NN`, `LIMIT · NN`, `EVENT · NN`, `DISCLOSURE WINDOW`, `PROTOCOL · SS-PROT` chips.
-- No `DocJumpBar`, no `Rail` 12-col layout, no `MEANING_TITLES / SCOPE_TITLES / STEP_TITLES / PRINCIPLE_TITLES` override maps (use the simpler plain `t` fields directly).
-- Section eyebrows are plain phrases.
-- Centered `SectionHeader` (eyebrow + title + lede) + `max-w-3xl` content columns or two-column splits — matches About/Education rhythm.
-- Surfaces alternate `bg-background` ↔ `bg-surface-muted`. Hairline dividers via `border-border`. No card shadows, no rounded corners, no `gap-px bg-border` table shells.
-- Spacing uses existing `container-wide` + `py-12 md:py-16`.
-- Strict typography hierarchy: section heading > entry title > body > muted detail.
-- Reuse existing `StatusBadge` for status section so the visual language matches the directory.
+- No `§A / §B / §C` legends, no `Form SS-INTAKE-01`, no `[ SS-INTAKE-01 ]` button chrome, no `Step 1 of 2` chip, no `Administrative notice · SS-INTAKE-01` band, no `Official citation` footer.
+- Drop `font-mono uppercase tracking-[0.08em]` from all visible UI labels in the form area.
+- Drop `rounded-none` on inputs and the CTA — use the project's default rounded styling so the form feels like an intake form, not a regulatory portal.
+- Centered `SectionHeader` rhythm + `max-w-2xl/3xl` content columns — matches About / Education / How Verification Works.
+- Surfaces alternate `bg-background` ↔ `bg-surface-muted`. Hairline dividers via `border-border`. No card shadows, no left-rail sticky checklist.
+- Spacing: `container-wide` + `py-12 md:py-16`.
 
 ### Files touched
 
-- `src/pages/HowItWorks.tsx` — full body rewrite. Replace navy hero, remove `DocJumpBar` + `jumpWaypoints` + `Rail` helper + 4 override-title maps, restructure into the 12 sections above, lift "What verification means" to position 2, flatten domains/lifecycle/surveillance/limits into clean lists, swap status table for `StatusBadge` blocks, drop `BoardCiteFooter`.
+- `src/pages/Apply.tsx` — full body rewrite. Replace `UtilityHeader` with centered hero, drop sticky-rail checklist layout, restructure into the 8 sections above, add 3-step process overview, reframe checklist as "documents typically requested during onboarding" (de-emphasized), simplify form (plain section labels, default input styling, new optional `Prescriber name` field), replace mono CTA with `Submit Intake`, drop citation footer.
 
 ### What stays the same
 
-`BriefingHero`, `Breadcrumb`, `PageMeta`, `DocSignature`, `StatusBadge`, every data array (`whyItMatters`, `meaningBlocks`, `statuses`, `reviewGroups`, `steps`, `changes`, `afterReview`, `vendorReasons`, `notProcess`) — substance preserved, presentation rebuilt, all routes (`/status-definitions`, `/apply`), the navy/cream global accent system, and every other page on the site.
+`PageMeta`, `Breadcrumb`, `Button` / `Input` / `Label` primitives, the simulated submit logic (`onSubmit` + `setTimeout` + `SS-INTAKE-{YYYY}-{ID}` reference generation + `filed` / `fileAnother` state), the route `/apply`, and every other page on the site.
 
