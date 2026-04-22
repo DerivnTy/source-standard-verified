@@ -1,84 +1,72 @@
 
 
-## Clinical Fact Realignment — BriefingHero with Audit-Report Language
+## Index.tsx — BriefingHero "Modular Terminal Summary"
 
-Same `BriefingHero` primitive as previously approved, with mission strings rewritten to functional/regulatory language. No marketing tone, no metaphors, no PDF button, no summary.
+The current `BriefingHero` is a centered single-column plaque. For the home page, we override it with a denser **two-rail terminal layout** that fills the 100vh band with institutional facts on both sides of the vertical horizon. All other pages keep the minimalist `BriefingHero` API unchanged.
 
 ---
 
-### 1 · `BriefingHero` primitive (unchanged structure)
+### 1 · New variant: `BriefingHero` `dense` mode
 
-`src/components/BriefingHero.tsx` — single 100vh institutional plaque.
+Extend `src/components/BriefingHero.tsx` with an optional `rightRail?: ReactNode` prop. When provided, the component renders a 12-col grid (left col-span-7 / right col-span-5) instead of the single centered column. When omitted, behavior is identical to today (used by all other pages).
 
-- `<section min-h-[100svh] border-b border-border bg-background relative>` with low-opacity `HeroPattern`.
-- Inner `container-wide`, flex column `justify-center`.
-- 12-col grid, `items-end` so H1 baseline and Reference Box top align on a shared horizon line:
-  - **Left (md:col-span-7):** mono eyebrow `CATEGORY · SS-XX` (10.5px tracking-[0.14em]); H1 `title-page`; one-line statement `text-[14.5px] text-muted-foreground max-w-[60ch]`.
-  - **Right (md:col-span-4 md:col-start-9):** Reference Box — `border border-border bg-background p-4`, mono header `REFERENCE · {DOC_ID}`, flat `<dl>` of metadata rows in mono tabular-nums. **No PDF link. No Summary box. No `children`.**
-- Absolute `bottom-8` centered scroll cue: `▼  CONTINUE` in `text-[10.5px]` muted, fades after 80px scroll.
+- Left rail keeps eyebrow + H1 + statement, plus a new optional thin-bordered **rationale chit** below the statement.
+- Right rail receives arbitrary children — used only by Index.tsx.
+- 14.5px body lock, 10.5px mono labels, hairline `border-border` everywhere, no heavy bars.
 
-**Props**
-```ts
-{ category: string; docId: string; title: string;
-  statement: string; metadata: MetadataItem[]; verifiedOn?: string }
+### 2 · Index.tsx — Left Rail content
+
+- Eyebrow: `SOURCE STANDARD · SS-FRAMEWORK-2026.01`
+- H1: `SYSTEM ACCESS.`
+- Statement (unchanged, 14.5px muted, max-w-[58ch]).
+- **Rationale chit** (new) — thin `border border-border p-3` block, 14.5px:
+  > "Vendor compliance records are continuously cross-referenced against FDA Drug Establishment Registration, state pharmacy licensure, and PCAB / NSF accreditation files. No listing is published without a documented upstream chain."
+
+### 3 · Index.tsx — Right Rail (three stacked data blocks)
+
+Vertical stack, each block separated by a hairline. All blocks use `border border-border` cards with a 10.5px mono header strip and 14.5px body.
+
+**Block A · `REGISTRY METRICS`** — 2-col grid of figures:
+```
+VENDORS UNDER REVIEW   VENDORS LISTED
+        24                    11
+UPSTREAM SOURCES       JURISDICTIONS
+        18                     9
+```
+Numbers derived from `greenlistEntries.length` + static placeholders for vendor counts (kept as constants in `Index.tsx`, easy to wire to live data later).
+
+**Block B · `GOVERNANCE`** — flat `<dl>`, 4 rows:
+```
+BOARD STATUS    Active · ratified 2026.02
+SEATS FILLED    6 / 7
+REVIEW CYCLE    Annual · interim flags
+CONFLICT POLICY Disclosed · public
 ```
 
-API enforces minimalism — no lead, no children, no PDF, no summary.
+**Block C · `ACCESS PORTALS`** — vertical list of three tactical navigation chits (`Link`, full-width, hairline divider between, mono ref code on left + label + small `→`):
+```
+§I.A   VENDOR REGISTRY        →
+§I.B   UPSTREAM REGISTRY      →
+§IV.C  AUDIT REQUEST          →   (routes to /apply)
+```
+14.5px text, hover swaps `bg-muted/40`, no buttons — these read as terminal entries.
 
-### 2 · Cut-and-dry hero copy (locked)
+### 4 · Vertical alignment
 
-| Page | category | docId | H1 | statement |
-|---|---|---|---|---|
-| `VerifiedVendors.tsx` | `REGISTRY` | `SS-01` | `REGISTRY` | "The current record of facilities and vendors meeting the Source Standard verification criteria." |
-| `Greenlist.tsx` | `REGISTRY · UPSTREAM` | `SS-02` | `UPSTREAM REGISTRY` | "Technical data and registration status for pharmaceutical compounding and manufacturing facilities." |
-| `MedicalAdvisory.tsx` | `GOVERNANCE` | `SS-GOV` | `GOVERNANCE` | "Independent medical and legal oversight responsible for framework maintenance and facility ratification." |
-| `Education.tsx` | `RESOURCE LIBRARY` | `SS-EDU` | `RESOURCE LIBRARY` | "Technical documentation, regulatory references, and foundational analysis regarding the industry." |
-| `HowItWorks.tsx` | `PROTOCOL` | `SS-PROT` | `VERIFICATION PROTOCOL` | "The active auditing requirements and clinical criteria utilized for third-party validation." |
-| `About.tsx` | `CHARTER` | `SS-ORG` | `ABOUT` | "The organizational structure and operational intent of the Source Standard framework." |
+Both rails use the same `flex flex-col justify-center` so the block stack on the right and the title group on the left share a vertical centerline. On viewports < md the right rail collapses below the left rail; both fit comfortably inside `min-h-[100svh]`.
 
-H1 rendered uppercase via `title-page` class (kept lowercase in source for accessibility — `text-transform: uppercase` in CSS).
+### 5 · Below-the-fold
 
-### 3 · Page wiring
-
-Each page swaps its current hero `<section>` (and any right-rail Stats/Summary card living inside the hero) for one `<BriefingHero>`. Below-the-fold content (filter bar, registry table, board roster, jump bar, §-sections) is untouched and begins immediately after the 100vh band.
-
-Status-counts dashboards on `VerifiedVendors` / `Greenlist` (currently in the hero right rail) relocate to a flat `bg-border gap-px` 6-up strip directly below the 100vh band — preserves the data, off the briefing surface.
-
-### 4 · Nomenclature: Education → Resource Library (label only)
-
-Routes/slugs unchanged. Pure string swap:
-- `SiteHeader.tsx` + `SiteFooter.tsx` nav
-- `Breadcrumb` strings on `Education*`, `Library*`, `Faq*` pages
-- `PageMeta` titles
-- `Index.tsx` references to "Education Hub"
-
-### 5 · Already in place — no changes
-
-14.5px body lock, smart hide-on-scroll header, hairline borders, `ScrollToTop` + `useHashScroll` + `scroll-padding-top: 144px`. `RecordHeader` keeps its PDF affordance for Library / Legal / Foundational document pages — only `BriefingHero` omits it.
+Sections §I, §II, §III on `Index.tsx` are unchanged — already at the density target from the previous pass.
 
 ---
 
 ### Files touched
 
-**New**
-- `src/components/BriefingHero.tsx`
-
-**Hero swap**
-- `src/pages/VerifiedVendors.tsx`
-- `src/pages/Greenlist.tsx`
-- `src/pages/MedicalAdvisory.tsx`
-- `src/pages/Education.tsx`
-- `src/pages/HowItWorks.tsx`
-- `src/pages/About.tsx`
-
-**Nomenclature rename (label only)**
-- `src/components/SiteHeader.tsx`, `SiteFooter.tsx`
-- `src/pages/Index.tsx`
-- `Education.tsx`, `EducationBasics.tsx`, `EducationGuides.tsx`, `EducationQuestions.tsx`
-- `FAQ.tsx`, `FaqClinicalSafety.tsx`, `FaqLegalRegulatory.tsx`, `FaqVerificationProcess.tsx`
-- `Library*.tsx` (12 files — `Breadcrumb` + `PageMeta` strings only)
+- `src/components/BriefingHero.tsx` — add optional `rightRail` prop + dense-grid branch + optional rationale chit support (`rationale?: string`).
+- `src/pages/Index.tsx` — pass `rationale` and `rightRail={<…three blocks…>}` to `BriefingHero`. Add a small constants block for metrics so the right rail stays declarative.
 
 ### What stays the same
 
-All routes, all slugs, all data, all body copy below the hero, every MAB DNA section, registry filtering / sorting / pagination, `RecordHeader` (kept on document pages), `DocJumpBar`, `DocSignature`, `Breadcrumb`, `PageMeta`, design tokens, dark mode, smart header, scroll restoration, smooth anchors. One new primitive + six hero swaps + a label rename.
+`BriefingHero` API for all other pages (Verified Vendors, Greenlist, MAB, Resource Library, Protocol, About) — they pass no `rightRail` and render exactly as today. `GlobalUtilityBar`, smart header, scroll restoration, all routes, all data, all below-fold blocks on Index.
 
