@@ -91,7 +91,7 @@ const FaqLegalRegulatory = () => {
         next={{ to: "/library/faq/clinical-safety", label: "Next Category · Clinical Safety (SS-FAQ-CAT-02)" }}
       />
 
-      <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Legal & Regulatory, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+      <BoardCiteFooter citation={`Source Standard · Regulatory FAQ · Legal & Regulatory, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
     </>
   );
 };

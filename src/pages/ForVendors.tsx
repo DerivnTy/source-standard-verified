@@ -10,7 +10,7 @@ const docs = [
   },
   {
     t: "Procurement Nodes & Supplier Records",
-    d: "Itemized disclosure of upstream procurement nodes — pharmacies, outsourcing facilities, qualified suppliers — supporting each reviewed product category, with corresponding records retained in the audit file.",
+    d: "Itemized disclosure of upstream procurement nodes, pharmacies, outsourcing facilities, qualified suppliers, supporting each reviewed product category, with corresponding records retained in the audit file.",
   },
   {
     t: "Certificates of Analysis (ISO-Accredited Laboratories)",
@@ -29,7 +29,7 @@ const docs = [
 const issued = [
   "A public Verified profile entered in the Source Standard Registry of record.",
   "A unique Audit ID (format SS-AUD-YYYY-NNNNN) that may be cited and independently confirmed against the registry.",
-  "A Verification Transcript — the itemized public record of documentation reviewed, examination domains covered, and the standing issued.",
+  "A Verification Transcript, the itemized public record of documentation reviewed, examination domains covered, and the standing issued.",
   "A verification badge for use on vendor-controlled surfaces, governed by the framework's attribution terms.",
 ];
 

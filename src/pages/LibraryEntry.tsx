@@ -27,7 +27,7 @@ const LibraryEntry = () => {
           title="Entry not found."
           lead="No library entry matches this reference."
           metadata={[
-            { label: "Doc", value: "—" },
+            { label: "Doc", value: "--" },
             { label: "Status", value: "Not on file" },
           ]}
         />
@@ -39,7 +39,7 @@ const LibraryEntry = () => {
             </Link>
           </p>
         </ArticleSection>
-        <ArticleFooter citation="Source Standard, Library — entry not found." />
+        <ArticleFooter citation="Source Standard · Library · entry not found." />
       </>
     );
   }
@@ -102,7 +102,7 @@ const LibraryEntry = () => {
 
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Reference Library" }}
-        citation={`Source Standard, Library — ${entry.title}, ${entry.id}.`}
+        citation={`Source Standard · Library, ${entry.title}, ${entry.id}.`}
       />
     </>
   );

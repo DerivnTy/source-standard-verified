@@ -100,7 +100,7 @@ const HowToReadTheDirectory = () => {
         ]}
         eyebrow="Reference"
         title="How to read the directory."
-        lead="Interpreting vendor listings and what each public status does — and does not — say about a vendor."
+        lead="Interpreting vendor listings and what each public status does, and does not, say about a vendor."
       />
 
       <Section density="doc">
@@ -128,19 +128,19 @@ const HowToReadTheDirectory = () => {
           "How vendor listings are structured.",
           <ul className="space-y-2 list-disc pl-5 text-muted-foreground">
             <li>
-              <span className="text-foreground">Name and location</span> — vendor name and the
+              <span className="text-foreground">Name and location:</span> vendor name and the
               primary city/state of operation.
             </li>
             <li>
-              <span className="text-foreground">Status</span> — current public verification
+              <span className="text-foreground">Status:</span> current public verification
               status (one of five values defined below).
             </li>
             <li>
-              <span className="text-foreground">Review reference</span> — when present, links
+              <span className="text-foreground">Review reference:</span> when present, links
               to the published review record for the vendor.
             </li>
             <li>
-              <span className="text-foreground">Clinical focus</span> — categorization of the
+              <span className="text-foreground">Clinical focus:</span> categorization of the
               vendor's stated clinical scope.
             </li>
           </ul>,
@@ -205,7 +205,7 @@ const HowToReadTheDirectory = () => {
           <div className="space-y-3 text-muted-foreground">
             <p>
               <span className="text-foreground">Under Review</span> is assigned when an active
-              review opens — either at intake of a new application, or when an existing
+              review opens, either at intake of a new application, or when an existing
               Verified listing is reopened in response to a triggering event.
             </p>
             <p>

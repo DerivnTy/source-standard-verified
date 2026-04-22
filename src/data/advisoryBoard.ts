@@ -39,9 +39,9 @@ export const advisoryBoard: BoardMember[] = [
     biography:
       "Dr. Whitfield is a board-certified internist and endocrinologist with two decades of practice focused on hormone health, metabolic disease, and the prescribing standards surrounding compounded therapies. She has served on hospital pharmacy and therapeutics committees, contributed to institutional review of compounded preparations, and lectured on prescriber accountability at multiple academic medical centers. As Chair of the Medical Advisory Board, she convenes review sessions, ratifies framework revisions, and represents the board's clinical position on standards published under the Source Standard reference framework.",
     background: [
-      "MD — University of Michigan Medical School",
-      "Internal Medicine residency — Cleveland Clinic Foundation",
-      "Endocrinology fellowship — Mayo Clinic",
+      "MD, University of Michigan Medical School",
+      "Internal Medicine residency, Cleveland Clinic Foundation",
+      "Endocrinology fellowship, Mayo Clinic",
       "Board-certified, American Board of Internal Medicine (Endocrinology, Diabetes & Metabolism)",
       "Fellow, American College of Physicians",
     ],
@@ -53,7 +53,7 @@ export const advisoryBoard: BoardMember[] = [
       "Recurring invited reviewer for clinical guideline updates in endocrine practice",
     ],
     whyTheyCare:
-      "The compounded therapy and longevity sector has expanded faster than its oversight infrastructure. Patients deserve a public reference layer that distinguishes clinics operating under verifiable upstream sourcing from those that do not — and clinicians deserve a framework that holds the field accountable to its own stated standards.",
+      "The compounded therapy and longevity sector has expanded faster than its oversight infrastructure. Patients deserve a public reference layer that distinguishes clinics operating under verifiable upstream sourcing from those that do not, and clinicians deserve a framework that holds the field accountable to its own stated standards.",
     contribution:
       "Chairs framework review cycles, ratifies criteria revisions, and signs off on the quarterly Standard maintenance record published under SS-FRAMEWORK-2026.01. Final clinical authority on disputes regarding scope, evidence, and renewal intervals.",
     clinicalFocus: [
@@ -63,7 +63,7 @@ export const advisoryBoard: BoardMember[] = [
       "Public-facing clinical communication",
     ],
     philosophy:
-      "Clinical oversight is not a credential to display — it is a recurring practice. A standard that is not periodically re-examined by physicians is not a standard; it is a snapshot. The board exists to keep this framework honest against evolving clinical reality.",
+      "Clinical oversight is not a credential to display, it is a recurring practice. A standard that is not periodically re-examined by physicians is not a standard; it is a snapshot. The board exists to keep this framework honest against evolving clinical reality.",
     jurisdiction: "FL / US",
     yearsPracticing: "20+",
     photo: advisor01,
@@ -79,9 +79,9 @@ export const advisoryBoard: BoardMember[] = [
     biography:
       "Dr. Krishnamurthy is a clinical pharmacologist whose career has centered on the regulatory and quality-control layer beneath prescribed therapy. He has consulted with outsourcing facility quality programs, advised on internal review processes for compounded sterile preparations, and worked extensively with the USP compounding chapters that define the operational baseline for 503A and 503B pharmacies. As Vice Chair of the Medical Advisory Board, he oversees how compounding pharmacies are evaluated for inclusion in the Greenlist and how those records map to publicly citable FDA and PCAB authorities.",
     background: [
-      "MD — Johns Hopkins University School of Medicine",
-      "Clinical pharmacology fellowship — Vanderbilt University Medical Center",
-      "Prior consulting role — 503B outsourcing facility quality programs",
+      "MD, Johns Hopkins University School of Medicine",
+      "Clinical pharmacology fellowship, Vanderbilt University Medical Center",
+      "Prior consulting role, 503B outsourcing facility quality programs",
       "Active engagement with USP <795>, <797>, and <800> revisions",
     ],
     accomplishments: [
@@ -101,7 +101,7 @@ export const advisoryBoard: BoardMember[] = [
       "Recall and warning-letter monitoring",
     ],
     philosophy:
-      "A pharmacy's compliance posture is a public record — the framework simply makes that record legible. The board's role is to ensure the rubric used to read those records is defensible to any reviewing clinician.",
+      "A pharmacy's compliance posture is a public record, the framework simply makes that record legible. The board's role is to ensure the rubric used to read those records is defensible to any reviewing clinician.",
     jurisdiction: "US (Multi-state)",
     yearsPracticing: "18+",
     photo: advisor02,
@@ -117,9 +117,9 @@ export const advisoryBoard: BoardMember[] = [
     biography:
       "Dr. Okonkwo is a preventive medicine physician with a public health background focused on health communication and informed consent. Her work has examined how patient-facing materials shape decision-making in fields where regulatory categories are unfamiliar to the general public. She brings that lens to the Source Standard registry, ensuring that public listings, status definitions, and disclaimers represent clinical reality accurately and avoid implying endorsement beyond what the framework actually verifies.",
     background: [
-      "MD — Emory University School of Medicine",
-      "MPH (Health Policy & Management) — Johns Hopkins Bloomberg School of Public Health",
-      "Preventive Medicine residency — Emory Rollins School of Public Health",
+      "MD, Emory University School of Medicine",
+      "MPH (Health Policy & Management), Johns Hopkins Bloomberg School of Public Health",
+      "Preventive Medicine residency, Emory Rollins School of Public Health",
       "Prior advisory role on patient-information and informed-consent materials",
     ],
     accomplishments: [
@@ -155,10 +155,10 @@ export const advisoryBoard: BoardMember[] = [
     biography:
       "Dr. Park is a board-certified pharmacotherapy specialist with direct sterile-compounding oversight experience in hospital and outsourcing-facility settings. His practice has focused on translating USP chapter revisions into operational reality and on the points where state board of pharmacy expectations diverge from federal guidance. He brings pharmacist-side expertise to framework reviews, ensuring criteria for sterile and non-sterile compounded preparations are anchored to currently enforceable standards.",
     background: [
-      "PharmD — University of California, San Francisco School of Pharmacy",
-      "PGY-1 / PGY-2 pharmacy residency — UCSF Medical Center",
+      "PharmD, University of California, San Francisco School of Pharmacy",
+      "PGY-1 / PGY-2 pharmacy residency, UCSF Medical Center",
       "Board Certified Pharmacotherapy Specialist (BCPS)",
-      "Prior sterile compounding oversight role — academic medical center",
+      "Prior sterile compounding oversight role, academic medical center",
     ],
     accomplishments: [
       "Twelve years of clinical pharmacy and sterile-compounding oversight",
@@ -191,11 +191,11 @@ export const advisoryBoard: BoardMember[] = [
     shortSummary:
       "Reviews educational reference material published under the framework to ensure clinical accuracy and appropriate scope.",
     biography:
-      "Dr. Reyes is a board-certified family medicine physician whose career has bridged primary care practice and clinical education. She has held faculty roles in residency training and has contributed to layperson-accessible medical reference material with an emphasis on scope discipline — making clear what general reference can and cannot substitute for. She brings that sensibility to the Source Standard educational layer, ensuring published explanations remain within the bounds of what the framework can substantiate.",
+      "Dr. Reyes is a board-certified family medicine physician whose career has bridged primary care practice and clinical education. She has held faculty roles in residency training and has contributed to layperson-accessible medical reference material with an emphasis on scope discipline, making clear what general reference can and cannot substitute for. She brings that sensibility to the Source Standard educational layer, ensuring published explanations remain within the bounds of what the framework can substantiate.",
     background: [
-      "MD — University of Texas Southwestern Medical School",
-      "Family Medicine residency — University of Colorado",
-      "Prior faculty appointment — community-based residency program",
+      "MD, University of Texas Southwestern Medical School",
+      "Family Medicine residency, University of Colorado",
+      "Prior faculty appointment, community-based residency program",
       "Contributor to patient-accessible clinical reference material",
     ],
     accomplishments: [
@@ -231,10 +231,10 @@ export const advisoryBoard: BoardMember[] = [
     biography:
       "Dr. Halloran is a physician-attorney whose career has spanned bedside internal medicine, hospital general counsel work, and federal health-regulatory practice. He has advised academic medical centers on FDA enforcement matters, state medical board proceedings, and the ethical questions that arise when clinical determinations enter the public record. He brings that dual lens to the Medical Advisory Board, ensuring the framework's public-facing determinations are defensible both clinically and procedurally.",
     background: [
-      "MD — Georgetown University School of Medicine",
-      "JD (Health Law concentration) — Georgetown University Law Center",
-      "Internal Medicine residency — MedStar Georgetown University Hospital",
-      "Prior associate general counsel role — academic medical center",
+      "MD, Georgetown University School of Medicine",
+      "JD (Health Law concentration), Georgetown University Law Center",
+      "Internal Medicine residency, MedStar Georgetown University Hospital",
+      "Prior associate general counsel role, academic medical center",
       "Member in good standing, state bar (active)",
     ],
     accomplishments: [

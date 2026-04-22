@@ -45,7 +45,7 @@ const hostname = (url: string): string => {
 const formatLocation = (vendor: Vendor): string =>
   vendor.city && vendor.state
     ? `${vendor.city}, ${vendor.state}`
-    : vendor.city || vendor.state || "—";
+    : vendor.city || vendor.state || "--";
 
 // ---------- Row primitive (fits 2-col grid) ----------
 
@@ -349,7 +349,7 @@ const VendorProfile = () => {
 
           {/* §4 — Footer micro-line */}
           <p className="mt-6 pb-12 text-center text-[11.5px] text-muted-foreground">
-            Public record · Updated {vendor.reviewDate || "—"} · No payment
+            Public record · Updated {vendor.reviewDate || "--"} · No payment
             influences inclusion or status.
           </p>
         </div>

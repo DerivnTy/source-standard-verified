@@ -49,7 +49,7 @@ const howItWorks = [
   },
   {
     h: "Status is published in the public registry.",
-    b: "Verified, pending, suspended, or removed — with the date of the most recent review.",
+    b: "Verified, pending, suspended, or removed, with the date of the most recent review.",
   },
 ];
 
@@ -87,7 +87,7 @@ const anchors = [
 const basics = [
   {
     t: "What verification actually means",
-    s: "How a Source Standard listing is issued and what it does — and does not — claim.",
+    s: "How a Source Standard listing is issued and what it does, and does not, claim.",
     to: "/library/what-source-standard-verification-actually-means",
   },
   {
@@ -121,7 +121,7 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard — The public standard for documented peptide sourcing"
+        title="Source Standard · The public standard for documented peptide sourcing"
         description="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
       />
 

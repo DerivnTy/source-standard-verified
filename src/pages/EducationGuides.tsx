@@ -59,7 +59,7 @@ const EducationGuides = () => {
         backHref="/education"
         backLabel="Back to Learn"
         eyebrow="Practical Guides"
-        title="Practical guides — full index"
+        title="Practical guides: full index"
         description="How to handle these medications safely. Reviewed by our Medical Advisory Board."
       />
       <Section density="doc">

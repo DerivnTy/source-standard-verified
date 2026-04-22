@@ -35,7 +35,7 @@ export const SourceBot = () => {
       {
         role: "assistant",
         content:
-          "Thanks for your question. The assistant isn't connected to the knowledge base yet — once wired up, I'll answer using the Source Standard library and analysis series.",
+          "Thanks for your question. The assistant isn't connected to the knowledge base yet, once wired up, I'll answer using the Source Standard library and analysis series.",
       },
     ]);
     setDraft("");

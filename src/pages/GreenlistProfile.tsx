@@ -282,7 +282,7 @@ const GreenlistProfile = () => {
                       <p className="mt-2 text-[12.5px] text-muted-foreground leading-[1.6]">
                         Recognition reflects the facility's published upstream role
                         only. It does not certify any downstream vendor that claims
-                        to source from this facility — vendor verification requires
+                        to source from this facility, vendor verification requires
                         a separate review.
                       </p>
                     </div>

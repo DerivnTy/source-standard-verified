@@ -120,7 +120,7 @@ const FEATURED_OVERRIDES: Record<string, { title: string; blurb: string }> = {
   "what-are-peptides": {
     title: "What Are Peptides?",
     blurb:
-      "A clinical primer on peptide therapeutics — what they are, how they work, and why sourcing integrity matters.",
+      "A clinical primer on peptide therapeutics, what they are, how they work, and why sourcing integrity matters.",
   },
   "what-is-compounding": {
     title: "What Is Compounding? (503A vs 503B)",
@@ -438,7 +438,7 @@ const Education = () => {
                     {ov.title ?? m.title}
                   </span>{" "}
                   <span className="text-muted-foreground">
-                    — {ov.description ?? m.description}
+                   {ov.description ?? m.description}
                   </span>
                 </li>
               );

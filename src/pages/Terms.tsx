@@ -162,7 +162,7 @@ const Terms = () => (
 
     <BoardSection id="warranty" n="5" category="Warranty" title="Warranty disclaimer & limit of liability.">
       <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-        <strong className="text-foreground font-semibold">Auditing mirror; no warranty.</strong> The site and the public registry operate as an auditing mirror of third-party records — licensing, supplier, certificate, and regulatory data produced or maintained by third parties. The site and registry are provided on an as-is and as-available basis. The auditing body makes no warranties, express or implied, regarding the accuracy, completeness, currency, or fitness for any particular purpose of any registry entry, status, or associated metadata.
+        <strong className="text-foreground font-semibold">Auditing mirror; no warranty.</strong> The site and the public registry operate as an auditing mirror of third-party records, licensing, supplier, certificate, and regulatory data produced or maintained by third parties. The site and registry are provided on an as-is and as-available basis. The auditing body makes no warranties, express or implied, regarding the accuracy, completeness, currency, or fitness for any particular purpose of any registry entry, status, or associated metadata.
       </p>
       <p className="text-[14.5px] text-muted-foreground leading-relaxed">
         <strong className="text-foreground font-semibold">Limit of liability.</strong> To the fullest extent permitted by law, the auditing body is not liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from access to the site or reliance on registry content. Reliance on registry information is at the user's discretion. Users should consult licensed clinicians and the applicable regulatory authorities for matters within those domains.
@@ -178,7 +178,7 @@ const Terms = () => (
       muted
     >
       <p className="text-[14.5px] text-muted-foreground leading-relaxed">
-        Florida, United States — exclusive venue for any matter arising under this Agreement.
+        Florida, United States, exclusive venue for any matter arising under this Agreement.
       </p>
     </BoardSection>
 

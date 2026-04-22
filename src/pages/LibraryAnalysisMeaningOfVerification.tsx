@@ -12,7 +12,7 @@ const DOC_ID = "SS-ANALYSIS-005";
 const LibraryAnalysisMeaningOfVerification = () => {
   return (
     <>
-      <PageMeta title="The Meaning of Verification · Analysis" description="What Source Standard Verification actualizes — and what it does not." />
+      <PageMeta title="The Meaning of Verification · Analysis" description="What Source Standard Verification actualizes, and what it does not." />
       <Breadcrumb items={[
           { label: "Resource Library", to: "/education" },
           { label: "Analysis" },
@@ -47,7 +47,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="What we do not do — limits of scope.">
+      <ArticleSection n={3} title="What we do not do, limits of scope.">
         <p>To remain a neutral auditing body, we must maintain clear boundaries.</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -71,7 +71,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Education Hub" }}
         next={{ to: "/library/analysis/undocumented-sourcing-signs", label: "Warning Signs of Undocumented Sourcing (SS-ANALYSIS-006)" }}
-        citation={`Source Standard, Clinical Analysis — Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Analysis · Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

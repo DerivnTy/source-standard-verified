@@ -41,7 +41,7 @@ const QA = [
 const FaqVerificationProcess = () => {
   return (
     <>
-      <PageMeta title="Verification Process FAQ" description="How Source Standard verification works — stages, audits, and renewal cadence." />
+      <PageMeta title="Verification Process FAQ" description="How Source Standard verification works, stages, audits, and renewal cadence." />
       <Breadcrumb items={[
           { label: "Resource Library", to: "/education" },
           { label: "FAQ" },
@@ -96,7 +96,7 @@ const FaqVerificationProcess = () => {
         next={{ to: "/library/faq/consumer-diligence", label: "Next Category · Consumer Diligence (SS-FAQ-CAT-04)" }}
       />
 
-      <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Verification Process, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+      <BoardCiteFooter citation={`Source Standard · Regulatory FAQ · Verification Process, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
     </>
   );
 };

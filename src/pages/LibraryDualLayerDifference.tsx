@@ -34,7 +34,7 @@ const LibraryDualLayerDifference = () => {
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Layer one — the clinical entity.">
+      <ArticleSection n={2} title="Layer one, the clinical entity.">
         <p>We first audit the clinic itself. This layer of verification focuses on:</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -46,7 +46,7 @@ const LibraryDualLayerDifference = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Layer two — the upstream pharmacy.">
+      <ArticleSection n={3} title="Layer two, the upstream pharmacy.">
         <p>A clinic is only a pass-through for the medication. Therefore, we verify the source:</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -67,7 +67,7 @@ const LibraryDualLayerDifference = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/aseptic-protocols", label: "Clinical Handling & Aseptic Protocols (SS-GUIDE-001)" }}
-        citation={`Source Standard, Foundational Philosophy — The Dual-Layer Difference, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Foundational Philosophy · The Dual-Layer Difference, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

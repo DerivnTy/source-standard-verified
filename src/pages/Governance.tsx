@@ -14,7 +14,7 @@ const AUTHORITY_REFERENCE_OVERRIDES: Record<string, string> = {
   FDA: "Section 501(a)(2)(B) of the FD&C Act (21 U.S.C. § 351(a)(2)(B)); 503A/503B registration and establishment records; recall and warning-letter history.",
   PCAB: "Accreditation status of compounding pharmacies operating under recognized USP compendial standards.",
   NSF: "Independent product testing and facility certification issued under publicly recognized consensus standards.",
-  USP: "Compendial standards — General Chapters <795> (non-sterile compounding), <797> (sterile compounding), and <800> (hazardous drugs).",
+  USP: "Compendial standards, General Chapters <795> (non-sterile compounding), <797> (sterile compounding), and <800> (hazardous drugs).",
   STATE: "State-level pharmacy and prescriber licensure records, cited per the applicable jurisdiction of practice.",
 };
 
@@ -80,7 +80,7 @@ const Governance = () => (
             <p className="text-[14.5px] text-foreground leading-relaxed">
               Initial advisory roster pending publication.
             </p>
-            <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW — Q1 2026.</p>
+            <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW, Q1 2026.</p>
           </Callout>
         </div>
         <div className="px-5 py-3 border-t border-border">

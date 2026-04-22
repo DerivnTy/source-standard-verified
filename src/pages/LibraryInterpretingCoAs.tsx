@@ -49,7 +49,7 @@ const LibraryInterpretingCoAs = () => {
 
       <ArticleSection n={3} title="Common discrepancies and forgery patterns.">
         <p>
-          Consumers and clinics should be wary of 'Static CoAs' — reports that are reused for different batches or have been visually altered. Red flags include:
+          Consumers and clinics should be wary of 'Static CoAs', reports that are reused for different batches or have been visually altered. Red flags include:
         </p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -71,7 +71,7 @@ const LibraryInterpretingCoAs = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/dual-layer-difference", label: "The Dual-Layer Difference (SS-SERIES-003)" }}
-        citation={`Source Standard, Audit Protocols — Interpreting CoAs, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Audit Protocols · Interpreting CoAs, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

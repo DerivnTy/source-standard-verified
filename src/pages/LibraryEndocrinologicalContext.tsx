@@ -30,7 +30,7 @@ const LibraryEndocrinologicalContext = () => {
 
       <ArticleSection n={1} title="The HPG feedback loop.">
         <p>
-          The human endocrine system operates on a complex feedback loop primarily governed by the Hypothalamic-Pituitary-Gonadal (HPG) axis. As individuals age, this axis can experience 'hypogonadism' — a state where the body fails to produce sufficient levels of testosterone. Unlike an acute injury, age-related decline is often gradual, leading to a constellation of symptoms including metabolic dysfunction, reduced bone density, and cognitive changes.
+          The human endocrine system operates on a complex feedback loop primarily governed by the Hypothalamic-Pituitary-Gonadal (HPG) axis. As individuals age, this axis can experience 'hypogonadism', a state where the body fails to produce sufficient levels of testosterone. Unlike an acute injury, age-related decline is often gradual, leading to a constellation of symptoms including metabolic dysfunction, reduced bone density, and cognitive changes.
         </p>
       </ArticleSection>
 
@@ -72,7 +72,7 @@ const LibraryEndocrinologicalContext = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/reference-dosing-ranges", label: "Reference Dosing Ranges (SS-GUIDE-004)" }}
-        citation={`Source Standard, Clinical Guide — Endocrinological Context, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Guide · Endocrinological Context, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

@@ -11,7 +11,7 @@ export const PageMeta = ({
   title: string;
   description?: string;
 }) => {
-  const fullTitle = `${title} | Source Standard — The Clinical Transparency Framework`;
+  const fullTitle = `${title} | Source Standard · The Clinical Transparency Framework`;
   return (
     <Helmet>
       <title>{fullTitle}</title>

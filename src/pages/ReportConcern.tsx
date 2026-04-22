@@ -5,17 +5,17 @@ import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 const inScope = [
-  "Sourcing concerns — claimed upstream supplier does not match documented chain-of-custody records on file.",
-  "Marketing-Documentation Divergence — vendor's public-facing website, advertising, or claims contradict reviewed records within the declared examination scope.",
-  "Upstream-supplier compromise — a disclosed manufacturing anchor has been delisted, suspended, or has lapsed FDA registration or state licensure.",
-  "Listing accuracy — incorrect category, scope, jurisdiction, or contact information of record.",
-  "Unauthorized Attribution — entity displaying, implying, or otherwise asserting a Source Standard standing it does not hold.",
+  "Sourcing concerns, claimed upstream supplier does not match documented chain-of-custody records on file.",
+  "Marketing-Documentation Divergence, vendor's public-facing website, advertising, or claims contradict reviewed records within the declared examination scope.",
+  "Upstream-supplier compromise, a disclosed manufacturing anchor has been delisted, suspended, or has lapsed FDA registration or state licensure.",
+  "Listing accuracy, incorrect category, scope, jurisdiction, or contact information of record.",
+  "Unauthorized Attribution, entity displaying, implying, or otherwise asserting a Source Standard standing it does not hold.",
 ];
 
 const outOfScope = [
-  "Clinical or medical complaints — refer to FDA MedWatch or the appropriate state medical board.",
-  "Pharmacy compounding complaints — refer to the relevant state board of pharmacy or FDA.",
-  "Billing, refund, or payment disputes — pursue directly with the vendor or the originating payment processor.",
+  "Clinical or medical complaints, refer to FDA MedWatch or the appropriate state medical board.",
+  "Pharmacy compounding complaints, refer to the relevant state board of pharmacy or FDA.",
+  "Billing, refund, or payment disputes, pursue directly with the vendor or the originating payment processor.",
   "Personal disputes, employment matters, or non-public commercial disputes between private parties.",
 ];
 
@@ -94,7 +94,7 @@ const ReportConcern = () => (
     </Section>
 
     <Section muted density="doc">
-      <SectionLabel number="§4" title="Confidentiality & Integrity Standards." description="Reporter Anonymity is a controlling principle of the intake process. Reporter identity is treated as confidential within the review file and is never published. Submissions made in good faith — even those that do not result in a status change — are valued and contribute to the integrity of the registry. Knowingly false, harassing, or vexatious submissions are disregarded and may themselves be referred to the appropriate authority." />
+      <SectionLabel number="§4" title="Confidentiality & Integrity Standards." description="Reporter Anonymity is a controlling principle of the intake process. Reporter identity is treated as confidential within the review file and is never published. Submissions made in good faith, even those that do not result in a status change, are valued and contribute to the integrity of the registry. Knowingly false, harassing, or vexatious submissions are disregarded and may themselves be referred to the appropriate authority." />
     </Section>
 
     <Section density="doc">
@@ -119,7 +119,7 @@ const ReportConcern = () => (
     <Section muted density="tight">
       <SectionLabel number="§6" title="Cross-references." />
       <ul className="space-y-2 text-[15px]">
-        <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement — triggering events →</Link></li>
+        <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement, triggering events →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Glossary of Regulatory Standings →</Link></li>
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification Protocol & Audit Methodology →</Link></li>
       </ul>

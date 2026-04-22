@@ -79,7 +79,7 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Education Hub" }}
         next={{ to: "/library/analysis/meaning-of-verification", label: "What Verification Actually Means (SS-ANALYSIS-005)" }}
-        citation={`Source Standard, Clinical Analysis — Questions to Ask Your Clinic, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Analysis · Questions to Ask Your Clinic, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

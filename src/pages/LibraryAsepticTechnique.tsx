@@ -75,7 +75,7 @@ const LibraryAsepticTechnique = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/endocrinological-context", label: "Endocrinological Context (SS-GUIDE-003)" }}
-        citation={`Source Standard, Clinical Guide — Aseptic Technique, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Guide · Aseptic Technique, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

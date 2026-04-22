@@ -12,7 +12,7 @@ const DOC_ID = "SS-ANALYSIS-006";
 const LibraryAnalysisUndocumentedSourcingSigns = () => {
   return (
     <>
-      <PageMeta title="Undocumented Sourcing — Warning Signs · Analysis" description="Recognizing red flags of undocumented medication sourcing." />
+      <PageMeta title="Undocumented Sourcing, Warning Signs · Analysis" description="Recognizing red flags of undocumented medication sourcing." />
       <Breadcrumb items={[
           { label: "Resource Library", to: "/education" },
           { label: "Analysis" },
@@ -68,14 +68,14 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
 
       <ArticleSection n={5} title="The cost of low transparency.">
         <p className="text-foreground font-medium">
-          Undocumented sourcing isn't just a legal technicality; it's a safety vacuum. Without a documented pharmacy, there is no one to hold accountable for sterility failures, incorrect potencies, or heavy metal contamination. If a clinic cannot — or will not — prove their source, they have failed the primary duty of patient care.
+          Undocumented sourcing isn't just a legal technicality; it's a safety vacuum. Without a documented pharmacy, there is no one to hold accountable for sterility failures, incorrect potencies, or heavy metal contamination. If a clinic cannot, or will not, prove their source, they have failed the primary duty of patient care.
         </p>
       </ArticleSection>
 
       <ArticleFooter
         back={{ to: "/education", label: "Back to Education Hub" }}
         next={{ to: "/directory", label: "Search the Verified Registry" }}
-        citation={`Source Standard, Clinical Analysis — Warning Signs of Undocumented Sourcing, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Analysis · Warning Signs of Undocumented Sourcing, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );
