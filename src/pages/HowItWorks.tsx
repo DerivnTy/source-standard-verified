@@ -225,6 +225,29 @@ const STEP_TITLES: Record<string, string> = {
   "06": "Publication & Continuous Surveillance",
 };
 
+// 12-col Board rail
+const Rail = ({
+  ref,
+  label,
+  title,
+  body,
+}: {
+  ref: string;
+  label: string;
+  title: string;
+  body?: string;
+}) => (
+  <div className="md:col-span-4">
+    <p className="meta mb-3">
+      {ref} · {label}
+    </p>
+    <h2 className="h-section">{title}</h2>
+    {body && (
+      <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">{body}</p>
+    )}
+  </div>
+);
+
 const HowItWorks = () => {
   return (
     <div className="bg-background">
@@ -241,13 +264,14 @@ const HowItWorks = () => {
       />
 
       {/* Document header strip */}
-      <div className="border-b border-border bg-surface-muted/40">
+      <div className="border-b border-border bg-surface-muted">
         <div className="container-wide flex items-center justify-between py-2.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground gap-4 flex-wrap">
           <span>
             Document · <span className="text-foreground">SS-FRAMEWORK-2026.01</span>
           </span>
           <span>
-            Issued <span className="text-foreground">04/21/2026</span> · Revision <span className="text-foreground">2026.01</span> · Controlled copy
+            Issued <span className="text-foreground">04/21/2026</span> · Revision{" "}
+            <span className="text-foreground">2026.01</span> · Controlled copy
           </span>
           <span>
             Classification · <span className="text-foreground">Public</span> · Controlled standard
@@ -255,255 +279,355 @@ const HowItWorks = () => {
         </div>
       </div>
 
-      {/* Audit principles */}
-      <section className="border-b border-border">
+      {/* §1 Governing principles */}
+      <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§1 · Governing principles</p>
-          <h2 className="h-section max-w-3xl">
-            Governing Principles of Forensic Examination.
-          </h2>
-          <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            The verification protocol prioritizes the source over the storefront. Every examination is conducted against a consistent evidentiary rubric, independent of marketing presentation, under the three principles below.
-          </p>
-          <div className="mt-10 grid md:grid-cols-3 gap-10 max-w-5xl">
-            {whyItMatters.map((w, i) => (
-              <div key={i}>
-                <h3 className="text-[15px] font-semibold text-foreground">{PRINCIPLE_TITLES[w.t] ?? w.t}</h3>
-                <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{w.d}</p>
-              </div>
-            ))}
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§1"
+              label="Governing principles"
+              title="Governing Principles of Forensic Examination."
+              body="The verification protocol prioritizes the source over the storefront. Every examination is conducted against a consistent evidentiary rubric, independent of marketing presentation."
+            />
+            <div className="md:col-span-8">
+              <ol className="border border-border bg-background divide-y divide-border">
+                {whyItMatters.map((w, i) => (
+                  <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
+                    <div className="col-span-2 meta text-primary">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="col-span-10">
+                      <p className="text-[14px] font-semibold text-foreground">
+                        {PRINCIPLE_TITLES[w.t] ?? w.t}
+                      </p>
+                      <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
+                        {w.d}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Scope of attestation */}
-      <section className="bg-surface-muted/40 border-b border-border">
+      {/* §2 Scope of attestation */}
+      <section className="border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§2 · Scope of attestation</p>
-          <h2 className="h-section max-w-3xl">
-            Attestation of Record Consistency.
-          </h2>
-          <div className="mt-10 grid md:grid-cols-2 gap-x-12 gap-y-10 max-w-5xl">
-            {meaningBlocks.map((m, i) => (
-              <div key={i}>
-                <h3 className="text-[15px] font-semibold text-foreground">{MEANING_TITLES[m.t] ?? m.t}</h3>
-                <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{m.d}</p>
-              </div>
-            ))}
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§2"
+              label="Scope of attestation"
+              title="Attestation of Record Consistency."
+              body="What the framework attests to — and the boundaries of that attestation."
+            />
+            <div className="md:col-span-8">
+              <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
+                {meaningBlocks.map((m, i) => (
+                  <li key={i} className="bg-background p-5">
+                    <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-primary mb-2">
+                      ATTESTATION · {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="text-[14px] font-semibold text-foreground">
+                      {MEANING_TITLES[m.t] ?? m.t}
+                    </h3>
+                    <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
+                      {m.d}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Public determinations */}
-      <section className="border-b border-border">
+      {/* §3 Registry determinations — Board-style table */}
+      <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§3 · Registry determinations</p>
-          <h2 className="h-section max-w-3xl">
-            Registry determinations.
-          </h2>
-          <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Each registry entry carries one of the following determinations. The determination reflects the state of the
-            audit file at the time of last update.
-          </p>
-          <div className="mt-10 max-w-4xl divide-y divide-border border-t border-b border-border">
-            {statuses.map((s, i) => (
-              <div key={i} className="grid md:grid-cols-12 gap-4 py-6">
-                <div className="md:col-span-3">
-                  <h3 className="text-[15px] font-semibold text-foreground">{s.t}</h3>
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§3"
+              label="Registry determinations"
+              title="Registry determinations."
+              body="Each registry entry carries one of the following determinations. The determination reflects the state of the audit file at the time of last update."
+            />
+            <div className="md:col-span-8">
+              <div className="border border-border bg-background">
+                <div className="grid grid-cols-12 px-5 py-2.5 bg-surface-muted border-b border-border">
+                  <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                    Code
+                  </div>
+                  <div className="col-span-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                    Status
+                  </div>
+                  <div className="col-span-7 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+                    Public-record meaning
+                  </div>
                 </div>
-                <div className="md:col-span-9 space-y-2">
-                  <p className="text-[14px] text-foreground leading-relaxed">{s.meaning}</p>
-                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    <span className="meta-label mr-1">Public-record meaning:</span>
-                    {s.tells}
-                  </p>
-                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    <span className="meta-label mr-1">Does not imply:</span>
-                    {s.notImply}
-                  </p>
-                </div>
+                <ul className="divide-y divide-border">
+                  {statuses.map((s, i) => (
+                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-4 items-baseline">
+                      <div className="col-span-2 meta text-primary">
+                        STATUS · {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <div className="col-span-3 text-[13.5px] font-semibold text-foreground">
+                        {s.t}
+                      </div>
+                      <div className="col-span-7 space-y-1.5">
+                        <p className="text-[13.5px] text-foreground leading-relaxed">{s.meaning}</p>
+                        <p className="text-[12.5px] text-muted-foreground leading-relaxed">
+                          <span className="meta-label mr-1">Tells:</span>
+                          {s.tells}
+                        </p>
+                        <p className="text-[12.5px] text-muted-foreground leading-relaxed">
+                          <span className="meta-label mr-1">Does not imply:</span>
+                          {s.notImply}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
+              <p className="mt-4 text-[12.5px] text-muted-foreground">
+                Full status definitions:{" "}
+                <Link
+                  to="/status-definitions"
+                  className="underline underline-offset-4 hover:text-foreground"
+                >
+                  /status-definitions
+                </Link>
+              </p>
+            </div>
           </div>
-          <p className="mt-6 text-[13px] text-muted-foreground">
-            Full status definitions:{" "}
-            <Link to="/status-definitions" className="underline underline-offset-4 hover:text-foreground">
-              /status-definitions
-            </Link>
-          </p>
         </div>
       </section>
 
-      {/* Examination domains */}
-      <section className="bg-surface-muted/40 border-b border-border">
+      {/* §4 Examination domains */}
+      <section className="border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§4 · Examination domains</p>
-          <h2 className="h-section max-w-3xl">
-            Administrative Examination Domains.
-          </h2>
-          <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Each domain is examined against the evidentiary standard for the requested verification category. All findings are logged to the controlled audit file under document SS-FRAMEWORK-2026.01.
-          </p>
-          <div className="mt-10 grid md:grid-cols-2 gap-5">
-            {reviewGroups.map((g, i) => (
-              <div key={i} className="border border-border rounded-[2px] bg-background p-6">
-                <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-1">
-                  DOMAIN · {String(i + 1).padStart(2, "0")}
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§4"
+              label="Examination domains"
+              title="Administrative Examination Domains."
+              body="Each domain is examined against the evidentiary standard for the requested verification category. All findings are logged to the controlled audit file."
+            />
+            <div className="md:col-span-8">
+              <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
+                {reviewGroups.map((g, i) => (
+                  <li key={i} className="bg-background p-6">
+                    <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-primary mb-2">
+                      DOMAIN · {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="text-[14px] font-semibold text-foreground">
+                      {SCOPE_TITLES[g.t] ?? g.t}
+                    </h3>
+                    <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
+                      {g.d}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §5 Standardized review lifecycle — Board ol pattern */}
+      <section className="border-b border-border bg-background">
+        <div className="container-wide py-12 md:py-16">
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§5"
+              label="Standardized review lifecycle"
+              title="Standardized Review Lifecycle."
+              body="Every verification proceeds through six controlled stages of forensic examination. A file may be paused at any stage when records are incomplete, inconsistent, or require evidentiary clarification."
+            />
+            <div className="md:col-span-8">
+              <ol className="border border-border bg-background divide-y divide-border">
+                {steps.map((s) => (
+                  <li key={s.n} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
+                    <div className="col-span-2 meta text-primary">{s.n}</div>
+                    <div className="col-span-10 space-y-2">
+                      <p className="text-[14px] font-semibold text-foreground">
+                        {STEP_TITLES[s.n] ?? s.t}
+                      </p>
+                      <p className="text-[13.5px] text-foreground/90 leading-relaxed">
+                        {s.summary}
+                      </p>
+                      <p className="text-[12.5px] text-muted-foreground leading-relaxed">
+                        <span className="meta-label mr-1">Examined:</span>
+                        {s.reviewed}
+                      </p>
+                      <p className="text-[12.5px] text-muted-foreground leading-relaxed">
+                        <span className="meta-label mr-1">Disposition:</span>
+                        {s.result}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §6 Post-audit surveillance */}
+      <section className="border-b border-border bg-surface-muted">
+        <div className="container-wide py-12 md:py-16">
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§6"
+              label="Post-audit surveillance"
+              title="Post-Audit Surveillance & Mandatory Disclosure."
+              body="A determination is a snapshot in time. Verified files are subject to continuous surveillance and re-examined at a defined renewal interval and upon any reported material change."
+            />
+            <div className="md:col-span-8">
+              <div className="border-l-2 border-l-foreground bg-background px-4 py-3 mb-5">
+                <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground">
+                  DISCLOSURE WINDOW · <span className="text-foreground">72 HOURS</span> ·{" "}
+                  <span className="text-foreground">SS-FRAMEWORK-2026.01</span> · §6
                 </p>
-                <h3 className="text-[15px] font-semibold text-foreground">{SCOPE_TITLES[g.t] ?? g.t}</h3>
-                <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{g.d}</p>
               </div>
-            ))}
+              <ol className="border border-border bg-background divide-y divide-border">
+                {changes.map((c, i) => (
+                  <li key={i} className="grid grid-cols-12 gap-4 px-5 py-3.5 items-baseline">
+                    <div className="col-span-2 meta text-primary">
+                      EVENT · {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="col-span-10 text-[13.5px] text-foreground leading-relaxed">
+                      {c}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-5 text-[13px] text-muted-foreground leading-relaxed">
+                A disclosed event may result in a continued determination, a Suspended status
+                pending re-examination, or a re-review limited to the affected scope.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Audit lifecycle */}
-      <section className="border-b border-border">
+      {/* §7 Post-determination handling */}
+      <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§5 · Standardized review lifecycle</p>
-          <h2 className="h-section max-w-3xl">
-            Standardized Review Lifecycle.
-          </h2>
-          <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            Every verification proceeds through six controlled stages of forensic examination. A file may be paused at any stage when records are incomplete, inconsistent, or require evidentiary clarification.
-          </p>
-          <ol className="mt-10 max-w-4xl divide-y divide-border border-t border-b border-border">
-            {steps.map((s) => (
-              <li key={s.n} className="grid md:grid-cols-12 gap-6 py-8">
-                <div className="md:col-span-2">
-                  <p className="meta-mono text-[12.5px] text-muted-foreground">Step {s.n}</p>
-                  <h3 className="mt-1 text-[15px] font-semibold text-foreground">{STEP_TITLES[s.n] ?? s.t}</h3>
-                </div>
-                <div className="md:col-span-10 space-y-3">
-                  <p className="text-[14.5px] text-foreground leading-relaxed">{s.summary}</p>
-                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    <span className="meta-label mr-1">Examined:</span>
-                    {s.reviewed}
-                  </p>
-                  <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-                    <span className="meta-label mr-1">Disposition:</span>
-                    {s.result}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* Continuous surveillance */}
-      <section className="bg-surface-muted/40 border-b border-border">
-        <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§6 · Post-audit surveillance</p>
-          <h2 className="h-section max-w-3xl">
-            Post-Audit Surveillance & Mandatory Disclosure.
-          </h2>
-          <p className="mt-4 max-w-2xl text-[15px] text-muted-foreground leading-relaxed">
-            A determination is a snapshot in time. Verified files are subject to continuous surveillance and are re-examined at a defined renewal interval and upon any reported material change. Entities of record are bound to disclose the following Mandatory Disclosure Events within seventy-two (72) hours of occurrence.
-          </p>
-          <div className="mt-8 border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3 max-w-3xl mb-5">
-            <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground">
-              DISCLOSURE WINDOW · <span className="text-foreground">72 HOURS</span> · <span className="text-foreground">SS-FRAMEWORK-2026.01</span> · §6
-            </p>
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§7"
+              label="Post-determination handling"
+              title="Post-Determination Record Handling."
+            />
+            <div className="md:col-span-8">
+              <ol className="border border-border bg-background divide-y divide-border">
+                {afterReview.map((a, i) => (
+                  <li key={i} className="grid grid-cols-12 gap-4 px-5 py-3.5 items-baseline">
+                    <div className="col-span-2 meta text-primary">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="col-span-10 text-[13.5px] text-foreground leading-relaxed">
+                      {a}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-foreground mb-3">
-            Mandatory Disclosure Events
-          </p>
-          <ul className="max-w-2xl space-y-2 text-[14px] text-foreground">
-            {changes.map((c, i) => (
-              <li key={i} className="flex gap-3">
-                <span className="text-muted-foreground">·</span>
-                <span>{c}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-8 max-w-2xl text-[14px] text-muted-foreground leading-relaxed">
-            A disclosed event may result in a continued determination, a Suspended status pending re-examination, or a
-            re-review limited to the affected scope.
-          </p>
         </div>
       </section>
 
-      {/* Post-determination */}
-      <section className="border-b border-border">
+      {/* §8 Applicant rationale */}
+      <section className="border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§7 · Post-determination handling</p>
-          <h2 className="h-section max-w-3xl">
-            Post-Determination Record Handling.
-          </h2>
-          <ul className="mt-8 max-w-3xl space-y-3 text-[14.5px] text-foreground">
-            {afterReview.map((a, i) => (
-              <li key={i} className="flex gap-3">
-                <span className="meta-mono text-muted-foreground w-6 shrink-0">{String(i + 1).padStart(2, "0")}</span>
-                <span className="leading-relaxed">{a}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Why vendors apply */}
-      <section className="bg-surface-muted/40 border-b border-border">
-        <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§8 · Applicant rationale</p>
-          <h2 className="h-section max-w-3xl">
-            Why entities submit to audit.
-          </h2>
-          <div className="mt-10 grid md:grid-cols-2 gap-x-12 gap-y-8 max-w-5xl">
-            {vendorReasons.map((v, i) => (
-              <div key={i}>
-                <h3 className="text-[15px] font-semibold text-foreground">{v.t}</h3>
-                <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{v.d}</p>
-              </div>
-            ))}
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§8"
+              label="Applicant rationale"
+              title="Why entities submit to audit."
+            />
+            <div className="md:col-span-8">
+              <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
+                {vendorReasons.map((v, i) => (
+                  <li key={i} className="bg-background p-6">
+                    <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-primary mb-2">
+                      RATIONALE · {String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="text-[14px] font-semibold text-foreground">{v.t}</h3>
+                    <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
+                      {v.d}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-[13px]">
+                <Link
+                  to="/apply"
+                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                >
+                  Begin a verification application →
+                </Link>
+              </p>
+            </div>
           </div>
-          <p className="mt-10 text-[14px]">
-            <Link to="/apply" className="text-foreground underline underline-offset-4 hover:opacity-70">
-              Begin a verification application →
-            </Link>
-          </p>
         </div>
       </section>
 
-      {/* What this process is not */}
-      <section className="border-b border-border">
+      {/* §9 Jurisdictional limitations */}
+      <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
-          <p className="eyebrow mb-3">§9 · Jurisdictional limitations</p>
-          <h2 className="h-section max-w-3xl">
-            Jurisdictional Limitations.
-          </h2>
-          <p className="mt-4 max-w-3xl text-[15px] text-muted-foreground leading-relaxed">
-            The following limitations are administrative boundaries of the verification framework. They define what the SOP does not constitute as a matter of legal scope, and may not be inferred or extended by reading.
-          </p>
-          <ul className="mt-8 max-w-3xl space-y-3 text-[14px] text-muted-foreground">
-            {notProcess.map((n, i) => (
-              <li key={i} className="flex gap-3">
-                <span>·</span>
-                <span className="leading-relaxed">{n}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="grid md:grid-cols-12 gap-10">
+            <Rail
+              ref="§9"
+              label="Jurisdictional limitations"
+              title="Jurisdictional Limitations."
+              body="Administrative boundaries of the verification framework. They define what the SOP does not constitute as a matter of legal scope."
+            />
+            <div className="md:col-span-8">
+              <ol className="border border-border bg-background divide-y divide-border">
+                {notProcess.map((n, i) => (
+                  <li key={i} className="grid grid-cols-12 gap-4 px-5 py-3.5 items-baseline">
+                    <div className="col-span-2 meta text-primary">
+                      LIMIT · {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="col-span-10 text-[13.5px] text-muted-foreground leading-relaxed">
+                      {n}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Footer official citation block */}
+      {/* Official citation block */}
       <section>
         <div className="container-wide py-8">
-          <div className="border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl mt-8">
+          <div className="border-t-2 border-t-foreground bg-background px-5 py-4 max-w-4xl">
             <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-2">
               OFFICIAL CITATION · SS-FRAMEWORK-2026.01
             </p>
             <p className="text-[12.5px] text-foreground leading-relaxed">
-              Source Standard. SOP: Verification Protocol & Audit Methodology. Document SS-FRAMEWORK-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on file with the issuing organization.
+              Source Standard. SOP: Verification Protocol & Audit Methodology. Document
+              SS-FRAMEWORK-2026.01. Issued 04 / 21 / 2026. Revision 2026.01. Controlled copy on
+              file with the issuing organization.
             </p>
             <p className="mt-3 font-mono uppercase tracking-[0.08em] text-[11px] text-muted-foreground flex flex-wrap gap-x-3 gap-y-1">
               <span>Controlled standard · Subject to versioned revision ·</span>
-              <Link to="/status-definitions" className="underline underline-offset-4 hover:text-foreground">
+              <Link
+                to="/status-definitions"
+                className="underline underline-offset-4 hover:text-foreground"
+              >
                 See Status Definitions
               </Link>
               <span>·</span>
-              <Link to="/accountability" className="underline underline-offset-4 hover:text-foreground">
+              <Link
+                to="/accountability"
+                className="underline underline-offset-4 hover:text-foreground"
+              >
                 See Accountability
               </Link>
             </p>
