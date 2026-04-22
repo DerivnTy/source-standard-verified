@@ -51,17 +51,28 @@ const CATEGORY_STYLE: Record<GreenlistCategory, { dot: string }> = {
   Other: { dot: "bg-[hsl(var(--src-other))]" },
 };
 
-const CATEGORY_PILL: Record<GreenlistCategory, string> = {
-  "503B": "bg-primary/10 text-primary ring-1 ring-primary/15",
-  "503A": "bg-surface-muted text-foreground/80 ring-1 ring-border/60",
-  Other: "bg-[hsl(var(--src-other))]/10 text-foreground/80 ring-1 ring-border/60",
+const CATEGORY_PILL: Record<GreenlistCategory, { wrap: string; dot: string }> = {
+  "503B": {
+    wrap: "bg-[hsl(var(--src-503b-soft))] text-[hsl(var(--src-503b))] ring-1 ring-[hsl(var(--src-503b))]/20",
+    dot: "bg-[hsl(var(--src-503b))]",
+  },
+  "503A": {
+    wrap: "bg-[hsl(var(--src-503a-soft))] text-[hsl(var(--src-503a))] ring-1 ring-[hsl(var(--src-503a))]/20",
+    dot: "bg-[hsl(var(--src-503a))]",
+  },
+  Other: {
+    wrap: "bg-[hsl(var(--src-other-soft))] text-[hsl(var(--src-other))] ring-1 ring-[hsl(var(--src-other))]/20",
+    dot: "bg-[hsl(var(--src-other))]",
+  },
 };
 
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
+  const styles = CATEGORY_PILL[category];
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] tabular-nums ${CATEGORY_PILL[category]}`}
+      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] tabular-nums ${styles.wrap}`}
     >
+      <span className={`h-1.5 w-1.5 rounded-full ${styles.dot}`} aria-hidden="true" />
       {category}
     </span>
   );
