@@ -32,20 +32,20 @@ export const BoardSection = ({
       muted ? "bg-surface-muted" : "bg-background"
     }`}
   >
-    <div className="container-wide py-12 md:py-16 grid md:grid-cols-12 gap-10">
-      <div className="md:col-span-4">
-        <p className="meta mb-3">
-          §{n} · {category}
-        </p>
-        <h2 className="h-section">{title}</h2>
-        {rationale && (
-          <p className="mt-3 text-[13.5px] text-muted-foreground leading-relaxed">
-            {rationale}
+    <div className="page-shell section-pad">
+      <div className="mx-auto w-standard grid md:grid-cols-12 gap-10">
+        <div className="md:col-span-4">
+          <p className="t-utility-xs text-muted-foreground mb-4">
+            §{n} · {category}
           </p>
-        )}
-      </div>
-      <div className="md:col-span-8 text-[14.5px] text-muted-foreground leading-relaxed space-y-4">
-        {children}
+          <h2 className="t-section-title-sm text-foreground">{title}</h2>
+          {rationale && (
+            <p className="mt-4 t-body-sm text-muted-foreground">{rationale}</p>
+          )}
+        </div>
+        <div className="md:col-span-8 t-body-md text-muted-foreground space-y-5">
+          {children}
+        </div>
       </div>
     </div>
   </section>
