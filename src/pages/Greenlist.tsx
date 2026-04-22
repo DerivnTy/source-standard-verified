@@ -560,32 +560,30 @@ const Greenlist = () => {
 
       {/* Bridge to vendor registry */}
       <section className="bg-surface-muted/30 border-t border-border/60">
-        <div className="container-wide py-14 md:py-16">
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mb-6">
-            Two layers, one framework
-          </p>
-          <div className="grid md:grid-cols-12 gap-8 items-start">
-            <div className="md:col-span-8">
-              <p className="text-[15px] leading-[1.7] text-foreground/85 max-w-[68ch]">
-                The Greenlist establishes the upstream reference set — the recognized facilities a vendor may legitimately source from. Vendor verification is the second layer: it assesses whether a specific clinic or vendor can actually substantiate its sourcing through licensed upstream pharmacies and documented records.
+        <div className="container-wide py-10 md:py-12">
+          <div className="max-w-[760px] mx-auto">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/70 mb-4">
+              Two layers, one framework
+            </p>
+            <p className="text-[15px] leading-[1.7] text-foreground/85">
+              The Greenlist establishes the upstream reference set — the recognized facilities a vendor may legitimately source from. Vendor verification is the second layer: it assesses whether a specific clinic or vendor can actually substantiate its sourcing through licensed upstream pharmacies and documented records.
+            </p>
+            <Link
+              to="/directory"
+              className="mt-6 inline-flex items-center text-[14px] font-medium text-foreground hover:text-primary underline-offset-4 hover:underline"
+            >
+              Open the Vendor Registry →
+            </Link>
+
+            <div className="mt-8 pt-5 border-t border-border/50">
+              <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground">
+                Note
+              </span>
+              <p className="mt-2 text-[12.5px] leading-[1.65] text-muted-foreground max-w-[68ch]">
+                Source Standard does not accept payment from facilities for inclusion in the Greenlist. Information is derived from public regulatory filings, disclosed facility information, and Source Standard review data where applicable. Inclusion does not constitute endorsement of any specific product, protocol, or clinical use, and does not replace independent due diligence by prescribers or operators.
               </p>
-              <p className="mt-3 text-[14px] leading-[1.7] text-muted-foreground max-w-[68ch]">
-                To see who is currently verified, open the Vendor Registry.
-              </p>
-            </div>
-            <div className="md:col-span-4 md:text-right">
-              <Link
-                to="/directory"
-                className="inline-flex items-center text-[14px] font-medium text-foreground hover:text-primary underline-offset-4 hover:underline"
-              >
-                Open the Vendor Registry →
-              </Link>
             </div>
           </div>
-
-          <p className="mt-10 pt-6 border-t border-border/40 text-[12px] leading-[1.7] text-muted-foreground max-w-[88ch]">
-            Source Standard does not accept payment from facilities for inclusion in the Greenlist. Information is derived from public regulatory filings, disclosed facility information, and Source Standard review data where applicable. Inclusion does not constitute endorsement of any specific product, protocol, or clinical use, and does not replace independent due diligence by prescribers or operators.
-          </p>
         </div>
       </section>
     </>
