@@ -1,97 +1,74 @@
 
 
-## Unified Registry Integration — Unverified & Flagged Facilities
+## Architectural Realignment — Advisory Board as Design DNA
 
-Weave Unverified / Flagged / Shut-Down entries directly into the Greenlist (and Verified Vendors where applicable), alphabetically alongside 503B and 503A entries. The table stays clean — a soft-red status badge is the only signal. The Profile page does the heavy lifting with a dedicated **Regulatory Alert** block exposing status, reason, and source proof.
+The Advisory Board page is the canonical pattern: tight 12-col rhythm, `§N` eyebrow + `h-section` title in a 4-col left rail, content/table in the 8-col right rail, hairline `border-border` dividers, alternating `bg-surface-muted` bands, `py-12 md:py-16` (not `py-20 md:py-28`), and `01/02` numbering instead of icon-checkmark bullets. Roll that DNA across Education, About, HowItWorks, and the Registry headers.
 
 ---
 
-### 1 · Data model — extend `GreenlistEntry`
+### 1 · Spacing strike — adopt Board cadence everywhere
 
-`src/data/greenlist.ts`:
+Across `src/pages/Education.tsx`, `src/pages/About.tsx`, `src/pages/HowItWorks.tsx`:
 
-**a. New alert subtypes** under the existing `Other` category (no new top-level category needed — keeps the Green/Amber/Red traffic light intact):
+- Replace every `py-20 md:py-28` and `section-band` with **`py-12 md:py-16`** (Board standard).
+- Replace `gap-y-8 / gap-y-10` between section blocks with the Board's `mb-8` header → grid pattern.
+- Drop the `card-elevated` floaty cards on Education in favor of the Board's flat `border border-border bg-background` tiles in a `gap-px bg-border` grid (visible hairline gutter, no shadows).
+- Hero bands lose `text-center` + `display-2`. Adopt the Board's left-aligned `eyebrow → h-section → 60ch lead` block.
 
-```ts
-export type AlertStatus =
-  | "shut-down"          // FDA action / ceased operations
-  | "no-longer-registered" // present on FDA list previously, absent now
-  | "not-on-fda-list"    // claims registration but never listed
-  | "unverified";        // generic, no audit submitted
-```
+### 2 · Icon / checkmark audit
 
-**b. New `regulatoryAlert` field** on `GreenlistEntry` (optional — only populated for flagged/unverified facilities):
+- Education: remove every `<SourceCheck>` from tile bodies, supplementary list, and "Reviewed by Medical Advisory" footers. Keep `SourceCheck` ONLY in the page-hero attribution line and on verified status surfaces (registry/profile seals — already done).
+- Education FAQ category grid: remove the four lucide icons (`Scale / ShieldCheck / BadgeCheck / Compass`). Replace with `01–04` mono numbering left of the category label, mirroring the Board roster's `SEAT · 01` chip.
+- Education "Forthcoming reference formats": replace the `SourceCheck` bullets with the Board's neutral `·` dot + numbered prefix (`01`, `02`, `03`).
+- About: any decorative dot/icon retired in favor of `§N.M` mono refs (already partially in place — extend consistently).
 
-```ts
-regulatoryAlert?: {
-  status: AlertStatus;        // drives badge label + alert banner
-  shortLabel?: string;        // table cell override, e.g. "No Active Registration"
-  asOf: string;               // ISO date (e.g. "2026-04-16")
-  reason: string;             // 1–3 sentence objective summary
-  proof: { label: string; url: string }[]; // FDA links, snapshots, warning letters
-};
-```
+### 3 · Page-specific realignments
 
-**c. Type addition** — extend `GreenlistType` with `"Unverified Facility"` so the type column has a valid label for non-503-status entries.
+**Education (`src/pages/Education.tsx`)**
+- Hero: left-aligned, no `text-center`, no `display-2`. Use `eyebrow` + `h-section` + 60ch lead. Drop the centered SourceCheck attribution into a single muted line beneath.
+- "Start Here" trio: keep three columns but reskin tiles to flat Board-style — `border border-border bg-background p-6`, `01 / 02 / 03` chip top-left mirroring `SEAT · 01`, no shadow, no chevron icon, "View →" uppercase mono link bottom-right (Board pattern).
+- Section structure: every section becomes a Board 12-col split — left col (4): `§N · category` eyebrow + `h-section` title + short rationale; right col (8): the tile grid. Bands alternate `bg-background` / `bg-surface-muted` like the Board page.
+- Library tiles (`LibraryTile`): flat border, no `card-elevated`, no `min-h-[260px]` floaty padding, 18px semibold title, 13.5px muted summary, "MAB-style" footer with `ENTRY · NN` mono ref left and `Read article →` uppercase link right. Drop the chevron lucide icon.
+- FAQ category grid: 4 flat cells in a `gap-px bg-border` grid (Board roster pattern); `01–04` mono index, label, description, `Browse →` mono link. No icons, no per-card border-radius.
+- Page padding: every section to `py-12 md:py-16`.
 
-**d. Two seed records** (Examples A & B from the brief) appended to `greenlistEntries`, both `category: "Other"`, with full `regulatoryAlert` blocks and proof links.
+**About (`src/pages/About.tsx`)**
+- Already uses `DocLayout` + `DocSection` with `§N` numbering — keep the framework but tighten the §4 "beliefs" list and §5 scope table to Board grid weights (`grid-cols-12 gap-4`, `meta` mono refs in col-2, content in col-10), matching the §4 Responsibilities table on the Board page exactly.
+- §6 Callout retains red/notice tone but loses extra padding to match `px-5 py-5` Board cell density.
+- §7 audience cards: drop `shadow-sm` + `rounded-lg` for flat hairline-bordered cells consistent with Board roster.
 
-### 2 · Table integration — clean & alphabetical
+**HowItWorks / SOP (`src/pages/HowItWorks.tsx`)**
+- Replace the plain text section pattern with the Board's 12-col split: each `§N` becomes `md:col-span-4` (eyebrow + `h-section` + lead) / `md:col-span-8` (content/tables/lists) — currently it's full-width and reads dull.
+- §3 Determinations: convert to a Board-style bordered table card with header strip (`Code · Status · Public-record meaning · Does not imply`), `divide-y divide-border` rows, `meta` mono `STATUS · 01..05` index column. Same chrome as the Board "Key Responsibilities" table.
+- §4 Examination domains: keep the card grid but reskin to flat `border border-border bg-background p-6` with `DOMAIN · NN` mono header (already partial — make uniform), no `rounded-[2px]` softness, sit them in a `gap-px bg-border` grid.
+- §5 Lifecycle: convert to Board's `<ol>` pattern with `border border-border divide-y` and `grid-cols-12` rows (`col-span-2` mono `01` index in `text-primary`, `col-span-10` title + body), matching §3 of the Board page exactly.
+- §6 Mandatory disclosure list: swap the `·` bullets for `01..06` mono prefixes (Board pattern).
+- All `py-12 md:py-16` already present — verify uniformity, remove any drift.
 
-`src/pages/Greenlist.tsx`:
+**Registry hero (`src/pages/Greenlist.tsx` + `src/pages/VerifiedVendors.tsx`)**
+- Reskin the page hero band to the Board header style: 12-col split — left (8): `Reference · Registry` eyebrow + clean title + 58ch muted lead; right (4): the existing stat strip rendered as a Board-style "Reference" metadata card (label/value rows, `font-mono` values, hairline divider, no large stat-card affordance). The dense data table chrome below stays exactly as it is — only the hero changes.
+- Methodology accordion footer: tighten to Board "Read deeper" pattern (`border border-border bg-surface-muted` bar with hairline-divided link cells).
 
-- **No structural change** to filtering/sorting/pagination — entries with `category: "Other"` already flow through. Default `name-asc` sort already interleaves them alphabetically.
-- **Status column** (currently shows `<CategoryPill>` for 503B/503A): for entries with `regulatoryAlert`, render an additional **soft-red status badge** (e.g. "UNVERIFIED" / "NO ACTIVE REGISTRATION") *underneath* the `CategoryPill` using the existing `--src-unverified` / `--src-unverified-soft` tokens. Same soft-badge style as the `Other` pill but using `regulatoryAlert.shortLabel` when present (else a default mapped from `AlertStatus`).
-- **Alphabetical interleaving** — confirmed by default `name-asc`. No new "Flagged" section; entries appear inline like everyone else.
-- **Filter dropdown** — the existing `Unverified` option already filters `category === "Other"`, which now correctly captures these entries. No filter-logic change.
-- **Mobile card** — same soft-red badge appended below the source-type pill.
+### 4 · Visual consistency lockdown
 
-### 3 · Profile page — Regulatory Alert block
-
-`src/pages/GreenlistProfile.tsx`:
-
-When `entry.regulatoryAlert` is present, render a new **`SubSection` "00 — Regulatory Alert"** *above* "01 Regulatory & Quality":
-
-```
-┌────────────────────────────────────────────────────────┐
-│  00  REGULATORY ALERT                                  │
-├────────────────────────────────────────────────────────┤
-│  Current status      [SHUT DOWN / NO LONGER REGISTERED]│
-│  As of               April 16, 2026                    │
-│  Reason for alert    Present on FDA's 503B registry…   │
-│  Source proof        ↗ FDA Registry Snapshot           │
-│                      ↗ Warning Letter (2024)           │
-└────────────────────────────────────────────────────────┘
-```
-
-Container uses red token chrome (`bg-[hsl(var(--src-unverified-soft))]/40`, `border-[hsl(var(--src-unverified))]/30`) so it reads as an alert banner, not a generic block. Soft, institutional — not loud.
-
-**Header changes** for alert entries:
-- `identity` row: replace the green "Greenlisted" pill with a soft-red badge using `regulatoryAlert.shortLabel` (e.g. "UNVERIFIED — NOT ON FDA LIST"). Dot uses `--src-unverified`.
-- `eyebrow`: `"Greenlist source"` → `"Unverified facility"` when alert is present.
-- `lead`: pulls from `regulatoryAlert.reason` (truncated) instead of `background` when alert exists, so the "what's wrong" lands above the fold.
-
-**Footnote**: `Listing` field changes from `"Greenlist Facility"` → `"Unverified Facility"` when alert is present.
-
-### 4 · Verified Vendors — already supports this pattern
-
-`src/pages/VerifiedVendors.tsx` already has `unverified` / `under-review` / `suspended` statuses with `<StatusBadge>` rendering soft-red for `suspended`. **No change needed** — the brief's "weave unverified into the table" is already true here.
-
-We will add an optional `regulatoryAlert` block to `VendorProfile.tsx` mirroring the Greenlist treatment, surfaced when `vendor.publicNote` is upgraded to a structured alert. Out of scope for this pass unless data is added; type definition added now so future entries slot in cleanly.
-
-### 5 · Tokens — already exist
-
-`--src-unverified` (deep crimson) and `--src-unverified-soft` (light alert red) tokens added in the previous pass. No CSS changes required.
+- Section dividers: standardize on `border-b border-border` (Board) — kill any `border-border/40 / /50 / /60` half-opacity drift on top-level sections.
+- Backgrounds: alternate `bg-background` / `bg-surface-muted` per section (Board cadence). Remove `bg-surface-muted/40` half-tone variants.
+- Eyebrows: every section header uses `meta mb-3` + `§N · label` text, not `eyebrow mb-2`.
+- Titles: every section uses `h-section` (already a token). Page H1 uses `title-page` only inside `RecordHeader`; subsection H2 stays at `h-section`.
+- Lists: replace bulleted `·` lists with the `01..` mono numbering whenever the list is an enumerable sequence (Board "Role in framework" pattern).
+- No additional CSS / token changes — every class needed already exists.
 
 ---
 
 ### Files touched
 
-- `src/data/greenlist.ts` — add `AlertStatus` type, `regulatoryAlert` optional field on `GreenlistEntry`, extend `GreenlistType` with `"Unverified Facility"`, append two seed entries (Examples A & B).
-- `src/pages/Greenlist.tsx` — render soft-red status badge under `CategoryPill` for entries with `regulatoryAlert` (desktop row + mobile card). Tiny helper `AlertBadge` component co-located.
-- `src/pages/GreenlistProfile.tsx` — render new "00 — Regulatory Alert" `SubSection` above "01"; swap header eyebrow / identity pill / lead when alert present; footnote `Listing` label updates.
+- `src/pages/Education.tsx` — full reskin: hero, section spacing, tile chrome, FAQ category grid, supplementary list, padding.
+- `src/pages/About.tsx` — tighten table grid + audience card chrome to Board weights.
+- `src/pages/HowItWorks.tsx` — adopt 12-col Board split for every §, reskin §3 statuses + §5 lifecycle as bordered tables, swap §6 bullets for numbering.
+- `src/pages/Greenlist.tsx` — replace hero band with Board-style split header (left title, right reference card); table chrome unchanged.
+- `src/pages/VerifiedVendors.tsx` — same hero reskin; table chrome unchanged.
 
 ### What stays the same
 
-All routes, filtering / sorting / pagination logic, `CategoryPill` styling for 503B / 503A / generic Other, stat strip, sticky filter bar, methodology accordion, `StatusBadge`, `SourceCheck`, every other page, the global token system, dark-mode behavior. Additive changes only — existing entries without `regulatoryAlert` render exactly as today.
+All routes, all data, all filtering / sorting / pagination logic, the `RecordHeader` / `DocLayout` / `DocSection` primitives, `SourceCheck` (now scoped tighter), `StatusBadge`, `CategoryPill`, `AlertBadge`, `RegulatoryAlert` block on `GreenlistProfile`, the global token system, dark-mode behavior, the Advisory Board page itself (it's the reference). Presentational + structural realignment only.
 
