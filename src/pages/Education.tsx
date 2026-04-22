@@ -447,30 +447,6 @@ const Education = () => {
         </div>
       </section>
 
-      {/* About this library — calm closing notice */}
-      <section className="bg-surface-muted">
-        <div className="container-wide py-10 md:py-12">
-          <div className="max-w-[1040px] mx-auto">
-            <p className="text-[11.5px] font-mono uppercase tracking-[0.14em] text-muted-foreground mb-3">
-              About this library
-            </p>
-            <p className="max-w-[78ch] text-[13.5px] text-muted-foreground leading-relaxed">
-            Reviewed under our{" "}
-            <Link
-              to="/medical-advisory"
-              className="text-foreground underline-offset-2 hover:underline"
-            >
-              Medical Advisory Board
-            </Link>{" "}
-            and published for public reference and educational purposes only. The
-            materials in this library do not constitute medical advice, diagnosis,
-            prescription, or treatment, and do not establish a clinician–patient
-            relationship. Clinical decisions regarding compounded medications must be
-            made in consultation with a qualified, licensed healthcare provider.
-          </p>
-          </div>
-        </div>
-      </section>
     </>
   );
 };
