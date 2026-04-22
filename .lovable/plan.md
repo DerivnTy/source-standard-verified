@@ -1,77 +1,74 @@
 
 
-## Index.tsx — Hero "Institutional Framework" pass
+## Global accent replacement — Safety Blue → Hero Navy + Cream
 
-Add structural detail to the navy 100vh hero so the empty space reads as engineered system, not absence. No new copy. All additions are scoped to the navy `tone` branch of `BriefingHero`; default white plaque used by other pages is untouched.
+Single, surgical token swap. No layouts, spacings, or page/card backgrounds change. Only the light-blue accent system (`--primary` family) and its `--accent-soft` companion are repointed to the homepage hero navy + cream.
 
 ---
 
-### 1 · Background framework (subtle blueprint)
+### 1 · Token redefinition (`src/index.css`)
 
-In `src/components/BriefingHero.tsx` navy branch, layer behind the content:
+Repoint these tokens in `:root` (and mirror in `.dark` so the system is consistent):
 
-- **Strengthen `HeroPattern`** opacity from `0.03` → `0.05`, and overlay a second, larger 96px-cell grid at opacity `0.04` for a "nested coordinate" feel (drafting-paper effect). Both white-stroked.
-- **Two faint vertical registration lines** at `left: 8.33%` and `right: 8.33%` (1/12 col gutters), `bg-white/[0.06]`, full-height, `w-px`. Reads as panel boundaries.
-- **Two faint horizontal registration lines** at `top: 18%` and `bottom: 18%`, `h-px bg-white/[0.06]`, full-width. Frames the centered plaque zone.
-- **Four corner crosshair ticks** (12px L-shapes, `border-white/25`, 1px) at the intersections of the registration lines — defines an "active plate" rectangle around the headline group without drawing a visible box.
+```css
+/* was Safety Blue 199 89% 48% — now Hero Navy */
+--primary: 222 47% 11%;             /* matches --navy-surface exactly */
+--primary-foreground: 40 30% 96%;   /* warm cream, not pure white */
+--primary-hover: 222 40% 16%;       /* matches --navy-surface-2 */
+--accent-soft: 222 35% 94%;         /* very faint navy tint (replaces blue tint) */
+--ring: 222 47% 11%;                /* focus rings now navy, not blue */
 
-### 2 · Edge labels (system notation on the side rails)
-
-Inside the navy section, absolutely positioned vertical mono labels on the outer rails (hidden below `md`):
-
-- **Left edge** (`left-6`, vertically centered, `rotate-180`, `writing-mode: vertical-rl` via inline style): `SS-FRAMEWORK-2026.01 · REV 01`
-- **Right edge** (`right-6`, vertically centered, `writing-mode: vertical-rl`): `PUBLIC REGISTRY · ACCESS TIER 0`
-
-Both at `font-mono text-[10px] tracking-[0.28em] text-white/40 uppercase`. Pure environmental cues.
-
-### 3 · Top corner reference markers
-
-Two small mono blocks pinned just under the top registration line (`top-[18%]`, hidden below `md`):
-
-- **Top-left** (`left-[8.33%]` + small offset): two stacked lines
-  ```
-  COORD          N 38.9072° · W 77.0369°
-  PLATE ID       SS · 01 / 01
-  ```
-- **Top-right** (`right-[8.33%]`, right-aligned): two stacked lines
-  ```
-  ISSUED         2026.01.15
-  REV CYCLE      ANNUAL · INTERIM FLAGS
-  ```
-
-`font-mono text-[10px] tracking-[0.18em] text-white/45 uppercase`, label in `text-white/30`, value in `text-white/55`. Each row is `flex gap-4` with the label fixed-width so columns align.
-
-### 4 · Center plate framing
-
-Tighten the centered content group:
-
-- Wrap eyebrow + H1 + divider + statement + actions in a `relative` group with `max-w-[640px]` and add a barely-visible inset frame: `before:` and `after:` pseudo-elements drawn with 4 absolutely-positioned `1px × 14px` and `14px × 1px` ticks at each corner of the group (white/25). Same crosshair language as the background corners but tighter and on the content itself — anchors the plate.
-- Add a single `font-mono text-[10px] tracking-[0.22em] text-white/35` line directly above the eyebrow: `▌  PLATE 01 / 01  ▐` (uses the existing eyebrow stack but adds a thin index line above it).
-
-### 5 · Bottom institutional strip (inside hero, above scroll cue)
-
-Replace the lone `▼ CONTINUE` cue with a 3-column mono strip pinned at `bottom-12` spanning the inner `container-wide`. Hairline `border-t border-white/10`, `pt-4`, `font-mono text-[10px] tracking-[0.22em] text-white/45 uppercase`:
-
-```
-STATUS · ACTIVE     │     PROTOCOL · SS-FRAMEWORK-2026.01     │     JURISDICTION · UNITED STATES
+/* New explicit token for cream on navy (used by buttons, badges, chips) */
+--cream: 40 30% 96%;
 ```
 
-Three `<div>`s in a `grid grid-cols-3`, left/center/right aligned. The `▼ CONTINUE` cue moves to `bottom-4`, sits beneath this strip, smaller (`text-[9.5px]`).
+Dark mode: `--primary` stays navy (`222 47% 11%`), `--primary-foreground` stays cream, `--primary-hover` lightens to `222 40% 22%`, `--ring` matches, `--accent-soft` becomes `222 30% 18%`.
 
-### 6 · Behavior / responsive
+This single change automatically fixes everything that already uses the token: every shadcn `Button` default variant, every `bg-primary` / `text-primary` / `border-primary` / `ring-primary` consumer, the `link-accent` utility, the `prose-filing a` style, `Callout` info variant, `EmptyState` link, `GlossaryTerm` link, `Apply` submit button, `SiteHeader` mobile CTA, `ForVendors` / `Greenlist` / `Education` / `VerifiedVendors` / `VendorProfile` / `NotFound` text-primary links, etc.
 
-- All edge labels, corner markers, and bottom strip are `hidden md:block` (or `md:grid`). On mobile the hero stays exactly as today — only desktop gains the framework density.
-- No layout shift to the centered title/statement/actions group. Z-ordering: pattern (z-0) → registration lines + crosshairs (z-10) → edge labels + corner markers + bottom strip (z-20) → centered plate (z-30).
-- All colors via `text-white/XX` and `border-white/XX` opacity tokens — no new CSS variables needed.
+### 2 · Verified / Pending status chips
+
+`--verified` (green) and `--pending` (amber) are *not* the cheap blue, so they stay as semantic status colors. However, several "verified" badges currently render with a soft green tint that read as the closest neighbor to the blue accent system. Decision: **leave verified/pending colors untouched** — they are status semantics (green = verified, amber = pending, red = unverified). Repainting them navy would erase status meaning. Only the interactive/primary-blue family is replaced.
+
+### 3 · Hard-coded blue sweep
+
+After the token swap, do a final pass for any remaining literal sky/blue Tailwind utilities or hex codes that bypass the token system:
+
+- Search: `bg-sky-`, `text-sky-`, `border-sky-`, `bg-blue-`, `text-blue-`, `border-blue-`, `199 89%`, `#0EA5E9`, `#38BDF8` across `src/**`.
+- Replace any hits with the corresponding `primary` / `cream` token classes (`bg-primary`, `text-[hsl(var(--cream))]`, etc.).
+
+Expected hits are minimal — most blue in the codebase already routes through `--primary`.
+
+### 4 · Cream text inside dark elements
+
+Add a small utility for direct use where a component opts into the dark-navy plate look outside of the `Button` primitive:
+
+```css
+.on-navy { color: hsl(var(--cream)); }
+```
+
+Used by: any inline badge or chip authored with `bg-primary` to guarantee the label is the warm cream rather than pure white. Existing `text-primary-foreground` consumers automatically get cream because we redefined the token.
+
+### 5 · Accessibility
+
+Navy `222 47% 11%` on cream `40 30% 96%` = contrast ratio ~16:1 (well above WCAG AAA). Hover state `222 40% 16%` on cream stays ~13:1. Focus ring uses navy on light surfaces (existing offset preserves visibility).
+
+### 6 · What is explicitly NOT changed
+
+- `--background`, `--surface`, `--surface-muted`, `--surface-sunken`, `--card`, `--popover`, `--muted`, `--border` — all neutral surfaces stay exactly as today.
+- `--navy-surface` / `--navy-surface-2` (hero) — unchanged.
+- Status tokens `--verified`, `--pending`, `--destructive`, and all `--src-*` greenlist source-type accents — unchanged (they encode meaning, not theme).
+- Sidebar tokens — unchanged.
+- All page backgrounds, card backgrounds, section spacing, and layout — untouched.
 
 ---
 
 ### Files touched
 
-- `src/components/BriefingHero.tsx` — navy branch only: add background registration lines, corner crosshairs, vertical edge labels, top-corner reference markers, center-plate corner ticks, and bottom institutional strip. Default branch unchanged.
-- `src/components/HeroPattern.tsx` — accept optional `cellSize?: number` prop (default `32`) so the hero can render a second 96px overlay grid using the same component. No breaking changes.
+- `src/index.css` — redefine `--primary`, `--primary-foreground`, `--primary-hover`, `--accent-soft`, `--ring` in both `:root` and `.dark`; add `--cream` token and `.on-navy` utility.
+- `src/**/*.tsx` — only files that contain literal `sky-*`, `blue-*`, or hex blue references (sweep results determine exact list; expected ≤ 3 files, likely zero given current token discipline).
 
 ### What stays the same
 
-`BriefingHero` API for all other pages, all copy on the home hero, the two ghost-button actions, the navy color palette, `GlobalUtilityBar`, every block below the fold on Index, and the mobile rendering of the hero.
+Every layout, every spacing scale, every page/card/section background, the hero, the sidebar, all status semantics (green/amber/red), all data, all routes.
 
