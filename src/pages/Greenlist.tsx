@@ -201,7 +201,7 @@ const Greenlist = () => {
   if (website !== "all") {
     activeChips.push({
       key: "website",
-      label: `Website: ${website === "yes" ? "Listed" : "None"}`,
+      label: website === "yes" ? "Website listed" : "No website",
       onRemove: () => setWebsite("all"),
     });
   }
