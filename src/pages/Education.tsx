@@ -51,9 +51,13 @@ const SoftStatus = ({ status }: { status: EntryStatus }) =>
     </span>
   );
 
+const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
+  "what-is-compounding": "/library/what-is-compounding",
+};
+
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
   <Link
-    to={`/education/${entry.slug}`}
+    to={SLUG_ROUTE_OVERRIDES[entry.slug] ?? `/education/${entry.slug}`}
     className="group block px-6 py-5 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 hover:border-foreground/20 transition-colors"
   >
     <div className="flex items-center gap-5">
