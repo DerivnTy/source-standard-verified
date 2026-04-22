@@ -189,7 +189,7 @@ const VendorProfile = () => {
       />
 
       <section className="bg-background">
-        <div className="container-narrow pt-6 pb-12">
+        <div className="container-wide pt-6 pb-12">
           <Link
             to="/verified-vendors"
             className="t-utility-xs text-muted-foreground hover:text-foreground mb-4 inline-block"
