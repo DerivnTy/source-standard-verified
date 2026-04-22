@@ -125,10 +125,12 @@ const Index = () => {
         description="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
       />
 
-      {/* §1 — Hero */}
+      {/* §1 — Hero (cover variant: homepage only) */}
       <BriefingHero
+        variant="cover"
         category="United States Public Registry"
         docId="SS-FRAMEWORK-2026.01"
+        brandMark="Source Standard"
         title="The public standard for documented peptide sourcing"
         statement="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
         tone="navy"
