@@ -67,11 +67,11 @@ const LibraryEntry = () => {
           The full text will be published once it has completed editorial and, where applicable, Medical Advisory Board review.
         </p>
         <p>
-          <span className="text-foreground font-medium">Here's what it will cover · </span>
+          <span className="text-foreground font-medium">Here's what it will cover: </span>
           {entry.summary}
         </p>
         <p className="text-[13px] font-mono text-muted-foreground">
-          Reference ID · <span className="text-foreground">{entry.id}</span>
+          Reference ID: <span className="text-foreground">{entry.id}</span>
         </p>
       </ArticleSection>
 
