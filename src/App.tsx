@@ -16,6 +16,7 @@ import EducationBasics from "./pages/EducationBasics.tsx";
 import EducationGuides from "./pages/EducationGuides.tsx";
 import EducationQuestions from "./pages/EducationQuestions.tsx";
 import LibraryEntry from "./pages/LibraryEntry.tsx";
+import LibraryWhatIsCompounding from "./pages/LibraryWhatIsCompounding.tsx";
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
@@ -55,6 +56,7 @@ const App = () => (
             <Route path="/education/guides" element={<EducationGuides />} />
             <Route path="/education/questions" element={<EducationQuestions />} />
             <Route path="/education/:slug" element={<LibraryEntry />} />
+            <Route path="/library/what-is-compounding" element={<LibraryWhatIsCompounding />} />
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
