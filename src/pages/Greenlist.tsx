@@ -438,7 +438,7 @@ const Greenlist = () => {
                       <div className="col-span-1 text-right">
                         <Link
                           to={`/greenlist/${e.slug}`}
-                          className="text-[11px] font-medium uppercase tracking-[0.12em] text-foreground hover:text-primary"
+                          className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70 hover:text-primary transition-colors"
                         >
                           View →
                         </Link>
@@ -453,7 +453,7 @@ const Greenlist = () => {
                       <div className="flex items-start justify-between gap-3">
                         <Link
                           to={`/greenlist/${e.slug}`}
-                          className="text-[13px] font-medium text-foreground hover:text-primary"
+                          className="text-[13px] font-semibold text-foreground hover:text-primary"
                         >
                           {e.name}
                         </Link>
