@@ -85,7 +85,7 @@ const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
       className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] tabular-nums ${styles.wrap}`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${styles.dot}`} aria-hidden="true" />
-      {category}
+      {CATEGORY_LABEL[category]}
     </span>
   );
 };
