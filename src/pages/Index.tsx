@@ -328,47 +328,47 @@ const Index = () => {
         className="bg-[hsl(var(--navy-surface))] text-white"
       >
         <h2 id="final-cta" className="sr-only">Next steps</h2>
-        <div className="container-wide py-12 md:py-14">
+        <div className="container-wide py-10 md:py-12">
           <div className="max-w-[1080px] mx-auto">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/45">
+            <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-6">
+              <p className="font-mono text-[12px] uppercase tracking-[0.22em] text-white/75">
                 Choose your path
               </p>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/30">
+              <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-white/40">
                 §8
               </span>
             </div>
-            <div className="border border-white/10 rounded-[2px] grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/10">
-              <div className="p-8 md:p-10">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/50">
+            <div className="border border-white/15 rounded-[2px] grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/15">
+              <div className="p-9 md:p-11">
+                <p className="font-mono text-[12px] uppercase tracking-[0.22em] text-white">
                   01 / For consumers
                 </p>
-                <h3 className="mt-4 text-[26px] md:text-[30px] font-semibold tracking-[-0.015em] leading-tight">
+                <h3 className="mt-5 text-[26px] md:text-[30px] font-semibold tracking-[-0.015em] leading-tight">
                   Search the Registry
                 </h3>
-                <p className="mt-3 text-[14.5px] text-white/70 leading-[1.7]">
+                <p className="mt-3 min-h-[3.6rem] text-[14.5px] text-white/80 leading-[1.7]">
                   Look up a clinic and see what its public record actually documents.
                 </p>
                 <Link
                   to="/directory"
-                  className="mt-7 inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.18em] text-white border-b border-white/40 hover:border-white pb-1 transition-colors"
+                  className="mt-6 inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.18em] text-white border-b border-white/55 hover:border-white pb-1 transition-colors"
                 >
                   Open the Registry <span aria-hidden>→</span>
                 </Link>
               </div>
-              <div className="p-8 md:p-10">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/50">
+              <div className="p-9 md:p-11">
+                <p className="font-mono text-[12px] uppercase tracking-[0.22em] text-white">
                   02 / For vendors
                 </p>
-                <h3 className="mt-4 text-[26px] md:text-[30px] font-semibold tracking-[-0.015em] leading-tight">
+                <h3 className="mt-5 text-[26px] md:text-[30px] font-semibold tracking-[-0.015em] leading-tight">
                   Apply for Verification
                 </h3>
-                <p className="mt-3 text-[14.5px] text-white/70 leading-[1.7]">
+                <p className="mt-3 min-h-[3.6rem] text-[14.5px] text-white/80 leading-[1.7]">
                   A public listing is a trust asset, not just a status marker.
                 </p>
                 <Link
                   to="/apply"
-                  className="mt-7 inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.18em] text-white border-b border-white/40 hover:border-white pb-1 transition-colors"
+                  className="mt-6 inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.18em] text-white border-b border-white/55 hover:border-white pb-1 transition-colors"
                 >
                   Begin Verification <span aria-hidden>→</span>
                 </Link>
