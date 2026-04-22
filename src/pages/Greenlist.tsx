@@ -421,7 +421,7 @@ const Greenlist = () => {
                       <div className="col-span-4 min-w-0">
                         <Link
                           to={`/greenlist/${e.slug}`}
-                          className="text-[13px] font-medium text-foreground truncate hover:text-primary leading-tight block"
+                          className="text-[13px] font-semibold text-foreground truncate hover:text-primary leading-tight block"
                         >
                           {e.name}
                         </Link>
