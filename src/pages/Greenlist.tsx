@@ -48,7 +48,7 @@ const SOURCE_TYPE_DEF: Record<GreenlistCategory, { title: string; body: string }
 const CATEGORY_STYLE: Record<GreenlistCategory, { dot: string }> = {
   "503B": { dot: "bg-[hsl(var(--src-503b))]" },
   "503A": { dot: "bg-[hsl(var(--src-503a))]" },
-  Other: { dot: "bg-[hsl(var(--src-other))]" },
+  Other: { dot: "bg-[hsl(var(--src-unverified))]" },
 };
 
 const CATEGORY_PILL: Record<GreenlistCategory, { wrap: string; dot: string }> = {
@@ -61,9 +61,21 @@ const CATEGORY_PILL: Record<GreenlistCategory, { wrap: string; dot: string }> = 
     dot: "bg-[hsl(var(--src-503a))]",
   },
   Other: {
-    wrap: "bg-[hsl(var(--src-other-soft))] text-[hsl(var(--src-other))] ring-1 ring-[hsl(var(--src-other))]/20",
-    dot: "bg-[hsl(var(--src-other))]",
+    wrap: "bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25",
+    dot: "bg-[hsl(var(--src-unverified))]",
   },
+};
+
+const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
+  "503B": "503B",
+  "503A": "503A",
+  Other: "Unverified",
+};
+
+const CATEGORY_SUBLABEL: Record<GreenlistCategory, string> = {
+  "503B": "Outsourcing facility",
+  "503A": "Compounding pharmacy",
+  Other: "Audit pending / non-transparent",
 };
 
 const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
