@@ -98,7 +98,7 @@ const LibraryAnalysis2026Reclassification = () => {
             <Link to="/education">← Back to Education Hub</Link>
           </Button>
           <Link
-            to="/library/analysis/questions-to-ask-your-clinic"
+            to="/library/analysis/questions-for-your-clinic"
             className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
           >
             Next Analysis: Questions to Ask Your Clinic (SS-SERIES-004) →
