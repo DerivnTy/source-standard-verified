@@ -1,178 +1,103 @@
 
 
-## Upgrade the Greenlist Facility Profile (selective implementation)
+## Rebuild the homepage below the hero
 
-Goal: make Greenlist facility pages feel like real registry records, not content pages — by adding a small set of high-authority FDA fields, restructuring the record into clear sections, and seeding the vendor↔facility cross-reference architecture. Keep the institutional tone. No "Good Guys" framing. No colorful pills.
+Replace the existing six sections under the hero with a tighter, sequenced institutional layout: **Problem → Method → Proof → Utility → Why it matters → Start here → Governance**. Same visual language already locked across the site (eyebrows, page-shell, w-standard, hairline dividers, alternating background/surface-muted bands). No new components, no token changes.
 
-### What gets implemented (and what doesn't)
-
-Implementing:
-- FEI Number
-- Last FDA Inspection (date)
-- Form 483 Issued (Yes / No / Unknown)
-- Rename **Background → FDA Registration History** with structured sub-fields
-- **Compounding Scope** as a compact monochrome capability grid (no colored pills)
-- **Verified Vendors Sourced Here** section with an empty-state that reads as intentional
-
-Not implementing (per your guidance):
-- "The Good Guys" framing — never
-- Inspection-risk narrative on the profile
-- Big explainer text on the profile itself (a short tooltip on Form 483 is fine)
-
-### Data model additions — `src/data/greenlist.ts`
-
-Extend `GreenlistProfile` with optional fields (all optional so existing entries keep working):
-
-```ts
-// Regulatory identity (additions)
-feiNumber?: string;                    // e.g. "3001234567"
-lastInspectionDate?: string;           // already exists — keep
-form483Issued?: boolean | "unknown";   // tri-state
-form483Date?: string;                  // optional, only shown if Yes
-
-// FDA Registration History (replaces "background" semantically)
-initialRegistrationYear?: string;
-currentRegistrationStatus?:
-  | "Active"
-  | "Inactive"
-  | "Lapsed"
-  | "Withdrawn"
-  | "Not Registered";
-mostRecentRegistrationYear?: string;
-selfReportedIntent?: string;           // free text, short
-registrationCategory?: string;         // e.g. "503B Outsourcing Facility"
-registrationNotes?: string;            // optional short paragraph
-
-// Compounding scope (structured capability flags)
-compoundingScope?: {
-  sterile?: boolean;
-  nonSterile?: boolean;
-  bulkDrugSubstances?: boolean;
-  officeUse?: boolean;
-  patientSpecific?: boolean;
-  hazardous?: boolean;
-};
-
-// Cross-reference (architecture seed — empty for now)
-verifiedVendorSlugs?: string[];        // resolved at render time via getVendor()
-```
-
-Keep existing `background` field for backward compatibility but stop rendering it once `registrationNotes` / FDA Registration History block is in place. (Existing `background` text can be migrated later; not part of this pass.)
-
-No data is being filled in for facilities here — schema and renderers only. Population is a separate content pass.
-
-### Profile layout — `src/pages/GreenlistProfile.tsx`
-
-Adopt the same disciplined two-column shell already locked in for Vendor Profile (8/4 grid, `lg:divide-x`, identical padding tokens, status hairline, identity band). This ensures parity across the registry.
-
-Locked structure:
+### Page sequence (below the existing `<BriefingHero>`)
 
 ```text
-┌─────────────────────────────────────────────────────────────┐
-│  ← Back to Greenlist                                        │
-├─────────────────────────────────────────────────────────────┤
-│  ▔ status hairline ▔                                        │
-│  IDENTITY BAND                                              │
-│  [MG]  503B OUTSOURCING FACILITY        [Recognized]        │
-│        Facility Name                    [Visit website]     │
-│        ⏵ FEI · Location · Source type · hostname            │
-├─────────────────────────────────────┬───────────────────────┤
-│  PUBLIC RECORD (6-row matrix)       │  TRUST RECORD         │
-│  Last FDA Inspection | Form 483     │  Registry status      │
-│  Current Reg. Status | FEI Number   │  FEI Number           │
-│  Initial Reg. Year   | Reg. Category│  Last FDA Inspection  │
-│                                     │  Form 483 Issued      │
-│  FDA REGISTRATION HISTORY           │  Current Reg. Status  │
-│  Initial Registration               │  Source type          │
-│  Current Status                     │                       │
-│  Most Recent Registration Year      │  ─────────            │
-│  Self-Reported Intent               │                       │
-│  Registration Notes (if any)        │  REPORT A CONCERN     │
-│                                     │  [ Report ]           │
-│  COMPOUNDING SCOPE                  │                       │
-│  ✓ Sterile        ✓ Office Use      │                       │
-│  ✓ Non-Sterile    ✓ Bulk Drug Subs. │                       │
-│  · Hazardous      · Patient-spec.   │                       │
-│                                     │                       │
-│  VERIFIED VENDORS SOURCED HERE      │                       │
-│  • Vendor A → /verified-vendors/... │                       │
-│  • Vendor B → ...                   │                       │
-│  (or calm empty-state)              │                       │
-│                                     │                       │
-│  REGULATORY ALERT (conditional)     │                       │
-└─────────────────────────────────────┴───────────────────────┘
-│  Public registry footer line                                │
-└─────────────────────────────────────────────────────────────┘
+§1  The trust problem            (background)
+§2  How Source Standard works    (surface-muted)   01 / 02 / 03
+§3  Live registry proof          (background)      stats strip + 2 CTAs
+§4  What you can verify          (surface-muted)   6-field utility list
+§5  Why this matters             (background)      3-column positioning
+§6  Start here                   (surface-muted)   3 foundational articles
+§7  Governance & standards       (background)      3 institutional links
 ```
 
-Spacing/rhythm tokens reused exactly from VendorProfile (`py-6`, `px-6 md:px-8` left, `md:px-7` rail, eyebrow→title `mb-1.5`, title→body `mb-5`, public-record `gap-x-10 gap-y-4`).
+Hero stays exactly as it is. Footer stays exactly as it is.
 
 ### Section specs
 
-**Public Record matrix (6 rows, fixed)**
-1. Last FDA Inspection (date or `—`) | Form 483 Issued (`Yes` / `No` / `Unknown` with small `info` tooltip on the label only)
-2. Current Registration Status | FEI Number (mono)
-3. Initial Registration Year | Registration Category
+**§1 — The trust problem**
+- Eyebrow: `The trust problem`
+- Heading (h2, `t-section-title-sm`): *Marketing claims are easy. Documentation is harder to verify.*
+- Single supporting paragraph (`t-body-md`, max ~70ch): *Consumers and clinicians are often asked to rely on branding, website language, and trust signals without clear public visibility into sourcing and documentation. Source Standard exists to make those records easier to interpret.*
+- Centered/left-aligned single column inside `w-standard`. No 3-column split here — this is the institutional statement, not a grid.
 
-Empty values render `—`. Same `Field` primitive as VendorProfile for visual parity.
+**§2 — How Source Standard works**
+- Eyebrow: `How it works`
+- Three numbered columns (01 / 02 / 03), same visual treatment as the current "How it works" block (numeric eyebrow, 8px hairline, h4 title, body-sm description).
+- Content:
+  1. **Upstream sources are reviewed** — Public records, registration data, and facility information are gathered into the upstream reference layer.
+  2. **Vendors are assessed against those sources** — Public claims, sourcing relationships, and documentation are reconciled against the reviewed record.
+  3. **Status is published in the public registry** — The registry records whether verification is on file, under review, or not currently published.
 
-**FDA Registration History** (replaces "Background")
-Stacked label/value rows (not a 2-col grid — reads as a narrative record):
-- Initial Registration (year, optional)
-- Current Status
-- Most Recent Registration Year
-- Self-Reported Intent
-- Registration Notes (short paragraph, only if present)
+**§3 — Live registry proof**
+- Eyebrow: `Live registry`
+- Short heading (`t-section-title-sm`): *An active public reference, updated on a published cadence.*
+- Stats strip using the existing `Stat` / `StatRow` primitives from `src/components/system/Stat.tsx` (mono numerals, 6 cells, hairline dividers — same pattern as registry pages):
+  - Vendors tracked · Verified · Under review · Facilities recognized · States represented · Last updated
+- Values derived at render time from `vendors` and `greenlist` data (counts) so the numbers are real, not hard-coded. `Last updated` shown as a short date string (today's build date or most recent `lastReviewed` across vendors — pick the latter for honesty).
+- Two primary actions below the strip, same ghost-button pattern as the hero but in dark-on-light:
+  - `Search Verified Vendors` → `/directory`
+  - `Explore Greenlist` → `/greenlist`
 
-If none of these are populated, show one calm fallback line: *"No FDA registration history on file."*
+**§4 — What you can verify**
+- Eyebrow: `What you can verify`
+- Left column (4/12): short heading (`t-section-title-sm`, max ~18ch) — *A working public utility, not a concept.* + one-line `t-body-sm` lede + `Open the registry →` link.
+- Right column (8/12): 2-col grid of 6 fields (label `t-body-sm` semibold + description `t-body-sm` muted):
+  - Verification status · City and state · Fulfillment model · Clinical focus · Upstream source relationships · Last review date
+- Reuses the exact layout already in the current §4. Replace "Upstream source relationships" copy slightly to match the new wording; swap "Status changes" out for "Fulfillment model" per your spec.
 
-**Compounding Scope** — compact monochrome capability grid
-2-column grid of capability rows. Each row is an icon + label, no color, no pill background:
-- Present capabilities: `Check` icon, foreground text
-- Absent/unknown: muted dot, muted text
-- Order: Sterile, Non-Sterile, Bulk Drug Substances, Office Use, Patient-Specific, Hazardous
+**§5 — Why this matters**
+- Eyebrow: `Why this matters`
+- Three columns with `md:divide-x` (same pattern as current §5):
+  - **For consumers** — A documented reference point beyond marketing claims.
+  - **For responsible vendors** — A public trust signal tied to reviewed records.
+  - **For the market** — A clearer line between documented and undocumented sourcing.
 
-Reads like an institutional checklist, not a SaaS feature list. If `compoundingScope` is absent entirely, show fallback line: *"No published capability scope on file."*
+**§6 — Start here**
+- Eyebrow: `Start here`
+- 3-card grid (not 4) using the existing card treatment (bordered, hairline gaps, hover surface-muted). Cards:
+  1. *What verification actually means* → `/library/what-source-standard-verification-actually-means`
+  2. *What is compounding* → `/library/what-is-compounding`
+  3. *Questions to ask your clinic* → `/library/questions-to-ask-your-clinic`
+- Secondary link below: `Browse Resource Library →` → `/education`
 
-**Verified Vendors Sourced Here**
-Resolve `verifiedVendorSlugs` via `getVendor(slug)` and render only those with `publicStatus === "verified"`. Each item: vendor name + small location, linked to `/verified-vendors/{slug}`.
+**§7 — Governance & standards**
+- Eyebrow: `Governance & standards`
+- One short lede line (`t-body-md`, max ~60ch): *The framework operates under published standards, recurring review, and medical advisory oversight.*
+- Three-link institutional row (hairline-separated list, same `divide-y` pattern as current §6 anchors block, but values are links not descriptions):
+  - **Advisory Board** → `/medical-advisory`
+  - **Audit Methodology** → `/governance`
+  - **Status Definitions** → `/status-definitions`
 
-Empty state (calm, intentional — not a "missing feature"):
+### Removed from current homepage
 
-> *"No verified vendor sourcing relationships currently published."*
-
-Same line-height and muted tone as other fallback lines. No CTA. No "coming soon."
-
-**Trust Rail** (right column, 4-span)
-Always-rendered ordered rows with "Not on file" fallbacks: Registry status → FEI Number → Last FDA Inspection → Form 483 Issued → Current Registration Status → Source type. Then a thin divider, then a compact "Report a concern" link styled exactly like VendorProfile.
-
-**Regulatory Alert** stays where it is (conditional, full-width inside main column, after Verified Vendors section), unchanged styling.
-
-### Form 483 presentation rules
-
-- Label: `Form 483 Issued` with small inline `info` icon (Lucide `Info`, `h-3 w-3`) that opens a one-line `Tooltip`: *"FDA Form 483 lists inspectional observations issued at the close of an FDA inspection."* That's the entire on-page explanation. No paragraph, no link to an article on this page.
-- Value: `Yes` (foreground), `No` (foreground), `Unknown` (muted). When `Yes`, optionally append the date in muted tabular-nums on the same line: `Yes · Mar 14, 2024`.
+- Current §2 "Why this exists" (3-card claims/documentation/visibility block) — folded into the new §1 single-statement section.
+- Current §6 anchors block (FDA / USP / PCAB / NSF) — removed from homepage. (Still lives on `/governance` and `/about` where it belongs. Homepage governance section now points to internal authority pages, not external standards bodies — cleaner positioning.)
+- The 4th basics card ("How to read a CoA") — homepage drops to 3 foundational articles per spec; the CoA article remains accessible from `/education`.
 
 ### Files touched
 
-- `src/data/greenlist.ts` — extend `GreenlistProfile` type with the optional fields above. No data populated. No existing entries modified.
-- `src/pages/GreenlistProfile.tsx` — replace current single-card layout with the locked two-column shell described above; add the new sections; add the Form 483 tooltip; add Verified Vendors resolver using `getVendor`.
+- `src/pages/Index.tsx` — rewrite everything below `<BriefingHero>`. Hero block and `HeroActions` stay untouched.
+- No other files modified. `Stat` / `StatRow` imported from `src/components/system/Stat.tsx`. Vendor and greenlist counts computed inline from `src/data/vendors.ts` and `src/data/greenlist.ts`.
 
-No changes to: Vendor Profile, registry pages, status taxonomy, color tokens, typography tokens, or any other page.
+### Typography & spacing rules (locked)
 
-### Implementation order (matches your priority)
-
-1. FEI Number (data + render in matrix + rail)
-2. Last FDA Inspection + Form 483 Issued (matrix + rail + tooltip)
-3. Rename + restructure Background → FDA Registration History block
-4. Compounding Scope monochrome capability grid
-5. Verified Vendors Sourced Here (with calm empty state)
-6. Trust Rail and identity band aligned to VendorProfile tokens
+- Eyebrows: `t-eyebrow-sm text-muted-foreground`
+- Section titles: `t-section-title-sm text-foreground`
+- Body: `t-body-md` for ledes, `t-body-sm` for descriptions and grid cells
+- Numeric stats: existing `Stat` primitive (mono 20/28, weight 500)
+- Section padding: existing `section-pad` utility, alternating `bg-background` and `bg-surface-muted/30`, all bordered with `border-b border-border`
 
 ### Out of scope
 
-- Filling in real FEI numbers, inspection dates, or Form 483 data per facility (separate content pass).
-- Migrating existing `background` text into `registrationNotes` (separate content pass).
-- Changes to the Greenlist registry/listing page.
-- Any new explanatory article or glossary entry for Form 483 (you said keep it off the profile — fine to add later in `src/data/glossary.ts` as a separate request).
+- Hero changes
+- Footer changes
+- Any new components, tokens, or color changes
+- Any data-model changes (counts read from existing arrays)
+- Routes (all destination URLs already exist)
 
