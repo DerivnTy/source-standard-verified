@@ -450,10 +450,11 @@ const Education = () => {
       {/* About this library — calm closing notice */}
       <section className="bg-surface-muted">
         <div className="container-wide py-10 md:py-12">
-          <p className="text-[11.5px] font-mono uppercase tracking-[0.14em] text-muted-foreground mb-3">
-            About this library
-          </p>
-          <p className="max-w-3xl text-[13.5px] text-muted-foreground leading-relaxed">
+          <div className="max-w-[1040px] mx-auto">
+            <p className="text-[11.5px] font-mono uppercase tracking-[0.14em] text-muted-foreground mb-3">
+              About this library
+            </p>
+            <p className="max-w-[78ch] text-[13.5px] text-muted-foreground leading-relaxed">
             Reviewed under our{" "}
             <Link
               to="/medical-advisory"
@@ -467,6 +468,7 @@ const Education = () => {
             relationship. Clinical decisions regarding compounded medications must be
             made in consultation with a qualified, licensed healthcare provider.
           </p>
+          </div>
         </div>
       </section>
     </>

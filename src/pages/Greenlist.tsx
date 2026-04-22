@@ -561,11 +561,11 @@ const Greenlist = () => {
       {/* Bridge to vendor registry */}
       <section className="bg-surface-muted/30 border-t border-border/60">
         <div className="container-wide py-10 md:py-12">
-          <div className="max-w-[760px] mx-auto">
+          <div className="max-w-[1040px] mx-auto">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/70 mb-4">
               Two layers, one framework
             </p>
-            <p className="text-[15px] leading-[1.7] text-foreground/85">
+            <p className="text-[15px] leading-[1.7] text-foreground/85 max-w-[78ch]">
               The Greenlist establishes the upstream reference set — the recognized facilities a vendor may legitimately source from. Vendor verification is the second layer: it assesses whether a specific clinic or vendor can actually substantiate its sourcing through licensed upstream pharmacies and documented records.
             </p>
             <Link
