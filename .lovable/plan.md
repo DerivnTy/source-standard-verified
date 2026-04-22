@@ -1,51 +1,52 @@
 
 
-## New page: `/library/analysis/meaning-of-verification`
+## New page: `/library/analysis/undocumented-sourcing-signs`
 
-Third Clinical Analysis whitepaper (SS-SERIES-005). Mirrors `LibraryAnalysis2026Reclassification` and `LibraryAnalysisQuestionsForYourClinic` exactly — same `RecordHeader`, 900px filing column via `Section` + `SectionLabel`, hairline pivot footer, same `DefList` helper.
+Final Clinical Analysis whitepaper (SS-SERIES-006). Mirrors the existing analysis pages — same `RecordHeader`, 900px filing column via `Section` + `SectionLabel`, hairline pivot footer, same `DefList` helper.
 
-### 1 · New file: `src/pages/LibraryAnalysisMeaningOfVerification.tsx`
+### 1 · New file: `src/pages/LibraryAnalysisUndocumentedSourcingSigns.tsx`
 
 - **Header** — `RecordHeader`
   - Eyebrow: `Source Standard · Clinical Analysis`
-  - Title: `What Source Standard Verification Actually Means`
-  - Lead: `A disclosure of the scope, limits, and reviewable evidence behind a verified listing in the Source Standard registry.`
-  - Reference box: Doc `SS-SERIES-005` · Status `Analysis / Public Record` · Jurisdiction `United States` · Updated `April 21, 2026`
+  - Title: `Warning Signs of Undocumented Sourcing`
+  - Lead: `Identifying the patterns, disclosures, and behaviors that indicate a clinic may be operating outside of regulated sourcing channels.`
+  - Reference box: Doc `SS-SERIES-006` · Status `Analysis / Public Record` · Jurisdiction `United States` · Updated `April 21, 2026`
 
-- **Body** — 900px centered column, four numbered sections:
-  - `§1 Defining the Standard` — single prose paragraph framing the badge as a point-in-time attestation.
-  - `§2 What We Verify` — short framing sentence + `DefList` with four terms: **Documented Procurement**, **Facility Standing**, **Credential Authenticity**, **CoA Reconciliation**.
-  - `§3 What We Do Not Do (The Limits of Scope)` — short framing sentence + `DefList` with three terms: **No Medical Endorsement**, **No Primary Lab Testing**, **No Financial Interest**.
-  - `§4 The 'Active' Nature of Verification` — closing prose paragraph on dynamic verification state and real-time registry updates.
+- **Body** — 900px centered column, five numbered sections:
+  - `§1 The "Grey Market" Incursion` — single prose paragraph framing the grey-market context.
+  - `§2 Red Flag: Label Anonymity` — short framing sentence + `DefList` with two terms: **Generic Branding**, **Handwritten Details**.
+  - `§3 Red Flag: The "Proprietary Blend" Defense` — short framing sentence + `DefList` with one term: **The Truth**.
+  - `§4 Red Flag: Payment and Shipping Anomalies` — short framing sentence + `DefList` with two terms: **Non-Traditional Payments**, **Residential Return Addresses**.
+  - `§5 Conclusion: The Cost of Low Transparency` — closing prose paragraph on accountability.
 
 - **Pivot footer** (hairline-top bar inside the 900px column):
   - Left: `Button` outline `← Back to Education Hub` → `/education`.
-  - Right: muted text link `Final Analysis: Warning Signs of Undocumented Sourcing (SS-SERIES-006) →` → `/library/analysis/warning-signs-undocumented-sourcing` (placeholder for the next analysis page).
+  - Right: muted text link `Search the Verified Registry →` → `/directory`.
 
 ### 2 · Route registration: `src/App.tsx`
 
-One import + one `<Route path="/library/analysis/meaning-of-verification" element={<LibraryAnalysisMeaningOfVerification />} />` inside `SiteLayout`.
+One import + one `<Route path="/library/analysis/undocumented-sourcing-signs" element={<LibraryAnalysisUndocumentedSourcingSigns />} />` inside `SiteLayout`.
 
-### 3 · Wire the SS-SERIES-005 card: `src/pages/Education.tsx`
+### 3 · Wire the SS-SERIES-006 card: `src/pages/Education.tsx`
 
-Add one new key to `SLUG_ROUTE_OVERRIDES` matching the SS-SERIES-005 slug shipped in `library.ts` so its "Read more" button (already routed through the override map) points at the new page:
+Add one new key to `SLUG_ROUTE_OVERRIDES` matching the SS-SERIES-006 slug shipped in `library.ts` so its "Read more" button (already routed through the override map) points at the new page:
 
 ```ts
-"what-source-standard-verification-actually-means": "/library/analysis/meaning-of-verification",
+"warning-signs-of-undocumented-sourcing": "/library/analysis/undocumented-sourcing-signs",
 ```
 
-This automatically wires both the analysis grid `Read more` button and any `SimpleRow` reference. No other edits to `Education.tsx`.
+(Exact key will match the slug declared in `src/data/library.ts` for SS-SERIES-006.)
 
-### 4 · Fix the SS-SERIES-004 forward link
+### 4 · Fix the SS-SERIES-005 forward link
 
-In `src/pages/LibraryAnalysisQuestionsForYourClinic.tsx`, the existing `Next Analysis →` link points to `/library/analysis/what-verification-actually-means` (a 404 today). Update it to the new approved route `/library/analysis/meaning-of-verification` so the chain stays live.
+In `src/pages/LibraryAnalysisMeaningOfVerification.tsx`, the existing `Final Analysis →` link points to `/library/analysis/warning-signs-undocumented-sourcing` (a 404 today). Update it to `/library/analysis/undocumented-sourcing-signs` so the chain stays live.
 
 ### Files touched
 
-- `src/pages/LibraryAnalysisMeaningOfVerification.tsx` — new
+- `src/pages/LibraryAnalysisUndocumentedSourcingSigns.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
 - `src/pages/Education.tsx` — one new `SLUG_ROUTE_OVERRIDES` key
-- `src/pages/LibraryAnalysisQuestionsForYourClinic.tsx` — update one `to=` value on the forward pivot link
+- `src/pages/LibraryAnalysisMeaningOfVerification.tsx` — update one `to=` value on the forward pivot link
 
 ### What stays the same
 
