@@ -1,39 +1,56 @@
 
 
-## Widen Closing Explanatory Sections to Match Site Layout Grid
+## Sitewide Em Dash Removal Pass
 
-The Greenlist bottom block uses `max-w-[760px]` — the editorial reading-column measure intended for Library article pages (`ArticleHeader`, `ArticleSection`, `BriefingHero`). On data/registry pages it reads as a narrow leftover because the table/content above spans the full `container-wide` (1280px). Bring closing/explanation/note blocks on non-article pages up to a structured wider measure that aligns with the page's primary content grid, without going full-bleed.
+Audit and rewrite every em dash (`—`) in user-facing copy across the site. Replace with the cleanest natural alternative (period, comma, colon, parentheses, or sentence rewrite) on a case-by-case basis. Not a blind swap.
 
-### Target measure
+### Scope
 
-- **Closing/explanatory sections on registry & index-style pages → `max-w-[1040px]`** (matches the visual rhythm of the data above, leaves disciplined side gutters inside `container-wide`).
-- **Article/library reading pages → keep `max-w-[760px]`** (intentional 65–75ch reading measure; do not touch).
+**~1,100 occurrences across ~70 files**, grouped into three tiers:
 
-### Changes
+1. **Page copy (highest priority)** — visible prose on every page:
+   - All `src/pages/*.tsx` (Index, About, Greenlist, VerifiedVendors, HowItWorks, Education, Governance, Accountability, Privacy, Terms, ForVendors, Apply, Contact, ReportConcern, MedicalAdvisory, AdvisorProfile, GreenlistProfile, VendorProfile, StatusDefinitions, HowToReadTheDirectory, VerificationDisclaimer, FAQ, all FAQ category pages, all Library article pages, LibraryEntry, NotFound)
+   - Hero statements, section bodies, eyebrows, lead text, CTAs, list items, metadata strings, citation footers.
 
-**1 · `src/pages/Greenlist.tsx` (line 564)**
-- `max-w-[760px] mx-auto` → `max-w-[1040px] mx-auto` on the "Two layers, one framework" closing block.
-- Inner Note paragraph keeps `max-w-[68ch]` so the disclaimer text retains a readable measure even inside the wider container — this preserves legibility while the framing aligns to the page grid.
-- Optional: switch the `<p>` body explanation to `max-w-[78ch]` so the long sentence doesn't stretch edge-to-edge and stays comfortable to read inside the wider container.
+2. **Data files (high priority)** — copy rendered into pages:
+   - `src/data/advisoryBoard.ts` (biographies, philosophy, credentials list)
+   - `src/data/glossary.ts` (definitions)
+   - `src/data/library.ts` (entry titles, descriptions, body sections)
+   - `src/data/vendors.ts` (descriptions, notes)
+   - `src/data/greenlist.ts` (alert details, scope notes)
+   - `src/data/authorities.ts` if present.
 
-**2 · `src/pages/Education.tsx` (lines 451–470)** — "About this library" closing notice
-- Already uses `container-wide` directly with `max-w-3xl` (~768px) on the body paragraph. Bring it in line with the new pattern: wrap content in `max-w-[1040px] mx-auto`, keep the body paragraph clamped to `max-w-[78ch]` for legibility. Same visual system as Greenlist.
+3. **Component-level user-visible strings (medium priority)**:
+   - Placeholder/empty values like `"—"` used in tables (`VerifiedVendors`, `GreenlistProfile`). These are visual placeholders, not prose. **Replace with `"--"` or `"N/A"`** to honor the rule. Default replacement: `"--"` (double hyphen) since it preserves the visual "no value" affordance without using an em dash.
 
-**3 · No changes** to:
-- `src/components/ArticleHeader.tsx`, `src/components/ArticleSection.tsx`, `src/components/BriefingHero.tsx` — these are the editorial reading column for Library/article pages. Their 760px is correct.
-- All `Library*` pages — they consume `ArticleSection` and inherit the correct reading measure.
+### Out of scope (do NOT modify)
 
-### Pattern going forward
+- JSDoc comments and code comments (`/** Section — centered ... */`). These are developer documentation, not site copy. Leaving them avoids needless churn and accidental breakage.
+- UI library files under `src/components/ui/**`.
 
-- **Reading pages (Library/articles)** → `max-w-[760px]` editorial column.
-- **Registry / index / data pages** closing or explanatory blocks → `max-w-[1040px]` outer frame, with inner long-form paragraphs clamped to `max-w-[78ch]` (body) or `max-w-[68ch]` (notes/disclaimers) for legibility.
+### Replacement rules
 
-### Files touched
+Apply per sentence, choose the cleanest fit:
 
-- `src/pages/Greenlist.tsx` — widen closing block container, clamp inner paragraphs for legibility.
-- `src/pages/Education.tsx` — same pattern applied to "About this library" notice.
+| Original construction | Preferred fix |
+|---|---|
+| Appositive (`X — a Y — does Z`) | Commas: `X, a Y, does Z` |
+| Definition/explanation (`X — the Y that...`) | Colon or period: `X: the Y that...` or split into two sentences |
+| Range/connector in citation (`Foundational Series — What Is Compounding?`) | Comma: `Foundational Series, What Is Compounding?` |
+| Credential list (`MD — Johns Hopkins`) | Comma: `MD, Johns Hopkins` |
+| Emphatic aside (`... not a credential — it is a practice.`) | Period: `... not a credential. It is a recurring practice.` |
+| Table empty-cell `"—"` | `"--"` |
+
+Preserve meaning and authority. No filler words. No awkward hyphen swaps. Where a sentence becomes clunky, split it.
+
+### Execution approach
+
+1. Process files in batches by directory: `src/pages/` first (highest visibility), then `src/data/`, then user-facing strings inside `src/components/`.
+2. For each file, read full content, rewrite every em dash occurrence using the rules above, write back.
+3. Skip JSDoc blocks entirely (regex-detected `/**`).
+4. Verify with a final `grep` for `—` across `src/` excluding `components/ui/` and JSDoc comment lines. Target: zero matches in user-facing copy.
 
 ### Outcome
 
-Closing and explanatory blocks on non-article pages now align to the site's wider content grid instead of borrowing the narrow article reading measure. Long-form paragraphs inside still respect a comfortable reading width, so the section feels structurally aligned with the page above without becoming awkwardly wide.
+All em dashes removed from rendered site copy. Voice stays authoritative and restrained. Sentence structure improves where the dash was hiding a weak construction. Code comments untouched. UI placeholders downgraded from `—` to `--` so tables still read as "no value."
 
