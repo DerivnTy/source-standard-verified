@@ -318,21 +318,14 @@ const Education = () => {
             </p>
 
             {/* Category grid */}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {CATEGORIES.map((c) => {
-                const isActive = c.key === activeCategory;
                 const count = categoryCounts[c.key];
                 return (
-                  <button
+                  <Link
                     key={c.key}
-                    type="button"
-                    onClick={() => setActiveCategory(c.key)}
-                    className={[
-                      "text-left rounded-[4px] border px-5 py-4 bg-background transition-colors",
-                      isActive
-                        ? "border-foreground/60"
-                        : "border-border/70 hover:border-foreground/30",
-                    ].join(" ")}
+                    to={`/education/questions#${c.groupAnchor}`}
+                    className="flex flex-col text-left rounded-[4px] border border-border/70 bg-background px-5 py-4 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 hover:shadow-[0_0_0_1px_rgba(0,0,0,0.04)]"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
@@ -348,51 +341,13 @@ const Education = () => {
                     <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
                       {c.description}
                     </p>
-                    <Link
-                      to={`/education/questions#${c.groupAnchor}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="mt-3 inline-block text-[12px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
-                    >
-                      View on full FAQ page →
-                    </Link>
-                  </button>
+                    <span className="mt-4 inline-flex items-center gap-1 text-[12px] text-muted-foreground">
+                      Browse category
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </span>
+                  </Link>
                 );
               })}
-            </div>
-
-            {/* Active category accordion */}
-            <div className="mt-8">
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground mb-2">
-                {activeCat.code} · {activeCat.label}
-              </p>
-              {activeFaqs.length ? (
-                <Accordion type="single" collapsible className="border-t border-border/60">
-                  {activeFaqs.map((item) => (
-                    <AccordionItem key={item.id} value={item.id} className="border-b border-border/60">
-                      <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
-                        {item.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
-                        <p>{item.a}</p>
-                        {item.relatedSlug && (
-                          <p className="mt-3">
-                            <Link
-                              to={`/education/${item.relatedSlug}`}
-                              className="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
-                            >
-                              Read more →
-                            </Link>
-                          </p>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              ) : (
-                <p className="text-[13px] text-muted-foreground italic border-t border-border/60 py-4">
-                  No matches in this category.
-                </p>
-              )}
             </div>
 
             <div className="mt-8 flex justify-end">
