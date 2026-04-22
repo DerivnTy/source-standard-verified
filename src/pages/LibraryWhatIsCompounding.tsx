@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-SERIES-000B";
 const LibraryWhatIsCompounding = () => {
   return (
     <>
+      <PageMeta title="What Is Compounding? · Foundational Series" description="The legal and clinical meaning of pharmaceutical compounding under §503A and §503B." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Foundational Series" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Foundational Series"
         title="What Is Compounding?"
@@ -109,6 +117,7 @@ const LibraryWhatIsCompounding = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Foundational Series — What Is Compounding?, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+import { PageMeta } from "@/components/PageMeta";
 
 import { StatusBadge } from "@/components/StatusBadge";
 import { SourceCheck } from "@/components/SourceCheck";
+import { EmptyState } from "@/components/EmptyState";
 import {
   HoverCard,
   HoverCardContent,
@@ -199,6 +201,10 @@ const VerifiedVendors = () => {
 
   return (
     <>
+      <PageMeta
+        title="Verified Vendors · Public Directory"
+        description="Public directory of vendors audited against documented upstream sourcing and clinical oversight."
+      />
       {/* Board-style split hero: title left, stat reference card right */}
       <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
@@ -377,13 +383,14 @@ const VerifiedVendors = () => {
           {/* Dense table / cards */}
           <div className="mt-4">
             {sorted.length === 0 ? (
-              <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
-                <p className="meta">
-                  {vendors.length === 0
-                    ? "— Directory pending population. First batch import scheduled."
-                    : "— No records match the current filters."}
-                </p>
-              </div>
+              <EmptyState
+                eyebrow="No Verified Entities Found"
+                body={
+                  vendors.length === 0
+                    ? "Directory pending population. First batch import scheduled."
+                    : "Source Standard has not yet audited a facility matching these filters."
+                }
+              />
             ) : (
               <>
                 <div className="hidden md:block rounded-[12px] border border-border/40 bg-card overflow-hidden shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">

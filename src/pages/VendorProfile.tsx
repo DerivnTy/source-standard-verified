@@ -8,6 +8,8 @@ import {
 import { StatusBadge } from "@/components/StatusBadge";
 import { ProfileHeader, ProfileFootnote } from "@/components/ProfileHeader";
 import { Section } from "@/components/Section";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const Field = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="px-5 py-3 border-b border-border last:border-b-0 grid grid-cols-12 gap-3">
@@ -42,6 +44,17 @@ const VendorProfile = () => {
 
   return (
     <>
+      <PageMeta
+        title={`${vendor.name} · Verified Vendor`}
+        description={`Source Standard verified vendor profile for ${vendor.name}. ${VENDOR_STATUS_LABEL[vendor.status]} · ${location}.`}
+      />
+      <Breadcrumb
+        items={[
+          { label: "Directory", to: "/verified-vendors" },
+          { label: vendor.category ?? "Clinic" },
+          { label: vendor.name },
+        ]}
+      />
       <ProfileHeader
         backHref="/verified-vendors"
         backLabel="Public Directory"

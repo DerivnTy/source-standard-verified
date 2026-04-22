@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { DocSignature } from "@/components/DocSignature";
 
 const beliefs = [
   "Consumers deserve more than marketing language when evaluating a vendor.",
@@ -64,6 +66,10 @@ const About = () => {
 
   return (
     <>
+      <PageMeta
+        title="About Source Standard"
+        description="Source Standard is a public, version-controlled record establishing transparency standards for clinical sourcing and verification."
+      />
       <RecordHeader
         metadata={[
           { label: "Doc", value: "SS-ORG-2026.01" },
@@ -345,6 +351,7 @@ const About = () => {
           </p>
         </div>
       </section>
+      <DocSignature docId="SS-ORG-2026.01" verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

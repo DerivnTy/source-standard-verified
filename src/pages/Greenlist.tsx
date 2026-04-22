@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
+import { PageMeta } from "@/components/PageMeta";
 
 import { SourceCheck } from "@/components/SourceCheck";
+import { EmptyState } from "@/components/EmptyState";
 import {
   HoverCard,
   HoverCardContent,
@@ -275,6 +277,10 @@ const Greenlist = () => {
 
   return (
     <>
+      <PageMeta
+        title="Greenlist · Recognized Upstream Sources"
+        description="Public registry of upstream compounding facilities recognized under federal registration, state licensure, or accredited credentialing."
+      />
       {/* Board-style split hero: title left, stat reference card right */}
       <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
@@ -450,9 +456,10 @@ const Greenlist = () => {
           {/* Dense table / cards */}
           <div className="mt-4">
             {sorted.length === 0 ? (
-              <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
-                <p className="meta">— No records match the current filters.</p>
-              </div>
+              <EmptyState
+                eyebrow="No Recognized Sources Found"
+                body="Source Standard has not yet recognized an upstream facility matching these filters."
+              />
             ) : (
               <>
                 <div className="hidden md:block rounded-[12px] border border-border/40 bg-card overflow-hidden shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">

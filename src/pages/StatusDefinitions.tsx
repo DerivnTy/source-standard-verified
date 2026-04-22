@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardCiteFooter,
@@ -139,6 +141,10 @@ const lifecycle = [
 
 const StatusDefinitions = () => (
   <>
+    <PageMeta
+      title="Status Definitions · Glossary"
+      description="The official Source Standard glossary of regulatory standings — verified, pending, suspended, and revoked."
+    />
     <RecordHeader
       metadata={[
         { label: "Doc", value: DOC_ID },
@@ -282,6 +288,7 @@ const StatusDefinitions = () => (
     </BoardSection>
 
     <BoardCiteFooter citation={`Source Standard, Glossary of Regulatory Standings, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
   </>
 );
 

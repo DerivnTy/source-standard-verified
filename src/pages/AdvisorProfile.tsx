@@ -1,5 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { ProfileHeader, ProfileFootnote } from "@/components/ProfileHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { advisoryBoard } from "@/data/advisoryBoard";
 
 const AdvisorProfile = () => {
@@ -26,6 +28,16 @@ const AdvisorProfile = () => {
 
   return (
     <>
+      <PageMeta
+        title={`${member.name} · ${member.boardTitle}`}
+        description={`Medical Advisory Board profile — ${member.name}, ${member.credentials}. ${member.specialization}.`}
+      />
+      <Breadcrumb
+        items={[
+          { label: "Medical Advisory", to: "/medical-advisory" },
+          { label: member.name },
+        ]}
+      />
       <ProfileHeader
         backHref="/medical-advisory"
         backLabel="Medical Advisory Board"

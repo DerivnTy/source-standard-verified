@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-GUIDE-002";
 const LibraryAsepticTechnique = () => {
   return (
     <>
+      <PageMeta title="Aseptic Technique · Clinical Guide" description="Foundational principles of aseptic compounding and barrier technique." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Clinical Guides" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Guide"
         title="Aseptic Technique: Sanitization Fundamentals"
@@ -113,6 +121,7 @@ const LibraryAsepticTechnique = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Guide — Aseptic Technique, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

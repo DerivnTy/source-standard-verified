@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-GUIDE-003";
 const LibraryEndocrinologicalContext = () => {
   return (
     <>
+      <PageMeta title="Endocrinological Context · Foundational Series" description="Clinical context for the endocrine pathways modulated by therapeutic peptides." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Foundational Series" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Guide"
         title="Endocrinological Context: Age-Related Hormonal Change & TRT"
@@ -96,6 +104,7 @@ const LibraryEndocrinologicalContext = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Guide — Endocrinological Context, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

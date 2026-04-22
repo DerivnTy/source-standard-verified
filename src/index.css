@@ -353,3 +353,15 @@
     @apply text-foreground font-semibold;
   }
 }
+
+/* ============= Print stylesheet — institutional PDF export ============= */
+@media print {
+  .no-print,
+  nav[aria-label="Breadcrumb"],
+  footer { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .container-wide,
+  .container-narrow { max-width: 100% !important; padding: 0 1.5rem !important; }
+  section { break-inside: avoid; page-break-inside: avoid; }
+  a { color: #000 !important; text-decoration: underline; }
+}

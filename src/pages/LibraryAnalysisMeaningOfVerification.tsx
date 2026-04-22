@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-ANALYSIS-005";
 const LibraryAnalysisMeaningOfVerification = () => {
   return (
     <>
+      <PageMeta title="The Meaning of Verification · Analysis" description="What Source Standard Verification actualizes — and what it does not." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Analysis" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Clinical Analysis"
         title="What Source Standard Verification Actually Means"
@@ -104,6 +112,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Clinical Analysis — Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

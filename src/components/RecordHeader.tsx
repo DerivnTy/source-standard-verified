@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { MetadataItem } from "./MetadataBar";
+import { DownloadPdfLink } from "./DownloadPdfLink";
 
 /**
  * RecordHeader — Tier 2, used on regulatory / policy documents.
@@ -8,6 +9,10 @@ import { MetadataItem } from "./MetadataBar";
  *  - Left: eyebrow + title + lead + optional children
  *  - Right: white "Reference" service-card panel housing doc metadata,
  *           with optional Summary list stacked below.
+ *
+ * `verifiedOn` renders a dedicated DATA VERIFIED row inside the Reference box.
+ * `downloadable` (default true on Tier 2 docs) renders a "Download · PDF" link
+ *   in the right rail header.
  */
 export const RecordHeader = ({
   metadata,
@@ -15,6 +20,8 @@ export const RecordHeader = ({
   title,
   lead,
   summary,
+  verifiedOn,
+  downloadable = true,
   children,
 }: {
   metadata: MetadataItem[];
@@ -22,9 +29,14 @@ export const RecordHeader = ({
   title: string;
   lead?: string;
   summary?: { label: string; value: ReactNode }[];
+  verifiedOn?: string;
+  downloadable?: boolean;
   children?: ReactNode;
 }) => {
   const hasSummary = summary && summary.length > 0;
+  const fullMetadata: MetadataItem[] = verifiedOn
+    ? [...metadata, { label: "Verified", value: verifiedOn }]
+    : metadata;
   return (
     <header className="bg-background border-b border-[#E5E7EB]">
       <div className="container-wide py-14 md:py-20">
@@ -40,13 +52,18 @@ export const RecordHeader = ({
             {children && <div className="mt-6">{children}</div>}
           </div>
           <aside className="md:col-span-4 space-y-4">
+            {downloadable && (
+              <div className="flex justify-end">
+                <DownloadPdfLink />
+              </div>
+            )}
             {/* Reference Box — white service-card panel */}
             <div className="bg-surface border border-border rounded-[4px] p-4">
               <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
                 Reference
               </p>
               <dl className="space-y-2">
-                {metadata.map((m, i) => (
+                {fullMetadata.map((m, i) => (
                   <div key={i} className="flex items-baseline justify-between gap-3">
                     <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
                       {m.label}

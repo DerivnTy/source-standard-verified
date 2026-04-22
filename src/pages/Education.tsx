@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { SourceCheck } from "@/components/SourceCheck";
+import { PageMeta } from "@/components/PageMeta";
 import {
   EntryStatus,
   LibraryEntry,
@@ -184,6 +185,10 @@ const SectionRail = ({
 const Education = () => {
   return (
     <>
+      <PageMeta
+        title="Education Library"
+        description="Foundational series, clinical guides, and analyses on compounding, sourcing, and verification."
+      />
       {/* Hero — Board-style left-aligned, no center, no display-2 */}
       <section className="border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">

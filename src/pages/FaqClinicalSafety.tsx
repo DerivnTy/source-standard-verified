@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardFooterNav,
@@ -34,6 +37,11 @@ const QA = [
 const FaqClinicalSafety = () => {
   return (
     <>
+      <PageMeta title="Clinical Safety FAQ" description="Plain-language answers about clinical safety, dosing, and oversight." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "FAQ" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Regulatory FAQ"
         title="FAQ: Clinical Safety"
@@ -84,6 +92,7 @@ const FaqClinicalSafety = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Clinical Safety, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

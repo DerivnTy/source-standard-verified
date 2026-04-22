@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardFooterNav,
@@ -39,6 +42,11 @@ const QA = [
 const FaqVerificationProcess = () => {
   return (
     <>
+      <PageMeta title="Verification Process FAQ" description="How Source Standard verification works — stages, audits, and renewal cadence." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "FAQ" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Regulatory FAQ"
         title="FAQ: Verification Process"
@@ -89,6 +97,7 @@ const FaqVerificationProcess = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Verification Process, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };

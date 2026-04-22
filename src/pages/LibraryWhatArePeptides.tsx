@@ -1,4 +1,7 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocSignature } from "@/components/DocSignature";
 import {
   BoardSection,
   BoardDefList,
@@ -11,6 +14,11 @@ const DOC_ID = "SS-SERIES-000A";
 const LibraryWhatArePeptides = () => {
   return (
     <>
+      <PageMeta title="What Are Peptides? · Foundational Series" description="A plain-language introduction to peptides, their clinical utility, and the importance of sourcing integrity." />
+      <Breadcrumb items={[
+          { label: "Education", to: "/education" },
+          { label: "Foundational Series" },
+        ]} />
       <RecordHeader
         eyebrow="Source Standard · Foundational Series"
         title="What Are Peptides?"
@@ -94,6 +102,7 @@ const LibraryWhatArePeptides = () => {
       />
 
       <BoardCiteFooter citation={`Source Standard, Foundational Series — What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <DocSignature docId={DOC_ID} verifiedOn="04 / 21 / 2026" />
     </>
   );
 };
