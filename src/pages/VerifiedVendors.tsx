@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 
 import { StatusBadge } from "@/components/StatusBadge";
 import { SourceCheck } from "@/components/SourceCheck";
+import { EmptyState } from "@/components/EmptyState";
 import {
   HoverCard,
   HoverCardContent,

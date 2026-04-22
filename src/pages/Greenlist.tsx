@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 
 import { SourceCheck } from "@/components/SourceCheck";
+import { EmptyState } from "@/components/EmptyState";
 import {
   HoverCard,
   HoverCardContent,
