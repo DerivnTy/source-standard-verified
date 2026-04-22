@@ -26,6 +26,7 @@ import LibraryEndocrinologicalContext from "./pages/LibraryEndocrinologicalConte
 import LibraryReferenceDosingRanges from "./pages/LibraryReferenceDosingRanges.tsx";
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
+import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
@@ -75,6 +76,7 @@ const App = () => (
             <Route path="/library/reference-dosing-ranges" element={<LibraryReferenceDosingRanges />} />
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
+            <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
