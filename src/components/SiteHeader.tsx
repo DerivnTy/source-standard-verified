@@ -40,7 +40,7 @@ export const SiteHeader = () => {
             <NavLink
               key={n.to}
               to={n.to}
-              end={n.end}
+              end
               className={({ isActive }) =>
                 `relative inline-flex items-center h-10 text-[13px] font-medium tracking-[0.005em] transition-colors ${
                   isActive
@@ -74,7 +74,7 @@ export const SiteHeader = () => {
               <NavLink
                 key={n.to}
                 to={n.to}
-                end={n.end}
+                end
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `py-3.5 text-[15px] border-b border-border last:border-0 ${
