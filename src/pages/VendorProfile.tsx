@@ -93,7 +93,7 @@ const Field = ({
         aria-hidden
         className={`absolute left-0 top-2 bottom-2 w-[2px] ${tickClassName}`}
       />
-      <p className="t-utility-xs uppercase tracking-[0.1em] text-muted-foreground font-medium">
+      <p className="t-utility-xs uppercase tracking-[0.1em] text-foreground font-semibold">
         {label}
       </p>
       <p
@@ -245,7 +245,8 @@ const VendorProfile = () => {
 
             {/* Compact record grid */}
             <div className="px-6 md:px-8 py-5">
-              <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-1">
+              <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-3">
+                {/* Row 1 — identity & service */}
                 <Field
                   label="Status"
                   value={VENDOR_STATUS_LABEL[status]}
@@ -255,36 +256,31 @@ const VendorProfile = () => {
                   label="Fulfillment"
                   value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
                 />
-                <Field label="Source type" value={sourceType} mono />
+                <Field label="Category" value={vendor.category} />
                 <Field label="Clinical focus" value={vendor.clinicalFocus} />
+
+                {/* Row 2 — operational & contact */}
                 <Field
                   label="Medical director"
                   value={vendor.medicalDirector}
                 />
-                <Field label="Category" value={vendor.category} />
+                <Field label="Source type" value={sourceType} mono />
                 {isPhysical ? (
-                  <Field
-                    label="Address"
-                    value={fullAddress || location}
-                    span
-                  />
+                  <Field label="Address" value={fullAddress || location} />
                 ) : (
-                  <Field
-                    label="Service area"
-                    value="Online — nationwide"
-                    span
-                  />
+                  <Field label="Service area" value="Online — nationwide" />
                 )}
+                <Field label="Website" value={websiteLink} />
+
+                {/* Row 3 — overflow (states served, verification) */}
                 {(vendor as Vendor & { serviceArea?: string }).serviceArea && (
                   <Field
                     label="States served"
                     value={
                       (vendor as Vendor & { serviceArea?: string }).serviceArea
                     }
-                    span
                   />
                 )}
-                <Field label="Website" value={websiteLink} span />
                 {isVerified && vendor.reviewId && (
                   <Field
                     label="Review ID"
@@ -297,10 +293,7 @@ const VendorProfile = () => {
                   <Field label="Last reviewed" value={vendor.reviewDate} />
                 )}
                 {isVerified && verifiedScopeSummary && (
-                  <Field
-                    label="Verified scope"
-                    value={verifiedScopeSummary}
-                  />
+                  <Field label="Verified scope" value={verifiedScopeSummary} />
                 )}
               </dl>
             </div>
