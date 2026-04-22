@@ -11,8 +11,7 @@ import { DownloadPdfLink } from "./DownloadPdfLink";
  *           with optional Summary list stacked below.
  *
  * `verifiedOn` renders a dedicated DATA VERIFIED row inside the Reference box.
- * `downloadable` (default true on Tier 2 docs) renders a "Download · PDF" link
- *   in the right rail header.
+ * `downloadable` defaults to false — opt in only when a real PDF is attached.
  */
 export const RecordHeader = ({
   metadata,
@@ -21,7 +20,7 @@ export const RecordHeader = ({
   lead,
   summary,
   verifiedOn,
-  downloadable = true,
+  downloadable = false,
   compact = false,
   children,
 }: {
@@ -41,16 +40,13 @@ export const RecordHeader = ({
     : metadata;
   const hasLeftContent = Boolean(eyebrow || title || lead || children);
 
-  // Compact metadata-only strip — used after a BriefingHero chapter intro.
   if (compact && !hasLeftContent) {
     return (
-      <header className="bg-background border-b border-[#E5E7EB]">
-        <div className="container-wide py-6 md:py-8">
+      <header className="bg-background border-b border-border">
+        <div className="page-shell py-6 md:py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-2">
-              <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground">
-                Reference
-              </p>
+              <p className="t-utility-xs text-muted-foreground">Reference</p>
               {downloadable && (
                 <span className="hidden md:inline-block text-muted-foreground/40">·</span>
               )}
@@ -59,9 +55,7 @@ export const RecordHeader = ({
             <dl className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
               {fullMetadata.map((m, i) => (
                 <div key={i} className="flex items-baseline gap-2">
-                  <dt className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground">
-                    {m.label}
-                  </dt>
+                  <dt className="t-utility-xs text-muted-foreground">{m.label}</dt>
                   <dd className="font-mono t-utility-xs text-foreground tabular-nums">
                     {m.value}
                   </dd>
@@ -75,14 +69,15 @@ export const RecordHeader = ({
   }
 
   return (
-    <header className="bg-background border-b border-[#E5E7EB]">
-      <div className={compact ? "container-wide py-8 md:py-10" : "container-wide py-14 md:py-20"}>
+    <header className="bg-background border-b border-border">
+      <div className={compact ? "page-shell py-8 md:py-10" : "page-shell section-pad"}>
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-8">
-            {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
-            {title && <h1 className="title-page text-foreground max-w-3xl">{title}</h1>}
+            <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
+            {eyebrow && <p className="t-eyebrow-sm text-muted-foreground mb-4">{eyebrow}</p>}
+            {title && <h1 className="t-page-title text-foreground max-w-3xl">{title}</h1>}
             {lead && (
-              <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
+              <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">
                 {lead}
               </p>
             )}
@@ -94,17 +89,12 @@ export const RecordHeader = ({
                 <DownloadPdfLink />
               </div>
             )}
-            {/* Reference Box — white service-card panel */}
             <div className="bg-surface border border-border rounded-[4px] p-4">
-              <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground mb-3">
-                Reference
-              </p>
+              <p className="t-utility-xs text-muted-foreground mb-3">Reference</p>
               <dl className="space-y-2">
                 {fullMetadata.map((m, i) => (
                   <div key={i} className="flex items-baseline justify-between gap-3">
-                    <dt className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground">
-                      {m.label}
-                    </dt>
+                    <dt className="t-utility-xs text-muted-foreground">{m.label}</dt>
                     <dd className="font-mono t-utility-xs text-foreground tabular-nums text-right">
                       {m.value}
                     </dd>
@@ -114,9 +104,7 @@ export const RecordHeader = ({
             </div>
             {hasSummary && (
               <div className="bg-surface border border-border rounded-[4px] p-4">
-                <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground mb-3">
-                  Summary
-                </p>
+                <p className="t-utility-xs text-muted-foreground mb-3">Summary</p>
                 <dl className="divide-y divide-border/60">
                   {summary!.map((s, i) => (
                     <div key={i} className="flex items-baseline justify-between gap-3 py-2 first:pt-0 last:pb-0">
