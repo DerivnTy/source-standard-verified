@@ -61,6 +61,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "the-science-of-aging-and-trt": "/library/endocrinological-context",
   "dosing-guidance-summaries-for-common-compounds": "/library/reference-dosing-ranges",
   "the-2026-compounding-reclassification": "/library/analysis/2026-reclassification",
+  "questions-to-ask-your-clinic": "/library/analysis/questions-for-your-clinic",
 };
 
 const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
