@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
-import { AnchorHeader } from "@/components/AnchorHeader";
+import { ChevronRight, Search, Scale, ShieldCheck, BadgeCheck, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   ENTRY_STATUS_LABEL,
@@ -66,50 +65,41 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "warning-signs-of-undocumented-sourcing": "/library/analysis/undocumented-sourcing-signs",
 };
 
+const routeFor = (slug: string) => SLUG_ROUTE_OVERRIDES[slug] ?? `/education/${slug}`;
+
+// FAQ category mapping
+type CategoryKey = "legal" | "clinical" | "verification" | "diligence";
+
 const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
   legal: "/library/faq/legal-regulatory",
   clinical: "/library/faq/clinical-safety",
   verification: "/library/faq/verification-process",
 };
 
-const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
+const LibraryTile = ({ entry }: { entry: LibraryEntry }) => (
   <Link
-    to={SLUG_ROUTE_OVERRIDES[entry.slug] ?? `/education/${entry.slug}`}
-    className="group block px-6 py-5 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 hover:border-foreground/20 transition-colors"
+    to={routeFor(entry.slug)}
+    className="group flex flex-col min-h-[240px] rounded-lg border border-border/60 bg-background p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
   >
-    <div className="flex items-center gap-5">
-      <span className="w-28 shrink-0 self-center font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums">
+    <h3 className="text-[17px] font-semibold leading-snug text-foreground group-hover:text-foreground">
+      {displayTitle(entry)}
+    </h3>
+    <p className="mt-3 text-[13.5px] text-muted-foreground leading-[1.7]">
+      {entry.summary}
+    </p>
+    {entry.reviewedBy && (
+      <p className="mt-3 text-[11.5px] text-muted-foreground/80">
+        Reviewed by {entry.reviewedBy}
+      </p>
+    )}
+    <div className="mt-auto pt-5 flex items-center justify-between gap-3 border-t border-border/40">
+      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground/70 tabular-nums">
         {entry.id}
       </span>
-      <div className="flex-1 min-w-0">
-        <h3 className="text-[16px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
-          {displayTitle(entry)}
-        </h3>
-        <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
-          {entry.summary}
-        </p>
-        {entry.reviewedBy && (
-          <p className="mt-2 text-[11.5px] text-muted-foreground/80">
-            Reviewed by {entry.reviewedBy}
-          </p>
-        )}
-      </div>
-      <div className="shrink-0 self-center">
-        <SoftStatus status={entry.status} />
-      </div>
-      <span
-        aria-hidden
-        className="shrink-0 self-center pl-4 border-l border-border/40 inline-flex items-center gap-1 text-[12px] text-muted-foreground group-hover:text-foreground transition-colors pointer-events-none"
-      >
-        Read full article
-        <ChevronRight className="h-3.5 w-3.5" />
-      </span>
+      <SoftStatus status={entry.status} />
     </div>
   </Link>
 );
-
-// FAQ category mapping
-type CategoryKey = "legal" | "clinical" | "verification" | "diligence";
 
 const CATEGORIES: {
   key: CategoryKey;
@@ -118,6 +108,7 @@ const CATEGORIES: {
   description: string;
   ids: string[];
   groupAnchor: string;
+  Icon: typeof Scale;
 }[] = [
   {
     key: "legal",
@@ -126,6 +117,7 @@ const CATEGORIES: {
     description: "Statutory framework, federal scheduling, and lawful access.",
     ids: ["SS-FAQ-001", "SS-FAQ-002"],
     groupAnchor: "legality",
+    Icon: Scale,
   },
   {
     key: "clinical",
@@ -134,6 +126,7 @@ const CATEGORIES: {
     description: "Sterility, handling integrity, and clinical-use scope.",
     ids: ["SS-FAQ-004", "SS-FAQ-007"],
     groupAnchor: "methodology",
+    Icon: ShieldCheck,
   },
   {
     key: "verification",
@@ -142,6 +135,7 @@ const CATEGORIES: {
     description: "How clinics and upstream pharmacies are audited and confirmed.",
     ids: ["SS-FAQ-003", "SS-FAQ-005", "SS-FAQ-006", "SS-FAQ-008"],
     groupAnchor: "verification",
+    Icon: BadgeCheck,
   },
   {
     key: "diligence",
@@ -150,6 +144,7 @@ const CATEGORIES: {
     description: "Public-facing checks before engaging any compounded source.",
     ids: ["SS-FAQ-009", "SS-FAQ-010"],
     groupAnchor: "due-diligence",
+    Icon: Compass,
   },
 ];
 
@@ -160,10 +155,40 @@ const basics: LibraryEntry[] = librarySeries.filter((e) => e.level === "intro");
 const basicSlugs = new Set(basics.map((b) => b.slug));
 
 // Trim guides preview
-const guidesPreview = libraryGuides.slice(0, 4);
+const guidesPreview = libraryGuides.slice(0, 6);
 
 // Latest analysis: non-intro series
 const analysisCards: LibraryEntry[] = librarySeries.filter((e) => !basicSlugs.has(e.slug));
+
+// Featured "Start Here" trio — hardcoded by slug
+const FEATURED_SLUGS = [
+  "what-are-peptides",
+  "what-is-compounding",
+  "questions-to-ask-your-clinic",
+] as const;
+
+const FEATURED_OVERRIDES: Record<string, { title: string; blurb: string }> = {
+  "what-are-peptides": {
+    title: "What Are Peptides?",
+    blurb:
+      "A clinical primer on peptide therapeutics — what they are, how they work, and why sourcing integrity matters.",
+  },
+  "what-is-compounding": {
+    title: "What Is Compounding? (503A vs 503B)",
+    blurb:
+      "Understand the regulatory distinction between 503A and 503B compounding pharmacies and what each means for patient safety.",
+  },
+  "questions-to-ask-your-clinic": {
+    title: "Questions to Ask Your Clinic",
+    blurb:
+      "A practical, five-question checklist to assess whether your clinic is operating with documented sourcing.",
+  },
+};
+
+const allEntries: LibraryEntry[] = [...librarySeries, ...libraryGuides];
+const featuredEntries = FEATURED_SLUGS.map((slug) =>
+  allEntries.find((e) => e.slug === slug),
+).filter((e): e is LibraryEntry => Boolean(e));
 
 const matches = (q: string, ...fields: (string | undefined)[]) => {
   if (!q) return true;
@@ -207,74 +232,113 @@ const Education = () => {
   }, [q]);
 
   const EmptyNote = () => (
-    <p className="px-5 py-4 text-[13px] text-muted-foreground italic">
+    <p className="px-1 py-4 text-[13px] text-muted-foreground italic">
       No matches in this section.
     </p>
   );
 
   return (
     <>
-      <AnchorHeader
-        eyebrow="Public education & standards"
-        title="Clinical Reference & Standards Library."
-        lead="Reference materials covering the administrative and clinical protocols that govern compounded medication sourcing, handling, and verification under the Source Standard framework."
-        reference={{ docId: "SS-LIB-2026.01", status: "Active", updated: "04/21/26" }}
-      />
+      {/* Hero — centered, no reference box */}
+      <section className="border-b border-border/50 bg-background">
+        <div className="container-wide py-20 md:py-28 text-center">
+          <p className="eyebrow mb-4">Public education &amp; standards</p>
+          <h1 className="title-page text-foreground max-w-[22ch] mx-auto">
+            Clinical Reference &amp; Standards Library
+          </h1>
+          <p className="mt-5 max-w-[60ch] mx-auto text-[16px] text-muted-foreground leading-[1.7]">
+            Your guide to the science, safety, and standards of compounded medicine. Empowering patients with clinical transparency.
+          </p>
 
-      {/* Library search */}
-      <div className="border-t border-border/40 bg-background">
-        <div className="container-wide py-5">
-          <label className="block">
-            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-              Search the library
-            </span>
+          {/* Search bar — softer */}
+          <div className="mt-10 max-w-[560px] mx-auto relative">
+            <Search
+              aria-hidden
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
+            />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="FILTER BY DOC ID OR KEYWORD…"
-              className="mt-1.5 w-full max-w-[640px] block rounded-[4px] border border-border bg-background px-3.5 py-2 font-mono text-[13px] text-foreground placeholder:text-muted-foreground/70 placeholder:uppercase placeholder:tracking-[0.08em] focus:outline-none focus:border-foreground/40 transition-colors"
+              placeholder="Search the library by topic, doc ID, or keyword…"
+              className="w-full h-12 pl-11 pr-4 rounded-full border border-border/60 bg-background text-[14px] text-foreground placeholder:text-muted-foreground shadow-sm focus:outline-none focus:border-foreground/40 focus:ring-2 focus:ring-ring/30 transition-all"
             />
-          </label>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Sticky jump bar */}
-      <div className="sticky top-0 z-30 border-y border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="container-wide flex flex-wrap items-center gap-x-6 gap-y-2 py-2.5 text-[12px] text-muted-foreground">
+      {/* Highly Recommended — Start Here trio */}
+      <section className="border-b border-border/50 bg-surface-muted/40">
+        <div className="container-wide py-20 md:py-28">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
+            <div>
+              <p className="eyebrow mb-2">Highly Recommended</p>
+              <h2 className="h-section">Start here</h2>
+            </div>
+            <p className="max-w-[42ch] text-[13.5px] text-muted-foreground leading-relaxed">
+              Three short reads that frame everything else in the library.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {featuredEntries.map((entry, i) => {
+              const ov = FEATURED_OVERRIDES[entry.slug];
+              return (
+                <Link
+                  key={entry.slug}
+                  to={routeFor(entry.slug)}
+                  className="group relative flex flex-col min-h-[260px] rounded-lg border border-border/60 bg-blue-50/40 dark:bg-blue-950/10 p-7 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
+                >
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground mb-4">
+                    Start Here · {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="text-[20px] font-semibold leading-snug text-foreground">
+                    {ov?.title ?? displayTitle(entry)}
+                  </h3>
+                  <p className="mt-3 text-[14px] text-muted-foreground leading-[1.7]">
+                    {ov?.blurb ?? entry.summary}
+                  </p>
+                  <span
+                    aria-hidden
+                    className="mt-auto pt-6 inline-flex items-center self-end text-foreground/60 group-hover:text-foreground transition-all group-hover:translate-x-1"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Sticky jump bar — lightened */}
+      <div className="sticky top-0 z-30 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+        <div className="container-wide flex flex-wrap items-center gap-x-6 gap-y-2 py-2.5 text-[12px] text-muted-foreground/80">
           <span className="text-muted-foreground/60">Jump to:</span>
-          <a href="#basics" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Foundational Standards</a>
-          <a href="#guides" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Clinical Protocols</a>
-          <a href="#questions" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Regulatory FAQ</a>
-          <a href="#analysis" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Latest Analysis</a>
-          <a href="#archive" className="text-foreground/80 hover:text-foreground hover:underline underline-offset-4">Archive index</a>
+          <a href="#basics" className="hover:text-foreground transition-colors">Foundational</a>
+          <a href="#guides" className="hover:text-foreground transition-colors">Clinical Protocols</a>
+          <a href="#questions" className="hover:text-foreground transition-colors">Regulatory FAQ</a>
+          <a href="#analysis" className="hover:text-foreground transition-colors">Latest Analysis</a>
+          <a href="#archive" className="hover:text-foreground transition-colors">Archive</a>
         </div>
       </div>
 
-      {/* Archive index strip */}
-      <div className="border-b border-border/40 bg-surface-muted/30">
-        <div className="container-wide flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-          <span>Archive index · SS-LIB-2026.01 · United States</span>
-          <span>Maintained · Active</span>
-        </div>
-      </div>
-
-      {/* §1 Foundational Sourcing Standards */}
-      <section className="border-t border-border/60">
-        <div className="container-wide py-16 md:py-20">
+      {/* §1 Foundational Sourcing Standards — tile grid */}
+      <section className="border-b border-border/50">
+        <div className="container-wide py-20 md:py-28">
           <div id="basics" className="scroll-mt-20">
             <h2 className="h-section">Foundational Sourcing Standards</h2>
-            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-relaxed">
+            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.
             </p>
-            <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
-              {filteredBasics.length ? (
-                filteredBasics.map((e) => <SimpleRow key={e.id} entry={e} />)
-              ) : (
-                <EmptyNote />
-              )}
-            </div>
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            {filteredBasics.length ? (
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredBasics.map((e) => <LibraryTile key={e.id} entry={e} />)}
+              </div>
+            ) : (
+              <EmptyNote />
+            )}
+            <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
               <Link
                 to="/education/basics"
                 className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
@@ -289,22 +353,22 @@ const Education = () => {
         </div>
       </section>
 
-      {/* §2 Clinical Handling & Aseptic Protocols */}
-      <section className="border-t border-border/60 bg-surface-muted/40">
-        <div className="container-wide py-16 md:py-20">
+      {/* §2 Clinical Handling & Aseptic Protocols — tile grid */}
+      <section className="border-b border-border/50 bg-surface-muted/40">
+        <div className="container-wide py-20 md:py-28">
           <div id="guides" className="scroll-mt-20">
-            <h2 className="h-section">Clinical Handling & Aseptic Protocols</h2>
-            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-relaxed">
+            <h2 className="h-section">Clinical Handling &amp; Aseptic Protocols</h2>
+            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.
             </p>
-            <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
-              {filteredGuides.length ? (
-                filteredGuides.map((e) => <SimpleRow key={e.id} entry={e} />)
-              ) : (
-                <EmptyNote />
-              )}
-            </div>
-            <div className="mt-6 flex justify-end">
+            {filteredGuides.length ? (
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredGuides.map((e) => <LibraryTile key={e.id} entry={e} />)}
+              </div>
+            ) : (
+              <EmptyNote />
+            )}
+            <div className="mt-10 flex justify-end">
               <Link
                 to="/education/guides"
                 className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
@@ -312,66 +376,51 @@ const Education = () => {
                 View full clinical protocol index →
               </Link>
             </div>
-            <div className="mt-8 border border-border/70 bg-background rounded-[4px] px-6 py-5 flex flex-wrap items-center justify-between gap-6">
-              <div>
-                <p className="text-[15px] font-semibold text-foreground">Seeking regulatory clarity?</p>
-                <p className="mt-1 text-[13px] text-muted-foreground">Browse the FAQ categories grouped by topic.</p>
-              </div>
-              <Button
-                onClick={() =>
-                  document.getElementById("questions")?.scrollIntoView({ behavior: "smooth", block: "start" })
-                }
-              >
-                Browse FAQ Categories →
-              </Button>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* §3 Public Inquiry — FAQ category grid */}
-      <section className="border-t border-border/60">
-        <div className="container-wide py-16 md:py-20">
+      {/* §3 Public Inquiry — FAQ category grid (simplified) */}
+      <section className="border-b border-border/50">
+        <div className="container-wide py-20 md:py-28">
           <div id="questions" className="scroll-mt-20">
-            <h2 className="h-section">Public Inquiry & Regulatory FAQ</h2>
-            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-relaxed">
+            <h2 className="h-section">Public Inquiry &amp; Regulatory FAQ</h2>
+            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Plain-record answers organized by inquiry category. Select a category to review its questions, or browse the full archive.
             </p>
 
-            {/* Category grid */}
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {CATEGORIES.map((c) => {
                 const count = categoryCounts[c.key];
+                const Icon = c.Icon;
                 return (
-                  <Link
+                  <div
                     key={c.key}
-                    to={CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`}
-                    className="flex flex-col text-left rounded-[4px] border border-border/70 bg-background px-5 py-4 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 hover:shadow-[0_0_0_1px_rgba(0,0,0,0.04)]"
+                    className="flex flex-col rounded-lg border border-border/60 bg-background p-6 transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30"
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-                        {c.code}
-                      </span>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border border-border/70 px-1.5 py-px rounded-[2px]">
-                        {count} {count === 1 ? "entry" : "entries"}
-                      </span>
-                    </div>
-                    <h3 className="mt-2 text-[15px] font-semibold text-foreground">
+                    <Icon className="h-6 w-6 text-muted-foreground" strokeWidth={1.5} />
+                    <p className="mt-4 text-[11.5px] text-muted-foreground/80 tabular-nums">
+                      {count} {count === 1 ? "entry" : "entries"}
+                    </p>
+                    <h3 className="mt-1 text-[18px] font-semibold text-foreground leading-snug">
                       {c.label}
                     </h3>
-                    <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
+                    <p className="mt-2 text-[13.5px] text-muted-foreground leading-[1.7]">
                       {c.description}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-[12px] text-muted-foreground">
-                      Browse category
-                      <ChevronRight className="h-3.5 w-3.5" />
-                    </span>
-                  </Link>
+                    <div className="mt-auto pt-6">
+                      <Button asChild variant="outline" size="sm" className="w-full">
+                        <Link to={CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`}>
+                          Browse Category →
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
                 );
               })}
             </div>
 
-            <div className="mt-8 flex justify-end">
+            <div className="mt-10 flex justify-end">
               <Button asChild>
                 <Link to="/education/questions">Browse the full Regulatory FAQ archive →</Link>
               </Button>
@@ -380,39 +429,18 @@ const Education = () => {
         </div>
       </section>
 
-      {/* §4 Latest Clinical Analysis */}
-      <section className="border-t border-border/60 bg-surface-muted/40">
-        <div className="container-wide py-16 md:py-20">
+      {/* §4 Latest Clinical Analysis — same tile language */}
+      <section className="border-b border-border/50 bg-surface-muted/40">
+        <div className="container-wide py-20 md:py-28">
           <div id="analysis" className="scroll-mt-20">
             <h2 className="h-section">Latest Clinical Analysis</h2>
-            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-relaxed">
+            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-[1.7]">
               Newest entries from the Source Standard analysis series. Reviewed under the Medical Advisory framework.
             </p>
 
             {filteredAnalysis.length ? (
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredAnalysis.map((entry) => (
-                  <article
-                    key={entry.id}
-                    className="flex flex-col rounded-[4px] border border-border/70 bg-background p-6 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 hover:shadow-[0_2px_0_0_rgba(0,0,0,0.06)]"
-                  >
-                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-                      {entry.id} · Analysis
-                    </span>
-                    <h3 className="mt-2 text-[16px] font-semibold text-foreground leading-snug line-clamp-2">
-                      {displayTitle(entry)}
-                    </h3>
-                    <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed line-clamp-3">
-                      {entry.summary}
-                    </p>
-                    <div className="mt-auto pt-5 flex items-center justify-between gap-3">
-                      <SoftStatus status={entry.status} />
-                      <Button asChild size="sm">
-                        <Link to={SLUG_ROUTE_OVERRIDES[entry.slug] ?? `/education/${entry.slug}`}>Read more →</Link>
-                      </Button>
-                    </div>
-                  </article>
-                ))}
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredAnalysis.map((entry) => <LibraryTile key={entry.id} entry={entry} />)}
               </div>
             ) : (
               <p className="mt-8 text-[13px] text-muted-foreground italic">
@@ -420,7 +448,7 @@ const Education = () => {
               </p>
             )}
 
-            <div className="mt-8 flex justify-end">
+            <div className="mt-10 flex justify-end">
               <Button asChild variant="outline" size="sm">
                 <a href="#archive">View the full standards archive →</a>
               </Button>
@@ -431,7 +459,7 @@ const Education = () => {
 
       {/* Forthcoming + About */}
       <section className="border-t border-border/60">
-        <div className="container-wide py-16 md:py-20">
+        <div className="container-wide py-20 md:py-28">
           <div id="archive" className="scroll-mt-20">
             <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border/40 py-2 mb-10">
               Archive · SS-LIB-2026.01 · United States · Maintained Active · Updated 04/21/26
