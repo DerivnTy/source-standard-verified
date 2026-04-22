@@ -64,6 +64,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
 
 const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
   legal: "/library/faq/legal-regulatory",
+  clinical: "/library/faq/clinical-safety",
 };
 
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
