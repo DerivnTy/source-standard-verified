@@ -9,10 +9,14 @@
 export const HeroPattern = ({
   className = "",
   opacity = 0.08,
+  stroke = "foreground",
 }: {
   className?: string;
   opacity?: number;
+  stroke?: "foreground" | "white";
 }) => {
+  const strokeColor =
+    stroke === "white" ? "#ffffff" : "hsl(var(--foreground))";
   return (
     <div
       aria-hidden
@@ -40,7 +44,7 @@ export const HeroPattern = ({
             <path
               d="M 32 0 L 0 0 0 32"
               fill="none"
-              stroke="hsl(var(--foreground))"
+              stroke={strokeColor}
               strokeWidth="0.5"
             />
           </pattern>
