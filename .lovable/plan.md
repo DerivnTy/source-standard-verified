@@ -1,68 +1,84 @@
 
 
-## Zero-Tolerance Alignment — Site-Wide Hard Reset
+## Clinical Fact Realignment — BriefingHero with Audit-Report Language
 
-Final pass. Three concrete deliverables: (1) smart hide-on-scroll header, (2) typographic lock to 14.5px on every remaining body surface, (3) elimination of every heavy black bar still present. Scroll restoration is already in place via `ScrollToTop` + `useHashScroll` — confirmed working.
+Same `BriefingHero` primitive as previously approved, with mission strings rewritten to functional/regulatory language. No marketing tone, no metaphors, no PDF button, no summary.
 
 ---
 
-### 1 · Smart Header (hide on scroll-down / show on scroll-up)
+### 1 · `BriefingHero` primitive (unchanged structure)
 
-`src/components/SiteHeader.tsx` — add a `useEffect` that tracks `window.scrollY` deltas. When user scrolls **down past 120px**, slide the entire `<header>` up via `-translate-y-full`. When user scrolls **up by ≥ 8px**, slide it back down. Always show at the absolute top. Transition `transform 200ms ease-out`. Leaves the existing sticky `top-0 z-40` intact.
+`src/components/BriefingHero.tsx` — single 100vh institutional plaque.
 
-Side-effect: `DocJumpBar` (`sticky top-[64px]`) needs to follow the header. Add a matching transform binding driven by the same scroll state — easiest via a small Zustand-free pattern: export a `useHeaderVisible()` hook from `SiteHeader.tsx`, consume it in `DocJumpBar` to toggle `top-[64px]` ↔ `top-0`.
+- `<section min-h-[100svh] border-b border-border bg-background relative>` with low-opacity `HeroPattern`.
+- Inner `container-wide`, flex column `justify-center`.
+- 12-col grid, `items-end` so H1 baseline and Reference Box top align on a shared horizon line:
+  - **Left (md:col-span-7):** mono eyebrow `CATEGORY · SS-XX` (10.5px tracking-[0.14em]); H1 `title-page`; one-line statement `text-[14.5px] text-muted-foreground max-w-[60ch]`.
+  - **Right (md:col-span-4 md:col-start-9):** Reference Box — `border border-border bg-background p-4`, mono header `REFERENCE · {DOC_ID}`, flat `<dl>` of metadata rows in mono tabular-nums. **No PDF link. No Summary box. No `children`.**
+- Absolute `bottom-8` centered scroll cue: `▼  CONTINUE` in `text-[10.5px]` muted, fades after 80px scroll.
 
-### 2 · Typographic Lock — 14.5px Body Standard
+**Props**
+```ts
+{ category: string; docId: string; title: string;
+  statement: string; metadata: MetadataItem[]; verifiedOn?: string }
+```
 
-Surgical downsizing pass. Every body paragraph drops to `text-[14.5px]`; every lead/intro to `text-[15px]` max; component-level fixes:
+API enforces minimalism — no lead, no children, no PDF, no summary.
 
-**Components**
-- `src/components/RecordHeader.tsx` — lead `text-[15px]` → `text-[14.5px]`
-- `src/components/AnchorHeader.tsx` — both leads `text-[15px]/[16px]` → `text-[14.5px]`
-- `src/components/UtilityHeader.tsx` — description `text-[15px]` → `text-[14.5px]`
-- `src/components/ProfileHeader.tsx` — lead `text-[15px]` → `text-[14.5px]`
-- `src/components/Callout.tsx` — `CalloutTitle` `text-[15px]` → `text-[14.5px]`
-- `src/components/PlaceholderSection.tsx` — `text-[15px]` → `text-[14.5px]`
-- `src/components/Logo.tsx` — wordmark `text-[15.5px]` → `text-[14.5px]` (header chrome)
-- `src/components/SiteHeader.tsx` — mobile nav `text-[15px]` → `text-[14.5px]`
+### 2 · Cut-and-dry hero copy (locked)
 
-**Pages with stray oversized prose**
-- `src/pages/Index.tsx` — hero lead `text-[16px]` → `text-[14.5px]`; the `text-[15px]` cluster (lines 166-180, 209+) → `text-[14.5px]`
-- `src/pages/About.tsx` — §6 callout `text-[15px]` → `text-[14.5px]`; mission block `text-[17px] md:text-[18px]` → `text-[15px]` (kept slightly larger for the single hero quote, still institutional)
-- `src/pages/Apply.tsx` — filing card `text-[16px]/[13px]` → `text-[14.5px]`
+| Page | category | docId | H1 | statement |
+|---|---|---|---|---|
+| `VerifiedVendors.tsx` | `REGISTRY` | `SS-01` | `REGISTRY` | "The current record of facilities and vendors meeting the Source Standard verification criteria." |
+| `Greenlist.tsx` | `REGISTRY · UPSTREAM` | `SS-02` | `UPSTREAM REGISTRY` | "Technical data and registration status for pharmaceutical compounding and manufacturing facilities." |
+| `MedicalAdvisory.tsx` | `GOVERNANCE` | `SS-GOV` | `GOVERNANCE` | "Independent medical and legal oversight responsible for framework maintenance and facility ratification." |
+| `Education.tsx` | `RESOURCE LIBRARY` | `SS-EDU` | `RESOURCE LIBRARY` | "Technical documentation, regulatory references, and foundational analysis regarding the industry." |
+| `HowItWorks.tsx` | `PROTOCOL` | `SS-PROT` | `VERIFICATION PROTOCOL` | "The active auditing requirements and clinical criteria utilized for third-party validation." |
+| `About.tsx` | `CHARTER` | `SS-ORG` | `ABOUT` | "The organizational structure and operational intent of the Source Standard framework." |
 
-### 3 · Kill remaining heavy black bars
+H1 rendered uppercase via `title-page` class (kept lowercase in source for accessibility — `text-transform: uppercase` in CSS).
 
-- `src/pages/ReportConcern.tsx` line 102 — `border-t-2 border-t-foreground` → `border border-border`
-- `src/pages/ForVendors.tsx` line 176 — `border-t-2 border-t-foreground bg-background` → wrap into a `BoardCiteFooter`-style band (`border-t border-border bg-surface-muted`)
+### 3 · Page wiring
 
-### 4 · Sub-page audit — confirm coverage
+Each page swaps its current hero `<section>` (and any right-rail Stats/Summary card living inside the hero) for one `<BriefingHero>`. Below-the-fold content (filter bar, registry table, board roster, jump bar, §-sections) is untouched and begins immediately after the 100vh band.
 
-Spot-check confirms every Library / FAQ / Analysis / Glossary / Legal / Protocol / About page already carries `RecordHeader` + `Breadcrumb` + `PageMeta` + `BoardSection` 12-col + `DocSignature` + MAB-style `bg-border gap-px` cross-reference grid. No further structural rebuilds required.
+Status-counts dashboards on `VerifiedVendors` / `Greenlist` (currently in the hero right rail) relocate to a flat `bg-border gap-px` 6-up strip directly below the 100vh band — preserves the data, off the briefing surface.
 
-Two pages still on `Section`/`SectionLabel` chrome (acceptable — they're transactional, not records): `Apply.tsx`, `ReportConcern.tsx`, `Contact.tsx`, `ForVendors.tsx`. These get the typographic lock + bar-removal pass only — full MAB conversion would require a copy rewrite outside the scope of this retouch.
+### 4 · Nomenclature: Education → Resource Library (label only)
 
-### 5 · Scroll restoration (confirmed in place)
+Routes/slugs unchanged. Pure string swap:
+- `SiteHeader.tsx` + `SiteFooter.tsx` nav
+- `Breadcrumb` strings on `Education*`, `Library*`, `Faq*` pages
+- `PageMeta` titles
+- `Index.tsx` references to "Education Hub"
 
-`<ScrollToTop />` mounted in `App.tsx` already fires `window.scrollTo(0,0)` on every `pathname` change. `useHashScroll` handles smooth `#anchor` jumps. No changes.
+### 5 · Already in place — no changes
+
+14.5px body lock, smart hide-on-scroll header, hairline borders, `ScrollToTop` + `useHashScroll` + `scroll-padding-top: 144px`. `RecordHeader` keeps its PDF affordance for Library / Legal / Foundational document pages — only `BriefingHero` omits it.
 
 ---
 
 ### Files touched
 
-**Modified primitives**
-- `src/components/SiteHeader.tsx` — hide/show on scroll, expose `useHeaderVisible()`, typographic fix
-- `src/components/DocJumpBar.tsx` — bind sticky offset to header visibility
-- `src/components/RecordHeader.tsx`, `AnchorHeader.tsx`, `UtilityHeader.tsx`, `ProfileHeader.tsx`, `Callout.tsx`, `PlaceholderSection.tsx`, `Logo.tsx` — 14.5px lock
+**New**
+- `src/components/BriefingHero.tsx`
 
-**Pages**
-- `src/pages/Index.tsx` — hero + cluster downsize
-- `src/pages/About.tsx` — §6 + mission downsize
-- `src/pages/Apply.tsx` — filing card downsize
-- `src/pages/ReportConcern.tsx` — kill black bar
-- `src/pages/ForVendors.tsx` — kill black bar, normalize citation footer
+**Hero swap**
+- `src/pages/VerifiedVendors.tsx`
+- `src/pages/Greenlist.tsx`
+- `src/pages/MedicalAdvisory.tsx`
+- `src/pages/Education.tsx`
+- `src/pages/HowItWorks.tsx`
+- `src/pages/About.tsx`
+
+**Nomenclature rename (label only)**
+- `src/components/SiteHeader.tsx`, `SiteFooter.tsx`
+- `src/pages/Index.tsx`
+- `Education.tsx`, `EducationBasics.tsx`, `EducationGuides.tsx`, `EducationQuestions.tsx`
+- `FAQ.tsx`, `FaqClinicalSafety.tsx`, `FaqLegalRegulatory.tsx`, `FaqVerificationProcess.tsx`
+- `Library*.tsx` (12 files — `Breadcrumb` + `PageMeta` strings only)
 
 ### What stays the same
 
-All routes, all written copy, all data, all MAB DNA layout, `BoardSection` / `RecordHeader` / `DocSignature` / `Breadcrumb` / `PageMeta` / `DocJumpBar` / `Footnote` / `GlossaryTerm` APIs, design tokens, dark mode, registry filtering, `ScrollToTop` + `useHashScroll`. Strictly typographic + chrome alignment + one new scroll behavior.
+All routes, all slugs, all data, all body copy below the hero, every MAB DNA section, registry filtering / sorting / pagination, `RecordHeader` (kept on document pages), `DocJumpBar`, `DocSignature`, `Breadcrumb`, `PageMeta`, design tokens, dark mode, smart header, scroll restoration, smooth anchors. One new primitive + six hero swaps + a label rename.
 
