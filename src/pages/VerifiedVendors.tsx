@@ -540,32 +540,6 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
-      {/* Bridge to vendor application */}
-      <section className="border-t border-border bg-background">
-        <div className="container-wide py-12 md:py-14">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-            <div className="md:col-span-8">
-              <p className="text-[13px] font-semibold text-foreground mb-2">
-                For vendors seeking public verification
-              </p>
-              <p className="text-[13.5px] text-muted-foreground leading-[1.7] max-w-[60ch]">
-                Verification is recorded only after documentation review is complete.
-              </p>
-            </div>
-            <div className="md:col-span-4 md:text-right">
-              <Link
-                to="/apply"
-                className="text-[13px] font-medium text-foreground hover:text-primary"
-              >
-                Begin Verification →
-              </Link>
-            </div>
-          </div>
-          <p className="mt-10 text-[12px] text-muted-foreground/80 leading-relaxed max-w-[80ch]">
-            Directory inclusion does not constitute medical advice, product endorsement, or a guarantee of clinical outcome. Verification, when published, reflects documentation reviewed at the time of assessment.
-          </p>
-        </div>
-      </section>
     </>
   );
 };
