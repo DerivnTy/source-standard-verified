@@ -438,7 +438,7 @@ const Education = () => {
                     {ov.title ?? m.title}
                   </span>{" "}
                   <span className="text-muted-foreground">
-                   , {ov.description ?? m.description}
+                   {ov.description ?? m.description}
                   </span>
                 </li>
               );
