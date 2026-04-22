@@ -324,7 +324,7 @@ const Greenlist = () => {
                 <option value={ALL}>All source types</option>
                 {CATEGORY_ORDER.map((c) => (
                   <option key={c} value={c}>
-                    {c}
+                    {CATEGORY_LABEL[c]}
                   </option>
                 ))}
               </select>
