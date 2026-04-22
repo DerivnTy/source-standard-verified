@@ -86,7 +86,7 @@ const Field = ({
   return (
     <div
       className={`relative pl-3 py-2 ${
-        span ? "md:col-span-2 lg:col-span-3" : ""
+        span ? "md:col-span-2 lg:col-span-4" : ""
       }`}
     >
       <span
@@ -245,7 +245,7 @@ const VendorProfile = () => {
 
             {/* Compact record grid */}
             <div className="px-6 md:px-8 py-5">
-              <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-1">
+              <dl className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-1">
                 <Field
                   label="Status"
                   value={VENDOR_STATUS_LABEL[status]}
