@@ -76,7 +76,7 @@ const FulfillmentChip = ({ kind }: { kind: VendorFulfillment }) => {
   return (
     <span
       title={VENDOR_FULFILLMENT_DESC[kind]}
-      className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded-[2px] border border-border/70 bg-surface-muted/40 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted-foreground"
+      className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded-[2px] border border-border/70 bg-surface-muted/40 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted-foreground whitespace-nowrap"
     >
       <Icon className="h-2.5 w-2.5" aria-hidden />
       {VENDOR_FULFILLMENT_LABEL[kind]}
