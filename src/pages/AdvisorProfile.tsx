@@ -44,7 +44,7 @@ const AdvisorProfile = () => {
         eyebrow={`Medical Advisory Board · ${member.boardTitle}`}
         title={`${member.name}, ${member.credentials}`}
         identity={
-          <p className="text-[13px] text-muted-foreground">
+          <p className="t-body-sm text-muted-foreground">
             {member.specialization} · {member.yearsPracticing} practicing · {member.jurisdiction}
           </p>
         }
@@ -78,8 +78,8 @@ const AdvisorProfile = () => {
                   height={256}
                   className="h-40 w-40 rounded-[2px] object-cover border border-border bg-surface-muted mb-5"
                 />
-                <h2 className="text-[18px] font-semibold tracking-tight text-foreground">{member.name}</h2>
-                <p className="mt-1 text-[13px] text-muted-foreground">{member.credentials}</p>
+                <h2 className="t-h4 text-foreground">{member.name}</h2>
+                <p className="mt-1 t-body-sm text-muted-foreground">{member.credentials}</p>
                 <dl className="mt-5 pt-5 border-t border-border space-y-3 t-utility-xs">
                   <div className="flex justify-between gap-4">
                     <dt className="meta-label text-muted-foreground">Board role</dt>
@@ -205,7 +205,7 @@ const AdvisorProfile = () => {
               </h2>
             </div>
             <div className="md:col-span-8 border-t border-border pt-6">
-              <blockquote className="t-body-md md:text-[17px] text-foreground leading-relaxed font-light italic border-l-2 border-primary pl-6">
+              <blockquote className="t-body-md  text-foreground leading-relaxed font-light italic border-l-2 border-primary pl-6">
                 {member.philosophy}
               </blockquote>
             </div>

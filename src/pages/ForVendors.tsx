@@ -81,10 +81,10 @@ const ForVendors = () => {
                     <li key={d.t} className="grid grid-cols-12 px-4 py-4">
                       <div className="col-span-2 meta">§1.{i + 1}</div>
                       <div className="col-span-4">
-                        <p className="text-[13px] font-semibold text-foreground">{d.t}</p>
+                        <p className="t-body-sm font-semibold text-foreground">{d.t}</p>
                       </div>
                       <div className="col-span-6">
-                        <p className="text-[13px] text-muted-foreground leading-relaxed">{d.d}</p>
+                        <p className="t-body-sm text-muted-foreground">{d.d}</p>
                       </div>
                     </li>
                   ))}
@@ -106,7 +106,7 @@ const ForVendors = () => {
                   {docs.map((d, i) => (
                     <li key={d.t} className="flex items-start gap-3 px-4 py-3">
                       <span className="meta mt-0.5">§1.{i + 1}</span>
-                      <span className="text-[13px] text-foreground">{d.t}</span>
+                      <span className="t-body-sm text-foreground">{d.t}</span>
                     </li>
                   ))}
                 </ul>
@@ -157,7 +157,7 @@ const ForVendors = () => {
                 <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-1.5">
                   Administrative notice · SS-VENDOR-STD-2026.01 · §3
                 </p>
-                <p className="text-[13px] text-foreground leading-relaxed">
+                <p className="t-body-sm text-foreground">
                   Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake does not constitute forensic review. Submitted materials are entered into the controlled audit file and examined under the verification protocol prior to any determination of standing.
                 </p>
               </div>

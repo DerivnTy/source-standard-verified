@@ -99,7 +99,7 @@ const Apply = () => {
           <div className="max-w-3xl mx-auto text-center">
             <p className="eyebrow mb-4">Apply for Verification</p>
             <h1 className="title-page text-foreground">Apply for Verification</h1>
-            <p className="mt-5 t-body-md md:text-[17px] text-muted-foreground leading-[1.7]">
+            <p className="mt-5 t-body-md  text-muted-foreground leading-[1.7]">
               Submit your basic business information to open a Source Standard review file.
               Once intake is acknowledged, your team will receive an email invitation to continue
               onboarding and upload documentation through our internal verification system.
@@ -179,7 +179,7 @@ const Apply = () => {
                 <form onSubmit={onSubmit} className="space-y-10">
                   {/* Business profile */}
                   <fieldset className="space-y-5">
-                    <legend className="text-[13px] font-semibold text-foreground mb-1">
+                    <legend className="t-body-sm font-semibold text-foreground mb-1">
                       Business profile
                     </legend>
                     <div className="grid sm:grid-cols-2 gap-5">
@@ -200,7 +200,7 @@ const Apply = () => {
 
                   {/* Operating scope */}
                   <fieldset className="space-y-5">
-                    <legend className="text-[13px] font-semibold text-foreground mb-1">
+                    <legend className="t-body-sm font-semibold text-foreground mb-1">
                       Operating scope
                     </legend>
                     <div className="grid sm:grid-cols-2 gap-5">
@@ -231,7 +231,7 @@ const Apply = () => {
 
                   {/* Administrative contact */}
                   <fieldset className="space-y-5">
-                    <legend className="text-[13px] font-semibold text-foreground mb-1">
+                    <legend className="t-body-sm font-semibold text-foreground mb-1">
                       Administrative contact
                     </legend>
                     <div className="grid sm:grid-cols-2 gap-5">
@@ -267,12 +267,12 @@ const Apply = () => {
             ) : (
               /* 7 · Filed confirmation */
               <div className="text-center space-y-4 py-8">
-                <h3 className="text-[22px] font-semibold text-foreground">Intake received.</h3>
+                <h3 className="t-h3 font-semibold text-foreground">Intake received.</h3>
                 <p className="t-body-sm text-muted-foreground leading-[1.7] max-w-xl mx-auto">
                   Your file has been opened. If accepted for onboarding, your team will receive
                   an email invitation with secure access to continue onboarding.
                 </p>
-                <p className="text-[13px] text-muted-foreground pt-2">
+                <p className="t-body-sm text-muted-foreground pt-2">
                   Reference: <span className="text-foreground font-medium">{reference}</span>
                 </p>
                 <div className="pt-2">
@@ -289,7 +289,7 @@ const Apply = () => {
       {/* 8 · Footer */}
       <section className="bg-background">
         <div className="container-wide py-10">
-          <p className="text-center text-[13px] text-muted-foreground">
+          <p className="text-center t-body-sm text-muted-foreground">
             <Link to="/for-vendors" className="hover:text-foreground underline-offset-4 hover:underline">
               Vendor submission standard →
             </Link>

@@ -259,7 +259,7 @@ const VerifiedVendors = () => {
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by status"
               >
                 <option value={ALL}>All statuses</option>
@@ -273,7 +273,7 @@ const VerifiedVendors = () => {
               <select
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by state"
                 disabled={states.length === 0}
               >
@@ -286,7 +286,7 @@ const VerifiedVendors = () => {
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by city"
                 disabled={cities.length === 0}
               >
@@ -299,7 +299,7 @@ const VerifiedVendors = () => {
               <select
                 value={focus}
                 onChange={(e) => setFocus(e.target.value)}
-                className="h-9 px-3 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
+                className="h-9 px-3 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border-strong focus:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus:border-primary"
                 aria-label="Filter by clinical focus"
                 disabled={focusOptions.length === 0}
               >
@@ -438,7 +438,7 @@ const VerifiedVendors = () => {
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md t-body-sm text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     aria-label="Previous page"
                   >
                     <ChevronLeft className="h-3 w-3" /> Prev
@@ -463,7 +463,7 @@ const VerifiedVendors = () => {
                           key={p}
                           onClick={() => setPage(p)}
                           aria-current={p === currentPage ? "page" : undefined}
-                          className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
+                          className={`h-9 min-w-9 px-3 rounded-md t-body-sm tabular-nums ${
                             p === currentPage
                               ? "bg-primary text-primary-foreground"
                               : "border border-border/60 text-foreground hover:bg-surface-muted/60"
@@ -477,7 +477,7 @@ const VerifiedVendors = () => {
                   <button
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md t-body-sm text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     aria-label="Next page"
                   >
                     Next <ChevronRight className="h-3 w-3" />
@@ -532,7 +532,7 @@ const VerifiedVendors = () => {
               },
             ].map((c) => (
               <div key={c.t}>
-                <p className="text-[13px] font-semibold text-foreground mb-2">{c.t}</p>
+                <p className="t-body-sm font-semibold text-foreground mb-2">{c.t}</p>
                 <p className="text-[13.5px] text-muted-foreground leading-[1.7]">{c.b}</p>
               </div>
             ))}

@@ -31,7 +31,7 @@ export const FootnoteList = ({
           <li
             key={item.n}
             id={`fn-${item.n}`}
-            className="grid grid-cols-12 gap-3 text-[13px] text-muted-foreground leading-relaxed scroll-mt-20"
+            className="grid grid-cols-12 gap-3 t-body-sm text-muted-foreground scroll-mt-20"
           >
             <span className="col-span-1 font-mono t-utility-xs text-primary tabular-nums pt-0.5">
               [{item.n}]

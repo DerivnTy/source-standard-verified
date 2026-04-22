@@ -70,7 +70,7 @@ const LibraryEntry = () => {
           <span className="text-foreground font-medium">Here's what it will cover: </span>
           {entry.summary}
         </p>
-        <p className="text-[13px] font-mono text-muted-foreground">
+        <p className="t-body-sm font-mono text-muted-foreground">
           Reference ID: <span className="text-foreground">{entry.id}</span>
         </p>
       </ArticleSection>

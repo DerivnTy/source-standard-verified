@@ -109,7 +109,7 @@ const Accountability = () => (
     >
       <Callout tone="warning" eyebrow={`Disclosure window · ${DOC_ID} · §2`}>
         <div className="flex items-baseline gap-3">
-          <span className="font-mono text-[28px] md:text-[32px] font-semibold tabular-nums text-foreground leading-none">
+          <span className="font-mono t-section-title-md font-semibold tabular-nums text-foreground leading-none">
             72h
           </span>
           <span className="t-body-sm text-muted-foreground">

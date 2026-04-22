@@ -74,7 +74,7 @@ const Row = ({
       </dt>
       <dd
         className={`mt-1 t-body-sm text-foreground/90 leading-[1.55] ${
-          mono ? "font-mono text-[13px]" : ""
+          mono ? "font-mono t-body-sm" : ""
         }`}
       >
         {Array.isArray(value) ? (value as string[]).join(", ") : value}
@@ -159,10 +159,10 @@ const GreenlistProfile = () => {
               >
                 ← Back to Greenlist
               </Link>
-              <h1 className="text-[28px] md:text-[32px] font-semibold tracking-tight text-foreground leading-tight">
+              <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-tight">
                 {entry.name}
               </h1>
-              <div className="mt-2 flex items-center gap-2 flex-wrap text-[13px] text-muted-foreground">
+              <div className="mt-2 flex items-center gap-2 flex-wrap t-body-sm text-muted-foreground">
                 {isAlert ? (
                   <span className="inline-flex items-center gap-1.5 t-utility-xs uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]">
                     <span
@@ -249,7 +249,7 @@ const GreenlistProfile = () => {
                 </dt>
                 <dd className="mt-2">
                   {!hasScope ? (
-                    <p className="text-[13px] text-muted-foreground leading-[1.6]">
+                    <p className="t-body-sm text-muted-foreground leading-[1.6]">
                       No published capability scope is currently on file for this
                       facility.
                     </p>
@@ -306,7 +306,7 @@ const GreenlistProfile = () => {
                     {alert!.proof.length > 0 && (
                       <ul className="mt-3 space-y-1">
                         {alert!.proof.map((pr) => (
-                          <li key={pr.url} className="text-[13px]">
+                          <li key={pr.url} className="t-body-sm">
                             <a
                               href={pr.url}
                               target="_blank"

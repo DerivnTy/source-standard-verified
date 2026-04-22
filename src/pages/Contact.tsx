@@ -56,7 +56,7 @@ const Contact = () => {
                   ].map((c) => (
                     <div key={c.l} className="px-5 py-3.5">
                       <p className="meta-label text-foreground">{c.l}</p>
-                      <p className="mt-1 text-[13px] text-foreground tabular-nums">{c.v}</p>
+                      <p className="mt-1 t-body-sm text-foreground tabular-nums">{c.v}</p>
                     </div>
                   ))}
                 </div>
@@ -105,7 +105,7 @@ const Contact = () => {
                 <Button
                   type="submit"
                   disabled={submitting}
-                  className="bg-foreground hover:bg-foreground/90 text-background h-10 px-6 text-[13px] font-semibold"
+                  className="bg-foreground hover:bg-foreground/90 text-background h-10 px-6 t-body-sm font-semibold"
                 >
                   {submitting ? "Sending…" : "Send message"}
                 </Button>

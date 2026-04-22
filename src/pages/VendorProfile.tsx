@@ -74,7 +74,7 @@ const Row = ({
       </dt>
       <dd
         className={`mt-1 t-body-sm text-foreground/90 leading-[1.55] ${
-          mono ? "font-mono text-[13px]" : ""
+          mono ? "font-mono t-body-sm" : ""
         }`}
       >
         {Array.isArray(value) ? (value as string[]).join(", ") : value}
@@ -168,10 +168,10 @@ const VendorProfile = () => {
               >
                 ← Back to Directory
               </Link>
-              <h1 className="text-[28px] md:text-[32px] font-semibold tracking-tight text-foreground leading-tight">
+              <h1 className="t-section-title-md font-semibold tracking-tight text-foreground leading-tight">
                 {vendor.name}
               </h1>
-              <div className="mt-2 flex items-center gap-2 flex-wrap text-[13px] text-muted-foreground">
+              <div className="mt-2 flex items-center gap-2 flex-wrap t-body-sm text-muted-foreground">
                 <StatusBadge status={status} size="md" />
                 <span className="text-border">·</span>
                 <span>{location}</span>
@@ -245,7 +245,7 @@ const VendorProfile = () => {
 
               {!isVerified && (
                 <div className="md:col-span-2 py-3 border-b border-border/50">
-                  <p className="text-[13px] text-muted-foreground leading-[1.6]">
+                  <p className="t-body-sm text-muted-foreground leading-[1.6]">
                     {NON_VERIFIED_NOTE[status]}
                   </p>
                 </div>
@@ -258,7 +258,7 @@ const VendorProfile = () => {
                 </dt>
                 <dd className="mt-2">
                   {!isVerified && (
-                    <p className="text-[13px] text-muted-foreground leading-[1.6]">
+                    <p className="t-body-sm text-muted-foreground leading-[1.6]">
                       No verified drug scope is currently published.
                     </p>
                   )}
@@ -324,7 +324,7 @@ const VendorProfile = () => {
                     !hasGroups &&
                     !hasFlatCompounds &&
                     !hasCategoryFallback && (
-                      <p className="text-[13px] text-muted-foreground leading-[1.6]">
+                      <p className="t-body-sm text-muted-foreground leading-[1.6]">
                         No verified drug scope is currently published.
                       </p>
                     )}

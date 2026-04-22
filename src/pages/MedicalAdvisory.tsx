@@ -147,7 +147,7 @@ const MedicalAdvisory = () => {
                   <ol className="divide-y divide-border/60">
                     {ROLE_FUNCTIONS.map((s) => (
                       <li key={s.n} className="grid grid-cols-12 gap-4 py-5 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 text-[13px] font-mono text-muted-foreground">{s.n}</div>
+                        <div className="col-span-2 t-body-sm font-mono text-muted-foreground">{s.n}</div>
                         <div className="col-span-10">
                           <p className="t-body-sm font-semibold text-foreground">{s.t}</p>
                           <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{s.d}</p>
@@ -185,7 +185,7 @@ const MedicalAdvisory = () => {
                           className="h-20 w-20 rounded-[2px] object-cover border border-border bg-surface-muted shrink-0"
                         />
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-[17px] font-semibold tracking-tight text-foreground leading-snug">
+                          <h3 className="t-body-md font-semibold tracking-tight text-foreground leading-snug">
                             {m.name}
                             <span className="text-muted-foreground font-normal">, {m.credentials}</span>
                           </h3>
@@ -202,7 +202,7 @@ const MedicalAdvisory = () => {
                       <div className="mt-5 flex justify-end">
                         <Link
                           to={`/medical-advisory/${m.slug}`}
-                          className="text-[13px] text-foreground hover:text-primary transition-colors"
+                          className="t-body-sm text-foreground hover:text-primary transition-colors"
                         >
                           View profile →
                         </Link>
@@ -286,7 +286,7 @@ const MedicalAdvisory = () => {
                       <p className="col-span-12 md:col-span-7 t-body-sm text-muted-foreground leading-relaxed">
                         {b.description}
                       </p>
-                      <span className="col-span-12 md:col-span-1 text-[13px] text-muted-foreground md:text-right group-hover:text-primary transition-colors">
+                      <span className="col-span-12 md:col-span-1 t-body-sm text-muted-foreground md:text-right group-hover:text-primary transition-colors">
                         →
                       </span>
                     </Link>

@@ -72,7 +72,7 @@ const LibraryReferenceDosingRanges = () => {
             >
               <span className="t-body-sm text-foreground pr-3">{row.category}</span>
               <span className="t-body-sm text-muted-foreground pr-3">{row.frequency}</span>
-              <span className="font-mono text-[13px] text-foreground tabular-nums text-right">
+              <span className="font-mono t-body-sm text-foreground tabular-nums text-right">
                 {row.range}
               </span>
             </div>

@@ -120,7 +120,7 @@ const About = () => {
         <div className="container-wide space-section-tight">
           <div className="mx-auto max-w-2xl text-center">
             <p className="meta-mono mb-6">Operating principle</p>
-            <p className="text-[20px] md:text-[22px] font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
+            <p className="t-h3 font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
               "If documentation is present and supports the published status, that status can be shown
               publicly. If it is not, it cannot."
             </p>
@@ -210,7 +210,7 @@ const About = () => {
         <div className="container-wide space-section-tight">
           <div className="mx-auto max-w-2xl text-center">
             <p className="meta-mono mb-6">Mission</p>
-            <p className="text-[20px] md:text-[22px] font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
+            <p className="t-h3 font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
               To bring greater clarity, consistency, and transparency to vendor sourcing and
               verification in peptide, TRT, and hormone optimization markets.
             </p>
@@ -238,7 +238,7 @@ const About = () => {
                 <p className="t-body-sm font-medium text-foreground group-hover:text-primary">
                   {d.label} <span className="text-primary">→</span>
                 </p>
-                <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{d.desc}</p>
+                <p className="mt-1 t-body-sm text-muted-foreground">{d.desc}</p>
               </Link>
             </li>
           ))}

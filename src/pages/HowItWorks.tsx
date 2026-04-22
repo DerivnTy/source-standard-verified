@@ -238,10 +238,10 @@ const HowItWorks = () => {
                 <span className="h-card">{s.t}</span>
               </div>
               <p className="t-body-sm text-foreground leading-relaxed">{s.meaning}</p>
-              <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
+              <p className="mt-2 t-body-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Tells:</span> {s.tells}
               </p>
-              <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
+              <p className="mt-1 t-body-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Does not imply:</span> {s.notImply}
               </p>
             </li>

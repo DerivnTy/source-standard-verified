@@ -19,7 +19,7 @@ const NotFound = () => {
           </p>
           <Link
             to="/"
-            className="inline-flex items-center gap-1 text-[13px] font-semibold uppercase tracking-[0.12em] text-primary hover:text-primary-hover"
+            className="inline-flex items-center gap-1 t-body-sm font-semibold uppercase tracking-[0.12em] text-primary hover:text-primary-hover"
           >
             ← Return home
           </Link>
