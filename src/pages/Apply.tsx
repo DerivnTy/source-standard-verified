@@ -4,6 +4,8 @@ import { UtilityHeader } from "@/components/UtilityHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const checklist = [
   "Business licenses (state and federal registrations for your operating entity)",
@@ -38,6 +40,17 @@ const Apply = () => {
 
   return (
     <>
+      <PageMeta
+        title="Apply for Verification"
+        description="Vendor intake for the Source Standard verification framework. Submit licensing, supplier disclosures, and supporting records."
+      />
+      <Breadcrumb
+        items={[
+          { label: "Vendors", to: "/for-vendors" },
+          { label: "Apply" },
+        ]}
+      />
+
       <UtilityHeader
         eyebrow="Form SS-INTAKE-01 · Step 1 of 2"
         title="Step 1: Registry Initialization."

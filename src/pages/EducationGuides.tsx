@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { UtilityHeader } from "@/components/UtilityHeader";
 import { Section } from "@/components/Section";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import {
   ENTRY_STATUS_LABEL,
   EntryStatus,
@@ -42,6 +44,17 @@ const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
 const EducationGuides = () => {
   return (
     <>
+      <PageMeta
+        title="Clinical & Audit Guides"
+        description="Operational guides for interpreting CoAs, sterile preparation, aseptic technique, and reference dosing."
+      />
+      <Breadcrumb
+        items={[
+          { label: "Education", to: "/education" },
+          { label: "Guides" },
+        ]}
+      />
+
       <UtilityHeader
         backHref="/education"
         backLabel="Back to Learn"

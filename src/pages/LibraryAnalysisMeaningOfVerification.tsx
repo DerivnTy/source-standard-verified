@@ -29,6 +29,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
           { label: "Jurisdiction", value: "United States" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
+        verifiedOn="04 / 21 / 2026"
       />
 
       <BoardSection n={1} category="Definition" title="Defining the standard.">

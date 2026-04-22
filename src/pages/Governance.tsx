@@ -2,6 +2,8 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { DocLayout, DocSection } from "@/components/DocLayout";
 import { Callout } from "@/components/Callout";
 import { authorities } from "@/data/authorities";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const AUTHORITY_REFERENCE_OVERRIDES: Record<string, string> = {
   FDA: "Section 501(a)(2)(B) of the FD&C Act (21 U.S.C. § 351(a)(2)(B)); 503A/503B registration and establishment records; recall and warning-letter history.",
@@ -21,6 +23,17 @@ const waypoints = [
 const Governance = () => {
   return (
     <>
+      <PageMeta
+        title="Regulatory Alignment & Oversight"
+        description="Source Standard governance: statutory anchors, clinical advisory oversight, and the institutional posture of organizational neutrality."
+      />
+      <Breadcrumb
+        items={[
+          { label: "About", to: "/about" },
+          { label: "Governance" },
+        ]}
+      />
+
       <RecordHeader
         metadata={[
           { label: "Doc", value: "SS-GOV-2026.01" },

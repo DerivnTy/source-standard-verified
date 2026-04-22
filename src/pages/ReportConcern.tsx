@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { Section, SectionLabel } from "@/components/Section";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const inScope = [
   "Sourcing concerns — claimed upstream supplier does not match documented chain-of-custody records on file.",
@@ -26,6 +28,17 @@ const lifecycle = [
 
 const ReportConcern = () => (
   <>
+    <PageMeta
+      title="Report a Concern"
+      description="Submit a credible concern regarding a listed entity, sourcing claim, or unauthorized attribution."
+    />
+    <Breadcrumb
+      items={[
+      { label: "Registry", to: "/verified-vendors" },
+      { label: "Report a Concern" },
+      ]}
+    />
+
     <RecordHeader
       metadata={[
         { label: "Doc", value: "SS-REPORT-2026.01" },

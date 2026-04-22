@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const docs = [
   {
@@ -34,6 +36,17 @@ const issued = [
 const ForVendors = () => {
   return (
     <>
+      <PageMeta
+        title="For Vendors"
+        description="How clinics, pharmacies, and medical vendors enter the Source Standard verification framework."
+      />
+      <Breadcrumb
+        items={[
+          { label: "Vendors" },
+          { label: "Overview" },
+        ]}
+      />
+
       <RecordHeader
         metadata={[
           { label: "Doc", value: "SS-VENDOR-STD-2026.01" },

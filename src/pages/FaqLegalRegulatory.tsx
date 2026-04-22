@@ -52,6 +52,7 @@ const FaqLegalRegulatory = () => {
           { label: "Jurisdiction", value: "United States (Federal)" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
+        verifiedOn="04 / 21 / 2026"
       />
 
       <BoardSection

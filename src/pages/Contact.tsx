@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const Contact = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -21,6 +23,17 @@ const Contact = () => {
 
   return (
     <>
+      <PageMeta
+        title="Contact"
+        description="Reach Source Standard for verification inquiries, partnership questions, or general correspondence."
+      />
+      <Breadcrumb
+        items={[
+          { label: "Vendors", to: "/for-vendors" },
+          { label: "Contact" },
+        ]}
+      />
+
       <UtilityHeader
         eyebrow="Contact"
         title="Reach Source Standard"

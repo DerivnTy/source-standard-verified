@@ -2,6 +2,8 @@ import { RecordHeader } from "@/components/RecordHeader";
 import { DocLayout, DocSection } from "@/components/DocLayout";
 import { Callout, CalloutTitle } from "@/components/Callout";
 import { RelatedDocs } from "@/components/RelatedDocs";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const DOC_ID = "SS-DISCLAIMER-2026.01";
 
@@ -40,6 +42,17 @@ const waypoints = [
 
 const VerificationDisclaimer = () => (
   <>
+    <PageMeta
+      title="Verification Disclaimer"
+      description="Scope of a Source Standard determination — what verification covers, what it does not cover, and the institutional boundaries of the auditing body."
+    />
+    <Breadcrumb
+      items={[
+      { label: "Legal" },
+      { label: "Disclaimer" },
+      ]}
+    />
+
     <RecordHeader
       metadata={[
         { label: "Doc", value: DOC_ID },

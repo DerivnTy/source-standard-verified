@@ -69,6 +69,7 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
           { label: "Jurisdiction", value: "United States" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
+        verifiedOn="04 / 21 / 2026"
       />
 
       <BoardSection n={1} category="Premise" title="The informed consumer.">

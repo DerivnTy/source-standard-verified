@@ -29,6 +29,7 @@ const LibraryEndocrinologicalContext = () => {
           { label: "Jurisdiction", value: "United States" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
+        verifiedOn="04 / 21 / 2026"
       />
 
       <BoardSection n={1} category="Endocrine axis" title="The HPG feedback loop.">

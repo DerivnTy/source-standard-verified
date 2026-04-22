@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SiteLayout } from "@/components/SiteLayout";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import HowItWorks from "./pages/HowItWorks.tsx";
@@ -58,6 +59,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path="/" element={<Index />} />

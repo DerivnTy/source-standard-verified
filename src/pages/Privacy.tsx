@@ -1,6 +1,8 @@
 import { RecordHeader } from "@/components/RecordHeader";
 import { DocLayout, DocSection } from "@/components/DocLayout";
 import { RelatedDocs } from "@/components/RelatedDocs";
+import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 const DOC_ID = "SS-PRIVACY-2026.01";
 
@@ -57,6 +59,17 @@ const waypoints = [
 
 const Privacy = () => (
   <>
+    <PageMeta
+      title="Privacy Policy"
+      description="How Source Standard collects, partitions, retains, and protects information across the public registry and audit file."
+    />
+    <Breadcrumb
+      items={[
+      { label: "Legal" },
+      { label: "Privacy" },
+      ]}
+    />
+
     <RecordHeader
       metadata={[
         { label: "Doc", value: DOC_ID },

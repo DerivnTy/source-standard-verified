@@ -52,6 +52,7 @@ const FaqClinicalSafety = () => {
           { label: "Jurisdiction", value: "United States" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
+        verifiedOn="04 / 21 / 2026"
       />
 
       <BoardSection
