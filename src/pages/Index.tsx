@@ -316,7 +316,7 @@ const Index = () => {
 
       {/* §7 — Governance & standards */}
       <section aria-labelledby="governance" className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
+        <div className="page-shell section-pad pb-0">
           <div className="mx-auto w-standard">
             <Eyebrow>Governance &amp; standards</Eyebrow>
             <h2 id="governance" className="sr-only">Governance and standards</h2>
