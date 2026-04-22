@@ -71,7 +71,7 @@ const LibraryInterpretingCoAs = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/dual-layer-difference", label: "The Dual-Layer Difference (SS-SERIES-003)" }}
-        citation={`Source Standard, Audit Protocols, Interpreting CoAs, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Audit Protocols · Interpreting CoAs, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

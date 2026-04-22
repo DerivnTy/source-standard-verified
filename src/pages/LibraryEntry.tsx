@@ -39,7 +39,7 @@ const LibraryEntry = () => {
             </Link>
           </p>
         </ArticleSection>
-        <ArticleFooter citation="Source Standard, Library, entry not found." />
+        <ArticleFooter citation="Source Standard · Library · entry not found." />
       </>
     );
   }
@@ -102,7 +102,7 @@ const LibraryEntry = () => {
 
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Reference Library" }}
-        citation={`Source Standard, Library, ${entry.title}, ${entry.id}.`}
+        citation={`Source Standard · Library, ${entry.title}, ${entry.id}.`}
       />
     </>
   );

@@ -72,7 +72,7 @@ const LibraryEndocrinologicalContext = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/reference-dosing-ranges", label: "Reference Dosing Ranges (SS-GUIDE-004)" }}
-        citation={`Source Standard, Clinical Guide, Endocrinological Context, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Guide · Endocrinological Context, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

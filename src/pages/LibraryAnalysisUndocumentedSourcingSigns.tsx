@@ -75,7 +75,7 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Education Hub" }}
         next={{ to: "/directory", label: "Search the Verified Registry" }}
-        citation={`Source Standard, Clinical Analysis, Warning Signs of Undocumented Sourcing, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Analysis · Warning Signs of Undocumented Sourcing, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

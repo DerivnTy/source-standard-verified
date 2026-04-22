@@ -87,7 +87,7 @@ const LibraryWhatArePeptides = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/interpreting-coas", label: "Interpreting CoAs (SS-SERIES-002)" }}
-        citation={`Source Standard, Foundational Series, What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Foundational Series · What Are Peptides?, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

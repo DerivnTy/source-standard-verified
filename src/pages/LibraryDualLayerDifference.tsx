@@ -67,7 +67,7 @@ const LibraryDualLayerDifference = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Clinical Library" }}
         next={{ to: "/library/aseptic-protocols", label: "Clinical Handling & Aseptic Protocols (SS-GUIDE-001)" }}
-        citation={`Source Standard, Foundational Philosophy, The Dual-Layer Difference, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Foundational Philosophy · The Dual-Layer Difference, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

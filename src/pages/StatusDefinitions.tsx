@@ -106,7 +106,7 @@ const STATUS_COPY: Record<
     tells:
       "The upstream source is documented, traceable, and operates within recognized regulatory categories as a manufacturing anchor of the supply chain.",
     notImply:
-      "Does not imply contract, endorsement, or affiliation with Source Standard, and does not certify every product manufactured by the source.",
+      "Does not imply contract, endorsement, or affiliation with Source Standard · and does not certify every product manufactured by the source.",
     assigned: "Issued upon confirmation of registration, licensing category, and operating record.",
     changes: "Revised upon lapse of registration, withdrawal of licensing, or removal of the source by the relevant regulator.",
   },
@@ -287,7 +287,7 @@ const StatusDefinitions = () => (
       </ul>
     </BoardSection>
 
-    <BoardCiteFooter citation={`Source Standard, Glossary of Regulatory Standings, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
+    <BoardCiteFooter citation={`Source Standard · Glossary of Regulatory Standings, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
   </>
 );
 

@@ -71,7 +71,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
       <ArticleFooter
         back={{ to: "/education", label: "Back to Education Hub" }}
         next={{ to: "/library/analysis/undocumented-sourcing-signs", label: "Warning Signs of Undocumented Sourcing (SS-ANALYSIS-006)" }}
-        citation={`Source Standard, Clinical Analysis, Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Clinical Analysis · Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );
