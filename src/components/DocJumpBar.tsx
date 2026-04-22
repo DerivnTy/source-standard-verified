@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHeaderVisible } from "./SiteHeader";
 
 export type JumpWaypoint = { id: string; number: string; label: string };
 
@@ -10,6 +11,7 @@ export type JumpWaypoint = { id: string; number: string; label: string };
  */
 export const DocJumpBar = ({ waypoints }: { waypoints: JumpWaypoint[] }) => {
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
+  const headerVisible = useHeaderVisible();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,7 +39,9 @@ export const DocJumpBar = ({ waypoints }: { waypoints: JumpWaypoint[] }) => {
   return (
     <nav
       aria-label="Document contents"
-      className="sticky top-[64px] z-30 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      className={`sticky z-30 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 transition-[top] duration-200 ease-out ${
+        headerVisible ? "top-[64px]" : "top-0"
+      }`}
     >
       <div className="container-wide flex items-center gap-4 py-2.5 overflow-x-auto">
         <span className="meta-mono shrink-0 text-foreground/70">Contents ·</span>

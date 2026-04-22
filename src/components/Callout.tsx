@@ -52,5 +52,5 @@ export const Callout = ({
 };
 
 export const CalloutTitle = ({ children }: { children: ReactNode }) => (
-  <p className="text-[15px] font-semibold text-foreground mb-2">{children}</p>
+  <p className="text-[14.5px] font-semibold text-foreground mb-2">{children}</p>
 );

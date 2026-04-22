@@ -45,7 +45,7 @@ export const RecordHeader = ({
             {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
             <h1 className="title-page text-foreground max-w-3xl">{title}</h1>
             {lead && (
-              <p className="mt-3 max-w-[58ch] text-[15px] text-muted-foreground leading-[1.65]">
+              <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.65]">
                 {lead}
               </p>
             )}

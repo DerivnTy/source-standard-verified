@@ -11,7 +11,7 @@ export const Logo = ({ className = "" }: { className?: string }) => {
         <rect x="1" y="1" width="20" height="20" stroke="hsl(var(--primary))" strokeWidth="1.5" />
         <path d="M6 11.5l3.2 3.2L16 7.5" stroke="hsl(var(--primary))" strokeWidth="1.75" strokeLinecap="square" fill="none" />
       </svg>
-      <span className="text-[15.5px] font-semibold tracking-[-0.01em] text-foreground leading-none">
+      <span className="text-[14.5px] font-semibold tracking-[-0.01em] text-foreground leading-none">
         Source Standard
       </span>
     </Link>
