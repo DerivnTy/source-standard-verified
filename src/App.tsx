@@ -27,6 +27,7 @@ import LibraryReferenceDosingRanges from "./pages/LibraryReferenceDosingRanges.t
 import LibraryAnalysis2026Reclassification from "./pages/LibraryAnalysis2026Reclassification.tsx";
 import LibraryAnalysisQuestionsForYourClinic from "./pages/LibraryAnalysisQuestionsForYourClinic.tsx";
 import LibraryAnalysisMeaningOfVerification from "./pages/LibraryAnalysisMeaningOfVerification.tsx";
+import LibraryAnalysisUndocumentedSourcingSigns from "./pages/LibraryAnalysisUndocumentedSourcingSigns.tsx";
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
 import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
@@ -80,6 +81,7 @@ const App = () => (
             <Route path="/library/analysis/2026-reclassification" element={<LibraryAnalysis2026Reclassification />} />
             <Route path="/library/analysis/questions-for-your-clinic" element={<LibraryAnalysisQuestionsForYourClinic />} />
             <Route path="/library/analysis/meaning-of-verification" element={<LibraryAnalysisMeaningOfVerification />} />
+            <Route path="/library/analysis/undocumented-sourcing-signs" element={<LibraryAnalysisUndocumentedSourcingSigns />} />
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
             <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />

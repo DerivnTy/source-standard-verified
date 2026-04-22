@@ -113,7 +113,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
             <Link to="/education">← Back to Education Hub</Link>
           </Button>
           <Link
-            to="/library/analysis/warning-signs-undocumented-sourcing"
+            to="/library/analysis/undocumented-sourcing-signs"
             className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
           >
             Final Analysis: Warning Signs of Undocumented Sourcing (SS-SERIES-006) →

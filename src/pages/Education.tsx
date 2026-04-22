@@ -63,6 +63,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "the-2026-compounding-reclassification": "/library/analysis/2026-reclassification",
   "questions-to-ask-your-clinic": "/library/analysis/questions-for-your-clinic",
   "what-source-standard-verification-actually-means": "/library/analysis/meaning-of-verification",
+  "warning-signs-of-undocumented-sourcing": "/library/analysis/undocumented-sourcing-signs",
 };
 
 const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
