@@ -64,7 +64,7 @@ const ForVendors = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-8">
-              <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-3">
+              <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-3">
                 §1 · Mandatory evidentiary inventory
               </p>
               <h2 className="h-section max-w-2xl mb-8">
@@ -98,7 +98,7 @@ const ForVendors = () => {
             <aside className="md:col-span-4">
               <div className="md:sticky md:top-28 border border-border bg-background">
                 <div className="px-4 py-2.5 border-b border-border bg-surface-muted">
-                  <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-foreground">
+                  <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-foreground">
                     Submission Checklist · SS-VENDOR-STD-2026.01
                   </p>
                 </div>
@@ -113,7 +113,7 @@ const ForVendors = () => {
                 <div className="px-4 py-3 border-t border-border bg-surface-muted">
                   <Link
                     to="/apply"
-                    className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+                    className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
                   >
                     Begin application →
                   </Link>
@@ -129,7 +129,7 @@ const ForVendors = () => {
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-5">
-              <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-3">
+              <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-3">
                 §2 · Registry deliverables & attribution
               </p>
               <h2 className="h-section">
@@ -140,7 +140,7 @@ const ForVendors = () => {
               {issued.map((r, i) => (
                 <div key={r} className="grid grid-cols-12 gap-4 py-4 border-b border-border">
                   <span className="col-span-2 md:col-span-1 meta">§2.{i + 1}</span>
-                  <span className="col-span-10 md:col-span-11 text-[14px] text-foreground leading-relaxed">{r}</span>
+                  <span className="col-span-10 md:col-span-11 t-body-sm text-foreground leading-relaxed">{r}</span>
                 </div>
               ))}
             </div>
@@ -154,7 +154,7 @@ const ForVendors = () => {
           <div className="grid md:grid-cols-12 gap-6 items-start">
             <div className="md:col-span-9">
               <div className="border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3">
-                <p className="font-mono uppercase tracking-[0.08em] text-[10.5px] text-muted-foreground mb-1.5">
+                <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-1.5">
                   Administrative notice · SS-VENDOR-STD-2026.01 · §3
                 </p>
                 <p className="text-[13px] text-foreground leading-relaxed">
@@ -165,7 +165,7 @@ const ForVendors = () => {
             <div className="md:col-span-3 md:pt-3">
               <Link
                 to="/apply"
-                className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover border-b border-primary pb-0.5"
+                className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover border-b border-primary pb-0.5"
               >
                 Begin application →
               </Link>

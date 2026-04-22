@@ -190,7 +190,7 @@ const HowItWorks = () => {
               </div>
               <div className="col-span-10">
                 <p className="h-card">{w.t}</p>
-                <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed">{w.d}</p>
+                <p className="mt-1 t-body-sm text-muted-foreground leading-relaxed">{w.d}</p>
               </div>
             </li>
           ))}
@@ -208,7 +208,7 @@ const HowItWorks = () => {
             <p className="h-card mb-4">Within scope</p>
             <ul className="border-y border-border divide-y divide-border">
               {withinScope.map((s, i) => (
-                <li key={i} className="py-3 text-[14px] text-foreground">{s}</li>
+                <li key={i} className="py-3 t-body-sm text-foreground">{s}</li>
               ))}
             </ul>
           </div>
@@ -216,7 +216,7 @@ const HowItWorks = () => {
             <p className="h-card mb-4">Outside scope</p>
             <ul className="border-y border-border divide-y divide-border">
               {outsideScope.map((s, i) => (
-                <li key={i} className="py-3 text-[14px] text-muted-foreground">{s}</li>
+                <li key={i} className="py-3 t-body-sm text-muted-foreground">{s}</li>
               ))}
             </ul>
           </div>
@@ -237,7 +237,7 @@ const HowItWorks = () => {
                 <StatusBadge status={s.key} size="md" />
                 <span className="h-card">{s.t}</span>
               </div>
-              <p className="text-[14.5px] text-foreground leading-relaxed">{s.meaning}</p>
+              <p className="t-body-sm text-foreground leading-relaxed">{s.meaning}</p>
               <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
                 <span className="font-semibold text-foreground">Tells:</span> {s.tells}
               </p>
@@ -248,7 +248,7 @@ const HowItWorks = () => {
           ))}
         </ul>
         <p className="mt-6">
-          <Link to="/status-definitions" className="link-accent text-[14px]">
+          <Link to="/status-definitions" className="link-accent t-body-sm">
             Full status definitions →
           </Link>
         </p>
@@ -268,7 +268,7 @@ const HowItWorks = () => {
               </div>
               <div className="col-span-10">
                 <p className="h-card">{g.t}</p>
-                <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed">{g.d}</p>
+                <p className="mt-1 t-body-sm text-muted-foreground leading-relaxed">{g.d}</p>
               </div>
             </li>
           ))}
@@ -290,8 +290,8 @@ const HowItWorks = () => {
               </div>
               <div className="col-span-10">
                 <p className="h-card">{s.t}</p>
-                <p className="mt-2 text-[14px] text-foreground leading-relaxed">{s.summary}</p>
-                <p className="mt-2 text-[12.5px] text-muted-foreground leading-relaxed">
+                <p className="mt-2 t-body-sm text-foreground leading-relaxed">{s.summary}</p>
+                <p className="mt-2 t-utility-xs text-muted-foreground leading-relaxed">
                   Examined: {s.reviewed} · Result: {s.result}
                 </p>
               </div>
@@ -312,7 +312,7 @@ const HowItWorks = () => {
         </p>
         <ul className="border-y border-border divide-y divide-border mt-6">
           {changes.map((c, i) => (
-            <li key={i} className="py-3 text-[14px] text-foreground">{c}</li>
+            <li key={i} className="py-3 t-body-sm text-foreground">{c}</li>
           ))}
         </ul>
       </BoardSection>
@@ -330,7 +330,7 @@ const HowItWorks = () => {
               <div className="col-span-2 meta-mono text-primary">
                 {String(i + 1).padStart(2, "0")}
               </div>
-              <div className="col-span-10 text-[14px] text-foreground leading-relaxed">{a}</div>
+              <div className="col-span-10 t-body-sm text-foreground leading-relaxed">{a}</div>
             </li>
           ))}
         </ol>
@@ -346,12 +346,12 @@ const HowItWorks = () => {
           {vendorReasons.map((r, i) => (
             <li key={i} className="py-5">
               <p className="h-card">{r.t}</p>
-              <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed">{r.d}</p>
+              <p className="mt-1 t-body-sm text-muted-foreground leading-relaxed">{r.d}</p>
             </li>
           ))}
         </ul>
         <p className="mt-6">
-          <Link to="/apply" className="link-accent text-[14px]">
+          <Link to="/apply" className="link-accent t-body-sm">
             Begin a verification application →
           </Link>
         </p>
@@ -367,7 +367,7 @@ const HowItWorks = () => {
       >
         <ul className="border-y border-border divide-y divide-border">
           {notProcess.map((n, i) => (
-            <li key={i} className="py-4 text-[14px] text-foreground leading-relaxed">{n}</li>
+            <li key={i} className="py-4 t-body-sm text-foreground leading-relaxed">{n}</li>
           ))}
         </ul>
       </BoardSection>

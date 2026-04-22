@@ -56,10 +56,10 @@ const EducationQuestions = () => {
                 <Accordion type="single" collapsible className="border-t border-border/60">
                   {items.map((item) => (
                     <AccordionItem key={item.id} value={item.id} className="border-b border-border/60">
-                      <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
+                      <AccordionTrigger className="t-body-sm font-medium text-foreground hover:no-underline text-left">
                         {item.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
+                      <AccordionContent className="t-body-sm text-muted-foreground leading-relaxed">
                         <p>{item.a}</p>
                         {item.relatedSlug && (
                           <p className="mt-3">

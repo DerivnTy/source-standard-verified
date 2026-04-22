@@ -176,17 +176,17 @@ const StatusDefinitions = () => (
           <div className="md:col-span-4">
             <p className="meta mb-3">§2 · Glossary</p>
             <h2 className="h-section">Controlled standings.</h2>
-            <p className="mt-3 text-[13.5px] text-muted-foreground leading-relaxed">
+            <p className="mt-3 t-body-sm text-muted-foreground leading-relaxed">
               Each standing carries a definition, a public-record signal, scope limits, and the conditions under which it is issued or revised.
             </p>
           </div>
           <div className="md:col-span-8 flex md:items-end md:justify-end">
             <div className="border border-border bg-background w-full md:w-auto">
               <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
-                <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground">
+                <span className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground">
                   Roster · {DOC_ID}
                 </span>
-                <span className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground ml-6">
+                <span className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground ml-6">
                   {statuses.length.toString().padStart(2, "0")} controlled standings · Continuously surveilled
                 </span>
               </div>
@@ -209,11 +209,11 @@ const StatusDefinitions = () => (
               <li key={s.key} className="bg-background p-6 md:p-7 flex flex-col">
                 <div className="flex items-start justify-between pb-4 mb-4 border-b border-border">
                   <div>
-                    <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground mb-2">
+                    <p className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground mb-2">
                       Standing · {standing}
                     </p>
                     <div
-                      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.14em] text-[11px] ${s.swatch}`}
+                      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.14em] t-utility-xs ${s.swatch}`}
                     >
                       <span aria-hidden>■</span>
                       {s.label}
@@ -223,11 +223,11 @@ const StatusDefinitions = () => (
                 <dl className="space-y-3 flex-1">
                   {rows.map((row) => (
                     <div key={row.key}>
-                      <dt className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground mb-1">
+                      <dt className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground mb-1">
                         {FIELD_LABELS[row.key]}
                       </dt>
                       <dd
-                        className={`text-[14.5px] leading-relaxed m-0 ${
+                        className={`t-body-sm m-0 ${
                           row.emphasis ? "text-foreground font-medium" : "text-muted-foreground"
                         }`}
                       >
@@ -255,7 +255,7 @@ const StatusDefinitions = () => (
             <div className="col-span-2 meta text-primary">
               {String(i + 1).padStart(2, "0")}
             </div>
-            <div className="col-span-10 text-[14.5px] text-foreground leading-relaxed">
+            <div className="col-span-10 t-body-sm text-foreground leading-relaxed">
               {step}
             </div>
           </li>
@@ -278,7 +278,7 @@ const StatusDefinitions = () => (
           <li key={r.to} className="px-5 py-4">
             <Link
               to={r.to}
-              className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+              className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
             >
               {r.label} →
             </Link>

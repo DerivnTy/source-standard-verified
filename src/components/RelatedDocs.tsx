@@ -20,16 +20,16 @@ export const RelatedDocs = ({
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-[14px] font-semibold text-foreground leading-snug">
+                <p className="t-body-sm font-semibold text-foreground leading-snug">
                   {item.label}
                 </p>
                 {item.description && (
-                  <p className="text-[12.5px] text-muted-foreground mt-1 leading-relaxed">
+                  <p className="t-utility-xs text-muted-foreground mt-1 leading-relaxed">
                     {item.description}
                   </p>
                 )}
               </div>
-              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">
+              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">
                 →
               </span>
             </div>

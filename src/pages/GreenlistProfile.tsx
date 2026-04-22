@@ -69,11 +69,11 @@ const Row = ({
         span ? "md:col-span-2" : ""
       }`}
     >
-      <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground font-medium">
+      <dt className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground font-medium">
         {label}
       </dt>
       <dd
-        className={`mt-1 text-[14px] text-foreground/90 leading-[1.55] ${
+        className={`mt-1 t-body-sm text-foreground/90 leading-[1.55] ${
           mono ? "font-mono text-[13px]" : ""
         }`}
       >
@@ -96,7 +96,7 @@ const GreenlistProfile = () => {
         <h1 className="title-page mb-4">No facility profile found.</h1>
         <Link
           to="/greenlist"
-          className="text-[12px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+          className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
         >
           ← Back to Greenlist
         </Link>
@@ -155,7 +155,7 @@ const GreenlistProfile = () => {
             <div className="min-w-0">
               <Link
                 to="/greenlist"
-                className="text-[12px] text-muted-foreground hover:text-foreground mb-3 inline-block"
+                className="t-utility-xs text-muted-foreground hover:text-foreground mb-3 inline-block"
               >
                 ← Back to Greenlist
               </Link>
@@ -164,7 +164,7 @@ const GreenlistProfile = () => {
               </h1>
               <div className="mt-2 flex items-center gap-2 flex-wrap text-[13px] text-muted-foreground">
                 {isAlert ? (
-                  <span className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]">
+                  <span className="inline-flex items-center gap-1.5 t-utility-xs uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]">
                     <span
                       aria-hidden
                       className="inline-block w-1.5 h-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
@@ -172,7 +172,7 @@ const GreenlistProfile = () => {
                     {statusLabel}
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.08em] text-foreground">
+                  <span className="inline-flex items-center gap-1.5 t-utility-xs uppercase tracking-[0.08em] text-foreground">
                     <span
                       aria-hidden
                       className="inline-block w-1.5 h-1.5 rounded-full bg-[hsl(var(--verified))]"
@@ -188,7 +188,7 @@ const GreenlistProfile = () => {
             </div>
 
             {entry.website && (
-              <div className="hidden md:flex items-center gap-4 text-[12.5px]">
+              <div className="hidden md:flex items-center gap-4 t-utility-xs">
                 <a
                   href={entry.website}
                   target="_blank"
@@ -244,7 +244,7 @@ const GreenlistProfile = () => {
 
               {/* Sourcing & capability scope — full-width inside card */}
               <div className="md:col-span-2 py-4 border-b border-border/50">
-                <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground font-medium">
+                <dt className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground font-medium">
                   Sourcing & capability scope
                 </dt>
                 <dd className="mt-2">
@@ -257,10 +257,10 @@ const GreenlistProfile = () => {
                     <div className="space-y-4">
                       {hasDosageForms && (
                         <div>
-                          <p className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium mb-1.5">
+                          <p className="t-utility-xs uppercase tracking-[0.06em] text-muted-foreground font-medium mb-1.5">
                             Dosage forms
                           </p>
-                          <ul className="text-[14px] text-foreground/90 leading-[1.7]">
+                          <ul className="t-body-sm text-foreground/90 leading-[1.7]">
                             {p.dosageForms!.map((d) => (
                               <li key={d}>{d}</li>
                             ))}
@@ -269,17 +269,17 @@ const GreenlistProfile = () => {
                       )}
                       {hasSpecializations && (
                         <div>
-                          <p className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium mb-1.5">
+                          <p className="t-utility-xs uppercase tracking-[0.06em] text-muted-foreground font-medium mb-1.5">
                             Specializations
                           </p>
-                          <ul className="text-[14px] text-foreground/90 leading-[1.7]">
+                          <ul className="t-body-sm text-foreground/90 leading-[1.7]">
                             {p.specializations!.map((s) => (
                               <li key={s}>{s}</li>
                             ))}
                           </ul>
                         </div>
                       )}
-                      <p className="mt-2 text-[12.5px] text-muted-foreground leading-[1.6]">
+                      <p className="mt-2 t-utility-xs text-muted-foreground leading-[1.6]">
                         Recognition reflects the facility's published upstream role
                         only. It does not certify any downstream vendor that claims
                         to source from this facility, vendor verification requires
@@ -293,14 +293,14 @@ const GreenlistProfile = () => {
               {/* Regulatory alert (conditional, full-width inside card) */}
               {isAlert && (
                 <div className="md:col-span-2 py-4 border-b border-border/50">
-                  <dt className="text-[10.5px] uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))] font-semibold">
+                  <dt className="t-utility-xs uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))] font-semibold">
                     Regulatory alert · {statusLabel}
                   </dt>
                   <dd className="mt-2">
-                    <p className="text-[14px] text-foreground/90 leading-[1.65]">
+                    <p className="t-body-sm text-foreground/90 leading-[1.65]">
                       {alert!.reason}
                     </p>
-                    <p className="mt-1 text-[12px] text-muted-foreground tabular-nums">
+                    <p className="mt-1 t-utility-xs text-muted-foreground tabular-nums">
                       As of {formatAsOf(alert!.asOf)}
                     </p>
                     {alert!.proof.length > 0 && (
@@ -326,7 +326,7 @@ const GreenlistProfile = () => {
 
             {/* §3 — Action area */}
             {entry.website && (
-              <div className="mt-6 pt-6 border-t border-border/60 flex items-center justify-end gap-5 flex-wrap text-[12.5px]">
+              <div className="mt-6 pt-6 border-t border-border/60 flex items-center justify-end gap-5 flex-wrap t-utility-xs">
                 <a
                   href={entry.website}
                   target="_blank"
@@ -340,7 +340,7 @@ const GreenlistProfile = () => {
           </div>
 
           {/* §4 — Footer micro-line */}
-          <p className="mt-6 pb-12 text-center text-[11.5px] text-muted-foreground">
+          <p className="mt-6 pb-12 text-center t-utility-xs text-muted-foreground">
             Public registry record · Upstream reference layer · Recognition does
             not certify downstream vendors.
           </p>

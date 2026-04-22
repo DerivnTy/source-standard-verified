@@ -91,7 +91,7 @@ const VerificationDisclaimer = () => (
         {covers.map((c) => (
           <li key={c.n} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
             <div className="col-span-2 meta text-primary tabular-nums">{c.n}</div>
-            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{c.t}</p>
+            <p className="col-span-10 t-body-sm text-muted-foreground leading-relaxed">{c.t}</p>
           </li>
         ))}
       </ol>
@@ -109,7 +109,7 @@ const VerificationDisclaimer = () => (
         {doesNotCover.map((c) => (
           <li key={c.n} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
             <div className="col-span-2 meta text-muted-foreground tabular-nums">{c.n}</div>
-            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{c.t}</p>
+            <p className="col-span-10 t-body-sm text-muted-foreground leading-relaxed">{c.t}</p>
           </li>
         ))}
       </ol>
@@ -128,7 +128,7 @@ const VerificationDisclaimer = () => (
             <div className="col-span-3 meta text-primary">
               <span className="text-foreground font-semibold">{String(i + 1).padStart(2, "0")} ·</span> {b.t}
             </div>
-            <p className="col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{b.d}</p>
+            <p className="col-span-9 t-body-sm text-muted-foreground leading-relaxed">{b.d}</p>
           </li>
         ))}
       </ol>
@@ -142,7 +142,7 @@ const VerificationDisclaimer = () => (
       rationale="Every Source Standard determination is a Snapshot of Record Consistency. It reflects the records reviewed and the regulatory checks performed within a defined review window and remains valid only until the next scheduled renewal or until a Mandatory Disclosure Event triggers earlier reopening under SS-ENFORCE-2026.01. A current Verified status today does not warrant the same status at any future date and is not a representation regarding the entity's future conduct."
       muted
     >
-      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+      <p className="t-body-sm text-muted-foreground leading-relaxed">
         Every determination is anchored to a fixed review window and lapses or reopens by protocol, never by inference.
       </p>
     </BoardSection>
@@ -150,7 +150,7 @@ const VerificationDisclaimer = () => (
     <BoardSection id="liability" n="5" category="Liability" title="Limitation of liability & user discretion.">
       <Callout tone="warning" eyebrow="Warning · §5.1">
         <CalloutTitle>No warranty; reliance at user discretion.</CalloutTitle>
-        <p className="text-[14.5px] text-foreground leading-relaxed">
+        <p className="t-body-sm text-foreground leading-relaxed">
           The registry is provided as a public reference. The auditing body makes no warranty, express or implied,
           regarding any vendor, upstream source, product, or determination. Reliance on registry content is at the
           user's sole discretion. Users should consult a licensed clinician for clinical matters and the applicable
@@ -159,7 +159,7 @@ const VerificationDisclaimer = () => (
       </Callout>
       <Callout tone="warning" eyebrow="Warning · §5.2">
         <CalloutTitle>Acknowledgment and exemption from liability.</CalloutTitle>
-        <p className="text-[14.5px] text-foreground leading-relaxed">
+        <p className="t-body-sm text-foreground leading-relaxed">
           Access to or use of the registry constitutes the user's acknowledgment that Source Standard is exempt from
           liability for any direct, indirect, incidental, consequential, special, or exemplary damages arising from
           any decision made, action taken, or action not taken on the basis of a registry entry, including any
@@ -176,9 +176,9 @@ const VerificationDisclaimer = () => (
             <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
               <div>
                 <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
-                <p className="text-[14.5px] font-semibold text-foreground leading-snug">{d.label}</p>
+                <p className="t-body-sm font-semibold text-foreground leading-snug">{d.label}</p>
               </div>
-              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
             </Link>
           </li>
         ))}

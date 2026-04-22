@@ -112,16 +112,16 @@ const MedicalAdvisory = () => {
 
             {/* Why this Board exists */}
             <section className="py-14 border-b border-border/40">
-              <p className="text-[10.5px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-6">
+              <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-6">
                 Why this Board exists
               </p>
               <div className="grid md:grid-cols-3 md:divide-x md:divide-border/50">
                 {WHY_ITEMS.map((w, i) => (
                   <div key={w.title} className={i === 0 ? "md:pr-8" : i === WHY_ITEMS.length - 1 ? "md:pl-8 mt-8 md:mt-0" : "md:px-8 mt-8 md:mt-0"}>
-                    <p className="text-[14.5px] font-semibold text-foreground leading-snug">
+                    <p className="t-body-sm font-semibold text-foreground leading-snug">
                       {w.title}
                     </p>
-                    <p className="mt-3 text-[13.5px] text-muted-foreground leading-relaxed">
+                    <p className="mt-3 t-body-sm text-muted-foreground leading-relaxed">
                       {w.body}
                     </p>
                   </div>
@@ -133,13 +133,13 @@ const MedicalAdvisory = () => {
             <section className="py-14 border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
-                  <p className="text-[10.5px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                  <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
                     Role in the framework
                   </p>
                   <h2 className="h-section">
                     Where the Board sits in the verification chain.
                   </h2>
-                  <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed max-w-[40ch]">
+                  <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed max-w-[40ch]">
                     The Board is the layer above the operational registry. It does not produce listings, it governs the logic by which listings are produced.
                   </p>
                 </div>
@@ -149,8 +149,8 @@ const MedicalAdvisory = () => {
                       <li key={s.n} className="grid grid-cols-12 gap-4 py-5 first:pt-0 last:pb-0 items-baseline">
                         <div className="col-span-2 text-[13px] font-mono text-muted-foreground">{s.n}</div>
                         <div className="col-span-10">
-                          <p className="text-[14.5px] font-semibold text-foreground">{s.t}</p>
-                          <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-relaxed">{s.d}</p>
+                          <p className="t-body-sm font-semibold text-foreground">{s.t}</p>
+                          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{s.d}</p>
                         </div>
                       </li>
                     ))}
@@ -162,7 +162,7 @@ const MedicalAdvisory = () => {
             {/* Board roster */}
             <section className="py-14 border-b border-border/40">
               <div className="mb-8">
-                <p className="text-[10.5px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
                   Appointed members
                 </p>
                 <h2 className="h-section max-w-2xl">
@@ -189,15 +189,15 @@ const MedicalAdvisory = () => {
                             {m.name}
                             <span className="text-muted-foreground font-normal">, {m.credentials}</span>
                           </h3>
-                          <p className="mt-1.5 text-[13.5px] font-semibold text-foreground">{boardTitle}</p>
-                          <p className="mt-1 text-[12.5px] text-muted-foreground">{m.specialization}</p>
-                          <p className="mt-2 text-[12px] text-muted-foreground">
+                          <p className="mt-1.5 t-body-sm font-semibold text-foreground">{boardTitle}</p>
+                          <p className="mt-1 t-utility-xs text-muted-foreground">{m.specialization}</p>
+                          <p className="mt-2 t-utility-xs text-muted-foreground">
                             {m.jurisdiction} · {m.yearsPracticing} practicing
                           </p>
                         </div>
                       </div>
 
-                      <p className="text-[13.5px] text-foreground/90 leading-relaxed flex-1">{m.shortSummary}</p>
+                      <p className="t-body-sm text-foreground/90 leading-relaxed flex-1">{m.shortSummary}</p>
 
                       <div className="mt-5 flex justify-end">
                         <Link
@@ -217,7 +217,7 @@ const MedicalAdvisory = () => {
             <section className="py-14 border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
-                  <p className="text-[10.5px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                  <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
                     Scope & boundaries
                   </p>
                   <h2 className="h-section">
@@ -227,7 +227,7 @@ const MedicalAdvisory = () => {
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
                   <ul className="divide-y divide-border/60">
                     {BOUNDARIES.map((b) => (
-                      <li key={b} className="py-4 first:pt-0 last:pb-0 text-[14.5px] text-foreground leading-relaxed">
+                      <li key={b} className="py-4 first:pt-0 last:pb-0 t-body-sm text-foreground leading-relaxed">
                         {b}
                       </li>
                     ))}
@@ -240,13 +240,13 @@ const MedicalAdvisory = () => {
             <section className="py-14 border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
-                  <p className="text-[10.5px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                  <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
                     Responsibilities
                   </p>
                   <h2 className="h-section">
                     What the Board is accountable for.
                   </h2>
-                  <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed max-w-[40ch]">
+                  <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed max-w-[40ch]">
                     Each responsibility maps to a recurring review activity recorded under the framework's maintenance log.
                   </p>
                 </div>
@@ -256,8 +256,8 @@ const MedicalAdvisory = () => {
                       const title = RESPONSIBILITY_TITLE_OVERRIDES[r.code] ?? r.title;
                       return (
                         <div key={r.code} className="py-4 first:pt-0 last:pb-0">
-                          <dt className="text-[14.5px] font-semibold text-foreground">{title}</dt>
-                          <dd className="mt-1.5 text-[13.5px] text-muted-foreground leading-relaxed">
+                          <dt className="t-body-sm font-semibold text-foreground">{title}</dt>
+                          <dd className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">
                             {r.description}
                           </dd>
                         </div>
@@ -270,7 +270,7 @@ const MedicalAdvisory = () => {
 
             {/* Bridge — Continue reading */}
             <section className="py-14">
-              <p className="text-[10.5px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-6">
+              <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-6">
                 Continue reading
               </p>
               <ul className="divide-y divide-border/60">
@@ -280,10 +280,10 @@ const MedicalAdvisory = () => {
                       to={b.to}
                       className="grid grid-cols-12 gap-4 py-5 group items-baseline"
                     >
-                      <p className="col-span-12 md:col-span-4 text-[14.5px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                      <p className="col-span-12 md:col-span-4 t-body-sm font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
                         {b.label}
                       </p>
-                      <p className="col-span-12 md:col-span-7 text-[13.5px] text-muted-foreground leading-relaxed">
+                      <p className="col-span-12 md:col-span-7 t-body-sm text-muted-foreground leading-relaxed">
                         {b.description}
                       </p>
                       <span className="col-span-12 md:col-span-1 text-[13px] text-muted-foreground md:text-right group-hover:text-primary transition-colors">

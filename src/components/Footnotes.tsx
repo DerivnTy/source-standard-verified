@@ -7,7 +7,7 @@ export const Footnote = ({ n }: { n: number }) => (
   <sup id={`fnref-${n}`} className="ml-0.5">
     <a
       href={`#fn-${n}`}
-      className="font-mono text-[10px] text-primary hover:underline tabular-nums"
+      className="font-mono t-utility-xs text-primary hover:underline tabular-nums"
       aria-label={`Footnote ${n}`}
     >
       [{n}]
@@ -33,14 +33,14 @@ export const FootnoteList = ({
             id={`fn-${item.n}`}
             className="grid grid-cols-12 gap-3 text-[13px] text-muted-foreground leading-relaxed scroll-mt-20"
           >
-            <span className="col-span-1 font-mono text-[11px] text-primary tabular-nums pt-0.5">
+            <span className="col-span-1 font-mono t-utility-xs text-primary tabular-nums pt-0.5">
               [{item.n}]
             </span>
             <div className="col-span-11">
               {item.content}{" "}
               <a
                 href={`#fnref-${item.n}`}
-                className="font-mono text-[10px] text-muted-foreground hover:text-primary ml-1"
+                className="font-mono t-utility-xs text-muted-foreground hover:text-primary ml-1"
                 aria-label={`Return to reference ${item.n}`}
               >
                 ↩

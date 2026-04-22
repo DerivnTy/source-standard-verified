@@ -92,8 +92,8 @@ const Accountability = () => (
         {commitments.map((c, i) => (
           <li key={c.t} className="bg-background p-5">
             <p className="meta text-primary mb-1">ATTESTATION · {String(i + 1).padStart(2, "0")}</p>
-            <p className="text-[14.5px] font-semibold text-foreground mb-2">{c.t}</p>
-            <p className="text-[14.5px] text-muted-foreground leading-relaxed">{c.d}</p>
+            <p className="t-body-sm font-semibold text-foreground mb-2">{c.t}</p>
+            <p className="t-body-sm text-muted-foreground leading-relaxed">{c.d}</p>
           </li>
         ))}
       </ul>
@@ -112,7 +112,7 @@ const Accountability = () => (
           <span className="font-mono text-[28px] md:text-[32px] font-semibold tabular-nums text-foreground leading-none">
             72h
           </span>
-          <span className="text-[14.5px] text-muted-foreground">
+          <span className="t-body-sm text-muted-foreground">
             maximum window from event occurrence to disclosure to the framework.
           </span>
         </div>
@@ -121,7 +121,7 @@ const Accountability = () => (
         {reportable.map((r, i) => (
           <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
             <div className="col-span-2 meta text-primary">{String(i + 1).padStart(2, "0")}</div>
-            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{r}</p>
+            <p className="col-span-10 t-body-sm text-muted-foreground leading-relaxed">{r}</p>
           </li>
         ))}
       </ol>
@@ -138,7 +138,7 @@ const Accountability = () => (
         {triggers.map((t, i) => (
           <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
             <div className="col-span-2 meta text-primary">TRIG · {String(i + 1).padStart(2, "0")}</div>
-            <p className="col-span-10 text-[14.5px] text-muted-foreground leading-relaxed">{t}</p>
+            <p className="col-span-10 t-body-sm text-muted-foreground leading-relaxed">{t}</p>
           </li>
         ))}
       </ol>
@@ -157,9 +157,9 @@ const Accountability = () => (
           <li key={a.t} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
             <div className="col-span-3">
               <p className="meta text-primary mb-1">ACTION · {String(i + 1).padStart(2, "0")}</p>
-              <p className="text-[14.5px] font-semibold text-foreground">{a.t}</p>
+              <p className="t-body-sm font-semibold text-foreground">{a.t}</p>
             </div>
-            <p className="col-span-9 text-[14.5px] text-muted-foreground leading-relaxed">{a.d}</p>
+            <p className="col-span-9 t-body-sm text-muted-foreground leading-relaxed">{a.d}</p>
           </li>
         ))}
       </ol>
@@ -167,11 +167,11 @@ const Accountability = () => (
 
     <BoardSection id="reentry" n="5" category="Re-entry" title="Re-entry protocol.">
       <Callout tone="notice" eyebrow={`Permanent record · ${DOC_ID} · §5`}>
-        <p className="text-[14.5px] text-foreground leading-relaxed">
+        <p className="t-body-sm text-foreground leading-relaxed">
           Prior history retained. Re-entry is not granted on the basis of time elapsed alone.
         </p>
       </Callout>
-      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+      <p className="t-body-sm text-muted-foreground leading-relaxed">
         An entity under Status Revocation (Suspension) may return to Verified once the underlying matter is resolved and documented in the audit file. An entity under Registry Expulsion (Removal) may apply for re-entry only by submitting a new application and undergoing a fresh examination cycle in full. Prior audit history, including the original determination, the triggering events, and the disposition, is retained on the permanent record of the entity and is referenced in any subsequent examination.
       </p>
     </BoardSection>
@@ -183,9 +183,9 @@ const Accountability = () => (
             <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
               <div>
                 <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
-                <p className="text-[14.5px] font-semibold text-foreground leading-snug">{d.label}</p>
+                <p className="t-body-sm font-semibold text-foreground leading-snug">{d.label}</p>
               </div>
-              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
             </Link>
           </li>
         ))}

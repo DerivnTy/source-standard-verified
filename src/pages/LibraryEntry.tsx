@@ -81,16 +81,16 @@ const LibraryEntry = () => {
           <ul className="grid sm:grid-cols-2 border-y border-border divide-y sm:divide-y-0 sm:divide-x divide-border/60 my-2">
             {related.map((r, i) => (
               <li key={r.id} className="p-5">
-                <p className="text-[10px] font-mono uppercase tracking-[0.1em] text-muted-foreground mb-2">
+                <p className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground mb-2">
                   Entry · {(i + 1).toString().padStart(2, "0")}
                 </p>
-                <p className="text-[14px] font-semibold text-foreground leading-snug mb-3">
+                <p className="t-body-sm font-semibold text-foreground leading-snug mb-3">
                   {r.title}
                 </p>
-                <p className="text-[12px] font-mono text-muted-foreground mb-4">{r.id}</p>
+                <p className="t-utility-xs font-mono text-muted-foreground mb-4">{r.id}</p>
                 <Link
                   to={`/education/${r.slug}`}
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
                 >
                   Read →
                 </Link>

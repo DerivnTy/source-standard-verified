@@ -61,7 +61,7 @@ const Contact = () => {
                   ))}
                 </div>
                 <div className="px-5 py-3 border-t border-border/60 bg-surface-muted/60">
-                  <p className="text-[12px] text-muted-foreground leading-relaxed">
+                  <p className="t-utility-xs text-muted-foreground leading-relaxed">
                     Source Standard is not a regulator and does not accept consumer complaints,
                     enforcement requests, or clinical inquiries.
                   </p>

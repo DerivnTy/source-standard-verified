@@ -38,7 +38,7 @@ export const ProfileHeader = ({
         {backHref && (
           <Link
             to={backHref}
-            className="inline-flex items-center gap-2 text-[11.5px] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground"
+            className="inline-flex items-center gap-2 t-utility-xs uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> {backLabel ?? "Back"}
           </Link>
@@ -50,7 +50,7 @@ export const ProfileHeader = ({
             <h1 className="title-page text-foreground">{title}</h1>
             {identity && <div className="mt-2 text-helper text-muted-foreground">{identity}</div>}
             {lead && (
-              <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.65]">
+              <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
                 {lead}
               </p>
             )}
@@ -78,7 +78,7 @@ export const ProfileFootnote = ({
   return (
     <section className="bg-surface-muted/40 border-t border-border/60">
       <div className="container-wide py-6">
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-[12px]">
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-2 t-utility-xs">
           {items.map((it, i) => (
             <div key={i} className="flex items-center gap-2">
               <span className="text-muted-foreground/80">{it.label}</span>
@@ -87,7 +87,7 @@ export const ProfileFootnote = ({
           ))}
         </div>
         {note && (
-          <p className="mt-3 text-[12px] text-muted-foreground leading-relaxed max-w-4xl">
+          <p className="mt-3 t-utility-xs text-muted-foreground leading-relaxed max-w-4xl">
             {note}
           </p>
         )}

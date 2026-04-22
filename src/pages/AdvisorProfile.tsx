@@ -13,12 +13,12 @@ const AdvisorProfile = () => {
       <section className="container-wide py-24">
         <p className="meta mb-3">§ · Not Found</p>
         <h1 className="text-2xl font-semibold tracking-tight">Advisor profile not found.</h1>
-        <p className="mt-3 text-[14px] text-muted-foreground">
+        <p className="mt-3 t-body-sm text-muted-foreground">
           This board seat record does not exist or has been retired.
         </p>
         <Link
           to="/medical-advisory"
-          className="mt-6 inline-block text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+          className="mt-6 inline-block t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
         >
           ← Back to Medical Advisory Board
         </Link>
@@ -80,7 +80,7 @@ const AdvisorProfile = () => {
                 />
                 <h2 className="text-[18px] font-semibold tracking-tight text-foreground">{member.name}</h2>
                 <p className="mt-1 text-[13px] text-muted-foreground">{member.credentials}</p>
-                <dl className="mt-5 pt-5 border-t border-border space-y-3 text-[12.5px]">
+                <dl className="mt-5 pt-5 border-t border-border space-y-3 t-utility-xs">
                   <div className="flex justify-between gap-4">
                     <dt className="meta-label text-muted-foreground">Board role</dt>
                     <dd className="text-foreground text-right">{member.boardTitle}</dd>
@@ -103,7 +103,7 @@ const AdvisorProfile = () => {
             <div className="md:col-span-8 space-y-10">
               <div>
                 <p className="eyebrow mb-3">§2 · Biography</p>
-                <p className="text-[15px] text-foreground/90 leading-relaxed">{member.biography}</p>
+                <p className="t-body-sm text-foreground/90 leading-relaxed">{member.biography}</p>
               </div>
               <div>
                 <p className="eyebrow mb-3">§3 · Background & Training</p>
@@ -113,7 +113,7 @@ const AdvisorProfile = () => {
                       <div className="col-span-1 meta text-primary">
                         {(i + 1).toString().padStart(2, "0")}
                       </div>
-                      <div className="col-span-11 text-[13.5px] text-foreground/90 leading-relaxed">{b}</div>
+                      <div className="col-span-11 t-body-sm text-foreground/90 leading-relaxed">{b}</div>
                     </li>
                   ))}
                 </ul>
@@ -126,7 +126,7 @@ const AdvisorProfile = () => {
                       <div className="col-span-1 meta text-primary">
                         {(i + 1).toString().padStart(2, "0")}
                       </div>
-                      <div className="col-span-11 text-[13.5px] text-foreground/90 leading-relaxed">{a}</div>
+                      <div className="col-span-11 t-body-sm text-foreground/90 leading-relaxed">{a}</div>
                     </li>
                   ))}
                 </ul>
@@ -146,7 +146,7 @@ const AdvisorProfile = () => {
                 Position on the framework's purpose.
               </h2>
             </div>
-            <div className="md:col-span-8 text-[15px] text-foreground/90 leading-relaxed border-t border-border pt-6">
+            <div className="md:col-span-8 t-body-sm text-foreground/90 leading-relaxed border-t border-border pt-6">
               {member.whyTheyCare}
             </div>
           </div>
@@ -163,7 +163,7 @@ const AdvisorProfile = () => {
                 What this seat is responsible for.
               </h2>
             </div>
-            <div className="md:col-span-8 text-[15px] text-foreground/90 leading-relaxed border-t border-border pt-6">
+            <div className="md:col-span-8 t-body-sm text-foreground/90 leading-relaxed border-t border-border pt-6">
               {member.contribution}
             </div>
           </div>
@@ -185,7 +185,7 @@ const AdvisorProfile = () => {
                 {member.clinicalFocus.map((f, i) => (
                   <li key={i} className="bg-background px-5 py-3 flex items-baseline gap-3">
                     <span className="meta text-primary">{(i + 1).toString().padStart(2, "0")}</span>
-                    <span className="text-[13.5px] text-foreground">{f}</span>
+                    <span className="t-body-sm text-foreground">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -205,7 +205,7 @@ const AdvisorProfile = () => {
               </h2>
             </div>
             <div className="md:col-span-8 border-t border-border pt-6">
-              <blockquote className="text-[16px] md:text-[17px] text-foreground leading-relaxed font-light italic border-l-2 border-primary pl-6">
+              <blockquote className="t-body-md md:text-[17px] text-foreground leading-relaxed font-light italic border-l-2 border-primary pl-6">
                 {member.philosophy}
               </blockquote>
             </div>
@@ -224,7 +224,7 @@ const AdvisorProfile = () => {
               <li className="px-4 py-3">
                 <Link
                   to="/medical-advisory"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
                 >
                   Medical Advisory Board →
                 </Link>
@@ -232,7 +232,7 @@ const AdvisorProfile = () => {
               <li className="px-4 py-3">
                 <Link
                   to="/governance"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
                 >
                   Governance & oversight →
                 </Link>
@@ -240,7 +240,7 @@ const AdvisorProfile = () => {
               <li className="px-4 py-3">
                 <Link
                   to="/accountability"
-                  className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
                 >
                   Accountability & enforcement →
                 </Link>
