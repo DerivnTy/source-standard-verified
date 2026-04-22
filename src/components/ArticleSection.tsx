@@ -22,13 +22,13 @@ export const ArticleSection = ({
   children: ReactNode;
 }) => (
   <section id={id} className="scroll-mt-24 bg-background">
-    <div className="container-wide">
-      <div className="max-w-[880px] mx-auto py-2">
+    <div className="page-shell">
+      <div className="mx-auto w-reading-wide py-2">
         {(n !== undefined || title) && (
-          <header className="mt-10 mb-4">
-            <h2 className="font-serif text-[20px] md:text-[22px] leading-[1.2] tracking-[-0.01em] text-foreground">
+          <header className="mt-10 mb-5">
+            <h2 className="t-section-title-sm text-foreground">
               {n !== undefined && (
-                <span className="font-mono text-[13px] md:text-[14px] uppercase tracking-[0.08em] text-muted-foreground mr-3 align-baseline">
+                <span className="font-mono text-[16px] leading-none uppercase tracking-[0.08em] text-muted-foreground mr-3 align-baseline">
                   §{n}
                 </span>
               )}
@@ -36,7 +36,7 @@ export const ArticleSection = ({
             </h2>
           </header>
         )}
-        <div className="article-body text-[15.5px] leading-[1.7] text-foreground/85 space-y-4">
+        <div className="article-body t-body-md text-foreground/85 space-y-5">
           {children}
         </div>
       </div>
@@ -57,17 +57,17 @@ export const ArticleFooter = ({
   citation?: string;
 }) => (
   <footer className="bg-background border-t border-border mt-10">
-    <div className="container-wide py-8">
-      <div className="max-w-[880px] mx-auto">
+    <div className="page-shell py-8">
+      <div className="mx-auto w-reading-wide">
         {(back || next) && (
           <div className="grid md:grid-cols-2 gap-6 md:gap-10">
             <div>
               {back && (
                 <Link to={back.to} className="block group">
-                  <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground mb-1.5">
+                  <p className="t-utility-xs text-muted-foreground mb-1.5">
                     ← Previous
                   </p>
-                  <p className="text-[15px] text-foreground leading-snug group-hover:text-primary transition-colors">
+                  <p className="t-body-sm text-foreground leading-snug group-hover:text-primary transition-colors">
                     {back.label}
                   </p>
                 </Link>
@@ -76,10 +76,10 @@ export const ArticleFooter = ({
             <div className="md:text-right">
               {next && (
                 <Link to={next.to} className="block group">
-                  <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground mb-1.5">
+                  <p className="t-utility-xs text-muted-foreground mb-1.5">
                     Next →
                   </p>
-                  <p className="text-[15px] text-foreground leading-snug group-hover:text-primary transition-colors">
+                  <p className="t-body-sm text-foreground leading-snug group-hover:text-primary transition-colors">
                     {next.label}
                   </p>
                 </Link>

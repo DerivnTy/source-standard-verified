@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[4px] text-[13.5px] font-medium ring-offset-background transition-[background-color,border-color,color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-[background-color,border-color,color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -17,10 +17,12 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-5 py-2",
-        sm: "h-9 px-4",
-        lg: "h-11 px-7",
-        icon: "h-10 w-10",
+        // Locked sitewide button sizes — see design-system spec.
+        sm: "min-h-10 px-[18px] py-3 text-[14px] leading-[20px] rounded-[10px]",
+        default: "min-h-12 px-[22px] py-3.5 text-[15px] leading-[22px] rounded-[12px]",
+        md: "min-h-12 px-[22px] py-3.5 text-[15px] leading-[22px] rounded-[12px]",
+        lg: "min-h-14 px-[26px] py-4 text-[16px] leading-[24px] rounded-[12px]",
+        icon: "min-h-10 w-10 rounded-[10px]",
       },
     },
     defaultVariants: {
