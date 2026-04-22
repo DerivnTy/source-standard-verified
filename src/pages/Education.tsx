@@ -283,15 +283,25 @@ const Education = () => {
                 <EmptyNote />
               )}
             </div>
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <div className="mt-6 flex justify-end">
               <Link
                 to="/education/guides"
                 className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
               >
                 View full clinical protocol index →
               </Link>
-              <Button asChild variant="outline" size="sm">
-                <a href="#questions">Looking for safe-handling answers? Jump to FAQ →</a>
+            </div>
+            <div className="mt-8 border border-border/70 bg-background rounded-[4px] px-6 py-5 flex flex-wrap items-center justify-between gap-6">
+              <div>
+                <p className="text-[15px] font-semibold text-foreground">Seeking regulatory clarity?</p>
+                <p className="mt-1 text-[13px] text-muted-foreground">Browse the FAQ categories grouped by topic.</p>
+              </div>
+              <Button
+                onClick={() =>
+                  document.getElementById("questions")?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+              >
+                Browse FAQ Categories →
               </Button>
             </div>
           </div>
