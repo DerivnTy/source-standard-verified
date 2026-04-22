@@ -102,7 +102,7 @@ const form483Display = (
 // ---------- Locked primitives ----------
 
 const FallbackLine = ({ children }: { children: ReactNode }) => (
-  <span className="t-body-sm text-muted-foreground italic">{children}</span>
+  <span className="t-body-md text-muted-foreground italic">{children}</span>
 );
 
 const Field = ({
@@ -121,12 +121,12 @@ const Field = ({
   const present = isPresent(value);
   return (
     <div>
-      <dt className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground inline-flex items-center gap-1.5">
+      <dt className="t-utility-xs text-muted-foreground inline-flex items-center gap-1.5">
         {label}
         {labelExtra}
       </dt>
       <dd
-        className={`mt-1.5 t-body-sm font-medium leading-[1.5] ${
+        className={`mt-1.5 t-body-md leading-snug ${
           present || forceForeground ? "text-foreground" : "text-muted-foreground"
         } ${mono && present ? "font-mono tabular-nums" : ""}`}
       >
@@ -152,12 +152,12 @@ const RailRow = ({
   const present = isPresent(value);
   return (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-border/50 last:border-0">
-      <span className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground shrink-0">
+      <span className="t-utility-xs text-muted-foreground shrink-0">
         {label}
       </span>
       {present ? (
         <span
-          className={`t-body-sm text-foreground text-right leading-[1.45] ${
+          className={`t-body-sm text-foreground text-right leading-snug ${
             mono ? "font-mono tabular-nums" : ""
           }`}
         >
@@ -182,13 +182,9 @@ const SectionHeading = ({
   <div className="mb-5 flex items-baseline justify-between gap-4 flex-wrap">
     <div>
       {eyebrow && (
-        <p className="t-utility-xs uppercase tracking-[0.16em] text-muted-foreground font-semibold mb-1.5">
-          {eyebrow}
-        </p>
+        <p className="t-eyebrow-sm text-muted-foreground mb-1.5">{eyebrow}</p>
       )}
-      <h2 className="t-section-title-sm font-semibold tracking-tight text-foreground">
-        {children}
-      </h2>
+      <h2 className="t-section-title-sm text-foreground">{children}</h2>
     </div>
     {trailing}
   </div>
@@ -205,11 +201,9 @@ const RecordRow = ({
   paragraph?: boolean;
 }) => (
   <div className="py-3 border-b border-border/40 last:border-0">
-    <p className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground">
-      {label}
-    </p>
+    <p className="t-utility-xs text-muted-foreground">{label}</p>
     <p
-      className={`mt-1.5 t-body-sm text-foreground leading-[1.6] ${
+      className={`mt-1.5 t-body-md text-foreground ${
         paragraph ? "max-w-[68ch]" : ""
       }`}
     >
@@ -236,7 +230,7 @@ const CapabilityRow = ({
       />
     )}
     <span
-      className={`t-body-sm leading-[1.45] ${
+      className={`t-body-md leading-snug ${
         on ? "text-foreground" : "text-muted-foreground"
       }`}
     >
