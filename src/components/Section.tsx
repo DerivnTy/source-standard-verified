@@ -9,14 +9,20 @@ import { ReactNode } from "react";
  * rhythm, so the page reads like one continuous regulatory filing rather
  * than a series of stacked blocks.
  */
+const WIDTH_MAP: Record<"narrow" | "editorial" | "wide", string> = {
+  narrow: "max-w-[680px]",
+  editorial: "max-w-[920px]",
+  wide: "max-w-[1280px]",
+};
+
 export const Section = ({
   children,
-  // legacy props accepted for back-compat — intentionally ignored
   muted: _muted = false,
   bordered = true,
   className = "",
   container: _container = "wide",
   density: _density = "default",
+  width = "editorial",
 }: {
   children: ReactNode;
   muted?: boolean;
@@ -24,11 +30,18 @@ export const Section = ({
   className?: string;
   container?: "tight" | "narrow" | "wide";
   density?: "default" | "doc" | "tight";
+  /**
+   * Width tier for the prose column. Sitewide width API:
+   *   narrow    — 680px, legal/intro/single-statement bands
+   *   editorial — 920px (default), standard prose + grid sections
+   *   wide      — 1280px, tables, profile cards, multi-column records
+   */
+  width?: "narrow" | "editorial" | "wide";
 }) => {
   return (
     <section className={`bg-background ${className}`}>
       <div
-        className={`prose-filing mx-auto w-full max-w-[900px] px-6 md:px-10 py-16 md:py-20 ${
+        className={`prose-filing mx-auto w-full ${WIDTH_MAP[width]} px-6 md:px-10 py-16 md:py-20 ${
           bordered ? "border-t border-[#E5E7EB]" : ""
         }`}
       >
