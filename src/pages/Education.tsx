@@ -211,8 +211,8 @@ const Education = () => {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search standards, FAQs, and articles…"
-              className="mt-1.5 w-full max-w-[640px] block rounded-[4px] border border-border bg-background px-3.5 py-2 font-mono text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-foreground/40 transition-colors"
+              placeholder="FILTER BY DOC ID OR KEYWORD…"
+              className="mt-1.5 w-full max-w-[640px] block rounded-[4px] border border-border bg-background px-3.5 py-2 font-mono text-[13px] text-foreground placeholder:text-muted-foreground/70 placeholder:uppercase placeholder:tracking-[0.08em] focus:outline-none focus:border-foreground/40 transition-colors"
             />
           </label>
         </div>
