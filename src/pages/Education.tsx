@@ -338,15 +338,9 @@ const Education = () => {
               Newest entries from the Source Standard analysis series. Reviewed under the Medical Advisory framework.
             </p>
 
-            {filteredAnalysis.length ? (
-              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredAnalysis.map((entry) => <LibraryTile key={entry.id} entry={entry} />)}
-              </div>
-            ) : (
-              <p className="mt-8 text-[13px] text-muted-foreground italic">
-                No matches in this section.
-              </p>
-            )}
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {analysisCards.map((entry) => <LibraryTile key={entry.id} entry={entry} />)}
+            </div>
 
             <div className="mt-10 flex justify-end">
               <Button asChild variant="outline" size="sm">
