@@ -1,44 +1,69 @@
 
 
-## Tighten Final Split CTA Section
+## Remove Redundant Bottom-of-Page Citation Lines Sitewide
 
-Recompose the closing navy section on the homepage (`§8` in `src/pages/Index.tsx`, lines 325–363) so it reads as a deliberate, balanced final pathway instead of two airy text boxes floating in a dark band.
+The "Cite as · Source Standard, …, Last updated …" line that sits above the footer on most pages duplicates the doc-ID and updated-date that already appear in each page's top metadata bar. Remove it sitewide with primitive-level edits (so we don't have to touch ~24 page files), plus a few targeted removals where pages render the cite line by hand.
+
+---
+
+### Strategy
+
+Suppress at the source. Two shared primitives render the bulk of these lines:
+
+1. **`ArticleFooter`** in `src/components/ArticleSection.tsx` (used by all `Library*` article pages)
+2. **`BoardCiteFooter`** in `src/components/BoardSection.tsx` (used by Governance, Privacy, Terms, VerificationDisclaimer, StatusDefinitions, and the FAQ category pages)
+
+By dropping the cite block from these two components, every consuming page is cleaned in one shot — no churn across page files, no risk of missing one.
+
+Then handle the small set of pages that render their own bespoke cite line.
 
 ---
 
 ### Changes
 
-All edits are scoped to the `§8 — Final split CTA` block. No new components, no asset changes.
+**1 · `src/components/ArticleSection.tsx` — `ArticleFooter`**
+- Remove the `{citation && (...)} ` block (the `<p className="mt-10 pt-6 border-t border-border …">…Cite as ·…</p>`).
+- Keep the `citation` prop in the type signature (optional, ignored) so the dozens of call sites don't need edits and don't break TypeScript.
+- Tighten footer top margin: `mt-16` → `mt-12`, and inner `py-10` → `py-8`, so the prev/next block doesn't leave a visual void where the cite used to be.
 
-**1 · Reduce vertical padding**
-- Outer section padding `py-20 md:py-28` → `py-14 md:py-20`. Closes the gap above and below so the section feels composed and the transition into the footer is natural, not abrupt.
+**2 · `src/components/BoardSection.tsx` — `BoardCiteFooter`**
+- Replace the component body with `null` (return `null`). Keep the named export and `citation` prop so all consuming pages continue to compile unchanged.
+- This removes the entire `bg-surface-muted py-8` band sitewide for Board-style pages, letting them transition directly into the global `SiteFooter` cleanly.
 
-**2 · Tighten internal copy rhythm**
-- Eyebrow → heading: `mt-5` → `mt-3`.
-- Heading → body: `mt-5` → `mt-4`.
-- Body → button: `mt-8` → `mt-6`.
-- Result: each side reads as one grouped unit (label + headline + sentence + action) instead of four loose stacked items.
+**3 · Bespoke cite lines on individual pages**
+Remove the hand-rolled cite blocks (and any wrapper section that exists only to host them):
 
-**3 · Strengthen the two-column composition**
-- Add `items-start` to the grid wrapper so both columns share a clean top baseline.
-- Increase column gutter from `md:pr-12` / `md:pl-12` (48px each side, 96px total) → `md:pr-16` / `md:pl-16` (64px each side, 128px total). Gives the divider real breathing room and balances against the tightened vertical rhythm.
-- Mobile stacking gap: `pb-10` / `pt-10` → `pb-12` / `pt-12` with a top border on the second column for an honest mobile divider (`border-t border-white/15 md:border-t-0`).
+- `src/pages/MedicalAdvisory.tsx` — delete the trailing `{/* Cite */}` `<section>` (lines ~303–310).
+- `src/pages/AdvisorProfile.tsx` — delete the cite paragraph in the trailing `<div className="container-wide py-8">` block (lines ~252–262 area); if the surrounding section exists only for this paragraph, remove the whole section.
+- `src/pages/ForVendors.tsx` — delete the `<div className="border-t border-border bg-surface-muted px-5 py-6 max-w-4xl mt-8">` cite block (lines ~176–182).
+- `src/pages/ReportConcern.tsx` — delete the `<p className="mt-8 meta-label">Cite as: …</p>` (lines ~126–128).
+- `src/pages/FAQ.tsx` — delete the `<p className="mt-8 meta-label">Cite as: …</p>` (lines ~210–212).
+- `src/pages/HowToReadTheDirectory.tsx` — delete the trailing `<Section density="tight">` containing the cite paragraph (lines ~290–295).
 
-**4 · Integrate the divider**
-- Keep `divide-x divide-white/15` but inset it vertically so it doesn't run edge-to-edge of the section padding. Add a subtle wrapper: wrap the grid in a div that lets the divider feel intentional. Simplest: leave divide as-is — the tighter padding + wider gutters will make it read as integrated rather than random.
+**4 · Shared placeholder primitive**
+- `src/components/PlaceholderSection.tsx` — remove the `Cite as: …` paragraph (lines ~12–14). This component is used as scaffolding for stub pages; the cite line is the same redundant pattern.
 
-**5 · Headline + body width**
-- Headline `max-w-[16ch]` → `max-w-[14ch]` so "Search the Registry" / "Apply for Verification" wrap or sit tightly, anchoring each column.
-- Body `max-w-[40ch]` → `max-w-[34ch]` for a tighter, more declarative paragraph block aligned with the headline width.
+---
 
-**6 · Button parity**
-- Both buttons already use `ghostBtnSecondary` — keep that. No variant change. The tightened spacing alone gives them stronger relationship to the copy above.
+### What stays untouched
+
+- All page files that consume `ArticleFooter` / `BoardCiteFooter` — they keep passing `citation={…}`; the prop is silently ignored. Zero edits to ~22 page files.
+- `SiteFooter`, `SiteHeader`, `RecordHeader`, the top metadata bars — the doc-ID + updated-date remain visible at the top of every page where they belong.
+- Prev/next navigation in `ArticleFooter` and link grids elsewhere — preserved.
 
 ### Files touched
 
-- **Modified:** `src/pages/Index.tsx` — single contained edit to the §8 block (lines 325–363).
+- **Modified:** `src/components/ArticleSection.tsx` — strip cite block from `ArticleFooter`, tighten spacing.
+- **Modified:** `src/components/BoardSection.tsx` — `BoardCiteFooter` returns `null`.
+- **Modified:** `src/components/PlaceholderSection.tsx` — remove cite paragraph.
+- **Modified:** `src/pages/MedicalAdvisory.tsx` — remove trailing cite section.
+- **Modified:** `src/pages/AdvisorProfile.tsx` — remove trailing cite block.
+- **Modified:** `src/pages/ForVendors.tsx` — remove cite block.
+- **Modified:** `src/pages/ReportConcern.tsx` — remove cite paragraph.
+- **Modified:** `src/pages/FAQ.tsx` — remove cite paragraph.
+- **Modified:** `src/pages/HowToReadTheDirectory.tsx` — remove trailing cite section.
 
 ### Outcome
 
-The closing section reads as a polished final split pathway: two compact, balanced columns (consumer / vendor) with grouped copy, properly spaced buttons, an integrated divider, and a natural transition into the footer. No new chrome, no flash — just calm authority and better composition.
+Every page ends on its real closing content (prev/next nav, related links, or final body section) and flows directly into the global site footer. The doc-ID and "last updated" still live in the page's top metadata bar where they belong — no information loss, just a disciplined, less-cluttered lower page composition sitewide.
 
