@@ -48,7 +48,7 @@ export const RecordHeader = ({
         <div className="container-wide py-6 md:py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-2">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
+              <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground">
                 Reference
               </p>
               {downloadable && (
@@ -59,10 +59,10 @@ export const RecordHeader = ({
             <dl className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
               {fullMetadata.map((m, i) => (
                 <div key={i} className="flex items-baseline gap-2">
-                  <dt className="text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
+                  <dt className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground">
                     {m.label}
                   </dt>
-                  <dd className="font-mono text-[12px] text-foreground tabular-nums">
+                  <dd className="font-mono t-utility-xs text-foreground tabular-nums">
                     {m.value}
                   </dd>
                 </div>
@@ -82,7 +82,7 @@ export const RecordHeader = ({
             {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
             {title && <h1 className="title-page text-foreground max-w-3xl">{title}</h1>}
             {lead && (
-              <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.65]">
+              <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
                 {lead}
               </p>
             )}
@@ -96,16 +96,16 @@ export const RecordHeader = ({
             )}
             {/* Reference Box — white service-card panel */}
             <div className="bg-surface border border-border rounded-[4px] p-4">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
+              <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground mb-3">
                 Reference
               </p>
               <dl className="space-y-2">
                 {fullMetadata.map((m, i) => (
                   <div key={i} className="flex items-baseline justify-between gap-3">
-                    <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+                    <dt className="t-utility-xs uppercase tracking-[0.08em] text-muted-foreground">
                       {m.label}
                     </dt>
-                    <dd className="font-mono text-[12px] text-foreground tabular-nums text-right">
+                    <dd className="font-mono t-utility-xs text-foreground tabular-nums text-right">
                       {m.value}
                     </dd>
                   </div>
@@ -114,14 +114,14 @@ export const RecordHeader = ({
             </div>
             {hasSummary && (
               <div className="bg-surface border border-border rounded-[4px] p-4">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
+                <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground mb-3">
                   Summary
                 </p>
                 <dl className="divide-y divide-border/60">
                   {summary!.map((s, i) => (
                     <div key={i} className="flex items-baseline justify-between gap-3 py-2 first:pt-0 last:pb-0">
-                      <dt className="text-[12.5px] text-muted-foreground">{s.label}</dt>
-                      <dd className="text-[12.5px] font-medium text-foreground tabular-nums text-right">{s.value}</dd>
+                      <dt className="t-utility-xs text-muted-foreground">{s.label}</dt>
+                      <dd className="t-utility-xs font-medium text-foreground tabular-nums text-right">{s.value}</dd>
                     </div>
                   ))}
                 </dl>

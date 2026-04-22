@@ -14,7 +14,7 @@ const isReadable = (s: EntryStatus) => s === "published";
 
 const SoftStatus = ({ status }: { status: EntryStatus }) =>
   isReadable(status) ? null : (
-    <span className="text-[11.5px] text-muted-foreground/70 italic">
+    <span className="t-utility-xs text-muted-foreground/70 italic">
       {ENTRY_STATUS_LABEL[status]}
     </span>
   );
@@ -25,16 +25,16 @@ const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
     className="block px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 transition-colors group"
   >
     <div className="flex items-baseline justify-between gap-4">
-      <h3 className="text-[16px] font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
+      <h3 className="t-body-md font-medium text-foreground leading-snug group-hover:underline underline-offset-4 decoration-border">
         {entry.title}
       </h3>
       <SoftStatus status={entry.status} />
     </div>
-    <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
+    <p className="mt-1 t-body-sm text-muted-foreground leading-relaxed">
       {entry.summary}
     </p>
     {entry.reviewedBy && (
-      <p className="mt-2 text-[11.5px] text-muted-foreground/80">
+      <p className="mt-2 t-utility-xs text-muted-foreground/80">
         Reviewed by {entry.reviewedBy}
       </p>
     )}

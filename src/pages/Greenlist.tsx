@@ -305,7 +305,7 @@ const Greenlist = () => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search facilities, locations, or focus areas…"
-                  className="w-full pl-9 pr-3 h-9 bg-background border border-border/40 rounded-md text-[13px] text-foreground placeholder:text-muted-foreground hover:border-border focus:outline-none focus:border-foreground/40"
+                  className="w-full pl-9 pr-3 h-9 bg-background border border-border/40 rounded-md t-body-sm text-foreground placeholder:text-muted-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                   aria-label="Search registry"
                 />
               </div>
@@ -313,7 +313,7 @@ const Greenlist = () => {
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by source type"
               >
                 <option value={ALL}>All source types</option>
@@ -327,7 +327,7 @@ const Greenlist = () => {
               <select
                 value={state}
                 onChange={(e) => setStateFilter(e.target.value)}
-                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by state"
               >
                 <option value={ALL}>All states</option>
@@ -342,7 +342,7 @@ const Greenlist = () => {
               <select
                 value={focus}
                 onChange={(e) => setFocus(e.target.value)}
-                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by focus"
               >
                 <option value={ALL}>All focus areas</option>
@@ -356,7 +356,7 @@ const Greenlist = () => {
               <select
                 value={website}
                 onChange={(e) => setWebsite(e.target.value as WebsiteFilter)}
-                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Filter by website availability"
               >
                 <option value="all">Website: any</option>
@@ -367,7 +367,7 @@ const Greenlist = () => {
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortMode)}
-                className="h-9 px-2.5 bg-background border border-border/40 rounded-md text-[13px] text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
+                className="h-9 px-2.5 bg-background border border-border/40 rounded-md t-body-sm text-foreground hover:border-border focus:outline-none focus:border-foreground/40"
                 aria-label="Sort records"
               >
                 <option value="name-asc">Name A–Z</option>
@@ -503,7 +503,7 @@ const Greenlist = () => {
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md t-body-sm text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     aria-label="Previous page"
                   >
                     <ChevronLeft className="h-3 w-3" /> Prev
@@ -534,7 +534,7 @@ const Greenlist = () => {
                           key={p}
                           onClick={() => setPage(p)}
                           aria-current={p === currentPage ? "page" : undefined}
-                          className={`h-9 min-w-9 px-3 rounded-md text-[13px] tabular-nums ${
+                          className={`h-9 min-w-9 px-3 rounded-md t-body-sm tabular-nums ${
                             p === currentPage
                               ? "bg-foreground text-background"
                               : "border border-border/60 text-foreground hover:bg-surface-muted/60"
@@ -548,7 +548,7 @@ const Greenlist = () => {
                   <button
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md text-[13px] text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="h-9 px-3 inline-flex items-center gap-1 border border-border/60 rounded-md t-body-sm text-foreground hover:bg-surface-muted/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     aria-label="Next page"
                   >
                     Next <ChevronRight className="h-3 w-3" />

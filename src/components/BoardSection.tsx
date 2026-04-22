@@ -74,10 +74,10 @@ export const BoardDefList = ({
           {prefix ? prefix(i) : String(i + 1).padStart(2, "0")}
         </div>
         <div className="col-span-10">
-          <p className="text-[14.5px] font-semibold text-foreground leading-snug">
+          <p className="t-body-strong text-foreground">
             {it.term}
           </p>
-          <p className="mt-1.5 text-[14.5px] text-muted-foreground leading-relaxed">
+          <p className="mt-1.5 t-body-sm text-muted-foreground">
             {it.description}
           </p>
         </div>

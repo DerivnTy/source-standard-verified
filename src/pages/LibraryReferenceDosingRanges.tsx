@@ -37,10 +37,10 @@ const LibraryReferenceDosingRanges = () => {
 
       <ArticleSection n={1} title="Critical reading note.">
         <div className="border border-border bg-surface-muted px-5 py-4">
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2">
+          <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground mb-2">
             Disclaimer · §1
           </p>
-          <p className="text-[15px] text-foreground leading-relaxed font-medium m-0">
+          <p className="t-body-sm text-foreground leading-relaxed font-medium m-0">
             The information provided in this document is for informational and foundational reference only. These ranges represent common clinical observations in peer-reviewed literature and do not constitute medical advice or prescribing instructions. All dosages must be individualized by a licensed medical provider based on blood chemistry, clinical history, and specific therapeutic goals.
           </p>
         </div>
@@ -55,13 +55,13 @@ const LibraryReferenceDosingRanges = () => {
       <ArticleSection n={3} title="Selected compound reference table.">
         <div className="border border-border bg-background">
           <div className="grid grid-cols-[1.4fr_1fr_1.2fr] bg-surface-muted border-b border-border px-4 py-2.5">
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+            <span className="font-mono t-utility-xs uppercase tracking-[0.12em] text-muted-foreground">
               Compound category
             </span>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
+            <span className="font-mono t-utility-xs uppercase tracking-[0.12em] text-muted-foreground">
               Common frequency
             </span>
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground text-right">
+            <span className="font-mono t-utility-xs uppercase tracking-[0.12em] text-muted-foreground text-right">
               Typical reference range
             </span>
           </div>
@@ -70,9 +70,9 @@ const LibraryReferenceDosingRanges = () => {
               key={i}
               className="grid grid-cols-[1.4fr_1fr_1.2fr] items-baseline px-4 py-4 border-b border-border last:border-b-0"
             >
-              <span className="text-[14px] text-foreground pr-3">{row.category}</span>
-              <span className="text-[13.5px] text-muted-foreground pr-3">{row.frequency}</span>
-              <span className="font-mono text-[13px] text-foreground tabular-nums text-right">
+              <span className="t-body-sm text-foreground pr-3">{row.category}</span>
+              <span className="t-body-sm text-muted-foreground pr-3">{row.frequency}</span>
+              <span className="font-mono t-body-sm text-foreground tabular-nums text-right">
                 {row.range}
               </span>
             </div>

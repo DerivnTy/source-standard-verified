@@ -77,7 +77,7 @@ const Governance = () => (
         </div>
         <div className="p-5">
           <Callout tone="info" eyebrow={`Administrative notice · ${DOC_ID} · §1.A`}>
-            <p className="text-[14.5px] text-foreground leading-relaxed">
+            <p className="t-body-sm text-foreground leading-relaxed">
               Initial advisory roster pending publication.
             </p>
             <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW, Q1 2026.</p>
@@ -110,7 +110,7 @@ const Governance = () => (
             <li key={a.code} className="grid grid-cols-12 gap-3 px-5 py-4 items-baseline">
               <div className="col-span-2 meta text-primary font-semibold">{a.code}</div>
               <div className="col-span-4">
-                <p className="text-[14.5px] font-semibold text-foreground">{a.full}</p>
+                <p className="t-body-sm font-semibold text-foreground">{a.full}</p>
                 <a
                   href={a.url}
                   target="_blank"
@@ -120,7 +120,7 @@ const Governance = () => (
                   {a.url.replace(/^https?:\/\//, "")} ↗
                 </a>
               </div>
-              <p className="col-span-6 text-[14.5px] text-muted-foreground leading-relaxed">
+              <p className="col-span-6 t-body-sm text-muted-foreground leading-relaxed">
                 {AUTHORITY_REFERENCE_OVERRIDES[a.code] ?? a.references}
               </p>
             </li>
@@ -136,13 +136,13 @@ const Governance = () => (
       title="Organizational neutrality & ethical boundaries."
       rationale="Strict separation of interests."
     >
-      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+      <p className="t-body-sm text-muted-foreground leading-relaxed">
         Source Standard does not manufacture, distribute, prescribe, dispense, or sell products in the categories it
         evaluates, and holds no equity, royalty, or revenue-share interest in any vendor or upstream source under
         review. The organization is structured to remain immune to commercial influence from the entities it
         examines.
       </p>
-      <p className="text-[14.5px] text-muted-foreground leading-relaxed">
+      <p className="t-body-sm text-muted-foreground leading-relaxed">
         Verification fees, where applicable, are uniform, disclosed at intake, and do not vary based on outcome,
         category, or reviewer determination. All reviewer determinations are recorded with written rationale and
         remain subject to internal audit.
@@ -156,9 +156,9 @@ const Governance = () => (
             <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
               <div>
                 <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
-                <p className="text-[14.5px] font-semibold text-foreground leading-snug">{d.label}</p>
+                <p className="t-body-sm font-semibold text-foreground leading-snug">{d.label}</p>
               </div>
-              <span className="text-primary text-[14px] shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
             </Link>
           </li>
         ))}

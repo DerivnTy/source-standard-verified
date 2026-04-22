@@ -43,7 +43,7 @@ export const AnchorHeader = ({
                 {title}
               </h1>
               {lead && (
-                <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.65]">
+                <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
                   {lead}
                 </p>
               )}
@@ -69,7 +69,7 @@ export const AnchorHeader = ({
             {title}
           </h1>
           {lead && (
-            <p className="mt-4 mx-auto max-w-[62ch] text-[14.5px] text-muted-foreground leading-[1.65]">
+            <p className="mt-4 mx-auto max-w-[62ch] t-body-sm text-muted-foreground leading-[1.65]">
               {lead}
             </p>
           )}

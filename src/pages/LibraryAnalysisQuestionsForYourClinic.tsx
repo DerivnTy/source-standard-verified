@@ -53,12 +53,12 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
         <ol className="border border-border bg-background divide-y divide-border my-2">
           {QUESTIONS.map((item, i) => (
             <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5">
-              <div className="col-span-2 font-mono text-[11px] uppercase tracking-[0.14em] text-primary">Q{i + 1}</div>
+              <div className="col-span-2 font-mono t-utility-xs uppercase tracking-[0.14em] text-primary">Q{i + 1}</div>
               <div className="col-span-10">
                 <p className="text-[15.5px] font-semibold text-foreground leading-snug">
                   &ldquo;{item.q}&rdquo;
                 </p>
-                <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
+                <p className="mt-2 t-body-sm text-muted-foreground leading-relaxed">
                   <span className="text-foreground font-medium">Why it matters · </span>
                   {item.why}
                 </p>

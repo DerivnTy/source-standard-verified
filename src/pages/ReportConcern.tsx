@@ -55,7 +55,7 @@ const ReportConcern = () => (
       <SectionLabel number="§1" title="Investigative Scope." description="Reports falling within the surveillance mandate of the Source Standard framework. The following categories are accepted for review against the audit file." />
       <ul className="space-y-3 max-w-3xl">
         {inScope.map((s, i) => (
-          <li key={i} className="flex gap-4 text-[15px]">
+          <li key={i} className="flex gap-4 t-body-sm">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-foreground">{s}</span>
           </li>
@@ -67,7 +67,7 @@ const ReportConcern = () => (
       <SectionLabel number="§2" title="Jurisdictional Boundaries." description="Source Standard is an Auditing Body, not a regulator, clinical authority, or court of competent jurisdiction. The following matters fall outside the surveillance mandate and must be directed to the appropriate authority." />
       <ul className="space-y-3 max-w-3xl">
         {outOfScope.map((s, i) => (
-          <li key={i} className="flex gap-4 text-[15px]">
+          <li key={i} className="flex gap-4 t-body-sm">
             <span className="meta-mono text-muted-foreground w-6 shrink-0">·</span>
             <span className="text-muted-foreground">{s}</span>
           </li>
@@ -77,7 +77,7 @@ const ReportConcern = () => (
 
     <Section density="doc">
       <SectionLabel number="§3" title="Submission lifecycle." />
-      <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-foreground mb-3">
+      <p className="t-utility-xs font-mono uppercase tracking-[0.1em] text-foreground mb-3">
         Controlled intake · Four-stage flow
       </p>
       <div className="divide-y divide-border/70 border-y border-border/70 bg-background">
@@ -87,7 +87,7 @@ const ReportConcern = () => (
               <span className="meta-mono text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
               <p className="h-card">{s.t}</p>
             </div>
-            <p className="md:col-span-9 text-[15px] text-muted-foreground leading-relaxed">{s.d}</p>
+            <p className="md:col-span-9 t-body-sm text-muted-foreground leading-relaxed">{s.d}</p>
           </div>
         ))}
       </div>
@@ -100,17 +100,17 @@ const ReportConcern = () => (
     <Section density="doc">
       <SectionLabel number="§5" title="Submission channel." description="A structured intake portal is forthcoming. In the interim, submissions are accepted at the secure address below. All correspondence is logged to the intake register." />
       <div className="border border-border rounded-[2px] bg-background p-5 max-w-2xl">
-        <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-muted-foreground mb-4">
+        <p className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground mb-4">
           SECURE SUBMISSION POINT · <span className="text-foreground">SS-REPORT-INTAKE</span>
         </p>
         <p className="meta-label mb-2">Email</p>
         <a
           href="mailto:concerns@sourcestandard.org?subject=Concern%20Report"
-          className="text-[16px] font-medium text-foreground underline-offset-4 hover:underline break-all"
+          className="t-body-md font-medium text-foreground underline-offset-4 hover:underline break-all"
         >
           concerns@sourcestandard.org
         </a>
-        <p className="mt-4 text-[13.5px] text-muted-foreground leading-relaxed">
+        <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
           Submissions should include: the listing or entity name, the nature of the discrepancy, supporting links or documents, and a means of follow-up correspondence should clarification be required. Mark sensitive material accordingly.
         </p>
       </div>
@@ -118,7 +118,7 @@ const ReportConcern = () => (
 
     <Section muted density="tight">
       <SectionLabel number="§6" title="Cross-references." />
-      <ul className="space-y-2 text-[15px]">
+      <ul className="space-y-2 t-body-sm">
         <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement, triggering events →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Glossary of Regulatory Standings →</Link></li>
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">Verification Protocol & Audit Methodology →</Link></li>

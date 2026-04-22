@@ -30,7 +30,7 @@ export const UtilityHeader = ({
         {backHref && (
           <Link
             to={backHref}
-            className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground"
+            className="inline-flex items-center gap-1.5 t-utility-xs text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-3 w-3" /> {backLabel ?? "Back"}
           </Link>
@@ -39,7 +39,7 @@ export const UtilityHeader = ({
           {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
           <h1 className="title-page text-foreground max-w-3xl">{title}</h1>
           {description && (
-            <p className="mt-3 max-w-[58ch] text-[14.5px] text-muted-foreground leading-[1.65]">
+            <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
               {description}
             </p>
           )}

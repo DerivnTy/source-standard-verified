@@ -70,7 +70,7 @@ const sectionRow = (
     <div className="md:col-span-4">
       <SectionLabel number={number} eyebrow={eyebrow} title={title} />
     </div>
-    <div className="md:col-span-8 prose-readable text-[15px] text-foreground leading-relaxed">
+    <div className="md:col-span-8 prose-readable t-body-sm text-foreground leading-relaxed">
       {body}
     </div>
   </div>
@@ -157,11 +157,11 @@ const HowToReadTheDirectory = () => {
               <div key={s} className="border-l-2 border-border pl-4">
                 <StatusBadge status={s} size="md" />
                 <p className="mt-2 text-foreground">{statusLong[s].meaning}</p>
-                <p className="mt-1 text-[14px] text-muted-foreground">
+                <p className="mt-1 t-body-sm text-muted-foreground">
                   <span className="text-foreground">What it tells the public:</span>{" "}
                   {statusLong[s].tells}
                 </p>
-                <p className="mt-1 text-[14px] text-muted-foreground">
+                <p className="mt-1 t-body-sm text-muted-foreground">
                   <span className="text-foreground">What it does not imply:</span>{" "}
                   {statusLong[s].notImply}
                 </p>

@@ -71,13 +71,13 @@ const FaqClinicalSafety = () => {
               <AccordionTrigger className="px-5 py-4 hover:no-underline group">
                 <div className="flex items-baseline gap-4 text-left">
                   <span className="meta text-primary pt-[2px]">{item.id}</span>
-                  <span className="text-[14.5px] font-semibold text-foreground leading-snug">
+                  <span className="t-body-sm font-semibold text-foreground leading-snug">
                     {item.q}
                   </span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-5 pb-5 pl-[calc(1.25rem+1.75rem)]">
-                <p className="text-[14.5px] leading-relaxed text-muted-foreground m-0">
+                <p className="t-body-sm text-muted-foreground m-0">
                   {item.a}
                 </p>
               </AccordionContent>

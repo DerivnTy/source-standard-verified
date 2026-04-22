@@ -108,7 +108,7 @@ const About = () => {
       >
         <ul className="border-y border-border divide-y divide-border">
           {isNotItems.map((item, i) => (
-            <li key={i} className="py-4 text-[14.5px] font-medium text-foreground">
+            <li key={i} className="py-4 t-body-sm font-medium text-foreground">
               {item}
             </li>
           ))}
@@ -120,11 +120,11 @@ const About = () => {
         <div className="container-wide space-section-tight">
           <div className="mx-auto max-w-2xl text-center">
             <p className="meta-mono mb-6">Operating principle</p>
-            <p className="text-[20px] md:text-[22px] font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
+            <p className="t-h3 font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
               "If documentation is present and supports the published status, that status can be shown
               publicly. If it is not, it cannot."
             </p>
-            <p className="mt-6 text-[14px] text-muted-foreground leading-relaxed">
+            <p className="mt-6 t-body-sm text-muted-foreground leading-relaxed">
               The role here is not to persuade. The role is to provide a clearer public reference.
             </p>
           </div>
@@ -169,7 +169,7 @@ const About = () => {
               <div className="col-span-2 meta-mono text-primary">
                 {String(i + 1).padStart(2, "0")}
               </div>
-              <p className="col-span-10 text-[14.5px] text-foreground leading-relaxed">{b}</p>
+              <p className="col-span-10 t-body-sm text-foreground leading-relaxed">{b}</p>
             </li>
           ))}
         </ol>
@@ -186,7 +186,7 @@ const About = () => {
             <p className="h-card mb-4">Within the framework</p>
             <ul className="space-y-2.5">
               {weVerify.map((item, i) => (
-                <li key={i} className="text-[14px] text-muted-foreground leading-relaxed">
+                <li key={i} className="t-body-sm text-muted-foreground leading-relaxed">
                   · {item}
                 </li>
               ))}
@@ -196,7 +196,7 @@ const About = () => {
             <p className="h-card mb-4">Outside the framework</p>
             <ul className="space-y-2.5">
               {weFlag.map((item, i) => (
-                <li key={i} className="text-[14px] text-muted-foreground leading-relaxed">
+                <li key={i} className="t-body-sm text-muted-foreground leading-relaxed">
                   · {item}
                 </li>
               ))}
@@ -210,11 +210,11 @@ const About = () => {
         <div className="container-wide space-section-tight">
           <div className="mx-auto max-w-2xl text-center">
             <p className="meta-mono mb-6">Mission</p>
-            <p className="text-[20px] md:text-[22px] font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
+            <p className="t-h3 font-medium tracking-[-0.01em] leading-[1.45] text-foreground">
               To bring greater clarity, consistency, and transparency to vendor sourcing and
               verification in peptide, TRT, and hormone optimization markets.
             </p>
-            <p className="mt-6 text-[14px] text-muted-foreground leading-relaxed">
+            <p className="mt-6 t-body-sm text-muted-foreground leading-relaxed">
               Source Standard exists to make the market easier to understand for the people moving
               through it.
             </p>
@@ -235,10 +235,10 @@ const About = () => {
                 to={d.to}
                 className="group block px-5 py-5 hover:bg-surface-muted transition-colors"
               >
-                <p className="text-[14.5px] font-medium text-foreground group-hover:text-primary">
+                <p className="t-body-sm font-medium text-foreground group-hover:text-primary">
                   {d.label} <span className="text-primary">→</span>
                 </p>
-                <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{d.desc}</p>
+                <p className="mt-1 t-body-sm text-muted-foreground">{d.desc}</p>
               </Link>
             </li>
           ))}

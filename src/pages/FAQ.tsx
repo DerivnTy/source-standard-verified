@@ -179,10 +179,10 @@ const FAQ = () => (
         <Accordion type="single" collapsible className="max-w-3xl">
           {g.items.map((item, i) => (
             <AccordionItem key={i} value={`${gi}-${i}`} className="border-border/70">
-              <AccordionTrigger className="text-left text-[15px] font-medium text-foreground">
+              <AccordionTrigger className="text-left t-body-sm font-medium text-foreground">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="text-[15px] text-muted-foreground leading-relaxed">
+              <AccordionContent className="t-body-sm text-muted-foreground leading-relaxed">
                 <p>{item.a}</p>
                 {item.to && (
                   <p className="mt-3">
@@ -200,7 +200,7 @@ const FAQ = () => (
 
     <Section density="tight">
       <SectionLabel number={`§${groups.length + 1}`} title="Read deeper" />
-      <ul className="space-y-2 text-[15px]">
+      <ul className="space-y-2 t-body-sm">
         <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">SOP: Verification Protocol & Audit Methodology →</Link></li>

@@ -1,27 +1,32 @@
 import { ReactNode } from "react";
+import { Section as SystemSection } from "@/components/system/Section";
 
 /**
- * Section — centered "filing" container.
+ * Legacy Section shim.
  *
- * Every content-heavy doc page (Terms, Privacy, Disclaimer, About, etc.)
- * renders through this primitive. The layout is a single centered prose
- * column (max 920px) with a unified background and consistent vertical
- * rhythm, so the page reads like one continuous regulatory filing rather
- * than a series of stacked blocks.
+ * All historical consumers (FAQ, ReportConcern, HowToReadTheDirectory,
+ * EducationBasics/Guides/Questions) now flow through the canonical
+ * `system/Section` primitive so they inherit the sitewide design
+ * constitution: 1120px standard width, sitewide vertical rhythm
+ * (`section-pad`), and consistent surfaces.
+ *
+ * The `width` API is preserved as a compatibility surface and mapped
+ * to the new width tokens. New code should import directly from
+ * `@/components/system`.
  */
-const WIDTH_MAP: Record<"narrow" | "editorial" | "wide", string> = {
-  narrow: "max-w-[680px]",
-  editorial: "max-w-[920px]",
-  wide: "max-w-[1280px]",
+const WIDTH_MAP: Record<"narrow" | "editorial" | "wide", "reading" | "reading-wide" | "standard"> = {
+  narrow: "reading",
+  editorial: "reading-wide",
+  wide: "standard",
 };
 
 export const Section = ({
   children,
-  muted: _muted = false,
-  bordered = true,
+  muted = false,
+  bordered: _bordered = true,
   className = "",
-  container: _container = "wide",
-  density: _density = "default",
+  container: _container,
+  density: _density,
   width = "editorial",
 }: {
   children: ReactNode;
@@ -30,33 +35,23 @@ export const Section = ({
   className?: string;
   container?: "tight" | "narrow" | "wide";
   density?: "default" | "doc" | "tight";
-  /**
-   * Width tier for the prose column. Sitewide width API:
-   *   narrow    — 680px, legal/intro/single-statement bands
-   *   editorial — 920px (default), standard prose + grid sections
-   *   wide      — 1280px, tables, profile cards, multi-column records
-   */
   width?: "narrow" | "editorial" | "wide";
-}) => {
-  return (
-    <section className={`bg-background ${className}`}>
-      <div
-        className={`prose-filing mx-auto w-full ${WIDTH_MAP[width]} px-6 md:px-10 py-16 md:py-20 ${
-          bordered ? "border-t border-[#E5E7EB]" : ""
-        }`}
-      >
-        {children}
-      </div>
-    </section>
-  );
-};
+}) => (
+  <SystemSection
+    surface={muted ? "muted" : "background"}
+    width={WIDTH_MAP[width]}
+    bordered={false}
+    className={className}
+  >
+    {children}
+  </SystemSection>
+);
 
 /**
- * SectionLabel — the "filing header".
- *
- * §N chip rendered inline-left of the title; description sits below at
- * a comfortable reading width. The eyebrow slot is intentionally retired
- * (the §N chip replaces it).
+ * SectionLabel — the in-page filing header. §N chip rendered inline-left
+ * of the title, description below at the standard reading measure.
+ * Uses the canonical typography tokens so it matches every other heading
+ * across the site.
  */
 export const SectionLabel = ({
   number,
@@ -70,22 +65,26 @@ export const SectionLabel = ({
   description?: string;
 }) => (
   <div className="mb-8">
-    <h2 className="text-[1.5rem] md:text-[1.625rem] font-semibold tracking-[-0.012em] leading-[1.25] text-foreground font-sans">
+    <h2 className="t-section-title-sm text-foreground">
       {number && (
-        <span className="font-mono text-[0.78em] uppercase tracking-[0.08em] text-muted-foreground mr-3 align-baseline">
+        <span className="t-utility-xs text-muted-foreground mr-3 align-baseline">
           {number}
         </span>
       )}
       {title}
     </h2>
     {description && (
-      <p className="mt-3 text-[16px] leading-[1.7] text-muted-foreground">
+      <p className="mt-3 t-body-sm text-muted-foreground">
         {description}
       </p>
     )}
   </div>
 );
 
+/**
+ * FramedSection — bordered card with optional metadata bar.
+ * Preserved for legacy callers; uses tokenized typography internally.
+ */
 export const FramedSection = ({
   metaLeft,
   metaRight,
@@ -100,8 +99,8 @@ export const FramedSection = ({
   <div className={`border border-border/70 rounded-[2px] bg-background ${className}`}>
     {(metaLeft || metaRight) && (
       <div className="flex items-center justify-between px-5 py-3 border-b border-border/70 bg-surface-muted/60">
-        <span className="text-[12.5px] text-foreground font-medium">{metaLeft}</span>
-        <span className="text-[12.5px] text-muted-foreground">{metaRight}</span>
+        <span className="t-utility-xs text-foreground">{metaLeft}</span>
+        <span className="t-utility-xs text-muted-foreground">{metaRight}</span>
       </div>
     )}
     {children}

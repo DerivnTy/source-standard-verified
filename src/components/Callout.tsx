@@ -40,7 +40,7 @@ export const Callout = ({
       <div className="pl-6 pr-6 py-5">
         {eyebrow && (
           <p
-            className={`font-mono uppercase tracking-[0.08em] text-[10.5px] font-medium ${t.label} mb-2`}
+            className={`font-mono uppercase tracking-[0.08em] t-utility-xs font-medium ${t.label} mb-2`}
           >
             {eyebrow}
           </p>
@@ -52,5 +52,5 @@ export const Callout = ({
 };
 
 export const CalloutTitle = ({ children }: { children: ReactNode }) => (
-  <p className="text-[14.5px] font-semibold text-foreground mb-2">{children}</p>
+  <p className="t-body-sm font-semibold text-foreground mb-2">{children}</p>
 );
