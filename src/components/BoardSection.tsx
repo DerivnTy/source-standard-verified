@@ -19,7 +19,7 @@ export const BoardSection = ({
   children,
 }: {
   n: string | number;
-  category: string;
+  category?: string;
   title: string;
   rationale?: ReactNode;
   muted?: boolean;
@@ -36,14 +36,14 @@ export const BoardSection = ({
       <div className="mx-auto w-standard grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
           <p className="t-utility-xs text-muted-foreground mb-4">
-            §{n} · {category}
+            {category ? `§${n} · ${category}` : `§${n}`}
           </p>
           <h2 className="t-section-title-sm text-foreground">{title}</h2>
           {rationale && (
-            <p className="mt-4 t-body-sm text-muted-foreground">{rationale}</p>
+            <p className="mt-4 t-body-md text-muted-foreground">{rationale}</p>
           )}
         </div>
-        <div className="md:col-span-8 t-body-md text-muted-foreground space-y-5">
+        <div className="md:col-span-8 t-body-md text-foreground/85 space-y-5">
           {children}
         </div>
       </div>
@@ -98,25 +98,19 @@ export const BoardFooterNav = ({
   next?: { to: string; label: string };
 }) => (
   <section className="border-b border-border bg-background">
-    <div className="container-wide py-8">
-      <div className="border border-border bg-surface-muted">
+    <div className="page-shell py-8">
+      <div className="mx-auto w-standard border border-border bg-surface-muted">
         <ul className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
           {back && (
             <li className="px-5 py-4">
-              <Link
-                to={back.to}
-                className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
-              >
+              <Link to={back.to} className="t-utility-xs text-foreground hover:text-primary">
                 ← {back.label}
               </Link>
             </li>
           )}
           {next && (
             <li className="px-5 py-4 md:text-right">
-              <Link
-                to={next.to}
-                className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
-              >
+              <Link to={next.to} className="t-utility-xs text-foreground hover:text-primary">
                 {next.label} →
               </Link>
             </li>

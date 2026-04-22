@@ -182,38 +182,28 @@ export const BriefingHero = ({
       <HeroPattern opacity={0.04} />
 
       {isDense ? (
-        <div className="relative container-wide py-14 md:py-20">
+        <div className="relative page-shell section-pad">
           <div className="grid grid-cols-12 gap-8 md:gap-12 w-full">
-            {/* Left rail */}
             <div className="col-span-12 md:col-span-7">
-              <p
-                aria-hidden="true"
-                className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-muted-foreground mb-5"
-              >
+              <p aria-hidden="true" className="t-eyebrow-sm text-muted-foreground mb-4">
                 {category}
               </p>
               <h1
                 id="briefing-title"
-                className="text-foreground tracking-[-0.015em] leading-[1.1] text-[28px] sm:text-[32px] md:text-[38px] font-semibold max-w-[22ch]"
+                className="text-foreground t-chapter-title max-w-[22ch]"
               >
                 {title}
               </h1>
-              <p className="mt-5 max-w-[60ch] text-[14.5px] text-muted-foreground leading-[1.7]">
+              <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">
                 {statement}
               </p>
               {rationale && (
-                <div className="mt-7 max-w-[60ch] border border-border p-4">
-                  <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                    Rationale
-                  </p>
-                  <p className="text-[14.5px] text-foreground leading-[1.65]">
-                    {rationale}
-                  </p>
+                <div className="mt-7 max-w-[68ch] border border-border p-5">
+                  <p className="t-eyebrow-sm text-muted-foreground mb-2">Rationale</p>
+                  <p className="t-body-md text-foreground">{rationale}</p>
                 </div>
               )}
             </div>
-
-            {/* Right rail */}
             <div className="col-span-12 md:col-span-5">{rightRail}</div>
           </div>
         </div>

@@ -6,9 +6,9 @@ export type ArticleMetaItem = { label: string; value: ReactNode };
 /**
  * ArticleHeader — editorial header for Library article pages.
  *
- * Single centered editorial column (max-w-[760px]) with a quiet back link,
- * eyebrow, H1, lead deck, and a flat horizontal metadata strip. Replaces
- * the heavier `RecordHeader` split panel on consumer-facing reading pages.
+ * Single editorial column (max-w-[820px]) with a quiet back link, eyebrow,
+ * H1, lead deck, and a flat horizontal metadata strip. Uses the canonical
+ * t-page-title token so article H1s match every other internal page.
  */
 export const ArticleHeader = ({
   eyebrow,
@@ -36,13 +36,15 @@ export const ArticleHeader = ({
           <span className="underline-offset-4 group-hover:underline normal-case tracking-normal">{backLabel}</span>
         </Link>
 
+        <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
+
         {eyebrow && (
           <p className="t-eyebrow-sm text-muted-foreground mb-4">
             {eyebrow}
           </p>
         )}
 
-        <h1 className="t-article-title text-foreground max-w-[26ch] mb-5">
+        <h1 className="t-page-title text-foreground max-w-[26ch] mb-5">
           {title}
         </h1>
 

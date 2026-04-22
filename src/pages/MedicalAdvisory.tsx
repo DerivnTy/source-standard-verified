@@ -107,39 +107,33 @@ const MedicalAdvisory = () => {
       />
 
       <div className="bg-background">
-        <div className="container-wide">
-          <div className="max-w-[1100px] mx-auto">
+        <div className="page-shell">
+          <div className="mx-auto w-standard">
 
             {/* Why this Board exists */}
-            <section className="py-14 border-b border-border/40">
-              <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-6">
+            <section className="section-pad border-b border-border/40">
+              <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
+              <h2 className="t-section-title-sm text-foreground mb-8">
                 Why this Board exists
-              </p>
+              </h2>
               <div className="grid md:grid-cols-3 md:divide-x md:divide-border/50">
                 {WHY_ITEMS.map((w, i) => (
                   <div key={w.title} className={i === 0 ? "md:pr-8" : i === WHY_ITEMS.length - 1 ? "md:pl-8 mt-8 md:mt-0" : "md:px-8 mt-8 md:mt-0"}>
-                    <p className="t-body-sm font-semibold text-foreground leading-snug">
-                      {w.title}
-                    </p>
-                    <p className="mt-3 t-body-sm text-muted-foreground leading-relaxed">
-                      {w.body}
-                    </p>
+                    <p className="t-h4 text-foreground">{w.title}</p>
+                    <p className="mt-3 t-body-md text-muted-foreground">{w.body}</p>
                   </div>
                 ))}
               </div>
             </section>
 
             {/* Role in the framework */}
-            <section className="py-14 border-b border-border/40">
+            <section className="section-pad border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
-                  <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
-                    Role in the framework
-                  </p>
-                  <h2 className="h-section">
-                    Where the Board sits in the verification chain.
+                  <h2 className="t-section-title-sm text-foreground">
+                    Where the Board sits in the verification chain
                   </h2>
-                  <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed max-w-[40ch]">
+                  <p className="mt-4 t-body-md text-muted-foreground max-w-[40ch]">
                     The Board is the layer above the operational registry. It does not produce listings, it governs the logic by which listings are produced.
                   </p>
                 </div>
@@ -147,10 +141,10 @@ const MedicalAdvisory = () => {
                   <ol className="divide-y divide-border/60">
                     {ROLE_FUNCTIONS.map((s) => (
                       <li key={s.n} className="grid grid-cols-12 gap-4 py-5 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 t-body-sm font-mono text-muted-foreground">{s.n}</div>
+                        <div className="col-span-2 t-utility-xs text-muted-foreground">{s.n}</div>
                         <div className="col-span-10">
-                          <p className="t-body-sm font-semibold text-foreground">{s.t}</p>
-                          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{s.d}</p>
+                          <p className="t-body-md font-semibold text-foreground">{s.t}</p>
+                          <p className="mt-1.5 t-body-md text-muted-foreground">{s.d}</p>
                         </div>
                       </li>
                     ))}
@@ -160,13 +154,10 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Board roster */}
-            <section className="py-14 border-b border-border/40">
+            <section className="section-pad border-b border-border/40">
               <div className="mb-8">
-                <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                <h2 className="t-section-title-sm text-foreground max-w-2xl">
                   Appointed members
-                </p>
-                <h2 className="h-section max-w-2xl">
-                  The Medical Advisory Board.
                 </h2>
               </div>
 
@@ -198,12 +189,12 @@ const MedicalAdvisory = () => {
                         </div>
                       </div>
 
-                      <p className="t-body-sm text-foreground/90 leading-relaxed flex-1">{m.shortSummary}</p>
+                      <p className="t-body-md text-foreground/85 flex-1">{m.shortSummary}</p>
 
                       <div className="mt-5 flex justify-end">
                         <Link
                           to={`/medical-advisory/${m.slug}`}
-                          className="t-body-sm text-foreground hover:text-primary transition-colors"
+                          className="t-body-md text-foreground hover:text-primary transition-colors"
                         >
                           View profile →
                         </Link>
@@ -215,20 +206,17 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Scope & boundaries */}
-            <section className="py-14 border-b border-border/40">
+            <section className="section-pad border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
-                  <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                  <h2 className="t-section-title-sm text-foreground">
                     Scope & boundaries
-                  </p>
-                  <h2 className="h-section">
-                    What the Board does, and does not, do.
                   </h2>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
                   <ul className="divide-y divide-border/60">
                     {BOUNDARIES.map((b) => (
-                      <li key={b} className="py-4 first:pt-0 last:pb-0 t-body-sm text-foreground leading-relaxed">
+                      <li key={b} className="py-4 first:pt-0 last:pb-0 t-body-md text-foreground">
                         {b}
                       </li>
                     ))}
@@ -238,16 +226,13 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Responsibilities */}
-            <section className="py-14 border-b border-border/40">
+            <section className="section-pad border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
-                  <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                  <h2 className="t-section-title-sm text-foreground">
                     Responsibilities
-                  </p>
-                  <h2 className="h-section">
-                    What the Board is accountable for.
                   </h2>
-                  <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed max-w-[40ch]">
+                  <p className="mt-4 t-body-md text-muted-foreground max-w-[40ch]">
                     Each responsibility maps to a recurring review activity recorded under the framework's maintenance log.
                   </p>
                 </div>
@@ -257,8 +242,8 @@ const MedicalAdvisory = () => {
                       const title = RESPONSIBILITY_TITLE_OVERRIDES[r.code] ?? r.title;
                       return (
                         <div key={r.code} className="py-4 first:pt-0 last:pb-0">
-                          <dt className="t-body-sm font-semibold text-foreground">{title}</dt>
-                          <dd className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">
+                          <dt className="t-body-md font-semibold text-foreground">{title}</dt>
+                          <dd className="mt-1.5 t-body-md text-muted-foreground">
                             {r.description}
                           </dd>
                         </div>
@@ -270,10 +255,10 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Bridge — Continue reading */}
-            <section className="py-14">
-              <p className="t-utility-xs font-mono uppercase tracking-[0.18em] text-muted-foreground mb-6">
+            <section className="section-pad">
+              <h2 className="t-section-title-sm text-foreground mb-6">
                 Continue reading
-              </p>
+              </h2>
               <ul className="divide-y divide-border/60">
                 {BRIDGE_LINKS.map((b) => (
                   <li key={b.to}>
@@ -281,13 +266,13 @@ const MedicalAdvisory = () => {
                       to={b.to}
                       className="grid grid-cols-12 gap-4 py-5 group items-baseline"
                     >
-                      <p className="col-span-12 md:col-span-4 t-body-sm font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                      <p className="col-span-12 md:col-span-4 t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
                         {b.label}
                       </p>
-                      <p className="col-span-12 md:col-span-7 t-body-sm text-muted-foreground leading-relaxed">
+                      <p className="col-span-12 md:col-span-7 t-body-md text-muted-foreground">
                         {b.description}
                       </p>
-                      <span className="col-span-12 md:col-span-1 t-body-sm text-muted-foreground md:text-right group-hover:text-primary transition-colors">
+                      <span className="col-span-12 md:col-span-1 t-body-md text-muted-foreground md:text-right group-hover:text-primary transition-colors">
                         →
                       </span>
                     </Link>
