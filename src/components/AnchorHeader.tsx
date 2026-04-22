@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { HeroPattern } from "./HeroPattern";
 
 /**
  * AnchorHeader — Tier 1, used on front-door anchor pages.

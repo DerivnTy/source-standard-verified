@@ -19,7 +19,7 @@ export const SiteHeader = () => {
   const location = useLocation();
   const isHome = location.pathname === "/";
   return (
-    <header className="sticky top-0 z-40 bg-background border-b border-border/60">
+    <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-md border-b border-border/60 shadow-sm">
       {/* Utility strip — suppressed on home (hero owns the top band) */}
       {!isHome && (
         <div className="hidden md:block bg-background border-b border-border/40">
@@ -55,7 +55,7 @@ export const SiteHeader = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center">
-          <Button asChild size="sm" className="text-[13px] h-10 px-5 font-medium">
+          <Button asChild size="sm" className="text-[13px] h-10 px-5 font-medium bg-foreground text-background hover:bg-foreground/90 rounded-lg">
             <Link to="/apply">Apply for verification</Link>
           </Button>
         </div>
