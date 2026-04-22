@@ -138,7 +138,7 @@ const Index = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {lookups.map((l) => (
-              <div key={l.n} className="border border-border/60 rounded-lg bg-background p-6 flex flex-col">
+              <div key={l.n} className="card-elevated p-6 flex flex-col">
                 <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground mb-3">{l.label}</p>
                 <h3 className="h-sub mb-2">{l.title}</h3>
                 <p className="text-[14px] text-muted-foreground leading-relaxed mb-6 flex-1">{l.body}</p>
