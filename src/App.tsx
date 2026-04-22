@@ -77,6 +77,7 @@ const App = () => (
             <Route path="/library/endocrinological-context" element={<LibraryEndocrinologicalContext />} />
             <Route path="/library/reference-dosing-ranges" element={<LibraryReferenceDosingRanges />} />
             <Route path="/library/analysis/2026-reclassification" element={<LibraryAnalysis2026Reclassification />} />
+            <Route path="/library/analysis/questions-for-your-clinic" element={<LibraryAnalysisQuestionsForYourClinic />} />
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
             <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />
