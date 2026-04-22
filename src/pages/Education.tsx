@@ -4,12 +4,6 @@ import { ChevronRight } from "lucide-react";
 import { AnchorHeader } from "@/components/AnchorHeader";
 import { Button } from "@/components/ui/button";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   ENTRY_STATUS_LABEL,
   EntryStatus,
   FAQEntry,
@@ -60,10 +54,10 @@ const SoftStatus = ({ status }: { status: EntryStatus }) =>
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
   <Link
     to={`/education/${entry.slug}`}
-    className="group block px-5 py-4 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 hover:border-foreground/20 transition-colors"
+    className="group block px-6 py-5 border-b border-border/60 last:border-b-0 hover:bg-surface-muted/40 hover:border-foreground/20 transition-colors"
   >
-    <div className="flex items-start gap-5">
-      <span className="w-28 shrink-0 pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums">
+    <div className="flex items-center gap-5">
+      <span className="w-28 shrink-0 self-center font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground tabular-nums">
         {entry.id}
       </span>
       <div className="flex-1 min-w-0">
@@ -79,16 +73,16 @@ const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
           </p>
         )}
       </div>
-      <div className="shrink-0 flex flex-col items-end gap-2 pt-0.5 min-w-[140px]">
+      <div className="shrink-0 self-center">
         <SoftStatus status={entry.status} />
-        <span
-          aria-hidden
-          className="pointer-events-none inline-flex items-center gap-1 text-[12px] text-muted-foreground group-hover:text-foreground transition-colors"
-        >
-          Read full article
-          <ChevronRight className="h-3.5 w-3.5" />
-        </span>
       </div>
+      <span
+        aria-hidden
+        className="shrink-0 self-center pl-4 border-l border-border/40 inline-flex items-center gap-1 text-[12px] text-muted-foreground group-hover:text-foreground transition-colors pointer-events-none"
+      >
+        Read full article
+        <ChevronRight className="h-3.5 w-3.5" />
+      </span>
     </div>
   </Link>
 );
@@ -158,7 +152,6 @@ const matches = (q: string, ...fields: (string | undefined)[]) => {
 
 const Education = () => {
   const [query, setQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState<CategoryKey>("legal");
 
   const q = query.trim();
 
@@ -174,12 +167,6 @@ const Education = () => {
     () => analysisCards.filter((e) => matches(q, e.id, displayTitle(e), e.summary)),
     [q],
   );
-
-  const activeCat = CATEGORIES.find((c) => c.key === activeCategory)!;
-  const activeFaqs: FAQEntry[] = activeCat.ids
-    .map(faqById)
-    .filter((f): f is FAQEntry => Boolean(f))
-    .filter((f) => matches(q, f.id, f.q, f.a));
 
   // Per-category match counts (respect search)
   const categoryCounts = useMemo(() => {
@@ -224,8 +211,8 @@ const Education = () => {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search standards, FAQs, and articles…"
-              className="mt-1.5 w-full max-w-[640px] block rounded-[4px] border border-border bg-background px-3.5 py-2 font-mono text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-foreground/40 transition-colors"
+              placeholder="FILTER BY DOC ID OR KEYWORD…"
+              className="mt-1.5 w-full max-w-[640px] block rounded-[4px] border border-border bg-background px-3.5 py-2 font-mono text-[13px] text-foreground placeholder:text-muted-foreground/70 placeholder:uppercase placeholder:tracking-[0.08em] focus:outline-none focus:border-foreground/40 transition-colors"
             />
           </label>
         </div>
@@ -296,15 +283,25 @@ const Education = () => {
                 <EmptyNote />
               )}
             </div>
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <div className="mt-6 flex justify-end">
               <Link
                 to="/education/guides"
                 className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
               >
                 View full clinical protocol index →
               </Link>
-              <Button asChild variant="outline" size="sm">
-                <a href="#questions">Looking for safe-handling answers? Jump to FAQ →</a>
+            </div>
+            <div className="mt-8 border border-border/70 bg-background rounded-[4px] px-6 py-5 flex flex-wrap items-center justify-between gap-6">
+              <div>
+                <p className="text-[15px] font-semibold text-foreground">Seeking regulatory clarity?</p>
+                <p className="mt-1 text-[13px] text-muted-foreground">Browse the FAQ categories grouped by topic.</p>
+              </div>
+              <Button
+                onClick={() =>
+                  document.getElementById("questions")?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+              >
+                Browse FAQ Categories →
               </Button>
             </div>
           </div>
@@ -321,21 +318,14 @@ const Education = () => {
             </p>
 
             {/* Category grid */}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {CATEGORIES.map((c) => {
-                const isActive = c.key === activeCategory;
                 const count = categoryCounts[c.key];
                 return (
-                  <button
+                  <Link
                     key={c.key}
-                    type="button"
-                    onClick={() => setActiveCategory(c.key)}
-                    className={[
-                      "text-left rounded-[4px] border px-5 py-4 bg-background transition-colors",
-                      isActive
-                        ? "border-foreground/60"
-                        : "border-border/70 hover:border-foreground/30",
-                    ].join(" ")}
+                    to={`/education/questions#${c.groupAnchor}`}
+                    className="flex flex-col text-left rounded-[4px] border border-border/70 bg-background px-5 py-4 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 hover:shadow-[0_0_0_1px_rgba(0,0,0,0.04)]"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
@@ -351,51 +341,13 @@ const Education = () => {
                     <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
                       {c.description}
                     </p>
-                    <Link
-                      to={`/education/questions#${c.groupAnchor}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="mt-3 inline-block text-[12px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
-                    >
-                      View on full FAQ page →
-                    </Link>
-                  </button>
+                    <span className="mt-4 inline-flex items-center gap-1 text-[12px] text-muted-foreground">
+                      Browse category
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </span>
+                  </Link>
                 );
               })}
-            </div>
-
-            {/* Active category accordion */}
-            <div className="mt-8">
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground mb-2">
-                {activeCat.code} · {activeCat.label}
-              </p>
-              {activeFaqs.length ? (
-                <Accordion type="single" collapsible className="border-t border-border/60">
-                  {activeFaqs.map((item) => (
-                    <AccordionItem key={item.id} value={item.id} className="border-b border-border/60">
-                      <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
-                        {item.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
-                        <p>{item.a}</p>
-                        {item.relatedSlug && (
-                          <p className="mt-3">
-                            <Link
-                              to={`/education/${item.relatedSlug}`}
-                              className="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
-                            >
-                              Read more →
-                            </Link>
-                          </p>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              ) : (
-                <p className="text-[13px] text-muted-foreground italic border-t border-border/60 py-4">
-                  No matches in this category.
-                </p>
-              )}
             </div>
 
             <div className="mt-8 flex justify-end">
@@ -421,7 +373,7 @@ const Education = () => {
                 {filteredAnalysis.map((entry) => (
                   <article
                     key={entry.id}
-                    className="flex flex-col rounded-[4px] border border-border/70 bg-background p-6 transition-colors hover:border-foreground/30"
+                    className="flex flex-col rounded-[4px] border border-border/70 bg-background p-6 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 hover:shadow-[0_2px_0_0_rgba(0,0,0,0.06)]"
                   >
                     <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
                       {entry.id} · Analysis
