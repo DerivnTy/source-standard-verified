@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { greenlist } from "@/data/greenlist";
 import { AnchorHeader } from "@/components/AnchorHeader";
 import { HeroPattern } from "@/components/HeroPattern";
+import { PageMeta } from "@/components/PageMeta";
 
 const lookups = [
   {
@@ -65,6 +66,10 @@ const Index = () => {
 
   return (
     <>
+      <PageMeta
+        title="Home"
+        description="Source Standard — the public Clinical Transparency Framework auditing vendors against FDA-registered upstream sources."
+      />
       {/* Master Control Strip — homepage owns this band */}
       <div className="border-b border-border bg-background">
         <div className="container-wide flex h-9 items-center justify-between">
