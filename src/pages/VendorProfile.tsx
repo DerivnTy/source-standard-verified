@@ -26,24 +26,14 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 
 type Theme = {
   hairline: string; // top hairline above hero
-  monogramRing: string; // monogram tile border tint
 };
 
 const THEME: Record<VendorPublicStatus, Theme> = {
-  verified: { hairline: "bg-verified", monogramRing: "border-verified/40" },
-  "under-review": { hairline: "bg-pending", monogramRing: "border-pending/40" },
-  unverified: {
-    hairline: "bg-muted-foreground/30",
-    monogramRing: "border-border",
-  },
-  suspended: {
-    hairline: "bg-destructive",
-    monogramRing: "border-destructive/40",
-  },
-  removed: {
-    hairline: "bg-muted-foreground/30",
-    monogramRing: "border-border",
-  },
+  verified: { hairline: "bg-verified" },
+  "under-review": { hairline: "bg-pending" },
+  unverified: { hairline: "bg-muted-foreground/30" },
+  suspended: { hairline: "bg-destructive" },
+  removed: { hairline: "bg-muted-foreground/30" },
 };
 
 const FULFILLMENT_ICON: Record<VendorFulfillment, typeof Building2> = {
@@ -77,13 +67,7 @@ const formatFullAddress = (vendor: Vendor): string | null => {
 
 const sourceTypeFor = (_v: Vendor): string => "503A / 503B / Retail";
 
-const monogramOf = (name: string): string =>
-  name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("") || "·";
+// (monogram helper removed — no auto-generated logo block)
 
 const isPresent = (v: ReactNode | string[] | undefined | null | false): boolean => {
   if (v === null || v === undefined || v === "" || v === false) return false;
@@ -94,7 +78,7 @@ const isPresent = (v: ReactNode | string[] | undefined | null | false): boolean 
 // ---------- Locked primitives ----------
 
 const FallbackLine = ({ children }: { children: ReactNode }) => (
-  <span className="t-body-sm text-muted-foreground italic">{children}</span>
+  <span className="t-body-md text-muted-foreground italic">{children}</span>
 );
 
 /**
@@ -113,11 +97,9 @@ const Field = ({
   const present = isPresent(value);
   return (
     <div>
-      <dt className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground">
-        {label}
-      </dt>
+      <dt className="t-utility-xs text-muted-foreground">{label}</dt>
       <dd
-        className={`mt-1.5 t-body-sm font-medium leading-[1.5] ${
+        className={`mt-1.5 t-body-md leading-snug ${
           present ? "text-foreground" : "text-muted-foreground"
         } ${mono && present ? "font-mono tabular-nums" : ""}`}
       >
@@ -147,12 +129,12 @@ const RailRow = ({
   const present = isPresent(value);
   return (
     <div className="flex items-baseline justify-between gap-4 py-3 border-b border-border/50 last:border-0">
-      <span className="t-utility-xs uppercase tracking-[0.1em] font-semibold text-muted-foreground shrink-0">
+      <span className="t-utility-xs text-muted-foreground shrink-0">
         {label}
       </span>
       {present ? (
         <span
-          className={`t-body-sm text-foreground text-right leading-[1.45] ${
+          className={`t-body-sm text-foreground text-right leading-snug ${
             mono ? "font-mono tabular-nums" : ""
           }`}
         >
@@ -174,13 +156,9 @@ const SectionHeading = ({
 }) => (
   <div className="mb-5">
     {eyebrow && (
-      <p className="t-utility-xs uppercase tracking-[0.16em] text-muted-foreground font-semibold mb-1.5">
-        {eyebrow}
-      </p>
+      <p className="t-eyebrow-sm text-muted-foreground mb-1.5">{eyebrow}</p>
     )}
-    <h2 className="t-section-title-sm font-semibold tracking-tight text-foreground">
-      {children}
-    </h2>
+    <h2 className="t-section-title-sm text-foreground">{children}</h2>
   </div>
 );
 
