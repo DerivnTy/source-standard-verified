@@ -292,7 +292,7 @@ const HowItWorks = () => {
       <DocJumpBar waypoints={jumpWaypoints} />
 
       {/* §1 Governing principles */}
-      <section className="border-b border-border bg-background">
+      <section id="principles" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -325,7 +325,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §2 Scope of attestation */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="scope" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -356,7 +356,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §3 Registry determinations — Board-style table */}
-      <section className="border-b border-border bg-background">
+      <section id="determinations" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -417,7 +417,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §4 Examination domains */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="domains" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -448,7 +448,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §5 Standardized review lifecycle — Board ol pattern */}
-      <section className="border-b border-border bg-background">
+      <section id="lifecycle" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -487,7 +487,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §6 Post-audit surveillance */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="surveillance" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -525,7 +525,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §7 Post-determination handling */}
-      <section className="border-b border-border bg-background">
+      <section id="post" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -552,7 +552,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §8 Applicant rationale */}
-      <section className="border-b border-border bg-surface-muted">
+      <section id="rationale" className="scroll-mt-36 border-b border-border bg-surface-muted">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
@@ -588,7 +588,7 @@ const HowItWorks = () => {
       </section>
 
       {/* §9 Jurisdictional limitations */}
-      <section className="border-b border-border bg-background">
+      <section id="limits" className="scroll-mt-36 border-b border-border bg-background">
         <div className="container-wide py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-10">
             <Rail
