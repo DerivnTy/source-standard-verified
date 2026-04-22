@@ -377,13 +377,14 @@ const VerifiedVendors = () => {
           {/* Dense table / cards */}
           <div className="mt-4">
             {sorted.length === 0 ? (
-              <div className="rounded-lg border border-border/60 bg-surface-muted/60 px-4 py-10 text-center">
-                <p className="meta">
-                  {vendors.length === 0
-                    ? "— Directory pending population. First batch import scheduled."
-                    : "— No records match the current filters."}
-                </p>
-              </div>
+              <EmptyState
+                eyebrow="No Verified Entities Found"
+                body={
+                  vendors.length === 0
+                    ? "Directory pending population. First batch import scheduled."
+                    : "Source Standard has not yet audited a facility matching these filters."
+                }
+              />
             ) : (
               <>
                 <div className="hidden md:block rounded-[12px] border border-border/40 bg-card overflow-hidden shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">
