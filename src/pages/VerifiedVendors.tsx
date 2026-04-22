@@ -69,11 +69,6 @@ const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
   removed: "Listing removed from the public directory; record preserved for transparency.",
 };
 
-const FULFILLMENT_TICK: Record<VendorFulfillment, string> = {
-  "in-person": "bg-[hsl(var(--src-503a))]",
-  online: "bg-[hsl(var(--src-503b))]",
-  hybrid: "bg-[hsl(var(--src-other))]",
-};
 
 const FulfillmentChip = ({ kind }: { kind: VendorFulfillment }) => {
   const Icon =
@@ -137,7 +132,7 @@ const VerifiedVendors = () => {
     return c;
   }, []);
 
-  const fulfillmentCounts = useMemo(() => getVendorFulfillmentCounts(), []);
+  
   const statesRepresented = states.length;
 
   const filtered = useMemo(() => {
