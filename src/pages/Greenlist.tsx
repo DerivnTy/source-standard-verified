@@ -276,7 +276,9 @@ const Greenlist = () => {
                         />
                       )}
                       <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-muted-foreground truncate">
-                        {s.key === "total" ? s.label : s.key}
+                        {s.key === "total"
+                          ? s.label
+                          : CATEGORY_LABEL[s.key as GreenlistCategory] ?? s.key}
                       </p>
                     </div>
                     <p className="text-[1.75rem] font-semibold tabular-nums leading-none text-foreground">
