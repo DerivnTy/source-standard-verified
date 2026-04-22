@@ -26,6 +26,7 @@ import LibraryEndocrinologicalContext from "./pages/LibraryEndocrinologicalConte
 import LibraryReferenceDosingRanges from "./pages/LibraryReferenceDosingRanges.tsx";
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
+import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
