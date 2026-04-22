@@ -1,46 +1,50 @@
 
 
-## New page: `/library/analysis/2026-reclassification`
+## New page: `/library/analysis/questions-for-your-clinic`
 
-First Clinical Analysis whitepaper (SS-SERIES-001). Mirrors the existing FAQ/clinical-guide pattern — `RecordHeader`, 900px filing column via `Section` + `SectionLabel`, hairline pivot footer.
+Second Clinical Analysis whitepaper (SS-SERIES-004). Mirrors `LibraryAnalysis2026Reclassification` exactly — same `RecordHeader`, 900px filing column via `Section` + `SectionLabel`, hairline pivot footer.
 
-### 1 · New file: `src/pages/LibraryAnalysis2026Reclassification.tsx`
+### 1 · New file: `src/pages/LibraryAnalysisQuestionsForYourClinic.tsx`
 
 - **Header** — `RecordHeader`
   - Eyebrow: `Source Standard · Clinical Analysis`
-  - Title: `The 2026 Compounding Reclassification`
-  - Lead: `Background and implications of the recent regulatory shifts across 503A and 503B compounding categories.`
-  - Reference box: Doc `SS-SERIES-001` · Status `Analysis / Public Record` · Jurisdiction `United States` · Updated `April 21, 2026`
+  - Title: `Questions to Ask Your Clinic`
+  - Lead: `A neutral, evidence-based checklist consumers can use to evaluate a clinic's sourcing, documentation, and clinical practices.`
+  - Reference box: Doc `SS-SERIES-004` · Status `Analysis / Public Record` · Jurisdiction `United States` · Updated `April 21, 2026`
 
-- **Body** — 900px centered column, four numbered sections:
-  - `§1 The Regulatory Catalyst` — single prose paragraph on the FDA / state-board update to the Bulk Drug Substances lists.
-  - `§2 Key Changes in 503B Availability` — short framing sentence, then a `DefList` (same helper used across the clinical guide pages) with two terms: **Enhanced Stability Requirements**, **Batch-Size Limitations**.
-  - `§3 The 'Trickle-Down' to 503A Pharmacies` — short framing sentence, then a `DefList` with two terms: **Individual Prescription Necessity**, **Verification Necessity**.
-  - `§4 Looking Ahead` — closing prose paragraph on legal/safety liability and state-level enforcement.
+- **Body** — 900px centered column, three numbered sections:
+  - `§1 The Informed Consumer` — single prose paragraph framing transparency as the primary safety indicator.
+  - `§2 The "Source Five" Checklist` — short framing sentence, then five numbered question blocks. Each block: mono `Q1`–`Q5` label, the bold question in quotes, and an indented `Why it matters:` answer (same visual treatment used on the FAQ pages, but ordered/numeric since these are checklist items, not collapsible).
+  - `§3 Evaluating the Responses` — short intro, then a `DefList` (the same helper used on SS-SERIES-001) with three terms: **Green Flag**, **Yellow Flag**, **Red Flag**. Each term gets a small color-coded dot (emerald / amber / rose) inline with the label to read as a status legend without breaking the filing aesthetic.
 
-- **Pivot footer** (hairline-top bar inside the centered column):
+- **Pivot footer** (hairline-top bar inside the 900px column):
   - Left: `Button` outline `← Back to Education Hub` → `/education`.
-  - Right: muted text link `Next Analysis: Questions to Ask Your Clinic (SS-SERIES-004) →` → `/library/analysis/questions-to-ask-your-clinic` (placeholder for the next analysis page).
+  - Right: muted text link `Next Analysis: What Verification Actually Means (SS-SERIES-005) →` → `/library/analysis/what-verification-actually-means` (placeholder for the next analysis page).
 
 ### 2 · Route registration: `src/App.tsx`
 
-One import + one `<Route path="/library/analysis/2026-reclassification" element={<LibraryAnalysis2026Reclassification />} />` inside `SiteLayout`.
+One import + one `<Route path="/library/analysis/questions-for-your-clinic" element={<LibraryAnalysisQuestionsForYourClinic />} />` inside `SiteLayout`.
 
-### 3 · Wire the SS-SERIES-001 card: `src/pages/Education.tsx`
+### 3 · Wire the SS-SERIES-004 card: `src/pages/Education.tsx`
 
-In the `Latest Clinical Analysis` grid (around line 407), the `Read more →` button currently always points to `/education/${entry.slug}`. Replace that with the existing `SLUG_ROUTE_OVERRIDES[entry.slug] ?? \`/education/${entry.slug}\`` pattern already used by `SimpleRow`, then add one new key:
+`SS-SERIES-004` ships in `library.ts` with slug `questions-to-ask-your-clinic`. Add one new key to `SLUG_ROUTE_OVERRIDES` so its "Read more" button (already routed through the override map) points at the new page:
 
 ```ts
-"the-2026-compounding-reclassification": "/library/analysis/2026-reclassification",
+"questions-to-ask-your-clinic": "/library/analysis/questions-for-your-clinic",
 ```
 
-This keeps every other series card on its current behavior and only redirects SS-SERIES-001 to the new dedicated page.
+This automatically wires both the analysis grid `Read more` button and any `SimpleRow` reference to the new dedicated page. No other edits to `Education.tsx`.
+
+### 4 · Fix the SS-SERIES-001 forward link
+
+In `src/pages/LibraryAnalysis2026Reclassification.tsx`, the existing `Next Analysis →` link points to `/library/analysis/questions-to-ask-your-clinic` (a 404 today). Update it to the new approved route `/library/analysis/questions-for-your-clinic` so the chain is live.
 
 ### Files touched
 
-- `src/pages/LibraryAnalysis2026Reclassification.tsx` — new
+- `src/pages/LibraryAnalysisQuestionsForYourClinic.tsx` — new
 - `src/App.tsx` — one import + one `<Route>`
-- `src/pages/Education.tsx` — one new `SLUG_ROUTE_OVERRIDES` key + apply the override map to the analysis grid's `Read more` button
+- `src/pages/Education.tsx` — one new `SLUG_ROUTE_OVERRIDES` key
+- `src/pages/LibraryAnalysis2026Reclassification.tsx` — update one `to=` value on the forward pivot link
 
 ### What stays the same
 
