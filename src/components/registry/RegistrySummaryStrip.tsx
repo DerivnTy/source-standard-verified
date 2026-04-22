@@ -27,7 +27,7 @@ export const RegistrySummaryStrip = ({
 }) => {
   return (
     <section className="bg-background border-b border-border">
-      <div className="page-shell pb-8 md:pb-10">
+      <div className="page-shell pb-10 md:pb-12">
         <div className="mx-auto w-wide">
           <div className="grid grid-cols-2 md:grid-cols-6 border-t border-border/60 md:divide-x md:divide-border/60">
             {cells.map((cell) => {
@@ -39,19 +39,19 @@ export const RegistrySummaryStrip = ({
               return (
                 <div
                   key={cell.label}
-                  className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0 min-h-[110px] flex flex-col"
+                  className="px-4 md:px-6 py-5 md:py-6 first:md:pl-0 last:md:pr-0 min-h-[124px] flex flex-col"
                 >
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2.5 mb-3">
                     <span
                       aria-hidden
-                      className={`inline-block w-[2px] h-[10px] ${cell.tickClassName}`}
+                      className={`inline-block w-[2px] h-[12px] ${cell.tickClassName}`}
                     />
-                    <span className="t-utility-xs text-muted-foreground">
+                    <span className="t-utility-xs text-muted-foreground tracking-[0.1em]">
                       {cell.label}
                     </span>
                   </div>
                   <div
-                    className={`font-mono text-[20px] leading-[28px] font-medium tabular-nums mt-auto ${
+                    className={`font-mono text-[22px] leading-[28px] font-medium tabular-nums mt-auto ${
                       isDestructive ? "text-destructive" : "text-foreground"
                     }`}
                   >
@@ -59,11 +59,11 @@ export const RegistrySummaryStrip = ({
                   </div>
                   {pct !== null && (
                     <div
-                      className="mt-2 h-[2px] w-full bg-border/50 overflow-hidden"
+                      className="mt-3 h-[2px] w-full bg-border/50 overflow-hidden"
                       aria-hidden
                     >
                       <div
-                        className={`h-full ${cell.tickClassName} transition-all duration-200`}
+                        className={`h-full ${cell.tickClassName} transition-all duration-300 ease-out`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -73,7 +73,7 @@ export const RegistrySummaryStrip = ({
             })}
           </div>
           {caption && (
-            <p className="mt-5 t-body-sm text-muted-foreground max-w-[78ch]">
+            <p className="mt-7 t-body-sm text-muted-foreground max-w-[78ch] leading-[1.6]">
               {caption}
             </p>
           )}
