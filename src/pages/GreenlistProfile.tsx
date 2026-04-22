@@ -7,68 +7,6 @@ import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { getGreenlistEntry, GreenlistProfile as GLProfile } from "@/data/greenlist";
 
-// Inline meta line: dot-separated row of short scalar values. Skips empties.
-const MetaLine = ({ items }: { items: (string | number | null | undefined)[] }) => {
-  const filled = items.filter((v) => v !== null && v !== undefined && v !== "") as (string | number)[];
-  if (filled.length === 0) return null;
-  return (
-    <p className="text-[14px] text-foreground/85 leading-[1.55] max-w-[68ch]">
-      {filled.map((v, i) => (
-        <span key={i}>
-          {i > 0 && <span className="mx-2 text-border">·</span>}
-          <span>{v}</span>
-        </span>
-      ))}
-    </p>
-  );
-};
-
-const TagRow = ({ label, items }: { label: string; items?: string[] }) => {
-  if (!items || items.length === 0) return null;
-  return (
-    <p className="text-[14px] text-foreground/85 leading-[1.55] max-w-[68ch]">
-      <span className="font-semibold text-foreground mr-2">{label}</span>
-      {items.join(", ")}
-    </p>
-  );
-};
-
-const Prose = ({ label, value }: { label?: string; value?: string }) => {
-  if (!value) return null;
-  return (
-    <p className="text-[14px] text-foreground/85 leading-[1.55] max-w-[68ch]">
-      {label && <span className="font-semibold text-foreground mr-2">{label}</span>}
-      {value}
-    </p>
-  );
-};
-
-const SubSection = ({
-  number,
-  title,
-  children,
-}: {
-  number: string;
-  title: string;
-  children: ReactNode;
-}) => {
-  const filled = (Array.isArray(children) ? children : [children]).filter(
-    (c) => c !== null && c !== false && c !== undefined
-  );
-  if (filled.length === 0) return null;
-  return (
-    <section>
-      <div className="flex items-baseline gap-3 pb-2 border-b border-border/60">
-        <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-muted-foreground/75">
-          {number}
-        </span>
-        <h2 className="h-sub m-0">{title}</h2>
-      </div>
-      <div className="mt-4 space-y-3">{filled}</div>
-    </section>
-  );
-};
-
 const GlanceRow = ({
   label,
   value,
@@ -81,11 +19,25 @@ const GlanceRow = ({
   if (value === null || value === undefined || value === "" || value === false) return null;
   return (
     <div className={`py-1.5 ${isLast ? "" : "border-b border-border/40"}`}>
-      <dt className="text-[11px] uppercase tracking-[0.06em] text-muted-foreground font-medium">
+      <dt className="text-[10.5px] uppercase tracking-[0.04em] text-muted-foreground font-medium">
         {label}
       </dt>
       <dd className="mt-0.5 text-[13.5px] text-foreground leading-snug">{value}</dd>
     </div>
+  );
+};
+
+const DLRow = ({ label, value }: { label: string; value: ReactNode }) => {
+  if (value === null || value === undefined || value === "" || value === false) return null;
+  return (
+    <>
+      <dt className="text-[12px] uppercase tracking-[0.06em] text-muted-foreground font-medium pt-1">
+        {label}
+      </dt>
+      <dd className="text-[14px] text-foreground/90 leading-[1.6] max-w-[68ch]">
+        {Array.isArray(value) ? (value as string[]).join(", ") : value}
+      </dd>
+    </>
   );
 };
 
@@ -95,6 +47,13 @@ const hostname = (url: string): string => {
   } catch {
     return url;
   }
+};
+
+const firstSentence = (text?: string): string | undefined => {
+  if (!text) return undefined;
+  const trimmed = text.trim();
+  const m = trimmed.match(/^(.*?[.!?])(\s|$)/);
+  return (m ? m[1] : trimmed).replace(/\.+$/, "") + ".";
 };
 
 const GreenlistProfile = () => {
@@ -111,7 +70,7 @@ const GreenlistProfile = () => {
         </p>
         <Link
           to="/greenlist"
-          className="text-[12px] font-mono uppercase tracking-[0.14em] text-foreground hover:text-primary"
+          className="text-[13px] text-foreground hover:text-primary underline-offset-2 hover:underline"
         >
           ← Back to Greenlist
         </Link>
@@ -122,9 +81,10 @@ const GreenlistProfile = () => {
   const p: GLProfile = entry.profile ?? {};
   const alert = entry.regulatoryAlert;
   const isAlert = !!alert;
-  const summary = isAlert
+
+  const lead = isAlert
     ? alert!.reason
-    : (p.background ?? `${entry.focus}.`);
+    : (firstSentence(p.background) ?? entry.focus);
 
   const ALERT_STATUS_LABEL: Record<string, string> = {
     "shut-down": "Shut Down",
@@ -158,6 +118,10 @@ const GreenlistProfile = () => {
     { label: "Source type", value: entry.type },
     { label: "Location", value: entry.location },
     {
+      label: "Status",
+      value: isAlert ? alertLabel : "Recognized",
+    },
+    {
       label: "Website",
       value: entry.website ? (
         <a
@@ -172,14 +136,10 @@ const GreenlistProfile = () => {
         <span className="text-muted-foreground italic">Not listed</span>
       ),
     },
-    {
-      label: "Designation",
-      value: !designationDuplicatesType && p.designation ? p.designation : null,
-    },
   ];
-  const visibleGlance = glanceData.filter(
-    (r) => r.value !== null && r.value !== undefined && r.value !== "" && r.value !== false
-  );
+  const visibleGlance = glanceData
+    .filter((r) => r.value !== null && r.value !== undefined && r.value !== "" && r.value !== false)
+    .slice(0, 4);
 
   return (
     <>
@@ -200,22 +160,22 @@ const GreenlistProfile = () => {
         eyebrow={isAlert ? "Unverified facility" : "Greenlist source"}
         title={entry.name}
         identity={
-          <span className="inline-flex items-center gap-3">
+          <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
             {isAlert ? (
-              <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] text-[10.5px] px-2 py-0.5 rounded-full bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25">
+              <span className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]">
                 <span
                   aria-hidden
-                  className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--src-unverified))]"
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
                 />
                 {alertLabel}
               </span>
             ) : (
-              <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] text-[10.5px] text-foreground">
+              <span className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.08em] text-foreground">
                 <span
                   aria-hidden
-                  className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--verified))]"
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-[hsl(var(--verified))]"
                 />
-                Greenlisted
+                Recognized
               </span>
             )}
             <span className="text-border">·</span>
@@ -224,11 +184,11 @@ const GreenlistProfile = () => {
             <span>{entry.location}</span>
           </span>
         }
-        lead={summary}
+        lead={lead}
         rightSlot={
           <div className="rounded-md border border-border/60 bg-background overflow-hidden">
             <div className="px-3 py-2 border-b border-border/60 bg-surface-muted/40">
-              <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground/75">
+              <span className="text-[10.5px] font-medium uppercase tracking-[0.04em] text-muted-foreground">
                 At a glance
               </span>
             </div>
@@ -250,7 +210,7 @@ const GreenlistProfile = () => {
             asChild
             variant="outline"
             size="sm"
-            className="font-mono uppercase tracking-[0.1em] text-[11.5px]"
+            className="text-[12.5px]"
           >
             <a href={entry.website} target="_blank" rel="noopener noreferrer">
               Visit website ↗
@@ -264,108 +224,90 @@ const GreenlistProfile = () => {
       </ProfileHeader>
 
       <Section density="doc">
-        <div className="space-y-10">
+        <div className="space-y-12">
           {isAlert && (
-            <section className="rounded-lg border border-[hsl(var(--src-unverified))]/30 bg-[hsl(var(--src-unverified-soft))]/40 p-5">
-              <div className="flex items-baseline gap-3 pb-2 border-b border-[hsl(var(--src-unverified))]/25">
-                <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]/85">
-                  00
+            <section className="border border-[hsl(var(--src-unverified))]/30 rounded-md p-5">
+              <div className="flex items-baseline gap-3 mb-3">
+                <span className="text-[11px] uppercase tracking-[0.1em] text-[hsl(var(--src-unverified))] font-semibold">
+                  Regulatory alert
                 </span>
-                <h2 className="h-sub m-0 text-[hsl(var(--src-unverified))]">
-                  Regulatory Alert
-                </h2>
+                <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]">
+                  <span
+                    aria-hidden
+                    className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
+                  />
+                  {alertLabel}
+                </span>
+                <span className="text-[12px] text-muted-foreground tabular-nums">
+                  as of {formatAsOf(alert!.asOf)}
+                </span>
               </div>
-              <dl className="mt-4 grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-6 gap-y-3 text-[14px] leading-[1.55]">
-                <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
-                  Current status
-                </dt>
-                <dd>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25">
-                    <span
-                      aria-hidden
-                      className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
-                    />
-                    {alertLabel}
-                  </span>
-                </dd>
-                <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
-                  As of
-                </dt>
-                <dd className="text-foreground tabular-nums">
-                  {formatAsOf(alert!.asOf)}
-                </dd>
-                <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
-                  Reason for alert
-                </dt>
-                <dd className="text-foreground/90 max-w-[68ch]">{alert!.reason}</dd>
-                {alert!.proof.length > 0 && (
-                  <>
-                    <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
-                      Source proof
-                    </dt>
-                    <dd>
-                      <ul className="space-y-1.5">
-                        {alert!.proof.map((pr) => (
-                          <li key={pr.url}>
-                            <a
-                              href={pr.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-foreground hover:text-primary underline-offset-2 hover:underline break-all"
-                            >
-                              ↗ {pr.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </dd>
-                  </>
-                )}
-              </dl>
+              <p className="text-[14px] text-foreground/90 leading-[1.65] max-w-[68ch]">
+                {alert!.reason}
+              </p>
+              {alert!.proof.length > 0 && (
+                <ul className="mt-4 space-y-1.5">
+                  {alert!.proof.map((pr) => (
+                    <li key={pr.url} className="text-[13px]">
+                      <a
+                        href={pr.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-foreground hover:text-primary underline-offset-2 hover:underline break-all"
+                      >
+                        ↗ {pr.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </section>
           )}
 
-          <SubSection number="01" title="Regulatory & Quality">
-            <MetaLine
-              items={[
-                !designationDuplicatesType ? p.designation : null,
-                p.fdaRegistration ? `FDA reg ${p.fdaRegistration}` : null,
-                p.lastInspectionDate ? `Last inspected ${p.lastInspectionDate}` : null,
-                p.cleanroomClass ? `Cleanroom ${p.cleanroomClass}` : null,
-              ]}
-            />
-            <TagRow label="Standards" items={p.standards} />
-            <TagRow label="States served" items={p.statesServed} />
-            <TagRow label="Testing" items={p.testingProtocols} />
-            <Prose label="Inspections" value={p.inspectionHistory} />
-            <Prose label="Environmental monitoring" value={p.environmentalMonitoring} />
-          </SubSection>
+          <section>
+            <h2 className="text-[18px] font-semibold text-foreground mb-5 pb-2 border-b border-border/60">
+              Regulatory & standards
+            </h2>
+            <dl className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-6 gap-y-3">
+              <DLRow label="Designation" value={!designationDuplicatesType ? p.designation : null} />
+              <DLRow label="FDA registration" value={p.fdaRegistration} />
+              <DLRow label="Last inspection" value={p.lastInspectionDate} />
+              <DLRow label="Cleanroom class" value={p.cleanroomClass} />
+              <DLRow label="Standards" value={p.standards} />
+              <DLRow label="States served" value={p.statesServed} />
+              <DLRow label="Testing" value={p.testingProtocols} />
+              <DLRow label="Inspection history" value={p.inspectionHistory} />
+              <DLRow label="Environmental monitoring" value={p.environmentalMonitoring} />
+            </dl>
+          </section>
 
-          <SubSection number="02" title="Product Capabilities">
-            <TagRow label="Dosage forms" items={p.dosageForms} />
-            <TagRow label="Specializations" items={p.specializations} />
-            <Prose label="Clinical focus" value={entry.focus} />
-            <Prose label="API sourcing" value={p.apiSourcingPolicy} />
-          </SubSection>
+          <section>
+            <h2 className="text-[18px] font-semibold text-foreground mb-5 pb-2 border-b border-border/60">
+              Operating focus & capabilities
+            </h2>
+            <dl className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-6 gap-y-3">
+              <DLRow label="Dosage forms" value={p.dosageForms} />
+              <DLRow label="Specializations" value={p.specializations} />
+              <DLRow label="Clinical focus" value={entry.focus} />
+              <DLRow label="API sourcing" value={p.apiSourcingPolicy} />
+              <DLRow label="Years in operation" value={p.yearsInOperation} />
+              <DLRow label="Facility scale" value={p.facilityScale} />
+              <DLRow label="QA staffing" value={p.qaStaffing} />
+              <DLRow label="Background" value={p.background} />
+              <DLRow label="Review notes" value={p.reviewNotes} />
+            </dl>
+          </section>
 
-          <SubSection number="03" title="Background">
-            <MetaLine
-              items={[
-                p.yearsInOperation ? `${p.yearsInOperation} in operation` : null,
-                p.facilityScale,
-                p.qaStaffing ? `QA: ${p.qaStaffing}` : null,
-                p.ssAuditDate ? `SS audit ${p.ssAuditDate}` : null,
-              ]}
-            />
-            <Prose value={p.background} />
-            <Prose label="Review notes" value={p.reviewNotes} />
-          </SubSection>
+          <section className="border-l-2 border-border/70 pl-4 py-1">
+            <p className="text-[13px] leading-[1.7] text-muted-foreground max-w-[78ch]">
+              This facility appears in the Source Standard upstream reference set. Inclusion reflects recognized federal registration, state licensure, or accredited credentialing. It is not a clinical endorsement and does not constitute verification of any downstream vendor or product that may source from this facility.
+            </p>
+          </section>
         </div>
       </Section>
 
       <ProfileFootnote
         items={[
-          { label: "Doc", value: `SS-GL-${entry.slug.toUpperCase().slice(0, 18)}` },
           { label: "Listing", value: isAlert ? "Unverified Facility" : "Greenlist Facility" },
           { label: "Updated", value: "April 21, 2026" },
           { label: "Jurisdiction", value: "US" },
