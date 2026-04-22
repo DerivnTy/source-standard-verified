@@ -35,17 +35,6 @@ const SUPPLEMENT_OVERRIDES: Record<string, { title?: string; description?: strin
 
 const displayTitle = (e: LibraryEntry) => TITLE_OVERRIDES[e.slug] ?? e.title;
 
-const SoftStatus = ({ status }: { status: EntryStatus }) =>
-  isReadable(status) ? (
-    <span className="shrink-0 inline-flex items-center font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/70 border border-border/70 px-1.5 py-px rounded-[2px] bg-background">
-      Published
-    </span>
-  ) : (
-    <span className="shrink-0 inline-flex items-center font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground border border-border/70 px-1.5 py-px rounded-[2px] bg-background">
-      {ENTRY_STATUS_LABEL[status]}
-    </span>
-  );
-
 const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "what-is-compounding": "/library/what-is-compounding",
   "what-are-peptides": "/library/what-are-peptides",
