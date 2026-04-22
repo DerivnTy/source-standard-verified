@@ -8,7 +8,6 @@ import { RegistrySummaryStrip } from "@/components/registry/RegistrySummaryStrip
 import {
   QueryBar,
   FacetSelect,
-  FacetSegmented,
   ActiveChip,
 } from "@/components/registry/QueryBar";
 import { SourceTypeCell } from "@/components/registry/SourceTypeCell";
@@ -201,7 +200,7 @@ const Greenlist = () => {
   if (website !== "all") {
     activeChips.push({
       key: "website",
-      label: `Website: ${website === "yes" ? "Listed" : "None"}`,
+      label: website === "yes" ? "Website listed" : "No website",
       onRemove: () => setWebsite("all"),
     });
   }
@@ -268,16 +267,29 @@ const Greenlist = () => {
         ))}
       </FacetSelect>
 
-      <FacetSegmented<WebsiteFilter>
-        value={website}
-        onChange={setWebsite}
-        ariaLabel="Filter by website availability"
-        options={[
-          { value: "all", label: "Any site" },
-          { value: "yes", label: "Listed" },
-          { value: "no", label: "None" },
-        ]}
-      />
+      <div className="flex items-center gap-1.5" role="group" aria-label="Filter by website availability">
+        {([
+          { value: "yes", label: "Website listed" },
+          { value: "no", label: "No website" },
+        ] as { value: WebsiteFilter; label: string }[]).map((opt) => {
+          const active = website === opt.value;
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setWebsite(active ? "all" : opt.value)}
+              className={`h-10 px-3 rounded-[2px] border border-border text-xs font-medium uppercase tracking-[0.06em] transition-colors ${
+                active
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-background text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
     </>
   );
 
