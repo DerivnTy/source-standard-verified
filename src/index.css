@@ -308,15 +308,30 @@
 }
 
 @layer components {
-  /* Filing prose — serif body for centered whitepaper sections.
-     Headings keep Inter (sans). Lists/paragraphs go serif at 16/1.7. */
+  /* Filing prose — institutional body. Generous line-height for premium feel.
+     Inline links pick up Safety Blue with subtle underline. */
   .prose-filing p,
   .prose-filing li {
-    font-family: 'Source Serif 4', 'Source Serif Pro', Charter, Georgia, serif;
     font-size: 16px;
-    line-height: 1.7;
+    line-height: 1.75;
   }
   .prose-filing p {
     @apply text-foreground;
+    margin-block: 1.1em;
+  }
+  .prose-filing p:first-child { margin-top: 0; }
+  .prose-filing p:last-child { margin-bottom: 0; }
+  .prose-filing a {
+    @apply text-primary underline-offset-4;
+    text-decoration-line: underline;
+    text-decoration-color: hsl(var(--primary) / 0.4);
+    transition: text-decoration-color 0.15s ease;
+  }
+  .prose-filing a:hover {
+    text-decoration-color: hsl(var(--primary));
+  }
+  .prose-filing strong,
+  .prose-filing b {
+    @apply text-foreground font-semibold;
   }
 }
