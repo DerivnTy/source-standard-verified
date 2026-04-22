@@ -27,26 +27,14 @@ import {
 
 // ---------- Status theming ----------
 
-type Theme = { hairline: string; monogramRing: string };
+type Theme = { hairline: string };
 
 const THEME: Record<"recognized" | AlertStatus, Theme> = {
-  recognized: { hairline: "bg-verified", monogramRing: "border-verified/40" },
-  "shut-down": {
-    hairline: "bg-destructive",
-    monogramRing: "border-destructive/40",
-  },
-  "no-longer-registered": {
-    hairline: "bg-destructive",
-    monogramRing: "border-destructive/40",
-  },
-  "not-on-fda-list": {
-    hairline: "bg-pending",
-    monogramRing: "border-pending/40",
-  },
-  unverified: {
-    hairline: "bg-muted-foreground/30",
-    monogramRing: "border-border",
-  },
+  recognized: { hairline: "bg-verified" },
+  "shut-down": { hairline: "bg-destructive" },
+  "no-longer-registered": { hairline: "bg-destructive" },
+  "not-on-fda-list": { hairline: "bg-pending" },
+  unverified: { hairline: "bg-muted-foreground/30" },
 };
 
 const ALERT_STATUS_LABEL: Record<AlertStatus, string> = {
