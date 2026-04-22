@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
-import { Section, SectionLabel } from "@/components/Section";
-import { Button } from "@/components/ui/button";
+import {
+  BoardSection,
+  BoardFooterNav,
+  BoardCiteFooter,
+} from "@/components/BoardSection";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+const DOC_ID = "SS-FAQ-CAT-03";
 
 const QA = [
   {
@@ -40,63 +44,51 @@ const FaqVerificationProcess = () => {
         title="FAQ: Verification Process"
         lead="Details on the Source Standard auditing protocol, facility reconciliation, and the criteria for institutional verification."
         metadata={[
-          { label: "Doc", value: "FAQ-CAT-03" },
+          { label: "Doc", value: DOC_ID },
           { label: "Status", value: "Public Record" },
           { label: "Jurisdiction", value: "United States" },
-          { label: "Updated", value: "April 21, 2026" },
+          { label: "Updated", value: "04 / 21 / 2026" },
         ]}
       />
 
-      <Section>
-        <SectionLabel
-          number="§1"
-          title="Category Overview"
-          description="Four high-frequency questions on the Source Standard verification stages, the scope of our audits, the criteria for status revocation, and the cadence of re-verification."
-        />
-
+      <BoardSection
+        n={1}
+        category="Category overview"
+        title="The auditing protocol & re-verification cadence."
+        rationale="Four high-frequency questions on the Source Standard verification stages, the scope of our audits, the criteria for status revocation, and the cadence of re-verification."
+      >
         <Accordion
           type="single"
           collapsible
           defaultValue="Q1"
-          className="border-t border-border/70"
+          className="border border-border bg-background divide-y divide-border"
         >
           {QA.map((item) => (
-            <AccordionItem
-              key={item.id}
-              value={item.id}
-              className="border-b border-border/60"
-            >
-              <AccordionTrigger className="py-5 hover:no-underline group">
+            <AccordionItem key={item.id} value={item.id} className="border-0">
+              <AccordionTrigger className="px-5 py-4 hover:no-underline group">
                 <div className="flex items-baseline gap-4 text-left">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground pt-[3px]">
-                    {item.id}
-                  </span>
-                  <span className="text-[15.5px] font-medium text-foreground leading-snug">
+                  <span className="meta text-primary pt-[2px]">{item.id}</span>
+                  <span className="text-[14.5px] font-semibold text-foreground leading-snug">
                     {item.q}
                   </span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pb-6 pl-[calc(2rem+1ch)] pr-2">
-                <p className="text-[15px] leading-[1.75] text-foreground/90 m-0">
+              <AccordionContent className="px-5 pb-5 pl-[calc(1.25rem+1.75rem)]">
+                <p className="text-[14.5px] leading-relaxed text-muted-foreground m-0">
                   {item.a}
                 </p>
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
+      </BoardSection>
 
-        <div className="mt-16 pt-6 border-t border-border/70 flex items-center justify-between gap-6">
-          <Button asChild variant="outline">
-            <Link to="/education#questions">← Back to FAQ Index</Link>
-          </Button>
-          <Link
-            to="/library/faq/consumer-diligence"
-            className="text-[13px] text-muted-foreground hover:text-foreground underline underline-offset-4 decoration-border"
-          >
-            Next Category: Consumer Diligence (FAQ-CAT-04) →
-          </Link>
-        </div>
-      </Section>
+      <BoardFooterNav
+        back={{ to: "/education#questions", label: "Back to FAQ Index" }}
+        next={{ to: "/library/faq/consumer-diligence", label: "Next Category · Consumer Diligence (SS-FAQ-CAT-04)" }}
+      />
+
+      <BoardCiteFooter citation={`Source Standard, Regulatory FAQ — Verification Process, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
     </>
   );
 };
