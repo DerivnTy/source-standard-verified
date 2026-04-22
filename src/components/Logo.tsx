@@ -18,7 +18,7 @@ export const Logo = ({ className = "", variant = "dark" }: LogoProps) => {
       <img
         src={src}
         alt="Source Standard"
-        className="h-9 md:h-10 w-auto"
+        className="h-8 md:h-9 w-auto"
         loading="eager"
         decoding="sync"
       />
