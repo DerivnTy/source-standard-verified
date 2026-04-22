@@ -67,12 +67,6 @@ const formatAsOf = (iso: string) => {
 };
 
 // (monogram helper removed — no auto-generated logo block)
-  name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("") || "·";
 
 const isPresent = (
   v: ReactNode | string[] | undefined | null | false
