@@ -1,99 +1,105 @@
 
 
-## Final Global Alignment — Articles, Glossary & Foundational Series
+## Institutional Absolute — Final Production Refinements
 
-Roll the Medical Advisory Board (MAB) DNA — `RecordHeader` + alternating banded `§N` sections in a 12-col split with `meta` mono indices — across every remaining secondary page. Stop using the centered single-column `<Section>` primitive on these pages; introduce one shared `BoardSection` component so the chrome is identical everywhere and copy is preserved verbatim.
+Layer six tracks of "regulatory chrome" across the platform without disturbing existing copy or routes. All additions are presentational + small utility components.
 
 ---
 
-### 1 · New shared primitive — `BoardSection`
+### 1 · Data Integrity & Document Metadata
 
-`src/components/BoardSection.tsx` (new):
-
-```tsx
-<section className={`border-b border-border ${muted ? 'bg-surface-muted' : 'bg-background'}`}>
-  <div className="container-wide py-12 md:py-16 grid md:grid-cols-12 gap-10">
-    <div className="md:col-span-4">
-      <p className="meta mb-3">§{n} · {category}</p>
-      <h2 className="h-section">{title}</h2>
-      {rationale && <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed">{rationale}</p>}
-    </div>
-    <div className="md:col-span-8 text-[14.5px] text-muted-foreground leading-relaxed space-y-4">
-      {children}
-    </div>
-  </div>
-</section>
+**New `DocSignature` component** (`src/components/DocSignature.tsx`)
+Renders below `BoardCiteFooter` on long-form pages:
 ```
+AUTHORIZED BY · Source Standard Editorial Board
+AUTH-ID · {hash}     DATA VERIFIED · 04 / 21 / 2026
+```
+Hash is deterministic — derived from the page's `docId` (e.g. `SS-ART-04` → `AUTH-04-XB12`). All-mono, hairline top divider, sits inside the cite band.
 
-Plus a co-located `BoardDefList` (MAB §3 chrome — `border border-border bg-background divide-y`, rows `grid-cols-12 px-5 py-5`, `col-span-2 meta text-primary` index, `col-span-10` body) and `BoardFooterNav` (back / next link bar in `border border-border bg-surface-muted` with hairline-divided cells) to replace every page's footer pattern.
+**`Data Verified` chip in `RecordHeader`**
+Add a `verifiedOn` field to the Reference box rendered as `VERIFIED · 04 / 21 / 26` row, mono. Already present on most docs as `UPDATED` — split into `UPDATED` (last edit) and `VERIFIED` (last factual review). Applied to: every Library / FAQ / Analysis / Glossary / About page, and every `GreenlistProfile` / `VendorProfile`.
 
-### 2 · Rewrite every Library / FAQ / Analysis page to the new chrome
+### 2 · Typography & Micro-Copy
 
-Same mechanical rewrite for all of these — RecordHeader stays (already correct, just confirm reference IDs use the per-series convention), inner `<Section>` + `<SectionLabel>` + `<DefList>` chains swap to `<BoardSection>` + `<BoardDefList>`, footer buttons swap to `<BoardFooterNav>`. Body copy, def-list items, links, ordering, IDs all preserved verbatim.
+**Mono accent lock** — audit pass: ensure registration numbers, FDA IDs, dates, version strings, and `§N` markers all use `font-mono` (most already do via `meta` / `tabular-nums`). Add a tiny `<Mono>` helper (`src/components/Mono.tsx`) for inline use in body copy: wraps in `font-mono text-[12.5px] tracking-[0.02em] text-foreground`.
 
-Files (15):
-- `LibraryWhatArePeptides.tsx`
-- `LibraryWhatIsCompounding.tsx`
-- `LibraryInterpretingCoAs.tsx`
-- `LibraryDualLayerDifference.tsx`
-- `LibrarySterilePreparationIntegrity.tsx`
-- `LibraryAsepticTechnique.tsx`
-- `LibraryEndocrinologicalContext.tsx`
-- `LibraryReferenceDosingRanges.tsx`
-- `LibraryAnalysisMeaningOfVerification.tsx`
-- `LibraryAnalysisUndocumentedSourcingSigns.tsx`
-- `LibraryAnalysis2026Reclassification.tsx`
-- `LibraryAnalysisQuestionsForYourClinic.tsx`
-- `FaqLegalRegulatory.tsx`
-- `FaqClinicalSafety.tsx`
-- `FaqVerificationProcess.tsx`
+**Footnote system** — new `<Footnote>` + `<FootnoteList>` primitives (`src/components/Footnotes.tsx`):
+- `<Footnote n={1}>` → renders `<sup>1</sup>` superscript link to `#fn-1`
+- `<FootnoteList items=[…]>` → bordered band at page bottom, mono `NOTES · §`, ordered list with backlinks
+Wire into `LibraryEndocrinologicalContext`, `LibraryReferenceDosingRanges`, `LibraryAnalysis2026Reclassification`, `FaqLegalRegulatory` where claims need citation.
 
-For the three FAQ pages: keep the `<Accordion>` (the Q&A drawer is the right UI) but wrap it inside a `<BoardSection n={1} category="Category Overview" title="…">`. Footer becomes `<BoardFooterNav>`.
+### 3 · Navigational Intelligence
 
-Reference-ID convention used in `RecordHeader` metadata (already in place across most files, normalize where missing):
-- Foundational series → `SS-SERIES-NNN`
-- Clinical guides → `SS-GUIDE-NNN`
-- Analyses → `SS-ANALYSIS-NNN`
-- FAQ categories → `SS-FAQ-CAT-NN`
+**Contextual breadcrumb** — new `<Breadcrumb>` component (`src/components/Breadcrumb.tsx`, NOT the shadcn one — uses our `meta` mono style):
+```
+REGISTRY · 503B · {FacilityName}
+```
+Hairline bottom border, sits between `SiteHeader` and page header. Applied to:
+- `GreenlistProfile` / `VendorProfile` → Registry > [503B|503A] > Name
+- `LibraryEntry` and all `Library*` pages → Education > [Series] > Title
+- `Faq*` pages → FAQ > [Category]
+- `AdvisorProfile` → Medical Advisory > [Name]
 
-### 3 · `StatusDefinitions.tsx` (Glossary) — adopt MAB roster pattern for terms
+**Download as PDF** — new `<DownloadPdfLink>` component, top-right of `RecordHeader` content rail. Phase 1: print-stylesheet-driven (`window.print()` with a `@media print` block in `index.css` that hides nav/footer and forces single-column). Adds `Download · PDF` mono link with a minimal lucide `Download` icon at 14px. Applied to all Library / FAQ / Analysis / About / Status pages.
 
-Reference box already correct (`SS-STATUS-2026.01`). The §2 standings list is currently a `divide-y` block — convert to the MAB roster grid: `<ul className="grid md:grid-cols-2 gap-px bg-border border-x border-b border-border">` with each standing as a bordered `bg-background p-6` cell carrying:
+### 4 · Visual Security Branding
 
-- `STANDING · NN` mono chip (top-left, mirrors `SEAT · 01`)
-- Colored swatch + label
-- `Definition / Public-record signal / Limits / Conditions of issuance / Conditions of revision` rendered as a tight `dl` with `meta` labels and `text-[14.5px]` bodies (locked to Board sizing — drop the current `text-[15px]`).
+**Faint logo watermark** — add to `BoardSection` an optional `watermark` band for long-form pages. Renders an oversized `Logo` SVG at `opacity-[0.025]` absolute-positioned bottom-right of the section, `pointer-events-none`, `select-none`. Enabled on `MedicalAdvisory`, `About`, `Governance`, `Accountability` only.
 
-§1, §3, §4 wrap in `<BoardSection>` with alternating bands. §3 lifecycle `<ol>` adopts MAB §3 chrome (`border border-border divide-y`, `grid-cols-12` rows, `col-span-2 meta text-primary` `01..06` index, `col-span-10` body).
+**Border discipline pass** — global audit:
+- All cards/tables → `border border-border` with `rounded-[4px]` (containers) / `rounded-[2px]` (chips) / `rounded-[4px]` (buttons — already in `button.tsx`)
+- Kill any remaining `rounded-lg` / `rounded-md` / `rounded-2xl` / opacity-drift borders (`border-border/40` etc.) on top-level surfaces. Confined to: `Education.tsx`, `HowItWorks.tsx`, `Greenlist.tsx`, `VerifiedVendors.tsx`, `Index.tsx`, `MetadataBar.tsx`.
 
-### 4 · `LibraryEntry.tsx` (placeholder dynamic page) — Board chrome
+### 5 · Semantic SEO & Accessibility
 
-The "still writing this one" placeholder becomes a single `<BoardSection n={1} category="Status" title="In editorial review">` with the explainer text in the right rail, and the related-entries list rendered as a second `<BoardSection n={2} category="Related references">` using the MAB roster pattern (`gap-px bg-border` grid of bordered cells, `ENTRY · NN` mono chip + title + `Read →` link).
+**Title tag standardization** — install `react-helmet-async` and add a `<PageMeta title="…" description="…" />` wrapper. Wire `Provider` into `App.tsx`. Format: `{Page Name} | Source Standard — The Clinical Transparency Framework`. Apply to every page (one-line addition each).
 
-### 5 · Global style lock
+**Alt-text + aria audit** — pass over: `Logo.tsx` (add `aria-label`), every `<table>` (add `<caption className="sr-only">`), every status swatch / colored dot (add `role="img" aria-label="…"`), every icon-only button (add `aria-label`). Confined to existing components — no copy changes.
 
-- Body copy on all rewritten pages: `text-[14.5px] text-muted-foreground leading-relaxed`; emphasis lines `text-foreground font-medium`.
-- Eyebrows: `meta mb-3` + `§N · CATEGORY`.
-- Section titles: `h-section`.
-- All section padding: `py-12 md:py-16`. Alternating `bg-background` ↔ `bg-surface-muted` per section.
-- Dividers: `border-b border-border` only — no `/40` `/60` opacity drift.
-- No icons, no `SourceCheck` bullets on any of these pages — `01..` mono prefixes or `·` dots only.
-- Every page ends with the MAB-style cite footer band: `bg-surface-muted py-8`, mono `Cite as · {ID}` label.
+### 6 · Interactive Friction Fixes
+
+**Glossary tooltips** — new `<GlossaryTerm term="aseptic">…</GlossaryTerm>` component using existing `tooltip.tsx`. Pulls from a new `src/data/glossary.ts` (~25 terms: aseptic, cGMP, OAI, 503A, 503B, CoA, USP, peptide, sterile, FDA, MOA, NDC, …). Renders the term with a dotted underline, hover/focus shows a 240px tooltip with definition + `Read full → /status-definitions#term`. Wired into the highest-density technical pages (`LibraryAsepticTechnique`, `LibrarySterilePreparationIntegrity`, `LibraryInterpretingCoAs`, `LibraryDualLayerDifference`, `Greenlist`, `VerifiedVendors`).
+
+**Empty states** — `Greenlist.tsx` and `VerifiedVendors.tsx` filter result handlers: when zero rows, render a bordered `bg-surface-muted` block:
+```
+NO VERIFIED ENTITIES FOUND
+Source Standard has not yet audited a facility matching these filters.
+[ Suggest a Facility for Audit → /report-a-concern ]
+```
+Mono eyebrow, 14.5px body, mono CTA. Replaces current blank-tbody behavior.
 
 ---
 
 ### Files touched
 
-**New**
-- `src/components/BoardSection.tsx` — exports `BoardSection`, `BoardDefList`, `BoardFooterNav`, `BoardCiteFooter`.
+**New components/data**
+- `src/components/DocSignature.tsx`
+- `src/components/Mono.tsx`
+- `src/components/Footnotes.tsx`
+- `src/components/Breadcrumb.tsx` (custom, not shadcn)
+- `src/components/DownloadPdfLink.tsx`
+- `src/components/PageMeta.tsx`
+- `src/components/GlossaryTerm.tsx`
+- `src/components/EmptyState.tsx`
+- `src/data/glossary.ts`
 
-**Rewritten (chrome only — copy/data verbatim)**
-- All 12 `Library*.tsx` pages
-- All 3 `Faq*.tsx` category pages
-- `StatusDefinitions.tsx`
-- `LibraryEntry.tsx`
+**Modified primitives**
+- `src/components/RecordHeader.tsx` — add `verifiedOn` row + `<DownloadPdfLink>` slot
+- `src/components/BoardSection.tsx` — optional `watermark` prop
+- `src/components/Logo.tsx` — `aria-label`
+- `src/index.css` — `@media print` block, watermark utility
+
+**Wired in**
+- `src/App.tsx` — `HelmetProvider` wrap
+- All Library / FAQ / Analysis / About / Status / Governance / Accountability pages — `<PageMeta>`, `<Breadcrumb>`, `<DocSignature>`, footnotes where applicable, glossary terms where applicable
+- `GreenlistProfile.tsx` / `VendorProfile.tsx` / `AdvisorProfile.tsx` — `<PageMeta>` + `<Breadcrumb>` + verified timestamp
+- `Greenlist.tsx` / `VerifiedVendors.tsx` — `<EmptyState>` for zero-result filters, glossary tooltips on column headers, border discipline pass
+- `Education.tsx` / `HowItWorks.tsx` / `Index.tsx` — border discipline pass
+
+**Dependencies**
+- `react-helmet-async` (single dev dep)
 
 ### What stays the same
 
-All routes, all written copy and def-list data, all reference IDs (where already correct), `RecordHeader`, `Section`/`SectionLabel` (still used by Privacy / Terms / Accountability / Disclaimer / Governance / About-adjacent pages), `Accordion` for FAQs, `Callout`, `RelatedDocs`, `StatusBadge`, `CategoryPill`, `AlertBadge`, every page already on the MAB DNA (Board, About, Education, HowItWorks, Greenlist/Vendors hero), tokens, dark-mode behavior. Presentational + structural realignment only.
+All routes, all written copy, all data, `RecordHeader` API (additive), `BoardSection` API (additive), `StatusBadge`, `CategoryPill`, `AlertBadge`, `RegulatoryAlert`, the entire MAB DNA layout, registry filtering/sorting/pagination logic, dark-mode behavior, design tokens. Strictly additive chrome + a11y/SEO hygiene.
 
