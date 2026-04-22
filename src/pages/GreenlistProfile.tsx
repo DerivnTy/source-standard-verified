@@ -118,7 +118,32 @@ const GreenlistProfile = () => {
   }
 
   const p: GLProfile = entry.profile ?? {};
-  const summary = p.background ?? `${entry.focus}.`;
+  const alert = entry.regulatoryAlert;
+  const isAlert = !!alert;
+  const summary = isAlert
+    ? alert!.reason
+    : (p.background ?? `${entry.focus}.`);
+
+  const ALERT_STATUS_LABEL: Record<string, string> = {
+    "shut-down": "Shut Down",
+    "no-longer-registered": "No Active Registration",
+    "not-on-fda-list": "Not on FDA List",
+    unverified: "Unverified",
+  };
+  const alertLabel = alert
+    ? (alert.shortLabel ?? ALERT_STATUS_LABEL[alert.status] ?? "Unverified")
+    : "";
+  const formatAsOf = (iso: string) => {
+    try {
+      return new Date(iso).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    } catch {
+      return iso;
+    }
+  };
 
   const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
   const designationDuplicatesType =
@@ -159,17 +184,27 @@ const GreenlistProfile = () => {
       <ProfileHeader
         backHref="/greenlist"
         backLabel="Back to Greenlist"
-        eyebrow="Greenlist source"
+        eyebrow={isAlert ? "Unverified facility" : "Greenlist source"}
         title={entry.name}
         identity={
           <span className="inline-flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] text-[10.5px] text-foreground">
-              <span
-                aria-hidden
-                className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--verified))]"
-              />
-              Greenlisted
-            </span>
+            {isAlert ? (
+              <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] text-[10.5px] px-2 py-0.5 rounded-full bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25">
+                <span
+                  aria-hidden
+                  className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--src-unverified))]"
+                />
+                {alertLabel}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.12em] text-[10.5px] text-foreground">
+                <span
+                  aria-hidden
+                  className="inline-block w-2 h-2 rounded-full bg-[hsl(var(--verified))]"
+                />
+                Greenlisted
+              </span>
+            )}
             <span className="text-border">·</span>
             <span>{entry.type}</span>
             <span className="text-border">·</span>
@@ -217,6 +252,66 @@ const GreenlistProfile = () => {
 
       <Section density="doc">
         <div className="space-y-10">
+          {isAlert && (
+            <section className="rounded-lg border border-[hsl(var(--src-unverified))]/30 bg-[hsl(var(--src-unverified-soft))]/40 p-5">
+              <div className="flex items-baseline gap-3 pb-2 border-b border-[hsl(var(--src-unverified))]/25">
+                <span className="text-[11px] font-mono uppercase tracking-[0.08em] text-[hsl(var(--src-unverified))]/85">
+                  00
+                </span>
+                <h2 className="h-sub m-0 text-[hsl(var(--src-unverified))]">
+                  Regulatory Alert
+                </h2>
+              </div>
+              <dl className="mt-4 grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-x-6 gap-y-3 text-[14px] leading-[1.55]">
+                <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
+                  Current status
+                </dt>
+                <dd>
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.1em] bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25">
+                    <span
+                      aria-hidden
+                      className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
+                    />
+                    {alertLabel}
+                  </span>
+                </dd>
+                <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
+                  As of
+                </dt>
+                <dd className="text-foreground tabular-nums">
+                  {formatAsOf(alert!.asOf)}
+                </dd>
+                <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
+                  Reason for alert
+                </dt>
+                <dd className="text-foreground/90 max-w-[68ch]">{alert!.reason}</dd>
+                {alert!.proof.length > 0 && (
+                  <>
+                    <dt className="text-[11px] uppercase tracking-[0.08em] text-muted-foreground font-medium pt-0.5">
+                      Source proof
+                    </dt>
+                    <dd>
+                      <ul className="space-y-1.5">
+                        {alert!.proof.map((pr) => (
+                          <li key={pr.url}>
+                            <a
+                              href={pr.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-foreground hover:text-primary underline-offset-2 hover:underline break-all"
+                            >
+                              ↗ {pr.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </dd>
+                  </>
+                )}
+              </dl>
+            </section>
+          )}
+
           <SubSection number="01" title="Regulatory & Quality">
             <MetaLine
               items={[
@@ -258,7 +353,7 @@ const GreenlistProfile = () => {
       <ProfileFootnote
         items={[
           { label: "Doc", value: `SS-GL-${entry.slug.toUpperCase().slice(0, 18)}` },
-          { label: "Listing", value: "Greenlist Facility" },
+          { label: "Listing", value: isAlert ? "Unverified Facility" : "Greenlist Facility" },
           { label: "Updated", value: "April 21, 2026" },
           { label: "Jurisdiction", value: "US" },
         ]}

@@ -12,11 +12,19 @@ import {
   greenlistEntries,
   GreenlistEntry,
   GreenlistCategory,
+  AlertStatus,
   FOCUS_TAGS,
   getGreenlistCounts,
   getGreenlistStates,
   entryMatchesState,
 } from "@/data/greenlist";
+
+const ALERT_STATUS_LABEL: Record<AlertStatus, string> = {
+  "shut-down": "Shut Down",
+  "no-longer-registered": "No Active Registration",
+  "not-on-fda-list": "Not on FDA List",
+  unverified: "Unverified",
+};
 
 const ALL = "__all__";
 const NATIONWIDE = "__nationwide__";
@@ -86,6 +94,25 @@ const CategoryPill = ({ category }: { category: GreenlistCategory }) => {
     >
       <span className={`h-1.5 w-1.5 rounded-full ${styles.dot}`} aria-hidden="true" />
       {CATEGORY_LABEL[category]}
+    </span>
+  );
+};
+
+const AlertBadge = ({ entry }: { entry: GreenlistEntry }) => {
+  if (!entry.regulatoryAlert) return null;
+  const label =
+    entry.regulatoryAlert.shortLabel ??
+    ALERT_STATUS_LABEL[entry.regulatoryAlert.status];
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-[0.1em] bg-[hsl(var(--src-unverified-soft))] text-[hsl(var(--src-unverified))] ring-1 ring-[hsl(var(--src-unverified))]/25"
+      title={entry.regulatoryAlert.reason}
+    >
+      <span
+        aria-hidden="true"
+        className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-unverified))]"
+      />
+      {label}
     </span>
   );
 };
@@ -441,7 +468,10 @@ const Greenlist = () => {
                         </Link>
                       </div>
                       <div className="col-span-2">
-                        <CategoryPill category={e.category} />
+                        <div className="flex flex-col items-start gap-1">
+                          <CategoryPill category={e.category} />
+                          <AlertBadge entry={e} />
+                        </div>
                       </div>
                       <div className="col-span-2 text-[13px] text-muted-foreground tabular-nums truncate leading-tight">
                         {e.location}
@@ -471,7 +501,10 @@ const Greenlist = () => {
                         >
                           {e.name}
                         </Link>
-                        <CategoryPill category={e.category} />
+                        <div className="flex flex-col items-end gap-1 shrink-0">
+                          <CategoryPill category={e.category} />
+                          <AlertBadge entry={e} />
+                        </div>
                       </div>
                       <p className="mt-1 text-[12px] text-muted-foreground">{e.location}</p>
                       <p className="mt-1 text-[12px] text-muted-foreground">{shortFocus(e)}</p>
