@@ -472,7 +472,7 @@ const VendorProfile = () => {
 
               {/* ===== Trust Rail (4/12) ===== */}
               <aside className="lg:col-span-4 bg-muted/20">
-                <div className="px-6 md:px-8 py-8 md:py-10">
+                <div className="px-6 md:px-7 py-6">
                   <div className="flex items-center gap-2 mb-5">
                     <ShieldCheck
                       className="h-4 w-4 text-muted-foreground"
