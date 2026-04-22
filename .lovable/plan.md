@@ -1,116 +1,81 @@
 
 
-## Verified Vendors + Vendor Profile — Public Trust Layer
+## Medical Advisory Board — Public Oversight Layer
 
-Reframe the directory page as the public record at the center of the company — clearer hero, restrained editorial styling, a status-meaning legend, a value-contrast section, and a calm vendor-application bridge. Simplify the profile into a formal public record where verified status feels prestigious-by-restraint and unverified status is unmistakably visible.
+Reframe `src/pages/MedicalAdvisory.tsx` from an internal charter file into a public-facing oversight page. Strip the dominant `§1 / §2 / SEAT-NN / R-NN` administrative scaffolding, sequence the page around credibility (existence → role → roster → boundaries → responsibilities → bridge), and let the board's authority come from clarity, not coding.
 
 ---
 
-### `src/pages/VerifiedVendors.tsx` — restructured
+### Section sequence
 
-**1 · Hero (replace BriefingHero invocation)**
-Use the navy `BriefingHero` for tonal consistency with the home page.
+**1 · Hero (replace `BriefingHero` invocation)**
+Match the navy hero used on Home / Greenlist / Verified Vendors for tonal consistency.
 - `tone`: `navy`
-- `category`: `Public Vendor Record`
-- `title`: `Verified Vendors`
-- `statement`: `The public record of vendors and clinics tracked under the Source Standard framework. Each listing reflects whether a documented verification has been completed, is in progress, or is not on file.`
-- Drop `docId`, `metadata`, `verifiedOn`. No actions — directory is the action.
+- `category`: `Governance & Oversight`
+- `title`: `Medical Advisory Board`
+- `statement`: `The Source Standard framework is reviewed under independent medical and legal oversight. The Board governs the standards behind every public determination — it does not produce listings, market clinics, or treat patients.`
+- Drop `docId`, `metadata`, `verifiedOn`. No actions.
 
-**2 · "Why this page matters" — short three-statement row**
-Light surface, immediately under the hero, no cards, hairline dividers between columns:
-1. `A documented reference point` — consumers can check whether a vendor has completed Source Standard verification.
-2. `What verified means` — a completed review against documented sourcing records is on file.
-3. `What unverified means` — no completed verification is on file. It does not imply unsafe or noncompliant.
+**2 · "Why this Board exists" — short three-statement row**
+Light surface, no cards, hairline dividers between columns:
+1. `Public determinations need a framework` — Source Standard publishes verification status, not opinion. Those determinations follow a defined framework.
+2. `Frameworks need governance` — the Board reviews, ratifies, and maintains that framework on a recurring cadence.
+3. `Governance is bounded` — the Board does not produce listings, market clinics, or evaluate patients. It governs the logic by which listings are created.
 
-**3 · Refined status summary (replace 6-up HoverCard tile grid)**
-Drop the dashboard tiles + hover cards. Replace with one editorial summary line + a single emphasized verified count:
-- Inline meta line, muted/mono digits: `1,247 tracked · 312 verified · 48 under review · 872 unverified · 9 suspended · 6 removed` (live counts).
-- Directly under it, a small two-line block giving Verified slightly more weight: large `312` numeral with `Verified vendors on the public record` label. Quiet, no boxed background, no tinted card. This is the only number that earns visual emphasis.
+**3 · Role in the framework — four numbered functions**
+Muted surface. Replace the existing §3 layout with a quieter `dl`-style block, no left-rail title column dominating:
+- `01 · Defines scope` — establishes what the framework does and does not verify.
+- `02 · Ratifies criteria` — approves the criteria used to evaluate vendors, pharmacies, and upstream sources.
+- `03 · Reviews determinations` — spot-checks recorded determinations against underlying evidence on a recurring cadence.
+- `04 · Authorizes revisions` — signs off on versioned framework changes and records rationale.
+Render as a clean numbered list with hairline dividers, no `§` prefix, no bordered card shell.
 
-**4 · Search + filters — calmer premium utility**
-Keep all functionality (search, status, state, city, focus, sort, reset, result count). Restyle:
-- Drop the sticky bar's backdrop blur and shadow. Use a single hairline top border.
-- Inputs/selects share `h-9`, `rounded-md`, `border-border/40`. No `rounded-[10px]`.
-- Sort becomes a quieter inline control aligned right, with the result count.
-- Reset becomes a plain text link, not a button.
+**4 · Board roster — editorial member cards**
+Light surface. Keep all six members and `View profile →` links, but rebuild the card to feel distinguished, not coded:
+- Remove the top `Roster · SS-MAB-2026.01 · 06 appointed seats · Active` strip.
+- Remove `SEAT · 01` mono labels under each photo.
+- Remove the `MAB-01` footer mono code on each card.
+- Apply `BOARD_TITLE_OVERRIDES` (already defined) so chair / USP / regulatory titles read as oversight roles, not generic seats.
+- Card layout: portrait left (`h-20 w-20`, square with hairline border, unchanged), then name + credentials as the dominant anchor, board title in primary weight beneath, specialization in muted text, then a single muted line combining `jurisdiction · years practicing` (not a dl grid). Below the divider, the `shortSummary` reads as the rationale for inclusion. `View profile →` stays as a quiet text link, right-aligned.
+- 2-up grid on desktop, single column on mobile. Hairline dividers between cards via `gap-px bg-border` (existing pattern), no shadows, no rounded corners.
 
-**5 · Main table — editorial public record**
-Strip the elevated card wrapper:
-- Remove `rounded-[12px] border bg-card shadow-[…]`. Use `divide-y divide-border/50` rows on the page surface.
-- Vendor / clinic name: `text-[14.5px] font-semibold text-foreground` (dominant anchor).
-- Status: keep `StatusBadge`, but ensure verified reads as the most resolved (existing badge already supports this — no color changes).
-- City / state and clinical focus: `text-[12.5px] text-muted-foreground`, lighter.
-- Profile action: `View →` simple text link, no uppercase/tracking treatment.
-- Mobile cards: remove `card-elevated` shell, plain `border-b` rows.
+**5 · Scope & boundaries — new dedicated section**
+Muted surface. Two-column layout: short left-rail heading `Scope & boundaries`, right rail four plain statements as a short list (no numbering, no codes):
+- The Board governs the framework.
+- The Board does not evaluate or treat patients.
+- The Board does not provide individualized medical advice through Source Standard.
+- The Board's mandate is limited to criteria, review logic, scope, and oversight of public determinations.
+This replaces the current §2 paragraph block and elevates the boundary statement to its own dedicated section — it is one of the most important trust elements on the page.
 
-**6 · Status meaning legend — new short section directly under the table**
-Five-row plain definition list (no card, no tint), one line each:
-- `Verified` — completed review on file.
-- `Under Review` — active review in progress.
-- `Unverified` — no completed verification on file.
-- `Suspended` — previously verified status temporarily paused.
-- `Removed` — verification no longer in effect.
-Each row: small status dot/badge + label + plain definition. Replaces the existing collapsed `<details>` methodology accordion.
+**6 · Responsibilities — simplified list**
+Light surface. Keep the seven `responsibilities` from `src/data/advisoryBoard.ts` and continue using `RESPONSIBILITY_TITLE_OVERRIDES` for human-readable titles, but:
+- Drop the `Code / Responsibility / Description` table header strip.
+- Drop the visible `R-01 / R-02` code column.
+- Render as a plain `dl` definition list: bold title (`Confirms audit determinations`) on one line, muted description beneath. Hairline dividers between rows. No bordered card shell, no surface tint.
 
-**7 · Why verified status matters — value-contrast section**
-3-up grid on muted surface, factual tone, no sales verbs:
-- `For consumers` — a documented reference point beyond marketing claims.
-- `For vendors` — public differentiation tied to reviewed records.
-- `For the market` — sourcing transparency becomes easier to interpret when documented and undocumented operators are publicly distinguishable.
+**7 · Bridge — relationship to the rest of the site**
+Light surface, calmer than the current "Read deeper" bordered band. Three quiet text links in a single row (or stacked on mobile), each with a short one-line description:
+- `How verification works →` `/how-it-works` — the protocol the Board governs.
+- `Accountability & enforcement →` `/accountability` — what happens when verification fails.
+- `About Source Standard →` `/about` — the organization the Board oversees.
 
-**8 · Final bridge to vendor application — calm two-line footer**
-Full-width on white surface, one short two-column row (no navy band — the home page already owns that closer):
-- Left: `For vendors seeking public verification` — short paragraph: verification is recorded only after documentation review is complete.
-- Right: single quiet text link `Begin Verification →` to `/apply`.
-Followed by one flat muted disclaimer paragraph at the very bottom (the existing methodology copy, distilled to one sentence; no accordion).
+**8 · Footer — flat citation only**
+Keep `DocSignature` (it's the global signature, fine to retain). Replace the current `Cite as · Source Standard, Medical Advisory Board, SS-MAB-2026.01…` band with a single muted line at the bottom — no surface tint, no `meta-label` mono prefix. The internal doc ID can stay inside the citation sentence (deeper context), just not as a styled chip.
 
----
+### Visual rules across the page
 
-### `src/pages/VendorProfile.tsx` — formal public record
-
-Goal: a tight public record. Verified profiles feel prestigious through restraint; unverified profiles make absence of verification unmistakable without sounding hostile.
-
-**1 · Header — keep `ProfileHeader`, sharpen content**
-- `eyebrow`: status-driven instead of a fixed "Verified vendor" label:
-  - verified → `Verified vendor`
-  - under-review → `Vendor under review`
-  - unverified → `Listed vendor · Unverified`
-  - suspended → `Vendor verification suspended`
-  - removed → `Removed listing`
-- `title`: vendor name (unchanged).
-- `identity`: status badge + location + category (unchanged shape, lighter visual weight).
-- `lead`: one plain sentence drawn from `vendor.summary` or, if missing, `VENDOR_STATUS_PROFILE_NOTE[status]`.
-- `rightSlot` becomes a "Status at a glance" panel: status label, one-line meaning from `VENDOR_STATUS_PROFILE_NOTE`, last review date if applicable, and (verified only) review ID. Quiet bordered block, no tint.
-
-**2 · Public record body — replace current 7/5 grid with two unnumbered sections**
-
-- **Public record** (one `dl` definition list, no numbered subsection scaffolding):
-  - Vendor · Public status · Location · Website · Medical director · Category · Clinical focus · Verified scope (only when status === verified, drawn from `verifiedCategories`) · Last review date (only when present) · Review ID (only when status === verified).
-  - Empty fields render as `—`. No internal `Doc:` codes anywhere visible.
-- **Upstream sourcing relationship** — single short paragraph or `dl` rows summarizing any documented upstream relationships when present in the vendor data (falls back to `vendor.publicNote` or omits the section entirely if no data).
-
-**3 · Status interpretation note — short closing block**
-Plain bordered strip, one paragraph from `VENDOR_STATUS_DISCLOSURE[status]` (already exists in `src/data/vendors.ts`). Plus a fixed one-liner: `Directory inclusion does not constitute medical advice, product endorsement, or a guarantee of clinical outcome.`
-
-**4 · Status-specific surfacing**
-- **Verified**: nothing celebratory — no ribbons, no large badges. The combination of the eyebrow, the status badge in identity, the verified scope row, and the review ID does the work. This is prestige-by-restraint.
-- **Unverified**: the "Status at a glance" panel uses a plain border and reads `Unverified · No completed verification on file` in `text-foreground` weight. Below the public record, render a one-line plain note: `This vendor has not completed Source Standard verification.` No alarm color, no warning iconography — visibility through plain language and contrast against neighboring verified profiles.
-- **Suspended / removed**: include current public note prominently above the public record when present.
-
-**5 · `ProfileFootnote` — strip internal doc codes**
-- Remove the `Doc: SS-REG-…` row.
-- Keep `Listing` (status label), `Updated` (review date or `—`), `Jurisdiction`.
-
-**6 · Breadcrumb** — unchanged.
-
----
+- No visible `§1 / §2 / §3 / §4` section codes anywhere on the page.
+- No visible `SEAT · NN`, `MAB-NN`, `R-NN`, `Roster · SS-MAB-2026.01` chips.
+- Section eyebrows use the existing muted mono pattern but read as plain phrases (`Why this Board exists`, `Role in the framework`, `Scope & boundaries`, `Responsibilities`, `Continue reading`).
+- Surfaces alternate `bg-background` ↔ `bg-surface-muted` for rhythm, no new tokens.
+- All borders/dividers are existing `border-border` hairlines. No card shadows, no rounded corners introduced.
+- Spacing uses existing `container-wide` and `py-12 md:py-16`.
 
 ### Files touched
 
-- `src/pages/VerifiedVendors.tsx` — rewrite hero invocation; replace 6-up stats grid with inline summary + single emphasized verified count; add "Why this page matters" 3-up; soften filter bar styling; restyle table + mobile cards as editorial rows; add status-meaning legend; add "Why verified status matters" 3-up; replace `<details>` footer with vendor-application bridge + flat disclaimer.
-- `src/pages/VendorProfile.tsx` — status-driven eyebrow; replace right-side status card with "Status at a glance" panel; replace 7/5 grid with unnumbered Public Record + Upstream Sourcing sections rendered as `dl`; add status interpretation closing note (using existing `VENDOR_STATUS_DISCLOSURE`); strip internal doc codes from `ProfileFootnote`.
+- `src/pages/MedicalAdvisory.tsx` — rewrite the page body. Replace navy hero invocation, add "Why this Board exists" 3-up, restructure role section without `§` prefixes, rebuild roster cards (remove SEAT / MAB codes, keep portraits + `View profile →`), add dedicated Scope & boundaries section, simplify Responsibilities into a plain `dl` list (no R-codes), replace Read deeper band with three quiet bridge links, flatten the Cite line.
 
 ### What stays the same
 
-`BriefingHero`, `StatusBadge`, `ProfileHeader`, `ProfileFootnote`, `Breadcrumb`, `PageMeta`, `EmptyState`, all data and constants in `src/data/vendors.ts`, all routes, search/filter/sort/pagination logic, mobile responsiveness, the navy/cream global accent system, and every other page on the site.
+`BriefingHero`, `Breadcrumb`, `PageMeta`, `DocSignature`, every member in `src/data/advisoryBoard.ts`, every responsibility in `responsibilities`, both override maps already defined in the page, all routes (`/medical-advisory/:slug`, `/governance`, `/about`, `/accountability`, `/how-it-works`), the navy/cream global accent system, and every other page on the site.
 
