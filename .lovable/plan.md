@@ -1,72 +1,53 @@
 
 
-## Institutional Modern v2 — palette realignment + homepage de-database
+## Header simplification + brand polish
 
-The previous pass already shipped the global font (Geist), 10px radius, navy-tinted shadow ladder, `HeroPattern`, Clinical Assistant FAB, and Education page cleanup. This pass closes the remaining gaps the brief calls out.
+Single-file change to `src/components/SiteHeader.tsx`. Tokens, layout, and CTA styling already match the institutional system — this pass tightens the nav itself.
 
----
+### 1 · Remove "Home" from nav
 
-### 1 · Palette realignment (`src/index.css`)
+Drop the `{ to: "/", label: "Home", end: true }` entry from the `nav` array. The Logo (top-left) becomes the sole homepage affordance — it already wraps a `<Link to="/">` via `Logo.tsx`.
 
-Snap tokens to the exact values requested:
+### 2 · Logo polish
 
-- `--background` → **Cool Gray `210 40% 98%`** (the requested `#F8FAFC`). Page no longer reads as pure white, so white cards visibly float.
-- `--surface` stays `0 0% 100%` (white) — cards/inputs/dropdowns now have real contrast against the new cool-gray page.
-- `--foreground` → **Authority Navy `222 47% 11%`** (the requested `#0F172A`). Used for headings, CTAs, FAB.
-- `--primary` → **Safety Blue `199 89% 48%`** (the requested `#0EA5E9`) with `199 89% 42%` hover. Replaces the teal across links, active nav underline, primary buttons, focus rings, verification accents.
-- `--ring` follows `--primary`.
-- `--border` lightened to `214 32% 91%` so hairlines read as soft, not structural.
-- Dark mode palette adjusted to match (deeper navy bg, brighter sky-blue primary).
+In `Logo.tsx`: bump the mark from `22×22` → `26×26`, wordmark from `15px` → `15.5px font-semibold tracking-[-0.01em]`, add `hover:opacity-80 transition-opacity` so it reads as interactive. Keep the navy/teal checkmark as-is.
 
-Every page picks this up automatically via existing token references. No per-page color edits required.
+### 3 · Nav link refinement
 
-### 2 · Homepage — kill the database aesthetic (`src/pages/Index.tsx`)
+- Increase desktop nav `gap-7` → `gap-9` for breathing room between the 6 remaining links.
+- Link type scale: `text-[13.5px]` → `text-[13px]`, weight `font-medium` (already), tracking `tracking-[0.005em]`. Inactive color stays muted; hover brightens to foreground; active state keeps the teal underline (now `after:h-[2px]` already, leave thickness, but lower it to `bottom-[-14px]` so it sits exactly on the header's bottom border).
+- Active link weight stays `font-semibold` for unmistakable wayfinding.
 
-The home is the loudest "1990s database" offender. Surgical structural changes:
+### 4 · Primary CTA — Institutional Navy
 
-- **Remove the `<aside>` Institutional Metadata box** in the hero. Hero becomes a single centered column: eyebrow → `display-1` headline → lead → Registry Lookup → CTA row. Headline and lead center-aligned, lookup + CTAs centered under them. `HeroPattern` already mounted stays.
-- **§4 Greenlist categories** — convert the long `<ul>` row list into a 3-column responsive grid of elevated cards (one per category: name + short description + small "Active" chip). Doc IDs / `§N` numbering removed from the public face.
-- **§5 Standards anchoring** — convert the divided `<ul>` into a 2×2 grid of elevated cards (FDA / PCAB / NSF / USP, each with a one-line description). The mono `K` codes stay as a small label inside each card — they're recognized acronyms, not internal IDs.
-- **§6 Education preview** — convert the divided row list into a 3-column card grid; drop the `REF-XXX` mono codes from the public view (kept inside article pages).
-- **§2 Public lookups** — already two cards; bump to the new `card-elevated` chrome (`rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px`) so they match the rest.
+"Apply for verification" already uses `bg-foreground text-background` (the navy token). Confirm + tighten:
+- `h-10 px-5 text-[13px] font-medium rounded-md` (inherits the new 10px radius automatically).
+- Hover: `hover:bg-foreground/90` (already in place).
+- This is the only filled button in the header — establishes a clear single-CTA hierarchy.
 
-All four converted sections use the same card chrome: `bg-surface border border-border/60 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200`.
+### 5 · Ghost button language for secondary actions
 
-### 3 · Anchor pages — drop the Reference box default (`src/components/AnchorHeader.tsx`)
+Header currently has no secondary button — the nav links themselves are the "ghost" affordances. To formalize the system for future use, no new button is added in the header, but the existing `variant="ghost"` in `button.tsx` is already correctly styled (`hover:bg-accent`) and inherits the new tokens. No code change needed; documented for downstream pages.
 
-The brief calls out hiding "Doc IDs / Status codes" from front-facing views. The anchor header's default `reference` block (Doc / Status / Updated mono panel) currently shows on Verified Vendors, Greenlist, Education, etc.
+### 6 · Sticky glassmorphism
 
-- Remove the auto-rendered Reference Box. The `aside` slot stays (pages can still pass custom asides like status legends), but the default mono Doc/Status/Updated panel is gone.
-- When no `aside` is passed, the title block centers and stretches full width with a wider lead column. This is the single change that "centers the headline" across every anchor page in one shot.
-- Eyebrow + `h1` get a touch more weight (`font-semibold` already, but tighter tracking) so they read as headline-news.
+Update the `<header>` classes:
+- Resting state: `bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/40`. Slightly more transparent + stronger blur than current `bg-background/85 backdrop-blur-md`, so the cool-gray page tint shows through and reads as true glass against scrolled content.
+- Drop the existing `shadow-sm` — the brief explicitly calls for "very thin bottom border, no heavy shadow." The hairline `border-b` does the separation work.
+- Utility strip (non-home pages) keeps its `bg-background border-b border-border/40` — the small mono band sits above the glass header and stays opaque so the metadata stays legible.
 
-The `RecordHeader` (used on policy/whitepaper documents like How It Works, For Vendors) keeps its metadata bar — those pages are explicitly documents and the metadata is editorially appropriate there.
+### 7 · Mobile menu
 
-### 4 · Card hover — universal lift
-
-The shared `.card-elevated` utility in `index.css` already exists. Add `hover:-translate-y-0.5` to its hover state so every card on the site (homepage, Education tiles, FAQ tiles, vendor cards) gets the subtle lift the brief asks for, without touching individual components.
-
-### 5 · Navbar — confirm transparency + blur
-
-`SiteHeader` already has `bg-background/85 backdrop-blur-md` from the prior pass. Confirmed in place; no change needed. With the new cool-gray background the blur effect now reads correctly.
-
-### 6 · Chat FAB — confirm in place
-
-`SourceBot` (Clinical Assistant) is already mounted globally via `SiteLayout`, branded navy, with the requested `ShieldCheck` icon and the seed message. New palette flows through automatically. No change needed.
-
-### 7 · Education search — confirm absent
-
-Verified: the Education page has no search input. Brief item satisfied; no change needed.
+Mobile sheet drops the "Home" item alongside desktop. No other mobile changes — sheet already uses the new radius and tokens.
 
 ---
 
 ### Files touched
 
-- `src/index.css` — palette values realigned to `#F8FAFC` / `#0F172A` / `#0EA5E9`; card-elevated hover gets `-translate-y-0.5`.
-- `src/pages/Index.tsx` — hero centered + Reference aside removed; §4/§5/§6 converted from row lists to elevated card grids; §2 lookups pick up unified card chrome.
-- `src/components/AnchorHeader.tsx` — default Reference box removed; title block centers when no aside is provided.
+- `src/components/SiteHeader.tsx` — remove Home, widen nav gap, refine link size/tracking, swap header classes for glassmorphism + hairline border, drop shadow.
+- `src/components/Logo.tsx` — slightly larger mark + wordmark, add hover affordance.
 
 ### What stays the same
 
-Every route, every data file, all other pages, `RecordHeader`, `SiteHeader`, `SourceBot`, `HeroPattern`, the Education page layout, the Greenlist/Vendor registry tables (registries should look like registries), and every component API. The reskin propagates through tokens.
+Every route, every page, the CTA destination, the nav active-state color (teal), the utility strip, the mobile sheet structure, and every other component. `Button` variants (`default` navy, `ghost`, `outline`) are already correct via tokens — no `button.tsx` edits.
 
