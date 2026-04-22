@@ -1,6 +1,25 @@
 import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { DocJumpBar } from "@/components/DocJumpBar";
+import { DocSignature } from "@/components/DocSignature";
+import { BoardCiteFooter } from "@/components/BoardSection";
+
+const DOC_ID = "SS-PROTO-2026.01";
+const VERIFIED_ON = "04/21/2026";
+
+const jumpWaypoints = [
+  { id: "principles", number: "1", label: "Principles" },
+  { id: "scope", number: "2", label: "Scope" },
+  { id: "determinations", number: "3", label: "Determinations" },
+  { id: "domains", number: "4", label: "Domains" },
+  { id: "lifecycle", number: "5", label: "Lifecycle" },
+  { id: "surveillance", number: "6", label: "Surveillance" },
+  { id: "post", number: "7", label: "Post-determination" },
+  { id: "rationale", number: "8", label: "Rationale" },
+  { id: "limits", number: "9", label: "Limits" },
+];
 
 const whyItMatters: { t: string; d: string }[] = [
   {
