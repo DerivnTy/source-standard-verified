@@ -272,10 +272,10 @@ const VendorProfile = () => {
               <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
                 {/* Monogram tile */}
                 <div
-                  className={`hidden sm:flex h-20 w-20 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
+                  className={`hidden sm:flex h-16 w-16 shrink-0 items-center justify-center border-2 ${theme.monogramRing} bg-muted/30`}
                   aria-hidden
                 >
-                  <span className="t-section-title-md font-semibold tracking-tight text-foreground">
+                  <span className="t-section-title-sm font-semibold tracking-tight text-foreground">
                     {monogram}
                   </span>
                 </div>
