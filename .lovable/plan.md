@@ -1,68 +1,77 @@
 
 
-## Index.tsx — "Sovereign Plaque" Navy Hero
+## Index.tsx — Hero "Institutional Framework" pass
 
-Revert the home page 100vh band from the dense terminal layout to a centered, deep-navy institutional plaque. Below-the-fold blocks (§I Registries, §II Authority, §III Reference) remain on the white surface, untouched.
+Add structural detail to the navy 100vh hero so the empty space reads as engineered system, not absence. No new copy. All additions are scoped to the navy `tone` branch of `BriefingHero`; default white plaque used by other pages is untouched.
 
 ---
 
-### 1 · `BriefingHero` — add navy variant
+### 1 · Background framework (subtle blueprint)
 
-`src/components/BriefingHero.tsx` gains one optional prop: `tone?: "default" | "navy"` (default = today's white surface).
+In `src/components/BriefingHero.tsx` navy branch, layer behind the content:
 
-When `tone="navy"`:
-- Section background swaps to a fixed deep-navy token (`#0A1128`), with a soft radial gradient on top and the existing `HeroPattern` rendered at very low opacity (~3%) using a white stroke instead of foreground.
-- All text inside the hero forces pure white / white-muted: eyebrow + scroll cue at `text-white/55`, H1 at `text-white`, statement at `text-white/75`, hairline divider at `bg-white/20`.
-- Bottom border becomes `border-white/10` so the transition into the white registry surface below is a crisp horizon line.
-- `rightRail` and `rationale` are ignored in navy mode (force the centered "Sovereign Plaque" layout regardless).
+- **Strengthen `HeroPattern`** opacity from `0.03` → `0.05`, and overlay a second, larger 96px-cell grid at opacity `0.04` for a "nested coordinate" feel (drafting-paper effect). Both white-stroked.
+- **Two faint vertical registration lines** at `left: 8.33%` and `right: 8.33%` (1/12 col gutters), `bg-white/[0.06]`, full-height, `w-px`. Reads as panel boundaries.
+- **Two faint horizontal registration lines** at `top: 18%` and `bottom: 18%`, `h-px bg-white/[0.06]`, full-width. Frames the centered plaque zone.
+- **Four corner crosshair ticks** (12px L-shapes, `border-white/25`, 1px) at the intersections of the registration lines — defines an "active plate" rectangle around the headline group without drawing a visible box.
 
-A new optional `actions?: ReactNode` slot renders directly below the statement, centered, with `mt-10`. Used only by Index for the two ghost buttons.
+### 2 · Edge labels (system notation on the side rails)
 
-### 2 · Tokens
+Inside the navy section, absolutely positioned vertical mono labels on the outer rails (hidden below `md`):
 
-Add two CSS variables to `src/index.css` `:root` for the navy surface so we keep design-token discipline (no raw hex in components):
+- **Left edge** (`left-6`, vertically centered, `rotate-180`, `writing-mode: vertical-rl` via inline style): `SS-FRAMEWORK-2026.01 · REV 01`
+- **Right edge** (`right-6`, vertically centered, `writing-mode: vertical-rl`): `PUBLIC REGISTRY · ACCESS TIER 0`
+
+Both at `font-mono text-[10px] tracking-[0.28em] text-white/40 uppercase`. Pure environmental cues.
+
+### 3 · Top corner reference markers
+
+Two small mono blocks pinned just under the top registration line (`top-[18%]`, hidden below `md`):
+
+- **Top-left** (`left-[8.33%]` + small offset): two stacked lines
+  ```
+  COORD          N 38.9072° · W 77.0369°
+  PLATE ID       SS · 01 / 01
+  ```
+- **Top-right** (`right-[8.33%]`, right-aligned): two stacked lines
+  ```
+  ISSUED         2026.01.15
+  REV CYCLE      ANNUAL · INTERIM FLAGS
+  ```
+
+`font-mono text-[10px] tracking-[0.18em] text-white/45 uppercase`, label in `text-white/30`, value in `text-white/55`. Each row is `flex gap-4` with the label fixed-width so columns align.
+
+### 4 · Center plate framing
+
+Tighten the centered content group:
+
+- Wrap eyebrow + H1 + divider + statement + actions in a `relative` group with `max-w-[640px]` and add a barely-visible inset frame: `before:` and `after:` pseudo-elements drawn with 4 absolutely-positioned `1px × 14px` and `14px × 1px` ticks at each corner of the group (white/25). Same crosshair language as the background corners but tighter and on the content itself — anchors the plate.
+- Add a single `font-mono text-[10px] tracking-[0.22em] text-white/35` line directly above the eyebrow: `▌  PLATE 01 / 01  ▐` (uses the existing eyebrow stack but adds a thin index line above it).
+
+### 5 · Bottom institutional strip (inside hero, above scroll cue)
+
+Replace the lone `▼ CONTINUE` cue with a 3-column mono strip pinned at `bottom-12` spanning the inner `container-wide`. Hairline `border-t border-white/10`, `pt-4`, `font-mono text-[10px] tracking-[0.22em] text-white/45 uppercase`:
+
 ```
---navy-surface: 222 47% 11%;     /* ~#0A1128 */
---navy-surface-2: 222 40% 16%;   /* gradient stop */
+STATUS · ACTIVE     │     PROTOCOL · SS-FRAMEWORK-2026.01     │     JURISDICTION · UNITED STATES
 ```
-Reference via `bg-[hsl(var(--navy-surface))]`. Dark-mode values mirror the same navy (the plaque looks identical in both themes).
 
-### 3 · Index.tsx hero content
+Three `<div>`s in a `grid grid-cols-3`, left/center/right aligned. The `▼ CONTINUE` cue moves to `bottom-4`, sits beneath this strip, smaller (`text-[9.5px]`).
 
-Replace the current dense `BriefingHero` invocation with:
+### 6 · Behavior / responsive
 
-- `category`: `UNITED STATES PUBLIC REGISTRY`
-- `docId`: `SS-FRAMEWORK-2026.01` (still surfaced via `GlobalUtilityBar`, kept on the prop for API symmetry)
-- `title`: `SOURCE STANDARD`
-- `statement`: "The definitive auditing framework for compounded supply-chain integrity. We verify 503A and 503B pharmacy sourcing to ensure clinical transparency."
-- `tone`: `"navy"`
-- `actions`: two side-by-side ghost buttons:
-  - `[ ACCESS VENDOR REGISTRY ]` → `/directory`
-  - `[ VIEW UPSTREAM GREENLIST ]` → `/greenlist`
-
-Buttons use a local inline class set (no `Button` variant change) to guarantee white-on-navy contrast: `border border-white/40 text-white px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 hover:border-white transition-colors`. Side-by-side with `gap-3`, wrap to stacked on `< sm`.
-
-Remove from Index hero: `HeroRightRail` (Registry Metrics / Governance / Access Portals) and the `rationale` chit. The metrics and access-portal data are already represented in the §I–§III blocks below the fold, so no information is lost.
-
-### 4 · GlobalUtilityBar — navy-aware
-
-`src/components/GlobalUtilityBar.tsx` reads `useLocation().pathname`. When pathname is `"/"`, render with `bg-[hsl(var(--navy-surface))] text-white/70 border-white/10` so the strip reads as a frame for the navy plaque. All other routes stay on the existing light surface. No structural changes — only conditional class swap.
-
-### 5 · Below-the-fold
-
-Sections §I, §II, §III in `Index.tsx` remain exactly as they are today (white surface, hairline grids). The transition is a single horizontal seam between the navy plaque (ends at exactly `100svh`) and the white registry density below.
+- All edge labels, corner markers, and bottom strip are `hidden md:block` (or `md:grid`). On mobile the hero stays exactly as today — only desktop gains the framework density.
+- No layout shift to the centered title/statement/actions group. Z-ordering: pattern (z-0) → registration lines + crosshairs (z-10) → edge labels + corner markers + bottom strip (z-20) → centered plate (z-30).
+- All colors via `text-white/XX` and `border-white/XX` opacity tokens — no new CSS variables needed.
 
 ---
 
 ### Files touched
 
-- `src/components/BriefingHero.tsx` — add `tone` and `actions` props; navy branch with white typography + radial gradient + low-opacity pattern.
-- `src/components/HeroPattern.tsx` — accept optional `stroke` prop (`"foreground" | "white"`) so the navy variant can use a white grid.
-- `src/components/GlobalUtilityBar.tsx` — conditional navy styling on `"/"`.
-- `src/index.css` — add `--navy-surface` / `--navy-surface-2` tokens.
-- `src/pages/Index.tsx` — replace dense hero invocation with navy plaque + two ghost-button actions; delete unused `HeroRightRail` block and rationale string.
+- `src/components/BriefingHero.tsx` — navy branch only: add background registration lines, corner crosshairs, vertical edge labels, top-corner reference markers, center-plate corner ticks, and bottom institutional strip. Default branch unchanged.
+- `src/components/HeroPattern.tsx` — accept optional `cellSize?: number` prop (default `32`) so the hero can render a second 96px overlay grid using the same component. No breaking changes.
 
 ### What stays the same
 
-`BriefingHero` API for all other pages is unchanged (they don't pass `tone`, so they keep today's white plaque). `GlobalUtilityBar` signatures, smart header, scroll restoration, all routes, all data, and every below-the-fold block on Index. No new dependencies.
+`BriefingHero` API for all other pages, all copy on the home hero, the two ghost-button actions, the navy color palette, `GlobalUtilityBar`, every block below the fold on Index, and the mobile rendering of the hero.
 
