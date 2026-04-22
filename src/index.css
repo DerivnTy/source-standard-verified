@@ -292,3 +292,17 @@
     @apply py-8 md:py-10;
   }
 }
+
+@layer components {
+  /* Filing prose — serif body for centered whitepaper sections.
+     Headings keep Inter (sans). Lists/paragraphs go serif at 16/1.7. */
+  .prose-filing p,
+  .prose-filing li {
+    font-family: 'Source Serif 4', 'Source Serif Pro', Charter, Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .prose-filing p {
+    @apply text-foreground;
+  }
+}
