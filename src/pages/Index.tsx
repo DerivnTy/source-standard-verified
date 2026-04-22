@@ -179,6 +179,8 @@ const Index = () => {
         docId="SS-FRAMEWORK-2026.01"
         title="System Access."
         statement="The public reference for the Source Standard verification framework — auditing clinical vendors against FDA-registered 503A and 503B upstream sources."
+        rationale="Vendor compliance records are continuously cross-referenced against FDA Drug Establishment Registration, state pharmacy licensure, and PCAB / NSF accreditation files. No listing is published without a documented upstream chain."
+        rightRail={<HeroRightRail />}
       />
 
       {/* ============================================================ */}
