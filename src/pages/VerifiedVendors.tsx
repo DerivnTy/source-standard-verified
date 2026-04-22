@@ -165,6 +165,7 @@ const VerifiedVendors = () => {
       <BriefingHero
         tone="navy"
         category="Public Vendor Record"
+        docId="SS-DIRECTORY"
         title="Verified Vendors"
         statement="The public record of vendors and clinics tracked under the Source Standard framework. Each listing reflects whether a documented verification has been completed, is in progress, or is not on file."
       />
