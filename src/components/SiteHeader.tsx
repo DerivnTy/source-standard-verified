@@ -74,19 +74,7 @@ export const SiteHeader = () => {
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      {/* Utility strip — suppressed on home (hero owns the top band) */}
-      {!isHome && (
-        <div className="hidden md:block bg-background border-b border-border/40">
-          <div className="container-wide flex items-center justify-between py-1.5">
-            <span className="text-[11px] text-muted-foreground/75 tracking-[0.005em]">
-              Public reference · Standard SS-FRAMEWORK-2026.01 · Active
-            </span>
-            <span className="text-[11px] text-muted-foreground/75 tracking-[0.005em]">
-              United States · Reviewed under Medical Advisory Board
-            </span>
-          </div>
-        </div>
-      )}
+      {/* Utility strip moved to GlobalUtilityBar (Tier 0) */}
 
       <div className="container-wide relative flex h-16 items-center justify-between">
         <Logo />
