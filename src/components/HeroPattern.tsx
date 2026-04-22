@@ -40,29 +40,29 @@ export const HeroPattern = ({
       >
         <defs>
           <pattern
-            id="hero-grid"
-            width="32"
-            height="32"
+            id={patternId}
+            width={cellSize}
+            height={cellSize}
             patternUnits="userSpaceOnUse"
           >
             <path
-              d="M 32 0 L 0 0 0 32"
+              d={`M ${cellSize} 0 L 0 0 0 ${cellSize}`}
               fill="none"
               stroke={strokeColor}
               strokeWidth="0.5"
             />
           </pattern>
           <pattern
-            id="hero-dots"
-            width="32"
-            height="32"
+            id={dotsId}
+            width={cellSize}
+            height={cellSize}
             patternUnits="userSpaceOnUse"
           >
             <circle cx="0" cy="0" r="1" fill={stroke === "white" ? "#ffffff" : "hsl(var(--primary))"} />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#hero-grid)" />
-        <rect width="100%" height="100%" fill="url(#hero-dots)" opacity="0.6" />
+        <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+        <rect width="100%" height="100%" fill={`url(#${dotsId})`} opacity="0.6" />
       </svg>
     </div>
   );
