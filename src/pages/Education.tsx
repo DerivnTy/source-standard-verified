@@ -58,6 +58,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "the-dual-layer-difference": "/library/dual-layer-difference",
   "safe-peptide-handling-and-reconstitution": "/library/sterile-preparation-integrity",
   "sanitization-and-aseptic-technique-fundamentals": "/library/aseptic-technique",
+  "the-science-of-aging-and-trt": "/library/endocrinological-context",
 };
 
 const SimpleRow = ({ entry }: { entry: LibraryEntry }) => (
