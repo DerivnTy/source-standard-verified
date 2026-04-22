@@ -1,86 +1,89 @@
 
 
-## About — Public Definition Restructure
+## Verification Protocol — Public Standard Restructure
 
-Rebuild `src/pages/About.tsx` as the clearest public explanation of Source Standard. Strip the charter-style scaffolding (`§1–§8`, sticky contents nav, `Doc / Status / Jurisdiction` metadata strip, `Cite as` chip) and resequence the page so a first-time visitor understands what Source Standard is, why it exists, what it does not do, who it serves, and how it operates — in plain language, in that order.
+Rebuild `src/pages/HowItWorks.tsx` from a coded SOP into a clear public explanation of how Source Standard verification works. Strip the `§1–§9`, `STATUS · NN`, `DOMAIN · NN`, `ATTESTATION · NN`, `RATIONALE · NN`, `LIMIT · NN`, `EVENT · NN`, and `DISCLOSURE WINDOW · 72 HOURS · SS-PROTO-2026.01 · §6` chips, replace the 12-col left-rail layout with the same centered editorial rhythm now used on About / Education / Medical Advisory, and re-sequence so verification meaning lands before deep process detail.
 
 ---
 
 ### Section sequence
 
-**1 · Hero (replace `BriefingHero` invocation)**
-Match the navy hero used on Home / Greenlist / Verified Vendors / Medical Advisory / Education.
+**1 · Hero** (replace `BriefingHero` invocation)
+Match navy hero used sitewide.
 - `tone`: `navy`
-- `category`: `About Source Standard`
-- `title`: `About Source Standard`
-- `statement`: `An independent verification and public-reference framework for vendor sourcing transparency in peptide, TRT, and hormone optimization markets.`
+- `category`: `How Verification Works`
+- `title`: `How Verification Works`
+- `statement`: `The review standard, what the process examines, how status is assigned, and what a determination means.`
 - Drop `docId`, `metadata`, `verifiedOn`. No actions.
-- Remove the sticky `§1–§8` contents nav entirely (and the IntersectionObserver / `activeId` state).
+- Remove `DocJumpBar` entirely (and the `jumpWaypoints` array).
 
-**2 · Why this exists** (`bg-background`)
-Centered `SectionHeader` (eyebrow `Why this exists`, title `Consumers shouldn't have to decode marketing claims.`, no `§1` chip), followed by two short plain paragraphs in a `max-w-3xl` column. Combines the current §1 + §3 substance into one cleaner statement: consumers are asked to rely on branding they can't verify; responsible operators are hard to distinguish from less transparent ones; Source Standard exists to make the landscape easier to interpret.
+**2 · What verification means** (`bg-background`)
+Centered `SectionHeader` (eyebrow `What verification means`, title `Verified means records were reviewed and support the published scope at the time of review.`). Below, two stacked muted lines in a `max-w-3xl` column:
+- `It is not a medical endorsement, and not a guarantee of safety, efficacy, or outcome.`
+- `It reflects documented consistency within the reviewed scope — nothing more, nothing less.`
+Lifted to the top so it lands before any process detail. No bordered card, no `§` label.
 
-**3 · What Source Standard is** (`bg-surface-muted`)
-Centered `SectionHeader` + a single editorial paragraph. Plain definition: a public reference and verification framework that publishes vendor verification status and recognized upstream sources, organized so the public can interpret sourcing and documentation more clearly. No bordered card.
+**3 · Core principles** (`bg-surface-muted`)
+Centered `SectionHeader` (`Core principles`, lede `Three ideas the framework operates from.`). Render `whyItMatters` (3 items) as a clean numbered list (`01–03`) with hairline dividers, plain phrasing (use the simpler `t` field, not the `PRINCIPLE_TITLES` overrides). Each row: number eyebrow + bold lead + one-line muted explanation. No bordered card.
 
-**4 · What Source Standard is not** (`bg-background`)
-Centered `SectionHeader` (`What Source Standard is not`). Below, a clean two-column list (single column on mobile) of six plain statements with hairline dividers — no numbered chips, no `§` codes, no surface tint:
-- Does not prescribe treatment
-- Does not provide medical advice
-- Does not replace physician judgment
-- Does not function as a regulator
-- Does not market clinics or act as a promotional partner
-- Does not guarantee medical outcomes, product safety, or treatment efficacy
-Each item: bold lead phrase, no description needed. This is one of the most prominent sections on the page by virtue of its calm clarity, not by visual weight.
+**4 · What falls inside and outside the review** (`bg-background`)
+Centered `SectionHeader` (`Scope of the review`, lede `What falls within the review, and what falls outside it.`). Below, two side-by-side columns (single column on mobile) divided by a hairline:
+- Left: `Within scope` — five plain bullets (business identity; applicable licenses and registrations; pharmacy and supplier records; certificates and lot records within the reviewed category; consistency of public-facing claims).
+- Right: `Outside scope` — five plain bullets (clinical outcomes; patient experiences; pricing; marketing channels; anything outside the documented verified category).
+No `ATTESTATION · NN` chips, no `gap-px bg-border` cell shell, no bordered table.
 
-**5 · Operating principle** (`bg-surface-muted`)
-Centered, intentionally spare. Single eyebrow (`Operating principle`), then the doctrine line rendered as a large pull-quote (`text-[20-22px]` serif or semibold sans, max-w-2xl, centered):
-> If documentation is present and supports the published status, that status can be shown publicly. If it is not, it cannot.
-Below, one muted line: `The role here is not to persuade. The role is to provide a clearer public reference.` No bordered card, no `§6` chip, no mono `Operating principle · §6` header.
+**5 · Status definitions** (`bg-surface-muted`)
+Centered `SectionHeader` (`Status definitions`, lede `Each registry entry carries one of these standings.`). Replace the 12-col coded table with a clean stacked list of 5 status blocks separated by hairline dividers. Each block:
+- `StatusBadge` + status name as the dominant anchor.
+- One-line `meaning` paragraph (`text-[15px] text-foreground`).
+- Two micro-rows: `Tells — …` and `Does not imply — …` (`text-[13.5px] text-muted-foreground`, plain inline labels, no mono uppercase).
+No `STATUS · NN` chips, no `Code / Status / Public-record meaning` header strip. Quiet `Full status definitions →` link to `/status-definitions` below the list.
 
-**6 · Who this serves** (`bg-background`)
-Centered `SectionHeader` (`Who this serves`). Below, a two-column row (single column on mobile) divided by a hairline. Each column has a small label (`For consumers` / `For responsible vendors`) and one short paragraph. No `§7.1 / §7.2` mono prefixes, no bordered card grid, no `gap-px bg-border` cell shell — just two clean columns.
+**6 · What the review looks at** (`bg-background`)
+Centered `SectionHeader` (`What the review looks at`, lede `Seven areas examined against the standard for the requested category.`). Render `reviewGroups` (7 items) as a clean numbered list (`01–07`) with hairline dividers — number eyebrow + plain `t` (not `SCOPE_TITLES` overrides) as bold lead + one-line muted `d`. No `DOMAIN · NN` chips, no bordered card.
 
-**7 · Principles** (`bg-surface-muted`)
-Centered `SectionHeader` (`Principles`, lede `Four ideas that shape the framework.`). Render the four `beliefs` as a clean numbered list (`01–04`) with hairline dividers, no `§4.N` mono codes, no bordered card. Each row: number eyebrow + statement on one line at `text-[15px]`.
+**7 · Review lifecycle** (`bg-surface-muted`)
+Centered `SectionHeader` (`Review lifecycle`, lede `Six stages from application to publication.`). Render `steps` (6 items) as a clean numbered timeline. Each step:
+- Large `01–06` numeral on the left.
+- Plain `t` (not `STEP_TITLES` overrides) as bold title.
+- `summary` as one paragraph beneath.
+- Flatten the `Examined / Disposition` micro-labels into a single muted line: `Examined: … · Result: …` rendered in `text-[12.5px] text-muted-foreground`, no mono uppercase chips.
+Hairline dividers between steps. No bordered card.
 
-**8 · Scope & boundaries** (`bg-background`)
-Centered `SectionHeader` (`Scope & boundaries`, lede `What falls within the framework, and what falls outside it.`). Below, two side-by-side columns (single column on mobile) — left column heading `Within the framework` lists the four `weVerify` items as plain bullets; right column heading `Outside the framework` lists the four `weFlag` items as plain bullets. Hairline divider between the two columns. No `Ref / What we verify / What we flag` table header strip, no `§5.N` codes, no bordered table shell.
+**8 · Ongoing surveillance and change disclosure** (`bg-background`)
+Centered `SectionHeader` (`Ongoing surveillance`, lede `Verification is a snapshot in time. Files are monitored, renewed, and re-reviewed when material changes occur.`). Below, a single calm sentence: `Material changes must be disclosed within 72 hours and may trigger re-review or a Suspended status.` Then `changes` (6 items) rendered as a plain two-column bullet list (single column on mobile) with hairline dividers — no `EVENT · NN` chips, no `DISCLOSURE WINDOW · 72 HOURS · SS-PROTO-2026.01 · §6` mono band.
 
-**9 · Mission** (`bg-surface-muted`)
-Centered, spare. Eyebrow `Mission`. Below, the mission statement rendered as the closing thesis at `text-[20px] font-semibold`, max-w-2xl, centered:
-> To bring greater clarity, consistency, and transparency to vendor sourcing and verification in peptide, TRT, and hormone optimization markets.
-Single muted line beneath: `Source Standard exists to make the market easier to understand for the people moving through it.`
+**9 · After a determination** (`bg-surface-muted`)
+Centered `SectionHeader` (`After a determination`). Render `afterReview` (5 items) as a plain numbered list (`01–05`) with hairline dividers — single line per item, no bordered card.
 
-**10 · Continue reading — quiet bridge** (`bg-background`)
-Replace the bordered "Read deeper" band. Small eyebrow `Continue reading`, then four quiet text links in a single row (or 2×2 on mobile), each a label + one-line description, hairline dividers between:
-- `Governance & Oversight →` `/governance` — Clinical advisory and statutory anchors.
-- `How verification works →` `/how-it-works` — Process, review, and renewal.
-- `Status definitions →` `/status-definitions` — Glossary of regulatory standings.
-- `Accountability & enforcement →` `/accountability` — Compliance protocol.
+**10 · Why entities apply** (`bg-background`)
+Centered `SectionHeader` (`Why entities apply`). Render `vendorReasons` (4 items) as a clean 2×2 grid (single column on mobile) with hairline dividers — bold title + one-line muted description, no `RATIONALE · NN` chips. Single quiet `Begin a verification application →` link to `/apply` below, right-aligned.
 
-**11 · Footer**
-Keep `DocSignature`. Remove the `Cite as · Source Standard, Organization Reference, SS-ORG-2026.01…` band entirely (the doc ID lives inside `DocSignature` already).
+**11 · Jurisdictional limitations** (`bg-surface-muted`)
+Centered `SectionHeader` (`Jurisdictional limitations`, lede `Boundaries of the verification framework.`). Render `notProcess` (4 items) as plain bulleted list with hairline dividers — no `LIMIT · NN` chips, no bordered table shell.
+
+**12 · Footer**
+Keep `DocSignature`. Remove `BoardCiteFooter` band; if a citation is needed, render a single muted inline line beneath in plain prose.
 
 ---
 
 ### Visual rules across the page
 
-- No visible `§1 / §2 / §3 / §4 / §5 / §6 / §7 / §8` or `§N.M` codes anywhere.
-- No sticky contents nav, no `IntersectionObserver`, no `activeId` state.
-- No `CHARTER · SS-ORG` / `Doc / Status / Jurisdiction / Updated` metadata strip in the hero.
-- Section eyebrows are plain phrases (`Why this exists`, `What Source Standard is`, `What Source Standard is not`, `Operating principle`, `Who this serves`, `Principles`, `Scope & boundaries`, `Mission`, `Continue reading`).
-- Layout switches from the current 4/8 left-rail grid to centered `SectionHeader` + `max-w-3xl` content columns — matches `Education.tsx` rhythm.
-- Surfaces alternate `bg-background` ↔ `bg-surface-muted` for rhythm only, no new tokens.
-- Hairline dividers via existing `border-border`. No card shadows, no rounded corners introduced.
+- No visible `§1 / §2 / §3 / §4 / §5 / §6 / §7 / §8 / §9` codes anywhere.
+- No visible `STATUS · NN`, `DOMAIN · NN`, `ATTESTATION · NN`, `RATIONALE · NN`, `LIMIT · NN`, `EVENT · NN`, `DISCLOSURE WINDOW`, `PROTOCOL · SS-PROT` chips.
+- No `DocJumpBar`, no `Rail` 12-col layout, no `MEANING_TITLES / SCOPE_TITLES / STEP_TITLES / PRINCIPLE_TITLES` override maps (use the simpler plain `t` fields directly).
+- Section eyebrows are plain phrases.
+- Centered `SectionHeader` (eyebrow + title + lede) + `max-w-3xl` content columns or two-column splits — matches About/Education rhythm.
+- Surfaces alternate `bg-background` ↔ `bg-surface-muted`. Hairline dividers via `border-border`. No card shadows, no rounded corners, no `gap-px bg-border` table shells.
 - Spacing uses existing `container-wide` + `py-12 md:py-16`.
-- Typography hierarchy: section heading > body text > muted detail. Operating principle and Mission rendered as elevated pull-quotes for emphasis.
+- Strict typography hierarchy: section heading > entry title > body > muted detail.
+- Reuse existing `StatusBadge` for status section so the visual language matches the directory.
 
 ### Files touched
 
-- `src/pages/About.tsx` — full body rewrite. Replace navy hero, remove sticky contents nav and IntersectionObserver, restructure into the 10 sections above, add new `What Source Standard is not` section, flatten Scope into a clean two-column list, elevate Operating principle + Mission as centered pull-quotes, replace Read deeper band with quiet bridge row, drop the Cite footer band.
+- `src/pages/HowItWorks.tsx` — full body rewrite. Replace navy hero, remove `DocJumpBar` + `jumpWaypoints` + `Rail` helper + 4 override-title maps, restructure into the 12 sections above, lift "What verification means" to position 2, flatten domains/lifecycle/surveillance/limits into clean lists, swap status table for `StatusBadge` blocks, drop `BoardCiteFooter`.
 
 ### What stays the same
 
-`BriefingHero`, `PageMeta`, `DocSignature`, the `beliefs` / `weVerify` / `weFlag` / `readDeeper` data arrays (substance preserved, presentation rebuilt), all routes, the navy/cream global accent system, and every other page on the site.
+`BriefingHero`, `Breadcrumb`, `PageMeta`, `DocSignature`, `StatusBadge`, every data array (`whyItMatters`, `meaningBlocks`, `statuses`, `reviewGroups`, `steps`, `changes`, `afterReview`, `vendorReasons`, `notProcess`) — substance preserved, presentation rebuilt, all routes (`/status-definitions`, `/apply`), the navy/cream global accent system, and every other page on the site.
 
