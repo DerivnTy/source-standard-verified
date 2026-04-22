@@ -21,6 +21,7 @@ import LibraryWhatArePeptides from "./pages/LibraryWhatArePeptides.tsx";
 import LibraryInterpretingCoAs from "./pages/LibraryInterpretingCoAs.tsx";
 import LibraryDualLayerDifference from "./pages/LibraryDualLayerDifference.tsx";
 import LibrarySterilePreparationIntegrity from "./pages/LibrarySterilePreparationIntegrity.tsx";
+import LibraryAsepticTechnique from "./pages/LibraryAsepticTechnique.tsx";
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
@@ -65,6 +66,7 @@ const App = () => (
             <Route path="/library/interpreting-coas" element={<LibraryInterpretingCoAs />} />
             <Route path="/library/dual-layer-difference" element={<LibraryDualLayerDifference />} />
             <Route path="/library/sterile-preparation-integrity" element={<LibrarySterilePreparationIntegrity />} />
+            <Route path="/library/aseptic-technique" element={<LibraryAsepticTechnique />} />
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
