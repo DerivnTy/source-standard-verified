@@ -1,75 +1,86 @@
 
 
-## Education page consumer pivot + site-wide "Source Bot" chat FAB
+## Institutional Modern reskin — site-wide visual overhaul
 
-Two changes: trim the Education page to a consumer-friendly Resource Hub, and add a global floating chat assistant rendered from `SiteLayout` so it appears on every page.
+A tokens-first refresh so the new aesthetic propagates to every page without rewriting them. Three files do most of the work (`index.css`, `tailwind.config.ts`, plus a small `HeroPattern` component); a handful of structural touches harmonize the header, cards, and hero bands.
 
-### 1 · Education page cleanup (`src/pages/Education.tsx`)
+---
 
-**Hero**
-- Remove the search input entirely, the `Search` icon import, the `query` state, all `useMemo` filter blocks, and `matches()` helper.
-- Keep the centered eyebrow, `h1`, and lead copy as-is. Hero stays centered with no reference box (already there).
+### 1 · Color system — Authority navy + Clinical teal
 
-**Tile redesign — `LibraryTile`**
-Restyle to match the requested consumer card:
-- Remove the Doc ID footer row entirely (no `SS-…` code shown).
-- Remove the status chip from the card body (Published/Forthcoming pill goes away on these cards).
-- Title: bump to `text-[19px] font-semibold leading-snug`.
-- Description: clamp to 2 lines via `line-clamp-2` for visual rhythm; keep `leading-[1.7]`.
-- Optional `Reviewed by …` micro-line stays only if present.
-- Footer becomes a single subtle CTA: `Read article →` in muted foreground that brightens + nudges right on hover (using `ChevronRight`).
-- Card chrome: white `bg-background`, `border border-border/50` (thinner, lighter), `hover:shadow-md hover:border-foreground/30 transition-all duration-200`. No translate.
+Rewrite the design tokens in `src/index.css`. Same variable names so every existing component picks up the change automatically.
 
-This tile is reused for Foundational, Clinical Protocols, and Latest Analysis — all three remain 3-column grids (already are).
+- **Background**: warmer near-white `0 0% 98.5%` with a subtle cool cast on sunken surfaces (`210 24% 96%`) so cards feel elevated.
+- **Foreground / Authority**: deep institutional navy `216 45% 12%` (replaces near-black). Used for headings, primary buttons, the dark FAB, and structural bars.
+- **Primary / Clinical action**: confident teal-blue `198 78% 36%` with `198 78% 30%` hover. This is the "Safety/Action" tone — applied to active nav, CTAs, links, and verification chips.
+- **Verified**: keep green but cooler/cleaner (`158 52% 30%`), softer tint background.
+- **Borders**: lighter, cooler hairlines (`215 22% 90%`) plus a stronger variant for dividers.
+- **Shadows**: replace the near-flat shadows with a real elevation ladder — `sm` for resting cards (`0 1px 2px / 0.04`), `md` for hover (`0 6px 20px -8px navy / 0.10`), `lg` for floating panels (`0 16px 40px -12px navy / 0.14`). Tinted with the navy hue, not pure black, so depth reads "institutional," not "Material."
+- **Dark mode**: matched palette (deeper navy background, brighter teal primary).
 
-**FAQ category cards (4-up grid)**
-- Remove the `code: "FAQ-CAT-0X"` field from the `CATEGORIES` array (or simply stop rendering it — it isn't rendered today, so just confirm none surfaces). Trim `label` strings to the requested single words: **Legal**, **Safety**, **Verification**, **Diligence**.
-- Remove the `{count} entries` micro-line so the card focuses on the title.
-- Keep the icon, larger heading, description, and full-width outline `Browse Category →` button.
-- Match the new card chrome (`border-border/50`, soft hover shadow, no translate).
+### 2 · Geometry & radius
 
-**Sticky jump bar**
-Keep as-is — still useful for scanning.
+- `--radius` lifted from `0.25rem` → `0.625rem` (10px). Tailwind's `rounded-md/lg/xl` all inherit this through the existing config, instantly softening every card, input, button, badge, dialog, and dropdown across the site.
+- Buttons and inputs get a consistent height (`h-10`/`h-11`) and the new radius reads as accessible-precise rather than sharp-technical.
 
-**Removed code**: `useState`, `useMemo`, `query`, `Search` icon import, `matches`, `filteredBasics`/`filteredGuides`/`filteredAnalysis`, `categoryCounts`, `EmptyNote`. Sections render `basics`, `guidesPreview`, and `analysisCards` directly.
+### 3 · Typography — geometric sans + tighter headings
 
-### 2 · New global chat FAB + window
+- Swap the global font from Inter → **Geist** (with Inter fallback), loaded from Google Fonts. Geist is the 2026 institutional-tech default — geometric, neutral, headline-ready.
+- Headings (`h1`/`.display-1`/`.title-page`) bumped to `font-weight: 600` with tighter tracking (`-0.025em` on display, `-0.018em` on h1) for the "headline-news" feel requested.
+- Body stays 16/1.6; helper text 13/1.55. Mono remains IBM Plex Mono for the few legitimate technical IDs (Doc IDs in metadata bars).
 
-**New file: `src/components/SourceBot.tsx`**
+### 4 · Hero pattern — faint geometric mesh
 
-Self-contained client component. No backend, no LLM call yet — UI/UX scaffold only, with a stubbed send handler that appends the user's message and a canned "I'm not connected to the knowledge base yet" assistant reply (clearly labeled in a comment as the future LLM hook point).
+New file `src/components/HeroPattern.tsx`: a presentational `<div>` rendering an inline SVG grid (8% opacity navy lines on a 32px square, with a soft radial-gradient mask that fades it to transparent at the edges). Pure CSS/SVG, no images, no perf cost.
 
-- **FAB**: fixed `bottom-6 right-6 z-50`, `h-14 w-14 rounded-full`, dark (`bg-foreground text-background`) matching the "Apply for verification" button language, soft shadow, subtle hover scale. Icon: `ShieldCheck` from lucide (clean, on-brand). `aria-label="Open Source Standard Assistant"`.
-- **Chat window**: when toggled open, renders a fixed panel anchored bottom-right (`bottom-24 right-6`), `w-[380px] max-w-[calc(100vw-3rem)] h-[560px] max-h-[calc(100vh-8rem)]`, `rounded-xl border border-border/60 bg-background shadow-xl`, flex column.
-  - **Header**: small bar with `ShieldCheck` icon + title `Source Standard Assistant` + muted subline `Educational reference · not medical advice` + a close button (`X`).
-  - **Message list**: scrollable, `flex-1 overflow-y-auto p-4 space-y-3`. Assistant bubbles `bg-surface-muted text-foreground`, user bubbles `bg-foreground text-background self-end`, both `rounded-lg px-3 py-2 text-[13.5px] leading-[1.6] max-w-[85%]`.
-  - **Seed message** (assistant): *"Hello! I am the Source Standard Assistant. I can help you understand peptide safety, 503A/B regulations, or how our verification process works. What can I help you find today?"*
-  - **Input row**: `border-t border-border/50 p-3` with a rounded text input + dark send button (paper-plane / `Send` icon). Submit on Enter; disabled when empty.
-  - **Mobile**: at `<sm`, panel becomes near-fullscreen via the max-width/height clamps above; FAB stays at `bottom-6 right-6`.
-- **State**: local `useState` for `open` and `messages: { role: "user" | "assistant"; content: string }[]`. No persistence.
-- **Internal note** (developer comment in file):
+Mounted as an absolutely-positioned background layer in:
+- The homepage hero (`Index.tsx`, inside the `<section>` that wraps the display-1 block).
+- The `AnchorHeader` component (so every anchor page — Verified Vendors, Greenlist, Education, etc. — inherits the same texture in its header band).
+- The Source Standard Assistant header strip.
 
-  ```
-  // TODO: wire to LLM. Send `messages` to an edge function that injects
-  // the Source Standard library content (src/data/library.ts + the
-  // SS-SERIES analysis pages) as system context, then stream the reply.
-  ```
+This delivers the requested "abstract data-grid map" signal everywhere headers appear, with one component edit.
 
-**Wire-up: `src/components/SiteLayout.tsx`**
-Import `SourceBot` and render it once after `SiteFooter` so it overlays every route.
+### 5 · Card & surface depth
 
-```tsx
-<SiteFooter />
-<SourceBot />
-```
+A small set of utility classes added to `index.css` that pages already use indirectly via tokens:
+
+- `.card-elevated` — `bg-surface border border-border/60 rounded-xl shadow-sm hover:shadow-md transition-all duration-200`. The existing `LibraryTile`, FAQ category cards, and analysis cards on Education already match this shape, so they just inherit the new tokens. The Greenlist/Vendor table rows stay tabular (registries should look like registries) but get the new border + radius.
+- `.surface-band` — soft `bg-surface-sunken/60` band used for section separators, replacing several `bg-muted` strips that currently read as flat gray.
+- Increased default vertical rhythm: `.space-section` → `py-20 md:py-28`, `.space-section-tight` → `py-12 md:py-16`. Content breathes more without per-page edits.
+
+### 6 · Header polish (`SiteHeader.tsx`)
+
+- Sticky header gets a faint backdrop blur (`backdrop-blur-md bg-background/85`) and a hairline shadow on scroll-feel — matches the modern fintech-portal cue.
+- Active nav underline switches from primary slate to the new clinical-teal primary (already automatic via tokens) and thickens slightly.
+- "Apply for verification" CTA moves to the navy `bg-foreground` treatment with the new radius — same dark button language as the chat FAB, so the two read as a paired system.
+- Mobile menu sheet picks up the new radius + shadow tokens automatically.
+
+### 7 · Education page — final cleanup per brief
+
+The brief reiterates "remove the search bar from the header of the Education page." That was done in the previous round; this plan **confirms** it stays gone and verifies no stray search input remains at the top of `src/pages/Education.tsx`.
+
+### 8 · Source Bot — already shipped, light polish
+
+The "Clinical Assistant" FAB + chat window already exist site-wide via `SiteLayout`. Minor polish to align with the new system:
+- Rename header label to **"Clinical Assistant"** (per brief copy).
+- FAB picks up new shadow-lg token automatically.
+- Chat window header gets the `HeroPattern` overlay at very low opacity for the "tech signal" without clutter.
+- Bubble radius inherits the new `--radius` for consistency.
+
+---
 
 ### Files touched
 
-- `src/pages/Education.tsx` — remove search + filtering, redesign `LibraryTile`, simplify FAQ cards, trim category labels.
-- `src/components/SourceBot.tsx` — new floating chat FAB + window (UI only, stubbed send).
-- `src/components/SiteLayout.tsx` — mount `<SourceBot />` site-wide.
+- `src/index.css` — full token rewrite (palette, radius, shadows, typography, new utility classes, vertical rhythm).
+- `tailwind.config.ts` — `fontFamily.sans` switched to Geist (Inter fallback); no other structural changes required since colors/shadows/radii flow through CSS vars.
+- `src/components/HeroPattern.tsx` — **new**, faint SVG mesh background.
+- `src/components/SiteHeader.tsx` — backdrop blur + CTA restyle + mount `HeroPattern` in non-home utility band.
+- `src/components/AnchorHeader.tsx` — mount `HeroPattern` behind the eyebrow/title block.
+- `src/pages/Index.tsx` — mount `HeroPattern` in the institutional hero section.
+- `src/components/SourceBot.tsx` — relabel to "Clinical Assistant," add subtle pattern in header, inherit new tokens.
+- `src/pages/Education.tsx` — confirm/remove any residual search input at the top.
 
 ### What stays the same
 
-- All routes and slug overrides, `library.ts`, every other page, `RecordHeader`/`AnchorHeader`/`Section`/`Button`, the sticky jump bar, the Forthcoming + About footer block, and the Highly Recommended trio.
+Every route, every data file, all page logic, every component API. Because the change is driven by CSS variables + the existing Tailwind token mapping, the new look propagates to dialogs, dropdowns, sheets, popovers, badges, tables, forms, and every existing card without per-component edits.
 
