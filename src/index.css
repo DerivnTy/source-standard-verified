@@ -48,12 +48,25 @@ html {
     --accent: 210 40% 96%;
     --accent-foreground: 222 47% 11%;
 
-    --verified: 158 52% 30%;
+    --verified: 158 44% 32%;
     --verified-foreground: 0 0% 100%;
-    --verified-soft: 158 40% 95%;
+    --verified-soft: 158 38% 95%;
 
-    --pending: 35 60% 36%;
-    --pending-soft: 35 50% 95%;
+    /* Under Review — frosted blue, calm and in-process */
+    --under-review: 210 55% 42%;
+    --under-review-soft: 210 50% 96%;
+
+    /* Suspended — restrained orange, distinct from destructive red */
+    --suspended: 28 70% 42%;
+    --suspended-soft: 30 70% 95%;
+
+    /* Unverified — soft, faded institutional red (not alarmist) */
+    --unverified: 0 50% 45%;
+    --unverified-soft: 0 55% 96%;
+
+    /* Legacy pending kept for any non-status callers; mirrors under-review */
+    --pending: 210 55% 42%;
+    --pending-soft: 210 50% 96%;
 
     --destructive: 0 60% 38%;
     --destructive-foreground: 0 0% 100%;
@@ -114,11 +127,17 @@ html {
     --muted-foreground: 215 12% 64%;
     --accent: 215 22% 14%;
     --accent-foreground: 0 0% 96%;
-    --verified: 152 35% 55%;
+    --verified: 152 38% 58%;
     --verified-foreground: 215 28% 9%;
-    --verified-soft: 152 25% 16%;
-    --pending: 35 55% 60%;
-    --pending-soft: 35 25% 16%;
+    --verified-soft: 152 22% 16%;
+    --under-review: 210 55% 65%;
+    --under-review-soft: 210 30% 16%;
+    --suspended: 28 70% 60%;
+    --suspended-soft: 28 30% 16%;
+    --unverified: 0 55% 65%;
+    --unverified-soft: 0 30% 16%;
+    --pending: 210 55% 65%;
+    --pending-soft: 210 30% 16%;
     --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 96%;
     --border: 215 18% 22%;

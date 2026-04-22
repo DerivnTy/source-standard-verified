@@ -5,13 +5,12 @@ import {
 
 // Stamp-style variants per status: background tint + border + text color.
 const stampFor: Record<VendorPublicStatus, string> = {
-  verified: "bg-verified/10 border-verified/40 text-verified",
-  "under-review": "bg-pending/10 border-pending/40 text-pending",
-  suspended: "bg-destructive/10 border-destructive/40 text-destructive",
-  unverified:
-    "bg-muted/40 border-dashed border-muted-foreground/40 text-muted-foreground",
+  verified: "bg-verified-soft border-verified/30 text-verified",
+  "under-review": "bg-under-review-soft border-under-review/30 text-under-review",
+  suspended: "bg-suspended-soft border-suspended/30 text-suspended",
+  unverified: "bg-unverified-soft border-unverified/25 text-unverified",
   removed:
-    "bg-muted/30 border-dashed border-muted-foreground/30 text-muted-foreground",
+    "bg-muted/40 border-dashed border-muted-foreground/30 text-muted-foreground",
 };
 
 // Accept either the new VendorPublicStatus or the legacy strings, so existing

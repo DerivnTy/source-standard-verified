@@ -76,7 +76,7 @@ const FulfillmentChip = ({ kind }: { kind: VendorFulfillment }) => {
   return (
     <span
       title={VENDOR_FULFILLMENT_DESC[kind]}
-      className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded-[2px] border border-border/70 bg-surface-muted/40 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted-foreground"
+      className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded-[2px] border border-border/70 bg-surface-muted/40 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted-foreground whitespace-nowrap"
     >
       <Icon className="h-2.5 w-2.5" aria-hidden />
       {VENDOR_FULFILLMENT_LABEL[kind]}
@@ -498,10 +498,10 @@ const VerifiedVendors = () => {
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Location
                       </div>
-                      <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Mode
                       </div>
-                      <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Focus
                       </div>
                     </div>
@@ -526,7 +526,7 @@ const VerifiedVendors = () => {
                               }`}
                             />
 
-                            <div className="col-span-4 min-w-0 pr-4">
+                            <div className="col-span-4 min-w-0 pr-2">
                               <div className="text-[15px] font-semibold text-foreground leading-[22px] truncate">
                                 {v.name}
                               </div>
@@ -557,11 +557,11 @@ const VerifiedVendors = () => {
                               {formatLocation(v)}
                             </div>
 
-                            <div className="col-span-1 pr-3">
+                            <div className="col-span-2 pr-3">
                               <FulfillmentChip kind={ful} />
                             </div>
 
-                            <div className="col-span-3 flex items-center justify-between gap-3 pr-1">
+                            <div className="col-span-2 flex items-center justify-between gap-3 pr-1">
                               <span className="text-[13px] text-muted-foreground truncate">
                                 {(v.clinicalFocus && v.clinicalFocus.length > 0
                                   ? v.clinicalFocus.join(" · ")
