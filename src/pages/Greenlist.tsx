@@ -560,9 +560,9 @@ const Greenlist = () => {
 
       {/* Bridge to vendor registry */}
       <section className="bg-surface-muted/30 border-t border-border/60">
-        <div className="container-wide py-10 md:py-12">
+        <div className="container-wide py-6 md:py-8">
           <div className="max-w-[1040px] mx-auto">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/70 mb-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/70 mb-3">
               Two layers, one framework
             </p>
             <p className="text-[15px] leading-[1.7] text-foreground/85 max-w-[78ch]">
@@ -570,19 +570,20 @@ const Greenlist = () => {
             </p>
             <Link
               to="/directory"
-              className="mt-6 inline-flex items-center text-[14px] font-medium text-foreground hover:text-primary underline-offset-4 hover:underline"
+              className="mt-5 inline-flex items-center text-[14px] font-medium text-foreground hover:text-primary underline-offset-4 hover:underline"
             >
               Open the Vendor Registry →
             </Link>
-
-            <div className="mt-8 pt-5 border-t border-border/50">
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground">
-                Note
-              </span>
-              <p className="mt-2 text-[12.5px] leading-[1.65] text-muted-foreground max-w-[68ch]">
-                Source Standard does not accept payment from facilities for inclusion in the Greenlist. Information is derived from public regulatory filings, disclosed facility information, and Source Standard review data where applicable. Inclusion does not constitute endorsement of any specific product, protocol, or clinical use, and does not replace independent due diligence by prescribers or operators.
-              </p>
-            </div>
+          </div>
+        </div>
+        <div className="border-t border-border/50">
+          <div className="px-4 md:px-6 py-4">
+            <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground">
+              Note
+            </span>
+            <p className="mt-1.5 text-[12.5px] leading-[1.6] text-muted-foreground">
+              Source Standard does not accept payment from facilities for inclusion in the Greenlist. Information is derived from public regulatory filings, disclosed facility information, and Source Standard review data where applicable. Inclusion does not constitute endorsement of any specific product, protocol, or clinical use, and does not replace independent due diligence by prescribers or operators.
+            </p>
           </div>
         </div>
       </section>
