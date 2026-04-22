@@ -96,13 +96,13 @@ const About = () => (
       </DocSection>
 
       <DocSection id="beliefs" number="§4" title="Four beliefs that shape the framework.">
-        <ol className="divide-y divide-border/70 border-y border-border/70 not-prose">
+        <ol className="border border-border bg-background divide-y divide-border not-prose">
           {beliefs.map((b, i) => (
-            <li key={i} className="grid grid-cols-12 gap-4 py-4">
-              <div className="col-span-2 md:col-span-1 font-mono text-[12px] uppercase tracking-[0.12em] text-primary pt-0.5">
+            <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
+              <div className="col-span-2 meta text-primary">
                 §4.{i + 1}
               </div>
-              <p className="col-span-10 md:col-span-11 text-[15.5px] leading-[1.7] text-foreground">{b}</p>
+              <p className="col-span-10 text-[14px] text-foreground leading-relaxed">{b}</p>
             </li>
           ))}
         </ol>
@@ -114,20 +114,20 @@ const About = () => (
         title="Scope of the framework."
         description="A two-column register of what falls inside and outside the auditing body's mandate."
       >
-        <div className="rounded-lg border border-border/60 bg-surface overflow-hidden shadow-sm">
-          <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted border-b border-border/60">
-            <div className="col-span-1 meta-label">Ref</div>
-            <div className="col-span-5 meta-label">What we do</div>
-            <div className="col-span-6 meta-label">What we do not do</div>
+        <div className="border border-border bg-background not-prose">
+          <div className="grid grid-cols-12 gap-3 px-5 py-2.5 bg-surface-muted border-b border-border">
+            <div className="col-span-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Ref</div>
+            <div className="col-span-5 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">What we do</div>
+            <div className="col-span-5 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">What we do not do</div>
           </div>
-          <ul className="divide-y divide-border/60">
+          <ul className="divide-y divide-border">
             {weDo.map((item, i) => (
-              <li key={i} className="grid grid-cols-12 gap-3 px-4 py-4 items-baseline">
-                <div className="col-span-1 font-mono text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
+              <li key={i} className="grid grid-cols-12 gap-3 px-5 py-4 items-baseline">
+                <div className="col-span-2 meta text-primary">
                   §5.{i + 1}
                 </div>
-                <div className="col-span-5 text-[14px] text-foreground leading-[1.65]">{item}</div>
-                <div className="col-span-6 text-[14px] text-muted-foreground leading-[1.65]">{weDoNot[i]}</div>
+                <div className="col-span-5 text-[13.5px] text-foreground leading-relaxed">{item}</div>
+                <div className="col-span-5 text-[13.5px] text-muted-foreground leading-relaxed">{weDoNot[i]}</div>
               </li>
             ))}
           </ul>
@@ -136,39 +136,39 @@ const About = () => (
 
       <DocSection id="principle" number="§6" title="A single operating principle.">
         <Callout tone="notice" eyebrow="Operating principle · SS-ORG-2026.01 · §6">
-          <p className="text-[16px] md:text-[17px] text-foreground leading-[1.7] font-medium">
+          <p className="text-[15px] text-foreground leading-relaxed font-medium">
             If documentation is present and supports the published status, that status can be shown publicly. If it
             is not, it cannot.
           </p>
-          <p className="mt-4 pt-4 border-t border-border/40 text-[14px] text-muted-foreground leading-[1.7]">
+          <p className="mt-3 pt-3 border-t border-border/60 text-[13.5px] text-muted-foreground leading-relaxed">
             The role here is not to persuade. The role is to provide a clearer public reference.
           </p>
         </Callout>
       </DocSection>
 
       <DocSection id="audience" number="§7" title="Who this serves.">
-        <div className="grid md:grid-cols-2 gap-6 not-prose">
-          <div className="bg-surface border border-border/60 rounded-lg p-5 shadow-sm">
-            <p className="text-[12.5px] font-semibold text-primary mb-3 uppercase tracking-[0.06em]">
-              For consumers.
+        <ul className="grid md:grid-cols-2 gap-px bg-border border border-border not-prose">
+          <li className="bg-background p-5">
+            <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-primary mb-2">
+              §7.1 · For consumers
             </p>
-            <p className="text-[15px] text-muted-foreground leading-[1.7]">
+            <p className="text-[13.5px] text-muted-foreground leading-relaxed">
               Consumers should be able to understand more about the vendors they are evaluating. That does not make
               every decision simple. It does mean the public has better tools for interpreting what is being claimed,
               what has been reviewed, and what has not.
             </p>
-          </div>
-          <div className="bg-surface border border-border/60 rounded-lg p-5 shadow-sm">
-            <p className="text-[12.5px] font-semibold text-primary mb-3 uppercase tracking-[0.06em]">
-              For responsible vendors.
+          </li>
+          <li className="bg-background p-5">
+            <p className="text-[10.5px] font-mono uppercase tracking-[0.1em] text-primary mb-2">
+              §7.2 · For responsible vendors
             </p>
-            <p className="text-[15px] text-muted-foreground leading-[1.7]">
+            <p className="text-[13.5px] text-muted-foreground leading-relaxed">
               Responsible operators often absorb the cost of doing things carefully while competing in markets where
               those differences are not immediately visible. When transparency is easier to see, the market becomes
               easier to interpret — fairer to vendors willing to stand behind their documentation.
             </p>
-          </div>
-        </div>
+          </li>
+        </ul>
       </DocSection>
 
       <DocSection id="mission" number="§8" title="Mission.">
