@@ -148,125 +148,133 @@ const Education = () => {
       </div>
 
       {/* Foundational Sourcing Standards */}
-      <Section>
-        <div id="basics" className="scroll-mt-20">
-          <h2 className="h-section">Foundational Sourcing Standards</h2>
-          <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
-            Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.
-          </p>
-          <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
-            {basics.map((e) => (
-              <SimpleRow key={e.id} entry={e} />
-            ))}
+      <section className="border-t border-border/60">
+        <div className="container-wide py-16 md:py-20">
+          <div id="basics" className="scroll-mt-20">
+            <h2 className="h-section">Foundational Sourcing Standards</h2>
+            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-relaxed">
+              Foundational reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one.
+            </p>
+            <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
+              {basics.map((e) => (
+                <SimpleRow key={e.id} entry={e} />
+              ))}
+            </div>
+            <SeeMore to="/education/basics" label="View full foundational index" />
           </div>
-          <SeeMore to="/education/basics" label="View full foundational index" />
         </div>
-      </Section>
+      </section>
 
       {/* Clinical Handling & Aseptic Protocols */}
-      <Section muted>
-        <div id="guides" className="scroll-mt-20">
-          <h2 className="h-section">Clinical Handling & Aseptic Protocols</h2>
-          <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
-            Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.
-          </p>
-          <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
-            {guidesPreview.map((e) => (
-              <SimpleRow key={e.id} entry={e} />
-            ))}
+      <section className="border-t border-border/60 bg-surface-muted/40">
+        <div className="container-wide py-16 md:py-20">
+          <div id="guides" className="scroll-mt-20">
+            <h2 className="h-section">Clinical Handling & Aseptic Protocols</h2>
+            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-relaxed">
+              Technical reference for sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice.
+            </p>
+            <div className="mt-6 border border-border/70 rounded-[2px] bg-background">
+              {guidesPreview.map((e) => (
+                <SimpleRow key={e.id} entry={e} />
+              ))}
+            </div>
+            <SeeMore to="/education/guides" label="View full clinical protocol index" />
           </div>
-          <SeeMore to="/education/guides" label="View full clinical protocol index" />
         </div>
-      </Section>
+      </section>
 
       {/* Public Inquiry & Regulatory FAQ */}
-      <Section>
-        <div id="questions" className="scroll-mt-20">
-          <h2 className="h-section">Public Inquiry & Regulatory FAQ</h2>
-          <p className="mt-3 max-w-xl text-[14px] text-muted-foreground leading-relaxed">
-            Plain-record answers on legal distinction, regulatory status, verification methodology, and consumer due diligence.
-          </p>
-          <div className="mt-6 space-y-8">
-            {FAQ_BUCKETS.map((bucket) => (
-              <div key={bucket.label}>
-                <h3 className="text-[14px] font-medium text-foreground mb-2">{bucket.label}</h3>
-                <Accordion type="single" collapsible className="border-t border-border/60">
-                  {bucket.ids.slice(0, 2).map((id) => {
-                    const item = faqById(id);
-                    return (
-                      <AccordionItem key={id} value={id} className="border-b border-border/60">
-                        <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
-                          {item.q}
-                        </AccordionTrigger>
-                        <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
-                          <p>{item.a}</p>
-                          {item.relatedSlug && (
-                            <p className="mt-3">
-                              <Link
-                                to={`/education/${item.relatedSlug}`}
-                                className="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
-                              >
-                                Read more →
-                              </Link>
-                            </p>
-                          )}
-                        </AccordionContent>
-                      </AccordionItem>
-                    );
-                  })}
-                </Accordion>
-              </div>
-            ))}
+      <section className="border-t border-border/60">
+        <div className="container-wide py-16 md:py-20">
+          <div id="questions" className="scroll-mt-20">
+            <h2 className="h-section">Public Inquiry & Regulatory FAQ</h2>
+            <p className="mt-3 max-w-[78ch] text-[14px] text-muted-foreground leading-relaxed">
+              Plain-record answers on legal distinction, regulatory status, verification methodology, and consumer due diligence.
+            </p>
+            <div className="mt-6 space-y-8">
+              {FAQ_BUCKETS.map((bucket) => (
+                <div key={bucket.label}>
+                  <h3 className="text-[14px] font-medium text-foreground mb-2">{bucket.label}</h3>
+                  <Accordion type="single" collapsible className="border-t border-border/60">
+                    {bucket.ids.slice(0, 2).map((id) => {
+                      const item = faqById(id);
+                      return (
+                        <AccordionItem key={id} value={id} className="border-b border-border/60">
+                          <AccordionTrigger className="text-[14.5px] font-medium text-foreground hover:no-underline text-left">
+                            {item.q}
+                          </AccordionTrigger>
+                          <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed">
+                            <p>{item.a}</p>
+                            {item.relatedSlug && (
+                              <p className="mt-3">
+                                <Link
+                                  to={`/education/${item.relatedSlug}`}
+                                  className="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground"
+                                >
+                                  Read more →
+                                </Link>
+                              </p>
+                            )}
+                          </AccordionContent>
+                        </AccordionItem>
+                      );
+                    })}
+                  </Accordion>
+                </div>
+              ))}
+            </div>
+            <SeeMore to="/education/questions" label="View full regulatory FAQ" />
           </div>
-          <SeeMore to="/education/questions" label="View full regulatory FAQ" />
         </div>
-      </Section>
+      </section>
 
       {/* Forthcoming + About — collapsed footer */}
-      <Section bordered={false}>
-        <div id="archive" className="scroll-mt-20 grid md:grid-cols-2 gap-10">
-          <div>
-            <p className="eyebrow mb-3">Forthcoming reference formats</p>
-            <ul className="text-[13.5px] text-muted-foreground leading-relaxed space-y-2">
-              {librarySupplementary.map((m) => {
-                const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
-                return (
-                  <li key={m.id} className="flex items-start gap-4">
-                    <span className="w-24 shrink-0 pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/80 tabular-nums">
-                      {m.id}
-                    </span>
-                    <span className="flex-1">
-                      <span className="text-foreground">{ov.title ?? m.title}</span> — {ov.description ?? m.description}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div>
-            <p className="eyebrow mb-3">About this library</p>
-            <p className="text-[13.5px] text-muted-foreground leading-relaxed">
-              Reviewed under our{" "}
-              <Link to="/medical-advisory" className="underline underline-offset-4 decoration-border text-foreground">
-                Medical Advisory Board
-              </Link>{" "}
-              and maintained alongside our{" "}
-              <Link to="/governance" className="underline underline-offset-4 decoration-border text-foreground">
-                governance framework
-              </Link>
-              . Updated continuously.
-            </p>
-            <div className="mt-6 border-l-2 border-foreground/40 bg-surface-muted/40 px-4 py-3 rounded-[2px]">
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/70 mb-1.5">
-                Notice · Informational use only
+      <section className="border-t border-border/60">
+        <div className="container-wide py-16 md:py-20">
+          <div id="archive" className="scroll-mt-20 grid md:grid-cols-2 gap-10">
+            <div>
+              <p className="eyebrow mb-3">Forthcoming reference formats</p>
+              <ul className="text-[13.5px] text-muted-foreground leading-relaxed space-y-2">
+                {librarySupplementary.map((m) => {
+                  const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
+                  return (
+                    <li key={m.id} className="flex items-start gap-4">
+                      <span className="w-24 shrink-0 pt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground/80 tabular-nums">
+                        {m.id}
+                      </span>
+                      <span className="flex-1">
+                        <span className="text-foreground">{ov.title ?? m.title}</span> — {ov.description ?? m.description}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div>
+              <p className="eyebrow mb-3">About this library</p>
+              <p className="text-[13.5px] text-muted-foreground leading-relaxed">
+                Reviewed under our{" "}
+                <Link to="/medical-advisory" className="underline underline-offset-4 decoration-border text-foreground">
+                  Medical Advisory Board
+                </Link>{" "}
+                and maintained alongside our{" "}
+                <Link to="/governance" className="underline underline-offset-4 decoration-border text-foreground">
+                  governance framework
+                </Link>
+                . Updated continuously.
               </p>
-              <p className="text-[12.5px] text-foreground/85 leading-relaxed">
-                The materials in this library are published for public reference and educational purposes only. They do not constitute medical advice, diagnosis, prescription, or treatment, and they do not establish a clinician–patient relationship. Clinical decisions regarding compounded medications must be made in consultation with a qualified, licensed healthcare provider. Reliance on any information contained herein is solely at the reader's own risk.
-              </p>
+              <div className="mt-6 border-l-2 border-foreground/40 bg-surface-muted/40 px-4 py-3 rounded-[2px]">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-foreground/70 mb-1.5">
+                  Notice · Informational use only
+                </p>
+                <p className="text-[12.5px] text-foreground/85 leading-relaxed">
+                  The materials in this library are published for public reference and educational purposes only. They do not constitute medical advice, diagnosis, prescription, or treatment, and they do not establish a clinician–patient relationship. Clinical decisions regarding compounded medications must be made in consultation with a qualified, licensed healthcare provider. Reliance on any information contained herein is solely at the reader's own risk.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </Section>
+      </section>
     </>
   );
 };
