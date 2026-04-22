@@ -1,363 +1,361 @@
 import { Link } from "react-router-dom";
-import { greenlist } from "@/data/greenlist";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 
-/* ───────────────── Hero — Sovereign Plaque ghost-button actions ─────────── */
+/* ───────────────── Hero actions ───────────────── */
 
-const ghostBtn =
+const ghostBtnPrimary =
+  "border-2 border-white text-white px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 transition-colors";
+
+const ghostBtnSecondary =
   "border border-white/40 text-white px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 hover:border-white transition-colors";
 
 const HeroActions = () => (
   <>
-    <Link to="/directory" className={ghostBtn}>
-      [ Access Vendor Registry ]
+    <Link to="/directory" className={ghostBtnPrimary}>
+      Access Vendor Registry
     </Link>
-    <Link to="/greenlist" className={ghostBtn}>
-      [ View Upstream Greenlist ]
+    <Link to="/apply" className={ghostBtnSecondary}>
+      Begin Verification
     </Link>
   </>
 );
 
-/* ───────────────── Block I — REGISTRIES (vendor + upstream) ───────────────── */
+/* ───────────────── Static section data ───────────────── */
 
-const registries = [
+const whyExists = [
   {
-    code: "I.A",
-    label: "Vendor Registry",
-    title: "Compliance Assessment record.",
-    body: "Each listing carries a Unique Audit Identifier, the categories assessed, and the date of the most recent compliance review.",
-    to: "/verified-vendors",
-    cta: "Open vendor registry",
+    h: "Claims are easy to make.",
+    b: "In this market, any clinic can describe its sourcing in marketing language.",
   },
   {
-    code: "I.B",
-    label: "Upstream Registry",
-    title: "Recognized 503A / 503B sources.",
-    body: "Inclusion is based on FDA Drug Establishment Registration, state pharmacy licensure, and accreditation records held by the upstream facility.",
-    to: "/greenlist",
-    cta: "Open upstream registry",
+    h: "Documentation is harder to verify.",
+    b: "Licensed pharmacy relationships, invoices, and accreditation records rarely reach the public.",
+  },
+  {
+    h: "Source Standard makes that difference visible.",
+    b: "The registry publishes which vendors can substantiate their sourcing and which cannot.",
   },
 ];
 
-/* ───────────────── Block II — AUTHORITY & ANCHORS (governance + standards) ───── */
+const howItWorks = [
+  {
+    h: "Upstream sources are reviewed.",
+    b: "FDA registration, state licensure, and accreditation records of 503A and 503B pharmacies.",
+  },
+  {
+    h: "Vendors are assessed against those sources.",
+    b: "Clinic relationships, invoices, and supply chain are reconciled against the upstream record.",
+  },
+  {
+    h: "Status is published in the public registry.",
+    b: "Verified, pending, suspended, or removed — with the date of the most recent review.",
+  },
+];
 
-const mabRows = [
-  { l: "Function", v: "Clinical review of framework criteria" },
-  { l: "Scope", v: "Peptide therapy · TRT · hormone optimization" },
-  { l: "Roster", v: "Published openly · physician-credentialed" },
-  { l: "Conflict policy", v: "Disclosed · governance-published" },
-  { l: "Review cycle", v: "Annual standard review · interim flags" },
+const registryFields = [
+  { h: "Verification status", b: "The current public standing of each listing." },
+  { h: "City and state", b: "The operating jurisdiction of the clinic." },
+  { h: "Clinical focus", b: "The therapeutic categories the clinic serves." },
+  { h: "Upstream source relationships", b: "The licensed pharmacies the clinic substantiates." },
+  { h: "Last review date", b: "When the listing was most recently reconciled." },
+  { h: "Status changes", b: "A record of suspensions, reinstatements, and removals." },
+];
+
+const whyMatters = [
+  {
+    h: "For consumers",
+    b: "A documented reference point beyond marketing claims.",
+  },
+  {
+    h: "For responsible vendors",
+    b: "A public trust signal tied to reviewed records.",
+  },
+  {
+    h: "For the market",
+    b: "A clearer line between documented and undocumented sourcing.",
+  },
 ];
 
 const anchors = [
-  { k: "FDA", d: "Drug Establishment Registration · 503B outsourcing facility records." },
-  { k: "PCAB", d: "Pharmacy Compounding Accreditation Board credentials." },
-  { k: "NSF", d: "Public health and supply-chain standards." },
+  { k: "FDA", d: "Drug establishment and 503B outsourcing facility records." },
   { k: "USP", d: "Compendial monographs and quality standards." },
+  { k: "PCAB", d: "Pharmacy compounding accreditation credentials." },
+  { k: "NSF", d: "Public health and supply-chain standards." },
 ];
 
-/* ───────────────── Block III — REFERENCE & PROCEDURE (library + procedural) ── */
-
-const eduPreview = [
-  { ref: "REF-101", c: "503B facilities", t: "Authenticating an FDA 503B outsourcing facility registration." },
-  { ref: "REF-201", c: "Certificates of analysis", t: "Reading a Certificate of Analysis: structural fields and document discrepancies." },
-  { ref: "REF-601", c: "Due diligence", t: "Source authentication: the questions an auditor asks before a listing is issued." },
-  { ref: "REF-801", c: "Document discrepancies", t: "Document discrepancies and unverifiable supply: indicators flagged during assessment." },
+const basics = [
+  {
+    t: "What verification actually means",
+    s: "How a Source Standard listing is issued and what it does — and does not — claim.",
+    to: "/library/what-source-standard-verification-actually-means",
+  },
+  {
+    t: "503A vs 503B",
+    s: "The two regulatory categories of compounding pharmacy and what distinguishes them.",
+    to: "/library/what-is-compounding",
+  },
+  {
+    t: "How to read a CoA",
+    s: "The structural fields of a Certificate of Analysis and the discrepancies to look for.",
+    to: "/library/how-to-read-a-certificate-of-analysis",
+  },
+  {
+    t: "Questions to ask your clinic",
+    s: "The sourcing questions a documented clinic should be able to answer directly.",
+    to: "/library/questions-to-ask-your-clinic",
+  },
 ];
 
-const procedural = [
-  { t: "Verification protocol", d: "Procedural reference for the framework, evidence categories, and review timeline.", to: "/how-it-works" },
-  { t: "Status definitions", d: "Public meaning of Verified, Pending, Suspended, Removed, Greenlisted, Under Review.", to: "/status-definitions" },
-  { t: "Enforcement & oversight", d: "Vendor obligations, randomized batch testing, supply-chain disclosures, and procedures for suspension or removal.", to: "/accountability" },
-  { t: "Governance", d: "Charter, conflict-of-interest policy, and standard maintenance.", to: "/governance" },
-];
+/* ───────────────── Reusable atoms ───────────────── */
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
+    {children}
+  </p>
+);
+
+/* ───────────────── Page ───────────────── */
 
 const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard"
-        description="The public Clinical Transparency Framework auditing vendors against FDA-registered upstream sources."
+        title="Source Standard — The public standard for documented peptide sourcing"
+        description="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
       />
 
-      {/* 100vh System Portal */}
+      {/* §1 — Hero */}
       <BriefingHero
         category="United States Public Registry"
         docId="SS-FRAMEWORK-2026.01"
-        title="Source Standard"
-        statement="The definitive auditing framework for compounded supply-chain integrity. We verify 503A and 503B pharmacy sourcing to ensure clinical transparency."
+        title="The public standard for documented peptide sourcing"
+        statement="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
         tone="navy"
         actions={<HeroActions />}
       />
 
-      {/* ============================================================ */}
-      {/* BLOCK I — REGISTRIES                                          */}
-      {/* ============================================================ */}
-      <section
-        aria-labelledby="block-registries"
-        className="border-b border-border bg-background"
-      >
+      {/* §2 — Why this exists */}
+      <section aria-labelledby="why-exists" className="border-b border-border bg-background">
         <div className="container-wide py-16 md:py-20">
-          <div className="grid grid-cols-12 gap-8 md:gap-10">
-            {/* Block label rail */}
-            <div className="col-span-12 md:col-span-3">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
-                Block I
-              </p>
+          <Eyebrow>Why this exists</Eyebrow>
+          <h2
+            id="why-exists"
+            className="sr-only"
+          >
+            Why Source Standard exists
+          </h2>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
+            {whyExists.map((x, i) => (
+              <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
+                <h3 className="text-[18px] font-semibold tracking-[-0.01em] text-foreground leading-snug max-w-[24ch]">
+                  {x.h}
+                </h3>
+                <p className="mt-4 text-[14.5px] text-muted-foreground leading-[1.7] max-w-[36ch]">
+                  {x.b}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* §3 — How it works */}
+      <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
+        <div className="container-wide py-16 md:py-20">
+          <Eyebrow>How it works</Eyebrow>
+          <h2 id="how-it-works" className="sr-only">How the framework works</h2>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+            {howItWorks.map((s, i) => (
+              <div key={i}>
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                  {(i + 1).toString().padStart(2, "0")}
+                </p>
+                <div className="mt-3 h-px w-8 bg-border" aria-hidden="true" />
+                <h3 className="mt-5 text-[18px] font-semibold tracking-[-0.01em] text-foreground leading-snug max-w-[22ch]">
+                  {s.h}
+                </h3>
+                <p className="mt-4 text-[14.5px] text-muted-foreground leading-[1.7] max-w-[38ch]">
+                  {s.b}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* §4 — What the registry shows */}
+      <section aria-labelledby="registry-shows" className="border-b border-border bg-background">
+        <div className="container-wide py-16 md:py-20">
+          <div className="grid grid-cols-12 gap-8 md:gap-12">
+            <div className="col-span-12 md:col-span-4">
+              <Eyebrow>What you can verify</Eyebrow>
               <h2
-                id="block-registries"
-                className="mt-2 text-[14.5px] font-semibold uppercase tracking-[0.04em] text-foreground"
+                id="registry-shows"
+                className="mt-4 text-[22px] font-semibold tracking-[-0.01em] text-foreground leading-snug max-w-[18ch]"
               >
-                Registries.
+                A working public utility, not a concept.
               </h2>
-              <p className="mt-3 text-[14.5px] text-muted-foreground leading-[1.65]">
-                The two record sets maintained under the framework. The vendor registry cannot be assessed until its declared upstream sources clear the upstream registry.
+              <p className="mt-5 text-[14.5px] text-muted-foreground leading-[1.7] max-w-[40ch]">
+                Each registry entry is a structured record. The fields are consistent across listings and reviewed on a published cadence.
               </p>
+              <Link
+                to="/directory"
+                className="mt-7 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
+              >
+                Open the registry →
+              </Link>
             </div>
 
-            {/* Two-up registry cards */}
-            <div className="col-span-12 md:col-span-9">
-              <div className="grid grid-cols-12 gap-px bg-border border border-border">
-                {registries.map((r) => (
-                  <Link
-                    key={r.code}
-                    to={r.to}
-                    className="col-span-12 md:col-span-6 bg-background p-6 md:p-8 flex flex-col group hover:bg-surface-muted/40 transition-colors"
-                  >
-                    <div className="flex items-center justify-between border-b border-border pb-3 mb-4">
-                      <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
-                        §{r.code} · {r.label}
-                      </span>
-                      <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
-                        Active
-                      </span>
-                    </div>
-                    <h3 className="text-[14.5px] font-semibold uppercase tracking-[0.02em] text-foreground">
-                      {r.title}
-                    </h3>
-                    <p className="mt-3 text-[14.5px] text-muted-foreground leading-[1.65] flex-1">
-                      {r.body}
+            <div className="col-span-12 md:col-span-8">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-7">
+                {registryFields.map((f) => (
+                  <li key={f.h}>
+                    <p className="text-[14.5px] font-semibold text-foreground tracking-[-0.005em]">
+                      {f.h}
                     </p>
-                    <span className="mt-6 font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground group-hover:text-primary">
-                      {r.cta} →
-                    </span>
-                  </Link>
+                    <p className="mt-1.5 text-[14px] text-muted-foreground leading-[1.65]">
+                      {f.b}
+                    </p>
+                  </li>
                 ))}
-              </div>
-
-              {/* Upstream categories strip */}
-              <div className="mt-px grid grid-cols-12 gap-px bg-border border-x border-b border-border">
-                {greenlist.slice(0, 6).map((g, i) => (
-                  <Link
-                    key={g.category}
-                    to="/greenlist"
-                    className="col-span-6 md:col-span-2 bg-background p-4 hover:bg-surface-muted/40 transition-colors"
-                  >
-                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                      {(i + 1).toString().padStart(2, "0")}
-                    </p>
-                    <p className="mt-2 text-[14.5px] text-foreground leading-snug">
-                      {g.category}
-                    </p>
-                  </Link>
-                ))}
-              </div>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============================================================ */}
-      {/* BLOCK II — AUTHORITY & ANCHORS                                */}
-      {/* ============================================================ */}
-      <section
-        aria-labelledby="block-authority"
-        className="border-b border-border bg-surface-muted/30"
-      >
+      {/* §5 — Why verification matters */}
+      <section aria-labelledby="why-matters" className="border-b border-border bg-surface-muted/30">
         <div className="container-wide py-16 md:py-20">
-          <div className="grid grid-cols-12 gap-8 md:gap-10">
-            <div className="col-span-12 md:col-span-3">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
-                Block II
-              </p>
-              <h2
-                id="block-authority"
-                className="mt-2 text-[14.5px] font-semibold uppercase tracking-[0.04em] text-foreground"
-              >
-                Authority &amp; anchors.
-              </h2>
-              <p className="mt-3 text-[14.5px] text-muted-foreground leading-[1.65]">
-                Standards are set and reviewed under the Medical Advisory Board and anchored to public regulatory and compendial records.
+          <Eyebrow>Why verification matters</Eyebrow>
+          <h2 id="why-matters" className="sr-only">Why verification matters</h2>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
+            {whyMatters.map((w, i) => (
+              <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
+                <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
+                  {w.h}
+                </p>
+                <p className="mt-5 text-[16px] text-foreground leading-[1.6] max-w-[32ch]">
+                  {w.b}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* §6 — Governance & standards */}
+      <section aria-labelledby="governance" className="border-b border-border bg-background">
+        <div className="container-wide py-16 md:py-20">
+          <Eyebrow>Governance &amp; standards</Eyebrow>
+          <h2 id="governance" className="sr-only">Governance and standards</h2>
+          <div className="mt-10 grid grid-cols-12 gap-8 md:gap-12">
+            <div className="col-span-12 md:col-span-5">
+              <p className="text-[16px] text-foreground leading-[1.65] max-w-[44ch]">
+                The framework is reviewed under medical oversight and anchored to recognized regulatory and compendial records.
               </p>
               <Link
                 to="/medical-advisory"
-                className="mt-5 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground hover:text-primary"
+                className="mt-6 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
               >
-                Advisory Board →
+                Medical Advisory Board →
               </Link>
             </div>
-
-            <div className="col-span-12 md:col-span-9 grid grid-cols-12 gap-px bg-border border border-border">
-              {/* MAB record */}
-              <div className="col-span-12 lg:col-span-7 bg-background">
-                <div className="flex items-center justify-between px-5 py-2.5 border-b border-border">
-                  <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
-                    Reference · SS-MAB-2026.01
-                  </span>
-                  <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
-                    Active
-                  </span>
-                </div>
-                <dl className="divide-y divide-border">
-                  {mabRows.map((r) => (
-                    <div
-                      key={r.l}
-                      className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline"
-                    >
-                      <dt className="col-span-5 font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
-                        {r.l}
-                      </dt>
-                      <dd className="col-span-7 text-[14.5px] text-foreground">
-                        {r.v}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-
-              {/* Anchors */}
-              <div className="col-span-12 lg:col-span-5 bg-background">
-                <div className="px-5 py-2.5 border-b border-border">
-                  <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
-                    Standards anchored
-                  </span>
-                </div>
-                <ul className="divide-y divide-border">
-                  {anchors.map((a) => (
-                    <li
-                      key={a.k}
-                      className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline"
-                    >
-                      <span className="col-span-3 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-primary">
-                        {a.k}
-                      </span>
-                      <span className="col-span-9 text-[14.5px] text-muted-foreground leading-[1.6]">
-                        {a.d}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="px-5 py-3 border-t border-border">
-                  <Link
-                    to="/governance"
-                    className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground hover:text-primary"
-                  >
-                    Governance &amp; oversight →
-                  </Link>
-                </div>
-              </div>
+            <div className="col-span-12 md:col-span-7">
+              <ul className="divide-y divide-border border-y border-border">
+                {anchors.map((a) => (
+                  <li key={a.k} className="grid grid-cols-12 gap-4 py-3.5 items-baseline">
+                    <span className="col-span-3 sm:col-span-2 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground">
+                      {a.k}
+                    </span>
+                    <span className="col-span-9 sm:col-span-10 text-[14.5px] text-muted-foreground leading-[1.6]">
+                      {a.d}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/governance"
+                className="mt-6 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
+              >
+                Governance &amp; oversight →
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============================================================ */}
-      {/* BLOCK III — REFERENCE & PROCEDURE                             */}
-      {/* ============================================================ */}
-      <section
-        aria-labelledby="block-reference"
-        className="border-b border-border bg-background"
-      >
+      {/* §7 — Resource Library entry */}
+      <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
         <div className="container-wide py-16 md:py-20">
-          <div className="grid grid-cols-12 gap-8 md:gap-10">
-            <div className="col-span-12 md:col-span-3">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground">
-                Block III
-              </p>
-              <h2
-                id="block-reference"
-                className="mt-2 text-[14.5px] font-semibold uppercase tracking-[0.04em] text-foreground"
-              >
-                Reference &amp; procedure.
-              </h2>
-              <p className="mt-3 text-[14.5px] text-muted-foreground leading-[1.65]">
-                Technical documentation and the procedural depth of the framework — evidence categories, status definitions, and the conditions under which a listing is suspended or removed.
-              </p>
+          <Eyebrow>Start with the basics</Eyebrow>
+          <h2 id="basics" className="sr-only">Start with the basics</h2>
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
+            {basics.map((b) => (
               <Link
-                to="/education"
-                className="mt-5 inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground hover:text-primary"
+                key={b.t}
+                to={b.to}
+                className="bg-background p-6 flex flex-col group hover:bg-surface-muted/50 transition-colors"
               >
-                Resource Library →
+                <h3 className="text-[15.5px] font-semibold text-foreground tracking-[-0.005em] leading-snug">
+                  {b.t}
+                </h3>
+                <p className="mt-3 text-[14px] text-muted-foreground leading-[1.6] flex-1">
+                  {b.s}
+                </p>
+                <span className="mt-5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground group-hover:text-foreground transition-colors">
+                  Read →
+                </span>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6">
+            <Link
+              to="/education"
+              className="inline-block font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
+            >
+              Resource Library →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* §8 — Final split CTA */}
+      <section
+        aria-labelledby="final-cta"
+        className="bg-[hsl(var(--navy-surface))] text-white"
+      >
+        <h2 id="final-cta" className="sr-only">Next steps</h2>
+        <div className="container-wide py-20 md:py-28">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-white/15">
+            <div className="md:pr-12 pb-10 md:pb-0">
+              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55">
+                For consumers
+              </p>
+              <h3 className="mt-5 text-[28px] md:text-[32px] font-semibold tracking-[-0.015em] leading-tight max-w-[16ch]">
+                Search the Registry
+              </h3>
+              <p className="mt-5 text-[14.5px] text-white/70 leading-[1.7] max-w-[40ch]">
+                Look up a clinic and see what its public record actually documents.
+              </p>
+              <Link to="/directory" className={`${ghostBtnSecondary} mt-8 inline-block`}>
+                Open the Registry
               </Link>
             </div>
-
-            <div className="col-span-12 md:col-span-9">
-              {/* Reference Library — 4-up */}
-              <div className="grid grid-cols-12 gap-px bg-border border border-border">
-                {eduPreview.map((e, i) => (
-                  <Link
-                    key={e.ref}
-                    to="/education"
-                    className="col-span-12 sm:col-span-6 lg:col-span-3 bg-background p-5 flex flex-col group hover:bg-surface-muted/40 transition-colors"
-                  >
-                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                      §III.A.{(i + 1).toString().padStart(2, "0")} · {e.c}
-                    </p>
-                    <p className="mt-3 text-[14.5px] text-foreground leading-[1.55] flex-1 group-hover:text-primary transition-colors">
-                      {e.t}
-                    </p>
-                    <span className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                      {e.ref}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-
-              {/* Procedural — 4-up */}
-              <div className="mt-px grid grid-cols-12 gap-px bg-border border-x border-b border-border">
-                {procedural.map((p, i) => (
-                  <Link
-                    key={p.t}
-                    to={p.to}
-                    className="col-span-12 sm:col-span-6 lg:col-span-3 bg-background p-5 flex flex-col group hover:bg-surface-muted/40 transition-colors"
-                  >
-                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                      §III.B.{(i + 1).toString().padStart(2, "0")}
-                    </p>
-                    <p className="mt-3 text-[14.5px] font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
-                      {p.t}
-                    </p>
-                    <p className="mt-2 text-[14.5px] text-muted-foreground leading-[1.6] flex-1">
-                      {p.d}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-
-              {/* Vendor participation — single dense row */}
-              <div className="mt-px grid grid-cols-12 gap-px bg-border border-x border-b border-border">
-                <div className="col-span-12 md:col-span-9 bg-background p-6">
-                  <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">
-                    §III.C · Vendor participation
-                  </p>
-                  <p className="mt-3 text-[14.5px] text-foreground leading-[1.65]">
-                    Submission requirements, evidence categories, and review timelines are published openly. A listing is issued only after compliance assessment is complete and a Unique Audit Identifier has been assigned.
-                  </p>
-                </div>
-                <Link
-                  to="/for-vendors"
-                  className="col-span-6 md:col-span-1 bg-background p-6 flex items-center justify-center font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground hover:bg-surface-muted/40 hover:text-primary transition-colors"
-                >
-                  Reference →
-                </Link>
-                <Link
-                  to="/apply"
-                  className="col-span-6 md:col-span-2 bg-foreground text-background p-6 flex items-center justify-center font-mono text-[10.5px] uppercase tracking-[0.18em] hover:bg-foreground/90 transition-colors"
-                >
-                  Apply →
-                </Link>
-              </div>
+            <div className="md:pl-12 pt-10 md:pt-0">
+              <p className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55">
+                For vendors
+              </p>
+              <h3 className="mt-5 text-[28px] md:text-[32px] font-semibold tracking-[-0.015em] leading-tight max-w-[16ch]">
+                Apply for Verification
+              </h3>
+              <p className="mt-5 text-[14.5px] text-white/70 leading-[1.7] max-w-[40ch]">
+                A public listing is a trust asset, not just a status marker.
+              </p>
+              <Link to="/apply" className={`${ghostBtnSecondary} mt-8 inline-block`}>
+                Begin Verification
+              </Link>
             </div>
           </div>
         </div>
