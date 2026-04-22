@@ -26,7 +26,7 @@ import {
   getVendorCityKey,
   getClinicalFocusOptions,
   getVendorFulfillment,
-  getVendorFulfillmentCounts,
+  
   VendorFulfillment,
   VENDOR_FULFILLMENT_LABEL,
   VENDOR_FULFILLMENT_DESC,
