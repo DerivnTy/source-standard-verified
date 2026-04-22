@@ -1,19 +1,27 @@
 import { Link } from "react-router-dom";
+import logoDark from "@/assets/source-standard-logo.png";
+import logoLight from "@/assets/source-standard-logo-light.png";
 
-export const Logo = ({ className = "" }: { className?: string }) => {
+interface LogoProps {
+  className?: string;
+  variant?: "dark" | "light";
+}
+
+export const Logo = ({ className = "", variant = "dark" }: LogoProps) => {
+  const src = variant === "light" ? logoLight : logoDark;
   return (
     <Link
       to="/"
-      className={`inline-flex items-center gap-2.5 hover:opacity-80 transition-opacity ${className}`}
+      className={`inline-flex items-center hover:opacity-80 transition-opacity ${className}`}
       aria-label="Source Standard — Clinical Transparency Framework, home"
     >
-      <svg width="26" height="26" viewBox="0 0 22 22" fill="none" aria-hidden="true" role="img">
-        <rect x="1" y="1" width="20" height="20" stroke="hsl(var(--primary))" strokeWidth="1.5" />
-        <path d="M6 11.5l3.2 3.2L16 7.5" stroke="hsl(var(--primary))" strokeWidth="1.75" strokeLinecap="square" fill="none" />
-      </svg>
-      <span className="text-[14.5px] font-semibold tracking-[-0.01em] text-foreground leading-none">
-        Source Standard
-      </span>
+      <img
+        src={src}
+        alt="Source Standard"
+        className="h-7 md:h-8 w-auto"
+        loading="eager"
+        decoding="sync"
+      />
     </Link>
   );
 };

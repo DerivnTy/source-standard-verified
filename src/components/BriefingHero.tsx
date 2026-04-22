@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { HeroPattern } from "./HeroPattern";
 import type { MetadataItem } from "./MetadataBar";
+import logoLight from "@/assets/source-standard-logo-light.png";
 
 /**
  * BriefingHero — Tiered first-section system.
@@ -85,15 +86,12 @@ export const BriefingHero = ({
                 {category}
               </p>
 
-              {brandMark && (
-                <p
-                  aria-hidden="true"
-                  className="font-serif text-white tracking-[-0.02em] leading-[0.95] text-[36px] sm:text-[52px] md:text-[68px] lg:text-[80px] mb-8"
-                  style={{ fontWeight: 400 }}
-                >
-                  {brandMark}
-                </p>
-              )}
+              <img
+                src={logoLight}
+                alt="Source Standard"
+                className="mx-auto h-16 sm:h-20 md:h-24 w-auto mb-8"
+              />
+              {brandMark && <span className="sr-only">{brandMark}</span>}
 
               <div
                 className="mx-auto h-px w-12 bg-white/20 mb-8"
