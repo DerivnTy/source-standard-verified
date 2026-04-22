@@ -1,90 +1,75 @@
 
 
-## Education Page UX Overhaul — "Clinical Magazine" feel
+## Education page consumer pivot + site-wide "Source Bot" chat FAB
 
-Single-page rework of `src/pages/Education.tsx`. No data file changes, no route changes, no other pages touched. All existing slug overrides and FAQ category logic stay intact.
+Two changes: trim the Education page to a consumer-friendly Resource Hub, and add a global floating chat assistant rendered from `SiteLayout` so it appears on every page.
 
-### 1 · Hero — centered, no reference box
+### 1 · Education page cleanup (`src/pages/Education.tsx`)
 
-Replace `AnchorHeader` with an inline centered hero block:
+**Hero**
+- Remove the search input entirely, the `Search` icon import, the `query` state, all `useMemo` filter blocks, and `matches()` helper.
+- Keep the centered eyebrow, `h1`, and lead copy as-is. Hero stays centered with no reference box (already there).
 
-- Center-aligned eyebrow `Public education & standards`
-- Center-aligned `h1`: **Clinical Reference & Standards Library**
-- Center-aligned lead (new copy): *"Your guide to the science, safety, and standards of compounded medicine. Empowering patients with clinical transparency."*
-- The gray Reference box is removed entirely.
-- Generous vertical padding (`py-20 md:py-28`).
+**Tile redesign — `LibraryTile`**
+Restyle to match the requested consumer card:
+- Remove the Doc ID footer row entirely (no `SS-…` code shown).
+- Remove the status chip from the card body (Published/Forthcoming pill goes away on these cards).
+- Title: bump to `text-[19px] font-semibold leading-snug`.
+- Description: clamp to 2 lines via `line-clamp-2` for visual rhythm; keep `leading-[1.7]`.
+- Optional `Reviewed by …` micro-line stays only if present.
+- Footer becomes a single subtle CTA: `Read article →` in muted foreground that brightens + nudges right on hover (using `ChevronRight`).
+- Card chrome: white `bg-background`, `border border-border/50` (thinner, lighter), `hover:shadow-md hover:border-foreground/30 transition-all duration-200`. No translate.
 
-### 2 · Search bar — softer
+This tile is reused for Foundational, Clinical Protocols, and Latest Analysis — all three remain 3-column grids (already are).
 
-Keep the existing controlled `query` state and `useMemo` filters. Restyle the input only:
-- Centered, `max-w-[560px]`, `mx-auto`
-- `rounded-full`, `border-border/60`, `shadow-sm`, taller (`h-12`), larger placeholder, search icon prefix.
-- Eyebrow label removed; placeholder reads `Search the library by topic, doc ID, or keyword…`
+**FAQ category cards (4-up grid)**
+- Remove the `code: "FAQ-CAT-0X"` field from the `CATEGORIES` array (or simply stop rendering it — it isn't rendered today, so just confirm none surfaces). Trim `label` strings to the requested single words: **Legal**, **Safety**, **Verification**, **Diligence**.
+- Remove the `{count} entries` micro-line so the card focuses on the title.
+- Keep the icon, larger heading, description, and full-width outline `Browse Category →` button.
+- Match the new card chrome (`border-border/50`, soft hover shadow, no translate).
 
-### 3 · "Highly Recommended" featured trio
+**Sticky jump bar**
+Keep as-is — still useful for scanning.
 
-New section directly below the search bar. Three larger cards in a `grid-cols-1 md:grid-cols-3 gap-6` with a subtle clinical-blue tint (`bg-[hsl(var(--surface-muted))]/60` with a faint blue cast via `bg-blue-50/40 dark:bg-blue-950/10` — sampled from existing `--surface-muted` token first, falls back to a soft blue tint).
+**Removed code**: `useState`, `useMemo`, `query`, `Search` icon import, `matches`, `filteredBasics`/`filteredGuides`/`filteredAnalysis`, `categoryCounts`, `EmptyNote`. Sections render `basics`, `guidesPreview`, and `analysisCards` directly.
 
-Hardcoded by slug (so we do not depend on data ordering):
-- `what-are-peptides` → "What Are Peptides?"
-- `what-is-compounding` → "What Is Compounding? (503A vs 503B)"
-- `questions-to-ask-your-clinic` → "Questions to Ask Your Clinic"
+### 2 · New global chat FAB + window
 
-Each card:
-- Small eyebrow `Start Here · 01 / 02 / 03`
-- Large title (`text-[20px] font-semibold leading-snug`)
-- Two-line description with relaxed leading
-- Subtle bottom-right arrow that animates on hover; full card is the link
-- Soft hover shadow (`hover:shadow-md`) and faint border darkening
+**New file: `src/components/SourceBot.tsx`**
 
-### 4 · Library tiles — Foundational Standards & Clinical Protocols
+Self-contained client component. No backend, no LLM call yet — UI/UX scaffold only, with a stubbed send handler that appends the user's message and a canned "I'm not connected to the knowledge base yet" assistant reply (clearly labeled in a comment as the future LLM hook point).
 
-Convert both `SimpleRow` lists into a shared `LibraryTile` card component rendered in a `grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`.
+- **FAB**: fixed `bottom-6 right-6 z-50`, `h-14 w-14 rounded-full`, dark (`bg-foreground text-background`) matching the "Apply for verification" button language, soft shadow, subtle hover scale. Icon: `ShieldCheck` from lucide (clean, on-brand). `aria-label="Open Source Standard Assistant"`.
+- **Chat window**: when toggled open, renders a fixed panel anchored bottom-right (`bottom-24 right-6`), `w-[380px] max-w-[calc(100vw-3rem)] h-[560px] max-h-[calc(100vh-8rem)]`, `rounded-xl border border-border/60 bg-background shadow-xl`, flex column.
+  - **Header**: small bar with `ShieldCheck` icon + title `Source Standard Assistant` + muted subline `Educational reference · not medical advice` + a close button (`X`).
+  - **Message list**: scrollable, `flex-1 overflow-y-auto p-4 space-y-3`. Assistant bubbles `bg-surface-muted text-foreground`, user bubbles `bg-foreground text-background self-end`, both `rounded-lg px-3 py-2 text-[13.5px] leading-[1.6] max-w-[85%]`.
+  - **Seed message** (assistant): *"Hello! I am the Source Standard Assistant. I can help you understand peptide safety, 503A/B regulations, or how our verification process works. What can I help you find today?"*
+  - **Input row**: `border-t border-border/50 p-3` with a rounded text input + dark send button (paper-plane / `Send` icon). Submit on Enter; disabled when empty.
+  - **Mobile**: at `<sm`, panel becomes near-fullscreen via the max-width/height clamps above; FAB stays at `bottom-6 right-6`.
+- **State**: local `useState` for `open` and `messages: { role: "user" | "assistant"; content: string }[]`. No persistence.
+- **Internal note** (developer comment in file):
 
-Each tile:
-- White card, `rounded-lg`, `border-border/60`, `p-6`, flex column, `min-h-[240px]`
-- Title first (`text-[17px] font-semibold leading-snug text-foreground`) — the visual hero
-- Description with `leading-[1.7]` for readability
-- Optional `Reviewed by …` line in muted micro-text
-- Footer row pushed to bottom: tiny muted Doc ID (`font-mono text-[10px] text-muted-foreground/70`) on the left, soft published/forthcoming chip on the right
-- Whole card is a `<Link>`; hover lifts via `hover:shadow-md hover:border-foreground/30 transition-all`
-- The "Read full article →" CTA text is removed; the entire card is the click target
+  ```
+  // TODO: wire to LLM. Send `messages` to an edge function that injects
+  // the Source Standard library content (src/data/library.ts + the
+  // SS-SERIES analysis pages) as system context, then stream the reply.
+  ```
 
-The existing `SimpleRow` is kept only if any other page imports it; here it is no longer rendered. (Quick search confirmed it is local to this file.)
+**Wire-up: `src/components/SiteLayout.tsx`**
+Import `SourceBot` and render it once after `SiteFooter` so it overlays every route.
 
-### 5 · FAQ category grid — simplified
-
-Same 4-up grid (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-4`), but each card is cleaner:
-- `FAQ-CAT-0X` code label removed
-- Small lucide icon at top (`Scale` / `ShieldCheck` / `BadgeCheck` / `Search`) sized `h-6 w-6` in muted foreground
-- Larger heading (`text-[18px] font-semibold`)
-- Description with relaxed leading
-- Prominent CTA at the bottom: full-width outline button `Browse Category →` (using existing `Button variant="outline" size="sm"`)
-- Soft hover shadow + border darken
-
-The per-category "{count} entries" pill is moved to a small muted line above the title (`12 entries` style), not a boxed chip — keeps the visual lighter.
-
-### 6 · Latest Clinical Analysis — same tile language
-
-Reuse the new `LibraryTile` so analysis cards match Foundational/Clinical visually. Doc ID stays at the bottom; "Read more →" button is removed in favor of full-card click.
-
-### 7 · Visual polish — global
-
-- Section vertical padding bumped to `py-20 md:py-28` everywhere on this page.
-- Universal hover for all cards on this page: `transition-all duration-200 hover:shadow-md hover:-translate-y-px hover:border-foreground/30`.
-- Search bar: rounded-full, soft border, `shadow-sm`.
-- Sticky jump bar kept (it is genuinely useful given the page length) but lightened: thinner border, subtler text.
-- Archive index strip + Forthcoming/About footer preserved as-is — they read as the editorial colophon.
+```tsx
+<SiteFooter />
+<SourceBot />
+```
 
 ### Files touched
 
-- `src/pages/Education.tsx` — hero replaced, search restyled, new "Highly Recommended" section added, `SimpleRow` usages replaced with new local `LibraryTile`, FAQ category cards redesigned, vertical rhythm increased.
+- `src/pages/Education.tsx` — remove search + filtering, redesign `LibraryTile`, simplify FAQ cards, trim category labels.
+- `src/components/SourceBot.tsx` — new floating chat FAB + window (UI only, stubbed send).
+- `src/components/SiteLayout.tsx` — mount `<SourceBot />` site-wide.
 
 ### What stays the same
 
-- All routes, all slug overrides, all data in `src/data/library.ts`.
-- `AnchorHeader`, `RecordHeader`, `Section`, `Button`, every other page.
-- Search filter logic (`useMemo` blocks) and FAQ category mapping logic.
-- Sticky jump bar anchors (`#basics`, `#guides`, `#questions`, `#analysis`, `#archive`).
-- Forthcoming reference formats + About this library footer block.
+- All routes and slug overrides, `library.ts`, every other page, `RecordHeader`/`AnchorHeader`/`Section`/`Button`, the sticky jump bar, the Forthcoming + About footer block, and the Highly Recommended trio.
 
