@@ -77,81 +77,54 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Institutional hero */}
+      {/* Institutional hero — centered */}
       <section className="relative border-b border-border overflow-hidden">
         <HeroPattern />
-        <div className="relative container-wide pt-10 md:pt-12 pb-12 md:pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-[65fr_35fr] gap-10 md:gap-12 items-start">
-            <div>
-              <p className="eyebrow mb-3">Public registry · v2026.01</p>
-              <h1 className="display-1 mt-2">
-                Source Standard: The Public Registry for Compounded Supply-Chain Integrity.
-              </h1>
-              <p className="mt-3 max-w-[62ch] text-[15.5px] text-muted-foreground leading-[1.6]">
-                An independent auditing framework for the verification of 503A/503B pharmacy sourcing and clinical administrative protocols.
-              </p>
+        <div className="relative container-wide pt-14 md:pt-20 pb-14 md:pb-20">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow mb-3">Public registry · v2026.01</p>
+            <h1 className="display-1 mt-2 tracking-[-0.025em]">
+              Source Standard: The Public Registry for Compounded Supply-Chain Integrity.
+            </h1>
+            <p className="mt-5 mx-auto max-w-[62ch] text-[16px] text-muted-foreground leading-[1.65]">
+              An independent auditing framework for the verification of 503A/503B pharmacy sourcing and clinical administrative protocols.
+            </p>
 
-              {/* Registry Lookup terminal */}
-              <div className="mt-7 w-full max-w-[640px]">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-2">
-                  Registry Lookup v2026.01
-                </p>
-                <form
-                  onSubmit={handleLookup}
-                  className="flex items-stretch h-12 w-full bg-surface border border-border rounded-[4px] overflow-hidden focus-within:border-foreground/40 transition-colors"
+            {/* Registry Lookup terminal */}
+            <div className="mt-8 mx-auto w-full max-w-[640px]">
+              <form
+                onSubmit={handleLookup}
+                className="flex items-stretch h-12 w-full bg-surface border border-border rounded-xl overflow-hidden focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/20 transition-all shadow-sm"
+              >
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search by clinic name, state, or pharmacy…"
+                  className="flex-1 px-4 bg-transparent text-[14px] text-foreground placeholder:text-muted-foreground/70 outline-none text-left"
+                  aria-label="Registry lookup"
+                />
+                <button
+                  type="submit"
+                  className="m-1 text-[12px] font-semibold uppercase tracking-[0.08em] px-5 h-10 bg-foreground text-background rounded-lg hover:bg-foreground/85 transition-colors"
                 >
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search by clinic name, state, or pharmacy…"
-                    className="flex-1 px-4 bg-transparent text-[14px] text-foreground placeholder:text-muted-foreground/70 outline-none"
-                    aria-label="Registry lookup"
-                  />
-                  <button
-                    type="submit"
-                    className="m-1 font-mono text-[11px] uppercase tracking-[0.12em] px-4 h-10 bg-foreground text-background rounded-[4px] hover:bg-foreground/85 transition-colors"
-                  >
-                    Lookup
-                  </button>
-                </form>
-                <p className="text-[12.5px] text-muted-foreground/80 mt-2">
-                  Cross-references vendor records against FDA-registered 503A/503B sources.
-                </p>
-              </div>
-
-              {/* CTA row */}
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Button asChild size="lg">
-                  <Link to="/verified-vendors">View Verified Registry</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline">
-                  <Link to="/apply">Vendor Intake</Link>
-                </Button>
-              </div>
+                  Lookup
+                </button>
+              </form>
+              <p className="text-[12.5px] text-muted-foreground/80 mt-2">
+                Cross-references vendor records against FDA-registered 503A/503B sources.
+              </p>
             </div>
 
-            {/* Institutional metadata aside */}
-            <aside className="mt-8 md:mt-0 md:self-end bg-surface border border-[#E5E7EB] rounded-[4px] p-4">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground mb-3">
-                Institutional Metadata
-              </p>
-              <dl>
-                {metadata.map((m) => (
-                  <div
-                    key={m.k}
-                    className="flex justify-between items-baseline gap-4 py-1.5 border-b border-border/60 last:border-0"
-                  >
-                    <dt className="text-[11.5px] uppercase tracking-[0.1em] text-muted-foreground">
-                      {m.k}
-                    </dt>
-                    <dd className="font-mono text-[12px] text-foreground tabular-nums text-right">
-                      {m.v}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </aside>
+            {/* CTA row — centered */}
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <Button asChild size="lg">
+                <Link to="/verified-vendors">View Verified Registry</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link to="/apply">Vendor Intake</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
