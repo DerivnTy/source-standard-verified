@@ -23,22 +23,20 @@ export const ArticleSection = ({
 }) => (
   <section id={id} className="scroll-mt-24 bg-background">
     <div className="container-wide">
-      <div className="max-w-[760px] mx-auto py-2">
+      <div className="max-w-[880px] mx-auto py-2">
         {(n !== undefined || title) && (
-          <header className="mt-12 mb-5">
-            {n !== undefined && (
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground mb-2">
-                §{n}
-              </p>
-            )}
-            {title && (
-              <h2 className="font-serif text-[24px] md:text-[26px] leading-[1.2] tracking-[-0.01em] text-foreground">
-                {title}
-              </h2>
-            )}
+          <header className="mt-10 mb-4">
+            <h2 className="font-serif text-[20px] md:text-[22px] leading-[1.2] tracking-[-0.01em] text-foreground">
+              {n !== undefined && (
+                <span className="font-mono text-[13px] md:text-[14px] uppercase tracking-[0.08em] text-muted-foreground mr-3 align-baseline">
+                  §{n}
+                </span>
+              )}
+              {title}
+            </h2>
           </header>
         )}
-        <div className="article-body text-[16.5px] leading-[1.75] text-foreground/85 space-y-5">
+        <div className="article-body text-[15.5px] leading-[1.7] text-foreground/85 space-y-4">
           {children}
         </div>
       </div>
