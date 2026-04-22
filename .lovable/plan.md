@@ -1,72 +1,68 @@
 
 
-## Index.tsx — BriefingHero "Modular Terminal Summary"
+## Index.tsx — "Sovereign Plaque" Navy Hero
 
-The current `BriefingHero` is a centered single-column plaque. For the home page, we override it with a denser **two-rail terminal layout** that fills the 100vh band with institutional facts on both sides of the vertical horizon. All other pages keep the minimalist `BriefingHero` API unchanged.
+Revert the home page 100vh band from the dense terminal layout to a centered, deep-navy institutional plaque. Below-the-fold blocks (§I Registries, §II Authority, §III Reference) remain on the white surface, untouched.
 
 ---
 
-### 1 · New variant: `BriefingHero` `dense` mode
+### 1 · `BriefingHero` — add navy variant
 
-Extend `src/components/BriefingHero.tsx` with an optional `rightRail?: ReactNode` prop. When provided, the component renders a 12-col grid (left col-span-7 / right col-span-5) instead of the single centered column. When omitted, behavior is identical to today (used by all other pages).
+`src/components/BriefingHero.tsx` gains one optional prop: `tone?: "default" | "navy"` (default = today's white surface).
 
-- Left rail keeps eyebrow + H1 + statement, plus a new optional thin-bordered **rationale chit** below the statement.
-- Right rail receives arbitrary children — used only by Index.tsx.
-- 14.5px body lock, 10.5px mono labels, hairline `border-border` everywhere, no heavy bars.
+When `tone="navy"`:
+- Section background swaps to a fixed deep-navy token (`#0A1128`), with a soft radial gradient on top and the existing `HeroPattern` rendered at very low opacity (~3%) using a white stroke instead of foreground.
+- All text inside the hero forces pure white / white-muted: eyebrow + scroll cue at `text-white/55`, H1 at `text-white`, statement at `text-white/75`, hairline divider at `bg-white/20`.
+- Bottom border becomes `border-white/10` so the transition into the white registry surface below is a crisp horizon line.
+- `rightRail` and `rationale` are ignored in navy mode (force the centered "Sovereign Plaque" layout regardless).
 
-### 2 · Index.tsx — Left Rail content
+A new optional `actions?: ReactNode` slot renders directly below the statement, centered, with `mt-10`. Used only by Index for the two ghost buttons.
 
-- Eyebrow: `SOURCE STANDARD · SS-FRAMEWORK-2026.01`
-- H1: `SYSTEM ACCESS.`
-- Statement (unchanged, 14.5px muted, max-w-[58ch]).
-- **Rationale chit** (new) — thin `border border-border p-3` block, 14.5px:
-  > "Vendor compliance records are continuously cross-referenced against FDA Drug Establishment Registration, state pharmacy licensure, and PCAB / NSF accreditation files. No listing is published without a documented upstream chain."
+### 2 · Tokens
 
-### 3 · Index.tsx — Right Rail (three stacked data blocks)
-
-Vertical stack, each block separated by a hairline. All blocks use `border border-border` cards with a 10.5px mono header strip and 14.5px body.
-
-**Block A · `REGISTRY METRICS`** — 2-col grid of figures:
+Add two CSS variables to `src/index.css` `:root` for the navy surface so we keep design-token discipline (no raw hex in components):
 ```
-VENDORS UNDER REVIEW   VENDORS LISTED
-        24                    11
-UPSTREAM SOURCES       JURISDICTIONS
-        18                     9
+--navy-surface: 222 47% 11%;     /* ~#0A1128 */
+--navy-surface-2: 222 40% 16%;   /* gradient stop */
 ```
-Numbers derived from `greenlistEntries.length` + static placeholders for vendor counts (kept as constants in `Index.tsx`, easy to wire to live data later).
+Reference via `bg-[hsl(var(--navy-surface))]`. Dark-mode values mirror the same navy (the plaque looks identical in both themes).
 
-**Block B · `GOVERNANCE`** — flat `<dl>`, 4 rows:
-```
-BOARD STATUS    Active · ratified 2026.02
-SEATS FILLED    6 / 7
-REVIEW CYCLE    Annual · interim flags
-CONFLICT POLICY Disclosed · public
-```
+### 3 · Index.tsx hero content
 
-**Block C · `ACCESS PORTALS`** — vertical list of three tactical navigation chits (`Link`, full-width, hairline divider between, mono ref code on left + label + small `→`):
-```
-§I.A   VENDOR REGISTRY        →
-§I.B   UPSTREAM REGISTRY      →
-§IV.C  AUDIT REQUEST          →   (routes to /apply)
-```
-14.5px text, hover swaps `bg-muted/40`, no buttons — these read as terminal entries.
+Replace the current dense `BriefingHero` invocation with:
 
-### 4 · Vertical alignment
+- `category`: `UNITED STATES PUBLIC REGISTRY`
+- `docId`: `SS-FRAMEWORK-2026.01` (still surfaced via `GlobalUtilityBar`, kept on the prop for API symmetry)
+- `title`: `SOURCE STANDARD`
+- `statement`: "The definitive auditing framework for compounded supply-chain integrity. We verify 503A and 503B pharmacy sourcing to ensure clinical transparency."
+- `tone`: `"navy"`
+- `actions`: two side-by-side ghost buttons:
+  - `[ ACCESS VENDOR REGISTRY ]` → `/directory`
+  - `[ VIEW UPSTREAM GREENLIST ]` → `/greenlist`
 
-Both rails use the same `flex flex-col justify-center` so the block stack on the right and the title group on the left share a vertical centerline. On viewports < md the right rail collapses below the left rail; both fit comfortably inside `min-h-[100svh]`.
+Buttons use a local inline class set (no `Button` variant change) to guarantee white-on-navy contrast: `border border-white/40 text-white px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 hover:border-white transition-colors`. Side-by-side with `gap-3`, wrap to stacked on `< sm`.
+
+Remove from Index hero: `HeroRightRail` (Registry Metrics / Governance / Access Portals) and the `rationale` chit. The metrics and access-portal data are already represented in the §I–§III blocks below the fold, so no information is lost.
+
+### 4 · GlobalUtilityBar — navy-aware
+
+`src/components/GlobalUtilityBar.tsx` reads `useLocation().pathname`. When pathname is `"/"`, render with `bg-[hsl(var(--navy-surface))] text-white/70 border-white/10` so the strip reads as a frame for the navy plaque. All other routes stay on the existing light surface. No structural changes — only conditional class swap.
 
 ### 5 · Below-the-fold
 
-Sections §I, §II, §III on `Index.tsx` are unchanged — already at the density target from the previous pass.
+Sections §I, §II, §III in `Index.tsx` remain exactly as they are today (white surface, hairline grids). The transition is a single horizontal seam between the navy plaque (ends at exactly `100svh`) and the white registry density below.
 
 ---
 
 ### Files touched
 
-- `src/components/BriefingHero.tsx` — add optional `rightRail` prop + dense-grid branch + optional rationale chit support (`rationale?: string`).
-- `src/pages/Index.tsx` — pass `rationale` and `rightRail={<…three blocks…>}` to `BriefingHero`. Add a small constants block for metrics so the right rail stays declarative.
+- `src/components/BriefingHero.tsx` — add `tone` and `actions` props; navy branch with white typography + radial gradient + low-opacity pattern.
+- `src/components/HeroPattern.tsx` — accept optional `stroke` prop (`"foreground" | "white"`) so the navy variant can use a white grid.
+- `src/components/GlobalUtilityBar.tsx` — conditional navy styling on `"/"`.
+- `src/index.css` — add `--navy-surface` / `--navy-surface-2` tokens.
+- `src/pages/Index.tsx` — replace dense hero invocation with navy plaque + two ghost-button actions; delete unused `HeroRightRail` block and rationale string.
 
 ### What stays the same
 
-`BriefingHero` API for all other pages (Verified Vendors, Greenlist, MAB, Resource Library, Protocol, About) — they pass no `rightRail` and render exactly as today. `GlobalUtilityBar`, smart header, scroll restoration, all routes, all data, all below-fold blocks on Index.
+`BriefingHero` API for all other pages is unchanged (they don't pass `tone`, so they keep today's white plaque). `GlobalUtilityBar` signatures, smart header, scroll restoration, all routes, all data, and every below-the-fold block on Index. No new dependencies.
 
