@@ -1,76 +1,46 @@
 
 
-## Article-Page Editorial System
+## Verified Vendors — Refined Registry Summary
 
-The 13 Library article pages currently inherit the same heavy regulatory chrome the policy/about pages use: a 4/8 split `RecordHeader` and a `BoardSection` grid where every section title sits in a cold left meta column with `§N · CATEGORY` overhead. That treatment is correct for governance docs but wrong for public educational reading. This task introduces a dedicated **article** layer — same family, calmer rhythm — and routes every Library article through it. No copy changes.
+Replace the awkward two-tier summary (mono count strip + oversized "0 Verified vendors…" line) with a single disciplined record-summary block. Same six numbers, restrained institutional presentation, no dashboard energy.
 
 ---
 
-### 1 · New `ArticleHeader` component
+### The change
 
-`src/components/ArticleHeader.tsx` — replaces `RecordHeader` on article pages.
+In `src/pages/VerifiedVendors.tsx`, replace the entire `{/* Refined status summary */}` section (lines 200–225) with one unified band:
 
-Composition (single centered editorial column, max-w-[760px]):
-- **Back link** at top — `← Back to Resource Library` (or label override). Small, muted, `text-[12px]`, with subtle underline-on-hover. Sits above the eyebrow with `mb-8` air. Restrained editorial nav, not a button.
-- **Eyebrow** — `.eyebrow` token, sentence-cased category (e.g. "Foundational Series").
-- **H1 title** — `.title-page`, left-aligned, `max-w-[22ch]` for tight wrapping.
-- **Lead** — `text-[18px] leading-[1.6] text-muted-foreground max-w-[58ch]`, slightly larger than body so it reads as an editorial deck.
-- **Meta strip** — single horizontal row beneath the lead: `Updated · 04 / 21 / 2026  ·  Reviewed by [reviewer]  ·  Doc · SS-SERIES-000A`. Mono `text-[11.5px] text-muted-foreground`, separated by hairline middots. No download CTA, no service-card panel, no Reference box. Quiet.
-- Hairline divider beneath the strip transitioning into the article body.
+- **Eyebrow row** — small mono label `REGISTRY SUMMARY · AS OF [date]` on the left, paired on the right with a quiet `Total tracked · 000` mono pill. Sets context as a public-record summary, not analytics.
+- **Six-column count grid** — one row, evenly distributed, divided by hairline vertical rules (`md:divide-x divide-border/60`). Order: **Verified · Under review · Unverified · Suspended · Removed · Total tracked**. Each cell:
+  - Uppercase mono label `text-[10.5px] tracking-[0.14em] text-muted-foreground` (e.g. `VERIFIED`).
+  - Count beneath in `font-mono text-[22px] tabular-nums text-foreground` — present and scannable, but no theatrical 44–52px numerals.
+  - A 2px wide × 10px tall colored "stamp tick" to the left of each label using the existing status color tokens (`bg-verified`, `bg-pending`, `bg-muted-foreground`, `bg-destructive`, `bg-muted-foreground/60`, and a neutral `bg-foreground/40` for Total) — ties each cell back to the `StatusBadge` system already used on the page without repeating the badge chrome.
+- Stacks to a 2-column grid on mobile (`grid-cols-2 md:grid-cols-6`), no vertical dividers on mobile.
+- Container framing kept consistent with surrounding bands: `border-b border-border bg-background`, `container-wide py-8 md:py-10`. Slightly tighter vertical rhythm than the current `py-10` so the summary reads as a metadata strip between the "Why this page matters" band above and the filter bar below.
 
-Container: `container-wide py-12 md:py-16`, content centered in the 760px column.
+### What stays the same
 
-### 2 · New `ArticleSection` component
+- All six counts (`vendors.length`, `counts.verified`, `counts["under-review"]`, `counts.unverified`, `counts.suspended`, `counts.removed`).
+- The "Why this page matters" three-statement band above (lines 174–198) — untouched.
+- The legend section further down the page — untouched.
+- `BriefingHero`, filter bar, table, pagination, all data logic.
 
-`src/components/BoardSection.tsx` gets a sibling primitive `ArticleSection` (or new `src/components/ArticleSection.tsx`) — replaces `BoardSection` inside articles.
+### Visual hierarchy
 
-Composition (single column, no left meta rail):
-- Wraps content in the same 760px centered column.
-- **H2** — `.h-section`, left-aligned, `mt-12 mb-5` (vertical rhythm between sections, not a section band).
-- Optional small `§N` index above the H2 in mono `text-[11px] text-muted-foreground tracking-[0.14em]` — preserves reference credibility without dominating.
-- **Body** — `text-[16.5px] leading-[1.75] text-foreground/85`, `space-y-5`. Crucial: this is the standard editorial body size (not the 14.5px muted body used on policy pages).
-- No background bands, no `border-b` between sections — sections are separated by typographic rhythm, not by full-width hairline rules.
-- `BoardDefList` keeps its current chrome (it's the right register for ordered reference items inside an article) but is rendered inside the 760px column with `my-8`.
+```text
+REGISTRY SUMMARY · AS OF 04/22/2026                  Total tracked · 248
+─────────────────────────────────────────────────────────────────────────
+| VERIFIED  | UNDER REVIEW | UNVERIFIED | SUSPENDED |  REMOVED  |  TOTAL |
+|    12     |      3       |    230     |     2     |     1     |   248  |
+```
 
-The `category` chip is dropped on article pages — `eyebrow` belongs in the header, not on every section.
-
-### 3 · `ArticleFooter` — quiet next/prev + cite
-
-`src/components/ArticleFooter.tsx` (or extension to `BoardSection.tsx`):
-- **Prev / Next pair** — two-up layout inside the 760px column. Each cell shows mono `← PREVIOUS` / `NEXT →` overhead and the article title beneath in `text-[15px] text-foreground`. Hairline border-top, no full bordered card, no surface-muted fill.
-- **Cite-as line** — single line beneath the prev/next, `text-[12px] text-muted-foreground/80`, mono `Cite as ·` prefix preserved.
-- `DocSignature` stays as-is.
-
-### 4 · Route every Library page through the new system
-
-The 13 article pages get a mechanical refactor — same imports swap, same props passed:
-
-- `LibraryWhatArePeptides`, `LibraryWhatIsCompounding`, `LibraryDualLayerDifference`, `LibraryEndocrinologicalContext`, `LibraryAsepticTechnique`, `LibrarySterilePreparationIntegrity`, `LibraryInterpretingCoAs`, `LibraryReferenceDosingRanges`, `LibraryAnalysisMeaningOfVerification`, `LibraryAnalysisQuestionsForYourClinic`, `LibraryAnalysisUndocumentedSourcingSigns`, `LibraryAnalysis2026Reclassification`, `LibraryEntry`.
-
-For each:
-- Replace `RecordHeader` with `ArticleHeader` (props mapped: `eyebrow`, `title`, `lead`, `metadata` → flattened into the meta strip, `backHref="/education"`, `backLabel="Back to Resource Library"`).
-- Replace `BoardSection` with `ArticleSection`. Pass `n` as the small index above the H2; drop `category` (it lives in the header eyebrow); drop `muted` (no alternating bands).
-- Replace `BoardFooterNav` + `BoardCiteFooter` with `ArticleFooter` (same prev/next/citation props).
-- `DocSignature` unchanged.
-- `Breadcrumb` unchanged (already correct for editorial nav above the article).
-- `BoardDefList` unchanged — re-exported alongside `ArticleSection`.
-
-### 5 · What stays the same
-
-- All copy on every article page.
-- `Breadcrumb`, `DocSignature`, `BoardDefList` chrome.
-- All routes, all `DOC_ID`s, all `verifiedOn` values.
-- Policy/about pages (`Privacy`, `Terms`, `VerificationDisclaimer`, `Governance`, `Accountability`, `MedicalAdvisory`, `About`, `HowItWorks`, `StatusDefinitions`) — they keep `BriefingHero` + `BoardSection` because they're regulatory documents, not editorial articles. Untouched.
-- Education hub (`Education.tsx`), basics/guides indexes, FAQ pages — untouched (they're indexes, not articles).
-- Homepage cover and chapter hero system — untouched.
+Quiet, evenly weighted, scannable in one pass. Reads as registry metadata, not as a stat widget.
 
 ### Files touched
 
-- `src/components/ArticleHeader.tsx` — new.
-- `src/components/ArticleSection.tsx` — new (exports `ArticleSection`, `ArticleFooter`; re-exports `BoardDefList` from `BoardSection`).
-- `src/pages/LibraryWhatArePeptides.tsx`, `LibraryWhatIsCompounding.tsx`, `LibraryDualLayerDifference.tsx`, `LibraryEndocrinologicalContext.tsx`, `LibraryAsepticTechnique.tsx`, `LibrarySterilePreparationIntegrity.tsx`, `LibraryInterpretingCoAs.tsx`, `LibraryReferenceDosingRanges.tsx`, `LibraryAnalysisMeaningOfVerification.tsx`, `LibraryAnalysisQuestionsForYourClinic.tsx`, `LibraryAnalysisUndocumentedSourcingSigns.tsx`, `LibraryAnalysis2026Reclassification.tsx`, `LibraryEntry.tsx` — swap `RecordHeader`/`BoardSection`/`BoardFooterNav`/`BoardCiteFooter` imports for the new article primitives. Mechanical refactor; no copy or structural changes inside sections.
+- `src/pages/VerifiedVendors.tsx` — replace lines 200–225 only.
 
 ### Outcome
 
-Article pages stop looking like internal regulatory exports. They open with a clear back link, an editorial eyebrow + headline + deck, and a quiet metadata strip — then drop into a single 760px reading column with comfortable 16.5px body text and typographic section rhythm. Reference credibility (small `§N` indices, mono cite-as line, doc signature, def-list chrome) is preserved. Policy and about pages retain their heavier regulatory chrome — the hierarchy now reads as: home cover → chapter pages (policy/about/governance) → editorial articles (Library).
+The oversized single-numeral treatment is gone. The page now opens (after the chapter hero and the three-statement explainer) into a single restrained six-cell registry summary that matches the institutional voice of the rest of the site — same family as the metadata strips on the article and policy pages, no dashboard styling.
 
