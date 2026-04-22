@@ -286,7 +286,7 @@ const Greenlist = () => {
                     </p>
                     {s.key !== "total" && (
                       <p className="mt-1 text-[11px] text-muted-foreground truncate">
-                        {s.label.replace(/^503[AB] /, "").replace(/^Other /, "")}
+                        {CATEGORY_SUBLABEL[s.key as GreenlistCategory] ?? s.label}
                       </p>
                     )}
                   </div>
