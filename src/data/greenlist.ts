@@ -4,9 +4,24 @@ export type GreenlistType =
   | "503A + 503B Brand"
   | "503B Partner / Sterile Facility"
   | "Compounding Network"
-  | "Other Qualified Source";
+  | "Other Qualified Source"
+  | "Unverified Facility";
 
 export type GreenlistCategory = "503B" | "503A" | "Other";
+
+export type AlertStatus =
+  | "shut-down"
+  | "no-longer-registered"
+  | "not-on-fda-list"
+  | "unverified";
+
+export type RegulatoryAlert = {
+  status: AlertStatus;
+  shortLabel?: string;
+  asOf: string;
+  reason: string;
+  proof: { label: string; url: string }[];
+};
 
 export type GreenlistEntry = {
   slug: string;
@@ -17,6 +32,7 @@ export type GreenlistEntry = {
   focus: string;
   website?: string;
   profile?: GreenlistProfile;
+  regulatoryAlert?: RegulatoryAlert;
   // Discrete location fields (populated at module load by the normalization
   // pass below — derived from `location`). Filters read from these.
   city?: string;
@@ -691,6 +707,63 @@ export const greenlistEntries: GreenlistEntry[] = [
         "Healthcare services organization operating specialty pharmacy and PBM programs that include compounded medications for specific clinical programs across multiple US states.",
     },
   },
+  // ---------- Unverified / Flagged Facilities ----------
+  {
+    slug: "meridian-sterile-compounding-llc",
+    name: "Meridian Sterile Compounding, LLC",
+    type: "Unverified Facility",
+    category: "Other",
+    location: "Phoenix, AZ",
+    focus:
+      "Previously registered 503B outsourcing facility; no longer present on FDA's official outsourcing facility table",
+    profile: {
+      background:
+        "Facility was listed on the FDA's 503B outsourcing facility registry through 2024. As of April 16, 2026, the facility is absent from the official FDA list. A 2024 FDA Warning Letter and subsequent consent decree indicate permanent cessation of sterile production.",
+    },
+    regulatoryAlert: {
+      status: "shut-down",
+      shortLabel: "No Active Registration",
+      asOf: "2026-04-16",
+      reason:
+        "Present on FDA's 503B registry in 2024 but absent as of 4/16/2026. A Warning Letter and consent decree on file indicate permanent cessation of sterile production.",
+      proof: [
+        {
+          label: "FDA 503B Registered Outsourcing Facilities (current)",
+          url: "https://www.fda.gov/drugs/human-drug-compounding/registered-outsourcing-facilities",
+        },
+        {
+          label: "FDA Warning Letter archive",
+          url: "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters",
+        },
+      ],
+    },
+  },
+  {
+    slug: "apex-pharma-solutions-inc",
+    name: "Apex Pharma Solutions, Inc.",
+    type: "Unverified Facility",
+    category: "Other",
+    location: "Las Vegas, NV",
+    focus:
+      "Markets sterile injectables and peptide preparations as an FDA-registered 503B facility; no corresponding entry on the FDA outsourcing facility table",
+    profile: {
+      background:
+        "Markets itself publicly as an 'FDA-registered 503B facility' producing sterile injectables and peptide preparations. As of April 16, 2026, the facility does not appear on the FDA's official 503B outsourcing facility table.",
+    },
+    regulatoryAlert: {
+      status: "not-on-fda-list",
+      shortLabel: "Not on FDA List",
+      asOf: "2026-04-16",
+      reason:
+        "Markets as an 'FDA-registered 503B facility' but does not appear on the FDA's official outsourcing facility table as of 4/16/2026. Public claims could not be reconciled with federal records.",
+      proof: [
+        {
+          label: "FDA 503B Registered Outsourcing Facilities (current)",
+          url: "https://www.fda.gov/drugs/human-drug-compounding/registered-outsourcing-facilities",
+        },
+      ],
+    },
+  },
 ];
 
 export const GREENLIST_TYPES: GreenlistType[] = [
@@ -700,6 +773,7 @@ export const GREENLIST_TYPES: GreenlistType[] = [
   "503B Partner / Sterile Facility",
   "Compounding Network",
   "Other Qualified Source",
+  "Unverified Facility",
 ];
 
 export const FOCUS_TAGS: { label: string; keywords: string[] }[] = [
