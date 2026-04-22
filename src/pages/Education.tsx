@@ -373,7 +373,7 @@ const Education = () => {
                 {filteredAnalysis.map((entry) => (
                   <article
                     key={entry.id}
-                    className="flex flex-col rounded-[4px] border border-border/70 bg-background p-6 transition-colors hover:border-foreground/30"
+                    className="flex flex-col rounded-[4px] border border-border/70 bg-background p-6 transition-[border-color,box-shadow] duration-150 hover:border-foreground/40 hover:shadow-[0_2px_0_0_rgba(0,0,0,0.06)]"
                   >
                     <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
                       {entry.id} · Analysis
