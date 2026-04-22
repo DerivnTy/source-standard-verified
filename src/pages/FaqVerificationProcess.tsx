@@ -44,7 +44,7 @@ const FaqVerificationProcess = () => {
     <>
       <PageMeta title="Verification Process FAQ" description="How Source Standard verification works — stages, audits, and renewal cadence." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "FAQ" },
         ]} />
       <RecordHeader

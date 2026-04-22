@@ -16,7 +16,7 @@ const LibraryWhatArePeptides = () => {
     <>
       <PageMeta title="What Are Peptides? · Foundational Series" description="A plain-language introduction to peptides, their clinical utility, and the importance of sourcing integrity." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Foundational Series" },
         ]} />
       <RecordHeader

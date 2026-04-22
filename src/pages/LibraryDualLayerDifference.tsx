@@ -16,7 +16,7 @@ const LibraryDualLayerDifference = () => {
     <>
       <PageMeta title="The Dual-Layer Difference · Clinical Guide" description="Why Source Standard audits both the vendor and the upstream pharmacy." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Clinical Guides" },
         ]} />
       <RecordHeader

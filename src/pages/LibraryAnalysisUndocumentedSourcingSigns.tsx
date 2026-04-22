@@ -16,7 +16,7 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
     <>
       <PageMeta title="Undocumented Sourcing — Warning Signs · Analysis" description="Recognizing red flags of undocumented medication sourcing." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Analysis" },
         ]} />
       <RecordHeader

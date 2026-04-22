@@ -31,7 +31,7 @@ const EducationQuestions = () => {
       />
       <Breadcrumb
         items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Common Questions" },
         ]}
       />

@@ -16,7 +16,7 @@ const LibraryAsepticTechnique = () => {
     <>
       <PageMeta title="Aseptic Technique · Clinical Guide" description="Foundational principles of aseptic compounding and barrier technique." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Clinical Guides" },
         ]} />
       <RecordHeader

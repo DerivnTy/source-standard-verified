@@ -16,7 +16,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
     <>
       <PageMeta title="The Meaning of Verification · Analysis" description="What Source Standard Verification actualizes — and what it does not." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Analysis" },
         ]} />
       <RecordHeader

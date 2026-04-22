@@ -16,7 +16,7 @@ const LibraryEndocrinologicalContext = () => {
     <>
       <PageMeta title="Endocrinological Context · Foundational Series" description="Clinical context for the endocrine pathways modulated by therapeutic peptides." />
       <Breadcrumb items={[
-          { label: "Education", to: "/education" },
+          { label: "Resource Library", to: "/education" },
           { label: "Foundational Series" },
         ]} />
       <RecordHeader
