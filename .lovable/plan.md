@@ -1,69 +1,51 @@
 
 
-## Redesign §8 — Final Split CTA as a Structured Pathway Panel
+## Refine §8 — Compact, Symmetric Pathway Panel
 
-The current block reads as two text columns floating in a tall navy band. Replace it with a compact, gridded "split-decision panel" that reads as one finished object — clear hierarchy, anchored copy, integrated structure, and a tight handoff into the footer.
-
----
-
-### Design
-
-```text
-┌──────────────────────────────────────────────────────────────────┐
-│  CHOOSE YOUR PATH ───────────────────────────────────────────    │  ← micro-eyebrow band
-├──────────────────────────────┬───────────────────────────────────┤
-│  01 / FOR CONSUMERS          │  02 / FOR VENDORS                 │
-│                              │                                   │
-│  Search the Registry         │  Apply for Verification           │
-│  Look up a clinic and see    │  A public listing is a trust      │
-│  what its public record      │  asset, not just a status         │
-│  actually documents.         │  marker.                          │
-│                              │                                   │
-│  ▸ Open the Registry         │  ▸ Begin Verification             │
-└──────────────────────────────┴───────────────────────────────────┘
-```
-
-Each column is a self-contained, framed cell with a numbered label, headline, body, and CTA stacked tightly as one unit. The eyebrow band at the top anchors the section as a deliberate "split decision" rather than two loose boxes.
+Tighten the existing split-pathway section into a more compact, balanced, higher-contrast closing panel. No new structure — just spacing, sizing, and color discipline so both cells lock to the same vertical rhythm.
 
 ---
 
-### Changes (single edit, `src/pages/Index.tsx` lines 325–363)
+### Changes (single edit, `src/pages/Index.tsx` lines 325–379)
 
-**1 · Compact the band**
-- Outer `py-14 md:py-20` → `py-12 md:py-14`. Closes the dead air above and below.
-- Wrap content in `container-wide` but cap the inner panel at `max-w-[1080px] mx-auto` so the two columns sit at a comfortable reading rhythm rather than spanning edge-to-edge.
+**1 · Shrink the band**
+- Outer padding: `py-12 md:py-14` → `py-10 md:py-12`. Reduces dead vertical air.
+- Eyebrow band bottom margin: `mb-8` → `mb-6`.
 
-**2 · Add an eyebrow header band**
-- Above the grid: a single thin row with `font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/45` reading **"Choose your path"**, separated from the grid by `border-b border-white/10 pb-4 mb-10`. Anchors the section, signals intent, and gives the divider/structure a reason to exist.
+**2 · Larger, brighter "Choose your path"**
+- `text-[10.5px] text-white/45` → `text-[12px] text-white/75`, tracking stays at `0.22em`.
+- §8 marker matches new size: `text-[12px] text-white/40`.
+- Border under band: `border-white/10` → `border-white/15` for slightly cleaner separation.
 
-**3 · Convert columns to framed cells**
-- Wrap the grid in `border border-white/10 rounded-[2px]` and use internal `divide-x divide-white/10` between columns (mobile: `divide-y divide-x-0`).
-- Each column: `p-8 md:p-10` so copy sits inside a real container instead of floating on the band.
-- Drop `items-start` ambiguity — uniform padding makes both cells visually equal-weight.
+**3 · Stronger panel labels (01 / 02)**
+- `text-[10.5px] text-white/50` → `text-[12px] text-white` on both cells. More presence, equal weight.
 
-**4 · Numbered labels + tighter copy stack**
-- Eyebrow becomes `01 / For consumers` and `02 / For vendors` (mono, `text-white/50`). The numbering implies sequence/parity and gives each side a stronger anchor than a bare label.
-- Heading: keep size, drop `max-w-[14ch]` (cell padding now constrains width naturally).
-- Stack rhythm: eyebrow → `mt-4` heading → `mt-3` body → `mt-7` CTA. Tighter copy grouping; CTA gets a touch more breathing room so it reads as the action, not another paragraph.
+**4 · Symmetric internal rhythm (lock both cells to identical vertical positions)**
+- Cell padding equalized: `p-8 md:p-10` → `p-9 md:p-11` on both — uniform.
+- Body copy gets a fixed-height container so the CTA sits at the same y on both sides regardless of copy length. Apply `min-h-[3.6rem]` to the `<p>` body line on each cell. Both bodies are short single-line/two-line strings; reserving the same minimum height guarantees the two CTAs align to the same baseline.
+- Stack rhythm becomes consistent and symmetric:
+  - eyebrow → `mt-5` heading → `mt-3` body (fixed min-height) → `mt-6` CTA.
 
-**5 · CTA treatment — integrated, not dropped in**
-- Replace `ghostBtnSecondary` with an inline arrow link style for both:
-  `inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.18em] text-white border-b border-white/40 hover:border-white pb-1`
-- Trailing `→`. Reads as a deliberate next-step affordance integrated with the copy block, matching the inline-arrow link pattern used elsewhere on the homepage (e.g. "Resource Library →" at line 319). Removes the visual weight of two boxed buttons sitting in a dark band.
+**5 · Higher-contrast body copy**
+- `text-white/70` → `text-white/80` for both body paragraphs. Still restrained, no longer washed out.
 
-**6 · Divider becomes structural, not arbitrary**
-- The `divide-x` now lives inside a bordered frame, so it reads as a panel seam rather than a floating vertical line. Mobile fallback: `divide-y` for the same logic stacked.
+**6 · CTA polish**
+- Underline border: `border-white/40` → `border-white/55` for slightly clearer affordance. Hover stays `border-white`. Size unchanged.
 
-**7 · Footer handoff**
-- Bottom padding of the section (`py-12 md:py-14`) plus the framed inner panel gives the navy band a defined edge instead of feeling like it bleeds into the footer. No extra spacer needed — the panel's bottom border + reduced section padding does the work.
+**7 · Frame contrast**
+- Outer panel border + dividers: `border-white/10` → `border-white/15`. Marginally stronger structural seams without adding visual weight.
 
 ---
+
+### What stays the same
+
+- Two-column framed panel structure, eyebrow + §8 header row, numbered labels, inline arrow-link CTAs, mobile stacking via `divide-y`. No content additions, no layout rebuild.
 
 ### Files touched
 
-- **Modified:** `src/pages/Index.tsx` — replace the §8 block (lines 325–363) with the panel composition above. No new components, no asset changes, no impact on any other section.
+- **Modified:** `src/pages/Index.tsx` — single contained edit to the §8 block (lines 325–379).
 
 ### Outcome
 
-A compact, structured split-decision panel with an eyebrow header, two framed cells, numbered labels, tightly grouped copy, integrated arrow-link CTAs, and a clean transition into the footer. Reads as the homepage's deliberate closing move rather than a placeholder layout.
+A more compact navy band with a slightly larger, brighter eyebrow, stronger white panel labels, equalized cell padding, body copy with reserved height so both CTAs sit at the same vertical line, and a touch more contrast on body text and dividers. Reads as a polished, symmetric final pathway panel.
 
