@@ -85,15 +85,15 @@ export const VendorAuditCard = ({
     vendor.status === "suspended" ||
     vendor.status === "removed";
 
-  // Pale linen-red wash — audited "Incomplete" highlight, not a UI error.
-  const unverifiedWash = "#FFF5F5";
+  // Surgical-red wash — extremely faint highlight, not a UI error.
+  const unverifiedWash = "#FFF8F8";
 
   if (view === "list") {
     return (
       <Link
         to={`/directory/${vendor.slug}`}
         aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
-        className="group grid items-center gap-3 h-[50px] px-4 text-left bg-card hover:bg-surface-muted/40 transition-colors"
+        className="group grid items-center gap-3 h-[48px] px-4 text-left bg-card transition-colors hover:bg-[#F8FAFC]"
         style={{
           ...(isUnverified ? { backgroundColor: unverifiedWash } : {}),
           gridTemplateColumns: "8px minmax(0, 1fr) auto auto",
@@ -109,13 +109,26 @@ export const VendorAuditCard = ({
               : "bg-red-400"
           }`}
         />
-        <h3 className="min-w-0 truncate text-[14px] font-semibold leading-none text-foreground tracking-tight">
+        <h3
+          className="min-w-0 truncate leading-none tracking-tight"
+          style={{
+            fontSize: "14px",
+            fontWeight: 600,
+            color: "#1E293B",
+          }}
+        >
           {vendor.name}
         </h3>
-        <span className="text-[11.5px] leading-none text-muted-foreground truncate max-w-[92px] sm:max-w-[180px]">
+        <span
+          className="font-mono truncate max-w-[92px] sm:max-w-[180px] leading-none"
+          style={{ fontSize: "11px", color: "#64748B" }}
+        >
           {location}
         </span>
-        <span className="font-mono text-[10px] leading-none uppercase tracking-[0.08em] text-muted-foreground">
+        <span
+          className="font-mono leading-none uppercase"
+          style={{ fontSize: "10px", letterSpacing: "0.08em", color: "#64748B" }}
+        >
           {vendor.status === "verified"
             ? "Verified"
             : vendor.status === "under-review"

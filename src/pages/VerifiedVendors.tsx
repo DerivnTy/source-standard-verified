@@ -124,7 +124,7 @@ const VerifiedVendors = () => {
   }, [query, category, sort, pageSize]);
 
   const toolbarSelectClass =
-    "h-11 min-w-0 border-0 bg-background px-4 pr-9 text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_12px_center] cursor-pointer";
+    "h-14 min-w-0 border-0 bg-background px-4 pr-9 text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_12px_center] cursor-pointer";
 
   const toolbarChevron = {
     backgroundImage:
@@ -196,26 +196,27 @@ const VerifiedVendors = () => {
               className="mx-5 md:mx-0 grid overflow-hidden rounded-[2px] bg-background"
               style={{
                 border: "1px solid #E2E8F0",
-                gridTemplateColumns: "minmax(0, 1fr) 116px 128px",
+                gridTemplateColumns: "minmax(0, 1fr) 120px 132px",
+                height: "56px",
               }}
             >
-              <div className="relative min-w-0">
+              <div className="relative min-w-0 h-full">
                 <Search className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search the registry"
                   aria-label="Search the registry"
-                  className="h-11 w-full min-w-0 bg-background pl-11 pr-4 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                  className="h-full w-full min-w-0 bg-background pl-11 pr-4 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
                 />
               </div>
 
-              <div style={{ borderLeft: "1px solid #E2E8F0" }}>
+              <div className="h-full" style={{ borderLeft: "1px solid #E2E8F0" }}>
                 <select
                   value={category}
                   onChange={(event) => setCategory(event.target.value)}
                   aria-label="Category"
-                  className={`${toolbarSelectClass} w-full`}
+                  className={`${toolbarSelectClass} w-full h-full`}
                   style={toolbarChevron}
                 >
                   <option value="all">Category</option>
@@ -227,12 +228,12 @@ const VerifiedVendors = () => {
                 </select>
               </div>
 
-              <div style={{ borderLeft: "1px solid #E2E8F0" }}>
+              <div className="h-full" style={{ borderLeft: "1px solid #E2E8F0" }}>
                 <select
                   value={sort}
                   onChange={(event) => setSort(event.target.value as SortMode)}
                   aria-label="Sort"
-                  className={`${toolbarSelectClass} w-full`}
+                  className={`${toolbarSelectClass} w-full h-full`}
                   style={toolbarChevron}
                 >
                   <option value="name-asc">Alphabetical</option>
