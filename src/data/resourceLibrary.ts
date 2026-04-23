@@ -53,7 +53,7 @@ export const CATEGORIES: Category[] = [
     label: "Clinical Handling",
     short: "Clinical",
     description:
-      "Sterile technique, stability, and clinical context — peer-reviewed by the Medical Advisory Board.",
+      "Sterile technique, stability, and clinical context reviewed under the Medical Advisory Board.",
     path: "/library/clinical",
   },
   {
