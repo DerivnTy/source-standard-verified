@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Check, X, AlertTriangle } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
@@ -437,7 +437,7 @@ const HowItWorks = () => {
         </p>
       </SectionShell>
 
-      {/* §10 Limits — high-contrast warning */}
+      {/* §10 Limits — jurisdictional ledger table */}
       <SectionShell
         id="limits"
         n="10"
@@ -445,17 +445,22 @@ const HowItWorks = () => {
         title="Jurisdictional limitations"
         muted
       >
-        <div className="rounded-md border-2 border-suspended/60 bg-suspended-soft/40 overflow-hidden">
-          <header className="flex items-center gap-2 px-5 py-3 border-b-2 border-suspended/60 bg-suspended-soft/60">
-            <AlertTriangle className="h-4 w-4 text-suspended shrink-0" strokeWidth={2.5} aria-hidden />
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-suspended">
-              Not medical advice · Not a safety guarantee
-            </p>
-          </header>
-          <ul className="divide-y divide-suspended/30">
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-3">
+          // Jurisdictional Boundaries &amp; Limitations
+        </p>
+        <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
+          <ul className="divide-y divide-border">
             {notProcess.map((n, i) => (
-              <li key={i} className="px-5 py-4 t-body-sm text-foreground/90 leading-[1.6]">
-                {n}
+              <li
+                key={i}
+                className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline"
+              >
+                <div className="col-span-2 md:col-span-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
+                  L{i + 1}
+                </div>
+                <div className="col-span-10 md:col-span-11 t-body-sm text-foreground/85 leading-[1.6]">
+                  {n}
+                </div>
               </li>
             ))}
           </ul>
