@@ -1,30 +1,31 @@
 
 
-## DocJumpBar: Smooth Header-Reveal Transition
+## SiteHeader: Require Stronger Scroll-Up Intent
 
-When the main `SiteHeader` re-appears on scroll-up, the DocJumpBar's `top` value snaps from `0px` → `64px` instantly because `headerVisible` is a boolean state change with no easing. The bar visibly jumps down 64px in a single frame.
+Currently `SiteHeader` re-appears after just `delta < -8` pixels of upward scroll — so any small upward nudge (trackpad inertia, reading rhythm) reveals it. That feels twitchy and pulls the DocJumpBar down with it.
 
 ### Fix
 
-Single file: `src/components/DocJumpBar.tsx`. One small change.
+Single file: `src/components/SiteHeader.tsx`. Change the reveal trigger from a per-frame delta check to an **accumulated upward-scroll distance** that must exceed a meaningful threshold before the header shows.
 
-### Animate the `top` offset
+### Logic change
 
-Instead of binding `top` directly to `headerVisible`, interpolate it through a local `headerOffset` value that eases between `0` and `64` whenever `headerVisible` flips.
+Replace the current `delta < -8` instant trigger with an accumulator:
 
-Two viable approaches — going with **CSS transition** since it's the simplest and matches the header's own 200ms ease-out timing:
-
-- Move `top` off inline style and onto a CSS transition: add `transition: top 200ms ease-out` to the nav's style.
-- Keep `top` driven by `headerVisible` (`64px` when visible, `0px` when hidden), but because the property now has a transition, the change tweens instead of snapping.
-- Match `SiteHeader`'s existing `transition-transform duration-200 ease-out` so the bar slides down in lockstep with the header sliding in — they move as one unit.
-
-### Also: keep scroll-linked geometry untouched
-
-Width, radius, shadow, border opacity, padding, and negative margin all stay as scroll-scrubbed inline styles with no CSS transition. Only `top` gets the 200ms ease — that's the only property that changes via discrete state rather than scroll position, so it's the only one that needs CSS easing.
+- Track `upwardAccum` across scroll events.
+- On downward scroll (`delta > 0`): reset `upwardAccum = 0` and hide if past `y > 120`.
+- On upward scroll (`delta < 0`): add `-delta` to `upwardAccum`. Only call `setVisible(true)` once `upwardAccum > 400` (roughly half a viewport section — a clear "I want to navigate away" gesture, not a reading micro-correction).
+- At `y <= 0` (top of page): always visible, reset accumulator.
 
 ### Result
 
-- Scroll up past threshold → `SiteHeader` slides down (200ms) and DocJumpBar's `top` eases from `0` → `64px` over the same 200ms. They move together, no jump.
-- Scroll down past threshold → header slides up, DocJumpBar eases from `64` → `0`. Same smooth choreography in reverse.
-- Pill ↔ bar morph remains scroll-scrubbed and unaffected.
+- Small upward scrolls during reading: header stays hidden, DocJumpBar stays docked at `top: 0`. No twitch.
+- Sustained upward scroll (~400px, roughly half a section): header slides in, DocJumpBar eases down with it via the existing 200ms `top` transition.
+- Scroll-to-top: header always visible at `y = 0`.
+
+Threshold of 400px is tunable — that's "user is clearly reversing direction to leave," not "user paused."
+
+### No other files touched
+
+DocJumpBar already eases its `top` via CSS transition, so it inherits the smoother behavior automatically.
 
