@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Logo } from "./Logo";
 
 type LinkRow = {
   to: string;
@@ -57,7 +56,7 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
   <li>
     <Link
       to={row.to}
-      className="block text-[12px] hover:text-white transition-colors"
+      className="block font-sans text-[13px] hover:text-white transition-colors"
       style={{ color: MUTED }}
     >
       {row.label}
@@ -74,29 +73,44 @@ export const SiteFooter = () => {
       style={{
         backgroundColor: FOOTER_BG,
         paddingBottom: "80px",
+        borderTop: "1px solid #0B1A33",
       }}
     >
-      <div className="page-shell pt-12 md:pt-14">
+      <div className="page-shell pt-14 md:pt-16">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-12 items-start text-left">
             <div className="lg:col-span-1">
-              <Logo />
+              <Link to="/" className="inline-block hover:opacity-90 transition-opacity" aria-label="Source Standard, home">
+                <span
+                  className="block text-white"
+                  style={{
+                    fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                    fontSize: "22px",
+                    fontWeight: 800,
+                    letterSpacing: "-0.018em",
+                    lineHeight: 1.1,
+                  }}
+                >
+                  Source Standard
+                </span>
+              </Link>
               <p
-                className="mt-5 text-[12px]"
-                style={{ color: MUTED }}
+                className="mt-4 font-sans text-[12px]"
+                style={{ color: MUTED, letterSpacing: "0.01em" }}
               >
-                Source Standard · United States
+                United States · Public Reference System
               </p>
             </div>
 
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-4 text-[12px] font-semibold text-white"
+                  className="mb-4 font-sans text-[12px] font-semibold uppercase text-white"
+                  style={{ letterSpacing: "0.08em" }}
                 >
                   {col.title}
                 </p>
-                <ul className="space-y-2">
+                <ul className="space-y-2.5">
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
@@ -104,7 +118,7 @@ export const SiteFooter = () => {
                     <li>
                       <Link
                         to="/apply"
-                        className="inline-flex items-center gap-1 text-[12px] font-medium text-white hover:text-white/80 transition-colors"
+                        className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
                       >
                         Begin Verification <span aria-hidden="true">→</span>
                       </Link>
@@ -116,36 +130,36 @@ export const SiteFooter = () => {
           </div>
         </div>
 
-        {/* System status + legal band */}
+        {/* Legal band — hard-cut hairline, no gradients */}
         <div
-          className="mt-12 pt-6"
+          className="mt-14 pt-6"
           style={{ borderTop: `1px solid ${HAIRLINE}` }}
         >
-          <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-4">
+          <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
+            <p
+              className="font-sans text-[11px]"
+              style={{ color: MUTED }}
+            >
+              © {now.getFullYear()} Source Standard. All Rights Reserved.
+            </p>
             <div className="flex items-center gap-2">
               <span
                 aria-hidden
-                className="inline-flex h-2 w-2 rounded-full animate-pulse"
+                className="inline-flex h-1.5 w-1.5 rounded-full animate-pulse"
                 style={{ backgroundColor: "#22C55E" }}
               />
               <span
-                className="text-[12px]"
-                style={{ color: MUTED }}
+                className="font-mono text-[10.5px] uppercase"
+                style={{ color: MUTED, letterSpacing: "0.12em" }}
               >
-                All systems operational
+                System Status: Operational
               </span>
             </div>
-            <p
-              className="text-[11px]"
-              style={{ color: MUTED }}
-            >
-              © {now.getFullYear()} Source Standard. All rights reserved.
-            </p>
           </div>
 
           <p
-            className="mt-5 max-w-[900px] text-[11px] leading-[1.7]"
-            style={{ color: MUTED }}
+            className="mt-5 max-w-[900px] font-sans text-[11px]"
+            style={{ color: MUTED, lineHeight: 1.7 }}
           >
             Source Standard is an independent public-reference and verification
             framework. Listings reflect documentation reviewed within a defined
