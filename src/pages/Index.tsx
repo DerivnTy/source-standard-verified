@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
+import { vendors } from "@/data/vendors";
 
 const homeWaypoints = [
   { id: "trust-problem", number: "1", label: "Problem" },
@@ -12,6 +14,86 @@ const homeWaypoints = [
   { id: "basics", number: "6", label: "Reference" },
   { id: "governance", number: "7", label: "Governance" },
 ];
+
+/* ───────────────── Live Dashboard ─────────────────
+   "Certificate of current scale" — stats stitched directly under the
+   DocJumpBar seam. 40px padding above/below, hairline border, and a
+   pulsing live dot anchored to the Total Vendors count. */
+const LiveDashboard = () => {
+  const stats = useMemo(() => {
+    const total = vendors.length;
+    const states = new Set(
+      vendors.map((v) => (v as { state?: string }).state).filter(Boolean)
+    ).size;
+    const verified = vendors.filter((v) => v.status === "verified").length;
+    return { total, states, verified };
+  }, []);
+
+  const Cell = ({
+    value,
+    label,
+    live = false,
+  }: {
+    value: number | string;
+    label: string;
+    live?: boolean;
+  }) => (
+    <div className="flex flex-col gap-2 p-5 sm:p-6">
+      <div className="flex items-center gap-2">
+        <span className="font-sans font-bold tracking-tight text-foreground text-[40px] sm:text-[48px] leading-none tabular-nums">
+          {typeof value === "number" ? value.toLocaleString("en-US") : value}
+        </span>
+        {live && (
+          <span
+            aria-hidden
+            className="inline-flex h-2 w-2 rounded-full animate-pulse"
+            style={{ backgroundColor: "#22C55E" }}
+          />
+        )}
+      </div>
+      <span
+        className="font-mono text-[11px] uppercase text-muted-foreground"
+        style={{ letterSpacing: "1px" }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+
+  return (
+    <section
+      aria-label="Live registry dashboard"
+      className="bg-background"
+      style={{ paddingTop: "40px", paddingBottom: "40px" }}
+    >
+      <div className="page-shell">
+        <div className="mx-auto w-standard">
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3"
+            style={{
+              border: "1px solid #F1F5F9",
+              borderRadius: "2px",
+            }}
+          >
+            <div style={{ borderRight: "1px solid #F1F5F9" }}>
+              <Cell value={stats.total} label="TOTAL_VENDORS" live />
+            </div>
+            <div>
+              <Cell value={stats.states} label="STATES_REPRESENTED" />
+            </div>
+            <div
+              className="col-span-2 sm:col-span-1"
+              style={{ borderTop: "1px solid #F1F5F9" }}
+            >
+              <Cell value={stats.verified} label="VERIFIED_SOURCING" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
 /* ───────────────── Hero actions (Navy) ─────────────────
    Surgical Ledger button protocol:
