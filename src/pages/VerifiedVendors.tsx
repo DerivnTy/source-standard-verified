@@ -26,17 +26,17 @@ type DeliveryKey = "any" | "online" | "local";
 const PAGE_SIZE = 10;
 
 const OUTCOME_PILLS: { value: OutcomeKey; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "skin", label: "Skin & Hair" },
-  { value: "longevity", label: "Longevity" },
-  { value: "trt", label: "TRT / Hormones" },
-  { value: "weight", label: "Weight Loss" },
-  { value: "wellness", label: "General Wellness" },
+  { value: "all", label: "ALL" },
+  { value: "skin", label: "SKIN" },
+  { value: "longevity", label: "LONGEVITY" },
+  { value: "trt", label: "TRT" },
+  { value: "weight", label: "WEIGHT" },
+  { value: "wellness", label: "WELLNESS" },
 ];
 
 const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
-  { value: "online", label: "🌐 Online / Telehealth" },
-  { value: "local", label: "📍 Local / In-Person" },
+  { value: "online", label: "ONLINE" },
+  { value: "local", label: "LOCAL" },
 ];
 
 /** Match vendor to consumer outcome bucket. */
