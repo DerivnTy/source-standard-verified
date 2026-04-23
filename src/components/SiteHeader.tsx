@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
@@ -175,136 +176,156 @@ export const SiteHeader = () => {
         </button>
       </div>
 
-      {/* Full-screen immersive mobile overlay */}
-      <div
-        className="lg:hidden fixed inset-0 z-[60]"
-        aria-hidden={!open}
-        style={{
-          pointerEvents: open ? "auto" : "none",
-          opacity: open ? 1 : 0,
-          transform: open ? "scale(1)" : "scale(1.015)",
-          transition:
-            "opacity 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 320ms cubic-bezier(0.22, 1, 0.36, 1)",
-          backgroundColor: "hsl(var(--navy-surface) / 0.92)",
-          backdropFilter: "blur(40px) saturate(160%)",
-          WebkitBackdropFilter: "blur(40px) saturate(160%)",
-        }}
-      >
-        <div className="flex h-full w-full flex-col">
-          {/* Top bar — logo left, close right (matches header height) */}
-          <div className="container-wide flex h-16 shrink-0 items-center justify-between">
-            <span
-              className="t-body-md font-semibold"
-              style={{ color: "hsl(var(--background))" }}
-            >
-              Source Standard
-            </span>
-            {/* Close button (X) — re-uses morphing icon via main header button */}
-            <span aria-hidden style={{ width: "36px", height: "36px" }} />
-          </div>
-
-          {/* Nav list */}
-          <nav className="container-wide flex-1 overflow-hidden">
-            <ul className="flex flex-col">
-              {mobileNav.map((n, idx) => (
-                <li
-                  key={n.to}
-                  style={{
-                    borderTop:
-                      idx === 0
-                        ? "0.5px solid hsl(var(--background) / 0.14)"
-                        : "none",
-                    borderBottom: "0.5px solid hsl(var(--background) / 0.14)",
-                  }}
-                >
-                  <NavLink
-                    to={n.to}
-                    end
-                    onClick={() => setOpen(false)}
-                    className="flex w-full items-center justify-between transition-opacity hover:opacity-80"
-                    style={{
-                      paddingTop: "32px",
-                      paddingBottom: "32px",
-                      color: "hsl(var(--background))",
-                    }}
-                  >
-                    {({ isActive }) => (
-                      <>
-                        <span
-                          className="t-section-title-sm"
-                          style={{
-                            fontWeight: 400,
-                            opacity: isActive ? 1 : 0.92,
-                          }}
-                        >
-                          {n.label}
-                        </span>
-                        <svg
-                          aria-hidden
-                          viewBox="0 0 16 16"
-                          width="14"
-                          height="14"
-                          style={{
-                            opacity: 0.5,
-                            color: "hsl(var(--background))",
-                          }}
-                        >
-                          <path
-                            d="M5 3l5 5-5 5"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </>
-                    )}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-
-            {/* Apply CTA — invitation, not advertisement */}
-            <Link
-              to="/apply"
-              onClick={() => setOpen(false)}
-              className="mt-10 flex h-12 w-full items-center justify-center t-button transition-colors hover:bg-[hsl(var(--background))]/[0.06]"
-              style={{
-                border: "1px solid hsl(var(--background) / 0.55)",
-                color: "hsl(var(--background))",
-                borderRadius: "2px",
-              }}
-            >
-              Apply for Verification
-            </Link>
-          </nav>
-
-          {/* Pinned status footer */}
+      {/* Full-screen immersive mobile overlay — portaled to body to escape
+          the sticky header's transform context (fixed children would otherwise
+          be clipped/translated when the header hides on scroll). */}
+      {typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="container-wide flex shrink-0 items-center justify-center gap-2 t-meta-note"
+            className="lg:hidden fixed inset-0 z-[9999]"
+            aria-hidden={!open}
             style={{
-              color: "hsl(var(--background) / 0.55)",
-              paddingTop: "16px",
-              paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 18px)",
+              pointerEvents: open ? "auto" : "none",
+              opacity: open ? 1 : 0,
+              transform: open ? "scale(1)" : "scale(1.015)",
+              transition:
+                "opacity 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 320ms cubic-bezier(0.22, 1, 0.36, 1)",
+              backgroundColor: "hsl(var(--navy-surface) / 0.92)",
+              backdropFilter: "blur(40px) saturate(160%)",
+              WebkitBackdropFilter: "blur(40px) saturate(160%)",
             }}
           >
-            <span
-              aria-hidden
-              className="inline-block animate-pulse"
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "9999px",
-                backgroundColor: "hsl(142 65% 55%)",
-              }}
-            />
-            <span>System Operational</span>
-            <span style={{ color: "hsl(var(--background) / 0.3)" }}>·</span>
-            <span>{APP_VERSION}</span>
-          </div>
-        </div>
-      </div>
+            <div className="flex h-full w-full flex-col">
+              {/* Top bar — logo + close (matches header height) */}
+              <div className="container-wide flex h-16 shrink-0 items-center justify-between">
+                <span
+                  className="t-body-md font-semibold"
+                  style={{ color: "hsl(var(--background))" }}
+                >
+                  Source Standard
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                  className="relative h-9 w-9"
+                  style={{ color: "hsl(var(--background))" }}
+                >
+                  <span
+                    aria-hidden
+                    className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 bg-current"
+                    style={{ transform: "translate(-50%, -50%) rotate(45deg)" }}
+                  />
+                  <span
+                    aria-hidden
+                    className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 bg-current"
+                    style={{ transform: "translate(-50%, -50%) rotate(-45deg)" }}
+                  />
+                </button>
+              </div>
+
+              {/* Nav list */}
+              <nav className="container-wide flex-1 overflow-hidden">
+                <ul className="flex flex-col">
+                  {mobileNav.map((n, idx) => (
+                    <li
+                      key={n.to}
+                      style={{
+                        borderTop:
+                          idx === 0
+                            ? "0.5px solid hsl(var(--background) / 0.14)"
+                            : "none",
+                        borderBottom: "0.5px solid hsl(var(--background) / 0.14)",
+                      }}
+                    >
+                      <NavLink
+                        to={n.to}
+                        end
+                        onClick={() => setOpen(false)}
+                        className="flex w-full items-center justify-between transition-opacity hover:opacity-80"
+                        style={{
+                          paddingTop: "32px",
+                          paddingBottom: "32px",
+                          color: "hsl(var(--background))",
+                        }}
+                      >
+                        {({ isActive }) => (
+                          <>
+                            <span
+                              className="t-section-title-sm"
+                              style={{
+                                fontWeight: 400,
+                                opacity: isActive ? 1 : 0.92,
+                              }}
+                            >
+                              {n.label}
+                            </span>
+                            <svg
+                              aria-hidden
+                              viewBox="0 0 16 16"
+                              width="14"
+                              height="14"
+                              style={{
+                                opacity: 0.5,
+                                color: "hsl(var(--background))",
+                              }}
+                            >
+                              <path
+                                d="M5 3l5 5-5 5"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </>
+                        )}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  to="/apply"
+                  onClick={() => setOpen(false)}
+                  className="mt-10 flex h-12 w-full items-center justify-center t-button transition-colors hover:bg-[hsl(var(--background))]/[0.06]"
+                  style={{
+                    border: "1px solid hsl(var(--background) / 0.55)",
+                    color: "hsl(var(--background))",
+                    borderRadius: "2px",
+                  }}
+                >
+                  Apply for Verification
+                </Link>
+              </nav>
+
+              <div
+                className="container-wide flex shrink-0 items-center justify-center gap-2 t-meta-note"
+                style={{
+                  color: "hsl(var(--background) / 0.55)",
+                  paddingTop: "16px",
+                  paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 18px)",
+                }}
+              >
+                <span
+                  aria-hidden
+                  className="inline-block animate-pulse"
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "9999px",
+                    backgroundColor: "hsl(142 65% 55%)",
+                  }}
+                />
+                <span>System Operational</span>
+                <span style={{ color: "hsl(var(--background) / 0.3)" }}>·</span>
+                <span>{APP_VERSION}</span>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
     </header>
   );
 };
