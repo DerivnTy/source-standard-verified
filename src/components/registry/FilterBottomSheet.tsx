@@ -35,13 +35,18 @@ export const FilterBottomSheet = ({
       <Dialog.Content
         aria-describedby={undefined}
         onPointerDownOutside={() => onOpenChange(false)}
-        className="fixed inset-x-0 bottom-0 z-50 max-h-[70vh] overflow-hidden bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom"
+        className="fixed inset-x-0 bottom-0 z-50 max-h-[70vh] overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom"
         style={{
           borderTopLeftRadius: "24px",
           borderTopRightRadius: "24px",
           boxShadow: "0 -12px 40px -12px rgba(0,0,0,0.18)",
           animationDuration: "300ms",
           animationTimingFunction: "cubic-bezier(0.32, 0.72, 0, 1)",
+          background:
+            "linear-gradient(180deg, hsl(var(--background) / 0.96) 0%, hsl(var(--background) / 0.88) 100%)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderTop: "1px solid hsl(var(--border) / 0.6)",
         }}
       >
         {/* Grabber */}
