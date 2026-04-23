@@ -2,13 +2,17 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 
-/* ───────────────── Hero actions ───────────────── */
+/* ───────────────── Hero actions (Navy) ─────────────────
+   Surgical Ledger button protocol:
+   - 2px corner radius (rounded-[2px])
+   - 1px border, white on navy
+   - Transparent fill; subtle white/10 fill on hover/active */
 
 const ghostBtnPrimary =
-  "border-2 border-white text-white px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 transition-colors";
+  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 active:bg-white/15 transition-colors";
 
 const ghostBtnSecondary =
-  "border border-white/40 text-white px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 hover:border-white transition-colors";
+  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 active:bg-white/15 transition-colors";
 
 const HeroActions = () => (
   <>
@@ -21,12 +25,15 @@ const HeroActions = () => (
   </>
 );
 
-/* Dark-on-light primary button used below the hero */
+/* ───────────────── Section 02 actions (White) ─────────────────
+   Black/navy 1px border, black text, no fill.
+   Same 2px radius — institutional, surgical. */
+
 const darkBtnPrimary =
-  "border-2 border-foreground text-foreground px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground hover:text-background transition-colors";
+  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
 
 const darkBtnSecondary =
-  "border border-foreground/40 text-foreground px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:border-foreground hover:bg-foreground/5 transition-colors";
+  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
 
 /* ───────────────── Static section data ───────────────── */
 
