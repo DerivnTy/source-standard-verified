@@ -472,91 +472,6 @@ const VendorProfile = () => {
                 )}
               </div>
 
-              {/* ===== Trust Rail (4/12) ===== */}
-              <aside className="lg:col-span-4 bg-muted/20">
-                <div className="px-6 md:px-7 py-6">
-                  <div className="flex items-center gap-2 mb-5">
-                    <ShieldCheck
-                      className="h-4 w-4 text-muted-foreground"
-                      aria-hidden
-                    />
-                    <p className="t-utility-xs uppercase tracking-[0.16em] text-foreground font-semibold">
-                      Trust Record
-                    </p>
-                  </div>
-
-                  {/* Locked rail order — always-rendered rows */}
-                  <dl className="border-t border-border/50">
-                    <RailRow
-                      label="Status"
-                      value={VENDOR_STATUS_LABEL[status]}
-                    />
-                    <RailRow
-                      label="Last reviewed"
-                      value={isVerified ? vendor.reviewDate : undefined}
-                    />
-                    <RailRow
-                      label="Review ID"
-                      value={isVerified ? vendor.reviewId : undefined}
-                      mono={isVerified && !!vendor.reviewId}
-                    />
-                    <RailRow label="Source type" value={sourceType} mono />
-                    <RailRow
-                      label="Clinical focus"
-                      value={vendor.clinicalFocus}
-                    />
-                    <RailRow
-                      label="Medical director"
-                      value={vendor.medicalDirector}
-                    />
-                  </dl>
-
-                  {isVerified && (
-                    <div className="mt-6 pt-5 border-t border-border/50">
-                      <p className="t-utility-xs uppercase tracking-[0.14em] text-foreground font-semibold mb-3">
-                        Reviewed Components
-                      </p>
-                      <ul className="space-y-2">
-                        {[
-                          "Sourcing documents",
-                          "Pharmacy relationship",
-                          "Public claims",
-                          "Clinical oversight",
-                        ].map((item) => (
-                          <li
-                            key={item}
-                            className="flex items-start gap-2.5 t-body-sm text-foreground"
-                          >
-                            <span
-                              aria-hidden
-                              className="mt-[7px] h-[6px] w-[6px] bg-verified shrink-0"
-                            />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  <Link
-                    to="/report-concern"
-                    className="group mt-6 flex items-center justify-between gap-3 border border-border bg-background px-4 py-3.5 hover:border-foreground/40 transition-colors"
-                  >
-                    <div>
-                      <p className="t-utility-xs uppercase tracking-[0.12em] text-foreground font-semibold">
-                        Report a concern
-                      </p>
-                      <p className="mt-0.5 t-utility-xs text-muted-foreground leading-[1.45]">
-                        Flag an inaccuracy or sourcing issue.
-                      </p>
-                    </div>
-                    <Flag
-                      className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0"
-                      aria-hidden
-                    />
-                  </Link>
-                </div>
-              </aside>
             </div>
 
             {/* ---------- FOOTER STRIP ---------- */}
@@ -567,9 +482,13 @@ const VendorProfile = () => {
                   ? `Updated ${vendor.reviewDate}`
                   : "Listed in the directory"}
               </p>
-              <p className="t-utility-xs text-muted-foreground">
-                No payment influences inclusion or status.
-              </p>
+              <Link
+                to="/report-concern"
+                className="inline-flex items-center gap-1.5 t-utility-xs uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Flag aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.5 }} />
+                Report a concern
+              </Link>
             </div>
           </article>
         </div>
