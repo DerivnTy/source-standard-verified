@@ -228,9 +228,9 @@ const MedicalAdvisory = () => {
                   return (
                     <li
                       key={m.slug}
-                      className="flex flex-col rounded-md border border-border bg-card shadow-sm p-6"
+                      className="flex flex-col text-left rounded-[2px] border border-white/10 bg-[#112240] p-6"
                     >
-                      <div className="flex gap-5 pb-5 mb-5 border-b border-border/60">
+                      <div className="flex flex-col items-start text-left gap-4 pb-5 mb-5 border-b border-white/10">
                         <img
                           src={m.photo}
                           alt={`Portrait of ${m.name}`}
@@ -238,29 +238,29 @@ const MedicalAdvisory = () => {
                           decoding="async"
                           width={96}
                           height={96}
-                          className="h-20 w-20 rounded-[2px] object-cover border border-border bg-surface-muted shrink-0 aspect-square"
+                          className="h-20 w-20 rounded-[2px] object-cover border border-white/15 shrink-0 aspect-square"
                         />
-                        <div className="flex-1 min-w-0">
-                          <h3 className="t-body-md font-semibold tracking-tight text-foreground leading-snug">
+                        <div className="w-full min-w-0 text-left">
+                          <h3 className="t-body-md font-semibold tracking-tight text-white leading-snug text-left">
                             {m.name}
-                            <span className="text-muted-foreground font-normal">, {m.credentials}</span>
+                            <span className="text-white/70 font-normal">, {m.credentials}</span>
                           </h3>
-                          <p className="mt-1.5 t-body-sm font-semibold text-foreground">{boardTitle}</p>
-                          <p className="mt-1 t-utility-xs text-muted-foreground">{m.specialization}</p>
-                          <p className="mt-2 t-utility-xs text-muted-foreground">
+                          <p className="mt-3 t-body-sm font-semibold text-white text-left">{boardTitle}</p>
+                          <p className="mt-1 t-utility-xs text-white/70 text-left">{m.specialization}</p>
+                          <p className="mt-2 t-utility-xs text-white/70 text-left">
                             {m.jurisdiction} · {m.yearsPracticing} practicing
                           </p>
                         </div>
                       </div>
 
-                      <p className="t-body-md text-foreground/85 flex-1">{m.shortSummary}</p>
+                      <p className="t-body-md text-white/85 flex-1 text-left">{m.shortSummary}</p>
 
-                      <div className="mt-5 flex justify-end">
+                      <div className="mt-5 flex justify-start">
                         <Link
                           to={`/medical-advisory/${m.slug}`}
-                          className="t-body-md text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
+                          className="t-body-md text-white hover:text-white/80 transition-colors underline-offset-4 hover:underline"
                         >
-                          View profile
+                          View profile →
                         </Link>
                       </div>
                     </li>
