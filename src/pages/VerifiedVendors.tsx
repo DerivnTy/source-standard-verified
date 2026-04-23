@@ -134,6 +134,10 @@ const VerifiedVendors = () => {
 
   
   const statesRepresented = states.length;
+  const totalAudits = useMemo(
+    () => vendors.filter((v) => Boolean(v.reviewId)).length,
+    [],
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
