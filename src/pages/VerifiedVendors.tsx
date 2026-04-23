@@ -87,8 +87,8 @@ const formatLocation = (vendor: Vendor) => {
 
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
-  const [statusPill, setStatusPill] = useState<StatusPill>("all");
-  const [focus, setFocus] = useState<FocusKey>("all");
+  const [outcome, setOutcome] = useState<OutcomeKey>("all");
+  const [delivery, setDelivery] = useState<DeliveryKey>("any");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const states = useMemo(() => getVendorStates(), []);
@@ -107,7 +107,6 @@ const VerifiedVendors = () => {
       suspended: 0,
       removed: 0,
     };
-
     for (const vendor of vendors) next[vendor.status] += 1;
     return next;
   }, []);
@@ -119,28 +118,17 @@ const VerifiedVendors = () => {
   );
 
   const filtered = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-    const stateAbbr = resolveStateAbbr(query);
-
     return vendors.filter((vendor) => {
-      if (normalizedQuery) {
-        const haystack = [vendor.name, vendor.city, vendor.state]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-        const textMatch = haystack.includes(normalizedQuery);
-        const stateMatch = stateAbbr ? vendor.state === stateAbbr : false;
-        if (!textMatch && !stateMatch) return false;
+      if (!matchesQuery(vendor, query)) return false;
+      if (!matchesOutcome(vendor, outcome)) return false;
+      if (delivery !== "any") {
+        const f = fulfillmentByVendor.get(vendor.slug);
+        if (delivery === "online" && f === "in-person") return false;
+        if (delivery === "local" && f === "online") return false;
       }
-
-      if (statusPill === "verified" && vendor.status !== "verified") return false;
-      if (statusPill === "unverified" && vendor.status === "verified") return false;
-
-      if (!matchesFocus(vendor, focus)) return false;
-
       return true;
     });
-  }, [query, statusPill, focus]);
+  }, [query, outcome, delivery, fulfillmentByVendor]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -150,15 +138,12 @@ const VerifiedVendors = () => {
   const visibleItems = sorted.slice(0, visibleCount);
   const hasMore = visibleCount < sorted.length;
 
+  // Fade key — re-triggers fade-in animation on filter change
+  const fadeKey = `${query}|${outcome}|${delivery}`;
+
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, statusPill, focus]);
-
-  const pills: { value: StatusPill; label: string }[] = [
-    { value: "all", label: "All" },
-    { value: "verified", label: "Verified" },
-    { value: "unverified", label: "Unverified" },
-  ];
+  }, [query, outcome, delivery]);
 
   return (
     <>
@@ -186,13 +171,13 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pt-10 pb-20 md:pt-12 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Universal search */}
+            {/* Universal smart search */}
             <div className="px-5 md:px-0">
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search by name, city, or state..."
-                aria-label="Search by name, city, or state"
+                aria-label="Search by name, city, state, or category"
                 className="font-sans w-full bg-transparent py-3 text-[16px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
                 style={{
                   borderBottom: "1px solid hsl(var(--border))",
@@ -209,19 +194,55 @@ const VerifiedVendors = () => {
               />
             </div>
 
-            {/* Status pill bar — horizontal scroll, no Apply */}
+            {/* Delivery toggle (Online / Local) */}
             <div
               className="mt-4 flex gap-2 overflow-x-auto px-5 md:px-0"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               <style>{`.pill-scroll::-webkit-scrollbar{display:none}`}</style>
-              {pills.map((p) => {
-                const active = statusPill === p.value;
+              {DELIVERY_PILLS.map((p) => {
+                const active = delivery === p.value;
                 return (
                   <button
                     key={p.value}
                     type="button"
-                    onClick={() => setStatusPill(p.value)}
+                    onClick={() =>
+                      setDelivery((curr) => (curr === p.value ? "any" : p.value))
+                    }
+                    aria-pressed={active}
+                    className="pill-scroll shrink-0 rounded-full px-4 font-sans text-[13px] font-medium transition-all"
+                    style={{
+                      height: "34px",
+                      backgroundColor: active
+                        ? "hsl(var(--navy-surface))"
+                        : "transparent",
+                      color: active
+                        ? "hsl(var(--background))"
+                        : "hsl(var(--foreground))",
+                      border: active
+                        ? "1px solid hsl(var(--navy-surface))"
+                        : "1px solid hsl(var(--border))",
+                    }}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Outcome pill row — single-tap consumer filter */}
+            <div
+              className="mt-2.5 flex gap-2 overflow-x-auto px-5 md:px-0"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {OUTCOME_PILLS.map((p) => {
+                const active = outcome === p.value;
+                return (
+                  <button
+                    key={p.value}
+                    type="button"
+                    onClick={() => setOutcome(p.value)}
+                    aria-pressed={active}
                     className="pill-scroll shrink-0 rounded-full px-4 font-sans text-[13.5px] font-medium transition-all"
                     style={{
                       height: "34px",
@@ -240,15 +261,6 @@ const VerifiedVendors = () => {
                   </button>
                 );
               })}
-              <div className="shrink-0">
-                <FocusFilter
-                  value={focus}
-                  onChange={(v) => setFocus(v as FocusKey)}
-                  options={FOCUS_OPTIONS}
-                  placeholder="Category"
-                  selectedPrefix="Focus"
-                />
-              </div>
             </div>
 
             {/* Vendor card stack */}
