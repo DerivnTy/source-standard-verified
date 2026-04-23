@@ -409,20 +409,18 @@ const VerifiedVendors = () => {
 
       <RegistryHeader
         indexNumber="01"
-        title="The Public Trust Registry"
-        description="National sourcing transparency. Verified supply chains. Public record."
-        scopeText="How verification works"
-        scopeHref="/how-it-works"
+        title="Verified Registry"
+        statusLine="REGISTRY_STATUS // ACTIVE"
         recordCount={vendors.length}
+        hideRecordPill
       />
 
       <RegistryHorizon
         seam
         cells={[
-          { label: "Total Vendors", value: vendors.length },
+          { label: "Vendors Verified", value: counts.verified },
           { label: "States Represented", value: statesRepresented },
-          { label: "Verified Sourcing", value: counts.verified },
-          { label: "Registry Status", value: "ACTIVE", live: true },
+          { label: "Total Audits", value: totalAudits },
         ]}
       />
 
