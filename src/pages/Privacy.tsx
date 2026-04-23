@@ -17,7 +17,7 @@ const sections: Section[] = [
     id: "partitioning",
     n: "01",
     category: "PARTITIONING",
-    title: "Record Partitioning & Access Control",
+    title: "Record Partitioning & PAM Classification",
     points: [
       "Source Standard maintains a strict operational divide between public disclosures and Protected Audit Material (PAM).",
       "Public Registry Data: Limited to business identity, verification categories, current status, and status dates. This data is available for public reference.",
@@ -104,6 +104,7 @@ const Privacy = () => (
         category={s.category}
         title={s.title}
         muted={i % 2 === 1}
+        hideEyebrow
       >
         <ul className="space-y-4">
           {s.points.map((p, idx) => (

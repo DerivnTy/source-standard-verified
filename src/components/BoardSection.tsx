@@ -16,6 +16,7 @@ export const BoardSection = ({
   rationale,
   muted = false,
   id,
+  hideEyebrow = false,
   children,
 }: {
   n: string | number;
@@ -24,6 +25,7 @@ export const BoardSection = ({
   rationale?: ReactNode;
   muted?: boolean;
   id?: string;
+  hideEyebrow?: boolean;
   children: ReactNode;
 }) => (
   <section
@@ -35,9 +37,13 @@ export const BoardSection = ({
     <div className="page-shell section-pad">
       <div className="mx-auto w-standard grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
-          <p className="t-utility-xs text-muted-foreground mb-4">
-            {category ? `§${n} · ${category}` : `§${n}`}
-          </p>
+          {hideEyebrow ? (
+            <p className="t-utility-xs text-muted-foreground/60 mb-3">{n}</p>
+          ) : (
+            <p className="t-utility-xs text-muted-foreground mb-4">
+              {category ? `§${n} · ${category}` : `§${n}`}
+            </p>
+          )}
           <h2 className="t-section-title-sm text-foreground">{title}</h2>
           {rationale && (
             <p className="mt-4 t-body-md text-muted-foreground">{rationale}</p>

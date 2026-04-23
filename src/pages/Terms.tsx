@@ -18,7 +18,7 @@ const sections: Section[] = [
     id: "acceptance",
     n: "01",
     category: "ACCEPTANCE",
-    title: "Acceptance of Terms",
+    title: "Registry Access & Acceptance",
     points: [
       "Access to the Source Standard public registry constitutes binding acceptance of this agreement and the associated Data Governance Policy.",
       "If any term is not accepted, the user must immediately discontinue use of the registry and its associated framework documents.",
@@ -113,6 +113,7 @@ const Terms = () => (
         category={s.category}
         title={s.title}
         muted={i % 2 === 1}
+        hideEyebrow
       >
         <ul className="space-y-4">
           {s.points.map((p, idx) => (
@@ -130,6 +131,7 @@ const Terms = () => (
       category="REFERENCE"
       title="Related Policies"
       muted={sections.length % 2 === 1}
+      hideEyebrow
     >
       <ul className="border-y border-border divide-y divide-border">
         {relatedPolicies.map((d) => (

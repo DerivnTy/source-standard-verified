@@ -18,7 +18,7 @@ const sections: Section[] = [
     id: "scope",
     n: "01",
     category: "SCOPE",
-    title: "Scope of Administrative Attestation",
+    title: "Administrative Attestation Scope",
     points: [
       "A Source Standard verification is defined as an Attestation of Record Consistency.",
       "It is an administrative finding that an entity's documented sourcing, licenses, and operating records are internally consistent with their public-facing claims.",
@@ -97,6 +97,7 @@ const VerificationDisclaimer = () => (
         category={s.category}
         title={s.title}
         muted={i % 2 === 1}
+        hideEyebrow
       >
         <ul className="space-y-4">
           {s.points.map((p, idx) => (
