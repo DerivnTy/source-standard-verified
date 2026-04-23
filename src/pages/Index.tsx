@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
+import { DocJumpBar } from "@/components/DocJumpBar";
+
+const homeWaypoints = [
+  { id: "trust-problem", number: "1", label: "Problem" },
+  { id: "how-it-works", number: "2", label: "How it works" },
+  { id: "live-registry", number: "3", label: "Registry" },
+  { id: "registry-shows", number: "4", label: "Fields" },
+  { id: "why-matters", number: "5", label: "Function" },
+  { id: "basics", number: "6", label: "Reference" },
+  { id: "governance", number: "7", label: "Governance" },
+];
 
 /* ───────────────── Hero actions (Navy) ─────────────────
    Surgical Ledger button protocol:
@@ -130,6 +141,9 @@ const Index = () => {
         tone="navy"
         actions={<HeroActions />}
       />
+
+      {/* DocJumpBar — bridges navy hero seam into white Section 01 */}
+      <DocJumpBar waypoints={homeWaypoints} />
 
       {/* §2 — The trust problem */}
       <section aria-labelledby="trust-problem" className="border-b border-border bg-background">

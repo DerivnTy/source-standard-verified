@@ -110,7 +110,7 @@ export const DocJumpBar = ({
   }, []);
 
   // Interpolated geometry — pill throughout
-  const widthPct = isMobile ? 90 : lerp(86, 96, eased);
+  const widthPct = isMobile ? 92 : lerp(86, 96, eased);
   const maxWidthPx = lerp(1200, 1360, eased);
   const navPadY = lerp(8, 4, eased);
   const navPadX = lerp(22, 20, eased);
@@ -279,8 +279,11 @@ const PillContents = ({
         overflow: "hidden",
       }}
     >
-      <span className="meta-mono shrink-0 text-foreground/70">
-        Contents ·
+      <span
+        className="shrink-0 font-mono text-[11px] uppercase text-foreground/70"
+        style={{ letterSpacing: "1px" }}
+      >
+        CONTENTS ·
       </span>
       <ul
         ref={ulRef}
@@ -294,7 +297,7 @@ const PillContents = ({
         {waypoints.map((w) => {
           const active = w.id === activeId;
           const chip =
-            "inline-flex items-center gap-2 t-utility-xs font-mono font-medium transition-colors";
+            "inline-flex items-center gap-2 font-mono text-[11px] uppercase font-medium transition-colors";
           const tone = active
             ? "text-foreground"
             : "text-muted-foreground hover:text-foreground";
@@ -314,6 +317,7 @@ const PillContents = ({
                   paddingRight: `${itemPadX}px`,
                   paddingTop: `${chipPadY}px`,
                   paddingBottom: `${chipPadY}px`,
+                  letterSpacing: "1px",
                 }}
               >
                 <span className="text-primary">{w.number.padStart(2, "0")}.</span>
