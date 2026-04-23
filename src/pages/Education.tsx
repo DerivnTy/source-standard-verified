@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
@@ -108,45 +109,37 @@ const FAQ_BUTTONS: { label: string; to: string }[] = [
 // ---------- Components ----------
 
 const ArticleCell = ({ entry }: { entry: ArticleLink }) => (
-  <li>
-    <Link
-      to={routeFor(entry.slug)}
-      className="group block rounded-md border border-border bg-card shadow-sm p-5 h-full transition-colors hover:bg-surface-muted"
-    >
-      <h3 className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-        {entry.title}
-      </h3>
-      <p className="mt-2 t-body-sm text-muted-foreground leading-[1.55]">
-        {entry.blurb}
-      </p>
-    </Link>
-  </li>
+  <Link
+    to={routeFor(entry.slug)}
+    className="group block px-5 py-4 transition-colors hover:bg-surface-muted"
+  >
+    <h3 className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+      {entry.title}
+    </h3>
+    <p className="mt-1.5 t-body-sm text-muted-foreground leading-[1.55]">
+      {entry.blurb}
+    </p>
+  </Link>
 );
 
 const Column = ({
-  eyebrow,
   title,
   entries,
-  reviewed,
 }: {
-  eyebrow: string;
   title: string;
   entries: ArticleLink[];
-  reviewed?: boolean;
 }) => (
-  <div className="flex flex-col">
-    <p className="t-eyebrow-sm text-muted-foreground mb-3">{eyebrow}</p>
-    <h2 className="t-h3 text-foreground leading-tight">{title}</h2>
-    {reviewed && (
-      <p className="mt-2 t-utility-xs text-muted-foreground/80">
-        Reviewed by Medical Advisory Board
-      </p>
-    )}
-    <ul className="mt-6 grid gap-3 flex-1">
+  <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden flex flex-col">
+    <div className="px-5 py-3.5 border-b border-border bg-surface-muted/50">
+      <h2 className="t-body-md font-semibold text-foreground tracking-tight">
+        {title}
+      </h2>
+    </div>
+    <div className="divide-y divide-border flex-1">
       {entries.map((e) => (
         <ArticleCell key={e.slug} entry={e} />
       ))}
-    </ul>
+    </div>
   </div>
 );
 
@@ -170,36 +163,35 @@ const Education = () => {
         statement="Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed by the Medical Advisory Board."
       />
 
-      {/* Three-column knowledge base */}
-      <section className="bg-background border-b border-border">
-        <div className="page-shell py-12 md:py-14">
-          <div className="mx-auto w-standard">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
-              <Column
-                eyebrow="Column A"
-                title="Sourcing & Regulation"
-                entries={COLUMN_A}
-              />
-              <Column
-                eyebrow="Column B"
-                title="Clinical Handling"
-                entries={COLUMN_B}
-                reviewed
-              />
-              <Column
-                eyebrow="Column C"
-                title="Consumer Due Diligence"
-                entries={COLUMN_C}
-              />
+      {/* Three-column knowledge base — docked under hero, table-aligned width */}
+      <div className="bg-background">
+        <div className="page-shell">
+          <div className="mx-auto w-wide">
+            {/* Global peer-review badge — top-right of grid */}
+            <div className="-mt-5 md:-mt-6 relative z-10 mb-4 flex justify-end">
+              <span className="inline-flex items-center gap-2 rounded-md border border-border bg-card shadow-sm px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                <ShieldCheck
+                  className="h-3.5 w-3.5 text-verified"
+                  strokeWidth={2.25}
+                  aria-hidden
+                />
+                All content peer-reviewed by the Medical Advisory Board
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pb-12 md:pb-14">
+              <Column title="Sourcing & Regulation" entries={COLUMN_A} />
+              <Column title="Clinical Handling" entries={COLUMN_B} />
+              <Column title="Consumer Due Diligence" entries={COLUMN_C} />
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Common Inquiries */}
-      <section className="bg-surface-muted/60 border-b border-border" id="questions">
+      <section className="bg-surface-muted/60 border-y border-border" id="questions">
         <div className="page-shell py-12 md:py-14">
-          <div className="mx-auto w-standard">
+          <div className="mx-auto w-wide">
             <div className="mb-8 max-w-[60ch]">
               <h2 className="t-section-title-sm text-foreground">
                 Common Inquiries
@@ -235,7 +227,7 @@ const Education = () => {
       {/* Coming Soon footer */}
       <section className="bg-background">
         <div className="page-shell py-10">
-          <div className="mx-auto w-standard">
+          <div className="mx-auto w-wide">
             <p className="t-utility-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
               Coming soon
             </p>
