@@ -239,28 +239,13 @@ const Index = () => {
       >
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard text-center">
-            <h3
-              className="text-foreground"
-              style={{
-                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
-                fontSize: "20px",
-                fontWeight: 700,
-                letterSpacing: "-0.01em",
-              }}
-            >
+            <h3 className="t-eyebrow-sm text-foreground">
               The Source Standard
             </h3>
             <div className="mx-auto mt-5 h-px w-12 bg-border" aria-hidden="true" />
             <h2
               id="trust-problem"
-              className="mt-8 text-foreground mx-auto max-w-[22ch]"
-              style={{
-                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
-                fontSize: "clamp(32px, 6vw, 52px)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                letterSpacing: "-0.022em",
-              }}
+              className="mt-8 t-page-title text-foreground mx-auto max-w-[22ch]"
             >
               Branding is not documentation.
             </h2>
