@@ -131,6 +131,7 @@ const Terms = () => (
       category="REFERENCE"
       title="Related Policies"
       muted={sections.length % 2 === 1}
+      hideEyebrow
     >
       <ul className="border-y border-border divide-y divide-border">
         {relatedPolicies.map((d) => (
