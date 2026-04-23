@@ -498,6 +498,22 @@ const VerifiedVendors = () => {
                       : "No vendors match these filters. Try clearing one."
                   }
                 />
+              ) : view === "list" ? (
+                <ul className="rounded-[2px] border border-border bg-card overflow-hidden divide-y divide-border">
+                  {pageItems.map((v) => {
+                    const ful = fulfillmentByVendor.get(v.slug)!;
+                    return (
+                      <li key={v.slug}>
+                        <VendorAuditCard
+                          vendor={v}
+                          fulfillment={ful}
+                          location={formatLocation(v)}
+                          view="list"
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
               ) : (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {pageItems.map((v) => {
@@ -508,6 +524,7 @@ const VerifiedVendors = () => {
                           vendor={v}
                           fulfillment={ful}
                           location={formatLocation(v)}
+                          view="grid"
                         />
                       </li>
                     );
