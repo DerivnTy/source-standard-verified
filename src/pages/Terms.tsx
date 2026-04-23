@@ -97,7 +97,7 @@ const Terms = () => (
 
     <BriefingHero
       tone="navy"
-      category="Policy · Registry User Agreement"
+      category=""
       docId=""
       title="Registry User Agreement"
       statement="The binding framework governing the access, citation, and utilization of Source Standard registry data."
