@@ -5,7 +5,6 @@ import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
-import { RegistrySummaryStrip } from "@/components/registry/RegistrySummaryStrip";
 import {
   QueryBar,
   FacetSelect,
