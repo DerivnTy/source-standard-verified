@@ -5,7 +5,6 @@ import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
-import { RegistrySummaryStrip } from "@/components/registry/RegistrySummaryStrip";
 import {
   QueryBar,
   FacetSelect,
@@ -428,12 +427,12 @@ const VerifiedVendors = () => {
             ].map((cell) => (
               <div
                 key={cell.label}
-                className="flex flex-col justify-center px-5 md:px-7 py-5 md:py-6 min-h-[88px]"
+                className="flex flex-col items-start justify-center px-5 md:px-7 py-6 min-h-[96px]"
               >
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground leading-none">
                   {cell.label}
                 </span>
-                <span className="mt-2 font-mono text-[18px] md:text-[20px] leading-[1.1] font-medium tabular-nums text-foreground inline-flex items-center gap-2 whitespace-nowrap">
+                <span className="mt-3 font-mono text-[18px] md:text-[20px] leading-none font-medium tabular-nums text-foreground inline-flex items-center gap-2 whitespace-nowrap">
                   {cell.live && (
                     <span
                       aria-hidden
@@ -448,56 +447,9 @@ const VerifiedVendors = () => {
         </div>
       </div>
 
-      <RegistrySummaryStrip
-        cells={[
-          {
-            label: "Verified",
-            value: counts.verified,
-            tickClassName: "bg-verified",
-            shareOf: vendors.length,
-          },
-          {
-            label: "Unverified",
-            value: counts.unverified,
-            tickClassName: "bg-foreground/40",
-            shareOf: vendors.length,
-          },
-          ...(counts["under-review"] > 0
-            ? [{
-                label: "Under review",
-                value: counts["under-review"],
-                tickClassName: "bg-pending",
-                shareOf: vendors.length,
-              }]
-            : []),
-          ...(counts.suspended > 0
-            ? [{
-                label: "Suspended",
-                value: counts.suspended,
-                tickClassName: "bg-destructive",
-                shareOf: vendors.length,
-                tone: "destructive" as const,
-              }]
-            : []),
-          ...(counts.removed > 0
-            ? [{
-                label: "Removed",
-                value: counts.removed,
-                tickClassName: "bg-muted-foreground/60",
-                shareOf: vendors.length,
-              }]
-            : []),
-          {
-            label: "States represented",
-            value: statesRepresented,
-            tickClassName: "bg-foreground/40",
-          },
-        ]}
-      />
-
       {/* Query + result surface */}
       <section className="bg-background">
-        <div className="page-shell pt-8 md:pt-10 pb-12 md:pb-14">
+        <div className="page-shell pt-12 pb-12 md:pb-14">
           <div className="mx-auto w-wide">
             <QueryBar
               query={query}
