@@ -1,35 +1,41 @@
 
 
-## DocJumpBar: Restore Visibility on Scroll
+## DocJumpBar: Eliminate the Final Snap
 
-The bar disappears as you scroll because the sticky `<nav>` lives **inside** the 44px-tall seam zone wrapper. Sticky elements can only stick within their parent's bounds — once the seam zone scrolls out of view, the nav is clipped away with it. That's why it never docks at the top.
+The remaining "snap" is because `PillContents` has a hard className swap at `progress > 0.95`:
+
+```tsx
+flush ? "container-wide py-2" : "px-6 py-2"
+```
+
+At 95% progress, the inner padding/container instantly switches — that's the visible jolt right before the bar finishes widening. Geometry on the outer `<nav>` is already smooth; the inner content just isn't.
 
 ### Fix
 
-Single file: `src/components/DocJumpBar.tsx`.
+Single file: `src/components/DocJumpBar.tsx`. Two small changes.
 
-1. **Move the sticky nav out of the seam zone.** The seam zone keeps its 44px height + navy/white gradient as a pure visual anchor (no nav inside). The `<nav>` becomes a sibling that follows the seam in document flow.
+### 1. Remove the binary `flush` swap
 
-2. **Make the nav's sticky parent the page itself** (or at minimum a tall ancestor — the page body), so it can stick all the way down the article.
+Drop the `flush` prop and the `container-wide` / `px-6` ternary. Replace with **interpolated horizontal padding** driven by the same `progress` value already powering width and radius.
 
-3. **Anchor the resting position visually on the seam** by giving the nav a negative top margin equal to half the seam height. At rest it overlaps the seam (looking centered on the navy/white split); as the user scrolls, sticky takes over at `top: 64px` and the negative margin no longer matters.
+- At `progress = 0` (resting pill): `paddingLeft / paddingRight = 24px` (matches today's `px-6`).
+- At `progress = 1` (full bar): `paddingLeft / paddingRight = max((viewportWidth - 1200) / 2, 24)` — i.e. the inner content aligns with the site's `container-wide` max-width, but reached by smooth interpolation rather than a class swap.
 
-4. **Keep the scroll-linked width morph intact** — `progress` still drives width, radius, shadow, and border opacity exactly as today. Only the DOM placement changes.
+Apply as inline style on the inner flex row so it eases continuously alongside the outer geometry.
 
-### Structure
+### 2. Tighten the runway and easing
 
-```text
-<section seam-zone (44px, navy/white gradient)>  ← purely decorative
-<nav sticky top-64px, mx-auto, width = lerp(80%,100%,progress)>  ← sibling, sticks for entire article
-   Contents · 01 · 02 · 03 · …
-</nav>
-<article body…>
-```
+Right now `RUNWAY = 200px` of scroll drives the morph, but the inner-padding jump made the last 5% feel abrupt. With padding now interpolated:
+
+- Keep `RUNWAY = 200`.
+- Apply a gentle ease curve to `progress` before interpolating geometry: `eased = progress * progress * (3 - 2 * progress)` (smoothstep). This softens both ends so the morph eases in from rest and eases out into the docked state instead of arriving linearly.
+- Use `eased` for width, radius, shadow, border opacity, padding, and the negative top margin — every interpolated value gets the same curve, so they stay in lockstep.
 
 ### Result
 
-- At rest: pill sits visually on the seam (via negative top margin), 80% width, rounded.
-- Scrolling down: sticks at `top: 64px`, smoothly widens to 100% and squares off as `progress` → 1.
-- Scrolling up: reverses — narrows back to a pill, returns to seam.
-- Always visible throughout the article because its sticky container is now the page, not the 44px seam.
+- Outer width, radius, shadow, border: continuous (already working).
+- Inner padding: now also continuous — no class swap at 95%.
+- Smoothstep easing: motion settles gracefully at both endpoints instead of snapping into place.
+
+One consistent, scrubbed morph from pill to bar with no remaining discontinuities.
 
