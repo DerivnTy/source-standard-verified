@@ -424,10 +424,40 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
+            {/* Status Tabs — sharp rectangular, navy when active */}
+            <div
+              role="tablist"
+              aria-label="Filter by status"
+              className="mb-4 flex flex-wrap overflow-hidden rounded-[2px]"
+              style={{ border: "1px solid #64748B" }}
+            >
+              {STATUS_TABS.map((t, i) => {
+                const active = status === t.value;
+                return (
+                  <button
+                    key={t.value}
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setStatus(t.value)}
+                    className={`h-10 px-4 font-mono text-[12px] uppercase tracking-[0.08em] transition-colors ${
+                      i > 0 ? "border-l" : ""
+                    } ${
+                      active
+                        ? "bg-[hsl(var(--navy-surface))] text-white"
+                        : "bg-background text-muted-foreground hover:text-foreground hover:bg-surface-muted/40"
+                    }`}
+                    style={{ borderColor: "#64748B" }}
+                  >
+                    {t.label}
+                  </button>
+                );
+              })}
+            </div>
+
             <QueryBar
               query={query}
               onQueryChange={setQuery}
-              searchPlaceholder="Search by clinic name, doctor, or city…"
+              searchPlaceholder="[ SEARCH_VENDOR_ID ]"
               resultLabel={
                 sorted.length === 0
                   ? "0 of 0 records"
