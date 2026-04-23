@@ -18,7 +18,7 @@ export type ActiveChip = {
 export const QueryBar = ({
   query,
   onQueryChange,
-  searchPlaceholder = "Search…",
+  searchPlaceholder = "[ SEARCH REGISTRY_ ]",
   resultLabel,
   sortControl,
   facets,
@@ -50,17 +50,21 @@ export const QueryBar = ({
   }, []);
 
   return (
-    <div className="border border-border bg-background rounded-[3px] shadow-[0_1px_0_0_hsl(var(--border)/0.4)] overflow-hidden">
+    <div
+      className="bg-background rounded-[2px] overflow-hidden mx-5 md:mx-0"
+      style={{ border: "1px solid hsl(var(--border))" }}
+    >
       {/* Row 1: search + result count + sort */}
-      <div className="flex items-center gap-3 px-3.5 py-2.5 border-b border-border/60 bg-surface-muted/20">
-        <div className="relative flex-1 min-w-0">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+      <div className="flex flex-col md:flex-row md:items-center gap-3 px-3.5 py-3 border-b border-border/60 bg-surface-muted/20">
+        <div className="relative flex-1 min-w-0 w-full">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748B] pointer-events-none" />
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full pl-10 pr-16 h-11 bg-transparent border-0 t-body-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+            className="w-full pl-10 pr-16 h-12 bg-background rounded-[2px] font-mono text-[13px] text-foreground placeholder:text-[#64748B] placeholder:font-mono placeholder:tracking-[0.04em] focus:outline-none focus:ring-0"
+            style={{ border: "2px solid #64748B" }}
             aria-label="Search registry"
           />
           <kbd
@@ -74,11 +78,11 @@ export const QueryBar = ({
         <div className="hidden md:block t-micro text-muted-foreground tabular-nums whitespace-nowrap">
           {resultLabel}
         </div>
-        <div className="shrink-0">{sortControl}</div>
+        <div className="shrink-0 w-full md:w-auto">{sortControl}</div>
       </div>
 
       {/* Row 2: facets + reset */}
-      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 px-3.5 py-3">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-2 px-3.5 py-3">
         {facets}
         {hasActiveFilters && (
           <button
@@ -100,7 +104,7 @@ export const QueryBar = ({
             <button
               key={chip.key}
               onClick={chip.onRemove}
-              className="group inline-flex items-center gap-1.5 h-7 pl-2.5 pr-2 border border-foreground/15 bg-background hover:border-foreground/40 hover:bg-surface-muted t-micro text-foreground rounded-[2px] transition-all duration-150 shadow-[0_1px_0_0_hsl(var(--border)/0.3)]"
+              className="group inline-flex items-center gap-1.5 h-7 pl-2.5 pr-2 border border-foreground/15 bg-background hover:border-foreground/40 hover:bg-surface-muted t-micro text-foreground rounded-[2px] transition-all duration-150"
             >
               <span className="truncate max-w-[200px]">{chip.label}</span>
               <X className="h-3 w-3 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -130,8 +134,9 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-10 px-3.5 pr-9 bg-background border border-border/70 t-nav text-foreground rounded-[2px] hover:border-foreground/40 focus:outline-none focus:border-foreground/60 focus:ring-1 focus:ring-foreground/10 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_12px_center]"
+    className="h-10 w-full md:w-auto px-3.5 pr-9 bg-background t-nav text-foreground rounded-[2px] focus:outline-none focus:ring-0 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_12px_center]"
     style={{
+      border: "1px solid #64748B",
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
     }}
@@ -221,13 +226,14 @@ export const FacetToggle = ({
     type="button"
     aria-pressed={active}
     onClick={onClick}
-    className={`h-10 px-3.5 rounded-[2px] border t-utility-xs font-semibold transition-all duration-150 ${
+    className={`h-10 px-3.5 rounded-[2px] t-utility-xs font-semibold uppercase tracking-[0.06em] transition-all duration-150 ${
       active
         ? tone === "verified"
-          ? "bg-verified text-verified-foreground border-verified shadow-[0_1px_0_0_hsl(var(--verified)/0.4)]"
-          : "bg-foreground text-background border-foreground shadow-[0_1px_0_0_hsl(var(--foreground)/0.4)]"
-        : "bg-background text-muted-foreground border-border/70 hover:text-foreground hover:border-foreground/40"
+          ? "bg-verified text-verified-foreground"
+          : "bg-white text-black"
+        : "bg-background text-muted-foreground hover:text-foreground"
     }`}
+    style={{ border: "1px solid #64748B" }}
   >
     {children}
   </button>
