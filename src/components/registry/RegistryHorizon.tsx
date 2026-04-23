@@ -32,14 +32,14 @@ export const RegistryHorizon = ({
         {cells.map((cell) => (
           <div
             key={cell.label}
-            className="flex flex-col items-center justify-center text-center px-2 sm:px-4 py-3 sm:py-3.5"
+            className="flex flex-col items-center justify-center text-center px-1.5 sm:px-4 py-3 sm:py-3.5 min-w-0"
           >
-            <span className="font-mono text-[16px] sm:text-[19px] leading-none font-medium tabular-nums text-foreground whitespace-nowrap">
+            <span className="font-mono text-[18px] sm:text-[20px] leading-none font-medium tabular-nums text-foreground">
               {typeof cell.value === "number"
                 ? cell.value.toLocaleString()
                 : cell.value}
             </span>
-            <span className="mt-1.5 text-[10px] sm:text-[10.5px] font-medium uppercase tracking-[0.12em] text-muted-foreground leading-none">
+            <span className="mt-1.5 text-[9px] sm:text-[10.5px] font-medium uppercase tracking-[0.1em] sm:tracking-[0.12em] text-muted-foreground leading-none whitespace-nowrap">
               {cell.label}
             </span>
           </div>
