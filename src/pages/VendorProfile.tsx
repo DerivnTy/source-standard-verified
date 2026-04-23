@@ -158,7 +158,7 @@ const VendorProfile = () => {
 
   const status = vendor.status;
   const isVerified = status === "verified";
-  const theme = THEME[status];
+  
   const location = formatLocation(vendor);
   const fulfillment = getVendorFulfillment(vendor);
   const FulfillmentIcon = FULFILLMENT_ICON[fulfillment];
