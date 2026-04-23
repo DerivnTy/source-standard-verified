@@ -399,14 +399,14 @@ const VerifiedVendors = () => {
   return (
     <>
       <PageMeta
-        title="Verified Vendors · Public Trust Registry"
-        description="The public verification registry of clinics and vendors tracked under the Source Standard framework. Verified listings are pinned to the top."
+        title="The Public Trust Registry · Verified Vendors"
+        description="The national database for peptide and hormone sourcing transparency. Verify whether a clinic's sourcing has been substantiated by licensed facility records."
       />
 
       <RegistryHeader
         eyebrow="Public Trust Registry · Live"
-        title="Verified Vendors"
-        description="Where consumers find clinics and vendors with documented sourcing review. Verified listings rise to the top. Unverified listings are visible but distinct — verification reflects records, not medical-outcome promises."
+        title="The Public Trust Registry"
+        description="The national database for peptide and hormone sourcing transparency. Use this registry to verify if a clinic's sourcing has been substantiated by licensed facility records."
         scopeText="How verification works"
         scopeHref="/how-it-works"
         recordCount={vendors.length}
@@ -421,30 +421,36 @@ const VerifiedVendors = () => {
             shareOf: vendors.length,
           },
           {
-            label: "Under review",
-            value: counts["under-review"],
-            tickClassName: "bg-pending",
-            shareOf: vendors.length,
-          },
-          {
             label: "Unverified",
             value: counts.unverified,
-            tickClassName: "bg-muted-foreground",
+            tickClassName: "bg-foreground/40",
             shareOf: vendors.length,
           },
-          {
-            label: "Suspended",
-            value: counts.suspended,
-            tickClassName: "bg-destructive",
-            shareOf: vendors.length,
-            tone: counts.suspended > 0 ? "destructive" : "default",
-          },
-          {
-            label: "Removed",
-            value: counts.removed,
-            tickClassName: "bg-muted-foreground/60",
-            shareOf: vendors.length,
-          },
+          ...(counts["under-review"] > 0
+            ? [{
+                label: "Under review",
+                value: counts["under-review"],
+                tickClassName: "bg-pending",
+                shareOf: vendors.length,
+              }]
+            : []),
+          ...(counts.suspended > 0
+            ? [{
+                label: "Suspended",
+                value: counts.suspended,
+                tickClassName: "bg-destructive",
+                shareOf: vendors.length,
+                tone: "destructive" as const,
+              }]
+            : []),
+          ...(counts.removed > 0
+            ? [{
+                label: "Removed",
+                value: counts.removed,
+                tickClassName: "bg-muted-foreground/60",
+                shareOf: vendors.length,
+              }]
+            : []),
           {
             label: "States represented",
             value: statesRepresented,
@@ -460,7 +466,7 @@ const VerifiedVendors = () => {
             <QueryBar
               query={query}
               onQueryChange={setQuery}
-              searchPlaceholder="Search vendors, physicians, cities, clinical focus…"
+              searchPlaceholder="Search by clinic name, doctor, or city…"
               resultLabel={
                 sorted.length === 0
                   ? "0 of 0 records"
@@ -472,6 +478,9 @@ const VerifiedVendors = () => {
               onReset={reset}
               activeChips={activeChips}
             />
+            <p className="mt-3 text-[12px] text-muted-foreground">
+              Filter by state or fulfillment model to narrow your search.
+            </p>
 
             <div className="mt-5">
               {sorted.length === 0 ? (
@@ -488,20 +497,23 @@ const VerifiedVendors = () => {
                   {/* Desktop table */}
                   <div className="hidden md:block border-t border-border">
                     <div className="grid grid-cols-12 px-3 py-3 border-b border-border bg-surface-muted/30">
-                      <div className="col-span-4 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Vendor / Clinic
+                      <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Vendor / Entity
                       </div>
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Status
+                        Medical Director
+                      </div>
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Registry Status
                       </div>
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Location
                       </div>
-                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Mode
+                      <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Fulfillment
                       </div>
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Focus
+                        Primary Focus
                       </div>
                     </div>
 
@@ -525,15 +537,14 @@ const VerifiedVendors = () => {
                               }`}
                             />
 
-                            <div className="col-span-4 min-w-0 pr-2">
+                            <div className="col-span-3 min-w-0 pr-2">
                               <div className="text-[15px] font-semibold text-foreground leading-[22px] truncate">
                                 {v.name}
                               </div>
-                              {v.medicalDirector && (
-                                <div className="mt-0.5 text-[11.5px] text-muted-foreground truncate">
-                                  {v.medicalDirector}
-                                </div>
-                              )}
+                            </div>
+
+                            <div className="col-span-2 min-w-0 pr-3 text-[13px] text-muted-foreground truncate">
+                              {v.medicalDirector || "—"}
                             </div>
 
                             <div className="col-span-2 pr-3">
@@ -556,7 +567,7 @@ const VerifiedVendors = () => {
                               {formatLocation(v)}
                             </div>
 
-                            <div className="col-span-2 pr-3">
+                            <div className="col-span-1 pr-3">
                               <FulfillmentChip kind={ful} />
                             </div>
 
@@ -635,29 +646,82 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
-      {/* Status meaning legend — reference layer at the bottom */}
+      {/* Registry logic — reference layer at the bottom */}
       <section className="border-t border-border bg-surface-muted/30">
         <div className="page-shell py-12 md:py-14">
           <div className="mx-auto w-wide">
-            <p className="t-utility-xs text-muted-foreground mb-5">
-              What each status means
+            <p className="t-utility-xs text-muted-foreground mb-3">
+              Registry logic
             </p>
-            <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4 border-t border-border/50 pt-5">
-              {STATUS_ORDER.map((s) => (
-                <div key={s} className="flex items-start gap-4">
+            <h2 className="t-section-title-sm text-foreground max-w-[40ch]">
+              Understanding the Registry
+            </h2>
+
+            <dl className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 border-t border-border/50 pt-6">
+              <div className="flex items-start gap-4">
+                <div className="shrink-0 pt-0.5">
+                  <VerificationShield />
+                </div>
+                <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
+                  <span className="font-semibold text-foreground">Verified.</span>{" "}
+                  Sourcing has been cross-referenced with 503A/503B pharmacy records.
+                </p>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="shrink-0 pt-0.5">
+                  <StatusBadge status="unverified" />
+                </div>
+                <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
+                  <span className="font-semibold text-foreground">Unverified.</span>{" "}
+                  No documented sourcing on file. The vendor has not yet submitted to the Source Standard audit.
+                </p>
+              </div>
+              {counts["under-review"] > 0 && (
+                <div className="flex items-start gap-4">
                   <div className="shrink-0 pt-0.5">
-                    {s === "verified" ? (
-                      <VerificationShield />
-                    ) : (
-                      <StatusBadge status={s} />
-                    )}
+                    <StatusBadge status="under-review" />
                   </div>
                   <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
-                    {STATUS_LEGEND_DESC[s]}
+                    <span className="font-semibold text-foreground">Under review.</span>{" "}
+                    An application is currently undergoing audit.
                   </p>
                 </div>
-              ))}
+              )}
+              {counts.suspended > 0 && (
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 pt-0.5">
+                    <StatusBadge status="suspended" />
+                  </div>
+                  <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
+                    <span className="font-semibold text-foreground">Suspended.</span>{" "}
+                    A previously published verification has been temporarily paused.
+                  </p>
+                </div>
+              )}
+              {counts.removed > 0 && (
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 pt-0.5">
+                    <StatusBadge status="removed" />
+                  </div>
+                  <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
+                    <span className="font-semibold text-foreground">Removed.</span>{" "}
+                    Listing removed from the public directory; record preserved for transparency.
+                  </p>
+                </div>
+              )}
             </dl>
+
+            <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-border/50 pt-8">
+              <p className="text-[14px] text-foreground">
+                Is your clinic missing?
+              </p>
+              <Link
+                to="/apply"
+                className="inline-block border-2 border-foreground text-foreground px-5 py-2 text-[12.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground hover:text-background transition-colors"
+              >
+                Submit for Audit
+              </Link>
+            </div>
           </div>
         </div>
       </section>

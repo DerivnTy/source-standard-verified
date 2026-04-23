@@ -28,7 +28,7 @@ export const VerificationShield = ({
       className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[2px] border border-verified/40 bg-verified/10 text-verified font-mono font-semibold uppercase tracking-[0.14em] tabular-nums ${textSize}`}
     >
       <ShieldCheck className={`${iconSize} shrink-0`} aria-hidden />
-      Verified
+      Verified Sourcing
     </span>
   );
 };

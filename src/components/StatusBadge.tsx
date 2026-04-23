@@ -8,9 +8,16 @@ const stampFor: Record<VendorPublicStatus, string> = {
   verified: "bg-verified-soft border-verified/30 text-verified",
   "under-review": "bg-under-review-soft border-under-review/30 text-under-review",
   suspended: "bg-suspended-soft border-suspended/30 text-suspended",
-  unverified: "bg-unverified-soft border-unverified/25 text-unverified",
+  unverified:
+    "bg-foreground/[0.04] border-foreground/20 text-foreground/70",
   removed:
     "bg-muted/40 border-dashed border-muted-foreground/30 text-muted-foreground",
+};
+
+// Override display labels for the registry-tone language.
+const stampLabel: Partial<Record<VendorPublicStatus, string>> = {
+  verified: "Verified Sourcing",
+  unverified: "No Records on File",
 };
 
 // Accept either the new VendorPublicStatus or the legacy strings, so existing
@@ -40,7 +47,7 @@ export const StatusBadge = ({
         aria-hidden
         className="inline-block w-[2px] h-3 bg-current"
       />
-      {VENDOR_STATUS_LABEL[key]}
+      {stampLabel[key] ?? VENDOR_STATUS_LABEL[key]}
     </span>
   );
 };
