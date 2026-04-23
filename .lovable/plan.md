@@ -1,29 +1,29 @@
 
 
-## Fix the broken hamburger menu
+## Adopt the Institutional-Immersive Standard as Core Memory
 
-**Root cause:** During the last refactor, the body-scroll-lock `useEffect` was accidentally pasted **inside `useHeaderVisible`** (lines 38–46 of `src/components/SiteHeader.tsx`) instead of inside the `SiteHeader` component. That block references `open` — a variable that doesn't exist in the hook's scope — which throws a ReferenceError every time any component (e.g. `DocJumpBar`) calls `useHeaderVisible()`. The result: the header tree never finishes rendering the overlay correctly, so tapping the hamburger appears to do nothing.
+This is a governance directive, not a feature. No UI changes are needed right now — but the standard must be persisted so every future design decision is bound by it automatically.
 
-## Changes (single file: `src/components/SiteHeader.tsx`)
+### What gets saved
 
-1. **Remove** the misplaced scroll-lock `useEffect` from inside `useHeaderVisible` (lines 38–46). The hook should only contain the visibility-listener subscription.
+A single Core memory entry at `mem://index.md` containing the four pillars:
 
-2. **Re-add** the scroll-lock `useEffect` inside the `SiteHeader` component, alongside the other `useEffect`s, so it correctly closes over the local `open` state:
-   ```tsx
-   useEffect(() => {
-     if (!open) return;
-     const prev = document.body.style.overflow;
-     document.body.style.overflow = "hidden";
-     return () => { document.body.style.overflow = prev; };
-   }, [open]);
-   ```
+1. **In-Place Interactions** — morph, expand, unfold. No modals, side drawers, or page jumps unless physically required. Filter folders and nav menus open in place.
+2. **Glossy-Minimalist Visuals** — backdrop-filter blur, 1px hairline borders, subtle background value shifts. No drop shadows. No emojis. Sharp 1px line icons or typography only.
+3. **Singular-Punchy Language** — one-word actions, no ellipses, no jargon, no filler.
+4. **iOS-Native Physics** — if it wouldn't ship in an Apple system app, it doesn't ship here. Spring/ease-out transitions, 300–350ms, no snap.
 
-3. **Verify** no other stale references remain in `useHeaderVisible` and that the overlay's `pointerEvents`/`opacity` toggling on `open` still works as designed.
+Plus the established component conventions already in play:
+- Pills/filters: 20px radius, 1px border, semi-bold sans-serif uppercase, Navy/White active states.
+- Sticky filter/nav stacks: `backdrop-filter: blur(12px+)`.
+- Mobile menu: full-screen immersive overlay, Navy 0.92 + blur 40px, serif links, 0.5px hairline dividers.
+- Project framing: regulatory directory × high-end fintech (Stripe-grade), never marketing.
 
-## Outcome
+### Outcome
 
-- Tapping the hamburger toggles `open`, the full-screen Navy overlay fades in, body scroll locks, and the morphing X icon appears as intended.
-- `DocJumpBar` and any other `useHeaderVisible` consumer stop crashing.
+Every subsequent request — new pages, new components, new flows — is automatically evaluated against this standard before any code is written. No re-litigating these rules per feature.
 
-No visual or behavioral changes beyond restoring the intended interaction — purely a scope-bug fix.
+### Files touched
+
+- `mem://index.md` (Core memory) — created on approval.
 
