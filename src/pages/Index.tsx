@@ -195,8 +195,11 @@ const Index = () => {
               id="live-registry"
               className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
             >
-              An active public reference, updated on a published cadence.
+              Total market visibility.
             </h2>
+            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
+              Our database tracks the entire peptide economy in real time.
+            </p>
 
             <div className="mt-10">
               <StatRow>
