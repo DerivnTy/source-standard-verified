@@ -1,33 +1,56 @@
-// Shared "Data Header" used directly under RegistryHeader on every database
-// page (Verified Vendors, Greenlist, …). Width matches the registry table
-// (page-shell > w-wide) so the row aligns perfectly with the search input
-// and table columns below it.
+// Compact "Trust Pill" used directly under RegistryHeader on registry pages.
+// One single-line, sharp pill (2px radius) divided into 3 equal columns.
+// No horizontal scroll on any viewport — metrics shrink to fit.
 
 export type HorizonCell = {
   label: string;
   value: string | number;
-  /** When true, renders a small pulsing live dot before the value. */
+  /** Reserved for future use; not rendered in the compact pill. */
   live?: boolean;
 };
 
 export const RegistryHorizon = ({
   cells,
-  ariaLabel = "Registry data header",
+  ariaLabel = "Registry summary",
   seam = false,
 }: {
   cells: HorizonCell[];
   ariaLabel?: string;
-  /**
-   * When true, renders the stats card as a 50/50 navy↔white seam bridge:
-   * the top half sits on navy, the bottom half on white. The card itself
-   * stays light so its content remains legible.
-   */
+  /** When true, sits on the navy↔white seam (top half navy, bottom half white). */
   seam?: boolean;
 }) => {
+  const Pill = (
+    <div
+      role="group"
+      aria-label={ariaLabel}
+      className="rounded-[2px] border border-border bg-card shadow-[0_8px_24px_-16px_hsl(0_0%_0%/0.18)] overflow-hidden"
+    >
+      <div
+        className="grid divide-x divide-border"
+        style={{ gridTemplateColumns: `repeat(${cells.length}, minmax(0, 1fr))` }}
+      >
+        {cells.map((cell) => (
+          <div
+            key={cell.label}
+            className="flex flex-col items-center justify-center text-center px-2 sm:px-4 py-3 sm:py-3.5"
+          >
+            <span className="font-mono text-[16px] sm:text-[19px] leading-none font-medium tabular-nums text-foreground whitespace-nowrap">
+              {typeof cell.value === "number"
+                ? cell.value.toLocaleString()
+                : cell.value}
+            </span>
+            <span className="mt-1.5 text-[10px] sm:text-[10.5px] font-medium uppercase tracking-[0.12em] text-muted-foreground leading-none">
+              {cell.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   if (seam) {
     return (
       <div className="relative">
-        {/* Split background: top half navy, bottom half white */}
         <div
           aria-hidden
           className="absolute inset-0"
@@ -37,15 +60,7 @@ export const RegistryHorizon = ({
           }}
         />
         <div className="relative page-shell">
-          <div className="mx-auto w-wide">
-            <div
-              role="group"
-              aria-label={ariaLabel}
-              className="rounded-md border border-border bg-card shadow-[0_10px_30px_-10px_hsl(0_0%_0%/0.18)] overflow-hidden"
-            >
-              <HorizonGrid cells={cells} />
-            </div>
-          </div>
+          <div className="mx-auto w-wide">{Pill}</div>
         </div>
       </div>
     );
@@ -54,45 +69,10 @@ export const RegistryHorizon = ({
   return (
     <div className="bg-background">
       <div className="page-shell">
-        <div className="mx-auto w-wide">
-          <div
-            role="group"
-            aria-label={ariaLabel}
-            className="-mt-5 md:-mt-6 relative z-10 rounded-md border border-border bg-card shadow-sm overflow-hidden"
-          >
-            <HorizonGrid cells={cells} />
-          </div>
+        <div className="mx-auto w-wide -mt-5 md:-mt-6 relative z-10">
+          {Pill}
         </div>
       </div>
     </div>
   );
 };
-
-const HorizonGrid = ({ cells }: { cells: HorizonCell[] }) => (
-  <div className="overflow-x-auto">
-    <div
-      className="grid min-w-[560px] sm:min-w-0 divide-x divide-border"
-      style={{ gridTemplateColumns: `repeat(${cells.length}, minmax(0, 1fr))` }}
-    >
-      {cells.map((cell) => (
-        <div
-          key={cell.label}
-          className="flex flex-col items-start justify-center px-6 py-4 min-h-[76px]"
-        >
-          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground leading-none">
-            {cell.label}
-          </span>
-          <span className="mt-2.5 font-mono text-[18px] md:text-[19px] leading-none font-medium tabular-nums text-foreground inline-flex items-center gap-2 whitespace-nowrap">
-            {cell.live && (
-              <span
-                aria-hidden
-                className="inline-block w-1.5 h-1.5 rounded-full bg-verified animate-pulse"
-              />
-            )}
-            {typeof cell.value === "number" ? cell.value.toLocaleString() : cell.value}
-          </span>
-        </div>
-      ))}
-    </div>
-  </div>
-);
