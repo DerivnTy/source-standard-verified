@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHeaderVisible } from "./SiteHeader";
 
 export type JumpWaypoint = { id: string; number: string; label: string };
 
 /**
- * DocJumpBar — scroll-linked pill-to-bar morph.
+ * DocJumpBar — fixed pill shape, sticky position only.
  *
- * One sticky <nav> element. Width, radius, shadow, and border are
- * interpolated directly from scroll position — no triggered transition,
- * no positional jump. Pill widens as the user scrolls past the seam zone
- * and narrows back as they scroll up.
+ * The bar always renders at its widest/most-extended pill form. Scrolling
+ * does not morph its shape — only its sticky `top` shifts as the SiteHeader
+ * shows/hides, eased via CSS transition for a smooth follow.
  */
 export const DocJumpBar = ({
   waypoints,
@@ -19,53 +18,9 @@ export const DocJumpBar = ({
   tone?: "default" | "navy";
 }) => {
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
-  const [progress, setProgress] = useState(0);
-  const [viewportWidth, setViewportWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1200
-  );
   const headerVisible = useHeaderVisible();
-  const seamRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
 
   void tone;
-
-  useEffect(() => {
-    const RUNWAY = 200; // px of scroll over which the pill fully widens
-
-    const compute = () => {
-      const seam = seamRef.current;
-      if (!seam) return;
-      const headerOffset = headerVisible ? 64 : 0;
-      // Distance from the seam's bottom edge to the header offset.
-      // When seam.bottom === headerOffset, progress starts; after RUNWAY px more, it's complete.
-      const bottom = seam.getBoundingClientRect().bottom;
-      const past = headerOffset - bottom; // positive once seam scrolls under header
-      const p = Math.max(0, Math.min(1, past / RUNWAY));
-      setProgress(p);
-    };
-
-    const onScroll = () => {
-      if (rafRef.current != null) return;
-      rafRef.current = requestAnimationFrame(() => {
-        rafRef.current = null;
-        compute();
-      });
-    };
-
-    const onResize = () => {
-      setViewportWidth(window.innerWidth);
-      onScroll();
-    };
-
-    compute();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [headerVisible]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -91,32 +46,19 @@ export const DocJumpBar = ({
   };
 
   const SEAM_HEIGHT = 44;
-
-  // Smoothstep eases motion at both endpoints so nothing arrives linearly.
-  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-  const eased = progress * progress * (3 - 2 * progress);
-
-  // Interpolated geometry — pure functions of `eased` (0 → 1).
-  const widthPct = lerp(80, 100, eased); // 80% → 100%
-  const radiusPx = lerp(9999, 0, eased); // pill → square
-  const shadowOpacity = lerp(0.12, 0, eased); // shadow fades out
-  const borderOpacity = eased; // hairline fades in
-  const innerPaddingX = lerp(24, Math.max((viewportWidth - 1200) / 2, 24), eased);
-  const innerGap = lerp(8, 24, eased);
-  const itemPaddingX = lerp(10, 16, eased);
-
   const stickyTop = headerVisible ? 64 : 0;
 
   const navStyle: React.CSSProperties = {
     position: "sticky",
     top: `${stickyTop}px`,
-    width: `${widthPct}%`,
-    maxWidth: progress < 1 ? "1200px" : "100%",
+    width: "80%",
+    maxWidth: "1200px",
     marginLeft: "auto",
     marginRight: "auto",
-    borderRadius: `${radiusPx}px`,
-    boxShadow: `0 10px 30px -10px hsl(0 0% 0% / ${shadowOpacity})`,
-    borderBottom: `1px solid hsl(var(--border) / ${borderOpacity})`,
+    marginTop: `-${SEAM_HEIGHT / 2 + 22}px`,
+    borderRadius: "9999px",
+    boxShadow: "0 10px 30px -10px hsl(0 0% 0% / 0.12)",
+    border: "1px solid hsl(var(--border))",
     backgroundColor: "hsl(var(--background))",
     zIndex: 30,
     overflow: "hidden",
@@ -125,10 +67,8 @@ export const DocJumpBar = ({
 
   return (
     <>
-      {/* Seam zone — purely decorative navy/white split. No nav inside so it
-          can't clip the sticky element. */}
+      {/* Seam zone — purely decorative navy/white split. */}
       <div
-        ref={seamRef}
         aria-hidden
         className="relative w-full"
         style={{
@@ -137,25 +77,11 @@ export const DocJumpBar = ({
             "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)",
         }}
       />
-      {/* Sticky nav — sibling of the seam, so its sticky container is the page
-          body and it remains visible for the entire article. Negative top margin
-          pulls it up at rest so it visually straddles the seam. */}
-      <nav
-        aria-label="Document contents"
-        className="border border-border"
-        style={{
-          ...navStyle,
-          marginTop: `${lerp(-SEAM_HEIGHT / 2 - 22, 0, eased)}px`,
-          borderColor: `hsl(var(--border) / ${lerp(1, borderOpacity, eased)})`,
-        }}
-      >
+      <nav aria-label="Document contents" style={navStyle}>
         <PillContents
           waypoints={waypoints}
           activeId={activeId}
           onJump={onJump}
-          paddingX={innerPaddingX}
-          gap={innerGap}
-          itemPaddingX={itemPaddingX}
         />
       </nav>
     </>
@@ -166,24 +92,18 @@ const PillContents = ({
   waypoints,
   activeId,
   onJump,
-  paddingX,
-  gap,
-  itemPaddingX,
 }: {
   waypoints: JumpWaypoint[];
   activeId: string;
   onJump: (id: string) => (e: React.MouseEvent) => void;
-  paddingX: number;
-  gap: number;
-  itemPaddingX: number;
 }) => {
   return (
     <div
       className="flex items-center py-2"
       style={{
-        paddingLeft: `${paddingX}px`,
-        paddingRight: `${paddingX}px`,
-        gap: `${gap * 2}px`,
+        paddingLeft: "24px",
+        paddingRight: "24px",
+        gap: "16px",
         width: "100%",
         minWidth: 0,
         overflow: "hidden",
@@ -194,7 +114,7 @@ const PillContents = ({
       </span>
       <ul
         className="flex items-center shrink-0"
-        style={{ gap: `${gap}px`, minWidth: 0 }}
+        style={{ gap: "8px", minWidth: 0 }}
       >
         {waypoints.map((w) => {
           const active = w.id === activeId;
@@ -209,10 +129,7 @@ const PillContents = ({
                 href={`#${w.id}`}
                 onClick={onJump(w.id)}
                 className={`${chip} ${tone}`}
-                style={{
-                  paddingLeft: `${itemPaddingX}px`,
-                  paddingRight: `${itemPaddingX}px`,
-                }}
+                style={{ paddingLeft: "12px", paddingRight: "12px" }}
               >
                 <span className="text-primary">{w.number.padStart(2, "0")}.</span>
                 <span>{w.label}</span>
