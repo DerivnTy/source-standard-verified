@@ -382,6 +382,12 @@ const VendorProfile = () => {
                         value={serviceArea || "Online — nationwide"}
                       />
                     )}
+                    {isVerified && vendor.reviewDate && (
+                      <Field label="Last reviewed" value={vendor.reviewDate} mono />
+                    )}
+                    {isVerified && vendor.reviewId && (
+                      <Field label="Review ID" value={vendor.reviewId} mono />
+                    )}
                   </dl>
                 </section>
 
