@@ -5,6 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
+import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import {
   QueryBar,
   FacetSelect,
@@ -411,41 +412,14 @@ const VerifiedVendors = () => {
         recordCount={vendors.length}
       />
 
-      {/* Full-bleed Data Horizon — institutional ticker strip */}
-      <div
-        role="group"
-        aria-label="Live registry data horizon"
-        className="w-full border-b border-border/70 bg-surface-muted/40 backdrop-blur-[2px]"
-      >
-        <div className="overflow-x-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-4 min-w-[560px] sm:min-w-0 divide-x divide-border/60">
-            {[
-              { label: "Total Vendors", value: vendors.length.toLocaleString() },
-              { label: "States Represented", value: statesRepresented.toLocaleString() },
-              { label: "Verified Sourcing", value: counts.verified.toLocaleString() },
-              { label: "Registry Status", value: "ACTIVE", live: true },
-            ].map((cell) => (
-              <div
-                key={cell.label}
-                className="flex flex-col items-start justify-center px-5 md:px-7 py-6 min-h-[96px]"
-              >
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground leading-none">
-                  {cell.label}
-                </span>
-                <span className="mt-3 font-mono text-[18px] md:text-[20px] leading-none font-medium tabular-nums text-foreground inline-flex items-center gap-2 whitespace-nowrap">
-                  {cell.live && (
-                    <span
-                      aria-hidden
-                      className="inline-block w-1.5 h-1.5 rounded-full bg-verified animate-pulse"
-                    />
-                  )}
-                  {cell.value}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <RegistryHorizon
+        cells={[
+          { label: "Total Vendors", value: vendors.length },
+          { label: "States Represented", value: statesRepresented },
+          { label: "Verified Sourcing", value: counts.verified },
+          { label: "Registry Status", value: "ACTIVE", live: true },
+        ]}
+      />
 
       {/* Query + result surface */}
       <section className="bg-background">
