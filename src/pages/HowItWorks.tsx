@@ -52,11 +52,35 @@ const limits: { t: string; d: string }[] = [
   { t: "No Regulatory Power", d: "We are a private registry, not a government body." },
 ];
 
+const surveillance: { t: string; d: string }[] = [
+  {
+    t: "Random Sampling",
+    d: "We conduct \u201CSilent Buys\u201D from active listings without vendor notification.",
+  },
+  {
+    t: "Independent Testing",
+    d: "Samples are sent to third-party, ISO-accredited laboratories.",
+  },
+  {
+    t: "Verification of Integrity",
+    d: "We test for sterility, potency, and identity to ensure the product in the consumer's hand matches the documentation on file.",
+  },
+];
+
+const outcome: { t: string; d: string }[] = [
+  {
+    t: "Audit Failure",
+    d: "Failure to pass a Random Audit results in immediate \u201CSuspended\u201D or \u201CRemoved\u201D status and potential administrative fines as per the Integrity Protocol.",
+  },
+];
+
 const waypoints = [
   { id: "definition", number: "1", label: "DEF" },
   { id: "principles", number: "2", label: "PRIN" },
   { id: "scope", number: "3", label: "SCOPE" },
   { id: "examination", number: "5", label: "EXAM" },
+  { id: "surveillance", number: "7", label: "SURV" },
+  { id: "outcome", number: "8", label: "OUTCOME" },
   { id: "limits", number: "10", label: "LIMITS" },
 ];
 
