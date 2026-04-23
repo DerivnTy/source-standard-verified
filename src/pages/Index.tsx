@@ -142,6 +142,9 @@ const Index = () => {
         actions={<HeroActions />}
       />
 
+      {/* DocJumpBar — bridges navy hero seam into white Section 01 */}
+      <DocJumpBar waypoints={homeWaypoints} />
+
       {/* §2 — The trust problem */}
       <section aria-labelledby="trust-problem" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
