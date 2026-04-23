@@ -385,20 +385,16 @@ const VerifiedVendors = () => {
         ))}
       </FacetSelect>
 
-      <FacetSelect
-        value={status}
-        onChange={setStatus}
-        ariaLabel="Filter by status"
-      >
-        <option value={ALL}>All statuses</option>
-        {STATUS_ORDER.map((s) => (
-          <option key={s} value={s}>
-            {VENDOR_STATUS_LABEL[s]}
-          </option>
-        ))}
-      </FacetSelect>
     </>
   );
+
+  const STATUS_TABS: { value: string; label: string }[] = [
+    { value: ALL, label: "All" },
+    ...STATUS_ORDER.map((s) => ({
+      value: s as string,
+      label: VENDOR_STATUS_LABEL[s],
+    })),
+  ];
 
   return (
     <>
