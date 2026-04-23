@@ -297,7 +297,6 @@ const Greenlist = () => {
       />
 
       <RegistryHeader
-        eyebrow="Upstream Reference Layer · Live Registry"
         title="Greenlist"
         description="The maintained reference set of recognized upstream compounding facilities used within the Source Standard framework."
         scopeText="Inclusion supports upstream reference. Vendor verification is a separate layer"
