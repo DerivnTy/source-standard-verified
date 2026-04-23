@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -21,8 +21,9 @@ const SLUG_TO_CATEGORY: Record<string, CategoryId> = {
 };
 
 const LibraryCategory = () => {
-  const { categorySlug } = useParams<{ categorySlug: string }>();
-  const categoryId = categorySlug ? SLUG_TO_CATEGORY[categorySlug] : undefined;
+  const { pathname } = useLocation();
+  const slug = pathname.split("/").filter(Boolean).pop() ?? "";
+  const categoryId = SLUG_TO_CATEGORY[slug];
   const category = categoryId ? findCategory(categoryId) : undefined;
 
   const [sortMode, setSortMode] = useState<SortMode>("newest");

@@ -90,6 +90,7 @@ const App = () => (
             <Route path="/library/sourcing" element={<LibraryCategory />} />
             <Route path="/library/clinical" element={<LibraryCategory />} />
             <Route path="/library/consumer" element={<LibraryCategory />} />
+            <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
             <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />
             <Route path="/governance" element={<Governance />} />
