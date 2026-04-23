@@ -1,57 +1,39 @@
 
 
-## Global Change 01 — Unify First-Section Hero Treatment to Navy
+## Global Change 01b — Match Hero Background Exactly to Homepage
 
-Make every main institutional page open with the same deep navy hero surface as the homepage. The component to standardize on already exists: `BriefingHero` with `tone="navy" variant="chapter"` (see `src/components/BriefingHero.tsx` lines 140–175). It renders the navy surface, the `HeroPattern` overlay, the eyebrow, the H1, and the supporting paragraph in the exact rhythm used by the homepage cover, just at chapter weight.
+The navy chapter heroes on interior pages are rendering as flat dark navy. The homepage hero has a noticeably lighter, atmospheric quality because it layers a **radial light spotlight** over the navy surface in addition to the grid pattern. Interior pages are missing that radial light layer, which is why they look darker and flatter than the homepage.
 
-This pass is background-treatment only. No copy, no structure, no waypoint nav, no "Statement of purpose" §2 block changes.
+### Root cause
 
-### What changes per page
+In `src/components/BriefingHero.tsx`:
 
-For each page below, replace the hand-rolled white `§1 Hero` `<section>` with a single `<BriefingHero tone="navy" variant="chapter" category={eyebrow} title={h1} statement={leadParagraph} docId="" />`. Keep the existing `Breadcrumb` and `PageMeta` above it. Keep everything from `§2` onward exactly as-is.
+- The **cover** branch (homepage, lines ~67–77) renders a radial gradient overlay before `HeroPattern`:
+  ```
+  background: radial-gradient(ellipse 70% 60% at 50% 35%,
+              hsl(var(--navy-surface-2)) 0%, transparent 70%);
+  ```
+  This is what creates the lighter "lift" in the center and the premium atmospheric feel.
 
-| Page | File | Eyebrow → `category` | H1 → `title` | Lead → `statement` |
-|---|---|---|---|---|
-| About | `src/pages/About.tsx` | "Organization & Mandate" | existing H1 | existing `heroDescription` |
-| Verification | `src/pages/HowItWorks.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
-| Medical Advisory | `src/pages/MedicalAdvisory.tsx` | "Medical Advisory Board" | "Clinical Oversight" | existing lead paragraph |
-| Resource Library | `src/pages/Education.tsx` | existing eyebrow | existing H1 | existing `HERO_DESCRIPTION` |
-| Terms | `src/pages/Terms.tsx` | "Registry User Agreement" | "Terms of Use" | existing `heroDescription` |
-| Privacy | `src/pages/Privacy.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
-| Status Definitions | `src/pages/StatusDefinitions.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
-| Enforcement | `src/pages/Accountability.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
-| Verification Disclaimer | `src/pages/VerificationDisclaimer.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
+- The **chapter** branch (all interior pages, lines ~140–175) skips that overlay entirely and only renders `HeroPattern` at `opacity={0.018}`. Result: flat navy, faint grid, no light center.
 
-The homepage (`Index.tsx`) is already correct (`variant="cover" tone="navy"`) — no change.
+The grid pattern is also fainter on chapter (`0.018`) than cover (`0.02`), which makes the "boxes" less visible.
 
-### What does NOT change
+### Fix
 
-- `Breadcrumb` placement and content.
-- The `§2 Statement of purpose` white block on each page — it stays white. This change unifies the **opening surface only**, not subsequent sections.
-- `SectionAnchorNav` placement and behavior.
-- All `SplitSection` / `ClauseList` content blocks.
-- Typography tokens, spacing tokens, page widths.
-- Routing.
+Update the **chapter + navy** branch of `BriefingHero` to match the homepage's atmospheric layering:
 
-### Explicitly excluded from this pass (per the user's stated exception)
+1. Add the same radial-gradient overlay div (using `--navy-surface-2`) above `HeroPattern`, sized appropriately for the shorter chapter height (e.g. `ellipse 70% 80% at 50% 40%` so the light center reads correctly at chapter proportions).
+2. Bump `HeroPattern` opacity from `0.018` → `0.02` to match the cover so the faint boxes are equally visible.
+3. Keep `cellSize={32}` and `stroke="white"` — already correct.
 
-- Registry / database surfaces: `VerifiedVendors.tsx`, `Greenlist.tsx`, `VendorProfile.tsx`, `GreenlistProfile.tsx`, `AdvisorProfile.tsx`, `LibraryEntry.tsx` and the per-article library pages, `LibraryCategory.tsx`, `Apply.tsx`, `Contact.tsx`, `ReportConcern.tsx`, FAQ category interiors. These are product/database/intake/article surfaces and already use the right treatment for their function (some already use `BriefingHero tone="navy"`, others are intentionally form/article-flavored). Out of scope for this pass.
+No changes to copy, layout, height, padding, type, or any other variant. Cover (homepage) and default (white) branches untouched.
 
 ### Files touched
 
-- `src/pages/About.tsx`
-- `src/pages/HowItWorks.tsx`
-- `src/pages/MedicalAdvisory.tsx`
-- `src/pages/Education.tsx`
-- `src/pages/Terms.tsx`
-- `src/pages/Privacy.tsx`
-- `src/pages/StatusDefinitions.tsx`
-- `src/pages/Accountability.tsx`
-- `src/pages/VerificationDisclaimer.tsx`
-
-No component changes — `BriefingHero` already supports the target rendering exactly.
+- `src/components/BriefingHero.tsx` — modify the navy/chapter branch only (~lines 140–175).
 
 ### Result
 
-Moving between Home → About → Verification → Medical Advisory → Resource Library → Terms → Privacy → Status Definitions → Enforcement → Verification Disclaimer, every page opens on the same deep navy institutional surface with the same eyebrow/H1/lead rhythm. The §2 white "Purpose" block becomes the first transition into reading-density content on each page, creating a consistent navy → white → structured-sections cadence sitewide.
+About, Verification, Medical Advisory, Resource Library, Terms, Privacy, Status Definitions, Enforcement, and Verification Disclaimer will all open with the same lighter, atmospheric navy surface as the homepage — same radial light center, same faint white grid boxes, same premium feel. The cadence becomes truly continuous from Home → any interior page.
 
