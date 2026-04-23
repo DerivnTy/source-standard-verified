@@ -104,6 +104,7 @@ const Privacy = () => (
         category={s.category}
         title={s.title}
         muted={i % 2 === 1}
+        hideEyebrow
       >
         <ul className="space-y-4">
           {s.points.map((p, idx) => (
