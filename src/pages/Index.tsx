@@ -289,40 +289,79 @@ const Index = () => {
       </section>
 
       {/* §3 — How it works */}
-      <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
+      <section aria-labelledby="how-it-works" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
-          <div className="mx-auto w-standard text-left">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">02</p>
-            <div className="mt-4 flex items-center gap-3">
-              <GitBranch
-                aria-hidden
-                size={18}
-                strokeWidth={1.75}
-                className="text-foreground/70 shrink-0"
-              />
+          <div className="mx-auto w-standard">
+            <div className="max-w-[60ch]">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                02 · Methodology
+              </p>
               <h2
                 id="how-it-works"
-                className="t-section-title-sm text-foreground max-w-[34ch]"
+                className="mt-5 text-foreground"
+                style={{
+                  fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                  fontSize: "clamp(28px, 5vw, 44px)",
+                  fontWeight: 800,
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.022em",
+                }}
               >
-                How Source Standard works
+                How Source Standard Works
               </h2>
+              <p
+                className="mt-6 font-sans text-[15px] sm:text-[16px] text-muted-foreground"
+                style={{ lineHeight: 1.75 }}
+              >
+                A three-stage protocol that translates licensed pharmacy records into a
+                public-reference standard for clinical sourcing.
+              </p>
             </div>
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+
+            <ol className="mt-14 divide-y divide-border border-y border-border">
               {howItWorks.map((s, i) => (
-                <div key={i} className="text-left">
-                  <p className="t-utility-xs text-muted-foreground">
-                    {(i + 1).toString().padStart(2, "0")}
-                  </p>
-                  <div className="mt-3 h-px w-8 bg-border" aria-hidden="true" />
-                  <h3 className="mt-5 t-h4 text-foreground max-w-[24ch]">{s.h}</h3>
-                  <p
-                    className="mt-5 t-body-sm text-muted-foreground max-w-[90%] sm:max-w-[42ch]"
-                    style={{ lineHeight: 1.6 }}
-                  >
-                    {s.b}
-                  </p>
-                </div>
+                <li key={i} className="grid grid-cols-12 gap-6 py-10 sm:py-12">
+                  <div className="col-span-12 sm:col-span-3">
+                    <span
+                      className="font-mono text-[13px] tabular-nums text-foreground"
+                      style={{ letterSpacing: "0.04em" }}
+                    >
+                      {(i + 1).toString().padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div className="col-span-12 sm:col-span-9">
+                    <h3
+                      className="text-foreground"
+                      style={{
+                        fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                        fontSize: "clamp(20px, 3vw, 26px)",
+                        fontWeight: 700,
+                        lineHeight: 1.25,
+                        letterSpacing: "-0.014em",
+                      }}
+                    >
+                      {s.h}
+                    </h3>
+                    <p
+                      className="mt-4 font-sans text-[15px] sm:text-[16px] text-muted-foreground max-w-[64ch]"
+                      style={{ lineHeight: 1.75 }}
+                    >
+                      {s.b}
+                    </p>
+                  </div>
+                </li>
               ))}
+            </ol>
+
+            <div className="mt-12">
+              <Link
+                to="/verified-vendors"
+                className="group inline-flex items-center gap-3 rounded-[2px] border border-foreground bg-foreground text-background px-7 py-3.5 font-sans text-[12px] font-semibold uppercase hover:bg-foreground/90 transition-colors"
+                style={{ letterSpacing: "0.1em" }}
+              >
+                <span>Access the Registry</span>
+                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+              </Link>
             </div>
           </div>
         </div>
