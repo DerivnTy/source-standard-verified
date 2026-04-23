@@ -11,21 +11,26 @@ export const RegistryHeader = ({
   indexNumber,
   title,
   description,
+  statusLine,
   scopeText,
   scopeHref,
   recordCount,
   updatedOn,
+  hideRecordPill = false,
 }: {
   /** @deprecated — use indexNumber for Geist Mono index. */
   eyebrow?: string;
   /** Geist Mono index number, e.g. "01". The only anchor above the H1. */
   indexNumber?: string;
   title: string;
-  description: string;
-  scopeText: string;
-  scopeHref: string;
+  description?: string;
+  /** Optional Geist Mono status line rendered in place of description. */
+  statusLine?: string;
+  scopeText?: string;
+  scopeHref?: string;
   recordCount: number;
   updatedOn?: string;
+  hideRecordPill?: boolean;
 }) => {
   const updated =
     updatedOn ??
