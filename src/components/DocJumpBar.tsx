@@ -23,8 +23,13 @@ export const DocJumpBar = ({
 }) => {
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
   const [progress, setProgress] = useState(0);
+  const [barHeight, setBarHeight] = useState(56);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
   const headerVisible = useHeaderVisible();
   const seamRef = useRef<HTMLDivElement | null>(null);
+  const navRef = useRef<HTMLElement | null>(null);
   const rafRef = useRef<number | null>(null);
 
   void tone;
@@ -86,8 +91,26 @@ export const DocJumpBar = ({
   const stickyTop = headerVisible ? 64 : 0;
   const eased = easeInOut(progress);
 
+  // Measure the bar's actual height so we can pull it up by exactly half
+  // its height — placing its vertical center precisely on the seam line.
+  useEffect(() => {
+    if (!navRef.current) return;
+    const update = () => {
+      if (navRef.current) setBarHeight(navRef.current.offsetHeight);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(navRef.current);
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", onResize);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
   // Interpolated geometry — pill throughout
-  const widthPct = lerp(86, 96, eased);
+  const widthPct = isMobile ? 90 : lerp(86, 96, eased);
   const maxWidthPx = lerp(1200, 1360, eased);
   const navPadY = lerp(8, 4, eased);
   const navPadX = lerp(22, 20, eased);
@@ -100,10 +123,12 @@ export const DocJumpBar = ({
     position: "sticky",
     top: `${stickyTop}px`,
     width: `${widthPct}%`,
-    maxWidth: `${maxWidthPx}px`,
+    maxWidth: isMobile ? "none" : `${maxWidthPx}px`,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: `-${SEAM_HEIGHT / 2 + 22}px`,
+    // Pull the bar up by exactly half its measured height so its vertical
+    // center aligns precisely with the navy↔white seam (50/50 bridge).
+    marginTop: `-${SEAM_HEIGHT / 2 + barHeight / 2}px`,
     borderRadius: "9999px",
     boxShadow: "0 10px 30px -10px hsl(0 0% 0% / 0.12)",
     border: "1px solid hsl(var(--border))",
@@ -126,7 +151,7 @@ export const DocJumpBar = ({
             "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)",
         }}
       />
-      <nav aria-label="Document contents" style={navStyle}>
+      <nav ref={navRef} aria-label="Document contents" style={navStyle}>
         <PillContents
           waypoints={waypoints}
           activeId={activeId}
