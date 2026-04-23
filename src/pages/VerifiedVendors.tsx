@@ -196,23 +196,26 @@ const VerifiedVendors = () => {
               className="mx-5 md:mx-0 flex items-stretch overflow-hidden rounded-[2px]"
               style={{ border: "1px solid hsl(var(--border))" }}
             >
-              <div className="relative min-w-0 flex-1">
+              <div className="relative min-w-0 flex-[1_1_0%]">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search Facility Database..."
                   aria-label="Search facility database"
-                  className="h-9 w-full bg-background pl-9 pr-3 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                  className="h-9 w-full min-w-0 bg-background pl-9 pr-2 text-[12.5px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
                 />
               </div>
 
-              <div className="shrink-0 border-l" style={{ borderColor: "hsl(var(--border))" }}>
+              <div
+                className="shrink-0 border-l"
+                style={{ borderColor: "hsl(var(--border))" }}
+              >
                 <select
                   value={category}
                   onChange={(event) => setCategory(event.target.value)}
                   aria-label="Category"
-                  className={toolbarSelectClass}
+                  className={`${toolbarSelectClass} w-[112px]`}
                   style={toolbarChevron}
                 >
                   <option value="all">Category</option>
@@ -224,12 +227,15 @@ const VerifiedVendors = () => {
                 </select>
               </div>
 
-              <div className="shrink-0 border-l" style={{ borderColor: "hsl(var(--border))" }}>
+              <div
+                className="shrink-0 border-l"
+                style={{ borderColor: "hsl(var(--border))" }}
+              >
                 <select
                   value={sort}
                   onChange={(event) => setSort(event.target.value as SortMode)}
                   aria-label="Sort"
-                  className={toolbarSelectClass}
+                  className={`${toolbarSelectClass} w-[108px]`}
                   style={toolbarChevron}
                 >
                   <option value="name-asc">Alphabetical</option>
