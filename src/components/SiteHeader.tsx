@@ -136,7 +136,11 @@ export const SiteHeader = () => {
           </Button>
         </div>
         <button
-          className="lg:hidden p-2 -mr-2 text-foreground relative h-9 w-9"
+          className="lg:hidden p-2 -mr-2 relative h-9 w-9 transition-colors"
+          style={{
+            zIndex: open ? 70 : undefined,
+            color: open ? "hsl(var(--background))" : "hsl(var(--foreground))",
+          }}
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
           aria-expanded={open}
