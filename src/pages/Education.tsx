@@ -275,7 +275,7 @@ const Education = () => {
 
       {/* §6 Common Inquiries */}
       <section
-        id="questions"
+        id="common-inquiries"
         className="section-pad border-b border-border/40"
       >
         <div className="page-shell">

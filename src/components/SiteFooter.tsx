@@ -31,10 +31,11 @@ const columns: Column[] = [
   {
     title: "Resource Library",
     links: [
-      { to: "/education#basics", label: "Foundational Sourcing" },
-      { to: "/education/how-to-read-a-certificate-of-analysis", label: "Interpreting CoAs" },
-      { to: "/education#guides", label: "Protocols" },
-      { to: "/education#questions", label: "FAQ" },
+      { to: "/education", label: "Resource Library" },
+      { to: "/education#regulation", label: "Regulation" },
+      { to: "/education#clinical", label: "Clinical" },
+      { to: "/education#consumer", label: "Consumer Due Diligence" },
+      { to: "/education#common-inquiries", label: "Common Inquiries" },
     ],
   },
   {
