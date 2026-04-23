@@ -64,12 +64,12 @@ const CategoryBlock = ({
         </ul>
       )}
 
-      {hasMore && (
+      {showViewAllRow && (
         <Link
           to={category.path}
-          className="block border-t border-border bg-surface-muted/30 px-5 py-4 text-center t-body-sm font-semibold text-primary transition-colors hover:bg-surface-muted hover:text-primary"
+          className="block border-t border-border bg-surface-muted/30 px-5 py-4 text-left t-body-sm font-semibold text-foreground transition-colors hover:bg-surface-muted hover:text-foreground"
         >
-          View all {category.label} Reference Materials →
+          View all {category.label} entries →
         </Link>
       )}
     </section>
@@ -79,8 +79,10 @@ const CategoryBlock = ({
 type Filter = "all" | CategoryId;
 
 const Education = () => {
+  const initialHash = typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
+  const initialFilter = CATEGORIES.some((c) => c.id === initialHash) ? (initialHash as Filter) : "all";
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilter] = useState<Filter>(initialFilter);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -104,6 +106,22 @@ const Education = () => {
     filter === "all" ? CATEGORIES : CATEGORIES.filter((c) => c.id === filter);
 
   const totalCount = filtered.length;
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (CATEGORIES.some((c) => c.id === hash)) {
+        setFilter(hash as Filter);
+        requestAnimationFrame(() => {
+          const el = document.getElementById(hash);
+          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   return (
     <>
@@ -161,7 +179,10 @@ const Education = () => {
               <div className="flex flex-wrap items-center gap-2 px-4 py-3">
                 <button
                   type="button"
-                  onClick={() => setFilter("all")}
+                  onClick={() => {
+                    setFilter("all");
+                    history.replaceState(null, "", window.location.pathname);
+                  }}
                   className={
                     "rounded-md border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors " +
                     (filter === "all"
@@ -180,11 +201,11 @@ const Education = () => {
                       type="button"
                       onClick={() => {
                         setFilter(c.id);
+                        history.replaceState(null, "", `#${c.id}`);
                         requestAnimationFrame(() => {
                           const el = document.getElementById(c.id);
                           if (el) {
                             el.scrollIntoView({ behavior: "smooth", block: "start" });
-                            history.replaceState(null, "", `#${c.id}`);
                           }
                         });
                       }}
