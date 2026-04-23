@@ -1,48 +1,81 @@
 
 
-## Global Change 02 — Tighten Closing Space Above Footer
+## Global Change 03 — Lock Site to One Type Hierarchy
 
-Reduce the dead zone between the last content section and the footer site-wide. Today three things stack up to create a large empty band:
+The token system in `src/index.css` already defines most of the right sizes, but it has three problems that break the user's locked spec:
 
-1. The last `<section>` on most pages uses `section-pad` (= 64px bottom on lg).
-2. `SiteFooter` adds `mt-20` (= 80px top margin).
-3. `SiteFooter` then adds `py-16` (= 64px top padding inside).
+1. **Two oversized title tokens exist that violate the "page title = 48/56" rule:**
+   - `t-home-title` renders 72/80 on desktop (homepage hero only)
+   - `t-chapter-title` renders 56/64 on desktop (interior `BriefingHero` heroes)
+2. **`t-h3` and `t-h4` are undersized at mobile** (22/30 and 18/26) and only hit spec at ≥768px. They need to be 24/32 and 20/28 at every breakpoint.
+3. **One-off `text-[Npx]` overrides** (84 occurrences) create the "different system per page" feeling the user is calling out — most are 11–14px utility/meta text that should map to existing tokens.
 
-Total gap on desktop: ~208px of empty space. That's the "dropped footer" feeling.
+This pass enforces the user's locked hierarchy by **fixing the tokens** and **removing the off-spec class overrides**, not by editing copy or restructuring pages.
 
-### Fix — single point of control
+### Locked hierarchy (final spec)
 
-Make the footer own the closing rhythm. Remove the page-side margin entirely, and run one tighter, governed top pad inside the footer. The last section's natural bottom padding stays as-is so it doesn't feel cramped.
+| Token | Size / Line | Maps to |
+|---|---|---|
+| `t-page-title` | 48 / 56 | H1 — every page including homepage |
+| `t-section-title-md` | 36 / 44 | Large section title |
+| `t-section-title-sm` | 30 / 38 | Standard section title |
+| `t-h3` | 24 / 32 | Subsection heading |
+| `t-h4` | 20 / 28 | Smaller support heading |
+| `t-body-lg` | 19 / 32 | Body large (long-form) |
+| `t-body-md` | 18 / 30 | Body default |
+| `t-body-sm` | 16 / 28 | Body small |
+| `t-eyebrow-sm` / `t-utility-xs` | 13 / 20 / 12 / 18 | Eyebrow + meta |
+| `t-micro` (new) | 12 / 18 | Micro labels (non-uppercase variant) |
 
-**In `src/components/SiteFooter.tsx`:**
+### Changes to `src/index.css` (token layer)
 
-- Change `<footer className="border-t border-border bg-surface-muted/30 mt-20">` → remove `mt-20`.
-- Change inner `<div className="page-shell py-16">` → `py-12 md:py-14` for the top/bottom of the footer interior.
-  - Net result: closing transition is now ~64px (last section's own `pb`) + ~56px (footer top pad) = ~120px on desktop, down from ~208px. Mobile: ~32 + 48 = ~80px, down from ~144px.
+1. Update `t-h3`: drop the responsive bump — set `font-size: 24px; line-height: 32px;` at base, remove the `@media (min-width: 768px)` override.
+2. Update `t-h4`: same pattern — `font-size: 20px; line-height: 28px;` at base.
+3. Update `t-eyebrow-sm` line-height `18px → 20px` to match spec (13/20). Update `t-utility-xs` line-height `16px → 18px` to match spec (12/18).
+4. Update `t-body-sm` line-height `26px → 28px` to match spec (16/28).
+5. Retire the oversized title tokens: redefine `t-home-title` and `t-chapter-title` to be exact aliases of `t-page-title` (48/56). This keeps every existing call-site working without touching components, and brings the homepage hero and every navy `BriefingHero chapter` interior page in line with the locked H1 size.
+6. Add `.t-micro { font-size: 12px; line-height: 18px; font-weight: 500; }` (non-uppercase variant for small labels that aren't eyebrows — e.g. footer legal text, status pill labels).
 
-That's the entire change. One file. No per-page edits.
+### Changes to component layer (collapse off-spec overrides)
 
-### Why this approach (not per-page)
+Replace the off-spec raw `text-[Npx]` classes in **shared chrome only** (the surfaces that bleed across every page), so per-page consistency improves without touching content pages:
 
-- Every main institutional page already routes through `SiteLayout` → `<main><Outlet/></main>` → `SiteFooter`. The `mt-20` on the footer is the single sitewide source of the gap.
-- Removing it normalizes every page in one move and guarantees consistency — the user's stated goal ("end of each page should feel governed by one rule, not random per-page spacing").
-- The last section keeps its `section-pad` so reading-density pages (Terms, Privacy, Status Definitions, Accountability, Verification Disclaimer) still breathe. We're only removing the *added* void, not the section's own bottom padding.
+- `src/components/SiteFooter.tsx` — `text-[14px]` link/desc → `t-body-sm`; `text-[12px]` legal/disclaimer → `t-micro` or `t-utility-xs` where uppercase; `text-[11px] uppercase` column headers → `t-utility-xs`.
+- `src/components/SiteHeader.tsx` — `text-[13px]` nav links → keep size but route through a `t-nav` alias added to `index.css` (`13/20, 500`) so the nav's typography is governed.
+- `src/components/StatusBadge.tsx`, `registry/SourceTypeCell.tsx`, `registry/VerificationShield.tsx` — pin `text-[10px]/[11px]` to `t-utility-xs` (12/18). Badges become slightly larger and consistent; this is a small, intentional tightening, not a redesign.
+- `src/components/EmptyState.tsx`, `DocJumpBar.tsx`, `RegistryLayout.tsx`, `DocLayout.tsx`, `registry/QueryBar.tsx`, `registry/RegistryPagination.tsx`, `registry/SectionAnchorNav.tsx`, `library/ArticleRow.tsx` — replace `text-[11px]/[12px]/[13px]` chrome strings with `t-utility-xs` (when uppercase) or `t-micro` / `t-body-sm` (when not).
+- `src/components/BriefingHero.tsx` line 108 statement — replace the responsive `text-[15px] sm:text-[16px] md:text-[17px]` mono ladder with a single `t-body-sm` (16/28). One size, one rule.
 
-### Verification (mental walk)
+### Explicitly out of scope this pass
 
-- Terms / Privacy / Status Defs / Accountability / Disclaimer: last `SplitSection` ends with `section-pad` + `border-b` → footer `border-t` sits cleanly ~120px below the last clause line.
-- About / Verification / Medical Advisory / Education: same — last section closes with its own pad, footer follows.
-- Library articles (`ArticleFooter`) already render their own closing rule and citation strip, then the site footer; tightening the top pad makes that transition feel deliberate rather than dropped.
-- Registry / profile pages (`VerifiedVendors`, `Greenlist`, `VendorProfile`, etc.): they end with table footers or related-records strips; same improvement applies and is desired.
+- **Per-page raw text overrides inside content blocks** (e.g. `Education.tsx`, `Greenlist.tsx`, `About.tsx` numbered lists). These are next-pass cleanup. This pass governs the token layer + every shared chrome surface, which is what produces the "feels like a different system per page" effect the user is calling out.
+- Numeric/data display tokens (`Stat.tsx`, `RegistrySummaryStrip.tsx`, `RegistryHorizon.tsx`) — those are tabular numerals tuned for the registry product and are governed by their own data-readout rule, not the prose hierarchy.
+- Tailwind primitive `text-xs/text-sm/...` inside `src/components/ui/*` (shadcn primitives) — they're internal to controls (dialog title, calendar cells, etc.) and don't read as page typography. Leaving them avoids a destabilizing pass through every form/dialog primitive.
+- Font families. No serif↔sans changes.
+- Spacing tokens, layout, copy.
 
 ### Files touched
 
-- `src/components/SiteFooter.tsx` — two-line change (remove `mt-20`, tighten inner `py-16` → `py-12 md:py-14`).
+- `src/index.css` — token rewrites + new `t-micro` + `t-nav` aliases (single hunk in the type-token block).
+- `src/components/SiteFooter.tsx`
+- `src/components/SiteHeader.tsx`
+- `src/components/BriefingHero.tsx` (statement line only)
+- `src/components/StatusBadge.tsx`
+- `src/components/EmptyState.tsx`
+- `src/components/DocJumpBar.tsx`
+- `src/components/DocLayout.tsx`
+- `src/components/RegistryLayout.tsx`
+- `src/components/registry/QueryBar.tsx`
+- `src/components/registry/RegistryPagination.tsx`
+- `src/components/registry/SectionAnchorNav.tsx`
+- `src/components/registry/SourceTypeCell.tsx`
+- `src/components/registry/VerificationShield.tsx`
+- `src/components/library/ArticleRow.tsx`
 
-### Out of scope
+### Result
 
-- Inter-section spacing (`section-gap`, `section-pad`) — that's the next pass the user already flagged.
-- Footer content, columns, copy, or layout.
-- Hero spacing.
-- No per-page edits.
+- Every H1 across the site renders at 48/56 — homepage and every interior chapter hero now match the rest of the system.
+- H3/H4 stop shrinking on mobile; subsection hierarchy is visible at every breakpoint.
+- Eyebrows, meta strips, badges, footer text, nav links, and registry chrome all collapse onto four governed tokens instead of fourteen one-off `text-[Npx]` strings.
+- No copy, no structure, no font families, no layout changes. The site visibly settles into one typographic constitution.
 
