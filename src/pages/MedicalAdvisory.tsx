@@ -134,19 +134,24 @@ const MedicalAdvisory = () => {
 
             {/* Section 01 — Institutional Mandate */}
             <section id="transparency" className="scroll-mt-24 pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 border-b border-border/40">
-              <div className="grid md:grid-cols-12 md:gap-10">
-                <div className="md:col-span-5">
-                  <SectionIndex n="01" />
-                  <h2 className="t-section-title-sm text-foreground">
-                    Institutional Mandate
-                  </h2>
+              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
+                <div className="md:col-span-4">
+                  <div className="md:sticky md:top-32">
+                    <SectionIndex n="01" />
+                    <h2 className="t-section-title-sm text-foreground">
+                      Institutional Mandate
+                    </h2>
+                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
+                      The governing terms under which the Board operates.
+                    </p>
+                  </div>
                 </div>
-                <div className="md:col-span-7 mt-8 md:mt-0">
+                <div className="md:col-span-8 mt-8 md:mt-0">
                   <ol className="divide-y divide-border/60">
                     {MANDATE_CLAUSES.map((c) => (
                       <li key={c.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 font-mono text-[12px] tabular-nums text-muted-foreground">{c.n}</div>
-                        <div className="col-span-10">
+                        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">{c.n}</div>
+                        <div className="col-span-10 md:col-span-11">
                           <p className="t-body-md font-semibold text-foreground">{c.t}</p>
                           <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
                         </div>
@@ -159,19 +164,24 @@ const MedicalAdvisory = () => {
 
             {/* Section 02 — Governance Framework */}
             <section id="verification-chain" className="scroll-mt-24 section-pad border-b border-border/40">
-              <div className="grid md:grid-cols-12 md:gap-10">
-                <div className="md:col-span-5">
-                  <SectionIndex n="02" />
-                  <h2 className="t-section-title-sm text-foreground">
-                    Governance Framework
-                  </h2>
+              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
+                <div className="md:col-span-4">
+                  <div className="md:sticky md:top-32">
+                    <SectionIndex n="02" />
+                    <h2 className="t-section-title-sm text-foreground">
+                      Governance Framework
+                    </h2>
+                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
+                      The recurring functions the Board performs to maintain the standard.
+                    </p>
+                  </div>
                 </div>
-                <div className="md:col-span-7 mt-8 md:mt-0">
+                <div className="md:col-span-8 mt-8 md:mt-0">
                   <ol className="divide-y divide-border/60">
                     {ROLE_FUNCTIONS.map((s) => (
                       <li key={s.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 font-mono text-[12px] tabular-nums text-muted-foreground">{s.n}</div>
-                        <div className="col-span-10">
+                        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">{s.n}</div>
+                        <div className="col-span-10 md:col-span-11">
                           <p className="t-body-md font-semibold text-foreground">{s.t}</p>
                           <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{s.d}</p>
                         </div>
