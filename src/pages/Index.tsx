@@ -16,10 +16,10 @@ const ghostBtnSecondary =
 const HeroActions = () => (
   <>
     <Link to="/directory" className={ghostBtnPrimary}>
-      Access Vendor Registry
+      Search the Registry
     </Link>
     <Link to="/apply" className={ghostBtnSecondary}>
-      Begin Verification
+      For Vendors: Get Verified
     </Link>
   </>
 );
