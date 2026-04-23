@@ -1,6 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Globe, Building2 } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -16,6 +14,7 @@ import {
 } from "@/components/registry/QueryBar";
 import { RegistryPagination } from "@/components/registry/RegistryPagination";
 import { VerificationShield } from "@/components/registry/VerificationShield";
+import { VendorAuditCard } from "@/components/registry/VendorAuditCard";
 import {
   vendors,
   Vendor,
@@ -26,7 +25,7 @@ import {
   getVendorCityKey,
   getClinicalFocusOptions,
   getVendorFulfillment,
-  
+
   VendorFulfillment,
   VENDOR_FULFILLMENT_LABEL,
   VENDOR_FULFILLMENT_DESC,
