@@ -109,27 +109,27 @@ const MedicalAdvisory = () => {
       />
 
       <PageMeta
-        title="Medical Advisory Board · Governance & Oversight"
-        description="The Source Standard framework is reviewed under independent medical and legal oversight. The Board governs the standards behind every public determination."
+        title="Governance & Clinical Oversight · Source Standard"
+        description="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
 
       <BriefingHero
         tone="navy"
-        category="Governance & Oversight"
+        category="Governance & Clinical Oversight"
         docId="SS-MAB-2026.01"
-        title="Medical Advisory Board"
-        statement="The Source Standard framework is reviewed under independent medical and legal oversight. The Board governs the standards behind every public determination, it does not produce listings, market clinics, or treat patients."
+        title="Governance & Clinical Oversight"
+        statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
 
-            {/* Why this Board exists */}
+            {/* Why the Board exists */}
             <section className="section-pad border-b border-border/40">
               <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
               <h2 className="t-section-title-sm text-foreground mb-8">
-                Why this Board exists
+                Transparency requires accountability.
               </h2>
               <div className="grid md:grid-cols-3 md:divide-x md:divide-border/50">
                 {WHY_ITEMS.map((w, i) => (
@@ -146,10 +146,10 @@ const MedicalAdvisory = () => {
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
                   <h2 className="t-section-title-sm text-foreground">
-                    Where the Board sits in the verification chain
+                    The verification chain
                   </h2>
                   <p className="mt-4 t-body-md text-muted-foreground max-w-[40ch]">
-                    The Board is the layer above the operational registry. It does not produce listings, it governs the logic by which listings are produced.
+                    The Board sits above the operational registry. It does not produce listings — it governs the logic by which they are produced.
                   </p>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
@@ -248,18 +248,19 @@ const MedicalAdvisory = () => {
                     Responsibilities
                   </h2>
                   <p className="mt-4 t-body-md text-muted-foreground max-w-[40ch]">
-                    Each responsibility maps to a recurring review activity recorded under the framework's maintenance log.
+                    Each responsibility maps to a recurring oversight activity recorded under the registry's maintenance log.
                   </p>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
                   <dl className="divide-y divide-border/60">
-                    {responsibilities.map((r) => {
-                      const title = RESPONSIBILITY_TITLE_OVERRIDES[r.code] ?? r.title;
+                    {RESPONSIBILITY_ORDER.map((code) => {
+                      const o = RESPONSIBILITY_OVERRIDES[code];
+                      if (!o) return null;
                       return (
-                        <div key={r.code} className="py-4 first:pt-0 last:pb-0">
-                          <dt className="t-body-md font-semibold text-foreground">{title}</dt>
+                        <div key={code} className="py-4 first:pt-0 last:pb-0">
+                          <dt className="t-body-md font-semibold text-foreground">{o.title}</dt>
                           <dd className="mt-1.5 t-body-md text-muted-foreground">
-                            {r.description}
+                            {o.description}
                           </dd>
                         </div>
                       );
