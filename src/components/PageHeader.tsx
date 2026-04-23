@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Eyebrow, PageTitle, Lead } from "@/components/system";
+import { PageTitle, Lead } from "@/components/system";
 
 /**
  * PageHeader — token-aligned page intro band.
@@ -22,7 +22,6 @@ export const PageHeader = ({
   <section className="border-b border-border bg-background">
     <div className="page-shell section-pad">
       <div className="mx-auto w-standard">
-        {eyebrow && <Eyebrow className="mb-4">{eyebrow}</Eyebrow>}
         <PageTitle className="max-w-[26ch]">{title}</PageTitle>
         {description && <Lead className="mt-5 max-w-[68ch]">{description}</Lead>}
         {children && <div className="mt-7">{children}</div>}

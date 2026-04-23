@@ -181,9 +181,6 @@ const SectionHeading = ({
 }) => (
   <div className="mb-5 flex items-baseline justify-between gap-4 flex-wrap">
     <div>
-      {eyebrow && (
-        <p className="t-eyebrow-sm text-muted-foreground mb-1.5">{eyebrow}</p>
-      )}
       <h2 className="t-section-title-sm text-foreground">{children}</h2>
     </div>
     {trailing}

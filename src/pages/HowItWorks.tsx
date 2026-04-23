@@ -163,8 +163,7 @@ const HowItWorks = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
-              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
-              <h2 className="mt-4 t-section-title-sm text-foreground">
+              <h2 className="t-section-title-sm text-foreground">
                 What this standard is designed to do
               </h2>
               <div className="mt-6 space-y-5">
@@ -235,8 +234,7 @@ const HowItWorks = () => {
             {/* §8 Closing statement */}
             <section className="section-pad">
               <div className="max-w-2xl">
-                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
-                <h2 className="mt-4 t-section-title-sm text-foreground">
+                <h2 className="t-section-title-sm text-foreground">
                   Verification is a record standard.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">

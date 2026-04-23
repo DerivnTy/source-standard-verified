@@ -74,7 +74,6 @@ export const RecordHeader = ({
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-8">
             <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
-            {eyebrow && <p className="t-eyebrow-sm text-muted-foreground mb-4">{eyebrow}</p>}
             {title && <h1 className="t-page-title text-foreground max-w-3xl">{title}</h1>}
             {lead && (
               <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">

@@ -53,11 +53,6 @@ const FILTER_TABS: { id: "all" | CategoryId; label: string }[] = [
   { id: "consumer", label: "Consumer" },
 ];
 
-const EYEBROW_BY_CATEGORY: Record<CategoryId, string> = {
-  regulation: "Regulation",
-  clinical: "Clinical",
-  consumer: "Consumer",
-};
 
 const CategoryBlock = ({
   category,
@@ -76,10 +71,7 @@ const CategoryBlock = ({
       <div className="mx-auto w-wide">
         <div className="grid grid-cols-12 gap-x-8 gap-y-8">
           <div className="col-span-12 md:col-span-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              {EYEBROW_BY_CATEGORY[category.id]}
-            </p>
-            <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
+            <h2 className="t-section-title-sm text-foreground tracking-tight">
               {category.label}
             </h2>
             <p className="mt-3 t-body-md text-muted-foreground leading-[1.6] max-w-[42ch]">

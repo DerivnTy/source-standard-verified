@@ -38,12 +38,6 @@ export const ArticleHeader = ({
 
         <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
 
-        {eyebrow && (
-          <p className="t-eyebrow-sm text-muted-foreground mb-4">
-            {eyebrow}
-          </p>
-        )}
-
         <h1 className="t-page-title text-foreground max-w-[26ch] mb-5">
           {title}
         </h1>
