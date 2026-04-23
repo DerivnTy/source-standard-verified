@@ -100,14 +100,21 @@ export const SiteHeader = () => {
 
   return (
     <header
-      className={`sticky top-0 z-40 bg-background/70 backdrop-blur-xl backdrop-saturate-150 border-b border-border/60 transition-transform duration-200 ease-out ${
+      className={`sticky top-0 z-40 transition-transform duration-200 ease-out ${
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
+      style={{
+        backgroundColor: "hsl(var(--navy-surface) / 0.98)",
+        backdropFilter: "blur(12px) saturate(160%)",
+        WebkitBackdropFilter: "blur(12px) saturate(160%)",
+        borderBottom: "0.5px solid rgba(255, 255, 255, 0.10)",
+      }}
     >
-      {/* Utility strip moved to GlobalUtilityBar (Tier 0) */}
-
-      <div className="container-wide relative flex h-16 items-center justify-between">
-        <Logo />
+      <div
+        className="relative flex items-center justify-between"
+        style={{ height: "60px", paddingLeft: "24px", paddingRight: "24px" }}
+      >
+        <Logo variant="light" />
         <nav className="hidden lg:flex items-center gap-7 h-full">
           {nav.map((n) => (
             <NavLink
@@ -117,8 +124,8 @@ export const SiteHeader = () => {
               className={({ isActive }) =>
                 `relative inline-flex items-center h-10 t-nav transition-colors ${
                   isActive
-                    ? "text-foreground font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-white font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-white"
+                    : "text-white/70 hover:text-white"
                 }`
               }
             >
@@ -131,7 +138,7 @@ export const SiteHeader = () => {
             asChild
             variant="outline"
             size="sm"
-            className="h-9 px-4 rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
+            className="h-9 px-4 rounded-[2px] border border-white/30 bg-transparent text-white hover:bg-white/[0.06] hover:text-white hover:border-white"
           >
             <Link to="/apply">Apply for Verification</Link>
           </Button>
@@ -140,28 +147,20 @@ export const SiteHeader = () => {
           className="lg:hidden p-2 -mr-2 relative h-9 w-9 transition-colors"
           style={{
             zIndex: open ? 70 : undefined,
-            color: open ? "hsl(var(--background))" : "hsl(var(--foreground))",
+            color: "#FFFFFF",
           }}
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
           aria-expanded={open}
         >
-          {/* Morphing hamburger ↔ X */}
+          {/* Clean 2-bar hamburger ↔ X */}
           <span
             aria-hidden
             className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 -translate-x-1/2 bg-current transition-all duration-300 ease-out"
             style={{
               transform: open
                 ? "translate(-50%, -50%) rotate(45deg)"
-                : "translate(-50%, -7px)",
-            }}
-          />
-          <span
-            aria-hidden
-            className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 -translate-x-1/2 bg-current transition-opacity duration-200 ease-out"
-            style={{
-              transform: "translate(-50%, -50%)",
-              opacity: open ? 0 : 1,
+                : "translate(-50%, -4px)",
             }}
           />
           <span
@@ -170,7 +169,7 @@ export const SiteHeader = () => {
             style={{
               transform: open
                 ? "translate(-50%, -50%) rotate(-45deg)"
-                : "translate(-50%, 5px)",
+                : "translate(-50%, 3px)",
             }}
           />
         </button>
