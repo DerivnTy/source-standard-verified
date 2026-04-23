@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
+import { Check, X, AlertTriangle } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import { StatusBadge } from "@/components/StatusBadge";
-import { BoardSection } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
 import type { VendorPublicStatus } from "@/data/vendors";
-
-const DOC_ID = "SS-PROTO-2026.01";
-const VERIFIED_ON = "04/21/2026";
 
 const whyItMatters: { t: string; d: string }[] = [
   {
@@ -44,42 +41,36 @@ const outsideScope: string[] = [
 const statuses: {
   key: VendorPublicStatus;
   t: string;
-  meaning: string;
   tells: string;
   notImply: string;
 }[] = [
   {
     key: "verified",
     t: "Verified",
-    meaning: "Records were reviewed and support the claims within the verified category.",
     tells: "Documentation has been examined and meets the standard at the time of review.",
     notImply: "A medical endorsement or a guarantee of any clinical result.",
   },
   {
     key: "unverified",
     t: "Unverified",
-    meaning: "No completed verification on record.",
     tells: "The vendor has not been reviewed under this standard.",
     notImply: "That the vendor is illegitimate, only that no verification exists.",
   },
   {
     key: "under-review",
     t: "Under Review",
-    meaning: "An active review is in progress or additional records are being evaluated.",
     tells: "The file is open and a status decision has not yet been published.",
     notImply: "Any specific outcome before review is complete.",
   },
   {
     key: "suspended",
     t: "Suspended",
-    meaning: "A previously verified listing has been temporarily paused.",
     tells: "An issue has been identified that requires resolution before status continues.",
     notImply: "A final determination, the listing may be reinstated after review.",
   },
   {
     key: "removed",
     t: "Removed",
-    meaning: "The listing has been withdrawn from the public registry.",
     tells: "Verification is no longer in effect for the listed scope.",
     notImply: "Any specific allegation beyond what is published in the public record.",
   },
@@ -136,17 +127,85 @@ const notProcess: string[] = [
 ];
 
 const waypoints = [
-  { id: "definition", number: "1", label: "Definition" },
-  { id: "principles", number: "2", label: "Principles" },
-  { id: "scope", number: "3", label: "Scope" },
-  { id: "standings", number: "4", label: "Standings" },
-  { id: "examination", number: "5", label: "Examination" },
-  { id: "lifecycle", number: "6", label: "Lifecycle" },
-  { id: "surveillance", number: "7", label: "Surveillance" },
-  { id: "outcome", number: "8", label: "Outcome" },
-  { id: "rationale", number: "9", label: "Rationale" },
-  { id: "limits", number: "10", label: "Limits" },
+  { id: "definition", number: "1", label: "DEF" },
+  { id: "principles", number: "2", label: "PRIN" },
+  { id: "scope", number: "3", label: "SCOPE" },
+  { id: "standings", number: "4", label: "STANDINGS" },
+  { id: "examination", number: "5", label: "EXAM" },
+  { id: "lifecycle", number: "6", label: "LIFECYCLE" },
+  { id: "surveillance", number: "7", label: "SURV" },
+  { id: "outcome", number: "8", label: "OUTCOME" },
+  { id: "rationale", number: "9", label: "RATIONALE" },
+  { id: "limits", number: "10", label: "LIMITS" },
 ];
+
+// ---------- Building blocks ----------
+
+const SectionShell = ({
+  id,
+  n,
+  category,
+  title,
+  description,
+  muted = false,
+  first = false,
+  children,
+}: {
+  id: string;
+  n: string;
+  category: string;
+  title: string;
+  description?: string;
+  muted?: boolean;
+  first?: boolean;
+  children: React.ReactNode;
+}) => (
+  <section
+    id={id}
+    className={`scroll-mt-36 border-b border-border ${muted ? "bg-surface-muted/40" : "bg-background"}`}
+  >
+    <div className={`page-shell ${first ? "pt-10 md:pt-12" : "pt-12 md:pt-14"} pb-12 md:pb-14`}>
+      <div className="mx-auto w-wide">
+        <div className="mb-7 flex items-baseline justify-between gap-4 border-b border-border pb-4">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+              §{n} · {category}
+            </p>
+            <h2 className="mt-2 t-section-title-sm text-foreground">{title}</h2>
+            {description && (
+              <p className="mt-2 t-body-md text-muted-foreground max-w-[68ch]">{description}</p>
+            )}
+          </div>
+        </div>
+        {children}
+      </div>
+    </div>
+  </section>
+);
+
+const NumberedCell = ({
+  n,
+  title,
+  children,
+}: {
+  n: string;
+  title: string;
+  children: React.ReactNode;
+}) => (
+  <li className="rounded-md border border-border bg-card shadow-sm p-5 flex gap-5">
+    <div className="font-mono text-[20px] font-semibold tabular-nums text-foreground/80 leading-none pt-0.5 shrink-0">
+      {n}
+    </div>
+    <div className="flex-1 min-w-0">
+      <p className="t-body-md font-semibold text-foreground">{title}</p>
+      <div className="mt-2 t-body-sm text-muted-foreground leading-[1.6] space-y-1">
+        {children}
+      </div>
+    </div>
+  </li>
+);
+
+// ---------- Page ----------
 
 const HowItWorks = () => {
   return (
@@ -165,213 +224,243 @@ const HowItWorks = () => {
       />
       <DocJumpBar waypoints={waypoints} />
 
-      <BoardSection
+      {/* §1 Definition — docks into hero (no top gap) */}
+      <SectionShell
         id="definition"
         n="1"
         category="Definition"
         title="Verified means records were reviewed and support the published scope at the time of review"
+        first
       >
-        <p>It is not a medical endorsement, and not a guarantee of safety, efficacy, or outcome.</p>
-        <p>It reflects documented consistency within the reviewed scope, nothing more, nothing less.</p>
-      </BoardSection>
+        <div className="rounded-md border border-border bg-card shadow-sm p-6 t-body-md text-foreground/85 leading-[1.65] space-y-3">
+          <p>It is not a medical endorsement, and not a guarantee of safety, efficacy, or outcome.</p>
+          <p>It reflects documented consistency within the reviewed scope, nothing more, nothing less.</p>
+        </div>
+      </SectionShell>
 
-      <BoardSection
+      {/* §2 Principles */}
+      <SectionShell
         id="principles"
         n="2"
         category="Principles"
         title="Three ideas the framework operates from"
         muted
       >
-        <ol className="border-y border-border divide-y divide-border">
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {whyItMatters.map((w, i) => (
-            <li key={i} className="grid grid-cols-12 gap-4 py-5 items-baseline">
-              <div className="col-span-2 meta-mono text-primary">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <div className="col-span-10">
-                <p className="h-card">{w.t}</p>
-                <p className="mt-1 t-body-sm text-muted-foreground leading-relaxed">{w.d}</p>
-              </div>
-            </li>
+            <NumberedCell key={i} n={String(i + 1).padStart(2, "0")} title={w.t}>
+              <p>{w.d}</p>
+            </NumberedCell>
           ))}
-        </ol>
-      </BoardSection>
+        </ul>
+      </SectionShell>
 
-      <BoardSection
+      {/* §3 Scope — Within / Outside grid */}
+      <SectionShell
         id="scope"
         n="3"
         category="Scope"
         title="What falls inside and outside the review"
       >
-        <div className="grid md:grid-cols-2 md:divide-x divide-border">
-          <div className="md:pr-8 pb-8 md:pb-0 border-b md:border-b-0 border-border">
-            <p className="h-card mb-4">Within scope</p>
-            <ul className="border-y border-border divide-y divide-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
+            <header className="px-5 py-3 border-b border-border bg-surface-muted/50">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
+                Within scope
+              </p>
+            </header>
+            <ul className="divide-y divide-border">
               {withinScope.map((s, i) => (
-                <li key={i} className="py-3 t-body-sm text-foreground">{s}</li>
+                <li key={i} className="flex items-start gap-3 px-5 py-3.5 t-body-sm text-foreground">
+                  <Check className="h-4 w-4 text-verified shrink-0 mt-0.5" strokeWidth={2.5} aria-hidden />
+                  <span>{s}</span>
+                </li>
               ))}
             </ul>
           </div>
-          <div className="md:pl-8 pt-8 md:pt-0">
-            <p className="h-card mb-4">Outside scope</p>
-            <ul className="border-y border-border divide-y divide-border">
+          <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
+            <header className="px-5 py-3 border-b border-border bg-surface-muted/50">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
+                Outside scope
+              </p>
+            </header>
+            <ul className="divide-y divide-border">
               {outsideScope.map((s, i) => (
-                <li key={i} className="py-3 t-body-sm text-muted-foreground">{s}</li>
+                <li key={i} className="flex items-start gap-3 px-5 py-3.5 t-body-sm text-muted-foreground">
+                  <X className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" strokeWidth={2.5} aria-hidden />
+                  <span>{s}</span>
+                </li>
               ))}
             </ul>
           </div>
         </div>
-      </BoardSection>
+      </SectionShell>
 
-      <BoardSection
+      {/* §4 Standings — registry-style table */}
+      <SectionShell
         id="standings"
         n="4"
         category="Standings"
         title="Each registry entry carries one of these standings"
         muted
       >
-        <ul className="border-y border-border divide-y divide-border">
-          {statuses.map((s) => (
-            <li key={s.key} className="py-6">
-              <div className="flex items-center gap-3 mb-2">
-                <StatusBadge status={s.key} size="md" />
-                <span className="h-card">{s.t}</span>
-              </div>
-              <p className="t-body-sm text-foreground leading-relaxed">{s.meaning}</p>
-              <p className="mt-2 t-body-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Tells:</span> {s.tells}
-              </p>
-              <p className="mt-1 t-body-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Does not imply:</span> {s.notImply}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-6">
-          <Link to="/status-definitions" className="link-accent t-body-sm">
+        <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
+          <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-border bg-surface-muted/50 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            <div className="col-span-3">Standing</div>
+            <div className="col-span-4">What it tells</div>
+            <div className="col-span-5">What it does not imply</div>
+          </div>
+          <ul className="divide-y divide-border">
+            {statuses.map((s) => (
+              <li
+                key={s.key}
+                className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 px-5 py-4"
+              >
+                <div className="md:col-span-3 flex items-center">
+                  <StatusBadge status={s.key} size="md" />
+                </div>
+                <div className="md:col-span-4 t-body-sm text-foreground/85 leading-[1.55]">
+                  {s.tells}
+                </div>
+                <div className="md:col-span-5 t-body-sm text-muted-foreground leading-[1.55]">
+                  {s.notImply}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="mt-5">
+          <Link to="/status-definitions" className="t-body-sm font-semibold text-primary hover:underline">
             Full status definitions →
           </Link>
         </p>
-      </BoardSection>
+      </SectionShell>
 
-      <BoardSection
+      {/* §5 Examination — vertical numbered stepper */}
+      <SectionShell
         id="examination"
         n="5"
         category="Examination"
         title="Seven areas examined against the standard for the requested category"
       >
-        <ol className="border-y border-border divide-y divide-border">
+        <ol className="flex flex-col gap-3">
           {reviewGroups.map((g, i) => (
-            <li key={i} className="grid grid-cols-12 gap-4 py-5 items-baseline">
-              <div className="col-span-2 meta-mono text-primary">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <div className="col-span-10">
-                <p className="h-card">{g.t}</p>
-                <p className="mt-1 t-body-sm text-muted-foreground leading-relaxed">{g.d}</p>
-              </div>
-            </li>
+            <NumberedCell key={i} n={String(i + 1).padStart(2, "0")} title={g.t}>
+              <p>{g.d}</p>
+            </NumberedCell>
           ))}
         </ol>
-      </BoardSection>
+      </SectionShell>
 
-      <BoardSection
+      {/* §6 Lifecycle — vertical numbered stepper */}
+      <SectionShell
         id="lifecycle"
         n="6"
         category="Lifecycle"
         title="Six stages from application to publication"
         muted
       >
-        <ol className="border-y border-border divide-y divide-border">
+        <ol className="flex flex-col gap-3">
           {steps.map((s) => (
-            <li key={s.n} className="grid grid-cols-12 gap-5 py-6 items-start">
-              <div className="col-span-2 text-[26px] font-semibold tabular-nums text-primary leading-none">
-                {s.n}
-              </div>
-              <div className="col-span-10">
-                <p className="h-card">{s.t}</p>
-                <p className="mt-2 t-body-sm text-foreground leading-relaxed">{s.summary}</p>
-                <p className="mt-2 t-utility-xs text-muted-foreground leading-relaxed">
-                  Examined: {s.reviewed} · Result: {s.result}
-                </p>
-              </div>
-            </li>
+            <NumberedCell key={s.n} n={s.n} title={s.t}>
+              <p className="text-foreground/85">{s.summary}</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground pt-1">
+                Examined: <span className="text-foreground/75">{s.reviewed}</span>
+              </p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                Result: <span className="text-foreground/75">{s.result}</span>
+              </p>
+            </NumberedCell>
           ))}
         </ol>
-      </BoardSection>
+      </SectionShell>
 
-      <BoardSection
+      {/* §7 Surveillance */}
+      <SectionShell
         id="surveillance"
         n="7"
         category="Surveillance"
         title="Verification is a snapshot in time"
+        description="Files are monitored, renewed, and re-reviewed when material changes occur. Material changes must be disclosed within 72 hours and may trigger re-review or a Suspended status."
       >
-        <p>
-          Files are monitored, renewed, and re-reviewed when material changes occur. Material
-          changes must be disclosed within 72 hours and may trigger re-review or a Suspended status.
-        </p>
-        <ul className="border-y border-border divide-y divide-border mt-6">
-          {changes.map((c, i) => (
-            <li key={i} className="py-3 t-body-sm text-foreground">{c}</li>
-          ))}
-        </ul>
-      </BoardSection>
+        <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
+          <header className="px-5 py-3 border-b border-border bg-surface-muted/50">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
+              Reportable material changes
+            </p>
+          </header>
+          <ul className="divide-y divide-border">
+            {changes.map((c, i) => (
+              <li key={i} className="px-5 py-3.5 t-body-sm text-foreground/85">
+                {c}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </SectionShell>
 
-      <BoardSection
+      {/* §8 Outcome */}
+      <SectionShell
         id="outcome"
         n="8"
         category="Outcome"
         title="What follows a determination"
         muted
       >
-        <ol className="border-y border-border divide-y divide-border">
+        <ol className="flex flex-col gap-3">
           {afterReview.map((a, i) => (
-            <li key={i} className="grid grid-cols-12 gap-4 py-4 items-baseline">
-              <div className="col-span-2 meta-mono text-primary">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <div className="col-span-10 t-body-sm text-foreground leading-relaxed">{a}</div>
-            </li>
+            <NumberedCell key={i} n={String(i + 1).padStart(2, "0")} title={a.replace(/\.$/, "")}>
+              <></>
+            </NumberedCell>
           ))}
         </ol>
-      </BoardSection>
+      </SectionShell>
 
-      <BoardSection
+      {/* §9 Rationale */}
+      <SectionShell
         id="rationale"
         n="9"
         category="Rationale"
         title="Why entities apply"
       >
-        <ul className="border-y border-border divide-y divide-border">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {vendorReasons.map((r, i) => (
-            <li key={i} className="py-5">
-              <p className="h-card">{r.t}</p>
-              <p className="mt-1 t-body-sm text-muted-foreground leading-relaxed">{r.d}</p>
-            </li>
+            <NumberedCell key={i} n={String(i + 1).padStart(2, "0")} title={r.t}>
+              <p>{r.d}</p>
+            </NumberedCell>
           ))}
         </ul>
         <p className="mt-6">
-          <Link to="/apply" className="link-accent t-body-sm">
+          <Link to="/apply" className="t-body-sm font-semibold text-primary hover:underline">
             Begin a verification application →
           </Link>
         </p>
-      </BoardSection>
+      </SectionShell>
 
-      <BoardSection
+      {/* §10 Limits — high-contrast warning */}
+      <SectionShell
         id="limits"
         n="10"
         category="Limits"
         title="Jurisdictional limitations"
-        rationale="Boundaries of the verification framework."
         muted
       >
-        <ul className="border-y border-border divide-y divide-border">
-          {notProcess.map((n, i) => (
-            <li key={i} className="py-4 t-body-sm text-foreground leading-relaxed">{n}</li>
-          ))}
-        </ul>
-      </BoardSection>
-
+        <div className="rounded-md border-2 border-suspended/60 bg-suspended-soft/40 overflow-hidden">
+          <header className="flex items-center gap-2 px-5 py-3 border-b-2 border-suspended/60 bg-suspended-soft/60">
+            <AlertTriangle className="h-4 w-4 text-suspended shrink-0" strokeWidth={2.5} aria-hidden />
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-suspended">
+              Not medical advice · Not a safety guarantee
+            </p>
+          </header>
+          <ul className="divide-y divide-suspended/30">
+            {notProcess.map((n, i) => (
+              <li key={i} className="px-5 py-4 t-body-sm text-foreground/90 leading-[1.6]">
+                {n}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </SectionShell>
     </div>
   );
 };
