@@ -1,5 +1,12 @@
-import { ReactNode, useEffect, useRef } from "react";
-import { Search, X } from "lucide-react";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { Search, SlidersHorizontal, X } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export type ActiveChip = {
   key: string;
@@ -8,12 +15,9 @@ export type ActiveChip = {
 };
 
 /**
- * QueryBar — two-row controlled query interface for registry surfaces.
- * Row 1: search + result count + sort. Row 2: facets + reset.
- * Active filter chips render in a third row when any filter is active.
- *
- * All controls share one border treatment, one 40px height, one focus state
- * so the bar reads as a single instrument.
+ * QueryBar — razor-thin single-row registry control.
+ * Row 1: search (1px hairline) + Sort + Filters trigger.
+ * Filters open in a side sheet so the surface stays clean and uniform.
  */
 export const QueryBar = ({
   query,
@@ -37,6 +41,7 @@ export const QueryBar = ({
   activeChips?: ActiveChip[];
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -49,71 +54,148 @@ export const QueryBar = ({
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  const activeCount = activeChips.length;
+
   return (
     <div className="mx-5 md:mx-0">
-      {/* Single-line slim search bar — 1px hairline */}
-      <div className="relative">
-        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
-        <input
-          ref={inputRef}
-          value={query}
-          onChange={(e) => onQueryChange(e.target.value)}
-          placeholder={searchPlaceholder}
-          className="w-full pl-8 pr-14 h-9 bg-background rounded-[2px] text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
-          style={{ border: "1px solid hsl(var(--border))" }}
-          aria-label="Search registry"
-        />
-        <kbd
-          className="hidden md:inline-flex absolute right-2 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1 py-0.5 font-mono text-[10px] text-muted-foreground border border-border/60 rounded bg-background pointer-events-none"
-          aria-hidden
+      {/* Single razor-thin row: search · sort · filters */}
+      <div
+        className="flex items-stretch rounded-[2px] overflow-hidden"
+        style={{ border: "1px solid hsl(var(--border))" }}
+      >
+        <div className="relative flex-1 min-w-0">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+          <input
+            ref={inputRef}
+            value={query}
+            onChange={(e) => onQueryChange(e.target.value)}
+            placeholder={searchPlaceholder}
+            className="w-full pl-8 pr-3 h-9 bg-background text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+            aria-label="Search registry"
+          />
+        </div>
+        <div
+          className="shrink-0 border-l flex items-center"
+          style={{ borderColor: "hsl(var(--border))" }}
         >
-          ⌘K
-        </kbd>
+          {sortControl}
+        </div>
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              className="shrink-0 h-9 px-3 border-l text-[12.5px] text-foreground hover:bg-surface-muted/40 inline-flex items-center gap-1.5 transition-colors"
+              style={{ borderColor: "hsl(var(--border))" }}
+              aria-label="Open filters"
+            >
+              <SlidersHorizontal className="h-3.5 w-3.5" />
+              <span>Filters</span>
+              {activeCount > 0 && (
+                <span className="font-mono tabular-nums text-[11px] text-muted-foreground">
+                  {activeCount}
+                </span>
+              )}
+            </button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-full sm:max-w-md p-0">
+            <SheetHeader className="px-6 pt-6 pb-4 border-b border-border">
+              <SheetTitle className="text-[15px] font-semibold tracking-tight">
+                Filter Registry
+              </SheetTitle>
+            </SheetHeader>
+            <div className="px-6 py-5 space-y-4 overflow-y-auto h-[calc(100vh-9rem)]">
+              {facets}
+            </div>
+            <div className="border-t border-border px-6 py-3 flex items-center justify-between gap-3 bg-background">
+              {hasActiveFilters ? (
+                <button
+                  onClick={() => {
+                    onReset();
+                  }}
+                  className="text-[12.5px] text-muted-foreground hover:text-foreground underline underline-offset-2"
+                >
+                  Reset filters
+                </button>
+              ) : (
+                <span />
+              )}
+              <button
+                onClick={() => setOpen(false)}
+                className="h-9 px-4 rounded-[2px] bg-foreground text-background text-[12.5px] hover:opacity-90"
+              >
+                Apply
+              </button>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
 
-      {/* Inline dropdown row directly below — text dropdowns, no boxy borders */}
-      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-        <div className="shrink-0">{sortControl}</div>
-        {facets}
-      </div>
-
-      <div className="mt-2 flex items-center justify-between gap-3">
+      {/* Result count + chips */}
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
         <span className="t-micro text-muted-foreground tabular-nums whitespace-nowrap">
           {resultLabel}
         </span>
+        {activeChips.map((chip) => (
+          <button
+            key={chip.key}
+            onClick={chip.onRemove}
+            className="group inline-flex items-center gap-1 h-5 pl-1.5 pr-1 border border-foreground/15 bg-background hover:border-foreground/40 text-[11px] text-foreground rounded-[2px] transition-all"
+          >
+            <span className="truncate max-w-[140px]">{chip.label}</span>
+            <X className="h-2.5 w-2.5 text-muted-foreground group-hover:text-foreground" />
+          </button>
+        ))}
         {hasActiveFilters && (
           <button
             onClick={onReset}
-            className="t-micro text-muted-foreground hover:text-foreground underline underline-offset-2"
+            className="ml-auto t-micro text-muted-foreground hover:text-foreground underline underline-offset-2"
           >
             Reset
           </button>
         )}
       </div>
-
-      {/* Active chips — only when active */}
-      {activeChips.length > 0 && (
-        <div className="mt-2 flex flex-wrap items-center gap-1.5">
-          {activeChips.map((chip) => (
-            <button
-              key={chip.key}
-              onClick={chip.onRemove}
-              className="group inline-flex items-center gap-1.5 h-6 pl-2 pr-1.5 border border-foreground/15 bg-background hover:border-foreground/40 t-micro text-foreground rounded-[2px] transition-all"
-            >
-              <span className="truncate max-w-[180px]">{chip.label}</span>
-              <X className="h-3 w-3 text-muted-foreground group-hover:text-foreground" />
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
 
 /**
- * FacetSelect — minimal text-style dropdown. No border, no box; reads as a link.
+ * FacetSelect — used inside the filter Sheet. Full-width labeled select.
  */
 export const FacetSelect = ({
+  value,
+  onChange,
+  ariaLabel,
+  children,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  ariaLabel: string;
+  children: ReactNode;
+}) => (
+  <label className="block">
+    <span className="block text-[10.5px] font-medium uppercase tracking-[0.12em] text-muted-foreground mb-1.5">
+      {ariaLabel.replace(/^Filter by /, "")}
+    </span>
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      aria-label={ariaLabel}
+      className="w-full h-9 px-2.5 pr-8 bg-background text-[13px] text-foreground rounded-[2px] focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center]"
+      style={{
+        border: "1px solid hsl(var(--border))",
+        backgroundImage:
+          "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
+      }}
+    >
+      {children}
+    </select>
+  </label>
+);
+
+/**
+ * SortControl — compact text-style select used inline in the QueryBar row.
+ */
+export const SortControl = ({
   value,
   onChange,
   ariaLabel,
@@ -128,7 +210,7 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-7 w-auto max-w-[140px] bg-transparent border-0 pl-0 pr-4 text-[12.5px] text-foreground hover:text-foreground/80 focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_0_center] truncate"
+    className="h-9 pl-3 pr-7 bg-background text-[12.5px] text-foreground hover:bg-surface-muted/40 focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_8px_center] border-0"
     style={{
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
@@ -139,50 +221,7 @@ export const FacetSelect = ({
 );
 
 /**
- * Segmented control — for small enum facets.
- */
-export const FacetSegmented = <T extends string>({
-  value,
-  onChange,
-  options,
-  ariaLabel,
-}: {
-  value: T;
-  onChange: (v: T) => void;
-  options: { value: T; label: string }[];
-  ariaLabel: string;
-}) => (
-  <div
-    role="radiogroup"
-    aria-label={ariaLabel}
-    className="inline-flex h-10 border border-border/70 rounded-[2px] overflow-hidden"
-  >
-    {options.map((opt, i) => {
-      const active = opt.value === value;
-      return (
-        <button
-          key={opt.value}
-          role="radio"
-          aria-checked={active}
-          onClick={() => onChange(opt.value)}
-          className={`px-3.5 t-micro transition-colors duration-150 ${
-            i > 0 ? "border-l border-border/70" : ""
-          } ${
-            active
-              ? "bg-foreground text-background"
-              : "bg-background text-muted-foreground hover:text-foreground hover:bg-surface-muted/40"
-          }`}
-        >
-          {opt.label}
-        </button>
-      );
-    })}
-  </div>
-);
-
-/**
- * FacetGroup — visually groups a set of related toggle buttons inside the facet row.
- * Used to separate primary trust filters from geo/focus selects.
+ * FacetGroup — legacy: groups related toggle buttons inside the filter sheet.
  */
 export const FacetGroup = ({
   children,
@@ -191,18 +230,16 @@ export const FacetGroup = ({
   children: ReactNode;
   ariaLabel: string;
 }) => (
-  <div
-    role="group"
-    aria-label={ariaLabel}
-    className="inline-flex items-center gap-1"
-  >
+  <div role="group" aria-label={ariaLabel} className="flex flex-wrap gap-1.5">
+    <span className="block w-full text-[10.5px] font-medium uppercase tracking-[0.12em] text-muted-foreground mb-1">
+      {ariaLabel.replace(/^Filter by /, "")}
+    </span>
     {children}
   </div>
 );
 
 /**
- * FacetToggle — single toggle button matching the segmented look but standalone,
- * usable in a row of mutually-exclusive-within-group buttons.
+ * FacetToggle — legacy: single sharp toggle button.
  */
 export const FacetToggle = ({
   active,
@@ -219,7 +256,7 @@ export const FacetToggle = ({
     type="button"
     aria-pressed={active}
     onClick={onClick}
-    className={`h-8 px-3 rounded-[2px] text-[12px] transition-all duration-150 ${
+    className={`h-8 px-3 rounded-[2px] text-[12px] transition-all ${
       active
         ? tone === "verified"
           ? "bg-verified text-verified-foreground"
@@ -230,14 +267,4 @@ export const FacetToggle = ({
   >
     {children}
   </button>
-);
-
-/**
- * FacetDivider — vertical hairline separator between facet groups inside the row.
- */
-export const FacetDivider = () => (
-  <span
-    aria-hidden
-    className="hidden md:inline-block w-px h-6 bg-border/60 mx-1"
-  />
 );

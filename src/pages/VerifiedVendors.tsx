@@ -6,6 +6,7 @@ import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import {
   QueryBar,
   FacetSelect,
+  SortControl,
   ActiveChip,
 } from "@/components/registry/QueryBar";
 import { RegistryPagination } from "@/components/registry/RegistryPagination";
@@ -246,15 +247,15 @@ const VerifiedVendors = () => {
   }
 
   const sortControl = (
-    <FacetSelect
+    <SortControl
       value={sort}
       onChange={(v) => setSort(v as SortMode)}
       ariaLabel="Sort records"
     >
-      <option value="name-asc">Sort: Alphabetical</option>
-      <option value="location">Sort: Location</option>
-      <option value="latest-audit">Sort: Latest Audit</option>
-    </FacetSelect>
+      <option value="name-asc">Alphabetical</option>
+      <option value="location">Location</option>
+      <option value="latest-audit">Latest Audit</option>
+    </SortControl>
   );
 
   const facets = (
@@ -350,9 +351,9 @@ const VerifiedVendors = () => {
       <RegistryHorizon
         seam
         cells={[
-          { label: "Verified", value: counts.verified },
-          { label: "States", value: statesRepresented },
-          { label: "Audits", value: totalAudits },
+          { label: "Vendors Verified", value: counts.verified },
+          { label: "States Represented", value: statesRepresented },
+          { label: "Total Audits", value: totalAudits },
         ]}
       />
 
