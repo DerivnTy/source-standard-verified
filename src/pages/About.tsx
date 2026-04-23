@@ -5,172 +5,120 @@ import { BriefingHero } from "@/components/BriefingHero";
 import { BoardSection } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
 
-const weVerify = [
-  "Maintain a public system to review verified vendors.",
-  "Publish recognized upstream sources.",
-  "Document verification definitions.",
-  "Provide educational material on sourcing, documentation, storage, and due diligence.",
-];
+type Section = {
+  id: string;
+  n: string;
+  category: string;
+  title: string;
+  paragraph?: string;
+  points?: string[];
+};
 
-const weFlag = [
-  "Prescribe treatment.",
-  "Endorse specific medical protocols.",
-  "Replace medical advice, physician judgment, or regulatory oversight.",
-  "Function as a marketing arm for any clinic or vendor.",
-];
-
-const isNotItems = [
-  "Does not prescribe treatment.",
-  "Does not provide medical advice.",
-  "Does not replace physician judgment.",
-  "Does not function as a regulator.",
-  "Does not market clinics or act as a promotional partner.",
-  "Does not guarantee medical outcomes, product safety, or treatment efficacy.",
+const sections: Section[] = [
+  {
+    id: "context",
+    n: "01",
+    category: "CONTEXT",
+    title: "Context",
+    paragraph:
+      "In high-growth medical markets, consumers are frequently required to make decisions based on unverified marketing claims and branding signals. Source Standard was established to bridge the information gap between vendor claims and documented supply-chain reality. We provide the evidentiary layer necessary to distinguish compliant operators from unregulated sources.",
+  },
+  {
+    id: "boundaries",
+    n: "02",
+    category: "BOUNDARIES",
+    title: "Operational Boundaries",
+    points: [
+      "Source Standard does not provide medical advice or prescribe treatment protocols.",
+      "We do not substitute for physician judgment or federal regulatory oversight.",
+      "Our framework does not function as a marketing partner or promotional arm for any vendor.",
+      "We do not guarantee clinical outcomes, biological efficacy, or individual product safety.",
+      "Our mandate is limited to the verification of documentation and supply-chain transparency.",
+    ],
+  },
+  {
+    id: "audiences",
+    n: "03",
+    category: "OBJECTIVES",
+    title: "Strategic Objectives",
+    points: [
+      "For Consumers: Providing a verified reference point so that healthcare decisions rest on documented evidence rather than aesthetic presentation.",
+      "For Operators: Creating a visible standard for transparency that rewards vendors who maintain rigorous sourcing and oversight protocols.",
+    ],
+  },
+  {
+    id: "scope",
+    n: "04",
+    category: "SCOPE",
+    title: "Defined Scope",
+    points: [
+      "Maintenance of a public registry of verified vendors and substantiated sourcing.",
+      "Continuous publication of recognized upstream pharmaceutical sources.",
+      "Provision of educational material regarding sourcing, storage, and due-diligence protocols.",
+      "Independent surveillance and random analytical testing of registry listings.",
+    ],
+  },
 ];
 
 const readDeeper = [
-  { to: "/governance", label: "Governance & oversight", desc: "Clinical advisory and statutory anchors." },
-  { to: "/how-it-works", label: "How verification works", desc: "Process, review, and renewal." },
-  { to: "/status-definitions", label: "Status definitions", desc: "Glossary of regulatory standings." },
-  { to: "/accountability", label: "Accountability & enforcement", desc: "Compliance protocol." },
+  { to: "/governance", label: "Governance & Oversight", desc: "Clinical advisory and statutory anchors." },
+  { to: "/how-it-works", label: "Verification Protocol", desc: "Detailed audit and renewal processes." },
+  { to: "/status-definitions", label: "Status Definitions", desc: "Glossary of regulatory standings." },
+  { to: "/accountability", label: "Enforcement", desc: "Accountability and violation protocols." },
 ];
 
-const waypoints = [
-  { id: "context", number: "1", label: "Context" },
-  { id: "definition", number: "2", label: "Definition" },
-  { id: "boundaries", number: "3", label: "Boundaries" },
-  { id: "audiences", number: "4", label: "Audiences" },
-  { id: "scope", number: "5", label: "Scope" },
-];
+const waypoints = sections.map((s) => ({
+  id: s.id,
+  number: s.n,
+  label: s.category,
+}));
 
 const About = () => {
   return (
     <>
       <PageMeta
-        title="About Source Standard"
-        description="An independent verification and public-reference framework for vendor sourcing transparency in peptide, TRT, and hormone optimization markets."
+        title="Organization & Mandate"
+        description="An independent verification and public-reference framework for supply-chain transparency in the peptide and hormone optimization markets."
       />
       <Breadcrumb items={[{ label: "About" }]} />
       <BriefingHero
         tone="navy"
-        category="Organization & mandate"
+        category="Organization & Mandate"
         docId=""
-        title="About Source Standard"
-        statement="An independent verification and public-reference framework for vendor sourcing transparency in peptide, TRT, and hormone optimization markets."
+        title="Organization & Mandate"
+        statement="An independent verification and public-reference framework for supply-chain transparency in the peptide and hormone optimization markets."
       />
       <DocJumpBar waypoints={waypoints} />
 
-      <BoardSection
-        id="context"
-        n="1"
-        category="Context"
-        title="Consumers shouldn't have to decode marketing claims"
-      >
-        <p>
-          In peptide, TRT, and hormone optimization markets, consumers are routinely asked to make
-          decisions based on website language, branding, and trust signals that are difficult to
-          verify independently. Operators who invest in proper sourcing, documentation, and
-          oversight share the same landscape as those who do not, and from the outside, the
-          differences are not always easy to see.
-        </p>
-        <p className="text-foreground font-medium">
-          Source Standard exists to make that landscape easier to interpret.
-        </p>
-      </BoardSection>
-
-      <BoardSection
-        id="definition"
-        n="2"
-        category="Definition"
-        title="A public reference and verification framework"
-        muted
-      >
-        <p>
-          Source Standard publishes vendor verification status and recognized upstream sources, and
-          organizes sourcing and documentation information so the public can interpret it more
-          clearly. It is a reference layer for an industry that has not had one.
-        </p>
-      </BoardSection>
-
-      <BoardSection
-        id="boundaries"
-        n="3"
-        category="Boundaries"
-        title="Boundaries of the framework"
-      >
-        <ul className="border-y border-border divide-y divide-border">
-          {isNotItems.map((item, i) => (
-            <li key={i} className="py-4 t-body-md text-foreground">
-              {item}
-            </li>
-          ))}
-        </ul>
-      </BoardSection>
-
-      <BoardSection
-        id="audiences"
-        n="4"
-        category="Audiences"
-        title="Two audiences, one framework"
-        muted
-      >
-        <div className="grid md:grid-cols-2 md:divide-x divide-border">
-          <div className="md:pr-8 pb-8 md:pb-0 border-b md:border-b-0 border-border">
-            <p className="t-h4 text-foreground mb-3">For consumers</p>
-            <p>
-              Source Standard helps consumers understand what has been reviewed, what has not, and
-              how to interpret vendor claims more clearly, so decisions rest on evidence rather
-              than presentation.
-            </p>
-          </div>
-          <div className="md:pl-8 pt-8 md:pt-0">
-            <p className="t-h4 text-foreground mb-3">For responsible vendors</p>
-            <p>
-              Source Standard makes transparency more visible, distinguishing operators who are
-              willing to stand behind their documentation from those who are not.
-            </p>
-          </div>
-        </div>
-      </BoardSection>
-
-      <BoardSection
-        id="scope"
-        n="5"
-        category="Scope"
-        title="Within the framework, and outside it"
-      >
-        <div className="grid md:grid-cols-2 md:divide-x divide-border">
-          <div className="md:pr-8 pb-8 md:pb-0 border-b md:border-b-0 border-border">
-            <p className="t-h4 text-foreground mb-4">Within the framework</p>
-            <ul className="space-y-2.5">
-              {weVerify.map((item, i) => (
-                <li key={i} className="t-body-md text-muted-foreground">
-                  · {item}
+      {sections.map((s, i) => (
+        <BoardSection
+          key={s.id}
+          id={s.id}
+          n={s.n}
+          category={s.category}
+          title={s.title}
+          muted={i % 2 === 1}
+        >
+          {s.paragraph && <p>{s.paragraph}</p>}
+          {s.points && (
+            <ul className="space-y-4">
+              {s.points.map((p, idx) => (
+                <li key={idx} className="flex gap-4">
+                  <span aria-hidden className="text-muted-foreground/60 select-none font-sans">|</span>
+                  <span className="flex-1">{p}</span>
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="md:pl-8 pt-8 md:pt-0">
-            <p className="t-h4 text-foreground mb-4">Outside the framework</p>
-            <ul className="space-y-2.5">
-              {weFlag.map((item, i) => (
-                <li key={i} className="t-body-md text-muted-foreground">
-                  · {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </BoardSection>
+          )}
+        </BoardSection>
+      ))}
 
-      <BoardSection n="6" title="Read deeper into the framework" muted>
+      <BoardSection n="05" category="REFERENCE" title="Reference Library" muted={sections.length % 2 === 1}>
         <ul className="grid grid-cols-1 sm:grid-cols-2 border-t border-border">
           {readDeeper.map((d, i) => (
             <li
               key={d.to}
-              className={`border-b border-border ${
-                i % 2 === 0 ? "sm:border-r" : ""
-              }`}
+              className={`border-b border-border ${i % 2 === 0 ? "sm:border-r" : ""}`}
             >
               <Link
                 to={d.to}
@@ -185,7 +133,6 @@ const About = () => {
           ))}
         </ul>
       </BoardSection>
-
     </>
   );
 };
