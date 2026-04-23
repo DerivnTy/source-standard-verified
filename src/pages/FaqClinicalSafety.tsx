@@ -43,7 +43,7 @@ const FaqClinicalSafety = () => {
         ]} />
       <RecordHeader
         eyebrow="Source Standard · Regulatory FAQ"
-        title="FAQ: Clinical Safety"
+        title="Clinical Safety"
         lead="Sterility standards, handling integrity, and the clinical scope of use for compounded preparations."
         metadata={[
           { label: "Doc", value: DOC_ID },

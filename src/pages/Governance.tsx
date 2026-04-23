@@ -48,7 +48,7 @@ const Governance = () => (
         { label: "Updated", value: "04/20/26" },
       ]}
       verifiedOn={VERIFIED_ON}
-      eyebrow="Regulatory alignment"
+      eyebrow="Governance & oversight"
       title="Regulatory Alignment & Oversight"
       lead="Institutional framework anchored to publicly citable statutory and compendial authorities, maintained under licensed clinical oversight and a posture of organizational neutrality."
       summary={[

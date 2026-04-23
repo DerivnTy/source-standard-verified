@@ -57,10 +57,10 @@ const EducationGuides = () => {
 
       <UtilityHeader
         backHref="/education"
-        backLabel="Back to Learn"
-        eyebrow="Practical Guides"
-        title="Practical guides: full index"
-        description="How to handle these medications safely. Reviewed by our Medical Advisory Board."
+        backLabel="Back to Resource Library"
+        eyebrow="Clinical reference"
+        title="Clinical guides: full index"
+        description="Handling, sterile preparation, storage, and clinical context. Reviewed by the Medical Advisory Board."
       />
       <Section density="doc">
         <div className="border border-border/70 rounded-[2px] bg-background">

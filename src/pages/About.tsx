@@ -53,7 +53,7 @@ const About = () => {
       <Breadcrumb items={[{ label: "About" }]} />
       <BriefingHero
         tone="navy"
-        category="About Source Standard"
+        category="Organization & mandate"
         docId=""
         title="About Source Standard"
         statement="An independent verification and public-reference framework for vendor sourcing transparency in peptide, TRT, and hormone optimization markets."

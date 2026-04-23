@@ -46,7 +46,7 @@ const ReportConcern = () => (
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "United States" },
       ]}
-      eyebrow="Compliance reporting"
+      eyebrow="Public intake channel"
       title="Reporting & Market Intelligence"
       lead="Intake channel for Registry discrepancies, supply-chain alignment concerns, and unauthorized attribution of Source Standard standings. Submissions are screened, triaged, and reconciled against the audit file."
     />
