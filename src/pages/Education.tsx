@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { ArticleRow } from "@/components/library/ArticleRow";
+import { BriefingHero } from "@/components/BriefingHero";
 import {
   ARTICLES,
   CATEGORIES,
@@ -189,26 +190,14 @@ const Education = () => {
       <PageMeta title="Resource Library" description={HERO_DESCRIPTION} />
 
       {/* §1 Hero */}
-      <section className="section-pad border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-wide">
-            <div className="max-w-[64ch]">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                Reference Library
-              </p>
-              <h1 className="mt-4 t-page-title text-foreground tracking-tight">
-                Resource Library
-              </h1>
-              <p className="mt-5 t-body-lg text-muted-foreground leading-[1.6]">
-                {HERO_DESCRIPTION}
-              </p>
-              <p className="mt-4 t-body-sm text-muted-foreground/80">
-                All content peer-reviewed by the Medical Advisory Board
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BriefingHero
+        tone="navy"
+        variant="chapter"
+        category="Reference Library"
+        title="Resource Library"
+        statement={HERO_DESCRIPTION}
+        docId=""
+      />
 
       {/* §2 Library controls — sticky bar */}
       <div className="sticky top-[var(--utility-bar-height,3.5rem)] z-20 bg-background/95 backdrop-blur border-b border-border/60">
