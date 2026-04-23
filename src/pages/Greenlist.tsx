@@ -297,19 +297,18 @@ const Greenlist = () => {
       />
 
       <RegistryHeader
+        indexNumber="02"
         title="Greenlist Facilities"
-        description="The maintained reference set of recognized upstream compounding facilities used within the Source Standard framework."
-        scopeText="Inclusion supports upstream reference. Vendor verification is a separate layer"
-        scopeHref="/directory"
+        description="The recognized reference set of upstream 503A and 503B compounding facilities used within the Source Standard framework. Inclusion in this list strictly establishes an audited reference layer."
         recordCount={counts.total}
       />
 
       <RegistryHorizon
+        seam
         cells={[
           { label: "Total Recognized", value: counts.recognized },
           { label: "503B Facilities", value: counts["503B"] },
           { label: "503A Facilities", value: counts["503A"] },
-          { label: "Registry Status", value: "ACTIVE", live: true },
         ]}
       />
 
