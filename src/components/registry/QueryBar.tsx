@@ -72,12 +72,10 @@ export const QueryBar = ({
       </div>
 
       {/* Inline dropdown row directly below — text dropdowns, no boxy borders */}
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
         <div className="shrink-0">{sortControl}</div>
         <span aria-hidden className="hidden md:inline-block w-px h-3.5 bg-border/60" />
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 min-w-0 flex-1">
-          {facets}
-        </div>
+        {facets}
         <span className="ml-auto t-micro text-muted-foreground tabular-nums whitespace-nowrap">
           {resultLabel}
         </span>
