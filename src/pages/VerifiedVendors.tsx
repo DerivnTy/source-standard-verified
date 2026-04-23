@@ -216,26 +216,22 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pb-20 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Sticky search + filter rail with subtle bottom divider */}
-            <div
-              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/80 px-5 pt-6 pb-3 md:pt-8"
-              style={{
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                borderBottom: "1px solid hsl(var(--border) / 0.6)",
-              }}
-            >
-              {/* Borderless search on light grey */}
+            {/* Search + filter rail — anchored in flow, no sticky/blur */}
+            <div className="-mx-5 md:mx-0 px-5 pt-6 pb-3 md:pt-8">
+              {/* Apple-style search pill */}
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search by name, city, or state..."
                 aria-label="Search by name, city, state, or category"
-                className="font-sans w-full border-0 px-4 text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
-                  height: "44px",
-                  borderRadius: "12px",
-                  backgroundColor: "hsl(var(--muted) / 0.55)",
+                  height: "40px",
+                  borderRadius: "24px",
+                  backgroundColor: "#FAFAFA",
+                  border: "1px solid #E5E5EA",
+                  paddingLeft: "16px",
+                  paddingRight: "16px",
                 }}
               />
 
