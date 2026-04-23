@@ -376,7 +376,7 @@ html {
   /* Technical identifiers — doc IDs, version strings, status codes.
      Aligned to the t-utility-xs spec but retains the mono face. */
   .meta-mono {
-    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     @apply t-utility-xs tabular-nums text-muted-foreground;
   }
 
