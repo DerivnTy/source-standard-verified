@@ -27,7 +27,7 @@ const STATUS_PILLS: { value: StatusKey; label: string }[] = [
 ];
 
 const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
-  { value: "online", label: "ONLINE / TELEHEALTH" },
+  { value: "online", label: "ONLINE" },
   { value: "in-person", label: "IN-PERSON" },
 ];
 
@@ -217,10 +217,13 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pb-20 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Sticky search + filter rail with subtle shadow */}
+            {/* Sticky search + filter rail with subtle bottom divider */}
             <div
-              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-3 shadow-sm md:pt-8"
-              style={{ backdropFilter: "blur(8px)" }}
+              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-3 md:pt-8"
+              style={{
+                backdropFilter: "blur(8px)",
+                borderBottom: "1px solid hsl(var(--border) / 0.6)",
+              }}
             >
               {/* Borderless search on light grey */}
               <input
@@ -274,8 +277,14 @@ const VerifiedVendors = () => {
                   border: "1px solid hsl(var(--border) / 0.6)",
                 }}
               >
-                <span className="text-muted-foreground">Select Focus:</span>
-                <span>{FOCUS_LABEL[focus]}</span>
+                {focus === "all" ? (
+                  <span className="text-muted-foreground">Select Focus...</span>
+                ) : (
+                  <>
+                    <span className="text-muted-foreground">Focus:</span>
+                    <span>{FOCUS_LABEL[focus]}</span>
+                  </>
+                )}
                 <svg
                   aria-hidden
                   viewBox="0 0 12 12"
