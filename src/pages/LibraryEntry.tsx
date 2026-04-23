@@ -62,12 +62,12 @@ const LibraryEntry = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="In editorial review.">
+      <ArticleSection n={1} title="In editorial review">
         <p className="text-muted-foreground">
-          The full text will be published once it has completed editorial and, where applicable, Medical Advisory Board review.
+          The full text will be published once it has completed editorial review and, where applicable, Medical Advisory Board sign-off.
         </p>
         <p>
-          <span className="text-foreground font-medium">Here's what it will cover: </span>
+          <span className="text-foreground font-medium">Scope: </span>
           {entry.summary}
         </p>
         <p className="t-body-sm font-mono text-muted-foreground">

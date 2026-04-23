@@ -120,7 +120,7 @@ const FEATURED_OVERRIDES: Record<string, { title: string; blurb: string }> = {
   "what-are-peptides": {
     title: "What Are Peptides?",
     blurb:
-      "A clinical primer on peptide therapeutics, what they are, how they work, and why sourcing integrity matters.",
+      "A clinical reference on peptide therapeutics: classification, mechanism of action, and the sourcing conditions that determine therapeutic integrity.",
   },
   "what-is-compounding": {
     title: "What Is Compounding? (503A vs 503B)",
@@ -280,14 +280,14 @@ const Education = () => {
         statement="A curated reference library for sourcing, compounding, verification, and public due diligence. Reviewed under independent medical oversight."
       />
 
-      {/* Start here — featured trio */}
+      {/* Foundational entries — featured trio */}
       <section className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Start here"
-              title="Start here."
-              lede="Three short reads that frame everything else in the library."
+              eyebrow="Foundational reference"
+              title="Foundational reference"
+              lede="Three reference entries that establish the terminology, regulatory framework, and verification standard used throughout the library."
             />
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
               {featuredEntries.map((entry, i) => (
@@ -303,11 +303,11 @@ const Education = () => {
       {/* Foundational sourcing */}
       <CategorySection
         id="basics"
-        eyebrow="Foundational sourcing"
-        title="Foundational sourcing."
-        lede="Reference material on compounded medications, sourcing chains, and the documentation that distinguishes a regulated source from an unregulated one."
+        eyebrow="Sourcing"
+        title="Sourcing & compounding reference"
+        lede="The regulatory categories of compounded medication, the documentation that defines a regulated supply chain, and the distinctions a public reader should be able to draw."
         entries={foundationalEntries}
-        footerLabel="View full foundational index"
+        footerLabel="View full sourcing index"
         footerTo="/education/basics"
         surface="muted"
       />
@@ -315,8 +315,8 @@ const Education = () => {
       {/* Clinical handling & sterile reference */}
       <CategorySection
         id="guides"
-        eyebrow="Clinical handling & sterile reference"
-        title="Clinical handling & sterile reference."
+        eyebrow="Clinical reference"
+        title="Clinical handling & sterile preparation"
         lede="Sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice."
         entries={clinicalEntries}
         footerLabel="View full clinical protocol index"
@@ -327,9 +327,9 @@ const Education = () => {
       {/* Verification & due diligence */}
       <CategorySection
         id="verification"
-        eyebrow="Verification & due diligence"
-        title="Verification & due diligence."
-        lede="What verification actually means, what it does not, and how to read sourcing disclosures from clinics and pharmacies."
+        eyebrow="Verification"
+        title="Verification & public diligence"
+        lede="What verification establishes, what it does not, and how to interpret sourcing disclosures published by clinics and upstream pharmacies."
         entries={verificationEntries}
         footerLabel="View the verification archive"
         footerTo="/education/questions"
@@ -341,9 +341,9 @@ const Education = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Regulatory FAQ"
-              title="Regulatory FAQ."
-              lede="Plain-record answers, organized by inquiry category."
+              eyebrow="Reference"
+              title="Regulatory FAQ"
+              lede="Recorded answers to recurring inquiries, organized by category."
             />
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-b border-border lg:divide-x divide-y lg:divide-y-0 divide-border">
               {CATEGORIES.map((c) => {
@@ -383,9 +383,9 @@ const Education = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Latest analysis"
-              title="Latest analysis"
-              lede="Recent additions to the analysis series."
+              eyebrow="Analysis"
+              title="Recent analysis"
+              lede="Published interpretations of regulatory shifts and verification practice."
             />
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-t border-border">
               {analysisEntries.map((e) => (
@@ -428,9 +428,9 @@ const Education = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Forthcoming formats"
-              title="Forthcoming formats"
-              lede="Future extensions of the library."
+              eyebrow="Forthcoming"
+              title="Scheduled additions"
+              lede="Reference formats currently in editorial preparation."
             />
             <ul className="divide-y divide-border border-t border-b border-border max-w-3xl">
               {librarySupplementary.map((m) => {
