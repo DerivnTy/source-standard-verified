@@ -7,8 +7,8 @@ import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 const WAYPOINTS = [
-  { id: "transparency", number: "01", label: "Transparency" },
-  { id: "verification-chain", number: "02", label: "Verification Chain" },
+  { id: "transparency", number: "01", label: "Mandate" },
+  { id: "verification-chain", number: "02", label: "Governance" },
   { id: "members", number: "03", label: "Members" },
   { id: "scope", number: "04", label: "Scope" },
   { id: "responsibilities", number: "05", label: "Responsibilities" },
@@ -50,40 +50,32 @@ const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: str
 const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-04", "R-05"];
 
 const WHY_ITEMS = [
-  {
-    title: "Verification is a documented fact, not an opinion.",
-    body: "Our Advisory Board ensures that every status in our registry is backed by evidence.",
-  },
-  {
-    title: "Independent oversight protects the standard.",
-    body: "Medical and legal experts govern the audit criteria so the registry stays trustworthy as the field evolves.",
-  },
-  {
-    title: "The Board governs, it does not market.",
-    body: "Members do not treat patients, market clinics, or produce listings. They protect the standard so you can trust the data.",
-  },
+  "The Medical Advisory Board provides independent clinical oversight of the verification framework.",
+  "Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.",
+  "The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.",
+  "To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.",
 ];
 
 const ROLE_FUNCTIONS = [
   {
     n: "01",
-    t: "Define the standards",
-    d: "The Board establishes the medical and regulatory requirements for \u201CVerified\u201D sourcing.",
+    t: "Regulatory Thresholds",
+    d: "Establishing the clinical and statutory requirements for pharmaceutical sourcing verification.",
   },
   {
     n: "02",
-    t: "Vet the suppliers",
-    d: "They approve the strict criteria used to recognize pharmacies on our Greenlist.",
+    t: "Supplier Validation",
+    d: "Defining the criteria for the recognition of greenlisted upstream pharmacy partners.",
   },
   {
     n: "03",
-    t: "Audit the results",
-    d: "The Board spot-checks vendor records to ensure they match the underlying pharmacy evidence.",
+    t: "Administrative Audits",
+    d: "Conducting randomized reviews of vendor records to ensure consistency with pharmacy-of-record data.",
   },
   {
     n: "04",
-    t: "Enforce accuracy",
-    d: "They authorize changes to our protocol as FDA and regulatory guidelines evolve.",
+    t: "Protocol Evolution",
+    d: "Authorizing updates to the Source Standard in alignment with evolving FDA and state regulatory guidelines.",
   },
 ];
 
@@ -128,15 +120,26 @@ const MedicalAdvisory = () => {
             <section id="transparency" className="scroll-mt-24 section-pad border-b border-border/40">
               <SectionIndex n="01" />
               <h2 className="t-section-title-sm text-foreground mb-8">
-                Transparency requires accountability.
+                Institutional Mandate
               </h2>
-              <div className="grid md:grid-cols-3 md:divide-x md:divide-border/50">
-                {WHY_ITEMS.map((w, i) => (
-                  <div key={w.title} className={i === 0 ? "md:pr-8" : i === WHY_ITEMS.length - 1 ? "md:pl-8 mt-8 md:mt-0" : "md:px-8 mt-8 md:mt-0"}>
-                    <p className="t-h4 text-foreground">{w.title}</p>
-                    <p className="mt-3 t-body-md text-muted-foreground">{w.body}</p>
-                  </div>
-                ))}
+              <div className="grid md:grid-cols-2 md:divide-x md:divide-border/50">
+                {WHY_ITEMS.map((w, i) => {
+                  const isLeftCol = i % 2 === 0;
+                  const isTopRow = i < 2;
+                  return (
+                    <div
+                      key={w}
+                      className={[
+                        isLeftCol ? "md:pr-8" : "md:pl-8",
+                        isTopRow ? "md:pb-8" : "md:pt-8",
+                        i > 0 ? "mt-8 md:mt-0" : "",
+                        !isTopRow ? "md:border-t md:border-border/50" : "",
+                      ].join(" ")}
+                    >
+                      <p className="t-body-md text-foreground">{w}</p>
+                    </div>
+                  );
+                })}
               </div>
             </section>
 
@@ -146,11 +149,8 @@ const MedicalAdvisory = () => {
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
                   <h2 className="t-section-title-sm text-foreground">
-                    The verification chain
+                    Governance Framework
                   </h2>
-                  <p className="mt-4 t-body-md text-muted-foreground max-w-[40ch]">
-                    The Board sits above the operational registry. It does not produce listings — it governs the logic by which they are produced.
-                  </p>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
                   <ol className="divide-y divide-border/60">
