@@ -57,20 +57,6 @@ const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
 };
 
 
-const FulfillmentChip = ({ kind }: { kind: VendorFulfillment }) => {
-  const Icon =
-    kind === "in-person" ? Building2 : kind === "online" ? Globe : MapPin;
-  return (
-    <span
-      title={VENDOR_FULFILLMENT_DESC[kind]}
-      className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded-[2px] border border-border/70 bg-surface-muted/40 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted-foreground whitespace-nowrap"
-    >
-      <Icon className="h-2.5 w-2.5" aria-hidden />
-      {VENDOR_FULFILLMENT_LABEL[kind]}
-    </span>
-  );
-};
-
 const formatLocation = (v: Vendor) => {
   if (v.city && v.state) return `${v.city}, ${v.state}`;
   return v.city || v.state || "—";
