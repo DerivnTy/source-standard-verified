@@ -62,7 +62,7 @@ const FaqVerificationProcess = () => {
       <BoardSection
         n={1}
         category="Category overview"
-        title="The auditing protocol & re-verification cadence."
+        title="The auditing protocol & re-verification cadence"
         rationale="Four high-frequency questions on the Source Standard verification stages, the scope of our audits, the criteria for status revocation, and the cadence of re-verification."
       >
         <Accordion

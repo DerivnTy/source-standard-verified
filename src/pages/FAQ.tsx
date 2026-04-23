@@ -169,7 +169,7 @@ const FAQ = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Reference · Administrative briefing"
-      title="Registry FAQs & Interpretations."
+      title="Registry FAQs & Interpretations"
       lead="Direct, time-bound interpretations of the registry's verification protocols, greenlist scope, and permitted public use. Issued by the auditing body for reference; not a substitute for the controlling source documents cited in each answer."
     />
 

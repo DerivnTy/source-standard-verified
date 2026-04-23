@@ -57,7 +57,7 @@ const FaqClinicalSafety = () => {
       <BoardSection
         n={1}
         category="Category overview"
-        title="Sterility, handling, and beyond-use dating."
+        title="Sterility, handling, and beyond-use dating"
         rationale="Three high-frequency questions on cold-chain stability, USP <797> beyond-use dating, and endotoxin testing in sterile compounding."
       >
         <Accordion

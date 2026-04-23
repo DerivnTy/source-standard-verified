@@ -49,7 +49,7 @@ const Governance = () => (
       ]}
       verifiedOn={VERIFIED_ON}
       eyebrow="Regulatory alignment"
-      title="Regulatory Alignment & Oversight."
+      title="Regulatory Alignment & Oversight"
       lead="Institutional framework anchored to publicly citable statutory and compendial authorities, maintained under licensed clinical oversight and a posture of organizational neutrality."
       summary={[
         { label: "Advisory body of record", value: "Clinical" },
@@ -65,7 +65,7 @@ const Governance = () => (
       id="advisory"
       n="1"
       category="Advisory"
-      title="Framework criteria maintained under licensed clinical oversight."
+      title="Framework criteria maintained under licensed clinical oversight"
       rationale="Licensed clinicians review scope definitions, evidentiary standards, and renewal intervals applied by the framework. The advisory body does not evaluate, diagnose, or treat patients through Source Standard."
     >
       <div className="border border-border bg-background">
@@ -95,7 +95,7 @@ const Governance = () => (
       id="anchors"
       n="2"
       category="Anchors"
-      title="Statutory & compendial anchors."
+      title="Statutory & compendial anchors"
       rationale="Source Standard does not originate criteria. Each framework requirement is anchored to a statutory provision or compendial standard issued by the public authorities listed below."
       muted
     >
@@ -133,7 +133,7 @@ const Governance = () => (
       id="neutrality"
       n="3"
       category="Neutrality"
-      title="Organizational neutrality & ethical boundaries."
+      title="Organizational neutrality & ethical boundaries"
       rationale="Strict separation of interests."
     >
       <p className="t-body-sm text-muted-foreground leading-relaxed">
@@ -149,7 +149,7 @@ const Governance = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="deeper" n="4" category="Read deeper" title="Cross-references." muted>
+    <BoardSection id="deeper" n="4" category="Read deeper" title="Cross-references" muted>
       <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
         {deeper.map((d, i) => (
           <li key={d.to} className="bg-background">

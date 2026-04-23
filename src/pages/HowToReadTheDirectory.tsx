@@ -99,7 +99,7 @@ const HowToReadTheDirectory = () => {
           { label: "Jurisdiction", value: "US" },
         ]}
         eyebrow="Reference"
-        title="How to read the directory."
+        title="How to read the directory"
         lead="Interpreting vendor listings and what each public status does, and does not, say about a vendor."
       />
 
