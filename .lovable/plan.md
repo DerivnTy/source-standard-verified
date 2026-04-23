@@ -1,31 +1,29 @@
 
 
-## SiteHeader: Require Stronger Scroll-Up Intent
+## DocJumpBar: Eliminate Horizontal Scroll Glitch During Morph
 
-Currently `SiteHeader` re-appears after just `delta < -8` pixels of upward scroll — so any small upward nudge (trackpad inertia, reading rhythm) reveals it. That feels twitchy and pulls the DocJumpBar down with it.
+When the pill morphs into the full-width bar, a horizontal scrollbar flashes and the contents jitter sideways. Cause: as the outer `<nav>` width interpolates from 80% → 100%, the inner content's intrinsic width briefly exceeds the container, triggering overflow. The inner padding/layout isn't being scrubbed in lockstep with the outer geometry.
 
 ### Fix
 
-Single file: `src/components/SiteHeader.tsx`. Change the reveal trigger from a per-frame delta check to an **accumulated upward-scroll distance** that must exceed a meaningful threshold before the header shows.
+Single file: `src/components/DocJumpBar.tsx`.
 
-### Logic change
+### Changes
 
-Replace the current `delta < -8` instant trigger with an accumulator:
+1. **Clip overflow on the nav itself.** Add `overflow: hidden` to the nav's inline style. This guarantees no horizontal scrollbar can ever appear during the morph, regardless of transient inner width.
 
-- Track `upwardAccum` across scroll events.
-- On downward scroll (`delta > 0`): reset `upwardAccum = 0` and hide if past `y > 120`.
-- On upward scroll (`delta < 0`): add `-delta` to `upwardAccum`. Only call `setVisible(true)` once `upwardAccum > 400` (roughly half a viewport section — a clear "I want to navigate away" gesture, not a reading micro-correction).
-- At `y <= 0` (top of page): always visible, reset accumulator.
+2. **Smoothly interpolate inner horizontal padding.** Currently `PillContents` receives a `paddingX` prop but the inner flex row uses fixed `gap` and item padding. Interpolate the inner gap and item horizontal padding alongside `progress`:
+   - Gap: lerp from compact (e.g. `8px` at pill) → roomy (e.g. `24px` at full bar).
+   - Item padding-x: lerp from `10px` → `16px`.
+   - Apply via inline style on the flex container and each item, not className swaps.
+
+3. **Stabilize the contents container width.** Set the inner flex row to `width: 100%` and `justify-content` interpolated from `flex-start` (pill, where contents hug left after the "Contents" label) to `space-between` or stay `flex-start` — actually keep `flex-start` throughout and let the gap interpolation handle the spread. Add `min-width: 0` to prevent flex children from forcing overflow.
+
+4. **Remove any remaining className-based layout swap** in `PillContents` — everything geometric goes inline and scrubbed by `progress`.
 
 ### Result
 
-- Small upward scrolls during reading: header stays hidden, DocJumpBar stays docked at `top: 0`. No twitch.
-- Sustained upward scroll (~400px, roughly half a section): header slides in, DocJumpBar eases down with it via the existing 200ms `top` transition.
-- Scroll-to-top: header always visible at `y = 0`.
-
-Threshold of 400px is tunable — that's "user is clearly reversing direction to leave," not "user paused."
-
-### No other files touched
-
-DocJumpBar already eases its `top` via CSS transition, so it inherits the smoother behavior automatically.
+- No horizontal scrollbar ever appears (clipped at nav level as a safety net).
+- Inner items spread out continuously as the bar widens — gap and padding scrub with the same eased `progress` as the outer geometry.
+- One unified morph: outer width, radius, shadow, border, padding, AND inner gap/item-padding all move together. No jitter, no scrollbar flash.
 
