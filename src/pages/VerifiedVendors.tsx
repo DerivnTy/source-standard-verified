@@ -273,12 +273,9 @@ const VerifiedVendors = () => {
       onChange={(v) => setSort(v as SortMode)}
       ariaLabel="Sort records"
     >
-      <option value="trust">Sort: Most trusted first</option>
-      <option value="name-asc">Sort: Name A–Z</option>
-      <option value="name-desc">Sort: Name Z–A</option>
-      <option value="status">Sort: Status</option>
-      <option value="state">Sort: State</option>
-      <option value="city">Sort: City</option>
+      <option value="name-asc">SORT // ALPHABETICAL</option>
+      <option value="location">SORT // LOCATION</option>
+      <option value="latest-audit">SORT // LATEST_AUDIT</option>
     </FacetSelect>
   );
 
