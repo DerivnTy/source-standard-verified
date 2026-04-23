@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, ShieldCheck } from "lucide-react";
+import { Search } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { BriefingHero } from "@/components/BriefingHero";
 import { ArticleRow } from "@/components/library/ArticleRow";
 import {
   ARTICLES,
@@ -14,7 +13,14 @@ import {
   sortArticles,
 } from "@/data/resourceLibrary";
 
-const FAQ_CARDS: { label: string; description: string; to: string }[] = [
+const HERO_DESCRIPTION =
+  "Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed under the Medical Advisory Board.";
+
+const COMMON_INQUIRIES: {
+  label: string;
+  description: string;
+  to: string;
+}[] = [
   {
     label: "Legal",
     description: "Statutory framework, federal scheduling, and lawful access.",
@@ -27,7 +33,7 @@ const FAQ_CARDS: { label: string; description: string; to: string }[] = [
   },
   {
     label: "Verification",
-    description: "How clinics and upstream pharmacies are audited.",
+    description: "How clinics and upstream pharmacies are reviewed.",
     to: "/library/faq/verification-process",
   },
   {
@@ -37,7 +43,20 @@ const FAQ_CARDS: { label: string; description: string; to: string }[] = [
   },
 ];
 
-const PREVIEW_LIMIT = 5;
+const PREVIEW_LIMIT = 4;
+
+const FILTER_TABS: { id: "all" | CategoryId; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "regulation", label: "Regulation" },
+  { id: "clinical", label: "Clinical" },
+  { id: "consumer", label: "Consumer" },
+];
+
+const EYEBROW_BY_CATEGORY: Record<CategoryId, string> = {
+  regulation: "Regulation",
+  clinical: "Clinical",
+  consumer: "Consumer",
+};
 
 const CategoryBlock = ({
   category,
@@ -47,47 +66,55 @@ const CategoryBlock = ({
   entries: ReturnType<typeof articlesByCategory>;
 }) => {
   const visible = entries.slice(0, PREVIEW_LIMIT);
-  const showViewAllRow = entries.length > 0;
 
   return (
     <section
       id={category.id}
-      className="rounded-md border border-border bg-card shadow-sm overflow-hidden scroll-mt-36"
+      className="section-pad border-b border-border/40 scroll-mt-36"
     >
-      <header className="px-5 py-4 border-b border-border bg-surface-muted/50 flex items-baseline justify-between gap-4">
-        <div>
-          <h2 className="t-body-md font-semibold text-foreground tracking-tight">
-            {category.label}
-          </h2>
-          <p className="mt-1 t-body-sm text-muted-foreground">
-            {category.description}
-          </p>
-        </div>
-        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground shrink-0">
-          {entries.length} {entries.length === 1 ? "entry" : "entries"}
-        </span>
-      </header>
+      <div className="mx-auto w-wide">
+        <div className="grid grid-cols-12 gap-x-8 gap-y-8">
+          <div className="col-span-12 md:col-span-4">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              {EYEBROW_BY_CATEGORY[category.id]}
+            </p>
+            <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
+              {category.label}
+            </h2>
+            <p className="mt-3 t-body-md text-muted-foreground leading-[1.6] max-w-[42ch]">
+              {category.description}
+            </p>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              {entries.length} {entries.length === 1 ? "entry" : "entries"}
+            </p>
+          </div>
 
-      {entries.length === 0 ? (
-        <div className="px-5 py-10 text-center t-body-sm text-muted-foreground">
-          No entries match the current search.
-        </div>
-      ) : (
-        <ul className="divide-y divide-border">
-          {visible.map((e) => (
-            <ArticleRow key={e.slug} entry={e} />
-          ))}
-        </ul>
-      )}
+          <div className="col-span-12 md:col-span-8">
+            {entries.length === 0 ? (
+              <div className="border border-border/60 px-5 py-10 text-center t-body-sm text-muted-foreground">
+                No entries match the current search.
+              </div>
+            ) : (
+              <ul className="border-y border-border/60 divide-y divide-border/60">
+                {visible.map((e) => (
+                  <ArticleRow key={e.slug} entry={e} />
+                ))}
+              </ul>
+            )}
 
-      {showViewAllRow && (
-        <Link
-          to={category.path}
-          className="block border-t border-border bg-surface-muted/30 px-5 py-4 text-left t-body-sm font-semibold text-foreground transition-colors hover:bg-surface-muted hover:text-foreground"
-        >
-          View all {category.label} entries →
-        </Link>
-      )}
+            {entries.length > 0 && (
+              <div className="mt-5">
+                <Link
+                  to={category.path}
+                  className="inline-block t-body-sm font-semibold text-foreground hover:text-primary transition-colors"
+                >
+                  View all {category.label} entries
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
@@ -95,8 +122,11 @@ const CategoryBlock = ({
 type Filter = "all" | CategoryId;
 
 const Education = () => {
-  const initialHash = typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
-  const initialFilter = CATEGORIES.some((c) => c.id === initialHash) ? (initialHash as Filter) : "all";
+  const initialHash =
+    typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
+  const initialFilter = CATEGORIES.some((c) => c.id === initialHash)
+    ? (initialHash as Filter)
+    : "all";
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<Filter>(initialFilter);
 
@@ -139,41 +169,53 @@ const Education = () => {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
+  const handleTabClick = (id: Filter) => {
+    setFilter(id);
+    if (id === "all") {
+      history.replaceState(null, "", window.location.pathname);
+    } else {
+      history.replaceState(null, "", `#${id}`);
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        el?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  };
+
   return (
     <>
       <Breadcrumb items={[{ label: "Resource Library" }]} />
 
-      <PageMeta
-        title="Resource Library · Source Standard"
-        description="Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed by the Medical Advisory Board."
-      />
+      <PageMeta title="Resource Library" description={HERO_DESCRIPTION} />
 
-      <BriefingHero
-        tone="navy"
-        category="Resource Library"
-        docId=""
-        title="Resource Library"
-        statement="Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed by the Medical Advisory Board."
-      />
-
-      <div className="bg-background">
+      {/* §1 Hero */}
+      <section className="section-pad border-b border-border/40">
         <div className="page-shell">
           <div className="mx-auto w-wide">
-            {/* Global peer-review badge */}
-            <div className="-mt-5 md:-mt-6 relative z-10 mb-4 flex justify-end">
-              <span className="inline-flex items-center gap-2 rounded-md border border-border bg-card shadow-sm px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                <ShieldCheck
-                  className="h-3.5 w-3.5 text-verified"
-                  strokeWidth={2.25}
-                  aria-hidden
-                />
+            <div className="max-w-[64ch]">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                Reference Library
+              </p>
+              <h1 className="mt-4 t-page-title text-foreground tracking-tight">
+                Resource Library
+              </h1>
+              <p className="mt-5 t-body-lg text-muted-foreground leading-[1.6]">
+                {HERO_DESCRIPTION}
+              </p>
+              <p className="mt-4 t-body-sm text-muted-foreground/80">
                 All content peer-reviewed by the Medical Advisory Board
-              </span>
+              </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Search bar */}
-            <div className="rounded-md border border-border bg-card shadow-sm">
-              <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
+      {/* §2 Library controls — sticky bar */}
+      <div className="sticky top-[var(--utility-bar-height,3.5rem)] z-20 bg-background/95 backdrop-blur border-b border-border/60">
+        <div className="page-shell">
+          <div className="mx-auto w-wide">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 py-3">
+              <div className="flex items-center gap-3 flex-1 min-w-0 md:max-w-md">
                 <Search
                   className="h-4 w-4 text-muted-foreground shrink-0"
                   aria-hidden
@@ -184,125 +226,146 @@ const Education = () => {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search library…"
                   aria-label="Search library"
-                  className="flex-1 bg-transparent border-0 outline-none t-body-md text-foreground placeholder:text-muted-foreground"
+                  className="flex-1 min-w-0 bg-transparent border-0 outline-none t-body-sm text-foreground placeholder:text-muted-foreground"
                 />
-                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground shrink-0">
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground shrink-0">
                   {totalCount} {totalCount === 1 ? "result" : "results"}
                 </span>
               </div>
 
-              {/* Filter chips — toggle filter AND smooth-scroll to that section */}
-              <div className="flex flex-wrap items-center gap-2 px-4 py-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setFilter("all");
-                    history.replaceState(null, "", window.location.pathname);
-                  }}
-                  className={
-                    "rounded-md border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors " +
-                    (filter === "all"
-                      ? "border-foreground bg-foreground text-background"
-                      : "border-border bg-card text-muted-foreground hover:bg-surface-muted hover:text-foreground")
-                  }
-                  aria-pressed={filter === "all"}
-                >
-                  All
-                </button>
-                {CATEGORIES.map((c) => {
-                  const active = filter === c.id;
+              <nav
+                className="flex items-center gap-6 -mb-px"
+                aria-label="Filter library"
+              >
+                {FILTER_TABS.map((tab) => {
+                  const active = filter === tab.id;
                   return (
                     <button
-                      key={c.id}
+                      key={tab.id}
                       type="button"
-                      onClick={() => {
-                        setFilter(c.id);
-                        history.replaceState(null, "", `#${c.id}`);
-                        requestAnimationFrame(() => {
-                          const el = document.getElementById(c.id);
-                          if (el) {
-                            el.scrollIntoView({ behavior: "smooth", block: "start" });
-                          }
-                        });
-                      }}
-                      className={
-                        "rounded-md border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors " +
-                        (active
-                          ? "border-foreground bg-foreground text-background"
-                          : "border-border bg-card text-muted-foreground hover:bg-surface-muted hover:text-foreground")
-                      }
+                      onClick={() => handleTabClick(tab.id)}
                       aria-pressed={active}
+                      className={
+                        "py-2 text-[12px] font-semibold uppercase tracking-[0.14em] border-b-2 transition-colors " +
+                        (active
+                          ? "border-foreground text-foreground"
+                          : "border-transparent text-muted-foreground hover:text-foreground")
+                      }
                     >
-                      {c.short}
+                      {tab.label}
                     </button>
                   );
                 })}
-              </div>
-            </div>
-
-            {/* Vertical stacked index */}
-            <div className="mt-5 flex flex-col gap-5 pb-12 md:pb-14">
-              {visibleCategories.map((c) => (
-                <CategoryBlock
-                  key={c.id}
-                  category={c}
-                  entries={byCategory(c.id)}
-                />
-              ))}
+              </nav>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Common Inquiries — 2x2 portal grid */}
-      <section className="bg-surface-muted/60 border-y border-border" id="questions">
-        <div className="page-shell py-12 md:py-14">
+      {/* §3–§5 Categories */}
+      <div className="page-shell">
+        {visibleCategories.map((c) => (
+          <CategoryBlock
+            key={c.id}
+            category={c}
+            entries={byCategory(c.id)}
+          />
+        ))}
+      </div>
+
+      {/* §6 Common Inquiries */}
+      <section
+        id="questions"
+        className="section-pad border-b border-border/40"
+      >
+        <div className="page-shell">
           <div className="mx-auto w-wide">
-            <div className="mb-8 max-w-[60ch]">
-              <h2 className="t-section-title-sm text-foreground">
-                Common Inquiries
-              </h2>
-              <p className="mt-3 t-body-md text-muted-foreground">
-                Recorded answers to recurring questions, organized by topic.
-              </p>
+            <div className="grid grid-cols-12 gap-x-8 gap-y-8">
+              <div className="col-span-12 md:col-span-4">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                  Reference Questions
+                </p>
+                <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
+                  Common Inquiries
+                </h2>
+                <p className="mt-3 t-body-md text-muted-foreground leading-[1.6] max-w-[42ch]">
+                  Recorded answers to recurring questions, organized by topic.
+                </p>
+              </div>
+
+              <div className="col-span-12 md:col-span-8">
+                <ul className="border-y border-border/60 divide-y divide-border/60">
+                  {COMMON_INQUIRIES.map((item) => (
+                    <li key={item.label}>
+                      <Link
+                        to={item.to}
+                        className="group grid grid-cols-12 gap-4 items-center px-5 py-4 transition-colors hover:bg-surface-muted"
+                      >
+                        <div className="col-span-12 md:col-span-3">
+                          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground group-hover:text-foreground transition-colors">
+                            {item.label}
+                          </span>
+                        </div>
+                        <div className="col-span-12 md:col-span-7">
+                          <p className="t-body-sm text-foreground/85 leading-[1.55]">
+                            {item.description}
+                          </p>
+                        </div>
+                        <div className="col-span-12 md:col-span-2 md:text-right">
+                          <span className="t-body-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                            View
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {FAQ_CARDS.map((card) => (
-                <li key={card.label}>
-                  <Link
-                    to={card.to}
-                    className="group relative flex flex-col rounded-md border border-border bg-card shadow-sm px-6 py-5 transition-colors hover:bg-surface-muted"
-                  >
-                    <span
-                      aria-hidden
-                      className="absolute top-4 right-5 t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors"
-                    >
-                      →
-                    </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                      {card.label}
-                    </span>
-                    <span className="mt-2 t-body-md text-foreground/85 leading-[1.55] pr-6">
-                      {card.description}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
 
-      {/* Editorial Pipeline ticker */}
-      <section className="bg-foreground/[0.04] border-b border-border">
-        <div className="page-shell py-3">
-          <div className="mx-auto w-wide flex items-center gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground shrink-0">
-              Editorial Pipeline
-            </span>
-            <span className="t-body-sm text-foreground/85">
-              Video Explainers, Board Webinars, and the 2026 Integrity Ledger forthcoming.
-            </span>
+      {/* §7 Editorial Pipeline */}
+      <section className="section-pad border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-wide">
+            <div className="max-w-[60ch]">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                Forthcoming
+              </p>
+              <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
+                Editorial Pipeline
+              </h2>
+              <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
+                Additional reference formats are in development, including
+                video explainers, Board webinars, and the 2026 Integrity
+                Ledger.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §8 Closing statement */}
+      <section className="section-pad border-t border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-wide">
+            <div className="max-w-[60ch]">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                Conclusion
+              </p>
+              <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
+                A working reference, not a content feed.
+              </h2>
+              <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
+                The Resource Library exists to help clinicians, consumers, and
+                listed entities interpret sourcing, regulation, and
+                verification through a consistent public-reference standard.
+                It is maintained as part of the broader framework, not as a
+                standalone publishing channel.
+              </p>
+            </div>
           </div>
         </div>
       </section>

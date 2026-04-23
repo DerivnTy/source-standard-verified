@@ -53,7 +53,7 @@ export const CATEGORIES: Category[] = [
     label: "Clinical Handling",
     short: "Clinical",
     description:
-      "Sterile technique, stability, and clinical context — peer-reviewed by the Medical Advisory Board.",
+      "Sterile technique, stability, and clinical context reviewed under the Medical Advisory Board.",
     path: "/library/clinical",
   },
   {
@@ -140,7 +140,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "questions-to-ask-your-clinic",
     title: "The Clinic Checklist",
-    blurb: "5 essential questions to ask your doctor about their sourcing.",
+    blurb: "Five essential questions to ask a clinic about sourcing.",
     meta: "4 min read · Apr 2026",
     publishedAt: "2026-04-09",
     category: "consumer",
@@ -148,7 +148,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "warning-signs-of-undocumented-sourcing",
     title: "Warning Signs",
-    blurb: "Identifying \u201CGrey Market\u201D vendors and undocumented sources.",
+    blurb: "Identifying undocumented vendors and unsupported sourcing claims.",
     meta: "6 min read · Mar 2026",
     publishedAt: "2026-03-27",
     category: "consumer",
@@ -156,7 +156,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "what-source-standard-verification-actually-means",
     title: "Verification Scope",
-    blurb: "What our \u201CVerified\u201D badge establishes (and what it doesn't).",
+    blurb: "What a Verified listing establishes and what it does not establish.",
     meta: "5 min read · Mar 2026",
     publishedAt: "2026-03-14",
     category: "consumer",
@@ -164,7 +164,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "what-are-peptides",
     title: "Sterile Injection Guide",
-    blurb: "Safe handling and disposal for injectable preparations.",
+    blurb: "Safe handling and disposal guidance for injectable preparations.",
     meta: "7 min read · Feb 2026",
     publishedAt: "2026-02-28",
     category: "consumer",
