@@ -50,22 +50,10 @@ const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: str
 const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-04", "R-05"];
 
 const MANDATE_CLAUSES = [
-  {
-    label: "CLAUSE 01.A",
-    body: "The Medical Advisory Board provides independent clinical oversight of the verification framework.",
-  },
-  {
-    label: "CLAUSE 01.B",
-    body: "Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.",
-  },
-  {
-    label: "CLAUSE 01.C",
-    body: "The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.",
-  },
-  {
-    label: "CLAUSE 01.D",
-    body: "To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.",
-  },
+  "The Medical Advisory Board provides independent clinical oversight of the verification framework.",
+  "Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.",
+  "The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.",
+  "To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.",
 ];
 
 const ROLE_FUNCTIONS = [
