@@ -72,13 +72,13 @@ export const QueryBar = ({
       </div>
 
       {/* Inline dropdown row directly below — text dropdowns, no boxy borders */}
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5">
         <div className="shrink-0">{sortControl}</div>
-        <span aria-hidden className="hidden md:inline-block w-px h-3.5 bg-border/60" />
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 min-w-0 flex-1">
-          {facets}
-        </div>
-        <span className="ml-auto t-micro text-muted-foreground tabular-nums whitespace-nowrap">
+        {facets}
+      </div>
+
+      <div className="mt-2 flex items-center justify-between gap-3">
+        <span className="t-micro text-muted-foreground tabular-nums whitespace-nowrap">
           {resultLabel}
         </span>
         {hasActiveFilters && (
@@ -128,7 +128,7 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-7 bg-transparent border-0 pl-0 pr-5 text-[12.5px] text-foreground hover:text-foreground/80 focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_2px_center]"
+    className="h-7 w-auto max-w-[140px] bg-transparent border-0 pl-0 pr-4 text-[12.5px] text-foreground hover:text-foreground/80 focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_0_center] truncate"
     style={{
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
