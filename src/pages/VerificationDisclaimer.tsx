@@ -81,7 +81,7 @@ const VerificationDisclaimer = () => (
 
     <BriefingHero
       tone="navy"
-      category="Policy · Verification Disclaimer"
+      category=""
       docId=""
       title="Verification Disclaimer & Attestation Scope"
       statement="The formal boundaries, jurisdictional limits, and liability framework governing Source Standard determinations."
