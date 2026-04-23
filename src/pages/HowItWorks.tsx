@@ -79,7 +79,7 @@ const HowItWorks = () => {
       <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Verification Standard" }]} />
       <BriefingHero
         tone="navy"
-        category="The Verification Standard"
+        category=""
         docId=""
         title="The Verification Standard"
         statement="An independent oversight framework designed to substantiate supply-chain integrity and ensure regulatory alignment across the compounded medicine landscape."
