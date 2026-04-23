@@ -77,13 +77,13 @@ export const SectionAnchorNav = ({
                     href={`#${w.id}`}
                     onClick={onJump(w.id)}
                     aria-current={active ? "true" : undefined}
-                    className={`relative inline-flex items-baseline gap-2 px-3 py-3.5 text-[12.5px] font-medium tracking-[0.01em] whitespace-nowrap transition-colors ${
+                    className={`relative inline-flex items-baseline gap-2 px-3 py-3.5 t-nav whitespace-nowrap transition-colors ${
                       active
                         ? "text-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    <span className="font-mono text-[11px] tabular-nums text-muted-foreground/70">
+                    <span className="font-mono t-utility-xs tabular-nums text-muted-foreground/70">
                       {w.number}
                     </span>
                     <span>{w.label}</span>

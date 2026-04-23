@@ -60,13 +60,13 @@ export const DocLayout = ({
               <li key={w.id}>
                 <a
                   href={`#${w.id}`}
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[12px] font-medium transition-colors ${
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border t-micro transition-colors ${
                     activeId === w.id
                       ? "bg-foreground text-background border-foreground"
                       : "bg-surface border-border text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <span className="font-mono text-[10.5px] opacity-70">{w.number}</span>
+                  <span className="font-mono t-utility-xs opacity-70">{w.number}</span>
                   {w.label}
                 </a>
               </li>
@@ -96,17 +96,17 @@ export const DocLayout = ({
                         }`}
                       >
                         <span
-                          className={`font-mono text-[10.5px] tracking-[0.06em] tabular-nums ${
+                          className={`font-mono t-utility-xs tabular-nums ${
                             active ? "text-primary" : "text-muted-foreground/70"
                           }`}
                         >
                           {w.number}
                         </span>
                         <span
-                          className={`text-[13px] leading-snug ${
+                          className={`t-nav ${
                             active
                               ? "font-semibold text-foreground"
-                              : "font-medium text-muted-foreground group-hover:text-foreground"
+                              : "text-muted-foreground group-hover:text-foreground"
                           }`}
                         >
                           {w.label}
@@ -123,7 +123,7 @@ export const DocLayout = ({
           <main className="col-span-12 lg:col-span-9 min-w-0">
             {isCert && (
               <div className="mb-8 pb-4 border-b-2 border-double border-border-strong/60">
-                <p className="font-mono uppercase tracking-[0.12em] text-[10.5px] text-muted-foreground">
+                <p className="t-utility-xs font-mono text-muted-foreground">
                   Certificate of Disclosure · Source Standard
                 </p>
               </div>

@@ -42,7 +42,7 @@ export const RegistryPagination = ({
       aria-label="Registry pagination"
       className="flex flex-wrap items-center justify-between gap-4 mt-6 pt-5 border-t border-border/60"
     >
-      <p className="text-[12.5px] text-muted-foreground tabular-nums">
+      <p className="t-micro text-muted-foreground tabular-nums">
         Showing <span className="text-foreground">{start.toLocaleString()}</span>
         –<span className="text-foreground">{end.toLocaleString()}</span> of{" "}
         <span className="text-foreground">{totalRecords.toLocaleString()}</span>
@@ -58,7 +58,7 @@ export const RegistryPagination = ({
             <select
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="h-9 px-2 pr-7 bg-background border border-border/70 text-[12.5px] text-foreground rounded-[2px] hover:border-foreground/40 focus:outline-none focus:border-foreground/60 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_8px_center]"
+              className="h-9 px-2 pr-7 bg-background border border-border/70 t-micro text-foreground rounded-[2px] hover:border-foreground/40 focus:outline-none focus:border-foreground/60 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_8px_center]"
               style={{
                 backgroundImage:
                   "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
@@ -78,7 +78,7 @@ export const RegistryPagination = ({
           <button
             onClick={() => onPageChange(Math.max(1, page - 1))}
             disabled={page === 1}
-            className="h-9 px-2.5 inline-flex items-center gap-1 border border-border/70 rounded-[2px] text-[12.5px] text-foreground hover:border-foreground/40 hover:bg-surface-muted/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border/70 disabled:hover:bg-transparent transition-colors duration-150"
+            className="h-9 px-2.5 inline-flex items-center gap-1 border border-border/70 rounded-[2px] t-micro text-foreground hover:border-foreground/40 hover:bg-surface-muted/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border/70 disabled:hover:bg-transparent transition-colors duration-150"
             aria-label="Previous page"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
@@ -88,7 +88,7 @@ export const RegistryPagination = ({
             p === "…" ? (
               <span
                 key={`e-${i}`}
-                className="px-1.5 text-[12px] text-muted-foreground"
+                className="px-1.5 t-micro text-muted-foreground"
                 aria-hidden
               >
                 …
@@ -98,7 +98,7 @@ export const RegistryPagination = ({
                 key={p}
                 onClick={() => onPageChange(p)}
                 aria-current={p === page ? "page" : undefined}
-                className={`h-9 min-w-9 px-2.5 rounded-[2px] text-[12.5px] tabular-nums transition-colors duration-150 ${
+                className={`h-9 min-w-9 px-2.5 rounded-[2px] t-micro tabular-nums transition-colors duration-150 ${
                   p === page
                     ? "bg-foreground text-background border border-foreground"
                     : "border border-border/70 text-foreground hover:border-foreground/40 hover:bg-surface-muted/50"
@@ -111,7 +111,7 @@ export const RegistryPagination = ({
           <button
             onClick={() => onPageChange(Math.min(totalPages, page + 1))}
             disabled={page === totalPages}
-            className="h-9 px-2.5 inline-flex items-center gap-1 border border-border/70 rounded-[2px] text-[12.5px] text-foreground hover:border-foreground/40 hover:bg-surface-muted/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border/70 disabled:hover:bg-transparent transition-colors duration-150"
+            className="h-9 px-2.5 inline-flex items-center gap-1 border border-border/70 rounded-[2px] t-micro text-foreground hover:border-foreground/40 hover:bg-surface-muted/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border/70 disabled:hover:bg-transparent transition-colors duration-150"
             aria-label="Next page"
           >
             <span className="hidden sm:inline">Next</span>

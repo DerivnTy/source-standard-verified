@@ -94,7 +94,7 @@ export const SiteHeader = () => {
               to={n.to}
               end
               className={({ isActive }) =>
-                `relative inline-flex items-center h-10 text-[13px] font-medium tracking-[0.005em] transition-colors ${
+                `relative inline-flex items-center h-10 t-nav transition-colors ${
                   isActive
                     ? "text-foreground font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -110,7 +110,7 @@ export const SiteHeader = () => {
             asChild
             variant="outline"
             size="sm"
-            className="h-9 px-4 text-[12.5px] font-medium tracking-[0.01em] rounded-md border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40"
+            className="h-9 px-4 t-nav rounded-md border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40"
           >
             <Link to="/apply">Apply for Verification</Link>
           </Button>
@@ -146,7 +146,7 @@ export const SiteHeader = () => {
               asChild
               variant="outline"
               size="sm"
-              className="mt-4 mb-2 h-11 border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40 rounded-md font-medium text-[13px] tracking-[0.01em]"
+              className="mt-4 mb-2 h-11 border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40 rounded-md t-nav"
             >
               <Link to="/apply" onClick={() => setOpen(false)}>
                 Apply for Verification

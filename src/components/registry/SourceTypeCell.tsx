@@ -44,7 +44,7 @@ export const SourceTypeCell = ({
       />
       <div className="min-w-0 flex flex-col justify-center">
         <span
-          className={`text-[11px] font-semibold uppercase tracking-[0.1em] leading-[14px] ${
+          className={`t-utility-xs font-semibold ${
             isAlert ? "text-destructive" : "text-foreground"
           }`}
         >
@@ -52,7 +52,7 @@ export const SourceTypeCell = ({
         </span>
         {detail && (
           <span
-            className="text-[11px] leading-[14px] mt-0.5 text-muted-foreground truncate"
+            className="t-micro mt-0.5 text-muted-foreground truncate"
             title={detail}
           >
             {detail}

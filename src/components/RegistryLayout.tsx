@@ -50,13 +50,13 @@ export const RegistryLayout = ({
               <li key={w.id}>
                 <a
                   href={`#${w.id}`}
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[12px] font-medium transition-colors ${
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border t-micro transition-colors ${
                     activeId === w.id
                       ? "bg-foreground text-background border-foreground"
                       : "bg-surface border-border text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <span className="text-[10.5px] tabular-nums opacity-70">{w.number}</span>
+                  <span className="t-utility-xs tabular-nums opacity-70">{w.number}</span>
                   {w.label}
                 </a>
               </li>
@@ -82,17 +82,17 @@ export const RegistryLayout = ({
                         }`}
                       >
                         <span
-                          className={`text-[10.5px] tracking-[0.06em] tabular-nums ${
+                          className={`t-utility-xs tabular-nums ${
                             active ? "text-primary" : "text-muted-foreground/70"
                           }`}
                         >
                           {w.number}
                         </span>
                         <span
-                          className={`text-[13px] leading-snug ${
+                          className={`t-nav ${
                             active
                               ? "font-semibold text-foreground"
-                              : "font-medium text-muted-foreground group-hover:text-foreground"
+                              : "text-muted-foreground group-hover:text-foreground"
                           }`}
                         >
                           {w.label}

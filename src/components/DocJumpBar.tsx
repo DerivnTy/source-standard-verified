@@ -254,7 +254,7 @@ const PillContents = ({
         overflow: "hidden",
       }}
     >
-      <span className="meta-mono shrink-0 text-foreground/70 text-[11px]">
+      <span className="meta-mono shrink-0 text-foreground/70">
         Contents ·
       </span>
       <ul
@@ -269,7 +269,7 @@ const PillContents = ({
         {waypoints.map((w) => {
           const active = w.id === activeId;
           const chip =
-            "inline-flex items-center gap-2 text-[11px] font-mono font-medium uppercase tracking-[0.06em] transition-colors";
+            "inline-flex items-center gap-2 t-utility-xs font-mono font-medium transition-colors";
           const tone = active
             ? "text-foreground"
             : "text-muted-foreground hover:text-foreground";

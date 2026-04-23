@@ -18,7 +18,7 @@ export const ArticleRow = ({ entry }: { entry: Article }) => (
         </p>
       </div>
       <div className="col-span-12 md:col-span-2 md:text-right">
-        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+        <span className="font-mono t-utility-xs text-muted-foreground">
           {entry.meta}
         </span>
       </div>
