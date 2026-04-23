@@ -87,21 +87,6 @@ const VerificationDisclaimer = () => (
       statement="The formal boundaries, jurisdictional limits, and liability framework governing Source Standard determinations."
     />
 
-    {/* Metadata bar — small, professional, mono */}
-    <section className="border-b border-border bg-surface-muted">
-      <div className="page-shell py-3">
-        <div className="mx-auto w-standard">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-            <span className="text-foreground/80">VERSION:</span> 2026.01
-            <span className="mx-3 text-border">|</span>
-            <span className="text-foreground/80">CLASSIFICATION:</span> REGULATORY ATTESTATION
-            <span className="mx-3 text-border">|</span>
-            <span className="text-foreground/80">STATUS:</span> ACTIVE
-          </p>
-        </div>
-      </div>
-    </section>
-
     <DocJumpBar waypoints={waypoints} />
 
     {sections.map((s, i) => (
