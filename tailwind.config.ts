@@ -58,6 +58,10 @@ export default {
           DEFAULT: "hsl(var(--unverified))",
           soft: "hsl(var(--unverified-soft))",
         },
+        interactive: {
+          DEFAULT: "hsl(var(--interactive))",
+          foreground: "hsl(var(--interactive-foreground))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
