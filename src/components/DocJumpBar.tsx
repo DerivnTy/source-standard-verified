@@ -307,8 +307,6 @@ const PillContents = ({
             height: "2px",
             bottom: "-2px",
             borderRadius: "2px",
-            transition:
-              "left 350ms cubic-bezier(0.4, 0, 0.2, 1), width 350ms cubic-bezier(0.4, 0, 0.2, 1)",
             opacity: indicator.width > 0 ? 1 : 0,
           }}
         />
