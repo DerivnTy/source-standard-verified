@@ -230,16 +230,15 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <div className="grid grid-cols-12 gap-8 md:gap-12">
               <div className="col-span-12 md:col-span-4">
-                <Eyebrow>What you can verify</Eyebrow>
+                <Eyebrow>Registry fields</Eyebrow>
                 <h2
                   id="registry-shows"
                   className="mt-4 t-section-title-sm text-foreground max-w-[18ch]"
                 >
-                  A working public utility, not a concept.
+                  Search. Verify. Proceed.
                 </h2>
                 <p className="mt-5 t-body-sm text-muted-foreground max-w-[40ch]">
-                  Each registry entry is a structured record. The fields are consistent across
-                  listings and reviewed on a published cadence.
+                  Every listing in our registry provides a clear snapshot of a vendor's legitimacy.
                 </p>
                 <Link
                   to="/directory"
