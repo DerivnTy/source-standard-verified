@@ -497,20 +497,23 @@ const VerifiedVendors = () => {
                   {/* Desktop table */}
                   <div className="hidden md:block border-t border-border">
                     <div className="grid grid-cols-12 px-3 py-3 border-b border-border bg-surface-muted/30">
-                      <div className="col-span-4 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Vendor / Clinic
+                      <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Vendor / Entity
                       </div>
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Status
+                        Medical Director
+                      </div>
+                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Registry Status
                       </div>
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                         Location
                       </div>
-                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Mode
+                      <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                        Fulfillment
                       </div>
                       <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Focus
+                        Primary Focus
                       </div>
                     </div>
 
@@ -534,15 +537,14 @@ const VerifiedVendors = () => {
                               }`}
                             />
 
-                            <div className="col-span-4 min-w-0 pr-2">
+                            <div className="col-span-3 min-w-0 pr-2">
                               <div className="text-[15px] font-semibold text-foreground leading-[22px] truncate">
                                 {v.name}
                               </div>
-                              {v.medicalDirector && (
-                                <div className="mt-0.5 text-[11.5px] text-muted-foreground truncate">
-                                  {v.medicalDirector}
-                                </div>
-                              )}
+                            </div>
+
+                            <div className="col-span-2 min-w-0 pr-3 text-[13px] text-muted-foreground truncate">
+                              {v.medicalDirector || "—"}
                             </div>
 
                             <div className="col-span-2 pr-3">
@@ -565,7 +567,7 @@ const VerifiedVendors = () => {
                               {formatLocation(v)}
                             </div>
 
-                            <div className="col-span-2 pr-3">
+                            <div className="col-span-1 pr-3">
                               <FulfillmentChip kind={ful} />
                             </div>
 
