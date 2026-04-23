@@ -124,7 +124,7 @@ const VerifiedVendors = () => {
   }, [query, category, sort, pageSize]);
 
   const toolbarSelectClass =
-    "h-9 min-w-0 border-0 bg-background px-3 pr-8 text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center]";
+    "h-11 min-w-0 border-0 bg-background px-4 pr-9 text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_12px_center] cursor-pointer";
 
   const toolbarChevron = {
     backgroundImage:
@@ -193,24 +193,24 @@ const VerifiedVendors = () => {
             </div>
 
             <div
-              className="mx-5 md:mx-0 grid overflow-hidden rounded-[2px]"
+              className="mx-5 md:mx-0 grid overflow-hidden rounded-[2px] bg-background"
               style={{
-                border: "1px solid hsl(var(--border))",
-                gridTemplateColumns: "minmax(0, 1fr) 98px 108px",
+                border: "1px solid #E2E8F0",
+                gridTemplateColumns: "minmax(0, 1fr) 116px 128px",
               }}
             >
               <div className="relative min-w-0">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search Facility Database..."
-                  aria-label="Search facility database"
-                  className="h-9 w-full min-w-0 bg-background pl-9 pr-2 text-[12.5px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                  placeholder="Search the registry"
+                  aria-label="Search the registry"
+                  className="h-11 w-full min-w-0 bg-background pl-11 pr-4 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
                 />
               </div>
 
-              <div className="border-l" style={{ borderColor: "hsl(var(--border))" }}>
+              <div style={{ borderLeft: "1px solid #E2E8F0" }}>
                 <select
                   value={category}
                   onChange={(event) => setCategory(event.target.value)}
@@ -227,7 +227,7 @@ const VerifiedVendors = () => {
                 </select>
               </div>
 
-              <div className="border-l" style={{ borderColor: "hsl(var(--border))" }}>
+              <div style={{ borderLeft: "1px solid #E2E8F0" }}>
                 <select
                   value={sort}
                   onChange={(event) => setSort(event.target.value as SortMode)}
@@ -235,7 +235,6 @@ const VerifiedVendors = () => {
                   className={`${toolbarSelectClass} w-full`}
                   style={toolbarChevron}
                 >
-                  <option value="name-asc">Sort</option>
                   <option value="name-asc">Alphabetical</option>
                   <option value="location">Location</option>
                   <option value="latest-audit">Latest Audit</option>
