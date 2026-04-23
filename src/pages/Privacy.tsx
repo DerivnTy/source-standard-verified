@@ -119,11 +119,11 @@ const Privacy = () => (
 
     <DocJumpBar waypoints={waypoints} />
 
-    <BoardSection id="data" n="1" category="Data collected" title="Information collected by the auditing body.">
+    <BoardSection id="data" n="1" category="Data collected" title="Information collected by the auditing body">
       <KVList items={collected} />
     </BoardSection>
 
-    <BoardSection id="use" n="2" category="Use" title="How collected data is used." muted>
+    <BoardSection id="use" n="2" category="Use" title="How collected data is used" muted>
       <SimpleList items={uses} />
     </BoardSection>
 
@@ -131,7 +131,7 @@ const Privacy = () => (
       id="partition"
       n="3"
       category="Partitioning"
-      title="Information partitioning."
+      title="Information partitioning"
       rationale="A documented separation governs every record held by the auditing body. Public registry fields are published; Protected Audit Material (PAM) is retained internally for review purposes only and is never published or shared outside the audit function."
     >
       <KVList items={partitioning.map((r) => ({ t: r.p, d: r.v }))} />
@@ -141,7 +141,7 @@ const Privacy = () => (
       id="partners"
       n="4"
       category="Partners"
-      title="Infrastructure partners."
+      title="Infrastructure partners"
       rationale="A small number of infrastructure partners process data on the auditing body's behalf under written non-disclosure and privacy-preserving protocols. Partners are limited to the minimum data required to perform their function and are not authorised to use or disclose data for any other purpose."
       muted
     >
@@ -152,13 +152,13 @@ const Privacy = () => (
       id="retention"
       n="5"
       category="Retention"
-      title="Retention & disposal."
+      title="Retention & disposal"
       rationale="Audit records are retained for the period necessary to maintain the integrity of the public registry. Disposal follows a documented schedule."
     >
       <KVList items={retention} />
     </BoardSection>
 
-    <BoardSection id="rights" n="6" category="Rights" title="Rights of individuals." muted>
+    <BoardSection id="rights" n="6" category="Rights" title="Rights of individuals" muted>
       <SimpleList items={rights} />
     </BoardSection>
 
@@ -166,7 +166,7 @@ const Privacy = () => (
       id="dpo"
       n="7"
       category="DPO"
-      title="Data Privacy Officer."
+      title="Data Privacy Officer"
       rationale="Privacy inquiries, data-subject requests, and lawful-process correspondence are handled by the Data Privacy Officer."
     >
       <div className="border border-border bg-background p-5 max-w-2xl">
@@ -183,7 +183,7 @@ const Privacy = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="deeper" n="8" category="Read deeper" title="Cross-references." muted>
+    <BoardSection id="deeper" n="8" category="Read deeper" title="Cross-references" muted>
       <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
         {deeper.map((d, i) => (
           <li key={d.to} className="bg-background">

@@ -47,12 +47,12 @@ const ReportConcern = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Compliance reporting"
-      title="Reporting & Market Intelligence."
+      title="Reporting & Market Intelligence"
       lead="Intake channel for Registry discrepancies, supply-chain alignment concerns, and unauthorized attribution of Source Standard standings. Submissions are screened, triaged, and reconciled against the audit file."
     />
 
     <Section density="doc" bordered={false}>
-      <SectionLabel number="§1" title="Investigative Scope." description="Reports falling within the surveillance mandate of the Source Standard framework. The following categories are accepted for review against the audit file." />
+      <SectionLabel number="§1" title="Investigative Scope" description="Reports falling within the surveillance mandate of the Source Standard framework. The following categories are accepted for review against the audit file." />
       <ul className="space-y-3 max-w-3xl">
         {inScope.map((s, i) => (
           <li key={i} className="flex gap-4 t-body-sm">
@@ -64,7 +64,7 @@ const ReportConcern = () => (
     </Section>
 
     <Section muted density="doc">
-      <SectionLabel number="§2" title="Jurisdictional Boundaries." description="Source Standard is an Auditing Body, not a regulator, clinical authority, or court of competent jurisdiction. The following matters fall outside the surveillance mandate and must be directed to the appropriate authority." />
+      <SectionLabel number="§2" title="Jurisdictional Boundaries" description="Source Standard is an Auditing Body, not a regulator, clinical authority, or court of competent jurisdiction. The following matters fall outside the surveillance mandate and must be directed to the appropriate authority." />
       <ul className="space-y-3 max-w-3xl">
         {outOfScope.map((s, i) => (
           <li key={i} className="flex gap-4 t-body-sm">
@@ -76,7 +76,7 @@ const ReportConcern = () => (
     </Section>
 
     <Section density="doc">
-      <SectionLabel number="§3" title="Submission lifecycle." />
+      <SectionLabel number="§3" title="Submission lifecycle" />
       <p className="t-utility-xs font-mono uppercase tracking-[0.1em] text-foreground mb-3">
         Controlled intake · Four-stage flow
       </p>
@@ -94,11 +94,11 @@ const ReportConcern = () => (
     </Section>
 
     <Section muted density="doc">
-      <SectionLabel number="§4" title="Confidentiality & Integrity Standards." description="Reporter Anonymity is a controlling principle of the intake process. Reporter identity is treated as confidential within the review file and is never published. Submissions made in good faith, even those that do not result in a status change, are valued and contribute to the integrity of the registry. Knowingly false, harassing, or vexatious submissions are disregarded and may themselves be referred to the appropriate authority." />
+      <SectionLabel number="§4" title="Confidentiality & Integrity Standards" description="Reporter Anonymity is a controlling principle of the intake process. Reporter identity is treated as confidential within the review file and is never published. Submissions made in good faith, even those that do not result in a status change, are valued and contribute to the integrity of the registry. Knowingly false, harassing, or vexatious submissions are disregarded and may themselves be referred to the appropriate authority." />
     </Section>
 
     <Section density="doc">
-      <SectionLabel number="§5" title="Submission channel." description="A structured intake portal is forthcoming. In the interim, submissions are accepted at the secure address below. All correspondence is logged to the intake register." />
+      <SectionLabel number="§5" title="Submission channel" description="A structured intake portal is forthcoming. In the interim, submissions are accepted at the secure address below. All correspondence is logged to the intake register." />
       <div className="border border-border rounded-[2px] bg-background p-5 max-w-2xl">
         <p className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground mb-4">
           SECURE SUBMISSION POINT · <span className="text-foreground">SS-REPORT-INTAKE</span>
@@ -117,7 +117,7 @@ const ReportConcern = () => (
     </Section>
 
     <Section muted density="tight">
-      <SectionLabel number="§6" title="Cross-references." />
+      <SectionLabel number="§6" title="Cross-references" />
       <ul className="space-y-2 t-body-sm">
         <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement, triggering events →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Glossary of Regulatory Standings →</Link></li>

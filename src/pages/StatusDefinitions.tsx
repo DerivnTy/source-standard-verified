@@ -153,7 +153,7 @@ const StatusDefinitions = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Administrative code"
-      title="Glossary of Regulatory Standings."
+      title="Glossary of Regulatory Standings"
       lead="Controlled glossary of public standings assigned to entities under the Source Standard framework. Each standing reflects the disposition of the audit file at the time of last update and is governed by continuous surveillance."
         verifiedOn="04 / 21 / 2026"
       />
@@ -161,7 +161,7 @@ const StatusDefinitions = () => (
     <BoardSection
       n={1}
       category="Purpose"
-      title="Purpose of the controlled glossary."
+      title="Purpose of the controlled glossary"
       rationale="Standings are issued against reviewed evidence, never against marketing language or self-declaration."
     >
       <p>
@@ -246,7 +246,7 @@ const StatusDefinitions = () => (
     <BoardSection
       n={3}
       category="Lifecycle"
-      title="Temporal nature of determinations."
+      title="Temporal nature of determinations"
       rationale="No standing is permanent. Every audit file moves through the same controlled flow under continuous surveillance, and every Verified determination is bounded by a renewal interval."
     >
       <ol className="border border-border bg-background divide-y divide-border">
@@ -266,7 +266,7 @@ const StatusDefinitions = () => (
     <BoardSection
       n={4}
       category="Cross-references"
-      title="Related framework documents."
+      title="Related framework documents"
       muted
     >
       <ul className="border border-border bg-background divide-y divide-border">
