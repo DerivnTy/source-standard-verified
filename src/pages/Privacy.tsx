@@ -88,7 +88,7 @@ const Privacy = () => (
 
     <BriefingHero
       tone="navy"
-      category="Policy · Data Governance Protocol"
+      category=""
       docId=""
       title="Data Governance Protocol"
       statement="The administrative framework governing the collection, partitioning, and retention of audit records and registry data."

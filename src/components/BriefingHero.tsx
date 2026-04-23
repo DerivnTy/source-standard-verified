@@ -147,12 +147,14 @@ export const BriefingHero = ({
 
         <div className="relative z-10 page-shell section-pad">
           <div className="w-hero">
-            <p
-              aria-hidden="true"
-              className="t-eyebrow-sm text-white/55 mb-4"
-            >
-              {category}
-            </p>
+            {category && (
+              <p
+                aria-hidden="true"
+                className="t-eyebrow-sm text-white/55 mb-4"
+              >
+                {category}
+              </p>
+            )}
             <h1
               id="briefing-title"
               className="text-white t-chapter-title max-w-[22ch]"
@@ -185,9 +187,11 @@ export const BriefingHero = ({
         <div className="relative page-shell section-pad">
           <div className="grid grid-cols-12 gap-8 md:gap-12 w-full">
             <div className="col-span-12 md:col-span-7">
-              <p aria-hidden="true" className="t-eyebrow-sm text-muted-foreground mb-4">
-                {category}
-              </p>
+              {category && (
+                <p aria-hidden="true" className="t-eyebrow-sm text-muted-foreground mb-4">
+                  {category}
+                </p>
+              )}
               <h1
                 id="briefing-title"
                 className="text-foreground t-chapter-title max-w-[22ch]"
@@ -210,12 +214,14 @@ export const BriefingHero = ({
       ) : (
         <div className="relative page-shell section-pad">
           <div className="w-hero">
-            <p
-              aria-hidden="true"
-              className="t-eyebrow-sm text-muted-foreground mb-4"
-            >
-              {category}
-            </p>
+            {category && (
+              <p
+                aria-hidden="true"
+                className="t-eyebrow-sm text-muted-foreground mb-4"
+              >
+                {category}
+              </p>
+            )}
             <h1
               id="briefing-title"
               className="text-foreground t-chapter-title max-w-[22ch]"
