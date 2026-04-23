@@ -141,15 +141,14 @@ const VerifiedVendors = () => {
       <RegistryHeader
         indexNumber="01"
         title="Verified Registry"
-        statusLine="Live Registry"
+        description="The recognized reference set of audited peptide vendors and providers operating within the Source Standard framework. This listing separates documented medical sourcing from the unverified market."
         recordCount={vendors.length}
-        hideRecordPill
       />
 
       <RegistryHorizon
         seam
         cells={[
-          { label: "Vendors Verified", value: counts.verified },
+          { label: "Total Recognized", value: counts.verified },
           { label: "States Represented", value: statesRepresented },
           { label: "Total Audits", value: totalAudits },
         ]}
