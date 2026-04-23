@@ -62,8 +62,8 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
 
 export const SiteFooter = () => {
   return (
-    <footer className="border-t border-border bg-surface-muted/30 mt-20">
-      <div className="page-shell py-16">
+    <footer className="border-t border-border bg-surface-muted/30">
+      <div className="page-shell py-12 md:py-14">
         <div className="mx-auto w-wide">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start">
             <div className="lg:col-span-1">
