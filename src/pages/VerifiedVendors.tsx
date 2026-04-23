@@ -27,7 +27,7 @@ const STATUS_PILLS: { value: StatusKey; label: string }[] = [
 ];
 
 const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
-  { value: "online", label: "ONLINE / TELEHEALTH" },
+  { value: "online", label: "ONLINE" },
   { value: "in-person", label: "IN-PERSON" },
 ];
 
