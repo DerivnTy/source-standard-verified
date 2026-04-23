@@ -209,6 +209,15 @@ const VerifiedVendors = () => {
                   </button>
                 );
               })}
+              <div className="shrink-0">
+                <FocusFilter
+                  value={focus}
+                  onChange={(v) => setFocus(v as FocusKey)}
+                  options={FOCUS_OPTIONS}
+                  placeholder="Category"
+                  selectedPrefix="Focus"
+                />
+              </div>
             </div>
 
             {/* Vendor card stack */}
