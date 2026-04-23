@@ -9,9 +9,8 @@ import { GreenlistEntry } from "@/data/greenlist";
  */
 
 const registrationFor = (e: GreenlistEntry): string | null => {
-  if (e.registrationId) return e.registrationId;
-  if (e.fdaRegistrationId) return e.fdaRegistrationId;
-  // Fallback: state code if present
+  if (e.profile?.fdaRegistration) return e.profile.fdaRegistration;
+  if (e.profile?.feiNumber) return `FEI ${e.profile.feiNumber}`;
   if (e.state) return e.state.toUpperCase();
   return null;
 };
