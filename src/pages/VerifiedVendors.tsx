@@ -4,7 +4,6 @@ import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import { VendorRow } from "@/components/registry/VendorRow";
-import { FilterBottomSheet } from "@/components/registry/FilterBottomSheet";
 import { resolveStateAbbr } from "@/lib/usStates";
 import {
   vendors,
@@ -265,10 +264,11 @@ const VerifiedVendors = () => {
                 ))}
               </div>
 
-              {/* Vendor focus — full-width button, opens bottom sheet */}
+              {/* Vendor focus — inline accordion expansion */}
               <button
                 type="button"
-                onClick={() => setFocusOpen(true)}
+                onClick={() => setFocusOpen((o) => !o)}
+                aria-expanded={focusOpen}
                 className="mt-2 flex w-full items-center justify-center gap-1.5 font-sans text-[12.5px] font-medium uppercase tracking-[0.08em] text-foreground/80 transition-colors hover:bg-[hsl(var(--muted))]/80"
                 style={{
                   height: "40px",
@@ -291,6 +291,10 @@ const VerifiedVendors = () => {
                   width="10"
                   height="10"
                   className="opacity-60"
+                  style={{
+                    transition: "transform 300ms ease-in-out",
+                    transform: focusOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
                 >
                   <path
                     d="M2.5 4.5L6 8l3.5-3.5"
@@ -302,6 +306,76 @@ const VerifiedVendors = () => {
                   />
                 </svg>
               </button>
+
+              {/* Accordion expansion — grid trick for smooth height animation */}
+              <div
+                className="grid"
+                style={{
+                  gridTemplateRows: focusOpen ? "1fr" : "0fr",
+                  transition: "grid-template-rows 300ms ease-in-out",
+                }}
+              >
+                <div className="overflow-hidden">
+                  <ul
+                    className="mt-2 overflow-hidden"
+                    style={{
+                      borderRadius: "12px",
+                      border: "1px solid hsl(var(--border) / 0.6)",
+                      backgroundColor: "hsl(var(--background))",
+                    }}
+                  >
+                    {FOCUS_OPTIONS.map((opt, idx) => {
+                      const active = opt.value === focus;
+                      const isLast = idx === FOCUS_OPTIONS.length - 1;
+                      return (
+                        <li key={opt.value}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFocus(opt.value);
+                              setFocusOpen(false);
+                            }}
+                            className="flex w-full items-center justify-between px-4 text-left transition-colors hover:bg-[hsl(var(--muted))]/50"
+                            style={{
+                              height: "48px",
+                              borderBottom: isLast
+                                ? "none"
+                                : "1px solid hsl(var(--border) / 0.5)",
+                            }}
+                          >
+                            <span
+                              className={`font-serif text-[15px] tracking-tight ${
+                                active
+                                  ? "font-semibold text-foreground"
+                                  : "text-foreground/85"
+                              }`}
+                            >
+                              {opt.label}
+                            </span>
+                            {active && (
+                              <svg
+                                aria-hidden
+                                viewBox="0 0 20 20"
+                                className="h-4 w-4"
+                                style={{ color: "hsl(var(--navy-surface))" }}
+                              >
+                                <path
+                                  d="M5 10.5l3 3L15 7"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="1.75"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            )}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
             </div>
 
             {/* Result list */}
@@ -354,14 +428,6 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
-      <FilterBottomSheet
-        open={focusOpen}
-        onOpenChange={setFocusOpen}
-        title="Vendor Focus"
-        options={FOCUS_OPTIONS}
-        value={focus}
-        onChange={(v) => setFocus(v as FocusKey)}
-      />
     </>
   );
 };
