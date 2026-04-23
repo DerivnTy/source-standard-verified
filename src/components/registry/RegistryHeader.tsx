@@ -7,7 +7,8 @@ import { HeroPattern } from "@/components/HeroPattern";
  * databases visually belong to the same Source Standard system.
  */
 export const RegistryHeader = ({
-  eyebrow,
+  eyebrow: _eyebrow,
+  indexNumber,
   title,
   description,
   scopeText,
@@ -15,7 +16,10 @@ export const RegistryHeader = ({
   recordCount,
   updatedOn,
 }: {
+  /** @deprecated — use indexNumber for Geist Mono index. */
   eyebrow?: string;
+  /** Geist Mono index number, e.g. "01". The only anchor above the H1. */
+  indexNumber?: string;
   title: string;
   description: string;
   scopeText: string;
@@ -32,15 +36,20 @@ export const RegistryHeader = ({
     });
 
   return (
-    <section className="relative border-b border-white/10 overflow-hidden bg-[hsl(var(--navy-surface))]">
+    <section className="relative overflow-hidden bg-[hsl(var(--navy-surface))]">
       <HeroPattern opacity={0.018} stroke="white" cellSize={32} />
 
-      <div className="relative z-10 page-shell pt-10 md:pt-14 pb-8 md:pb-10">
+      <div className="relative z-10 page-shell pt-20 md:pt-24 pb-20 md:pb-24">
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
             <div className="min-w-0 flex-1">
+              {indexNumber && (
+                <p className="font-mono text-[12px] tabular-nums text-white/50 mb-3">
+                  {indexNumber}
+                </p>
+              )}
               <h1 className="t-page-title text-white">{title}</h1>
-              <p className="mt-4 t-body-md text-white/70 max-w-[68ch]">
+              <p className="mt-6 t-body-md text-white/70 max-w-[68ch] leading-[1.6]">
                 {description}
               </p>
               <Link

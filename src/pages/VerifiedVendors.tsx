@@ -404,6 +404,7 @@ const VerifiedVendors = () => {
       />
 
       <RegistryHeader
+        indexNumber="01"
         title="The Public Trust Registry"
         description="The national database for peptide and hormone sourcing transparency. Use this registry to verify if a clinic's sourcing has been substantiated by licensed facility records."
         scopeText="How verification works"
@@ -412,6 +413,7 @@ const VerifiedVendors = () => {
       />
 
       <RegistryHorizon
+        seam
         cells={[
           { label: "Total Vendors", value: vendors.length },
           { label: "States Represented", value: statesRepresented },
@@ -422,7 +424,7 @@ const VerifiedVendors = () => {
 
       {/* Query + result surface */}
       <section className="bg-background">
-        <div className="page-shell pt-8 pb-12 md:pb-14">
+        <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
             <QueryBar
               query={query}
