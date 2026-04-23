@@ -37,7 +37,11 @@ export const BoardSection = ({
     <div className="page-shell section-pad">
       <div className="mx-auto w-standard grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
-          {hideEyebrow ? null : (
+          {hideEyebrow ? (
+            <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">
+              {String(n).padStart(2, "0")}
+            </p>
+          ) : (
             <p className="t-utility-xs text-muted-foreground mb-4">
               {category ? `§${n} · ${category}` : `§${n}`}
             </p>
