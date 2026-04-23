@@ -27,7 +27,7 @@ const STATUS_PILLS: { value: StatusKey; label: string }[] = [
 ];
 
 const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
-  { value: "online", label: "ONLINE" },
+  { value: "online", label: "ONLINE / TELEHEALTH" },
   { value: "in-person", label: "IN-PERSON" },
 ];
 
@@ -99,16 +99,18 @@ const SoftPill = ({
   label,
   active,
   onClick,
+  fullWidth = false,
 }: {
   label: string;
   active: boolean;
   onClick: () => void;
+  fullWidth?: boolean;
 }) => (
   <button
     type="button"
     onClick={onClick}
     aria-pressed={active}
-    className="shrink-0 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors"
+    className={`${fullWidth ? "w-full" : "shrink-0"} font-sans text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors`}
     style={{
       height: "32px",
       padding: "0 14px",
@@ -215,9 +217,9 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pb-20 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Sticky search + filter rail */}
+            {/* Sticky search + filter rail with subtle shadow */}
             <div
-              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-3 md:pt-8"
+              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-3 shadow-sm md:pt-8"
               style={{ backdropFilter: "blur(8px)" }}
             >
               {/* Borderless search on light grey */}
@@ -234,17 +236,14 @@ const VerifiedVendors = () => {
                 }}
               />
 
-              {/* Pill row */}
-              <div
-                className="pill-scroll mt-3 flex items-center gap-1.5 overflow-x-auto"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-              >
-                <style>{`.pill-scroll::-webkit-scrollbar{display:none}`}</style>
+              {/* 2x2 filter grid — Status row + Method row */}
+              <div className="mt-3 grid grid-cols-2 gap-2">
                 {STATUS_PILLS.map((p) => (
                   <SoftPill
                     key={`s-${p.value}`}
                     label={p.label}
                     active={status === p.value}
+                    fullWidth
                     onClick={() =>
                       setStatus((curr) => (curr === p.value ? "any" : p.value))
                     }
@@ -255,6 +254,7 @@ const VerifiedVendors = () => {
                     key={`d-${p.value}`}
                     label={p.label}
                     active={delivery === p.value}
+                    fullWidth
                     onClick={() =>
                       setDelivery((curr) => (curr === p.value ? "any" : p.value))
                     }
@@ -262,13 +262,19 @@ const VerifiedVendors = () => {
                 ))}
               </div>
 
-              {/* Vendor focus — text + chevron, opens bottom sheet */}
+              {/* Vendor focus — full-width button, opens bottom sheet */}
               <button
                 type="button"
                 onClick={() => setFocusOpen(true)}
-                className="mt-3 inline-flex items-center gap-1.5 font-sans text-[12px] font-medium uppercase tracking-[0.08em] text-foreground/80 transition-colors hover:text-foreground"
+                className="mt-2 flex w-full items-center justify-center gap-1.5 font-sans text-[12.5px] font-medium uppercase tracking-[0.08em] text-foreground/80 transition-colors hover:bg-[hsl(var(--muted))]/80"
+                style={{
+                  height: "40px",
+                  borderRadius: "12px",
+                  backgroundColor: "hsl(var(--muted) / 0.55)",
+                  border: "1px solid hsl(var(--border) / 0.6)",
+                }}
               >
-                <span className="text-muted-foreground">Vendor focus:</span>
+                <span className="text-muted-foreground">Select Focus:</span>
                 <span>{FOCUS_LABEL[focus]}</span>
                 <svg
                   aria-hidden
