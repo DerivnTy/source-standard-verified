@@ -94,21 +94,6 @@ const Privacy = () => (
       statement="The administrative framework governing the collection, partitioning, and retention of audit records and registry data."
     />
 
-    {/* Metadata bar — small, professional, mono */}
-    <section className="border-b border-border bg-surface-muted">
-      <div className="page-shell py-3">
-        <div className="mx-auto w-standard">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-            <span className="text-foreground/80">VERSION:</span> 2026.01
-            <span className="mx-3 text-border">|</span>
-            <span className="text-foreground/80">CLASSIFICATION:</span> PUBLIC-FACING PROTOCOL
-            <span className="mx-3 text-border">|</span>
-            <span className="text-foreground/80">UPDATED:</span> 04/21/26
-          </p>
-        </div>
-      </div>
-    </section>
-
     <DocJumpBar waypoints={waypoints} />
 
     {sections.map((s, i) => (
