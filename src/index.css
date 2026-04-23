@@ -597,3 +597,129 @@ input, select, textarea, button {
 /* Preserve true pill shapes (rounded-full) and icon-only square buttons handled separately. */
 .rounded-full { border-radius: 9999px !important; }
 
+/* ============================================================
+   Pass 3 — Motion, Transitions & Interactive Physics
+   • iOS Spring curve: cubic-bezier(0.4, 0, 0.2, 1) @ 400ms.
+   • Tactile active:scale(0.97) for all interactive elements.
+   • Hover = subtle background value shift only (desktop).
+   • Glass nav unfold preserved via custom keyframes.
+   ------------------------------------------------------------ */
+:root {
+  --ease-ios: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-ios: 400ms;
+  --dur-ios-fast: 250ms;
+  --dur-ios-slow: 350ms;
+}
+
+@layer utilities {
+  /* Global transition reset — every element morphs on the iOS spring. */
+  *,
+  *::before,
+  *::after {
+    transition-timing-function: var(--ease-ios) !important;
+    transition-duration: var(--dur-ios) !important;
+  }
+
+  /* Anything Tailwind already marked as transition-* gets the spring. */
+  .transition,
+  .transition-all,
+  .transition-colors,
+  .transition-opacity,
+  .transition-transform,
+  .transition-shadow {
+    transition-timing-function: var(--ease-ios) !important;
+    transition-duration: var(--dur-ios) !important;
+  }
+
+  /* Don't animate page-load layout — only interactive deltas. */
+  html, body { transition: none !important; }
+}
+
+/* Tactile feedback — universal active:scale on interactive surfaces.
+   Excludes form fields (no scale on text inputs / selects / textareas). */
+button,
+a,
+[role="button"],
+[role="link"],
+[role="tab"],
+[role="option"],
+[role="menuitem"],
+.pill,
+.chip,
+[data-pill],
+[data-chip] {
+  transition:
+    transform var(--dur-ios) var(--ease-ios),
+    background-color var(--dur-ios) var(--ease-ios),
+    border-color var(--dur-ios) var(--ease-ios),
+    color var(--dur-ios) var(--ease-ios),
+    opacity var(--dur-ios) var(--ease-ios) !important;
+  transform-origin: center;
+  will-change: transform;
+}
+
+button:active,
+a:active,
+[role="button"]:active,
+[role="link"]:active,
+[role="tab"]:active,
+[role="option"]:active,
+[role="menuitem"]:active,
+.pill:active,
+.chip:active,
+[data-pill]:active,
+[data-chip]:active {
+  transform: scale(0.97) !important;
+  transition-duration: 120ms !important;
+}
+
+/* Desktop-only hover — subtle background value shift, never dramatic. */
+@media (hover: hover) and (pointer: fine) {
+  button:hover:not(:disabled),
+  a:hover,
+  [role="button"]:hover,
+  [role="menuitem"]:hover,
+  [role="option"]:hover {
+    transition-duration: var(--dur-ios-fast) !important;
+  }
+}
+
+/* ─── Cross-Fade Morph keyframes ─── */
+@keyframes ios-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ios-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes ios-return {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ios-unfold {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ios-fade-in   { animation: ios-fade-in var(--dur-ios) var(--ease-ios) both; }
+.ios-fade-out  { animation: ios-fade-out var(--dur-ios) var(--ease-ios) both; }
+.ios-return    { animation: ios-return var(--dur-ios-slow) var(--ease-ios) both; }
+.ios-unfold    { animation: ios-unfold var(--dur-ios-slow) var(--ease-ios) both; }
+
+/* Glass-Unfold for nav menus — slide-down + fade with sustained blur. */
+.ios-glass-unfold {
+  animation: ios-unfold var(--dur-ios-slow) var(--ease-ios) both;
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+}
+
+/* Reduce-motion respect. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  button:active, a:active, [role="button"]:active { transform: none !important; }
+}
+
