@@ -72,16 +72,19 @@ html {
     --destructive: 0 60% 38%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --border-strong: 214 28% 80%;
-    --input: 214 32% 88%;
+    /* Pass 2 — Hairline border standard. #E5E5EA in HSL = 240 6% 91%. */
+    --border: 240 6% 91%;
+    --border-strong: 240 6% 82%;
+    --input: 240 6% 91%;
     --ring: 222 47% 11%;
 
-    --radius: 0.625rem;
+    /* Pass 2 — Soft-Tech radius. 20px uniform for cards/containers/pills. */
+    --radius: 1.25rem;
 
-    --shadow-sm: 0 1px 2px 0 hsl(216 45% 12% / 0.04);
-    --shadow-md: 0 6px 20px -8px hsl(216 45% 12% / 0.10);
-    --shadow-lg: 0 16px 40px -12px hsl(216 45% 12% / 0.14);
+    /* Pass 2 — Drop shadows removed. Depth comes from hairlines + blur. */
+    --shadow-sm: 0 0 0 0 transparent;
+    --shadow-md: 0 0 0 0 transparent;
+    --shadow-lg: 0 0 0 0 transparent;
 
     /* Greenlist source-type accents — muted, professional */
     --src-503b: 152 32% 32%;
@@ -537,3 +540,60 @@ html {
   /* Serif utility — preserves Source Serif 4 for major titles. */
   .font-serif { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
 }
+
+/* ============================================================
+   Pass 2 — Soft-Tech Geometry Override
+   • Uniform 20px radius for cards / containers / pills / inputs.
+   • 0.5px hairline borders (#E5E5EA).
+   • All drop shadows neutralized — depth = hairline + blur only.
+   • Pills (rounded-full) preserved as true pills.
+   ------------------------------------------------------------ */
+@layer utilities {
+  /* Snap small/medium radii up to the 20px Soft-Tech standard. */
+  .rounded,
+  .rounded-sm,
+  .rounded-md,
+  .rounded-lg,
+  .rounded-xl,
+  .rounded-2xl,
+  .rounded-3xl,
+  .rounded-\[4px\],
+  .rounded-\[6px\],
+  .rounded-\[8px\],
+  .rounded-\[10px\],
+  .rounded-\[12px\],
+  .rounded-\[14px\],
+  .rounded-\[16px\],
+  .rounded-\[18px\] {
+    border-radius: 20px !important;
+  }
+
+  /* Hairline border standard — 0.5px, muted #E5E5EA. */
+  .border,
+  .border-t,
+  .border-r,
+  .border-b,
+  .border-l,
+  .border-x,
+  .border-y {
+    border-color: #E5E5EA !important;
+  }
+  .border    { border-width: 0.5px !important; }
+  .border-t  { border-top-width: 0.5px !important; }
+  .border-r  { border-right-width: 0.5px !important; }
+  .border-b  { border-bottom-width: 0.5px !important; }
+  .border-l  { border-left-width: 0.5px !important; }
+  .border-x  { border-left-width: 0.5px !important; border-right-width: 0.5px !important; }
+  .border-y  { border-top-width: 0.5px !important; border-bottom-width: 0.5px !important; }
+
+  /* Kill drop shadows globally — keep ring-* (focus rings) intact. */
+  .shadow-sm, .shadow, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl, .shadow-inner { box-shadow: none !important; }
+}
+
+/* Inputs and form controls inherit Soft-Tech geometry. */
+input, select, textarea, button {
+  border-radius: 20px;
+}
+/* Preserve true pill shapes (rounded-full) and icon-only square buttons handled separately. */
+.rounded-full { border-radius: 9999px !important; }
+
