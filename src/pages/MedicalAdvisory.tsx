@@ -129,8 +129,7 @@ const MedicalAdvisory = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
-              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
-              <h2 className="mt-4 t-section-title-sm text-foreground">Why the Board exists</h2>
+              <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
                   The Medical Advisory Board exists to provide independent oversight of the Source Standard framework and the standards used to support public registry determinations. Its role is to preserve sourcing transparency, review discipline, and the integrity of the verification process.
@@ -315,8 +314,7 @@ const MedicalAdvisory = () => {
             {/* §9 Closing statement */}
             <section className="section-pad">
               <div className="max-w-2xl">
-                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
-                <h2 className="mt-4 t-section-title-sm text-foreground">
+                <h2 className="t-section-title-sm text-foreground">
                   Public trust requires independent oversight.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">

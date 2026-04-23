@@ -160,8 +160,7 @@ const StatusDefinitions = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
-              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
-              <h2 className="mt-4 t-section-title-sm text-foreground">Why these statuses exist</h2>
+              <h2 className="t-section-title-sm text-foreground">Why these statuses exist</h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
                   Status labels are used so consumers, clinicians, and listed entities can interpret the registry consistently without needing to read an underlying audit file.
@@ -292,8 +291,7 @@ const StatusDefinitions = () => {
             {/* §7 Closing statement */}
             <section className="section-pad border-t border-border/40">
               <div className="max-w-2xl">
-                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
-                <h2 className="mt-4 t-section-title-sm text-foreground">
+                <h2 className="t-section-title-sm text-foreground">
                   A shared public language for the registry.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">

@@ -163,8 +163,7 @@ const Terms = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
-              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
-              <h2 className="mt-4 t-section-title-sm text-foreground">
+              <h2 className="t-section-title-sm text-foreground">
                 How this agreement applies
               </h2>
               <div className="mt-6 space-y-5">
@@ -289,8 +288,7 @@ const Terms = () => {
             {/* §10 Closing statement */}
             <section className="section-pad border-t border-border/40">
               <div className="max-w-2xl">
-                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
-                <h2 className="mt-4 t-section-title-sm text-foreground">
+                <h2 className="t-section-title-sm text-foreground">
                   Public access requires clear terms of use.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
