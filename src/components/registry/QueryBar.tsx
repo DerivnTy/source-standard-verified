@@ -219,3 +219,52 @@ export const SortControl = ({
     {children}
   </select>
 );
+
+/**
+ * FacetGroup — legacy: groups related toggle buttons inside the filter sheet.
+ */
+export const FacetGroup = ({
+  children,
+  ariaLabel,
+}: {
+  children: ReactNode;
+  ariaLabel: string;
+}) => (
+  <div role="group" aria-label={ariaLabel} className="flex flex-wrap gap-1.5">
+    <span className="block w-full text-[10.5px] font-medium uppercase tracking-[0.12em] text-muted-foreground mb-1">
+      {ariaLabel.replace(/^Filter by /, "")}
+    </span>
+    {children}
+  </div>
+);
+
+/**
+ * FacetToggle — legacy: single sharp toggle button.
+ */
+export const FacetToggle = ({
+  active,
+  onClick,
+  children,
+  tone = "default",
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
+  tone?: "default" | "verified";
+}) => (
+  <button
+    type="button"
+    aria-pressed={active}
+    onClick={onClick}
+    className={`h-8 px-3 rounded-[2px] text-[12px] transition-all ${
+      active
+        ? tone === "verified"
+          ? "bg-verified text-verified-foreground"
+          : "bg-foreground text-background"
+        : "bg-background text-muted-foreground hover:text-foreground"
+    }`}
+    style={{ border: "1px solid hsl(var(--border))" }}
+  >
+    {children}
+  </button>
+);
