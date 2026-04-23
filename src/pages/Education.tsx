@@ -14,11 +14,27 @@ import {
   sortArticles,
 } from "@/data/resourceLibrary";
 
-const FAQ_BUTTONS: { label: string; to: string }[] = [
-  { label: "Legal", to: "/library/faq/legal-regulatory" },
-  { label: "Safety", to: "/library/faq/clinical-safety" },
-  { label: "Verification", to: "/library/faq/verification-process" },
-  { label: "Diligence", to: "/education/questions#due-diligence" },
+const FAQ_CARDS: { label: string; description: string; to: string }[] = [
+  {
+    label: "Legal",
+    description: "Statutory framework, federal scheduling, and lawful access.",
+    to: "/library/faq/legal-regulatory",
+  },
+  {
+    label: "Safety",
+    description: "Sterility, handling integrity, and clinical-use scope.",
+    to: "/library/faq/clinical-safety",
+  },
+  {
+    label: "Verification",
+    description: "How clinics and upstream pharmacies are audited.",
+    to: "/library/faq/verification-process",
+  },
+  {
+    label: "Diligence",
+    description: "Public-facing checks before engaging any source.",
+    to: "/education/questions#due-diligence",
+  },
 ];
 
 const PREVIEW_LIMIT = 5;
@@ -238,7 +254,7 @@ const Education = () => {
         </div>
       </div>
 
-      {/* Common Inquiries */}
+      {/* Common Inquiries — 2x2 portal grid */}
       <section className="bg-surface-muted/60 border-y border-border" id="questions">
         <div className="page-shell py-12 md:py-14">
           <div className="mx-auto w-wide">
@@ -247,24 +263,27 @@ const Education = () => {
                 Common Inquiries
               </h2>
               <p className="mt-3 t-body-md text-muted-foreground">
-                Recorded answers to recurring questions, organized by category.
+                Recorded answers to recurring questions, organized by topic.
               </p>
             </div>
-            <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-              {FAQ_BUTTONS.map((b) => (
-                <li key={b.label}>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {FAQ_CARDS.map((card) => (
+                <li key={card.label}>
                   <Link
-                    to={b.to}
-                    className="group flex items-center justify-between rounded-md border border-border bg-card shadow-sm px-5 py-4 transition-colors hover:bg-surface-muted"
+                    to={card.to}
+                    className="group relative flex flex-col rounded-md border border-border bg-card shadow-sm px-6 py-5 transition-colors hover:bg-surface-muted"
                   >
-                    <span className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {b.label}
-                    </span>
                     <span
                       aria-hidden
-                      className="t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors"
+                      className="absolute top-4 right-5 t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors"
                     >
                       →
+                    </span>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                      {card.label}
+                    </span>
+                    <span className="mt-2 t-body-md text-foreground/85 leading-[1.55] pr-6">
+                      {card.description}
                     </span>
                   </Link>
                 </li>
@@ -274,21 +293,18 @@ const Education = () => {
         </div>
       </section>
 
-      {/* Coming Soon footer */}
-      <section className="bg-background">
-        <div className="page-shell py-10">
-          <div className="mx-auto w-wide">
-            <p className="t-utility-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
-              Coming soon
-            </p>
-            <p className="t-body-md text-foreground/85 max-w-[68ch]">
-              Video Explainers, Board Webinars, and the 2026 Integrity Ledger.
-            </p>
+      {/* Editorial Pipeline ticker */}
+      <section className="bg-foreground/[0.04] border-b border-border">
+        <div className="page-shell py-3">
+          <div className="mx-auto w-wide flex items-center gap-3">
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground shrink-0">
+              Editorial Pipeline
+            </span>
+            <span className="t-body-sm text-foreground/85">
+              Video Explainers, Board Webinars, and the 2026 Integrity Ledger forthcoming.
+            </span>
           </div>
         </div>
       </section>
-    </>
-  );
-};
 
 export default Education;
