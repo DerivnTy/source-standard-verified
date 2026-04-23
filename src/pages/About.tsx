@@ -126,19 +126,14 @@ const About = () => {
       <PageMeta title="About" description={heroDescription} />
 
       {/* §1 Hero */}
-      <section className="bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard pt-20 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24">
-            <div className="max-w-3xl">
-              <p className="t-eyebrow-sm text-muted-foreground">Organization & Mandate</p>
-              <h1 className="mt-4 t-page-title text-foreground">
-                An independent verification and public-reference framework for supply-chain transparency in the peptide and hormone optimization markets.
-              </h1>
-              <p className="mt-6 t-body-lg text-muted-foreground leading-relaxed">{heroDescription}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BriefingHero
+        tone="navy"
+        variant="chapter"
+        category="Organization & Mandate"
+        title="An independent verification and public-reference framework for supply-chain transparency in the peptide and hormone optimization markets."
+        statement={heroDescription}
+        docId=""
+      />
 
       {/* §2 Statement of purpose */}
       <section className="bg-background border-b border-border/40">
