@@ -320,11 +320,8 @@ html {
   footer { margin-top: 0 !important; }
 
   /* ─── Final typography refinement (sitewide) ───
-     Body text breathes at 1.6; H2 tightens at -0.01em for a printed feel.
-     On mobile, prose paragraphs are capped at ~48ch and right-padded
-     so no line of body text stretches past the institutional column. */
+     Body breathes at 1.6. Heading tracking is owned by base layer (-0.022em). */
   p { line-height: 1.6; }
-  h2 { letter-spacing: -0.01em; }
 
   @media (max-width: 767px) {
     section p,
