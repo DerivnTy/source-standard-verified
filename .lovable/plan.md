@@ -1,78 +1,71 @@
 
 
-## Typography refinement — Source Serif 4 for headings, Geist for everything else
+## Homepage rewrite — Project "Clear Sight"
 
-A controlled, site-wide pass that introduces Source Serif 4 as the institutional serif voice for major headings while keeping Geist as the working font for body, UI, and all database/profile surfaces. No reinvention. Token-level changes only — pages inherit automatically.
+A copy-only pass on `src/pages/Index.tsx`. Layout, components, counters, routes, tokens, and section structure stay exactly as they are. Only the strings change. Replaces "process talk" with consumer-first language that frames the registry as a public utility.
 
-### What changes
+### Section-by-section copy changes
 
-**1 · Load Source Serif 4**
+**1. Hero (`BriefingHero`)**
+- `category`: `"United States Public Registry"` → `"United States Public Peptide Registry"`
+- `title`: `"The public standard for documented peptide sourcing"` → `"The United States Public Peptide Registry"`
+- `statement`: → `"We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."`
+- `HeroActions` buttons: `"Access Vendor Registry"` → `"Search the Registry"`; `"Begin Verification"` → `"For Vendors: Get Verified"`
 
-Add the Google Fonts link in `index.html` alongside the existing Geist load:
-- Source Serif 4, weights 400 / 500 / 600, optical size enabled.
-- Preconnect to `fonts.gstatic.com` to keep first paint clean.
+**2. The Trust Problem**
+- Eyebrow: `"The trust problem"` → `"The trust problem"` (kept — broad, not redundant with new header)
+- H2: → `"Branding is not documentation."`
+- Body: → `"In the peptide industry, marketing claims are easy to make but difficult to prove. Most consumers are forced to rely on trust. We believe you should rely on records. We audit the supply chain to ensure what you're being sold is what's on the label."`
 
-**2 · Tailwind font families** (`tailwind.config.ts`)
+**3. How It Works (3-step)**
+- Eyebrow: stays `"How it works"`
+- Step 01 — h: `"Map the facilities."` b: `"We track every licensed 503A and 503B compounding pharmacy in the United States."`
+- Step 02 — h: `"Audit the vendors."` b: `"We require clinics and online vendors to substantiate their sourcing with documented proof of these pharmacy relationships."`
+- Step 03 — h: `"Publish the truth."` b: `"We list the results in a public database. If they can't prove it, they stay Unverified."`
 
-Add a second family alongside the existing `sans`:
-```
-sans:  ['Geist', 'Inter', system stack…]   // unchanged
-serif: ['"Source Serif 4"', 'Source Serif Pro', 'Georgia', 'serif']
-```
-No other config changes. `mono` stays as IBM Plex Mono.
+**4. Live Registry (counters preserved)**
+- Eyebrow: stays `"Live registry"`
+- H2: → `"Total market visibility."`
+- Add a one-line lede above the `StatRow`: `"Our database tracks the entire peptide economy in real time."`
+- All six `<Stat>` counters and CTAs unchanged.
 
-**3 · Token routing** (`src/index.css`)
+**5. What You Can Verify (registry fields)**
+- Eyebrow: `"What you can verify"` → `"Registry fields"`
+- H2: → `"Search. Verify. Proceed."`
+- Lede: → `"Every listing in our registry provides a clear snapshot of a vendor's legitimacy."`
+- `registryFields` array reduced/relabeled to the four user-specified fields:
+  - `Verification status` — `"A simple red/green indicator of documented sourcing."`
+  - `Fulfillment model` — `"Whether the vendor is a local clinic or an online-only platform."`
+  - `Clinical focus` — `"The medical services the vendor is authorized to provide."`
+  - `Upstream sources` — `"The licensed pharmacies supplying the vendor."`
+- (City/state and last-review-date entries removed from this list — they remain visible on actual profile pages.)
 
-Switch the heading tokens to serif. Keep everything else on Geist.
+**6. Function**
+- Eyebrow: stays `"Function"`
+- `whyMatters` array rewritten:
+  - `For consumers` — `"Instant clarity on whether your clinic is using legal, licensed sources."`
+  - `For vendors` — `"A professional seal of approval that separates you from the research-only grey market."`
+  - `For doctors` — `"A clinical reference for referring patients to documented facilities."`
 
-| Token | Family | Tracking | Weight | Use |
-|---|---|---|---|---|
-| `.t-home-title` (72/76) | **serif** | -0.02em | 500 | Homepage hero only |
-| `.t-chapter-title` (56/64) | **serif** | -0.02em | 500 | BriefingHero chapter variant |
-| `.t-page-title` (48/56) | **serif** | -0.015em | 500 | Every internal page H1 |
-| `.t-article-title` (alias of page-title) | **serif** | -0.015em | 500 | Library articles |
-| `.t-section-title-md` (36/44) | **serif** | -0.01em | 500 | Major H2 moments |
-| `.t-section-title-sm` (30/38) | **sans (Geist)** | -0.005em | 600 | Standard section H2s — kept on sans for product/database pages |
-| `.t-h3` (24/32) | sans | normal | 600 | unchanged |
-| `.t-h4` (20/28) | sans | normal | 600 | unchanged |
-| `.t-body-lg / md / sm` | sans | normal | 400 | unchanged |
-| `.t-body-strong` | sans | normal | 600 | unchanged |
-| `.t-eyebrow-sm / utility-xs / label-sm` | sans | uppercase tracking already set | 500 | unchanged |
-| Mono numerals (Stat, registry tables) | mono | unchanged | unchanged |
+**7. Foundational Reference**
+- Eyebrow stays.
+- `basics` array re-pointed and re-titled (routes unchanged):
+  - `"What 'Verified' means"` → `/library/what-source-standard-verification-actually-means`
+  - `"503A vs. 503B"` → `/library/what-is-compounding`
+  - `"The patient checklist"` → `/library/questions-to-ask-your-clinic`
+  - Subcopy tightened to one institutional sentence each.
 
-Rationale: serif appears only at the four largest title scales (36px and up). Standard section titles, all body, all UI, all metadata, all stats stay Geist — keeps Verified Vendors, Greenlist, and profile pages product-grade.
+**8. Governance & Standards**
+- No copy change. Section retained as-is.
 
-**4 · Text color** (`src/index.css` design tokens)
+**9. `PageMeta`**
+- `title` → `"Source Standard · The United States Public Peptide Registry"`
+- `description` → mirrors new hero statement.
 
-- `--foreground`: shift from current near-black to deep charcoal `222 14% 12%` (≈ #1A1B1E). Applies globally because every text class uses `text-foreground`.
-- `--muted-foreground`: keep current value (already a controlled secondary tone — not washed out).
-- No change to surface, border, or status colors.
+### Out of scope
 
-**5 · Heading letter-spacing**
-
-Bake into the tokens above (-0.02em on the largest, -0.015em on page-title, -0.01em on section-title-md, -0.005em on section-title-sm). Subtle, intentional, no further per-page tweaks needed.
-
-### What does NOT change
-
-- No serif on body copy, lists, tables, filters, breadcrumbs, buttons, badges, metadata, callouts, footnotes, glossary terms, breadcrumbs, captions, or any UI control.
-- No changes to `Verified Vendors`, `Greenlist`, `VendorProfile`, `GreenlistProfile`, `RegistryHeader`, `QueryBar`, `Stat`, or any registry/profile component — these inherit the new `--foreground` color and that's it. Their headings are already on `t-section-title-sm` (sans).
-- No font-weight inflation on body text.
-- No changes to spacing, sizing, hierarchy logic, or component structure.
-- No new tokens, no removed tokens, no class renames.
-
-### Files touched
-
-1. `index.html` — add Source Serif 4 `<link>` + preconnect.
-2. `tailwind.config.ts` — add `serif` family.
-3. `src/index.css` — switch four title tokens to `font-serif`, set tracking, update `--foreground`.
-
-Three files. Site-wide effect through token inheritance. No page rewrites needed in this pass.
-
-### QA checklist (post-implementation)
-
-- Homepage hero renders Source Serif 4 at 72/76, charcoal not pure black.
-- Internal page H1s (About, Governance, Education, MedicalAdvisory, Apply, FAQ, etc.) render serif at 48/56.
-- Section H2s on policy/governance pages may render serif at 36/44 where `t-section-title-md` is used; standard section H2s stay sans.
-- Verified Vendors, Greenlist, and profile pages: zero serif anywhere except the page H1.
-- All body, tables, filters, buttons, badges, mono numerals: unchanged Geist / IBM Plex Mono.
+- No layout, spacing, color, font, or component changes.
+- No changes to `BriefingHero`, `Stat`, `StatRow`, or any shared component.
+- No route additions or data-model edits.
+- No changes to any other page.
 
