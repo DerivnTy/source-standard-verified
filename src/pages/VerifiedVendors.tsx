@@ -273,9 +273,9 @@ const VerifiedVendors = () => {
       onChange={(v) => setSort(v as SortMode)}
       ariaLabel="Sort records"
     >
-      <option value="name-asc">SORT // ALPHABETICAL</option>
-      <option value="location">SORT // LOCATION</option>
-      <option value="latest-audit">SORT // LATEST_AUDIT</option>
+      <option value="name-asc">Sort: Alphabetical</option>
+      <option value="location">Sort: Location</option>
+      <option value="latest-audit">Sort: Latest Audit</option>
     </FacetSelect>
   );
 
@@ -384,7 +384,7 @@ const VerifiedVendors = () => {
       <RegistryHeader
         indexNumber="01"
         title="Verified Registry"
-        statusLine="REGISTRY_STATUS // ACTIVE"
+        statusLine="Live Registry"
         recordCount={vendors.length}
         hideRecordPill
       />
@@ -402,18 +402,18 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* View toggle — sharp rectangular */}
+            {/* View toggle — slim, sharp rectangular */}
             <div className="mb-3 flex justify-end">
               <div
                 role="radiogroup"
                 aria-label="View mode"
                 className="inline-flex overflow-hidden rounded-[2px]"
-                style={{ border: "1px solid #64748B" }}
+                style={{ border: "1px solid hsl(var(--border))" }}
               >
                 {(
                   [
-                    { value: "list", label: "[ LIST VIEW ]" },
-                    { value: "grid", label: "[ GRID VIEW ]" },
+                    { value: "list", label: "List" },
+                    { value: "grid", label: "Grid" },
                   ] as { value: ViewMode; label: string }[]
                 ).map((opt, i) => {
                   const active = view === opt.value;
@@ -423,14 +423,14 @@ const VerifiedVendors = () => {
                       role="radio"
                       aria-checked={active}
                       onClick={() => setView(opt.value)}
-                      className={`h-9 px-3 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+                      className={`h-8 px-3 text-[12px] transition-colors ${
                         i > 0 ? "border-l" : ""
                       } ${
                         active
                           ? "bg-[hsl(var(--navy-surface))] text-white"
                           : "bg-background text-muted-foreground hover:text-foreground"
                       }`}
-                      style={{ borderColor: "#64748B" }}
+                      style={{ borderColor: "hsl(var(--border))" }}
                     >
                       {opt.label}
                     </button>
@@ -439,12 +439,12 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            {/* Status Tabs — sharp rectangular, navy when active */}
+            {/* Status Tabs — slim rectangular, navy when active */}
             <div
               role="tablist"
               aria-label="Filter by status"
               className="mb-4 flex flex-wrap overflow-hidden rounded-[2px]"
-              style={{ border: "1px solid #64748B" }}
+              style={{ border: "1px solid hsl(var(--border))" }}
             >
               {STATUS_TABS.map((t, i) => {
                 const active = status === t.value;
@@ -454,14 +454,14 @@ const VerifiedVendors = () => {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setStatus(t.value)}
-                    className={`h-10 px-4 font-mono text-[12px] uppercase tracking-[0.08em] transition-colors ${
+                    className={`h-9 px-4 text-[12.5px] transition-colors ${
                       i > 0 ? "border-l" : ""
                     } ${
                       active
                         ? "bg-[hsl(var(--navy-surface))] text-white"
                         : "bg-background text-muted-foreground hover:text-foreground hover:bg-surface-muted/40"
                     }`}
-                    style={{ borderColor: "#64748B" }}
+                    style={{ borderColor: "hsl(var(--border))" }}
                   >
                     {t.label}
                   </button>
@@ -472,7 +472,7 @@ const VerifiedVendors = () => {
             <QueryBar
               query={query}
               onQueryChange={setQuery}
-              searchPlaceholder="[ SEARCH_VENDOR_ID ]"
+              searchPlaceholder="Search vendors by name, city, or focus"
               resultLabel={
                 sorted.length === 0
                   ? "0 of 0 records"
@@ -547,51 +547,51 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
-      {/* Registry logic — surgical reference grid */}
+      {/* Registry logic — clean reference grid */}
       <section className="border-t border-border bg-surface-muted/30">
         <div className="page-shell pt-16 md:pt-20" style={{ paddingBottom: "80px" }}>
           <div className="mx-auto w-wide">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+            <p className="font-mono text-[12px] tracking-[0.04em] text-muted-foreground">
               02
             </p>
             <h2 className="mt-4 t-section-title-sm text-foreground max-w-[40ch] text-left">
               Understanding the Registry
             </h2>
-            <p className="mt-4 font-mono text-[12px] uppercase tracking-[0.08em] text-muted-foreground">
+            <p className="mt-3 text-[14px] text-muted-foreground max-w-[60ch]">
               Four states. One audit standard. No marketing claims.
             </p>
 
-            <dl className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 border-t border-[#F1F5F9] pt-8">
+            <dl className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 border-t border-border pt-8">
               {[
                 {
-                  id: "01_VERIFICATION_CRITERIA",
+                  id: "01",
                   title: "Verification Criteria",
                   body: "Sourcing cross-referenced with 503A/503B pharmacy records. Invoices and licenses on file.",
                 },
                 {
-                  id: "02_AUDIT_FREQUENCY",
+                  id: "02",
                   title: "Audit Frequency",
                   body: "Re-verification every 12 months. Triggered earlier on supplier or sourcing change.",
                 },
                 {
-                  id: "03_UNVERIFIED_STATUS",
+                  id: "03",
                   title: "Unverified Status",
                   body: "No sourcing on file. Not a judgment of safety or compliance.",
                 },
                 {
-                  id: "04_UNDER_REVIEW",
+                  id: "04",
                   title: "Under Review",
                   body: "Application in active audit. Public record updates on completion.",
                   show: counts["under-review"] > 0,
                 },
                 {
-                  id: "05_SUSPENDED",
+                  id: "05",
                   title: "Suspended",
                   body: "Verification temporarily paused pending source clarification.",
                   show: counts.suspended > 0,
                 },
                 {
-                  id: "06_REMOVED",
+                  id: "06",
                   title: "Removed",
                   body: "Delisted from active directory. Record preserved for transparency.",
                   show: counts.removed > 0,
@@ -600,14 +600,14 @@ const VerifiedVendors = () => {
                 .filter((item) => item.show !== false)
                 .map((item) => (
                   <div key={item.id} className="text-left">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    <p className="font-mono text-[11px] tracking-[0.04em] text-muted-foreground">
                       {item.id}
                     </p>
-                    <h3 className="mt-2 text-[14px] font-semibold text-foreground tracking-tight">
+                    <h3 className="mt-2 text-[15px] font-semibold text-foreground tracking-tight">
                       {item.title}
                     </h3>
                     <p
-                      className="mt-2 text-[13px] text-muted-foreground max-w-[42ch]"
+                      className="mt-2 text-[13.5px] text-muted-foreground max-w-[48ch]"
                       style={{ lineHeight: 1.6 }}
                     >
                       {item.body}
@@ -622,8 +622,8 @@ const VerifiedVendors = () => {
                 aria-hidden
                 className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse"
               />
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                REGISTRY_STATUS // ACTIVE
+              <span className="text-[12.5px] text-muted-foreground">
+                Live Registry — updated continuously
               </span>
             </div>
           </div>

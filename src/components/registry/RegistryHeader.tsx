@@ -55,9 +55,15 @@ export const RegistryHeader = ({
               )}
               <h1 className="t-page-title text-white text-left">{title}</h1>
               {statusLine ? (
-                <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.14em] text-white/60">
-                  {statusLine}
-                </p>
+                <div className="mt-5 inline-flex items-center gap-2">
+                  <span
+                    aria-hidden
+                    className="h-1.5 w-1.5 rounded-full bg-[#22C55E] animate-pulse"
+                  />
+                  <span className="font-mono text-[12px] tracking-[0.04em] text-white/70">
+                    {statusLine}
+                  </span>
+                </div>
               ) : description ? (
                 <p className="mt-6 t-body-md text-white/70 max-w-[68ch] leading-[1.6]">
                   {description}

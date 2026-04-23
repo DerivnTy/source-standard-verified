@@ -7,51 +7,52 @@ import {
 } from "@/data/vendors";
 
 /**
- * Audit Status Label — Geist Mono, uppercase, format `STATUS // VERIFIED`.
- * Verified → green, pending/under-review → amber, otherwise → muted.
+ * Audit Status Label — clean, consumer-facing.
+ * Verified → green check + "Verified". Otherwise → muted status word.
  */
 const AuditStatusLabel = ({ status }: { status: Vendor["status"] }) => {
   const isVerified = status === "verified";
   const isPending = status === "under-review";
-  const isSuspended = status === "suspended";
-  const isRemoved = status === "removed";
 
   const tone = isVerified
     ? "text-verified"
-    : isPending || isSuspended
-    ? "text-amber-500"
-    : isRemoved
-    ? "text-muted-foreground"
+    : isPending
+    ? "text-amber-600"
     : "text-muted-foreground";
 
   const word = isVerified
-    ? "VERIFIED"
+    ? "Verified"
     : isPending
-    ? "PENDING"
-    : VENDOR_STATUS_LABEL[status].toUpperCase().replace(/\s+/g, " ");
+    ? "Pending"
+    : VENDOR_STATUS_LABEL[status];
 
   return (
     <span
-      className={`inline-flex items-center font-mono text-[10.5px] font-medium uppercase tracking-[0.14em] ${tone}`}
+      className={`inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] ${tone}`}
     >
-      <span className="text-muted-foreground/70">STATUS&nbsp;//&nbsp;</span>
+      {isVerified && (
+        <svg
+          aria-hidden
+          viewBox="0 0 16 16"
+          className="h-3 w-3 fill-current"
+        >
+          <path d="M6.5 11.5L3 8l1-1 2.5 2.5L12 4l1 1z" />
+        </svg>
+      )}
       <span>{word}</span>
     </span>
   );
 };
 
 const MetaRow = ({ label, value }: { label: string; value: string }) => (
-  <li className="font-mono text-[12px] leading-[1.5] text-muted-foreground">
-    <span aria-hidden>—&nbsp;</span>
-    <span className="uppercase tracking-[0.06em]">{label}:</span>{" "}
-    <span className="text-foreground/80 normal-case tracking-normal">
-      {value}
-    </span>
+  <li className="text-[12.5px] leading-[1.5] text-muted-foreground">
+    <span className="text-foreground/60">{label}:</span>{" "}
+    <span className="text-foreground/85">{value}</span>
   </li>
 );
 
 /**
- * Build a deterministic vendor ID for display: SS-<state?>-<slug-hash>.
+ * Build a deterministic vendor ID for display.
  */
 const buildVendorId = (vendor: Vendor) => {
   if (vendor.reviewId) return vendor.reviewId;
@@ -79,35 +80,42 @@ export const VendorAuditCard = ({
       ? vendor.clinicalFocus.join(" · ")
       : vendor.category;
   const vendorId = buildVendorId(vendor);
+  const isUnverified =
+    vendor.status === "unverified" ||
+    vendor.status === "suspended" ||
+    vendor.status === "removed";
+
+  // Light red wash for unverified — warning, not aggressive.
+  const unverifiedWash = "rgba(254, 226, 226, 0.45)"; // red-100 @ 45%
 
   if (view === "list") {
     return (
       <Link
         to={`/directory/${vendor.slug}`}
         aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
-        className="group flex items-center gap-4 min-h-[60px] px-4 py-2 text-left bg-card border-b border-border hover:bg-surface-muted/40 transition-colors"
+        className="group flex items-center gap-4 min-h-[44px] px-4 py-2 text-left bg-card hover:bg-surface-muted/40 transition-colors"
+        style={isUnverified ? { backgroundColor: unverifiedWash } : undefined}
       >
-        <div className="shrink-0 w-[120px] hidden sm:block">
+        <div className="shrink-0 w-[110px] hidden sm:block">
           <AuditStatusLabel status={vendor.status} />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-3">
-            <h3 className="truncate text-[14px] font-semibold leading-tight text-foreground tracking-tight">
+            <h3 className="truncate text-[13.5px] font-semibold leading-tight text-foreground tracking-tight">
               {vendor.name}
             </h3>
             <span className="hidden md:inline font-mono text-[11px] text-muted-foreground tabular-nums">
               {vendorId}
             </span>
           </div>
-          <div className="sm:hidden mt-1">
+          <div className="sm:hidden mt-0.5">
             <AuditStatusLabel status={vendor.status} />
           </div>
-          <p className="mt-0.5 font-mono text-[11px] text-muted-foreground truncate">
-            <span aria-hidden>—&nbsp;</span>LOC:{" "}
-            <span className="text-foreground/80">{location}</span>
-          </p>
         </div>
-        <span aria-hidden className="hidden md:inline font-mono text-[12px] text-muted-foreground group-hover:text-foreground transition-colors">
+        <span className="hidden md:inline text-[12px] text-muted-foreground truncate max-w-[180px]">
+          {location}
+        </span>
+        <span aria-hidden className="hidden md:inline text-[12px] text-muted-foreground group-hover:text-foreground transition-colors">
           →
         </span>
       </Link>
@@ -119,9 +127,9 @@ export const VendorAuditCard = ({
       to={`/directory/${vendor.slug}`}
       aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
       className="group block h-full text-left rounded-[2px] border border-border bg-card hover:border-foreground/30 hover:shadow-[0_8px_24px_-12px_hsl(0_0%_0%/0.18)] transition-all"
+      style={isUnverified ? { backgroundColor: unverifiedWash } : undefined}
     >
       <div className="flex flex-col gap-3 text-left" style={{ padding: "20px" }}>
-        {/* No-Logo Protocol — status badge is the visual anchor */}
         <AuditStatusLabel status={vendor.status} />
 
         <h3 className="text-left text-[16px] font-semibold leading-[1.3] text-foreground tracking-tight">
@@ -130,7 +138,7 @@ export const VendorAuditCard = ({
 
         <ul className="space-y-1 text-left">
           <MetaRow label="ID" value={`#${vendorId}`} />
-          <MetaRow label="Loc" value={location} />
+          <MetaRow label="Location" value={location} />
           <MetaRow label="Type" value={focus || "—"} />
           <MetaRow
             label="Fulfillment"
