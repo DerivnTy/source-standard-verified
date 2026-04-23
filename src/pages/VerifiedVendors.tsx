@@ -99,16 +99,18 @@ const SoftPill = ({
   label,
   active,
   onClick,
+  fullWidth = false,
 }: {
   label: string;
   active: boolean;
   onClick: () => void;
+  fullWidth?: boolean;
 }) => (
   <button
     type="button"
     onClick={onClick}
     aria-pressed={active}
-    className="shrink-0 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors"
+    className={`${fullWidth ? "w-full" : "shrink-0"} font-sans text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors`}
     style={{
       height: "32px",
       padding: "0 14px",
