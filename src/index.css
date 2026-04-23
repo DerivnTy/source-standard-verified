@@ -613,15 +613,10 @@ input, select, textarea, button {
 }
 
 @layer utilities {
-  /* Global transition reset — every element morphs on the iOS spring. */
-  *,
-  *::before,
-  *::after {
-    transition-timing-function: var(--ease-ios) !important;
-    transition-duration: var(--dur-ios) !important;
-  }
-
-  /* Anything Tailwind already marked as transition-* gets the spring. */
+  /* iOS spring applied ONLY to elements that already declare a transition
+     via Tailwind utilities. We do NOT touch `*` because that forces a
+     transition on every property change (including initial mount), which
+     can leave components stuck mid-animation and render the page blank. */
   .transition,
   .transition-all,
   .transition-colors,
@@ -631,9 +626,6 @@ input, select, textarea, button {
     transition-timing-function: var(--ease-ios) !important;
     transition-duration: var(--dur-ios) !important;
   }
-
-  /* Don't animate page-load layout — only interactive deltas. */
-  html, body { transition: none !important; }
 }
 
 /* Tactile feedback — universal active:scale on interactive surfaces.
