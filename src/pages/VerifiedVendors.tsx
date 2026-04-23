@@ -193,10 +193,13 @@ const VerifiedVendors = () => {
             </div>
 
             <div
-              className="mx-5 md:mx-0 flex items-stretch overflow-hidden rounded-[2px]"
-              style={{ border: "1px solid hsl(var(--border))" }}
+              className="mx-5 md:mx-0 grid overflow-hidden rounded-[2px]"
+              style={{
+                border: "1px solid hsl(var(--border))",
+                gridTemplateColumns: "minmax(0, 1fr) 98px 108px",
+              }}
             >
-              <div className="relative min-w-0 flex-[1_1_0%]">
+              <div className="relative min-w-0">
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
                 <input
                   value={query}
@@ -207,15 +210,12 @@ const VerifiedVendors = () => {
                 />
               </div>
 
-              <div
-                className="shrink-0 border-l"
-                style={{ borderColor: "hsl(var(--border))" }}
-              >
+              <div className="border-l" style={{ borderColor: "hsl(var(--border))" }}>
                 <select
                   value={category}
                   onChange={(event) => setCategory(event.target.value)}
                   aria-label="Category"
-                  className={`${toolbarSelectClass} w-[112px]`}
+                  className={`${toolbarSelectClass} w-full`}
                   style={toolbarChevron}
                 >
                   <option value="all">Category</option>
@@ -227,17 +227,15 @@ const VerifiedVendors = () => {
                 </select>
               </div>
 
-              <div
-                className="shrink-0 border-l"
-                style={{ borderColor: "hsl(var(--border))" }}
-              >
+              <div className="border-l" style={{ borderColor: "hsl(var(--border))" }}>
                 <select
                   value={sort}
                   onChange={(event) => setSort(event.target.value as SortMode)}
                   aria-label="Sort"
-                  className={`${toolbarSelectClass} w-[108px]`}
+                  className={`${toolbarSelectClass} w-full`}
                   style={toolbarChevron}
                 >
+                  <option value="name-asc">Sort</option>
                   <option value="name-asc">Alphabetical</option>
                   <option value="location">Location</option>
                   <option value="latest-audit">Latest Audit</option>
