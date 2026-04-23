@@ -34,16 +34,11 @@ import {
 
 const ALL = "__all__";
 
-type SortMode =
-  | "trust"
-  | "name-asc"
-  | "name-desc"
-  | "state"
-  | "city"
-  | "status";
+type SortMode = "name-asc" | "location" | "latest-audit";
 
 type FulfillmentFilter = "all" | VendorFulfillment;
 type VerifiedOnlyFilter = "all" | "verified";
+type ViewMode = "list" | "grid";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
