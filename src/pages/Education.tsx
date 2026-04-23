@@ -1,12 +1,11 @@
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ShieldCheck } from "lucide-react";
+import { Search, ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 
-// ---------- Three-column knowledge base ----------
-// Slugs map to existing routes via SLUG_ROUTE_OVERRIDES below. Order, copy,
-// and grouping are authored here — the underlying article pages are unchanged.
+// ---------- Slug → route mapping ----------
 
 const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "what-is-compounding": "/library/what-is-compounding",
@@ -26,78 +25,131 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
 const routeFor = (slug: string) =>
   SLUG_ROUTE_OVERRIDES[slug] ?? `/education/${slug}`;
 
-type ArticleLink = { slug: string; title: string; blurb: string };
+// ---------- Content model ----------
 
-const COLUMN_A: ArticleLink[] = [
+type CategoryId = "regulation" | "clinical" | "consumer";
+
+type Article = {
+  slug: string;
+  title: string;
+  blurb: string;
+  meta: string;
+  category: CategoryId;
+};
+
+const CATEGORIES: { id: CategoryId; label: string; short: string; description: string }[] = [
+  {
+    id: "regulation",
+    label: "Sourcing & Regulation",
+    short: "Regulation",
+    description:
+      "Statutory framework, facility classifications, and verification methodology.",
+  },
+  {
+    id: "clinical",
+    label: "Clinical Handling",
+    short: "Clinical",
+    description:
+      "Sterile technique, stability, and clinical context — peer-reviewed by the Medical Advisory Board.",
+  },
+  {
+    id: "consumer",
+    label: "Consumer Due Diligence",
+    short: "Consumer",
+    description:
+      "Patient-facing checklists and signal interpretation for evaluating clinics and sources.",
+  },
+];
+
+const ARTICLES: Article[] = [
+  // Regulation
   {
     slug: "what-is-compounding",
     title: "What is Compounding?",
-    blurb: "Understanding the critical difference between 503A and 503B facilities.",
+    blurb: "The critical difference between 503A and 503B facilities.",
+    meta: "6 min read · Apr 2026",
+    category: "regulation",
   },
   {
     slug: "the-2026-compounding-reclassification",
     title: "The 2026 Regulatory Shift",
     blurb: "Implications of the recent compounding reclassifications.",
+    meta: "8 min read · Apr 2026",
+    category: "regulation",
   },
   {
     slug: "how-to-read-a-certificate-of-analysis",
     title: "Interpreting CoAs",
-    blurb: "A guide to reading lab reports and detecting sourcing discrepancies.",
+    blurb: "Reading lab reports and detecting sourcing discrepancies.",
+    meta: "7 min read · Mar 2026",
+    category: "regulation",
   },
   {
     slug: "the-dual-layer-difference",
     title: "The Dual-Layer Audit",
     blurb: "Why we verify both the clinic and the manufacturer.",
+    meta: "5 min read · Mar 2026",
+    category: "regulation",
   },
-];
-
-const COLUMN_B: ArticleLink[] = [
+  // Clinical
   {
     slug: "safe-peptide-handling-and-reconstitution",
     title: "Sterile Handling Protocol",
     blurb: "Best practices for reconstitution and aseptic storage.",
+    meta: "6 min read · Apr 2026",
+    category: "clinical",
   },
   {
     slug: "sanitization-and-aseptic-technique-fundamentals",
     title: "Stability Fundamentals",
     blurb: "How temperature, light, and time affect peptide integrity.",
+    meta: "5 min read · Mar 2026",
+    category: "clinical",
   },
   {
     slug: "the-science-of-aging-and-trt",
     title: "Endocrinological Context",
-    blurb: "Understanding age-related change and TRT mechanisms.",
+    blurb: "Age-related change and TRT mechanisms.",
+    meta: "9 min read · Feb 2026",
+    category: "clinical",
   },
   {
     slug: "dosing-guidance-summaries-for-common-compounds",
     title: "Dosing Reference",
-    blurb: "High-level summaries of commonly cited clinical dosing ranges.",
+    blurb: "Summaries of commonly cited clinical dosing ranges.",
+    meta: "10 min read · Feb 2026",
+    category: "clinical",
   },
-];
-
-const COLUMN_C: ArticleLink[] = [
+  // Consumer
   {
     slug: "questions-to-ask-your-clinic",
     title: "The Clinic Checklist",
     blurb: "5 essential questions to ask your doctor about their sourcing.",
+    meta: "4 min read · Apr 2026",
+    category: "consumer",
   },
   {
     slug: "warning-signs-of-undocumented-sourcing",
     title: "Warning Signs",
-    blurb: "How to identify \u201CGrey Market\u201D vendors and undocumented sources.",
+    blurb: "Identifying \u201CGrey Market\u201D vendors and undocumented sources.",
+    meta: "6 min read · Mar 2026",
+    category: "consumer",
   },
   {
     slug: "what-source-standard-verification-actually-means",
     title: "Verification Scope",
-    blurb: "What our \u201CVerified\u201D badge actually establishes (and what it doesn't).",
+    blurb: "What our \u201CVerified\u201D badge establishes (and what it doesn't).",
+    meta: "5 min read · Mar 2026",
+    category: "consumer",
   },
   {
     slug: "what-are-peptides",
     title: "Sterile Injection Guide",
     blurb: "Safe handling and disposal for injectable preparations.",
+    meta: "7 min read · Feb 2026",
+    category: "consumer",
   },
 ];
-
-// ---------- FAQ buttons ----------
 
 const FAQ_BUTTONS: { label: string; to: string }[] = [
   { label: "Legal", to: "/library/faq/legal-regulatory" },
@@ -106,46 +158,118 @@ const FAQ_BUTTONS: { label: string; to: string }[] = [
   { label: "Diligence", to: "/education/questions#due-diligence" },
 ];
 
-// ---------- Components ----------
+const VIEW_ALL_THRESHOLD = 5;
 
-const ArticleCell = ({ entry }: { entry: ArticleLink }) => (
-  <Link
-    to={routeFor(entry.slug)}
-    className="group block px-5 py-4 transition-colors hover:bg-surface-muted"
-  >
-    <h3 className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-      {entry.title}
-    </h3>
-    <p className="mt-1.5 t-body-sm text-muted-foreground leading-[1.55]">
-      {entry.blurb}
-    </p>
-  </Link>
+// ---------- Row + Section ----------
+
+const ArticleRow = ({ entry }: { entry: Article }) => (
+  <li>
+    <Link
+      to={routeFor(entry.slug)}
+      className="group grid grid-cols-12 gap-4 items-center px-5 py-4 transition-colors hover:bg-surface-muted"
+    >
+      <div className="col-span-12 md:col-span-4">
+        <h3 className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+          {entry.title}
+        </h3>
+      </div>
+      <div className="col-span-12 md:col-span-6">
+        <p className="t-body-sm text-muted-foreground leading-[1.55]">
+          {entry.blurb}
+        </p>
+      </div>
+      <div className="col-span-12 md:col-span-2 md:text-right">
+        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+          {entry.meta}
+        </span>
+      </div>
+    </Link>
+  </li>
 );
 
-const Column = ({
-  title,
+const CategoryBlock = ({
+  category,
   entries,
 }: {
-  title: string;
-  entries: ArticleLink[];
-}) => (
-  <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden flex flex-col">
-    <div className="px-5 py-3.5 border-b border-border bg-surface-muted/50">
-      <h2 className="t-body-md font-semibold text-foreground tracking-tight">
-        {title}
-      </h2>
-    </div>
-    <div className="divide-y divide-border flex-1">
-      {entries.map((e) => (
-        <ArticleCell key={e.slug} entry={e} />
-      ))}
-    </div>
-  </div>
-);
+  category: (typeof CATEGORIES)[number];
+  entries: Article[];
+}) => {
+  const visible = entries.slice(0, VIEW_ALL_THRESHOLD);
+  const hasMore = entries.length > VIEW_ALL_THRESHOLD;
+
+  return (
+    <section
+      id={category.id}
+      className="rounded-md border border-border bg-card shadow-sm overflow-hidden scroll-mt-36"
+    >
+      <header className="px-5 py-4 border-b border-border bg-surface-muted/50 flex items-baseline justify-between gap-4">
+        <div>
+          <h2 className="t-body-md font-semibold text-foreground tracking-tight">
+            {category.label}
+          </h2>
+          <p className="mt-1 t-body-sm text-muted-foreground">
+            {category.description}
+          </p>
+        </div>
+        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground shrink-0">
+          {entries.length} {entries.length === 1 ? "entry" : "entries"}
+        </span>
+      </header>
+
+      {entries.length === 0 ? (
+        <div className="px-5 py-10 text-center t-body-sm text-muted-foreground">
+          No entries match the current search.
+        </div>
+      ) : (
+        <ul className="divide-y divide-border">
+          {visible.map((e) => (
+            <ArticleRow key={e.slug} entry={e} />
+          ))}
+        </ul>
+      )}
+
+      {hasMore && (
+        <div className="px-5 py-3 border-t border-border bg-surface-muted/30 text-right">
+          <Link
+            to={`/education#${category.id}`}
+            className="t-body-sm font-semibold text-primary hover:underline"
+          >
+            View full {category.short} index →
+          </Link>
+        </div>
+      )}
+    </section>
+  );
+};
 
 // ---------- Page ----------
 
+type Filter = "all" | CategoryId;
+
 const Education = () => {
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return ARTICLES.filter((a) => {
+      if (filter !== "all" && a.category !== filter) return false;
+      if (!q) return true;
+      return (
+        a.title.toLowerCase().includes(q) ||
+        a.blurb.toLowerCase().includes(q)
+      );
+    });
+  }, [query, filter]);
+
+  const byCategory = (id: CategoryId) =>
+    filtered.filter((a) => a.category === id);
+
+  const visibleCategories =
+    filter === "all" ? CATEGORIES : CATEGORIES.filter((c) => c.id === filter);
+
+  const totalCount = filtered.length;
+
   return (
     <>
       <Breadcrumb items={[{ label: "Resource Library" }]} />
@@ -163,11 +287,11 @@ const Education = () => {
         statement="Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed by the Medical Advisory Board."
       />
 
-      {/* Three-column knowledge base — docked under hero, table-aligned width */}
+      {/* Search + filters — docked under hero, registry-aligned */}
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-wide">
-            {/* Global peer-review badge — top-right of grid */}
+            {/* Global peer-review badge */}
             <div className="-mt-5 md:-mt-6 relative z-10 mb-4 flex justify-end">
               <span className="inline-flex items-center gap-2 rounded-md border border-border bg-card shadow-sm px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 <ShieldCheck
@@ -179,10 +303,64 @@ const Education = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pb-12 md:pb-14">
-              <Column title="Sourcing & Regulation" entries={COLUMN_A} />
-              <Column title="Clinical Handling" entries={COLUMN_B} />
-              <Column title="Consumer Due Diligence" entries={COLUMN_C} />
+            {/* Search bar */}
+            <div className="rounded-md border border-border bg-card shadow-sm">
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
+                <Search
+                  className="h-4 w-4 text-muted-foreground shrink-0"
+                  aria-hidden
+                />
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search library…"
+                  aria-label="Search library"
+                  className="flex-1 bg-transparent border-0 outline-none t-body-md text-foreground placeholder:text-muted-foreground"
+                />
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground shrink-0">
+                  {totalCount} {totalCount === 1 ? "result" : "results"}
+                </span>
+              </div>
+
+              {/* Filter chips */}
+              <div className="flex flex-wrap items-center gap-2 px-4 py-3">
+                {(
+                  [
+                    { id: "all" as Filter, label: "All" },
+                    ...CATEGORIES.map((c) => ({ id: c.id as Filter, label: c.short })),
+                  ]
+                ).map((chip) => {
+                  const active = filter === chip.id;
+                  return (
+                    <button
+                      key={chip.id}
+                      type="button"
+                      onClick={() => setFilter(chip.id)}
+                      className={
+                        "rounded-md border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors " +
+                        (active
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border bg-card text-muted-foreground hover:bg-surface-muted hover:text-foreground")
+                      }
+                      aria-pressed={active}
+                    >
+                      {chip.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Vertical stacked index */}
+            <div className="mt-5 flex flex-col gap-5 pb-12 md:pb-14">
+              {visibleCategories.map((c) => (
+                <CategoryBlock
+                  key={c.id}
+                  category={c}
+                  entries={byCategory(c.id)}
+                />
+              ))}
             </div>
           </div>
         </div>
