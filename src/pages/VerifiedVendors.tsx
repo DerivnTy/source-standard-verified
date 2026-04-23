@@ -1,36 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
+import { Search } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
-import {
-  QueryBar,
-  FacetSelect,
-  SortControl,
-  ActiveChip,
-} from "@/components/registry/QueryBar";
 import { RegistryPagination } from "@/components/registry/RegistryPagination";
 import { VendorAuditCard } from "@/components/registry/VendorAuditCard";
 import {
   vendors,
   Vendor,
   VendorPublicStatus,
-  VENDOR_STATUS_LABEL,
   getVendorStates,
-  getVendorCities,
-  getVendorCityKey,
-  getClinicalFocusOptions,
   getVendorFulfillment,
   VendorFulfillment,
-  VENDOR_FULFILLMENT_LABEL,
 } from "@/data/vendors";
 
 const ALL = "__all__";
 
 type SortMode = "name-asc" | "location" | "latest-audit";
-
-type FulfillmentFilter = "all" | VendorFulfillment;
-type VerifiedOnlyFilter = "all" | "verified";
+type CategoryFilter = "all" | string;
 type ViewMode = "list" | "grid";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
@@ -65,30 +53,18 @@ const formatLocation = (v: Vendor) => {
 
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
-  const [verifiedOnly, setVerifiedOnly] = useState<VerifiedOnlyFilter>("all");
-  const [fulfillment, setFulfillment] = useState<FulfillmentFilter>("all");
-  const [state, setState] = useState<string>(ALL);
-  const [city, setCity] = useState<string>(ALL);
-  const [status, setStatus] = useState<string>(ALL);
-  const [focus, setFocus] = useState<string>(ALL);
+  const [category, setCategory] = useState<CategoryFilter>("all");
   const [sort, setSort] = useState<SortMode>("name-asc");
   const [view, setView] = useState<ViewMode>("list");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
 
   const states = useMemo(() => getVendorStates(), []);
-  const focusOptions = useMemo(() => getClinicalFocusOptions(), []);
-  const cities = useMemo(() => {
-    const all = getVendorCities();
-    if (state === ALL) return all;
-    return all.filter((c) => c.endsWith(`, ${state}`));
-  }, [state]);
+  const categories = useMemo(
+    () => Array.from(new Set(vendors.map((v) => v.category))).sort((a, b) => a.localeCompare(b)),
+    [],
+  );
 
-  useEffect(() => {
-    if (city !== ALL && !cities.includes(city)) setCity(ALL);
-  }, [cities, city]);
-
-  // Pre-compute fulfillment per vendor once.
   const fulfillmentByVendor = useMemo(() => {
     const m = new Map<string, VendorFulfillment>();
     for (const v of vendors) m.set(v.slug, getVendorFulfillment(v));
@@ -107,7 +83,6 @@ const VerifiedVendors = () => {
     return c;
   }, []);
 
-  
   const statesRepresented = states.length;
   const totalAudits = useMemo(
     () => vendors.filter((v) => Boolean(v.reviewId)).length,
@@ -118,29 +93,16 @@ const VerifiedVendors = () => {
     const q = query.trim().toLowerCase();
     return vendors.filter((v) => {
       if (q) {
-        const hay = [
-          v.name,
-          v.medicalDirector,
-          v.city,
-          v.state,
-          v.category,
-          ...(v.clinicalFocus ?? []),
-        ]
+        const hay = [v.name, v.city, v.state, v.category, ...(v.clinicalFocus ?? [])]
           .filter(Boolean)
           .join(" ")
           .toLowerCase();
         if (!hay.includes(q)) return false;
       }
-      if (verifiedOnly === "verified" && v.status !== "verified") return false;
-      if (fulfillment !== "all" && fulfillmentByVendor.get(v.slug) !== fulfillment)
-        return false;
-      if (state !== ALL && v.state !== state) return false;
-      if (city !== ALL && getVendorCityKey(v) !== city) return false;
-      if (status !== ALL && v.status !== status) return false;
-      if (focus !== ALL && !(v.clinicalFocus ?? []).includes(focus)) return false;
+      if (category !== "all" && v.category !== category) return false;
       return true;
     });
-  }, [query, verifiedOnly, fulfillment, state, city, status, focus, fulfillmentByVendor]);
+  }, [query, category]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
@@ -173,195 +135,20 @@ const VerifiedVendors = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [query, verifiedOnly, fulfillment, state, city, status, focus, sort, pageSize]);
+  }, [query, category, sort, pageSize]);
 
-  const filtersActive =
-    query !== "" ||
-    verifiedOnly !== "all" ||
-    fulfillment !== "all" ||
-    state !== ALL ||
-    city !== ALL ||
-    status !== ALL ||
-    focus !== ALL;
+  const controlSelectClass =
+    "h-9 bg-background text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center] px-3 pr-8 border-0 min-w-0";
 
-  const reset = () => {
-    setQuery("");
-    setVerifiedOnly("all");
-    setFulfillment("all");
-    setState(ALL);
-    setCity(ALL);
-    setStatus(ALL);
-    setFocus(ALL);
+  const controlChevron = {
+    backgroundImage:
+      "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
   };
 
-  // Active chips
-  const activeChips: ActiveChip[] = [];
-  if (verifiedOnly === "verified") {
-    activeChips.push({
-      key: "verified-only",
-      label: "Verified only",
-      onRemove: () => setVerifiedOnly("all"),
-    });
-  }
-  if (fulfillment !== "all") {
-    activeChips.push({
-      key: "fulfillment",
-      label: VENDOR_FULFILLMENT_LABEL[fulfillment],
-      onRemove: () => setFulfillment("all"),
-    });
-  }
-  if (status !== ALL) {
-    activeChips.push({
-      key: "status",
-      label: `Status: ${VENDOR_STATUS_LABEL[status as VendorPublicStatus]}`,
-      onRemove: () => setStatus(ALL),
-    });
-  }
-  if (state !== ALL) {
-    activeChips.push({
-      key: "state",
-      label: `State: ${state}`,
-      onRemove: () => setState(ALL),
-    });
-  }
-  if (city !== ALL) {
-    activeChips.push({
-      key: "city",
-      label: `City: ${city}`,
-      onRemove: () => setCity(ALL),
-    });
-  }
-  if (focus !== ALL) {
-    activeChips.push({
-      key: "focus",
-      label: `Focus: ${focus}`,
-      onRemove: () => setFocus(ALL),
-    });
-  }
-  if (query) {
-    activeChips.push({
-      key: "query",
-      label: `“${query}”`,
-      onRemove: () => setQuery(""),
-    });
-  }
-
-  const sortControl = (
-    <SortControl
-      value={sort}
-      onChange={(v) => setSort(v as SortMode)}
-      ariaLabel="Sort records"
-    >
-      <option value="name-asc">Alphabetical</option>
-      <option value="location">Location</option>
-      <option value="latest-audit">Latest Audit</option>
-    </SortControl>
-  );
-
-  const facets = (
-    <>
-      <FacetSelect
-        value={status}
-        onChange={setStatus}
-        ariaLabel="Filter by status"
-      >
-        <option value={ALL}>All statuses</option>
-        {STATUS_ORDER.map((s) => (
-          <option key={s} value={s}>
-            {VENDOR_STATUS_LABEL[s]}
-          </option>
-        ))}
-      </FacetSelect>
-
-      <FacetSelect
-        value={fulfillment}
-        onChange={(v) => setFulfillment(v as FulfillmentFilter)}
-        ariaLabel="Filter by fulfillment"
-      >
-        <option value="all">All fulfillment</option>
-        <option value="in-person">In-Person</option>
-        <option value="online">Online</option>
-        <option value="hybrid">Hybrid</option>
-      </FacetSelect>
-
-      <FacetSelect
-        value={state}
-        onChange={setState}
-        ariaLabel="Filter by state"
-      >
-        <option value={ALL}>All states</option>
-        {states.map((s) => (
-          <option key={s} value={s}>
-            {s}
-          </option>
-        ))}
-      </FacetSelect>
-
-      <FacetSelect
-        value={city}
-        onChange={setCity}
-        ariaLabel="Filter by city"
-      >
-        <option value={ALL}>All cities</option>
-        {cities.map((c) => (
-          <option key={c} value={c}>
-            {c}
-          </option>
-        ))}
-      </FacetSelect>
-
-      <FacetSelect
-        value={focus}
-        onChange={setFocus}
-        ariaLabel="Filter by clinical focus"
-      >
-        <option value={ALL}>All focus areas</option>
-        {focusOptions.map((f) => (
-          <option key={f} value={f}>
-            {f}
-          </option>
-        ))}
-      </FacetSelect>
-    </>
-  );
-
-  const STATUS_TABS: { value: string; label: string }[] = [
-    { value: ALL, label: "All" },
-    ...STATUS_ORDER.map((s) => ({
-      value: s as string,
-      label: VENDOR_STATUS_LABEL[s],
-    })),
-  ];
-
-  return (
-    <>
-      <PageMeta
-        title="The Public Trust Registry · Verified Vendors"
-        description="The national database for peptide and hormone sourcing transparency. Verify whether a clinic's sourcing has been substantiated by licensed facility records."
-      />
-
-      <RegistryHeader
-        indexNumber="01"
-        title="Verified Registry"
-        statusLine="Live Registry"
-        recordCount={vendors.length}
-        hideRecordPill
-      />
-
-      <RegistryHorizon
-        seam
-        cells={[
-          { label: "Vendors Verified", value: counts.verified },
-          { label: "States Represented", value: statesRepresented },
-          { label: "Total Audits", value: totalAudits },
-        ]}
-      />
-
-      {/* Query + result surface */}
+      {/* Registry controls */}
       <section className="bg-background">
         <div className="page-shell pt-12 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* View toggle — slim, sharp, sits above the search */}
             <div className="mb-3 flex justify-end px-5 md:px-0">
               <div
                 role="radiogroup"
@@ -398,21 +185,57 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            <QueryBar
-              query={query}
-              onQueryChange={setQuery}
-              searchPlaceholder="Search Facility Database..."
-              resultLabel={
-                sorted.length === 0
-                  ? "0 of 0"
-                  : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()}`
-              }
-              sortControl={sortControl}
-              facets={facets}
-              hasActiveFilters={filtersActive}
-              onReset={reset}
-              activeChips={activeChips}
-            />
+            <div
+              className="mx-5 md:mx-0 flex items-stretch overflow-hidden rounded-[2px]"
+              style={{ border: "1px solid hsl(var(--border))" }}
+            >
+              <div className="relative min-w-0 flex-1">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search Facility Database..."
+                  aria-label="Search facility database"
+                  className="h-9 w-full bg-background pl-9 pr-3 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                />
+              </div>
+              <div className="shrink-0 border-l" style={{ borderColor: "hsl(var(--border))" }}>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  aria-label="Category"
+                  className={controlSelectClass}
+                  style={controlChevron}
+                >
+                  <option value="all">Category</option>
+                  {categories.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="shrink-0 border-l" style={{ borderColor: "hsl(var(--border))" }}>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value as SortMode)}
+                  aria-label="Sort"
+                  className={controlSelectClass}
+                  style={controlChevron}
+                >
+                  <option value="name-asc">Sort</option>
+                  <option value="name-asc">Alphabetical</option>
+                  <option value="location">Location</option>
+                  <option value="latest-audit">Latest Audit</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mt-2 px-5 md:px-0 text-[12px] text-muted-foreground tabular-nums">
+              {sorted.length === 0
+                ? "0 of 0"
+                : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()}`}
+            </div>
 
             <div className="mt-5">
               {sorted.length === 0 ? (
