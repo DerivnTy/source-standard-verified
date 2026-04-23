@@ -1,41 +1,30 @@
 
 
-## DocJumpBar: Eliminate the Final Snap
+## DocJumpBar: Smooth Header-Reveal Transition
 
-The remaining "snap" is because `PillContents` has a hard className swap at `progress > 0.95`:
-
-```tsx
-flush ? "container-wide py-2" : "px-6 py-2"
-```
-
-At 95% progress, the inner padding/container instantly switches — that's the visible jolt right before the bar finishes widening. Geometry on the outer `<nav>` is already smooth; the inner content just isn't.
+When the main `SiteHeader` re-appears on scroll-up, the DocJumpBar's `top` value snaps from `0px` → `64px` instantly because `headerVisible` is a boolean state change with no easing. The bar visibly jumps down 64px in a single frame.
 
 ### Fix
 
-Single file: `src/components/DocJumpBar.tsx`. Two small changes.
+Single file: `src/components/DocJumpBar.tsx`. One small change.
 
-### 1. Remove the binary `flush` swap
+### Animate the `top` offset
 
-Drop the `flush` prop and the `container-wide` / `px-6` ternary. Replace with **interpolated horizontal padding** driven by the same `progress` value already powering width and radius.
+Instead of binding `top` directly to `headerVisible`, interpolate it through a local `headerOffset` value that eases between `0` and `64` whenever `headerVisible` flips.
 
-- At `progress = 0` (resting pill): `paddingLeft / paddingRight = 24px` (matches today's `px-6`).
-- At `progress = 1` (full bar): `paddingLeft / paddingRight = max((viewportWidth - 1200) / 2, 24)` — i.e. the inner content aligns with the site's `container-wide` max-width, but reached by smooth interpolation rather than a class swap.
+Two viable approaches — going with **CSS transition** since it's the simplest and matches the header's own 200ms ease-out timing:
 
-Apply as inline style on the inner flex row so it eases continuously alongside the outer geometry.
+- Move `top` off inline style and onto a CSS transition: add `transition: top 200ms ease-out` to the nav's style.
+- Keep `top` driven by `headerVisible` (`64px` when visible, `0px` when hidden), but because the property now has a transition, the change tweens instead of snapping.
+- Match `SiteHeader`'s existing `transition-transform duration-200 ease-out` so the bar slides down in lockstep with the header sliding in — they move as one unit.
 
-### 2. Tighten the runway and easing
+### Also: keep scroll-linked geometry untouched
 
-Right now `RUNWAY = 200px` of scroll drives the morph, but the inner-padding jump made the last 5% feel abrupt. With padding now interpolated:
-
-- Keep `RUNWAY = 200`.
-- Apply a gentle ease curve to `progress` before interpolating geometry: `eased = progress * progress * (3 - 2 * progress)` (smoothstep). This softens both ends so the morph eases in from rest and eases out into the docked state instead of arriving linearly.
-- Use `eased` for width, radius, shadow, border opacity, padding, and the negative top margin — every interpolated value gets the same curve, so they stay in lockstep.
+Width, radius, shadow, border opacity, padding, and negative margin all stay as scroll-scrubbed inline styles with no CSS transition. Only `top` gets the 200ms ease — that's the only property that changes via discrete state rather than scroll position, so it's the only one that needs CSS easing.
 
 ### Result
 
-- Outer width, radius, shadow, border: continuous (already working).
-- Inner padding: now also continuous — no class swap at 95%.
-- Smoothstep easing: motion settles gracefully at both endpoints instead of snapping into place.
-
-One consistent, scrubbed morph from pill to bar with no remaining discontinuities.
+- Scroll up past threshold → `SiteHeader` slides down (200ms) and DocJumpBar's `top` eases from `0` → `64px` over the same 200ms. They move together, no jump.
+- Scroll down past threshold → header slides up, DocJumpBar eases from `64` → `0`. Same smooth choreography in reverse.
+- Pill ↔ bar morph remains scroll-scrubbed and unaffected.
 
