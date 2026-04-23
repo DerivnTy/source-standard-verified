@@ -479,3 +479,44 @@ html {
   section { break-inside: avoid; page-break-inside: avoid; }
   a { color: #000 !important; text-decoration: underline; }
 }
+
+/* ============================================================
+   iOS Hierarchy Override — Pass 1
+   Snaps every hardcoded Tailwind text-size and bracket-px size to
+   the canonical iOS scale (12 / 13 / 15 / 17 / 22 / 34). Heading
+   tags inherit Inter at the base-layer spec; H1 is overridden to
+   Source Serif 4 only when the .t-page-title token is present.
+   ------------------------------------------------------------ */
+@layer utilities {
+  /* Tailwind preset sizes → iOS scale */
+  .text-xs   { font-size: 12px !important; line-height: 16px !important; letter-spacing: -0.011em !important; }
+  .text-sm   { font-size: 13px !important; line-height: 18px !important; letter-spacing: -0.011em !important; }
+  .text-base { font-size: 17px !important; line-height: 26px !important; letter-spacing: -0.011em !important; }
+  .text-lg   { font-size: 17px !important; line-height: 26px !important; letter-spacing: -0.011em !important; }
+  .text-xl   { font-size: 22px !important; line-height: 30px !important; letter-spacing: -0.022em !important; }
+  .text-2xl  { font-size: 22px !important; line-height: 30px !important; letter-spacing: -0.022em !important; }
+  .text-3xl  { font-size: 22px !important; line-height: 30px !important; letter-spacing: -0.022em !important; }
+  .text-4xl  { font-size: 34px !important; line-height: 40px !important; letter-spacing: -0.022em !important; }
+  .text-5xl  { font-size: 34px !important; line-height: 40px !important; letter-spacing: -0.022em !important; }
+  .text-6xl  { font-size: 34px !important; line-height: 40px !important; letter-spacing: -0.022em !important; }
+
+  /* Bracket-px overrides — snap to nearest iOS step */
+  .text-\[11px\], .text-\[10px\] { font-size: 11px !important; line-height: 16px !important; }
+  .text-\[12px\], .text-\[12\.5px\] { font-size: 12px !important; line-height: 16px !important; }
+  .text-\[13px\] { font-size: 13px !important; line-height: 18px !important; }
+  .text-\[14px\] { font-size: 13px !important; line-height: 18px !important; }
+  .text-\[15px\] { font-size: 15px !important; line-height: 24px !important; }
+  .text-\[16px\] { font-size: 17px !important; line-height: 26px !important; }
+  .text-\[17px\] { font-size: 17px !important; line-height: 26px !important; }
+  .text-\[18px\] { font-size: 17px !important; line-height: 26px !important; }
+  .text-\[19px\], .text-\[20px\] { font-size: 17px !important; line-height: 24px !important; }
+  .text-\[22px\] { font-size: 22px !important; line-height: 30px !important; }
+  .text-\[24px\], .text-\[26px\], .text-\[28px\], .text-\[30px\], .text-\[32px\] { font-size: 22px !important; line-height: 30px !important; letter-spacing: -0.022em !important; }
+  .text-\[34px\], .text-\[36px\], .text-\[40px\], .text-\[44px\], .text-\[48px\], .text-\[56px\], .text-\[64px\], .text-\[72px\] { font-size: 34px !important; line-height: 40px !important; letter-spacing: -0.022em !important; }
+
+  /* Mono utility — anything tagged font-mono snaps to Geist Mono. */
+  .font-mono { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important; }
+
+  /* Serif utility — preserves Source Serif 4 for major titles. */
+  .font-serif { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
+}
