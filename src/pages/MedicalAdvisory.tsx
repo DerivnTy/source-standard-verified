@@ -159,7 +159,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Role in the framework */}
-            <section className="section-pad border-b border-border/40">
+            <section id="verification-chain" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="02" />
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
                   <h2 className="t-section-title-sm text-foreground">
@@ -186,7 +187,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Board roster */}
-            <section className="section-pad border-b border-border/40">
+            <section id="members" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="03" />
               <div className="mb-8">
                 <h2 className="t-section-title-sm text-foreground max-w-2xl">
                   Appointed members
@@ -241,7 +243,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Scope & boundaries */}
-            <section className="section-pad border-b border-border/40">
+            <section id="scope" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="04" />
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
                   <h2 className="t-section-title-sm text-foreground">
@@ -261,7 +264,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Responsibilities — full-width SOP list on tinted surface */}
-            <section className="-mx-6 md:-mx-10 lg:-mx-16 px-6 md:px-10 lg:px-16 py-12 md:py-14 bg-surface-muted/60 border-y border-border/40">
+            <section id="responsibilities" className="scroll-mt-24 -mx-6 md:-mx-10 lg:-mx-16 px-6 md:px-10 lg:px-16 py-12 md:py-14 bg-surface-muted/60 border-y border-border/40">
+              <SectionIndex n="05" />
               <div className="mb-8 max-w-[60ch]">
                 <h2 className="t-section-title-sm text-foreground">
                   Responsibilities
@@ -292,7 +296,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Bridge — Continue reading */}
-            <section className="pt-12 pb-12">
+            <section id="continue" className="scroll-mt-24 pt-12 pb-12">
+              <SectionIndex n="06" />
               <h2 className="t-section-title-sm text-foreground mb-6">
                 Continue reading
               </h2>
