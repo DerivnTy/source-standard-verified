@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Building2, Globe, MapPin } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { StatusBadge } from "@/components/StatusBadge";
