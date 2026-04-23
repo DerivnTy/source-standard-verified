@@ -169,19 +169,24 @@ const VerifiedVendors = () => {
       />
 
       <section className="bg-background">
-        <div className="page-shell pt-10 pb-20 md:pt-12 md:pb-14">
+        <div className="page-shell pb-20 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Universal smart search */}
-            <div className="px-5 md:px-0">
+            {/* Sticky search + pill rail — mobile efficiency pass */}
+            <div
+              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-2 md:pt-8"
+              style={{ backdropFilter: "blur(8px)" }}
+            >
+              {/* Universal smart search — full width, mono */}
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search by name, city, or state..."
                 aria-label="Search by name, city, state, or category"
-                className="font-sans w-full bg-transparent py-3 text-[16px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                className="font-mono w-full bg-transparent py-2.5 text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
                 style={{
                   borderBottom: "1px solid hsl(var(--border))",
                   transition: "border-color 0.5s ease",
+                  letterSpacing: "0.01em",
                 }}
                 onFocus={(e) => {
                   e.currentTarget.style.borderBottomColor =
@@ -192,79 +197,46 @@ const VerifiedVendors = () => {
                     "hsl(var(--border))";
                 }}
               />
-            </div>
 
-            {/* Delivery toggle (Online / Local) */}
-            <div
-              className="mt-4 flex gap-2 overflow-x-auto px-5 md:px-0"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            >
-              <style>{`.pill-scroll::-webkit-scrollbar{display:none}`}</style>
-              {DELIVERY_PILLS.map((p) => {
-                const active = delivery === p.value;
-                return (
-                  <button
-                    key={p.value}
-                    type="button"
+              {/* Unified pill row — outcomes + delivery, no emojis */}
+              <div
+                className="pill-scroll mt-2.5 flex gap-1.5 overflow-x-auto"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                <style>{`.pill-scroll::-webkit-scrollbar{display:none}`}</style>
+                {OUTCOME_PILLS.map((p) => (
+                  <FilterPill
+                    key={`o-${p.value}`}
+                    label={p.label}
+                    active={outcome === p.value}
+                    onClick={() => setOutcome(p.value)}
+                  />
+                ))}
+                {/* Divider between outcome and delivery */}
+                <span
+                  aria-hidden
+                  className="mx-1 self-center"
+                  style={{
+                    width: "1px",
+                    height: "18px",
+                    backgroundColor: "hsl(var(--border))",
+                  }}
+                />
+                {DELIVERY_PILLS.map((p) => (
+                  <FilterPill
+                    key={`d-${p.value}`}
+                    label={p.label}
+                    active={delivery === p.value}
                     onClick={() =>
                       setDelivery((curr) => (curr === p.value ? "any" : p.value))
                     }
-                    aria-pressed={active}
-                    className="pill-scroll shrink-0 rounded-full px-4 font-sans text-[13px] font-medium transition-all"
-                    style={{
-                      height: "34px",
-                      backgroundColor: active
-                        ? "hsl(var(--navy-surface))"
-                        : "transparent",
-                      color: active
-                        ? "hsl(var(--background))"
-                        : "hsl(var(--foreground))",
-                      border: active
-                        ? "1px solid hsl(var(--navy-surface))"
-                        : "1px solid hsl(var(--border))",
-                    }}
-                  >
-                    {p.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Outcome pill row — single-tap consumer filter */}
-            <div
-              className="mt-2.5 flex gap-2 overflow-x-auto px-5 md:px-0"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            >
-              {OUTCOME_PILLS.map((p) => {
-                const active = outcome === p.value;
-                return (
-                  <button
-                    key={p.value}
-                    type="button"
-                    onClick={() => setOutcome(p.value)}
-                    aria-pressed={active}
-                    className="pill-scroll shrink-0 rounded-full px-4 font-sans text-[13.5px] font-medium transition-all"
-                    style={{
-                      height: "34px",
-                      backgroundColor: active
-                        ? "hsl(var(--navy-surface))"
-                        : "transparent",
-                      color: active
-                        ? "hsl(var(--background))"
-                        : "hsl(var(--foreground))",
-                      border: active
-                        ? "1px solid hsl(var(--navy-surface))"
-                        : "1px solid hsl(var(--border))",
-                    }}
-                  >
-                    {p.label}
-                  </button>
-                );
-              })}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Vendor card stack — fade-in on filter change */}
-            <div key={fadeKey} className="mt-6 animate-fade-in">
+            <div key={fadeKey} className="mt-3 animate-fade-in">
               {sorted.length === 0 ? (
                 <EmptyState
                   eyebrow="No matching vendors"
