@@ -15,7 +15,7 @@ export const RegistryHeader = ({
   recordCount,
   updatedOn,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
   scopeText: string;
@@ -39,9 +39,11 @@ export const RegistryHeader = ({
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
             <div className="min-w-0 flex-1">
-              <p className="t-utility-xs uppercase tracking-[0.14em] text-white/60 mb-3">
-                {eyebrow}
-              </p>
+              {eyebrow && (
+                <p className="t-utility-xs uppercase tracking-[0.14em] text-white/60 mb-3">
+                  {eyebrow}
+                </p>
+              )}
               <h1 className="t-page-title text-white">{title}</h1>
               <p className="mt-4 t-body-md text-white/70 max-w-[68ch]">
                 {description}
@@ -54,7 +56,7 @@ export const RegistryHeader = ({
               </Link>
             </div>
 
-            <div className="shrink-0 md:text-right">
+            <div className="shrink-0 md:text-right md:pt-2">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-sm">
                 <span
                   aria-hidden
