@@ -4,6 +4,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import { VendorRow } from "@/components/registry/VendorRow";
+import { FocusFilter } from "@/components/registry/FocusFilter";
 import { resolveStateAbbr } from "@/lib/usStates";
 import {
   vendors,
@@ -15,8 +16,38 @@ import {
 } from "@/data/vendors";
 
 type StatusPill = "all" | "verified" | "unverified";
+type FocusKey = "all" | "peptides" | "hormone" | "longevity" | "wellness";
 
 const PAGE_SIZE = 10;
+
+const FOCUS_OPTIONS: { value: FocusKey; label: string }[] = [
+  { value: "all", label: "All Categories" },
+  { value: "peptides", label: "Peptides" },
+  { value: "hormone", label: "Hormone Therapy" },
+  { value: "longevity", label: "Longevity" },
+  { value: "wellness", label: "General Wellness" },
+];
+
+/**
+ * Map a vendor's category + clinicalFocus into one of the 4 consumer buckets.
+ */
+const matchesFocus = (vendor: Vendor, key: FocusKey): boolean => {
+  if (key === "all") return true;
+  const haystack = [vendor.category, ...(vendor.clinicalFocus ?? [])]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  switch (key) {
+    case "peptides":
+      return /peptide/.test(haystack);
+    case "hormone":
+      return /(hormone|trt|hrt|testosterone|estrogen)/.test(haystack);
+    case "longevity":
+      return /(longevity|anti[- ]?aging|nad|regenerative)/.test(haystack);
+    case "wellness":
+      return /(wellness|weight|aesthetic|iv|recovery)/.test(haystack);
+  }
+};
 
 const formatLocation = (vendor: Vendor) => {
   if (vendor.city && vendor.state) return `${vendor.city}, ${vendor.state}`;
@@ -26,6 +57,7 @@ const formatLocation = (vendor: Vendor) => {
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [statusPill, setStatusPill] = useState<StatusPill>("all");
+  const [focus, setFocus] = useState<FocusKey>("all");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const states = useMemo(() => getVendorStates(), []);
@@ -73,9 +105,11 @@ const VerifiedVendors = () => {
       if (statusPill === "verified" && vendor.status !== "verified") return false;
       if (statusPill === "unverified" && vendor.status === "verified") return false;
 
+      if (!matchesFocus(vendor, focus)) return false;
+
       return true;
     });
-  }, [query, statusPill]);
+  }, [query, statusPill, focus]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -87,7 +121,7 @@ const VerifiedVendors = () => {
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, statusPill]);
+  }, [query, statusPill, focus]);
 
   const pills: { value: StatusPill; label: string }[] = [
     { value: "all", label: "All" },
@@ -175,6 +209,15 @@ const VerifiedVendors = () => {
                   </button>
                 );
               })}
+              <div className="shrink-0">
+                <FocusFilter
+                  value={focus}
+                  onChange={(v) => setFocus(v as FocusKey)}
+                  options={FOCUS_OPTIONS}
+                  placeholder="Category"
+                  selectedPrefix="Focus"
+                />
+              </div>
             </div>
 
             {/* Vendor card stack */}
