@@ -5,24 +5,18 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  { to: "/verified-vendors", label: "Verified vendors" },
-  { to: "/greenlist", label: "Greenlist" },
+  { to: "/verified-vendors", label: "Verified Vendors" },
+  { to: "/greenlist", label: "Green List" },
   { to: "/medical-advisory", label: "Advisory Board" },
   { to: "/education", label: "Resource Library" },
   { to: "/how-it-works", label: "Verification" },
   { to: "/about", label: "About" },
 ];
 
-// Primary mobile nav — larger, consumer-facing labels
-const mobileNav = [
-  { to: "/", label: "Home" },
-  { to: "/greenlist", label: "Greenlist" },
-  { to: "/verified-vendors", label: "Verified Vendors" },
-  { to: "/how-it-works", label: "Protocol" },
-  { to: "/about", label: "Contact" },
-];
+// Mobile mirrors desktop nav exactly
+const mobileNav = nav;
 
-const APP_VERSION = "v1.0.4";
+
 
 // Module-level subscription so DocJumpBar (and others) can mirror the header's
 // hide-on-scroll-down / show-on-scroll-up behavior without prop drilling.
@@ -141,31 +135,35 @@ export const SiteHeader = () => {
         </button>
       </div>
 
-      {/* Full-screen immersive mobile overlay — portaled to body to escape
-          the sticky header's transform context (fixed children would otherwise
-          be clipped/translated when the header hides on scroll). */}
+      {/* Full-screen mobile overlay — white surface, navy links.
+          Top inset = 30px so the announcement bar stays visible above. */}
       {typeof document !== "undefined" &&
         createPortal(
           <div
-            className="lg:hidden fixed inset-0 z-[9999]"
+            className="lg:hidden fixed inset-x-0 bottom-0 z-[9999]"
             aria-hidden={!open}
             style={{
+              top: "30px",
               pointerEvents: open ? "auto" : "none",
               opacity: open ? 1 : 0,
-              transform: open ? "scale(1)" : "scale(1.015)",
-              transition:
-                "opacity 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 320ms cubic-bezier(0.22, 1, 0.36, 1)",
-              backgroundColor: "hsl(var(--navy-surface) / 0.92)",
-              backdropFilter: "blur(40px) saturate(160%)",
-              WebkitBackdropFilter: "blur(40px) saturate(160%)",
+              transition: "opacity 280ms ease-in-out",
+              backgroundColor: "#FFFFFF",
             }}
           >
             <div className="flex h-full w-full flex-col">
-              {/* Top bar — logo + close (matches header height) */}
-              <div className="container-wide flex shrink-0 items-center justify-between" style={{ height: "60px" }}>
+              {/* Top bar — wordmark + close (matches header height) */}
+              <div
+                className="flex shrink-0 items-center justify-between"
+                style={{
+                  height: "60px",
+                  paddingLeft: "24px",
+                  paddingRight: "24px",
+                  borderBottom: "0.5px solid #E5E5EA",
+                }}
+              >
                 <span
-                  className="t-body-md font-semibold"
-                  style={{ color: "hsl(var(--background))" }}
+                  className="font-sans font-semibold text-foreground"
+                  style={{ fontSize: "15px", letterSpacing: "-0.01em" }}
                 >
                   Source Standard
                 </span>
@@ -173,8 +171,7 @@ export const SiteHeader = () => {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close menu"
-                  className="relative h-9 w-9"
-                  style={{ color: "hsl(var(--background))" }}
+                  className="relative h-9 w-9 text-foreground"
                 >
                   <span
                     aria-hidden
@@ -189,63 +186,26 @@ export const SiteHeader = () => {
                 </button>
               </div>
 
-              {/* Nav list */}
-              <nav className="container-wide flex-1 overflow-hidden">
-                <ul className="flex flex-col">
-                  {mobileNav.map((n, idx) => (
-                    <li
-                      key={n.to}
-                      style={{
-                        borderTop:
-                          idx === 0
-                            ? "0.5px solid hsl(var(--background) / 0.14)"
-                            : "none",
-                        borderBottom: "0.5px solid hsl(var(--background) / 0.14)",
-                      }}
-                    >
+              {/* Nav list — left-aligned, 32px gaps, 20px Inter Semi-bold Navy */}
+              <nav
+                className="flex-1 overflow-y-auto"
+                style={{ paddingLeft: "32px", paddingRight: "32px", paddingTop: "40px" }}
+              >
+                <ul className="flex flex-col" style={{ rowGap: "32px" }}>
+                  {mobileNav.map((n) => (
+                    <li key={n.to}>
                       <NavLink
                         to={n.to}
                         end
                         onClick={() => setOpen(false)}
-                        className="flex w-full items-center justify-between transition-opacity hover:opacity-80"
+                        className="block transition-opacity hover:opacity-70 text-foreground font-sans font-semibold"
                         style={{
-                          paddingTop: "32px",
-                          paddingBottom: "32px",
-                          color: "hsl(var(--background))",
+                          fontSize: "20px",
+                          letterSpacing: "-0.015em",
+                          lineHeight: "1.2",
                         }}
                       >
-                        {({ isActive }) => (
-                          <>
-                            <span
-                              className="t-section-title-sm"
-                              style={{
-                                fontWeight: 400,
-                                opacity: isActive ? 1 : 0.92,
-                              }}
-                            >
-                              {n.label}
-                            </span>
-                            <svg
-                              aria-hidden
-                              viewBox="0 0 16 16"
-                              width="14"
-                              height="14"
-                              style={{
-                                opacity: 0.5,
-                                color: "hsl(var(--background))",
-                              }}
-                            >
-                              <path
-                                d="M5 3l5 5-5 5"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </>
-                        )}
+                        {n.label}
                       </NavLink>
                     </li>
                   ))}
@@ -254,10 +214,9 @@ export const SiteHeader = () => {
                 <Link
                   to="/apply"
                   onClick={() => setOpen(false)}
-                  className="mt-10 flex h-12 w-full items-center justify-center t-button transition-colors hover:bg-[hsl(var(--background))]/[0.06]"
+                  className="mt-10 inline-flex h-12 items-center justify-center px-6 t-button text-foreground transition-colors hover:bg-foreground/[0.04]"
                   style={{
-                    border: "1px solid hsl(var(--background) / 0.55)",
-                    color: "hsl(var(--background))",
+                    border: "1px solid hsl(var(--foreground) / 0.30)",
                     borderRadius: "2px",
                   }}
                 >
@@ -265,27 +224,19 @@ export const SiteHeader = () => {
                 </Link>
               </nav>
 
+              {/* Footer brand tag */}
               <div
-                className="container-wide flex shrink-0 items-center justify-center gap-2 t-meta-note"
+                className="flex shrink-0 items-center justify-center font-mono uppercase"
                 style={{
-                  color: "hsl(var(--background) / 0.55)",
+                  color: "#48484A",
+                  fontSize: "10px",
+                  letterSpacing: "0.08em",
                   paddingTop: "16px",
-                  paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 18px)",
+                  paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 20px)",
+                  borderTop: "0.5px solid #E5E5EA",
                 }}
               >
-                <span
-                  aria-hidden
-                  className="inline-block animate-pulse"
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "9999px",
-                    backgroundColor: "hsl(142 65% 55%)",
-                  }}
-                />
-                <span>System Operational</span>
-                <span style={{ color: "hsl(var(--background) / 0.3)" }}>·</span>
-                <span>{APP_VERSION}</span>
+                Source Standard © 2026
               </div>
             </div>
           </div>,
