@@ -102,6 +102,8 @@ export const DocJumpBar = ({
   const shadowOpacity = lerp(0.12, 0, eased); // shadow fades out
   const borderOpacity = eased; // hairline fades in
   const innerPaddingX = lerp(24, Math.max((viewportWidth - 1200) / 2, 24), eased);
+  const innerGap = lerp(8, 24, eased);
+  const itemPaddingX = lerp(10, 16, eased);
 
   const stickyTop = headerVisible ? 64 : 0;
 
@@ -117,6 +119,7 @@ export const DocJumpBar = ({
     borderBottom: `1px solid hsl(var(--border) / ${borderOpacity})`,
     backgroundColor: "hsl(var(--background))",
     zIndex: 30,
+    overflow: "hidden",
     transition: "top 200ms ease-out",
   };
 
@@ -151,6 +154,8 @@ export const DocJumpBar = ({
           activeId={activeId}
           onJump={onJump}
           paddingX={innerPaddingX}
+          gap={innerGap}
+          itemPaddingX={itemPaddingX}
         />
       </nav>
     </>
@@ -162,25 +167,39 @@ const PillContents = ({
   activeId,
   onJump,
   paddingX,
+  gap,
+  itemPaddingX,
 }: {
   waypoints: JumpWaypoint[];
   activeId: string;
   onJump: (id: string) => (e: React.MouseEvent) => void;
   paddingX: number;
+  gap: number;
+  itemPaddingX: number;
 }) => {
   return (
     <div
-      className="flex items-center gap-4 overflow-x-auto py-2"
-      style={{ paddingLeft: `${paddingX}px`, paddingRight: `${paddingX}px` }}
+      className="flex items-center py-2"
+      style={{
+        paddingLeft: `${paddingX}px`,
+        paddingRight: `${paddingX}px`,
+        gap: `${gap * 2}px`,
+        width: "100%",
+        minWidth: 0,
+        overflow: "hidden",
+      }}
     >
       <span className="meta-mono shrink-0 text-foreground/70 text-[11px]">
         Contents ·
       </span>
-      <ul className="flex items-center gap-2 shrink-0">
+      <ul
+        className="flex items-center shrink-0"
+        style={{ gap: `${gap}px`, minWidth: 0 }}
+      >
         {waypoints.map((w) => {
           const active = w.id === activeId;
           const chip =
-            "inline-flex items-center gap-2 px-3 py-1 text-[12px] font-mono font-medium uppercase tracking-[0.06em] border transition-colors rounded-full";
+            "inline-flex items-center gap-2 py-1 text-[12px] font-mono font-medium uppercase tracking-[0.06em] border transition-colors rounded-full";
           const tone = active
             ? "border-foreground text-foreground bg-surface-muted"
             : "border-transparent text-muted-foreground hover:text-foreground hover:border-border";
@@ -190,6 +209,10 @@ const PillContents = ({
                 href={`#${w.id}`}
                 onClick={onJump(w.id)}
                 className={`${chip} ${tone}`}
+                style={{
+                  paddingLeft: `${itemPaddingX}px`,
+                  paddingRight: `${itemPaddingX}px`,
+                }}
               >
                 <span className="text-primary">{w.number.padStart(2, "0")}.</span>
                 <span>{w.label}</span>
