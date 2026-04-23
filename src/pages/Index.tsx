@@ -238,25 +238,35 @@ const Index = () => {
         style={{ borderBottom: "1px solid #F1F5F9" }}
       >
         <div className="page-shell section-pad">
-          <div className="mx-auto w-standard text-left">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">01</p>
-            <div className="mt-4 flex items-center gap-3">
-              <FileSearch
-                aria-hidden
-                size={18}
-                strokeWidth={1.75}
-                className="text-foreground/70 shrink-0"
-              />
-              <h2
-                id="trust-problem"
-                className="t-section-title-sm text-foreground max-w-[28ch]"
-              >
-                Branding is not documentation.
-              </h2>
-            </div>
+          <div className="mx-auto w-standard text-center">
+            <h3
+              className="text-foreground"
+              style={{
+                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                fontSize: "20px",
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              The Source Standard
+            </h3>
+            <div className="mx-auto mt-5 h-px w-12 bg-border" aria-hidden="true" />
+            <h2
+              id="trust-problem"
+              className="mt-8 text-foreground mx-auto max-w-[22ch]"
+              style={{
+                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                fontSize: "clamp(32px, 6vw, 52px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "-0.022em",
+              }}
+            >
+              Branding is not documentation.
+            </h2>
             <p
-              className="mt-6 t-body-md text-muted-foreground max-w-[90%] sm:max-w-[70ch]"
-              style={{ lineHeight: 1.6 }}
+              className="mt-7 mx-auto font-sans text-[15px] sm:text-[16px] text-muted-foreground max-w-[64ch]"
+              style={{ lineHeight: 1.75 }}
             >
               In the peptide industry, marketing claims are easy to make and difficult to prove.
               Most consumers are left to rely on trust signals, presentation, and website language.
@@ -264,6 +274,16 @@ const Index = () => {
               chain so the public can better understand whether what is being sold is supported by
               documented sourcing.
             </p>
+            <div className="mt-10 flex justify-center">
+              <Link
+                to="/how-it-works"
+                className="inline-flex items-center gap-2 rounded-[2px] border border-foreground bg-foreground text-background px-6 py-3 font-sans text-[12px] font-semibold uppercase hover:bg-foreground/90 transition-colors"
+                style={{ letterSpacing: "0.1em" }}
+              >
+                <span>View Full Report</span>
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
