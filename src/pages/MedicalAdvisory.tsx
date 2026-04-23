@@ -169,7 +169,7 @@ const MedicalAdvisory = () => {
                 <div className="md:col-span-7 mt-8 md:mt-0">
                   <ol className="divide-y divide-border/60">
                     {ROLE_FUNCTIONS.map((s) => (
-                      <li key={s.n} className="grid grid-cols-12 gap-4 py-5 first:pt-0 last:pb-0 items-baseline">
+                      <li key={s.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
                         <div className="col-span-2 font-mono text-[12px] tabular-nums text-muted-foreground">{s.n}</div>
                         <div className="col-span-10">
                           <p className="t-body-md font-semibold text-foreground">{s.t}</p>
