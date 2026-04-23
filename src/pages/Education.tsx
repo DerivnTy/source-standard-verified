@@ -274,7 +274,7 @@ const Education = () => {
 
       <BriefingHero
         tone="navy"
-        category="Resource Library"
+        category="Public reference"
         docId=""
         title="Resource Library"
         statement="A curated reference library for sourcing, compounding, verification, and public due diligence. Reviewed under independent medical oversight."
@@ -285,7 +285,7 @@ const Education = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Foundational reference"
+              eyebrow="Orientation"
               title="Foundational reference"
               lede="Three reference entries that establish the terminology, regulatory framework, and verification standard used throughout the library."
             />
@@ -341,7 +341,7 @@ const Education = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Reference"
+              eyebrow="Recorded inquiries"
               title="Regulatory FAQ"
               lede="Recorded answers to recurring inquiries, organized by category."
             />
@@ -383,7 +383,7 @@ const Education = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Analysis"
+              eyebrow="Editorial interpretation"
               title="Recent analysis"
               lede="Published interpretations of regulatory shifts and verification practice."
             />
@@ -428,7 +428,7 @@ const Education = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              eyebrow="Forthcoming"
+              eyebrow="Editorial pipeline"
               title="Scheduled additions"
               lede="Reference formats currently in editorial preparation."
             />

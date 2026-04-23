@@ -38,10 +38,10 @@ const EducationQuestions = () => {
 
       <UtilityHeader
         backHref="/education"
-        backLabel="Back to Learn"
-        eyebrow="Common Questions"
-        title="Common questions: full index"
-        description="Direct answers to the questions people most often ask."
+        backLabel="Back to Resource Library"
+        eyebrow="Recorded inquiries"
+        title="Regulatory FAQ: full archive"
+        description="Recorded answers to recurring inquiries on verification, clinical safety, and regulatory standing."
       />
       <Section density="doc">
         <div className="space-y-10">

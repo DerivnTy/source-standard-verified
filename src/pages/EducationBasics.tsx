@@ -57,10 +57,10 @@ const EducationBasics = () => {
 
       <UtilityHeader
         backHref="/education"
-        backLabel="Back to Learn"
-        eyebrow="The Basics"
-        title="The basics: full index"
-        description="Plain-language explainers for anyone new to peptides, compounded medications, or TRT."
+        backLabel="Back to Resource Library"
+        eyebrow="Sourcing & compounding reference"
+        title="Foundational entries: full index"
+        description="Reference entries covering peptides, compounded medications, and the regulatory categories that govern them."
       />
       <Section density="doc">
         <div className="border border-border/70 rounded-[2px] bg-background">
