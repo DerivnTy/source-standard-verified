@@ -313,6 +313,19 @@ html {
     .hero-gap    { margin-top: 96px; }
   }
 
+  /* ─── Hard-Stop protocol (sitewide) ───
+     The final content section before the <footer> locks its
+     padding-bottom to 64px so every page terminates with the
+     same rhythm. The footer itself carries no top margin —
+     the 1px border-top on <footer> is the end-of-document line. */
+  section:has(+ footer),
+  .section-pad:has(+ footer),
+  *:has(> footer) > section:last-of-type,
+  *:has(> footer) > .section-pad:last-of-type {
+    padding-bottom: 64px !important;
+  }
+  footer { margin-top: 0 !important; }
+
   /* ─── Section heading rhythm protocol (locked, sitewide) ───
      Mono index number → H2 : 12px
      H2 → following content : 24px
