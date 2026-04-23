@@ -32,7 +32,7 @@ export const advisoryBoard: BoardMember[] = [
     slug: "advisor-01",
     name: "Dr. Eleanor Whitfield",
     credentials: "MD, FACP",
-    boardTitle: "Chair, Medical Advisory Board",
+    boardTitle: "Chair · Clinical Audit Standards",
     specialization: "Internal Medicine · Endocrinology",
     shortSummary:
       "Board chair providing clinical oversight of framework criteria, evidence standards, and renewal intervals across the Source Standard registry.",
@@ -72,7 +72,7 @@ export const advisoryBoard: BoardMember[] = [
     slug: "advisor-02",
     name: "Dr. Anand Krishnamurthy",
     credentials: "MD",
-    boardTitle: "Vice Chair · Compounding & Sourcing Review",
+    boardTitle: "Vice Chair · Pharmacy Sourcing Review",
     specialization: "Pharmacology · 503A / 503B Sourcing",
     shortSummary:
       "Reviews upstream pharmacy sourcing criteria and oversees the Greenlist evaluation methodology applied to 503A and 503B facilities.",
@@ -110,7 +110,7 @@ export const advisoryBoard: BoardMember[] = [
     slug: "advisor-03",
     name: "Dr. Marcia Okonkwo",
     credentials: "MD, MPH",
-    boardTitle: "Member · Patient Safety & Public Communication",
+    boardTitle: "Member · Patient Safety & Public Clarity",
     specialization: "Preventive Medicine · Public Health",
     shortSummary:
       "Reviews how framework determinations are communicated to the public, with emphasis on accuracy, restraint, and informed-consumer language.",
@@ -148,7 +148,7 @@ export const advisoryBoard: BoardMember[] = [
     slug: "advisor-04",
     name: "Dr. Daniel Park",
     credentials: "PharmD, BCPS",
-    boardTitle: "Member · Pharmacy Standards Liaison",
+    boardTitle: "Member · Pharmacy Compliance (USP Standards)",
     specialization: "Clinical Pharmacy · Sterile Compounding",
     shortSummary:
       "Pharmacy-side reviewer ensuring framework criteria align with current USP standards and state board of pharmacy expectations.",
@@ -186,7 +186,7 @@ export const advisoryBoard: BoardMember[] = [
     slug: "advisor-05",
     name: "Dr. Camila Reyes",
     credentials: "MD",
-    boardTitle: "Member · Education & Reference Review",
+    boardTitle: "Member · Medical Reference Review",
     specialization: "Family Medicine · Clinical Education",
     shortSummary:
       "Reviews educational reference material published under the framework to ensure clinical accuracy and appropriate scope.",
@@ -224,7 +224,7 @@ export const advisoryBoard: BoardMember[] = [
     slug: "advisor-06",
     name: "Dr. Richard Halloran",
     credentials: "MD, JD",
-    boardTitle: "Member · Regulatory Affairs & Ethics",
+    boardTitle: "Member · Regulatory Policy & Ethics",
     specialization: "Health Law · Medical Ethics",
     shortSummary:
       "Physician-attorney reviewing the regulatory posture of the framework and the ethical boundaries of public determinations published under it.",

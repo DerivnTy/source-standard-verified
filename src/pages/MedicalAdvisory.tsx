@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
-import { BriefingHero } from "@/components/BriefingHero";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -27,8 +25,6 @@ const BOARD_TITLE_OVERRIDES: Record<string, string> = {
   "advisor-06": "Member · Regulatory Policy & Ethics",
 };
 
-// Refined responsibility list. Only four are surfaced on this page; any
-// extra entries in the data file are filtered out below.
 const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: string }> = {
   "R-01": {
     title: "Audit confirmation",
@@ -102,7 +98,6 @@ const BOUNDARIES = [
   "The Board does not produce listings or market clinics.",
 ];
 
-
 const MedicalAdvisory = () => {
   return (
     <>
@@ -118,21 +113,49 @@ const MedicalAdvisory = () => {
         description="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
 
-      <BriefingHero
-        tone="navy"
-        category="Medical Advisory Board"
-        docId="SS-MAB-2026.01"
-        title="Clinical Oversight"
-        statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
-      />
+      {/* §1 Hero — restrained */}
+      <section className="bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard pt-20 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24">
+            <div className="max-w-3xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Medical Advisory Board</p>
+              <h1 className="mt-4 t-page-title text-foreground">Clinical Oversight</h1>
+              <p className="mt-6 t-body-lg text-muted-foreground leading-relaxed">
+                Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria and review standards used across the framework. It does not treat patients, market clinics, or participate in promotional activity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* §2 Statement of purpose */}
+      <section className="bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard section-pad">
+            <div className="max-w-2xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
+              <h2 className="mt-4 t-section-title-sm text-foreground">Why the Board exists</h2>
+              <div className="mt-6 space-y-5">
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  The Medical Advisory Board exists to provide independent oversight of the Source Standard framework and the standards used to support public registry determinations. Its role is to preserve sourcing transparency, review discipline, and the integrity of the verification process.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  The Board does not represent peptide distributors, market clinics, or operate as a promotional body. It serves as an oversight layer designed to protect neutrality, consumer trust, and the clinical seriousness of the public reference system.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §3 Contents nav */}
       <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
 
-            {/* Section 01 — Institutional Mandate */}
+            {/* §4 Institutional Mandate */}
             <section id="transparency" className="scroll-mt-24 pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
@@ -162,7 +185,7 @@ const MedicalAdvisory = () => {
               </div>
             </section>
 
-            {/* Section 02 — Governance Framework */}
+            {/* §5 Governance Framework */}
             <section id="verification-chain" className="scroll-mt-24 section-pad border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
@@ -192,13 +215,16 @@ const MedicalAdvisory = () => {
               </div>
             </section>
 
-            {/* Board roster */}
+            {/* §6 Members */}
             <section id="members" className="scroll-mt-24 section-pad border-b border-border/40">
               <SectionIndex n="03" />
-              <div className="mb-8">
-                <h2 className="t-section-title-sm text-foreground max-w-2xl">
+              <div className="mb-10 max-w-2xl">
+                <h2 className="t-section-title-sm text-foreground">
                   Appointed members
                 </h2>
+                <p className="mt-4 t-body-md text-muted-foreground leading-relaxed">
+                  Independent clinicians and regulatory reviewers appointed to oversee framework standards, sourcing criteria, and public-reference integrity.
+                </p>
               </div>
 
               <ul className="grid md:grid-cols-2 gap-5">
@@ -237,9 +263,9 @@ const MedicalAdvisory = () => {
                       <div className="mt-5 flex justify-end">
                         <Link
                           to={`/medical-advisory/${m.slug}`}
-                          className="t-body-md text-foreground hover:text-primary transition-colors"
+                          className="t-body-md text-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
                         >
-                          View profile →
+                          View profile
                         </Link>
                       </div>
                     </li>
@@ -248,65 +274,64 @@ const MedicalAdvisory = () => {
               </ul>
             </section>
 
-            {/* Scope & boundaries */}
+            {/* §7 Scope & boundaries */}
             <section id="scope" className="scroll-mt-24 section-pad border-b border-border/40">
               <SectionIndex n="04" />
-              <div className="grid md:grid-cols-12 md:gap-10">
-                <div className="md:col-span-5">
-                  <h2 className="t-section-title-sm text-foreground">
-                    Scope & boundaries
-                  </h2>
-                </div>
-                <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
-                  <ul className="divide-y divide-border/60">
-                    {BOUNDARIES.map((b) => (
-                      <li key={b} className="py-4 first:pt-0 last:pb-0 t-body-md text-foreground">
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="max-w-2xl mb-8">
+                <h2 className="t-section-title-sm text-foreground">
+                  Scope & boundaries
+                </h2>
               </div>
+              <ul className="divide-y divide-border/60 border-y border-border/60 max-w-3xl">
+                {BOUNDARIES.map((b) => (
+                  <li key={b} className="py-5 t-body-md text-foreground">
+                    {b}
+                  </li>
+                ))}
+              </ul>
             </section>
 
-            {/* Responsibilities — full-width SOP list on tinted surface */}
-            <section id="responsibilities" className="scroll-mt-24 -mx-6 md:-mx-10 lg:-mx-16 px-6 md:px-10 lg:px-16 py-12 md:py-14 bg-surface-muted/60 border-y border-border/40">
+            {/* §8 Responsibilities */}
+            <section id="responsibilities" className="scroll-mt-24 section-pad border-b border-border/40">
               <SectionIndex n="05" />
-              <div className="mb-8 max-w-[60ch]">
+              <div className="mb-10 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
                   Responsibilities
                 </h2>
-                <p className="mt-3 t-body-md text-muted-foreground">
+                <p className="mt-4 t-body-md text-muted-foreground leading-relaxed">
                   Each responsibility maps to a recurring oversight activity recorded under the registry's maintenance log.
                 </p>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-5">
+              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
                 {RESPONSIBILITY_ORDER.map((code) => {
                   const o = RESPONSIBILITY_OVERRIDES[code];
                   if (!o) return null;
                   return (
-                    <li key={code} className="flex gap-3.5">
-                      <ShieldCheck
-                        className="mt-0.5 h-4 w-4 shrink-0 text-verified"
-                        aria-hidden="true"
-                        strokeWidth={2.25}
-                      />
-                      <div>
-                        <p className="t-body-md font-semibold text-foreground">{o.title}</p>
-                        <p className="mt-1 t-body-md text-muted-foreground">{o.description}</p>
-                      </div>
+                    <li key={code}>
+                      <p className="t-body-md font-semibold text-foreground">{o.title}</p>
+                      <p className="mt-2 t-body-md text-muted-foreground leading-relaxed">{o.description}</p>
                     </li>
                   );
                 })}
               </ul>
             </section>
 
+            {/* §9 Closing statement */}
+            <section className="section-pad">
+              <div className="max-w-2xl">
+                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
+                <h2 className="mt-4 t-section-title-sm text-foreground">
+                  Public trust requires independent oversight.
+                </h2>
+                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                  The Medical Advisory Board exists to preserve the neutrality, clinical seriousness, and evidentiary standards of the Source Standard framework. Its presence ensures that public determinations are governed by disciplined review criteria rather than promotion, market pressure, or presentation alone.
+                </p>
+              </div>
+            </section>
 
           </div>
         </div>
       </div>
-
-
     </>
   );
 };
