@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-import { DocJumpBar } from "@/components/DocJumpBar";
+import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
@@ -120,20 +120,20 @@ const MedicalAdvisory = () => {
 
       <BriefingHero
         tone="navy"
-        category=""
+        category="Medical Advisory Board"
         docId="SS-MAB-2026.01"
         title="Clinical Oversight"
         statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
 
-      <DocJumpBar waypoints={WAYPOINTS} />
+      <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
 
             {/* Section 01 — Institutional Mandate */}
-            <section id="transparency" className="scroll-mt-24 section-pad border-b border-border/40">
+            <section id="transparency" className="scroll-mt-24 pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 border-b border-border/40">
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
                   <SectionIndex n="01" />
