@@ -39,22 +39,24 @@ const LiveDashboard = () => {
     label: string;
     live?: boolean;
   }) => (
-    <div className="flex flex-col gap-2 p-5 sm:p-6">
+    <div className="flex flex-col gap-2 px-3 py-5 sm:px-6 sm:py-6 items-start">
       <div className="flex items-center gap-2">
-        <span className="font-sans font-bold tracking-tight text-foreground text-[40px] sm:text-[48px] leading-none tabular-nums">
+        <span
+          className="font-sans font-bold tracking-tight text-foreground text-[26px] sm:text-[40px] md:text-[48px] leading-none tabular-nums"
+        >
           {typeof value === "number" ? value.toLocaleString("en-US") : value}
         </span>
         {live && (
           <span
             aria-hidden
-            className="inline-flex h-2 w-2 rounded-full animate-pulse"
+            className="inline-flex h-1.5 w-1.5 rounded-full animate-pulse"
             style={{ backgroundColor: "#22C55E" }}
           />
         )}
       </div>
       <span
-        className="font-mono text-[11px] uppercase text-muted-foreground"
-        style={{ letterSpacing: "1px" }}
+        className="font-sans text-[10px] sm:text-[11px] uppercase text-muted-foreground"
+        style={{ letterSpacing: "0.08em" }}
       >
         {label}
       </span>
@@ -70,22 +72,20 @@ const LiveDashboard = () => {
       <div className="page-shell">
         <div className="mx-auto w-standard">
           <div
-            className="grid grid-cols-2 sm:grid-cols-3"
+            className="grid grid-cols-3"
             style={{
-              border: "1px solid #F1F5F9",
+              backgroundColor: "#F8FAFC",
+              border: "1px solid #E2E8F0",
               borderRadius: "2px",
             }}
           >
-            <div style={{ borderRight: "1px solid #F1F5F9" }}>
+            <div style={{ borderRight: "1px solid #E2E8F0" }}>
               <Cell value={stats.total} label="Total Vendors" live />
             </div>
-            <div>
+            <div style={{ borderRight: "1px solid #E2E8F0" }}>
               <Cell value={stats.states} label="States Represented" />
             </div>
-            <div
-              className="col-span-2 sm:col-span-1"
-              style={{ borderTop: "1px solid #F1F5F9" }}
-            >
+            <div>
               <Cell value={stats.verified} label="Verified Sourcing" />
             </div>
           </div>
