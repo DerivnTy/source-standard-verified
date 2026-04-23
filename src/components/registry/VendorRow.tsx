@@ -48,32 +48,22 @@ export const VendorRow = ({
   );
 };
 
-const TrustBadge = ({ verified }: { verified: boolean }) => {
-  if (verified) {
-    return (
-      <span
-        className="shrink-0 inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em]"
-        style={{
-          backgroundColor: "hsl(142 70% 92%)",
-          color: "hsl(142 65% 28%)",
-        }}
-      >
-        Verified
-      </span>
-    );
-  }
-  return (
+const TrustBadge = ({ verified }: { verified: boolean }) => (
+  <span className="shrink-0 inline-flex items-center gap-1.5 font-sans text-[11px] font-medium tracking-tight">
     <span
-      className="shrink-0 inline-flex items-center rounded-full px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.1em]"
+      aria-hidden
       style={{
-        backgroundColor: "hsl(0 60% 96%)",
-        color: "hsl(0 55% 50%)",
+        width: "6px",
+        height: "6px",
+        borderRadius: "9999px",
+        backgroundColor: verified ? "hsl(142 65% 40%)" : "hsl(0 70% 65%)",
       }}
-    >
-      Unverified
+    />
+    <span style={{ color: verified ? "hsl(142 60% 30%)" : "hsl(0 55% 50%)" }}>
+      {verified ? "Verified" : "Unverified"}
     </span>
-  );
-};
+  </span>
+);
 
 const SpecialtyTag = ({ label }: { label: string }) => (
   <span
