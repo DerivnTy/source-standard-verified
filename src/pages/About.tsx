@@ -98,6 +98,7 @@ const About = () => {
           category={s.category}
           title={s.title}
           muted={i % 2 === 1}
+          hideEyebrow
         >
           {s.paragraph && <p>{s.paragraph}</p>}
           {s.points && (
