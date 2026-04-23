@@ -85,6 +85,38 @@ const formatLocation = (vendor: Vendor) => {
   return vendor.city || vendor.state || "—";
 };
 
+/**
+ * FilterPill — uppercase, 1px border, 2px corner radius.
+ * Active: navy bg + white text. Inactive: transparent + muted gray.
+ */
+const FilterPill = ({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    aria-pressed={active}
+    className="shrink-0 font-sans text-[11.5px] font-semibold uppercase tracking-[0.08em] transition-colors"
+    style={{
+      height: "30px",
+      padding: "0 12px",
+      borderRadius: "2px",
+      border: "1px solid",
+      borderColor: active ? "hsl(var(--navy-surface))" : "hsl(var(--border))",
+      backgroundColor: active ? "hsl(var(--navy-surface))" : "transparent",
+      color: active ? "hsl(var(--background))" : "hsl(var(--muted-foreground))",
+    }}
+  >
+    {label}
+  </button>
+);
+
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [outcome, setOutcome] = useState<OutcomeKey>("all");
