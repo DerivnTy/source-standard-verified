@@ -1,32 +1,43 @@
 
 
-## DocJumpBar: Scroll-Linked Underline Progress
+## Medical Advisory: Rewrite Sections 01 and 02 Copy
 
-The underline should not snap between waypoints. Instead it should slide continuously, mirroring the user's exact vertical scroll progress through the document.
+Update the copy in `src/pages/MedicalAdvisory.tsx` for the first two sections. Structure, layout, and styling stay identical — only text content changes.
 
-### Approach
+### Section 01 — "Transparency" → "Institutional Mandate"
 
-1. **Track scroll progress through the waypoint range**: 
-   - Find the first waypoint element's top and the last waypoint element's bottom (or a reasonable end anchor).
-   - Compute `docProgress` = (currentScrollY - firstTop) / (lastBottom - firstTop), clamped 0–1.
+Replace the `WHY_ITEMS` array (3 cards) with 4 statements, and update the section headline.
 
-2. **Map progress to underline position**:
-   - The underline's `left` interpolates from the left edge of the first waypoint chip to the left edge of the last chip (or its right edge).
-   - The underline's `width` can stay equal to the currently-overlapping chip's width, OR — cleaner — keep a fixed small width (e.g., 24px) that slides along the full chip row.
-   - **Cleanest interpretation**: the underline spans from chip[0].left to chip[N-1].right when fully scrolled. So `width = docProgress * (lastRight - firstLeft)`, `left = firstLeft`. That gives a growing underline like a progress bar.
-   - **Better match for "line slides word to word at scroll speed"**: keep underline width = current chip width, but its `left` interpolates linearly across the chip-row span proportional to scroll. Compute target `left = firstLeft + docProgress * (lastLeft - firstLeft)`. Width snaps to nearest chip's width (or interpolates between adjacent chips' widths).
+- **Headline**: `Transparency requires accountability.` → `Institutional Mandate`
+- **Body**: Replace the 3-card `WHY_ITEMS` grid with 4 statements:
+  1. The Medical Advisory Board provides independent clinical oversight of the verification framework.
+  2. Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.
+  3. The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.
+  4. To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.
 
-3. **Implementation**:
-   - In `PillContents`, add a scroll listener (rAF-throttled) that computes `docProgress` from waypoint DOM positions.
-   - Measure each chip's `left` and `width` once (and on resize/layout changes).
-   - For each frame, find which two adjacent waypoints the progress falls between (e.g., progress 0.37 with 4 waypoints → between idx 1 and 2 at local t=0.11), then `lerp` the underline's `left` and `width` between those two chips.
-   - Remove the activeId-based snapping useEffect for the indicator (keep activeId for text color only, or drive activeId from the same progress calc).
+Layout adjustment: switch the 3-column `md:grid-cols-3` divided grid to a 4-statement layout. Cleanest fit at this width: a 2×2 grid (`md:grid-cols-2`) with divider treatment matching the rest of the page, or a stacked numbered list. Recommendation: **2×2 grid with hairline dividers** to preserve the institutional rhythm of the existing design. Each statement renders as `t-body-md` foreground text (no separate title/body split since these are single declarative statements).
 
-4. **Remove transition CSS on left/width** (or shorten to ~80ms) so it follows scroll 1:1 instead of easing 350ms after each snap.
+### Section 02 — "Verification Chain" → "Governance Framework"
 
-### Result
+Replace the `ROLE_FUNCTIONS` array (4 items) and update the headline + supporting paragraph. The existing left-rail / right-list 12-column structure is preserved.
 
-- Underline glides smoothly under the words at exactly the rate the user scrolls.
-- No snapping; position mirrors document scroll position through the section range.
-- Width morphs between adjacent chip widths so the line always feels anchored to "the word you're on".
+- **Headline**: `The verification chain` → `Governance Framework`
+- **Supporting paragraph** (left rail): remove or replace with a brief framing line. Recommendation: remove the existing "The Board sits above the operational registry…" paragraph entirely since the new content is self-contained, OR replace with a single sentence. Recommendation: **remove** to let the four-item list carry the section.
+- **Update `ROLE_FUNCTIONS`** (keep `01`–`04` numbering, title + description shape):
+  1. **Regulatory Thresholds** — Establishing the clinical and statutory requirements for pharmaceutical sourcing verification.
+  2. **Supplier Validation** — Defining the criteria for the recognition of greenlisted upstream pharmacy partners.
+  3. **Administrative Audits** — Conducting randomized reviews of vendor records to ensure consistency with pharmacy-of-record data.
+  4. **Protocol Evolution** — Authorizing updates to the Source Standard in alignment with evolving FDA and state regulatory guidelines.
+
+### Waypoint Labels (DocJumpBar)
+
+Update the `WAYPOINTS` array to reflect the new section names so the sticky pill bar matches:
+- `01 Transparency` → `01 Mandate`
+- `02 Verification Chain` → `02 Governance`
+
+(Sections 03 Members, 04 Scope, 05 Responsibilities remain unchanged.)
+
+### Files Edited
+
+- `src/pages/MedicalAdvisory.tsx`
 
