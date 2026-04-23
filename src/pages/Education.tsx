@@ -2,36 +2,10 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
-import {
-  LibraryEntry,
-  libraryGuides,
-  librarySeries,
-  librarySupplementary,
-} from "@/data/library";
 
-// Slug-keyed display title overrides (data file unchanged)
-const TITLE_OVERRIDES: Record<string, string> = {
-  "how-to-read-a-certificate-of-analysis":
-    "Audit Protocols: Interpreting CoAs and Detecting Discrepancies",
-  "safe-peptide-handling-and-reconstitution":
-    "Sterile Preparation Integrity: Handling & Reconstitution Protocol",
-  "sanitization-and-aseptic-technique-fundamentals":
-    "Aseptic Technique: Sanitization Fundamentals",
-  "the-science-of-aging-and-trt":
-    "Endocrinological Context: Age-Related Hormonal Change & TRT",
-  "dosing-guidance-summaries-for-common-compounds":
-    "Reference Dosing Ranges: Selected Compounds",
-};
-
-const SUPPLEMENT_OVERRIDES: Record<string, { title?: string; description?: string }> = {
-  "SS-SUP-003": {
-    title: "Annual Integrity Ledger",
-    description:
-      "Annual published summary of audit findings, status changes, and methodological revisions across the directory.",
-  },
-};
-
-const displayTitle = (e: LibraryEntry) => TITLE_OVERRIDES[e.slug] ?? e.title;
+// ---------- Three-column knowledge base ----------
+// Slugs map to existing routes via SLUG_ROUTE_OVERRIDES below. Order, copy,
+// and grouping are authored here — the underlying article pages are unchanged.
 
 const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "what-is-compounding": "/library/what-is-compounding",
@@ -48,216 +22,132 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "warning-signs-of-undocumented-sourcing": "/library/analysis/undocumented-sourcing-signs",
 };
 
-const routeFor = (slug: string) => SLUG_ROUTE_OVERRIDES[slug] ?? `/education/${slug}`;
+const routeFor = (slug: string) =>
+  SLUG_ROUTE_OVERRIDES[slug] ?? `/education/${slug}`;
 
-// FAQ category mapping
-type CategoryKey = "legal" | "clinical" | "verification" | "diligence";
+type ArticleLink = { slug: string; title: string; blurb: string };
 
-const CATEGORY_ROUTE_OVERRIDES: Partial<Record<CategoryKey, string>> = {
-  legal: "/library/faq/legal-regulatory",
-  clinical: "/library/faq/clinical-safety",
-  verification: "/library/faq/verification-process",
-};
-
-const CATEGORIES: {
-  key: CategoryKey;
-  label: string;
-  description: string;
-  groupAnchor: string;
-}[] = [
+const COLUMN_A: ArticleLink[] = [
   {
-    key: "legal",
-    label: "Legal",
-    description: "Statutory framework, federal scheduling, and lawful access.",
-    groupAnchor: "legality",
+    slug: "what-is-compounding",
+    title: "What is Compounding?",
+    blurb: "Understanding the critical difference between 503A and 503B facilities.",
   },
   {
-    key: "clinical",
-    label: "Safety",
-    description: "Sterility, handling integrity, and clinical-use scope.",
-    groupAnchor: "methodology",
+    slug: "the-2026-compounding-reclassification",
+    title: "The 2026 Regulatory Shift",
+    blurb: "Implications of the recent compounding reclassifications.",
   },
   {
-    key: "verification",
-    label: "Verification",
-    description: "How clinics and upstream pharmacies are audited and confirmed.",
-    groupAnchor: "verification",
+    slug: "how-to-read-a-certificate-of-analysis",
+    title: "Interpreting CoAs",
+    blurb: "A guide to reading lab reports and detecting sourcing discrepancies.",
   },
   {
-    key: "diligence",
-    label: "Diligence",
-    description: "Public-facing checks before engaging any compounded source.",
-    groupAnchor: "due-diligence",
+    slug: "the-dual-layer-difference",
+    title: "The Dual-Layer Audit",
+    blurb: "Why we verify both the clinic and the manufacturer.",
   },
 ];
 
-// Foundational basics: intro-level series
-const basics: LibraryEntry[] = librarySeries.filter((e) => e.level === "intro");
-const basicSlugs = new Set(basics.map((b) => b.slug));
-
-// Foundational sourcing entries (intro-level series, plus CoA primer)
-const foundationalEntries: LibraryEntry[] = basics;
-
-// Clinical handling guides
-const clinicalEntries: LibraryEntry[] = libraryGuides.slice(0, 6);
-
-// Verification & due diligence: non-intro series
-const verificationEntries: LibraryEntry[] = librarySeries.filter(
-  (e) => !basicSlugs.has(e.slug),
-);
-
-// Latest analysis (same source, lighter treatment)
-const analysisEntries: LibraryEntry[] = verificationEntries;
-
-// Featured "Start Here" trio — hardcoded by slug
-const FEATURED_SLUGS = [
-  "what-are-peptides",
-  "what-is-compounding",
-  "questions-to-ask-your-clinic",
-] as const;
-
-const FEATURED_OVERRIDES: Record<string, { title: string; blurb: string }> = {
-  "what-are-peptides": {
-    title: "What Are Peptides?",
-    blurb:
-      "A clinical reference on peptide therapeutics: classification, mechanism of action, and the sourcing conditions that determine therapeutic integrity.",
+const COLUMN_B: ArticleLink[] = [
+  {
+    slug: "safe-peptide-handling-and-reconstitution",
+    title: "Sterile Handling Protocol",
+    blurb: "Best practices for reconstitution and aseptic storage.",
   },
-  "what-is-compounding": {
-    title: "What Is Compounding? (503A vs 503B)",
-    blurb:
-      "Understand the regulatory distinction between 503A and 503B compounding pharmacies and what each means for patient safety.",
+  {
+    slug: "sanitization-and-aseptic-technique-fundamentals",
+    title: "Stability Fundamentals",
+    blurb: "How temperature, light, and time affect peptide integrity.",
   },
-  "questions-to-ask-your-clinic": {
-    title: "Questions to Ask Your Clinic",
-    blurb:
-      "A practical, five-question checklist to assess whether your clinic is operating with documented sourcing.",
+  {
+    slug: "the-science-of-aging-and-trt",
+    title: "Endocrinological Context",
+    blurb: "Understanding age-related change and TRT mechanisms.",
   },
-};
+  {
+    slug: "dosing-guidance-summaries-for-common-compounds",
+    title: "Dosing Reference",
+    blurb: "High-level summaries of commonly cited clinical dosing ranges.",
+  },
+];
 
-const allEntries: LibraryEntry[] = [...librarySeries, ...libraryGuides];
-const featuredEntries = FEATURED_SLUGS.map((slug) =>
-  allEntries.find((e) => e.slug === slug),
-).filter((e): e is LibraryEntry => Boolean(e));
+const COLUMN_C: ArticleLink[] = [
+  {
+    slug: "questions-to-ask-your-clinic",
+    title: "The Clinic Checklist",
+    blurb: "5 essential questions to ask your doctor about their sourcing.",
+  },
+  {
+    slug: "warning-signs-of-undocumented-sourcing",
+    title: "Warning Signs",
+    blurb: "How to identify \u201CGrey Market\u201D vendors and undocumented sources.",
+  },
+  {
+    slug: "what-source-standard-verification-actually-means",
+    title: "Verification Scope",
+    blurb: "What our \u201CVerified\u201D badge actually establishes (and what it doesn't).",
+  },
+  {
+    slug: "what-are-peptides",
+    title: "Sterile Injection Guide",
+    blurb: "Safe handling and disposal for injectable preparations.",
+  },
+];
 
-// ---------- Shared editorial helpers ----------
+// ---------- FAQ buttons ----------
 
-const FeatureCard = ({
-  entry,
-  index,
-}: {
-  entry: LibraryEntry;
-  index: number;
-}) => {
-  const ov = FEATURED_OVERRIDES[entry.slug];
-  const ref = String(index + 1).padStart(2, "0");
-  return (
+const FAQ_BUTTONS: { label: string; to: string }[] = [
+  { label: "Legal", to: "/library/faq/legal-regulatory" },
+  { label: "Safety", to: "/library/faq/clinical-safety" },
+  { label: "Verification", to: "/library/faq/verification-process" },
+  { label: "Diligence", to: "/education/questions#due-diligence" },
+];
+
+// ---------- Components ----------
+
+const ArticleCell = ({ entry }: { entry: ArticleLink }) => (
+  <li>
     <Link
       to={routeFor(entry.slug)}
-      className="group bg-background p-7 flex flex-col h-full transition-colors hover:bg-surface-muted"
+      className="group block rounded-md border border-border bg-card shadow-sm p-5 h-full transition-colors hover:bg-surface-muted"
     >
-      <p className="t-utility-xs text-muted-foreground mb-5">{ref}</p>
-      <h3 className="t-h3 text-foreground">
-        {ov?.title ?? displayTitle(entry)}
+      <h3 className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+        {entry.title}
       </h3>
-      <p className="mt-3 t-body-sm text-muted-foreground">
-        {ov?.blurb ?? entry.summary}
+      <p className="mt-2 t-body-sm text-muted-foreground leading-[1.55]">
+        {entry.blurb}
       </p>
-      <span className="mt-6 t-utility-xs text-foreground/80 group-hover:text-foreground transition-colors">
-        Read article →
-      </span>
     </Link>
-  );
-};
-
-const EntryRow = ({ entry }: { entry: LibraryEntry }) => {
-  const reviewed = entry.lane === "guide";
-  return (
-    <li>
-      <Link
-        to={routeFor(entry.slug)}
-        className="group block px-1 py-5 transition-colors hover:bg-surface-muted/60"
-      >
-        <div className="flex items-start justify-between gap-6">
-          <div className="flex-1 min-w-0">
-            <h3 className="t-h4 text-foreground group-hover:text-primary transition-colors">
-              {displayTitle(entry)}
-            </h3>
-            <p className="mt-2 t-body-sm text-muted-foreground max-w-[68ch]">
-              {entry.summary}
-            </p>
-            {reviewed && (
-              <p className="mt-2 t-utility-xs text-muted-foreground/80">
-                Reviewed by Medical Advisory Board
-              </p>
-            )}
-          </div>
-          <span className="t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-1">
-            Read →
-          </span>
-        </div>
-      </Link>
-    </li>
-  );
-};
-
-const SectionHeader = ({
-  eyebrow,
-  title,
-  lede,
-}: {
-  eyebrow: string;
-  title: string;
-  lede?: string;
-}) => (
-  <div className="mb-10 max-w-2xl">
-    <p className="t-eyebrow-sm text-muted-foreground mb-4">{eyebrow}</p>
-    <h2 className="t-section-title-sm text-foreground">{title}</h2>
-    {lede && <p className="mt-5 t-body-md text-muted-foreground">{lede}</p>}
-  </div>
+  </li>
 );
 
-const CategorySection = ({
+const Column = ({
   eyebrow,
   title,
-  lede,
   entries,
-  footerLabel,
-  footerTo,
-  surface,
-  id,
+  reviewed,
 }: {
   eyebrow: string;
   title: string;
-  lede: string;
-  entries: LibraryEntry[];
-  footerLabel: string;
-  footerTo: string;
-  surface: "background" | "muted";
-  id?: string;
+  entries: ArticleLink[];
+  reviewed?: boolean;
 }) => (
-  <section
-    id={id}
-    className={`border-b border-border ${surface === "muted" ? "bg-surface-muted" : "bg-background"}`}
-  >
-    <div className="page-shell section-pad">
-      <div className="mx-auto w-standard">
-        <SectionHeader eyebrow={eyebrow} title={title} lede={lede} />
-        <ul className="divide-y divide-border border-t border-b border-border">
-          {entries.map((e) => (
-            <EntryRow key={e.id} entry={e} />
-          ))}
-        </ul>
-        <div className="mt-6 flex justify-end">
-          <Link
-            to={footerTo}
-            className="t-utility-xs text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {footerLabel} →
-          </Link>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div className="flex flex-col">
+    <p className="t-eyebrow-sm text-muted-foreground mb-3">{eyebrow}</p>
+    <h2 className="t-h3 text-foreground leading-tight">{title}</h2>
+    {reviewed && (
+      <p className="mt-2 t-utility-xs text-muted-foreground/80">
+        Reviewed by Medical Advisory Board
+      </p>
+    )}
+    <ul className="mt-6 grid gap-3 flex-1">
+      {entries.map((e) => (
+        <ArticleCell key={e.slug} entry={e} />
+      ))}
+    </ul>
+  </div>
 );
 
 // ---------- Page ----------
@@ -268,189 +158,93 @@ const Education = () => {
       <Breadcrumb items={[{ label: "Resource Library" }]} />
 
       <PageMeta
-        title="Resource Library"
-        description="A curated reference library for sourcing, compounding, verification, and public due diligence."
+        title="Resource Library · Source Standard"
+        description="Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed by the Medical Advisory Board."
       />
 
       <BriefingHero
         tone="navy"
-        category="Public reference"
+        category="Resource Library"
         docId=""
         title="Resource Library"
-        statement="A curated reference library for sourcing, compounding, verification, and public due diligence. Reviewed under independent medical oversight."
+        statement="Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed by the Medical Advisory Board."
       />
 
-      {/* Foundational entries — featured trio */}
-      <section className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
+      {/* Three-column knowledge base */}
+      <section className="bg-background border-b border-border">
+        <div className="page-shell py-12 md:py-14">
           <div className="mx-auto w-standard">
-            <SectionHeader
-              eyebrow="Orientation"
-              title="Foundational reference"
-              lede="Three reference entries that establish the terminology, regulatory framework, and verification standard used throughout the library."
-            />
-            <ul className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
-              {featuredEntries.map((entry, i) => (
-                <li key={entry.slug} className="bg-background">
-                  <FeatureCard entry={entry} index={i} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Foundational sourcing */}
-      <CategorySection
-        id="basics"
-        eyebrow="Sourcing"
-        title="Sourcing & compounding reference"
-        lede="The regulatory categories of compounded medication, the documentation that defines a regulated supply chain, and the distinctions a public reader should be able to draw."
-        entries={foundationalEntries}
-        footerLabel="View full sourcing index"
-        footerTo="/education/basics"
-        surface="muted"
-      />
-
-      {/* Clinical handling & sterile reference */}
-      <CategorySection
-        id="guides"
-        eyebrow="Clinical reference"
-        title="Clinical handling & sterile preparation"
-        lede="Sterile preparation integrity, aseptic technique, storage and stability, and endocrinological context. Reviewed by the Medical Advisory Board. Not a substitute for individualized clinical advice."
-        entries={clinicalEntries}
-        footerLabel="View full clinical protocol index"
-        footerTo="/education/guides"
-        surface="background"
-      />
-
-      {/* Verification & due diligence */}
-      <CategorySection
-        id="verification"
-        eyebrow="Verification"
-        title="Verification & public diligence"
-        lede="What verification establishes, what it does not, and how to interpret sourcing disclosures published by clinics and upstream pharmacies."
-        entries={verificationEntries}
-        footerLabel="View the verification archive"
-        footerTo="/education/questions"
-        surface="muted"
-      />
-
-      {/* Regulatory FAQ — navigational utility row */}
-      <section className="border-b border-border bg-background" id="questions">
-        <div className="page-shell section-pad">
-          <div className="mx-auto w-standard">
-            <SectionHeader
-              eyebrow="Recorded inquiries"
-              title="Regulatory FAQ"
-              lede="Recorded answers to recurring inquiries, organized by category."
-            />
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-b border-border lg:divide-x divide-y lg:divide-y-0 divide-border">
-              {CATEGORIES.map((c) => {
-                const route =
-                  CATEGORY_ROUTE_OVERRIDES[c.key] ?? `/education/questions#${c.groupAnchor}`;
-                return (
-                  <li key={c.key}>
-                    <Link
-                      to={route}
-                      className="group block px-5 py-6 h-full transition-colors hover:bg-surface-muted"
-                    >
-                      <p className="t-h4 text-foreground group-hover:text-primary transition-colors">
-                        {c.label}
-                      </p>
-                      <p className="mt-2 t-body-sm text-muted-foreground">
-                        {c.description}
-                      </p>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="mt-6 flex justify-end">
-              <Link
-                to="/education/questions"
-                className="t-utility-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Browse the full FAQ archive →
-              </Link>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
+              <Column
+                eyebrow="Column A"
+                title="Sourcing & Regulation"
+                entries={COLUMN_A}
+              />
+              <Column
+                eyebrow="Column B"
+                title="Clinical Handling"
+                entries={COLUMN_B}
+                reviewed
+              />
+              <Column
+                eyebrow="Column C"
+                title="Consumer Due Diligence"
+                entries={COLUMN_C}
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Latest analysis — smaller strip */}
-      <section className="border-b border-border bg-surface-muted" id="analysis">
-        <div className="page-shell section-pad">
+      {/* Common Inquiries */}
+      <section className="bg-surface-muted/60 border-b border-border" id="questions">
+        <div className="page-shell py-12 md:py-14">
           <div className="mx-auto w-standard">
-            <SectionHeader
-              eyebrow="Editorial interpretation"
-              title="Recent analysis"
-              lede="Published interpretations of regulatory shifts and verification practice."
-            />
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 border-t border-border">
-              {analysisEntries.map((e) => (
-                <li key={e.id} className="border-b border-border py-5">
+            <div className="mb-8 max-w-[60ch]">
+              <h2 className="t-section-title-sm text-foreground">
+                Common Inquiries
+              </h2>
+              <p className="mt-3 t-body-md text-muted-foreground">
+                Recorded answers to recurring questions, organized by category.
+              </p>
+            </div>
+            <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {FAQ_BUTTONS.map((b) => (
+                <li key={b.label}>
                   <Link
-                    to={routeFor(e.slug)}
-                    className="group block transition-colors"
+                    to={b.to}
+                    className="group flex items-center justify-between rounded-md border border-border bg-card shadow-sm px-5 py-4 transition-colors hover:bg-surface-muted"
                   >
-                    <div className="flex items-start justify-between gap-6">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="t-h4 text-foreground group-hover:text-primary transition-colors">
-                          {displayTitle(e)}
-                        </h3>
-                        <p className="mt-2 t-body-sm text-muted-foreground">
-                          {e.summary}
-                        </p>
-                      </div>
-                      <span className="t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap shrink-0 mt-1">
-                        Read →
-                      </span>
-                    </div>
+                    <span className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {b.label}
+                    </span>
+                    <span
+                      aria-hidden
+                      className="t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors"
+                    >
+                      →
+                    </span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 flex justify-end">
-              <a
-                href="#archive"
-                className="t-utility-xs text-muted-foreground hover:text-foreground transition-colors"
-              >
-                View archive →
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Forthcoming formats — de-emphasized */}
-      <section className="border-b border-border bg-background" id="archive">
-        <div className="page-shell section-pad">
+      {/* Coming Soon footer */}
+      <section className="bg-background">
+        <div className="page-shell py-10">
           <div className="mx-auto w-standard">
-            <SectionHeader
-              eyebrow="Editorial pipeline"
-              title="Scheduled additions"
-              lede="Reference formats currently in editorial preparation."
-            />
-            <ul className="divide-y divide-border border-t border-b border-border max-w-3xl">
-              {librarySupplementary.map((m) => {
-                const ov = SUPPLEMENT_OVERRIDES[m.id] ?? {};
-                return (
-                  <li key={m.id} className="py-4 t-body-md">
-                    <span className="text-foreground font-semibold">
-                      {ov.title ?? m.title}
-                    </span>{" "}
-                    <span className="text-muted-foreground">
-                      {ov.description ?? m.description}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+            <p className="t-utility-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">
+              Coming soon
+            </p>
+            <p className="t-body-md text-foreground/85 max-w-[68ch]">
+              Video Explainers, Board Webinars, and the 2026 Integrity Ledger.
+            </p>
           </div>
         </div>
       </section>
-
     </>
   );
 };
