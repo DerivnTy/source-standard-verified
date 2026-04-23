@@ -1,52 +1,53 @@
 
 
-## Global Zero-Redundancy: Hero & Section Eyebrow Removal
+## DocJumpBar: Slimmer Pill + Smoother, Delayed Dock
 
-Eliminate the redundant `POLICY · …` hero eyebrow and the duplicate `01` marker above each section headline across all five policy/protocol/about pages. After this pass, each title appears exactly once: H1 in the navy hero, then DocJumpBar chips, then bold section headlines.
+Three calibrations to the existing `src/components/DocJumpBar.tsx`. No other files touched.
 
-### 1. Component hardening
+### 1. Slimmer resting pill
 
-**`src/components/BriefingHero.tsx`**
-- In both the navy `chapter` branch and the default-mode branch, wrap the eyebrow `<p>` that renders `category` in `{category && (...)}` so an empty string fully suppresses the element and its margin (no orphaned spacing).
-- Leave the `cover` variant and all other props untouched.
+Reduce vertical weight and typography so the pill reads as a refined index tab instead of a banner.
 
-**`src/components/BoardSection.tsx`**
-- When `hideEyebrow` is `true`, render **nothing** in the eyebrow slot. Delete the `<p className="t-utility-xs text-muted-foreground/60 mb-3">{n}</p>` line entirely.
-- Default behavior (`hideEyebrow={false}`) is unchanged — MAB page keeps its `§N · CATEGORY` eyebrow.
+- Seam zone height: `64px` → `44px` (pill stays centered on the navy/white seam, just thinner).
+- Resting pill padding: `px-8 py-4` → `px-6 py-2`.
+- Docked bar padding: `py-3` → `py-2`.
+- Chip text: `text-[14px]` → `text-[12px]`, padding `px-3.5 py-1.5` → `px-3 py-1`.
+- "Contents ·" label: `text-[12px]` → `text-[11px]`.
+- Pill width unchanged (`w-[80%] max-w-[1200px]`).
 
-### 2. Page updates — set `category=""` on BriefingHero
+### 2. Delayed dock trigger
 
-Update the navy `BriefingHero` invocation in each page:
+Currently docks at `scrollY > 220`, which fires before the user has scrolled past the pill itself. Replace the hard pixel threshold with a measurement of the seam zone's own position so the morph only triggers once the pill would otherwise scroll out of view.
 
-- `src/pages/Terms.tsx` — `category="Policy · Registry User Agreement"` → `category=""`
-- `src/pages/Privacy.tsx` — `category="Policy · Data Governance Protocol"` → `category=""`
-- `src/pages/VerificationDisclaimer.tsx` — remove the `Policy · …` category string
-- `src/pages/About.tsx` — remove the `About · …` category string
-- `src/pages/HowItWorks.tsx` — remove the `Policy · …` category string
+- Add a `ref` on the seam zone wrapper.
+- In the scroll handler, compute `seamRef.current.getBoundingClientRect().bottom` and set `docked = bottom < headerOffset` (where `headerOffset` is `64` when header visible, `0` when hidden).
+- This guarantees the pill stays in its resting position until the user has actually scrolled past it, then docks exactly as it would leave the viewport — no premature snap.
 
-No other props change. `hideEyebrow` is already passed to every `BoardSection` on these five pages from the prior round, so the BoardSection component change automatically suppresses the `01`/`02`/… markers globally.
+### 3. Smooth pill → bar morph
 
-### 3. Layout geometry
+Today the resting pill and docked bar are two separately-mounted elements (`{!docked && …}` / `{docked && …}`), so React swaps them instantly — that's the "snap." Render a single persistent element whose classes change based on `docked`, so the existing 500ms cubic-bezier transition on `width`, `border-radius`, and `box-shadow` actually animates.
 
-No spacing overrides. The navy hero's existing vertical padding now hugs the H1 directly — balanced and intentional. `DocJumpBar` continues to provide the buffer to Section 01, and each `BoardSection`'s headline becomes the first visual element of its block.
+Approach:
+
+- Always render one `<nav>` element. Its className toggles between two states:
+  - **Resting**: `absolute` inside the seam zone, `w-[80%] max-w-[1200px]`, `rounded-full`, `shadow-lg`, centered.
+  - **Docked**: `fixed inset-x-0 top-[64px]` (or `top-0`), `w-full max-w-none`, `rounded-none`, `shadow-none`, `border-b`.
+- Keep the `transition-all duration-500 cubic-bezier(0.4,0,0.2,1)` on the element so the geometry change tweens.
+- Add a brief opacity/translate fade on the docked-state border-bottom (appears via transition once docked) so the hairline doesn't pop in.
+- The seam zone keeps a fixed height reservation so the body doesn't jump when the pill detaches into `fixed` positioning.
 
 ### Result
 
 ```text
-┌──────────────────────────────────────┐
-│                                      │
-│   Data Governance Protocol           │  ← H1 only, no eyebrow
-│   The administrative framework …     │
-│                                      │
-├──────────────────────────────────────┤
-│ CONTENTS · 01 PARTITIONING  02 …     │  ← DocJumpBar (only place numbers live)
-├──────────────────────────────────────┤
-│                                      │
-│   Record Partitioning &              │  ← bold headline = first element
-│   PAM Classification                 │
-│   | Source Standard maintains …      │
-└──────────────────────────────────────┘
+Resting (slim pill on seam)        After scrolling past pill (smooth morph)
+┌──────────────────────────┐       ┌────────────────────────────────────┐
+│ ░░░ navy hero ░░░░░░░░░░ │       │ ░░░ navy hero (off-screen) ░░░░░░░ │
+│ ┌──────────────────────┐ │  →    ╞════════════════════════════════════╡  ← full-width docked bar
+│ │CONTENTS · 01 · 02 …  │ │       │ CONTENTS · 01 · 02 · 03 · 04 · 05  │     thin, hairline border
+│ └──────────────────────┘ │       │ ░░░ white body ░░░░░░░░░░░░░░░░░░░ │
+│ white body               │       │                                    │
+└──────────────────────────┘       └────────────────────────────────────┘
 ```
 
-One title per zone. Five pages aligned. No clerical stutter.
+Slimmer, calmer, and the morph is one continuous 500ms motion instead of an instant swap.
 
