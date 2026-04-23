@@ -12,7 +12,6 @@ const WAYPOINTS = [
   { id: "members", number: "03", label: "Members" },
   { id: "scope", number: "04", label: "Scope" },
   { id: "responsibilities", number: "05", label: "Responsibilities" },
-  { id: "continue", number: "06", label: "Continue" },
 ];
 
 const SectionIndex = ({ n }: { n: string }) => (
@@ -95,23 +94,6 @@ const BOUNDARIES = [
   "The Board does not produce listings or market clinics.",
 ];
 
-const BRIDGE_LINKS = [
-  {
-    to: "/how-it-works",
-    label: "How verification works",
-    description: "The protocol the Board governs.",
-  },
-  {
-    to: "/accountability",
-    label: "Accountability & enforcement",
-    description: "What happens when verification fails.",
-  },
-  {
-    to: "/about",
-    label: "About Source Standard",
-    description: "The organization the Board oversees.",
-  },
-];
 
 const MedicalAdvisory = () => {
   return (
@@ -295,33 +277,6 @@ const MedicalAdvisory = () => {
               </ul>
             </section>
 
-            {/* Bridge — Continue reading */}
-            <section id="continue" className="scroll-mt-24 pt-12 pb-12">
-              <SectionIndex n="06" />
-              <h2 className="t-section-title-sm text-foreground mb-6">
-                Continue reading
-              </h2>
-              <ul className="divide-y divide-border/60">
-                {BRIDGE_LINKS.map((b) => (
-                  <li key={b.to}>
-                    <Link
-                      to={b.to}
-                      className="grid grid-cols-12 gap-4 py-5 group items-baseline"
-                    >
-                      <p className="col-span-12 md:col-span-4 t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {b.label}
-                      </p>
-                      <p className="col-span-12 md:col-span-7 t-body-md text-muted-foreground">
-                        {b.description}
-                      </p>
-                      <span className="col-span-12 md:col-span-1 t-body-md text-muted-foreground md:text-right group-hover:text-primary transition-colors">
-                        →
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
 
           </div>
         </div>
