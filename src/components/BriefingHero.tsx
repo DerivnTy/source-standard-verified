@@ -105,7 +105,7 @@ export const BriefingHero = ({
 
               <h1
                 id="briefing-title"
-                className="text-white tracking-[-0.015em] uppercase max-w-[52ch] mx-auto text-[15px] sm:text-[16px] md:text-[17px] font-mono font-medium leading-[1.5] text-balance"
+                className="text-white max-w-[52ch] mx-auto t-body-sm font-mono font-medium uppercase text-balance"
                 style={{ letterSpacing: "0.16em" }}
               >
                 {title}

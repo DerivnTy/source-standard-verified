@@ -38,10 +38,10 @@ export const StatusBadge = ({
   size?: "sm" | "md";
 }) => {
   const key = normalize(status);
-  const text = size === "md" ? "text-[11px]" : "text-[10px]";
+  void size;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[2px] border font-mono font-semibold uppercase tracking-[0.14em] tabular-nums ${text} ${stampFor[key]}`}
+      className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[2px] border t-utility-xs font-mono font-semibold tabular-nums ${stampFor[key]}`}
     >
       <span
         aria-hidden

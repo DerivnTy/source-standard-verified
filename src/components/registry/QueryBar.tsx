@@ -60,18 +60,18 @@ export const QueryBar = ({
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full pl-10 pr-16 h-11 bg-transparent border-0 text-[14.5px] text-foreground placeholder:text-muted-foreground focus:outline-none"
+            className="w-full pl-10 pr-16 h-11 bg-transparent border-0 t-body-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
             aria-label="Search registry"
           />
           <kbd
-            className="hidden md:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1.5 py-0.5 text-[10.5px] font-mono text-muted-foreground border border-border/60 rounded bg-background pointer-events-none"
+            className="hidden md:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1.5 py-0.5 t-utility-xs font-mono text-muted-foreground border border-border/60 rounded bg-background pointer-events-none"
             aria-hidden
           >
             ⌘K
           </kbd>
         </div>
         <div className="hidden md:block w-px h-6 bg-border/60" aria-hidden />
-        <div className="hidden md:block text-[12.5px] text-muted-foreground tabular-nums whitespace-nowrap">
+        <div className="hidden md:block t-micro text-muted-foreground tabular-nums whitespace-nowrap">
           {resultLabel}
         </div>
         <div className="shrink-0">{sortControl}</div>
@@ -83,7 +83,7 @@ export const QueryBar = ({
         {hasActiveFilters && (
           <button
             onClick={onReset}
-            className="ml-auto h-10 px-3 text-[12.5px] text-muted-foreground hover:text-foreground transition-colors underline-offset-2 hover:underline"
+            className="ml-auto h-10 px-3 t-micro text-muted-foreground hover:text-foreground transition-colors underline-offset-2 hover:underline"
           >
             Reset filters
           </button>
@@ -100,7 +100,7 @@ export const QueryBar = ({
             <button
               key={chip.key}
               onClick={chip.onRemove}
-              className="group inline-flex items-center gap-1.5 h-7 pl-2.5 pr-2 border border-foreground/15 bg-background hover:border-foreground/40 hover:bg-surface-muted text-[12px] text-foreground rounded-[2px] transition-all duration-150 shadow-[0_1px_0_0_hsl(var(--border)/0.3)]"
+              className="group inline-flex items-center gap-1.5 h-7 pl-2.5 pr-2 border border-foreground/15 bg-background hover:border-foreground/40 hover:bg-surface-muted t-micro text-foreground rounded-[2px] transition-all duration-150 shadow-[0_1px_0_0_hsl(var(--border)/0.3)]"
             >
               <span className="truncate max-w-[200px]">{chip.label}</span>
               <X className="h-3 w-3 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -130,7 +130,7 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-10 px-3.5 pr-9 bg-background border border-border/70 text-[13px] text-foreground rounded-[2px] hover:border-foreground/40 focus:outline-none focus:border-foreground/60 focus:ring-1 focus:ring-foreground/10 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_12px_center]"
+    className="h-10 px-3.5 pr-9 bg-background border border-border/70 t-nav text-foreground rounded-[2px] hover:border-foreground/40 focus:outline-none focus:border-foreground/60 focus:ring-1 focus:ring-foreground/10 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_12px_center]"
     style={{
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
@@ -167,7 +167,7 @@ export const FacetSegmented = <T extends string>({
           role="radio"
           aria-checked={active}
           onClick={() => onChange(opt.value)}
-          className={`px-3.5 text-[12.5px] font-medium transition-colors duration-150 ${
+          className={`px-3.5 t-micro transition-colors duration-150 ${
             i > 0 ? "border-l border-border/70" : ""
           } ${
             active
@@ -221,7 +221,7 @@ export const FacetToggle = ({
     type="button"
     aria-pressed={active}
     onClick={onClick}
-    className={`h-10 px-3.5 rounded-[2px] border text-[12px] font-semibold uppercase tracking-[0.08em] transition-all duration-150 ${
+    className={`h-10 px-3.5 rounded-[2px] border t-utility-xs font-semibold transition-all duration-150 ${
       active
         ? tone === "verified"
           ? "bg-verified text-verified-foreground border-verified shadow-[0_1px_0_0_hsl(var(--verified)/0.4)]"

@@ -16,7 +16,6 @@ export const VerificationShield = ({
   size?: "sm" | "md";
 }) => {
   const iconSize = size === "md" ? "h-3.5 w-3.5" : "h-3 w-3";
-  const textSize = size === "md" ? "text-[11px]" : "text-[10px]";
   const tooltip =
     `Verified sourcing.\nThis vendor has provided documentation supporting the reviewed sourcing scope` +
     (reviewDate ? ` as of ${reviewDate}.` : ".") +
@@ -26,7 +25,7 @@ export const VerificationShield = ({
   return (
     <span
       title={tooltip}
-      className={`inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[2px] border border-verified/40 bg-verified/10 text-verified font-mono font-semibold uppercase tracking-[0.14em] tabular-nums ${textSize}`}
+      className="inline-flex items-center gap-1.5 px-2 py-[3px] rounded-[2px] border border-verified/40 bg-verified/10 text-verified font-mono font-semibold tabular-nums t-utility-xs"
     >
       <ShieldCheck className={`${iconSize} shrink-0`} aria-hidden />
       Verified Sourcing
