@@ -48,7 +48,7 @@ const FaqVerificationProcess = () => {
         ]} />
       <RecordHeader
         eyebrow="Source Standard · Regulatory FAQ"
-        title="FAQ: Verification Process"
+        title="Verification Process"
         lead="Details on the Source Standard auditing protocol, facility reconciliation, and the criteria for institutional verification."
         metadata={[
           { label: "Doc", value: DOC_ID },

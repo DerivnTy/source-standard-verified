@@ -54,7 +54,7 @@ const ForVendors = () => {
           { label: "Status", value: "Active" },
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}
-        eyebrow="Submission standard"
+        eyebrow="Vendor onboarding"
         title="Vendor Submission Standard"
         lead="Technical specifications for the records, credentials, and procurement evidence required at intake. Submitted materials are entered into the controlled audit file and examined under the forensic review protocol."
       />

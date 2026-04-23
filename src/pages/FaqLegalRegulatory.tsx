@@ -43,7 +43,7 @@ const FaqLegalRegulatory = () => {
         ]} />
       <RecordHeader
         eyebrow="Source Standard · Regulatory FAQ"
-        title="FAQ: Legal & Regulatory"
+        title="Legal & Regulatory"
         lead="Statutory framework, federal scheduling, and the lawful access parameters for compounded medications in the United States."
         metadata={[
           { label: "Doc", value: DOC_ID },
