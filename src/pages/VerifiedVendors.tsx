@@ -167,38 +167,23 @@ const VerifiedVendors = () => {
     const arr = [...filtered];
     const byName = (a: Vendor, b: Vendor) => a.name.localeCompare(b.name);
     switch (sort) {
-      case "name-desc":
-        return arr.sort((a, b) => b.name.localeCompare(a.name));
-      case "state":
+      case "location":
         return arr.sort((a, b) => {
           const s = (a.state ?? "").localeCompare(b.state ?? "");
-          return s !== 0 ? s : byName(a, b);
-        });
-      case "city":
-        return arr.sort((a, b) => {
+          if (s !== 0) return s;
           const c = (a.city ?? "").localeCompare(b.city ?? "");
           return c !== 0 ? c : byName(a, b);
         });
-      case "status":
+      case "latest-audit":
         return arr.sort((a, b) => {
-          const sa = STATUS_RANK[a.status];
-          const sb = STATUS_RANK[b.status];
-          return sa !== sb ? sa - sb : byName(a, b);
-        });
-      case "name-asc":
-        return arr.sort(byName);
-      case "trust":
-      default:
-        // Verified pinned to top, then by review date (newest first), then name.
-        return arr.sort((a, b) => {
-          const sa = STATUS_RANK[a.status];
-          const sb = STATUS_RANK[b.status];
-          if (sa !== sb) return sa - sb;
           const da = a.reviewDate ?? "";
           const db = b.reviewDate ?? "";
           if (da !== db) return db.localeCompare(da);
           return byName(a, b);
         });
+      case "name-asc":
+      default:
+        return arr.sort(byName);
     }
   }, [filtered, sort]);
 
