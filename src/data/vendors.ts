@@ -126,7 +126,7 @@ const normalizeWebsite = (url: string): string => {
   return `https://${url}`;
 };
 
-export const vendors = ([
+const vendorsRaw = [
   {
     slug: "mattr-biowellness-club",
     name: "MATTR Biowellness Club",
@@ -31988,7 +31988,8 @@ export const vendors = ([
     category: "Peptides",
     summary: "Medical wellness clinic in Charlotte, NC offering peptide therapy, TRT, medical infusions, and IV hydration. Partners with FDA-registered 503B outsourcing facilities. Offers both in-person and telehealth services.",
   },
-] as unknown as Vendor[]);
+] as const;
+export const vendors: Vendor[] = vendorsRaw as unknown as Vendor[];
 
 // ---------- Normalization layer ----------
 // Cleans state, city, and clinicalFocus values at module load so every
