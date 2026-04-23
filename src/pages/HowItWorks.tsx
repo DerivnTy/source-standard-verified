@@ -271,7 +271,50 @@ const HowItWorks = () => {
         </ol>
       </SectionShell>
 
-      {/* §10 Limits — jurisdictional ledger */}
+      {/* §7 Continuous Surveillance — Blind Buy */}
+      <SectionShell
+        id="surveillance"
+        n="7"
+        category="Continuous Surveillance"
+        title="Verification is not a one-time event"
+        description="Source Standard maintains the registry's integrity through unannounced Blind Purchase Testing."
+      >
+        <ol className="flex flex-col gap-3">
+          {surveillance.map((s, i) => (
+            <NumberedCell key={s.t} n={String(i + 1).padStart(2, "0")} title={s.t}>
+              <p>{s.d}</p>
+            </NumberedCell>
+          ))}
+        </ol>
+      </SectionShell>
+
+      {/* §8 Outcome — Failure Protocol */}
+      <SectionShell
+        id="outcome"
+        n="8"
+        category="Outcome"
+        title="Failure Protocol"
+        muted
+      >
+        <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
+          <ul className="divide-y divide-border">
+            {outcome.map((o) => (
+              <li
+                key={o.t}
+                className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline"
+              >
+                <div className="col-span-12 md:col-span-3 t-body-sm font-semibold text-foreground">
+                  {o.t}
+                </div>
+                <div className="col-span-12 md:col-span-9 t-body-sm text-foreground/85 leading-[1.6]">
+                  {o.d}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </SectionShell>
+
       <SectionShell
         id="limits"
         n="10"
