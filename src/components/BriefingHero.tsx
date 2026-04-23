@@ -108,7 +108,7 @@ export const BriefingHero = ({
                 {statement}
               </p>
               {actions && (
-                <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 [&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:text-left [&>*]:text-center">
                   {actions}
                 </div>
               )}
