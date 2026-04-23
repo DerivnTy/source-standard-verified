@@ -31988,7 +31988,7 @@ export const vendors = ([
     category: "Peptides",
     summary: "Medical wellness clinic in Charlotte, NC offering peptide therapy, TRT, medical infusions, and IV hydration. Partners with FDA-registered 503B outsourcing facilities. Offers both in-person and telehealth services.",
   },
-] as Vendor[]);
+] as unknown as Vendor[]);
 
 // ---------- Normalization layer ----------
 // Cleans state, city, and clinicalFocus values at module load so every
