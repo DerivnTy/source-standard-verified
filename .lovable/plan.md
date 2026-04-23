@@ -1,56 +1,40 @@
 
 
-## Clinical Oversight: Find the Middle Ground for Sections 01 & 02
+## Homepage Rebuild — Exact Execution Draft
 
-The current sections swing too plain — undifferentiated text rows that read like a Wix template. The previous "registry filing" version overcorrected into bureaucratic theatre. The fix is **formatting**, not more chrome: give each statement structural weight through indexing, hierarchy, and rhythm, while keeping the language consumer-readable.
+Rebuild `src/pages/Index.tsx` below the hero in the exact 8-section order with the exact copy provided. The sticky `SiteHeader` (rendered by `SiteLayout`) is untouched. The `BriefingHero` cover variant is preserved as-is, with a small quiet "Continue" cue added at the bottom.
 
-### Section 01 — Institutional Mandate
+### Section-by-section changes
 
-Convert the flat divided list into a **numbered statement list with a lead phrase + supporting clause** structure. Each clause gets a small mono index and the first phrase is bolded as a "headline" for the statement, with the rest as supporting text. This is the pattern Stripe and the FDA both use for principle statements.
+**Hero (§1)** — Keep as-is. Add a small, quiet "Continue" continuation cue at the bottom of the hero (subtle muted text + thin downward chevron, no button styling). All existing hero props (category, title, statement, navy tone, HeroActions) remain.
 
-```text
-01                          ―                    
-                                                  01   Independent clinical oversight.
-Institutional                                          The Medical Advisory Board provides independent
-Mandate                                                oversight of the verification framework.
-                                                  
-                                                  02   Findings of record.
-                                                       Audit determinations are based on documented
-                                                       pharmacy sourcing, licensure, and regulatory
-                                                       standing.
-                                                  
-                                                  03   Periodic review.
-                                                       The Board maintains the integrity of the standard
-                                                       through periodic review of forensic audit criteria.
-                                                  
-                                                  04   Objective distance.
-                                                       Board members do not participate in vendor approvals
-                                                       or commercial activities.
-```
+**§2 Trust problem** — Already matches direction. Update body copy to the new exact wording ("...marketing claims are easy to make and difficult to prove. Most consumers are left to rely on trust signals, presentation, and website language. Source Standard exists to shift that standard back to records...").
 
-- Keep the existing 12-col grid (`md:col-span-5` rail / `md:col-span-7` content).
-- Each row: `01` mono index (col-span-2, muted, tabular-nums) · stacked title + body (col-span-10).
-- **Title line**: short noun phrase, `t-body-md font-semibold text-foreground` — gives each clause a scannable anchor.
-- **Body**: `t-body-md text-muted-foreground leading-relaxed` — readable, calm.
-- Hairline `divide-y divide-border/60` between rows, `py-6` for breathing room.
+**§3 How it works** — Replace the three step blurbs with the new exact copy:
+- 01 Map the facilities. — "We track licensed 503A and 503B compounding pharmacies in the United States and organize them into an upstream reference layer."
+- 02 Audit the vendors. — "Clinics and online vendors are asked to substantiate their sourcing with documentation tied to those pharmacy relationships."
+- 03 Publish the record. — "The outcome is published in a public registry. If sourcing cannot be substantiated, the listing remains Unverified."
+- Promote the visually-hidden h2 to a visible "How Source Standard works" headline under the eyebrow to match the spec.
 
-### Section 02 — Governance Framework
+**§4 Live registry** — Update body to "Our database tracks the peptide economy as a live public-reference system." Keep both CTAs (Search Verified Vendors → /directory, Explore Greenlist → /greenlist). No stat strip added (spec says "if displayed" — keeping clean).
 
-Already has the title + description structure. The fix is **alignment and rhythm** to match Section 01:
+**§5 Registry fields** — Update headline body to "Every listing in the registry provides a structured snapshot of public sourcing status and operating profile." Update the four field descriptions to the new exact copy. Change link to read "Open the registry" (drop the arrow-only treatment, keep underline style).
 
-- Same 12-col grid (already correct).
-- Same `01` mono index column (col-span-2).
-- Same title/body typography pair as Section 01 — currently uses it; just unify spacing to `py-6` and confirm `items-baseline` so the mono index sits on the title's baseline.
-- No header row, no footer caption, no metadata block. Just the clean numbered ledger.
+**§6 Function of the framework** — Promote hidden h2 to visible "Function of the framework" headline. Update the three column bodies to the new exact copy (consumers / vendors / doctors).
 
-### Why This Works
+**§7 Foundational reference** — Promote hidden h2 to visible "Foundational reference" headline. Add the new body paragraph beneath it. Keep the three existing cards (titles already match exactly). Update card bodies to match exact copy. Bottom link text becomes "Browse Resource Library".
 
-1. **Numbered indices** give the content structural authority without screaming "legal document".
-2. **Title + supporting line per item** is the universal pattern for both consumer documentation (Stripe) and institutional documentation (FDA guidance) — scannable but substantive.
-3. **Consistent rhythm across both sections** makes the page feel composed rather than assembled.
-4. **No mono labels, no metadata blocks, no footer captions** — keeps it readable, not theatrical.
+**§8 Governance and standards** — Promote hidden h2 to visible "Governance and standards" headline. Body copy already matches. Keep the three-row link list (Advisory Board, Audit Methodology, Status Definitions) with "View" affordance.
 
-### Files Edited
+### Global cleanup
+- Every section gets: eyebrow (broad), visible headline (specific), then body. No more `sr-only` h2s where the spec calls for a visible headline.
+- Remove any arrow glyphs from headline-area links where the spec gives plain text (e.g., "Open the registry", "Browse Resource Library") — keep the underline-on-hover treatment for restraint.
+- Section order is already correct; no reordering needed.
+- No new sections, no removed sections.
 
-- `src/pages/MedicalAdvisory.tsx` (Sections 01 and 02 only)
+### Files touched
+- `src/pages/Index.tsx` — copy + structural edits only. No new components, no new dependencies, no styling system changes.
+
+### Out of scope
+- `SiteHeader`, `SiteLayout`, `BriefingHero` internals, design tokens, routing.
 
