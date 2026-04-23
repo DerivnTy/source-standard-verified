@@ -402,6 +402,43 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
+            {/* View toggle — sharp rectangular */}
+            <div className="mb-3 flex justify-end">
+              <div
+                role="radiogroup"
+                aria-label="View mode"
+                className="inline-flex overflow-hidden rounded-[2px]"
+                style={{ border: "1px solid #64748B" }}
+              >
+                {(
+                  [
+                    { value: "list", label: "[ LIST VIEW ]" },
+                    { value: "grid", label: "[ GRID VIEW ]" },
+                  ] as { value: ViewMode; label: string }[]
+                ).map((opt, i) => {
+                  const active = view === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      role="radio"
+                      aria-checked={active}
+                      onClick={() => setView(opt.value)}
+                      className={`h-9 px-3 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+                        i > 0 ? "border-l" : ""
+                      } ${
+                        active
+                          ? "bg-[hsl(var(--navy-surface))] text-white"
+                          : "bg-background text-muted-foreground hover:text-foreground"
+                      }`}
+                      style={{ borderColor: "#64748B" }}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Status Tabs — sharp rectangular, navy when active */}
             <div
               role="tablist"
