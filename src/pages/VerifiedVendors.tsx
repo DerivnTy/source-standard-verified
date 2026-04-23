@@ -34,16 +34,11 @@ import {
 
 const ALL = "__all__";
 
-type SortMode =
-  | "trust"
-  | "name-asc"
-  | "name-desc"
-  | "state"
-  | "city"
-  | "status";
+type SortMode = "name-asc" | "location" | "latest-audit";
 
 type FulfillmentFilter = "all" | VendorFulfillment;
 type VerifiedOnlyFilter = "all" | "verified";
+type ViewMode = "list" | "grid";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
@@ -97,7 +92,8 @@ const VerifiedVendors = () => {
   const [city, setCity] = useState<string>(ALL);
   const [status, setStatus] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
-  const [sort, setSort] = useState<SortMode>("trust");
+  const [sort, setSort] = useState<SortMode>("name-asc");
+  const [view, setView] = useState<ViewMode>("list");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
 
@@ -171,38 +167,23 @@ const VerifiedVendors = () => {
     const arr = [...filtered];
     const byName = (a: Vendor, b: Vendor) => a.name.localeCompare(b.name);
     switch (sort) {
-      case "name-desc":
-        return arr.sort((a, b) => b.name.localeCompare(a.name));
-      case "state":
+      case "location":
         return arr.sort((a, b) => {
           const s = (a.state ?? "").localeCompare(b.state ?? "");
-          return s !== 0 ? s : byName(a, b);
-        });
-      case "city":
-        return arr.sort((a, b) => {
+          if (s !== 0) return s;
           const c = (a.city ?? "").localeCompare(b.city ?? "");
           return c !== 0 ? c : byName(a, b);
         });
-      case "status":
+      case "latest-audit":
         return arr.sort((a, b) => {
-          const sa = STATUS_RANK[a.status];
-          const sb = STATUS_RANK[b.status];
-          return sa !== sb ? sa - sb : byName(a, b);
-        });
-      case "name-asc":
-        return arr.sort(byName);
-      case "trust":
-      default:
-        // Verified pinned to top, then by review date (newest first), then name.
-        return arr.sort((a, b) => {
-          const sa = STATUS_RANK[a.status];
-          const sb = STATUS_RANK[b.status];
-          if (sa !== sb) return sa - sb;
           const da = a.reviewDate ?? "";
           const db = b.reviewDate ?? "";
           if (da !== db) return db.localeCompare(da);
           return byName(a, b);
         });
+      case "name-asc":
+      default:
+        return arr.sort(byName);
     }
   }, [filtered, sort]);
 
@@ -292,12 +273,9 @@ const VerifiedVendors = () => {
       onChange={(v) => setSort(v as SortMode)}
       ariaLabel="Sort records"
     >
-      <option value="trust">Sort: Most trusted first</option>
-      <option value="name-asc">Sort: Name A–Z</option>
-      <option value="name-desc">Sort: Name Z–A</option>
-      <option value="status">Sort: Status</option>
-      <option value="state">Sort: State</option>
-      <option value="city">Sort: City</option>
+      <option value="name-asc">SORT // ALPHABETICAL</option>
+      <option value="location">SORT // LOCATION</option>
+      <option value="latest-audit">SORT // LATEST_AUDIT</option>
     </FacetSelect>
   );
 
@@ -424,6 +402,43 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
+            {/* View toggle — sharp rectangular */}
+            <div className="mb-3 flex justify-end">
+              <div
+                role="radiogroup"
+                aria-label="View mode"
+                className="inline-flex overflow-hidden rounded-[2px]"
+                style={{ border: "1px solid #64748B" }}
+              >
+                {(
+                  [
+                    { value: "list", label: "[ LIST VIEW ]" },
+                    { value: "grid", label: "[ GRID VIEW ]" },
+                  ] as { value: ViewMode; label: string }[]
+                ).map((opt, i) => {
+                  const active = view === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      role="radio"
+                      aria-checked={active}
+                      onClick={() => setView(opt.value)}
+                      className={`h-9 px-3 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+                        i > 0 ? "border-l" : ""
+                      } ${
+                        active
+                          ? "bg-[hsl(var(--navy-surface))] text-white"
+                          : "bg-background text-muted-foreground hover:text-foreground"
+                      }`}
+                      style={{ borderColor: "#64748B" }}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Status Tabs — sharp rectangular, navy when active */}
             <div
               role="tablist"
@@ -483,6 +498,22 @@ const VerifiedVendors = () => {
                       : "No vendors match these filters. Try clearing one."
                   }
                 />
+              ) : view === "list" ? (
+                <ul className="rounded-[2px] border border-border bg-card overflow-hidden divide-y divide-border">
+                  {pageItems.map((v) => {
+                    const ful = fulfillmentByVendor.get(v.slug)!;
+                    return (
+                      <li key={v.slug}>
+                        <VendorAuditCard
+                          vendor={v}
+                          fulfillment={ful}
+                          location={formatLocation(v)}
+                          view="list"
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
               ) : (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {pageItems.map((v) => {
@@ -493,6 +524,7 @@ const VerifiedVendors = () => {
                           vendor={v}
                           fulfillment={ful}
                           location={formatLocation(v)}
+                          view="grid"
                         />
                       </li>
                     );

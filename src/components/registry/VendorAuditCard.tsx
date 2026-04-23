@@ -8,14 +8,9 @@ import {
 
 /**
  * Audit Status Label — Geist Mono, uppercase, format `STATUS // VERIFIED`.
- * Color tokens drive contrast: verified → green, pending/under-review → amber,
- * everything else → muted. Kept compact (10.5px) to read like a terminal tag.
+ * Verified → green, pending/under-review → amber, otherwise → muted.
  */
-const AuditStatusLabel = ({
-  status,
-}: {
-  status: Vendor["status"];
-}) => {
+const AuditStatusLabel = ({ status }: { status: Vendor["status"] }) => {
   const isVerified = status === "verified";
   const isPending = status === "under-review";
   const isSuspended = status === "suspended";
@@ -23,9 +18,7 @@ const AuditStatusLabel = ({
 
   const tone = isVerified
     ? "text-verified"
-    : isPending
-    ? "text-amber-500"
-    : isSuspended
+    : isPending || isSuspended
     ? "text-amber-500"
     : isRemoved
     ? "text-muted-foreground"
@@ -33,6 +26,8 @@ const AuditStatusLabel = ({
 
   const word = isVerified
     ? "VERIFIED"
+    : isPending
+    ? "PENDING"
     : VENDOR_STATUS_LABEL[status].toUpperCase().replace(/\s+/g, " ");
 
   return (
@@ -45,36 +40,6 @@ const AuditStatusLabel = ({
   );
 };
 
-/**
- * Initials monogram on a deterministic navy tile — stands in for a facility
- * image while preserving the strict 1:1 square aspect ratio, 1px white-20
- * border, and 2px corner radius required by the Audit Registry spec.
- */
-const FacilityMonogram = ({ name }: { name: string }) => {
-  const initials = name
-    .replace(/[^a-zA-Z\s]/g, " ")
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("") || "·";
-  return (
-    <div
-      aria-hidden
-      className="aspect-square w-full rounded-[2px] flex items-center justify-center bg-[hsl(var(--navy-surface))] text-white"
-      style={{ border: "1px solid rgba(255,255,255,0.20)" }}
-    >
-      <span className="font-mono text-[18px] tracking-[0.06em]">
-        {initials}
-      </span>
-    </div>
-  );
-};
-
-/**
- * MetaRow — single Geist Mono ledger line: `- LABEL: value`.
- * 12px, muted, dash-prefixed for the "data stack" inside each card.
- */
 const MetaRow = ({ label, value }: { label: string; value: string }) => (
   <li className="font-mono text-[12px] leading-[1.5] text-muted-foreground">
     <span aria-hidden>—&nbsp;</span>
@@ -85,19 +50,69 @@ const MetaRow = ({ label, value }: { label: string; value: string }) => (
   </li>
 );
 
+/**
+ * Build a deterministic vendor ID for display: SS-<state?>-<slug-hash>.
+ */
+const buildVendorId = (vendor: Vendor) => {
+  if (vendor.reviewId) return vendor.reviewId;
+  let h = 0;
+  for (let i = 0; i < vendor.slug.length; i++) {
+    h = (h * 31 + vendor.slug.charCodeAt(i)) >>> 0;
+  }
+  const stateTag = vendor.state ?? "US";
+  return `VR-${stateTag}-${(h % 9999).toString().padStart(4, "0")}`;
+};
+
 export const VendorAuditCard = ({
   vendor,
   fulfillment,
   location,
+  view = "grid",
 }: {
   vendor: Vendor;
   fulfillment: VendorFulfillment;
   location: string;
+  view?: "grid" | "list";
 }) => {
   const focus =
     vendor.clinicalFocus && vendor.clinicalFocus.length > 0
       ? vendor.clinicalFocus.join(" · ")
       : vendor.category;
+  const vendorId = buildVendorId(vendor);
+
+  if (view === "list") {
+    return (
+      <Link
+        to={`/directory/${vendor.slug}`}
+        aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
+        className="group flex items-center gap-4 min-h-[60px] px-4 py-2 text-left bg-card border-b border-border hover:bg-surface-muted/40 transition-colors"
+      >
+        <div className="shrink-0 w-[120px] hidden sm:block">
+          <AuditStatusLabel status={vendor.status} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-3">
+            <h3 className="truncate text-[14px] font-semibold leading-tight text-foreground tracking-tight">
+              {vendor.name}
+            </h3>
+            <span className="hidden md:inline font-mono text-[11px] text-muted-foreground tabular-nums">
+              {vendorId}
+            </span>
+          </div>
+          <div className="sm:hidden mt-1">
+            <AuditStatusLabel status={vendor.status} />
+          </div>
+          <p className="mt-0.5 font-mono text-[11px] text-muted-foreground truncate">
+            <span aria-hidden>—&nbsp;</span>LOC:{" "}
+            <span className="text-foreground/80">{location}</span>
+          </p>
+        </div>
+        <span aria-hidden className="hidden md:inline font-mono text-[12px] text-muted-foreground group-hover:text-foreground transition-colors">
+          →
+        </span>
+      </Link>
+    );
+  }
 
   return (
     <Link
@@ -105,30 +120,24 @@ export const VendorAuditCard = ({
       aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
       className="group block h-full text-left rounded-[2px] border border-border bg-card hover:border-foreground/30 hover:shadow-[0_8px_24px_-12px_hsl(0_0%_0%/0.18)] transition-all"
     >
-      <div className="flex flex-col gap-4 text-left" style={{ padding: "20px" }}>
-        {/* 1:1 facility image */}
-        <div className="w-20">
-          <FacilityMonogram name={vendor.name} />
-        </div>
-
-        {/* Audit status — Geist Mono badge */}
+      <div className="flex flex-col gap-3 text-left" style={{ padding: "20px" }}>
+        {/* No-Logo Protocol — status badge is the visual anchor */}
         <AuditStatusLabel status={vendor.status} />
 
-        {/* Facility name — prominent anchor */}
         <h3 className="text-left text-[16px] font-semibold leading-[1.3] text-foreground tracking-tight">
           {vendor.name}
         </h3>
 
-        {/* The Data Stack — 12px Geist Mono, dash-prefixed ledger lines */}
-        <ul className="-mt-1 space-y-1 text-left">
-          <MetaRow label="Location" value={location} />
+        <ul className="space-y-1 text-left">
+          <MetaRow label="ID" value={`#${vendorId}`} />
+          <MetaRow label="Loc" value={location} />
           <MetaRow label="Type" value={focus || "—"} />
           <MetaRow
             label="Fulfillment"
             value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
           />
           {vendor.status === "verified" && vendor.reviewDate && (
-            <MetaRow label="Audit Date" value={vendor.reviewDate} />
+            <MetaRow label="Audit" value={vendor.reviewDate} />
           )}
         </ul>
       </div>
