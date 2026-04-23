@@ -196,7 +196,7 @@ export const SiteHeader = () => {
           >
             <div className="flex h-full w-full flex-col">
               {/* Top bar — logo + close (matches header height) */}
-              <div className="container-wide flex h-16 shrink-0 items-center justify-between">
+              <div className="container-wide flex shrink-0 items-center justify-between" style={{ height: "60px" }}>
                 <span
                   className="t-body-md font-semibold"
                   style={{ color: "hsl(var(--background))" }}
