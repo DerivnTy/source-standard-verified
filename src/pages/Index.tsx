@@ -42,7 +42,7 @@ const LiveDashboard = () => {
     <div className="flex flex-col gap-2 px-3 py-5 sm:px-6 sm:py-6 items-start">
       <div className="flex items-center gap-2">
         <span
-          className="font-sans font-bold tracking-tight text-foreground text-[26px] sm:text-[40px] md:text-[48px] leading-none tabular-nums"
+          className="font-sans font-semibold text-foreground text-[26px] sm:text-[40px] md:text-[48px] leading-none tabular-nums"
         >
           {typeof value === "number" ? value.toLocaleString("en-US") : value}
         </span>
@@ -54,10 +54,7 @@ const LiveDashboard = () => {
           />
         )}
       </div>
-      <span
-        className="font-sans text-[10px] sm:text-[11px] uppercase text-muted-foreground"
-        style={{ letterSpacing: "0.08em" }}
-      >
+      <span className="t-label-sm text-muted-foreground">
         {label}
       </span>
     </div>
@@ -103,10 +100,10 @@ const LiveDashboard = () => {
    - Transparent fill; subtle white/10 fill on hover/active */
 
 const ghostBtnPrimary =
-  "rounded-[2px] border border-white text-[hsl(var(--navy-surface))] bg-white px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-white/90 active:bg-white/80 transition-colors";
+  "rounded-[2px] border border-white text-[hsl(var(--navy-surface))] bg-white px-6 py-2.5 t-button hover:bg-white/90 active:bg-white/80 transition-colors";
 
 const ghostBtnSecondary =
-  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-white/10 active:bg-white/15 transition-colors";
+  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 t-button hover:bg-white/10 active:bg-white/15 transition-colors";
 
 const HeroActions = () => (
   <>
@@ -124,10 +121,10 @@ const HeroActions = () => (
    Same 2px radius — institutional, surgical. */
 
 const darkBtnPrimary =
-  "rounded-[2px] border border-foreground text-background bg-foreground px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-foreground/90 transition-colors";
+  "rounded-[2px] border border-foreground text-background bg-foreground px-6 py-2.5 t-button hover:bg-foreground/90 transition-colors";
 
 const darkBtnSecondary =
-  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
+  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 t-button hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
 
 /* ───────────────── Static section data ───────────────── */
 
@@ -249,10 +246,7 @@ const Index = () => {
             >
               Branding is not documentation.
             </h2>
-            <p
-              className="mt-7 mx-auto font-sans text-[15px] sm:text-[16px] text-muted-foreground max-w-[64ch]"
-              style={{ lineHeight: 1.75 }}
-            >
+            <p className="mt-7 mx-auto t-body-md text-muted-foreground max-w-[64ch] leading-[1.75]">
               In the peptide industry, marketing claims are easy to make and difficult to prove.
               Most consumers are left to rely on trust signals, presentation, and website language.
               Source Standard exists to shift that standard back to records. We audit the supply
@@ -262,8 +256,7 @@ const Index = () => {
             <div className="mt-10 flex justify-center">
               <Link
                 to="/how-it-works"
-                className="inline-flex items-center gap-2 rounded-[2px] border border-foreground bg-foreground text-background px-6 py-3 font-sans text-[12px] font-semibold uppercase hover:bg-foreground/90 transition-colors"
-                style={{ letterSpacing: "0.1em" }}
+                className="inline-flex items-center gap-2 rounded-[2px] border border-foreground bg-foreground text-background px-6 py-3 t-button hover:bg-foreground/90 transition-colors"
               >
                 <span>View Full Report</span>
                 <span aria-hidden>→</span>
@@ -278,7 +271,7 @@ const Index = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <div className="max-w-[60ch]">
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              <p className="t-meta-note text-muted-foreground">
                 02 · Methodology
               </p>
               <h2
@@ -297,7 +290,7 @@ const Index = () => {
               {howItWorks.map((s, i) => (
                 <li key={i} className="grid grid-cols-12 gap-6 py-10 sm:py-12">
                   <div className="col-span-12 sm:col-span-3">
-                    <span className="font-mono text-[13px] tabular-nums text-foreground" style={{ letterSpacing: "0.04em" }}>
+                    <span className="t-label-sm tabular-nums text-foreground">
                       {(i + 1).toString().padStart(2, "0")}
                     </span>
                   </div>
@@ -305,10 +298,7 @@ const Index = () => {
                     <h3 className="t-h3 text-foreground">
                       {s.h}
                     </h3>
-                    <p
-                      className="mt-4 font-sans text-[15px] sm:text-[16px] text-muted-foreground max-w-[64ch]"
-                      style={{ lineHeight: 1.75 }}
-                    >
+                    <p className="mt-4 t-body-md text-muted-foreground max-w-[64ch] leading-[1.75]">
                       {s.b}
                     </p>
                   </div>
@@ -319,8 +309,7 @@ const Index = () => {
             <div className="mt-12">
               <Link
                 to="/verified-vendors"
-                className="group inline-flex items-center gap-3 rounded-[2px] border border-foreground bg-foreground text-background px-7 py-3.5 font-sans text-[12px] font-semibold uppercase hover:bg-foreground/90 transition-colors"
-                style={{ letterSpacing: "0.1em" }}
+                className="group inline-flex items-center gap-3 rounded-[2px] border border-foreground bg-foreground text-background px-7 py-3.5 t-button hover:bg-foreground/90 transition-colors"
               >
                 <span>Access the Registry</span>
                 <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
@@ -334,7 +323,7 @@ const Index = () => {
       <section aria-labelledby="live-registry" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">03</p>
+            <p className="t-utility-xs text-muted-foreground">03</p>
             <h2
               id="live-registry"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -364,7 +353,7 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <div className="grid grid-cols-12 gap-8 md:gap-12">
               <div className="col-span-12 md:col-span-4">
-                <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">04</p>
+                <p className="t-utility-xs text-muted-foreground">04</p>
                 <h2
                   id="registry-shows"
                   className="t-section-title-sm text-foreground max-w-[18ch]"
@@ -402,7 +391,7 @@ const Index = () => {
       <section aria-labelledby="why-matters" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">05</p>
+            <p className="t-utility-xs text-muted-foreground">05</p>
             <h2
               id="why-matters"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -425,7 +414,7 @@ const Index = () => {
       <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">06</p>
+            <p className="t-utility-xs text-muted-foreground">06</p>
             <h2
               id="basics"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -467,7 +456,7 @@ const Index = () => {
       <section aria-labelledby="governance" className="border-b border-border bg-background">
         <div className="page-shell section-pad pb-0">
           <div className="mx-auto w-standard">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">07</p>
+            <p className="t-utility-xs text-muted-foreground">07</p>
             <h2
               id="governance"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -507,10 +496,7 @@ const Index = () => {
       >
         <div className="page-shell">
           <div className="mx-auto w-standard text-left">
-            <p
-              className="font-mono text-[12px] uppercase text-white/60"
-              style={{ letterSpacing: "1px" }}
-            >
+            <p className="t-utility-xs text-white/60">
               08 · Access
             </p>
             <h2
@@ -523,8 +509,7 @@ const Index = () => {
             <div className="mt-8">
               <Link
                 to="/verified-vendors"
-                className="group inline-flex items-center gap-3 rounded-[2px] bg-white text-[hsl(var(--navy-surface))] px-6 py-3 font-sans text-[13px] font-semibold uppercase hover:bg-white/90 active:bg-white/80 transition-colors"
-                style={{ letterSpacing: "0.08em" }}
+                className="group inline-flex items-center gap-3 rounded-[2px] bg-white text-[hsl(var(--navy-surface))] px-6 py-3 t-button hover:bg-white/90 active:bg-white/80 transition-colors"
               >
                 <span>Enter Registry</span>
                 <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>

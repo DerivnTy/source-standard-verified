@@ -279,10 +279,7 @@ const PillContents = ({
         overflow: "hidden",
       }}
     >
-      <span
-        className="shrink-0 font-mono text-[11px] uppercase text-foreground/70"
-        style={{ letterSpacing: "1px" }}
-      >
+      <span className="shrink-0 t-label-sm text-foreground/70">
         CONTENTS ·
       </span>
       <ul
@@ -296,8 +293,7 @@ const PillContents = ({
       >
         {waypoints.map((w) => {
           const active = w.id === activeId;
-          const chip =
-            "inline-flex items-center gap-2 font-mono text-[11px] uppercase font-medium transition-colors";
+          const chip = "inline-flex items-center gap-2 t-label-sm transition-colors";
           const tone = active
             ? "text-foreground"
             : "text-muted-foreground hover:text-foreground";
@@ -317,11 +313,10 @@ const PillContents = ({
                   paddingRight: `${itemPadX}px`,
                   paddingTop: `${chipPadY}px`,
                   paddingBottom: `${chipPadY}px`,
-                  letterSpacing: "1px",
                 }}
               >
-                <span className="text-primary">{w.number.padStart(2, "0")}.</span>
-                <span>{w.label}</span>
+                <span className="tabular-nums text-primary">{w.number.padStart(2, "0")}.</span>
+                <span>{w.label.toUpperCase()}</span>
               </a>
             </li>
           );

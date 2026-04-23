@@ -23,7 +23,7 @@ export const GlobalUtilityBar = () => {
       }
     >
       <div
-        className={`container-wide flex items-center justify-between gap-6 py-1 font-sans text-[10.5px] tracking-[0.04em] ${
+        className={`container-wide flex items-center justify-between gap-6 py-1 t-meta-note font-mono ${
           isNavy ? "text-white/65" : "text-muted-foreground/80"
         }`}
       >

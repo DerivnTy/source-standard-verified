@@ -65,7 +65,7 @@ export const SectionAnchorNav = ({
         <div className="mx-auto w-standard">
           <ul className="flex items-stretch gap-0 overflow-x-auto -mx-1">
             <li className="flex items-center pr-5 mr-2 border-r border-border/60">
-              <span className="t-utility-xs text-muted-foreground/70 whitespace-nowrap">
+              <span className="t-label-sm text-muted-foreground/70 whitespace-nowrap">
                 Contents
               </span>
             </li>
@@ -83,10 +83,8 @@ export const SectionAnchorNav = ({
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    <span className="font-mono t-utility-xs tabular-nums text-muted-foreground/70">
-                      {w.number}
-                    </span>
-                    <span>{w.label}</span>
+                    <span className="t-label-sm tabular-nums text-muted-foreground/70">{w.number.padStart(2, "0")}.</span>
+                    <span className="uppercase">{w.label}</span>
                     <span
                       aria-hidden
                       className={`absolute left-3 right-3 -bottom-px h-px transition-colors ${

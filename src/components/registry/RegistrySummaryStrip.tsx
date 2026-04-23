@@ -46,7 +46,7 @@ export const RegistrySummaryStrip = ({
                       aria-hidden
                       className={`inline-block w-[2px] h-[12px] ${cell.tickClassName}`}
                     />
-                    <span className="t-utility-xs text-muted-foreground tracking-[0.1em]">
+                    <span className="t-label-sm text-muted-foreground">
                       {cell.label}
                     </span>
                   </div>

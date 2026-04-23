@@ -114,7 +114,7 @@ export const SiteHeader = () => {
               to={n.to}
               end
               className={({ isActive }) =>
-                `relative inline-flex items-center h-10 font-mono text-[12px] uppercase tracking-[0.12em] transition-colors ${
+                `relative inline-flex items-center h-10 t-nav transition-colors ${
                   isActive
                     ? "text-foreground font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -130,7 +130,7 @@ export const SiteHeader = () => {
             asChild
             variant="outline"
             size="sm"
-            className="h-9 px-4 font-mono text-[12px] uppercase tracking-[0.12em] rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
+            className="h-9 px-4 rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
           >
             <Link to="/apply">Apply for Verification</Link>
           </Button>
@@ -194,7 +194,7 @@ export const SiteHeader = () => {
           {/* Top bar — logo left, close right (matches header height) */}
           <div className="container-wide flex h-16 shrink-0 items-center justify-between">
             <span
-              className="font-serif text-[16px] font-semibold tracking-tight"
+              className="t-body-md font-semibold"
               style={{ color: "hsl(var(--background))" }}
             >
               Source Standard
@@ -231,7 +231,7 @@ export const SiteHeader = () => {
                     {({ isActive }) => (
                       <>
                         <span
-                          className="font-serif text-[26px] tracking-tight"
+                          className="t-section-title-sm"
                           style={{
                             fontWeight: 400,
                             opacity: isActive ? 1 : 0.92,
@@ -269,11 +269,10 @@ export const SiteHeader = () => {
             <Link
               to="/apply"
               onClick={() => setOpen(false)}
-              className="mt-10 flex h-12 w-full items-center justify-center font-mono text-[12px] uppercase transition-colors hover:bg-[hsl(var(--background))]/[0.06]"
+              className="mt-10 flex h-12 w-full items-center justify-center t-button transition-colors hover:bg-[hsl(var(--background))]/[0.06]"
               style={{
                 border: "1px solid hsl(var(--background) / 0.55)",
                 color: "hsl(var(--background))",
-                letterSpacing: "0.22em",
                 borderRadius: "2px",
               }}
             >
@@ -283,7 +282,7 @@ export const SiteHeader = () => {
 
           {/* Pinned status footer */}
           <div
-            className="container-wide flex shrink-0 items-center justify-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.16em]"
+            className="container-wide flex shrink-0 items-center justify-center gap-2 t-meta-note"
             style={{
               color: "hsl(var(--background) / 0.55)",
               paddingTop: "16px",
