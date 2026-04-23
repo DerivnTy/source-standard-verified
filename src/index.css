@@ -743,13 +743,21 @@ a:active,
   border-bottom: 1px solid hsl(0 0% 100% / 0.10);
 }
 
-/* Force every sticky header on the site into glass mode. */
+/* Pass 5 — Force every sticky header on the site into NAVY glass mode.
+   Translucent navy (rgba(2,6,23,0.85)) with 40px blur + faint white hairline. */
 header.sticky,
 header[class*="sticky"] {
-  background-color: hsl(0 0% 100% / 0.85) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border-bottom: 1px solid hsl(0 0% 0% / 0.06) !important;
+  background-color: hsl(222 47% 5% / 0.85) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+  border-bottom: 1px solid hsl(0 0% 100% / 0.10) !important;
+  color: hsl(0 0% 100%) !important;
+}
+header.sticky a,
+header.sticky button,
+header[class*="sticky"] a,
+header[class*="sticky"] button {
+  color: inherit;
 }
 
 /* Card surface — pure white over the system-gray floor. */
@@ -759,21 +767,30 @@ header[class*="sticky"] {
   background-color: #ffffff !important;
 }
 
-/* Hairline border refinement — keep Pass 2's 0.5px but soften the tone for
-   "specular highlight" feel. Cards retain visible 1px on light surfaces. */
+/* Pass 5 — Hairline 0.5px on cards, color #E5E5EA. */
 .card,
 [class*="bg-card"] {
-  border: 1px solid hsl(0 0% 0% / 0.06) !important;
+  border: 0.5px solid #E5E5EA !important;
 }
 
-/* Thin-stroke icons — Lucide ships at stroke-width 2; snap to 1.25 globally. */
+/* Pass 5 — Thin-stroke icons. Lucide ships at 2; snap to 1.5 (fine-tip pen). */
 svg {
-  stroke-width: 1.25;
+  stroke-width: 1.5;
 }
-/* Preserve text-as-icon (logos, marks) and explicit overrides. */
 svg[data-keep-stroke],
 svg.keep-stroke {
   stroke-width: inherit;
+}
+
+/* Pass 5 — Mechanical feedback: pills darken 5% instantly on press
+   (combines with scale(0.97) from Pass 3). */
+.pill:active,
+.chip:active,
+[data-pill]:active,
+[data-chip]:active,
+button[class*="rounded-full"]:active {
+  filter: brightness(0.95) !important;
+  transition-duration: 0ms !important;
 }
 
 /* Kill any lingering loud gradients on body / page wrappers — System Gray floor wins. */
