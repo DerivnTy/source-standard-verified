@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { FileSearch, GitBranch } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
@@ -231,17 +232,32 @@ const Index = () => {
       <LiveDashboard />
 
       {/* §2 — The trust problem */}
-      <section aria-labelledby="trust-problem" className="border-b border-border bg-background">
+      <section
+        aria-labelledby="trust-problem"
+        className="bg-background"
+        style={{ borderBottom: "1px solid #F1F5F9" }}
+      >
         <div className="page-shell section-pad">
-          <div className="mx-auto w-standard">
+          <div className="mx-auto w-standard text-left">
             <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">01</p>
-            <h2
-              id="trust-problem"
-              className="t-section-title-sm text-foreground max-w-[28ch]"
+            <div className="mt-4 flex items-center gap-3">
+              <FileSearch
+                aria-hidden
+                size={18}
+                strokeWidth={1.75}
+                className="text-foreground/70 shrink-0"
+              />
+              <h2
+                id="trust-problem"
+                className="t-section-title-sm text-foreground max-w-[28ch]"
+              >
+                Branding is not documentation.
+              </h2>
+            </div>
+            <p
+              className="mt-6 t-body-md text-muted-foreground max-w-[90%] sm:max-w-[70ch]"
+              style={{ lineHeight: 1.6 }}
             >
-              Branding is not documentation.
-            </h2>
-            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
               In the peptide industry, marketing claims are easy to make and difficult to prove.
               Most consumers are left to rely on trust signals, presentation, and website language.
               Source Standard exists to shift that standard back to records. We audit the supply
@@ -255,23 +271,36 @@ const Index = () => {
       {/* §3 — How it works */}
       <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
-          <div className="mx-auto w-standard">
+          <div className="mx-auto w-standard text-left">
             <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">02</p>
-            <h2
-              id="how-it-works"
-              className="t-section-title-sm text-foreground max-w-[34ch]"
-            >
-              How Source Standard works
-            </h2>
+            <div className="mt-4 flex items-center gap-3">
+              <GitBranch
+                aria-hidden
+                size={18}
+                strokeWidth={1.75}
+                className="text-foreground/70 shrink-0"
+              />
+              <h2
+                id="how-it-works"
+                className="t-section-title-sm text-foreground max-w-[34ch]"
+              >
+                How Source Standard works
+              </h2>
+            </div>
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
               {howItWorks.map((s, i) => (
-                <div key={i}>
+                <div key={i} className="text-left">
                   <p className="t-utility-xs text-muted-foreground">
                     {(i + 1).toString().padStart(2, "0")}
                   </p>
                   <div className="mt-3 h-px w-8 bg-border" aria-hidden="true" />
                   <h3 className="mt-5 t-h4 text-foreground max-w-[24ch]">{s.h}</h3>
-                  <p className="mt-5 t-body-sm text-muted-foreground max-w-[42ch]">{s.b}</p>
+                  <p
+                    className="mt-5 t-body-sm text-muted-foreground max-w-[90%] sm:max-w-[42ch]"
+                    style={{ lineHeight: 1.6 }}
+                  >
+                    {s.b}
+                  </p>
                 </div>
               ))}
             </div>
