@@ -111,7 +111,7 @@ export const QueryBar = ({
 };
 
 /**
- * Shared facet select — matches the QueryBar's locked 40px / single border.
+ * FacetSelect — minimal text-style dropdown. No border, no box; reads as a link.
  */
 export const FacetSelect = ({
   value,
@@ -128,9 +128,8 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-8 w-full md:w-auto px-2.5 pr-8 bg-background text-[12px] text-foreground rounded-[2px] focus:outline-none focus:ring-0 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center]"
+    className="h-7 bg-transparent border-0 pl-0 pr-5 text-[12.5px] text-foreground hover:text-foreground/80 focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_2px_center]"
     style={{
-      border: "1px solid hsl(var(--border))",
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
     }}
