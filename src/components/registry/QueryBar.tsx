@@ -126,7 +126,7 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-7 bg-transparent border-0 pl-0 pr-5 text-[12.5px] text-foreground hover:text-foreground/80 focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_2px_center]"
+    className="h-7 w-auto max-w-[140px] bg-transparent border-0 pl-0 pr-4 text-[12.5px] text-foreground hover:text-foreground/80 focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_0_center] truncate"
     style={{
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
