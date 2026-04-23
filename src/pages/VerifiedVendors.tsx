@@ -105,9 +105,11 @@ const VerifiedVendors = () => {
       if (statusPill === "verified" && vendor.status !== "verified") return false;
       if (statusPill === "unverified" && vendor.status === "verified") return false;
 
+      if (!matchesFocus(vendor, focus)) return false;
+
       return true;
     });
-  }, [query, statusPill]);
+  }, [query, statusPill, focus]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -119,7 +121,7 @@ const VerifiedVendors = () => {
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, statusPill]);
+  }, [query, statusPill, focus]);
 
   const pills: { value: StatusPill; label: string }[] = [
     { value: "all", label: "All" },
