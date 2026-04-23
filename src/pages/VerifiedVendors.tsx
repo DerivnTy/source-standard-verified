@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
-import { RegistryPagination } from "@/components/registry/RegistryPagination";
-import { VendorAuditCard } from "@/components/registry/VendorAuditCard";
+import { VendorRow } from "@/components/registry/VendorRow";
+import { FilterBottomSheet } from "@/components/registry/FilterBottomSheet";
+import { resolveStateAbbr } from "@/lib/usStates";
 import {
   vendors,
   Vendor,
@@ -17,7 +18,8 @@ import {
 
 type SortMode = "name-asc" | "location" | "latest-audit";
 type CategoryFilter = "all" | string;
-type ViewMode = "list" | "grid";
+
+const PAGE_SIZE = 10;
 
 const formatLocation = (vendor: Vendor) => {
   if (vendor.city && vendor.state) return `${vendor.city}, ${vendor.state}`;
@@ -28,9 +30,9 @@ const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<CategoryFilter>("all");
   const [sort, setSort] = useState<SortMode>("name-asc");
-  const [view, setView] = useState<ViewMode>("list");
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(25);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [categorySheetOpen, setCategorySheetOpen] = useState(false);
+  const [sortSheetOpen, setSortSheetOpen] = useState(false);
 
   const states = useMemo(() => getVendorStates(), []);
   const categories = useMemo(
@@ -65,6 +67,7 @@ const VerifiedVendors = () => {
 
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
+    const stateAbbr = resolveStateAbbr(query);
 
     return vendors.filter((vendor) => {
       if (normalizedQuery) {
@@ -79,7 +82,10 @@ const VerifiedVendors = () => {
           .join(" ")
           .toLowerCase();
 
-        if (!haystack.includes(normalizedQuery)) return false;
+        const textMatch = haystack.includes(normalizedQuery);
+        const stateMatch = stateAbbr ? vendor.state === stateAbbr : false;
+
+        if (!textMatch && !stateMatch) return false;
       }
 
       if (category !== "all" && vendor.category !== category) return false;
@@ -114,22 +120,31 @@ const VerifiedVendors = () => {
     }
   }, [filtered, sort]);
 
-  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
-  const currentPage = Math.min(page, totalPages);
-  const pageStart = (currentPage - 1) * pageSize;
-  const pageItems = sorted.slice(pageStart, pageStart + pageSize);
+  const visibleItems = sorted.slice(0, visibleCount);
+  const hasMore = visibleCount < sorted.length;
 
   useEffect(() => {
-    setPage(1);
-  }, [query, category, sort, pageSize]);
+    setVisibleCount(PAGE_SIZE);
+  }, [query, category, sort]);
 
-  const toolbarSelectClass =
-    "h-14 min-w-0 border-0 bg-background px-4 pr-9 text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_12px_center] cursor-pointer";
+  const categoryOptions = useMemo(
+    () => [
+      { value: "all", label: "All Categories" },
+      ...categories.map((c) => ({ value: c, label: c })),
+    ],
+    [categories],
+  );
 
-  const toolbarChevron = {
-    backgroundImage:
-      "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
-  };
+  const sortOptions: { value: SortMode; label: string }[] = [
+    { value: "name-asc", label: "Alphabetical" },
+    { value: "location", label: "Location" },
+    { value: "latest-audit", label: "Latest Audit" },
+  ];
+
+  const activeCategoryLabel =
+    categoryOptions.find((o) => o.value === category)?.label ?? "Category";
+  const activeSortLabel =
+    sortOptions.find((o) => o.value === sort)?.label ?? "Sort";
 
   return (
     <>
@@ -157,98 +172,54 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pt-12 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
-            <div className="mb-3 flex justify-end px-5 md:px-0">
-              <div
-                role="radiogroup"
-                aria-label="View mode"
-                className="inline-flex overflow-hidden rounded-[2px]"
-                style={{ border: "1px solid hsl(var(--border))" }}
+            {/* Custom underline search input */}
+            <div className="px-5 md:px-0">
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search by name, city, state…"
+                aria-label="Search the registry"
+                className="font-sans w-full bg-transparent py-3 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                style={{
+                  borderBottom: "1px solid hsl(var(--border))",
+                  transition: "border-color 0.5s ease",
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderBottomColor =
+                    "hsl(var(--navy-surface))";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderBottomColor =
+                    "hsl(var(--border))";
+                }}
+              />
+            </div>
+
+            {/* Filter / Sort triggers */}
+            <div className="mt-4 flex items-center gap-2 px-5 md:px-0">
+              <button
+                type="button"
+                onClick={() => setCategorySheetOpen(true)}
+                className="inline-flex h-10 items-center gap-2 rounded-[2px] border border-border bg-background px-3.5 text-[13px] text-foreground transition-colors hover:border-foreground/40"
               >
-                {[
-                  { value: "list", label: "List" },
-                  { value: "grid", label: "Grid" },
-                ].map((option, index) => {
-                  const active = view === option.value;
-                  return (
-                    <button
-                      key={option.value}
-                      role="radio"
-                      aria-checked={active}
-                      onClick={() => setView(option.value as ViewMode)}
-                      className={`h-7 px-3 text-[11.5px] transition-colors ${
-                        index > 0 ? "border-l" : ""
-                      } ${
-                        active
-                          ? "bg-[hsl(var(--navy-surface))] text-white"
-                          : "bg-background text-muted-foreground hover:text-foreground"
-                      }`}
-                      style={{ borderColor: "hsl(var(--border))" }}
-                    >
-                      {option.label}
-                    </button>
-                  );
-                })}
+                <SlidersHorizontal className="h-3.5 w-3.5" />
+                <span className="font-sans">{activeCategoryLabel}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSortSheetOpen(true)}
+                className="inline-flex h-10 items-center gap-2 rounded-[2px] border border-border bg-background px-3.5 text-[13px] text-foreground transition-colors hover:border-foreground/40"
+              >
+                <ArrowUpDown className="h-3.5 w-3.5" />
+                <span className="font-sans">{activeSortLabel}</span>
+              </button>
+              <div className="ml-auto font-mono text-[11.5px] text-muted-foreground tabular-nums">
+                {sorted.length.toLocaleString()} / {vendors.length.toLocaleString()}
               </div>
             </div>
 
-            <div
-              className="mx-5 md:mx-0 grid overflow-hidden rounded-[2px] bg-background"
-              style={{
-                border: "1px solid #E2E8F0",
-                gridTemplateColumns: "minmax(0, 1fr) 120px 132px",
-                height: "56px",
-              }}
-            >
-              <div className="relative min-w-0 h-full">
-                <Search className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search the registry"
-                  aria-label="Search the registry"
-                  className="h-full w-full min-w-0 bg-background pl-11 pr-4 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
-                />
-              </div>
-
-              <div className="h-full" style={{ borderLeft: "1px solid #E2E8F0" }}>
-                <select
-                  value={category}
-                  onChange={(event) => setCategory(event.target.value)}
-                  aria-label="Category"
-                  className={`${toolbarSelectClass} w-full h-full`}
-                  style={toolbarChevron}
-                >
-                  <option value="all">Category</option>
-                  {categories.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="h-full" style={{ borderLeft: "1px solid #E2E8F0" }}>
-                <select
-                  value={sort}
-                  onChange={(event) => setSort(event.target.value as SortMode)}
-                  aria-label="Sort"
-                  className={`${toolbarSelectClass} w-full h-full`}
-                  style={toolbarChevron}
-                >
-                  <option value="name-asc">Alphabetical</option>
-                  <option value="location">Location</option>
-                  <option value="latest-audit">Latest Audit</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="mt-2 px-5 md:px-0 text-[12px] text-muted-foreground tabular-nums">
-              {sorted.length === 0
-                ? "0 of 0"
-                : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()}`}
-            </div>
-
-            <div className="mt-5">
+            {/* Vendor card stack */}
+            <div className="mt-6">
               {sorted.length === 0 ? (
                 <EmptyState
                   eyebrow="No matching vendors"
@@ -258,54 +229,64 @@ const VerifiedVendors = () => {
                       : "No vendors match the current search."
                   }
                 />
-              ) : view === "list" ? (
-                <ul className="overflow-hidden rounded-[2px] border border-border bg-card divide-y divide-border">
-                  {pageItems.map((vendor) => {
-                    const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
-                    return (
-                      <li key={vendor.slug}>
-                        <VendorAuditCard
-                          vendor={vendor}
-                          fulfillment={fulfillment}
-                          location={formatLocation(vendor)}
-                          view="list"
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
               ) : (
-                <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {pageItems.map((vendor) => {
-                    const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
-                    return (
-                      <li key={vendor.slug}>
-                        <VendorAuditCard
-                          vendor={vendor}
-                          fulfillment={fulfillment}
-                          location={formatLocation(vendor)}
-                          view="grid"
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
+                <>
+                  <ul className="flex flex-col overflow-hidden rounded-[2px] border border-border bg-card divide-y divide-border">
+                    {visibleItems.map((vendor) => {
+                      const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
+                      return (
+                        <li key={vendor.slug}>
+                          <VendorRow
+                            vendor={vendor}
+                            fulfillment={fulfillment}
+                            location={formatLocation(vendor)}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
 
-              {sorted.length > pageSize && (
-                <RegistryPagination
-                  page={currentPage}
-                  totalPages={totalPages}
-                  pageSize={pageSize}
-                  totalRecords={sorted.length}
-                  onPageChange={setPage}
-                  onPageSizeChange={setPageSize}
-                />
+                  {hasMore && (
+                    <div className="mt-6 flex justify-center">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setVisibleCount((n) =>
+                            Math.min(n + PAGE_SIZE, sorted.length),
+                          )
+                        }
+                        className="inline-flex h-11 items-center justify-center rounded-[2px] border border-foreground/15 bg-background px-6 font-sans text-[13px] font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-[hsl(var(--muted))]/40"
+                      >
+                        Load More
+                        <span className="ml-2 font-mono text-[11px] text-muted-foreground tabular-nums">
+                          +{Math.min(PAGE_SIZE, sorted.length - visibleCount)}
+                        </span>
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
         </div>
       </section>
+
+      <FilterBottomSheet
+        open={categorySheetOpen}
+        onOpenChange={setCategorySheetOpen}
+        title="Filter by Category"
+        options={categoryOptions}
+        value={category}
+        onChange={(v) => setCategory(v)}
+      />
+      <FilterBottomSheet
+        open={sortSheetOpen}
+        onOpenChange={setSortSheetOpen}
+        title="Sort Records"
+        options={sortOptions}
+        value={sort}
+        onChange={(v) => setSort(v as SortMode)}
+      />
 
       <section className="border-t border-border bg-surface-muted/30">
         <div className="page-shell pt-16 md:pt-20" style={{ paddingBottom: "80px" }}>
