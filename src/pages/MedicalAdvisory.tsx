@@ -2,8 +2,22 @@ import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
+import { DocJumpBar } from "@/components/DocJumpBar";
 import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
+
+const WAYPOINTS = [
+  { id: "transparency", number: "01", label: "Transparency" },
+  { id: "verification-chain", number: "02", label: "Verification Chain" },
+  { id: "members", number: "03", label: "Members" },
+  { id: "scope", number: "04", label: "Scope" },
+  { id: "responsibilities", number: "05", label: "Responsibilities" },
+  { id: "continue", number: "06", label: "Continue" },
+];
+
+const SectionIndex = ({ n }: { n: string }) => (
+  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
+);
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
   "advisor-01": "Chair · Clinical Audit Standards",
@@ -116,19 +130,21 @@ const MedicalAdvisory = () => {
 
       <BriefingHero
         tone="navy"
-        category="Governance & Clinical Oversight"
+        category=""
         docId="SS-MAB-2026.01"
         title="Governance & Clinical Oversight"
         statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
+
+      <DocJumpBar waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
 
             {/* Why the Board exists */}
-            <section className="section-pad border-b border-border/40">
-              <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
+            <section id="transparency" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="01" />
               <h2 className="t-section-title-sm text-foreground mb-8">
                 Transparency requires accountability.
               </h2>
@@ -143,7 +159,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Role in the framework */}
-            <section className="section-pad border-b border-border/40">
+            <section id="verification-chain" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="02" />
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
                   <h2 className="t-section-title-sm text-foreground">
@@ -170,7 +187,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Board roster */}
-            <section className="section-pad border-b border-border/40">
+            <section id="members" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="03" />
               <div className="mb-8">
                 <h2 className="t-section-title-sm text-foreground max-w-2xl">
                   Appointed members
@@ -225,7 +243,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Scope & boundaries */}
-            <section className="section-pad border-b border-border/40">
+            <section id="scope" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="04" />
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
                   <h2 className="t-section-title-sm text-foreground">
@@ -245,7 +264,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Responsibilities — full-width SOP list on tinted surface */}
-            <section className="-mx-6 md:-mx-10 lg:-mx-16 px-6 md:px-10 lg:px-16 py-12 md:py-14 bg-surface-muted/60 border-y border-border/40">
+            <section id="responsibilities" className="scroll-mt-24 -mx-6 md:-mx-10 lg:-mx-16 px-6 md:px-10 lg:px-16 py-12 md:py-14 bg-surface-muted/60 border-y border-border/40">
+              <SectionIndex n="05" />
               <div className="mb-8 max-w-[60ch]">
                 <h2 className="t-section-title-sm text-foreground">
                   Responsibilities
@@ -276,7 +296,8 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* Bridge — Continue reading */}
-            <section className="pt-12 pb-12">
+            <section id="continue" className="scroll-mt-24 pt-12 pb-12">
+              <SectionIndex n="06" />
               <h2 className="t-section-title-sm text-foreground mb-6">
                 Continue reading
               </h2>
