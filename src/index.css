@@ -170,23 +170,21 @@ html {
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.6;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.011em;
   }
 
-  /* Headings drop to medium (500) at H1/H2. Semibold is reserved
-     for short labels, eyebrows, and identifiers — not long titles.
-     This is the single biggest lever against the "DIY website" feel. */
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans text-foreground;
     font-weight: 600;
+    letter-spacing: -0.022em;
   }
 
-  h1 { line-height: 1.12; letter-spacing: -0.022em; }
-  h2 { line-height: 1.18; letter-spacing: -0.018em; }
-  h3 { line-height: 1.3; font-weight: 600; letter-spacing: -0.012em; }
-  h4 { line-height: 1.35; font-weight: 600; letter-spacing: -0.008em; }
+  h1 { line-height: 1.12; }
+  h2 { line-height: 1.18; }
+  h3 { line-height: 1.3; }
+  h4 { line-height: 1.35; }
 
   p { line-height: 1.6; }
 }
