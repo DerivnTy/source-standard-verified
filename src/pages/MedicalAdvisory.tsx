@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-import { advisoryBoard, responsibilities } from "@/data/advisoryBoard";
+import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
