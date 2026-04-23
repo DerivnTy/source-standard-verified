@@ -164,6 +164,34 @@ const PillContents = ({
   chipPadY: number;
   ulPushLeft: number;
 }) => {
+  const ulRef = useRef<HTMLUListElement | null>(null);
+  const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
+  const [indicator, setIndicator] = useState<{ left: number; width: number }>({
+    left: 0,
+    width: 0,
+  });
+
+  useEffect(() => {
+    const update = () => {
+      const ul = ulRef.current;
+      const el = itemRefs.current[activeId];
+      if (!ul || !el) return;
+      const ulRect = ul.getBoundingClientRect();
+      const elRect = el.getBoundingClientRect();
+      setIndicator({
+        left: elRect.left - ulRect.left,
+        width: elRect.width,
+      });
+    };
+    update();
+    window.addEventListener("resize", update);
+    const id = window.setTimeout(update, 50);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.clearTimeout(id);
+    };
+  }, [activeId, itemGap, itemPadX, ulPushLeft, waypoints]);
+
   return (
     <div
       className="flex items-center"
@@ -182,7 +210,8 @@ const PillContents = ({
         Contents ·
       </span>
       <ul
-        className="flex items-center shrink-0"
+        ref={ulRef}
+        className="relative flex items-center shrink-0"
         style={{
           gap: `${itemGap}px`,
           minWidth: 0,
@@ -192,12 +221,17 @@ const PillContents = ({
         {waypoints.map((w) => {
           const active = w.id === activeId;
           const chip =
-            "inline-flex items-center gap-2 text-[11px] font-mono font-medium uppercase tracking-[0.06em] border transition-colors rounded-full";
+            "inline-flex items-center gap-2 text-[11px] font-mono font-medium uppercase tracking-[0.06em] transition-colors";
           const tone = active
-            ? "border-foreground text-foreground bg-surface-muted"
-            : "border-transparent text-muted-foreground hover:text-foreground hover:border-border";
+            ? "text-foreground"
+            : "text-muted-foreground hover:text-foreground";
           return (
-            <li key={w.id}>
+            <li
+              key={w.id}
+              ref={(el) => {
+                itemRefs.current[w.id] = el;
+              }}
+            >
               <a
                 href={`#${w.id}`}
                 onClick={onJump(w.id)}
@@ -215,6 +249,21 @@ const PillContents = ({
             </li>
           );
         })}
+        {/* Sliding underline indicator */}
+        <span
+          aria-hidden
+          className="absolute bg-foreground"
+          style={{
+            left: `${indicator.left}px`,
+            width: `${indicator.width}px`,
+            height: "2px",
+            bottom: "-2px",
+            borderRadius: "2px",
+            transition:
+              "left 350ms cubic-bezier(0.4, 0, 0.2, 1), width 350ms cubic-bezier(0.4, 0, 0.2, 1)",
+            opacity: indicator.width > 0 ? 1 : 0,
+          }}
+        />
       </ul>
     </div>
   );
