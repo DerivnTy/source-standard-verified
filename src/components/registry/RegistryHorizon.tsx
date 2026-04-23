@@ -39,7 +39,7 @@ export const RegistryHorizon = ({
                 ? cell.value.toLocaleString()
                 : cell.value}
             </span>
-            <span className="mt-1.5 text-[9px] sm:text-[10.5px] font-medium uppercase tracking-[0.1em] sm:tracking-[0.12em] text-muted-foreground leading-none whitespace-nowrap">
+            <span className="mt-1.5 text-[9.5px] sm:text-[10.5px] font-medium uppercase tracking-[0.08em] sm:tracking-[0.12em] text-muted-foreground leading-[1.25] text-balance">
               {cell.label}
             </span>
           </div>
