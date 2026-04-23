@@ -1,60 +1,52 @@
 
 
-## Zero-Redundancy Header Protocol
+## Global Zero-Redundancy: Hero & Section Eyebrow Removal
 
-Strip the redundant `§N · CATEGORY` mono eyebrow from every `BoardSection` instance on the policy/protocol pages, sharpen three headlines, and confirm the body metadata strip is already gone. The section number stays as a quiet left-side marker; the bold headline becomes the sole entry point.
+Eliminate the redundant `POLICY · …` hero eyebrow and the duplicate `01` marker above each section headline across all five policy/protocol/about pages. After this pass, each title appears exactly once: H1 in the navy hero, then DocJumpBar chips, then bold section headlines.
 
-### 1. BoardSection — make eyebrow optional
+### 1. Component hardening
 
-**File:** `src/components/BoardSection.tsx`
+**`src/components/BriefingHero.tsx`**
+- In both the navy `chapter` branch and the default-mode branch, wrap the eyebrow `<p>` that renders `category` in `{category && (...)}` so an empty string fully suppresses the element and its margin (no orphaned spacing).
+- Leave the `cover` variant and all other props untouched.
 
-- Add an optional `hideEyebrow?: boolean` prop (default `false`).
-- When `true`, suppress the `<p className="t-utility-xs text-muted-foreground mb-4">§N · CATEGORY</p>` line entirely and instead render a muted grey section number (`01`, `02`, …) above the headline using the existing mono utility (`t-utility-xs text-muted-foreground/60 mb-3`).
-- No change to the 12-col layout, padding, or typography tokens. MAB page (`MedicalAdvisory.tsx`) keeps current behavior since the prop defaults off.
+**`src/components/BoardSection.tsx`**
+- When `hideEyebrow` is `true`, render **nothing** in the eyebrow slot. Delete the `<p className="t-utility-xs text-muted-foreground/60 mb-3">{n}</p>` line entirely.
+- Default behavior (`hideEyebrow={false}`) is unchanged — MAB page keeps its `§N · CATEGORY` eyebrow.
 
-### 2. Apply `hideEyebrow` + headline edits
+### 2. Page updates — set `category=""` on BriefingHero
 
-**`src/pages/Terms.tsx` (Registry User Agreement)**
-- Pass `hideEyebrow` to every `BoardSection`.
-- Rename section 01 title: `Acceptance of Terms` → **`Registry Access & Acceptance`**.
+Update the navy `BriefingHero` invocation in each page:
 
-**`src/pages/Privacy.tsx` (Data Governance Protocol)**
-- Pass `hideEyebrow` to every `BoardSection`.
-- Rename section 01 title: `Record Partitioning & Access Control` → **`Record Partitioning & PAM Classification`**.
+- `src/pages/Terms.tsx` — `category="Policy · Registry User Agreement"` → `category=""`
+- `src/pages/Privacy.tsx` — `category="Policy · Data Governance Protocol"` → `category=""`
+- `src/pages/VerificationDisclaimer.tsx` — remove the `Policy · …` category string
+- `src/pages/About.tsx` — remove the `About · …` category string
+- `src/pages/HowItWorks.tsx` — remove the `Policy · …` category string
 
-**`src/pages/VerificationDisclaimer.tsx`**
-- Pass `hideEyebrow` to every `BoardSection`.
-- Rename section 01 title: `Scope of Administrative Attestation` → **`Administrative Attestation Scope`**.
+No other props change. `hideEyebrow` is already passed to every `BoardSection` on these five pages from the prior round, so the BoardSection component change automatically suppresses the `01`/`02`/… markers globally.
 
-**`src/pages/HowItWorks.tsx` (Verification Protocol)**
-- Pass `hideEyebrow` to every `BoardSection`. No headline changes.
+### 3. Layout geometry
 
-**`src/pages/About.tsx` (Organization & Mandate)**
-- Pass `hideEyebrow` to every `BoardSection`. No headline changes.
-
-### 3. Body metadata strip
-
-Already removed in the previous pass on Terms / Privacy / VerificationDisclaimer. About and HowItWorks never had one. No action needed — confirmed via current file view.
-
-### 4. Spacing
-
-The existing `section-pad` token on `BoardSection` plus the `DocJumpBar` produces the ~64px hero-to-Section-01 gap. The 12-col left rail places the muted `01` marker, then `mb-3` (12px) to the headline; the right-rail list keeps `space-y-5` from `BoardSection`'s body wrapper. No global spacing overrides required.
+No spacing overrides. The navy hero's existing vertical padding now hugs the H1 directly — balanced and intentional. `DocJumpBar` continues to provide the buffer to Section 01, and each `BoardSection`'s headline becomes the first visual element of its block.
 
 ### Result
 
 ```text
-┌─────────────────────────────────────────┐
-│  Hero (navy) — title + subtitle         │
-├─────────────────────────────────────────┤
-│  DocJumpBar (sticky)                    │
-├─────────────────────────────────────────┤
-│  01                  Registry Access    │
-│                      & Acceptance       │
-│                                         │
-│                      | Access constit…  │
-│                      | If any term…     │
-└─────────────────────────────────────────┘
+┌──────────────────────────────────────┐
+│                                      │
+│   Data Governance Protocol           │  ← H1 only, no eyebrow
+│   The administrative framework …     │
+│                                      │
+├──────────────────────────────────────┤
+│ CONTENTS · 01 PARTITIONING  02 …     │  ← DocJumpBar (only place numbers live)
+├──────────────────────────────────────┤
+│                                      │
+│   Record Partitioning &              │  ← bold headline = first element
+│   PAM Classification                 │
+│   | Source Standard maintains …      │
+└──────────────────────────────────────┘
 ```
 
-One number. One headline. No repeated category. Matches the Advisory Board's surgical rhythm across all five policy/protocol pages.
+One title per zone. Five pages aligned. No clerical stutter.
 
