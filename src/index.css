@@ -19,7 +19,7 @@ html {
   :root {
     /* Institutional Modern v2 — Authority Navy #0F172A + Safety Blue #0EA5E9 + Cool Gray #F8FAFC */
     --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --foreground: 222 14% 12%;
 
     /* --surface stays white so cards / inputs / dropdowns sit elevated on the cool-gray page */
     --surface: 0 0% 100%;
@@ -276,21 +276,23 @@ html {
   .t-body-md          { font-size: 18px; line-height: 30px; font-weight: 400; }
   .t-body-lg          { font-size: 19px; line-height: 32px; font-weight: 400; }
   .t-body-strong      { font-size: 18px; line-height: 30px; font-weight: 600; }
-  .t-section-title-sm { font-size: 30px; line-height: 38px; font-weight: 600; letter-spacing: -0.014em; }
-  .t-section-title-md { font-size: 36px; line-height: 44px; font-weight: 600; letter-spacing: -0.016em; }
-  .t-page-title       { font-size: 36px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
-  .t-h3               { font-size: 22px; line-height: 30px; font-weight: 600; letter-spacing: -0.01em; }
-  .t-h4               { font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: -0.005em; }
+  .t-h3               { font-size: 22px; line-height: 30px; font-weight: 600; letter-spacing: -0.005em; }
+  .t-h4               { font-size: 18px; line-height: 26px; font-weight: 600; letter-spacing: -0.003em; }
+  @media (min-width: 768px) {
+    .t-h3 { font-size: 24px; line-height: 32px; }
+    .t-h4 { font-size: 20px; line-height: 28px; }
+  }
+  .t-section-title-sm { font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; font-size: 30px; line-height: 38px; font-weight: 600; letter-spacing: -0.005em; }
+  .t-section-title-md { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 36px; line-height: 44px; font-weight: 500; letter-spacing: -0.01em; }
+  .t-page-title       { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 36px; line-height: 44px; font-weight: 500; letter-spacing: -0.015em; }
   @media (min-width: 768px) {
     .t-page-title      { font-size: 48px; line-height: 56px; }
-    .t-h3              { font-size: 24px; line-height: 32px; }
-    .t-h4              { font-size: 20px; line-height: 28px; }
   }
-  .t-chapter-title    { font-size: 40px; line-height: 48px; font-weight: 600; letter-spacing: -0.022em; }
+  .t-chapter-title    { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 40px; line-height: 48px; font-weight: 500; letter-spacing: -0.02em; }
   @media (min-width: 768px) { .t-chapter-title { font-size: 56px; line-height: 64px; } }
-  .t-home-title       { font-size: 48px; line-height: 56px; font-weight: 600; letter-spacing: -0.024em; }
+  .t-home-title       { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 48px; line-height: 56px; font-weight: 500; letter-spacing: -0.02em; }
   @media (min-width: 768px) { .t-home-title { font-size: 72px; line-height: 80px; } }
-  .t-article-title    { font-size: 36px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
+  .t-article-title    { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 36px; line-height: 44px; font-weight: 500; letter-spacing: -0.015em; }
   @media (min-width: 768px) { .t-article-title { font-size: 48px; line-height: 56px; } }
 
   /* Section vertical rhythm (sitewide constitution).

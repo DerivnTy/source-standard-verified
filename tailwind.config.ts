@@ -13,6 +13,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Geist', 'Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['"Source Serif 4"', '"Source Serif Pro"', 'Georgia', 'ui-serif', 'serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       colors: {
