@@ -456,142 +456,20 @@ const VerifiedVendors = () => {
                   }
                 />
               ) : (
-                <>
-                  {/* Desktop table */}
-                  <div className="hidden md:block border-t border-border">
-                    <div className="grid grid-cols-12 px-3 py-3 border-b border-border bg-surface-muted/30">
-                      <div className="col-span-3 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Vendor / Entity
-                      </div>
-                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Medical Director
-                      </div>
-                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Registry Status
-                      </div>
-                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Location
-                      </div>
-                      <div className="col-span-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Fulfillment
-                      </div>
-                      <div className="col-span-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                        Primary Focus
-                      </div>
-                    </div>
-
-                    <div className="divide-y divide-border/60">
-                      {pageItems.map((v) => {
-                        const isVerified = v.status === "verified";
-                        const ful = fulfillmentByVendor.get(v.slug)!;
-                        return (
-                          <Link
-                            key={v.slug}
-                            to={`/directory/${v.slug}`}
-                            aria-label={`${v.name} — ${VENDOR_STATUS_LABEL[v.status]}, ${formatLocation(v)}`}
-                            className="group relative grid grid-cols-12 px-3 py-3.5 items-center min-h-[68px] hover:bg-surface-muted/50 transition-colors duration-150"
-                          >
-                            <span
-                              aria-hidden
-                              className={`absolute left-0 top-0 bottom-0 w-[2px] transition-opacity duration-150 ${
-                                isVerified
-                                  ? "bg-verified opacity-100"
-                                  : "bg-foreground opacity-0 group-hover:opacity-100"
-                              }`}
-                            />
-
-                            <div className="col-span-3 min-w-0 pr-2">
-                              <div className="text-[15px] font-semibold text-foreground leading-[22px] truncate">
-                                {v.name}
-                              </div>
-                            </div>
-
-                            <div className="col-span-2 min-w-0 pr-3 text-[13px] text-muted-foreground truncate">
-                              {v.medicalDirector || "—"}
-                            </div>
-
-                            <div className="col-span-2 pr-3">
-                              {isVerified ? (
-                                <VerificationShield
-                                  reviewId={v.reviewId}
-                                  reviewDate={v.reviewDate}
-                                />
-                              ) : (
-                                <StatusBadge status={v.status} />
-                              )}
-                              {isVerified && v.reviewDate && (
-                                <div className="mt-1 text-[10.5px] text-muted-foreground tabular-nums">
-                                  Reviewed {v.reviewDate}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="col-span-2 text-[13px] text-muted-foreground truncate pr-3">
-                              {formatLocation(v)}
-                            </div>
-
-                            <div className="col-span-1 pr-3">
-                              <FulfillmentChip kind={ful} />
-                            </div>
-
-                            <div className="col-span-2 flex items-center justify-between gap-3 pr-1">
-                              <span className="text-[13px] text-muted-foreground truncate">
-                                {(v.clinicalFocus && v.clinicalFocus.length > 0
-                                  ? v.clinicalFocus.join(" · ")
-                                  : v.category) || "—"}
-                              </span>
-                              <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/60 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-foreground" />
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Mobile list */}
-                  <div className="md:hidden border-t border-border divide-y divide-border/60">
-                    {pageItems.map((v) => {
-                      const isVerified = v.status === "verified";
-                      const ful = fulfillmentByVendor.get(v.slug)!;
-                      return (
-                        <Link
-                          key={v.slug}
-                          to={`/directory/${v.slug}`}
-                          className="relative block py-4 pl-3 pr-2 hover:bg-surface-muted/40 transition-colors"
-                        >
-                          {isVerified && (
-                            <span
-                              aria-hidden
-                              className="absolute left-0 top-0 bottom-0 w-[2px] bg-verified"
-                            />
-                          )}
-                          <div className="flex items-start justify-between gap-3">
-                            <p className="text-[14.5px] font-semibold text-foreground leading-snug">
-                              {v.name}
-                            </p>
-                            {isVerified ? (
-                              <VerificationShield
-                                reviewId={v.reviewId}
-                                reviewDate={v.reviewDate}
-                              />
-                            ) : (
-                              <StatusBadge status={v.status} />
-                            )}
-                          </div>
-                          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground">
-                            <span>{formatLocation(v)}</span>
-                            <FulfillmentChip kind={ful} />
-                          </div>
-                          {v.clinicalFocus && v.clinicalFocus.length > 0 && (
-                            <p className="mt-1 text-[12px] text-muted-foreground">
-                              {v.clinicalFocus.join(" · ")}
-                            </p>
-                          )}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {pageItems.map((v) => {
+                    const ful = fulfillmentByVendor.get(v.slug)!;
+                    return (
+                      <li key={v.slug}>
+                        <VendorAuditCard
+                          vendor={v}
+                          fulfillment={ful}
+                          location={formatLocation(v)}
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
               )}
 
               {sorted.length > pageSize && (
