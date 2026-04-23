@@ -117,6 +117,7 @@ export const DocJumpBar = ({
     borderBottom: `1px solid hsl(var(--border) / ${borderOpacity})`,
     backgroundColor: "hsl(var(--background))",
     zIndex: 30,
+    transition: "top 200ms ease-out",
   };
 
   return (
