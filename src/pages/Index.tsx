@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { FileSearch, GitBranch } from "lucide-react";
+import { GitBranch } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
@@ -39,22 +39,24 @@ const LiveDashboard = () => {
     label: string;
     live?: boolean;
   }) => (
-    <div className="flex flex-col gap-2 p-5 sm:p-6">
+    <div className="flex flex-col gap-2 px-3 py-5 sm:px-6 sm:py-6 items-start">
       <div className="flex items-center gap-2">
-        <span className="font-sans font-bold tracking-tight text-foreground text-[40px] sm:text-[48px] leading-none tabular-nums">
+        <span
+          className="font-sans font-bold tracking-tight text-foreground text-[26px] sm:text-[40px] md:text-[48px] leading-none tabular-nums"
+        >
           {typeof value === "number" ? value.toLocaleString("en-US") : value}
         </span>
         {live && (
           <span
             aria-hidden
-            className="inline-flex h-2 w-2 rounded-full animate-pulse"
+            className="inline-flex h-1.5 w-1.5 rounded-full animate-pulse"
             style={{ backgroundColor: "#22C55E" }}
           />
         )}
       </div>
       <span
-        className="font-mono text-[11px] uppercase text-muted-foreground"
-        style={{ letterSpacing: "1px" }}
+        className="font-sans text-[10px] sm:text-[11px] uppercase text-muted-foreground"
+        style={{ letterSpacing: "0.08em" }}
       >
         {label}
       </span>
@@ -70,22 +72,20 @@ const LiveDashboard = () => {
       <div className="page-shell">
         <div className="mx-auto w-standard">
           <div
-            className="grid grid-cols-2 sm:grid-cols-3"
+            className="grid grid-cols-3"
             style={{
-              border: "1px solid #F1F5F9",
+              backgroundColor: "#F8FAFC",
+              border: "1px solid #E2E8F0",
               borderRadius: "2px",
             }}
           >
-            <div style={{ borderRight: "1px solid #F1F5F9" }}>
+            <div style={{ borderRight: "1px solid #E2E8F0" }}>
               <Cell value={stats.total} label="Total Vendors" live />
             </div>
-            <div>
+            <div style={{ borderRight: "1px solid #E2E8F0" }}>
               <Cell value={stats.states} label="States Represented" />
             </div>
-            <div
-              className="col-span-2 sm:col-span-1"
-              style={{ borderTop: "1px solid #F1F5F9" }}
-            >
+            <div>
               <Cell value={stats.verified} label="Verified Sourcing" />
             </div>
           </div>
@@ -238,25 +238,35 @@ const Index = () => {
         style={{ borderBottom: "1px solid #F1F5F9" }}
       >
         <div className="page-shell section-pad">
-          <div className="mx-auto w-standard text-left">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">01</p>
-            <div className="mt-4 flex items-center gap-3">
-              <FileSearch
-                aria-hidden
-                size={18}
-                strokeWidth={1.75}
-                className="text-foreground/70 shrink-0"
-              />
-              <h2
-                id="trust-problem"
-                className="t-section-title-sm text-foreground max-w-[28ch]"
-              >
-                Branding is not documentation.
-              </h2>
-            </div>
+          <div className="mx-auto w-standard text-center">
+            <h3
+              className="text-foreground"
+              style={{
+                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                fontSize: "20px",
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              The Source Standard
+            </h3>
+            <div className="mx-auto mt-5 h-px w-12 bg-border" aria-hidden="true" />
+            <h2
+              id="trust-problem"
+              className="mt-8 text-foreground mx-auto max-w-[22ch]"
+              style={{
+                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                fontSize: "clamp(32px, 6vw, 52px)",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                letterSpacing: "-0.022em",
+              }}
+            >
+              Branding is not documentation.
+            </h2>
             <p
-              className="mt-6 t-body-md text-muted-foreground max-w-[90%] sm:max-w-[70ch]"
-              style={{ lineHeight: 1.6 }}
+              className="mt-7 mx-auto font-sans text-[15px] sm:text-[16px] text-muted-foreground max-w-[64ch]"
+              style={{ lineHeight: 1.75 }}
             >
               In the peptide industry, marketing claims are easy to make and difficult to prove.
               Most consumers are left to rely on trust signals, presentation, and website language.
@@ -264,6 +274,16 @@ const Index = () => {
               chain so the public can better understand whether what is being sold is supported by
               documented sourcing.
             </p>
+            <div className="mt-10 flex justify-center">
+              <Link
+                to="/how-it-works"
+                className="inline-flex items-center gap-2 rounded-[2px] border border-foreground bg-foreground text-background px-6 py-3 font-sans text-[12px] font-semibold uppercase hover:bg-foreground/90 transition-colors"
+                style={{ letterSpacing: "0.1em" }}
+              >
+                <span>View Full Report</span>
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
