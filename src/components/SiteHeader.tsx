@@ -13,6 +13,17 @@ const nav = [
   { to: "/about", label: "About" },
 ];
 
+// Primary mobile nav — larger, consumer-facing labels
+const mobileNav = [
+  { to: "/", label: "Home" },
+  { to: "/greenlist", label: "Greenlist" },
+  { to: "/verified-vendors", label: "Verified Vendors" },
+  { to: "/how-it-works", label: "Protocol" },
+  { to: "/about", label: "Contact" },
+];
+
+const APP_VERSION = "v1.0.4";
+
 // Module-level subscription so DocJumpBar (and others) can mirror the header's
 // hide-on-scroll-down / show-on-scroll-up behavior without prop drilling.
 const visibilityListeners = new Set<(v: boolean) => void>();
@@ -116,45 +127,142 @@ export const SiteHeader = () => {
           </Button>
         </div>
         <button
-          className="lg:hidden p-2 -mr-2 text-foreground"
+          className="lg:hidden p-2 -mr-2 text-foreground relative h-9 w-9"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
+          aria-expanded={open}
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {/* Morphing hamburger ↔ X */}
+          <span
+            aria-hidden
+            className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 -translate-x-1/2 bg-current transition-all duration-300 ease-out"
+            style={{
+              transform: open
+                ? "translate(-50%, -50%) rotate(45deg)"
+                : "translate(-50%, -7px)",
+            }}
+          />
+          <span
+            aria-hidden
+            className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 -translate-x-1/2 bg-current transition-opacity duration-200 ease-out"
+            style={{
+              transform: "translate(-50%, -50%)",
+              opacity: open ? 0 : 1,
+            }}
+          />
+          <span
+            aria-hidden
+            className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 -translate-x-1/2 bg-current transition-all duration-300 ease-out"
+            style={{
+              transform: open
+                ? "translate(-50%, -50%) rotate(-45deg)"
+                : "translate(-50%, 5px)",
+            }}
+          />
         </button>
       </div>
 
-      {open && (
-        <div className="lg:hidden border-t border-border bg-background">
-          <div className="container-wide py-3 flex flex-col">
-            {nav.map((n) => (
-              <NavLink
-                key={n.to}
-                to={n.to}
-                end
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  `py-3.5 font-mono text-[12px] uppercase tracking-[0.12em] border-b border-border last:border-0 ${
-                    isActive ? "text-foreground font-medium" : "text-muted-foreground"
-                  }`
-                }
+      {/* In-place vertical unfold */}
+      <div
+        className="lg:hidden grid overflow-hidden"
+        style={{
+          gridTemplateRows: open ? "1fr" : "0fr",
+          transition: "grid-template-rows 350ms ease-out",
+        }}
+      >
+        <div className="overflow-hidden">
+          <div
+            className="border-t border-[hsl(var(--navy-surface))]/20"
+            style={{
+              backgroundColor: "hsl(var(--navy-surface) / 0.96)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+            }}
+          >
+            <div className="container-wide flex flex-col">
+              {mobileNav.map((n, idx) => (
+                <NavLink
+                  key={n.to}
+                  to={n.to}
+                  end
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `flex items-center justify-between font-serif text-[18px] tracking-tight transition-colors ${
+                      isActive
+                        ? "text-[hsl(var(--background))] font-semibold"
+                        : "text-[hsl(var(--background))]/85 hover:text-[hsl(var(--background))]"
+                    }`
+                  }
+                  style={{
+                    paddingTop: "24px",
+                    paddingBottom: "24px",
+                    borderBottom:
+                      idx === mobileNav.length - 1
+                        ? "none"
+                        : "1px solid hsl(var(--background) / 0.12)",
+                  }}
+                >
+                  {({ isActive }) => (
+                    <>
+                      <span>{n.label}</span>
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 16 16"
+                        width="14"
+                        height="14"
+                        style={{
+                          opacity: isActive ? 0.9 : 0.5,
+                          color: "hsl(var(--background))",
+                        }}
+                      >
+                        <path
+                          d="M5 3l5 5-5 5"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </>
+                  )}
+                </NavLink>
+              ))}
+
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="mt-5 mb-4 h-11 border border-[hsl(var(--background))]/40 bg-transparent text-[hsl(var(--background))] hover:bg-[hsl(var(--background))]/10 hover:text-[hsl(var(--background))] hover:border-[hsl(var(--background))] rounded-[2px] font-mono text-[12px] uppercase tracking-[0.12em]"
               >
-                {n.label}
-              </NavLink>
-            ))}
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="mt-4 mb-2 h-11 border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground rounded-[2px] font-mono text-[12px] uppercase tracking-[0.12em]"
-            >
-              <Link to="/apply" onClick={() => setOpen(false)}>
-                Apply for Verification
-              </Link>
-            </Button>
+                <Link to="/apply" onClick={() => setOpen(false)}>
+                  Apply for Verification
+                </Link>
+              </Button>
+
+              {/* System status footer */}
+              <div
+                className="flex items-center justify-center gap-2 pb-5 pt-2 font-mono text-[11px] uppercase tracking-[0.12em]"
+                style={{ color: "hsl(var(--background) / 0.55)" }}
+              >
+                <span
+                  aria-hidden
+                  className="inline-block animate-pulse"
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "9999px",
+                    backgroundColor: "hsl(142 65% 55%)",
+                  }}
+                />
+                <span>System Operational</span>
+                <span style={{ color: "hsl(var(--background) / 0.3)" }}>·</span>
+                <span>{APP_VERSION}</span>
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };
