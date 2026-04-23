@@ -11,45 +11,18 @@ import {
 import {
   getVendor,
   Vendor,
-  VendorPublicStatus,
   VENDOR_STATUS_LABEL,
-  VENDOR_STATUS_PROFILE_NOTE,
   VENDOR_FULFILLMENT_LABEL,
   getVendorFulfillment,
   VendorFulfillment,
 } from "@/data/vendors";
-import { StatusBadge } from "@/components/StatusBadge";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-
-// ---------- Status theming ----------
-
-type Theme = {
-  hairline: string; // top hairline above hero
-};
-
-const THEME: Record<VendorPublicStatus, Theme> = {
-  verified: { hairline: "bg-verified" },
-  "under-review": { hairline: "bg-pending" },
-  unverified: { hairline: "bg-muted-foreground/30" },
-  suspended: { hairline: "bg-destructive" },
-  removed: { hairline: "bg-muted-foreground/30" },
-};
 
 const FULFILLMENT_ICON: Record<VendorFulfillment, typeof Building2> = {
   "in-person": Building2,
   online: Globe,
   hybrid: MapPin,
-};
-
-// ---------- Helpers ----------
-
-const hostname = (url: string): string => {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-  }
 };
 
 const formatLocation = (vendor: Vendor): string =>
