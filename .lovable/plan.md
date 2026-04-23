@@ -1,39 +1,48 @@
 
 
-## Global Change 01b — Match Hero Background Exactly to Homepage
+## Global Change 02 — Tighten Closing Space Above Footer
 
-The navy chapter heroes on interior pages are rendering as flat dark navy. The homepage hero has a noticeably lighter, atmospheric quality because it layers a **radial light spotlight** over the navy surface in addition to the grid pattern. Interior pages are missing that radial light layer, which is why they look darker and flatter than the homepage.
+Reduce the dead zone between the last content section and the footer site-wide. Today three things stack up to create a large empty band:
 
-### Root cause
+1. The last `<section>` on most pages uses `section-pad` (= 64px bottom on lg).
+2. `SiteFooter` adds `mt-20` (= 80px top margin).
+3. `SiteFooter` then adds `py-16` (= 64px top padding inside).
 
-In `src/components/BriefingHero.tsx`:
+Total gap on desktop: ~208px of empty space. That's the "dropped footer" feeling.
 
-- The **cover** branch (homepage, lines ~67–77) renders a radial gradient overlay before `HeroPattern`:
-  ```
-  background: radial-gradient(ellipse 70% 60% at 50% 35%,
-              hsl(var(--navy-surface-2)) 0%, transparent 70%);
-  ```
-  This is what creates the lighter "lift" in the center and the premium atmospheric feel.
+### Fix — single point of control
 
-- The **chapter** branch (all interior pages, lines ~140–175) skips that overlay entirely and only renders `HeroPattern` at `opacity={0.018}`. Result: flat navy, faint grid, no light center.
+Make the footer own the closing rhythm. Remove the page-side margin entirely, and run one tighter, governed top pad inside the footer. The last section's natural bottom padding stays as-is so it doesn't feel cramped.
 
-The grid pattern is also fainter on chapter (`0.018`) than cover (`0.02`), which makes the "boxes" less visible.
+**In `src/components/SiteFooter.tsx`:**
 
-### Fix
+- Change `<footer className="border-t border-border bg-surface-muted/30 mt-20">` → remove `mt-20`.
+- Change inner `<div className="page-shell py-16">` → `py-12 md:py-14` for the top/bottom of the footer interior.
+  - Net result: closing transition is now ~64px (last section's own `pb`) + ~56px (footer top pad) = ~120px on desktop, down from ~208px. Mobile: ~32 + 48 = ~80px, down from ~144px.
 
-Update the **chapter + navy** branch of `BriefingHero` to match the homepage's atmospheric layering:
+That's the entire change. One file. No per-page edits.
 
-1. Add the same radial-gradient overlay div (using `--navy-surface-2`) above `HeroPattern`, sized appropriately for the shorter chapter height (e.g. `ellipse 70% 80% at 50% 40%` so the light center reads correctly at chapter proportions).
-2. Bump `HeroPattern` opacity from `0.018` → `0.02` to match the cover so the faint boxes are equally visible.
-3. Keep `cellSize={32}` and `stroke="white"` — already correct.
+### Why this approach (not per-page)
 
-No changes to copy, layout, height, padding, type, or any other variant. Cover (homepage) and default (white) branches untouched.
+- Every main institutional page already routes through `SiteLayout` → `<main><Outlet/></main>` → `SiteFooter`. The `mt-20` on the footer is the single sitewide source of the gap.
+- Removing it normalizes every page in one move and guarantees consistency — the user's stated goal ("end of each page should feel governed by one rule, not random per-page spacing").
+- The last section keeps its `section-pad` so reading-density pages (Terms, Privacy, Status Definitions, Accountability, Verification Disclaimer) still breathe. We're only removing the *added* void, not the section's own bottom padding.
+
+### Verification (mental walk)
+
+- Terms / Privacy / Status Defs / Accountability / Disclaimer: last `SplitSection` ends with `section-pad` + `border-b` → footer `border-t` sits cleanly ~120px below the last clause line.
+- About / Verification / Medical Advisory / Education: same — last section closes with its own pad, footer follows.
+- Library articles (`ArticleFooter`) already render their own closing rule and citation strip, then the site footer; tightening the top pad makes that transition feel deliberate rather than dropped.
+- Registry / profile pages (`VerifiedVendors`, `Greenlist`, `VendorProfile`, etc.): they end with table footers or related-records strips; same improvement applies and is desired.
 
 ### Files touched
 
-- `src/components/BriefingHero.tsx` — modify the navy/chapter branch only (~lines 140–175).
+- `src/components/SiteFooter.tsx` — two-line change (remove `mt-20`, tighten inner `py-16` → `py-12 md:py-14`).
 
-### Result
+### Out of scope
 
-About, Verification, Medical Advisory, Resource Library, Terms, Privacy, Status Definitions, Enforcement, and Verification Disclaimer will all open with the same lighter, atmospheric navy surface as the homepage — same radial light center, same faint white grid boxes, same premium feel. The cadence becomes truly continuous from Home → any interior page.
+- Inter-section spacing (`section-gap`, `section-pad`) — that's the next pass the user already flagged.
+- Footer content, columns, copy, or layout.
+- Hero spacing.
+- No per-page edits.
 
