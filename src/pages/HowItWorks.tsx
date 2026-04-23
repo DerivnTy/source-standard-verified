@@ -9,7 +9,7 @@ type Section = {
   n: string;
   category: string;
   title: string;
-  body: string;
+  points: string[];
 };
 
 const sections: Section[] = [
@@ -18,28 +18,48 @@ const sections: Section[] = [
     n: "01",
     category: "AUDIT",
     title: "Supply-Chain Substantiation",
-    body: "Our primary objective is the forensic mapping of the vendor's upstream supply chain. Before any entity is granted \u201CVerified\u201D status, we conduct an exhaustive review of their sourcing history to ensure a documented, unbroken link from the pharmaceutical manufacturer to the consumer-facing vendor. This involves direct cross-referencing with 503A and 503B pharmacy registrations and state-level licensing databases to confirm active and compliant standing.",
+    points: [
+      "Forensic mapping of the vendor's primary upstream supply chain to ensure legitimate sourcing.",
+      "Direct cross-referencing with 503A and 503B pharmacy registrations and state-level licensing.",
+      "Validation of Wholesale Distribution Records to establish a documented, unbroken chain of custody.",
+      "Elimination of \u201CGhost Supply\u201D risks through comprehensive entity ownership and legal standing reviews.",
+    ],
   },
   {
     id: "surveillance",
     n: "02",
     category: "SURVEILLANCE",
     title: "Analytical Surveillance",
-    body: "Trust is maintained through ongoing, unannounced randomized testing. Source Standard executes \u201CSilent Purchase\u201D protocols from active registry listings\u2014acquiring products anonymously, exactly as a consumer would. These samples are submitted to independent, ISO-accredited laboratories for quantitative analysis. Our focus is restricted to three critical safety pillars: Molecular Identity, Concentration Accuracy (Potency), and Microbiological Sterility.",
+    points: [
+      "Execution of anonymous \u201CSilent Purchase\u201D protocols acquired directly from active registry listings.",
+      "Independent submission of acquired samples to third-party, ISO-accredited laboratories.",
+      "Quantitative molecular confirmation to verify the precise Identity of the compound.",
+      "Rigorous laboratory testing for Concentration Accuracy (Potency) and Microbiological Sterility.",
+      "Immediate status revocation and public disclosure upon any evidence of analytical deficiency.",
+    ],
   },
   {
     id: "monitoring",
     n: "03",
     category: "DISCLOSURE",
     title: "Continuous Oversight",
-    body: "Verification is not a static designation; it is a dynamic status contingent upon perpetual compliance. Vendors are contractually obligated to disclose any material change in sourcing, ownership, or facility affiliation within 72 hours. Simultaneously, our system monitors federal FDA 483s, Warning Letters, and state-level administrative actions in real-time. Status is subject to immediate revocation upon evidence of any regulatory deficiency.",
+    points: [
+      "Contractual obligation for vendors to disclose sourcing or ownership changes within a 72-hour window.",
+      "Real-time monitoring of federal FDA 483s, Warning Letters, and state-level administrative actions.",
+      "Perpetual credential tracking to ensure licenses and DEA registrations remain in active, compliant standing.",
+      "Automated status suspension protocols for vendors failing to meet ongoing disclosure requirements.",
+    ],
   },
   {
     id: "boundaries",
     n: "04",
     category: "BOUNDARIES",
     title: "Operational Boundaries",
-    body: "Source Standard operates as an independent documentation and analytical authority. We provide public disclosure of substantiated supply-chain data to assist in risk mitigation. We do not provide clinical recommendations, substitute for federal regulatory oversight, or certify individual patient outcomes.",
+    points: [
+      "Independent disclosure of substantiated supply-chain data for public risk mitigation.",
+      "No provision of clinical recommendations or substitute for federal regulatory oversight.",
+      "No certification of individual patient outcomes or biological efficacy.",
+    ],
   },
 ];
 
@@ -75,7 +95,14 @@ const HowItWorks = () => {
           title={s.title}
           muted={i % 2 === 1}
         >
-          <p>{s.body}</p>
+          <ul className="space-y-4">
+            {s.points.map((p, idx) => (
+              <li key={idx} className="flex gap-4">
+                <span aria-hidden className="text-muted-foreground/60 select-none font-sans">|</span>
+                <span className="flex-1">{p}</span>
+              </li>
+            ))}
+          </ul>
         </BoardSection>
       ))}
     </div>
