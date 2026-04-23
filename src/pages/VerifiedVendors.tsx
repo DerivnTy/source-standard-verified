@@ -92,57 +92,6 @@ const VerifiedVendors = () => {
   }, [query, category]);
 
   const sorted = useMemo(() => {
-    const records = [...filtered];
-    const byName = (a: Vendor, b: Vendor) => a.name.localeCompare(b.name);
-
-    switch (sort) {
-      case "location":
-        return records.sort((a, b) => {
-          const byState = (a.state ?? "").localeCompare(b.state ?? "");
-          if (byState !== 0) return byState;
-
-          const byCity = (a.city ?? "").localeCompare(b.city ?? "");
-          return byCity !== 0 ? byCity : byName(a, b);
-        });
-      case "latest-audit":
-        return records.sort((a, b) => {
-          const aDate = a.reviewDate ?? "";
-          const bDate = b.reviewDate ?? "";
-          if (aDate !== bDate) return bDate.localeCompare(aDate);
-          return byName(a, b);
-        });
-      case "name-asc":
-      default:
-        return records.sort(byName);
-    }
-  }, [filtered, sort]);
-
-  const visibleItems = sorted.slice(0, visibleCount);
-  const hasMore = visibleCount < sorted.length;
-
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [query, category, sort]);
-
-  const categoryOptions = useMemo(
-    () => [
-      { value: "all", label: "All Categories" },
-      ...categories.map((c) => ({ value: c, label: c })),
-    ],
-    [categories],
-  );
-
-  const sortOptions: { value: SortMode; label: string }[] = [
-    { value: "name-asc", label: "Alphabetical" },
-    { value: "location", label: "Location" },
-    { value: "latest-audit", label: "Latest Audit" },
-  ];
-
-  const activeCategoryLabel =
-    categoryOptions.find((o) => o.value === category)?.label ?? "Category";
-  const activeSortLabel =
-    sortOptions.find((o) => o.value === sort)?.label ?? "Sort";
-
   return (
     <>
       <PageMeta
