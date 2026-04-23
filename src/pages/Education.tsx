@@ -23,17 +23,6 @@ const FAQ_BUTTONS: { label: string; to: string }[] = [
 
 const PREVIEW_LIMIT = 5;
 
-const handleAnchorClick = (
-  e: React.MouseEvent<HTMLAnchorElement>,
-  id: string,
-) => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  e.preventDefault();
-  el.scrollIntoView({ behavior: "smooth", block: "start" });
-  history.replaceState(null, "", `#${id}`);
-};
-
 const CategoryBlock = ({
   category,
   entries,
