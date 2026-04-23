@@ -1,47 +1,47 @@
 
 
-## Privacy Page — Exact Execution Rebuild
+## Verification Disclaimer Page — Exact Execution Rebuild
 
-Rebuild `src/pages/Privacy.tsx` into nine ordered sections using the exact wording provided. Mirror the institutional composition pattern established on About / Accountability / Terms so this page reads as a serious public privacy standard rather than internal compliance jargon.
+Rebuild `src/pages/VerificationDisclaimer.tsx` into eight ordered sections plus a closing return link, using the exact wording provided. Mirror the institutional composition pattern established on Terms / Privacy / Accountability so this page reads as a clear public boundary statement rather than a legal scare page.
 
 ### Section-by-section
 
-**§1 Hero** — Replace `BriefingHero` with the same restrained custom hero used on the rebuilt Terms / Accountability pages. Eyebrow "Data Governance Protocol", H1 "Data Governance & Privacy", one supporting paragraph exactly as specified. No `docId`, no metadata chips, no navy treatment.
+**§1 Hero** — Replace `BriefingHero` with the same restrained custom hero used across the rebuilt legal pages. Eyebrow "Verification Disclaimer", H1 "Verification Disclaimer", one supporting paragraph exactly as specified. No `docId`, no metadata chips, no navy treatment.
 
-**§2 Statement of purpose (NEW)** — Sits between hero and contents nav. Eyebrow "Purpose", H2 "How data is handled under the framework", two body paragraphs exactly as specified. Single contained column.
+**§2 Statement of purpose (NEW)** — Sits between hero and contents nav. Eyebrow "Purpose", H2 "What a Source Standard determination means", two body paragraphs exactly as specified. Single contained column.
 
-**§3 Contents navigation** — Replace `DocJumpBar` with `SectionAnchorNav` (matching Terms / Accountability). Five waypoints: `01 Partitioning`, `02 Collection`, `03 Retention`, `04 Processing`, `05 Inquiries`.
+**§3 Contents navigation** — Replace `DocJumpBar` with `SectionAnchorNav` (matching Terms / Privacy). Four waypoints: `01 Scope`, `02 Exclusions`, `03 Boundaries`, `04 Liability`.
 
-**§4 Partitioning** — `SplitSection`. Left rail: `01` + "Record Partitioning" + intro "How public registry information is separated from protected audit material." Right: `ClauseList` of 3 clauses (Public registry data, Protected audit material, Access restriction) with exact copy. Section IDs aligned to anchor: `id="partitioning"`.
+**§4 Scope** — `SplitSection`. Left rail: `01` + "Administrative Attestation Scope" + intro "What a determination is designed to reflect." Right: lead body paragraph followed by `ClauseList` of 4 clauses (Documented identity, Regulatory standing, Upstream sourcing, Record basis) with exact copy. `id="scope"`.
 
-**§5 Collection** — `SplitSection`. Eyebrow `02`, H2 "Scope of Collection", intro "What categories of data may be collected under the framework." Right: `ClauseList` of 4 clauses (Vendor intake, Surveillance data, Concern reports, Site analytics) with exact copy. `id="collection"`.
+**§5 Exclusions** — `SplitSection`. Eyebrow `02`, H2 "Matters Outside the Scope of Attestation", intro "What a determination does not establish." Right: `ClauseList` of 4 clauses (Clinical outcomes, Product suitability, Safety and efficacy, Future conduct) with exact copy. `id="exclusions"`.
 
-**§6 Retention** — `SplitSection`. Eyebrow `03`, H2 "Data Retention", intro "How long records are maintained under different conditions." Right: `ClauseList` of 4 clauses (Active records, Historical determinations, Withdrawn or denied applications, Secure disposal) with exact copy. `id="retention"`.
+**§6 Boundaries** — `SplitSection`. Eyebrow `03`, H2 "Regulatory & Professional Boundaries", intro "What Source Standard is not." Right: `ClauseList` of 4 clauses (Not a statutory body, Not a clinical practice, Not a manufacturer, Not a guarantor) with exact copy. `id="boundaries"`.
 
-**§7 Processing** — `SplitSection` (paragraph-only, mirrors Terms §Acceptance / §Jurisdiction). Eyebrow `04`, H2 "Authorized Processing", intro "How data may be processed in support of the framework." Right: two body paragraphs exactly as specified. `id="processing"`.
+**§7 Liability** — `SplitSection`. Eyebrow `04`, H2 "Limitation of Liability", intro "How registry information should be relied upon." Right: `ClauseList` of 3 clauses (User discretion, Professional consultation, Liability boundary) with exact copy. `id="liability"`.
 
-**§8 Inquiries** — `SplitSection` (paragraph-based with contact line). Eyebrow `05`, H2 "Inquiries & Requests", intro "How privacy-related requests may be made." Right: two body paragraphs followed by a small, restrained contact line "Data Privacy Officer: privacy@sourcestandard.org" rendered as a `mailto:` link with quiet, non-decorative styling. `id="inquiries"`.
+**§8 Closing statement (NEW)** — Eyebrow "Conclusion", H2 "A determination is a record finding, not a medical guarantee.", one body paragraph exactly as specified. `border-t` only, no bottom border on the section itself.
 
-**§9 Closing statement (NEW)** — Eyebrow "Conclusion", H2 "Public transparency requires disciplined record handling.", one body paragraph exactly as specified. `border-t` only, no bottom border.
+**Return link** — Keep the existing understated "← Return to Resource Library" link block at the very bottom, with the same restrained styling.
 
 ### Global cleanup
 
 - Remove imports/usage: `BriefingHero`, `BoardSection`, `DocJumpBar`, the in-file `sections` / `waypoints` arrays in their current shape.
-- Add imports: `SectionAnchorNav`. Reuse the inline `ClauseList` / `SplitSection` / `SectionIndex` patterns established in `Accountability.tsx` and `Terms.tsx`.
-- `PageMeta` title becomes "Privacy"; description = the hero supporting paragraph.
-- Breadcrumb stays `[{ label: "Legal" }, { label: "Privacy" }]`.
+- Add imports: `SectionAnchorNav`. Reuse the inline `SectionIndex` / `ClauseList` / `SplitSection` patterns established in `Accountability.tsx` / `Terms.tsx` / `Privacy.tsx`.
+- `PageMeta` title stays "Verification Disclaimer"; description = the hero supporting paragraph.
+- Breadcrumb stays `[{ label: "Legal" }, { label: "Verification Disclaimer" }]`.
 - Every section: small mono number/eyebrow → visible H2 → intro line → body. No duplicate eyebrow/headline pairings.
 - Spacing rhythm: `section-pad` with `border-b border-border/40`; closing statement gets `border-t` only.
-- Strip "PAM", "forensic protocol", and any whitepaper-flavored phrasing — copy is used verbatim from spec.
+- Strip "auditing mirror", "binding acknowledgment", "exempt from liability", and any defensive-sounding phrasing — copy is used verbatim from spec.
 
 ### Files touched
 
-- `src/pages/Privacy.tsx` — full structural rebuild with exact copy.
+- `src/pages/VerificationDisclaimer.tsx` — full structural rebuild with exact copy.
 
 ### Out of scope
 
 - `SectionAnchorNav` component internals
-- Routing (route remains `/privacy`)
+- Routing (route remains `/verification-disclaimer`)
 - Design tokens, breadcrumb component
-- Other legal pages (Terms, Verification Disclaimer, Accountability)
+- Other legal pages (Terms, Privacy, Accountability)
 
