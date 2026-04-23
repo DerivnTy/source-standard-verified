@@ -672,17 +672,6 @@ const VerifiedVendors = () => {
               )}
             </dl>
 
-            <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-border/50 pt-8">
-              <p className="text-[14px] text-foreground">
-                Is your clinic missing?
-              </p>
-              <Link
-                to="/apply"
-                className="inline-block border-2 border-foreground text-foreground px-5 py-2 text-[12.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground hover:text-background transition-colors"
-              >
-                Submit for Audit
-              </Link>
-            </div>
           </div>
         </div>
       </section>
