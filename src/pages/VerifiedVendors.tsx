@@ -399,14 +399,14 @@ const VerifiedVendors = () => {
   return (
     <>
       <PageMeta
-        title="Verified Vendors · Public Trust Registry"
-        description="The public verification registry of clinics and vendors tracked under the Source Standard framework. Verified listings are pinned to the top."
+        title="The Public Trust Registry · Verified Vendors"
+        description="The national database for peptide and hormone sourcing transparency. Verify whether a clinic's sourcing has been substantiated by licensed facility records."
       />
 
       <RegistryHeader
         eyebrow="Public Trust Registry · Live"
-        title="Verified Vendors"
-        description="Where consumers find clinics and vendors with documented sourcing review. Verified listings rise to the top. Unverified listings are visible but distinct — verification reflects records, not medical-outcome promises."
+        title="The Public Trust Registry"
+        description="The national database for peptide and hormone sourcing transparency. Use this registry to verify if a clinic's sourcing has been substantiated by licensed facility records."
         scopeText="How verification works"
         scopeHref="/how-it-works"
         recordCount={vendors.length}
@@ -421,30 +421,36 @@ const VerifiedVendors = () => {
             shareOf: vendors.length,
           },
           {
-            label: "Under review",
-            value: counts["under-review"],
-            tickClassName: "bg-pending",
-            shareOf: vendors.length,
-          },
-          {
             label: "Unverified",
             value: counts.unverified,
-            tickClassName: "bg-muted-foreground",
+            tickClassName: "bg-foreground/40",
             shareOf: vendors.length,
           },
-          {
-            label: "Suspended",
-            value: counts.suspended,
-            tickClassName: "bg-destructive",
-            shareOf: vendors.length,
-            tone: counts.suspended > 0 ? "destructive" : "default",
-          },
-          {
-            label: "Removed",
-            value: counts.removed,
-            tickClassName: "bg-muted-foreground/60",
-            shareOf: vendors.length,
-          },
+          ...(counts["under-review"] > 0
+            ? [{
+                label: "Under review",
+                value: counts["under-review"],
+                tickClassName: "bg-pending",
+                shareOf: vendors.length,
+              }]
+            : []),
+          ...(counts.suspended > 0
+            ? [{
+                label: "Suspended",
+                value: counts.suspended,
+                tickClassName: "bg-destructive",
+                shareOf: vendors.length,
+                tone: "destructive" as const,
+              }]
+            : []),
+          ...(counts.removed > 0
+            ? [{
+                label: "Removed",
+                value: counts.removed,
+                tickClassName: "bg-muted-foreground/60",
+                shareOf: vendors.length,
+              }]
+            : []),
           {
             label: "States represented",
             value: statesRepresented,
