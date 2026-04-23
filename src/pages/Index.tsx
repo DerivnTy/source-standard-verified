@@ -129,17 +129,17 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard · The public standard for documented peptide sourcing"
-        description="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
+        title="Source Standard · The United States Public Peptide Registry"
+        description="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
       />
 
       {/* §1 — Hero (cover variant: homepage only) */}
       <BriefingHero
         variant="cover"
-        category="United States Public Registry"
+        category="United States Public Peptide Registry"
         docId=""
-        title="The public standard for documented peptide sourcing"
-        statement="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
+        title="The United States Public Peptide Registry"
+        statement="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
         tone="navy"
         actions={<HeroActions />}
       />
