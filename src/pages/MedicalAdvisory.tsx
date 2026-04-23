@@ -130,19 +130,21 @@ const MedicalAdvisory = () => {
 
       <BriefingHero
         tone="navy"
-        category="Governance & Clinical Oversight"
+        category=""
         docId="SS-MAB-2026.01"
         title="Governance & Clinical Oversight"
         statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
+
+      <DocJumpBar waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
 
             {/* Why the Board exists */}
-            <section className="section-pad border-b border-border/40">
-              <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
+            <section id="transparency" className="scroll-mt-24 section-pad border-b border-border/40">
+              <SectionIndex n="01" />
               <h2 className="t-section-title-sm text-foreground mb-8">
                 Transparency requires accountability.
               </h2>
