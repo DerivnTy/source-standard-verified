@@ -23,23 +23,23 @@ export const GlobalUtilityBar = () => {
       }
     >
       <div
-        className={`container-wide flex items-center justify-between gap-6 py-1 font-mono text-[10.5px] uppercase tracking-[0.14em] ${
+        className={`container-wide flex items-center justify-between gap-6 py-1 font-sans text-[10.5px] tracking-[0.04em] ${
           isNavy ? "text-white/65" : "text-muted-foreground/80"
         }`}
       >
         <div className="flex items-center gap-5 min-w-0">
-          <span className="truncate">SOURCE STANDARD FRAMEWORK</span>
-          <span className="hidden sm:inline">PUBLIC REFERENCE SYSTEM</span>
+          <span className="truncate">Source Standard Framework</span>
+          <span className="hidden sm:inline">Public Reference System</span>
           <span className="hidden sm:inline">
-            STATUS ·{" "}
+            Status ·{" "}
             <span className={isNavy ? "text-white/90" : "text-foreground/85"}>
-              ACTIVE
+              Active
             </span>
           </span>
-          <span className="hidden md:inline">UNITED STATES</span>
+          <span className="hidden md:inline">United States</span>
         </div>
         <div className="flex items-center shrink-0">
-          <span>UPDATED 04 / 21 / 2026</span>
+          <span>Updated April 21, 2026</span>
         </div>
       </div>
     </div>
