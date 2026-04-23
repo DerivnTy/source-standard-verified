@@ -93,30 +93,32 @@ export const VendorAuditCard = ({
       <Link
         to={`/directory/${vendor.slug}`}
         aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
-        className="group flex items-center gap-4 min-h-[44px] px-4 py-2 text-left bg-card hover:bg-surface-muted/40 transition-colors"
+        className="group flex items-center gap-3 h-[48px] px-4 text-left bg-card hover:bg-surface-muted/40 transition-colors"
         style={isUnverified ? { backgroundColor: unverifiedWash } : undefined}
       >
-        <div className="shrink-0 w-[110px] hidden sm:block">
-          <AuditStatusLabel status={vendor.status} />
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-3">
-            <h3 className="truncate text-[13.5px] font-semibold leading-tight text-foreground tracking-tight">
-              {vendor.name}
-            </h3>
-            <span className="hidden md:inline font-mono text-[11px] text-muted-foreground tabular-nums">
-              {vendorId}
-            </span>
-          </div>
-          <div className="sm:hidden mt-0.5">
-            <AuditStatusLabel status={vendor.status} />
-          </div>
-        </div>
-        <span className="hidden md:inline text-[12px] text-muted-foreground truncate max-w-[180px]">
+        {/* Status dot — single source of binary signal at a glance */}
+        <span
+          aria-hidden
+          className={`shrink-0 h-1.5 w-1.5 rounded-full ${
+            vendor.status === "verified"
+              ? "bg-verified"
+              : vendor.status === "under-review"
+              ? "bg-amber-500"
+              : "bg-red-400"
+          }`}
+        />
+        <h3 className="min-w-0 flex-1 truncate text-[13.5px] font-semibold leading-tight text-foreground tracking-tight">
+          {vendor.name}
+        </h3>
+        <span className="hidden sm:inline shrink-0 text-[12px] text-muted-foreground truncate max-w-[160px]">
           {location}
         </span>
-        <span aria-hidden className="hidden md:inline text-[12px] text-muted-foreground group-hover:text-foreground transition-colors">
-          →
+        <span className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
+          {vendor.status === "verified"
+            ? "Verified"
+            : vendor.status === "under-review"
+            ? "Pending"
+            : "Unverified"}
         </span>
       </Link>
     );
