@@ -1,29 +1,60 @@
 
 
-## Remove Redundant Body Metadata Bars
+## Zero-Redundancy Header Protocol
 
-Strip the secondary mono-spaced `VERSION | CLASSIFICATION | STATUS` strip that sits between the hero subtitle and Section 01 on the policy/protocol pages. The hero already carries the page identity — the duplicate strip adds visual noise and breaks the clean Advisory Board rhythm.
+Strip the redundant `§N · CATEGORY` mono eyebrow from every `BoardSection` instance on the policy/protocol pages, sharpen three headlines, and confirm the body metadata strip is already gone. The section number stays as a quiet left-side marker; the bold headline becomes the sole entry point.
 
-### What changes
+### 1. BoardSection — make eyebrow optional
 
-Delete the `<section className="border-b border-border bg-surface-muted">…</section>` metadata block (the one wrapping the `font-mono text-[11px] uppercase…` paragraph) from each affected page. Leave `BriefingHero` and `DocJumpBar` untouched — `DocJumpBar` already provides the natural spacing buffer before Section 01.
+**File:** `src/components/BoardSection.tsx`
 
-### Files to edit
+- Add an optional `hideEyebrow?: boolean` prop (default `false`).
+- When `true`, suppress the `<p className="t-utility-xs text-muted-foreground mb-4">§N · CATEGORY</p>` line entirely and instead render a muted grey section number (`01`, `02`, …) above the headline using the existing mono utility (`t-utility-xs text-muted-foreground/60 mb-3`).
+- No change to the 12-col layout, padding, or typography tokens. MAB page (`MedicalAdvisory.tsx`) keeps current behavior since the prop defaults off.
 
-- `src/pages/Terms.tsx` — remove the `VERSION: 2026.01 | EFFECTIVE: 04/21/26 | JURISDICTION: US/FL` strip.
-- `src/pages/Privacy.tsx` — remove the `VERSION: 2026.01 | CLASSIFICATION: PUBLIC-FACING PROTOCOL | UPDATED: 04/21/26` strip.
-- `src/pages/VerificationDisclaimer.tsx` — remove the `VERSION: 2026.01 | CLASSIFICATION: REGULATORY ATTESTATION | STATUS: ACTIVE` strip.
+### 2. Apply `hideEyebrow` + headline edits
 
-### Pages already clean (no change needed)
+**`src/pages/Terms.tsx` (Registry User Agreement)**
+- Pass `hideEyebrow` to every `BoardSection`.
+- Rename section 01 title: `Acceptance of Terms` → **`Registry Access & Acceptance`**.
 
-- `src/pages/About.tsx` — never had a body metadata strip.
-- `src/pages/HowItWorks.tsx` (Verification Protocol) — never had a body metadata strip.
+**`src/pages/Privacy.tsx` (Data Governance Protocol)**
+- Pass `hideEyebrow` to every `BoardSection`.
+- Rename section 01 title: `Record Partitioning & Access Control` → **`Record Partitioning & PAM Classification`**.
 
-### Spacing
+**`src/pages/VerificationDisclaimer.tsx`**
+- Pass `hideEyebrow` to every `BoardSection`.
+- Rename section 01 title: `Scope of Administrative Attestation` → **`Administrative Attestation Scope`**.
 
-No spacing overrides required. With the metadata `<section>` removed, the existing `DocJumpBar` (sticky nav) sits directly under the hero, and the first `BoardSection`'s `section-pad` token provides the uniform breathing room — matching the Medical Advisory Board page exactly.
+**`src/pages/HowItWorks.tsx` (Verification Protocol)**
+- Pass `hideEyebrow` to every `BoardSection`. No headline changes.
 
-### Outcome
+**`src/pages/About.tsx` (Organization & Mandate)**
+- Pass `hideEyebrow` to every `BoardSection`. No headline changes.
 
-Hero subtitle → DocJumpBar → Section 01. No duplicated mono metadata. Five policy/protocol pages now share one consistent header rhythm.
+### 3. Body metadata strip
+
+Already removed in the previous pass on Terms / Privacy / VerificationDisclaimer. About and HowItWorks never had one. No action needed — confirmed via current file view.
+
+### 4. Spacing
+
+The existing `section-pad` token on `BoardSection` plus the `DocJumpBar` produces the ~64px hero-to-Section-01 gap. The 12-col left rail places the muted `01` marker, then `mb-3` (12px) to the headline; the right-rail list keeps `space-y-5` from `BoardSection`'s body wrapper. No global spacing overrides required.
+
+### Result
+
+```text
+┌─────────────────────────────────────────┐
+│  Hero (navy) — title + subtitle         │
+├─────────────────────────────────────────┤
+│  DocJumpBar (sticky)                    │
+├─────────────────────────────────────────┤
+│  01                  Registry Access    │
+│                      & Acceptance       │
+│                                         │
+│                      | Access constit…  │
+│                      | If any term…     │
+└─────────────────────────────────────────┘
+```
+
+One number. One headline. No repeated category. Matches the Advisory Board's surgical rhythm across all five policy/protocol pages.
 
