@@ -134,9 +134,9 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-10 w-full md:w-auto px-3.5 pr-9 bg-background t-nav text-foreground rounded-[2px] focus:outline-none focus:ring-0 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_12px_center]"
+    className="h-8 w-full md:w-auto px-2.5 pr-8 bg-background text-[12px] text-foreground rounded-[2px] focus:outline-none focus:ring-0 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center]"
     style={{
-      border: "1px solid #64748B",
+      border: "1px solid hsl(var(--border))",
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
     }}
@@ -226,14 +226,14 @@ export const FacetToggle = ({
     type="button"
     aria-pressed={active}
     onClick={onClick}
-    className={`h-10 px-3.5 rounded-[2px] t-utility-xs font-semibold uppercase tracking-[0.06em] transition-all duration-150 ${
+    className={`h-8 px-3 rounded-[2px] text-[12px] transition-all duration-150 ${
       active
         ? tone === "verified"
           ? "bg-verified text-verified-foreground"
-          : "bg-white text-black"
+          : "bg-foreground text-background"
         : "bg-background text-muted-foreground hover:text-foreground"
     }`}
-    style={{ border: "1px solid #64748B" }}
+    style={{ border: "1px solid hsl(var(--border))" }}
   >
     {children}
   </button>

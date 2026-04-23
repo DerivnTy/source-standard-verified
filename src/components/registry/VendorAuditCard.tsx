@@ -7,34 +7,38 @@ import {
 } from "@/data/vendors";
 
 /**
- * Audit Status Label — Geist Mono, uppercase, format `STATUS // VERIFIED`.
- * Verified → green, pending/under-review → amber, otherwise → muted.
+ * Audit Status Label — clean, consumer-facing.
+ * Verified → green check + "Verified". Otherwise → muted status word.
  */
 const AuditStatusLabel = ({ status }: { status: Vendor["status"] }) => {
   const isVerified = status === "verified";
   const isPending = status === "under-review";
-  const isSuspended = status === "suspended";
-  const isRemoved = status === "removed";
 
   const tone = isVerified
     ? "text-verified"
-    : isPending || isSuspended
-    ? "text-amber-500"
-    : isRemoved
-    ? "text-muted-foreground"
+    : isPending
+    ? "text-amber-600"
     : "text-muted-foreground";
 
   const word = isVerified
-    ? "VERIFIED"
+    ? "Verified"
     : isPending
-    ? "PENDING"
-    : VENDOR_STATUS_LABEL[status].toUpperCase().replace(/\s+/g, " ");
+    ? "Pending"
+    : VENDOR_STATUS_LABEL[status];
 
   return (
     <span
-      className={`inline-flex items-center font-mono text-[10.5px] font-medium uppercase tracking-[0.14em] ${tone}`}
+      className={`inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] ${tone}`}
     >
-      <span className="text-muted-foreground/70">STATUS&nbsp;//&nbsp;</span>
+      {isVerified && (
+        <svg
+          aria-hidden
+          viewBox="0 0 16 16"
+          className="h-3 w-3 fill-current"
+        >
+          <path d="M6.5 11.5L3 8l1-1 2.5 2.5L12 4l1 1z" />
+        </svg>
+      )}
       <span>{word}</span>
     </span>
   );
