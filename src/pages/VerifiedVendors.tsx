@@ -466,7 +466,7 @@ const VerifiedVendors = () => {
             <QueryBar
               query={query}
               onQueryChange={setQuery}
-              searchPlaceholder="Search vendors, physicians, cities, clinical focus…"
+              searchPlaceholder="Search by clinic name, doctor, or city…"
               resultLabel={
                 sorted.length === 0
                   ? "0 of 0 records"
@@ -478,6 +478,9 @@ const VerifiedVendors = () => {
               onReset={reset}
               activeChips={activeChips}
             />
+            <p className="mt-3 text-[12px] text-muted-foreground">
+              Filter by state or fulfillment model to narrow your search.
+            </p>
 
             <div className="mt-5">
               {sorted.length === 0 ? (
