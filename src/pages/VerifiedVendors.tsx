@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
-import { RegistryPagination } from "@/components/registry/RegistryPagination";
-import { VendorAuditCard } from "@/components/registry/VendorAuditCard";
+import { VendorRow } from "@/components/registry/VendorRow";
+import { FilterBottomSheet } from "@/components/registry/FilterBottomSheet";
+import { resolveStateAbbr } from "@/lib/usStates";
 import {
   vendors,
   Vendor,
@@ -17,7 +18,8 @@ import {
 
 type SortMode = "name-asc" | "location" | "latest-audit";
 type CategoryFilter = "all" | string;
-type ViewMode = "list" | "grid";
+
+const PAGE_SIZE = 10;
 
 const formatLocation = (vendor: Vendor) => {
   if (vendor.city && vendor.state) return `${vendor.city}, ${vendor.state}`;
@@ -28,9 +30,9 @@ const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<CategoryFilter>("all");
   const [sort, setSort] = useState<SortMode>("name-asc");
-  const [view, setView] = useState<ViewMode>("list");
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(25);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [categorySheetOpen, setCategorySheetOpen] = useState(false);
+  const [sortSheetOpen, setSortSheetOpen] = useState(false);
 
   const states = useMemo(() => getVendorStates(), []);
   const categories = useMemo(
@@ -65,6 +67,7 @@ const VerifiedVendors = () => {
 
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
+    const stateAbbr = resolveStateAbbr(query);
 
     return vendors.filter((vendor) => {
       if (normalizedQuery) {
@@ -79,7 +82,10 @@ const VerifiedVendors = () => {
           .join(" ")
           .toLowerCase();
 
-        if (!haystack.includes(normalizedQuery)) return false;
+        const textMatch = haystack.includes(normalizedQuery);
+        const stateMatch = stateAbbr ? vendor.state === stateAbbr : false;
+
+        if (!textMatch && !stateMatch) return false;
       }
 
       if (category !== "all" && vendor.category !== category) return false;
