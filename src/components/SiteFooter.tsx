@@ -13,7 +13,7 @@ type Column = {
 
 const columns: Column[] = [
   {
-    title: "Registry",
+    title: "REGISTRY",
     links: [
       { to: "/verified-vendors", label: "Verified Vendors" },
       { to: "/greenlist", label: "Greenlist" },
@@ -21,7 +21,7 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "Standards",
+    title: "STANDARDS",
     links: [
       { to: "/how-it-works", label: "Audit Methodology" },
       { to: "/status-definitions", label: "Status Definitions" },
@@ -29,7 +29,7 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "Resource Library",
+    title: "RESOURCE_LIBRARY",
     links: [
       { to: "/education", label: "Resource Library" },
       { to: "/education#regulation", label: "Regulation" },
@@ -39,7 +39,7 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "Governance",
+    title: "GOVERNANCE",
     links: [
       { to: "/medical-advisory", label: "Advisory Board" },
       { to: "/terms", label: "Terms" },
@@ -49,11 +49,18 @@ const columns: Column[] = [
   },
 ];
 
+// Slightly lighter navy/slate than the CTA navy hero, to clearly distinguish
+// the footer as a separate ledger band.
+const FOOTER_BG = "#112240";
+const MUTED = "#94A3B8";
+const HAIRLINE = "rgba(148, 163, 184, 0.18)";
+
 const FooterLink = ({ row }: { row: LinkRow }) => (
   <li>
     <Link
       to={row.to}
-      className="block t-body-sm text-muted-foreground hover:text-foreground transition-colors"
+      className="block font-mono text-[12px] hover:text-white transition-colors"
+      style={{ color: MUTED, letterSpacing: "0.04em" }}
     >
       {row.label}
     </Link>
@@ -61,33 +68,50 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
 );
 
 export const SiteFooter = () => {
+  const now = new Date();
+  const timestamp = now.toISOString().replace("T", " ").slice(0, 16) + " UTC";
+
   return (
-    // Hard-stop: no top margin; 1px hsl(214 32% 91%) ≈ #E2E8F0 end-of-document line.
-    <footer className="mt-0 border-t border-border bg-surface-muted/30">
-      <div className="page-shell py-12 md:py-14">
+    <footer
+      className="mt-0"
+      style={{
+        backgroundColor: FOOTER_BG,
+        // Hard-stop document boundary: 80px padding-bottom on the very last
+        // element of the page.
+        paddingBottom: "80px",
+      }}
+    >
+      <div className="page-shell pt-12 md:pt-14">
         <div className="mx-auto w-wide">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start text-left">
             <div className="lg:col-span-1">
               <Logo />
-              <p className="mt-5 t-body-sm text-muted-foreground text-left">
-                Source Standard · United States
+              <p
+                className="mt-5 font-mono text-[11px] uppercase"
+                style={{ color: MUTED, letterSpacing: "1px" }}
+              >
+                SOURCE_STANDARD · UNITED_STATES
               </p>
             </div>
 
             {columns.map((col) => (
               <div key={col.title} className="text-left">
-                <p className="t-utility-xs text-foreground mb-4 text-left">
+                <p
+                  className="mb-4 font-mono text-[10px] uppercase text-white/80"
+                  style={{ letterSpacing: "1.5px" }}
+                >
                   {col.title}
                 </p>
-                <ul className="space-y-0">
+                <ul className="space-y-1.5">
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
-                  {col.title === "Registry" && (
+                  {col.title === "REGISTRY" && (
                     <li>
                       <Link
                         to="/apply"
-                        className="inline-flex items-center gap-1 t-body-sm font-medium text-foreground hover:text-foreground/70 transition-colors"
+                        className="inline-flex items-center gap-1 font-mono text-[12px] font-medium text-white hover:text-white/80 transition-colors"
+                        style={{ letterSpacing: "0.04em" }}
                       >
                         Begin Verification <span aria-hidden="true">→</span>
                       </Link>
@@ -99,16 +123,49 @@ export const SiteFooter = () => {
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-border/70">
-          <p className="max-w-[900px] mx-auto text-left md:text-center t-micro text-muted-foreground">
-            Source Standard is an independent public-reference and verification framework. Listings reflect documentation reviewed within a defined scope and at a defined point in time. Verification does not constitute medical advice, regulatory approval, or a guarantee of safety, efficacy, or outcome.
-          </p>
-          <div className="mt-5 max-w-[900px] mx-auto flex flex-col md:flex-row md:flex-wrap md:items-center md:justify-between gap-y-2 text-left md:text-center">
-            <p className="t-micro text-muted-foreground text-left">
-              © {new Date().getFullYear()} Source Standard · SourceStandard.org
+        {/* System status + legal band */}
+        <div
+          className="mt-12 pt-6"
+          style={{ borderTop: `1px solid ${HAIRLINE}` }}
+        >
+          <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-4">
+            <div className="flex items-center gap-2">
+              <span
+                aria-hidden
+                className="inline-flex h-2 w-2 rounded-full animate-pulse"
+                style={{ backgroundColor: "#22C55E" }}
+              />
+              <span
+                className="font-mono text-[11px] uppercase"
+                style={{ color: MUTED, letterSpacing: "1px" }}
+              >
+                SYSTEM_STATUS // OPERATIONAL
+              </span>
+              <span
+                className="font-mono text-[11px] hidden sm:inline"
+                style={{ color: MUTED, letterSpacing: "0.06em" }}
+              >
+                · {timestamp}
+              </span>
+            </div>
+            <p
+              className="font-mono text-[10px] uppercase"
+              style={{ color: MUTED, letterSpacing: "1.5px" }}
+            >
+              © {now.getFullYear()} SOURCE_STANDARD · ALL_RIGHTS_RESERVED
             </p>
-            <p className="t-micro text-muted-foreground text-left">All rights reserved</p>
           </div>
+
+          <p
+            className="mt-5 max-w-[900px] font-mono text-[10px] leading-[1.6]"
+            style={{ color: MUTED, letterSpacing: "0.04em" }}
+          >
+            Source Standard is an independent public-reference and verification
+            framework. Listings reflect documentation reviewed within a defined
+            scope and at a defined point in time. Verification does not
+            constitute medical advice, regulatory approval, or a guarantee of
+            safety, efficacy, or outcome.
+          </p>
         </div>
       </div>
     </footer>
