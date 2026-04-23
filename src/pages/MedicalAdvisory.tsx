@@ -3,6 +3,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
   { id: "transparency", number: "01", label: "Mandate" },
@@ -114,19 +115,14 @@ const MedicalAdvisory = () => {
       />
 
       {/* §1 Hero — restrained */}
-      <section className="bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard pt-20 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24">
-            <div className="max-w-3xl">
-              <p className="t-eyebrow-sm text-muted-foreground">Medical Advisory Board</p>
-              <h1 className="mt-4 t-page-title text-foreground">Clinical Oversight</h1>
-              <p className="mt-6 t-body-lg text-muted-foreground leading-relaxed">
-                Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria and review standards used across the framework. It does not treat patients, market clinics, or participate in promotional activity.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BriefingHero
+        tone="navy"
+        variant="chapter"
+        category="Medical Advisory Board"
+        title="Clinical Oversight"
+        statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria and review standards used across the framework. It does not treat patients, market clinics, or participate in promotional activity."
+        docId=""
+      />
 
       {/* §2 Statement of purpose */}
       <section className="bg-background border-b border-border/40">
