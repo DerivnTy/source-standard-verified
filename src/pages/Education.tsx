@@ -306,5 +306,8 @@ const Education = () => {
           </div>
         </div>
       </section>
+    </>
+  );
+};
 
 export default Education;
