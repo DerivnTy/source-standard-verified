@@ -281,48 +281,29 @@ const VerifiedVendors = () => {
 
   const facets = (
     <>
-      {/* Verified-only — primary trust filter */}
-      <FacetGroup ariaLabel="Verification filter">
-        <FacetToggle
-          active={verifiedOnly === "all"}
-          onClick={() => setVerifiedOnly("all")}
-        >
-          Show all
-        </FacetToggle>
-        <FacetToggle
-          tone="verified"
-          active={verifiedOnly === "verified"}
-          onClick={() => setVerifiedOnly("verified")}
-        >
-          Verified only
-        </FacetToggle>
-      </FacetGroup>
+      <FacetSelect
+        value={status}
+        onChange={setStatus}
+        ariaLabel="Filter by status"
+      >
+        <option value={ALL}>All statuses</option>
+        {STATUS_ORDER.map((s) => (
+          <option key={s} value={s}>
+            {VENDOR_STATUS_LABEL[s]}
+          </option>
+        ))}
+      </FacetSelect>
 
-      <FacetDivider />
-
-      {/* Fulfillment — second core filter */}
-      <FacetGroup ariaLabel="Fulfillment filter">
-        {(
-          [
-            { value: "in-person", label: "In-Person" },
-            { value: "online", label: "Online" },
-            { value: "hybrid", label: "Hybrid" },
-          ] as { value: VendorFulfillment; label: string }[]
-        ).map((opt) => {
-          const active = fulfillment === opt.value;
-          return (
-            <FacetToggle
-              key={opt.value}
-              active={active}
-              onClick={() => setFulfillment(active ? "all" : opt.value)}
-            >
-              {opt.label}
-            </FacetToggle>
-          );
-        })}
-      </FacetGroup>
-
-      <FacetDivider />
+      <FacetSelect
+        value={fulfillment}
+        onChange={(v) => setFulfillment(v as FulfillmentFilter)}
+        ariaLabel="Filter by fulfillment"
+      >
+        <option value="all">All fulfillment</option>
+        <option value="in-person">In-Person</option>
+        <option value="online">Online</option>
+        <option value="hybrid">Hybrid</option>
+      </FacetSelect>
 
       <FacetSelect
         value={state}
@@ -355,14 +336,13 @@ const VerifiedVendors = () => {
         onChange={setFocus}
         ariaLabel="Filter by clinical focus"
       >
-        <option value={ALL}>All clinical focus</option>
+        <option value={ALL}>All focus areas</option>
         {focusOptions.map((f) => (
           <option key={f} value={f}>
             {f}
           </option>
         ))}
       </FacetSelect>
-
     </>
   );
 
