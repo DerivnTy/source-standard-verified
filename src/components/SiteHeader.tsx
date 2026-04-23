@@ -48,9 +48,7 @@ export const useHeaderVisible = () => {
 
 export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(true);
   const location = useLocation();
-  const isHome = location.pathname === "/";
 
   // Lock body scroll when full-screen menu is open
   useEffect(() => {
@@ -62,59 +60,24 @@ export const SiteHeader = () => {
     };
   }, [open]);
 
+  // Header is always visible — keep global subscribers in sync.
   useEffect(() => {
-    let lastY = window.scrollY;
-    let ticking = false;
-    let upwardAccum = 0;
-    const REVEAL_THRESHOLD = 400;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const delta = y - lastY;
-        if (y <= 0) {
-          upwardAccum = 0;
-          setVisible(true);
-          setHeaderVisibleGlobal(true);
-        } else if (delta > 0) {
-          upwardAccum = 0;
-          if (y > 120) {
-            setVisible(false);
-            setHeaderVisibleGlobal(false);
-          }
-        } else if (delta < 0) {
-          upwardAccum += -delta;
-          if (upwardAccum > REVEAL_THRESHOLD) {
-            setVisible(true);
-            setHeaderVisibleGlobal(true);
-          }
-        }
-        lastY = y;
-        ticking = false;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    setHeaderVisibleGlobal(true);
+  }, [location.pathname]);
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-transform duration-200 ease-out ${
-        visible ? "translate-y-0" : "-translate-y-full"
-      }`}
+      className="sticky top-0 z-50"
       style={{
-        backgroundColor: "hsl(var(--navy-surface) / 0.98)",
-        backdropFilter: "blur(12px) saturate(160%)",
-        WebkitBackdropFilter: "blur(12px) saturate(160%)",
-        borderBottom: "0.5px solid rgba(255, 255, 255, 0.10)",
+        backgroundColor: "#FFFFFF",
+        borderBottom: "0.5px solid #E5E5EA",
       }}
     >
       <div
         className="relative flex items-center justify-between"
         style={{ height: "60px", paddingLeft: "24px", paddingRight: "24px" }}
       >
-        <Logo variant="light" />
+        <Logo />
         <nav className="hidden lg:flex items-center gap-7 h-full">
           {nav.map((n) => (
             <NavLink
@@ -124,8 +87,8 @@ export const SiteHeader = () => {
               className={({ isActive }) =>
                 `relative inline-flex items-center h-10 t-nav transition-colors ${
                   isActive
-                    ? "text-white font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-white"
-                    : "text-white/70 hover:text-white"
+                    ? "text-foreground font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`
               }
             >
@@ -138,7 +101,7 @@ export const SiteHeader = () => {
             asChild
             variant="outline"
             size="sm"
-            className="h-9 px-4 rounded-[2px] border border-white/30 bg-transparent text-white hover:bg-white/[0.06] hover:text-white hover:border-white"
+            className="h-9 px-4 rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
           >
             <Link to="/apply">Apply for Verification</Link>
           </Button>
@@ -147,7 +110,7 @@ export const SiteHeader = () => {
           className="lg:hidden p-2 -mr-2 relative h-9 w-9 transition-colors"
           style={{
             zIndex: open ? 70 : undefined,
-            color: "#FFFFFF",
+            color: open ? "#FFFFFF" : "hsl(var(--foreground))",
           }}
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
