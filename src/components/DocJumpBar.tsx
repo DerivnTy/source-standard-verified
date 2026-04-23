@@ -9,9 +9,16 @@ export type JumpWaypoint = { id: string; number: string; label: string };
  * §N · Label chips. Hairline bottom border, translucent backdrop. Uses
  * IntersectionObserver to highlight the active section.
  */
-export const DocJumpBar = ({ waypoints }: { waypoints: JumpWaypoint[] }) => {
+export const DocJumpBar = ({
+  waypoints,
+  tone = "default",
+}: {
+  waypoints: JumpWaypoint[];
+  tone?: "default" | "navy";
+}) => {
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
   const headerVisible = useHeaderVisible();
+  const isNavy = tone === "navy";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
