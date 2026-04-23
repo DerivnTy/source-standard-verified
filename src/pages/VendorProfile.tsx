@@ -161,7 +161,7 @@ const VendorProfile = () => {
   
   const location = formatLocation(vendor);
   const fulfillment = getVendorFulfillment(vendor);
-  const FulfillmentIcon = FULFILLMENT_ICON[fulfillment];
+  
   const sourceType = sourceTypeFor(vendor);
   const isPhysical = fulfillment === "in-person" || fulfillment === "hybrid";
   const fullAddress = isPhysical ? formatFullAddress(vendor) : null;
@@ -232,12 +232,12 @@ const VendorProfile = () => {
                 </span>
               </div>
 
-              {/* Vendor name — horizontal, no break */}
+              {/* Vendor name — horizontal, scaled to 24px */}
               <h1
                 className="font-sans font-semibold text-foreground"
                 style={{
-                  fontSize: "28px",
-                  lineHeight: "1.15",
+                  fontSize: "24px",
+                  lineHeight: "1.2",
                   letterSpacing: "-0.02em",
                   wordBreak: "normal",
                   overflowWrap: "break-word",
@@ -246,83 +246,93 @@ const VendorProfile = () => {
                 {vendor.name}
               </h1>
 
-              {/* Verified / Unverified banner */}
-              <div
-                className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-[12px]"
-                style={{
-                  backgroundColor: isVerified
-                    ? "rgba(52, 199, 89, 0.10)"
-                    : "hsl(var(--muted) / 0.6)",
-                  border: isVerified
-                    ? "0.5px solid rgba(52, 199, 89, 0.30)"
-                    : "0.5px solid hsl(var(--border))",
-                }}
-              >
-                {isVerified ? (
-                  <>
-                    <ShieldCheck
-                      aria-hidden
-                      style={{ width: "16px", height: "16px", strokeWidth: 1.5, color: "#1F8B3F" }}
-                    />
-                    <span
-                      className="font-sans font-semibold"
-                      style={{ fontSize: "13px", color: "#1F8B3F", letterSpacing: "-0.005em" }}
-                    >
-                      Verified Sourcing
-                    </span>
-                    {vendor.reviewDate && (
-                      <span
-                        className="ml-auto font-mono text-muted-foreground tabular-nums"
-                        style={{ fontSize: "11px" }}
-                      >
-                        Reviewed {vendor.reviewDate}
-                      </span>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <span
-                      aria-hidden
-                      className="inline-block rounded-full bg-muted-foreground/60"
-                      style={{ width: "6px", height: "6px" }}
-                    />
-                    <span
-                      className="font-sans font-medium text-muted-foreground"
-                      style={{ fontSize: "13px" }}
-                    >
-                      Unverified Listing
-                    </span>
-                  </>
-                )}
-              </div>
+              {/* Verified / Unverified status bar — full width, centered */}
+              {isVerified ? (
+                <div
+                  className="mt-4 flex items-center justify-center gap-2 w-full px-4 py-2"
+                  style={{
+                    backgroundColor: "rgba(52, 199, 89, 0.08)",
+                    border: "0.5px solid rgba(52, 199, 89, 0.30)",
+                    borderRadius: "20px",
+                  }}
+                >
+                  <ShieldCheck
+                    aria-hidden
+                    style={{ width: "14px", height: "14px", strokeWidth: 1.5, color: "#1F8B3F" }}
+                  />
+                  <span
+                    className="font-sans font-bold uppercase"
+                    style={{
+                      fontSize: "11px",
+                      color: "#1F8B3F",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    Verified Sourcing
+                  </span>
+                </div>
+              ) : (
+                <div
+                  className="mt-4 flex items-center justify-center w-full px-4 py-2"
+                  style={{
+                    backgroundColor: "rgba(255, 59, 48, 0.05)",
+                    border: "0.5px solid rgba(255, 59, 48, 0.20)",
+                    borderRadius: "20px",
+                  }}
+                >
+                  <span
+                    className="font-sans font-bold uppercase text-center"
+                    style={{
+                      fontSize: "11px",
+                      color: "#C0392B",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    Unverified
+                  </span>
+                </div>
+              )}
 
-              {/* Context row — Geist Mono 13px, bullet separators */}
-              <div
-                className="mt-4 flex items-center gap-x-2 gap-y-1.5 flex-wrap font-mono text-muted-foreground"
-                style={{ fontSize: "13px" }}
-              >
-                <span className="inline-flex items-center gap-1.5">
-                  <FulfillmentIcon
-                    aria-hidden
-                    style={{ width: "14px", height: "14px", strokeWidth: 1.5 }}
-                  />
-                  {VENDOR_FULFILLMENT_LABEL[fulfillment]}
-                </span>
-                <span aria-hidden className="text-border">•</span>
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin
-                    aria-hidden
-                    style={{ width: "14px", height: "14px", strokeWidth: 1.5 }}
-                  />
-                  {location}
-                </span>
-                {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
-                  <>
-                    <span aria-hidden className="text-border">•</span>
-                    <span>{vendor.clinicalFocus[0]}</span>
-                  </>
-                )}
-              </div>
+              {/* Context row — Geist Mono 13px, conditional location */}
+              {(() => {
+                const isOnline = fulfillment === "online";
+                const locationNode = isOnline ? (
+                  <span
+                    className="font-semibold"
+                    style={{ letterSpacing: "0.04em" }}
+                  >
+                    ONLINE
+                  </span>
+                ) : location && location !== "—" ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    <MapPin
+                      aria-hidden
+                      style={{ width: "14px", height: "14px", strokeWidth: 1.5 }}
+                    />
+                    {location}
+                  </span>
+                ) : null;
+                const focusNode =
+                  vendor.clinicalFocus && vendor.clinicalFocus.length > 0
+                    ? <span>{vendor.clinicalFocus[0]}</span>
+                    : null;
+                const parts = [locationNode, focusNode].filter(Boolean);
+                return (
+                  <div
+                    className="mt-4 flex items-center gap-x-2 gap-y-1.5 flex-wrap font-mono text-muted-foreground"
+                    style={{ fontSize: "13px" }}
+                  >
+                    {parts.map((node, i) => (
+                      <span key={i} className="inline-flex items-center gap-2">
+                        {i > 0 && (
+                          <span aria-hidden className="text-border">•</span>
+                        )}
+                        {node}
+                      </span>
+                    ))}
+                  </div>
+                );
+              })()}
 
               {/* Visit Website CTA — Navy, 20px radius */}
               {vendor.website && (
