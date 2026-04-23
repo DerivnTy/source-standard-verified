@@ -62,37 +62,39 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
 export const SiteFooter = () => {
   return (
     <footer className="border-t border-border bg-surface-muted/30 mt-20">
-      <div className="container-wide py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-12 gap-y-10 items-start">
-          <div>
-            <Logo />
-            <p className="mt-5 text-[14px] leading-[1.8] text-muted-foreground">
-              Source Standard · United States
-            </p>
-          </div>
-
-          {columns.map((col) => (
-            <div key={col.title}>
-              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground mb-4">
-                {col.title}
+      <div className="page-shell py-16">
+        <div className="mx-auto w-wide">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start">
+            <div className="lg:col-span-1">
+              <Logo />
+              <p className="mt-5 text-[14px] leading-[1.8] text-muted-foreground">
+                Source Standard · United States
               </p>
-              <ul className="space-y-0">
-                {col.links.map((l) => (
-                  <FooterLink key={l.label} row={l} />
-                ))}
-                {col.title === "Registry" && (
-                  <li>
-                    <Link
-                      to="/apply"
-                      className="inline-flex items-center gap-1 text-[14px] leading-[1.8] font-medium text-foreground hover:text-foreground/70 transition-colors"
-                    >
-                      Begin Verification <span aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                )}
-              </ul>
             </div>
-          ))}
+
+            {columns.map((col) => (
+              <div key={col.title}>
+                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground mb-4">
+                  {col.title}
+                </p>
+                <ul className="space-y-0">
+                  {col.links.map((l) => (
+                    <FooterLink key={l.label} row={l} />
+                  ))}
+                  {col.title === "Registry" && (
+                    <li>
+                      <Link
+                        to="/apply"
+                        className="inline-flex items-center gap-1 text-[14px] leading-[1.8] font-medium text-foreground hover:text-foreground/70 transition-colors"
+                      >
+                        Begin Verification <span aria-hidden="true">→</span>
+                      </Link>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="mt-14 pt-8 border-t border-border/70">
