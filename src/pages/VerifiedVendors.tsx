@@ -441,8 +441,8 @@ const VerifiedVendors = () => {
               onReset={reset}
               activeChips={activeChips}
             />
-            <p className="mt-3 text-[12px] text-muted-foreground">
-              Filter by state or fulfillment model to narrow your search.
+            <p className="mt-3 px-5 md:px-0 text-[12px] text-muted-foreground">
+              Filter by state or fulfillment.
             </p>
 
             <div className="mt-5">
