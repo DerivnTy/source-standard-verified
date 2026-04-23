@@ -35,6 +35,16 @@ const setHeaderVisibleGlobal = (v: boolean) => {
 
 export const useHeaderVisible = () => {
   const [v, setV] = useState(_headerVisible);
+  // Lock body scroll when full-screen menu is open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   useEffect(() => {
     visibilityListeners.add(setV);
     setV(_headerVisible);
@@ -161,107 +171,134 @@ export const SiteHeader = () => {
         </button>
       </div>
 
-      {/* In-place vertical unfold */}
+      {/* Full-screen immersive mobile overlay */}
       <div
-        className="lg:hidden grid overflow-hidden"
+        className="lg:hidden fixed inset-0 z-[60]"
+        aria-hidden={!open}
         style={{
-          gridTemplateRows: open ? "1fr" : "0fr",
-          transition: "grid-template-rows 350ms ease-out",
+          pointerEvents: open ? "auto" : "none",
+          opacity: open ? 1 : 0,
+          transform: open ? "scale(1)" : "scale(1.015)",
+          transition:
+            "opacity 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 320ms cubic-bezier(0.22, 1, 0.36, 1)",
+          backgroundColor: "hsl(var(--navy-surface) / 0.92)",
+          backdropFilter: "blur(40px) saturate(160%)",
+          WebkitBackdropFilter: "blur(40px) saturate(160%)",
         }}
       >
-        <div className="overflow-hidden">
-          <div
-            className="border-t border-[hsl(var(--navy-surface))]/20"
-            style={{
-              backgroundColor: "hsl(var(--navy-surface) / 0.96)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-            }}
-          >
-            <div className="container-wide flex flex-col gap-2 py-5">
-              {mobileNav.map((n) => (
-                <NavLink
+        <div className="flex h-full w-full flex-col">
+          {/* Top bar — logo left, close right (matches header height) */}
+          <div className="container-wide flex h-16 shrink-0 items-center justify-between">
+            <span
+              className="font-serif text-[16px] font-semibold tracking-tight"
+              style={{ color: "hsl(var(--background))" }}
+            >
+              Source Standard
+            </span>
+            {/* Close button (X) — re-uses morphing icon via main header button */}
+            <span aria-hidden style={{ width: "36px", height: "36px" }} />
+          </div>
+
+          {/* Nav list */}
+          <nav className="container-wide flex-1 overflow-hidden">
+            <ul className="flex flex-col">
+              {mobileNav.map((n, idx) => (
+                <li
                   key={n.to}
-                  to={n.to}
-                  end
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center justify-between font-sans text-[14px] font-semibold uppercase tracking-[0.06em] transition-colors ${
-                      isActive
-                        ? "text-[hsl(var(--background))]"
-                        : "text-[hsl(var(--background))]/80 hover:text-[hsl(var(--background))]"
-                    }`
-                  }
                   style={{
-                    paddingTop: "18px",
-                    paddingBottom: "18px",
-                    paddingLeft: "18px",
-                    paddingRight: "18px",
-                    borderRadius: "20px",
-                    border: "1px solid hsl(var(--background) / 0.18)",
-                    backgroundColor: "hsl(var(--background) / 0.06)",
+                    borderTop:
+                      idx === 0
+                        ? "0.5px solid hsl(var(--background) / 0.14)"
+                        : "none",
+                    borderBottom: "0.5px solid hsl(var(--background) / 0.14)",
                   }}
                 >
-                  {({ isActive }) => (
-                    <>
-                      <span className="font-serif text-[17px] font-semibold normal-case tracking-tight">
-                        {n.label}
-                      </span>
-                      <svg
-                        aria-hidden
-                        viewBox="0 0 16 16"
-                        width="14"
-                        height="14"
-                        style={{
-                          opacity: isActive ? 0.95 : 0.55,
-                          color: "hsl(var(--background))",
-                        }}
-                      >
-                        <path
-                          d="M5 3l5 5-5 5"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </>
-                  )}
-                </NavLink>
+                  <NavLink
+                    to={n.to}
+                    end
+                    onClick={() => setOpen(false)}
+                    className="flex w-full items-center justify-between transition-opacity hover:opacity-80"
+                    style={{
+                      paddingTop: "32px",
+                      paddingBottom: "32px",
+                      color: "hsl(var(--background))",
+                    }}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        <span
+                          className="font-serif text-[26px] tracking-tight"
+                          style={{
+                            fontWeight: 400,
+                            opacity: isActive ? 1 : 0.92,
+                          }}
+                        >
+                          {n.label}
+                        </span>
+                        <svg
+                          aria-hidden
+                          viewBox="0 0 16 16"
+                          width="14"
+                          height="14"
+                          style={{
+                            opacity: 0.5,
+                            color: "hsl(var(--background))",
+                          }}
+                        >
+                          <path
+                            d="M5 3l5 5-5 5"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </>
+                    )}
+                  </NavLink>
+                </li>
               ))}
+            </ul>
 
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="mt-5 mb-4 h-11 border border-[hsl(var(--background))]/40 bg-transparent text-[hsl(var(--background))] hover:bg-[hsl(var(--background))]/10 hover:text-[hsl(var(--background))] hover:border-[hsl(var(--background))] rounded-[2px] font-mono text-[12px] uppercase tracking-[0.12em]"
-              >
-                <Link to="/apply" onClick={() => setOpen(false)}>
-                  Apply for Verification
-                </Link>
-              </Button>
+            {/* Apply CTA — invitation, not advertisement */}
+            <Link
+              to="/apply"
+              onClick={() => setOpen(false)}
+              className="mt-10 flex h-12 w-full items-center justify-center font-mono text-[12px] uppercase transition-colors hover:bg-[hsl(var(--background))]/[0.06]"
+              style={{
+                border: "1px solid hsl(var(--background) / 0.55)",
+                color: "hsl(var(--background))",
+                letterSpacing: "0.22em",
+                borderRadius: "2px",
+              }}
+            >
+              Apply for Verification
+            </Link>
+          </nav>
 
-              {/* System status footer */}
-              <div
-                className="flex items-center justify-center gap-2 pb-5 pt-2 font-mono text-[11px] uppercase tracking-[0.12em]"
-                style={{ color: "hsl(var(--background) / 0.55)" }}
-              >
-                <span
-                  aria-hidden
-                  className="inline-block animate-pulse"
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "9999px",
-                    backgroundColor: "hsl(142 65% 55%)",
-                  }}
-                />
-                <span>System Operational</span>
-                <span style={{ color: "hsl(var(--background) / 0.3)" }}>·</span>
-                <span>{APP_VERSION}</span>
-              </div>
-            </div>
+          {/* Pinned status footer */}
+          <div
+            className="container-wide flex shrink-0 items-center justify-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.16em]"
+            style={{
+              color: "hsl(var(--background) / 0.55)",
+              paddingTop: "16px",
+              paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 18px)",
+            }}
+          >
+            <span
+              aria-hidden
+              className="inline-block animate-pulse"
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "9999px",
+                backgroundColor: "hsl(142 65% 55%)",
+              }}
+            />
+            <span>System Operational</span>
+            <span style={{ color: "hsl(var(--background) / 0.3)" }}>·</span>
+            <span>{APP_VERSION}</span>
           </div>
         </div>
       </div>
