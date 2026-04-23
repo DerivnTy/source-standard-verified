@@ -4,152 +4,15 @@ import { Search, ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
-
-// ---------- Slug → route mapping ----------
-
-const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
-  "what-is-compounding": "/library/what-is-compounding",
-  "what-are-peptides": "/library/what-are-peptides",
-  "how-to-read-a-certificate-of-analysis": "/library/interpreting-coas",
-  "the-dual-layer-difference": "/library/dual-layer-difference",
-  "safe-peptide-handling-and-reconstitution": "/library/sterile-preparation-integrity",
-  "sanitization-and-aseptic-technique-fundamentals": "/library/aseptic-technique",
-  "the-science-of-aging-and-trt": "/library/endocrinological-context",
-  "dosing-guidance-summaries-for-common-compounds": "/library/reference-dosing-ranges",
-  "the-2026-compounding-reclassification": "/library/analysis/2026-reclassification",
-  "questions-to-ask-your-clinic": "/library/analysis/questions-for-your-clinic",
-  "what-source-standard-verification-actually-means": "/library/analysis/meaning-of-verification",
-  "warning-signs-of-undocumented-sourcing": "/library/analysis/undocumented-sourcing-signs",
-};
-
-const routeFor = (slug: string) =>
-  SLUG_ROUTE_OVERRIDES[slug] ?? `/education/${slug}`;
-
-// ---------- Content model ----------
-
-type CategoryId = "regulation" | "clinical" | "consumer";
-
-type Article = {
-  slug: string;
-  title: string;
-  blurb: string;
-  meta: string;
-  category: CategoryId;
-};
-
-const CATEGORIES: { id: CategoryId; label: string; short: string; description: string }[] = [
-  {
-    id: "regulation",
-    label: "Sourcing & Regulation",
-    short: "Regulation",
-    description:
-      "Statutory framework, facility classifications, and verification methodology.",
-  },
-  {
-    id: "clinical",
-    label: "Clinical Handling",
-    short: "Clinical",
-    description:
-      "Sterile technique, stability, and clinical context — peer-reviewed by the Medical Advisory Board.",
-  },
-  {
-    id: "consumer",
-    label: "Consumer Due Diligence",
-    short: "Consumer",
-    description:
-      "Patient-facing checklists and signal interpretation for evaluating clinics and sources.",
-  },
-];
-
-const ARTICLES: Article[] = [
-  // Regulation
-  {
-    slug: "what-is-compounding",
-    title: "What is Compounding?",
-    blurb: "The critical difference between 503A and 503B facilities.",
-    meta: "6 min read · Apr 2026",
-    category: "regulation",
-  },
-  {
-    slug: "the-2026-compounding-reclassification",
-    title: "The 2026 Regulatory Shift",
-    blurb: "Implications of the recent compounding reclassifications.",
-    meta: "8 min read · Apr 2026",
-    category: "regulation",
-  },
-  {
-    slug: "how-to-read-a-certificate-of-analysis",
-    title: "Interpreting CoAs",
-    blurb: "Reading lab reports and detecting sourcing discrepancies.",
-    meta: "7 min read · Mar 2026",
-    category: "regulation",
-  },
-  {
-    slug: "the-dual-layer-difference",
-    title: "The Dual-Layer Audit",
-    blurb: "Why we verify both the clinic and the manufacturer.",
-    meta: "5 min read · Mar 2026",
-    category: "regulation",
-  },
-  // Clinical
-  {
-    slug: "safe-peptide-handling-and-reconstitution",
-    title: "Sterile Handling Protocol",
-    blurb: "Best practices for reconstitution and aseptic storage.",
-    meta: "6 min read · Apr 2026",
-    category: "clinical",
-  },
-  {
-    slug: "sanitization-and-aseptic-technique-fundamentals",
-    title: "Stability Fundamentals",
-    blurb: "How temperature, light, and time affect peptide integrity.",
-    meta: "5 min read · Mar 2026",
-    category: "clinical",
-  },
-  {
-    slug: "the-science-of-aging-and-trt",
-    title: "Endocrinological Context",
-    blurb: "Age-related change and TRT mechanisms.",
-    meta: "9 min read · Feb 2026",
-    category: "clinical",
-  },
-  {
-    slug: "dosing-guidance-summaries-for-common-compounds",
-    title: "Dosing Reference",
-    blurb: "Summaries of commonly cited clinical dosing ranges.",
-    meta: "10 min read · Feb 2026",
-    category: "clinical",
-  },
-  // Consumer
-  {
-    slug: "questions-to-ask-your-clinic",
-    title: "The Clinic Checklist",
-    blurb: "5 essential questions to ask your doctor about their sourcing.",
-    meta: "4 min read · Apr 2026",
-    category: "consumer",
-  },
-  {
-    slug: "warning-signs-of-undocumented-sourcing",
-    title: "Warning Signs",
-    blurb: "Identifying \u201CGrey Market\u201D vendors and undocumented sources.",
-    meta: "6 min read · Mar 2026",
-    category: "consumer",
-  },
-  {
-    slug: "what-source-standard-verification-actually-means",
-    title: "Verification Scope",
-    blurb: "What our \u201CVerified\u201D badge establishes (and what it doesn't).",
-    meta: "5 min read · Mar 2026",
-    category: "consumer",
-  },
-  {
-    slug: "what-are-peptides",
-    title: "Sterile Injection Guide",
-    blurb: "Safe handling and disposal for injectable preparations.",
-    meta: "7 min read · Feb 2026",
-    category: "consumer",
-  },
-];
+import { ArticleRow } from "@/components/library/ArticleRow";
+import {
+  ARTICLES,
+  CATEGORIES,
+  Category,
+  CategoryId,
+  articlesByCategory,
+  sortArticles,
+} from "@/data/resourceLibrary";
 
 const FAQ_BUTTONS: { label: string; to: string }[] = [
   { label: "Legal", to: "/library/faq/legal-regulatory" },
@@ -158,44 +21,28 @@ const FAQ_BUTTONS: { label: string; to: string }[] = [
   { label: "Diligence", to: "/education/questions#due-diligence" },
 ];
 
-const VIEW_ALL_THRESHOLD = 5;
+const PREVIEW_LIMIT = 5;
 
-// ---------- Row + Section ----------
-
-const ArticleRow = ({ entry }: { entry: Article }) => (
-  <li>
-    <Link
-      to={routeFor(entry.slug)}
-      className="group grid grid-cols-12 gap-4 items-center px-5 py-4 transition-colors hover:bg-surface-muted"
-    >
-      <div className="col-span-12 md:col-span-4">
-        <h3 className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-          {entry.title}
-        </h3>
-      </div>
-      <div className="col-span-12 md:col-span-6">
-        <p className="t-body-sm text-muted-foreground leading-[1.55]">
-          {entry.blurb}
-        </p>
-      </div>
-      <div className="col-span-12 md:col-span-2 md:text-right">
-        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-          {entry.meta}
-        </span>
-      </div>
-    </Link>
-  </li>
-);
+const handleAnchorClick = (
+  e: React.MouseEvent<HTMLAnchorElement>,
+  id: string,
+) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  e.preventDefault();
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  history.replaceState(null, "", `#${id}`);
+};
 
 const CategoryBlock = ({
   category,
   entries,
 }: {
-  category: (typeof CATEGORIES)[number];
-  entries: Article[];
+  category: Category;
+  entries: ReturnType<typeof articlesByCategory>;
 }) => {
-  const visible = entries.slice(0, VIEW_ALL_THRESHOLD);
-  const hasMore = entries.length > VIEW_ALL_THRESHOLD;
+  const visible = entries.slice(0, PREVIEW_LIMIT);
+  const hasMore = entries.length > PREVIEW_LIMIT;
 
   return (
     <section
@@ -229,20 +76,16 @@ const CategoryBlock = ({
       )}
 
       {hasMore && (
-        <div className="px-5 py-3 border-t border-border bg-surface-muted/30 text-right">
-          <Link
-            to={`/education#${category.id}`}
-            className="t-body-sm font-semibold text-primary hover:underline"
-          >
-            View full {category.short} index →
-          </Link>
-        </div>
+        <Link
+          to={category.path}
+          className="block border-t border-border bg-surface-muted/30 px-5 py-4 text-center t-body-sm font-semibold text-primary transition-colors hover:bg-surface-muted hover:text-primary"
+        >
+          View all {category.label} Reference Materials →
+        </Link>
       )}
     </section>
   );
 };
-
-// ---------- Page ----------
 
 type Filter = "all" | CategoryId;
 
@@ -263,7 +106,10 @@ const Education = () => {
   }, [query, filter]);
 
   const byCategory = (id: CategoryId) =>
-    filtered.filter((a) => a.category === id);
+    sortArticles(
+      filtered.filter((a) => a.category === id),
+      "newest",
+    );
 
   const visibleCategories =
     filter === "all" ? CATEGORIES : CATEGORIES.filter((c) => c.id === filter);
@@ -287,7 +133,6 @@ const Education = () => {
         statement="Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed by the Medical Advisory Board."
       />
 
-      {/* Search + filters — docked under hero, registry-aligned */}
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-wide">
@@ -323,20 +168,42 @@ const Education = () => {
                 </span>
               </div>
 
-              {/* Filter chips */}
+              {/* Filter chips — smooth-scroll anchors when "All" is active */}
               <div className="flex flex-wrap items-center gap-2 px-4 py-3">
-                {(
-                  [
-                    { id: "all" as Filter, label: "All" },
-                    ...CATEGORIES.map((c) => ({ id: c.id as Filter, label: c.short })),
-                  ]
-                ).map((chip) => {
-                  const active = filter === chip.id;
+                <button
+                  type="button"
+                  onClick={() => setFilter("all")}
+                  className={
+                    "rounded-md border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors " +
+                    (filter === "all"
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border bg-card text-muted-foreground hover:bg-surface-muted hover:text-foreground")
+                  }
+                  aria-pressed={filter === "all"}
+                >
+                  All
+                </button>
+                {CATEGORIES.map((c) => {
+                  const active = filter === c.id;
+                  // When "All" is the current filter, chips behave as smooth-scroll
+                  // anchors. When a single filter is selected, chips toggle filters.
+                  if (filter === "all") {
+                    return (
+                      <a
+                        key={c.id}
+                        href={`#${c.id}`}
+                        onClick={(e) => handleAnchorClick(e, c.id)}
+                        className="rounded-md border border-border bg-card px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
+                      >
+                        {c.short}
+                      </a>
+                    );
+                  }
                   return (
                     <button
-                      key={chip.id}
+                      key={c.id}
                       type="button"
-                      onClick={() => setFilter(chip.id)}
+                      onClick={() => setFilter(c.id)}
                       className={
                         "rounded-md border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors " +
                         (active
@@ -345,7 +212,7 @@ const Education = () => {
                       }
                       aria-pressed={active}
                     >
-                      {chip.label}
+                      {c.short}
                     </button>
                   );
                 })}
