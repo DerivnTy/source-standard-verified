@@ -1,153 +1,312 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { BriefingHero } from "@/components/BriefingHero";
-import { BoardSection } from "@/components/BoardSection";
-import { DocJumpBar } from "@/components/DocJumpBar";
+import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 
-type Section = {
-  id: string;
-  n: string;
-  category: string;
-  title: string;
-  points: string[];
-};
+const WAYPOINTS = [
+  { id: "acceptance", number: "01", label: "Acceptance" },
+  { id: "citation", number: "02", label: "Citation" },
+  { id: "integrity", number: "03", label: "Integrity" },
+  { id: "warranty", number: "04", label: "Warranty" },
+  { id: "jurisdiction", number: "05", label: "Jurisdiction" },
+  { id: "related", number: "06", label: "Related Policies" },
+];
 
-const sections: Section[] = [
+const SectionIndex = ({ n }: { n: string }) => (
+  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
+);
+
+type Clause = { n: string; t: string; d: string };
+
+const CITATION: Clause[] = [
   {
-    id: "acceptance",
     n: "01",
-    category: "ACCEPTANCE",
-    title: "Registry Access & Acceptance",
-    points: [
-      "Access to the Source Standard public registry constitutes binding acceptance of this agreement and the associated Data Governance Policy.",
-      "If any term is not accepted, the user must immediately discontinue use of the registry and its associated framework documents.",
-      "Continued access represents a contractual acknowledgment of the jurisdictional and liability limitations defined herein.",
-    ],
+    t: "Audit ID",
+    d: "Include the unique registry identifier associated with the listing, where applicable.",
   },
   {
-    id: "citation",
     n: "02",
-    category: "CITATION",
-    title: "Citation & Data Utilization",
-    points: [
-      "Registry entries may be cited in journalistic, academic, or clinical contexts provided the following elements are included:",
-      "Audit ID: The unique registry identifier (e.g., SS-V-####).",
-      "Status Date: The specific date of the determination being referenced.",
-      "Attribution: A direct link to the source registry page for real-time verification.",
-      "Citations omitting the Audit ID or Status Date are considered non-conforming and may result in status-misrepresentation protocols.",
-    ],
+    t: "Status date",
+    d: "Include the date of the determination being referenced.",
   },
   {
-    id: "prohibited",
     n: "03",
-    category: "INTEGRITY",
-    title: "Integrity & Prohibitions",
-    points: [
-      "Bulk Extraction: No automated scraping, crawling, or indexing of registry data for resale or derivative datasets.",
-      "Status Misrepresentation: No display or implication of a \u201CVerified\u201D status for any entity not currently active in the registry.",
-      "Unauthorized Identification: No use of Source Standard marks or badge artwork to imply an uncontracted partnership or endorsement.",
-      "Registry Interference: No activity intended to disrupt or falsify the integrity of the public records.",
-      "Confirmed violations are subject to administrative action under the SS-ENFORCE-2026.01 protocol.",
-    ],
+    t: "Attribution",
+    d: "Provide a direct link to the source registry page so the current public record can be reviewed.",
   },
   {
-    id: "warranty",
     n: "04",
-    category: "WARRANTY",
-    title: "Warranty & Liability",
-    points: [
-      "Auditing Mirror: This registry operates as a mirror of third-party regulatory, pharmacy, and laboratory records.",
-      "As-Is Basis: Data is provided for reference only; the auditing body makes no warranties regarding the fitness of registry entries for any specific medical purpose.",
-      "Limit of Liability: Reliance on registry data is at the user's discretion. Users are advised to consult licensed clinicians for all medical determinations.",
-    ],
-  },
-  {
-    id: "jurisdiction",
-    n: "05",
-    category: "JURISDICTION",
-    title: "Jurisdiction",
-    points: [
-      "This agreement is governed by the laws of the State of Florida and applicable United States Federal Standards.",
-      "Any dispute arising under this agreement is subject to the exclusive jurisdiction of the state and federal courts located in Florida.",
-    ],
+    t: "Citation integrity",
+    d: "Citations that omit the identifying details necessary to locate the record may misstate the standing or timing of the published determination.",
   },
 ];
 
-const relatedPolicies = [
+const INTEGRITY: Clause[] = [
+  {
+    n: "01",
+    t: "Bulk extraction",
+    d: "No automated scraping, crawling, or indexing of registry data for resale or creation of derivative datasets without authorization.",
+  },
+  {
+    n: "02",
+    t: "Status misrepresentation",
+    d: "No display or implication of a Verified standing for any entity not currently published under that status in the registry.",
+  },
+  {
+    n: "03",
+    t: "Unauthorized use of marks",
+    d: "No use of Source Standard names, marks, or badge artwork in a way that implies an uncontracted partnership, endorsement, or verified relationship.",
+  },
+  {
+    n: "04",
+    t: "Registry interference",
+    d: "No activity intended to disrupt, falsify, or degrade the integrity of public records or related framework materials.",
+  },
+  {
+    n: "05",
+    t: "Related enforcement",
+    d: "Confirmed violations may be addressed under the applicable enforcement and accountability protocols of the framework.",
+  },
+];
+
+const WARRANTY: Clause[] = [
+  {
+    n: "01",
+    t: "Reference basis",
+    d: "The registry reflects Source Standard's review of third-party regulatory, pharmacy, laboratory, and related records within a defined scope and at a defined point in time.",
+  },
+  {
+    n: "02",
+    t: "As-is publication",
+    d: "Registry data is provided as a public reference only and is not warranted as fit for any specific medical, legal, or commercial purpose.",
+  },
+  {
+    n: "03",
+    t: "Reliance limits",
+    d: "Use of registry data is at the user's discretion. Medical decisions should be made with licensed clinicians and not on the basis of registry information alone.",
+  },
+];
+
+const RELATED = [
   { to: "/privacy", label: "Data Governance & Privacy Policy" },
   { to: "/verification-disclaimer", label: "Verification Disclaimer" },
   { to: "/accountability", label: "Accountability & Enforcement" },
   { to: "/status-definitions", label: "Status Definitions" },
 ];
 
-const waypoints = sections.map((s) => ({
-  id: s.id,
-  number: s.n,
-  label: s.category,
-}));
-
-const Terms = () => (
-  <>
-    <PageMeta
-      title="Registry User Agreement"
-      description="The binding framework governing the access, citation, and utilization of Source Standard registry data."
-    />
-    <Breadcrumb items={[{ label: "Legal" }, { label: "Terms" }]} />
-
-    <BriefingHero
-      tone="navy"
-      category=""
-      docId=""
-      title="Registry User Agreement"
-      statement="The binding framework governing the access, citation, and utilization of Source Standard registry data."
-    />
-
-    <DocJumpBar waypoints={waypoints} />
-
-    {sections.map((s, i) => (
-      <BoardSection
-        key={s.id}
-        id={s.id}
-        n={s.n}
-        category={s.category}
-        title={s.title}
-        muted={i % 2 === 1}
-        hideEyebrow
-      >
-        <ul className="space-y-4">
-          {s.points.map((p, idx) => (
-            <li key={idx} className="flex gap-4">
-              <span aria-hidden className="text-muted-foreground/60 select-none font-sans">|</span>
-              <span className="flex-1">{p}</span>
-            </li>
-          ))}
-        </ul>
-      </BoardSection>
+const ClauseList = ({ clauses }: { clauses: Clause[] }) => (
+  <ol className="divide-y divide-border/60 border-y border-border/60">
+    {clauses.map((c) => (
+      <li key={c.n} className="grid grid-cols-12 gap-4 py-6">
+        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70 pt-1">
+          {c.n}
+        </div>
+        <div className="col-span-10 md:col-span-11">
+          <h3 className="t-body-md font-semibold text-foreground mb-2">{c.t}</h3>
+          <p className="t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
+        </div>
+      </li>
     ))}
-
-    <BoardSection
-      n="06"
-      category="REFERENCE"
-      title="Related Policies"
-      muted={sections.length % 2 === 1}
-      hideEyebrow
-    >
-      <ul className="border-y border-border divide-y divide-border">
-        {relatedPolicies.map((d) => (
-          <li key={d.to}>
-            <Link
-              to={d.to}
-              className="group flex items-center justify-between gap-4 py-4 hover:text-primary transition-colors"
-            >
-              <span className="t-body-md text-foreground group-hover:text-primary">{d.label}</span>
-              <span className="text-primary shrink-0">→</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </BoardSection>
-  </>
+  </ol>
 );
+
+const SplitSection = ({
+  id,
+  n,
+  title,
+  intro,
+  children,
+}: {
+  id: string;
+  n: string;
+  title: string;
+  intro: string;
+  children: React.ReactNode;
+}) => (
+  <section id={id} className="scroll-mt-24 section-pad border-b border-border/40">
+    <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
+      <div className="md:col-span-4">
+        <div className="md:sticky md:top-32">
+          <SectionIndex n={n} />
+          <h2 className="t-section-title-sm text-foreground">{title}</h2>
+          <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">{intro}</p>
+        </div>
+      </div>
+      <div className="md:col-span-8 mt-8 md:mt-0">{children}</div>
+    </div>
+  </section>
+);
+
+const Terms = () => {
+  const heroDescription =
+    "The governing terms for access to, citation of, and use of the Source Standard public registry and associated framework materials.";
+
+  return (
+    <>
+      <Breadcrumb items={[{ label: "Legal" }, { label: "Terms" }]} />
+
+      <PageMeta title="Terms" description={heroDescription} />
+
+      {/* §1 Hero */}
+      <section className="bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard pt-20 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24">
+            <div className="max-w-3xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Registry User Agreement</p>
+              <h1 className="mt-4 t-page-title text-foreground">Terms of Use</h1>
+              <p className="mt-6 t-body-lg text-muted-foreground leading-relaxed">
+                {heroDescription}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §2 Statement of purpose */}
+      <section className="bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard section-pad">
+            <div className="max-w-2xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
+              <h2 className="mt-4 t-section-title-sm text-foreground">
+                How this agreement applies
+              </h2>
+              <div className="mt-6 space-y-5">
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  These terms govern public access to the Source Standard registry and the related materials published under the framework.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  They define the conditions of access, rules for citation and use, prohibited conduct, and the legal boundaries that apply to reliance on registry information.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §3 Contents nav */}
+      <SectionAnchorNav waypoints={WAYPOINTS} />
+
+      <div className="bg-background">
+        <div className="page-shell">
+          <div className="mx-auto w-standard">
+            {/* §4 Acceptance */}
+            <SplitSection
+              id="acceptance"
+              n="01"
+              title="Registry Access & Acceptance"
+              intro="What use of the registry means."
+            >
+              <div className="space-y-5">
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Access to the Source Standard public registry constitutes acceptance of these terms and the related policies referenced on this page.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  If a user does not accept these terms, use of the registry and associated framework materials should be discontinued.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Continued access signifies acceptance of the jurisdictional, liability, and use limitations defined below.
+                </p>
+              </div>
+            </SplitSection>
+
+            {/* §5 Citation */}
+            <SplitSection
+              id="citation"
+              n="02"
+              title="Citation & Data Utilization"
+              intro="How registry entries may be referenced publicly."
+            >
+              <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
+                Registry entries may be cited in journalistic, academic, or clinical contexts provided the citation preserves sufficient detail for the reader to identify the referenced record accurately.
+              </p>
+              <ClauseList clauses={CITATION} />
+            </SplitSection>
+
+            {/* §6 Integrity */}
+            <SplitSection
+              id="integrity"
+              n="03"
+              title="Integrity & Prohibitions"
+              intro="Conduct that is not permitted in connection with the registry or its published materials."
+            >
+              <ClauseList clauses={INTEGRITY} />
+            </SplitSection>
+
+            {/* §7 Warranty */}
+            <SplitSection
+              id="warranty"
+              n="04"
+              title="Warranty & Liability"
+              intro="How registry information should be understood and relied upon."
+            >
+              <ClauseList clauses={WARRANTY} />
+            </SplitSection>
+
+            {/* §8 Jurisdiction */}
+            <SplitSection
+              id="jurisdiction"
+              n="05"
+              title="Jurisdiction"
+              intro="The governing law applied to this agreement."
+            >
+              <div className="space-y-5">
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  These terms are governed by the laws of the State of Florida and applicable laws of the United States.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Any dispute arising under these terms is subject to the jurisdiction of the appropriate state and federal courts located in Florida.
+                </p>
+              </div>
+            </SplitSection>
+
+            {/* §9 Related Policies */}
+            <SplitSection
+              id="related"
+              n="06"
+              title="Related Policies"
+              intro="Further reading on privacy, verification scope, enforcement, and public status meanings."
+            >
+              <ul className="divide-y divide-border/60 border-y border-border/60">
+                {RELATED.map((r) => (
+                  <li key={r.to}>
+                    <Link
+                      to={r.to}
+                      className="group grid grid-cols-12 gap-4 py-5 items-baseline hover:bg-surface-muted/40 transition-colors -mx-4 px-4"
+                    >
+                      <div className="col-span-9 md:col-span-10">
+                        <p className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {r.label}
+                        </p>
+                      </div>
+                      <div className="col-span-3 md:col-span-2 text-right">
+                        <span className="t-utility-xs text-muted-foreground group-hover:text-primary transition-colors">
+                          View
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </SplitSection>
+
+            {/* §10 Closing statement */}
+            <section className="section-pad border-t border-border/40">
+              <div className="max-w-2xl">
+                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
+                <h2 className="mt-4 t-section-title-sm text-foreground">
+                  Public access requires clear terms of use.
+                </h2>
+                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                  These terms exist to preserve the integrity of the registry, support accurate public citation, and clarify the limits under which Source Standard information is published and used.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Terms;
