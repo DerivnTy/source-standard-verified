@@ -166,31 +166,79 @@ const PillContents = ({
 }) => {
   const ulRef = useRef<HTMLUListElement | null>(null);
   const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
+  const rafRef = useRef<number | null>(null);
   const [indicator, setIndicator] = useState<{ left: number; width: number }>({
     left: 0,
     width: 0,
   });
 
   useEffect(() => {
-    const update = () => {
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    const compute = () => {
       const ul = ulRef.current;
-      const el = itemRefs.current[activeId];
-      if (!ul || !el) return;
+      if (!ul) return;
       const ulRect = ul.getBoundingClientRect();
-      const elRect = el.getBoundingClientRect();
+
+      // Measure chip positions relative to the ul
+      const chips = waypoints
+        .map((w) => itemRefs.current[w.id])
+        .filter((el): el is HTMLLIElement => !!el)
+        .map((el) => {
+          const r = el.getBoundingClientRect();
+          return { left: r.left - ulRect.left, width: r.width };
+        });
+      if (chips.length === 0) return;
+
+      // Section DOM elements (for scroll progress)
+      const sections = waypoints
+        .map((w) => document.getElementById(w.id))
+        .filter((el): el is HTMLElement => !!el);
+      if (sections.length === 0) return;
+
+      // Compute scroll progress from first section top to last section bottom
+      const firstTop = sections[0].getBoundingClientRect().top + window.scrollY;
+      const lastEl = sections[sections.length - 1];
+      const lastBottom =
+        lastEl.getBoundingClientRect().top + window.scrollY + lastEl.offsetHeight;
+      // Anchor against viewport center-ish (use header offset of ~160px)
+      const anchor = window.scrollY + 200;
+      const range = Math.max(1, lastBottom - firstTop);
+      const docProgress = Math.max(0, Math.min(1, (anchor - firstTop) / range));
+
+      // Map progress (0..1) across chip indices (0..n-1)
+      const n = chips.length;
+      const scaled = docProgress * (n - 1);
+      const i = Math.max(0, Math.min(n - 2, Math.floor(scaled)));
+      const t = Math.max(0, Math.min(1, scaled - i));
+
+      const a = chips[i];
+      const b = chips[Math.min(n - 1, i + 1)];
       setIndicator({
-        left: elRect.left - ulRect.left,
-        width: elRect.width,
+        left: lerp(a.left, b.left, t),
+        width: lerp(a.width, b.width, t),
       });
     };
-    update();
-    window.addEventListener("resize", update);
-    const id = window.setTimeout(update, 50);
-    return () => {
-      window.removeEventListener("resize", update);
-      window.clearTimeout(id);
+
+    const onScroll = () => {
+      if (rafRef.current != null) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        compute();
+      });
     };
-  }, [activeId, itemGap, itemPadX, ulPushLeft, waypoints]);
+
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    const id = window.setTimeout(compute, 50);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.clearTimeout(id);
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [itemGap, itemPadX, ulPushLeft, waypoints]);
 
   return (
     <div
