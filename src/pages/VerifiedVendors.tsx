@@ -30,7 +30,6 @@ const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
   { value: "in-person", label: "IN-PERSON" },
 ];
 
-const FOCUS_OPTIONS: { value: FocusKey; label: string }[] = [
 // 2x2 grid of focus pills (mirrors the primary 2x2 status/method grid)
 const FOCUS_OPTIONS: { value: Exclude<FocusKey, "all">; label: string }[] = [
   { value: "peptides", label: "PEPTIDES" },
