@@ -1,12 +1,11 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ReactNode } from "react";
-import { X, Check } from "lucide-react";
 
 export type SheetOption = { value: string; label: string };
 
 /**
- * FilterBottomSheet — Uber-style bottom sheet for filter selection.
- * Slides up from bottom-0, covers ~50vh, blurred backdrop, 2px top border.
+ * FilterBottomSheet — iOS-style bottom sheet.
+ * 300ms slide-up from bottom-0, 24px top corners, blurred backdrop, grabber handle.
  */
 export const FilterBottomSheet = ({
   open,
@@ -26,25 +25,46 @@ export const FilterBottomSheet = ({
   <Dialog.Root open={open} onOpenChange={onOpenChange}>
     <Dialog.Portal>
       <Dialog.Overlay
-        className="fixed inset-0 z-50 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-        style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
+        className="fixed inset-0 z-50 bg-black/40 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+        style={{
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          animationDuration: "300ms",
+        }}
       />
       <Dialog.Content
-        className="fixed inset-x-0 bottom-0 z-50 max-h-[50vh] overflow-hidden bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom"
-        style={{ borderTop: "2px solid hsl(var(--foreground))" }}
+        aria-describedby={undefined}
+        onPointerDownOutside={() => onOpenChange(false)}
+        className="fixed inset-x-0 bottom-0 z-50 max-h-[70vh] overflow-hidden bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom"
+        style={{
+          borderTopLeftRadius: "24px",
+          borderTopRightRadius: "24px",
+          boxShadow: "0 -12px 40px -12px rgba(0,0,0,0.18)",
+          animationDuration: "300ms",
+          animationTimingFunction: "cubic-bezier(0.32, 0.72, 0, 1)",
+        }}
       >
-        <div className="flex items-center justify-between px-5 pt-4 pb-3">
-          <Dialog.Title className="font-serif text-[16px] font-semibold tracking-tight text-foreground">
+        {/* Grabber */}
+        <button
+          type="button"
+          aria-label="Close"
+          onClick={() => onOpenChange(false)}
+          className="block w-full pt-3 pb-2"
+        >
+          <span
+            aria-hidden
+            className="mx-auto block h-[5px] w-[40px] rounded-full"
+            style={{ backgroundColor: "hsl(var(--border))" }}
+          />
+        </button>
+
+        <div className="px-5 pb-1 pt-1">
+          <Dialog.Title className="font-serif text-[17px] font-semibold tracking-tight text-foreground">
             {title}
           </Dialog.Title>
-          <Dialog.Close
-            aria-label="Close"
-            className="-mr-1.5 rounded p-1.5 text-muted-foreground hover:text-foreground"
-          >
-            <X className="h-4 w-4" />
-          </Dialog.Close>
         </div>
-        <ul className="overflow-y-auto" style={{ maxHeight: "calc(50vh - 56px)" }}>
+
+        <ul className="mt-2 overflow-y-auto pb-6" style={{ maxHeight: "calc(70vh - 90px)" }}>
           {options.map((opt) => {
             const active = opt.value === value;
             return (
@@ -55,8 +75,8 @@ export const FilterBottomSheet = ({
                     onChange(opt.value);
                     onOpenChange(false);
                   }}
-                  className="flex w-full items-center justify-between border-t border-border px-5 text-left transition-colors hover:bg-[hsl(var(--muted))]/40"
-                  style={{ height: "60px" }}
+                  className="flex w-full items-center justify-between px-5 text-left transition-colors hover:bg-[hsl(var(--muted))]/40"
+                  style={{ height: "56px" }}
                 >
                   <span
                     className={`text-[15px] ${
@@ -65,9 +85,7 @@ export const FilterBottomSheet = ({
                   >
                     {opt.label}
                   </span>
-                  {active && (
-                    <CustomCheck />
-                  )}
+                  {active && <CustomCheck />}
                 </button>
               </li>
             );
