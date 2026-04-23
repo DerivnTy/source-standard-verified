@@ -225,13 +225,14 @@ export const FacetToggle = ({
     type="button"
     aria-pressed={active}
     onClick={onClick}
-    className={`h-10 px-3.5 rounded-[2px] border t-utility-xs font-semibold transition-all duration-150 ${
+    className={`h-10 px-3.5 rounded-[2px] t-utility-xs font-semibold uppercase tracking-[0.06em] transition-all duration-150 ${
       active
         ? tone === "verified"
-          ? "bg-verified text-verified-foreground border-verified shadow-[0_1px_0_0_hsl(var(--verified)/0.4)]"
-          : "bg-foreground text-background border-foreground shadow-[0_1px_0_0_hsl(var(--foreground)/0.4)]"
-        : "bg-background text-muted-foreground border-border/70 hover:text-foreground hover:border-foreground/40"
+          ? "bg-verified text-verified-foreground"
+          : "bg-white text-black"
+        : "bg-background text-muted-foreground hover:text-foreground"
     }`}
+    style={{ border: "1px solid #64748B" }}
   >
     {children}
   </button>
