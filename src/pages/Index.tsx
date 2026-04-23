@@ -476,6 +476,40 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* §9 — Primary CTA: Access the Verified Registry */}
+      <section
+        aria-labelledby="enter-registry"
+        className="bg-[hsl(var(--navy-surface))]"
+        style={{ paddingTop: "80px", paddingBottom: "80px" }}
+      >
+        <div className="page-shell">
+          <div className="mx-auto w-standard text-left">
+            <p
+              className="font-mono text-[12px] uppercase text-white/60"
+              style={{ letterSpacing: "1px" }}
+            >
+              08 · ACCESS
+            </p>
+            <h2
+              id="enter-registry"
+              className="mt-4 t-section-title-sm text-white max-w-[28ch]"
+              style={{ lineHeight: 1.2 }}
+            >
+              Access the Verified Registry.
+            </h2>
+            <div className="mt-8">
+              <Link
+                to="/verified-vendors"
+                className="inline-flex items-center rounded-[2px] bg-white text-[hsl(var(--navy-surface))] px-6 py-3 font-mono text-[13px] font-medium uppercase hover:bg-white/90 active:bg-white/80 transition-colors"
+                style={{ letterSpacing: "1px" }}
+              >
+                [&nbsp;ENTER&nbsp;REGISTRY&nbsp;//&nbsp;]
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
