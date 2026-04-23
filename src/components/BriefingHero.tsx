@@ -147,12 +147,14 @@ export const BriefingHero = ({
 
         <div className="relative z-10 page-shell section-pad">
           <div className="w-hero">
-            <p
-              aria-hidden="true"
-              className="t-eyebrow-sm text-white/55 mb-4"
-            >
-              {category}
-            </p>
+            {category && (
+              <p
+                aria-hidden="true"
+                className="t-eyebrow-sm text-white/55 mb-4"
+              >
+                {category}
+              </p>
+            )}
             <h1
               id="briefing-title"
               className="text-white t-chapter-title max-w-[22ch]"
