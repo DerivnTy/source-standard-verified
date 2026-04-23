@@ -109,38 +109,37 @@ export const DocJumpBar = ({
 
   return (
     <>
-      {/* Seam zone — reserves vertical space and provides the navy/white split.
-          The sticky <nav> lives inside it so it starts visually centered on the
-          seam at rest, then sticks to the header offset as the user scrolls. */}
+      {/* Seam zone — purely decorative navy/white split. No nav inside so it
+          can't clip the sticky element. */}
       <div
         ref={seamRef}
-        aria-hidden={false}
+        aria-hidden
         className="relative w-full"
         style={{
           height: `${SEAM_HEIGHT}px`,
           background:
             "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)",
         }}
+      />
+      {/* Sticky nav — sibling of the seam, so its sticky container is the page
+          body and it remains visible for the entire article. Negative top margin
+          pulls it up at rest so it visually straddles the seam. */}
+      <nav
+        aria-label="Document contents"
+        className="border border-border"
+        style={{
+          ...navStyle,
+          marginTop: `${lerp(-SEAM_HEIGHT / 2 - 22, 0, progress)}px`,
+          borderColor: `hsl(var(--border) / ${lerp(1, borderOpacity, progress)})`,
+        }}
       >
-        <nav
-          aria-label="Document contents"
-          className="border border-border"
-          style={{
-            ...navStyle,
-            // Pull the sticky element up so at rest it straddles the seam.
-            // As progress grows, the negative margin eases to 0 so it sits flush at the top.
-            marginTop: `${lerp(-SEAM_HEIGHT / 2 - 16, 0, progress)}px`,
-            borderColor: `hsl(var(--border) / ${lerp(1, borderOpacity, progress)})`,
-          }}
-        >
-          <PillContents
-            waypoints={waypoints}
-            activeId={activeId}
-            onJump={onJump}
-            flush={progress > 0.95}
-          />
-        </nav>
-      </div>
+        <PillContents
+          waypoints={waypoints}
+          activeId={activeId}
+          onJump={onJump}
+          flush={progress > 0.95}
+        />
+      </nav>
     </>
   );
 };
