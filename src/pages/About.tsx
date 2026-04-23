@@ -114,7 +114,7 @@ const About = () => {
         </BoardSection>
       ))}
 
-      <BoardSection n="05" category="REFERENCE" title="Reference Library" muted={sections.length % 2 === 1}>
+      <BoardSection n="05" category="REFERENCE" title="Reference Library" muted={sections.length % 2 === 1} hideEyebrow>
         <ul className="grid grid-cols-1 sm:grid-cols-2 border-t border-border">
           {readDeeper.map((d, i) => (
             <li
