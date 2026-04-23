@@ -74,7 +74,7 @@ const Accountability = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       verifiedOn={VERIFIED_ON}
-      eyebrow="Compliance & sanctions"
+      eyebrow="Governance & oversight"
       title="Compliance Monitoring & Enforcement Protocols"
       lead="Attestations accepted by Verified entities, Mandatory Disclosure Events, audit re-opening triggers, and the graduated enforcement actions available to the framework when compliance obligations are not met."
     />

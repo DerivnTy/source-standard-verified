@@ -98,7 +98,7 @@ const HowToReadTheDirectory = () => {
           { label: "Updated", value: "April 21, 2026" },
           { label: "Jurisdiction", value: "US" },
         ]}
-        eyebrow="Reference"
+        eyebrow="Public registry · Reader's guide"
         title="How to read the directory"
         lead="Interpreting vendor listings and what each public status does, and does not, say about a vendor."
       />
