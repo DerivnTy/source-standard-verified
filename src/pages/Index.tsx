@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 
-import { vendors } from "@/data/vendors";
-import { greenlistEntries, getGreenlistStates } from "@/data/greenlist";
 
 /* ───────────────── Hero actions ───────────────── */
 
@@ -91,41 +89,9 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p className="t-eyebrow-sm text-muted-foreground">{children}</p>
 );
 
-/* ───────────────── Live registry counts ───────────────── */
-
-const computeRegistryStats = () => {
-  const total = vendors.length;
-  const verified = vendors.filter((v) => v.status === "verified").length;
-  const underReview = vendors.filter((v) => v.status === "under-review").length;
-  const facilities = greenlistEntries.length;
-  const states = getGreenlistStates().length;
-
-  // Most recent review date across vendors (ISO yyyy-mm-dd). Falls back to today.
-  const dates = vendors
-    .map((v) => v.reviewDate)
-    .filter((d): d is string => Boolean(d))
-    .sort();
-  const mostRecent = dates.length ? dates[dates.length - 1] : null;
-  const lastUpdated = mostRecent
-    ? new Date(mostRecent).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    : new Date().toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
-
-  return { total, verified, underReview, facilities, states, lastUpdated };
-};
-
 /* ───────────────── Page ───────────────── */
 
 const Index = () => {
-  const stats = computeRegistryStats();
-
   return (
     <>
       <PageMeta
@@ -188,7 +154,7 @@ const Index = () => {
 
       {/* §3 — Live registry proof */}
       <section aria-labelledby="live-registry" className="border-b border-border bg-background">
-        <div className="page-shell pt-[var(--section-pad-y,0)] section-pad pb-0">
+        <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <Eyebrow>Live registry</Eyebrow>
             <h2
@@ -200,47 +166,8 @@ const Index = () => {
             <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
               Our database tracks the entire peptide economy in real time.
             </p>
-          </div>
-        </div>
 
-        {/* Full-bleed Data Horizon — institutional ticker strip */}
-        <div
-          role="group"
-          aria-label="Live registry data horizon"
-          className="mt-10 w-full border-y border-border/70 bg-surface-muted/40 backdrop-blur-[2px]"
-        >
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-border/60">
-            {[
-              { label: "Vendors Tracked", value: stats.total.toLocaleString() },
-              { label: "States Represented", value: stats.states.toLocaleString() },
-              { label: "Verified Sourcing", value: stats.verified.toLocaleString() },
-              { label: "Facilities Recognized", value: stats.facilities.toLocaleString() },
-              { label: "Registry Status", value: "ACTIVE", live: true },
-            ].map((cell) => (
-              <div
-                key={cell.label}
-                className="flex flex-col justify-center px-5 md:px-7 py-5 md:py-6 min-h-[88px]"
-              >
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  {cell.label}
-                </span>
-                <span className="mt-2 font-mono text-[18px] md:text-[20px] leading-[1.1] font-medium tabular-nums text-foreground inline-flex items-center gap-2">
-                  {cell.live && (
-                    <span
-                      aria-hidden
-                      className="inline-block w-1.5 h-1.5 rounded-full bg-verified animate-pulse"
-                    />
-                  )}
-                  {cell.value}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="page-shell section-pad pt-10">
-          <div className="mx-auto w-standard">
-            <div className="flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap gap-3">
               <Link to="/directory" className={darkBtnPrimary}>
                 Search Verified Vendors
               </Link>
