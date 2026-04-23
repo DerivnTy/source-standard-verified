@@ -30,20 +30,20 @@ const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
   { value: "in-person", label: "IN-PERSON" },
 ];
 
-const FOCUS_OPTIONS: { value: FocusKey; label: string }[] = [
-  { value: "all", label: "All Categories" },
-  { value: "peptides", label: "Peptides" },
-  { value: "hormone", label: "Hormone Therapy" },
-  { value: "longevity", label: "Longevity" },
-  { value: "wellness", label: "General Wellness" },
+// 2x2 grid of focus pills (mirrors the primary 2x2 status/method grid)
+const FOCUS_OPTIONS: { value: Exclude<FocusKey, "all">; label: string }[] = [
+  { value: "peptides", label: "PEPTIDES" },
+  { value: "hormone", label: "HORMONE" },
+  { value: "longevity", label: "LONGEVITY" },
+  { value: "wellness", label: "WELLNESS" },
 ];
 
 const FOCUS_LABEL: Record<FocusKey, string> = {
   all: "All",
-  peptides: "Peptides",
-  hormone: "Hormone Therapy",
-  longevity: "Longevity",
-  wellness: "General Wellness",
+  peptides: "PEPTIDES",
+  hormone: "HORMONE",
+  longevity: "LONGEVITY",
+  wellness: "WELLNESS",
 };
 
 /** Map vendor → consumer focus bucket. */
@@ -264,50 +264,87 @@ const VerifiedVendors = () => {
                 ))}
               </div>
 
-              {/* Vendor focus — inline accordion expansion */}
-              <button
-                type="button"
-                onClick={() => setFocusOpen((o) => !o)}
-                aria-expanded={focusOpen}
-                className="mt-2 flex w-full items-center justify-center gap-1.5 font-sans text-[12.5px] font-medium uppercase tracking-[0.08em] text-foreground/80 transition-colors hover:bg-[hsl(var(--muted))]/80"
+              {/* Vendor focus — same pill geometry, opens 2x2 expansion */}
+              <div
+                className="mt-2 flex w-full items-stretch gap-2"
                 style={{
-                  height: "40px",
-                  borderRadius: "12px",
-                  backgroundColor: "hsl(var(--muted) / 0.55)",
-                  border: "1px solid hsl(var(--border) / 0.6)",
+                  height: "32px",
                 }}
               >
-                {focus === "all" ? (
-                  <span className="text-muted-foreground">Select Focus...</span>
-                ) : (
-                  <>
-                    <span className="text-muted-foreground">Focus:</span>
-                    <span>{FOCUS_LABEL[focus]}</span>
-                  </>
-                )}
-                <svg
-                  aria-hidden
-                  viewBox="0 0 12 12"
-                  width="10"
-                  height="10"
-                  className="opacity-60"
+                <button
+                  type="button"
+                  onClick={() => setFocusOpen((o) => !o)}
+                  aria-expanded={focusOpen}
+                  className="flex flex-1 items-center justify-center gap-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors"
                   style={{
-                    transition: "transform 300ms ease-in-out",
-                    transform: focusOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--border) / 0.7)",
+                    backgroundColor: "hsl(var(--muted) / 0.6)",
+                    color: "hsl(var(--foreground) / 0.75)",
                   }}
                 >
-                  <path
-                    d="M2.5 4.5L6 8l3.5-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                  {focus === "all" ? (
+                    <span>Select Focus...</span>
+                  ) : (
+                    <>
+                      <span className="opacity-60">Focus:</span>
+                      <span>{FOCUS_LABEL[focus]}</span>
+                    </>
+                  )}
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 12 12"
+                    width="10"
+                    height="10"
+                    className="opacity-60"
+                    style={{
+                      transition: "transform 300ms ease-in-out",
+                      transform: focusOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    }}
+                  >
+                    <path
+                      d="M2.5 4.5L6 8l3.5-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
 
-              {/* Accordion expansion — grid trick for smooth height animation */}
+                {/* Clear (X) — only when a focus is set */}
+                {focus !== "all" && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFocus("all");
+                      setFocusOpen(false);
+                    }}
+                    aria-label="Clear focus filter"
+                    className="flex shrink-0 items-center justify-center transition-colors hover:bg-[hsl(var(--muted))]"
+                    style={{
+                      width: "32px",
+                      borderRadius: "20px",
+                      border: "1px solid hsl(var(--border) / 0.7)",
+                      backgroundColor: "hsl(var(--muted) / 0.6)",
+                      color: "hsl(var(--foreground) / 0.75)",
+                    }}
+                  >
+                    <svg aria-hidden viewBox="0 0 12 12" width="10" height="10">
+                      <path
+                        d="M3 3l6 6M9 3l-6 6"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </div>
+
+              {/* Accordion expansion — 2x2 SoftPill grid */}
               <div
                 className="grid"
                 style={{
@@ -316,64 +353,20 @@ const VerifiedVendors = () => {
                 }}
               >
                 <div className="overflow-hidden">
-                  <ul
-                    className="mt-2 overflow-hidden"
-                    style={{
-                      borderRadius: "12px",
-                      border: "1px solid hsl(var(--border) / 0.6)",
-                      backgroundColor: "hsl(var(--background))",
-                    }}
-                  >
-                    {FOCUS_OPTIONS.map((opt, idx) => {
-                      const active = opt.value === focus;
-                      const isLast = idx === FOCUS_OPTIONS.length - 1;
-                      return (
-                        <li key={opt.value}>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setFocus(opt.value);
-                              setFocusOpen(false);
-                            }}
-                            className="flex w-full items-center justify-between px-4 text-left transition-colors hover:bg-[hsl(var(--muted))]/50"
-                            style={{
-                              height: "48px",
-                              borderBottom: isLast
-                                ? "none"
-                                : "1px solid hsl(var(--border) / 0.5)",
-                            }}
-                          >
-                            <span
-                              className={`font-serif text-[15px] tracking-tight ${
-                                active
-                                  ? "font-semibold text-foreground"
-                                  : "text-foreground/85"
-                              }`}
-                            >
-                              {opt.label}
-                            </span>
-                            {active && (
-                              <svg
-                                aria-hidden
-                                viewBox="0 0 20 20"
-                                className="h-4 w-4"
-                                style={{ color: "hsl(var(--navy-surface))" }}
-                              >
-                                <path
-                                  d="M5 10.5l3 3L15 7"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="1.75"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            )}
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    {FOCUS_OPTIONS.map((opt) => (
+                      <SoftPill
+                        key={opt.value}
+                        label={opt.label}
+                        active={focus === opt.value}
+                        fullWidth
+                        onClick={() => {
+                          setFocus(opt.value);
+                          setFocusOpen(false);
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

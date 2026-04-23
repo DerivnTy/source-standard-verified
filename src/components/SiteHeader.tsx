@@ -178,39 +178,42 @@ export const SiteHeader = () => {
               WebkitBackdropFilter: "blur(12px)",
             }}
           >
-            <div className="container-wide flex flex-col">
-              {mobileNav.map((n, idx) => (
+            <div className="container-wide flex flex-col gap-2 py-5">
+              {mobileNav.map((n) => (
                 <NavLink
                   key={n.to}
                   to={n.to}
                   end
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center justify-between font-serif text-[18px] tracking-tight transition-colors ${
+                    `flex items-center justify-between font-sans text-[14px] font-semibold uppercase tracking-[0.06em] transition-colors ${
                       isActive
-                        ? "text-[hsl(var(--background))] font-semibold"
-                        : "text-[hsl(var(--background))]/85 hover:text-[hsl(var(--background))]"
+                        ? "text-[hsl(var(--background))]"
+                        : "text-[hsl(var(--background))]/80 hover:text-[hsl(var(--background))]"
                     }`
                   }
                   style={{
-                    paddingTop: "24px",
-                    paddingBottom: "24px",
-                    borderBottom:
-                      idx === mobileNav.length - 1
-                        ? "none"
-                        : "1px solid hsl(var(--background) / 0.12)",
+                    paddingTop: "18px",
+                    paddingBottom: "18px",
+                    paddingLeft: "18px",
+                    paddingRight: "18px",
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--background) / 0.18)",
+                    backgroundColor: "hsl(var(--background) / 0.06)",
                   }}
                 >
                   {({ isActive }) => (
                     <>
-                      <span>{n.label}</span>
+                      <span className="font-serif text-[17px] font-semibold normal-case tracking-tight">
+                        {n.label}
+                      </span>
                       <svg
                         aria-hidden
                         viewBox="0 0 16 16"
                         width="14"
                         height="14"
                         style={{
-                          opacity: isActive ? 0.9 : 0.5,
+                          opacity: isActive ? 0.95 : 0.55,
                           color: "hsl(var(--background))",
                         }}
                       >
