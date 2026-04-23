@@ -9,10 +9,10 @@ import { BriefingHero } from "@/components/BriefingHero";
    - Transparent fill; subtle white/10 fill on hover/active */
 
 const ghostBtnPrimary =
-  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 active:bg-white/15 transition-colors";
+  "rounded-[2px] border border-white text-[hsl(var(--navy-surface))] bg-white px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-white/90 active:bg-white/80 transition-colors";
 
 const ghostBtnSecondary =
-  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-white/10 active:bg-white/15 transition-colors";
+  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-white/10 active:bg-white/15 transition-colors";
 
 const HeroActions = () => (
   <>
