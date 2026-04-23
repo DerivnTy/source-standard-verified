@@ -12,7 +12,6 @@ const WAYPOINTS = [
   { id: "members", number: "03", label: "Members" },
   { id: "scope", number: "04", label: "Scope" },
   { id: "responsibilities", number: "05", label: "Responsibilities" },
-  { id: "continue", number: "06", label: "Continue" },
 ];
 
 const SectionIndex = ({ n }: { n: string }) => (
@@ -95,23 +94,6 @@ const BOUNDARIES = [
   "The Board does not produce listings or market clinics.",
 ];
 
-const BRIDGE_LINKS = [
-  {
-    to: "/how-it-works",
-    label: "How verification works",
-    description: "The protocol the Board governs.",
-  },
-  {
-    to: "/accountability",
-    label: "Accountability & enforcement",
-    description: "What happens when verification fails.",
-  },
-  {
-    to: "/about",
-    label: "About Source Standard",
-    description: "The organization the Board oversees.",
-  },
-];
 
 const MedicalAdvisory = () => {
   return (
