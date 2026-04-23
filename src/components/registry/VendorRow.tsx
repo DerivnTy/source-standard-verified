@@ -1,16 +1,62 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import { Vendor, VendorFulfillment, VENDOR_FULFILLMENT_LABEL } from "@/data/vendors";
+import { Vendor, VendorFulfillment } from "@/data/vendors";
 
 /**
- * VendorRow — Elite Marketplace card (DoorDash/Uber Eats density).
- * - 20px radius, 0.5px hairline border, white surface
- * - Name (Inter SemiBold 17px) as the hook
- * - Subtitle: "City, ST • Focus" in 12px Geist Mono
- * - Top-right status pill (Verified = soft green w/ dot, Unverified = muted)
- * - Chevron-right affordance on the far right
- * - Tap gives a 0.97 scale via global active styles
+ * VendorRow — Elite Marketplace Decision Card.
+ * Hierarchy: Name + Focus tag → Location/metadata → Decision tags → View Audit CTA.
+ * Verified status pill sits top-right; unverified renders muted.
  */
+
+const SYSTEM_GRAY_BG = "#F2F2F7";
+const SYSTEM_GRAY_TEXT = "#48484A";
+
+const UtilityTag = ({ label }: { label: string }) => (
+  <span
+    className="inline-flex items-center font-sans font-semibold uppercase whitespace-nowrap"
+    style={{
+      fontSize: "11px",
+      letterSpacing: "0.04em",
+      padding: "3px 7px",
+      borderRadius: "4px",
+      backgroundColor: SYSTEM_GRAY_BG,
+      color: SYSTEM_GRAY_TEXT,
+    }}
+  >
+    {label}
+  </span>
+);
+
+const focusFor = (vendor: Vendor): string | null => {
+  if (vendor.clinicalFocus && vendor.clinicalFocus.length > 0) {
+    return vendor.clinicalFocus[0].toUpperCase();
+  }
+  if (vendor.category) return vendor.category.toUpperCase();
+  return null;
+};
+
+const buildDecisionTags = (
+  vendor: Vendor,
+  fulfillment: VendorFulfillment,
+): string[] => {
+  const tags: string[] = [];
+
+  // Certification (heuristic on category)
+  const cat = (vendor.category ?? "").toLowerCase();
+  if (cat.includes("compounding")) tags.push("503B Certified");
+
+  // Fulfillment
+  if (fulfillment === "online") tags.push("Online Only");
+  else if (fulfillment === "in-person") tags.push("In-Person");
+  else if (fulfillment === "hybrid") tags.push("Online + In-Person");
+
+  // Insurance heuristic — only if explicitly noted in publicNote/summary
+  const blob = `${vendor.publicNote ?? ""} ${vendor.summary ?? ""}`.toLowerCase();
+  if (blob.includes("insurance")) tags.push("Insurance Accepted");
+
+  return tags;
+};
+
 export const VendorRow = ({
   vendor,
   fulfillment,
@@ -20,35 +66,60 @@ export const VendorRow = ({
   fulfillment: VendorFulfillment;
   location: string;
 }) => {
-  const focusLabel =
-    vendor.clinicalFocus?.[0] ?? vendor.category ?? VENDOR_FULFILLMENT_LABEL[fulfillment] ?? "—";
-  const subtitle = `${location} • ${focusLabel}`;
   const isVerified = vendor.status === "verified";
+  const focus = focusFor(vendor);
+  const decisionTags = buildDecisionTags(vendor, fulfillment);
+
+  // Conditional location: ONLINE for online vendors, else City, ST.
+  const isOnline = fulfillment === "online";
+  const locationLabel = isOnline
+    ? "ONLINE"
+    : location && location !== "—"
+      ? location
+      : null;
 
   return (
     <Link
       to={`/directory/${vendor.slug}`}
-      aria-label={`${vendor.name} — ${subtitle}`}
+      aria-label={`${vendor.name}${focus ? ` — ${focus}` : ""}`}
       data-pill
       className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.97]"
       style={{
         border: "0.5px solid hsl(var(--border))",
         borderRadius: "20px",
-        padding: "12px 14px",
+        padding: "14px 16px",
       }}
     >
-      <div className="flex items-center gap-3">
-        {/* Main content */}
+      <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
+          {/* Top row: Name + Focus tag (left), Status (right) */}
           <div className="flex items-start justify-between gap-3">
-            <h3
-              className="truncate font-sans font-semibold text-foreground"
-              style={{ fontSize: "17px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
-            >
-              {vendor.name}
-            </h3>
+            <div className="min-w-0 flex items-center gap-2 flex-wrap">
+              <h3
+                className="truncate font-sans font-semibold text-foreground"
+                style={{
+                  fontSize: "17px",
+                  lineHeight: "1.25",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                {vendor.name}
+              </h3>
+              {focus && (
+                <span
+                  className="inline-flex items-center font-sans font-semibold uppercase bg-foreground text-background whitespace-nowrap"
+                  style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.06em",
+                    padding: "3px 7px",
+                    borderRadius: "4px",
+                  }}
+                >
+                  {focus}
+                </span>
+              )}
+            </div>
 
-            {/* Status pill — top right */}
             {isVerified ? (
               <span
                 className="shrink-0 inline-flex items-center gap-1.5 rounded-full font-mono font-semibold uppercase tabular-nums"
@@ -85,20 +156,52 @@ export const VendorRow = ({
             )}
           </div>
 
-          <p
-            className="mt-1 truncate font-mono text-muted-foreground"
-            style={{ fontSize: "12px", lineHeight: "1.35" }}
-          >
-            {subtitle}
-          </p>
-        </div>
+          {/* Metadata row — 4px gap from name */}
+          {locationLabel && (
+            <p
+              className="truncate font-mono text-muted-foreground"
+              style={{
+                fontSize: "12px",
+                lineHeight: "1.35",
+                marginTop: "4px",
+              }}
+            >
+              {locationLabel}
+            </p>
+          )}
 
-        {/* Chevron affordance */}
-        <ChevronRight
-          aria-hidden
-          className="shrink-0 text-muted-foreground/60 transition-transform group-hover:translate-x-0.5"
-          style={{ width: "16px", height: "16px", strokeWidth: 1.5 }}
-        />
+          {/* Decision tags — 4px gap from metadata */}
+          {decisionTags.length > 0 && (
+            <div
+              className="flex flex-wrap gap-1.5"
+              style={{ marginTop: "8px" }}
+            >
+              {decisionTags.map((tag) => (
+                <UtilityTag key={tag} label={tag} />
+              ))}
+            </div>
+          )}
+
+          {/* View Audit CTA */}
+          <div
+            className="flex items-center justify-end"
+            style={{ marginTop: "10px" }}
+          >
+            <span
+              className="inline-flex items-center gap-1 font-sans font-bold uppercase text-muted-foreground group-hover:text-foreground transition-colors"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.06em",
+              }}
+            >
+              View Full Audit
+              <ChevronRight
+                aria-hidden
+                style={{ width: "12px", height: "12px", strokeWidth: 1.5 }}
+              />
+            </span>
+          </div>
+        </div>
       </div>
     </Link>
   );
