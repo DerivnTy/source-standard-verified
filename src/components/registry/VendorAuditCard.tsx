@@ -85,8 +85,8 @@ export const VendorAuditCard = ({
     vendor.status === "suspended" ||
     vendor.status === "removed";
 
-  // Surgical-red wash — extremely faint highlight, not a UI error.
-  const unverifiedWash = "#FFF8F8";
+  // Paper-thin surgical-red whisper — suggests warning, not error.
+  const unverifiedWash = "#FFF9F9";
 
   if (view === "list") {
     return (

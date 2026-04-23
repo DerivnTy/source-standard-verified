@@ -24,7 +24,10 @@ export const RegistryHorizon = ({
       role="group"
       aria-label={ariaLabel}
       className="rounded-[2px] overflow-hidden"
-      style={{ backgroundColor: "#F1F5F9" }}
+      style={{
+        backgroundColor: "#F1F5F9",
+        border: "1px solid #E2E8F0",
+      }}
     >
       <div
         className="grid"
@@ -37,20 +40,24 @@ export const RegistryHorizon = ({
             key={cell.label}
             className="flex flex-col items-center justify-center text-center min-w-0"
             style={{
-              padding: "24px 12px",
+              padding: "20px 12px",
               borderLeft: idx === 0 ? "none" : "1px solid #E2E8F0",
             }}
           >
             <span
-              className="font-mono tabular-nums text-foreground tracking-tight"
-              style={{ fontSize: "28px", lineHeight: 1, fontWeight: 600 }}
+              className="font-mono tabular-nums tracking-tight"
+              style={{
+                fontSize: "30px",
+                lineHeight: 1,
+                fontWeight: 700,
+                color: "#0F172A",
+              }}
             >
               {typeof cell.value === "number"
                 ? cell.value.toLocaleString()
                 : cell.value}
             </span>
             <span
-              className="text-muted-foreground"
               style={{
                 marginTop: "10px",
                 fontSize: "11px",
@@ -58,6 +65,7 @@ export const RegistryHorizon = ({
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 lineHeight: 1.2,
+                color: "#64748B",
               }}
             >
               {cell.label}
