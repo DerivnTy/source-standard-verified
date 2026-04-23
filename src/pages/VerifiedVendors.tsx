@@ -1,20 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { Building2, Globe, MapPin } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
-import { StatusBadge } from "@/components/StatusBadge";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import {
   QueryBar,
   FacetSelect,
-  FacetGroup,
-  FacetToggle,
-  FacetDivider,
   ActiveChip,
 } from "@/components/registry/QueryBar";
 import { RegistryPagination } from "@/components/registry/RegistryPagination";
-import { VerificationShield } from "@/components/registry/VerificationShield";
 import { VendorAuditCard } from "@/components/registry/VendorAuditCard";
 import {
   vendors,
@@ -26,10 +20,8 @@ import {
   getVendorCityKey,
   getClinicalFocusOptions,
   getVendorFulfillment,
-
   VendorFulfillment,
   VENDOR_FULFILLMENT_LABEL,
-  VENDOR_FULFILLMENT_DESC,
 } from "@/data/vendors";
 
 const ALL = "__all__";
