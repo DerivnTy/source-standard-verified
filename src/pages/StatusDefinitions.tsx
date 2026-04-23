@@ -1,294 +1,313 @@
 import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
-import {
-  BoardSection,
-  BoardCiteFooter,
-} from "@/components/BoardSection";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 
-const DOC_ID = "SS-STATUS-2026.01";
-
-const statuses = [
-  {
-    key: "verified",
-    label: "Verified",
-    swatch: "text-verified",
-  },
-  {
-    key: "pending-review",
-    label: "Pending Review",
-    swatch: "text-pending",
-  },
-  {
-    key: "under-review",
-    label: "Under Review",
-    swatch: "text-pending",
-  },
-  {
-    key: "suspended",
-    label: "Suspended",
-    swatch: "text-destructive",
-  },
-  {
-    key: "removed",
-    label: "Removed (De-listed)",
-    swatch: "text-muted-foreground",
-  },
-  {
-    key: "greenlisted",
-    label: "Greenlisted (Qualified Upstream Designation)",
-    swatch: "text-verified",
-  },
-  {
-    key: "not-listed",
-    label: "Not Listed (Null Standing)",
-    swatch: "text-muted-foreground",
-  },
+const WAYPOINTS = [
+  { id: "purpose", number: "01", label: "Purpose" },
+  { id: "statuses", number: "02", label: "Statuses" },
+  { id: "lifecycle", number: "03", label: "Lifecycle" },
+  { id: "related", number: "04", label: "Related Documents" },
 ];
 
-const STATUS_COPY: Record<
-  string,
-  { meaning: string; tells: string; notImply: string; assigned: string; changes: string }
-> = {
-  verified: {
-    meaning:
-      "Positive determination of record consistency. The entity has completed a documented examination against the Source Standard evidentiary rubric, and the listing reflects records reviewed at the time of publication.",
-    tells:
-      "Records, regulatory credentials, and supply-chain documentation have been reconciled with public claims within the declared examination scope.",
-    notImply:
-      "Does not constitute endorsement of clinical outcomes, individual prescriptions, or product safety guarantees.",
-    assigned:
-      "Issued upon successful completion of intake, evidentiary review, supply-chain reconciliation, and category-scope confirmation.",
-    changes:
-      "Revised upon lapse of renewal, occurrence of a Mandatory Disclosure Event (MDE), or initiation of a triggered re-examination.",
-  },
-  "pending-review": {
-    meaning: "Application received; audit file opened but examination has not yet commenced.",
-    tells: "The entity has formally entered the verification pipeline.",
-    notImply: "Does not imply that any portion of the evidentiary review has been conducted.",
-    assigned: "Issued at intake when the application package is received and acknowledged.",
-    changes: "Revised when examination commences (Under Review) or upon withdrawal of the application.",
-  },
-  "under-review": {
-    meaning:
-      "Active examination in progress. Records, regulatory credentials, and supply-chain documentation are being examined against the rubric.",
-    tells: "The audit file is currently open and undergoing examination.",
-    notImply: "Does not imply any conclusion regarding the entity's records, sourcing, or compliance posture.",
-    assigned:
-      "Issued at the commencement of evidentiary review, or upon re-opening of a Verified file following a triggering event.",
-    changes: "Revised to Verified, Suspended, or Removed upon conclusion of the examination.",
-  },
-  suspended: {
-    meaning:
-      "Administrative hold pending evidentiary clarification. A previously Verified standing is temporarily withdrawn.",
-    tells:
-      "An open question, undisclosed Mandatory Disclosure Event (MDE), or unresolved discrepancy prevents the Verified standing from being maintained.",
-    notImply:
-      "Does not constitute a finding of misconduct, fraud, or regulatory enforcement action by any governmental body.",
-    assigned:
-      "Issued upon failure to renew on schedule, failure to respond to a clarification request, or surfacing of material discrepancies.",
-    changes:
-      "Revised back to Verified upon resolution; revised to Removed (De-listed) if the matter remains unresolved.",
-  },
-  removed: {
-    meaning:
-      "De-listing. The entity has been withdrawn from the public registry and the audit file is no longer maintained.",
-    tells: "The entity is no longer represented in the registry under the Source Standard framework.",
-    notImply:
-      "Does not constitute a specific finding of misconduct unless explicitly stated in an attached public note.",
-    assigned:
-      "Issued where the entity has defaulted on compliance obligations through sustained non-response, voluntary withdrawal, sustained material misrepresentation, or upstream-supplier delisting that cannot be remediated.",
-    changes: "Reinstatement requires submission of a new application and a fresh examination cycle.",
-  },
-  greenlisted: {
-    meaning:
-      "Qualified Upstream Designation. An upstream source, 503A pharmacy, 503B outsourcing facility, or qualified supplier, recognized as a documented, FDA-registered or state-licensed manufacturing anchor from which Verified vendors may legitimately source.",
-    tells:
-      "The upstream source is documented, traceable, and operates within recognized regulatory categories as a manufacturing anchor of the supply chain.",
-    notImply:
-      "Does not imply contract, endorsement, or affiliation with Source Standard · and does not certify every product manufactured by the source.",
-    assigned: "Issued upon confirmation of registration, licensing category, and operating record.",
-    changes: "Revised upon lapse of registration, withdrawal of licensing, or removal of the source by the relevant regulator.",
-  },
-  "not-listed": {
-    meaning:
-      "Null Standing. The entity is outside the surveillance scope of the Source Standard framework. It has not applied, has not been examined, or has been previously de-listed.",
-    tells: "No public record exists under the Source Standard framework for this entity.",
-    notImply:
-      "Does not imply that the entity is illegitimate, unsafe, or non-compliant under any external regulatory regime. It indicates only the absence of a Source Standard record.",
-    assigned: "Default standing for any entity that has not entered the registry.",
-    changes: "Revised only upon entry into the verification or Greenlist examination process.",
-  },
+const SectionIndex = ({ n }: { n: string }) => (
+  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
+);
+
+type Status = {
+  n: string;
+  title: string;
+  definition: string;
+  meaning: string;
+  notImply: string;
+  issued: string;
+  revised: string;
 };
 
-const FIELD_LABELS = {
-  meaning: "Definition",
-  tells: "Public-record signal",
-  notImply: "Limits / does not imply",
-  assigned: "Conditions of issuance",
-  changes: "Conditions of revision",
-} as const;
-
-const lifecycle = [
-  "Application received → Pending Review",
-  "Examination commences → Under Review",
-  "Examination concludes → Verified or Removed (De-listed)",
-  "Renewal interval reached → Under Review (renewal cycle)",
-  "Triggering event (public report, supply-chain change, claims divergence, MDE) → Under Review or Suspended",
-  "Resolution → Verified, Suspended, or Removed (De-listed)",
+const STATUSES: Status[] = [
+  {
+    n: "01",
+    title: "Verified",
+    definition:
+      "A completed review is on file. The entity has undergone a documented examination against the Source Standard framework, and the published listing reflects the records reviewed at the time of publication.",
+    meaning:
+      "Records, regulatory credentials, and sourcing documentation have been reconciled with the entity's public claims within the reviewed scope.",
+    notImply:
+      "It does not constitute an endorsement of clinical outcomes, individual prescriptions, or product safety guarantees.",
+    issued:
+      "Issued after successful completion of intake, evidentiary review, supply-chain reconciliation, and scope confirmation.",
+    revised:
+      "Revised upon lapse of renewal, a material disclosure event, or the reopening of the file for further review.",
+  },
+  {
+    n: "02",
+    title: "Pending Review",
+    definition:
+      "An application has been received and the audit file has been opened, but substantive examination has not yet begun.",
+    meaning: "The entity has formally entered the verification pipeline.",
+    notImply: "It does not imply that any part of the evidentiary review has already been completed.",
+    issued: "Issued when the application package is received and acknowledged.",
+    revised: "Revised when examination begins or when the application is withdrawn.",
+  },
+  {
+    n: "03",
+    title: "Under Review",
+    definition:
+      "An active examination is in progress. Records, regulatory credentials, and sourcing documentation are currently being assessed against the framework.",
+    meaning: "The audit file is open and undergoing active review.",
+    notImply: "It does not imply any conclusion regarding the entity's sourcing, documentation, or compliance posture.",
+    issued: "Issued at the start of evidentiary review or upon reopening of a previously published file.",
+    revised: "Revised to Verified, Suspended, or Removed when the current review cycle concludes.",
+  },
+  {
+    n: "04",
+    title: "Suspended",
+    definition:
+      "A previously published status is temporarily paused pending evidentiary clarification or unresolved record issues.",
+    meaning: "The record cannot currently support continuation of the prior published status.",
+    notImply:
+      "It does not constitute a finding of misconduct, fraud, or regulatory enforcement action by any governmental body.",
+    issued:
+      "Issued upon failure to renew, failure to respond to clarification requests, or the surfacing of material discrepancies.",
+    revised: "Revised back to Verified upon resolution, or to Removed if the matter remains unresolved.",
+  },
+  {
+    n: "05",
+    title: "Removed",
+    definition:
+      "The entity has been withdrawn from the public registry and the file is no longer maintained as an active public record.",
+    meaning: "The entity is no longer represented in the registry under the Source Standard framework.",
+    notImply:
+      "It does not constitute a specific finding of misconduct unless a public note explicitly states otherwise.",
+    issued:
+      "Issued where the entity has defaulted on compliance obligations through sustained non-response, voluntary withdrawal, material misrepresentation, or loss of a remediable sourcing basis.",
+    revised: "Reinstatement requires a new application and a new review cycle.",
+  },
+  {
+    n: "06",
+    title: "Greenlisted",
+    definition:
+      "An upstream source, 503A pharmacy, 503B outsourcing facility, or other qualified supplier recognized as a documented and traceable manufacturing or sourcing anchor within the framework.",
+    meaning:
+      "The upstream source operates within a recognized regulatory category and may appear as a documented source within verified vendor records.",
+    notImply:
+      "It does not imply endorsement, affiliation, or blanket certification of every product associated with that source.",
+    issued: "Issued upon confirmation of registration, licensing category, and operating record.",
+    revised: "Revised upon lapse of registration, withdrawal of licensure, or removal by the relevant authority.",
+  },
+  {
+    n: "07",
+    title: "Not Listed",
+    definition: "No public record exists for the entity under the Source Standard framework.",
+    meaning:
+      "The entity has not entered the registry, has not been examined, or is not currently maintained as a public record within the system.",
+    notImply:
+      "It does not imply that the entity is illegitimate, unsafe, or non-compliant under any external regulatory regime. It reflects only the absence of a Source Standard record.",
+    issued: "This is the default condition for any entity that has not entered the registry.",
+    revised: "Revised only when the entity enters the verification or Greenlist review process.",
+  },
 ];
 
-const StatusDefinitions = () => (
-  <>
-    <PageMeta
-      title="Status Definitions · Glossary"
-      description="The official Source Standard glossary of regulatory standings, verified, pending, suspended, and revoked."
-    />
-    <RecordHeader
-      metadata={[
-        { label: "Doc", value: DOC_ID },
-        { label: "Version", value: "2026.01" },
-        { label: "Status", value: "Active" },
-        { label: "Updated", value: "04 / 21 / 2026" },
-        { label: "Jurisdiction", value: "United States" },
-      ]}
-      eyebrow="Administrative code"
-      title="Glossary of Regulatory Standings"
-      lead="Controlled glossary of public standings assigned to entities under the Source Standard framework. Each standing reflects the disposition of the audit file at the time of last update and is governed by continuous surveillance."
-        verifiedOn="04 / 21 / 2026"
-      />
+const LIFECYCLE = [
+  { n: "01", t: "Application received → Pending Review" },
+  { n: "02", t: "Examination begins → Under Review" },
+  { n: "03", t: "Review concludes → Verified or Removed" },
+  { n: "04", t: "Renewal interval reached → Under Review" },
+  { n: "05", t: "Disclosure event or material change → Under Review or Suspended" },
+  { n: "06", t: "Resolution → Verified, Suspended, or Removed" },
+];
 
-    <BoardSection
-      n={1}
-      category="Purpose"
-      title="Purpose of the controlled glossary"
-      rationale="Standings are issued against reviewed evidence, never against marketing language or self-declaration."
-    >
-      <p>
-        A regulatory standing is a short, controlled label affixed to every entity in the registry. It enables consumers, clinicians, and licensed entities to read the registry consistently without interpreting individual audit files.
-      </p>
-    </BoardSection>
+const RELATED = [
+  { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
+  { to: "/accountability", label: "Accountability & Enforcement" },
+  { to: "/verification-disclaimer", label: "Verification Disclaimer" },
+];
 
-    {/* §2 — Glossary roster (MAB roster pattern) */}
-    <section className="border-b border-border bg-surface-muted">
-      <div className="container-wide py-12 md:py-16">
-        <div className="mb-8 grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="meta mb-3">§2 · Glossary</p>
-            <h2 className="h-section">Controlled standings.</h2>
-            <p className="mt-3 t-body-sm text-muted-foreground leading-relaxed">
-              Each standing carries a definition, a public-record signal, scope limits, and the conditions under which it is issued or revised.
-            </p>
+const FieldRow = ({ label, value }: { label: string; value: string }) => (
+  <div className="grid grid-cols-12 gap-4 py-3.5">
+    <dt className="col-span-12 md:col-span-3 t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground/70">
+      {label}
+    </dt>
+    <dd className="col-span-12 md:col-span-9 t-body-md text-muted-foreground leading-relaxed m-0">
+      {value}
+    </dd>
+  </div>
+);
+
+const StatusDefinitions = () => {
+  const heroDescription =
+    "Public statuses assigned to entities under the Source Standard framework. Each standing reflects the state of the record at the time of last update and may change through review, renewal, or disclosure events.";
+
+  return (
+    <>
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Status Definitions" }]} />
+
+      <PageMeta title="Status Definitions" description={heroDescription} />
+
+      {/* §1 Hero */}
+      <section className="bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard pt-20 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24">
+            <div className="max-w-3xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Registry Standards</p>
+              <h1 className="mt-4 t-page-title text-foreground">Glossary of Regulatory Standings</h1>
+              <p className="mt-6 t-body-lg text-muted-foreground leading-relaxed">{heroDescription}</p>
+            </div>
           </div>
-          <div className="md:col-span-8 flex md:items-end md:justify-end">
-            <div className="border border-border bg-background w-full md:w-auto">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
-                <span className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground">
-                  Roster · {DOC_ID}
-                </span>
-                <span className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground ml-6">
-                  {statuses.length.toString().padStart(2, "0")} controlled standings · Continuously surveilled
-                </span>
+        </div>
+      </section>
+
+      {/* §2 Statement of purpose */}
+      <section id="purpose" className="scroll-mt-24 bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard section-pad">
+            <div className="max-w-2xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
+              <h2 className="mt-4 t-section-title-sm text-foreground">Why these statuses exist</h2>
+              <div className="mt-6 space-y-5">
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Status labels are used so consumers, clinicians, and listed entities can interpret the registry consistently without needing to read an underlying audit file.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Each status reflects a defined public meaning. It is assigned against reviewed records and revised when the state of the file changes.
+                </p>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
-          {statuses.map((s, idx) => {
-            const copy = STATUS_COPY[s.key];
-            const standing = (idx + 1).toString().padStart(2, "0");
-            const rows: { key: keyof typeof FIELD_LABELS; value: string; emphasis?: boolean }[] = [
-              { key: "meaning", value: copy.meaning, emphasis: true },
-              { key: "tells", value: copy.tells },
-              { key: "notImply", value: copy.notImply },
-              { key: "assigned", value: copy.assigned },
-              { key: "changes", value: copy.changes },
-            ];
-            return (
-              <li key={s.key} className="bg-background p-6 md:p-7 flex flex-col">
-                <div className="flex items-start justify-between pb-4 mb-4 border-b border-border">
-                  <div>
-                    <p className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground mb-2">
-                      Standing · {standing}
+      {/* §3 Contents nav */}
+      <SectionAnchorNav waypoints={WAYPOINTS} />
+
+      <div className="bg-background">
+        <div className="page-shell">
+          <div className="mx-auto w-standard">
+            {/* §4 Statuses */}
+            <section
+              id="statuses"
+              className="scroll-mt-24 pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 border-b border-border/40"
+            >
+              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
+                <div className="md:col-span-4">
+                  <div className="md:sticky md:top-32">
+                    <SectionIndex n="02" />
+                    <h2 className="t-section-title-sm text-foreground">Controlled standings</h2>
+                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
+                      Each standing has a public meaning, a limit, and a defined path of issuance or revision.
                     </p>
-                    <div
-                      className={`inline-flex items-center gap-2 font-mono font-semibold uppercase tracking-[0.14em] t-utility-xs ${s.swatch}`}
-                    >
-                      <span aria-hidden>■</span>
-                      {s.label}
-                    </div>
                   </div>
                 </div>
-                <dl className="space-y-3 flex-1">
-                  {rows.map((row) => (
-                    <div key={row.key}>
-                      <dt className="t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground mb-1">
-                        {FIELD_LABELS[row.key]}
-                      </dt>
-                      <dd
-                        className={`t-body-sm m-0 ${
-                          row.emphasis ? "text-foreground font-medium" : "text-muted-foreground"
-                        }`}
-                      >
-                        {row.value}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </li>
-            );
-          })}
-        </ul>
+                <div className="md:col-span-8 mt-8 md:mt-0">
+                  <ol className="divide-y divide-border/60">
+                    {STATUSES.map((s) => (
+                      <li key={s.n} className="py-8 first:pt-0 last:pb-0">
+                        <div className="flex items-baseline gap-4 mb-5">
+                          <span className="font-mono text-[12px] tabular-nums text-muted-foreground/70">
+                            {s.n}
+                          </span>
+                          <h3 className="t-section-title-sm text-foreground">{s.title}</h3>
+                        </div>
+                        <p className="t-body-md text-foreground leading-relaxed mb-6">
+                          {s.definition}
+                        </p>
+                        <dl className="divide-y divide-border/40 border-t border-border/40">
+                          <FieldRow label="Public meaning" value={s.meaning} />
+                          <FieldRow label="Does not imply" value={s.notImply} />
+                          <FieldRow label="Issued when" value={s.issued} />
+                          <FieldRow label="Revised when" value={s.revised} />
+                        </dl>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </section>
+
+            {/* §5 Lifecycle */}
+            <section id="lifecycle" className="scroll-mt-24 section-pad border-b border-border/40">
+              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
+                <div className="md:col-span-4">
+                  <div className="md:sticky md:top-32">
+                    <SectionIndex n="03" />
+                    <h2 className="t-section-title-sm text-foreground">Lifecycle</h2>
+                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
+                      No standing is permanent. Every public record moves through review, renewal, and possible revision over time.
+                    </p>
+                  </div>
+                </div>
+                <div className="md:col-span-8 mt-8 md:mt-0">
+                  <ol className="divide-y divide-border/60 border-y border-border/60">
+                    {LIFECYCLE.map((step) => (
+                      <li key={step.n} className="grid grid-cols-12 gap-4 py-5 items-baseline">
+                        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
+                          {step.n}
+                        </div>
+                        <div className="col-span-10 md:col-span-11 t-body-md text-foreground leading-relaxed">
+                          {step.t}
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </section>
+
+            {/* §6 Related documents */}
+            <section id="related" className="scroll-mt-24 section-pad border-b border-border/40">
+              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
+                <div className="md:col-span-4">
+                  <div className="md:sticky md:top-32">
+                    <SectionIndex n="04" />
+                    <h2 className="t-section-title-sm text-foreground">Related Documents</h2>
+                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
+                      Further reading on the framework, review process, and disclosure boundaries.
+                    </p>
+                  </div>
+                </div>
+                <div className="md:col-span-8 mt-8 md:mt-0">
+                  <ul className="divide-y divide-border/60 border-y border-border/60">
+                    {RELATED.map((r) => (
+                      <li key={r.to}>
+                        <Link
+                          to={r.to}
+                          className="group grid grid-cols-12 gap-4 py-5 items-baseline hover:bg-surface-muted/40 transition-colors -mx-4 px-4"
+                        >
+                          <div className="col-span-9 md:col-span-10">
+                            <p className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
+                              {r.label}
+                            </p>
+                          </div>
+                          <div className="col-span-3 md:col-span-2 text-right">
+                            <span className="t-utility-xs text-muted-foreground group-hover:text-primary transition-colors">
+                              View
+                            </span>
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* §7 Closing statement */}
+            <section className="section-pad border-t border-border/40">
+              <div className="max-w-2xl">
+                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
+                <h2 className="mt-4 t-section-title-sm text-foreground">
+                  A shared public language for the registry.
+                </h2>
+                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                  The purpose of these status definitions is to ensure that public listings can be interpreted consistently, without overstatement and without requiring users to infer more than the record actually supports.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
-    </section>
-
-    <BoardSection
-      n={3}
-      category="Lifecycle"
-      title="Temporal nature of determinations"
-      rationale="No standing is permanent. Every audit file moves through the same controlled flow under continuous surveillance, and every Verified determination is bounded by a renewal interval."
-    >
-      <ol className="border border-border bg-background divide-y divide-border">
-        {lifecycle.map((step, i) => (
-          <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
-            <div className="col-span-2 meta text-primary">
-              {String(i + 1).padStart(2, "0")}
-            </div>
-            <div className="col-span-10 t-body-sm text-foreground leading-relaxed">
-              {step}
-            </div>
-          </li>
-        ))}
-      </ol>
-    </BoardSection>
-
-    <BoardSection
-      n={4}
-      category="Cross-references"
-      title="Related framework documents"
-      muted
-    >
-      <ul className="border border-border bg-background divide-y divide-border">
-        {[
-          { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
-          { to: "/accountability", label: "Accountability & Enforcement, triggering events" },
-          { to: "/verification-disclaimer", label: "Verification Disclaimer, scope of attestation" },
-        ].map((r) => (
-          <li key={r.to} className="px-5 py-4">
-            <Link
-              to={r.to}
-              className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
-            >
-              {r.label} →
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </BoardSection>
-
-    <BoardCiteFooter citation={`Source Standard · Glossary of Regulatory Standings, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
-  </>
-);
+    </>
+  );
+};
 
 export default StatusDefinitions;
