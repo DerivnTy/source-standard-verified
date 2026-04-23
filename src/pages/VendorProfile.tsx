@@ -218,7 +218,7 @@ const VendorProfile = () => {
             style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "20px" }}
           >
             {/* ---------- IDENTITY BAND ---------- */}
-            <header className="px-6 md:px-8 pt-6 pb-0">
+            <header className="px-6 md:px-8 pt-6 pb-6">
               {/* Eyebrow */}
               <div className="flex items-center gap-2 flex-wrap mb-3">
                 {vendor.category && (
@@ -232,158 +232,124 @@ const VendorProfile = () => {
                 </span>
               </div>
 
-              {/* Vendor name — horizontal, scaled to 24px */}
-              <h1
-                className="font-sans font-semibold text-foreground"
-                style={{
-                  fontSize: "24px",
-                  lineHeight: "1.2",
-                  letterSpacing: "-0.02em",
-                  wordBreak: "normal",
-                  overflowWrap: "break-word",
-                }}
-              >
-                {vendor.name}
-              </h1>
-
-              {/* Verified / Unverified status bar — full width, centered */}
-              {isVerified ? (
-                <div
-                  className="mt-4 flex items-center justify-center gap-2 w-full px-4 py-2"
+              {/* Row: Name + inline status */}
+              <div className="flex items-start justify-between gap-x-4 flex-wrap gap-y-2">
+                <h1
+                  className="font-sans font-semibold text-foreground min-w-0"
                   style={{
-                    backgroundColor: "rgba(52, 199, 89, 0.08)",
-                    border: "0.5px solid rgba(52, 199, 89, 0.30)",
-                    borderRadius: "20px",
+                    fontSize: "22px",
+                    lineHeight: "1.2",
+                    letterSpacing: "-0.02em",
+                    wordBreak: "normal",
+                    overflowWrap: "break-word",
                   }}
                 >
-                  <ShieldCheck
-                    aria-hidden
-                    style={{ width: "14px", height: "14px", strokeWidth: 1.5, color: "#1F8B3F" }}
-                  />
+                  {vendor.name}
+                </h1>
+
+                {isVerified ? (
                   <span
-                    className="font-sans font-bold uppercase"
+                    className="shrink-0 inline-flex items-center gap-1.5 font-sans font-bold uppercase"
                     style={{
                       fontSize: "11px",
-                      color: "#1F8B3F",
                       letterSpacing: "0.05em",
+                      color: "hsl(142 70% 30%)",
+                      marginTop: "4px",
                     }}
                   >
-                    Verified Sourcing
+                    <ShieldCheck
+                      aria-hidden
+                      style={{ width: "13px", height: "13px", strokeWidth: 1.5 }}
+                    />
+                    Verified
                   </span>
-                </div>
-              ) : (
-                <div
-                  className="mt-4 flex items-center justify-center w-full px-4 py-2"
-                  style={{
-                    backgroundColor: "rgba(255, 59, 48, 0.05)",
-                    border: "0.5px solid rgba(255, 59, 48, 0.20)",
-                    borderRadius: "20px",
-                  }}
-                >
+                ) : (
                   <span
-                    className="font-sans font-bold uppercase text-center"
+                    className="shrink-0 font-sans font-bold uppercase"
                     style={{
                       fontSize: "11px",
-                      color: "#C0392B",
                       letterSpacing: "0.05em",
+                      color: "#FF3B30",
+                      marginTop: "4px",
                     }}
                   >
                     Unverified
                   </span>
-                </div>
-              )}
+                )}
+              </div>
 
-              {/* Context row — Geist Mono 13px, conditional location */}
+              {/* Context row — Specialty pill + Location/ONLINE, tight 4px gap under name */}
               {(() => {
                 const isOnline = fulfillment === "online";
-                const locationNode = isOnline ? (
-                  <span
-                    className="font-semibold"
-                    style={{ letterSpacing: "0.04em" }}
-                  >
-                    ONLINE
-                  </span>
-                ) : location && location !== "—" ? (
-                  <span className="inline-flex items-center gap-1.5">
-                    <MapPin
-                      aria-hidden
-                      style={{ width: "14px", height: "14px", strokeWidth: 1.5 }}
-                    />
-                    {location}
-                  </span>
-                ) : null;
-                const focusNode =
-                  vendor.clinicalFocus && vendor.clinicalFocus.length > 0
-                    ? <span>{vendor.clinicalFocus[0]}</span>
+                const locationLabel = isOnline
+                  ? "ONLINE"
+                  : location && location !== "—"
+                    ? location
                     : null;
-                const parts = [locationNode, focusNode].filter(Boolean);
+                const focus =
+                  vendor.clinicalFocus && vendor.clinicalFocus.length > 0
+                    ? vendor.clinicalFocus[0]
+                    : vendor.category ?? null;
+
+                if (!focus && !locationLabel) return null;
+
                 return (
                   <div
-                    className="mt-4 flex items-center gap-x-2 gap-y-1.5 flex-wrap font-mono text-muted-foreground"
-                    style={{ fontSize: "13px" }}
+                    className="flex items-center gap-x-2 flex-wrap"
+                    style={{ marginTop: "4px" }}
                   >
-                    {parts.map((node, i) => (
-                      <span key={i} className="inline-flex items-center gap-2">
-                        {i > 0 && (
-                          <span aria-hidden className="text-border">•</span>
-                        )}
-                        {node}
+                    {focus && (
+                      <span
+                        className="inline-flex items-center font-sans font-semibold uppercase bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] whitespace-nowrap"
+                        style={{
+                          fontSize: "10px",
+                          letterSpacing: "0.06em",
+                          padding: "2px 6px",
+                          borderRadius: "4px",
+                        }}
+                      >
+                        {focus}
                       </span>
-                    ))}
+                    )}
+                    {locationLabel && (
+                      <span
+                        className="font-mono text-muted-foreground"
+                        style={{ fontSize: "12px", letterSpacing: isOnline ? "0.04em" : "0" }}
+                      >
+                        {locationLabel}
+                      </span>
+                    )}
                   </div>
                 );
               })()}
 
-              {/* Visit Website CTA — Navy, 20px radius */}
+              {/* Visit Website CTA — sleek, full-width on mobile */}
               {vendor.website && (
                 <a
                   href={vendor.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-pill
-                  className="mt-5 inline-flex items-center gap-2 bg-foreground text-background transition-all active:scale-[0.97] hover:opacity-90"
+                  className="mt-5 inline-flex sm:inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] transition-all active:scale-[0.97] hover:opacity-90"
                   style={{
                     padding: "10px 18px",
                     borderRadius: "20px",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    letterSpacing: "-0.005em",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
                   }}
                 >
-                  <Globe aria-hidden style={{ width: "14px", height: "14px", strokeWidth: 1.5 }} />
                   Visit Website
-                  <ExternalLink aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.5 }} />
+                  <ExternalLink
+                    aria-hidden
+                    style={{ width: "12px", height: "12px", strokeWidth: 1.5 }}
+                  />
                 </a>
               )}
-
-              {/* Focus pills grid */}
-              {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
-                <div className="mt-6 mb-6">
-                  <p className="t-eyebrow-sm text-muted-foreground mb-2.5">
-                    Focus Areas
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {vendor.clinicalFocus.map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center font-sans font-medium text-foreground bg-card"
-                        style={{
-                          fontSize: "13px",
-                          padding: "6px 12px",
-                          borderRadius: "999px",
-                          border: "0.5px solid hsl(var(--border))",
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Bottom divider */}
-              <div className="border-b border-border" />
             </header>
+
+            <div className="border-b border-border" />
 
             {/* ---------- BODY GRID — 12-col, items-stretch, divide-x ---------- */}
             <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-stretch lg:divide-x lg:divide-border">
