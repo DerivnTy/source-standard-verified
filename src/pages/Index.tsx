@@ -16,10 +16,10 @@ const ghostBtnSecondary =
 const HeroActions = () => (
   <>
     <Link to="/directory" className={ghostBtnPrimary}>
-      Access Vendor Registry
+      Search the Registry
     </Link>
     <Link to="/apply" className={ghostBtnSecondary}>
-      Begin Verification
+      For Vendors: Get Verified
     </Link>
   </>
 );
@@ -35,48 +35,46 @@ const darkBtnSecondary =
 
 const howItWorks = [
   {
-    h: "Upstream sources are reviewed.",
-    b: "Public records, registration data, and facility information are gathered into the upstream reference layer.",
+    h: "Map the facilities.",
+    b: "We track every licensed 503A and 503B compounding pharmacy in the United States.",
   },
   {
-    h: "Vendors are assessed against those sources.",
-    b: "Public claims, sourcing relationships, and documentation are reconciled against the reviewed record.",
+    h: "Audit the vendors.",
+    b: "We require clinics and online vendors to substantiate their sourcing with documented proof of these pharmacy relationships.",
   },
   {
-    h: "Status is published in the public registry.",
-    b: "The registry records whether verification is on file, under review, or not currently published.",
+    h: "Publish the truth.",
+    b: "We list the results in a public database. If they can't prove it, they stay Unverified.",
   },
 ];
 
 const registryFields = [
-  { h: "Verification status", b: "The current public standing of each listing." },
-  { h: "City and state", b: "The operating jurisdiction of the clinic." },
-  { h: "Fulfillment model", b: "Whether the vendor operates in-person, online, or hybrid." },
-  { h: "Clinical focus", b: "The therapeutic categories the clinic serves." },
-  { h: "Upstream source relationships", b: "The licensed pharmacies the listing substantiates." },
-  { h: "Last review date", b: "When the listing was most recently reconciled." },
+  { h: "Verification status", b: "A simple red/green indicator of documented sourcing." },
+  { h: "Fulfillment model", b: "Whether the vendor is a local clinic or an online-only platform." },
+  { h: "Clinical focus", b: "The medical services the vendor is authorized to provide." },
+  { h: "Upstream sources", b: "The licensed pharmacies supplying the vendor." },
 ];
 
 const whyMatters = [
-  { h: "For consumers", b: "A documented reference point beyond marketing claims." },
-  { h: "For responsible vendors", b: "A public trust signal tied to reviewed records." },
-  { h: "For the market", b: "A clearer line between documented and undocumented sourcing." },
+  { h: "For consumers", b: "Instant clarity on whether your clinic is using legal, licensed sources." },
+  { h: "For vendors", b: "A professional seal of approval that separates you from the research-only grey market." },
+  { h: "For doctors", b: "A clinical reference for referring patients to documented facilities." },
 ];
 
 const basics = [
   {
-    t: "What verification actually means",
-    s: "How a Source Standard listing is issued and what it does, and does not, claim.",
+    t: "What \"Verified\" means",
+    s: "The audit standard a listing must meet to carry the Source Standard mark.",
     to: "/library/what-source-standard-verification-actually-means",
   },
   {
-    t: "What is compounding",
-    s: "The two regulatory categories of compounding pharmacy and what distinguishes them.",
+    t: "503A vs. 503B",
+    s: "The two regulatory categories of licensed compounding pharmacy.",
     to: "/library/what-is-compounding",
   },
   {
-    t: "Questions to ask your clinic",
-    s: "The sourcing questions a documented clinic should be able to answer directly.",
+    t: "The patient checklist",
+    s: "The sourcing questions every clinic should be able to answer directly.",
     to: "/library/questions-to-ask-your-clinic",
   },
 ];
@@ -131,17 +129,17 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard · The public standard for documented peptide sourcing"
-        description="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
+        title="Source Standard · The United States Public Peptide Registry"
+        description="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
       />
 
       {/* §1 — Hero (cover variant: homepage only) */}
       <BriefingHero
         variant="cover"
-        category="United States Public Registry"
+        category="United States Public Peptide Registry"
         docId=""
-        title="The public standard for documented peptide sourcing"
-        statement="Source Standard verifies whether clinics and vendors can substantiate their sourcing through licensed upstream pharmacies and documented records."
+        title="The United States Public Peptide Registry"
+        statement="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
         tone="navy"
         actions={<HeroActions />}
       />
@@ -155,12 +153,12 @@ const Index = () => {
               id="trust-problem"
               className="mt-4 t-section-title-sm text-foreground max-w-[28ch]"
             >
-              Marketing claims are easy. Documentation is harder to verify.
+              Branding is not documentation.
             </h2>
             <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
-              Consumers and clinicians are often asked to rely on branding, website language, and
-              trust signals without clear public visibility into sourcing and documentation. Source
-              Standard exists to make those records easier to interpret.
+              In the peptide industry, marketing claims are easy to make but difficult to prove.
+              Most consumers are forced to rely on trust. We believe you should rely on records.
+              We audit the supply chain to ensure what you're being sold is what's on the label.
             </p>
           </div>
         </div>
@@ -197,8 +195,11 @@ const Index = () => {
               id="live-registry"
               className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
             >
-              An active public reference, updated on a published cadence.
+              Total market visibility.
             </h2>
+            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
+              Our database tracks the entire peptide economy in real time.
+            </p>
 
             <div className="mt-10">
               <StatRow>
@@ -229,16 +230,15 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <div className="grid grid-cols-12 gap-8 md:gap-12">
               <div className="col-span-12 md:col-span-4">
-                <Eyebrow>What you can verify</Eyebrow>
+                <Eyebrow>Registry fields</Eyebrow>
                 <h2
                   id="registry-shows"
                   className="mt-4 t-section-title-sm text-foreground max-w-[18ch]"
                 >
-                  A working public utility, not a concept.
+                  Search. Verify. Proceed.
                 </h2>
                 <p className="mt-5 t-body-sm text-muted-foreground max-w-[40ch]">
-                  Each registry entry is a structured record. The fields are consistent across
-                  listings and reviewed on a published cadence.
+                  Every listing in our registry provides a clear snapshot of a vendor's legitimacy.
                 </p>
                 <Link
                   to="/directory"
