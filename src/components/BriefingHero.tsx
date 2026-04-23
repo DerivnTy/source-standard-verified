@@ -79,13 +79,6 @@ export const BriefingHero = ({
 
           <div className="relative z-30 container-wide flex flex-col items-center justify-center min-h-[100svh] py-24 text-center">
             <div className="relative max-w-[760px] mx-auto px-6">
-              <p
-                aria-hidden="true"
-                className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55 mb-7"
-              >
-                {category}
-              </p>
-
               <img
                 src={logoLight}
                 alt="Source Standard"
@@ -155,14 +148,6 @@ export const BriefingHero = ({
 
         <div className="relative z-10 page-shell section-pad">
           <div className="w-hero">
-            {category && (
-              <p
-                aria-hidden="true"
-                className="t-eyebrow-sm text-white/55 mb-4"
-              >
-                {category}
-              </p>
-            )}
             <h1
               id="briefing-title"
               className="text-white t-chapter-title max-w-[22ch]"
@@ -195,11 +180,6 @@ export const BriefingHero = ({
         <div className="relative page-shell section-pad">
           <div className="grid grid-cols-12 gap-8 md:gap-12 w-full">
             <div className="col-span-12 md:col-span-7">
-              {category && (
-                <p aria-hidden="true" className="t-eyebrow-sm text-muted-foreground mb-4">
-                  {category}
-                </p>
-              )}
               <h1
                 id="briefing-title"
                 className="text-foreground t-chapter-title max-w-[22ch]"
@@ -222,14 +202,6 @@ export const BriefingHero = ({
       ) : (
         <div className="relative page-shell section-pad">
           <div className="w-hero">
-            {category && (
-              <p
-                aria-hidden="true"
-                className="t-eyebrow-sm text-muted-foreground mb-4"
-              >
-                {category}
-              </p>
-            )}
             <h1
               id="briefing-title"
               className="text-foreground t-chapter-title max-w-[22ch]"

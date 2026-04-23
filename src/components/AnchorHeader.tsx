@@ -37,7 +37,6 @@ export const AnchorHeader = ({
         <div className="relative page-shell section-pad">
           <div className="grid md:grid-cols-12 gap-10 lg:gap-16 items-end">
             <div className="md:col-span-8">
-              {eyebrow && <p className="t-eyebrow-sm text-muted-foreground mb-4">{eyebrow}</p>}
               <h1 className="t-page-title text-foreground">{title}</h1>
               {lead && (
                 <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">
@@ -59,7 +58,6 @@ export const AnchorHeader = ({
       <div className="relative page-shell section-pad">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto h-px w-8 bg-border mb-6" aria-hidden="true" />
-          {eyebrow && <p className="t-eyebrow-sm text-muted-foreground mb-4">{eyebrow}</p>}
           <h1 className="t-page-title text-foreground">{title}</h1>
           {lead && (
             <p className="mt-5 mx-auto max-w-[68ch] t-body-md text-muted-foreground">

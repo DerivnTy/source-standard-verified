@@ -46,7 +46,6 @@ export const ProfileHeader = ({
 
         <div className={`grid md:grid-cols-12 gap-10 ${backHref ? "mt-5" : ""}`}>
           <div className={rightSlot ? "md:col-span-8" : "md:col-span-12"}>
-            {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
             <h1 className="title-page text-foreground">{title}</h1>
             {identity && <div className="mt-2 text-helper text-muted-foreground">{identity}</div>}
             {lead && (

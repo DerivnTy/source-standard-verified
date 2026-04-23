@@ -36,7 +36,6 @@ export const UtilityHeader = ({
           </Link>
         )}
         <div className={backHref ? "mt-4" : ""}>
-          {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
           <h1 className="title-page text-foreground max-w-3xl">{title}</h1>
           {description && (
             <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
