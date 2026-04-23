@@ -44,6 +44,8 @@ export const SiteHeader = () => {
   useEffect(() => {
     let lastY = window.scrollY;
     let ticking = false;
+    let upwardAccum = 0;
+    const REVEAL_THRESHOLD = 400;
     const onScroll = () => {
       if (ticking) return;
       ticking = true;
@@ -51,14 +53,21 @@ export const SiteHeader = () => {
         const y = window.scrollY;
         const delta = y - lastY;
         if (y <= 0) {
+          upwardAccum = 0;
           setVisible(true);
           setHeaderVisibleGlobal(true);
-        } else if (y > 120 && delta > 0) {
-          setVisible(false);
-          setHeaderVisibleGlobal(false);
-        } else if (delta < -8) {
-          setVisible(true);
-          setHeaderVisibleGlobal(true);
+        } else if (delta > 0) {
+          upwardAccum = 0;
+          if (y > 120) {
+            setVisible(false);
+            setHeaderVisibleGlobal(false);
+          }
+        } else if (delta < 0) {
+          upwardAccum += -delta;
+          if (upwardAccum > REVEAL_THRESHOLD) {
+            setVisible(true);
+            setHeaderVisibleGlobal(true);
+          }
         }
         lastY = y;
         ticking = false;
