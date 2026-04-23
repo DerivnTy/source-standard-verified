@@ -49,11 +49,23 @@ const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: str
 };
 const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-04", "R-05"];
 
-const WHY_ITEMS = [
-  "The Medical Advisory Board provides independent clinical oversight of the verification framework.",
-  "Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.",
-  "The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.",
-  "To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.",
+const MANDATE_CLAUSES = [
+  {
+    label: "CLAUSE 01.A",
+    body: "The Medical Advisory Board provides independent clinical oversight of the verification framework.",
+  },
+  {
+    label: "CLAUSE 01.B",
+    body: "Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.",
+  },
+  {
+    label: "CLAUSE 01.C",
+    body: "The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.",
+  },
+  {
+    label: "CLAUSE 01.D",
+    body: "To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.",
+  },
 ];
 
 const ROLE_FUNCTIONS = [
@@ -116,54 +128,87 @@ const MedicalAdvisory = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard">
 
-            {/* Why the Board exists */}
+            {/* Section 01 — Institutional Mandate (filing layout) */}
             <section id="transparency" className="scroll-mt-24 section-pad border-b border-border/40">
-              <SectionIndex n="01" />
-              <h2 className="t-section-title-sm text-foreground mb-8">
-                Institutional Mandate
-              </h2>
-              <div className="grid md:grid-cols-2 md:divide-x md:divide-border/50">
-                {WHY_ITEMS.map((w, i) => {
-                  const isLeftCol = i % 2 === 0;
-                  const isTopRow = i < 2;
-                  return (
-                    <div
-                      key={w}
-                      className={[
-                        isLeftCol ? "md:pr-8" : "md:pl-8",
-                        isTopRow ? "md:pb-8" : "md:pt-8",
-                        i > 0 ? "mt-8 md:mt-0" : "",
-                        !isTopRow ? "md:border-t md:border-border/50" : "",
-                      ].join(" ")}
-                    >
-                      <p className="t-body-md text-foreground">{w}</p>
+              <div className="grid md:grid-cols-12 md:gap-10">
+                <div className="md:col-span-5">
+                  <p className="font-mono text-[12px] tabular-nums text-muted-foreground/60 mb-3">01</p>
+                  <h2 className="t-section-title-sm text-foreground">
+                    Institutional Mandate
+                  </h2>
+                  <dl className="mt-8 space-y-2 border-t border-border/60 pt-5">
+                    <div className="flex gap-3">
+                      <dt className="t-utility-xs uppercase tracking-wider text-muted-foreground/70 w-28 shrink-0">Issued under</dt>
+                      <dd className="font-mono text-[12px] tabular-nums text-foreground">SS-MAB-2026.01</dd>
                     </div>
-                  );
-                })}
+                    <div className="flex gap-3">
+                      <dt className="t-utility-xs uppercase tracking-wider text-muted-foreground/70 w-28 shrink-0">Effective</dt>
+                      <dd className="font-mono text-[12px] tabular-nums text-foreground">Current registry cycle</dd>
+                    </div>
+                  </dl>
+                </div>
+                <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
+                  <ol className="divide-y divide-border/60 border-t border-border/60">
+                    {MANDATE_CLAUSES.map((c) => (
+                      <li key={c.label} className="grid grid-cols-12 gap-4 py-6 items-baseline">
+                        <div className="col-span-12 sm:col-span-4 font-mono text-[11px] tabular-nums uppercase tracking-wider text-muted-foreground">
+                          {c.label}
+                        </div>
+                        <p className="col-span-12 sm:col-span-8 t-body-md text-foreground leading-relaxed">
+                          {c.body}
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                  <p className="mt-5 text-right font-mono text-[11px] tabular-nums uppercase tracking-wider text-muted-foreground/70">
+                    End of Schedule §01 · 4 clauses enumerated
+                  </p>
+                </div>
               </div>
             </section>
 
-            {/* Role in the framework */}
+            {/* Section 02 — Governance Framework (registry schedule) */}
             <section id="verification-chain" className="scroll-mt-24 section-pad border-b border-border/40">
-              <SectionIndex n="02" />
               <div className="grid md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-5">
+                  <p className="font-mono text-[12px] tabular-nums text-muted-foreground/60 mb-3">02</p>
                   <h2 className="t-section-title-sm text-foreground">
                     Governance Framework
                   </h2>
+                  <dl className="mt-8 space-y-2 border-t border-border/60 pt-5">
+                    <div className="flex gap-3">
+                      <dt className="t-utility-xs uppercase tracking-wider text-muted-foreground/70 w-28 shrink-0">Authority</dt>
+                      <dd className="font-mono text-[12px] tabular-nums text-foreground">Medical Advisory Board</dd>
+                    </div>
+                    <div className="flex gap-3">
+                      <dt className="t-utility-xs uppercase tracking-wider text-muted-foreground/70 w-28 shrink-0">Reference</dt>
+                      <dd className="font-mono text-[12px] tabular-nums text-foreground">§02 of SS-MAB-2026.01</dd>
+                    </div>
+                  </dl>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
+                  <div className="grid grid-cols-12 gap-4 pb-3 border-b border-border/60">
+                    <div className="col-span-3 font-mono text-[11px] tabular-nums uppercase tracking-wider text-muted-foreground/70">
+                      No.
+                    </div>
+                    <div className="col-span-9 font-mono text-[11px] uppercase tracking-wider text-muted-foreground/70">
+                      Function · Statutory Basis
+                    </div>
+                  </div>
                   <ol className="divide-y divide-border/60">
                     {ROLE_FUNCTIONS.map((s) => (
-                      <li key={s.n} className="grid grid-cols-12 gap-4 py-5 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 t-utility-xs text-muted-foreground">{s.n}</div>
-                        <div className="col-span-10">
+                      <li key={s.n} className="grid grid-cols-12 gap-4 py-6 items-baseline">
+                        <div className="col-span-3 font-mono text-[12px] tabular-nums text-muted-foreground">{s.n}</div>
+                        <div className="col-span-9">
                           <p className="t-body-md font-semibold text-foreground">{s.t}</p>
-                          <p className="mt-1.5 t-body-md text-muted-foreground">{s.d}</p>
+                          <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{s.d}</p>
                         </div>
                       </li>
                     ))}
                   </ol>
+                  <p className="mt-5 text-right font-mono text-[11px] tabular-nums uppercase tracking-wider text-muted-foreground/70">
+                    End of Schedule §02 · 4 functions enumerated
+                  </p>
                 </div>
               </div>
             </section>
