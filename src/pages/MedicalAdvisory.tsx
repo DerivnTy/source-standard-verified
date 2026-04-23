@@ -106,7 +106,7 @@ const MedicalAdvisory = () => {
       />
 
       <PageMeta
-        title="Governance & Clinical Oversight · Source Standard"
+        title="Clinical Oversight · Source Standard"
         description="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
 
@@ -114,7 +114,7 @@ const MedicalAdvisory = () => {
         tone="navy"
         category=""
         docId="SS-MAB-2026.01"
-        title="Governance & Clinical Oversight"
+        title="Clinical Oversight"
         statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
       />
 
