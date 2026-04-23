@@ -92,7 +92,8 @@ const VerifiedVendors = () => {
   const [city, setCity] = useState<string>(ALL);
   const [status, setStatus] = useState<string>(ALL);
   const [focus, setFocus] = useState<string>(ALL);
-  const [sort, setSort] = useState<SortMode>("trust");
+  const [sort, setSort] = useState<SortMode>("name-asc");
+  const [view, setView] = useState<ViewMode>("list");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
 
