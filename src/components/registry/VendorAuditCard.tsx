@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Building2, Globe, MapPin } from "lucide-react";
 import {
   Vendor,
   VendorFulfillment,
@@ -72,15 +71,19 @@ const FacilityMonogram = ({ name }: { name: string }) => {
   );
 };
 
-const FulfillmentLine = ({ kind }: { kind: VendorFulfillment }) => {
-  const Icon = kind === "in-person" ? Building2 : kind === "online" ? Globe : MapPin;
-  return (
-    <span className="inline-flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">
-      <Icon className="h-3 w-3" aria-hidden />
-      {VENDOR_FULFILLMENT_LABEL[kind]}
+/**
+ * MetaRow — single Geist Mono ledger line: `- LABEL: value`.
+ * 12px, muted, dash-prefixed for the "data stack" inside each card.
+ */
+const MetaRow = ({ label, value }: { label: string; value: string }) => (
+  <li className="font-mono text-[12px] leading-[1.5] text-muted-foreground">
+    <span aria-hidden>—&nbsp;</span>
+    <span className="uppercase tracking-[0.06em]">{label}:</span>{" "}
+    <span className="text-foreground/80 normal-case tracking-normal">
+      {value}
     </span>
-  );
-};
+  </li>
+);
 
 export const VendorAuditCard = ({
   vendor,
@@ -102,7 +105,7 @@ export const VendorAuditCard = ({
       aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
       className="group block h-full text-left rounded-[2px] border border-border bg-card hover:border-foreground/30 hover:shadow-[0_8px_24px_-12px_hsl(0_0%_0%/0.18)] transition-all"
     >
-      <div className="flex flex-col gap-4 text-left" style={{ padding: "24px" }}>
+      <div className="flex flex-col gap-4 text-left" style={{ padding: "20px" }}>
         {/* 1:1 facility image */}
         <div className="w-20">
           <FacilityMonogram name={vendor.name} />
@@ -116,25 +119,18 @@ export const VendorAuditCard = ({
           {vendor.name}
         </h3>
 
-        {/* Location / type — muted ledger line */}
-        <div className="text-left -mt-2 space-y-1">
-          <p className="text-[13px] text-muted-foreground leading-[1.5]">
-            {location}
-          </p>
-          <p className="text-[13px] text-muted-foreground leading-[1.5]">
-            {focus || "—"}
-          </p>
-        </div>
-
-        <div className="text-left">
-          <FulfillmentLine kind={fulfillment} />
-        </div>
-
-        {vendor.status === "verified" && vendor.reviewDate && (
-          <p className="text-left font-mono text-[10.5px] tabular-nums text-muted-foreground/80">
-            REVIEWED&nbsp;//&nbsp;{vendor.reviewDate}
-          </p>
-        )}
+        {/* The Data Stack — 12px Geist Mono, dash-prefixed ledger lines */}
+        <ul className="-mt-1 space-y-1 text-left">
+          <MetaRow label="Location" value={location} />
+          <MetaRow label="Type" value={focus || "—"} />
+          <MetaRow
+            label="Fulfillment"
+            value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
+          />
+          {vendor.status === "verified" && vendor.reviewDate && (
+            <MetaRow label="Audit Date" value={vendor.reviewDate} />
+          )}
+        </ul>
       </div>
     </Link>
   );
