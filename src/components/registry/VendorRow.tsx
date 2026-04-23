@@ -3,31 +3,12 @@ import { ChevronRight } from "lucide-react";
 import { Vendor, VendorFulfillment } from "@/data/vendors";
 
 /**
- * VendorRow — Horizontal Marketplace Decision Card.
- * Three strict rows:
- *   Row 1 — Name (left)        ·  Status (right)
- *   Row 2 — Focus pill · Location (horizontal, vertically centered)
- *   Row 3 — Utility tags (left)  ·  View Full Audit › (right)
+ * VendorRow — Simplified Marketplace Card.
+ * Three slim rows, no technical clutter:
+ *   Row 1 — Name (left) · Status (right)
+ *   Row 2 — Focus pill · Location
+ *   Row 3 — View Full Audit › (right)
  */
-
-const SYSTEM_GRAY_BG = "#F2F2F7";
-const SYSTEM_GRAY_TEXT = "#48484A";
-
-const UtilityTag = ({ label }: { label: string }) => (
-  <span
-    className="inline-flex items-center font-sans font-semibold uppercase whitespace-nowrap"
-    style={{
-      fontSize: "11px",
-      letterSpacing: "0.04em",
-      padding: "3px 7px",
-      borderRadius: "4px",
-      backgroundColor: SYSTEM_GRAY_BG,
-      color: SYSTEM_GRAY_TEXT,
-    }}
-  >
-    {label}
-  </span>
-);
 
 const focusFor = (vendor: Vendor): string | null => {
   if (vendor.clinicalFocus && vendor.clinicalFocus.length > 0) {
@@ -35,21 +16,6 @@ const focusFor = (vendor: Vendor): string | null => {
   }
   if (vendor.category) return vendor.category.toUpperCase();
   return null;
-};
-
-const buildDecisionTags = (
-  vendor: Vendor,
-  fulfillment: VendorFulfillment,
-): string[] => {
-  const tags: string[] = [];
-  const cat = (vendor.category ?? "").toLowerCase();
-  if (cat.includes("compounding")) tags.push("503B");
-  if (fulfillment === "online") tags.push("Online Only");
-  else if (fulfillment === "in-person") tags.push("In-Person");
-  else if (fulfillment === "hybrid") tags.push("Online + In-Person");
-  const blob = `${vendor.publicNote ?? ""} ${vendor.summary ?? ""}`.toLowerCase();
-  if (blob.includes("insurance")) tags.push("Insurance");
-  return tags;
 };
 
 export const VendorRow = ({
@@ -63,8 +29,6 @@ export const VendorRow = ({
 }) => {
   const isVerified = vendor.status === "verified";
   const focus = focusFor(vendor);
-  const decisionTags = buildDecisionTags(vendor, fulfillment);
-
   const isOnline = fulfillment === "online";
   const locationLabel = isOnline
     ? "ONLINE"
@@ -164,16 +128,11 @@ export const VendorRow = ({
         </div>
       )}
 
-      {/* Row 3 — Utility tags (left) · View Full Audit (right) */}
+      {/* Row 3 — View Full Audit (right) */}
       <div
-        className="flex items-center justify-between gap-x-3"
-        style={{ marginTop: "12px" }}
+        className="flex items-center justify-end"
+        style={{ marginTop: "10px" }}
       >
-        <div className="flex items-center gap-x-1.5 flex-wrap min-w-0">
-          {decisionTags.map((tag) => (
-            <UtilityTag key={tag} label={tag} />
-          ))}
-        </div>
         <span
           className="shrink-0 inline-flex items-center gap-1 font-sans font-bold uppercase text-muted-foreground group-hover:text-foreground transition-colors"
           style={{ fontSize: "11px", letterSpacing: "0.06em" }}
