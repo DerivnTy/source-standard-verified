@@ -11,21 +11,26 @@ export const RegistryHeader = ({
   indexNumber,
   title,
   description,
+  statusLine,
   scopeText,
   scopeHref,
   recordCount,
   updatedOn,
+  hideRecordPill = false,
 }: {
   /** @deprecated — use indexNumber for Geist Mono index. */
   eyebrow?: string;
   /** Geist Mono index number, e.g. "01". The only anchor above the H1. */
   indexNumber?: string;
   title: string;
-  description: string;
-  scopeText: string;
-  scopeHref: string;
+  description?: string;
+  /** Optional Geist Mono status line rendered in place of description. */
+  statusLine?: string;
+  scopeText?: string;
+  scopeHref?: string;
   recordCount: number;
   updatedOn?: string;
+  hideRecordPill?: boolean;
 }) => {
   const updated =
     updatedOn ??
@@ -48,33 +53,43 @@ export const RegistryHeader = ({
                   {indexNumber}
                 </p>
               )}
-              <h1 className="t-page-title text-white">{title}</h1>
-              <p className="mt-6 t-body-md text-white/70 max-w-[68ch] leading-[1.6]">
-                {description}
-              </p>
-              <Link
-                to={scopeHref}
-                className="mt-3 inline-flex items-center gap-1 text-[13.5px] text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
-              >
-                {scopeText} <span aria-hidden>→</span>
-              </Link>
+              <h1 className="t-page-title text-white text-left">{title}</h1>
+              {statusLine ? (
+                <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.14em] text-white/60">
+                  {statusLine}
+                </p>
+              ) : description ? (
+                <p className="mt-6 t-body-md text-white/70 max-w-[68ch] leading-[1.6]">
+                  {description}
+                </p>
+              ) : null}
+              {scopeText && scopeHref && (
+                <Link
+                  to={scopeHref}
+                  className="mt-3 inline-flex items-center gap-1 text-[13.5px] text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
+                >
+                  {scopeText} <span aria-hidden>→</span>
+                </Link>
+              )}
             </div>
 
-            <div className="shrink-0 md:text-right md:pt-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-sm">
-                <span
-                  aria-hidden
-                  className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-503b))] animate-pulse"
-                />
-                <span className="t-utility-xs text-white/70">
-                  Live ·{" "}
-                  <span className="text-white tabular-nums">{updated}</span>
-                  <span className="mx-1.5 text-white/30">·</span>
-                  <span className="text-white tabular-nums">{recordCount}</span>{" "}
-                  records
-                </span>
+            {!hideRecordPill && (
+              <div className="shrink-0 md:text-right md:pt-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-sm">
+                  <span
+                    aria-hidden
+                    className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-503b))] animate-pulse"
+                  />
+                  <span className="t-utility-xs text-white/70">
+                    Live ·{" "}
+                    <span className="text-white tabular-nums">{updated}</span>
+                    <span className="mx-1.5 text-white/30">·</span>
+                    <span className="text-white tabular-nums">{recordCount}</span>{" "}
+                    records
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
