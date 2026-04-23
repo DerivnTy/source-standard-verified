@@ -140,8 +140,8 @@ const VerifiedVendors = () => {
 
       <RegistryHeader
         indexNumber="01"
-        title="Verified Registry"
-        description="The recognized reference set of audited peptide vendors and providers operating within the Source Standard framework. This listing separates documented medical sourcing from the unverified market."
+        title="Verified Vendors"
+        description="The recognized registry of clinical vendors cross-referenced with licensed FDA-approved facilities to separate documented medical sourcing from the unverified market."
         recordCount={vendors.length}
       />
 
