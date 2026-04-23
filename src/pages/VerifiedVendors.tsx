@@ -4,7 +4,6 @@ import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import { VendorRow } from "@/components/registry/VendorRow";
-import { FocusFilter } from "@/components/registry/FocusFilter";
 import { resolveStateAbbr } from "@/lib/usStates";
 import {
   vendors,
@@ -15,38 +14,70 @@ import {
   VendorFulfillment,
 } from "@/data/vendors";
 
-type StatusPill = "all" | "verified" | "unverified";
-type FocusKey = "all" | "peptides" | "hormone" | "longevity" | "wellness";
+type OutcomeKey =
+  | "all"
+  | "skin"
+  | "longevity"
+  | "trt"
+  | "weight"
+  | "wellness";
+type DeliveryKey = "any" | "online" | "local";
 
 const PAGE_SIZE = 10;
 
-const FOCUS_OPTIONS: { value: FocusKey; label: string }[] = [
-  { value: "all", label: "All Categories" },
-  { value: "peptides", label: "Peptides" },
-  { value: "hormone", label: "Hormone Therapy" },
+const OUTCOME_PILLS: { value: OutcomeKey; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "skin", label: "Skin & Hair" },
   { value: "longevity", label: "Longevity" },
+  { value: "trt", label: "TRT / Hormones" },
+  { value: "weight", label: "Weight Loss" },
   { value: "wellness", label: "General Wellness" },
 ];
 
-/**
- * Map a vendor's category + clinicalFocus into one of the 4 consumer buckets.
- */
-const matchesFocus = (vendor: Vendor, key: FocusKey): boolean => {
+const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
+  { value: "online", label: "🌐 Online / Telehealth" },
+  { value: "local", label: "📍 Local / In-Person" },
+];
+
+/** Match vendor to consumer outcome bucket. */
+const matchesOutcome = (vendor: Vendor, key: OutcomeKey): boolean => {
   if (key === "all") return true;
   const haystack = [vendor.category, ...(vendor.clinicalFocus ?? [])]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
   switch (key) {
-    case "peptides":
-      return /peptide/.test(haystack);
-    case "hormone":
-      return /(hormone|trt|hrt|testosterone|estrogen)/.test(haystack);
+    case "skin":
+      return /(skin|hair|aesthetic|derm|botox|filler)/.test(haystack);
     case "longevity":
-      return /(longevity|anti[- ]?aging|nad|regenerative)/.test(haystack);
+      return /(longevity|anti[- ]?aging|nad|regenerative|peptide)/.test(haystack);
+    case "trt":
+      return /(trt|hrt|hormone|testosterone|estrogen)/.test(haystack);
+    case "weight":
+      return /(weight|glp|semaglutide|tirzepatide|metabolic)/.test(haystack);
     case "wellness":
-      return /(wellness|weight|aesthetic|iv|recovery)/.test(haystack);
+      return /(wellness|iv|recovery|vitamin|nutrition)/.test(haystack);
   }
+};
+
+/** Smart query: name, city, state name/abbr, category, clinical focus. */
+const matchesQuery = (vendor: Vendor, query: string): boolean => {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+  const stateAbbr = resolveStateAbbr(query);
+  const haystack = [
+    vendor.name,
+    vendor.city,
+    vendor.state,
+    vendor.category,
+    ...(vendor.clinicalFocus ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+  if (haystack.includes(q)) return true;
+  if (stateAbbr && vendor.state === stateAbbr) return true;
+  return false;
 };
 
 const formatLocation = (vendor: Vendor) => {
