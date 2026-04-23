@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
-import { SourceBot } from "./SourceBot";
 import { GlobalUtilityBar } from "./GlobalUtilityBar";
 import { useHashScroll } from "@/hooks/useHashScroll";
 
@@ -15,7 +14,6 @@ export const SiteLayout = () => {
         <Outlet />
       </main>
       <SiteFooter />
-      <SourceBot />
     </div>
   );
 };
