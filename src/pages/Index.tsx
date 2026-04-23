@@ -192,7 +192,8 @@ const Index = () => {
               Our database tracks the peptide economy as a live public-reference system.
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
+              {/* Mobile: 12px vertical stack, full-width hit area; ≥sm: inline row */}
               <Link to="/directory" className={darkBtnPrimary}>
                 Search Verified Vendors
               </Link>
