@@ -4,6 +4,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import { VendorRow } from "@/components/registry/VendorRow";
+import { FilterBottomSheet } from "@/components/registry/FilterBottomSheet";
 import { resolveStateAbbr } from "@/lib/usStates";
 import {
   vendors,
@@ -14,53 +15,58 @@ import {
   VendorFulfillment,
 } from "@/data/vendors";
 
-type OutcomeKey =
-  | "all"
-  | "skin"
-  | "longevity"
-  | "trt"
-  | "weight"
-  | "wellness";
-type DeliveryKey = "any" | "online" | "local";
+type StatusKey = "any" | "verified" | "unverified";
+type DeliveryKey = "any" | "online" | "in-person";
+type FocusKey = "all" | "peptides" | "hormone" | "longevity" | "wellness";
 
 const PAGE_SIZE = 10;
 
-const OUTCOME_PILLS: { value: OutcomeKey; label: string }[] = [
-  { value: "all", label: "ALL" },
-  { value: "skin", label: "SKIN" },
-  { value: "longevity", label: "LONGEVITY" },
-  { value: "trt", label: "TRT" },
-  { value: "weight", label: "WEIGHT" },
-  { value: "wellness", label: "WELLNESS" },
+const STATUS_PILLS: { value: StatusKey; label: string }[] = [
+  { value: "verified", label: "VERIFIED" },
+  { value: "unverified", label: "UNVERIFIED" },
 ];
 
 const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
   { value: "online", label: "ONLINE" },
-  { value: "local", label: "LOCAL" },
+  { value: "in-person", label: "IN-PERSON" },
 ];
 
-/** Match vendor to consumer outcome bucket. */
-const matchesOutcome = (vendor: Vendor, key: OutcomeKey): boolean => {
+const FOCUS_OPTIONS: { value: FocusKey; label: string }[] = [
+  { value: "all", label: "All Categories" },
+  { value: "peptides", label: "Peptides" },
+  { value: "hormone", label: "Hormone Therapy" },
+  { value: "longevity", label: "Longevity" },
+  { value: "wellness", label: "General Wellness" },
+];
+
+const FOCUS_LABEL: Record<FocusKey, string> = {
+  all: "All",
+  peptides: "Peptides",
+  hormone: "Hormone Therapy",
+  longevity: "Longevity",
+  wellness: "General Wellness",
+};
+
+/** Map vendor → consumer focus bucket. */
+const matchesFocus = (vendor: Vendor, key: FocusKey): boolean => {
   if (key === "all") return true;
   const haystack = [vendor.category, ...(vendor.clinicalFocus ?? [])]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
   switch (key) {
-    case "skin":
-      return /(skin|hair|aesthetic|derm|botox|filler)/.test(haystack);
+    case "peptides":
+      return /peptide/.test(haystack);
+    case "hormone":
+      return /(hormone|trt|hrt|testosterone|estrogen)/.test(haystack);
     case "longevity":
-      return /(longevity|anti[- ]?aging|nad|regenerative|peptide)/.test(haystack);
-    case "trt":
-      return /(trt|hrt|hormone|testosterone|estrogen)/.test(haystack);
-    case "weight":
-      return /(weight|glp|semaglutide|tirzepatide|metabolic)/.test(haystack);
+      return /(longevity|anti[- ]?aging|nad|regenerative)/.test(haystack);
     case "wellness":
-      return /(wellness|iv|recovery|vitamin|nutrition)/.test(haystack);
+      return /(wellness|weight|aesthetic|iv|recovery|vitamin)/.test(haystack);
   }
 };
 
-/** Smart query: name, city, state name/abbr, category, clinical focus. */
+/** Smart query: name, city, state name/abbr, category, focus. */
 const matchesQuery = (vendor: Vendor, query: string): boolean => {
   const q = query.trim().toLowerCase();
   if (!q) return true;
@@ -86,10 +92,10 @@ const formatLocation = (vendor: Vendor) => {
 };
 
 /**
- * FilterPill — uppercase, 1px border, 2px corner radius.
- * Active: navy bg + white text. Inactive: transparent + muted gray.
+ * SoftPill — Apple-feel pill: light grey wash inactive, solid navy active.
+ * 20px corner radius, tight padding.
  */
-const FilterPill = ({
+const SoftPill = ({
   label,
   active,
   onClick,
@@ -102,15 +108,19 @@ const FilterPill = ({
     type="button"
     onClick={onClick}
     aria-pressed={active}
-    className="shrink-0 font-sans text-[11.5px] font-semibold uppercase tracking-[0.08em] transition-colors"
+    className="shrink-0 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors"
     style={{
-      height: "30px",
-      padding: "0 12px",
-      borderRadius: "2px",
+      height: "32px",
+      padding: "0 14px",
+      borderRadius: "20px",
       border: "1px solid",
-      borderColor: active ? "hsl(var(--navy-surface))" : "hsl(var(--border))",
-      backgroundColor: active ? "hsl(var(--navy-surface))" : "transparent",
-      color: active ? "hsl(var(--background))" : "hsl(var(--muted-foreground))",
+      borderColor: active
+        ? "hsl(var(--navy-surface))"
+        : "hsl(var(--border) / 0.7)",
+      backgroundColor: active
+        ? "hsl(var(--navy-surface))"
+        : "hsl(var(--muted) / 0.6)",
+      color: active ? "hsl(var(--background))" : "hsl(var(--foreground) / 0.75)",
     }}
   >
     {label}
@@ -119,8 +129,10 @@ const FilterPill = ({
 
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
-  const [outcome, setOutcome] = useState<OutcomeKey>("all");
+  const [status, setStatus] = useState<StatusKey>("any");
   const [delivery, setDelivery] = useState<DeliveryKey>("any");
+  const [focus, setFocus] = useState<FocusKey>("all");
+  const [focusOpen, setFocusOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const states = useMemo(() => getVendorStates(), []);
@@ -152,15 +164,17 @@ const VerifiedVendors = () => {
   const filtered = useMemo(() => {
     return vendors.filter((vendor) => {
       if (!matchesQuery(vendor, query)) return false;
-      if (!matchesOutcome(vendor, outcome)) return false;
+      if (status === "verified" && vendor.status !== "verified") return false;
+      if (status === "unverified" && vendor.status === "verified") return false;
+      if (!matchesFocus(vendor, focus)) return false;
       if (delivery !== "any") {
         const f = fulfillmentByVendor.get(vendor.slug);
         if (delivery === "online" && f === "in-person") return false;
-        if (delivery === "local" && f === "online") return false;
+        if (delivery === "in-person" && f === "online") return false;
       }
       return true;
     });
-  }, [query, outcome, delivery, fulfillmentByVendor]);
+  }, [query, status, delivery, focus, fulfillmentByVendor]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -169,13 +183,11 @@ const VerifiedVendors = () => {
 
   const visibleItems = sorted.slice(0, visibleCount);
   const hasMore = visibleCount < sorted.length;
-
-  // Fade key — re-triggers fade-in animation on filter change
-  const fadeKey = `${query}|${outcome}|${delivery}`;
+  const fadeKey = `${query}|${status}|${delivery}|${focus}`;
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, outcome, delivery]);
+  }, [query, status, delivery, focus]);
 
   return (
     <>
@@ -203,59 +215,43 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pb-20 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Sticky search + pill rail — mobile efficiency pass */}
+            {/* Sticky search + filter rail */}
             <div
-              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-2 md:pt-8"
+              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-3 md:pt-8"
               style={{ backdropFilter: "blur(8px)" }}
             >
-              {/* Universal smart search — full width, mono */}
+              {/* Borderless search on light grey */}
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search by name, city, or state..."
                 aria-label="Search by name, city, state, or category"
-                className="font-mono w-full bg-transparent py-2.5 text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
+                className="font-sans w-full border-0 px-4 text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
-                  borderBottom: "1px solid hsl(var(--border))",
-                  transition: "border-color 0.5s ease",
-                  letterSpacing: "0.01em",
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderBottomColor =
-                    "hsl(var(--navy-surface))";
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderBottomColor =
-                    "hsl(var(--border))";
+                  height: "44px",
+                  borderRadius: "12px",
+                  backgroundColor: "hsl(var(--muted) / 0.55)",
                 }}
               />
 
-              {/* Unified pill row — outcomes + delivery, no emojis */}
+              {/* Pill row */}
               <div
-                className="pill-scroll mt-2.5 flex gap-1.5 overflow-x-auto"
+                className="pill-scroll mt-3 flex items-center gap-1.5 overflow-x-auto"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
                 <style>{`.pill-scroll::-webkit-scrollbar{display:none}`}</style>
-                {OUTCOME_PILLS.map((p) => (
-                  <FilterPill
-                    key={`o-${p.value}`}
+                {STATUS_PILLS.map((p) => (
+                  <SoftPill
+                    key={`s-${p.value}`}
                     label={p.label}
-                    active={outcome === p.value}
-                    onClick={() => setOutcome(p.value)}
+                    active={status === p.value}
+                    onClick={() =>
+                      setStatus((curr) => (curr === p.value ? "any" : p.value))
+                    }
                   />
                 ))}
-                {/* Divider between outcome and delivery */}
-                <span
-                  aria-hidden
-                  className="mx-1 self-center"
-                  style={{
-                    width: "1px",
-                    height: "18px",
-                    backgroundColor: "hsl(var(--border))",
-                  }}
-                />
                 {DELIVERY_PILLS.map((p) => (
-                  <FilterPill
+                  <SoftPill
                     key={`d-${p.value}`}
                     label={p.label}
                     active={delivery === p.value}
@@ -265,10 +261,36 @@ const VerifiedVendors = () => {
                   />
                 ))}
               </div>
+
+              {/* Vendor focus — text + chevron, opens bottom sheet */}
+              <button
+                type="button"
+                onClick={() => setFocusOpen(true)}
+                className="mt-3 inline-flex items-center gap-1.5 font-sans text-[12px] font-medium uppercase tracking-[0.08em] text-foreground/80 transition-colors hover:text-foreground"
+              >
+                <span className="text-muted-foreground">Vendor focus:</span>
+                <span>{FOCUS_LABEL[focus]}</span>
+                <svg
+                  aria-hidden
+                  viewBox="0 0 12 12"
+                  width="10"
+                  height="10"
+                  className="opacity-60"
+                >
+                  <path
+                    d="M2.5 4.5L6 8l3.5-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
             </div>
 
-            {/* Vendor card stack — fade-in on filter change */}
-            <div key={fadeKey} className="mt-3 animate-fade-in">
+            {/* Result list */}
+            <div key={fadeKey} className="mt-4 animate-fade-in">
               {sorted.length === 0 ? (
                 <EmptyState
                   eyebrow="No matching vendors"
@@ -280,7 +302,7 @@ const VerifiedVendors = () => {
                 />
               ) : (
                 <>
-                  <ul className="flex flex-col overflow-hidden rounded-[2px] border border-border bg-card divide-y divide-border">
+                  <ul className="flex flex-col gap-2">
                     {visibleItems.map((vendor) => {
                       const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
                       return (
@@ -317,83 +339,14 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
-      <section className="border-t border-border bg-surface-muted/30">
-        <div className="page-shell pt-16 md:pt-20" style={{ paddingBottom: "80px" }}>
-          <div className="mx-auto w-wide">
-            <p className="font-mono text-[12px] tracking-[0.04em] text-muted-foreground">
-              02
-            </p>
-            <h2 className="mt-4 t-section-title-sm max-w-[40ch] text-left text-foreground">
-              Understanding the Registry
-            </h2>
-            <p className="mt-3 max-w-[60ch] text-[14px] text-muted-foreground">
-              Four states. One audit standard. No marketing claims.
-            </p>
-
-            <dl className="mt-10 grid grid-cols-1 gap-x-12 gap-y-8 border-t border-border pt-8 md:grid-cols-2">
-              {[
-                {
-                  id: "01",
-                  title: "Verification Criteria",
-                  body: "Sourcing cross-referenced with 503A and 503B pharmacy records. Invoices and licenses on file.",
-                },
-                {
-                  id: "02",
-                  title: "Audit Frequency",
-                  body: "Re-verification every 12 months. Triggered earlier on supplier or sourcing change.",
-                },
-                {
-                  id: "03",
-                  title: "Unverified Status",
-                  body: "No sourcing on file. Not a judgment of safety or compliance.",
-                },
-                {
-                  id: "04",
-                  title: "Under Review",
-                  body: "Application in active audit. Public record updates on completion.",
-                  show: counts["under-review"] > 0,
-                },
-                {
-                  id: "05",
-                  title: "Suspended",
-                  body: "Verification temporarily paused pending source clarification.",
-                  show: counts.suspended > 0,
-                },
-                {
-                  id: "06",
-                  title: "Removed",
-                  body: "Delisted from the active directory. Record preserved for transparency.",
-                  show: counts.removed > 0,
-                },
-              ]
-                .filter((item) => item.show !== false)
-                .map((item) => (
-                  <div key={item.id} className="text-left">
-                    <p className="font-mono text-[11px] tracking-[0.04em] text-muted-foreground">
-                      {item.id}
-                    </p>
-                    <h3 className="mt-2 text-[15px] font-semibold tracking-tight text-foreground">
-                      {item.title}
-                    </h3>
-                    <p
-                      className="mt-2 max-w-[48ch] text-[13.5px] text-muted-foreground"
-                      style={{ lineHeight: 1.6 }}
-                    >
-                      {item.body}
-                    </p>
-                  </div>
-                ))}
-            </dl>
-
-            <div className="mt-12 flex items-center gap-2">
-              <span aria-hidden className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse" />
-              <span className="text-[12.5px] text-muted-foreground">
-                Live Registry — updated continuously
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FilterBottomSheet
+        open={focusOpen}
+        onOpenChange={setFocusOpen}
+        title="Vendor Focus"
+        options={FOCUS_OPTIONS}
+        value={focus}
+        onChange={(v) => setFocus(v as FocusKey)}
+      />
     </>
   );
 };
