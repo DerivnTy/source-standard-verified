@@ -13,14 +13,8 @@ const nav = [
   { to: "/about", label: "About" },
 ];
 
-// Primary mobile nav — larger, consumer-facing labels
-const mobileNav = [
-  { to: "/", label: "Home" },
-  { to: "/greenlist", label: "Greenlist" },
-  { to: "/verified-vendors", label: "Verified Vendors" },
-  { to: "/how-it-works", label: "Protocol" },
-  { to: "/about", label: "Contact" },
-];
+// Mobile mirrors desktop nav exactly
+const mobileNav = nav;
 
 const APP_VERSION = "v1.0.4";
 
