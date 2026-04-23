@@ -351,10 +351,11 @@ const VendorProfile = () => {
 
             <div className="border-b border-border" />
 
-            {/* ---------- BODY GRID — 12-col, items-stretch, divide-x ---------- */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-stretch lg:divide-x lg:divide-border">
-              {/* ===== Main column (8/12) ===== */}
-              <div className="lg:col-span-8">
+            {/* ---------- BODY — single column ---------- */}
+            <div>
+              {/* spacer wrapper open */}
+              <div>
+
                 {/* Public Record — locked 6-row, 2-col matrix (first) */}
                 <section className="px-6 md:px-8 py-6 border-b border-border">
                   <SectionHeading eyebrow="Record">Public Record</SectionHeading>
