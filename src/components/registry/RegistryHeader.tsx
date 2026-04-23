@@ -48,11 +48,7 @@ export const RegistryHeader = ({
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
             <div className="min-w-0 flex-1">
-              {indexNumber && (
-                <p className="font-mono text-[12px] tabular-nums text-white/50 mb-3">
-                  {indexNumber}
-                </p>
-              )}
+              {indexNumber && <p className="t-utility-xs tabular-nums text-white/50 mb-3">{indexNumber}</p>}
               <h1 className="t-page-title text-white text-left">
                 {title}
               </h1>
@@ -63,7 +59,7 @@ export const RegistryHeader = ({
                     className="rounded-full bg-[#22C55E] animate-pulse"
                     style={{ height: "6px", width: "6px" }}
                   />
-                  <span className="font-mono text-[12px] tracking-[0.04em] text-white/70">
+                  <span className="t-utility-xs text-white/70">
                     {statusLine}
                   </span>
                 </div>
@@ -75,7 +71,7 @@ export const RegistryHeader = ({
               {scopeText && scopeHref && (
                 <Link
                   to={scopeHref}
-                  className="mt-3 inline-flex items-center gap-1 text-[13.5px] text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
+                  className="mt-3 inline-flex items-center gap-1 t-body-sm text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
                 >
                   {scopeText} <span aria-hidden>→</span>
                 </Link>

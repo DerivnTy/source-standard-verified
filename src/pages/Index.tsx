@@ -42,7 +42,7 @@ const LiveDashboard = () => {
     <div className="flex flex-col gap-2 px-3 py-5 sm:px-6 sm:py-6 items-start">
       <div className="flex items-center gap-2">
         <span
-          className="font-sans font-bold tracking-tight text-foreground text-[26px] sm:text-[40px] md:text-[48px] leading-none tabular-nums"
+          className="font-sans font-semibold text-foreground text-[26px] sm:text-[40px] md:text-[48px] leading-none tabular-nums"
         >
           {typeof value === "number" ? value.toLocaleString("en-US") : value}
         </span>
@@ -54,10 +54,7 @@ const LiveDashboard = () => {
           />
         )}
       </div>
-      <span
-        className="font-sans text-[10px] sm:text-[11px] uppercase text-muted-foreground"
-        style={{ letterSpacing: "0.08em" }}
-      >
+      <span className="t-label-sm text-muted-foreground">
         {label}
       </span>
     </div>
@@ -103,10 +100,10 @@ const LiveDashboard = () => {
    - Transparent fill; subtle white/10 fill on hover/active */
 
 const ghostBtnPrimary =
-  "rounded-[2px] border border-white text-[hsl(var(--navy-surface))] bg-white px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-white/90 active:bg-white/80 transition-colors";
+  "rounded-[2px] border border-white text-[hsl(var(--navy-surface))] bg-white px-6 py-2.5 t-button hover:bg-white/90 active:bg-white/80 transition-colors";
 
 const ghostBtnSecondary =
-  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-white/10 active:bg-white/15 transition-colors";
+  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 t-button hover:bg-white/10 active:bg-white/15 transition-colors";
 
 const HeroActions = () => (
   <>
@@ -124,10 +121,10 @@ const HeroActions = () => (
    Same 2px radius — institutional, surgical. */
 
 const darkBtnPrimary =
-  "rounded-[2px] border border-foreground text-background bg-foreground px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-foreground/90 transition-colors";
+  "rounded-[2px] border border-foreground text-background bg-foreground px-6 py-2.5 t-button hover:bg-foreground/90 transition-colors";
 
 const darkBtnSecondary =
-  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
+  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 t-button hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
 
 /* ───────────────── Static section data ───────────────── */
 
