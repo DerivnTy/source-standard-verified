@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 
-
 /* ───────────────── Hero actions ───────────────── */
 
 const ghostBtnPrimary =
@@ -34,35 +33,56 @@ const darkBtnSecondary =
 const howItWorks = [
   {
     h: "Map the facilities.",
-    b: "We track every licensed 503A and 503B compounding pharmacy in the United States.",
+    b: "We track licensed 503A and 503B compounding pharmacies in the United States and organize them into an upstream reference layer.",
   },
   {
     h: "Audit the vendors.",
-    b: "We require clinics and online vendors to substantiate their sourcing with documented proof of these pharmacy relationships.",
+    b: "Clinics and online vendors are asked to substantiate their sourcing with documentation tied to those pharmacy relationships.",
   },
   {
-    h: "Publish the truth.",
-    b: "We list the results in a public database. If they can't prove it, they stay Unverified.",
+    h: "Publish the record.",
+    b: "The outcome is published in a public registry. If sourcing cannot be substantiated, the listing remains Unverified.",
   },
 ];
 
 const registryFields = [
-  { h: "Verification status", b: "A simple red/green indicator of documented sourcing." },
-  { h: "Fulfillment model", b: "Whether the vendor is a local clinic or an online-only platform." },
-  { h: "Clinical focus", b: "The medical services the vendor is authorized to provide." },
-  { h: "Upstream sources", b: "The licensed pharmacies supplying the vendor." },
+  {
+    h: "Verification status",
+    b: "Whether documented sourcing verification is published, under review, or not currently on file.",
+  },
+  {
+    h: "Fulfillment model",
+    b: "Whether the vendor operates as a local clinic, an online platform, or a hybrid model.",
+  },
+  {
+    h: "Clinical focus",
+    b: "The therapeutic categories the vendor publicly operates within.",
+  },
+  {
+    h: "Upstream sources",
+    b: "The licensed pharmacies or facilities the vendor is documented to source from when verification is on file.",
+  },
 ];
 
 const whyMatters = [
-  { h: "For consumers", b: "Instant clarity on whether your clinic is using legal, licensed sources." },
-  { h: "For vendors", b: "A professional seal of approval that separates you from the research-only grey market." },
-  { h: "For doctors", b: "A clinical reference for referring patients to documented facilities." },
+  {
+    h: "For consumers",
+    b: "Instant clarity on whether a clinic's sourcing is documented against licensed upstream records.",
+  },
+  {
+    h: "For vendors",
+    b: "A public trust standard tied to substantiated sourcing, not presentation alone.",
+  },
+  {
+    h: "For doctors",
+    b: "A structured reference point for evaluating whether a vendor is operating with documented sources.",
+  },
 ];
 
 const basics = [
   {
     t: "What \"Verified\" means",
-    s: "The audit standard a listing must meet to carry the Source Standard mark.",
+    s: "The audit standard a listing must meet to carry Source Standard verification.",
     to: "/library/what-source-standard-verification-actually-means",
   },
   {
@@ -110,7 +130,7 @@ const Index = () => {
         actions={<HeroActions />}
       />
 
-      {/* §1 — The trust problem */}
+      {/* §2 — The trust problem */}
       <section aria-labelledby="trust-problem" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
@@ -122,21 +142,28 @@ const Index = () => {
               Branding is not documentation.
             </h2>
             <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
-              In the peptide industry, marketing claims are easy to make but difficult to prove.
-              Most consumers are forced to rely on trust. We believe you should rely on records.
-              We audit the supply chain to ensure what you're being sold is what's on the label.
+              In the peptide industry, marketing claims are easy to make and difficult to prove.
+              Most consumers are left to rely on trust signals, presentation, and website language.
+              Source Standard exists to shift that standard back to records. We audit the supply
+              chain so the public can better understand whether what is being sold is supported by
+              documented sourcing.
             </p>
           </div>
         </div>
       </section>
 
-      {/* §2 — How Source Standard works */}
+      {/* §3 — How it works */}
       <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <Eyebrow>How it works</Eyebrow>
-            <h2 id="how-it-works" className="sr-only">How Source Standard works</h2>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+            <h2
+              id="how-it-works"
+              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+            >
+              How Source Standard works
+            </h2>
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
               {howItWorks.map((s, i) => (
                 <div key={i}>
                   <p className="t-utility-xs text-muted-foreground">
@@ -144,7 +171,7 @@ const Index = () => {
                   </p>
                   <div className="mt-3 h-px w-8 bg-border" aria-hidden="true" />
                   <h3 className="mt-5 t-h4 text-foreground max-w-[24ch]">{s.h}</h3>
-                  <p className="mt-5 t-body-sm text-muted-foreground max-w-[38ch]">{s.b}</p>
+                  <p className="mt-5 t-body-sm text-muted-foreground max-w-[42ch]">{s.b}</p>
                 </div>
               ))}
             </div>
@@ -152,7 +179,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §3 — Live registry proof */}
+      {/* §4 — Live registry */}
       <section aria-labelledby="live-registry" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
@@ -164,7 +191,7 @@ const Index = () => {
               Total market visibility.
             </h2>
             <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
-              Our database tracks the entire peptide economy in real time.
+              Our database tracks the peptide economy as a live public-reference system.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-3">
@@ -179,7 +206,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §4 — What you can verify */}
+      {/* §5 — Registry fields */}
       <section aria-labelledby="registry-shows" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
@@ -193,13 +220,14 @@ const Index = () => {
                   Search. Verify. Proceed.
                 </h2>
                 <p className="mt-5 t-body-sm text-muted-foreground max-w-[40ch]">
-                  Every listing in our registry provides a clear snapshot of a vendor's legitimacy.
+                  Every listing in the registry provides a structured snapshot of public sourcing
+                  status and operating profile.
                 </p>
                 <Link
                   to="/directory"
                   className="mt-7 inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
                 >
-                  Open the registry →
+                  Open the registry
                 </Link>
               </div>
 
@@ -218,17 +246,22 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §5 — Function of the framework */}
+      {/* §6 — Function of the framework */}
       <section aria-labelledby="why-matters" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <Eyebrow>Function</Eyebrow>
-            <h2 id="why-matters" className="sr-only">Function of the framework</h2>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
+            <h2
+              id="why-matters"
+              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+            >
+              Function of the framework
+            </h2>
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
               {whyMatters.map((w, i) => (
                 <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
                   <p className="t-utility-xs text-muted-foreground">{w.h}</p>
-                  <p className="mt-5 t-body-md text-foreground max-w-[32ch]">{w.b}</p>
+                  <p className="mt-5 t-body-md text-foreground max-w-[34ch]">{w.b}</p>
                 </div>
               ))}
             </div>
@@ -236,13 +269,22 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §6 — Foundational reference */}
+      {/* §7 — Foundational reference */}
       <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <Eyebrow>Foundational reference</Eyebrow>
-            <h2 id="basics" className="sr-only">Foundational reference</h2>
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+            <h2
+              id="basics"
+              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+            >
+              Foundational reference
+            </h2>
+            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
+              Core reference materials that define the terms, regulatory distinctions, and
+              verification standards used throughout the registry.
+            </p>
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
               {basics.map((b) => (
                 <Link
                   key={b.t}
@@ -252,7 +294,7 @@ const Index = () => {
                   <h3 className="t-h4 text-foreground">{b.t}</h3>
                   <p className="mt-3 t-body-sm text-muted-foreground flex-1">{b.s}</p>
                   <span className="mt-5 t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors">
-                    Read →
+                    Read
                   </span>
                 </Link>
               ))}
@@ -262,24 +304,29 @@ const Index = () => {
                 to="/education"
                 className="inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
               >
-                Browse Resource Library →
+                Browse Resource Library
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* §7 — Governance & standards */}
+      {/* §8 — Governance & standards */}
       <section aria-labelledby="governance" className="border-b border-border bg-background">
         <div className="page-shell section-pad pb-0">
           <div className="mx-auto w-standard">
             <Eyebrow>Governance &amp; standards</Eyebrow>
-            <h2 id="governance" className="sr-only">Governance and standards</h2>
-            <p className="mt-4 t-body-md text-foreground max-w-[60ch]">
+            <h2
+              id="governance"
+              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+            >
+              Governance and standards
+            </h2>
+            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
               The framework operates under published standards, recurring review, and medical
               advisory oversight.
             </p>
-            <ul className="mt-10 divide-y divide-border border-y border-border">
+            <ul className="mt-12 divide-y divide-border border-y border-border">
               {governanceLinks.map((g) => (
                 <li key={g.k}>
                   <Link
@@ -290,7 +337,7 @@ const Index = () => {
                       {g.k}
                     </span>
                     <span className="col-span-3 sm:col-span-2 t-utility-xs text-muted-foreground text-right pr-0 sm:pr-4 group-hover:text-foreground transition-colors">
-                      View →
+                      View
                     </span>
                   </Link>
                 </li>
