@@ -18,7 +18,7 @@ export type ActiveChip = {
 export const QueryBar = ({
   query,
   onQueryChange,
-  searchPlaceholder = "[ SEARCH REGISTRY_ ]",
+  searchPlaceholder = "Search registry",
   resultLabel,
   sortControl,
   facets,
@@ -55,20 +55,20 @@ export const QueryBar = ({
       style={{ border: "1px solid hsl(var(--border))" }}
     >
       {/* Row 1: search + result count + sort */}
-      <div className="flex flex-col md:flex-row md:items-center gap-3 px-3.5 py-3 border-b border-border/60 bg-surface-muted/20">
+      <div className="flex flex-col md:flex-row md:items-center gap-3 px-3 py-2 border-b border-border/60">
         <div className="relative flex-1 min-w-0 w-full">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748B] pointer-events-none" />
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full pl-10 pr-16 h-10 bg-background rounded-[2px] font-mono text-[12px] tracking-[0.06em] text-foreground placeholder:text-[#64748B] placeholder:font-mono placeholder:tracking-[0.08em] focus:outline-none focus:ring-0"
-            style={{ border: "1px solid #64748B" }}
+            className="w-full pl-8 pr-14 h-8 bg-background rounded-[2px] text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+            style={{ border: "1px solid hsl(var(--border))" }}
             aria-label="Search registry"
           />
           <kbd
-            className="hidden md:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1.5 py-0.5 t-utility-xs font-mono text-muted-foreground border border-border/60 rounded bg-background pointer-events-none"
+            className="hidden md:inline-flex absolute right-2 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1 py-0.5 font-mono text-[10px] text-muted-foreground border border-border/60 rounded bg-background pointer-events-none"
             aria-hidden
           >
             ⌘K
