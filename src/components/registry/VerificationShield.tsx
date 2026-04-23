@@ -20,7 +20,8 @@ export const VerificationShield = ({
   const tooltip =
     `Verified sourcing.\nThis vendor has provided documentation supporting the reviewed sourcing scope` +
     (reviewDate ? ` as of ${reviewDate}.` : ".") +
-    (reviewId ? `\nReview ID ${reviewId}.` : "");
+    (reviewId ? `\nReview ID ${reviewId}.` : "") +
+    `\nSubject to ongoing Random Audit & Blind Purchase Testing.`;
 
   return (
     <span
