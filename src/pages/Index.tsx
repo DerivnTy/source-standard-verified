@@ -103,12 +103,6 @@ const governanceLinks = [
   { k: "Status Definitions", to: "/status-definitions" },
 ];
 
-/* ───────────────── Reusable atoms ───────────────── */
-
-const Eyebrow = ({ children }: { children: React.ReactNode }) => (
-  <p className="t-eyebrow-sm text-muted-foreground">{children}</p>
-);
-
 /* ───────────────── Page ───────────────── */
 
 const Index = () => {
@@ -134,10 +128,9 @@ const Index = () => {
       <section aria-labelledby="trust-problem" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>The trust problem</Eyebrow>
             <h2
               id="trust-problem"
-              className="mt-4 t-section-title-sm text-foreground max-w-[28ch]"
+              className="t-section-title-sm text-foreground max-w-[28ch]"
             >
               Branding is not documentation.
             </h2>
@@ -156,10 +149,9 @@ const Index = () => {
       <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>How it works</Eyebrow>
             <h2
               id="how-it-works"
-              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+              className="t-section-title-sm text-foreground max-w-[34ch]"
             >
               How Source Standard works
             </h2>
@@ -183,10 +175,9 @@ const Index = () => {
       <section aria-labelledby="live-registry" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Live registry</Eyebrow>
             <h2
               id="live-registry"
-              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+              className="t-section-title-sm text-foreground max-w-[34ch]"
             >
               Total market visibility.
             </h2>
@@ -212,10 +203,9 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <div className="grid grid-cols-12 gap-8 md:gap-12">
               <div className="col-span-12 md:col-span-4">
-                <Eyebrow>Registry fields</Eyebrow>
                 <h2
                   id="registry-shows"
-                  className="mt-4 t-section-title-sm text-foreground max-w-[18ch]"
+                  className="t-section-title-sm text-foreground max-w-[18ch]"
                 >
                   Search. Verify. Proceed.
                 </h2>
@@ -250,10 +240,9 @@ const Index = () => {
       <section aria-labelledby="why-matters" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Function</Eyebrow>
             <h2
               id="why-matters"
-              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+              className="t-section-title-sm text-foreground max-w-[34ch]"
             >
               Function of the framework
             </h2>
@@ -273,10 +262,9 @@ const Index = () => {
       <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Foundational reference</Eyebrow>
             <h2
               id="basics"
-              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+              className="t-section-title-sm text-foreground max-w-[34ch]"
             >
               Foundational reference
             </h2>
@@ -315,10 +303,9 @@ const Index = () => {
       <section aria-labelledby="governance" className="border-b border-border bg-background">
         <div className="page-shell section-pad pb-0">
           <div className="mx-auto w-standard">
-            <Eyebrow>Governance &amp; standards</Eyebrow>
             <h2
               id="governance"
-              className="mt-4 t-section-title-sm text-foreground max-w-[34ch]"
+              className="t-section-title-sm text-foreground max-w-[34ch]"
             >
               Governance and standards
             </h2>
