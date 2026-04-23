@@ -400,10 +400,10 @@ const VerifiedVendors = () => {
 
       {/* Query + result surface */}
       <section className="bg-background">
-        <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
+        <div className="page-shell pt-12 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* View toggle — slim, sharp rectangular */}
-            <div className="mb-3 flex justify-end">
+            {/* View toggle — slim, sharp, sits above the search */}
+            <div className="mb-3 flex justify-end px-5 md:px-0">
               <div
                 role="radiogroup"
                 aria-label="View mode"
@@ -423,7 +423,7 @@ const VerifiedVendors = () => {
                       role="radio"
                       aria-checked={active}
                       onClick={() => setView(opt.value)}
-                      className={`h-8 px-3 text-[12px] transition-colors ${
+                      className={`h-7 px-3 text-[11.5px] transition-colors ${
                         i > 0 ? "border-l" : ""
                       } ${
                         active
@@ -439,44 +439,14 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            {/* Status Tabs — slim rectangular, navy when active */}
-            <div
-              role="tablist"
-              aria-label="Filter by status"
-              className="mb-4 flex flex-wrap overflow-hidden rounded-[2px]"
-              style={{ border: "1px solid hsl(var(--border))" }}
-            >
-              {STATUS_TABS.map((t, i) => {
-                const active = status === t.value;
-                return (
-                  <button
-                    key={t.value}
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => setStatus(t.value)}
-                    className={`h-9 px-4 text-[12.5px] transition-colors ${
-                      i > 0 ? "border-l" : ""
-                    } ${
-                      active
-                        ? "bg-[hsl(var(--navy-surface))] text-white"
-                        : "bg-background text-muted-foreground hover:text-foreground hover:bg-surface-muted/40"
-                    }`}
-                    style={{ borderColor: "hsl(var(--border))" }}
-                  >
-                    {t.label}
-                  </button>
-                );
-              })}
-            </div>
-
             <QueryBar
               query={query}
               onQueryChange={setQuery}
               searchPlaceholder="Search vendors by name, city, or focus"
               resultLabel={
                 sorted.length === 0
-                  ? "0 of 0 records"
-                  : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()} records`
+                  ? "0 of 0"
+                  : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()}`
               }
               sortControl={sortControl}
               facets={facets}
@@ -484,9 +454,6 @@ const VerifiedVendors = () => {
               onReset={reset}
               activeChips={activeChips}
             />
-            <p className="mt-3 px-5 md:px-0 text-[12px] text-muted-foreground">
-              Filter by state or fulfillment.
-            </p>
 
             <div className="mt-5">
               {sorted.length === 0 ? (
