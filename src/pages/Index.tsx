@@ -188,7 +188,7 @@ const Index = () => {
 
       {/* §3 — Live registry proof */}
       <section aria-labelledby="live-registry" className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
+        <div className="page-shell pt-[var(--section-pad-y,0)] section-pad pb-0">
           <div className="mx-auto w-standard">
             <Eyebrow>Live registry</Eyebrow>
             <h2
@@ -200,19 +200,47 @@ const Index = () => {
             <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
               Our database tracks the entire peptide economy in real time.
             </p>
+          </div>
+        </div>
 
-            <div className="mt-10">
-              <StatRow>
-                <Stat label="Vendors tracked" value={stats.total} />
-                <Stat label="Verified" value={stats.verified} />
-                <Stat label="Under review" value={stats.underReview} />
-                <Stat label="Facilities recognized" value={stats.facilities} />
-                <Stat label="States represented" value={stats.states} />
-                <Stat label="Last updated" value={stats.lastUpdated} />
-              </StatRow>
-            </div>
+        {/* Full-bleed Data Horizon — institutional ticker strip */}
+        <div
+          role="group"
+          aria-label="Live registry data horizon"
+          className="mt-10 w-full border-y border-border/70 bg-surface-muted/40 backdrop-blur-[2px]"
+        >
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-border/60">
+            {[
+              { label: "Vendors Tracked", value: stats.total.toLocaleString() },
+              { label: "States Represented", value: stats.states.toLocaleString() },
+              { label: "Verified Sourcing", value: stats.verified.toLocaleString() },
+              { label: "Facilities Recognized", value: stats.facilities.toLocaleString() },
+              { label: "Registry Status", value: "ACTIVE", live: true },
+            ].map((cell) => (
+              <div
+                key={cell.label}
+                className="flex flex-col justify-center px-5 md:px-7 py-5 md:py-6 min-h-[88px]"
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  {cell.label}
+                </span>
+                <span className="mt-2 font-mono text-[18px] md:text-[20px] leading-[1.1] font-medium tabular-nums text-foreground inline-flex items-center gap-2">
+                  {cell.live && (
+                    <span
+                      aria-hidden
+                      className="inline-block w-1.5 h-1.5 rounded-full bg-verified animate-pulse"
+                    />
+                  )}
+                  {cell.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
 
-            <div className="mt-10 flex flex-wrap gap-3">
+        <div className="page-shell section-pad pt-10">
+          <div className="mx-auto w-standard">
+            <div className="flex flex-wrap gap-3">
               <Link to="/directory" className={darkBtnPrimary}>
                 Search Verified Vendors
               </Link>
