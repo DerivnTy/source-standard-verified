@@ -31,7 +31,7 @@ const CategoryBlock = ({
   entries: ReturnType<typeof articlesByCategory>;
 }) => {
   const visible = entries.slice(0, PREVIEW_LIMIT);
-  const hasMore = entries.length > PREVIEW_LIMIT;
+  const showViewAllRow = entries.length > 0;
 
   return (
     <section
