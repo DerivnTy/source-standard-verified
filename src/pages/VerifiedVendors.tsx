@@ -15,40 +15,13 @@ import {
   VendorFulfillment,
 } from "@/data/vendors";
 
-const ALL = "__all__";
-
 type SortMode = "name-asc" | "location" | "latest-audit";
 type CategoryFilter = "all" | string;
 type ViewMode = "list" | "grid";
 
-const STATUS_ORDER: VendorPublicStatus[] = [
-  "verified",
-  "under-review",
-  "unverified",
-  "suspended",
-  "removed",
-];
-
-const STATUS_RANK: Record<VendorPublicStatus, number> = {
-  verified: 0,
-  "under-review": 1,
-  unverified: 2,
-  suspended: 3,
-  removed: 4,
-};
-
-const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
-  verified: "Source Standard has published a completed verification on file.",
-  "under-review": "An application is currently undergoing review.",
-  unverified: "No completed verification on file. Not a judgment of safety or compliance.",
-  suspended: "A previously published verification has been temporarily paused.",
-  removed: "Listing removed from the public directory; record preserved for transparency.",
-};
-
-
-const formatLocation = (v: Vendor) => {
-  if (v.city && v.state) return `${v.city}, ${v.state}`;
-  return v.city || v.state || "—";
+const formatLocation = (vendor: Vendor) => {
+  if (vendor.city && vendor.state) return `${vendor.city}, ${vendor.state}`;
+  return vendor.city || vendor.state || "—";
 };
 
 const VerifiedVendors = () => {
@@ -61,70 +34,83 @@ const VerifiedVendors = () => {
 
   const states = useMemo(() => getVendorStates(), []);
   const categories = useMemo(
-    () => Array.from(new Set(vendors.map((v) => v.category))).sort((a, b) => a.localeCompare(b)),
+    () => Array.from(new Set(vendors.map((vendor) => vendor.category))).sort((a, b) => a.localeCompare(b)),
     [],
   );
 
   const fulfillmentByVendor = useMemo(() => {
-    const m = new Map<string, VendorFulfillment>();
-    for (const v of vendors) m.set(v.slug, getVendorFulfillment(v));
-    return m;
+    const map = new Map<string, VendorFulfillment>();
+    for (const vendor of vendors) map.set(vendor.slug, getVendorFulfillment(vendor));
+    return map;
   }, []);
 
   const counts = useMemo(() => {
-    const c: Record<VendorPublicStatus, number> = {
+    const next: Record<VendorPublicStatus, number> = {
       verified: 0,
       unverified: 0,
       "under-review": 0,
       suspended: 0,
       removed: 0,
     };
-    for (const v of vendors) c[v.status]++;
-    return c;
+
+    for (const vendor of vendors) next[vendor.status] += 1;
+    return next;
   }, []);
 
   const statesRepresented = states.length;
   const totalAudits = useMemo(
-    () => vendors.filter((v) => Boolean(v.reviewId)).length,
+    () => vendors.filter((vendor) => Boolean(vendor.reviewId)).length,
     [],
   );
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return vendors.filter((v) => {
-      if (q) {
-        const hay = [v.name, v.city, v.state, v.category, ...(v.clinicalFocus ?? [])]
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return vendors.filter((vendor) => {
+      if (normalizedQuery) {
+        const haystack = [
+          vendor.name,
+          vendor.city,
+          vendor.state,
+          vendor.category,
+          ...(vendor.clinicalFocus ?? []),
+        ]
           .filter(Boolean)
           .join(" ")
           .toLowerCase();
-        if (!hay.includes(q)) return false;
+
+        if (!haystack.includes(normalizedQuery)) return false;
       }
-      if (category !== "all" && v.category !== category) return false;
+
+      if (category !== "all" && vendor.category !== category) return false;
+
       return true;
     });
   }, [query, category]);
 
   const sorted = useMemo(() => {
-    const arr = [...filtered];
+    const records = [...filtered];
     const byName = (a: Vendor, b: Vendor) => a.name.localeCompare(b.name);
+
     switch (sort) {
       case "location":
-        return arr.sort((a, b) => {
-          const s = (a.state ?? "").localeCompare(b.state ?? "");
-          if (s !== 0) return s;
-          const c = (a.city ?? "").localeCompare(b.city ?? "");
-          return c !== 0 ? c : byName(a, b);
+        return records.sort((a, b) => {
+          const byState = (a.state ?? "").localeCompare(b.state ?? "");
+          if (byState !== 0) return byState;
+
+          const byCity = (a.city ?? "").localeCompare(b.city ?? "");
+          return byCity !== 0 ? byCity : byName(a, b);
         });
       case "latest-audit":
-        return arr.sort((a, b) => {
-          const da = a.reviewDate ?? "";
-          const db = b.reviewDate ?? "";
-          if (da !== db) return db.localeCompare(da);
+        return records.sort((a, b) => {
+          const aDate = a.reviewDate ?? "";
+          const bDate = b.reviewDate ?? "";
+          if (aDate !== bDate) return bDate.localeCompare(aDate);
           return byName(a, b);
         });
       case "name-asc":
       default:
-        return arr.sort(byName);
+        return records.sort(byName);
     }
   }, [filtered, sort]);
 
@@ -137,15 +123,38 @@ const VerifiedVendors = () => {
     setPage(1);
   }, [query, category, sort, pageSize]);
 
-  const controlSelectClass =
-    "h-9 bg-background text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center] px-3 pr-8 border-0 min-w-0";
+  const toolbarSelectClass =
+    "h-9 min-w-0 border-0 bg-background px-3 pr-8 text-[12.5px] text-foreground focus:outline-none focus:ring-0 appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center]";
 
-  const controlChevron = {
+  const toolbarChevron = {
     backgroundImage:
       "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
   };
 
-      {/* Registry controls */}
+  return (
+    <>
+      <PageMeta
+        title="The Public Trust Registry · Verified Vendors"
+        description="The national database for peptide and hormone sourcing transparency. Verify whether a clinic's sourcing has been substantiated by licensed facility records."
+      />
+
+      <RegistryHeader
+        indexNumber="01"
+        title="Verified Registry"
+        statusLine="Live Registry"
+        recordCount={vendors.length}
+        hideRecordPill
+      />
+
+      <RegistryHorizon
+        seam
+        cells={[
+          { label: "Vendors Verified", value: counts.verified },
+          { label: "States Represented", value: statesRepresented },
+          { label: "Total Audits", value: totalAudits },
+        ]}
+      />
+
       <section className="bg-background">
         <div className="page-shell pt-12 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
@@ -156,21 +165,19 @@ const VerifiedVendors = () => {
                 className="inline-flex overflow-hidden rounded-[2px]"
                 style={{ border: "1px solid hsl(var(--border))" }}
               >
-                {(
-                  [
-                    { value: "list", label: "List" },
-                    { value: "grid", label: "Grid" },
-                  ] as { value: ViewMode; label: string }[]
-                ).map((opt, i) => {
-                  const active = view === opt.value;
+                {[
+                  { value: "list", label: "List" },
+                  { value: "grid", label: "Grid" },
+                ].map((option, index) => {
+                  const active = view === option.value;
                   return (
                     <button
-                      key={opt.value}
+                      key={option.value}
                       role="radio"
                       aria-checked={active}
-                      onClick={() => setView(opt.value)}
+                      onClick={() => setView(option.value as ViewMode)}
                       className={`h-7 px-3 text-[11.5px] transition-colors ${
-                        i > 0 ? "border-l" : ""
+                        index > 0 ? "border-l" : ""
                       } ${
                         active
                           ? "bg-[hsl(var(--navy-surface))] text-white"
@@ -178,7 +185,7 @@ const VerifiedVendors = () => {
                       }`}
                       style={{ borderColor: "hsl(var(--border))" }}
                     >
-                      {opt.label}
+                      {option.label}
                     </button>
                   );
                 })}
@@ -193,19 +200,20 @@ const VerifiedVendors = () => {
                 <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
                 <input
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search Facility Database..."
                   aria-label="Search facility database"
                   className="h-9 w-full bg-background pl-9 pr-3 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
                 />
               </div>
+
               <div className="shrink-0 border-l" style={{ borderColor: "hsl(var(--border))" }}>
                 <select
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={(event) => setCategory(event.target.value)}
                   aria-label="Category"
-                  className={controlSelectClass}
-                  style={controlChevron}
+                  className={toolbarSelectClass}
+                  style={toolbarChevron}
                 >
                   <option value="all">Category</option>
                   {categories.map((item) => (
@@ -215,15 +223,15 @@ const VerifiedVendors = () => {
                   ))}
                 </select>
               </div>
+
               <div className="shrink-0 border-l" style={{ borderColor: "hsl(var(--border))" }}>
                 <select
                   value={sort}
-                  onChange={(e) => setSort(e.target.value as SortMode)}
+                  onChange={(event) => setSort(event.target.value as SortMode)}
                   aria-label="Sort"
-                  className={controlSelectClass}
-                  style={controlChevron}
+                  className={toolbarSelectClass}
+                  style={toolbarChevron}
                 >
-                  <option value="name-asc">Sort</option>
                   <option value="name-asc">Alphabetical</option>
                   <option value="location">Location</option>
                   <option value="latest-audit">Latest Audit</option>
@@ -244,19 +252,19 @@ const VerifiedVendors = () => {
                   body={
                     vendors.length === 0
                       ? "Directory pending population."
-                      : "No vendors match these filters. Try clearing one."
+                      : "No vendors match the current search."
                   }
                 />
               ) : view === "list" ? (
-                <ul className="rounded-[2px] border border-border bg-card overflow-hidden divide-y divide-border">
-                  {pageItems.map((v) => {
-                    const ful = fulfillmentByVendor.get(v.slug)!;
+                <ul className="overflow-hidden rounded-[2px] border border-border bg-card divide-y divide-border">
+                  {pageItems.map((vendor) => {
+                    const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
                     return (
-                      <li key={v.slug}>
+                      <li key={vendor.slug}>
                         <VendorAuditCard
-                          vendor={v}
-                          fulfillment={ful}
-                          location={formatLocation(v)}
+                          vendor={vendor}
+                          fulfillment={fulfillment}
+                          location={formatLocation(vendor)}
                           view="list"
                         />
                       </li>
@@ -264,15 +272,15 @@ const VerifiedVendors = () => {
                   })}
                 </ul>
               ) : (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {pageItems.map((v) => {
-                    const ful = fulfillmentByVendor.get(v.slug)!;
+                <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {pageItems.map((vendor) => {
+                    const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
                     return (
-                      <li key={v.slug}>
+                      <li key={vendor.slug}>
                         <VendorAuditCard
-                          vendor={v}
-                          fulfillment={ful}
-                          location={formatLocation(v)}
+                          vendor={vendor}
+                          fulfillment={fulfillment}
+                          location={formatLocation(vendor)}
                           view="grid"
                         />
                       </li>
@@ -296,26 +304,25 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
-      {/* Registry logic — clean reference grid */}
       <section className="border-t border-border bg-surface-muted/30">
         <div className="page-shell pt-16 md:pt-20" style={{ paddingBottom: "80px" }}>
           <div className="mx-auto w-wide">
             <p className="font-mono text-[12px] tracking-[0.04em] text-muted-foreground">
               02
             </p>
-            <h2 className="mt-4 t-section-title-sm text-foreground max-w-[40ch] text-left">
+            <h2 className="mt-4 t-section-title-sm max-w-[40ch] text-left text-foreground">
               Understanding the Registry
             </h2>
-            <p className="mt-3 text-[14px] text-muted-foreground max-w-[60ch]">
+            <p className="mt-3 max-w-[60ch] text-[14px] text-muted-foreground">
               Four states. One audit standard. No marketing claims.
             </p>
 
-            <dl className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 border-t border-border pt-8">
+            <dl className="mt-10 grid grid-cols-1 gap-x-12 gap-y-8 border-t border-border pt-8 md:grid-cols-2">
               {[
                 {
                   id: "01",
                   title: "Verification Criteria",
-                  body: "Sourcing cross-referenced with 503A/503B pharmacy records. Invoices and licenses on file.",
+                  body: "Sourcing cross-referenced with 503A and 503B pharmacy records. Invoices and licenses on file.",
                 },
                 {
                   id: "02",
@@ -342,7 +349,7 @@ const VerifiedVendors = () => {
                 {
                   id: "06",
                   title: "Removed",
-                  body: "Delisted from active directory. Record preserved for transparency.",
+                  body: "Delisted from the active directory. Record preserved for transparency.",
                   show: counts.removed > 0,
                 },
               ]
@@ -352,11 +359,11 @@ const VerifiedVendors = () => {
                     <p className="font-mono text-[11px] tracking-[0.04em] text-muted-foreground">
                       {item.id}
                     </p>
-                    <h3 className="mt-2 text-[15px] font-semibold text-foreground tracking-tight">
+                    <h3 className="mt-2 text-[15px] font-semibold tracking-tight text-foreground">
                       {item.title}
                     </h3>
                     <p
-                      className="mt-2 text-[13.5px] text-muted-foreground max-w-[48ch]"
+                      className="mt-2 max-w-[48ch] text-[13.5px] text-muted-foreground"
                       style={{ lineHeight: 1.6 }}
                     >
                       {item.body}
@@ -365,12 +372,8 @@ const VerifiedVendors = () => {
                 ))}
             </dl>
 
-            {/* Live pill — reinforces real-time data near final CTA */}
             <div className="mt-12 flex items-center gap-2">
-              <span
-                aria-hidden
-                className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse"
-              />
+              <span aria-hidden className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse" />
               <span className="text-[12.5px] text-muted-foreground">
                 Live Registry — updated continuously
               </span>
