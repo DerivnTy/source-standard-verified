@@ -1,31 +1,32 @@
 
 
-## DocJumpBar: Re-introduce Smooth Pill Morph (Subtle)
+## DocJumpBar: Scroll-Linked Underline Progress
 
-Bring back the scroll-scrubbed morph, but keep it pill-shaped throughout — only width, height, and inner spacing change. No square-bar transformation.
+The underline should not snap between waypoints. Instead it should slide continuously, mirroring the user's exact vertical scroll progress through the document.
 
-### Changes (`src/components/DocJumpBar.tsx`)
+### Approach
 
-1. **Restore scroll-progress tracking**: re-add `progress`/`eased` state, scroll listener with rAF, seam-based computation over a ~200px runway.
+1. **Track scroll progress through the waypoint range**: 
+   - Find the first waypoint element's top and the last waypoint element's bottom (or a reasonable end anchor).
+   - Compute `docProgress` = (currentScrollY - firstTop) / (lastBottom - firstTop), clamped 0–1.
 
-2. **Interpolated geometry (subtle, pill always)**:
-   - `width`: 86% → 96%
-   - `maxWidth`: 1200px → 1360px
-   - `paddingY` (chip vertical): 6px → 3px (vertical minimize)
-   - `nav` vertical padding: lerp inner py 8px → 4px
-   - `borderRadius`: stays `9999px` (always pill)
-   - `boxShadow`: stays constant
-   - `gap` between items: 8px → 14px
-   - `itemPaddingX`: 10px → 14px
-   - `justifyContent`: items slide toward center via `marginLeft: auto` on the `<ul>` interpolating from 0 → auto effect — implement by lerping a left-margin push, OR simpler: interpolate `justify-content` by using `marginLeft` on ul from `0` (flex-start, hugs "Contents ·") to a computed value that centers the ul within remaining space. Cleanest approach: wrap with `justify-content: flex-start` always, but add a spacer that grows — or use `marginLeft: lerp(0, auto-equivalent)`. **Simplest**: set ul `marginLeft` to `lerp(0, (containerWidth - contentsLabelWidth - ulWidth) / 2, eased)` — too complex. **Use this instead**: keep flex-start but increase `gap` between the "Contents ·" label and the `<ul>` via interpolation from 14px → a larger value that effectively pushes the ul rightward toward visual center. Actually the cleanest: change the outer flex container's `justifyContent` from `flex-start` to `center` via... we can't lerp justify-content. 
-   
-   **Final approach for centering**: Use `marginLeft: auto` on the `<ul>` always, with a `marginRight: lerp(0, auto-equivalent)`. Even simpler: give the ul `margin-left: auto` and the "Contents ·" label `margin-right: auto` when expanded. Best: interpolate a `marginLeft` value on the ul from `0` to a large fixed push (e.g., `lerp(0, 80, eased)` px) to slide it toward center as the bar widens.
+2. **Map progress to underline position**:
+   - The underline's `left` interpolates from the left edge of the first waypoint chip to the left edge of the last chip (or its right edge).
+   - The underline's `width` can stay equal to the currently-overlapping chip's width, OR — cleaner — keep a fixed small width (e.g., 24px) that slides along the full chip row.
+   - **Cleanest interpretation**: the underline spans from chip[0].left to chip[N-1].right when fully scrolled. So `width = docProgress * (lastRight - firstLeft)`, `left = firstLeft`. That gives a growing underline like a progress bar.
+   - **Better match for "line slides word to word at scroll speed"**: keep underline width = current chip width, but its `left` interpolates linearly across the chip-row span proportional to scroll. Compute target `left = firstLeft + docProgress * (lastLeft - firstLeft)`. Width snaps to nearest chip's width (or interpolates between adjacent chips' widths).
 
-3. **Keep**: `headerVisible` sticky `top` with 200ms transition, IntersectionObserver for active state, seam zone.
+3. **Implementation**:
+   - In `PillContents`, add a scroll listener (rAF-throttled) that computes `docProgress` from waypoint DOM positions.
+   - Measure each chip's `left` and `width` once (and on resize/layout changes).
+   - For each frame, find which two adjacent waypoints the progress falls between (e.g., progress 0.37 with 4 waypoints → between idx 1 and 2 at local t=0.11), then `lerp` the underline's `left` and `width` between those two chips.
+   - Remove the activeId-based snapping useEffect for the indicator (keep activeId for text color only, or drive activeId from the same progress calc).
+
+4. **Remove transition CSS on left/width** (or shorten to ~80ms) so it follows scroll 1:1 instead of easing 350ms after each snap.
 
 ### Result
 
-- At rest: pill at 86% width, comfortable vertical padding, items left-aligned after "Contents ·".
-- On scroll: pill smoothly widens to 96%, slims vertically, items spread (larger gap) and slide rightward toward visual center.
-- Always pill-shaped, always shadowed, no square-bar morph, no scrollbar flash (overflow hidden retained).
+- Underline glides smoothly under the words at exactly the rate the user scrolls.
+- No snapping; position mirrors document scroll position through the section range.
+- Width morphs between adjacent chip widths so the line always feels anchored to "the word you're on".
 
