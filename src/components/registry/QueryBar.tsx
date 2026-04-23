@@ -134,8 +134,9 @@ export const FacetSelect = ({
     value={value}
     onChange={(e) => onChange(e.target.value)}
     aria-label={ariaLabel}
-    className="h-10 px-3.5 pr-9 bg-background border border-border/70 t-nav text-foreground rounded-[2px] hover:border-foreground/40 focus:outline-none focus:border-foreground/60 focus:ring-1 focus:ring-foreground/10 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_12px_center]"
+    className="h-10 w-full md:w-auto px-3.5 pr-9 bg-background t-nav text-foreground rounded-[2px] focus:outline-none focus:ring-0 transition-colors cursor-pointer appearance-none bg-no-repeat bg-[length:10px_10px] bg-[right_12px_center]"
     style={{
+      border: "1px solid #64748B",
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%2364748b' stroke-width='1.5' d='M2 4l3 3 3-3'/%3E%3C/svg%3E\")",
     }}
