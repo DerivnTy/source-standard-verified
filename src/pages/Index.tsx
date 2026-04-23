@@ -263,12 +263,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §5 — Why this matters */}
+      {/* §5 — Function of the framework */}
       <section aria-labelledby="why-matters" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Why this matters</Eyebrow>
-            <h2 id="why-matters" className="sr-only">Why this matters</h2>
+            <Eyebrow>Function</Eyebrow>
+            <h2 id="why-matters" className="sr-only">Function of the framework</h2>
             <div className="mt-10 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
               {whyMatters.map((w, i) => (
                 <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
@@ -281,12 +281,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §6 — Start here */}
+      {/* §6 — Foundational reference */}
       <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
-            <Eyebrow>Start here</Eyebrow>
-            <h2 id="basics" className="sr-only">Start here</h2>
+            <Eyebrow>Foundational reference</Eyebrow>
+            <h2 id="basics" className="sr-only">Foundational reference</h2>
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
               {basics.map((b) => (
                 <Link

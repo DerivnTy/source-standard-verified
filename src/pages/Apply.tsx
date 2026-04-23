@@ -160,8 +160,8 @@ const Apply = () => {
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
             <SectionHeader
-              title="Begin intake"
-              lede="Tell us who you are. We'll review and reach out with next steps."
+              title="Intake submission"
+              lede="Submit the operating profile below to open a verification file. Source Standard will respond directly with the document request and review schedule."
             />
 
             <div className="max-w-2xl">

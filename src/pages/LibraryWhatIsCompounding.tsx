@@ -28,7 +28,7 @@ const LibraryWhatIsCompounding = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="What pharmacy compounding is.">
+      <ArticleSection n={1} title="What pharmacy compounding is">
         <p>
           Pharmacy compounding is the process of creating a custom medication tailored to the specific needs of an individual patient. While traditional pharmaceutical manufacturers create mass-produced drugs, compounding pharmacies provide essential access to medications that may be backordered, discontinued, or required in a specific dosage form not commercially available.
         </p>
@@ -37,7 +37,7 @@ const LibraryWhatIsCompounding = () => {
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Patient-specific facilities (503A).">
+      <ArticleSection n={2} title="Patient-specific facilities (503A)">
         <p>
           A 503A pharmacy is a traditional state-licensed facility. Their operations are primarily governed by State Boards of Pharmacy.
         </p>
@@ -51,7 +51,7 @@ const LibraryWhatIsCompounding = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Outsourcing facilities (503B).">
+      <ArticleSection n={3} title="Outsourcing facilities (503B)">
         <p>
           A 503B pharmacy is a designated Outsourcing Facility. These are high-volume operations capable of manufacturing large batches.
         </p>
@@ -65,7 +65,7 @@ const LibraryWhatIsCompounding = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="What this means at the point of care.">
+      <ArticleSection n={4} title="What this means at the point of care">
         <p>
           For a source to be 'Verified' by Source Standard, the clinic must disclose their facility type. If a clinic maintains 'Office Stock' to dispense immediately to patients, that inventory must originate from a 503B facility to meet safety requirements. Medications shipped directly to a patient's home are typically handled by 503A facilities.
         </p>

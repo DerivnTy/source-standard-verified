@@ -57,7 +57,7 @@ const FaqLegalRegulatory = () => {
       <BoardSection
         n={1}
         category="Category overview"
-        title="Statutory framework & federal authority."
+        title="Statutory framework & federal authority"
         rationale="Three high-frequency questions covering federal authority, the 2026 reclassification, and the FDA's role in compounded medications."
       >
         <Accordion

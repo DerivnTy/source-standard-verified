@@ -28,13 +28,13 @@ const LibraryAsepticTechnique = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="Defining the aseptic field.">
+      <ArticleSection n={1} title="Defining the aseptic field">
         <p>
           In clinical practice, 'aseptic' means the absence of pathogenic microorganisms. While a home or office environment is never truly sterile, we can create a 'Controlled Field' for medication preparation. This involves identifying a clean, well-lit, non-porous surface away from high-traffic areas, open windows, or air vents.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Hand hygiene & barrier protection.">
+      <ArticleSection n={2} title="Hand hygiene & barrier protection">
         <p>The most common vector for contamination is the human hand.</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -45,7 +45,7 @@ const LibraryAsepticTechnique = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="The 'Swab and Wait' protocol.">
+      <ArticleSection n={3} title="The 'Swab and Wait' protocol">
         <p>Alcohol-based sanitization is a chemical reaction that requires time to be effective.</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -57,7 +57,7 @@ const LibraryAsepticTechnique = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="Equipment areas that must remain sterile.">
+      <ArticleSection n={4} title="Equipment areas that must remain sterile">
         <p>Certain parts of the administration equipment must never touch a non-sterile surface:</p>
         <BoardDefList
           prefix={(i) => `§4.${i + 1}`}

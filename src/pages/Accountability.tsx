@@ -75,7 +75,7 @@ const Accountability = () => (
       ]}
       verifiedOn={VERIFIED_ON}
       eyebrow="Compliance & sanctions"
-      title="Compliance Monitoring & Enforcement Protocols."
+      title="Compliance Monitoring & Enforcement Protocols"
       lead="Attestations accepted by Verified entities, Mandatory Disclosure Events, audit re-opening triggers, and the graduated enforcement actions available to the framework when compliance obligations are not met."
     />
 
@@ -85,7 +85,7 @@ const Accountability = () => (
       id="attestations"
       n="1"
       category="Attestations"
-      title="Attestations of continuous compliance."
+      title="Attestations of continuous compliance"
       rationale="Upon assignment of a Verified standing, the entity formally accepts the following standing attestations. These attestations form the controlling basis on which the public listing is issued, maintained, and renewed."
     >
       <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
@@ -103,7 +103,7 @@ const Accountability = () => (
       id="mde"
       n="2"
       category="Disclosure"
-      title="Mandatory Disclosure Events (MDE)."
+      title="Mandatory Disclosure Events (MDE)"
       rationale="The following events are designated Mandatory Disclosure Events and must be reported to the framework within seventy-two (72) hours of occurrence. Failure to report within the disclosure window does not invalidate the underlying event and is itself an audit re-opening trigger under §3."
       muted
     >
@@ -131,7 +131,7 @@ const Accountability = () => (
       id="triggers"
       n="3"
       category="Triggers"
-      title="Audit re-opening triggers."
+      title="Audit re-opening triggers"
       rationale="Any of the following constitutes an audit re-opening trigger and may open a re-examination of an existing Verified listing, regardless of the listing's position in the renewal cycle. Consumer and clinician reports submitted through the public reporting channel are a primary source of data for this surveillance function."
     >
       <ol className="border border-border bg-background divide-y divide-border">
@@ -148,7 +148,7 @@ const Accountability = () => (
       id="actions"
       n="4"
       category="Actions"
-      title="Graduated administrative actions."
+      title="Graduated administrative actions"
       rationale="When a re-examination identifies non-compliance, the framework applies a graduated set of administrative actions scaled to the nature, severity, and recurrence of the underlying conduct. Actions are recorded in the audit file and, where applicable, reflected in the public listing."
       muted
     >
@@ -165,7 +165,7 @@ const Accountability = () => (
       </ol>
     </BoardSection>
 
-    <BoardSection id="reentry" n="5" category="Re-entry" title="Re-entry protocol.">
+    <BoardSection id="reentry" n="5" category="Re-entry" title="Re-entry protocol">
       <Callout tone="notice" eyebrow={`Permanent record · ${DOC_ID} · §5`}>
         <p className="t-body-sm text-foreground leading-relaxed">
           Prior history retained. Re-entry is not granted on the basis of time elapsed alone.
@@ -176,7 +176,7 @@ const Accountability = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="deeper" n="6" category="Read deeper" title="Cross-references." muted>
+    <BoardSection id="deeper" n="6" category="Read deeper" title="Cross-references" muted>
       <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
         {deeper.map((d, i) => (
           <li key={d.to} className="bg-background">

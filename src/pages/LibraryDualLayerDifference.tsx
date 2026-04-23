@@ -34,7 +34,7 @@ const LibraryDualLayerDifference = () => {
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Layer one, the clinical entity.">
+      <ArticleSection n={2} title="Layer one, the clinical entity">
         <p>We first audit the clinic itself. This layer of verification focuses on:</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -46,7 +46,7 @@ const LibraryDualLayerDifference = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Layer two, the upstream pharmacy.">
+      <ArticleSection n={3} title="Layer two, the upstream pharmacy">
         <p>A clinic is only a pass-through for the medication. Therefore, we verify the source:</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -58,7 +58,7 @@ const LibraryDualLayerDifference = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="The symbiotic, closed-loop outcome.">
+      <ArticleSection n={4} title="The symbiotic, closed-loop outcome">
         <p>
           By verifying both layers, Source Standard creates a 'Closed-Loop' of accountability. If a pharmacy fails an inspection, the clinic's verification is flagged. If a clinic switches to an undocumented source, their 'Verified' status is revoked. This dual-layer approach is the only way to ensure that the medication in the patient's hand is the same medication documented in the audit.
         </p>

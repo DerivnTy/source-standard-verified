@@ -169,7 +169,7 @@ const HowItWorks = () => {
         id="definition"
         n="1"
         category="Definition"
-        title="Verified means records were reviewed and support the published scope at the time of review."
+        title="Verified means records were reviewed and support the published scope at the time of review"
       >
         <p>It is not a medical endorsement, and not a guarantee of safety, efficacy, or outcome.</p>
         <p>It reflects documented consistency within the reviewed scope, nothing more, nothing less.</p>
@@ -179,7 +179,7 @@ const HowItWorks = () => {
         id="principles"
         n="2"
         category="Principles"
-        title="Three ideas the framework operates from."
+        title="Three ideas the framework operates from"
         muted
       >
         <ol className="border-y border-border divide-y divide-border">
@@ -201,7 +201,7 @@ const HowItWorks = () => {
         id="scope"
         n="3"
         category="Scope"
-        title="What falls inside and outside the review."
+        title="What falls inside and outside the review"
       >
         <div className="grid md:grid-cols-2 md:divide-x divide-border">
           <div className="md:pr-8 pb-8 md:pb-0 border-b md:border-b-0 border-border">
@@ -227,7 +227,7 @@ const HowItWorks = () => {
         id="standings"
         n="4"
         category="Standings"
-        title="Each registry entry carries one of these standings."
+        title="Each registry entry carries one of these standings"
         muted
       >
         <ul className="border-y border-border divide-y divide-border">
@@ -258,7 +258,7 @@ const HowItWorks = () => {
         id="examination"
         n="5"
         category="Examination"
-        title="Seven areas examined against the standard for the requested category."
+        title="Seven areas examined against the standard for the requested category"
       >
         <ol className="border-y border-border divide-y divide-border">
           {reviewGroups.map((g, i) => (
@@ -279,7 +279,7 @@ const HowItWorks = () => {
         id="lifecycle"
         n="6"
         category="Lifecycle"
-        title="Six stages from application to publication."
+        title="Six stages from application to publication"
         muted
       >
         <ol className="border-y border-border divide-y divide-border">
@@ -304,7 +304,7 @@ const HowItWorks = () => {
         id="surveillance"
         n="7"
         category="Surveillance"
-        title="Verification is a snapshot in time."
+        title="Verification is a snapshot in time"
       >
         <p>
           Files are monitored, renewed, and re-reviewed when material changes occur. Material
@@ -321,7 +321,7 @@ const HowItWorks = () => {
         id="outcome"
         n="8"
         category="Outcome"
-        title="What follows a determination."
+        title="What follows a determination"
         muted
       >
         <ol className="border-y border-border divide-y divide-border">
@@ -340,7 +340,7 @@ const HowItWorks = () => {
         id="rationale"
         n="9"
         category="Rationale"
-        title="Why entities apply."
+        title="Why entities apply"
       >
         <ul className="border-y border-border divide-y divide-border">
           {vendorReasons.map((r, i) => (
@@ -361,7 +361,7 @@ const HowItWorks = () => {
         id="limits"
         n="10"
         category="Limits"
-        title="Jurisdictional limitations."
+        title="Jurisdictional limitations"
         rationale="Boundaries of the verification framework."
         muted
       >

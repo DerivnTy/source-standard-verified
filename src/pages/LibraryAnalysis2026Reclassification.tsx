@@ -28,13 +28,13 @@ const LibraryAnalysis2026Reclassification = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="The regulatory catalyst.">
+      <ArticleSection n={1} title="The regulatory catalyst">
         <p>
           In early 2026, the regulatory landscape for compounded sterile preparations underwent a significant shift. The FDA, in coordination with state boards, updated the 'Bulk Drug Substances' lists, effectively reclassifying how several high-demand compounds (including specific peptides and incretin mimetics) must be sourced and prepared.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Key changes in 503B availability.">
+      <ArticleSection n={2} title="Key changes in 503B availability">
         <p>One of the most significant impacts of the 2026 update is the restriction of certain 'demonstrably difficult to compound' substances.</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -45,7 +45,7 @@ const LibraryAnalysis2026Reclassification = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="The shift back to 503A pharmacies.">
+      <ArticleSection n={3} title="The shift back to 503A pharmacies">
         <p>As 503B facilities face tighter restrictions, many clinics have pivoted back to 503A (patient-specific) pharmacies. While legal, this shift requires a higher degree of diligence.</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -56,7 +56,7 @@ const LibraryAnalysis2026Reclassification = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="Looking ahead.">
+      <ArticleSection n={4} title="Looking ahead">
         <p className="text-foreground font-medium">
           For consumers, the 2026 reclassification means that 'cheap and fast' sourcing is becoming a significant legal and safety liability. Institutions that fail to adapt their documentation and sourcing transparently are increasingly subject to state-level administrative action.
         </p>

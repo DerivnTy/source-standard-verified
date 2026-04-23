@@ -28,13 +28,13 @@ const LibraryAnalysisMeaningOfVerification = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="Defining the standard.">
+      <ArticleSection n={1} title="Defining the standard">
         <p className="text-foreground font-medium">
           A 'Source Standard Verified' badge is not a participation trophy; it is a point-in-time attestation that a clinic has passed our multi-point institutional audit. Our verification focus is narrow and deep, targeting the intersection of medical oversight and pharmaceutical supply chains.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="What we verify.">
+      <ArticleSection n={2} title="What we verify">
         <p>When a clinic carries our verification, we have confirmed the following.</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -47,7 +47,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="What we do not do, limits of scope.">
+      <ArticleSection n={3} title="What we do not do, limits of scope">
         <p>To remain a neutral auditing body, we must maintain clear boundaries.</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -59,7 +59,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="The 'active' nature of verification.">
+      <ArticleSection n={4} title="The 'active' nature of verification">
         <p>
           Verification is a dynamic state, not a static one. Because supply chains can change overnight, our registry is updated in real-time. If a clinic moves to an undocumented source, their verification is suspended immediately.{" "}
           <span className="text-foreground font-medium">

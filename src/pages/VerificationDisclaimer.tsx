@@ -84,7 +84,7 @@ const VerificationDisclaimer = () => (
       id="coverage"
       n="1"
       category="Coverage"
-      title="Boundaries of administrative attestation."
+      title="Boundaries of administrative attestation"
       rationale="A Source Standard verification is an Attestation of Record Consistency. It is an administrative finding that an entity's documented records, as submitted, as cross-checked against third-party regulatory and supplier data, and as reviewed at a fixed point in time, are internally consistent and consistent with the public claims associated with the entity. The registry operates as an auditing mirror of third-party records and does not produce, replace, or supersede those records."
     >
       <ol className="border border-border bg-background divide-y divide-border">
@@ -101,7 +101,7 @@ const VerificationDisclaimer = () => (
       id="out-of-scope"
       n="2"
       category="Out of scope"
-      title="Items outside the attestation."
+      title="Items outside the attestation"
       rationale="The following matters are explicitly outside the scope of any Source Standard attestation and shall not be inferred from a Verified determination."
       muted
     >
@@ -119,7 +119,7 @@ const VerificationDisclaimer = () => (
       id="limits"
       n="3"
       category="Limits"
-      title="Institutional limitations."
+      title="Institutional limitations"
       rationale="Source Standard occupies a defined position within the broader medical, pharmaceutical, and regulatory ecosystem. The following limitations are material to the interpretation of any registry entry."
     >
       <ol className="border border-border bg-background divide-y divide-border">
@@ -138,7 +138,7 @@ const VerificationDisclaimer = () => (
       id="timebound"
       n="4"
       category="Time-bound"
-      title="Time-bound nature."
+      title="Time-bound nature"
       rationale="Every Source Standard determination is a Snapshot of Record Consistency. It reflects the records reviewed and the regulatory checks performed within a defined review window and remains valid only until the next scheduled renewal or until a Mandatory Disclosure Event triggers earlier reopening under SS-ENFORCE-2026.01. A current Verified status today does not warrant the same status at any future date and is not a representation regarding the entity's future conduct."
       muted
     >
@@ -147,7 +147,7 @@ const VerificationDisclaimer = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="liability" n="5" category="Liability" title="Limitation of liability & user discretion.">
+    <BoardSection id="liability" n="5" category="Liability" title="Limitation of liability & user discretion">
       <Callout tone="warning" eyebrow="Warning · §5.1">
         <CalloutTitle>No warranty; reliance at user discretion.</CalloutTitle>
         <p className="t-body-sm text-foreground leading-relaxed">
@@ -169,7 +169,7 @@ const VerificationDisclaimer = () => (
       </Callout>
     </BoardSection>
 
-    <BoardSection id="deeper" n="6" category="Read deeper" title="Cross-references." muted>
+    <BoardSection id="deeper" n="6" category="Read deeper" title="Cross-references" muted>
       <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
         {deeper.map((d, i) => (
           <li key={d.to} className="bg-background">

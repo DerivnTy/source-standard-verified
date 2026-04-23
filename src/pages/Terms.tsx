@@ -83,7 +83,7 @@ const Terms = () => (
       id="acceptance"
       n="1"
       category="Acceptance"
-      title="Acceptance of terms."
+      title="Acceptance of terms"
       rationale="Access to or use of this site, the public registry, or any associated framework document constitutes binding acceptance of this User Agreement together with the Data Governance & Privacy Policy (SS-PRIVACY-2026.01) and the Verification Disclaimer. If any term is not accepted, the user must discontinue use of the site and the registry."
     >
       <p className="t-body-sm text-muted-foreground leading-relaxed">
@@ -95,7 +95,7 @@ const Terms = () => (
       id="citation"
       n="2"
       category="Citation"
-      title="Authorized citation & data utilization."
+      title="Authorized citation & data utilization"
       rationale="Public registry entries may be cited in clinical, journalistic, academic, and consumer contexts. To preserve the integrity of every citation, the auditing body requires the following identifiers to accompany any reference."
       muted
     >
@@ -124,7 +124,7 @@ const Terms = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="prohibited" n="3" category="Prohibited" title="Prohibited activity & registry integrity.">
+    <BoardSection id="prohibited" n="3" category="Prohibited" title="Prohibited activity & registry integrity">
       <Callout tone="warning" eyebrow="Warning · Prohibited activity">
         <p className="t-body-sm text-foreground leading-relaxed font-medium">
           The following activities are prohibited. They compromise the integrity of the registry, mislead the public, or misappropriate the auditing body's identifiers. Unauthorized use of any Source Standard mark, document anchor, or status indicator will result in administrative action under SS-ENFORCE-2026.01, including a public registry note and, where appropriate, referral to counsel and to applicable regulatory authorities.
@@ -151,7 +151,7 @@ const Terms = () => (
       id="ip"
       n="4"
       category="Intellectual property"
-      title="Intellectual property."
+      title="Intellectual property"
       rationale="The Source Standard name, framework document anchors (including all SS- identifiers), site design, badge artwork, status indicators, and original written content are the property of the auditing body. References to third-party regulatory authorities (FDA, state boards of pharmacy, PCAB, NSF, USP, and others) remain the property of those bodies and are reproduced here for reference only."
       muted
     >
@@ -160,7 +160,7 @@ const Terms = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="warranty" n="5" category="Warranty" title="Warranty disclaimer & limit of liability.">
+    <BoardSection id="warranty" n="5" category="Warranty" title="Warranty disclaimer & limit of liability">
       <p className="t-body-sm text-muted-foreground leading-relaxed">
         <strong className="text-foreground font-semibold">Auditing mirror; no warranty.</strong> The site and the public registry operate as an auditing mirror of third-party records, licensing, supplier, certificate, and regulatory data produced or maintained by third parties. The site and registry are provided on an as-is and as-available basis. The auditing body makes no warranties, express or implied, regarding the accuracy, completeness, currency, or fitness for any particular purpose of any registry entry, status, or associated metadata.
       </p>
@@ -173,7 +173,7 @@ const Terms = () => (
       id="jurisdiction"
       n="6"
       category="Jurisdiction"
-      title="Jurisdictional governance."
+      title="Jurisdictional governance"
       rationale="This User Agreement is governed by United States Federal Standards and the laws of the State of Florida, United States, without regard to conflict-of-law principles. Any dispute arising under or in connection with this Agreement is subject to the exclusive jurisdiction of the United States federal courts and the state courts located in Florida, which the user accepts as the sole and exclusive venue."
       muted
     >
@@ -186,7 +186,7 @@ const Terms = () => (
       id="changes"
       n="7"
       category="Changes"
-      title="Changes to terms."
+      title="Changes to terms"
       rationale="This User Agreement may be revised. Material changes are issued as a new version under the SS-TERMS series (e.g., SS-TERMS-2026.02). The current version is identified in the header of every section. Continued use of the site or registry after a revision constitutes binding acceptance of the updated Agreement."
     >
       <p className="t-body-sm text-muted-foreground leading-relaxed">
@@ -194,7 +194,7 @@ const Terms = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="deeper" n="8" category="Read deeper" title="Cross-references." muted>
+    <BoardSection id="deeper" n="8" category="Read deeper" title="Cross-references" muted>
       <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
         {deeper.map((d, i) => (
           <li key={d.to} className="bg-background">

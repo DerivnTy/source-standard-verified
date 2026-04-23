@@ -28,13 +28,13 @@ const LibrarySterilePreparationIntegrity = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="Why sterile integrity matters.">
+      <ArticleSection n={1} title="Why sterile integrity matters">
         <p>
           Once a compounded sterile preparation (CSP) leaves a controlled pharmacy environment (503A or 503B), its integrity relies entirely on the handling practices of the clinical staff and the end-user. Failure to maintain aseptic conditions during reconstitution or administration can lead to microbial contamination, site-of-injection infections, and the degradation of the active compound.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Reconstitution standards for lyophilized compounds.">
+      <ArticleSection n={2} title="Reconstitution standards for lyophilized compounds">
         <p>For lyophilized (freeze-dried) compounds, the reconstitution process is a critical window for potential error.</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -46,7 +46,7 @@ const LibrarySterilePreparationIntegrity = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Storage & stability requirements.">
+      <ArticleSection n={3} title="Storage & stability requirements">
         <p>Temperature fluctuations are the primary cause of peptide degradation.</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
@@ -58,7 +58,7 @@ const LibrarySterilePreparationIntegrity = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="Visual inspection and clinical discipline.">
+      <ArticleSection n={4} title="Visual inspection and clinical discipline">
         <p>
           Always perform a visual inspection before use. If the solution appears cloudy, contains visible particulates, or has changed color significantly, the preparation must be discarded.{" "}
           <span className="text-foreground font-medium">'When in doubt, throw it out'</span> is the foundational rule of sterile handling.

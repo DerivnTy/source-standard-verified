@@ -24,14 +24,14 @@ const LibraryEntry = () => {
       <>
         <ArticleHeader
           eyebrow="Library entry · Not found"
-          title="Entry not found."
+          title="Entry not found"
           lead="No library entry matches this reference."
           metadata={[
             { label: "Doc", value: "--" },
             { label: "Status", value: "Not on file" },
           ]}
         />
-        <ArticleSection n={1} title="No matching reference.">
+        <ArticleSection n={1} title="No matching reference">
           <p>
             The reference you requested is not present in the Source Standard library index.{" "}
             <Link to="/education" className="text-primary underline-offset-4 hover:underline">
@@ -62,12 +62,12 @@ const LibraryEntry = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="In editorial review.">
+      <ArticleSection n={1} title="In editorial review">
         <p className="text-muted-foreground">
-          The full text will be published once it has completed editorial and, where applicable, Medical Advisory Board review.
+          The full text will be published once it has completed editorial review and, where applicable, Medical Advisory Board sign-off.
         </p>
         <p>
-          <span className="text-foreground font-medium">Here's what it will cover: </span>
+          <span className="text-foreground font-medium">Scope: </span>
           {entry.summary}
         </p>
         <p className="t-body-sm font-mono text-muted-foreground">
@@ -76,7 +76,7 @@ const LibraryEntry = () => {
       </ArticleSection>
 
       {related.length > 0 && (
-        <ArticleSection n={2} title="Adjacent entries.">
+        <ArticleSection n={2} title="Adjacent entries">
           <p>Other entries published in the same lane.</p>
           <ul className="grid sm:grid-cols-2 border-y border-border divide-y sm:divide-y-0 sm:divide-x divide-border/60 my-2">
             {related.map((r, i) => (

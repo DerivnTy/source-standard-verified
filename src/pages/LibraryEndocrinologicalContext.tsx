@@ -28,13 +28,13 @@ const LibraryEndocrinologicalContext = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="The HPG feedback loop.">
+      <ArticleSection n={1} title="The HPG feedback loop">
         <p>
           The human endocrine system operates on a complex feedback loop primarily governed by the Hypothalamic-Pituitary-Gonadal (HPG) axis. As individuals age, this axis can experience 'hypogonadism', a state where the body fails to produce sufficient levels of testosterone. Unlike an acute injury, age-related decline is often gradual, leading to a constellation of symptoms including metabolic dysfunction, reduced bone density, and cognitive changes.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="The clinical goal of TRT.">
+      <ArticleSection n={2} title="The clinical goal of TRT">
         <p>
           Testosterone Replacement Therapy (TRT) is not intended to create 'supraphysiological' levels (levels far beyond natural human capacity). Instead, the clinical objective is restoration.
         </p>
@@ -47,13 +47,13 @@ const LibraryEndocrinologicalContext = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Why compounded options matter.">
+      <ArticleSection n={3} title="Why compounded options matter">
         <p>
           Many patients require TRT in specific concentrations or delivery methods (such as specific carrier oils like Grapeseed or MCT) to avoid allergic reactions or to allow for more precise micro-dosing. Because commercial 'Big Pharma' products often offer limited dosage strengths, highly regulated 503A and 503B compounding pharmacies fill a critical gap in personalized endocrine care.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={4} title="What ongoing supervision looks like.">
+      <ArticleSection n={4} title="What ongoing supervision looks like">
         <p>
           TRT is a dynamic therapy that requires ongoing medical supervision. Verification through Source Standard ensures that the clinic providing the therapy is performing necessary monitoring, including:
         </p>
