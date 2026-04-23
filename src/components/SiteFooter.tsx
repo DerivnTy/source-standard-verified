@@ -13,7 +13,7 @@ type Column = {
 
 const columns: Column[] = [
   {
-    title: "REGISTRY",
+    title: "Registry",
     links: [
       { to: "/verified-vendors", label: "Verified Vendors" },
       { to: "/greenlist", label: "Greenlist" },
@@ -21,7 +21,7 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "STANDARDS",
+    title: "Standards",
     links: [
       { to: "/how-it-works", label: "Audit Methodology" },
       { to: "/status-definitions", label: "Status Definitions" },
@@ -29,7 +29,7 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "RESOURCE_LIBRARY",
+    title: "Resource Library",
     links: [
       { to: "/education", label: "Resource Library" },
       { to: "/education#regulation", label: "Regulation" },
@@ -39,7 +39,7 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "GOVERNANCE",
+    title: "Governance",
     links: [
       { to: "/medical-advisory", label: "Advisory Board" },
       { to: "/terms", label: "Terms" },
@@ -49,8 +49,6 @@ const columns: Column[] = [
   },
 ];
 
-// Slightly lighter navy/slate than the CTA navy hero, to clearly distinguish
-// the footer as a separate ledger band.
 const FOOTER_BG = "#112240";
 const MUTED = "#94A3B8";
 const HAIRLINE = "rgba(148, 163, 184, 0.18)";
@@ -59,8 +57,8 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
   <li>
     <Link
       to={row.to}
-      className="block font-mono text-[12px] hover:text-white transition-colors"
-      style={{ color: MUTED, letterSpacing: "0.04em" }}
+      className="block text-[12px] hover:text-white transition-colors"
+      style={{ color: MUTED }}
     >
       {row.label}
     </Link>
@@ -69,15 +67,12 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
 
 export const SiteFooter = () => {
   const now = new Date();
-  const timestamp = now.toISOString().replace("T", " ").slice(0, 16) + " UTC";
 
   return (
     <footer
       className="mt-0"
       style={{
         backgroundColor: FOOTER_BG,
-        // Hard-stop document boundary: 80px padding-bottom on the very last
-        // element of the page.
         paddingBottom: "80px",
       }}
     >
@@ -87,31 +82,29 @@ export const SiteFooter = () => {
             <div className="lg:col-span-1">
               <Logo />
               <p
-                className="mt-5 font-mono text-[11px] uppercase"
-                style={{ color: MUTED, letterSpacing: "1px" }}
+                className="mt-5 text-[12px]"
+                style={{ color: MUTED }}
               >
-                SOURCE_STANDARD · UNITED_STATES
+                Source Standard · United States
               </p>
             </div>
 
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-4 font-mono text-[10px] uppercase text-white/80"
-                  style={{ letterSpacing: "1.5px" }}
+                  className="mb-4 text-[12px] font-semibold text-white"
                 >
                   {col.title}
                 </p>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
-                  {col.title === "REGISTRY" && (
+                  {col.title === "Registry" && (
                     <li>
                       <Link
                         to="/apply"
-                        className="inline-flex items-center gap-1 font-mono text-[12px] font-medium text-white hover:text-white/80 transition-colors"
-                        style={{ letterSpacing: "0.04em" }}
+                        className="inline-flex items-center gap-1 text-[12px] font-medium text-white hover:text-white/80 transition-colors"
                       >
                         Begin Verification <span aria-hidden="true">→</span>
                       </Link>
@@ -136,29 +129,23 @@ export const SiteFooter = () => {
                 style={{ backgroundColor: "#22C55E" }}
               />
               <span
-                className="font-mono text-[11px] uppercase"
-                style={{ color: MUTED, letterSpacing: "1px" }}
+                className="text-[12px]"
+                style={{ color: MUTED }}
               >
-                SYSTEM_STATUS // OPERATIONAL
-              </span>
-              <span
-                className="font-mono text-[11px] hidden sm:inline"
-                style={{ color: MUTED, letterSpacing: "0.06em" }}
-              >
-                · {timestamp}
+                All systems operational
               </span>
             </div>
             <p
-              className="font-mono text-[10px] uppercase"
-              style={{ color: MUTED, letterSpacing: "1.5px" }}
+              className="text-[11px]"
+              style={{ color: MUTED }}
             >
-              © {now.getFullYear()} SOURCE_STANDARD · ALL_RIGHTS_RESERVED
+              © {now.getFullYear()} Source Standard. All rights reserved.
             </p>
           </div>
 
           <p
-            className="mt-5 max-w-[900px] font-mono text-[10px] leading-[1.6]"
-            style={{ color: MUTED, letterSpacing: "0.04em" }}
+            className="mt-5 max-w-[900px] text-[11px] leading-[1.7]"
+            style={{ color: MUTED }}
           >
             Source Standard is an independent public-reference and verification
             framework. Listings reflect documentation reviewed within a defined
