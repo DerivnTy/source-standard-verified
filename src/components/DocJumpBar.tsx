@@ -51,8 +51,8 @@ export const DocJumpBar = ({
   const navStyle: React.CSSProperties = {
     position: "sticky",
     top: `${stickyTop}px`,
-    width: "80%",
-    maxWidth: "1200px",
+    width: "92%",
+    maxWidth: "1360px",
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: `-${SEAM_HEIGHT / 2 + 22}px`,
@@ -99,11 +99,13 @@ const PillContents = ({
 }) => {
   return (
     <div
-      className="flex items-center py-2"
+      className="flex items-center"
       style={{
-        paddingLeft: "24px",
-        paddingRight: "24px",
-        gap: "16px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        paddingTop: "4px",
+        paddingBottom: "4px",
+        gap: "14px",
         width: "100%",
         minWidth: 0,
         overflow: "hidden",
@@ -119,7 +121,7 @@ const PillContents = ({
         {waypoints.map((w) => {
           const active = w.id === activeId;
           const chip =
-            "inline-flex items-center gap-2 py-1 text-[12px] font-mono font-medium uppercase tracking-[0.06em] border transition-colors rounded-full";
+            "inline-flex items-center gap-2 py-0.5 text-[11px] font-mono font-medium uppercase tracking-[0.06em] border transition-colors rounded-full";
           const tone = active
             ? "border-foreground text-foreground bg-surface-muted"
             : "border-transparent text-muted-foreground hover:text-foreground hover:border-border";
