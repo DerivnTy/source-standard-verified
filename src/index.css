@@ -724,3 +724,63 @@ a:active,
   button:active, a:active, [role="button"]:active { transform: none !important; }
 }
 
+/* ============================================================
+   Pass 4 — Surface, Lighting & Glassmorphism
+   • Glass headers + nav: backdrop-blur(20px), 0.85 translucent.
+   • Hairline definition: 1px borders, no shadows (Pass 2 already cleared).
+   • System Gray floor (#F2F2F7) with pure white cards (token shift above).
+   • Thin-stroke iconography: Lucide SVG strokes snapped to 1.25px.
+   ------------------------------------------------------------ */
+
+/* Glass surface utility — apply to sticky headers, nav bars, popovers. */
+.glass-surface {
+  background-color: hsl(0 0% 100% / 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid hsl(0 0% 0% / 0.06);
+}
+.glass-surface-navy {
+  background-color: hsl(var(--navy-surface) / 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid hsl(0 0% 100% / 0.10);
+}
+
+/* Force every sticky header on the site into glass mode. */
+header.sticky,
+header[class*="sticky"] {
+  background-color: hsl(0 0% 100% / 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid hsl(0 0% 0% / 0.06) !important;
+}
+
+/* Card surface — pure white over the system-gray floor. */
+.card,
+[class*="bg-card"],
+[class*="bg-surface"]:not([class*="bg-surface-sunken"]):not([class*="bg-surface-muted"]) {
+  background-color: #ffffff !important;
+}
+
+/* Hairline border refinement — keep Pass 2's 0.5px but soften the tone for
+   "specular highlight" feel. Cards retain visible 1px on light surfaces. */
+.card,
+[class*="bg-card"] {
+  border: 1px solid hsl(0 0% 0% / 0.06) !important;
+}
+
+/* Thin-stroke icons — Lucide ships at stroke-width 2; snap to 1.25 globally. */
+svg {
+  stroke-width: 1.25;
+}
+/* Preserve text-as-icon (logos, marks) and explicit overrides. */
+svg[data-keep-stroke],
+svg.keep-stroke {
+  stroke-width: inherit;
+}
+
+/* Kill any lingering loud gradients on body / page wrappers — System Gray floor wins. */
+body {
+  background: hsl(var(--background)) !important;
+}
+
