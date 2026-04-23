@@ -297,22 +297,34 @@ html {
   @media (min-width: 768px) { .t-article-title { font-size: 48px; line-height: 56px; } }
 
   /* Section vertical rhythm (sitewide constitution).
-     section-pad        — top/bottom of standard sections
+     section-pad        — top/bottom of standard sections (mobile-first: 80px locked)
      section-gap        — gap between adjacent sections in same page
      hero-gap           — gap from hero to first body section */
-  .section-pad   { padding-top: 32px;  padding-bottom: 32px; }
+  .section-pad   { padding-top: 80px; padding-bottom: 80px; }
   .section-gap   { margin-top: 40px; }
   .hero-gap      { margin-top: 56px; }
   @media (min-width: 768px) {
-    .section-pad { padding-top: 48px; padding-bottom: 48px; }
     .section-gap { margin-top: 56px; }
     .hero-gap    { margin-top: 72px; }
   }
   @media (min-width: 1024px) {
-    .section-pad { padding-top: 64px; padding-bottom: 64px; }
+    .section-pad { padding-top: 96px; padding-bottom: 96px; }
     .section-gap { margin-top: 80px; }
     .hero-gap    { margin-top: 96px; }
   }
+
+  /* ─── Section heading rhythm protocol (locked, sitewide) ───
+     Mono index number → H2 : 12px
+     H2 → following content : 24px
+     Enforced with !important so per-page mt-* utilities cannot
+     drift the rhythm. Applies inside any <section> or .section-pad block. */
+  .section-pad h2 + *,
+  section h2 + * { margin-top: 24px !important; }
+  /* When an H2 directly follows the mono index utility line, lock to 12px. */
+  .section-pad .t-utility-xs + h2,
+  section .t-utility-xs + h2,
+  .section-pad .font-mono + h2,
+  section .font-mono + h2 { margin-top: 12px !important; }
 
   .prose-readable {
     max-width: 65ch;
