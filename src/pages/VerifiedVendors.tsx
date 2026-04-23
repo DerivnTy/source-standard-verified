@@ -218,9 +218,10 @@ const VerifiedVendors = () => {
           <div className="mx-auto w-wide">
             {/* Sticky search + filter rail with subtle bottom divider */}
             <div
-              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/95 px-5 pt-6 pb-3 md:pt-8"
+              className="sticky top-0 z-30 -mx-5 md:mx-0 bg-background/80 px-5 pt-6 pb-3 md:pt-8"
               style={{
-                backdropFilter: "blur(8px)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
                 borderBottom: "1px solid hsl(var(--border) / 0.6)",
               }}
             >
