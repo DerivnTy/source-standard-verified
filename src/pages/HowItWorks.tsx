@@ -6,82 +6,61 @@ import { DocJumpBar } from "@/components/DocJumpBar";
 
 // ---------- Data (chainsawed copy per spec) ----------
 
-const definition: { t: string; d: string }[] = [
-  {
-    t: "Verified",
-    d: "Records reviewed and substantiated at the time of publication.",
-  },
-  {
-    t: "Scope",
-    d: "Documentation consistency only. Not a medical endorsement or safety guarantee.",
-  },
-];
+const definition: string =
+  "Verified means documented sourcing was substantiated at the time of review. It is a record of consistency, not a clinical endorsement.";
 
 const principles: { t: string; d: string }[] = [
-  { t: "Source over Storefront", d: "We audit the pharmacy, not the marketing." },
-  { t: "Evidence over Claims", d: "Status requires records, not adjectives." },
-  { t: "Snapshot in Time", d: "Verification is a fixed-interval audit, not a permanent seal." },
+  { t: "Source First", d: "We audit the pharmacy, not the storefront." },
+  { t: "Evidence Only", d: "Status requires records, not marketing claims." },
+  { t: "Snapshot Logic", d: "Verification is a time-bounded audit, not a permanent seal." },
 ];
 
 const inScope: string[] = [
   "Licenses",
-  "Ownership",
+  "Entity Identity",
   "Pharmacy Records",
+  "Invoices",
   "CoAs",
-  "Sourcing Invoices",
 ];
 
 const outOfScope: string[] = [
-  "Clinical Outcomes",
   "Pricing",
+  "Clinical Outcomes",
   "Patient Experience",
-  "Marketing",
-];
-
-const examination: { t: string; d: string }[] = [
-  { t: "Entity", d: "Legal name & ownership check." },
-  { t: "Credentials", d: "State & DEA registration status." },
-  { t: "Chain of Custody", d: "503A/B sourcing substantiation." },
-  { t: "Batch Records", d: "CoA & Lot documentation review." },
-  { t: "Integrity", d: "Website claims vs. audit evidence." },
-];
-
-const limits: { t: string; d: string }[] = [
-  { t: "No Medical Advice", d: "We do not provide clinical recommendations." },
-  { t: "No Safety Guarantee", d: "We do not certify biological efficacy." },
-  { t: "No Regulatory Power", d: "We are a private registry, not a government body." },
 ];
 
 const surveillance: { t: string; d: string }[] = [
   {
     t: "Random Sampling",
-    d: "We conduct \u201CSilent Buys\u201D from active listings without vendor notification.",
+    d: "We conduct unannounced \u201CBlind Buys\u201D from active registry listings.",
   },
   {
-    t: "Independent Testing",
-    d: "Samples are sent to third-party, ISO-accredited laboratories.",
+    t: "Blind Testing",
+    d: "Samples are sent to ISO-accredited labs for identity, potency, and sterility testing.",
   },
   {
-    t: "Verification of Integrity",
-    d: "We test for sterility, potency, and identity to ensure the product in the consumer's hand matches the documentation on file.",
+    t: "Failure Protocol",
+    d: "Failure to pass a Random Audit results in immediate Removal and administrative penalties.",
   },
 ];
 
-const outcome: { t: string; d: string }[] = [
-  {
-    t: "Audit Failure",
-    d: "Failure to pass a Random Audit results in immediate \u201CSuspended\u201D or \u201CRemoved\u201D status and potential administrative fines as per the Integrity Protocol.",
-  },
+const examination: { t: string; d: string }[] = [
+  { t: "Identity", d: "Legal entity & registration check." },
+  { t: "Credentials", d: "State/DEA license verification." },
+  { t: "Chain of Custody", d: "Pharmacy sourcing substantiation." },
+  { t: "Batch Records", d: "CoA & Lot documentation forensic review." },
 ];
+
+const limits: string =
+  "Source Standard is a private registry. We do not provide medical advice, certify safety, or act as a government regulator.";
 
 const waypoints = [
   { id: "definition", number: "1", label: "DEF" },
   { id: "principles", number: "2", label: "PRIN" },
   { id: "scope", number: "3", label: "SCOPE" },
+  { id: "surveillance", number: "4", label: "SURVEILLANCE" },
   { id: "examination", number: "5", label: "EXAM" },
-  { id: "surveillance", number: "7", label: "SURV" },
-  { id: "outcome", number: "8", label: "OUTCOME" },
-  { id: "limits", number: "10", label: "LIMITS" },
+  { id: "limits", number: "6", label: "LIMITS" },
 ];
 
 // ---------- Building blocks ----------
@@ -177,22 +156,8 @@ const HowItWorks = () => {
         title="What Verified means"
         first
       >
-        <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
-          <ul className="divide-y divide-border">
-            {definition.map((d) => (
-              <li
-                key={d.t}
-                className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline"
-              >
-                <div className="col-span-3 md:col-span-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
-                  {d.t}
-                </div>
-                <div className="col-span-9 md:col-span-10 t-body-sm text-foreground/85 leading-[1.6]">
-                  {d.d}
-                </div>
-              </li>
-            ))}
-          </ul>
+        <div className="rounded-md border border-border bg-card shadow-sm p-6 t-body-md text-foreground/85 leading-[1.65]">
+          {definition}
         </div>
       </SectionShell>
 
@@ -224,7 +189,7 @@ const HowItWorks = () => {
           <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
             <header className="px-5 py-3 border-b border-border bg-surface-muted/50">
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
-                In-Scope
+                Inside
               </p>
             </header>
             <ul className="divide-y divide-border">
@@ -239,7 +204,7 @@ const HowItWorks = () => {
           <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
             <header className="px-5 py-3 border-b border-border bg-surface-muted/50">
               <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
-                Out-of-Scope
+                Outside
               </p>
             </header>
             <ul className="divide-y divide-border">
@@ -254,30 +219,14 @@ const HowItWorks = () => {
         </div>
       </SectionShell>
 
-      {/* §5 Examination Areas */}
-      <SectionShell
-        id="examination"
-        n="5"
-        category="Examination Areas"
-        title="The audit checklist"
-        muted
-      >
-        <ol className="flex flex-col gap-3">
-          {examination.map((e, i) => (
-            <NumberedCell key={e.t} n={String(i + 1).padStart(2, "0")} title={e.t}>
-              <p>{e.d}</p>
-            </NumberedCell>
-          ))}
-        </ol>
-      </SectionShell>
-
-      {/* §7 Continuous Surveillance — Blind Buy */}
+      {/* §4 Surveillance — Sovereign Audit */}
       <SectionShell
         id="surveillance"
-        n="7"
-        category="Continuous Surveillance"
-        title="Verification is not a one-time event"
-        description="Source Standard maintains the registry's integrity through unannounced Blind Purchase Testing."
+        n="4"
+        category="Surveillance"
+        title="The Sovereign Audit"
+        description="Verification is enforced through unannounced Blind Purchase Testing of active registry listings."
+        muted
       >
         <ol className="flex flex-col gap-3">
           {surveillance.map((s, i) => (
@@ -288,61 +237,35 @@ const HowItWorks = () => {
         </ol>
       </SectionShell>
 
-      {/* §8 Outcome — Failure Protocol */}
+      {/* §5 Examination Checklist */}
       <SectionShell
-        id="outcome"
-        n="8"
-        category="Outcome"
-        title="Failure Protocol"
-        muted
+        id="examination"
+        n="5"
+        category="Examination"
+        title="The audit checklist"
       >
-        <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
-          <ul className="divide-y divide-border">
-            {outcome.map((o) => (
-              <li
-                key={o.t}
-                className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline"
-              >
-                <div className="col-span-12 md:col-span-3 t-body-sm font-semibold text-foreground">
-                  {o.t}
-                </div>
-                <div className="col-span-12 md:col-span-9 t-body-sm text-foreground/85 leading-[1.6]">
-                  {o.d}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ol className="flex flex-col gap-3">
+          {examination.map((e, i) => (
+            <NumberedCell key={e.t} n={String(i + 1).padStart(2, "0")} title={e.t}>
+              <p>{e.d}</p>
+            </NumberedCell>
+          ))}
+        </ol>
       </SectionShell>
 
+      {/* §6 Limits */}
       <SectionShell
         id="limits"
-        n="10"
+        n="6"
         category="Limits"
         title="Jurisdictional limitations"
+        muted
       >
         <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-3">
           // Jurisdictional Boundaries &amp; Limitations
         </p>
-        <div className="rounded-md border border-border bg-card shadow-sm overflow-hidden">
-          <ul className="divide-y divide-border">
-            {limits.map((l, i) => (
-              <li
-                key={l.t}
-                className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline"
-              >
-                <div className="col-span-2 md:col-span-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
-                  L{i + 1}
-                </div>
-                <div className="col-span-10 md:col-span-4 t-body-sm font-semibold text-foreground">
-                  {l.t}
-                </div>
-                <div className="col-span-12 md:col-span-7 t-body-sm text-muted-foreground leading-[1.6]">
-                  {l.d}
-                </div>
-              </li>
-            ))}
-          </ul>
+        <div className="rounded-md border border-border bg-card shadow-sm p-6 t-body-md text-foreground/85 leading-[1.65]">
+          {limits}
         </div>
       </SectionShell>
     </div>
