@@ -74,7 +74,7 @@ const waypoints = sections.map((s) => ({
 const VerificationDisclaimer = () => (
   <>
     <PageMeta
-      title="Verification Disclaimer & Attestation Scope"
+      title="Verification Disclaimer"
       description="The formal boundaries, jurisdictional limits, and liability framework governing Source Standard determinations."
     />
     <Breadcrumb items={[{ label: "Legal" }, { label: "Verification Disclaimer" }]} />
@@ -83,7 +83,7 @@ const VerificationDisclaimer = () => (
       tone="navy"
       category=""
       docId=""
-      title="Verification Disclaimer & Attestation Scope"
+      title="Verification Disclaimer"
       statement="The formal boundaries, jurisdictional limits, and liability framework governing Source Standard determinations."
     />
 
