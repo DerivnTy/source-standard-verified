@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
+import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
   { id: "context", number: "01", label: "Context" },
