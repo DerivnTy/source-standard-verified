@@ -24,14 +24,14 @@ const LibraryEntry = () => {
       <>
         <ArticleHeader
           eyebrow="Library entry · Not found"
-          title="Entry not found."
+          title="Entry not found"
           lead="No library entry matches this reference."
           metadata={[
             { label: "Doc", value: "--" },
             { label: "Status", value: "Not on file" },
           ]}
         />
-        <ArticleSection n={1} title="No matching reference.">
+        <ArticleSection n={1} title="No matching reference">
           <p>
             The reference you requested is not present in the Source Standard library index.{" "}
             <Link to="/education" className="text-primary underline-offset-4 hover:underline">
@@ -76,7 +76,7 @@ const LibraryEntry = () => {
       </ArticleSection>
 
       {related.length > 0 && (
-        <ArticleSection n={2} title="Adjacent entries.">
+        <ArticleSection n={2} title="Adjacent entries">
           <p>Other entries published in the same lane.</p>
           <ul className="grid sm:grid-cols-2 border-y border-border divide-y sm:divide-y-0 sm:divide-x divide-border/60 my-2">
             {related.map((r, i) => (

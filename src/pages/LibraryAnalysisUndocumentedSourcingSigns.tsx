@@ -34,7 +34,7 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Label anonymity.">
+      <ArticleSection n={2} title="Label anonymity">
         <p>The most glaring sign of undocumented sourcing is a medication vial that lacks a specific pharmacy's credentials.</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -55,7 +55,7 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="Payment and shipping anomalies.">
+      <ArticleSection n={4} title="Payment and shipping anomalies">
         <p>High-integrity clinical sourcing follows traditional medical billing and shipping paths.</p>
         <BoardDefList
           prefix={(i) => `§4.${i + 1}`}
@@ -66,7 +66,7 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={5} title="The cost of low transparency.">
+      <ArticleSection n={5} title="The cost of low transparency">
         <p className="text-foreground font-medium">
           Undocumented sourcing isn't just a legal technicality; it's a safety vacuum. Without a documented pharmacy, there is no one to hold accountable for sterility failures, incorrect potencies, or heavy metal contamination. If a clinic cannot, or will not, prove their source, they have failed the primary duty of patient care.
         </p>

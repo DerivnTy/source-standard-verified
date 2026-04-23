@@ -34,7 +34,7 @@ const LibraryInterpretingCoAs = () => {
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="The four pillars of a verified CoA.">
+      <ArticleSection n={2} title="The four pillars of a verified CoA">
         <p>When Source Standard audits a vendor, we look for four critical pillars on every report:</p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
@@ -47,7 +47,7 @@ const LibraryInterpretingCoAs = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Common discrepancies and forgery patterns.">
+      <ArticleSection n={3} title="Common discrepancies and forgery patterns">
         <p>
           Consumers and clinics should be wary of 'Static CoAs', reports that are reused for different batches or have been visually altered. Red flags include:
         </p>
@@ -62,7 +62,7 @@ const LibraryInterpretingCoAs = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="The Source Standard verification protocol.">
+      <ArticleSection n={4} title="The Source Standard verification protocol">
         <p>
           Our auditors do not just read CoAs; we reconcile them. This involves contacting the issuing laboratory directly to confirm that the report ID exists in their system and that the data on the page matches their internal records. This 'Closed-Loop' verification is the only way to ensure supply-chain integrity.
         </p>

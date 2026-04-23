@@ -42,7 +42,7 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="The informed consumer.">
+      <ArticleSection n={1} title="The informed consumer">
         <p>
           In the compounded medication space, transparency is the primary indicator of safety. A high-integrity clinic should view patient inquiries as a sign of an informed, responsible patient, not as an interrogation. If a clinic is hesitant or unable to answer these foundational questions, it likely indicates a gap in their own supply-chain oversight.
         </p>
@@ -68,7 +68,7 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
         </ol>
       </ArticleSection>
 
-      <ArticleSection n={3} title="Evaluating the responses.">
+      <ArticleSection n={3} title="Evaluating the responses">
         <p>Use this legend to interpret a clinic's answers at a glance.</p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}

@@ -35,7 +35,7 @@ const LibraryReferenceDosingRanges = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="Critical reading note.">
+      <ArticleSection n={1} title="Critical reading note">
         <div className="border border-border bg-surface-muted px-5 py-4">
           <p className="font-mono t-utility-xs uppercase tracking-[0.14em] text-muted-foreground mb-2">
             Disclaimer · §1
@@ -46,13 +46,13 @@ const LibraryReferenceDosingRanges = () => {
         </div>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Why standardize public reference ranges.">
+      <ArticleSection n={2} title="Why standardize public reference ranges">
         <p>
           In the compounded medication space, variability in concentration (e.g., mg/mL) often leads to patient confusion. Source Standard provides these reference ranges to help consumers understand the typical therapeutic window and to recognize significant deviations that may warrant further discussion with their provider.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={3} title="Selected compound reference table.">
+      <ArticleSection n={3} title="Selected compound reference table">
         <div className="border border-border bg-background">
           <div className="grid grid-cols-[1.4fr_1fr_1.2fr] bg-surface-muted border-b border-border px-4 py-2.5">
             <span className="font-mono t-utility-xs uppercase tracking-[0.12em] text-muted-foreground">
@@ -80,7 +80,7 @@ const LibraryReferenceDosingRanges = () => {
         </div>
       </ArticleSection>
 
-      <ArticleSection n={4} title="Concentration vs. volume.">
+      <ArticleSection n={4} title="Concentration vs. volume">
         <p>A common point of failure in patient handling is the confusion between milligrams (mg) of medication and milliliters (mL) of liquid.</p>
         <BoardDefList
           prefix={(i) => `§4.${i + 1}`}
@@ -92,7 +92,7 @@ const LibraryReferenceDosingRanges = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={5} title="On clinical oversight.">
+      <ArticleSection n={5} title="On clinical oversight">
         <p>
           Sub-therapeutic dosing leads to failed outcomes, while supra-therapeutic dosing increases the risk of adverse events (such as elevated hematocrit or gastrointestinal distress). If your prescribed dose falls significantly outside these foundational ranges, ensure your provider has explained the clinical rationale for your specific protocol.
         </p>
