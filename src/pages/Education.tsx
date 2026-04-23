@@ -168,7 +168,7 @@ const Education = () => {
                 </span>
               </div>
 
-              {/* Filter chips — smooth-scroll anchors when "All" is active */}
+              {/* Filter chips — toggle filter AND smooth-scroll to that section */}
               <div className="flex flex-wrap items-center gap-2 px-4 py-3">
                 <button
                   type="button"
@@ -185,25 +185,20 @@ const Education = () => {
                 </button>
                 {CATEGORIES.map((c) => {
                   const active = filter === c.id;
-                  // When "All" is the current filter, chips behave as smooth-scroll
-                  // anchors. When a single filter is selected, chips toggle filters.
-                  if (filter === "all") {
-                    return (
-                      <a
-                        key={c.id}
-                        href={`#${c.id}`}
-                        onClick={(e) => handleAnchorClick(e, c.id)}
-                        className="rounded-md border border-border bg-card px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-muted-foreground hover:bg-surface-muted hover:text-foreground transition-colors"
-                      >
-                        {c.short}
-                      </a>
-                    );
-                  }
                   return (
                     <button
                       key={c.id}
                       type="button"
-                      onClick={() => setFilter(c.id)}
+                      onClick={() => {
+                        setFilter(c.id);
+                        requestAnimationFrame(() => {
+                          const el = document.getElementById(c.id);
+                          if (el) {
+                            el.scrollIntoView({ behavior: "smooth", block: "start" });
+                            history.replaceState(null, "", `#${c.id}`);
+                          }
+                        });
+                      }}
                       className={
                         "rounded-md border px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors " +
                         (active
