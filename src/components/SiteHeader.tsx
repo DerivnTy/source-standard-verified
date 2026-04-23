@@ -51,6 +51,16 @@ export const SiteHeader = () => {
   const location = useLocation();
   const isHome = location.pathname === "/";
 
+  // Lock body scroll when full-screen menu is open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   useEffect(() => {
     let lastY = window.scrollY;
     let ticking = false;
