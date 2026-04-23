@@ -5,64 +5,79 @@ import { advisoryBoard, responsibilities } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
-  "advisor-01": "Chair · Evidentiary Standards & Framework Review",
-  "advisor-04": "Member · USP Sterile Compounding Standards",
-  "advisor-06": "Member · Regulatory Posture & Ethical Boundaries",
+  "advisor-01": "Chair · Clinical Audit Standards",
+  "advisor-02": "Vice Chair · Pharmacy Sourcing Review",
+  "advisor-03": "Member · Patient Safety & Public Clarity",
+  "advisor-04": "Member · Pharmacy Compliance (USP Standards)",
+  "advisor-05": "Member · Medical Reference Review",
+  "advisor-06": "Member · Regulatory Policy & Ethics",
 };
 
-const RESPONSIBILITY_TITLE_OVERRIDES: Record<string, string> = {
-  "R-01": "Confirms audit determinations",
-  "R-02": "Authorizes Greenlist inclusion",
-  "R-03": "Ratifies policy revisions",
-  "R-04": "Authorizes versioned standards",
-  "R-05": "Confirms reference accuracy",
-  "R-06": "Ratifies clinical scope",
-  "R-07": "Confirms sourcing posture",
+// Refined responsibility list. Only four are surfaced on this page; any
+// extra entries in the data file are filtered out below.
+const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: string }> = {
+  "R-01": {
+    title: "Audit confirmation",
+    description: "Reviews vendor audits to confirm pharmacy sourcing is substantiated.",
+  },
+  "R-02": {
+    title: "Greenlist authority",
+    description: "Approves the rubric for recognizing 503A and 503B compounding facilities.",
+  },
+  "R-04": {
+    title: "Regulatory alignment",
+    description: "Ensures our standards stay current with FDA and State Board of Pharmacy shifts.",
+  },
+  "R-05": {
+    title: "Evidence review",
+    description: "Validates that educational materials on this site meet clinical truth, not marketing claims.",
+  },
 };
+const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-04", "R-05"];
 
 const WHY_ITEMS = [
   {
-    title: "Public determinations need a framework",
-    body: "Source Standard publishes verification status, not opinion. Those determinations follow a defined framework.",
+    title: "Verification is a documented fact, not an opinion.",
+    body: "Our Advisory Board ensures that every status in our registry is backed by evidence.",
   },
   {
-    title: "Frameworks need governance",
-    body: "The Board reviews, ratifies, and maintains that framework on a recurring cadence.",
+    title: "Independent oversight protects the standard.",
+    body: "Medical and legal experts govern the audit criteria so the registry stays trustworthy as the field evolves.",
   },
   {
-    title: "Governance is bounded",
-    body: "The Board does not produce listings, market clinics, or evaluate patients. It governs the logic by which listings are created.",
+    title: "The Board governs, it does not market.",
+    body: "Members do not treat patients, market clinics, or produce listings. They protect the standard so you can trust the data.",
   },
 ];
 
 const ROLE_FUNCTIONS = [
   {
     n: "01",
-    t: "Defines scope",
-    d: "Establishes what the framework does and does not verify.",
+    t: "Define the standards",
+    d: "The Board establishes the medical and regulatory requirements for \u201CVerified\u201D sourcing.",
   },
   {
     n: "02",
-    t: "Ratifies criteria",
-    d: "Approves the criteria used to evaluate vendors, pharmacies, and upstream sources.",
+    t: "Vet the suppliers",
+    d: "They approve the strict criteria used to recognize pharmacies on our Greenlist.",
   },
   {
     n: "03",
-    t: "Reviews determinations",
-    d: "Spot-checks recorded determinations against underlying evidence on a recurring cadence.",
+    t: "Audit the results",
+    d: "The Board spot-checks vendor records to ensure they match the underlying pharmacy evidence.",
   },
   {
     n: "04",
-    t: "Authorizes revisions",
-    d: "Signs off on versioned framework changes and records rationale.",
+    t: "Enforce accuracy",
+    d: "They authorize changes to our protocol as FDA and regulatory guidelines evolve.",
   },
 ];
 
 const BOUNDARIES = [
-  "The Board governs the framework.",
+  "The Board governs the audit criteria behind every public determination.",
   "The Board does not evaluate or treat patients.",
   "The Board does not provide individualized medical advice through Source Standard.",
-  "The Board's mandate is limited to criteria, review logic, scope, and oversight of public determinations.",
+  "The Board does not produce listings or market clinics.",
 ];
 
 const BRIDGE_LINKS = [
