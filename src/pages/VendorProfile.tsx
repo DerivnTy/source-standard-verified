@@ -11,45 +11,18 @@ import {
 import {
   getVendor,
   Vendor,
-  VendorPublicStatus,
   VENDOR_STATUS_LABEL,
-  VENDOR_STATUS_PROFILE_NOTE,
   VENDOR_FULFILLMENT_LABEL,
   getVendorFulfillment,
   VendorFulfillment,
 } from "@/data/vendors";
-import { StatusBadge } from "@/components/StatusBadge";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-
-// ---------- Status theming ----------
-
-type Theme = {
-  hairline: string; // top hairline above hero
-};
-
-const THEME: Record<VendorPublicStatus, Theme> = {
-  verified: { hairline: "bg-verified" },
-  "under-review": { hairline: "bg-pending" },
-  unverified: { hairline: "bg-muted-foreground/30" },
-  suspended: { hairline: "bg-destructive" },
-  removed: { hairline: "bg-muted-foreground/30" },
-};
 
 const FULFILLMENT_ICON: Record<VendorFulfillment, typeof Building2> = {
   "in-person": Building2,
   online: Globe,
   hybrid: MapPin,
-};
-
-// ---------- Helpers ----------
-
-const hostname = (url: string): string => {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-  }
 };
 
 const formatLocation = (vendor: Vendor): string =>
@@ -185,7 +158,7 @@ const VendorProfile = () => {
 
   const status = vendor.status;
   const isVerified = status === "verified";
-  const theme = THEME[status];
+  
   const location = formatLocation(vendor);
   const fulfillment = getVendorFulfillment(vendor);
   const FulfillmentIcon = FULFILLMENT_ICON[fulfillment];
@@ -228,7 +201,7 @@ const VendorProfile = () => {
       />
 
       <section className="bg-background">
-        <div className="container-wide pt-4 pb-6">
+        <div className="container-wide pt-4 pb-6 px-6">
           {/* Top nav row */}
           <Link
             to="/verified-vendors"
@@ -238,89 +211,168 @@ const VendorProfile = () => {
           </Link>
 
           {/* ============================================================
-              UNIFIED PROFILE SURFACE — locked template
+              UNIFIED PROFILE SURFACE — Elite Marketplace Profile
           ============================================================ */}
-          <article className="border border-border bg-background">
-            {/* Status hairline */}
-            <div className={`h-[3px] w-full ${theme.hairline}`} aria-hidden />
-
+          <article
+            className="bg-card overflow-hidden"
+            style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "20px" }}
+          >
             {/* ---------- IDENTITY BAND ---------- */}
-            <header className="px-6 md:px-8 pt-6 pb-5 border-b border-border">
-              <div className="flex items-start gap-6 flex-wrap lg:flex-nowrap">
-                {/* Identity */}
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-3 flex-wrap mb-2">
-                    {vendor.category && (
-                      <span className="t-eyebrow-sm text-muted-foreground">
-                        {vendor.category}
-                      </span>
-                    )}
-                    <span className="text-border" aria-hidden>·</span>
-                    <span className="t-eyebrow-sm text-muted-foreground">
-                      Source Standard Public Record
-                    </span>
-                  </div>
-
-                  <h1 className="t-page-title text-foreground break-words max-w-[24ch]">
-                    {vendor.name}
-                  </h1>
-
-                  {/* Identity meta line */}
-                  <div className="mt-3 flex items-center gap-x-4 gap-y-1.5 flex-wrap t-body-sm text-foreground">
-                    <span className="inline-flex items-center gap-1.5">
-                      <FulfillmentIcon
-                        className="h-4 w-4 text-muted-foreground"
-                        aria-hidden
-                      />
-                      {VENDOR_FULFILLMENT_LABEL[fulfillment]}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <MapPin
-                        className="h-4 w-4 text-muted-foreground"
-                        aria-hidden
-                      />
-                      {location}
-                    </span>
-                    {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
-                      <span className="text-muted-foreground">
-                        {vendor.clinicalFocus.join(" · ")}
-                      </span>
-                    )}
-                    {vendor.website && (
-                      <a
-                        href={vendor.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-foreground hover:text-primary"
-                      >
-                        <Globe
-                          className="h-4 w-4 text-muted-foreground"
-                          aria-hidden
-                        />
-                        {hostname(vendor.website)}
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Status + CTA cluster */}
-                <div className="flex flex-col items-start lg:items-end gap-3 shrink-0">
-                  <StatusBadge status={status} size="md" />
-                  <p className="t-body-sm text-muted-foreground max-w-[28ch] lg:text-right">
-                    {VENDOR_STATUS_PROFILE_NOTE[status]}
-                  </p>
-                  {vendor.website && (
-                    <a
-                      href={vendor.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 inline-flex items-center gap-1.5 px-4 py-2 bg-foreground text-background hover:bg-foreground/90 t-utility-xs font-medium tracking-tight"
-                    >
-                      Visit website <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  )}
-                </div>
+            <header className="px-6 md:px-8 pt-6 pb-0">
+              {/* Eyebrow */}
+              <div className="flex items-center gap-2 flex-wrap mb-3">
+                {vendor.category && (
+                  <span className="t-eyebrow-sm text-muted-foreground">
+                    {vendor.category}
+                  </span>
+                )}
+                <span className="text-border" aria-hidden>·</span>
+                <span className="t-eyebrow-sm text-muted-foreground">
+                  Public Record
+                </span>
               </div>
+
+              {/* Vendor name — horizontal, no break */}
+              <h1
+                className="font-sans font-semibold text-foreground"
+                style={{
+                  fontSize: "28px",
+                  lineHeight: "1.15",
+                  letterSpacing: "-0.02em",
+                  wordBreak: "normal",
+                  overflowWrap: "break-word",
+                }}
+              >
+                {vendor.name}
+              </h1>
+
+              {/* Verified / Unverified banner */}
+              <div
+                className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-[12px]"
+                style={{
+                  backgroundColor: isVerified
+                    ? "rgba(52, 199, 89, 0.10)"
+                    : "hsl(var(--muted) / 0.6)",
+                  border: isVerified
+                    ? "0.5px solid rgba(52, 199, 89, 0.30)"
+                    : "0.5px solid hsl(var(--border))",
+                }}
+              >
+                {isVerified ? (
+                  <>
+                    <ShieldCheck
+                      aria-hidden
+                      style={{ width: "16px", height: "16px", strokeWidth: 1.5, color: "#1F8B3F" }}
+                    />
+                    <span
+                      className="font-sans font-semibold"
+                      style={{ fontSize: "13px", color: "#1F8B3F", letterSpacing: "-0.005em" }}
+                    >
+                      Verified Sourcing
+                    </span>
+                    {vendor.reviewDate && (
+                      <span
+                        className="ml-auto font-mono text-muted-foreground tabular-nums"
+                        style={{ fontSize: "11px" }}
+                      >
+                        Reviewed {vendor.reviewDate}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <span
+                      aria-hidden
+                      className="inline-block rounded-full bg-muted-foreground/60"
+                      style={{ width: "6px", height: "6px" }}
+                    />
+                    <span
+                      className="font-sans font-medium text-muted-foreground"
+                      style={{ fontSize: "13px" }}
+                    >
+                      Unverified Listing
+                    </span>
+                  </>
+                )}
+              </div>
+
+              {/* Context row — Geist Mono 13px, bullet separators */}
+              <div
+                className="mt-4 flex items-center gap-x-2 gap-y-1.5 flex-wrap font-mono text-muted-foreground"
+                style={{ fontSize: "13px" }}
+              >
+                <span className="inline-flex items-center gap-1.5">
+                  <FulfillmentIcon
+                    aria-hidden
+                    style={{ width: "14px", height: "14px", strokeWidth: 1.5 }}
+                  />
+                  {VENDOR_FULFILLMENT_LABEL[fulfillment]}
+                </span>
+                <span aria-hidden className="text-border">•</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin
+                    aria-hidden
+                    style={{ width: "14px", height: "14px", strokeWidth: 1.5 }}
+                  />
+                  {location}
+                </span>
+                {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
+                  <>
+                    <span aria-hidden className="text-border">•</span>
+                    <span>{vendor.clinicalFocus[0]}</span>
+                  </>
+                )}
+              </div>
+
+              {/* Visit Website CTA — Navy, 20px radius */}
+              {vendor.website && (
+                <a
+                  href={vendor.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-pill
+                  className="mt-5 inline-flex items-center gap-2 bg-foreground text-background transition-all active:scale-[0.97] hover:opacity-90"
+                  style={{
+                    padding: "10px 18px",
+                    borderRadius: "20px",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    letterSpacing: "-0.005em",
+                  }}
+                >
+                  <Globe aria-hidden style={{ width: "14px", height: "14px", strokeWidth: 1.5 }} />
+                  Visit Website
+                  <ExternalLink aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.5 }} />
+                </a>
+              )}
+
+              {/* Focus pills grid */}
+              {vendor.clinicalFocus && vendor.clinicalFocus.length > 0 && (
+                <div className="mt-6 mb-6">
+                  <p className="t-eyebrow-sm text-muted-foreground mb-2.5">
+                    Focus Areas
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {vendor.clinicalFocus.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center font-sans font-medium text-foreground bg-card"
+                        style={{
+                          fontSize: "13px",
+                          padding: "6px 12px",
+                          borderRadius: "999px",
+                          border: "0.5px solid hsl(var(--border))",
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Bottom divider */}
+              <div className="border-b border-border" />
             </header>
 
             {/* ---------- BODY GRID — 12-col, items-stretch, divide-x ---------- */}
