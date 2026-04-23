@@ -1,45 +1,44 @@
 
 
-## Medical Advisory Board — Exact Execution Rebuild
+## Verification Page — Exact Execution Rebuild
 
-Rebuild `src/pages/MedicalAdvisory.tsx` below the sticky `SectionAnchorNav` (kept intact) into nine ordered sections with the exact copy provided. The hero is replaced with a restrained custom hero (no `BriefingHero` decoration, no `docId` chip), a new Statement of Purpose section is inserted between hero and contents nav, and a new Closing Statement section is appended after Responsibilities.
+Rebuild `src/pages/HowItWorks.tsx` (route `/how-it-works`) into eight ordered sections using the exact wording provided. Mirror the institutional composition pattern established on the Medical Advisory Board page so this page reads as a published standard, not an enforcement manifesto. The current sticky `DocJumpBar` is replaced with the slim `SectionAnchorNav` used on the MAB page (matches the "small sticky page-position bar" referenced in the spec and stays exactly as-is from that page).
 
 ### Section-by-section
 
-**§1 Hero** — Replace `BriefingHero` with a quieter custom hero block (single eyebrow "Medical Advisory Board", H1 "Clinical Oversight", one supporting paragraph). Removes `docId`, navy treatment, and statement framing — pure restraint per spec.
+**§1 Hero** — Replace `BriefingHero` with the same restrained custom hero used on MAB. Eyebrow "Verification Framework", H1 "The Verification Standard", one supporting paragraph. No navy treatment, no decoration.
 
-**§2 Statement of purpose (NEW)** — New section sitting between hero and the SectionAnchorNav. Eyebrow "Purpose", headline "Why the Board exists", two body paragraphs exactly as specified. Single column, contained, no decoration.
+**§2 Statement of purpose (NEW)** — Sits between hero and contents nav. Eyebrow "Purpose", H2 "What this standard is designed to do", two body paragraphs exactly as specified. Single column, contained.
 
-**§3 Contents navigation** — Keep `SectionAnchorNav` with the existing 5 waypoints (Mandate, Governance, Members, Scope, Responsibilities). It already renders as a slim integrated bar, anchored after the statement of purpose. No internal changes — the component already matches the "slim, quiet, integrated" direction.
+**§3 Contents navigation** — Replace `DocJumpBar` with `SectionAnchorNav` (the slim integrated bar). Four waypoints: `01 Audit`, `02 Surveillance`, `03 Disclosure`, `04 Boundaries`. Sticks to the top exactly like on MAB.
 
-**§4 Mandate** — Keep current 12-col split layout. Replace eyebrow text with `01` (matching Governance pattern), keep visible H2 "Institutional Mandate", intro line "The governing terms under which the Board operates." Body items already match exact copy — no change.
+**§4 Audit** — 12-col split layout (left rail = `01` + "Audit" + intro line "How sourcing claims are reviewed against upstream records."; right = numbered ordered list of 4 clauses). Items use the exact new copy (Supply-chain substantiation, Registration cross-reference, Chain-of-custody review, Entity and standing review). Replaces all "forensic mapping / ghost supply" language.
 
-**§5 Governance** — Same structure as Mandate. Eyebrow `02`, H2 "Governance Framework", intro "The recurring functions the Board performs to maintain the standard." Items already match exact copy — no change.
+**§5 Surveillance** — Same split composition. Eyebrow `02`, H2 "Surveillance", intro "How the framework monitors evidence beyond initial document review." Four clauses (Sample acquisition review, Third-party laboratory analysis, Analytical confirmation, Deficiency response). Replaces "silent purchase / immediate revocation" language.
 
-**§6 Members** — Eyebrow `03`, H2 "Appointed members", add the new intro line "Independent clinicians and regulatory reviewers appointed to oversee framework standards, sourcing criteria, and public-reference integrity." Update `BOARD_TITLE_OVERRIDES` to match exact role lines. Update `advisoryBoard` data file: rename advisor-02's boardTitle to "Vice Chair · Pharmacy Sourcing Review", advisor-03 to "Member · Patient Safety & Public Clarity", advisor-04 to "Member · Pharmacy Compliance (USP Standards)", advisor-05 to "Member · Medical Reference Review", advisor-06 to "Member · Regulatory Policy & Ethics" so detail pages stay consistent. Card visual treatment stays restrained (current design already meets the "no startup team page" direction). CTA text "View profile" (drop the trailing arrow per global restraint pattern set on homepage).
+**§6 Disclosure** — Same split composition. Eyebrow `03`, H2 "Disclosure", intro "How ongoing changes are expected to be reported and monitored." Four clauses (Change notification, Regulatory monitoring, Credential continuity, Status adjustment). Replaces "72-hour window / automated suspension" language.
 
-**§7 Scope & boundaries** — Eyebrow `04`, H2 "Scope & boundaries". Use the four exact lines as a clean divided list (already matches). Keep current restrained layout, drop the left/right grid asymmetry — render as a single contained bordered list to feel more like a boundary statement and less like a featured callout.
+**§7 Boundaries** — Eyebrow `04`, H2 "Boundaries", intro "What the framework does and does not claim." Render the four exact lines as a bordered divided list (matches MAB Scope & boundaries treatment). Single contained list, no callout decoration.
 
-**§8 Responsibilities** — Eyebrow `05`, H2 "Responsibilities", intro "Each responsibility maps to a recurring oversight activity recorded under the registry's maintenance log." Four items match exact copy. Remove the tinted `bg-surface-muted/60` band and the full-bleed negative margins — render flush on the standard background to match the "operational closing, no decorative overstatement" direction. Drop the `ShieldCheck` icon (decorative). Equal two-col grid retained.
-
-**§9 Closing statement (NEW)** — New final section. Eyebrow "Conclusion", headline "Public trust requires independent oversight.", single body paragraph as specified. Centered single-column treatment, restrained, no border decoration beyond a top hairline.
+**§8 Closing statement (NEW)** — Eyebrow "Conclusion", H2 "Verification is a record standard.", one body paragraph as specified. Restrained closing, no border decoration beyond a subtle top hairline.
 
 ### Global cleanup
 
-- Every section uses: small mono number/eyebrow → visible H2 → optional intro line → body. No duplicate eyebrow/headline pairings.
-- Drop trailing arrow glyphs from in-text links ("View profile" instead of "View profile →") to match the homepage restraint pass.
-- Remove `ShieldCheck` import; no decorative icons in Responsibilities.
-- Spacing rhythm: every section uses `section-pad` with `border-b border-border/40`; closing statement gets `border-t` only, no bottom border.
-- The sticky `SectionAnchorNav` is untouched — same 5 waypoints, same component, same sticky behavior.
+- Remove imports for `BriefingHero`, `DocJumpBar`, `BoardSection` — no longer used on this page.
+- Add imports for `SectionAnchorNav` and `Link` is not needed (no in-text links here).
+- Update `PageMeta` title to "Verification · Source Standard" and description to the new hero supporting paragraph.
+- Update breadcrumb label from "Verification Standard" to "Verification".
+- Every section: small mono number/eyebrow → visible H2 → optional intro line → body. No duplicate eyebrow/headline pairings.
+- Spacing rhythm: `section-pad` with `border-b border-border/40` between sections; closing statement bottom border omitted.
+- Strip every instance of "forensic mapping," "ghost supply," "silent purchase," "immediate status revocation," "72-hour," "automated suspension," "ISO-accredited," "DEA registrations," etc. — none survive the rewrite.
 
 ### Files touched
 
-- `src/pages/MedicalAdvisory.tsx` — full structural rebuild with exact copy.
-- `src/data/advisoryBoard.ts` — update 5 `boardTitle` strings so member detail pages display the same role lines published on the index. No other field changes.
+- `src/pages/HowItWorks.tsx` — full structural rebuild with exact copy.
 
 ### Out of scope
 
 - `SectionAnchorNav` component internals
-- `AdvisorProfile` page
-- Design tokens, routing, breadcrumb component
+- Routing (route remains `/how-it-works`)
+- Design tokens, breadcrumb component
 
