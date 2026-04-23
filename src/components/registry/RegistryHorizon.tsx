@@ -23,24 +23,43 @@ export const RegistryHorizon = ({
     <div
       role="group"
       aria-label={ariaLabel}
-      className="rounded-[2px] border border-border shadow-[0_8px_24px_-16px_hsl(0_0%_0%/0.18)] overflow-hidden"
-      style={{ backgroundColor: "#F8FAFC" }}
+      className="rounded-[2px] overflow-hidden"
+      style={{ backgroundColor: "#F1F5F9" }}
     >
       <div
-        className="grid divide-x divide-border"
-        style={{ gridTemplateColumns: `repeat(${cells.length}, minmax(0, 1fr))` }}
+        className="grid"
+        style={{
+          gridTemplateColumns: `repeat(${cells.length}, minmax(0, 1fr))`,
+        }}
       >
-        {cells.map((cell) => (
+        {cells.map((cell, idx) => (
           <div
             key={cell.label}
-            className="flex flex-col items-center justify-center text-center px-3 sm:px-6 py-5 sm:py-6 min-w-0"
+            className="flex flex-col items-center justify-center text-center min-w-0"
+            style={{
+              padding: "24px 12px",
+              borderLeft: idx === 0 ? "none" : "1px solid #E2E8F0",
+            }}
           >
-            <span className="font-mono text-[26px] sm:text-[32px] leading-none font-semibold tabular-nums text-foreground tracking-tight">
+            <span
+              className="font-mono tabular-nums text-foreground tracking-tight"
+              style={{ fontSize: "28px", lineHeight: 1, fontWeight: 600 }}
+            >
               {typeof cell.value === "number"
                 ? cell.value.toLocaleString()
                 : cell.value}
             </span>
-            <span className="mt-2.5 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground leading-[1.2] text-balance">
+            <span
+              className="text-muted-foreground"
+              style={{
+                marginTop: "10px",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                lineHeight: 1.2,
+              }}
+            >
               {cell.label}
             </span>
           </div>

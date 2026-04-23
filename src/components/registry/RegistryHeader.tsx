@@ -54,20 +54,23 @@ export const RegistryHeader = ({
                 </p>
               )}
               <h1
-                className="text-white text-left font-serif font-bold"
+                className="text-white text-left"
                 style={{
-                  fontSize: "clamp(38px, 5.2vw, 64px)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.022em",
+                  fontFamily: '"Playfair Display", "Source Serif 4", Georgia, serif',
+                  fontWeight: 800,
+                  fontSize: "clamp(40px, 5.4vw, 68px)",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.028em",
                 }}
               >
                 {title}
               </h1>
               {statusLine ? (
-                <div className="mt-5 inline-flex items-center gap-2">
+                <div className="mt-5 inline-flex items-center" style={{ gap: "12px" }}>
                   <span
                     aria-hidden
-                    className="h-1.5 w-1.5 rounded-full bg-[#22C55E] animate-pulse"
+                    className="rounded-full bg-[#22C55E] animate-pulse"
+                    style={{ height: "6px", width: "6px" }}
                   />
                   <span className="font-mono text-[12px] tracking-[0.04em] text-white/70">
                     {statusLine}
