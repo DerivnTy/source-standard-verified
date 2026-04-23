@@ -314,19 +314,17 @@ html {
   }
 
   /* ─── Section heading rhythm protocol (locked, sitewide) ───
-     Index number (mono utility) → H2     : 12px
-     H2                          → content: 24px
-     Applied via adjacent-sibling so it governs every page that
-     follows the canonical "mono index → h2 → body" pattern,
-     without needing per-page margin classes. */
+     Mono index number → H2 : 12px
+     H2 → following content : 24px
+     Enforced with !important so per-page mt-* utilities cannot
+     drift the rhythm. Applies inside any <section> or .section-pad block. */
   .section-pad h2 + *,
-  section h2 + * { margin-top: 24px; }
-  .section-pad h2,
-  section h2 { margin-top: 12px; }
-  /* When the H2 is the first element in its block, no top margin. */
-  .section-pad > * > h2:first-child,
-  .section-pad h2:first-child,
-  section h2:first-child { margin-top: 0; }
+  section h2 + * { margin-top: 24px !important; }
+  /* When an H2 directly follows the mono index utility line, lock to 12px. */
+  .section-pad .t-utility-xs + h2,
+  section .t-utility-xs + h2,
+  .section-pad .font-mono + h2,
+  section .font-mono + h2 { margin-top: 12px !important; }
 
   .prose-readable {
     max-width: 65ch;
