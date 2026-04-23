@@ -89,41 +89,9 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p className="t-eyebrow-sm text-muted-foreground">{children}</p>
 );
 
-/* ───────────────── Live registry counts ───────────────── */
-
-const computeRegistryStats = () => {
-  const total = vendors.length;
-  const verified = vendors.filter((v) => v.status === "verified").length;
-  const underReview = vendors.filter((v) => v.status === "under-review").length;
-  const facilities = greenlistEntries.length;
-  const states = getGreenlistStates().length;
-
-  // Most recent review date across vendors (ISO yyyy-mm-dd). Falls back to today.
-  const dates = vendors
-    .map((v) => v.reviewDate)
-    .filter((d): d is string => Boolean(d))
-    .sort();
-  const mostRecent = dates.length ? dates[dates.length - 1] : null;
-  const lastUpdated = mostRecent
-    ? new Date(mostRecent).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    : new Date().toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
-
-  return { total, verified, underReview, facilities, states, lastUpdated };
-};
-
 /* ───────────────── Page ───────────────── */
 
 const Index = () => {
-  const stats = computeRegistryStats();
-
   return (
     <>
       <PageMeta
