@@ -2,8 +2,22 @@ import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
+import { DocJumpBar } from "@/components/DocJumpBar";
 import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
+
+const WAYPOINTS = [
+  { id: "transparency", number: "01", label: "Transparency" },
+  { id: "verification-chain", number: "02", label: "Verification Chain" },
+  { id: "members", number: "03", label: "Members" },
+  { id: "scope", number: "04", label: "Scope" },
+  { id: "responsibilities", number: "05", label: "Responsibilities" },
+  { id: "continue", number: "06", label: "Continue" },
+];
+
+const SectionIndex = ({ n }: { n: string }) => (
+  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
+);
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
   "advisor-01": "Chair · Clinical Audit Standards",
