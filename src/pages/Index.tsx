@@ -153,12 +153,12 @@ const Index = () => {
               id="trust-problem"
               className="mt-4 t-section-title-sm text-foreground max-w-[28ch]"
             >
-              Marketing claims are easy. Documentation is harder to verify.
+              Branding is not documentation.
             </h2>
             <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
-              Consumers and clinicians are often asked to rely on branding, website language, and
-              trust signals without clear public visibility into sourcing and documentation. Source
-              Standard exists to make those records easier to interpret.
+              In the peptide industry, marketing claims are easy to make but difficult to prove.
+              Most consumers are forced to rely on trust. We believe you should rely on records.
+              We audit the supply chain to ensure what you're being sold is what's on the label.
             </p>
           </div>
         </div>
