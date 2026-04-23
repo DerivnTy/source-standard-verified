@@ -96,7 +96,6 @@ export const VendorAuditCard = ({
         className="group flex items-center gap-3 h-[48px] px-4 text-left bg-card hover:bg-surface-muted/40 transition-colors"
         style={isUnverified ? { backgroundColor: unverifiedWash } : undefined}
       >
-        {/* Status dot — single source of binary signal at a glance */}
         <span
           aria-hidden
           className={`shrink-0 h-1.5 w-1.5 rounded-full ${
@@ -110,10 +109,10 @@ export const VendorAuditCard = ({
         <h3 className="min-w-0 flex-1 truncate text-[13.5px] font-semibold leading-tight text-foreground tracking-tight">
           {vendor.name}
         </h3>
-        <span className="hidden sm:inline shrink-0 text-[12px] text-muted-foreground truncate max-w-[160px]">
+        <span className="shrink-0 text-[11.5px] text-muted-foreground truncate max-w-[92px] sm:max-w-[160px]">
           {location}
         </span>
-        <span className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted-foreground">
+        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
           {vendor.status === "verified"
             ? "Verified"
             : vendor.status === "under-review"
