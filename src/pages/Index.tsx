@@ -30,10 +30,10 @@ const HeroActions = () => (
    Same 2px radius — institutional, surgical. */
 
 const darkBtnPrimary =
-  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
+  "rounded-[2px] border border-foreground text-background bg-foreground px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-foreground/90 transition-colors";
 
 const darkBtnSecondary =
-  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 text-[13.5px] font-medium tracking-[0.04em] uppercase hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
+  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 text-[13px] font-mono font-medium tracking-[0.12em] uppercase hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
 
 /* ───────────────── Static section data ───────────────── */
 
