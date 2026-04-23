@@ -1,207 +1,135 @@
-import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
-import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
-import { BriefingHero } from "@/components/BriefingHero";
-import { DocJumpBar } from "@/components/DocJumpBar";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { BriefingHero } from "@/components/BriefingHero";
+import { BoardSection } from "@/components/BoardSection";
+import { DocJumpBar } from "@/components/DocJumpBar";
 
-const DOC_ID = "SS-PRIVACY-2026.01";
-const VERIFIED_ON = "04/21/2026";
+type Section = {
+  id: string;
+  n: string;
+  category: string;
+  title: string;
+  points: string[];
+};
 
-const collected = [
-  { t: "Vendor application materials", d: "Business identity, licensing records, supplier disclosures, certificates of analysis, invoice samples, and category documentation submitted under Form SS-INTAKE-01 and during subsequent audit cycles." },
-  { t: "Contact submissions", d: "Name, email, organization (if provided), and message content submitted through public contact forms." },
-  { t: "Concern reports", d: "Submission content, supporting materials, and contact details voluntarily provided through the reporting channel." },
-  { t: "Site analytics", d: "Aggregate, non-identifying technical signals such as page views, referrer, device type, and approximate region. No advertising trackers, no cross-site identifiers." },
+const sections: Section[] = [
+  {
+    id: "partitioning",
+    n: "01",
+    category: "PARTITIONING",
+    title: "Record Partitioning & Access Control",
+    points: [
+      "Source Standard maintains a strict operational divide between public disclosures and Protected Audit Material (PAM).",
+      "Public Registry Data: Limited to business identity, verification categories, current status, and status dates. This data is available for public reference.",
+      "Protected Audit Material (PAM): Includes licensing records, supplier invoices, Certificates of Analysis (CoA), and internal review notes.",
+      "Access Restriction: PAM is retained within an encrypted internal environment. It is never published, sold, or shared with third parties, excluding lawful process or authorized infrastructure partners.",
+    ],
+  },
+  {
+    id: "collection",
+    n: "02",
+    category: "COLLECTION",
+    title: "Scope of Collection",
+    points: [
+      "Vendor Intake: Collection of business credentials and sourcing history required for the Forensic Audit process.",
+      "Surveillance Data: Results of unannounced randomized testing and independent laboratory analytics.",
+      "Concern Reports: Supporting documentation and contact details provided through the public reporting channel.",
+      "Zero-Tracking Analytics: Site usage is monitored via aggregate, non-identifying signals only. We do not utilize cross-site identifiers or advertising trackers.",
+    ],
+  },
+  {
+    id: "retention",
+    n: "03",
+    category: "RETENTION",
+    title: "Data Retention",
+    points: [
+      "Active Records: Protected Audit Material is retained for the duration of the entity's active standing in the registry.",
+      "Historical Determinations: Public status transitions are retained as a permanent record to maintain the integrity of the registry's timeline.",
+      "Withdrawn Applications: Documentation associated with denied or withdrawn applications is held for a fixed administrative window before secure disposal.",
+      "Secure Disposal: Deletion of sensitive records follows a documented forensic protocol with internal audit logging.",
+    ],
+  },
+  {
+    id: "infrastructure",
+    n: "04",
+    category: "PROCESSING",
+    title: "Authorized Processing",
+    points: [
+      "Data processing is limited to essential infrastructure partners under strict non-disclosure protocols.",
+      "Partners are restricted to the minimum data required for hosting, transactional email delivery, and privacy-respecting analytics.",
+    ],
+  },
+  {
+    id: "office",
+    n: "05",
+    category: "PRIVACY OFFICE",
+    title: "Inquiries & Requests",
+    points: [
+      "Individuals may request access to, or correction of, personal data held by the auditing body.",
+      "Deletion requests are processed in accordance with our historical record retention obligations.",
+      "Data Privacy Officer: privacy@sourcestandard.org",
+    ],
+  },
 ];
 
-const uses = [
-  "Conducting time-bound verification reviews and renewal cycles.",
-  "Communicating with applicants, vendors, and reporters about active matters of record.",
-  "Publishing public registry entries within the scope each entity has consented to under the Vendor Submission Standard.",
-  "Maintaining the integrity of the framework, its documentation, and the public site.",
-];
-
-const partitioning = [
-  { p: "Public registry data", v: "Business name, location, scope categories, current status, status date, public references, and any attached public note." },
-  { p: "Protected Audit Material (PAM)", v: "Application materials, licensing records, supplier and pharmacy invoices, certificates of analysis, prescriber credentials, internal review notes, reporter identity, and unredacted contact submissions. Retained internally; not published; not shared outside the audit function except as required by lawful process." },
-];
-
-const partners = [
-  "Hosting and content delivery infrastructure for the public registry.",
-  "Transactional email delivery for applicant, vendor, and reporter correspondence.",
-  "Privacy-respecting site analytics (aggregate, non-identifying signals only).",
-];
-
-const retention = [
-  { t: "Active standing", d: "Protected Audit Material is retained for the full duration the entity holds an active determination (Verified, Pending Review, Under Review, Suspended) and through any subsequent renewal or re-review cycle." },
-  { t: "Historical record", d: "Public registry fields and the determination history are retained as a permanent record of the framework. Status transitions remain visible after Removed status." },
-  { t: "Withdrawn applications", d: "PAM associated with a withdrawn or denied application is retained for a defined administrative window, after which it is securely disposed of in accordance with the disposal schedule." },
-  { t: "Concern reports", d: "Submission content is retained for the duration of the matter and the reference period required to detect repeat patterns; reporter identity is segregated and access-controlled." },
-  { t: "Disposal", d: "Disposal of PAM follows controlled deletion procedures with audit logging. Aggregate, non-identifying analytics are retained without time limit." },
-];
-
-const rights = [
-  "Request access to personal data Source Standard holds about you.",
-  "Request correction of inaccurate personal data.",
-  "Request deletion of personal data, subject to retention obligations for active or historical registry records.",
-  "Withdraw a pending application at any time.",
-];
-
-const deeper = [
-  { to: "/governance", label: "Governance" },
-  { to: "/accountability", label: "Accountability & Enforcement" },
-  { to: "/verification-disclaimer", label: "Verification Disclaimer" },
-  { to: "/terms", label: "User Agreement & Registry Terms" },
-  { to: "/report-a-concern", label: "Report a Concern" },
-];
-
-const waypoints = [
-  { id: "data", number: "1", label: "Data collected" },
-  { id: "use", number: "2", label: "Use" },
-  { id: "partition", number: "3", label: "Partitioning" },
-  { id: "partners", number: "4", label: "Partners" },
-  { id: "retention", number: "5", label: "Retention" },
-  { id: "rights", number: "6", label: "Rights" },
-  { id: "dpo", number: "7", label: "DPO" },
-  { id: "deeper", number: "8", label: "Read deeper" },
-];
-
-const KVList = ({ items }: { items: { t: string; d: string }[] }) => (
-  <ol className="border border-border bg-background divide-y divide-border">
-    {items.map((it, i) => (
-      <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
-        <div className="col-span-3 meta text-primary">{it.t}</div>
-        <p className="col-span-9 t-body-sm text-muted-foreground leading-relaxed">{it.d}</p>
-      </li>
-    ))}
-  </ol>
-);
-
-const SimpleList = ({ items }: { items: string[] }) => (
-  <ol className="border border-border bg-background divide-y divide-border">
-    {items.map((it, i) => (
-      <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
-        <div className="col-span-2 meta text-primary">{String(i + 1).padStart(2, "0")}</div>
-        <p className="col-span-10 t-body-sm text-muted-foreground leading-relaxed">{it}</p>
-      </li>
-    ))}
-  </ol>
-);
+const waypoints = sections.map((s) => ({
+  id: s.id,
+  number: s.n,
+  label: s.category,
+}));
 
 const Privacy = () => (
   <>
     <PageMeta
-      title="Privacy Policy"
-      description="How Source Standard collects, partitions, retains, and protects information across the public registry and audit file."
+      title="Data Governance Protocol"
+      description="The administrative framework governing the collection, partitioning, and retention of audit records and registry data."
     />
     <Breadcrumb items={[{ label: "Legal" }, { label: "Privacy" }]} />
 
     <BriefingHero
-      variant="chapter"
-      category="Policy · Data governance protocol"
-      docId={DOC_ID}
-      title="Data Governance & Privacy Policy"
-      statement="What Source Standard collects, how it is partitioned between public registry and Protected Audit Material, the partners that process it, retention rules, and the rights of individuals whose data is held."
+      tone="navy"
+      category="Policy · Data Governance Protocol"
+      docId=""
+      title="Data Governance Protocol"
+      statement="The administrative framework governing the collection, partitioning, and retention of audit records and registry data."
     />
 
-    <RecordHeader
-      compact
-      metadata={[
-        { label: "Doc", value: DOC_ID },
-        { label: "Status", value: "Active" },
-        { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "United States" },
-      ]}
-      verifiedOn={VERIFIED_ON}
-    />
+    {/* Metadata bar — small, professional, mono */}
+    <section className="border-b border-border bg-surface-muted">
+      <div className="page-shell py-3">
+        <div className="mx-auto w-standard">
+          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+            <span className="text-foreground/80">VERSION:</span> 2026.01
+            <span className="mx-3 text-border">|</span>
+            <span className="text-foreground/80">CLASSIFICATION:</span> PUBLIC-FACING PROTOCOL
+            <span className="mx-3 text-border">|</span>
+            <span className="text-foreground/80">UPDATED:</span> 04/21/26
+          </p>
+        </div>
+      </div>
+    </section>
 
     <DocJumpBar waypoints={waypoints} />
 
-    <BoardSection id="data" n="1" category="Data collected" title="Information collected by the auditing body">
-      <KVList items={collected} />
-    </BoardSection>
-
-    <BoardSection id="use" n="2" category="Use" title="How collected data is used" muted>
-      <SimpleList items={uses} />
-    </BoardSection>
-
-    <BoardSection
-      id="partition"
-      n="3"
-      category="Partitioning"
-      title="Information partitioning"
-      rationale="A documented separation governs every record held by the auditing body. Public registry fields are published; Protected Audit Material (PAM) is retained internally for review purposes only and is never published or shared outside the audit function."
-    >
-      <KVList items={partitioning.map((r) => ({ t: r.p, d: r.v }))} />
-    </BoardSection>
-
-    <BoardSection
-      id="partners"
-      n="4"
-      category="Partners"
-      title="Infrastructure partners"
-      rationale="A small number of infrastructure partners process data on the auditing body's behalf under written non-disclosure and privacy-preserving protocols. Partners are limited to the minimum data required to perform their function and are not authorised to use or disclose data for any other purpose."
-      muted
-    >
-      <SimpleList items={partners} />
-    </BoardSection>
-
-    <BoardSection
-      id="retention"
-      n="5"
-      category="Retention"
-      title="Retention & disposal"
-      rationale="Audit records are retained for the period necessary to maintain the integrity of the public registry. Disposal follows a documented schedule."
-    >
-      <KVList items={retention} />
-    </BoardSection>
-
-    <BoardSection id="rights" n="6" category="Rights" title="Rights of individuals" muted>
-      <SimpleList items={rights} />
-    </BoardSection>
-
-    <BoardSection
-      id="dpo"
-      n="7"
-      category="DPO"
-      title="Data Privacy Officer"
-      rationale="Privacy inquiries, data-subject requests, and lawful-process correspondence are handled by the Data Privacy Officer."
-    >
-      <div className="border border-border bg-background p-5 max-w-2xl">
-        <p className="meta-mono text-foreground/70 mb-2">EMAIL</p>
-        <a
-          href="mailto:privacy@sourcestandard.org"
-          className="t-body-sm font-medium text-primary underline-offset-4 hover:underline"
-        >
-          privacy@sourcestandard.org
-        </a>
-      </div>
-      <p className="t-body-sm text-muted-foreground leading-relaxed max-w-2xl">
-        This protocol is provided in plain, controlled terms and is reviewed by counsel. Material updates are issued as a new document version under the {DOC_ID} series.
-      </p>
-    </BoardSection>
-
-    <BoardSection id="deeper" n="8" category="Read deeper" title="Cross-references" muted>
-      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
-        {deeper.map((d, i) => (
-          <li key={d.to} className="bg-background">
-            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
-              <div>
-                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
-                <p className="t-body-sm font-semibold text-foreground leading-snug">{d.label}</p>
-              </div>
-              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </BoardSection>
-
-    <BoardCiteFooter
-      citation={`Source Standard. Data Governance & Privacy Policy. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
-    />
+    {sections.map((s, i) => (
+      <BoardSection
+        key={s.id}
+        id={s.id}
+        n={s.n}
+        category={s.category}
+        title={s.title}
+        muted={i % 2 === 1}
+      >
+        <ul className="space-y-4">
+          {s.points.map((p, idx) => (
+            <li key={idx} className="flex gap-4">
+              <span aria-hidden className="text-muted-foreground/60 select-none font-sans">|</span>
+              <span className="flex-1">{p}</span>
+            </li>
+          ))}
+        </ul>
+      </BoardSection>
+    ))}
   </>
 );
 
