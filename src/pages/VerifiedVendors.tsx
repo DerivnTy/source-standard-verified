@@ -273,9 +273,9 @@ const VerifiedVendors = () => {
       onChange={(v) => setSort(v as SortMode)}
       ariaLabel="Sort records"
     >
-      <option value="name-asc">SORT // ALPHABETICAL</option>
-      <option value="location">SORT // LOCATION</option>
-      <option value="latest-audit">SORT // LATEST_AUDIT</option>
+      <option value="name-asc">Sort: Alphabetical</option>
+      <option value="location">Sort: Location</option>
+      <option value="latest-audit">Sort: Latest Audit</option>
     </FacetSelect>
   );
 
@@ -384,7 +384,7 @@ const VerifiedVendors = () => {
       <RegistryHeader
         indexNumber="01"
         title="Verified Registry"
-        statusLine="REGISTRY_STATUS // ACTIVE"
+        statusLine="Live Registry"
         recordCount={vendors.length}
         hideRecordPill
       />
@@ -402,18 +402,18 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* View toggle — sharp rectangular */}
+            {/* View toggle — slim, sharp rectangular */}
             <div className="mb-3 flex justify-end">
               <div
                 role="radiogroup"
                 aria-label="View mode"
                 className="inline-flex overflow-hidden rounded-[2px]"
-                style={{ border: "1px solid #64748B" }}
+                style={{ border: "1px solid hsl(var(--border))" }}
               >
                 {(
                   [
-                    { value: "list", label: "[ LIST VIEW ]" },
-                    { value: "grid", label: "[ GRID VIEW ]" },
+                    { value: "list", label: "List" },
+                    { value: "grid", label: "Grid" },
                   ] as { value: ViewMode; label: string }[]
                 ).map((opt, i) => {
                   const active = view === opt.value;
@@ -423,14 +423,14 @@ const VerifiedVendors = () => {
                       role="radio"
                       aria-checked={active}
                       onClick={() => setView(opt.value)}
-                      className={`h-9 px-3 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+                      className={`h-8 px-3 text-[12px] transition-colors ${
                         i > 0 ? "border-l" : ""
                       } ${
                         active
                           ? "bg-[hsl(var(--navy-surface))] text-white"
                           : "bg-background text-muted-foreground hover:text-foreground"
                       }`}
-                      style={{ borderColor: "#64748B" }}
+                      style={{ borderColor: "hsl(var(--border))" }}
                     >
                       {opt.label}
                     </button>
@@ -439,12 +439,12 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            {/* Status Tabs — sharp rectangular, navy when active */}
+            {/* Status Tabs — slim rectangular, navy when active */}
             <div
               role="tablist"
               aria-label="Filter by status"
               className="mb-4 flex flex-wrap overflow-hidden rounded-[2px]"
-              style={{ border: "1px solid #64748B" }}
+              style={{ border: "1px solid hsl(var(--border))" }}
             >
               {STATUS_TABS.map((t, i) => {
                 const active = status === t.value;
@@ -454,14 +454,14 @@ const VerifiedVendors = () => {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setStatus(t.value)}
-                    className={`h-10 px-4 font-mono text-[12px] uppercase tracking-[0.08em] transition-colors ${
+                    className={`h-9 px-4 text-[12.5px] transition-colors ${
                       i > 0 ? "border-l" : ""
                     } ${
                       active
                         ? "bg-[hsl(var(--navy-surface))] text-white"
                         : "bg-background text-muted-foreground hover:text-foreground hover:bg-surface-muted/40"
                     }`}
-                    style={{ borderColor: "#64748B" }}
+                    style={{ borderColor: "hsl(var(--border))" }}
                   >
                     {t.label}
                   </button>
@@ -472,7 +472,7 @@ const VerifiedVendors = () => {
             <QueryBar
               query={query}
               onQueryChange={setQuery}
-              searchPlaceholder="[ SEARCH_VENDOR_ID ]"
+              searchPlaceholder="Search vendors by name, city, or focus"
               resultLabel={
                 sorted.length === 0
                   ? "0 of 0 records"
