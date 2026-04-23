@@ -16,7 +16,7 @@ const nav = [
 // Mobile mirrors desktop nav exactly
 const mobileNav = nav;
 
-const APP_VERSION = "v1.0.4";
+
 
 // Module-level subscription so DocJumpBar (and others) can mirror the header's
 // hide-on-scroll-down / show-on-scroll-up behavior without prop drilling.
