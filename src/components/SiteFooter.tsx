@@ -62,20 +62,21 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
 
 export const SiteFooter = () => {
   return (
-    <footer className="border-t border-border bg-surface-muted/30">
+    // Hard-stop: no top margin; 1px hsl(214 32% 91%) ≈ #E2E8F0 end-of-document line.
+    <footer className="mt-0 border-t border-border bg-surface-muted/30">
       <div className="page-shell py-12 md:py-14">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start text-left">
             <div className="lg:col-span-1">
               <Logo />
-              <p className="mt-5 t-body-sm text-muted-foreground">
+              <p className="mt-5 t-body-sm text-muted-foreground text-left">
                 Source Standard · United States
               </p>
             </div>
 
             {columns.map((col) => (
-              <div key={col.title}>
-                <p className="t-utility-xs text-foreground mb-4">
+              <div key={col.title} className="text-left">
+                <p className="t-utility-xs text-foreground mb-4 text-left">
                   {col.title}
                 </p>
                 <ul className="space-y-0">
@@ -99,14 +100,14 @@ export const SiteFooter = () => {
         </div>
 
         <div className="mt-14 pt-8 border-t border-border/70">
-          <p className="max-w-[900px] mx-auto text-center t-micro text-muted-foreground">
+          <p className="max-w-[900px] mx-auto text-left md:text-center t-micro text-muted-foreground">
             Source Standard is an independent public-reference and verification framework. Listings reflect documentation reviewed within a defined scope and at a defined point in time. Verification does not constitute medical advice, regulatory approval, or a guarantee of safety, efficacy, or outcome.
           </p>
-          <div className="mt-5 max-w-[900px] mx-auto flex flex-wrap items-center justify-between gap-y-2 text-center">
-            <p className="t-micro text-muted-foreground">
+          <div className="mt-5 max-w-[900px] mx-auto flex flex-col md:flex-row md:flex-wrap md:items-center md:justify-between gap-y-2 text-left md:text-center">
+            <p className="t-micro text-muted-foreground text-left">
               © {new Date().getFullYear()} Source Standard · SourceStandard.org
             </p>
-            <p className="t-micro text-muted-foreground">All rights reserved</p>
+            <p className="t-micro text-muted-foreground text-left">All rights reserved</p>
           </div>
         </div>
       </div>
