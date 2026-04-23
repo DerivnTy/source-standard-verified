@@ -20,6 +20,9 @@ export const DocJumpBar = ({
 }) => {
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
   const [progress, setProgress] = useState(0);
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
   const headerVisible = useHeaderVisible();
   const seamRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -49,12 +52,17 @@ export const DocJumpBar = ({
       });
     };
 
+    const onResize = () => {
+      setViewportWidth(window.innerWidth);
+      onScroll();
+    };
+
     compute();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
   }, [headerVisible]);
@@ -84,12 +92,16 @@ export const DocJumpBar = ({
 
   const SEAM_HEIGHT = 44;
 
-  // Interpolated geometry — pure functions of `progress` (0 → 1).
+  // Smoothstep eases motion at both endpoints so nothing arrives linearly.
   const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-  const widthPct = lerp(80, 100, progress); // 80% → 100%
-  const radiusPx = lerp(9999, 0, progress); // pill → square
-  const shadowOpacity = lerp(0.12, 0, progress); // shadow fades out
-  const borderOpacity = progress; // hairline fades in
+  const eased = progress * progress * (3 - 2 * progress);
+
+  // Interpolated geometry — pure functions of `eased` (0 → 1).
+  const widthPct = lerp(80, 100, eased); // 80% → 100%
+  const radiusPx = lerp(9999, 0, eased); // pill → square
+  const shadowOpacity = lerp(0.12, 0, eased); // shadow fades out
+  const borderOpacity = eased; // hairline fades in
+  const innerPaddingX = lerp(24, Math.max((viewportWidth - 1200) / 2, 24), eased);
 
   const stickyTop = headerVisible ? 64 : 0;
 
@@ -129,15 +141,15 @@ export const DocJumpBar = ({
         className="border border-border"
         style={{
           ...navStyle,
-          marginTop: `${lerp(-SEAM_HEIGHT / 2 - 22, 0, progress)}px`,
-          borderColor: `hsl(var(--border) / ${lerp(1, borderOpacity, progress)})`,
+          marginTop: `${lerp(-SEAM_HEIGHT / 2 - 22, 0, eased)}px`,
+          borderColor: `hsl(var(--border) / ${lerp(1, borderOpacity, eased)})`,
         }}
       >
         <PillContents
           waypoints={waypoints}
           activeId={activeId}
           onJump={onJump}
-          flush={progress > 0.95}
+          paddingX={innerPaddingX}
         />
       </nav>
     </>
@@ -148,18 +160,17 @@ const PillContents = ({
   waypoints,
   activeId,
   onJump,
-  flush = false,
+  paddingX,
 }: {
   waypoints: JumpWaypoint[];
   activeId: string;
   onJump: (id: string) => (e: React.MouseEvent) => void;
-  flush?: boolean;
+  paddingX: number;
 }) => {
   return (
     <div
-      className={`flex items-center gap-4 overflow-x-auto ${
-        flush ? "container-wide py-2" : "px-6 py-2"
-      }`}
+      className="flex items-center gap-4 overflow-x-auto py-2"
+      style={{ paddingLeft: `${paddingX}px`, paddingRight: `${paddingX}px` }}
     >
       <span className="meta-mono shrink-0 text-foreground/70 text-[11px]">
         Contents ·
