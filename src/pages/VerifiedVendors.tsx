@@ -547,74 +547,85 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
-      {/* Registry logic — reference layer at the bottom */}
+      {/* Registry logic — surgical reference grid */}
       <section className="border-t border-border bg-surface-muted/30">
-        <div className="page-shell pt-20 pb-16 md:pt-14 md:pb-14">
+        <div className="page-shell pt-16 md:pt-20" style={{ paddingBottom: "80px" }}>
           <div className="mx-auto w-wide">
-            <p className="t-utility-xs text-muted-foreground mb-3">
-              02 · Registry logic
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              02
             </p>
-            <h2 className="t-section-title-sm text-foreground max-w-[40ch]">
+            <h2 className="mt-4 t-section-title-sm text-foreground max-w-[40ch] text-left">
               Understanding the Registry
             </h2>
-            <p className="mt-6 text-[14px] text-muted-foreground max-w-[44ch] leading-[1.6]">
+            <p className="mt-4 font-mono text-[12px] uppercase tracking-[0.08em] text-muted-foreground">
               Four states. One audit standard. No marketing claims.
             </p>
 
-            <dl className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 border-t border-border/50 pt-6">
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 pt-0.5">
-                  <VerificationShield />
-                </div>
-                <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
-                  <span className="font-semibold text-foreground">Verified.</span>{" "}
-                  Sourcing cross-referenced with 503A/503B pharmacy records.
-                </p>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 pt-0.5">
-                  <StatusBadge status="unverified" />
-                </div>
-                <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
-                  <span className="font-semibold text-foreground">Unverified.</span>{" "}
-                  No sourcing on file. Audit not submitted.
-                </p>
-              </div>
-              {counts["under-review"] > 0 && (
-                <div className="flex items-start gap-4">
-                  <div className="shrink-0 pt-0.5">
-                    <StatusBadge status="under-review" />
+            <dl className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 border-t border-[#F1F5F9] pt-8">
+              {[
+                {
+                  id: "01_VERIFICATION_CRITERIA",
+                  title: "Verification Criteria",
+                  body: "Sourcing cross-referenced with 503A/503B pharmacy records. Invoices and licenses on file.",
+                },
+                {
+                  id: "02_AUDIT_FREQUENCY",
+                  title: "Audit Frequency",
+                  body: "Re-verification every 12 months. Triggered earlier on supplier or sourcing change.",
+                },
+                {
+                  id: "03_UNVERIFIED_STATUS",
+                  title: "Unverified Status",
+                  body: "No sourcing on file. Not a judgment of safety or compliance.",
+                },
+                {
+                  id: "04_UNDER_REVIEW",
+                  title: "Under Review",
+                  body: "Application in active audit. Public record updates on completion.",
+                  show: counts["under-review"] > 0,
+                },
+                {
+                  id: "05_SUSPENDED",
+                  title: "Suspended",
+                  body: "Verification temporarily paused pending source clarification.",
+                  show: counts.suspended > 0,
+                },
+                {
+                  id: "06_REMOVED",
+                  title: "Removed",
+                  body: "Delisted from active directory. Record preserved for transparency.",
+                  show: counts.removed > 0,
+                },
+              ]
+                .filter((item) => item.show !== false)
+                .map((item) => (
+                  <div key={item.id} className="text-left">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                      {item.id}
+                    </p>
+                    <h3 className="mt-2 text-[14px] font-semibold text-foreground tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p
+                      className="mt-2 text-[13px] text-muted-foreground max-w-[42ch]"
+                      style={{ lineHeight: 1.6 }}
+                    >
+                      {item.body}
+                    </p>
                   </div>
-                  <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
-                    <span className="font-semibold text-foreground">Under review.</span>{" "}
-                    Application in audit.
-                  </p>
-                </div>
-              )}
-              {counts.suspended > 0 && (
-                <div className="flex items-start gap-4">
-                  <div className="shrink-0 pt-0.5">
-                    <StatusBadge status="suspended" />
-                  </div>
-                  <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
-                    <span className="font-semibold text-foreground">Suspended.</span>{" "}
-                    Verification temporarily paused.
-                  </p>
-                </div>
-              )}
-              {counts.removed > 0 && (
-                <div className="flex items-start gap-4">
-                  <div className="shrink-0 pt-0.5">
-                    <StatusBadge status="removed" />
-                  </div>
-                  <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
-                    <span className="font-semibold text-foreground">Removed.</span>{" "}
-                    Delisted. Record preserved for transparency.
-                  </p>
-                </div>
-              )}
+                ))}
             </dl>
 
+            {/* Live pill — reinforces real-time data near final CTA */}
+            <div className="mt-12 flex items-center gap-2">
+              <span
+                aria-hidden
+                className="h-2 w-2 rounded-full bg-[#22C55E] animate-pulse"
+              />
+              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                REGISTRY_STATUS // ACTIVE
+              </span>
+            </div>
           </div>
         </div>
       </section>
