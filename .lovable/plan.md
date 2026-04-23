@@ -1,51 +1,57 @@
 
 
-## Vendor Batch Import — peptide_hormone_market_census_v5.csv
+## Global Change 01 — Unify First-Section Hero Treatment to Navy
 
-Append 4,265 new clinic/brand entries from the uploaded CSV to `src/data/vendors.ts` as a new `Batch` block at the end of `vendorsRaw`, all with `status: "unverified"` (which renders as **"No Records on File"** per the existing `StatusBadge` mapping — this is the status the user requested).
+Make every main institutional page open with the same deep navy hero surface as the homepage. The component to standardize on already exists: `BriefingHero` with `tone="navy" variant="chapter"` (see `src/components/BriefingHero.tsx` lines 140–175). It renders the navy surface, the `HeroPattern` overlay, the eyebrow, the H1, and the supporting paragraph in the exact rhythm used by the homepage cover, just at chapter weight.
 
-### Source data shape
+This pass is background-treatment only. No copy, no structure, no waypoint nav, no "Statement of purpose" §2 block changes.
 
-CSV columns: `vendor_name, status, verification_badge, fulfillment, category, clinical_focus, medical_director, source_type, address, website_url, last_reviewed, review_id, about_summary` — 4,265 rows.
+### What changes per page
 
-### Mapping rules (applied per row by an import script)
+For each page below, replace the hand-rolled white `§1 Hero` `<section>` with a single `<BriefingHero tone="navy" variant="chapter" category={eyebrow} title={h1} statement={leadParagraph} docId="" />`. Keep the existing `Breadcrumb` and `PageMeta` above it. Keep everything from `§2` onward exactly as-is.
 
-| CSV column | `Vendor` field | Transform |
-|---|---|---|
-| `vendor_name` | `name` | trimmed |
-| — | `slug` | kebab-case of `name`, deduped against existing 3,016 slugs and within batch by appending `-2`, `-3`, … |
-| — | `status` | hardcoded `"unverified"` |
-| `address` | `city`, `state`, `zip` | parsed: `"City, ST"` → city+state; `"123 St City ST 12345"` → city+state+zip; `"City ST"` → city+state; `"Not on file"` → omit all three |
-| `website_url` | `website` | `"Not on file"` → omit; else passed through `normalizeWebsite()` |
-| `medical_director` | `medicalDirector` | `"Pending Audit"` / `"Not on file"` → omit |
-| `clinical_focus` | `clinicalFocus[]` | split on `;` then `/`, trim, drop empties |
-| `category` | `category` | mapped to allowed `VendorCategory` union: `Wellness`→`Wellness`, `Longevity`→`Wellness`, anything containing `TRT`→`TRT Clinic`, `Hormone`→`Hormone Optimization`, `Peptide`→`Peptides`, `Pharmacy`→`Compounding Pharmacy`, else `Other` |
-| `about_summary` | `summary` | trimmed; `"Not on file"` → omit |
-| `last_reviewed`, `review_id`, `source_type`, `verification_badge`, `fulfillment` | — | not mapped (status is unverified; these are derived elsewhere or out of scope) |
+| Page | File | Eyebrow → `category` | H1 → `title` | Lead → `statement` |
+|---|---|---|---|---|
+| About | `src/pages/About.tsx` | "Organization & Mandate" | existing H1 | existing `heroDescription` |
+| Verification | `src/pages/HowItWorks.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
+| Medical Advisory | `src/pages/MedicalAdvisory.tsx` | "Medical Advisory Board" | "Clinical Oversight" | existing lead paragraph |
+| Resource Library | `src/pages/Education.tsx` | existing eyebrow | existing H1 | existing `HERO_DESCRIPTION` |
+| Terms | `src/pages/Terms.tsx` | "Registry User Agreement" | "Terms of Use" | existing `heroDescription` |
+| Privacy | `src/pages/Privacy.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
+| Status Definitions | `src/pages/StatusDefinitions.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
+| Enforcement | `src/pages/Accountability.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
+| Verification Disclaimer | `src/pages/VerificationDisclaimer.tsx` | existing eyebrow | existing H1 | existing `heroDescription` |
 
-`fulfillment` column from the CSV is intentionally not stored — `getVendorFulfillment()` already derives it from the absence/presence of `city`/`state`, which produces the correct result given our address parsing.
+The homepage (`Index.tsx`) is already correct (`variant="cover" tone="navy"`) — no change.
 
-### File modification
+### What does NOT change
 
-- Insert a new `// ---------- Batch (Census v5) ----------` marker before the closing `] as const;` at line 32971 in `src/data/vendors.ts`, followed by 4,265 new entry objects.
-- No changes to types, helpers, status labels, or the `vendors` export wiring.
-- All entries will display as **"No Records on File"** (the `unverified` stamp label defined in `StatusBadge.tsx`).
+- `Breadcrumb` placement and content.
+- The `§2 Statement of purpose` white block on each page — it stays white. This change unifies the **opening surface only**, not subsequent sections.
+- `SectionAnchorNav` placement and behavior.
+- All `SplitSection` / `ClauseList` content blocks.
+- Typography tokens, spacing tokens, page widths.
+- Routing.
 
-### Execution
+### Explicitly excluded from this pass (per the user's stated exception)
 
-A one-off Node script will:
-1. Read `src/data/vendors.ts`, extract existing slug set.
-2. Parse the CSV with proper quote handling (rows contain commas inside quoted fields).
-3. Apply the mapping above; deduplicate slugs against existing data and within the batch.
-4. Render entries as TS object literals (omitting empty/optional fields) and splice them in before `] as const;`.
-5. Report counts: rows read, entries written, slug collisions resolved, rows skipped.
+- Registry / database surfaces: `VerifiedVendors.tsx`, `Greenlist.tsx`, `VendorProfile.tsx`, `GreenlistProfile.tsx`, `AdvisorProfile.tsx`, `LibraryEntry.tsx` and the per-article library pages, `LibraryCategory.tsx`, `Apply.tsx`, `Contact.tsx`, `ReportConcern.tsx`, FAQ category interiors. These are product/database/intake/article surfaces and already use the right treatment for their function (some already use `BriefingHero tone="navy"`, others are intentionally form/article-flavored). Out of scope for this pass.
 
-Script lives in `/tmp/` (not committed). Only `src/data/vendors.ts` is modified.
+### Files touched
 
-### Out of scope
+- `src/pages/About.tsx`
+- `src/pages/HowItWorks.tsx`
+- `src/pages/MedicalAdvisory.tsx`
+- `src/pages/Education.tsx`
+- `src/pages/Terms.tsx`
+- `src/pages/Privacy.tsx`
+- `src/pages/StatusDefinitions.tsx`
+- `src/pages/Accountability.tsx`
+- `src/pages/VerificationDisclaimer.tsx`
 
-- No schema changes, no new categories, no UI changes
-- No deduplication across `vendor_name` (only slug collisions resolved with numeric suffix)
-- No backfill of `medicalDirector`, `summary`, etc. for existing entries
-- `source_type` and `verification_badge` columns ignored — registry derives those from `status`
+No component changes — `BriefingHero` already supports the target rendering exactly.
+
+### Result
+
+Moving between Home → About → Verification → Medical Advisory → Resource Library → Terms → Privacy → Status Definitions → Enforcement → Verification Disclaimer, every page opens on the same deep navy institutional surface with the same eyebrow/H1/lead rhythm. The §2 white "Purpose" block becomes the first transition into reading-density content on each page, creating a consistent navy → white → structured-sections cadence sitewide.
 
