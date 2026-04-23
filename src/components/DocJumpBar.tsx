@@ -4,12 +4,12 @@ import { useHeaderVisible } from "./SiteHeader";
 export type JumpWaypoint = { id: string; number: string; label: string };
 
 /**
- * DocJumpBar — adaptive "pill-to-bar" contents navigation.
+ * DocJumpBar — scroll-linked pill-to-bar morph.
  *
- * Resting: a slim pill centered on the navy/white seam. Once the user
- * scrolls past the pill itself, a single persistent <nav> morphs into a
- * full-width fixed bar via a 500ms cubic-bezier transition (no remount,
- * so width/radius/shadow actually tween).
+ * One sticky <nav> element. Width, radius, shadow, and border are
+ * interpolated directly from scroll position — no triggered transition,
+ * no positional jump. Pill widens as the user scrolls past the seam zone
+ * and narrows back as they scroll up.
  */
 export const DocJumpBar = ({
   waypoints,
@@ -19,26 +19,43 @@ export const DocJumpBar = ({
   tone?: "default" | "navy";
 }) => {
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
-  const [docked, setDocked] = useState(false);
+  const [progress, setProgress] = useState(0);
   const headerVisible = useHeaderVisible();
   const seamRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
 
   void tone;
 
   useEffect(() => {
-    const onScroll = () => {
+    const RUNWAY = 200; // px of scroll over which the pill fully widens
+
+    const compute = () => {
       const seam = seamRef.current;
       if (!seam) return;
       const headerOffset = headerVisible ? 64 : 0;
+      // Distance from the seam's bottom edge to the header offset.
+      // When seam.bottom === headerOffset, progress starts; after RUNWAY px more, it's complete.
       const bottom = seam.getBoundingClientRect().bottom;
-      setDocked(bottom < headerOffset);
+      const past = headerOffset - bottom; // positive once seam scrolls under header
+      const p = Math.max(0, Math.min(1, past / RUNWAY));
+      setProgress(p);
     };
-    onScroll();
+
+    const onScroll = () => {
+      if (rafRef.current != null) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        compute();
+      });
+    };
+
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
   }, [headerVisible]);
 
@@ -66,20 +83,35 @@ export const DocJumpBar = ({
   };
 
   const SEAM_HEIGHT = 44;
-  const morph =
-    "transition-[width,max-width,border-radius,box-shadow,top,padding,background-color,border-color] duration-500 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)]";
 
-  // Single persistent element. Position/geometry classes swap on docked state.
-  const restingClasses =
-    "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] max-w-[1200px] rounded-full shadow-lg border border-border bg-background";
-  const dockedTop = headerVisible ? "top-[64px]" : "top-0";
-  const dockedClasses = `fixed left-0 right-0 ${dockedTop} translate-x-0 translate-y-0 w-full max-w-none rounded-none shadow-none border-x-0 border-t-0 border-b border-border bg-background z-30`;
+  // Interpolated geometry — pure functions of `progress` (0 → 1).
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+  const widthPct = lerp(80, 100, progress); // 80% → 100%
+  const radiusPx = lerp(9999, 0, progress); // pill → square
+  const shadowOpacity = lerp(0.12, 0, progress); // shadow fades out
+  const borderOpacity = progress; // hairline fades in
+
+  const stickyTop = headerVisible ? 64 : 0;
+
+  const navStyle: React.CSSProperties = {
+    position: "sticky",
+    top: `${stickyTop}px`,
+    width: `${widthPct}%`,
+    maxWidth: progress < 1 ? "1200px" : "100%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderRadius: `${radiusPx}px`,
+    boxShadow: `0 10px 30px -10px hsl(0 0% 0% / ${shadowOpacity})`,
+    borderBottom: `1px solid hsl(var(--border) / ${borderOpacity})`,
+    backgroundColor: "hsl(var(--background))",
+    zIndex: 30,
+  };
 
   return (
     <>
-      {/* Seam zone — reserves vertical space and provides the navy/white split
-          the resting pill straddles. Height is fixed so the body never jumps
-          when the nav detaches into `fixed` positioning. */}
+      {/* Seam zone — reserves vertical space and provides the navy/white split.
+          The sticky <nav> lives inside it so it starts visually centered on the
+          seam at rest, then sticks to the header offset as the user scrolls. */}
       <div
         ref={seamRef}
         aria-hidden={false}
@@ -92,13 +124,20 @@ export const DocJumpBar = ({
       >
         <nav
           aria-label="Document contents"
-          className={`${morph} ${docked ? dockedClasses : restingClasses}`}
+          className="border border-border"
+          style={{
+            ...navStyle,
+            // Pull the sticky element up so at rest it straddles the seam.
+            // As progress grows, the negative margin eases to 0 so it sits flush at the top.
+            marginTop: `${lerp(-SEAM_HEIGHT / 2 - 16, 0, progress)}px`,
+            borderColor: `hsl(var(--border) / ${lerp(1, borderOpacity, progress)})`,
+          }}
         >
           <PillContents
             waypoints={waypoints}
             activeId={activeId}
             onJump={onJump}
-            flush={docked}
+            flush={progress > 0.95}
           />
         </nav>
       </div>
