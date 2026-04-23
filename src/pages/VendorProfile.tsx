@@ -161,7 +161,7 @@ const VendorProfile = () => {
   
   const location = formatLocation(vendor);
   const fulfillment = getVendorFulfillment(vendor);
-  const FulfillmentIcon = FULFILLMENT_ICON[fulfillment];
+  
   const sourceType = sourceTypeFor(vendor);
   const isPhysical = fulfillment === "in-person" || fulfillment === "hybrid";
   const fullAddress = isPhysical ? formatFullAddress(vendor) : null;
