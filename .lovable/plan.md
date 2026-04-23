@@ -1,43 +1,63 @@
 
 
-## Medical Advisory: Rewrite Sections 01 and 02 Copy
+## Clinical Oversight: Elevate Sections 01 & 02 to Registry-Grade Authority
 
-Update the copy in `src/pages/MedicalAdvisory.tsx` for the first two sections. Structure, layout, and styling stay identical — only text content changes.
+The current Sections 01 and 02 read as plain marketing copy in undifferentiated grids. To match the institutional gravitas of the rest of the site (Stripe-meets-government-registry), we restructure both into the same canonical "filing" pattern used elsewhere: monospace clause numbering, a left-rail headline + meta block, a hairline-divided ledger of statements on the right, and quiet typographic discipline.
 
-### Section 01 — "Transparency" → "Institutional Mandate"
+### Section 01 — Institutional Mandate
 
-Replace the `WHY_ITEMS` array (3 cards) with 4 statements, and update the section headline.
+Current: a 2×2 grid of equal-weight sentences. Reads soft.
 
-- **Headline**: `Transparency requires accountability.` → `Institutional Mandate`
-- **Body**: Replace the 3-card `WHY_ITEMS` grid with 4 statements:
-  1. The Medical Advisory Board provides independent clinical oversight of the verification framework.
-  2. Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.
-  3. The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.
-  4. To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.
+New: **two-column filing layout** matching Section 02's existing rhythm.
 
-Layout adjustment: switch the 3-column `md:grid-cols-3` divided grid to a 4-statement layout. Cleanest fit at this width: a 2×2 grid (`md:grid-cols-2`) with divider treatment matching the rest of the page, or a stacked numbered list. Recommendation: **2×2 grid with hairline dividers** to preserve the institutional rhythm of the existing design. Each statement renders as `t-body-md` foreground text (no separate title/body split since these are single declarative statements).
+```text
+01                                                     |  CLAUSE 01.A   The Medical Advisory Board provides
+                                                       |                independent clinical oversight of the
+INSTITUTIONAL                                          |                verification framework.
+MANDATE                                                |  ─────────────────────────────────────────────────
+                                                       |  CLAUSE 01.B   Audit determinations are findings of
+Issued under SS-MAB-2026.01                            |                record based on documented pharmacy
+Effective: current registry cycle                      |                sourcing, licensure, and regulatory
+                                                       |                standing.
+                                                       |  ─────────────────────────────────────────────────
+                                                       |  CLAUSE 01.C   The Board maintains the integrity of
+                                                       |                the standard through periodic review
+                                                       |                of forensic audit criteria.
+                                                       |  ─────────────────────────────────────────────────
+                                                       |  CLAUSE 01.D   To ensure objective distance, Board
+                                                       |                members do not participate in vendor
+                                                       |                approvals or commercial activities.
+```
 
-### Section 02 — "Verification Chain" → "Governance Framework"
+- Left rail (`md:col-span-5`): mono `01` index, large `t-section-title-sm` headline, then a small meta block in `t-utility-xs` muted (Issued under / Effective).
+- Right column (`md:col-span-7`, hairline left border): an `<ol>` of four clauses, each row: `CLAUSE 01.A` mono label (col-span-3) + statement body (col-span-9), separated by `divide-y divide-border/60`.
+- Statement body uses `t-body-md text-foreground` with comfortable leading; first sentence-fragment of each clause stays bold-foreground (none here, since these are single statements).
 
-Replace the `ROLE_FUNCTIONS` array (4 items) and update the headline + supporting paragraph. The existing left-rail / right-list 12-column structure is preserved.
+### Section 02 — Governance Framework
 
-- **Headline**: `The verification chain` → `Governance Framework`
-- **Supporting paragraph** (left rail): remove or replace with a brief framing line. Recommendation: remove the existing "The Board sits above the operational registry…" paragraph entirely since the new content is self-contained, OR replace with a single sentence. Recommendation: **remove** to let the four-item list carry the section.
-- **Update `ROLE_FUNCTIONS`** (keep `01`–`04` numbering, title + description shape):
-  1. **Regulatory Thresholds** — Establishing the clinical and statutory requirements for pharmaceutical sourcing verification.
-  2. **Supplier Validation** — Defining the criteria for the recognition of greenlisted upstream pharmacy partners.
-  3. **Administrative Audits** — Conducting randomized reviews of vendor records to ensure consistency with pharmacy-of-record data.
-  4. **Protocol Evolution** — Authorizing updates to the Source Standard in alignment with evolving FDA and state regulatory guidelines.
+Current: clean ledger but still feels light because rows have only `01 / Title / desc`. We tighten and dignify it without breaking the structure.
 
-### Waypoint Labels (DocJumpBar)
+- Keep the left-rail / right-list 12-col grid.
+- Add a meta block under the headline mirroring Section 01: `Authority: Medical Advisory Board` / `Reference: §02 of SS-MAB-2026.01`.
+- In the right column, prepend a tiny ledger header row: `FUNCTION` (left) · `STATUTORY BASIS` (right), in `t-utility-xs uppercase tracking-wide text-muted-foreground`, divider beneath. This single header transforms the list from "bullet points" into "registry schedule".
+- Each row becomes: `01` mono · Title (semibold foreground) · description (muted), with the title and description stacked tightly. Increase `py-6` for breathing room; hairline divider stays.
+- Add a closing footer line under the list: small mono caption — `End of Schedule §02 · 4 functions enumerated` — muted, right-aligned. This is the single move that pushes the section from "list" to "filed instrument".
 
-Update the `WAYPOINTS` array to reflect the new section names so the sticky pill bar matches:
-- `01 Transparency` → `01 Mandate`
-- `02 Verification Chain` → `02 Governance`
+### Shared Discipline (both sections)
 
-(Sections 03 Members, 04 Scope, 05 Responsibilities remain unchanged.)
+- Replace the existing `<SectionIndex n="01" />` floating number with the integrated left-rail mono index used in Section 02's pattern (consistency).
+- Add a thin top hairline rule (`border-t border-border/60`) at the start of each section's content area below the headline rail to formalize the "document opens here" feel.
+- Keep `section-pad` and `border-b border-border/40` between sections — already correct.
+- All numerals/labels use `font-mono tabular-nums` so figures align like a ledger.
+
+### Why this reads as authority
+
+1. **Numbered clauses with formal labels** (`CLAUSE 01.A`) signal a filed standard, not a webpage.
+2. **Left-rail headline + issuance metadata** is the visual grammar of legal/regulatory documents.
+3. **Schedule header + footer caption** in Section 02 frames the list as an enumerated instrument.
+4. **Mono tabular labels** + hairline rules = registry typography, not marketing copy.
 
 ### Files Edited
 
-- `src/pages/MedicalAdvisory.tsx`
+- `src/pages/MedicalAdvisory.tsx` (Sections 01 and 02 only; rest of page untouched)
 
