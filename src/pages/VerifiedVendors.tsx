@@ -400,7 +400,7 @@ const VerifiedVendors = () => {
             <QueryBar
               query={query}
               onQueryChange={setQuery}
-              searchPlaceholder="Search vendors by name, city, or focus"
+              searchPlaceholder="Search Facility Database..."
               resultLabel={
                 sorted.length === 0
                   ? "0 of 0"
