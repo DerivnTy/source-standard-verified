@@ -25,17 +25,10 @@ const formatLocation = (vendor: Vendor) => {
 
 const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<CategoryFilter>("all");
-  const [sort, setSort] = useState<SortMode>("name-asc");
+  const [statusPill, setStatusPill] = useState<StatusPill>("all");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const [categorySheetOpen, setCategorySheetOpen] = useState(false);
-  const [sortSheetOpen, setSortSheetOpen] = useState(false);
 
   const states = useMemo(() => getVendorStates(), []);
-  const categories = useMemo(
-    () => Array.from(new Set(vendors.map((vendor) => vendor.category))).sort((a, b) => a.localeCompare(b)),
-    [],
-  );
 
   const fulfillmentByVendor = useMemo(() => {
     const map = new Map<string, VendorFulfillment>();
