@@ -77,8 +77,8 @@ export const BriefingHero = ({
           />
           <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
-          <div className="relative z-30 container-wide flex flex-col items-center justify-center min-h-[100svh] py-24 text-center">
-            <div className="relative max-w-[760px] mx-auto px-6">
+          <div className="relative z-30 page-shell flex flex-col justify-center min-h-[100svh] py-24">
+            <div className="relative w-hero">
               <img
                 src={logoLight}
                 alt="Source Standard"
@@ -87,28 +87,31 @@ export const BriefingHero = ({
                 loading="eager"
                 decoding="sync"
                 fetchPriority="high"
-                className="mx-auto h-16 sm:h-20 md:h-24 w-auto mb-8"
+                className="h-12 sm:h-16 md:h-20 w-auto mb-8"
               />
               {brandMark && <span className="sr-only">{brandMark}</span>}
 
               <div
-                className="mx-auto h-px w-12 bg-white/20 mb-8"
+                className="h-px w-12 bg-white/20 mb-8"
                 aria-hidden="true"
               />
 
               <h1
                 id="briefing-title"
-                className="text-white max-w-[52ch] mx-auto t-body-sm font-mono font-medium uppercase text-balance"
-                style={{ letterSpacing: "0.16em" }}
+                className="text-white max-w-[22ch] text-[34px] sm:text-[44px] md:text-[56px] font-semibold tracking-[-0.018em] text-balance"
+                style={{ lineHeight: 1.2 }}
               >
                 {title}
               </h1>
 
-              <p className="mt-9 max-w-[58ch] mx-auto text-[14.5px] text-white/70 leading-[1.7]">
+              <p
+                className="mt-6 max-w-[58ch] text-[15px] sm:text-[16px] text-white/70"
+                style={{ lineHeight: 1.6 }}
+              >
                 {statement}
               </p>
               {actions && (
-                <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 [&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:text-left [&>*]:text-center">
+                <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 [&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:text-center [&>*]:text-center">
                   {actions}
                 </div>
               )}

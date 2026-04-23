@@ -94,9 +94,9 @@ export const SiteHeader = () => {
               to={n.to}
               end
               className={({ isActive }) =>
-                `relative inline-flex items-center h-10 t-nav transition-colors ${
+                `relative inline-flex items-center h-10 font-mono text-[12px] uppercase tracking-[0.12em] transition-colors ${
                   isActive
-                    ? "text-foreground font-semibold after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
+                    ? "text-foreground font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`
               }
@@ -110,7 +110,7 @@ export const SiteHeader = () => {
             asChild
             variant="outline"
             size="sm"
-            className="h-9 px-4 t-nav rounded-md border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40"
+            className="h-9 px-4 font-mono text-[12px] uppercase tracking-[0.12em] rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
           >
             <Link to="/apply">Apply for Verification</Link>
           </Button>
@@ -134,8 +134,8 @@ export const SiteHeader = () => {
                 end
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `py-3.5 text-[14.5px] border-b border-border last:border-0 ${
-                    isActive ? "text-foreground font-semibold" : "text-muted-foreground font-medium"
+                  `py-3.5 font-mono text-[12px] uppercase tracking-[0.12em] border-b border-border last:border-0 ${
+                    isActive ? "text-foreground font-medium" : "text-muted-foreground"
                   }`
                 }
               >
@@ -146,7 +146,7 @@ export const SiteHeader = () => {
               asChild
               variant="outline"
               size="sm"
-              className="mt-4 mb-2 h-11 border border-foreground/20 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground/40 rounded-md t-nav"
+              className="mt-4 mb-2 h-11 border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground rounded-[2px] font-mono text-[12px] uppercase tracking-[0.12em]"
             >
               <Link to="/apply" onClick={() => setOpen(false)}>
                 Apply for Verification
