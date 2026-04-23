@@ -10,9 +10,13 @@ export const GlobalUtilityBar = () => {
     <div
       role="contentinfo"
       aria-label="Framework tagline"
+      className="!bg-white"
       style={{
         backgroundColor: "#FFFFFF",
         borderBottom: "0.5px solid #E5E5EA",
+        backdropFilter: "none",
+        WebkitBackdropFilter: "none",
+        boxShadow: "none",
       }}
     >
       <div

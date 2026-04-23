@@ -67,10 +67,13 @@ export const SiteHeader = () => {
 
   return (
     <header
-      className="sticky top-0 z-50"
+      className="sticky top-0 z-50 !bg-white"
       style={{
         backgroundColor: "#FFFFFF",
         borderBottom: "0.5px solid #E5E5EA",
+        backdropFilter: "none",
+        WebkitBackdropFilter: "none",
+        boxShadow: "none",
       }}
     >
       <div
