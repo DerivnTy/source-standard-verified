@@ -316,7 +316,7 @@ const Greenlist = () => {
 
       {/* Query + table — one instrument */}
       <section className="bg-background">
-        <div className="page-shell pt-12 pb-12 md:pb-14">
+        <div className="page-shell pt-8 pb-12 md:pb-14">
           <div className="mx-auto w-wide">
             <QueryBar
               query={query}
