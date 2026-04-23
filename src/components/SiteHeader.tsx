@@ -35,16 +35,6 @@ const setHeaderVisibleGlobal = (v: boolean) => {
 
 export const useHeaderVisible = () => {
   const [v, setV] = useState(_headerVisible);
-  // Lock body scroll when full-screen menu is open
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
-
   useEffect(() => {
     visibilityListeners.add(setV);
     setV(_headerVisible);
