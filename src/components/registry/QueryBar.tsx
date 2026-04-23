@@ -63,8 +63,8 @@ export const QueryBar = ({
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full pl-10 pr-16 h-12 bg-background rounded-[2px] font-mono text-[13px] text-foreground placeholder:text-[#64748B] placeholder:font-mono placeholder:tracking-[0.04em] focus:outline-none focus:ring-0"
-            style={{ border: "2px solid #64748B" }}
+            className="w-full pl-10 pr-16 h-10 bg-background rounded-[2px] font-mono text-[12px] tracking-[0.06em] text-foreground placeholder:text-[#64748B] placeholder:font-mono placeholder:tracking-[0.08em] focus:outline-none focus:ring-0"
+            style={{ border: "1px solid #64748B" }}
             aria-label="Search registry"
           />
           <kbd
