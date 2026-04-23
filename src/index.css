@@ -43,7 +43,8 @@ html {
     --secondary-foreground: 222 47% 11%;
 
     --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 38%;
+    /* Slate 700 (#334155) — softer than pure black, locked institutional body tone */
+    --muted-foreground: 215 25% 27%;
 
     --accent: 210 40% 96%;
     --accent-foreground: 222 47% 11%;
@@ -325,6 +326,21 @@ html {
     padding-bottom: 64px !important;
   }
   footer { margin-top: 0 !important; }
+
+  /* ─── Final typography refinement (sitewide) ───
+     Body text breathes at 1.6; H2 tightens at -0.01em for a printed feel.
+     On mobile, prose paragraphs are capped at ~48ch and right-padded
+     so no line of body text stretches past the institutional column. */
+  p { line-height: 1.6; }
+  h2 { letter-spacing: -0.01em; }
+
+  @media (max-width: 767px) {
+    section p,
+    .section-pad p {
+      max-width: 48ch;
+      padding-right: 10%;
+    }
+  }
 
   /* ─── Section heading rhythm protocol (locked, sitewide) ───
      Mono index number → H2 : 12px
