@@ -263,8 +263,8 @@ const VerifiedVendors = () => {
               })}
             </div>
 
-            {/* Vendor card stack */}
-            <div className="mt-6">
+            {/* Vendor card stack — fade-in on filter change */}
+            <div key={fadeKey} className="mt-6 animate-fade-in">
               {sorted.length === 0 ? (
                 <EmptyState
                   eyebrow="No matching vendors"
