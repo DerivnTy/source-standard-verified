@@ -68,30 +68,40 @@ const VerifiedVendors = () => {
 
     return vendors.filter((vendor) => {
       if (normalizedQuery) {
-        const haystack = [
-          vendor.name,
-          vendor.city,
-          vendor.state,
-          vendor.category,
-          ...(vendor.clinicalFocus ?? []),
-        ]
+        const haystack = [vendor.name, vendor.city, vendor.state]
           .filter(Boolean)
           .join(" ")
           .toLowerCase();
-
         const textMatch = haystack.includes(normalizedQuery);
         const stateMatch = stateAbbr ? vendor.state === stateAbbr : false;
-
         if (!textMatch && !stateMatch) return false;
       }
 
-      if (category !== "all" && vendor.category !== category) return false;
+      if (statusPill === "verified" && vendor.status !== "verified") return false;
+      if (statusPill === "unverified" && vendor.status === "verified") return false;
 
       return true;
     });
-  }, [query, category]);
+  }, [query, statusPill]);
 
-  const sorted = useMemo(() => {
+  const sorted = useMemo(
+    () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
+    [filtered],
+  );
+
+  const visibleItems = sorted.slice(0, visibleCount);
+  const hasMore = visibleCount < sorted.length;
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [query, statusPill]);
+
+  const pills: { value: StatusPill; label: string }[] = [
+    { value: "all", label: "All" },
+    { value: "verified", label: "Verified" },
+    { value: "unverified", label: "Unverified" },
+  ];
+
   return (
     <>
       <PageMeta
@@ -116,16 +126,16 @@ const VerifiedVendors = () => {
       />
 
       <section className="bg-background">
-        <div className="page-shell pt-12 pb-20 md:pt-14 md:pb-14">
+        <div className="page-shell pt-10 pb-20 md:pt-12 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Custom underline search input */}
+            {/* Universal search */}
             <div className="px-5 md:px-0">
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by name, city, state…"
-                aria-label="Search the registry"
-                className="font-sans w-full bg-transparent py-3 text-[15px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
+                placeholder="Search by name, city, or state..."
+                aria-label="Search by name, city, or state"
+                className="font-sans w-full bg-transparent py-3 text-[16px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none"
                 style={{
                   borderBottom: "1px solid hsl(var(--border))",
                   transition: "border-color 0.5s ease",
@@ -141,27 +151,37 @@ const VerifiedVendors = () => {
               />
             </div>
 
-            {/* Filter / Sort triggers */}
-            <div className="mt-4 flex items-center gap-2 px-5 md:px-0">
-              <button
-                type="button"
-                onClick={() => setCategorySheetOpen(true)}
-                className="inline-flex h-10 items-center gap-2 rounded-[2px] border border-border bg-background px-3.5 text-[13px] text-foreground transition-colors hover:border-foreground/40"
-              >
-                <SlidersHorizontal className="h-3.5 w-3.5" />
-                <span className="font-sans">{activeCategoryLabel}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setSortSheetOpen(true)}
-                className="inline-flex h-10 items-center gap-2 rounded-[2px] border border-border bg-background px-3.5 text-[13px] text-foreground transition-colors hover:border-foreground/40"
-              >
-                <ArrowUpDown className="h-3.5 w-3.5" />
-                <span className="font-sans">{activeSortLabel}</span>
-              </button>
-              <div className="ml-auto font-mono text-[11.5px] text-muted-foreground tabular-nums">
-                {sorted.length.toLocaleString()} / {vendors.length.toLocaleString()}
-              </div>
+            {/* Status pill bar — horizontal scroll, no Apply */}
+            <div
+              className="mt-4 flex gap-2 overflow-x-auto px-5 md:px-0"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              <style>{`.pill-scroll::-webkit-scrollbar{display:none}`}</style>
+              {pills.map((p) => {
+                const active = statusPill === p.value;
+                return (
+                  <button
+                    key={p.value}
+                    type="button"
+                    onClick={() => setStatusPill(p.value)}
+                    className="pill-scroll shrink-0 rounded-full px-4 font-sans text-[13.5px] font-medium transition-all"
+                    style={{
+                      height: "34px",
+                      backgroundColor: active
+                        ? "hsl(var(--navy-surface))"
+                        : "transparent",
+                      color: active
+                        ? "hsl(var(--background))"
+                        : "hsl(var(--foreground))",
+                      border: active
+                        ? "1px solid hsl(var(--navy-surface))"
+                        : "1px solid hsl(var(--border))",
+                    }}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Vendor card stack */}
@@ -201,12 +221,9 @@ const VerifiedVendors = () => {
                             Math.min(n + PAGE_SIZE, sorted.length),
                           )
                         }
-                        className="inline-flex h-11 items-center justify-center rounded-[2px] border border-foreground/15 bg-background px-6 font-sans text-[13px] font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-[hsl(var(--muted))]/40"
+                        className="inline-flex h-11 items-center justify-center rounded-full border border-foreground/15 bg-background px-6 font-sans text-[13.5px] font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-[hsl(var(--muted))]/40"
                       >
                         Load More
-                        <span className="ml-2 font-mono text-[11px] text-muted-foreground tabular-nums">
-                          +{Math.min(PAGE_SIZE, sorted.length - visibleCount)}
-                        </span>
                       </button>
                     </div>
                   )}
@@ -216,23 +233,6 @@ const VerifiedVendors = () => {
           </div>
         </div>
       </section>
-
-      <FilterBottomSheet
-        open={categorySheetOpen}
-        onOpenChange={setCategorySheetOpen}
-        title="Filter by Category"
-        options={categoryOptions}
-        value={category}
-        onChange={(v) => setCategory(v)}
-      />
-      <FilterBottomSheet
-        open={sortSheetOpen}
-        onOpenChange={setSortSheetOpen}
-        title="Sort Records"
-        options={sortOptions}
-        value={sort}
-        onChange={(v) => setSort(v as SortMode)}
-      />
 
       <section className="border-t border-border bg-surface-muted/30">
         <div className="page-shell pt-16 md:pt-20" style={{ paddingBottom: "80px" }}>
