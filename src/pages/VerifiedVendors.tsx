@@ -1,20 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { Building2, Globe, MapPin } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
-import { StatusBadge } from "@/components/StatusBadge";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import {
   QueryBar,
   FacetSelect,
-  FacetGroup,
-  FacetToggle,
-  FacetDivider,
   ActiveChip,
 } from "@/components/registry/QueryBar";
 import { RegistryPagination } from "@/components/registry/RegistryPagination";
-import { VerificationShield } from "@/components/registry/VerificationShield";
 import { VendorAuditCard } from "@/components/registry/VendorAuditCard";
 import {
   vendors,
@@ -26,10 +20,8 @@ import {
   getVendorCityKey,
   getClinicalFocusOptions,
   getVendorFulfillment,
-
   VendorFulfillment,
   VENDOR_FULFILLMENT_LABEL,
-  VENDOR_FULFILLMENT_DESC,
 } from "@/data/vendors";
 
 const ALL = "__all__";
@@ -64,20 +56,6 @@ const STATUS_LEGEND_DESC: Record<VendorPublicStatus, string> = {
   removed: "Listing removed from the public directory; record preserved for transparency.",
 };
 
-
-const FulfillmentChip = ({ kind }: { kind: VendorFulfillment }) => {
-  const Icon =
-    kind === "in-person" ? Building2 : kind === "online" ? Globe : MapPin;
-  return (
-    <span
-      title={VENDOR_FULFILLMENT_DESC[kind]}
-      className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded-[2px] border border-border/70 bg-surface-muted/40 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted-foreground whitespace-nowrap"
-    >
-      <Icon className="h-2.5 w-2.5" aria-hidden />
-      {VENDOR_FULFILLMENT_LABEL[kind]}
-    </span>
-  );
-};
 
 const formatLocation = (v: Vendor) => {
   if (v.city && v.state) return `${v.city}, ${v.state}`;
@@ -281,48 +259,29 @@ const VerifiedVendors = () => {
 
   const facets = (
     <>
-      {/* Verified-only — primary trust filter */}
-      <FacetGroup ariaLabel="Verification filter">
-        <FacetToggle
-          active={verifiedOnly === "all"}
-          onClick={() => setVerifiedOnly("all")}
-        >
-          Show all
-        </FacetToggle>
-        <FacetToggle
-          tone="verified"
-          active={verifiedOnly === "verified"}
-          onClick={() => setVerifiedOnly("verified")}
-        >
-          Verified only
-        </FacetToggle>
-      </FacetGroup>
+      <FacetSelect
+        value={status}
+        onChange={setStatus}
+        ariaLabel="Filter by status"
+      >
+        <option value={ALL}>All statuses</option>
+        {STATUS_ORDER.map((s) => (
+          <option key={s} value={s}>
+            {VENDOR_STATUS_LABEL[s]}
+          </option>
+        ))}
+      </FacetSelect>
 
-      <FacetDivider />
-
-      {/* Fulfillment — second core filter */}
-      <FacetGroup ariaLabel="Fulfillment filter">
-        {(
-          [
-            { value: "in-person", label: "In-Person" },
-            { value: "online", label: "Online" },
-            { value: "hybrid", label: "Hybrid" },
-          ] as { value: VendorFulfillment; label: string }[]
-        ).map((opt) => {
-          const active = fulfillment === opt.value;
-          return (
-            <FacetToggle
-              key={opt.value}
-              active={active}
-              onClick={() => setFulfillment(active ? "all" : opt.value)}
-            >
-              {opt.label}
-            </FacetToggle>
-          );
-        })}
-      </FacetGroup>
-
-      <FacetDivider />
+      <FacetSelect
+        value={fulfillment}
+        onChange={(v) => setFulfillment(v as FulfillmentFilter)}
+        ariaLabel="Filter by fulfillment"
+      >
+        <option value="all">All fulfillment</option>
+        <option value="in-person">In-Person</option>
+        <option value="online">Online</option>
+        <option value="hybrid">Hybrid</option>
+      </FacetSelect>
 
       <FacetSelect
         value={state}
@@ -355,14 +314,13 @@ const VerifiedVendors = () => {
         onChange={setFocus}
         ariaLabel="Filter by clinical focus"
       >
-        <option value={ALL}>All clinical focus</option>
+        <option value={ALL}>All focus areas</option>
         {focusOptions.map((f) => (
           <option key={f} value={f}>
             {f}
           </option>
         ))}
       </FacetSelect>
-
     </>
   );
 
@@ -400,10 +358,10 @@ const VerifiedVendors = () => {
 
       {/* Query + result surface */}
       <section className="bg-background">
-        <div className="page-shell pt-20 pb-20 md:pt-14 md:pb-14">
+        <div className="page-shell pt-12 pb-20 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* View toggle — slim, sharp rectangular */}
-            <div className="mb-3 flex justify-end">
+            {/* View toggle — slim, sharp, sits above the search */}
+            <div className="mb-3 flex justify-end px-5 md:px-0">
               <div
                 role="radiogroup"
                 aria-label="View mode"
@@ -423,7 +381,7 @@ const VerifiedVendors = () => {
                       role="radio"
                       aria-checked={active}
                       onClick={() => setView(opt.value)}
-                      className={`h-8 px-3 text-[12px] transition-colors ${
+                      className={`h-7 px-3 text-[11.5px] transition-colors ${
                         i > 0 ? "border-l" : ""
                       } ${
                         active
@@ -439,44 +397,14 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            {/* Status Tabs — slim rectangular, navy when active */}
-            <div
-              role="tablist"
-              aria-label="Filter by status"
-              className="mb-4 flex flex-wrap overflow-hidden rounded-[2px]"
-              style={{ border: "1px solid hsl(var(--border))" }}
-            >
-              {STATUS_TABS.map((t, i) => {
-                const active = status === t.value;
-                return (
-                  <button
-                    key={t.value}
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => setStatus(t.value)}
-                    className={`h-9 px-4 text-[12.5px] transition-colors ${
-                      i > 0 ? "border-l" : ""
-                    } ${
-                      active
-                        ? "bg-[hsl(var(--navy-surface))] text-white"
-                        : "bg-background text-muted-foreground hover:text-foreground hover:bg-surface-muted/40"
-                    }`}
-                    style={{ borderColor: "hsl(var(--border))" }}
-                  >
-                    {t.label}
-                  </button>
-                );
-              })}
-            </div>
-
             <QueryBar
               query={query}
               onQueryChange={setQuery}
               searchPlaceholder="Search vendors by name, city, or focus"
               resultLabel={
                 sorted.length === 0
-                  ? "0 of 0 records"
-                  : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()} records`
+                  ? "0 of 0"
+                  : `${sorted.length.toLocaleString()} of ${vendors.length.toLocaleString()}`
               }
               sortControl={sortControl}
               facets={facets}
@@ -484,9 +412,6 @@ const VerifiedVendors = () => {
               onReset={reset}
               activeChips={activeChips}
             />
-            <p className="mt-3 px-5 md:px-0 text-[12px] text-muted-foreground">
-              Filter by state or fulfillment.
-            </p>
 
             <div className="mt-5">
               {sorted.length === 0 ? (

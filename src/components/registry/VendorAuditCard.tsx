@@ -85,8 +85,8 @@ export const VendorAuditCard = ({
     vendor.status === "suspended" ||
     vendor.status === "removed";
 
-  // Light red wash for unverified — warning, not aggressive.
-  const unverifiedWash = "rgba(254, 226, 226, 0.45)"; // red-100 @ 45%
+  // Subtle red wash — deliberate "Incomplete" marker, not a warning state.
+  const unverifiedWash = "rgba(255, 0, 0, 0.03)";
 
   if (view === "list") {
     return (
