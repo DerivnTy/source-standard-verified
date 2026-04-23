@@ -135,6 +135,7 @@ const Index = () => {
       <section aria-labelledby="trust-problem" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">01</p>
             <h2
               id="trust-problem"
               className="t-section-title-sm text-foreground max-w-[28ch]"
@@ -156,6 +157,7 @@ const Index = () => {
       <section aria-labelledby="how-it-works" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">02</p>
             <h2
               id="how-it-works"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -182,6 +184,7 @@ const Index = () => {
       <section aria-labelledby="live-registry" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">03</p>
             <h2
               id="live-registry"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -211,6 +214,7 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <div className="grid grid-cols-12 gap-8 md:gap-12">
               <div className="col-span-12 md:col-span-4">
+                <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">04</p>
                 <h2
                   id="registry-shows"
                   className="t-section-title-sm text-foreground max-w-[18ch]"
@@ -248,6 +252,7 @@ const Index = () => {
       <section aria-labelledby="why-matters" className="border-b border-border bg-background">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">05</p>
             <h2
               id="why-matters"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -270,6 +275,7 @@ const Index = () => {
       <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard">
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">06</p>
             <h2
               id="basics"
               className="t-section-title-sm text-foreground max-w-[34ch]"
@@ -311,6 +317,7 @@ const Index = () => {
       <section aria-labelledby="governance" className="border-b border-border bg-background">
         <div className="page-shell section-pad pb-0">
           <div className="mx-auto w-standard">
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">07</p>
             <h2
               id="governance"
               className="t-section-title-sm text-foreground max-w-[34ch]"
