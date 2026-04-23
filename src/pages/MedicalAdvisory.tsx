@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ShieldCheck } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { advisoryBoard } from "@/data/advisoryBoard";
@@ -176,11 +177,14 @@ const MedicalAdvisory = () => {
                 </h2>
               </div>
 
-              <ul className="grid md:grid-cols-2 gap-x-10 gap-y-12">
+              <ul className="grid md:grid-cols-2 gap-5">
                 {advisoryBoard.map((m) => {
                   const boardTitle = BOARD_TITLE_OVERRIDES[m.slug] ?? m.boardTitle;
                   return (
-                    <li key={m.slug} className="flex flex-col">
+                    <li
+                      key={m.slug}
+                      className="flex flex-col rounded-md border border-border bg-card shadow-sm p-6"
+                    >
                       <div className="flex gap-5 pb-5 mb-5 border-b border-border/60">
                         <img
                           src={m.photo}
@@ -189,7 +193,7 @@ const MedicalAdvisory = () => {
                           decoding="async"
                           width={96}
                           height={96}
-                          className="h-20 w-20 rounded-[2px] object-cover border border-border bg-surface-muted shrink-0"
+                          className="h-20 w-20 rounded-[2px] object-cover border border-border bg-surface-muted shrink-0 aspect-square"
                         />
                         <div className="flex-1 min-w-0">
                           <h3 className="t-body-md font-semibold tracking-tight text-foreground leading-snug">
@@ -217,6 +221,84 @@ const MedicalAdvisory = () => {
                     </li>
                   );
                 })}
+              </ul>
+            </section>
+
+            {/* Scope & boundaries */}
+            <section className="section-pad border-b border-border/40">
+              <div className="grid md:grid-cols-12 md:gap-10">
+                <div className="md:col-span-5">
+                  <h2 className="t-section-title-sm text-foreground">
+                    Scope & boundaries
+                  </h2>
+                </div>
+                <div className="md:col-span-7 mt-8 md:mt-0 md:border-l md:border-border/50 md:pl-10">
+                  <ul className="divide-y divide-border/60">
+                    {BOUNDARIES.map((b) => (
+                      <li key={b} className="py-4 first:pt-0 last:pb-0 t-body-md text-foreground">
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Responsibilities — full-width SOP list on tinted surface */}
+            <section className="-mx-6 md:-mx-10 lg:-mx-16 px-6 md:px-10 lg:px-16 py-12 md:py-14 bg-surface-muted/60 border-y border-border/40">
+              <div className="mb-8 max-w-[60ch]">
+                <h2 className="t-section-title-sm text-foreground">
+                  Responsibilities
+                </h2>
+                <p className="mt-3 t-body-md text-muted-foreground">
+                  Each responsibility maps to a recurring oversight activity recorded under the registry's maintenance log.
+                </p>
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-5">
+                {RESPONSIBILITY_ORDER.map((code) => {
+                  const o = RESPONSIBILITY_OVERRIDES[code];
+                  if (!o) return null;
+                  return (
+                    <li key={code} className="flex gap-3.5">
+                      <ShieldCheck
+                        className="mt-0.5 h-4 w-4 shrink-0 text-verified"
+                        aria-hidden="true"
+                        strokeWidth={2.25}
+                      />
+                      <div>
+                        <p className="t-body-md font-semibold text-foreground">{o.title}</p>
+                        <p className="mt-1 t-body-md text-muted-foreground">{o.description}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+
+            {/* Bridge — Continue reading */}
+            <section className="pt-12 pb-12">
+              <h2 className="t-section-title-sm text-foreground mb-6">
+                Continue reading
+              </h2>
+              <ul className="divide-y divide-border/60">
+                {BRIDGE_LINKS.map((b) => (
+                  <li key={b.to}>
+                    <Link
+                      to={b.to}
+                      className="grid grid-cols-12 gap-4 py-5 group items-baseline"
+                    >
+                      <p className="col-span-12 md:col-span-4 t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {b.label}
+                      </p>
+                      <p className="col-span-12 md:col-span-7 t-body-md text-muted-foreground">
+                        {b.description}
+                      </p>
+                      <span className="col-span-12 md:col-span-1 t-body-md text-muted-foreground md:text-right group-hover:text-primary transition-colors">
+                        →
+                      </span>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </section>
 
