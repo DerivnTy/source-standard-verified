@@ -47,7 +47,7 @@ export const StatusBadge = ({
         aria-hidden
         className="inline-block w-[2px] h-3 bg-current"
       />
-      {VENDOR_STATUS_LABEL[key]}
+      {stampLabel[key] ?? VENDOR_STATUS_LABEL[key]}
     </span>
   );
 };
