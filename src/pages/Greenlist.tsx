@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
-import { RegistrySummaryStrip } from "@/components/registry/RegistrySummaryStrip";
+import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import {
   QueryBar,
   FacetSelect,
@@ -305,50 +305,18 @@ const Greenlist = () => {
         recordCount={counts.total}
       />
 
-      <RegistrySummaryStrip
+      <RegistryHorizon
         cells={[
-          {
-            label: "Total recognized",
-            value: counts.recognized,
-            tickClassName: "bg-foreground/40",
-            shareOf: counts.total,
-          },
-          {
-            label: "503B",
-            value: counts["503B"],
-            tickClassName: "bg-[hsl(var(--src-503b))]",
-            shareOf: counts.total,
-          },
-          {
-            label: "503A",
-            value: counts["503A"],
-            tickClassName: "bg-[hsl(var(--src-503a))]",
-            shareOf: counts.total,
-          },
-          {
-            label: "Other",
-            value: counts.Other,
-            tickClassName: "bg-[hsl(var(--src-other))]",
-            shareOf: counts.total,
-          },
-          {
-            label: "Not recognized",
-            value: counts.notRecognized,
-            tickClassName: "bg-destructive",
-            shareOf: counts.total,
-            tone: "destructive",
-          },
-          {
-            label: "States represented",
-            value: counts.statesRepresented,
-            tickClassName: "bg-foreground/40",
-          },
+          { label: "Total Recognized", value: counts.recognized },
+          { label: "503B Facilities", value: counts["503B"] },
+          { label: "503A Facilities", value: counts["503A"] },
+          { label: "Registry Status", value: "ACTIVE", live: true },
         ]}
       />
 
       {/* Query + table — one instrument */}
       <section className="bg-background">
-        <div className="page-shell pt-8 md:pt-10 pb-12 md:pb-14">
+        <div className="page-shell pt-12 pb-12 md:pb-14">
           <div className="mx-auto w-wide">
             <QueryBar
               query={query}
