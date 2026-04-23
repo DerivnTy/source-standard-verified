@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Eyebrow, PageTitle, Lead } from "@/components/system";
+import { PageTitle, Lead } from "@/components/system";
 
 /**
  * PageHeader — token-aligned page intro band.

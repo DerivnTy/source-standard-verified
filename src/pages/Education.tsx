@@ -53,11 +53,6 @@ const FILTER_TABS: { id: "all" | CategoryId; label: string }[] = [
   { id: "consumer", label: "Consumer" },
 ];
 
-const EYEBROW_BY_CATEGORY: Record<CategoryId, string> = {
-  regulation: "Regulation",
-  clinical: "Clinical",
-  consumer: "Consumer",
-};
 
 const CategoryBlock = ({
   category,
