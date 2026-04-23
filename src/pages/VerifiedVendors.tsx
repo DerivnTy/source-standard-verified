@@ -31,19 +31,20 @@ const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
 ];
 
 const FOCUS_OPTIONS: { value: FocusKey; label: string }[] = [
-  { value: "all", label: "All Categories" },
-  { value: "peptides", label: "Peptides" },
-  { value: "hormone", label: "Hormone Therapy" },
-  { value: "longevity", label: "Longevity" },
-  { value: "wellness", label: "General Wellness" },
+// 2x2 grid of focus pills (mirrors the primary 2x2 status/method grid)
+const FOCUS_OPTIONS: { value: Exclude<FocusKey, "all">; label: string }[] = [
+  { value: "peptides", label: "PEPTIDES" },
+  { value: "hormone", label: "HORMONE" },
+  { value: "longevity", label: "LONGEVITY" },
+  { value: "wellness", label: "WELLNESS" },
 ];
 
 const FOCUS_LABEL: Record<FocusKey, string> = {
   all: "All",
-  peptides: "Peptides",
-  hormone: "Hormone Therapy",
-  longevity: "Longevity",
-  wellness: "General Wellness",
+  peptides: "PEPTIDES",
+  hormone: "HORMONE",
+  longevity: "LONGEVITY",
+  wellness: "WELLNESS",
 };
 
 /** Map vendor → consumer focus bucket. */
