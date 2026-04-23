@@ -77,16 +77,16 @@ const LiveDashboard = () => {
             }}
           >
             <div style={{ borderRight: "1px solid #F1F5F9" }}>
-              <Cell value={stats.total} label="TOTAL_VENDORS" live />
+              <Cell value={stats.total} label="Total Vendors" live />
             </div>
             <div>
-              <Cell value={stats.states} label="STATES_REPRESENTED" />
+              <Cell value={stats.states} label="States Represented" />
             </div>
             <div
               className="col-span-2 sm:col-span-1"
               style={{ borderTop: "1px solid #F1F5F9" }}
             >
-              <Cell value={stats.verified} label="VERIFIED_SOURCING" />
+              <Cell value={stats.verified} label="Verified Sourcing" />
             </div>
           </div>
         </div>
@@ -489,7 +489,7 @@ const Index = () => {
               className="font-mono text-[12px] uppercase text-white/60"
               style={{ letterSpacing: "1px" }}
             >
-              08 · ACCESS
+              08 · Access
             </p>
             <h2
               id="enter-registry"
@@ -501,10 +501,11 @@ const Index = () => {
             <div className="mt-8">
               <Link
                 to="/verified-vendors"
-                className="inline-flex items-center rounded-[2px] bg-white text-[hsl(var(--navy-surface))] px-6 py-3 font-mono text-[13px] font-medium uppercase hover:bg-white/90 active:bg-white/80 transition-colors"
-                style={{ letterSpacing: "1px" }}
+                className="group inline-flex items-center gap-3 rounded-[2px] bg-white text-[hsl(var(--navy-surface))] px-6 py-3 font-sans text-[13px] font-semibold uppercase hover:bg-white/90 active:bg-white/80 transition-colors"
+                style={{ letterSpacing: "0.08em" }}
               >
-                [&nbsp;ENTER&nbsp;REGISTRY&nbsp;//&nbsp;]
+                <span>Enter Registry</span>
+                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
               </Link>
             </div>
           </div>

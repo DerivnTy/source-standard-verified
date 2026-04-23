@@ -98,14 +98,29 @@ export const BriefingHero = ({
 
               <h1
                 id="briefing-title"
-                className="text-white max-w-[22ch] text-[34px] sm:text-[44px] md:text-[56px] font-semibold tracking-[-0.018em] text-balance"
-                style={{ lineHeight: 1.2 }}
+                className="text-white max-w-[22ch] text-[34px] sm:text-[44px] md:text-[56px] font-bold text-balance"
+                style={{
+                  lineHeight: 1.15,
+                  fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                  letterSpacing: "-0.022em",
+                }}
               >
                 {title}
               </h1>
 
+              {/* Live Registry signal — small, elegant pulse */}
+              <div className="mt-6 flex items-center gap-3">
+                <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
+                  <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: "#22C55E", opacity: 0.55 }} />
+                  <span className="relative inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#22C55E" }} />
+                </span>
+                <span className="font-sans text-[11px] uppercase tracking-[0.16em] text-white/70">
+                  Live Registry
+                </span>
+              </div>
+
               <p
-                className="mt-6 max-w-[58ch] text-[15px] sm:text-[16px] text-white/70"
+                className="mt-5 max-w-[58ch] text-[15px] sm:text-[16px] text-white/70"
                 style={{ lineHeight: 1.6 }}
               >
                 {statement}
