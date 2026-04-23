@@ -404,7 +404,6 @@ const VerifiedVendors = () => {
       />
 
       <RegistryHeader
-        eyebrow="Public Trust Registry · Live"
         title="The Public Trust Registry"
         description="The national database for peptide and hormone sourcing transparency. Use this registry to verify if a clinic's sourcing has been substantiated by licensed facility records."
         scopeText="How verification works"
