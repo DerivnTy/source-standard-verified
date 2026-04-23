@@ -1,81 +1,65 @@
 
 
-## Global Change 03 — Lock Site to One Type Hierarchy
+## Global Change 04 — Remove All Section-Headline Eyebrows Sitewide
 
-The token system in `src/index.css` already defines most of the right sizes, but it has three problems that break the user's locked spec:
+Eyebrow text (small uppercase label sitting above an H2) is removed across the site. The only element permitted above a section headline is the Geist Mono index number (e.g. `01`, `02`, `§3`). H1 page-title eyebrows are ALSO removed — the page title stands on its own.
 
-1. **Two oversized title tokens exist that violate the "page title = 48/56" rule:**
-   - `t-home-title` renders 72/80 on desktop (homepage hero only)
-   - `t-chapter-title` renders 56/64 on desktop (interior `BriefingHero` heroes)
-2. **`t-h3` and `t-h4` are undersized at mobile** (22/30 and 18/26) and only hit spec at ≥768px. They need to be 24/32 and 20/28 at every breakpoint.
-3. **One-off `text-[Npx]` overrides** (84 occurrences) create the "different system per page" feeling the user is calling out — most are 11–14px utility/meta text that should map to existing tokens.
+### Rule (locked)
 
-This pass enforces the user's locked hierarchy by **fixing the tokens** and **removing the off-spec class overrides**, not by editing copy or restructuring pages.
+- Above any section headline (`<h2>`): **nothing** except an optional `01` / `§N` Geist Mono index number.
+- Above any page title (`<h1>`): **nothing**. The H1 stands alone.
+- Inline uppercase chips (status badges, table column headers, registry meta strips, breadcrumbs, "Read →" link affordances) are NOT eyebrows — they stay.
+- Hero "category" line on `BriefingHero` (the small label above the homepage / chapter H1) is removed in this pass — it functions as an eyebrow above the H1.
 
-### Locked hierarchy (final spec)
+### Component layer (single-point fixes)
 
-| Token | Size / Line | Maps to |
-|---|---|---|
-| `t-page-title` | 48 / 56 | H1 — every page including homepage |
-| `t-section-title-md` | 36 / 44 | Large section title |
-| `t-section-title-sm` | 30 / 38 | Standard section title |
-| `t-h3` | 24 / 32 | Subsection heading |
-| `t-h4` | 20 / 28 | Smaller support heading |
-| `t-body-lg` | 19 / 32 | Body large (long-form) |
-| `t-body-md` | 18 / 30 | Body default |
-| `t-body-sm` | 16 / 28 | Body small |
-| `t-eyebrow-sm` / `t-utility-xs` | 13 / 20 / 12 / 18 | Eyebrow + meta |
-| `t-micro` (new) | 12 / 18 | Micro labels (non-uppercase variant) |
+These are shared primitives. Editing them removes eyebrows from every page that uses them in one move.
 
-### Changes to `src/index.css` (token layer)
+1. **`src/components/ArticleHeader.tsx`** — drop the `{eyebrow && <p class="t-eyebrow-sm">…</p>}` block (lines 41–45). Keep `eyebrow` in the prop signature so existing call sites don't break; just stop rendering it.
+2. **`src/components/RecordHeader.tsx`** — remove the eyebrow render on line 77. Same prop-preserved approach.
+3. **`src/components/AnchorHeader.tsx`** — remove the eyebrow render in both the split (`aside`) branch and the centered branch.
+4. **`src/components/ProfileHeader.tsx`** — remove the eyebrow render block.
+5. **`src/components/UtilityHeader.tsx`** — remove the eyebrow render block.
+6. **`src/components/PageHeader.tsx`** — remove the eyebrow render block.
+7. **`src/components/registry/RegistryHeader.tsx`** — remove the eyebrow render block.
+8. **`src/components/BriefingHero.tsx`** — remove the `category` render in all three branches (cover hero ~lines 159–164, chapter ~lines 197–202, default ~lines 226–231). `category` stays in the prop signature; it just no longer renders above the H1.
+9. **`src/components/Section.tsx` → `SectionLabel`** — already ignores its `eyebrow` prop. No change needed.
+10. **`src/components/Callout.tsx`** — eyebrow here labels a callout block, NOT a section headline. **Keep**.
+11. **`src/components/EmptyState.tsx`** — eyebrow is the empty-state message itself, not a section eyebrow. **Keep**.
+12. **`src/components/BoardSection.tsx`** (`hideEyebrow` flag) — already opt-outable; no change needed beyond verifying it's not stamping eyebrows above board H2s. (It isn't.)
 
-1. Update `t-h3`: drop the responsive bump — set `font-size: 24px; line-height: 32px;` at base, remove the `@media (min-width: 768px)` override.
-2. Update `t-h4`: same pattern — `font-size: 20px; line-height: 28px;` at base.
-3. Update `t-eyebrow-sm` line-height `18px → 20px` to match spec (13/20). Update `t-utility-xs` line-height `16px → 18px` to match spec (12/18).
-4. Update `t-body-sm` line-height `26px → 28px` to match spec (16/28).
-5. Retire the oversized title tokens: redefine `t-home-title` and `t-chapter-title` to be exact aliases of `t-page-title` (48/56). This keeps every existing call-site working without touching components, and brings the homepage hero and every navy `BriefingHero chapter` interior page in line with the locked H1 size.
-6. Add `.t-micro { font-size: 12px; line-height: 18px; font-weight: 500; }` (non-uppercase variant for small labels that aren't eyebrows — e.g. footer legal text, status pill labels).
+### Page-level cleanup (inline `<p class="t-eyebrow-sm">…</p>` above H2s)
 
-### Changes to component layer (collapse off-spec overrides)
+These are pages that hand-roll the eyebrow inline rather than going through a header primitive. Remove the eyebrow `<p>` and its surrounding `mt-4` rhythm-correction on the H2 (drop `mt-4` so the H2 becomes the top of the block).
 
-Replace the off-spec raw `text-[Npx]` classes in **shared chrome only** (the surfaces that bleed across every page), so per-page consistency improves without touching content pages:
+- `src/pages/Index.tsx` — remove the `Eyebrow` atom (line 108–110) and every `<Eyebrow>…</Eyebrow>` instance above an H2 (§2 trust problem, §3 how it works, §4 live registry, §5 registry fields, §6 function, §7 foundational reference, §8 governance). Drop the `mt-4` on each H2 that follows.
+- `src/pages/About.tsx` — remove "Purpose" and "Conclusion" eyebrows above their H2s.
+- `src/pages/Accountability.tsx` — same (Purpose).
+- `src/pages/HowItWorks.tsx` — same (Purpose, Conclusion).
+- `src/pages/MedicalAdvisory.tsx` — same (Purpose, Conclusion).
+- `src/pages/Privacy.tsx` — same (Purpose, Conclusion).
+- `src/pages/StatusDefinitions.tsx` — same (Purpose, Conclusion).
+- `src/pages/Terms.tsx` — same (Purpose, Conclusion).
+- `src/pages/VerificationDisclaimer.tsx` — same (Purpose, Conclusion).
+- `src/pages/Education.tsx` — remove the `EYEBROW_BY_CATEGORY` mono label rendered above each category H2 (lines 78–81 + the const map at 56).
+- `src/pages/GreenlistProfile.tsx` — in the local `SectionHeading` helper, drop the eyebrow render (lines 184–186). Keep the `eyebrow` prop accepted but unused so call sites continue to work. Inline registry-meta `t-eyebrow-sm` chips on lines 333–339 are inline meta strips, NOT section eyebrows — **keep**.
+- `src/pages/NotFound.tsx` — remove the `<p class="eyebrow">Error 404</p>` line above the H1.
 
-- `src/components/SiteFooter.tsx` — `text-[14px]` link/desc → `t-body-sm`; `text-[12px]` legal/disclaimer → `t-micro` or `t-utility-xs` where uppercase; `text-[11px] uppercase` column headers → `t-utility-xs`.
-- `src/components/SiteHeader.tsx` — `text-[13px]` nav links → keep size but route through a `t-nav` alias added to `index.css` (`13/20, 500`) so the nav's typography is governed.
-- `src/components/StatusBadge.tsx`, `registry/SourceTypeCell.tsx`, `registry/VerificationShield.tsx` — pin `text-[10px]/[11px]` to `t-utility-xs` (12/18). Badges become slightly larger and consistent; this is a small, intentional tightening, not a redesign.
-- `src/components/EmptyState.tsx`, `DocJumpBar.tsx`, `RegistryLayout.tsx`, `DocLayout.tsx`, `registry/QueryBar.tsx`, `registry/RegistryPagination.tsx`, `registry/SectionAnchorNav.tsx`, `library/ArticleRow.tsx` — replace `text-[11px]/[12px]/[13px]` chrome strings with `t-utility-xs` (when uppercase) or `t-micro` / `t-body-sm` (when not).
-- `src/components/BriefingHero.tsx` line 108 statement — replace the responsive `text-[15px] sm:text-[16px] md:text-[17px]` mono ladder with a single `t-body-sm` (16/28). One size, one rule.
+### Out of scope (intentional keeps)
 
-### Explicitly out of scope this pass
-
-- **Per-page raw text overrides inside content blocks** (e.g. `Education.tsx`, `Greenlist.tsx`, `About.tsx` numbered lists). These are next-pass cleanup. This pass governs the token layer + every shared chrome surface, which is what produces the "feels like a different system per page" effect the user is calling out.
-- Numeric/data display tokens (`Stat.tsx`, `RegistrySummaryStrip.tsx`, `RegistryHorizon.tsx`) — those are tabular numerals tuned for the registry product and are governed by their own data-readout rule, not the prose hierarchy.
-- Tailwind primitive `text-xs/text-sm/...` inside `src/components/ui/*` (shadcn primitives) — they're internal to controls (dialog title, calendar cells, etc.) and don't read as page typography. Leaving them avoids a destabilizing pass through every form/dialog primitive.
-- Font families. No serif↔sans changes.
-- Spacing tokens, layout, copy.
+- `Callout` eyebrows (rationale labels inside framed call-out blocks).
+- `EmptyState` eyebrow (it's the empty-state message itself).
+- `MetadataBar`, `RegistryHorizon`, table column headers, breadcrumbs, status badges, "Read →" link affordances, footnote refs — inline uppercase utility text, not section eyebrows.
+- Library article `<ArticleSection n={N} title="…">` already renders the §N Geist Mono index inline-left of the H2 with no eyebrow. **No change.**
+- `t-eyebrow-sm` token itself remains in `index.css` for the legitimate utility cases above. We are removing usages above headlines, not deleting the token.
 
 ### Files touched
 
-- `src/index.css` — token rewrites + new `t-micro` + `t-nav` aliases (single hunk in the type-token block).
-- `src/components/SiteFooter.tsx`
-- `src/components/SiteHeader.tsx`
-- `src/components/BriefingHero.tsx` (statement line only)
-- `src/components/StatusBadge.tsx`
-- `src/components/EmptyState.tsx`
-- `src/components/DocJumpBar.tsx`
-- `src/components/DocLayout.tsx`
-- `src/components/RegistryLayout.tsx`
-- `src/components/registry/QueryBar.tsx`
-- `src/components/registry/RegistryPagination.tsx`
-- `src/components/registry/SectionAnchorNav.tsx`
-- `src/components/registry/SourceTypeCell.tsx`
-- `src/components/registry/VerificationShield.tsx`
-- `src/components/library/ArticleRow.tsx`
+Components (8): `ArticleHeader.tsx`, `RecordHeader.tsx`, `AnchorHeader.tsx`, `ProfileHeader.tsx`, `UtilityHeader.tsx`, `PageHeader.tsx`, `registry/RegistryHeader.tsx`, `BriefingHero.tsx`.
+
+Pages (12): `Index.tsx`, `About.tsx`, `Accountability.tsx`, `HowItWorks.tsx`, `MedicalAdvisory.tsx`, `Privacy.tsx`, `StatusDefinitions.tsx`, `Terms.tsx`, `VerificationDisclaimer.tsx`, `Education.tsx`, `GreenlistProfile.tsx`, `NotFound.tsx`.
 
 ### Result
 
-- Every H1 across the site renders at 48/56 — homepage and every interior chapter hero now match the rest of the system.
-- H3/H4 stop shrinking on mobile; subsection hierarchy is visible at every breakpoint.
-- Eyebrows, meta strips, badges, footer text, nav links, and registry chrome all collapse onto four governed tokens instead of fourteen one-off `text-[Npx]` strings.
-- No copy, no structure, no font families, no layout changes. The site visibly settles into one typographic constitution.
+Every page across the site renders headlines with nothing above them except, where present, a Geist Mono index number. Hero H1s, section H2s, and policy-page split-section H2s all settle into a single, document-grade hierarchy with no competing labels. No copy rewrites, no structural changes, no token deletions.
 
