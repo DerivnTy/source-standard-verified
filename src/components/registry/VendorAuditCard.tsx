@@ -85,20 +85,23 @@ export const VendorAuditCard = ({
     vendor.status === "suspended" ||
     vendor.status === "removed";
 
-  // Subtle red wash — deliberate "Incomplete" marker, not a warning state.
-  const unverifiedWash = "rgba(255, 0, 0, 0.03)";
+  // Pale linen-red wash — audited "Incomplete" highlight, not a UI error.
+  const unverifiedWash = "#FFF5F5";
 
   if (view === "list") {
     return (
       <Link
         to={`/directory/${vendor.slug}`}
         aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
-        className="group flex items-center gap-3 h-[48px] px-4 text-left bg-card hover:bg-surface-muted/40 transition-colors"
-        style={isUnverified ? { backgroundColor: unverifiedWash } : undefined}
+        className="group grid items-center gap-3 h-[50px] px-4 text-left bg-card hover:bg-surface-muted/40 transition-colors"
+        style={{
+          ...(isUnverified ? { backgroundColor: unverifiedWash } : {}),
+          gridTemplateColumns: "8px minmax(0, 1fr) auto auto",
+        }}
       >
         <span
           aria-hidden
-          className={`shrink-0 h-1.5 w-1.5 rounded-full ${
+          className={`h-1.5 w-1.5 rounded-full ${
             vendor.status === "verified"
               ? "bg-verified"
               : vendor.status === "under-review"
@@ -106,13 +109,13 @@ export const VendorAuditCard = ({
               : "bg-red-400"
           }`}
         />
-        <h3 className="min-w-0 flex-1 truncate text-[13.5px] font-semibold leading-tight text-foreground tracking-tight">
+        <h3 className="min-w-0 truncate text-[14px] font-semibold leading-none text-foreground tracking-tight">
           {vendor.name}
         </h3>
-        <span className="shrink-0 text-[11.5px] text-muted-foreground truncate max-w-[92px] sm:max-w-[160px]">
+        <span className="text-[11.5px] leading-none text-muted-foreground truncate max-w-[92px] sm:max-w-[180px]">
           {location}
         </span>
-        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+        <span className="font-mono text-[10px] leading-none uppercase tracking-[0.08em] text-muted-foreground">
           {vendor.status === "verified"
             ? "Verified"
             : vendor.status === "under-review"

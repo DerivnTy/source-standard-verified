@@ -53,7 +53,16 @@ export const RegistryHeader = ({
                   {indexNumber}
                 </p>
               )}
-              <h1 className="t-page-title text-white text-left">{title}</h1>
+              <h1
+                className="text-white text-left font-serif font-bold"
+                style={{
+                  fontSize: "clamp(38px, 5.2vw, 64px)",
+                  lineHeight: 1.05,
+                  letterSpacing: "-0.022em",
+                }}
+              >
+                {title}
+              </h1>
               {statusLine ? (
                 <div className="mt-5 inline-flex items-center gap-2">
                   <span

@@ -23,7 +23,8 @@ export const RegistryHorizon = ({
     <div
       role="group"
       aria-label={ariaLabel}
-      className="rounded-[2px] border border-border bg-card shadow-[0_8px_24px_-16px_hsl(0_0%_0%/0.18)] overflow-hidden"
+      className="rounded-[2px] border border-border shadow-[0_8px_24px_-16px_hsl(0_0%_0%/0.18)] overflow-hidden"
+      style={{ backgroundColor: "#F8FAFC" }}
     >
       <div
         className="grid divide-x divide-border"
@@ -32,14 +33,14 @@ export const RegistryHorizon = ({
         {cells.map((cell) => (
           <div
             key={cell.label}
-            className="flex flex-col items-center justify-center text-center px-1.5 sm:px-4 py-3 sm:py-3.5 min-w-0"
+            className="flex flex-col items-center justify-center text-center px-3 sm:px-6 py-5 sm:py-6 min-w-0"
           >
-            <span className="font-mono text-[18px] sm:text-[20px] leading-none font-medium tabular-nums text-foreground">
+            <span className="font-mono text-[26px] sm:text-[32px] leading-none font-semibold tabular-nums text-foreground tracking-tight">
               {typeof cell.value === "number"
                 ? cell.value.toLocaleString()
                 : cell.value}
             </span>
-            <span className="mt-1.5 text-[9px] sm:text-[10.5px] font-medium tracking-[0.01em] text-muted-foreground leading-[1.2] text-balance">
+            <span className="mt-2.5 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground leading-[1.2] text-balance">
               {cell.label}
             </span>
           </div>
