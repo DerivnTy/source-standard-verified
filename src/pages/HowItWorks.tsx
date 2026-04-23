@@ -2,95 +2,52 @@ import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
+import { BoardSection } from "@/components/BoardSection";
 
-// ---------- Protocol data (Clinical Standard — Accredited Revision) ----------
-
-type Bullet = { label: string; text: string };
-type Row = {
+type Section = {
   id: string;
   n: string;
+  category: string;
   title: string;
-  intro?: string;
-  bullets?: Bullet[];
+  body: string;
 };
 
-const rows: Row[] = [
+const sections: Section[] = [
   {
     id: "primary-source",
     n: "01",
-    title: "Primary Source Auditing",
-    bullets: [
-      {
-        label: "Upstream Substantiation",
-        text: "Verification of the vendor's primary supply chain. We validate that every listed product is attributed to an appropriately licensed 503A or 503B facility before registry inclusion.",
-      },
-      {
-        label: "Credential Authentication",
-        text: "Cross-referencing of state-level pharmacy registrations and DEA certifications against live regulatory databases to confirm standing.",
-      },
-      {
-        label: "Chain of Custody",
-        text: "Forensic review of Wholesale Distribution Records to ensure a documented, unbroken link from the manufacturer to the vendor.",
-      },
-    ],
+    category: "AUDIT",
+    title: "Supply-Chain Substantiation",
+    body: "Our primary objective is the forensic mapping of the vendor's upstream supply chain. Before any entity is granted \u201CVerified\u201D status, we conduct an exhaustive review of their sourcing history to ensure a documented, unbroken link from the pharmaceutical manufacturer to the consumer-facing vendor. This involves direct cross-referencing with 503A and 503B pharmacy registrations and state-level licensing databases to confirm active and compliant standing.",
   },
   {
     id: "surveillance",
     n: "02",
+    category: "SURVEILLANCE",
     title: "Analytical Surveillance",
-    bullets: [
-      {
-        label: "Unannounced Sampling",
-        text: "To maintain registry integrity, we execute randomized, anonymous purchase protocols from active listings. These samples are acquired without vendor notification to ensure a representative baseline.",
-      },
-      {
-        label: "Independent Laboratory Analysis",
-        text: "All acquired samples are submitted to third-party, ISO-accredited facilities for quantitative analysis.",
-      },
-      {
-        label: "Quantitative Metrics",
-        text: "Our focus is narrowed to the three primary safety pillars: Molecular Identity, Concentration Accuracy (Potency), and Microbiological Sterility.",
-      },
-    ],
+    body: "Trust is maintained through ongoing, unannounced randomized testing. Source Standard executes \u201CSilent Purchase\u201D protocols from active registry listings\u2014acquiring products anonymously, exactly as a consumer would. These samples are submitted to independent, ISO-accredited laboratories for quantitative analysis. Our focus is restricted to three critical safety pillars: Molecular Identity, Concentration Accuracy (Potency), and Microbiological Sterility.",
   },
   {
     id: "monitoring",
     n: "03",
-    title: "Disclosure Obligations",
-    bullets: [
-      {
-        label: "Material Change Protocol",
-        text: "Verified status requires the immediate disclosure of changes in sourcing partners, facility affiliations, or entity ownership within 72 hours.",
-      },
-      {
-        label: "Administrative Tracking",
-        text: "Continuous monitoring of federal FDA 483s and State Board disciplinary actions. Status is subject to immediate suspension upon evidence of regulatory deficiency.",
-      },
-    ],
+    category: "DISCLOSURE",
+    title: "Continuous Oversight",
+    body: "Verification is not a static designation; it is a dynamic status contingent upon perpetual compliance. Vendors are contractually obligated to disclose any material change in sourcing, ownership, or facility affiliation within 72 hours. Simultaneously, our system monitors federal FDA 483s, Warning Letters, and state-level administrative actions in real-time. Status is subject to immediate revocation upon evidence of any regulatory deficiency.",
   },
   {
     id: "boundaries",
     n: "04",
+    category: "BOUNDARIES",
     title: "Operational Boundaries",
-    intro:
-      "Source Standard operates as an independent documentation and testing authority. We do not provide medical advice, certify clinical outcomes, or substitute for federal regulatory oversight. Our function is the public disclosure of substantiated supply-chain data.",
+    body: "Source Standard operates as an independent documentation and analytical authority. We provide public disclosure of substantiated supply-chain data to assist in risk mitigation. We do not provide clinical recommendations, substitute for federal regulatory oversight, or certify individual patient outcomes.",
   },
 ];
 
-const navLabels: Record<string, string> = {
-  "primary-source": "AUDIT",
-  surveillance: "SURVEILLANCE",
-  monitoring: "DISCLOSURE",
-  boundaries: "BOUNDARIES",
-};
-
-const waypoints = rows.map((r) => ({
-  id: r.id,
-  number: r.n,
-  label: navLabels[r.id] ?? r.title.toUpperCase(),
+const waypoints = sections.map((s) => ({
+  id: s.id,
+  number: s.n,
+  label: s.category,
 }));
-
-// ---------- Page ----------
 
 const HowItWorks = () => {
   return (
@@ -109,62 +66,18 @@ const HowItWorks = () => {
       />
       <DocJumpBar waypoints={waypoints} />
 
-      {/* Clinical ledger — dual-font system, soft 1px dividers, generous breathing room */}
-      <div className="bg-background">
-        <div className="page-shell pt-0">
-          <div className="mx-auto w-wide">
-            <div className="border border-border/60 border-b-0">
-              {rows.map((r) => (
-                <section
-                  key={r.id}
-                  id={r.id}
-                  className="scroll-mt-36 grid grid-cols-12 border-b border-border/60"
-                >
-                  {/* § number — narrow, vertically centered, mono */}
-                  <div className="col-span-12 md:col-span-2 px-5 py-7 border-b md:border-b-0 md:border-r border-border/60 bg-background flex md:items-center">
-                    <div>
-                      <div className="font-mono text-[20px] leading-none font-semibold tabular-nums tracking-[0.05em] text-foreground">
-                        §{r.n}
-                      </div>
-                      <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                        Section {r.n}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Title — mono, uppercase */}
-                  <div className="col-span-12 md:col-span-3 px-5 py-7 border-b md:border-b-0 md:border-r border-border/60 bg-background flex md:items-center">
-                    <p className="font-mono text-[12px] uppercase tracking-[0.05em] font-semibold text-foreground leading-[1.5]">
-                      {r.n} // {r.title.toUpperCase()}
-                    </p>
-                  </div>
-
-                  {/* Body — sans, clinical readability */}
-                  <div className="col-span-12 md:col-span-7 px-6 py-7 bg-background">
-                    {r.intro && (
-                      <p className="font-sans text-[15px] leading-[1.6] font-normal text-foreground/85">
-                        {r.intro}
-                      </p>
-                    )}
-                    {r.bullets && r.bullets.length > 0 && (
-                      <ul className="space-y-3">
-                        {r.bullets.map((b) => (
-                          <li key={b.label} className="font-sans text-[15px] leading-[1.6] text-foreground/85">
-                            <span className="font-mono text-[11px] uppercase tracking-[0.05em] font-medium text-foreground mr-2">
-                              {b.label}:
-                            </span>
-                            <span className="font-normal">{b.text}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      {sections.map((s, i) => (
+        <BoardSection
+          key={s.id}
+          id={s.id}
+          n={s.n}
+          category={s.category}
+          title={s.title}
+          muted={i % 2 === 1}
+        >
+          <p>{s.body}</p>
+        </BoardSection>
+      ))}
     </div>
   );
 };
