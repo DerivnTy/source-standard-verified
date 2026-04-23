@@ -406,7 +406,7 @@ const VerifiedVendors = () => {
       <RegistryHeader
         indexNumber="01"
         title="The Public Trust Registry"
-        description="The national database for peptide and hormone sourcing transparency. Use this registry to verify if a clinic's sourcing has been substantiated by licensed facility records."
+        description="National sourcing transparency. Verified supply chains. Public record."
         scopeText="How verification works"
         scopeHref="/how-it-works"
         recordCount={vendors.length}
@@ -441,8 +441,8 @@ const VerifiedVendors = () => {
               onReset={reset}
               activeChips={activeChips}
             />
-            <p className="mt-3 text-[12px] text-muted-foreground">
-              Filter by state or fulfillment model to narrow your search.
+            <p className="mt-3 px-5 md:px-0 text-[12px] text-muted-foreground">
+              Filter by state or fulfillment.
             </p>
 
             <div className="mt-5">
@@ -489,14 +489,17 @@ const VerifiedVendors = () => {
 
       {/* Registry logic — reference layer at the bottom */}
       <section className="border-t border-border bg-surface-muted/30">
-        <div className="page-shell py-12 md:py-14">
+        <div className="page-shell pt-20 pb-16 md:pt-14 md:pb-14">
           <div className="mx-auto w-wide">
             <p className="t-utility-xs text-muted-foreground mb-3">
-              Registry logic
+              02 · Registry logic
             </p>
             <h2 className="t-section-title-sm text-foreground max-w-[40ch]">
               Understanding the Registry
             </h2>
+            <p className="mt-6 text-[14px] text-muted-foreground max-w-[44ch] leading-[1.6]">
+              Four states. One audit standard. No marketing claims.
+            </p>
 
             <dl className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 border-t border-border/50 pt-6">
               <div className="flex items-start gap-4">
@@ -505,7 +508,7 @@ const VerifiedVendors = () => {
                 </div>
                 <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
                   <span className="font-semibold text-foreground">Verified.</span>{" "}
-                  Sourcing has been cross-referenced with 503A/503B pharmacy records.
+                  Sourcing cross-referenced with 503A/503B pharmacy records.
                 </p>
               </div>
               <div className="flex items-start gap-4">
@@ -514,7 +517,7 @@ const VerifiedVendors = () => {
                 </div>
                 <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
                   <span className="font-semibold text-foreground">Unverified.</span>{" "}
-                  No documented sourcing on file. The vendor has not yet submitted to the Source Standard audit.
+                  No sourcing on file. Audit not submitted.
                 </p>
               </div>
               {counts["under-review"] > 0 && (
@@ -524,7 +527,7 @@ const VerifiedVendors = () => {
                   </div>
                   <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
                     <span className="font-semibold text-foreground">Under review.</span>{" "}
-                    An application is currently undergoing audit.
+                    Application in audit.
                   </p>
                 </div>
               )}
@@ -535,7 +538,7 @@ const VerifiedVendors = () => {
                   </div>
                   <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
                     <span className="font-semibold text-foreground">Suspended.</span>{" "}
-                    A previously published verification has been temporarily paused.
+                    Verification temporarily paused.
                   </p>
                 </div>
               )}
@@ -546,7 +549,7 @@ const VerifiedVendors = () => {
                   </div>
                   <p className="text-[13px] text-muted-foreground leading-[1.55] max-w-[60ch]">
                     <span className="font-semibold text-foreground">Removed.</span>{" "}
-                    Listing removed from the public directory; record preserved for transparency.
+                    Delisted. Record preserved for transparency.
                   </p>
                 </div>
               )}
