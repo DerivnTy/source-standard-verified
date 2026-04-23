@@ -17,14 +17,15 @@ html {
 
 @layer base {
   :root {
-    /* Institutional Modern v2 — Authority Navy #0F172A + Safety Blue #0EA5E9 + Cool Gray #F8FAFC */
-    --background: 210 40% 98%;
+    /* Pass 4 — System Gray floor (#F2F2F7) with pure white cards on top.
+       Background = 240 23% 97% in HSL ≈ #F2F2F7 (Apple System Gray 6). */
+    --background: 240 23% 97%;
     --foreground: 222 14% 12%;
 
-    /* --surface stays white so cards / inputs / dropdowns sit elevated on the cool-gray page */
+    /* Cards / inputs / popovers stay pure white #FFFFFF for the layered Apple look. */
     --surface: 0 0% 100%;
-    --surface-muted: 210 40% 97%;
-    --surface-sunken: 210 40% 96%;
+    --surface-muted: 240 20% 98%;
+    --surface-sunken: 240 23% 95%;
 
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
