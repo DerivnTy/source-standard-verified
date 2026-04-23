@@ -134,8 +134,8 @@ export const SiteHeader = () => {
                 end
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `py-3.5 text-[14.5px] border-b border-border last:border-0 ${
-                    isActive ? "text-foreground font-semibold" : "text-muted-foreground font-medium"
+                  `py-3.5 font-mono text-[12px] uppercase tracking-[0.12em] border-b border-border last:border-0 ${
+                    isActive ? "text-foreground font-medium" : "text-muted-foreground"
                   }`
                 }
               >
