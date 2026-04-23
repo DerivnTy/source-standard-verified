@@ -239,28 +239,13 @@ const Index = () => {
       >
         <div className="page-shell section-pad">
           <div className="mx-auto w-standard text-center">
-            <h3
-              className="text-foreground"
-              style={{
-                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
-                fontSize: "20px",
-                fontWeight: 700,
-                letterSpacing: "-0.01em",
-              }}
-            >
+            <h3 className="t-eyebrow-sm text-foreground">
               The Source Standard
             </h3>
             <div className="mx-auto mt-5 h-px w-12 bg-border" aria-hidden="true" />
             <h2
               id="trust-problem"
-              className="mt-8 text-foreground mx-auto max-w-[22ch]"
-              style={{
-                fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
-                fontSize: "clamp(32px, 6vw, 52px)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                letterSpacing: "-0.022em",
-              }}
+              className="mt-8 t-page-title text-foreground mx-auto max-w-[22ch]"
             >
               Branding is not documentation.
             </h2>
@@ -298,21 +283,11 @@ const Index = () => {
               </p>
               <h2
                 id="how-it-works"
-                className="mt-5 text-foreground"
-                style={{
-                  fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
-                  fontSize: "clamp(28px, 5vw, 44px)",
-                  fontWeight: 800,
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.022em",
-                }}
+                className="mt-5 t-page-title text-foreground"
               >
                 How Source Standard Works
               </h2>
-              <p
-                className="mt-6 font-sans text-[15px] sm:text-[16px] text-muted-foreground"
-                style={{ lineHeight: 1.75 }}
-              >
+              <p className="mt-6 t-body-md text-muted-foreground">
                 A three-stage protocol that translates licensed pharmacy records into a
                 public-reference standard for clinical sourcing.
               </p>
@@ -322,24 +297,12 @@ const Index = () => {
               {howItWorks.map((s, i) => (
                 <li key={i} className="grid grid-cols-12 gap-6 py-10 sm:py-12">
                   <div className="col-span-12 sm:col-span-3">
-                    <span
-                      className="font-mono text-[13px] tabular-nums text-foreground"
-                      style={{ letterSpacing: "0.04em" }}
-                    >
+                    <span className="font-mono text-[13px] tabular-nums text-foreground" style={{ letterSpacing: "0.04em" }}>
                       {(i + 1).toString().padStart(2, "0")}
                     </span>
                   </div>
                   <div className="col-span-12 sm:col-span-9">
-                    <h3
-                      className="text-foreground"
-                      style={{
-                        fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
-                        fontSize: "clamp(20px, 3vw, 26px)",
-                        fontWeight: 700,
-                        lineHeight: 1.25,
-                        letterSpacing: "-0.014em",
-                      }}
-                    >
+                    <h3 className="t-h3 text-foreground">
                       {s.h}
                     </h3>
                     <p

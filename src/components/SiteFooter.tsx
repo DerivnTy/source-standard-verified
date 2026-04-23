@@ -84,11 +84,11 @@ export const SiteFooter = () => {
                 <span
                   className="block text-white"
                   style={{
-                    fontFamily: "'Playfair Display', 'Source Serif 4', Georgia, serif",
+                    fontFamily: "'Source Serif 4', Georgia, serif",
                     fontSize: "22px",
-                    fontWeight: 800,
-                    letterSpacing: "-0.018em",
-                    lineHeight: 1.1,
+                    fontWeight: 600,
+                    letterSpacing: "-0.022em",
+                    lineHeight: 1.15,
                   }}
                 >
                   Source Standard
