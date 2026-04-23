@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHeaderVisible } from "./SiteHeader";
 
 export type JumpWaypoint = { id: string; number: string; label: string };
 
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const easeInOut = (t: number) =>
+  t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
 /**
- * DocJumpBar — fixed pill shape, sticky position only.
+ * DocJumpBar — pill always, with a subtle scroll-scrubbed morph.
  *
- * The bar always renders at its widest/most-extended pill form. Scrolling
- * does not morph its shape — only its sticky `top` shifts as the SiteHeader
- * shows/hides, eased via CSS transition for a smooth follow.
+ * As the user scrolls past the seam, the pill widens horizontally and
+ * minimizes vertically; items spread and slide toward visual center.
+ * Border-radius stays 9999px throughout — never becomes a square bar.
  */
 export const DocJumpBar = ({
   waypoints,
@@ -18,10 +22,14 @@ export const DocJumpBar = ({
   tone?: "default" | "navy";
 }) => {
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
+  const [progress, setProgress] = useState(0);
   const headerVisible = useHeaderVisible();
+  const seamRef = useRef<HTMLDivElement | null>(null);
+  const rafRef = useRef<number | null>(null);
 
   void tone;
 
+  // Active section tracking
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -39,6 +47,35 @@ export const DocJumpBar = ({
     return () => observer.disconnect();
   }, [waypoints]);
 
+  // Scroll-scrubbed morph progress (0 at seam, 1 after RUNWAY px)
+  useEffect(() => {
+    const RUNWAY = 220;
+    const compute = () => {
+      const seam = seamRef.current;
+      if (!seam) return;
+      const rect = seam.getBoundingClientRect();
+      // Distance scrolled past the seam's top edge meeting the header line (~64px)
+      const passed = 64 - rect.top;
+      const p = Math.max(0, Math.min(1, passed / RUNWAY));
+      setProgress(p);
+    };
+    const onScroll = () => {
+      if (rafRef.current != null) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        compute();
+      });
+    };
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
   const onJump = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -47,12 +84,23 @@ export const DocJumpBar = ({
 
   const SEAM_HEIGHT = 44;
   const stickyTop = headerVisible ? 64 : 0;
+  const eased = easeInOut(progress);
+
+  // Interpolated geometry — pill throughout
+  const widthPct = lerp(86, 96, eased);
+  const maxWidthPx = lerp(1200, 1360, eased);
+  const navPadY = lerp(8, 4, eased);
+  const navPadX = lerp(22, 20, eased);
+  const itemGap = lerp(8, 14, eased);
+  const itemPadX = lerp(10, 14, eased);
+  const chipPadY = lerp(6, 3, eased);
+  const ulPushLeft = lerp(0, 80, eased);
 
   const navStyle: React.CSSProperties = {
     position: "sticky",
     top: `${stickyTop}px`,
-    width: "92%",
-    maxWidth: "1360px",
+    width: `${widthPct}%`,
+    maxWidth: `${maxWidthPx}px`,
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: `-${SEAM_HEIGHT / 2 + 22}px`,
@@ -69,6 +117,7 @@ export const DocJumpBar = ({
     <>
       {/* Seam zone — purely decorative navy/white split. */}
       <div
+        ref={seamRef}
         aria-hidden
         className="relative w-full"
         style={{
@@ -82,6 +131,12 @@ export const DocJumpBar = ({
           waypoints={waypoints}
           activeId={activeId}
           onJump={onJump}
+          navPadY={navPadY}
+          navPadX={navPadX}
+          itemGap={itemGap}
+          itemPadX={itemPadX}
+          chipPadY={chipPadY}
+          ulPushLeft={ulPushLeft}
         />
       </nav>
     </>
@@ -92,19 +147,31 @@ const PillContents = ({
   waypoints,
   activeId,
   onJump,
+  navPadY,
+  navPadX,
+  itemGap,
+  itemPadX,
+  chipPadY,
+  ulPushLeft,
 }: {
   waypoints: JumpWaypoint[];
   activeId: string;
   onJump: (id: string) => (e: React.MouseEvent) => void;
+  navPadY: number;
+  navPadX: number;
+  itemGap: number;
+  itemPadX: number;
+  chipPadY: number;
+  ulPushLeft: number;
 }) => {
   return (
     <div
       className="flex items-center"
       style={{
-        paddingLeft: "20px",
-        paddingRight: "20px",
-        paddingTop: "4px",
-        paddingBottom: "4px",
+        paddingLeft: `${navPadX}px`,
+        paddingRight: `${navPadX}px`,
+        paddingTop: `${navPadY}px`,
+        paddingBottom: `${navPadY}px`,
         gap: "14px",
         width: "100%",
         minWidth: 0,
@@ -116,12 +183,16 @@ const PillContents = ({
       </span>
       <ul
         className="flex items-center shrink-0"
-        style={{ gap: "8px", minWidth: 0 }}
+        style={{
+          gap: `${itemGap}px`,
+          minWidth: 0,
+          marginLeft: `${ulPushLeft}px`,
+        }}
       >
         {waypoints.map((w) => {
           const active = w.id === activeId;
           const chip =
-            "inline-flex items-center gap-2 py-0.5 text-[11px] font-mono font-medium uppercase tracking-[0.06em] border transition-colors rounded-full";
+            "inline-flex items-center gap-2 text-[11px] font-mono font-medium uppercase tracking-[0.06em] border transition-colors rounded-full";
           const tone = active
             ? "border-foreground text-foreground bg-surface-muted"
             : "border-transparent text-muted-foreground hover:text-foreground hover:border-border";
@@ -131,7 +202,12 @@ const PillContents = ({
                 href={`#${w.id}`}
                 onClick={onJump(w.id)}
                 className={`${chip} ${tone}`}
-                style={{ paddingLeft: "12px", paddingRight: "12px" }}
+                style={{
+                  paddingLeft: `${itemPadX}px`,
+                  paddingRight: `${itemPadX}px`,
+                  paddingTop: `${chipPadY}px`,
+                  paddingBottom: `${chipPadY}px`,
+                }}
               >
                 <span className="text-primary">{w.number.padStart(2, "0")}.</span>
                 <span>{w.label}</span>
