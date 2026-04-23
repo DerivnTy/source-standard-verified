@@ -44,15 +44,20 @@ html {
     --secondary-foreground: 222 47% 11%;
 
     --muted: 210 40% 96%;
-    /* Slate 700 (#334155) — softer than pure black, locked institutional body tone */
-    --muted-foreground: 215 25% 27%;
+    /* Pass 5 — System Gray (#8E8E93) for metadata / Geist Mono text */
+    --muted-foreground: 240 2% 57%;
 
     --accent: 210 40% 96%;
     --accent-foreground: 222 47% 11%;
 
-    --verified: 158 44% 32%;
+    /* Pass 5 — Interactive System Blue (#007AFF) for non-primary links / active */
+    --interactive: 211 100% 50%;
+    --interactive-foreground: 0 0% 100%;
+
+    /* Pass 5 — Surgical System Green (#34C759) for status dots / thin strokes only */
+    --verified: 145 63% 49%;
     --verified-foreground: 0 0% 100%;
-    --verified-soft: 158 38% 95%;
+    --verified-soft: 145 50% 95%;
 
     /* Under Review — frosted blue, calm and in-process */
     --under-review: 210 55% 42%;
