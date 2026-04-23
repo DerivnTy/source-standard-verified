@@ -35,48 +35,46 @@ const darkBtnSecondary =
 
 const howItWorks = [
   {
-    h: "Upstream sources are reviewed.",
-    b: "Public records, registration data, and facility information are gathered into the upstream reference layer.",
+    h: "Map the facilities.",
+    b: "We track every licensed 503A and 503B compounding pharmacy in the United States.",
   },
   {
-    h: "Vendors are assessed against those sources.",
-    b: "Public claims, sourcing relationships, and documentation are reconciled against the reviewed record.",
+    h: "Audit the vendors.",
+    b: "We require clinics and online vendors to substantiate their sourcing with documented proof of these pharmacy relationships.",
   },
   {
-    h: "Status is published in the public registry.",
-    b: "The registry records whether verification is on file, under review, or not currently published.",
+    h: "Publish the truth.",
+    b: "We list the results in a public database. If they can't prove it, they stay Unverified.",
   },
 ];
 
 const registryFields = [
-  { h: "Verification status", b: "The current public standing of each listing." },
-  { h: "City and state", b: "The operating jurisdiction of the clinic." },
-  { h: "Fulfillment model", b: "Whether the vendor operates in-person, online, or hybrid." },
-  { h: "Clinical focus", b: "The therapeutic categories the clinic serves." },
-  { h: "Upstream source relationships", b: "The licensed pharmacies the listing substantiates." },
-  { h: "Last review date", b: "When the listing was most recently reconciled." },
+  { h: "Verification status", b: "A simple red/green indicator of documented sourcing." },
+  { h: "Fulfillment model", b: "Whether the vendor is a local clinic or an online-only platform." },
+  { h: "Clinical focus", b: "The medical services the vendor is authorized to provide." },
+  { h: "Upstream sources", b: "The licensed pharmacies supplying the vendor." },
 ];
 
 const whyMatters = [
-  { h: "For consumers", b: "A documented reference point beyond marketing claims." },
-  { h: "For responsible vendors", b: "A public trust signal tied to reviewed records." },
-  { h: "For the market", b: "A clearer line between documented and undocumented sourcing." },
+  { h: "For consumers", b: "Instant clarity on whether your clinic is using legal, licensed sources." },
+  { h: "For vendors", b: "A professional seal of approval that separates you from the research-only grey market." },
+  { h: "For doctors", b: "A clinical reference for referring patients to documented facilities." },
 ];
 
 const basics = [
   {
-    t: "What verification actually means",
-    s: "How a Source Standard listing is issued and what it does, and does not, claim.",
+    t: "What \"Verified\" means",
+    s: "The audit standard a listing must meet to carry the Source Standard mark.",
     to: "/library/what-source-standard-verification-actually-means",
   },
   {
-    t: "What is compounding",
-    s: "The two regulatory categories of compounding pharmacy and what distinguishes them.",
+    t: "503A vs. 503B",
+    s: "The two regulatory categories of licensed compounding pharmacy.",
     to: "/library/what-is-compounding",
   },
   {
-    t: "Questions to ask your clinic",
-    s: "The sourcing questions a documented clinic should be able to answer directly.",
+    t: "The patient checklist",
+    s: "The sourcing questions every clinic should be able to answer directly.",
     to: "/library/questions-to-ask-your-clinic",
   },
 ];
