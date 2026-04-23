@@ -50,10 +50,26 @@ const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: str
 const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-04", "R-05"];
 
 const MANDATE_CLAUSES = [
-  "The Medical Advisory Board provides independent clinical oversight of the verification framework.",
-  "Audit determinations are findings of record based on documented pharmacy sourcing, licensure, and regulatory standing.",
-  "The Board maintains the integrity of the standard through the periodic review of forensic audit criteria.",
-  "To ensure objective distance, Board members do not participate in individual vendor approvals or commercial activities.",
+  {
+    n: "01",
+    t: "Independent clinical oversight.",
+    d: "The Medical Advisory Board provides independent oversight of the verification framework.",
+  },
+  {
+    n: "02",
+    t: "Findings of record.",
+    d: "Audit determinations are based on documented pharmacy sourcing, licensure, and regulatory standing.",
+  },
+  {
+    n: "03",
+    t: "Periodic review.",
+    d: "The Board maintains the integrity of the standard through periodic review of forensic audit criteria.",
+  },
+  {
+    n: "04",
+    t: "Objective distance.",
+    d: "Board members do not participate in individual vendor approvals or commercial activities.",
+  },
 ];
 
 const ROLE_FUNCTIONS = [
@@ -126,13 +142,17 @@ const MedicalAdvisory = () => {
                   </h2>
                 </div>
                 <div className="md:col-span-7 mt-8 md:mt-0">
-                  <ul className="divide-y divide-border/60">
+                  <ol className="divide-y divide-border/60">
                     {MANDATE_CLAUSES.map((c) => (
-                      <li key={c} className="py-5 first:pt-0 last:pb-0 t-body-md text-foreground leading-relaxed">
-                        {c}
+                      <li key={c.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
+                        <div className="col-span-2 font-mono text-[12px] tabular-nums text-muted-foreground">{c.n}</div>
+                        <div className="col-span-10">
+                          <p className="t-body-md font-semibold text-foreground">{c.t}</p>
+                          <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
+                        </div>
                       </li>
                     ))}
-                  </ul>
+                  </ol>
                 </div>
               </div>
             </section>
@@ -149,7 +169,7 @@ const MedicalAdvisory = () => {
                 <div className="md:col-span-7 mt-8 md:mt-0">
                   <ol className="divide-y divide-border/60">
                     {ROLE_FUNCTIONS.map((s) => (
-                      <li key={s.n} className="grid grid-cols-12 gap-4 py-5 first:pt-0 last:pb-0 items-baseline">
+                      <li key={s.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
                         <div className="col-span-2 font-mono text-[12px] tabular-nums text-muted-foreground">{s.n}</div>
                         <div className="col-span-10">
                           <p className="t-body-md font-semibold text-foreground">{s.t}</p>
