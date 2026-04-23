@@ -29,8 +29,6 @@ export const VendorRow = ({
 }) => {
   const isVerified = vendor.status === "verified";
   const focus = focusFor(vendor);
-  const decisionTags = buildDecisionTags(vendor, fulfillment);
-
   const isOnline = fulfillment === "online";
   const locationLabel = isOnline
     ? "ONLINE"
@@ -130,16 +128,11 @@ export const VendorRow = ({
         </div>
       )}
 
-      {/* Row 3 — Utility tags (left) · View Full Audit (right) */}
+      {/* Row 3 — View Full Audit (right) */}
       <div
-        className="flex items-center justify-between gap-x-3"
-        style={{ marginTop: "12px" }}
+        className="flex items-center justify-end"
+        style={{ marginTop: "10px" }}
       >
-        <div className="flex items-center gap-x-1.5 flex-wrap min-w-0">
-          {decisionTags.map((tag) => (
-            <UtilityTag key={tag} label={tag} />
-          ))}
-        </div>
         <span
           className="shrink-0 inline-flex items-center gap-1 font-sans font-bold uppercase text-muted-foreground group-hover:text-foreground transition-colors"
           style={{ fontSize: "11px", letterSpacing: "0.06em" }}
