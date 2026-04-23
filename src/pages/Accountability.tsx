@@ -1,201 +1,350 @@
 import { Link } from "react-router-dom";
-import { RecordHeader } from "@/components/RecordHeader";
-import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
-import { DocJumpBar } from "@/components/DocJumpBar";
-import { Callout } from "@/components/Callout";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 
-const DOC_ID = "SS-ENFORCE-2026.01";
-const VERIFIED_ON = "04/21/2026";
-
-const commitments = [
-  { t: "Integrity of Submission", d: "All records, claims, and category descriptions submitted at intake are accurate as of the date of submission and remain accurate throughout the verification term. Material inaccuracies discovered post-issuance are treated as a Mandatory Disclosure Event under §2." },
-  { t: "Supply-Chain Transparency", d: "All upstream pharmacies, outsourcing facilities, and qualified suppliers used to fulfill listed product categories are disclosed in full and supported by documentation retained in the audit file." },
-  { t: "Renewal & Examination Cooperation", d: "The entity will respond to renewal requests, clarification requests, and re-examination notices within published timelines and will produce updated records when requested." },
-  { t: "Public-Claims Alignment", d: "Public-facing representations (website, advertising, intake materials, third-party listings) remain consistent with the records reviewed during verification for the duration of the verification term." },
+const WAYPOINTS = [
+  { id: "attestations", number: "01", label: "Attestations" },
+  { id: "disclosure", number: "02", label: "Disclosure" },
+  { id: "triggers", number: "03", label: "Triggers" },
+  { id: "actions", number: "04", label: "Actions" },
+  { id: "reentry", number: "05", label: "Re-entry" },
+  { id: "related", number: "06", label: "Related Documents" },
 ];
 
-const reportable = [
-  "Change in supplier or upstream source for any reviewed product category, including substitution, addition, or termination of a disclosed manufacturing anchor.",
-  "Change in licensure status of the entity or any disclosed upstream source, including suspension, lapse, voluntary surrender, or jurisdictional change.",
-  "Change in business ownership, controlling interest, operating entity, or registered agent of record.",
-  "Addition or removal of a reviewed product category, or material change to the scope of an existing category.",
-  "Material change to public-facing claims regarding sourcing, credentials, accreditation, or examination scope.",
-  "Notice of regulatory action by the FDA, a State Board of Pharmacy, a State Medical Board, or any comparable authority of competent jurisdiction.",
+const SectionIndex = ({ n }: { n: string }) => (
+  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
+);
+
+type Clause = { n: string; t: string; d: string };
+
+const ATTESTATIONS: Clause[] = [
+  {
+    n: "01",
+    t: "Integrity of submission",
+    d: "All records, claims, and category descriptions submitted at intake must remain accurate throughout the verification term. Material inaccuracies discovered after issuance are treated as a disclosure event and may reopen review.",
+  },
+  {
+    n: "02",
+    t: "Supply-chain transparency",
+    d: "All upstream pharmacies, outsourcing facilities, and qualified suppliers used to fulfill reviewed categories must be disclosed in full and supported by documentation retained in the audit file.",
+  },
+  {
+    n: "03",
+    t: "Renewal and review cooperation",
+    d: "The entity is expected to respond to renewal requests, clarification requests, and re-examination notices within the published response windows and provide updated records when requested.",
+  },
+  {
+    n: "04",
+    t: "Public-claims alignment",
+    d: "Public-facing representations, including websites, advertising, intake materials, and third-party listings, must remain consistent with the records reviewed during the verification term.",
+  },
 ];
 
-const triggers = [
-  "Consumer Reports, submissions from consumers, clinicians, or third parties received through the public reporting channel and screened as in-scope under the Reporting & Market Intelligence protocol.",
-  "Delisting, suspension, voluntary surrender, or removal of a disclosed upstream source or manufacturing anchor.",
-  "Public regulatory action against the entity or any disclosed supplier by an authority of competent jurisdiction.",
-  "Divergence between public-facing claims and the records on file under the audit register.",
-  "Failure to respond to a renewal notice, clarification request, or Mandatory Disclosure Event acknowledgment within the published response window.",
-  "Lapse of any required licensure, registration, or accreditation held by the entity or a disclosed upstream source.",
+const DISCLOSURE: Clause[] = [
+  {
+    n: "01",
+    t: "Change in supplier or upstream source",
+    d: "Any substitution, addition, or termination of a disclosed pharmacy, outsourcing facility, or other manufacturing anchor tied to a reviewed category.",
+  },
+  {
+    n: "02",
+    t: "Change in licensure status",
+    d: "Any suspension, lapse, voluntary surrender, or jurisdictional change affecting the entity or a disclosed upstream source.",
+  },
+  {
+    n: "03",
+    t: "Change in ownership or operating control",
+    d: "Any material change in ownership, controlling interest, operating entity, or registered legal identity.",
+  },
+  {
+    n: "04",
+    t: "Change in reviewed category scope",
+    d: "Any addition, removal, or material change affecting the categories represented in the verified record.",
+  },
+  {
+    n: "05",
+    t: "Change in public-facing claims",
+    d: "Any material change to public claims regarding sourcing, credentials, accreditation, or verified scope.",
+  },
+  {
+    n: "06",
+    t: "Regulatory action",
+    d: "Any notice of action by the FDA, a State Board of Pharmacy, a State Medical Board, or another authority of competent jurisdiction.",
+  },
 ];
 
-const actions = [
-  { t: "Administrative Inquiry", d: "A formal written request for documentation, records, or explanation, issued to the entity of record. The listing remains in its current standing during the response window. Failure to respond within the published window is itself an audit re-opening trigger under §3." },
-  { t: "Scope Reduction", d: "The verified examination scope is narrowed to only those categories that remain supported by current records. Categories no longer supported are withdrawn from the public listing and recorded in the audit file." },
-  { t: "Status Revocation (Suspension)", d: "The Verified standing is administratively withdrawn pending evidentiary clarification. The listing publicly displays Suspended for the duration of the hold. The entity remains in the registry but does not carry an affirmative standing." },
-  { t: "Registry Expulsion (Removal)", d: "The listing is withdrawn from the registry under a Removed standing. Reinstatement requires a new application and a fresh examination cycle under §5. Prior audit history is retained in the registry of record." },
-  { t: "Public Note", d: "A short, factual notation attached to the public listing where public clarification is administratively warranted. Public notes are limited to verifiable, non-speculative statements and are recorded in the audit file with rationale." },
+const TRIGGERS: Clause[] = [
+  {
+    n: "01",
+    t: "Consumer and clinician reports",
+    d: "Submissions received through the public reporting channel and screened as in scope under the reporting protocol.",
+  },
+  {
+    n: "02",
+    t: "Upstream-source removal or suspension",
+    d: "Delisting, suspension, voluntary surrender, or removal of a disclosed upstream source or manufacturing anchor.",
+  },
+  {
+    n: "03",
+    t: "Regulatory action",
+    d: "Public action against the entity or a disclosed supplier by an authority of competent jurisdiction.",
+  },
+  {
+    n: "04",
+    t: "Claims divergence",
+    d: "A material difference between public-facing claims and the records currently on file.",
+  },
+  {
+    n: "05",
+    t: "Non-response",
+    d: "Failure to respond to a renewal notice, clarification request, or disclosure acknowledgment within the published response window.",
+  },
+  {
+    n: "06",
+    t: "Credential lapse",
+    d: "Lapse of any required licensure, registration, or accreditation held by the entity or a disclosed upstream source.",
+  },
 ];
 
-const deeper = [
+const ACTIONS: Clause[] = [
+  {
+    n: "01",
+    t: "Administrative inquiry",
+    d: "A formal written request for documentation, records, or explanation. The listing remains in its current standing during the response window unless other action is required.",
+  },
+  {
+    n: "02",
+    t: "Scope reduction",
+    d: "The verified scope is narrowed to the categories that remain supported by current records. Unsupported categories are withdrawn from the public listing.",
+  },
+  {
+    n: "03",
+    t: "Suspension",
+    d: "The Verified standing is temporarily withdrawn pending evidentiary clarification. The entity remains in the registry but no longer carries an affirmative verified status.",
+  },
+  {
+    n: "04",
+    t: "Removal",
+    d: "The listing is withdrawn from the registry under a Removed standing. Re-entry requires a new application and a fresh examination cycle.",
+  },
+  {
+    n: "05",
+    t: "Public note",
+    d: "A short factual notation may be attached to a listing where clarification is warranted and the supporting record is verifiable and non-speculative.",
+  },
+];
+
+const RELATED = [
   { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
-  { to: "/status-definitions", label: "Glossary of Regulatory Standings" },
+  { to: "/status-definitions", label: "Status Definitions" },
   { to: "/report-a-concern", label: "Reporting & Market Intelligence" },
   { to: "/governance", label: "Regulatory Alignment & Oversight" },
 ];
 
-const waypoints = [
-  { id: "attestations", number: "1", label: "Attestations" },
-  { id: "mde", number: "2", label: "Disclosure" },
-  { id: "triggers", number: "3", label: "Triggers" },
-  { id: "actions", number: "4", label: "Actions" },
-  { id: "reentry", number: "5", label: "Re-entry" },
-  { id: "deeper", number: "6", label: "Read deeper" },
-];
-
-const Accountability = () => (
-  <>
-    <PageMeta
-      title="Accountability & Enforcement"
-      description="Mandatory disclosure events, audit re-opening triggers, and the administrative actions available to Source Standard."
-    />
-    <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Accountability" }]} />
-
-    <RecordHeader
-      metadata={[
-        { label: "Doc", value: DOC_ID },
-        { label: "Status", value: "Active" },
-        { label: "Updated", value: "04/21/26" },
-        { label: "Jurisdiction", value: "United States" },
-      ]}
-      verifiedOn={VERIFIED_ON}
-      eyebrow="Governance & oversight"
-      title="Compliance Monitoring & Enforcement Protocols"
-      lead="Attestations accepted by Verified entities, Mandatory Disclosure Events, audit re-opening triggers, and the graduated enforcement actions available to the framework when compliance obligations are not met."
-    />
-
-    <DocJumpBar waypoints={waypoints} />
-
-    <BoardSection
-      id="attestations"
-      n="1"
-      category="Attestations"
-      title="Attestations of continuous compliance"
-      rationale="Upon assignment of a Verified standing, the entity formally accepts the following standing attestations. These attestations form the controlling basis on which the public listing is issued, maintained, and renewed."
-    >
-      <ul className="grid md:grid-cols-2 gap-px bg-border border border-border">
-        {commitments.map((c, i) => (
-          <li key={c.t} className="bg-background p-5">
-            <p className="meta text-primary mb-1">ATTESTATION · {String(i + 1).padStart(2, "0")}</p>
-            <p className="t-body-sm font-semibold text-foreground mb-2">{c.t}</p>
-            <p className="t-body-sm text-muted-foreground leading-relaxed">{c.d}</p>
-          </li>
-        ))}
-      </ul>
-    </BoardSection>
-
-    <BoardSection
-      id="mde"
-      n="2"
-      category="Disclosure"
-      title="Mandatory Disclosure Events (MDE)"
-      rationale="The following events are designated Mandatory Disclosure Events and must be reported to the framework within seventy-two (72) hours of occurrence. Failure to report within the disclosure window does not invalidate the underlying event and is itself an audit re-opening trigger under §3."
-      muted
-    >
-      <Callout tone="warning" eyebrow={`Disclosure window · ${DOC_ID} · §2`}>
-        <div className="flex items-baseline gap-3">
-          <span className="font-mono t-section-title-md font-semibold tabular-nums text-foreground leading-none">
-            72h
-          </span>
-          <span className="t-body-sm text-muted-foreground">
-            maximum window from event occurrence to disclosure to the framework.
-          </span>
+const ClauseList = ({ clauses }: { clauses: Clause[] }) => (
+  <ol className="divide-y divide-border/60 border-y border-border/60">
+    {clauses.map((c) => (
+      <li key={c.n} className="grid grid-cols-12 gap-4 py-6">
+        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70 pt-1">
+          {c.n}
         </div>
-      </Callout>
-      <ol className="border border-border bg-background divide-y divide-border">
-        {reportable.map((r, i) => (
-          <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
-            <div className="col-span-2 meta text-primary">{String(i + 1).padStart(2, "0")}</div>
-            <p className="col-span-10 t-body-sm text-muted-foreground leading-relaxed">{r}</p>
-          </li>
-        ))}
-      </ol>
-    </BoardSection>
-
-    <BoardSection
-      id="triggers"
-      n="3"
-      category="Triggers"
-      title="Audit re-opening triggers"
-      rationale="Any of the following constitutes an audit re-opening trigger and may open a re-examination of an existing Verified listing, regardless of the listing's position in the renewal cycle. Consumer and clinician reports submitted through the public reporting channel are a primary source of data for this surveillance function."
-    >
-      <ol className="border border-border bg-background divide-y divide-border">
-        {triggers.map((t, i) => (
-          <li key={i} className="grid grid-cols-12 gap-4 px-5 py-4 items-baseline">
-            <div className="col-span-2 meta text-primary">TRIG · {String(i + 1).padStart(2, "0")}</div>
-            <p className="col-span-10 t-body-sm text-muted-foreground leading-relaxed">{t}</p>
-          </li>
-        ))}
-      </ol>
-    </BoardSection>
-
-    <BoardSection
-      id="actions"
-      n="4"
-      category="Actions"
-      title="Graduated administrative actions"
-      rationale="When a re-examination identifies non-compliance, the framework applies a graduated set of administrative actions scaled to the nature, severity, and recurrence of the underlying conduct. Actions are recorded in the audit file and, where applicable, reflected in the public listing."
-      muted
-    >
-      <ol className="border border-border bg-background divide-y divide-border">
-        {actions.map((a, i) => (
-          <li key={a.t} className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline">
-            <div className="col-span-3">
-              <p className="meta text-primary mb-1">ACTION · {String(i + 1).padStart(2, "0")}</p>
-              <p className="t-body-sm font-semibold text-foreground">{a.t}</p>
-            </div>
-            <p className="col-span-9 t-body-sm text-muted-foreground leading-relaxed">{a.d}</p>
-          </li>
-        ))}
-      </ol>
-    </BoardSection>
-
-    <BoardSection id="reentry" n="5" category="Re-entry" title="Re-entry protocol">
-      <Callout tone="notice" eyebrow={`Permanent record · ${DOC_ID} · §5`}>
-        <p className="t-body-sm text-foreground leading-relaxed">
-          Prior history retained. Re-entry is not granted on the basis of time elapsed alone.
-        </p>
-      </Callout>
-      <p className="t-body-sm text-muted-foreground leading-relaxed">
-        An entity under Status Revocation (Suspension) may return to Verified once the underlying matter is resolved and documented in the audit file. An entity under Registry Expulsion (Removal) may apply for re-entry only by submitting a new application and undergoing a fresh examination cycle in full. Prior audit history, including the original determination, the triggering events, and the disposition, is retained on the permanent record of the entity and is referenced in any subsequent examination.
-      </p>
-    </BoardSection>
-
-    <BoardSection id="deeper" n="6" category="Read deeper" title="Cross-references" muted>
-      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
-        {deeper.map((d, i) => (
-          <li key={d.to} className="bg-background">
-            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
-              <div>
-                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
-                <p className="t-body-sm font-semibold text-foreground leading-snug">{d.label}</p>
-              </div>
-              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </BoardSection>
-
-    <BoardCiteFooter
-      citation={`Source Standard. Compliance Monitoring & Enforcement Protocols. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
-    />
-  </>
+        <div className="col-span-10 md:col-span-11">
+          <h3 className="t-body-md font-semibold text-foreground mb-2">{c.t}</h3>
+          <p className="t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
 );
+
+const SplitSection = ({
+  id,
+  n,
+  title,
+  intro,
+  children,
+}: {
+  id: string;
+  n: string;
+  title: string;
+  intro: string;
+  children: React.ReactNode;
+}) => (
+  <section id={id} className="scroll-mt-24 section-pad border-b border-border/40">
+    <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
+      <div className="md:col-span-4">
+        <div className="md:sticky md:top-32">
+          <SectionIndex n={n} />
+          <h2 className="t-section-title-sm text-foreground">{title}</h2>
+          <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">{intro}</p>
+        </div>
+      </div>
+      <div className="md:col-span-8 mt-8 md:mt-0">{children}</div>
+    </div>
+  </section>
+);
+
+const Accountability = () => {
+  const heroDescription =
+    "Attestations accepted by Verified entities, mandatory disclosure events, audit re-opening triggers, and the graduated actions available to the framework when compliance obligations are not met.";
+
+  return (
+    <>
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Enforcement" }]} />
+
+      <PageMeta title="Enforcement" description={heroDescription} />
+
+      {/* §1 Hero */}
+      <section className="bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard pt-20 md:pt-28 lg:pt-32 pb-16 md:pb-20 lg:pb-24">
+            <div className="max-w-3xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Governance & Oversight</p>
+              <h1 className="mt-4 t-page-title text-foreground">
+                Compliance Monitoring & Enforcement Protocols
+              </h1>
+              <p className="mt-6 t-body-lg text-muted-foreground leading-relaxed">{heroDescription}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §2 Statement of purpose */}
+      <section className="bg-background border-b border-border/40">
+        <div className="page-shell">
+          <div className="mx-auto w-standard section-pad">
+            <div className="max-w-2xl">
+              <p className="t-eyebrow-sm text-muted-foreground">Purpose</p>
+              <h2 className="mt-4 t-section-title-sm text-foreground">
+                How compliance is maintained after verification
+              </h2>
+              <div className="mt-6 space-y-5">
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  A Verified listing is not permanent. It remains in effect only while the underlying records, sourcing relationships, and public claims continue to support the published scope.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  This page defines the continuing obligations attached to a Verified standing, the events that must be disclosed, the conditions that may reopen review, and the actions the framework may take when the record no longer supports the listing.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §3 Contents nav */}
+      <SectionAnchorNav waypoints={WAYPOINTS} />
+
+      <div className="bg-background">
+        <div className="page-shell">
+          <div className="mx-auto w-standard">
+            {/* §4 Attestations */}
+            <SplitSection
+              id="attestations"
+              n="01"
+              title="Attestations"
+              intro="The continuing representations accepted when a Verified standing is issued."
+            >
+              <ClauseList clauses={ATTESTATIONS} />
+            </SplitSection>
+
+            {/* §5 Disclosure */}
+            <SplitSection
+              id="disclosure"
+              n="02"
+              title="Disclosure"
+              intro="Events that must be reported to the framework when they materially affect the published record."
+            >
+              <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
+                The following events are designated Mandatory Disclosure Events and are expected to be reported within seventy-two hours of occurrence. Failure to report within that window does not negate the underlying event and may itself trigger review.
+              </p>
+              <ClauseList clauses={DISCLOSURE} />
+            </SplitSection>
+
+            {/* §6 Triggers */}
+            <SplitSection
+              id="triggers"
+              n="03"
+              title="Triggers"
+              intro="Events that may reopen review of an existing listing, regardless of its renewal cycle."
+            >
+              <ClauseList clauses={TRIGGERS} />
+            </SplitSection>
+
+            {/* §7 Actions */}
+            <SplitSection
+              id="actions"
+              n="04"
+              title="Actions"
+              intro="How the framework responds when a reviewed record no longer supports the published status."
+            >
+              <ClauseList clauses={ACTIONS} />
+            </SplitSection>
+
+            {/* §8 Re-entry */}
+            <SplitSection
+              id="reentry"
+              n="05"
+              title="Re-entry"
+              intro="How a listing may return after suspension or removal."
+            >
+              <div className="space-y-5">
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  An entity under Suspension may return to Verified once the underlying matter is resolved and documented in the audit file.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  An entity under Removal may apply for re-entry only through a new application and a new examination cycle. Prior audit history, including the original determination, the triggering events, and the disposition, remains part of the permanent record and may be referenced in any future review.
+                </p>
+              </div>
+            </SplitSection>
+
+            {/* §9 Related documents */}
+            <SplitSection
+              id="related"
+              n="06"
+              title="Related Documents"
+              intro="Further reading on the framework, public statuses, and reporting logic."
+            >
+              <ul className="divide-y divide-border/60 border-y border-border/60">
+                {RELATED.map((r) => (
+                  <li key={r.to}>
+                    <Link
+                      to={r.to}
+                      className="group grid grid-cols-12 gap-4 py-5 items-baseline hover:bg-surface-muted/40 transition-colors -mx-4 px-4"
+                    >
+                      <div className="col-span-9 md:col-span-10">
+                        <p className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {r.label}
+                        </p>
+                      </div>
+                      <div className="col-span-3 md:col-span-2 text-right">
+                        <span className="t-utility-xs text-muted-foreground group-hover:text-primary transition-colors">
+                          View
+                        </span>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </SplitSection>
+
+            {/* §10 Closing statement */}
+            <section className="section-pad border-t border-border/40">
+              <div className="max-w-2xl">
+                <p className="t-eyebrow-sm text-muted-foreground">Conclusion</p>
+                <h2 className="mt-4 t-section-title-sm text-foreground">
+                  Verification requires continuing record support.
+                </h2>
+                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                  The purpose of this protocol is to preserve the integrity of the registry after a listing is published. Verification remains meaningful only when the record continues to support the claim, the underlying sourcing remains transparent, and material changes are disclosed in time.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Accountability;
