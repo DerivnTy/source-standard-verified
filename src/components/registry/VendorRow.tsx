@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Vendor, VendorFulfillment } from "@/data/vendors";
+import verifiedShield from "@/assets/verified-shield.png";
 
 /**
  * VendorRow — Final Two-Row Surgical Card.
@@ -72,21 +73,39 @@ export const VendorRow = ({
 
           {isVerified ? (
             <span
-              className="inline-flex items-center gap-1 font-sans uppercase tabular-nums"
+              className="inline-flex items-center font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
                 fontSize: "11px",
                 fontWeight: 700,
                 letterSpacing: "0.035em",
                 lineHeight: 1,
-                color: "#34C759",
+                gap: "4px",
+                color: "#001021",
               }}
             >
               <span
                 aria-hidden
-                className="inline-block rounded-full"
-                style={{ width: "5px", height: "5px", backgroundColor: "#34C759" }}
-              />
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "13px",
+                  width: "11px",
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  src={verifiedShield}
+                  alt=""
+                  style={{
+                    height: "180%",
+                    width: "auto",
+                    objectFit: "contain",
+                    display: "block",
+                  }}
+                />
+              </span>
               Verified
             </span>
           ) : (
