@@ -35,7 +35,7 @@ export const advisoryBoard: BoardMember[] = [
     boardTitle: "Chair · Clinical Audit Standards",
     specialization: "Internal Medicine · Endocrinology",
     shortSummary:
-      "Board chair providing clinical oversight of framework criteria, evidence standards, and renewal intervals across the Source Standard registry.",
+      "Board chair supporting clinical oversight of framework standards, evidence boundaries, and renewal terminology across the Source Standard registry.",
     biography:
       "Dr. Whitfield is a board-certified internist and endocrinologist with two decades of practice focused on hormone health, metabolic disease, and the prescribing standards surrounding compounded therapies. She has served on hospital pharmacy and therapeutics committees, contributed to institutional review of compounded preparations, and lectured on prescriber accountability at multiple academic medical centers. As Chair of the Medical Advisory Board, she convenes review sessions, ratifies framework revisions, and represents the board's clinical position on standards published under the Source Standard reference framework.",
     background: [
@@ -75,7 +75,7 @@ export const advisoryBoard: BoardMember[] = [
     boardTitle: "Vice Chair · Pharmacy Sourcing Review",
     specialization: "Pharmacology · 503A / 503B Sourcing",
     shortSummary:
-      "Reviews upstream pharmacy sourcing criteria and oversees the Greenlist evaluation methodology applied to 503A and 503B facilities.",
+      "Provides pharmacy-side input on upstream sourcing criteria and documentation categories used in 503A and 503B review.",
     biography:
       "Dr. Krishnamurthy is a clinical pharmacologist whose career has centered on the regulatory and quality-control layer beneath prescribed therapy. He has consulted with outsourcing facility quality programs, advised on internal review processes for compounded sterile preparations, and worked extensively with the USP compounding chapters that define the operational baseline for 503A and 503B pharmacies. As Vice Chair of the Medical Advisory Board, he oversees how compounding pharmacies are evaluated for inclusion in the Greenlist and how those records map to publicly citable FDA and PCAB authorities.",
     background: [
@@ -113,7 +113,7 @@ export const advisoryBoard: BoardMember[] = [
     boardTitle: "Member · Patient Safety & Public Clarity",
     specialization: "Preventive Medicine · Public Health",
     shortSummary:
-      "Reviews how framework determinations are communicated to the public, with emphasis on accuracy, restraint, and informed-consumer language.",
+      "Reviews public-facing framework language with emphasis on accuracy, restraint, and informed-consumer clarity.",
     biography:
       "Dr. Okonkwo is a preventive medicine physician with a public health background focused on health communication and informed consent. Her work has examined how patient-facing materials shape decision-making in fields where regulatory categories are unfamiliar to the general public. She brings that lens to the Source Standard registry, ensuring that public listings, status definitions, and disclaimers represent clinical reality accurately and avoid implying endorsement beyond what the framework actually verifies.",
     background: [
@@ -151,7 +151,7 @@ export const advisoryBoard: BoardMember[] = [
     boardTitle: "Member · Pharmacy Compliance (USP Standards)",
     specialization: "Clinical Pharmacy · Sterile Compounding",
     shortSummary:
-      "Pharmacy-side reviewer ensuring framework criteria align with current USP standards and state board of pharmacy expectations.",
+      "Provides pharmacy compliance input related to sterile compounding standards, pharmacy documentation, and public-record review boundaries.",
     biography:
       "Dr. Park is a board-certified pharmacotherapy specialist with direct sterile-compounding oversight experience in hospital and outsourcing-facility settings. His practice has focused on translating USP chapter revisions into operational reality and on the points where state board of pharmacy expectations diverge from federal guidance. He brings pharmacist-side expertise to framework reviews, ensuring criteria for sterile and non-sterile compounded preparations are anchored to currently enforceable standards.",
     background: [
@@ -189,7 +189,7 @@ export const advisoryBoard: BoardMember[] = [
     boardTitle: "Member · Medical Reference Review",
     specialization: "Family Medicine · Clinical Education",
     shortSummary:
-      "Reviews educational reference material published under the framework to ensure clinical accuracy and appropriate scope.",
+      "Reviews educational reference material to support clinical accuracy, clear terminology, and appropriate scope.",
     biography:
       "Dr. Reyes is a board-certified family medicine physician whose career has bridged primary care practice and clinical education. She has held faculty roles in residency training and has contributed to layperson-accessible medical reference material with an emphasis on scope discipline, making clear what general reference can and cannot substitute for. She brings that sensibility to the Source Standard educational layer, ensuring published explanations remain within the bounds of what the framework can substantiate.",
     background: [
@@ -227,7 +227,7 @@ export const advisoryBoard: BoardMember[] = [
     boardTitle: "Member · Regulatory Policy & Ethics",
     specialization: "Health Law · Medical Ethics",
     shortSummary:
-      "Physician-attorney reviewing the regulatory posture of the framework and the ethical boundaries of public determinations published under it.",
+      "Provides physician-attorney input on legal posture, ethical boundaries, and public status language used within the framework.",
     biography:
       "Dr. Halloran is a physician-attorney whose career has spanned bedside internal medicine, hospital general counsel work, and federal health-regulatory practice. He has advised academic medical centers on FDA enforcement matters, state medical board proceedings, and the ethical questions that arise when clinical determinations enter the public record. He brings that dual lens to the Medical Advisory Board, ensuring the framework's public-facing determinations are defensible both clinically and procedurally.",
     background: [
