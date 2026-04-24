@@ -84,8 +84,7 @@ export const SiteLayout = () => {
           // hero, header and utility bar read as one unbroken navy field.
           backgroundColor: isHome ? "hsl(var(--navy-surface))" : undefined,
           marginTop: isHome ? `-${HEADER_STACK_HEIGHT}px` : undefined,
-          paddingTopAdjusted: undefined,
-        } as React.CSSProperties}
+        }}
       >
         {isHome ? (
           // Push content back down by the header height; the navy bg behind
