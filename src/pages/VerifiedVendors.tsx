@@ -384,7 +384,7 @@ const VerifiedVendors = () => {
                 />
               ) : (
                 <>
-                  <ul className="flex flex-col gap-2">
+                  <ul className="flex flex-col gap-1.5">
                     {visibleItems.map((vendor) => {
                       const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
                       return (
