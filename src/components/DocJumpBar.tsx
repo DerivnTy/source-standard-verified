@@ -203,52 +203,13 @@ const PillContents = ({
 }) => {
   const railRef = useRef<HTMLDivElement | null>(null);
   const ulRef = useRef<HTMLUListElement | null>(null);
+  const indicatorRef = useRef<HTMLSpanElement | null>(null);
   const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
   const rafRef = useRef<number | null>(null);
-  const targetScrollRef = useRef(0);
-  const currentScrollRef = useRef(0);
-  const animRafRef = useRef<number | null>(null);
-  const [indicator, setIndicator] = useState<{ left: number; width: number }>({
-    left: 0,
-    width: 0,
-  });
-
-  // Smoothly tween the rail's scrollLeft toward targetScrollRef.
-  useEffect(() => {
-    const tick = () => {
-      const rail = railRef.current;
-      if (!rail) {
-        animRafRef.current = null;
-        return;
-      }
-      const target = targetScrollRef.current;
-      const current = currentScrollRef.current;
-      const next = current + (target - current) * 0.18;
-      const done = Math.abs(target - next) < 0.5;
-      currentScrollRef.current = done ? target : next;
-      rail.scrollLeft = currentScrollRef.current;
-      if (!done) {
-        animRafRef.current = requestAnimationFrame(tick);
-      } else {
-        animRafRef.current = null;
-      }
-    };
-    const start = () => {
-      if (animRafRef.current == null) {
-        animRafRef.current = requestAnimationFrame(tick);
-      }
-    };
-    // Expose start via a custom event on the rail
-    const rail = railRef.current;
-    if (!rail) return;
-    const handler = () => start();
-    rail.addEventListener("ss:rail-tween", handler);
-    return () => {
-      rail.removeEventListener("ss:rail-tween", handler);
-      if (animRafRef.current != null) cancelAnimationFrame(animRafRef.current);
-      animRafRef.current = null;
-    };
-  }, []);
+  // Indicator state is kept in a ref + written directly to the DOM each frame
+  // to avoid React re-renders on every scroll tick (zero-latency path).
+  // We still seed a state value so the initial paint is correct.
+  const [, force] = useState(0);
 
   useEffect(() => {
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -256,6 +217,7 @@ const PillContents = ({
     const compute = () => {
       const ul = ulRef.current;
       const rail = railRef.current;
+      const indicatorEl = indicatorRef.current;
       if (!ul || !rail) return;
       const ulRect = ul.getBoundingClientRect();
 
@@ -293,17 +255,21 @@ const PillContents = ({
       const b = chips[Math.min(n - 1, i + 1)];
       const indicatorLeft = lerp(a.left, b.left, t);
       const indicatorWidth = lerp(a.width, b.width, t);
-      setIndicator({ left: indicatorLeft, width: indicatorWidth });
 
-      // Drive the rail's scrollLeft so the active chip sits centered in
-      // the visible viewport of the rail. Clamp to valid scroll bounds so
-      // the active chip is always fully visible.
+      // Pan the rail with translateX (GPU). Clamp so the active chip stays
+      // visible. We translate the <ul>, never write scrollLeft.
       const railWidth = rail.clientWidth;
-      const maxScroll = Math.max(0, ul.scrollWidth - railWidth);
+      const maxPan = Math.max(0, ul.scrollWidth - railWidth);
       const desired = indicatorLeft + indicatorWidth / 2 - railWidth / 2;
-      const clamped = Math.max(0, Math.min(maxScroll, desired));
-      targetScrollRef.current = clamped;
-      rail.dispatchEvent(new Event("ss:rail-tween"));
+      const tx = Math.max(0, Math.min(maxPan, desired));
+
+      // Direct DOM writes — bypass React for 1:1 scroll sync.
+      ul.style.transform = `translate3d(${-tx}px, 0, 0)`;
+      if (indicatorEl) {
+        indicatorEl.style.transform = `translate3d(${indicatorLeft}px, 0, 0)`;
+        indicatorEl.style.width = `${indicatorWidth}px`;
+        indicatorEl.style.opacity = indicatorWidth > 0 ? "1" : "0";
+      }
     };
 
     const onScroll = () => {
@@ -314,9 +280,11 @@ const PillContents = ({
       });
     };
 
+    // Initial paint + a delayed second pass once layout settles.
     compute();
+    force((n) => n + 1);
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
     const id = window.setTimeout(compute, 50);
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -344,17 +312,11 @@ const PillContents = ({
       <span className="shrink-0 t-label-sm text-foreground/70">
         CONTENTS ·
       </span>
-      {/* Horizontally scrollable rail — scrollbar hidden, scrollLeft is
-          driven by page scroll progress so chips glide into the active zone. */}
+      {/* Rail viewport — clips overflow; the inner <ul> is panned via
+          GPU translate3d in lockstep with page scroll. */}
       <div
         ref={railRef}
-        className="relative flex-1 min-w-0 overflow-x-auto"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          WebkitOverflowScrolling: "touch",
-          scrollBehavior: "auto",
-        }}
+        className="relative flex-1 min-w-0 overflow-hidden"
       >
         <style>{`
           .ss-rail::-webkit-scrollbar { display: none; }
@@ -362,7 +324,11 @@ const PillContents = ({
         <ul
           ref={ulRef}
           className="ss-rail relative flex items-center w-max"
-          style={{ gap: `${itemGap}px` }}
+          style={{
+            gap: `${itemGap}px`,
+            transform: "translate3d(0, 0, 0)",
+            willChange: "transform",
+          }}
         >
           {waypoints.map((w) => {
             const active = w.id === activeId;
@@ -395,20 +361,19 @@ const PillContents = ({
               </li>
             );
           })}
-          {/* Sliding underline — GPU-accelerated translateX glide with
-              spring-like easing. Width transitions separately. */}
+          {/* Sliding underline — driven directly by scroll via DOM writes
+              (transform + width). No CSS transition: 1:1 sync with finger. */}
           <span
+            ref={indicatorRef}
             aria-hidden
-            className="absolute left-0 bg-foreground"
+            className="absolute left-0 top-auto bg-foreground"
             style={{
-              width: `${indicator.width}px`,
+              width: "0px",
               height: "2px",
               bottom: "-2px",
               borderRadius: "2px",
-              transform: `translate3d(${indicator.left}px, 0, 0)`,
-              opacity: indicator.width > 0 ? 1 : 0,
-              transition:
-                "transform 380ms cubic-bezier(0.22, 1, 0.36, 1), width 380ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease-out",
+              transform: "translate3d(0, 0, 0)",
+              opacity: 0,
               willChange: "transform, width",
             }}
           />
