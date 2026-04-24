@@ -45,15 +45,15 @@ export const CATEGORIES: Category[] = [
     label: "Sourcing & Regulation",
     short: "Regulation",
     description:
-      "Statutory framework, facility classifications, and verification methodology.",
+      "Statutory framework, facility classifications, pharmacy sourcing, and verification methodology.",
     path: "/library/sourcing",
   },
   {
     id: "clinical",
-    label: "Clinical Handling",
+    label: "Clinical Context",
     short: "Clinical",
     description:
-      "Sterile technique, stability, and clinical context reviewed under the Medical Advisory Board.",
+      "Clinical terminology, handling context, and category-specific reference reviewed within Source Standard's non-treatment scope.",
     path: "/library/clinical",
   },
   {
@@ -61,7 +61,7 @@ export const CATEGORIES: Category[] = [
     label: "Consumer Due Diligence",
     short: "Consumer",
     description:
-      "Patient-facing checklists and signal interpretation for evaluating clinics and sources.",
+      "Consumer-facing reference for understanding vendor status, sourcing claims, and documentation boundaries.",
     path: "/library/consumer",
   },
 ];
