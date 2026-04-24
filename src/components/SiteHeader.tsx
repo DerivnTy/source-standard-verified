@@ -135,7 +135,7 @@ export const SiteHeader = () => {
         </button>
       </div>
 
-      {/* Full-screen mobile overlay — white surface, navy links.
+      {/* Full-screen mobile overlay — navy surface, light type, continuous with hero.
           Top inset = 30px so the announcement bar stays visible above. */}
       {typeof document !== "undefined" &&
         createPortal(
@@ -147,31 +147,26 @@ export const SiteHeader = () => {
               pointerEvents: open ? "auto" : "none",
               opacity: open ? 1 : 0,
               transition: "opacity 280ms ease-in-out",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "hsl(var(--navy-surface))",
             }}
           >
             <div className="flex h-full w-full flex-col">
-              {/* Top bar — wordmark + close (matches header height) */}
+              {/* Top bar — unified lockup + close (matches header height) */}
               <div
                 className="flex shrink-0 items-center justify-between"
                 style={{
                   height: "60px",
                   paddingLeft: "24px",
                   paddingRight: "24px",
-                  borderBottom: "0.5px solid #E5E5EA",
+                  borderBottom: "0.5px solid rgba(255,255,255,0.10)",
                 }}
               >
-                <span
-                  className="font-sans font-semibold text-foreground"
-                  style={{ fontSize: "15px", letterSpacing: "-0.01em" }}
-                >
-                  Source Standard
-                </span>
+                <Logo variant="light" />
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close menu"
-                  className="relative h-9 w-9 text-foreground"
+                  className="relative h-9 w-9 text-white"
                 >
                   <span
                     aria-hidden
@@ -198,7 +193,7 @@ export const SiteHeader = () => {
                         to={n.to}
                         end
                         onClick={() => setOpen(false)}
-                        className="block transition-opacity hover:opacity-70 text-foreground font-sans font-semibold"
+                        className="block transition-opacity hover:opacity-70 text-white font-sans font-semibold"
                         style={{
                           fontSize: "20px",
                           letterSpacing: "-0.015em",
@@ -214,9 +209,9 @@ export const SiteHeader = () => {
                 <Link
                   to="/apply"
                   onClick={() => setOpen(false)}
-                  className="mt-10 inline-flex h-12 items-center justify-center px-6 t-button text-foreground transition-colors hover:bg-foreground/[0.04]"
+                  className="mt-10 inline-flex h-12 items-center justify-center px-6 t-button text-white transition-colors hover:bg-white/[0.06]"
                   style={{
-                    border: "1px solid hsl(var(--foreground) / 0.30)",
+                    border: "1px solid rgba(255,255,255,0.30)",
                     borderRadius: "2px",
                   }}
                 >
@@ -228,12 +223,12 @@ export const SiteHeader = () => {
               <div
                 className="flex shrink-0 items-center justify-center font-mono uppercase"
                 style={{
-                  color: "#48484A",
+                  color: "rgba(255,255,255,0.55)",
                   fontSize: "10px",
                   letterSpacing: "0.08em",
                   paddingTop: "16px",
                   paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 20px)",
-                  borderTop: "0.5px solid #E5E5EA",
+                  borderTop: "0.5px solid rgba(255,255,255,0.10)",
                 }}
               >
                 Source Standard © 2026
