@@ -22,51 +22,51 @@ const OBJECTIVES: Clause[] = [
   {
     n: "01",
     t: "For Consumers",
-    d: "Providing a structured reference point so healthcare decisions can rest more on documented evidence and less on aesthetic presentation alone.",
+    d: "Providing a structured public reference so vendor sourcing claims can be evaluated through documentation status, review scope, and last-reviewed dates.",
   },
   {
     n: "02",
-    t: "For Operators",
-    d: "Creating a visible standard for transparency that rewards vendors who maintain documented sourcing and operating discipline.",
+    t: "For Vendors",
+    d: "Providing a documentation-based review pathway for vendors that want their sourcing claims evaluated within a defined public-reference framework.",
   },
 ];
 
 const SCOPE: Clause[] = [
   {
     n: "01",
-    t: "Public registry",
-    d: "Maintenance of a public registry of verified vendors and substantiated sourcing records.",
+    t: "Vendor registry",
+    d: "Maintenance of a public registry containing verified, unverified, under-review, suspended, and removed vendor records.",
   },
   {
     n: "02",
-    t: "Upstream reference layer",
-    d: "Continuous publication of recognized upstream pharmaceutical sources used within the framework.",
+    t: "Upstream registry",
+    d: "Publication of upstream facility records used as reference points during vendor sourcing review.",
   },
   {
     n: "03",
     t: "Educational reference",
-    d: "Provision of educational material regarding sourcing, storage, and due-diligence standards.",
+    d: "Publication of educational material covering sourcing claims, pharmacy categories, public records, documentation boundaries, and consumer due diligence.",
   },
   {
     n: "04",
-    t: "Ongoing review",
-    d: "Independent monitoring and, where applicable, analytical review of active registry listings within the limits of the framework.",
+    t: "Status maintenance",
+    d: "Periodic review of vendor records, documentation status, review scope, and public-facing status definitions within the limits of the framework.",
   },
 ];
 
 const BOUNDARIES = [
   "Source Standard does not provide medical advice or prescribe treatment protocols.",
-  "It does not substitute for physician judgment or federal regulatory oversight.",
-  "The framework does not function as a marketing partner or promotional arm for any vendor.",
-  "It does not guarantee clinical outcomes, biological efficacy, or individual product safety.",
-  "Its mandate is limited to the verification of documentation and supply-chain transparency.",
+  "It does not substitute for physician judgment or federal or state regulatory oversight.",
+  "It does not function as a marketing partner or promotional arm for any vendor.",
+  "It does not guarantee clinical outcomes, treatment effectiveness, biological response, product quality, potency, sterility, or individual product safety.",
+  "Its mandate is limited to documentation review, sourcing-claim review, public-record organization, and status-based registry publication.",
 ];
 
 const RELATED = [
-  { to: "/governance", label: "Governance & Oversight", desc: "Clinical advisory and statutory anchors." },
-  { to: "/how-it-works", label: "Verification Protocol", desc: "Detailed audit and renewal processes." },
-  { to: "/status-definitions", label: "Status Definitions", desc: "Glossary of registry statuses and public meanings." },
-  { to: "/accountability", label: "Enforcement", desc: "Accountability procedures and status-response protocols." },
+  { to: "/governance", label: "Governance & Oversight", desc: "Advisory oversight, review boundaries, and framework discipline." },
+  { to: "/how-it-works", label: "Verification Protocol", desc: "Documentation review, monitoring, disclosure, and status-response process." },
+  { to: "/status-definitions", label: "Status Definitions", desc: "Definitions for every public registry status." },
+  { to: "/accountability", label: "Compliance", desc: "Legal posture, operating boundaries, and public-reference limitations." },
 ];
 
 const SplitSection = ({
