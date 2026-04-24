@@ -77,7 +77,7 @@ const InquiryRow = ({
     style={{
       border: "0.5px solid hsl(var(--border))",
       borderRadius: "12px",
-      padding: "10px 12px",
+      padding: "10px 14px",
     }}
   >
     <div className="flex flex-col" style={{ rowGap: "2px" }}>
@@ -97,8 +97,8 @@ const InquiryRow = ({
         </span>
       </div>
       <p
-        className="font-sans text-foreground/85"
-        style={{ fontSize: "12px", lineHeight: "1.45" }}
+        className="font-sans text-foreground/85 line-clamp-2"
+        style={{ fontSize: "12.5px", lineHeight: "1.5" }}
       >
         {description}
       </p>
@@ -391,11 +391,11 @@ const Education = () => {
       <section
         id="common-inquiries"
         className="border-b border-border/40"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "40px", paddingBottom: "32px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-wide">
-            <div className="grid grid-cols-12 gap-x-8 gap-y-6">
+            <div className="grid grid-cols-12 gap-x-8 gap-y-4">
               <div className="col-span-12 md:col-span-4">
                 <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                   Reference Questions
