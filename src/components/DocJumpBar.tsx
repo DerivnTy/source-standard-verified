@@ -118,7 +118,8 @@ export const DocJumpBar = ({
   const itemGap = lerp(8, 14, eased);
   const itemPadX = lerp(10, 14, eased);
   const chipPadY = lerp(6, 3, eased);
-  const ulPushLeft = lerp(0, 80, eased);
+  // CONTENTS stays the fixed left anchor — never push the rail right.
+  const ulPushLeft = 0;
 
   const navStyle: React.CSSProperties = {
     position: "sticky",
@@ -193,23 +194,65 @@ const PillContents = ({
   chipPadY: number;
   ulPushLeft: number;
 }) => {
+  const railRef = useRef<HTMLDivElement | null>(null);
   const ulRef = useRef<HTMLUListElement | null>(null);
   const itemRefs = useRef<Record<string, HTMLLIElement | null>>({});
   const rafRef = useRef<number | null>(null);
+  const targetScrollRef = useRef(0);
+  const currentScrollRef = useRef(0);
+  const animRafRef = useRef<number | null>(null);
   const [indicator, setIndicator] = useState<{ left: number; width: number }>({
     left: 0,
     width: 0,
   });
+
+  // Smoothly tween the rail's scrollLeft toward targetScrollRef.
+  useEffect(() => {
+    const tick = () => {
+      const rail = railRef.current;
+      if (!rail) {
+        animRafRef.current = null;
+        return;
+      }
+      const target = targetScrollRef.current;
+      const current = currentScrollRef.current;
+      const next = current + (target - current) * 0.18;
+      const done = Math.abs(target - next) < 0.5;
+      currentScrollRef.current = done ? target : next;
+      rail.scrollLeft = currentScrollRef.current;
+      if (!done) {
+        animRafRef.current = requestAnimationFrame(tick);
+      } else {
+        animRafRef.current = null;
+      }
+    };
+    const start = () => {
+      if (animRafRef.current == null) {
+        animRafRef.current = requestAnimationFrame(tick);
+      }
+    };
+    // Expose start via a custom event on the rail
+    const rail = railRef.current;
+    if (!rail) return;
+    const handler = () => start();
+    rail.addEventListener("ss:rail-tween", handler);
+    return () => {
+      rail.removeEventListener("ss:rail-tween", handler);
+      if (animRafRef.current != null) cancelAnimationFrame(animRafRef.current);
+      animRafRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const compute = () => {
       const ul = ulRef.current;
-      if (!ul) return;
+      const rail = railRef.current;
+      if (!ul || !rail) return;
       const ulRect = ul.getBoundingClientRect();
 
-      // Measure chip positions relative to the ul
+      // Measure chip positions relative to the ul (rail content).
       const chips = waypoints
         .map((w) => itemRefs.current[w.id])
         .filter((el): el is HTMLLIElement => !!el)
@@ -225,12 +268,10 @@ const PillContents = ({
         .filter((el): el is HTMLElement => !!el);
       if (sections.length === 0) return;
 
-      // Compute scroll progress from first section top to last section bottom
       const firstTop = sections[0].getBoundingClientRect().top + window.scrollY;
       const lastEl = sections[sections.length - 1];
       const lastBottom =
         lastEl.getBoundingClientRect().top + window.scrollY + lastEl.offsetHeight;
-      // Anchor against viewport center-ish (use header offset of ~160px)
       const anchor = window.scrollY + 200;
       const range = Math.max(1, lastBottom - firstTop);
       const docProgress = Math.max(0, Math.min(1, (anchor - firstTop) / range));
@@ -243,10 +284,19 @@ const PillContents = ({
 
       const a = chips[i];
       const b = chips[Math.min(n - 1, i + 1)];
-      setIndicator({
-        left: lerp(a.left, b.left, t),
-        width: lerp(a.width, b.width, t),
-      });
+      const indicatorLeft = lerp(a.left, b.left, t);
+      const indicatorWidth = lerp(a.width, b.width, t);
+      setIndicator({ left: indicatorLeft, width: indicatorWidth });
+
+      // Drive the rail's scrollLeft so the active chip sits centered in
+      // the visible viewport of the rail. Clamp to valid scroll bounds so
+      // the active chip is always fully visible.
+      const railWidth = rail.clientWidth;
+      const maxScroll = Math.max(0, ul.scrollWidth - railWidth);
+      const desired = indicatorLeft + indicatorWidth / 2 - railWidth / 2;
+      const clamped = Math.max(0, Math.min(maxScroll, desired));
+      targetScrollRef.current = clamped;
+      rail.dispatchEvent(new Event("ss:rail-tween"));
     };
 
     const onScroll = () => {
@@ -283,62 +333,77 @@ const PillContents = ({
         overflow: "hidden",
       }}
     >
+      {/* Fixed left anchor — never moves. */}
       <span className="shrink-0 t-label-sm text-foreground/70">
         CONTENTS ·
       </span>
-      <ul
-        ref={ulRef}
-        className="relative flex items-center shrink-0"
+      {/* Horizontally scrollable rail — scrollbar hidden, scrollLeft is
+          driven by page scroll progress so chips glide into the active zone. */}
+      <div
+        ref={railRef}
+        className="relative flex-1 min-w-0 overflow-x-auto"
         style={{
-          gap: `${itemGap}px`,
-          minWidth: 0,
-          marginLeft: `${ulPushLeft}px`,
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+          scrollBehavior: "auto",
         }}
       >
-        {waypoints.map((w) => {
-          const active = w.id === activeId;
-          const chip = "inline-flex items-center gap-2 t-label-sm transition-colors";
-          const tone = active
-            ? "text-foreground"
-            : "text-muted-foreground hover:text-foreground";
-          return (
-            <li
-              key={w.id}
-              ref={(el) => {
-                itemRefs.current[w.id] = el;
-              }}
-            >
-              <a
-                href={`#${w.id}`}
-                onClick={onJump(w.id)}
-                className={`${chip} ${tone}`}
-                style={{
-                  paddingLeft: `${itemPadX}px`,
-                  paddingRight: `${itemPadX}px`,
-                  paddingTop: `${chipPadY}px`,
-                  paddingBottom: `${chipPadY}px`,
+        <style>{`
+          .ss-rail::-webkit-scrollbar { display: none; }
+        `}</style>
+        <ul
+          ref={ulRef}
+          className="ss-rail relative flex items-center w-max"
+          style={{ gap: `${itemGap}px` }}
+        >
+          {waypoints.map((w) => {
+            const active = w.id === activeId;
+            const chip = "inline-flex items-center gap-2 t-label-sm transition-colors whitespace-nowrap";
+            const tone = active
+              ? "text-foreground font-semibold"
+              : "text-muted-foreground hover:text-foreground";
+            return (
+              <li
+                key={w.id}
+                ref={(el) => {
+                  itemRefs.current[w.id] = el;
                 }}
               >
-                <span className="tabular-nums text-primary">{w.number.padStart(2, "0")}.</span>
-                <span>{w.label.toUpperCase()}</span>
-              </a>
-            </li>
-          );
-        })}
-        {/* Sliding underline indicator */}
-        <span
-          aria-hidden
-          className="absolute bg-foreground"
-          style={{
-            left: `${indicator.left}px`,
-            width: `${indicator.width}px`,
-            height: "2px",
-            bottom: "-2px",
-            borderRadius: "2px",
-            opacity: indicator.width > 0 ? 1 : 0,
-          }}
-        />
-      </ul>
+                <a
+                  href={`#${w.id}`}
+                  onClick={onJump(w.id)}
+                  className={`${chip} ${tone}`}
+                  style={{
+                    paddingLeft: `${itemPadX}px`,
+                    paddingRight: `${itemPadX}px`,
+                    paddingTop: `${chipPadY}px`,
+                    paddingBottom: `${chipPadY}px`,
+                  }}
+                >
+                  <span className="tabular-nums text-primary">{w.number.padStart(2, "0")}.</span>
+                  <span>{w.label.toUpperCase()}</span>
+                </a>
+              </li>
+            );
+          })}
+          {/* Sliding underline indicator — positioned within the scrolling ul
+              so it follows the active chip even as the rail translates. */}
+          <span
+            aria-hidden
+            className="absolute bg-foreground"
+            style={{
+              left: `${indicator.left}px`,
+              width: `${indicator.width}px`,
+              height: "2px",
+              bottom: "-2px",
+              borderRadius: "2px",
+              opacity: indicator.width > 0 ? 1 : 0,
+              transition: "left 200ms ease-out, width 200ms ease-out",
+            }}
+          />
+        </ul>
+      </div>
     </div>
   );
 };
