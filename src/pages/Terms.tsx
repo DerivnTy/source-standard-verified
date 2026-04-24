@@ -22,13 +22,13 @@ type Clause = { n: string; t: string; d: string };
 const CITATION: Clause[] = [
   {
     n: "01",
-    t: "Audit ID",
+    t: "Source Standard ID",
     d: "Include the unique registry identifier associated with the listing, where applicable.",
   },
   {
     n: "02",
     t: "Status date",
-    d: "Include the date of the determination being referenced.",
+    d: "Include the date the referenced status was published or last updated.",
   },
   {
     n: "03",
@@ -38,7 +38,7 @@ const CITATION: Clause[] = [
   {
     n: "04",
     t: "Citation integrity",
-    d: "Citations that omit the identifying details necessary to locate the record may misstate the standing or timing of the published determination.",
+    d: "Citations that omit identifying details may misstate the status, scope, or timing of the published record.",
   },
 ];
 
@@ -51,22 +51,22 @@ const INTEGRITY: Clause[] = [
   {
     n: "02",
     t: "Status misrepresentation",
-    d: "No display or implication of a Verified standing for any entity not currently published under that status in the registry.",
+    d: "No display or implication of Verified status for any entity not currently published under that status in the registry.",
   },
   {
     n: "03",
     t: "Unauthorized use of marks",
-    d: "No use of Source Standard names, marks, or badge artwork in a way that implies an uncontracted partnership, endorsement, or verified relationship.",
+    d: "No use of Source Standard names, marks, or badge artwork in a way that implies an uncontracted partnership, endorsement, verified status, or formal relationship.",
   },
   {
     n: "04",
     t: "Registry interference",
-    d: "No activity intended to disrupt, falsify, or degrade the integrity of public records or related framework materials.",
+    d: "No activity intended to disrupt, falsify, manipulate, or degrade the integrity of public records or related framework materials.",
   },
   {
     n: "05",
-    t: "Related enforcement",
-    d: "Confirmed violations may be addressed under the applicable enforcement and accountability protocols of the framework.",
+    t: "Policy response",
+    d: "Confirmed violations may be addressed under the applicable Source Standard operating policies, registry access controls, badge-use rules, or legal remedies.",
   },
 ];
 
@@ -74,24 +74,29 @@ const WARRANTY: Clause[] = [
   {
     n: "01",
     t: "Reference basis",
-    d: "The registry reflects Source Standard's review of third-party regulatory, pharmacy, laboratory, and related records within a defined scope and at a defined point in time.",
+    d: "The registry reflects Source Standard's review of submitted documentation, public records, pharmacy relationship evidence, and related materials within a defined scope and at a defined point in time.",
   },
   {
     n: "02",
     t: "As-is publication",
-    d: "Registry data is provided as a public reference only and is not warranted as fit for any specific medical, legal, or commercial purpose.",
+    d: "Registry data is provided as a public reference only and is not warranted as fit for any specific medical, legal, commercial, regulatory, or investment purpose.",
   },
   {
     n: "03",
     t: "Reliance limits",
     d: "Use of registry data is at the user's discretion. Medical decisions should be made with licensed clinicians and not on the basis of registry information alone.",
   },
+  {
+    n: "04",
+    t: "No guarantee",
+    d: "Source Standard does not guarantee product safety, treatment effectiveness, clinical outcomes, vendor quality, regulatory compliance, or the completeness of third-party information.",
+  },
 ];
 
 const RELATED = [
   { to: "/privacy", label: "Data Governance & Privacy Policy" },
   { to: "/verification-disclaimer", label: "Verification Disclaimer" },
-  { to: "/accountability", label: "Accountability & Enforcement" },
+  { to: "/accountability", label: "Compliance & Operating Boundaries" },
   { to: "/status-definitions", label: "Status Definitions" },
 ];
 
@@ -146,7 +151,7 @@ const Terms = () => {
     <>
       <Breadcrumb items={[{ label: "Legal" }, { label: "Terms" }]} />
 
-      <PageMeta title="Terms" description={heroDescription} />
+      <PageMeta title="Terms of Use" description={heroDescription} />
 
       {/* §1 Hero */}
       <BriefingHero
@@ -168,7 +173,7 @@ const Terms = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  These terms govern public access to the Source Standard registry and the related materials published under the framework.
+                  These terms govern public access to the Source Standard registry and the related public-reference materials published under the framework.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
                   They define the conditions of access, rules for citation and use, prohibited conduct, and the legal boundaries that apply to reliance on registry information.
@@ -209,11 +214,11 @@ const Terms = () => {
             <SplitSection
               id="citation"
               n="02"
-              title="Citation & Data Utilization"
-              intro="How registry entries may be referenced publicly."
+              title="Citation & Data Use"
+              intro="How registry records may be referenced publicly."
             >
               <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
-                Registry entries may be cited in journalistic, academic, or clinical contexts provided the citation preserves sufficient detail for the reader to identify the referenced record accurately.
+                Registry records may be cited in journalistic, academic, clinical, or commercial contexts provided the citation preserves enough detail for the reader to identify the referenced record accurately.
               </p>
               <ClauseList clauses={CITATION} />
             </SplitSection>
@@ -260,7 +265,7 @@ const Terms = () => {
               id="related"
               n="06"
               title="Related Policies"
-              intro="Further reading on privacy, verification scope, enforcement, and public status meanings."
+              intro="Further reading on privacy, verification scope, operating boundaries, and public status meanings."
             >
               <ul className="divide-y divide-border/60 border-y border-border/60">
                 {RELATED.map((r) => (
