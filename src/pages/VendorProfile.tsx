@@ -336,7 +336,6 @@ const VendorProfile = () => {
             {isUnverified && (
               <>
                 <div
-                  aria-hidden
                   className="mt-6 pt-6"
                   style={{ borderTop: "0.5px solid hsl(var(--border))" }}
                 >
