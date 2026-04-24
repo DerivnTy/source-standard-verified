@@ -389,7 +389,7 @@ const Index = () => {
         tone="navy"
         actions={<HeroActions />}
         heroMetrics={<HeroMetrics />}
-        heroMeta={<HeroMeta />}
+        
       />
 
       <DocJumpBar waypoints={homeWaypoints} />
