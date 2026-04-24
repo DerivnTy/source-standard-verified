@@ -34,22 +34,60 @@ export const DocJumpBar = ({
 
   void tone;
 
-  // Active section tracking
+  // Active section tracking — "closest to viewport center" wins.
+  // We bypass IntersectionObserver here because IO can't tell us which
+  // visible section is *most central*; it only tells us what's intersecting.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-160px 0px -60% 0px", threshold: 0 }
-    );
-    waypoints.forEach((w) => {
-      const el = document.getElementById(w.id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const pickActive = () => {
+      const vh = window.innerHeight;
+      const center = vh / 2;
+      let bestId = waypoints[0]?.id ?? "";
+      let bestDist = Infinity;
+      for (const w of waypoints) {
+        const el = document.getElementById(w.id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        // Clamp the section's on-screen span to the viewport, then take
+        // the midpoint of that visible band. This makes tall sections
+        // win while they dominate the screen, and short sections win
+        // exactly when they're centered.
+        const top = Math.max(0, r.top);
+        const bottom = Math.min(vh, r.bottom);
+        if (bottom <= top) {
+          // Off-screen: fall back to distance from section center.
+          const mid = r.top + r.height / 2;
+          const dist = Math.abs(mid - center);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestId = w.id;
+          }
+          continue;
+        }
+        const visibleMid = (top + bottom) / 2;
+        const dist = Math.abs(visibleMid - center);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestId = w.id;
+        }
+      }
+      setActiveId((prev) => (prev === bestId ? prev : bestId));
+    };
+    let raf: number | null = null;
+    const onScroll = () => {
+      if (raf != null) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        pickActive();
+      });
+    };
+    pickActive();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf != null) cancelAnimationFrame(raf);
+    };
   }, [waypoints]);
 
   // Scroll-scrubbed morph progress (0 at seam, 1 after RUNWAY px)
@@ -241,7 +279,7 @@ const PillContents = ({
       const lastEl = sections[sections.length - 1];
       const lastBottom =
         lastEl.getBoundingClientRect().top + window.scrollY + lastEl.offsetHeight;
-      const anchor = window.scrollY + 200;
+      const anchor = window.scrollY + window.innerHeight / 2;
       const range = Math.max(1, lastBottom - firstTop);
       const docProgress = Math.max(0, Math.min(1, (anchor - firstTop) / range));
 
