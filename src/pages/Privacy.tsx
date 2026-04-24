@@ -126,7 +126,7 @@ const SplitSection = ({
 
 const Privacy = () => {
   const heroDescription =
-    "The administrative framework governing the collection, separation, retention, and processing of audit records and registry data.";
+    "The administrative framework governing the collection, separation, retention, and processing of public registry data and protected review materials.";
 
   return (
     <>
@@ -154,10 +154,13 @@ const Privacy = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard maintains a distinction between public registry information and protected audit material. This page explains what is collected, how it is stored, how long it is retained, and the limits under which it may be processed.
+                  Source Standard maintains a distinction between public registry information and protected review materials.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive audit material that is not published as part of the registry.
+                  This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.
                 </p>
               </div>
             </div>
@@ -176,7 +179,7 @@ const Privacy = () => {
               id="partitioning"
               n="01"
               title="Record Partitioning"
-              intro="How public registry information is separated from protected audit material."
+              intro="How public registry information is separated from protected review materials."
             >
               <ClauseList clauses={PARTITIONING} />
             </SplitSection>
@@ -213,7 +216,7 @@ const Privacy = () => {
                   Data processing is limited to essential internal functions and authorized infrastructure partners operating under confidentiality and access restrictions.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, and privacy-respecting analytics.
+                  Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, secure storage, registry operations, and privacy-respecting analytics.
                 </p>
               </div>
             </SplitSection>
@@ -230,7 +233,7 @@ const Privacy = () => {
                   Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative and historical recordkeeping obligations.
+                  Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.
                 </p>
                 <p className="pt-2 t-body-md text-foreground">
                   Data Privacy Officer:{" "}
@@ -251,7 +254,7 @@ const Privacy = () => {
                   Public transparency requires disciplined record handling.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve audit integrity, privacy, and responsible record administration.
+                  The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve review integrity, privacy, and responsible record administration.
                 </p>
               </div>
             </section>
