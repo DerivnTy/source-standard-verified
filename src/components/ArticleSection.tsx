@@ -3,12 +3,21 @@ import { Link } from "react-router-dom";
 
 export { BoardDefList } from "@/components/BoardSection";
 
+const cardChrome = {
+  border: "0.5px solid hsl(var(--border))",
+  borderRadius: "12px",
+  background: "hsl(var(--card))",
+} as const;
+
 /**
- * ArticleSection — editorial section primitive for Library article pages.
+ * ArticleSection — institutional section card for Library article pages.
  *
- * Single 760px reading column. Sections are separated by typographic
- * rhythm (vertical spacing) rather than full-width hairline bands. Body
- * text is locked to the editorial 16.5px / 1.75 reading scale.
+ * Renders each section as a bordered white card with mono `§N` index,
+ * `t-section-title-sm` heading, and 13.5px / 1.6 muted body. Stacks at
+ * a 20px rhythm with 40px top/bottom page padding controlled here.
+ *
+ * Public prop signature is preserved so individual article pages need
+ * no edits.
  */
 export const ArticleSection = ({
   n,
@@ -21,23 +30,45 @@ export const ArticleSection = ({
   id?: string;
   children: ReactNode;
 }) => (
-  <section id={id} className="scroll-mt-24 bg-background">
+  <section
+    id={id}
+    className="scroll-mt-24 bg-background"
+    style={{ paddingTop: "20px" }}
+  >
     <div className="page-shell">
-      <div className="mx-auto w-reading-wide py-2">
-        {(n !== undefined || title) && (
-          <header className="mt-10 mb-5">
-            <h2 className="t-section-title-sm text-foreground">
+      <div className="mx-auto w-reading-wide">
+        <div style={{ ...cardChrome, padding: "24px" }}>
+          {(n !== undefined || title) && (
+            <header style={{ marginBottom: "14px" }}>
               {n !== undefined && (
-                <span className="font-mono text-[16px] leading-none uppercase tracking-[0.08em] text-muted-foreground mr-3 align-baseline">
+                <p
+                  className="font-mono uppercase text-muted-foreground"
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.08em",
+                    marginBottom: "6px",
+                  }}
+                >
                   §{n}
-                </span>
+                </p>
               )}
-              {title}
-            </h2>
-          </header>
-        )}
-        <div className="article-body t-body-md text-foreground/85 space-y-5">
-          {children}
+              {title && (
+                <h2 className="t-section-title-sm text-foreground">{title}</h2>
+              )}
+            </header>
+          )}
+          <div
+            className="article-body text-muted-foreground"
+            style={{
+              fontSize: "13.5px",
+              lineHeight: "1.6",
+              display: "flex",
+              flexDirection: "column",
+              gap: "14px",
+            }}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </div>
@@ -45,7 +76,13 @@ export const ArticleSection = ({
 );
 
 /**
- * ArticleFooter — quiet prev/next + cite-as for Library article pages.
+ * ArticleFooter — institutional previous/next navigation card for Library
+ * article pages. Renders prev/next as a single bordered card with two
+ * stacked rows separated by a hairline. Citation prop accepted for
+ * back-compat but rendered as null (handled in metadata bar).
+ *
+ * Public prop signature is preserved so individual article pages need
+ * no edits.
  */
 export const ArticleFooter = ({
   back,
@@ -55,41 +92,71 @@ export const ArticleFooter = ({
   back?: { to: string; label: string };
   next?: { to: string; label: string };
   citation?: string;
-}) => (
-  <footer className="bg-background border-t border-border mt-10">
-    <div className="page-shell py-8">
-      <div className="mx-auto w-reading-wide">
-        {(back || next) && (
-          <div className="grid md:grid-cols-2 gap-6 md:gap-10">
-            <div>
-              {back && (
-                <Link to={back.to} className="block group">
-                  <p className="t-utility-xs text-muted-foreground mb-1.5">
-                    ← Previous
-                  </p>
-                  <p className="t-body-sm text-foreground leading-snug group-hover:text-primary transition-colors">
-                    {back.label}
-                  </p>
-                </Link>
-              )}
-            </div>
-            <div className="md:text-right">
-              {next && (
-                <Link to={next.to} className="block group">
-                  <p className="t-utility-xs text-muted-foreground mb-1.5">
-                    Next →
-                  </p>
-                  <p className="t-body-sm text-foreground leading-snug group-hover:text-primary transition-colors">
-                    {next.label}
-                  </p>
-                </Link>
-              )}
-            </div>
+}) => {
+  void citation;
+  if (!back && !next) return <div style={{ paddingBottom: "64px" }} />;
+
+  return (
+    <footer
+      className="bg-background"
+      style={{ paddingTop: "20px", paddingBottom: "64px" }}
+    >
+      <div className="page-shell">
+        <div className="mx-auto w-reading-wide">
+          <div style={{ ...cardChrome, padding: "18px 20px" }}>
+            {back && <ArticleNavRow label="Previous" to={back.to} title={back.label} direction="back" />}
+            {back && next && (
+              <div
+                aria-hidden
+                style={{
+                  height: "0.5px",
+                  background: "hsl(var(--border))",
+                  margin: "14px 0",
+                }}
+              />
+            )}
+            {next && <ArticleNavRow label="Next" to={next.to} title={next.label} direction="forward" />}
           </div>
-        )}
-        {/* Citation removed sitewide — doc ID + updated date live in top metadata bar */}
-        {void citation}
+        </div>
       </div>
+    </footer>
+  );
+};
+
+const ArticleNavRow = ({
+  label,
+  to,
+  title,
+  direction,
+}: {
+  label: string;
+  to: string;
+  title: string;
+  direction: "back" | "forward";
+}) => (
+  <Link to={to} className="group block">
+    <div
+      className={
+        direction === "forward"
+          ? "flex flex-col items-end text-right"
+          : "flex flex-col items-start"
+      }
+      style={{ rowGap: "4px" }}
+    >
+      <span
+        className="font-mono uppercase text-muted-foreground"
+        style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+      >
+        {label}
+      </span>
+      <span
+        className="inline-flex items-center gap-2 text-foreground group-hover:text-primary transition-colors font-sans"
+        style={{ fontSize: "13.5px", lineHeight: "1.4" }}
+      >
+        {direction === "back" && <span aria-hidden>←</span>}
+        <span>{title}</span>
+        {direction === "forward" && <span aria-hidden>→</span>}
+      </span>
     </div>
-  </footer>
+  </Link>
 );

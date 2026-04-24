@@ -72,25 +72,42 @@ export const BoardDefList = ({
   items: { term: ReactNode; description: ReactNode }[];
   prefix?: (i: number) => string;
 }) => (
-  <ol className="border border-border bg-background divide-y divide-border">
-    {items.map((it, i) => (
-      <li
-        key={i}
-        className="grid grid-cols-12 gap-4 px-5 py-5 items-baseline"
-      >
-        <div className="col-span-2 meta text-primary">
-          {prefix ? prefix(i) : String(i + 1).padStart(2, "0")}
-        </div>
-        <div className="col-span-10">
-          <p className="t-body-strong text-foreground">
-            {it.term}
-          </p>
-          <p className="mt-1.5 t-body-sm text-muted-foreground">
+  <ol className="flex flex-col" style={{ rowGap: "10px" }}>
+    {items.map((it, i) => {
+      const index = prefix ? prefix(i) : String(i + 1).padStart(2, "0");
+      return (
+        <li
+          key={i}
+          style={{
+            border: "0.5px solid hsl(var(--border))",
+            borderRadius: "12px",
+            background: "hsl(var(--card))",
+            padding: "14px 16px",
+          }}
+        >
+          <div className="flex items-baseline justify-between gap-4">
+            <p
+              className="font-sans font-semibold text-foreground"
+              style={{ fontSize: "14px", lineHeight: "1.35" }}
+            >
+              {it.term}
+            </p>
+            <span
+              className="shrink-0 font-mono tabular-nums uppercase text-muted-foreground/80"
+              style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+            >
+              {index}
+            </span>
+          </div>
+          <p
+            className="text-muted-foreground"
+            style={{ fontSize: "13px", lineHeight: "1.55", marginTop: "6px" }}
+          >
             {it.description}
           </p>
-        </div>
-      </li>
-    ))}
+        </li>
+      );
+    })}
   </ol>
 );
 
