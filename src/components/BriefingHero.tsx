@@ -34,6 +34,8 @@ export interface BriefingHeroProps {
   /** Large brand/identity word displayed above the H1. Cover variant only. */
   brandMark?: string;
   actions?: ReactNode;
+  /** Optional metrics row rendered between the statement and the actions (cover variant). */
+  heroMetrics?: ReactNode;
 }
 
 export const BriefingHero = ({
@@ -46,6 +48,7 @@ export const BriefingHero = ({
   variant = "chapter",
   brandMark,
   actions,
+  heroMetrics,
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
@@ -121,6 +124,8 @@ export const BriefingHero = ({
               <p className="mt-5 max-w-[58ch] t-body-md text-white/70">
                 {statement}
               </p>
+
+              {heroMetrics && <div className="mt-8">{heroMetrics}</div>}
 
               {actions && (
                 <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 [&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:text-center [&>*]:text-center">
