@@ -275,10 +275,7 @@ const VendorProfile = () => {
                   {locationLabel !== "—" && (
                     <Cell label="Location" value={locationLabel} />
                   )}
-                  <Cell
-                    label="Review Status"
-                    value="No sufficient documentation reviewed"
-                  />
+                  <Cell label="Review Status" value="Not reviewed" />
                   {vendor.website && (
                     <Cell
                       label="Website"
