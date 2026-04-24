@@ -91,17 +91,28 @@ export const DocJumpBar = ({
     };
   }, [waypoints]);
 
-  // Scroll-scrubbed morph progress (0 at seam, 1 after RUNWAY px)
+  // Scroll-scrubbed morph progress (0 at seam, 1 after RUNWAY px) +
+  // "armed" gate: pill stays hidden until Section 01's top reaches the
+  // viewport top. Strict binary trigger — no pre-scroll movement.
   useEffect(() => {
     const RUNWAY = 220;
+    const firstId = waypoints[0]?.id;
     const compute = () => {
       const seam = seamRef.current;
-      if (!seam) return;
-      const rect = seam.getBoundingClientRect();
-      // Distance scrolled past the seam's top edge meeting the header line (~64px)
-      const passed = 64 - rect.top;
-      const p = Math.max(0, Math.min(1, passed / RUNWAY));
-      setProgress(p);
+      if (seam) {
+        const rect = seam.getBoundingClientRect();
+        const passed = 64 - rect.top;
+        const p = Math.max(0, Math.min(1, passed / RUNWAY));
+        setProgress(p);
+      }
+      if (firstId) {
+        const first = document.getElementById(firstId);
+        if (first) {
+          // Arm the moment Section 01's top crosses the viewport top.
+          const shouldArm = first.getBoundingClientRect().top <= 0;
+          setArmed((prev) => (prev === shouldArm ? prev : shouldArm));
+        }
+      }
     };
     const onScroll = () => {
       if (rafRef.current != null) return;
@@ -118,7 +129,7 @@ export const DocJumpBar = ({
       window.removeEventListener("resize", onScroll);
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [waypoints]);
 
   const onJump = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
