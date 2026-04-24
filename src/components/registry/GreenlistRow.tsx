@@ -79,7 +79,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
             >
               <span
                 aria-hidden
-                className="inline-block rounded-full live-dot"
+                className={`inline-block rounded-full live-dot ${cadenceClass}`}
                 style={{ width: "5px", height: "5px", backgroundColor: "#34C759" }}
               />
               Recognized
