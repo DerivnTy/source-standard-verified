@@ -209,10 +209,15 @@ export const DocJumpBar = ({
         aria-hidden
         className="relative w-full"
         style={{
-          height: flushTop ? "0px" : `${SEAM_HEIGHT}px`,
-          background: flushTop
-            ? "hsl(var(--card))"
-            : "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)",
+          // Seam only renders its visible navy/white gradient strip once the
+          // pill is armed (Section 01 has reached the viewport top). Before
+          // that, it collapses to 0 so no white line can leak under the hero.
+          height: armed && !flushTop ? `${SEAM_HEIGHT}px` : "0px",
+          background:
+            armed && !flushTop
+              ? "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)"
+              : "hsl(var(--navy-surface))",
+          marginTop: "-1px",
           transition: "height 200ms ease-out",
         }}
       />

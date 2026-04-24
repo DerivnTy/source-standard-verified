@@ -65,7 +65,7 @@ export const BriefingHero = ({
       return (
         <section
           aria-labelledby="briefing-title"
-          className="relative border-b border-border overflow-hidden bg-[hsl(var(--navy-surface))]"
+          className="relative overflow-hidden bg-[hsl(var(--navy-surface))]"
           style={{ minHeight: "calc(100dvh - 84px)" }}
         >
           <div
