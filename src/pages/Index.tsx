@@ -16,129 +16,82 @@ const homeWaypoints = [
   { id: "governance", number: "7", label: "Governance" },
 ];
 
-/* ───────────────── Live Dashboard ─────────────────
-   Surgical 3-cell strip. 14px Inter Semi-bold value, 10px Geist Mono caps
-   label, 0.5px hairline divisions, no shadows, no chunky borders. */
-const LiveDashboard = () => {
+/* ───────────────── Hero Metrics ─────────────────
+   Two-cell live tracking module embedded in the navy hero. White-on-navy
+   adaptive typography, vibrant colored pulse dots, hairline vertical
+   separator. */
+const HeroMetrics = () => {
   const stats = useMemo(() => {
     const total = vendors.length;
-    const states = new Set(
-      vendors.map((v) => (v as { state?: string }).state).filter(Boolean)
-    ).size;
     const verified = vendors.filter((v) => v.status === "verified").length;
-    return { total, states, verified };
+    return { total, verified };
   }, []);
 
-  const Cell = ({
+  const Unit = ({
     value,
     label,
-    dot,
+    dotColor,
   }: {
-    value: number | string;
+    value: number;
     label: string;
-    dot?: "red" | "green";
-  }) => {
-    const dotColor = dot === "red" ? "#FF3B30" : dot === "green" ? "#22C55E" : null;
-    return (
-      <div
-        className="flex flex-col items-center justify-center text-center px-4"
-        style={{ paddingTop: "18px", paddingBottom: "18px" }}
+    dotColor: string;
+  }) => (
+    <div className="flex flex-col items-center text-center px-6 sm:px-10">
+      <span
+        className="font-mono uppercase text-white/60"
+        style={{
+          fontSize: "10px",
+          lineHeight: "12px",
+          letterSpacing: "0.14em",
+          fontWeight: 500,
+        }}
       >
-        {/* Label on top — small, muted, mono. Fixed height locks vertical rhythm across cards. */}
+        {label}
+      </span>
+      <div
+        className="flex items-center justify-center"
+        style={{ marginTop: "10px", gap: "8px", height: "26px" }}
+      >
+        <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
+          <span
+            className="absolute inset-0 rounded-full animate-ping"
+            style={{ backgroundColor: dotColor, opacity: 0.6 }}
+          />
+          <span
+            className="relative inline-block h-1.5 w-1.5 rounded-full"
+            style={{ backgroundColor: dotColor }}
+          />
+        </span>
         <span
-          className="font-mono uppercase text-muted-foreground"
+          className="font-sans text-white tabular-nums"
           style={{
-            fontSize: "10px",
-            lineHeight: "12px",
-            letterSpacing: "0.08em",
-            fontWeight: 500,
+            fontSize: "24px",
+            lineHeight: "26px",
+            fontWeight: 600,
+            letterSpacing: "-0.01em",
           }}
         >
-          {label}
+          {value.toLocaleString("en-US")}
         </span>
-        {/* Number row — fixed top gap of 10px so all three cards align identically */}
-        <div
-          className="flex items-center justify-center"
-          style={{ marginTop: "10px", gap: "6px", height: "22px" }}
-        >
-          {dotColor && (
-            <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
-              <span
-                className="absolute inset-0 rounded-full animate-ping"
-                style={{ backgroundColor: dotColor, opacity: 0.55 }}
-              />
-              <span
-                className="relative inline-block h-1.5 w-1.5 rounded-full"
-                style={{ backgroundColor: dotColor }}
-              />
-            </span>
-          )}
-          <span
-            className="font-sans text-foreground tabular-nums"
-            style={{
-              fontSize: "20px",
-              lineHeight: "22px",
-              fontWeight: 600,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {typeof value === "number" ? value.toLocaleString("en-US") : value}
-          </span>
-        </div>
       </div>
-    );
-  };
+    </div>
+  );
 
   return (
-    <section
-      aria-label="Live registry dashboard"
-      className="bg-background"
-      style={{ paddingTop: "20px", paddingBottom: "24px" }}
+    <div
+      role="group"
+      aria-label="Live registry metrics"
+      className="inline-flex items-stretch"
+      style={{ paddingTop: "4px", paddingBottom: "4px" }}
     >
-      <div className="page-shell">
-        <div className="mx-auto w-standard">
-          {/* Section header — high-end sub-header with anchoring rule */}
-          <div
-            className="flex items-center gap-3"
-            style={{ marginBottom: "14px" }}
-          >
-            <span
-              className="font-sans uppercase text-foreground"
-              style={{
-                fontSize: "11px",
-                letterSpacing: "0.14em",
-                fontWeight: 500,
-              }}
-            >
-              Live Tracking
-            </span>
-            <span
-              aria-hidden
-              className="flex-1 bg-border"
-              style={{ height: "0.5px" }}
-            />
-          </div>
-
-          <div
-            className="grid grid-cols-3 bg-card"
-            style={{
-              border: "0.5px solid hsl(var(--border))",
-              borderRadius: "10px",
-            }}
-          >
-            <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
-              <Cell value={stats.total} label="Total Sources" dot="red" />
-            </div>
-            <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
-              <Cell value={stats.states} label="States Covered" />
-            </div>
-            <div>
-              <Cell value={stats.verified} label="Verified" dot="green" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      <Unit value={stats.total} label="Total Sources" dotColor="#FF3B30" />
+      <span
+        aria-hidden
+        className="self-stretch bg-white/15"
+        style={{ width: "0.5px" }}
+      />
+      <Unit value={stats.verified} label="Verified" dotColor="#22C55E" />
+    </div>
   );
 };
 
