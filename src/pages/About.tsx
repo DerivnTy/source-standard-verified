@@ -184,9 +184,17 @@ const About = () => {
                   </div>
                 </div>
                 <div className="md:col-span-8 mt-8 md:mt-0">
-                  <p className="t-body-md text-muted-foreground leading-relaxed max-w-2xl">
-                    In high-growth medical markets, consumers are often asked to make decisions based on branding, trust signals, and marketing language that are difficult to verify independently. Source Standard was established to narrow that information gap by creating a clearer relationship between vendor claims and documented supply-chain reality.
-                  </p>
+                  <div className="space-y-5 max-w-2xl">
+                    <p className="t-body-md text-muted-foreground leading-relaxed">
+                      In compounded therapy markets, consumers are often asked to evaluate vendors through branding, testimonials, claims, and presentation.
+                    </p>
+                    <p className="t-body-md text-muted-foreground leading-relaxed">
+                      Those signals are difficult to verify independently.
+                    </p>
+                    <p className="t-body-md text-muted-foreground leading-relaxed">
+                      Source Standard was established to create a clearer relationship between vendor sourcing claims and documentation that can be reviewed, time-stamped, and assigned a public status.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
