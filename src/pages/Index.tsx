@@ -91,7 +91,7 @@ const HeroMetrics = () => {
           letterSpacing: "0",
         }}
       >
-        Live Tracker
+        Live Registry
       </span>
       <span
         aria-hidden
@@ -104,8 +104,8 @@ const HeroMetrics = () => {
         className="flex items-start justify-center w-full"
         style={{ gap: "48px" }}
       >
-        <Unit value={stats.total} label="Identified Sources" dotColor="#FF3B30" />
-        <Unit value={stats.verified} label="Verified" dotColor="#22C55E" />
+        <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
+        <Unit value={stats.verified} label="Verified Records" dotColor="#22C55E" />
       </div>
     </div>
   );
@@ -168,8 +168,8 @@ const PillSecondaryWhite = ({ to, children }: { to: string; children: React.Reac
 
 const HeroActions = () => (
   <>
-    <PillPrimaryWhite to="/directory">Search the Registry</PillPrimaryWhite>
-    <PillSecondaryWhite to="/apply">For Vendors</PillSecondaryWhite>
+    <PillPrimaryWhite to="/verified-vendors">Search the Registry</PillPrimaryWhite>
+    <PillSecondaryWhite to="/protocol">View Verification Protocol</PillSecondaryWhite>
   </>
 );
 
@@ -180,7 +180,7 @@ const HeroMeta = () => {
   const items: { label: string; value: string }[] = [
     { label: "Private Standard", value: "Documentation-first review" },
     { label: "Public Registry", value: "Searchable vendor status" },
-    { label: "Live Data", value: `${total.toLocaleString("en-US")} sources identified` },
+    { label: "Live Data", value: `${total.toLocaleString("en-US")} vendors indexed` },
   ];
   return (
     <div
@@ -226,75 +226,75 @@ const HeroMeta = () => {
 
 const howItWorks = [
   {
-    h: "Map the facilities.",
-    b: "Track licensed 503A and 503B compounding pharmacies as an upstream reference layer.",
+    h: "Map the vendors.",
+    b: "Index vendors across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapy categories.",
   },
   {
-    h: "Audit the vendors.",
-    b: "Clinics substantiate sourcing with documentation tied to those pharmacy relationships.",
+    h: "Review the documentation.",
+    b: "Evaluate sourcing claims, pharmacy relationships, chain-of-custody records, and submitted evidence within a defined review scope.",
   },
   {
-    h: "Publish the record.",
-    b: "Outcomes are published publicly. Unsubstantiated claims remain Unverified.",
+    h: "Publish the status.",
+    b: "Vendor records display the current documentation status. Claims without sufficient reviewed documentation remain Unverified.",
   },
 ];
 
 const registryFields = [
   {
     h: "Verification status",
-    b: "Whether documented sourcing verification is published, under review, or not on file.",
+    b: "Whether documentation review is published, in progress, suspended, removed, or not on file.",
   },
   {
-    h: "Fulfillment model",
-    b: "Whether the vendor operates as a local clinic, an online platform, or hybrid.",
+    h: "Vendor type",
+    b: "Whether the vendor operates as a telehealth platform, physical clinic, hybrid provider, or online vendor.",
   },
   {
-    h: "Clinical focus",
-    b: "The therapeutic categories the vendor publicly operates within.",
+    h: "Therapy category",
+    b: "The compounded therapy categories associated with the vendor record.",
   },
   {
-    h: "Upstream sources",
-    b: "The licensed pharmacies the vendor is documented to source from.",
+    h: "Sourcing evidence",
+    b: "The pharmacy relationships, documentation trails, and chain-of-custody records reviewed within the defined scope.",
   },
 ];
 
 const whyMatters = [
   {
     h: "For consumers",
-    b: "Instant clarity on whether a clinic's sourcing is documented against licensed records.",
+    b: "A public record showing what has been reviewed, what remains unverified, and when the status was last updated.",
   },
   {
     h: "For vendors",
-    b: "A public trust standard tied to substantiated sourcing, not presentation alone.",
+    b: "A documentation-based verification pathway tied to sourcing claims, pharmacy relationships, and status history.",
   },
   {
-    h: "For doctors",
-    b: "A structured reference for evaluating whether a vendor operates with documented sources.",
+    h: "For clinicians",
+    b: "A structured reference for reviewing whether a vendor's sourcing claims are supported by documentation.",
   },
 ];
 
 const basics = [
   {
     t: "What \"Verified\" means",
-    s: "The audit standard a listing must meet to carry Source Standard verification.",
+    s: "The documentation standard a vendor record must meet to display Verified status.",
     to: "/library/what-source-standard-verification-actually-means",
   },
   {
-    t: "503A vs. 503B",
-    s: "The two regulatory categories of licensed compounding pharmacy.",
+    t: "503A and 503B sourcing",
+    s: "The licensed compounding pharmacy categories used in sourcing documentation review.",
     to: "/library/what-is-compounding",
   },
   {
-    t: "The patient checklist",
-    s: "The sourcing questions every clinic should be able to answer directly.",
+    t: "Consumer review checklist",
+    s: "The sourcing and documentation questions consumers should know before evaluating a vendor.",
     to: "/library/questions-to-ask-your-clinic",
   },
 ];
 
 const governanceLinks = [
-  { k: "Advisory Board", to: "/medical-advisory", s: "Independent medical oversight panel." },
-  { k: "Audit Methodology", to: "/governance", s: "How verification is conducted and scoped." },
-  { k: "Status Definitions", to: "/status-definitions", s: "Definitions of every public listing status." },
+  { k: "Advisory Board", to: "/medical-advisory", s: "Medical and procedural oversight for education, standards, and review boundaries." },
+  { k: "Verification Protocol", to: "/governance", s: "How vendor documentation review is conducted, scoped, and recorded." },
+  { k: "Status Definitions", to: "/status-definitions", s: "Definitions for every public vendor status displayed in the registry." },
 ];
 
 /* ───────────────── Data Strip primitive ───────────────── */
@@ -375,17 +375,17 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard · The United States Public Peptide Registry"
-        description="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
+        title="Source Standard · Independent Verification for Compounded Therapy Vendors"
+        description="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
       />
 
       {/* §1 — Hero */}
       <BriefingHero
         variant="cover"
-        category="United States Public Peptide Registry"
+        category="Public Reference System · United States"
         docId=""
-        title="The Public Peptide Registry"
-        statement="Source Standard is the independent audit layer for peptide sourcing. We cross-reference clinics and vendors against licensed records to separate documented medical sourcing from the grey market."
+        title="Independent Verification for Compounded Therapy Vendors"
+        statement="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
         tone="navy"
         actions={<HeroActions />}
         heroMetrics={<HeroMetrics />}
@@ -413,15 +413,13 @@ const Index = () => {
               className="mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
-              Branding is not documentation.
+              Claims are not documentation.
             </h2>
             <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
-              Marketing claims are easy to make and difficult to prove. Source Standard
-              audits the supply chain so the public can verify whether what is being sold
-              is supported by documented sourcing.
+              Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
             </p>
             <div className="mt-5">
-              <PillPrimary to="/how-it-works">View Full Report</PillPrimary>
+              <PillPrimary to="/how-it-works">View Verification Protocol</PillPrimary>
             </div>
           </div>
         </div>
@@ -487,15 +485,15 @@ const Index = () => {
               className="mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
-              Total market visibility.
+              Unified market visibility.
             </h2>
             <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
-              Our database tracks the peptide economy as a live public-reference system.
+              The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
-              <PillPrimary to="/directory">Search Verified Vendors</PillPrimary>
-              <PillSecondary to="/greenlist">Explore Greenlist</PillSecondary>
+              <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
+              <PillSecondary to="/greenlist">Explore Upstream Registry</PillSecondary>
             </div>
           </div>
         </div>
@@ -520,10 +518,10 @@ const Index = () => {
               className="mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
-              Search. Verify. Proceed.
+              Search. Review. Verify status.
             </h2>
             <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
-              Every listing provides a structured snapshot of public sourcing status.
+              Each listing provides a structured snapshot of vendor documentation status and sourcing review scope.
             </p>
 
             <div className="mt-5 flex flex-col gap-2">
@@ -539,7 +537,7 @@ const Index = () => {
             </div>
 
             <div className="mt-5">
-              <PillSecondary to="/directory">Open the Registry</PillSecondary>
+              <PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>
             </div>
           </div>
         </div>
@@ -681,7 +679,7 @@ const Index = () => {
               className="mt-3 font-sans font-semibold text-white"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
-              Access the Verified Registry.
+              Access the Vendor Registry.
             </h2>
             <div className="mt-5">
               <PillPrimaryWhite to="/verified-vendors">Enter Registry</PillPrimaryWhite>

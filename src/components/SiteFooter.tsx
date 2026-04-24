@@ -14,17 +14,18 @@ const columns: Column[] = [
   {
     title: "Registry",
     links: [
-      { to: "/verified-vendors", label: "Verified Vendors" },
-      { to: "/greenlist", label: "Greenlist" },
+      { to: "/verified-vendors", label: "Vendor Registry" },
+      { to: "/greenlist", label: "Upstream Registry" },
       { to: "/report-a-concern", label: "Report a Concern" },
     ],
   },
   {
     title: "Standards",
     links: [
-      { to: "/how-it-works", label: "Audit Methodology" },
+      { to: "/how-it-works", label: "Verification Protocol" },
       { to: "/status-definitions", label: "Status Definitions" },
       { to: "/accountability", label: "Compliance" },
+      { to: "/education", label: "Resource Library" },
     ],
   },
   {
@@ -162,10 +163,11 @@ export const SiteFooter = () => {
             style={{ color: MUTED, lineHeight: 1.7 }}
           >
             Source Standard is an independent public-reference and verification
-            framework. Listings reflect documentation reviewed within a defined
-            scope and at a defined point in time. Verification does not
-            constitute medical advice, regulatory approval, or a guarantee of
-            safety, efficacy, or outcome.
+            framework for compounded therapy vendor sourcing claims. Listings
+            reflect documentation reviewed within a defined scope and at a
+            defined point in time. Verification does not constitute medical
+            advice, regulatory approval, product approval, treatment
+            recommendation, or a guarantee of safety, efficacy, or outcome.
           </p>
         </div>
       </div>
