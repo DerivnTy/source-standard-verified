@@ -196,8 +196,8 @@ const Education = () => {
         docId=""
       />
 
-      {/* §2 Library controls — sticky bar */}
-      <div className="sticky top-[var(--utility-bar-height,3.5rem)] z-20 bg-background/95 backdrop-blur border-b border-border/60">
+      {/* §2 Library controls */}
+      <div className="bg-background border-b border-border/60">
         <div className="page-shell">
           <div className="mx-auto w-wide">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 py-3">
