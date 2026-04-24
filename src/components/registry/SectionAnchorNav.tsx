@@ -55,7 +55,7 @@ export const SectionAnchorNav = ({
   return (
     <nav
       aria-label="Page contents"
-      className="sticky border-b"
+      className="sticky border-b hidden lg:block"
       style={{
         top: `${stickyTop}px`,
         zIndex: 40,
