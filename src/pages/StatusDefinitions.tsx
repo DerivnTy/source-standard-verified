@@ -276,7 +276,7 @@ const StatusDefinitions = () => {
                     <SectionIndex n="04" />
                     <h2 className="t-section-title-sm text-foreground">Related Documents</h2>
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      Further reading on the framework, review process, and disclosure boundaries.
+                      Further reading on the framework, review process, and operating boundaries.
                     </p>
                   </div>
                 </div>
@@ -313,7 +313,7 @@ const StatusDefinitions = () => {
                   A shared public language for the registry.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of these status definitions is to ensure that public listings can be interpreted consistently, without overstatement and without requiring users to infer more than the record actually supports.
+                  The purpose of these status definitions is to ensure that public records can be interpreted consistently, without overstatement and without requiring users to infer more than the record supports.
                 </p>
               </div>
             </section>
