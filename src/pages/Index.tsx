@@ -382,6 +382,7 @@ const Index = () => {
       {/* §1 — Hero */}
       <div
         className="
+          relative
           min-h-[calc(100svh-96px)] lg:min-h-0
           [&>section]:min-h-[calc(100svh-96px)]
           lg:[&>section]:min-h-[calc(100dvh-84px)]
@@ -402,6 +403,12 @@ const Index = () => {
           md:[&_h1#briefing-title+p]:!max-w-[440px]
         "
       >
+        <style>{`
+          @keyframes scrollCue {
+            0%, 100% { transform: translate(-50%, 0); opacity: 0.35; }
+            50% { transform: translate(-50%, 5px); opacity: 0.7; }
+          }
+        `}</style>
         <BriefingHero
           variant="cover"
           category="Public Reference System · United States"
@@ -412,6 +419,19 @@ const Index = () => {
           actions={<HeroActions />}
           heroMetrics={<HeroMetrics />}
         />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-5 left-1/2 flex flex-col items-center text-white/60"
+          style={{ animation: "scrollCue 2.4s ease-in-out infinite" }}
+        >
+          <span
+            className="font-mono uppercase"
+            style={{ fontSize: "10px", letterSpacing: "0.18em" }}
+          >
+            Continue
+          </span>
+          <span style={{ fontSize: "12px", lineHeight: 1, marginTop: "4px" }}>↓</span>
+        </div>
       </div>
 
       <DocJumpBar waypoints={homeWaypoints} />
