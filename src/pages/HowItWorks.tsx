@@ -178,7 +178,7 @@ const SectionHeader = ({
   title: string;
   intro: string;
 }) => (
-  <div className="max-w-2xl mb-6">
+  <div className="max-w-2xl mb-6 lg:mb-0 lg:sticky lg:top-24">
     <p className="font-mono text-[12px] text-muted-foreground/60 mb-1 tabular-nums">{n}</p>
     <h2 className="t-section-title-sm text-foreground">{title}</h2>
     <p
@@ -262,7 +262,7 @@ const HowItWorks = () => {
             {/* §4 Documentation Review */}
             <section
               id="audit"
-              className="scroll-mt-24 border-t border-border/40"
+              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -276,7 +276,7 @@ const HowItWorks = () => {
             {/* §5 Ongoing Monitoring */}
             <section
               id="surveillance"
-              className="scroll-mt-24 border-t border-border/40"
+              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -290,7 +290,7 @@ const HowItWorks = () => {
             {/* §6 Disclosure */}
             <section
               id="disclosure"
-              className="scroll-mt-24 border-t border-border/40"
+              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -316,7 +316,7 @@ const HowItWorks = () => {
                 >
                   What verification does and does not claim.
                 </p>
-                <div className="mt-5 flex flex-col" style={{ gap: "8px" }}>
+                <div className="mt-5 flex flex-col lg:grid lg:grid-cols-2 lg:gap-2" style={{ gap: "8px" }}>
                   {BOUNDARIES.map((b, i) => (
                     <BoundaryRow
                       key={b}

@@ -177,7 +177,7 @@ const SectionHeader = ({
   title: string;
   intro: string;
 }) => (
-  <div className="mb-5">
+  <div className="mb-5 lg:mb-0 lg:sticky lg:top-24">
     <p className="font-mono tabular-nums text-muted-foreground/60" style={{ fontSize: "11px" }}>
       {index}
     </p>
@@ -380,7 +380,7 @@ const StatusDefinitions = () => {
             {/* §2 Public Statuses */}
             <section
               id="statuses"
-              className="scroll-mt-24"
+              className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{
                 paddingTop: "36px",
                 paddingBottom: "36px",
@@ -402,7 +402,7 @@ const StatusDefinitions = () => {
             {/* §3 Lifecycle */}
             <section
               id="lifecycle"
-              className="scroll-mt-24"
+              className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{
                 paddingTop: "36px",
                 paddingBottom: "36px",
@@ -414,7 +414,7 @@ const StatusDefinitions = () => {
                 title="Lifecycle"
                 intro="No status is permanent. Public records may move through review, renewal, correction, suspension, removal, or reinstatement over time."
               />
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-2" style={{ gap: "8px" }}>
                 {LIFECYCLE.map((step) => (
                   <LifecycleRow key={step.n} index={step.n} text={step.t} />
                 ))}
@@ -424,7 +424,7 @@ const StatusDefinitions = () => {
             {/* §4 Related Documents */}
             <section
               id="related"
-              className="scroll-mt-24"
+              className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{
                 paddingTop: "36px",
                 paddingBottom: "36px",
@@ -436,7 +436,7 @@ const StatusDefinitions = () => {
                 title="Related Documents"
                 intro="Further reading on the framework, review process, and operating boundaries."
               />
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
                 {RELATED.map((r) => (
                   <RelatedLinkRow key={r.to} to={r.to} title={r.title} description={r.description} />
                 ))}

@@ -403,6 +403,12 @@ const Index = () => {
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
           md:[&_h1#briefing-title+p]:!max-w-[440px]
+          lg:[&_h1#briefing-title]:!max-w-[680px]
+          lg:[&_h1#briefing-title+p]:!max-w-[560px]
+          lg:[&_h1#briefing-title~div.flex.justify-center]:!justify-start
+          lg:[&_h1#briefing-title~div.flex.justify-center]:!mt-10
+          lg:[&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!justify-start
+          lg:[&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
         "
       >
         <BriefingHero
@@ -563,7 +569,7 @@ const Index = () => {
               Each listing provides a structured snapshot of vendor documentation status and sourcing review scope.
             </p>
 
-            <div className="mt-5 flex flex-col gap-2.5">
+            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
               {registryFields.map((f, i) => (
                 <DataStrip
                   key={f.h}
@@ -604,7 +610,7 @@ const Index = () => {
               Function of the framework
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2.5">
+            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
               {whyMatters.map((w, i) => (
                 <DataStrip
                   key={w.h}
@@ -641,7 +647,7 @@ const Index = () => {
               Foundational reference
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2.5">
+            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
               {basics.map((b, i) => (
                 <DataStrip
                   key={b.t}
@@ -683,7 +689,7 @@ const Index = () => {
               Governance and standards
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2.5">
+            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
               {governanceLinks.map((g, i) => (
                 <DataStrip
                   key={g.k}

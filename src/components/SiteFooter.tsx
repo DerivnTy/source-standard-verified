@@ -77,9 +77,9 @@ export const SiteFooter = () => {
       <footer
         className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
       >
-        <div className="page-shell pt-10 md:pt-16 pb-6 md:pb-20">
+        <div className="page-shell pt-10 md:pt-16 lg:pt-20 pb-6 md:pb-20 lg:pb-12">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-9 md:gap-y-12 items-start text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 lg:gap-x-12 gap-y-9 md:gap-y-12 items-start text-left">
             <div className="lg:col-span-1">
               <Logo variant="light" className="h-6" />
             </div>

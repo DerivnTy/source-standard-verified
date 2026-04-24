@@ -325,9 +325,10 @@ html {
     .hero-gap    { margin-top: 72px; }
   }
   @media (min-width: 1024px) {
-    .section-pad { padding-top: 96px; padding-bottom: 96px; }
+    .section-pad { padding-top: 64px; padding-bottom: 64px; }
     .section-gap { margin-top: 80px; }
     .hero-gap    { margin-top: 96px; }
+    .w-standard  { max-width: 1240px; }
   }
 
   /* ─── Hard-Stop protocol (sitewide) ───

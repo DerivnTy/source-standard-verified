@@ -197,7 +197,7 @@ const SectionHeader = ({
   title: string;
   intro: string;
 }) => (
-  <div className="max-w-2xl mb-6">
+  <div className="max-w-2xl mb-6 lg:mb-0 lg:sticky lg:top-24">
     <p className="font-mono text-[12px] text-muted-foreground/60 mb-1 tabular-nums">{n}</p>
     <h2 className="t-section-title-sm text-foreground">{title}</h2>
     <p
@@ -296,7 +296,7 @@ const About = () => {
             {/* §5 Operational Boundaries */}
             <section
               id="boundaries"
-              className="scroll-mt-24 border-b border-border/40"
+              className="scroll-mt-24 border-b border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -304,7 +304,7 @@ const About = () => {
                 title="Operational Boundaries"
                 intro="What the organization does not do."
               />
-              <div className="flex flex-col" style={{ gap: "8px" }}>
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "8px" }}>
                 {BOUNDARIES.map((b, i) => (
                   <AboutStatementRow key={b} index={i + 1} text={b} />
                 ))}
@@ -314,7 +314,7 @@ const About = () => {
             {/* §6 Strategic Objectives */}
             <section
               id="objectives"
-              className="scroll-mt-24 border-b border-border/40"
+              className="scroll-mt-24 border-b border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -322,7 +322,7 @@ const About = () => {
                 title="Strategic Objectives"
                 intro="Who the framework is designed to serve."
               />
-              <div className="flex flex-col" style={{ gap: "10px" }}>
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
                 {OBJECTIVES.map((c, i) => (
                   <AboutRow
                     key={c.t}
@@ -338,7 +338,7 @@ const About = () => {
             {/* §7 Defined Scope */}
             <section
               id="scope"
-              className="scroll-mt-24 border-b border-border/40"
+              className="scroll-mt-24 border-b border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -346,7 +346,7 @@ const About = () => {
                 title="Defined Scope"
                 intro="What the framework is built to maintain and publish."
               />
-              <div className="flex flex-col" style={{ gap: "10px" }}>
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
                 {SCOPE.map((c, i) => (
                   <AboutRow
                     key={c.t}
@@ -362,7 +362,7 @@ const About = () => {
             {/* §8 Related Pages */}
             <section
               id="related"
-              className="scroll-mt-24 border-b border-border/40"
+              className="scroll-mt-24 border-b border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -370,7 +370,7 @@ const About = () => {
                 title="Related Pages"
                 intro="Further reading on oversight, standards, and verification methodology."
               />
-              <div className="flex flex-col" style={{ gap: "10px" }}>
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
                 {RELATED.map((r) => (
                   <AboutLinkRow
                     key={r.to}
