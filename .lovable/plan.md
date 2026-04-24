@@ -1,98 +1,66 @@
 
 
-## Homepage Copy Rewrite — Source Standard (Revised)
+## Upstream Registry Copy Rewrite
 
-Rewrites text content only across the homepage and footer. No layout, components, styles, spacing, or routes change — except one CTA route correction noted below.
+Rewrites text content only on the Upstream Registry page. No layout, components, styling, filter logic, routes, or database changes.
 
 ### Files Touched
 
-1. **`src/pages/Index.tsx`** — text strings only + one route update on the secondary hero CTA.
-2. **`src/components/SiteFooter.tsx`** — column titles, link labels, legal disclaimer.
+1. **`src/pages/Greenlist.tsx`** — page metadata, header copy, horizon metric labels, search placeholder, status pill labels, bottom explainer section copy.
+2. **`src/components/registry/GreenlistRow.tsx`** — row-level status label ("Authorized" → "Recognized", "Alert" → "Status Alert").
 
-### Route Correction (Revised)
+*Footer: already correct from prior pass — Standards column contains only Verification Protocol, Status Definitions, Compliance. No change needed.*
 
-**Secondary hero CTA**
-- Label: `For Vendors` → `View Verification Protocol`
-- Route: `/apply` → `/protocol`
-- Rationale: a button labeled "View Verification Protocol" must navigate to the protocol page, not the vendor application page. `/apply` remains reserved for vendor submission / "Begin Verification" actions only.
+### Content Changes
 
-*Note:* If `/protocol` is not yet a registered route in `App.tsx`, the link will render but resolve to `NotFound`. Since the user explicitly directed this route, we will wire the CTA to `/protocol` as instructed; route registration is out of scope for this copy pass and can be addressed in a follow-up.
+**`src/pages/Greenlist.tsx`**
 
-### Content Changes — Homepage (`src/pages/Index.tsx`)
+- **PageMeta**
+  - Title: `Upstream Registry · Source Standard`
+  - Description: `A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance.`
 
-**PageMeta**
-- Title: `Source Standard · Independent Verification for Compounded Therapy Vendors`
-- Description: `Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies.`
+- **RegistryHeader**
+  - `title`: `Upstream Registry`
+  - `description`: `A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance.`
+  - `indexNumber`: `02` (unchanged)
 
-**Hero (BriefingHero)**
-- `category`: `Public Reference System · United States`
-- `title`: `Independent Verification for Compounded Therapy Vendors`
-- `statement`: `Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies.`
+- **RegistryHorizon cells**
+  - `Total Recognized` → `Total Records`
+  - `503B Facilities` (unchanged)
+  - `503A Facilities` (unchanged)
 
-**HeroMetrics**
-- Header label: `Live Tracker` → `Live Registry`
-- Unit labels: `Identified Sources` → `Identified Vendors`; `Verified` → `Verified Records`
+- **Search input**
+  - `placeholder`: `Search facilities, locations, or facility type…`
+  - `aria-label`: `Search Upstream Registry`
 
-**HeroActions**
-- Primary: `Search the Registry` → `/verified-vendors` (unchanged route)
-- Secondary: `View Verification Protocol` → `/protocol` (route corrected)
+- **Status pills**
+  - `Authorized` → `Recognized`
+  - `Alert` → `Status Alert`
+  - (Category pills `All / 503B / 503A / Other` unchanged)
 
-**HeroMeta strip**
-- `Live Data` value: `${total} vendors indexed`
+- **EmptyState**
+  - `eyebrow`: `No Records Found`
+  - `body`: `No upstream facility matches these filters.`
 
-**§1 — Problem**
-- H2: `Claims are not documentation.`
-- Body: `Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.`
-- CTA label: `View Verification Protocol` (route unchanged from current target)
+- **Bottom explainer section**
+  - Left eyebrow: `Two layers · One framework` → `Two layers. One review framework.`
+  - Left body: `The Upstream Registry identifies facilities used as reference records during vendor sourcing review.`
+  - Left sub: `Inclusion in the Upstream Registry does not verify that any vendor is actively sourcing from that facility.`
+  - Right eyebrow: `The vendor layer` → `Vendor-level review`
+  - Right body: `Vendor verification reviews whether submitted documentation supports the vendor's stated pharmacy relationships, sourcing claims, and chain-of-custody records.`
+  - CTA `Open the Vendor Registry` (unchanged)
 
-**§2 — Methodology** (`howItWorks`)
-1. `Map the vendors.` / `Index vendors across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapy categories.`
-2. `Review the documentation.` / `Evaluate sourcing claims, pharmacy relationships, chain-of-custody records, and submitted evidence within a defined review scope.`
-3. `Publish the status.` / `Vendor records display the current documentation status. Claims without sufficient reviewed documentation remain Unverified.`
+**`src/components/registry/GreenlistRow.tsx`**
 
-**§3 — Registry**
-- H2: `Unified market visibility.`
-- Body: `The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.`
-- CTAs: `Search the Registry`, `Explore Upstream Registry`
-
-**§4 — Fields** (`registryFields`)
-- H2: `Search. Review. Verify status.`
-- Lead: `Each listing provides a structured snapshot of vendor documentation status and sourcing review scope.`
-1. `Verification status` / `Whether documentation review is published, in progress, suspended, removed, or not on file.`
-2. `Vendor type` / `Whether the vendor operates as a telehealth platform, physical clinic, hybrid provider, or online vendor.`
-3. `Therapy category` / `The compounded therapy categories associated with the vendor record.`
-4. `Sourcing evidence` / `The pharmacy relationships, documentation trails, and chain-of-custody records reviewed within the defined scope.`
-
-**§5 — Function** (`whyMatters`)
-1. `For consumers` / `A public record showing what has been reviewed, what remains unverified, and when the status was last updated.`
-2. `For vendors` / `A documentation-based verification pathway tied to sourcing claims, pharmacy relationships, and status history.`
-3. `For clinicians` / `A structured reference for reviewing whether a vendor's sourcing claims are supported by documentation.`
-
-**§6 — Reference** (`basics`)
-1. `What "Verified" means` / `The documentation standard a vendor record must meet to display Verified status.`
-2. `503A and 503B sourcing` / `The licensed compounding pharmacy categories used in sourcing documentation review.`
-3. `Consumer review checklist` / `The sourcing and documentation questions consumers should know before evaluating a vendor.`
-
-**§7 — Governance** (`governanceLinks`)
-1. `Advisory Board` / `Medical and procedural oversight for education, standards, and review boundaries.`
-2. `Verification Protocol` / `How vendor documentation review is conducted, scoped, and recorded.`
-3. `Status Definitions` / `Definitions for every public vendor status displayed in the registry.`
-
-**§8 — Access**
-- H2: `Access the Vendor Registry.`
-- CTA: `Enter Registry` (unchanged)
-
-### Footer (`SiteFooter.tsx`)
-
-- **Registry**: `Vendor Registry`, `Upstream Registry`, `Report a Concern`, `Begin Verification →`
-- **Standards**: `Verification Protocol`, `Status Definitions`, `Compliance`, `Resource Library` (added; routes to `/education`)
-- **Resource Library**: unchanged (already matches)
-- **Governance**: `Advisory Board`, `Terms`, `Privacy`, `Disclaimer`
-- **Disclaimer**: `Source Standard is an independent public-reference and verification framework for compounded therapy vendor sourcing claims. Listings reflect documentation reviewed within a defined scope and at a defined point in time. Verification does not constitute medical advice, regulatory approval, product approval, treatment recommendation, or a guarantee of safety, efficacy, or outcome.`
+- Row status label `Authorized` → `Recognized`
+- Row status label `Alert` → `Status Alert`
+- `aria-label` template unchanged structurally
 
 ### Out of Scope
 
-- Route registration for `/protocol` (will resolve to `NotFound` until added in a follow-up).
-- All layout, components, styling, spacing, colors, animations.
-- All other pages.
+- All filter logic, sorting, pagination, routing
+- All component styles, colors, spacing, animations
+- Database records (`src/data/greenlist.ts`) — facility names, states, types, and `regulatoryAlert` field unchanged
+- Footer (already aligned)
+- All other pages
 
