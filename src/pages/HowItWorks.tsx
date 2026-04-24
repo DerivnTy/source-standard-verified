@@ -240,7 +240,7 @@ const HowItWorks = () => {
                   Verification is a record standard.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of the Verification Standard is to help the public interpret whether sourcing claims are supported by documentation, not to simulate regulatory authority or clinical endorsement. Its role is to bring greater clarity, consistency, and accountability to a market where those signals are often difficult to evaluate independently.
+                  The purpose of the Verification Protocol is to help the public interpret whether vendor sourcing claims are supported by documentation. Its role is to bring greater clarity, consistency, and accountability to a market where sourcing claims are often difficult to evaluate independently.
                 </p>
               </div>
             </section>
