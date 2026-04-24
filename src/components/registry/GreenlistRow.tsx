@@ -55,7 +55,7 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
                 color: "#FF3B30",
               }}
             >
-              Alert
+              Status Alert
             </span>
           ) : (
             <span
@@ -71,7 +71,7 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
                 className="inline-block rounded-full"
                 style={{ width: "4px", height: "4px", backgroundColor: "#34C759" }}
               />
-              Authorized
+              Recognized
             </span>
           )}
         </div>
