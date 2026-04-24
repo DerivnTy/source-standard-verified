@@ -389,6 +389,7 @@ const Index = () => {
       <div
         className="
           relative
+          bg-[hsl(var(--navy-surface))]
           flex items-center
           min-h-[calc(100svh-96px)] lg:min-h-0
           [&>section]:w-full
