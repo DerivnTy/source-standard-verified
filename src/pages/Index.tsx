@@ -391,7 +391,8 @@ const Index = () => {
           relative
           bg-[hsl(var(--navy-surface))]
           flex items-center
-          min-h-[calc(100svh-96px)] lg:min-h-0
+          min-h-[calc(100svh-60px)] lg:min-h-0
+          overflow-hidden
           [&>section]:w-full
           [&_.page-shell]:!px-8 [&_.page-shell]:!py-0
           lg:[&_.page-shell]:!px-6
