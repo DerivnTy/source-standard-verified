@@ -279,7 +279,7 @@ const PillContents = ({
       const lastEl = sections[sections.length - 1];
       const lastBottom =
         lastEl.getBoundingClientRect().top + window.scrollY + lastEl.offsetHeight;
-      const anchor = window.scrollY + 200;
+      const anchor = window.scrollY + window.innerHeight / 2;
       const range = Math.max(1, lastBottom - firstTop);
       const docProgress = Math.max(0, Math.min(1, (anchor - firstTop) / range));
 
