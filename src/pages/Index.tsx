@@ -59,7 +59,7 @@ const HeroMetrics = () => {
           />
           <span
             className="relative inline-block h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: dotColor }}
+            style={{ backgroundColor: dotColor, boxShadow: `0 0 6px ${dotColor}` }}
           />
         </span>
         <span
@@ -84,7 +84,7 @@ const HeroMetrics = () => {
       className="inline-flex items-stretch"
       style={{ paddingTop: "4px", paddingBottom: "4px" }}
     >
-      <Unit value={stats.total} label="Total Vendors" dotColor="#FF3B30" />
+      <Unit value={stats.total} label="Identified Sources" dotColor="#FF3B30" />
       <span
         aria-hidden
         className="self-stretch bg-white/15"
@@ -320,7 +320,7 @@ const Index = () => {
         category="United States Public Peptide Registry"
         docId=""
         title="The United States Public Peptide Registry"
-        statement="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
+        statement="Source Standard is the independent audit layer for the peptide economy. We cross-reference clinics and vendors against licensed records to separate documented medical sourcing from the grey market."
         tone="navy"
         actions={<HeroActions />}
         heroMetrics={<HeroMetrics />}
