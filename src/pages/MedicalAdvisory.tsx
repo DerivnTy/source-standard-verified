@@ -28,20 +28,20 @@ const BOARD_TITLE_OVERRIDES: Record<string, string> = {
 
 const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: string }> = {
   "R-01": {
-    title: "Audit confirmation",
-    description: "Reviews vendor audits to confirm pharmacy sourcing is substantiated.",
+    title: "Standards review",
+    description: "Reviews framework standards, review boundaries, and evidence categories used in documentation-based status assignment.",
   },
   "R-02": {
-    title: "Greenlist authority",
-    description: "Approves the rubric for recognizing 503A and 503B compounding facilities.",
+    title: "Upstream criteria",
+    description: "Provides advisory input on the criteria used to classify 503A and 503B facilities as upstream reference records.",
   },
   "R-04": {
-    title: "Regulatory alignment",
-    description: "Ensures our standards stay current with FDA and State Board of Pharmacy shifts.",
+    title: "Regulatory awareness",
+    description: "Supports review of public terminology and documentation boundaries as FDA, state board, and pharmacy practice standards evolve.",
   },
   "R-05": {
-    title: "Evidence review",
-    description: "Validates that educational materials on this site meet clinical truth, not marketing claims.",
+    title: "Education review",
+    description: "Reviews educational materials for clinical accuracy, neutral language, and appropriate scope.",
   },
 };
 const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-04", "R-05"];
@@ -49,54 +49,56 @@ const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-04", "R-05"];
 const MANDATE_CLAUSES = [
   {
     n: "01",
-    t: "Independent clinical oversight.",
-    d: "The Medical Advisory Board provides independent oversight of the verification framework.",
+    t: "Independent advisory oversight.",
+    d: "The Advisory Board provides clinical, pharmacy, legal, and procedural input on the Source Standard verification framework.",
   },
   {
     n: "02",
-    t: "Findings of record.",
-    d: "Audit determinations are based on documented pharmacy sourcing, licensure, and regulatory standing.",
+    t: "Documentation-based standards.",
+    d: "Status determinations are based on submitted documentation, public records, pharmacy relationship evidence, and defined review criteria.",
   },
   {
     n: "03",
     t: "Periodic review.",
-    d: "The Board maintains the integrity of the standard through periodic review of forensic audit criteria.",
+    d: "The Board supports periodic review of standards, terminology, evidence thresholds, and educational materials.",
   },
   {
     n: "04",
     t: "Objective distance.",
-    d: "Board members do not participate in individual vendor approvals or commercial activities.",
+    d: "Board members do not participate in vendor sales, promotional activity, or individual vendor status decisions.",
   },
 ];
 
 const ROLE_FUNCTIONS = [
   {
     n: "01",
-    t: "Regulatory Thresholds",
-    d: "Establishing the clinical and statutory requirements for pharmaceutical sourcing verification.",
+    t: "Review boundaries",
+    d: "Defining what Source Standard reviews, what it does not review, and how those limits are communicated publicly.",
   },
   {
     n: "02",
-    t: "Supplier Validation",
-    d: "Defining the criteria for the recognition of greenlisted upstream pharmacy partners.",
+    t: "Upstream reference criteria",
+    d: "Providing advisory input on the criteria used to classify upstream compounding facilities within the registry.",
   },
   {
     n: "03",
-    t: "Administrative Audits",
-    d: "Conducting randomized reviews of vendor records to ensure consistency with pharmacy-of-record data.",
+    t: "Documentation standards",
+    d: "Reviewing the evidence categories used in sourcing-claim evaluation, including pharmacy relationship records, chain-of-custody documentation, and public records.",
   },
   {
     n: "04",
-    t: "Protocol Evolution",
-    d: "Authorizing updates to the Source Standard in alignment with evolving FDA and state regulatory guidelines.",
+    t: "Protocol maintenance",
+    d: "Supporting updates to Source Standard terminology, public explanations, and review boundaries as regulatory and documentation practices evolve.",
   },
 ];
 
 const BOUNDARIES = [
-  "The Board governs the audit criteria behind every public determination.",
+  "The Board supports the standards behind public determinations.",
   "The Board does not evaluate or treat patients.",
   "The Board does not provide individualized medical advice through Source Standard.",
-  "The Board does not produce listings or market clinics.",
+  "The Board does not approve vendors, clinics, pharmacies, or products.",
+  "The Board does not make individual vendor status determinations.",
+  "The Board does not participate in sales, marketing, or promotional activity.",
 ];
 
 const MedicalAdvisory = () => {
@@ -111,7 +113,7 @@ const MedicalAdvisory = () => {
 
       <PageMeta
         title="Clinical Oversight · Source Standard"
-        description="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria; they do not treat patients or market clinics."
+        description="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education."
       />
 
       {/* §1 Hero — restrained */}
@@ -120,7 +122,7 @@ const MedicalAdvisory = () => {
         variant="chapter"
         category="Medical Advisory Board"
         title="Clinical Oversight"
-        statement="Independent medical and legal experts overseeing the integrity of the Source Standard registry. The Board governs the audit criteria and review standards used across the framework. It does not treat patients, market clinics, or participate in promotional activity."
+        statement="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education. It does not treat patients, market vendors, approve clinics, or participate in promotional activity."
         docId=""
       />
 
@@ -132,10 +134,13 @@ const MedicalAdvisory = () => {
               <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The Medical Advisory Board exists to provide independent oversight of the Source Standard framework and the standards used to support public registry determinations. Its role is to preserve sourcing transparency, review discipline, and the integrity of the verification process.
+                  The Advisory Board exists to support the neutrality, clinical restraint, and procedural discipline of the Source Standard framework.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The Board does not represent peptide distributors, market clinics, or operate as a promotional body. It serves as an oversight layer designed to protect neutrality, consumer trust, and the clinical seriousness of the public reference system.
+                  Its role is to provide advisory input on review standards, documentation boundaries, public language, and education materials used across the registry.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  The Board does not represent vendors, compound distributors, medical clinics, or pharmacy partners. It does not make individual vendor status determinations. It serves as an independent advisory layer for the standards behind the public reference system.
                 </p>
               </div>
             </div>
@@ -160,7 +165,7 @@ const MedicalAdvisory = () => {
                       Institutional Mandate
                     </h2>
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      The governing terms under which the Board operates.
+                      The operating boundaries under which the Board supports the framework.
                     </p>
                   </div>
                 </div>
@@ -190,7 +195,7 @@ const MedicalAdvisory = () => {
                       Governance Framework
                     </h2>
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      The recurring functions the Board performs to maintain the standard.
+                      The recurring advisory functions used to preserve consistency across the framework.
                     </p>
                   </div>
                 </div>
@@ -218,7 +223,7 @@ const MedicalAdvisory = () => {
                   Appointed members
                 </h2>
                 <p className="mt-4 t-body-md text-muted-foreground leading-relaxed">
-                  Independent clinicians and regulatory reviewers appointed to oversee framework standards, sourcing criteria, and public-reference integrity.
+                  Independent clinicians, pharmacy reviewers, and legal advisors appointed to support framework standards, documentation boundaries, and public-reference integrity.
                 </p>
               </div>
 
@@ -294,7 +299,7 @@ const MedicalAdvisory = () => {
                   Responsibilities
                 </h2>
                 <p className="mt-4 t-body-md text-muted-foreground leading-relaxed">
-                  Each responsibility maps to a recurring oversight activity recorded under the registry's maintenance log.
+                  Each responsibility maps to a recurring advisory activity recorded under Source Standard's framework maintenance process.
                 </p>
               </div>
               <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
@@ -315,10 +320,10 @@ const MedicalAdvisory = () => {
             <section className="section-pad">
               <div className="max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
-                  Public trust requires independent oversight.
+                  Public trust requires disciplined oversight.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The Medical Advisory Board exists to preserve the neutrality, clinical seriousness, and evidentiary standards of the Source Standard framework. Its presence ensures that public determinations are governed by disciplined review criteria rather than promotion, market pressure, or presentation alone.
+                  The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.
                 </p>
               </div>
             </section>
