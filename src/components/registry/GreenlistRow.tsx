@@ -73,6 +73,7 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
                 letterSpacing: "0.035em",
                 lineHeight: 1,
                 color: "#34C759",
+                transform: "translateY(2px)",
               }}
             >
               <span
