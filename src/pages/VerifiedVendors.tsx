@@ -421,6 +421,85 @@ const VerifiedVendors = () => {
         </div>
       </section>
 
+      {/* Explainer panel — Verified vs. Unverified */}
+      <section className="bg-background">
+        <div className="page-shell pb-14 md:pb-20 pt-2 md:pt-4">
+          <div className="mx-auto w-wide">
+            <div
+              className="bg-white"
+              style={{
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "24px",
+                padding: "28px 24px",
+              }}
+            >
+              {/* Block 1 */}
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                >
+                  Verified vs. Unverified
+                </p>
+                <p
+                  className="mt-3 text-foreground"
+                  style={{ fontSize: "20px", lineHeight: 1.35 }}
+                >
+                  A Verified record means Source Standard has reviewed
+                  documentation supporting the vendor's stated sourcing claims
+                  within a defined scope and at a defined point in time.
+                </p>
+                <p
+                  className="mt-3 text-muted-foreground"
+                  style={{ fontSize: "15px", lineHeight: 1.45 }}
+                >
+                  An Unverified record means no sufficient documentation has
+                  been reviewed by Source Standard to support the stated
+                  sourcing claim within the registry framework.
+                </p>
+              </div>
+
+              {/* Divider + Block 2 */}
+              <div
+                className="mt-7 pt-7"
+                style={{ borderTop: "1px solid hsl(var(--border))" }}
+              >
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                >
+                  Consumer due diligence
+                </p>
+                <p
+                  className="mt-3 text-foreground"
+                  style={{ fontSize: "20px", lineHeight: 1.35 }}
+                >
+                  The registry is designed to make sourcing claims easier to
+                  evaluate before a consumer engages a compounded therapy
+                  vendor.
+                </p>
+                <p
+                  className="mt-3 text-muted-foreground"
+                  style={{ fontSize: "15px", lineHeight: 1.45 }}
+                >
+                  Source Standard does not provide medical advice, approve
+                  products, or guarantee safety, efficacy, potency, sterility,
+                  or outcomes. It helps consumers distinguish reviewed
+                  documentation from unsupported public claims.
+                </p>
+
+                <Link
+                  to="/how-it-works"
+                  className="mt-6 inline-flex items-center gap-2 px-5 h-11 border border-foreground text-foreground text-[14px] font-medium rounded-[2px] hover:bg-foreground hover:text-background transition-colors duration-150"
+                >
+                  View Verification Protocol
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
