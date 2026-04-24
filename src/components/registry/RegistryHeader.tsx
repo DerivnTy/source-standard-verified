@@ -88,9 +88,14 @@ export const RegistryHeader = ({
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-sm">
                   <span
                     aria-hidden
-                    className="h-1.5 w-1.5 rounded-full live-dot live-dot--cadence-2"
-                    style={{ backgroundColor: "#FF3B30" }}
-                  />
+                    className="inline-flex items-center justify-center shrink-0"
+                    style={{ height: "0.75em", width: "0.375rem", transform: "translateY(0.5px)" }}
+                  >
+                    <span
+                      className="h-1.5 w-1.5 rounded-full live-dot live-dot--cadence-2"
+                      style={{ backgroundColor: "#FF3B30", display: "inline-block" }}
+                    />
+                  </span>
                   <span className="t-utility-xs text-white/70">
                     Live ·{" "}
                     <span className="text-white tabular-nums">{updated}</span>
