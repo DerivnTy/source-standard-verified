@@ -380,22 +380,22 @@ const Index = () => {
       />
 
       {/* §1 — Hero */}
+      <style>{`
+        @keyframes scrollCue {
+          0%, 100% { transform: translate(-50%, 0); opacity: 0.35; }
+          50% { transform: translate(-50%, 5px); opacity: 0.7; }
+        }
+      `}</style>
       <div
         className="
           relative
-          flex flex-col
+          flex items-center
           min-h-[calc(100svh-96px)] lg:min-h-0
-          [&>section]:flex-1 [&>section]:flex [&>section]:flex-col
-          [&_.page-shell]:flex-1 [&_.page-shell]:flex [&_.page-shell]:flex-col
+          [&>section]:w-full
           [&_.page-shell]:!px-8 [&_.page-shell]:!py-0
           lg:[&_.page-shell]:!px-6
           lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)]
           lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)]
-          [&_.page-shell>div.relative.w-full]:flex
-          [&_.page-shell>div.relative.w-full]:flex-col
-          [&_.page-shell>div.relative.w-full]:justify-center
-          [&_.page-shell>div.relative.w-full]:flex-1
-          [&_.page-shell>div.relative.w-full]:gap-y-8
           [&_h1#briefing-title+p]:!mt-6
           [&_h1#briefing-title~div.flex.justify-center]:!mt-9
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
@@ -413,6 +413,20 @@ const Index = () => {
           actions={<HeroActions />}
           heroMetrics={<HeroMetrics />}
         />
+
+        <div
+          aria-hidden="true"
+          className="lg:hidden pointer-events-none absolute bottom-7 left-1/2 flex flex-col items-center text-white/55"
+          style={{ animation: "scrollCue 2.4s ease-in-out infinite", transform: "translate(-50%, 0)" }}
+        >
+          <span
+            className="font-mono uppercase"
+            style={{ fontSize: "10px", letterSpacing: "0.18em" }}
+          >
+            Continue
+          </span>
+          <span style={{ fontSize: "12px", lineHeight: 1, marginTop: "4px" }}>↓</span>
+        </div>
       </div>
 
       <DocJumpBar waypoints={homeWaypoints} />
