@@ -155,7 +155,7 @@ const FieldRow = ({ label, value }: { label: string; value: string }) => (
 
 const StatusDefinitions = () => {
   const heroDescription =
-    "Public statuses assigned to entities under the Source Standard framework. Each standing reflects the state of the record at the time of last update and may change through review, renewal, or disclosure events.";
+    "Public statuses assigned to records within the Source Standard registry. Each status reflects the state of the record at the time of last update and may change through review, renewal, disclosure, or record correction.";
 
   return (
     <>
@@ -168,7 +168,7 @@ const StatusDefinitions = () => {
         tone="navy"
         variant="chapter"
         category="Registry Standards"
-        title="Glossary of Regulatory Standings"
+        title="Status Definitions"
         statement={heroDescription}
         docId=""
       />
@@ -181,10 +181,10 @@ const StatusDefinitions = () => {
               <h2 className="t-section-title-sm text-foreground">Why these statuses exist</h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Status labels are used so consumers, clinicians, and listed entities can interpret the registry consistently without needing to read an underlying audit file.
+                  Status labels help consumers, clinicians, and listed entities interpret registry records consistently without needing to review the underlying documentation file.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Each status reflects a defined public meaning. It is assigned against reviewed records and revised when the state of the file changes.
+                  Each status has a defined public meaning and a defined limit. A status indicates the current documentation review state. It does not imply clinical recommendation, vendor approval, product approval, or regulatory endorsement.
                 </p>
               </div>
             </div>
