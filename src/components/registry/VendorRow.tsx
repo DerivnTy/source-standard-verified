@@ -91,9 +91,10 @@ export const VendorRow = ({
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: "20px",
-                  width: "17px",
+                  height: "22px",
+                  width: "19px",
                   overflow: "hidden",
+                  transform: "translateY(-1px)",
                 }}
               >
                 <img
