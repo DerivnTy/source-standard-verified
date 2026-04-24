@@ -323,10 +323,14 @@ const MedicalAdvisory = () => {
                   Scope & boundaries
                 </h2>
               </div>
-              <ul className="divide-y divide-border/60 border-y border-border/60 max-w-3xl">
-                {BOUNDARIES.map((b) => (
-                  <li key={b} className="py-4 t-body-sm text-foreground">
-                    {b}
+              <ul className="space-y-2 max-w-3xl">
+                {BOUNDARIES.map((b, i) => (
+                  <li key={b}>
+                    <GovRow
+                      compact
+                      index={String(i + 1).padStart(2, "0")}
+                      title={<span className="font-normal text-foreground">{b}</span>}
+                    />
                   </li>
                 ))}
               </ul>
@@ -335,7 +339,7 @@ const MedicalAdvisory = () => {
             {/* §8 Responsibilities */}
             <section id="responsibilities" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <SectionIndex n="05" />
-              <div className="mb-8 max-w-2xl">
+              <div className="mb-6 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
                   Responsibilities
                 </h2>
@@ -343,14 +347,13 @@ const MedicalAdvisory = () => {
                   Each responsibility maps to a recurring advisory activity recorded under Source Standard's framework maintenance process.
                 </p>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-6">
+              <ul className="grid sm:grid-cols-2 gap-3">
                 {RESPONSIBILITY_ORDER.map((code) => {
                   const o = RESPONSIBILITY_OVERRIDES[code];
                   if (!o) return null;
                   return (
                     <li key={code}>
-                      <p className="t-body-sm font-semibold text-foreground">{o.title}</p>
-                      <p className="mt-2 t-body-sm text-muted-foreground leading-relaxed">{o.description}</p>
+                      <GovRow index={code} title={o.title} description={o.description} />
                     </li>
                   );
                 })}
@@ -360,12 +363,14 @@ const MedicalAdvisory = () => {
             {/* §9 Closing statement */}
             <section style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
-                  Public trust requires disciplined oversight.
-                </h2>
-                <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
-                  The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.
-                </p>
+                <GovCard>
+                  <h2 className="t-section-title-sm text-foreground">
+                    Public trust requires disciplined oversight.
+                  </h2>
+                  <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
+                    The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.
+                  </p>
+                </GovCard>
               </div>
             </section>
 
