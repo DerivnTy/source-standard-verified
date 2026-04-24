@@ -327,7 +327,17 @@ const StatusDefinitions = () => {
     <>
       <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Status Definitions" }]} />
 
-      <PageMeta title="Status Definitions" description={heroDescription} />
+      <PageMeta
+        title="Status Definitions"
+        description={heroDescription}
+        path="/status-definitions"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Status Definitions",
+          url: "https://sourcestandard.org/status-definitions",
+        }}
+      />
 
       {/* Hero */}
       <BriefingHero

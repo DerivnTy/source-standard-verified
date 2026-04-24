@@ -114,6 +114,40 @@ const GreenlistProfile = () => {
       <PageMeta
         title={`${entry.name} · Public Record`}
         description={`Source Standard public registry record for ${entry.name}.`}
+        path={`/greenlist/${entry.slug}`}
+        type="profile"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: entry.name,
+            url: entry.website || `https://sourcestandard.org/greenlist/${entry.slug}`,
+            mainEntityOfPage: `https://sourcestandard.org/greenlist/${entry.slug}`,
+            additionalProperty: [
+              {
+                "@type": "PropertyValue",
+                propertyID: "source-standard-registry",
+                name: "Registry",
+                value: "Upstream",
+              },
+              {
+                "@type": "PropertyValue",
+                propertyID: "source-standard-status",
+                name: "Source Standard Status",
+                value: entry.regulatoryAlert ? "Alert" : "Authorized",
+              },
+            ],
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://sourcestandard.org/" },
+              { "@type": "ListItem", position: 2, name: "Upstream Registry", item: "https://sourcestandard.org/greenlist" },
+              { "@type": "ListItem", position: 3, name: entry.name, item: `https://sourcestandard.org/greenlist/${entry.slug}` },
+            ],
+          },
+        ]}
       />
 
       <section className="bg-background">

@@ -219,7 +219,17 @@ const About = () => {
     <>
       <Breadcrumb items={[{ label: "About" }]} />
 
-      <PageMeta title="About" description={heroDescription} />
+      <PageMeta
+        title="About"
+        description={heroDescription}
+        path="/about"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "About Source Standard",
+          url: "https://sourcestandard.org/about",
+        }}
+      />
 
       {/* §1 Hero — untouched */}
       <BriefingHero

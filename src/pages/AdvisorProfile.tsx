@@ -103,6 +103,27 @@ const AdvisorProfile = () => {
       <PageMeta
         title={`${member.name} · ${member.boardTitle}`}
         description={`Medical Advisory Board profile: ${member.name}, ${member.credentials}. ${member.specialization}.`}
+        path={`/medical-advisory/${member.slug}`}
+        type="profile"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: member.name,
+            jobTitle: member.boardTitle,
+            description: member.specialization,
+            url: `https://sourcestandard.org/medical-advisory/${member.slug}`,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://sourcestandard.org/" },
+              { "@type": "ListItem", position: 2, name: "Medical Advisory", item: "https://sourcestandard.org/medical-advisory" },
+              { "@type": "ListItem", position: 3, name: member.name, item: `https://sourcestandard.org/medical-advisory/${member.slug}` },
+            ],
+          },
+        ]}
       />
       <Breadcrumb
         items={[
