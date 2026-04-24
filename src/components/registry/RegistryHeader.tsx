@@ -44,7 +44,13 @@ export const RegistryHeader = ({
     <section className="relative overflow-hidden bg-[hsl(var(--navy-surface))]">
       <HeroPattern opacity={0.018} stroke="white" cellSize={32} />
 
-      <div className="relative z-10 page-shell pt-20 md:pt-24 pb-20 md:pb-24">
+      <div
+        className="relative z-10 page-shell"
+        style={{
+          paddingTop: "clamp(72px, 9vh, 96px)",
+          paddingBottom: "clamp(40px, 5vh, 56px)",
+        }}
+      >
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
             <div className="min-w-0 flex-1">
