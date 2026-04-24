@@ -398,7 +398,7 @@ const Index = () => {
       <section
         aria-labelledby="trust-problem"
         className="bg-background border-b border-border"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -418,7 +418,7 @@ const Index = () => {
             <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
               Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
             </p>
-            <div className="mt-5">
+            <div className="mt-3">
               <PillPrimary to="/how-it-works">View Verification Protocol</PillPrimary>
             </div>
           </div>
@@ -429,7 +429,7 @@ const Index = () => {
       <section
         aria-labelledby="how-it-works"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -459,7 +459,7 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="mt-5">
+            <div className="mt-3">
               <PillPrimary to="/verified-vendors">Access the Registry</PillPrimary>
             </div>
           </div>
@@ -470,7 +470,7 @@ const Index = () => {
       <section
         aria-labelledby="live-registry"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -503,7 +503,7 @@ const Index = () => {
       <section
         aria-labelledby="registry-shows"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -536,7 +536,7 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="mt-5">
+            <div className="mt-3">
               <PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>
             </div>
           </div>
@@ -547,7 +547,7 @@ const Index = () => {
       <section
         aria-labelledby="why-matters"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -584,7 +584,7 @@ const Index = () => {
       <section
         aria-labelledby="basics"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -615,7 +615,7 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="mt-5">
+            <div className="mt-3">
               <PillSecondary to="/education">Browse Resource Library</PillSecondary>
             </div>
           </div>
@@ -626,7 +626,7 @@ const Index = () => {
       <section
         aria-labelledby="governance"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -664,7 +664,7 @@ const Index = () => {
       <section
         aria-labelledby="enter-registry"
         className="bg-[hsl(var(--navy-surface))]"
-        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -681,7 +681,7 @@ const Index = () => {
             >
               Access the Vendor Registry.
             </h2>
-            <div className="mt-5">
+            <div className="mt-3">
               <PillPrimaryWhite to="/verified-vendors">Enter Registry</PillPrimaryWhite>
             </div>
           </div>
