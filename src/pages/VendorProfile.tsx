@@ -11,6 +11,7 @@ import {
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
+import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
 
 /**
  * VendorProfile — Surgical Public Record (mirrors GreenlistProfile).
