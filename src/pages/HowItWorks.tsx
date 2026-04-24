@@ -316,7 +316,7 @@ const HowItWorks = () => {
                 >
                   What verification does and does not claim.
                 </p>
-                <div className="mt-5 flex flex-col" style={{ gap: "8px" }}>
+                <div className="mt-5 flex flex-col lg:grid lg:grid-cols-2 lg:gap-2" style={{ gap: "8px" }}>
                   {BOUNDARIES.map((b, i) => (
                     <BoundaryRow
                       key={b}
