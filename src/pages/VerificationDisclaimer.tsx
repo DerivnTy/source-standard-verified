@@ -21,22 +21,22 @@ const SCOPE: Clause[] = [
   {
     n: "01",
     t: "Documented identity",
-    d: "Review of business registration, operating identity, vendor type, and related credentials tied to the entity under review.",
+    d: "Review of business registration, operating identity, and related credentials tied to the entity under review.",
   },
   {
     n: "02",
-    t: "Public-record consistency",
-    d: "Cross-reference of relevant licensing, registration, and public records against available federal and state sources at a fixed point in time.",
+    t: "Regulatory standing",
+    d: "Cross-checking of relevant licensing and registration records against available federal and state sources at a fixed point in time.",
   },
   {
     n: "03",
-    t: "Upstream sourcing evidence",
-    d: "Review of disclosed pharmacy relationships, upstream facility references, and supporting documentation submitted within the review process.",
+    t: "Upstream sourcing",
+    d: "Review of disclosed pharmacy or supplier relationships and the supporting records submitted within the review process.",
   },
   {
     n: "04",
     t: "Record basis",
-    d: "The registry reflects Source Standard's review of available records and does not replace, supersede, or guarantee the accuracy of the original third-party records on which the review depends.",
+    d: "The registry reflects Source Standard's review of records and does not supersede the original third-party records on which the determination depends.",
   },
 ];
 
@@ -44,45 +44,45 @@ const EXCLUSIONS: Clause[] = [
   {
     n: "01",
     t: "Clinical outcomes",
-    d: "No finding is made regarding the medical result for any individual patient.",
+    d: "No determination is made regarding the medical result for any individual patient.",
   },
   {
     n: "02",
     t: "Product suitability",
-    d: "The framework does not evaluate whether any formulation, therapy, vendor, or protocol is appropriate for a specific person.",
+    d: "The framework does not evaluate whether any formulation, therapy, or protocol is appropriate for a specific person.",
   },
   {
     n: "03",
     t: "Safety and efficacy",
-    d: "Source Standard verification does not certify product safety, sterility, potency, quality, treatment effectiveness, or therapeutic efficacy.",
+    d: "A Source Standard determination does not certify biological safety, sterility, potency, or therapeutic efficacy unless a separate published scope explicitly states otherwise.",
   },
   {
     n: "04",
     t: "Future conduct",
-    d: "A published status reflects the records reviewed at a fixed point in time and is not a warranty of future performance, future documentation accuracy, or future regulatory compliance.",
+    d: "A published determination reflects the records reviewed at a fixed point in time and is not a warranty of future performance or future compliance.",
   },
 ];
 
 const BOUNDARIES: Clause[] = [
   {
     n: "01",
-    t: "Not a regulator",
-    d: "Source Standard is a private public-reference and verification framework. It does not hold governmental enforcement authority.",
+    t: "Not a statutory body",
+    d: "Source Standard is a private auditing and public-reference entity. It does not hold governmental enforcement authority.",
   },
   {
     n: "02",
     t: "Not a clinical practice",
-    d: "The organization does not diagnose, prescribe, dispense, treat patients, or practice medicine or pharmacy.",
+    d: "The organization does not diagnose, prescribe, dispense, or practice medicine or pharmacy.",
   },
   {
     n: "03",
     t: "Not a manufacturer",
-    d: "Source Standard does not compound, repackage, distribute, handle, store, or supply pharmaceutical products.",
+    d: "Source Standard does not compound, repackage, distribute, or supply pharmaceutical products.",
   },
   {
     n: "04",
     t: "Not a guarantor",
-    d: "Verified status is a documentation-based registry status. It is not a warranty, indemnity, insurance-like guarantee, product approval, vendor approval, or clinical recommendation.",
+    d: "A Verified status is an administrative public record, not a warranty, indemnity, or insurance-like guarantee.",
   },
 ];
 
@@ -90,12 +90,12 @@ const LIABILITY: Clause[] = [
   {
     n: "01",
     t: "User discretion",
-    d: "The registry is a public reference tool. Reliance on any published status or registry record is at the user's discretion.",
+    d: "The registry is a public reference tool. Reliance on any published determination is at the user's discretion.",
   },
   {
     n: "02",
     t: "Professional consultation",
-    d: "Users should consult licensed clinicians for medical matters and appropriate regulatory authorities for regulatory or legal matters.",
+    d: "Users should consult licensed clinicians for medical matters and appropriate regulatory authorities for statutory matters.",
   },
   {
     n: "03",
@@ -149,7 +149,7 @@ const SplitSection = ({
 
 const VerificationDisclaimer = () => {
   const heroDescription =
-    "The formal boundaries, jurisdictional limits, and liability framework governing Source Standard verification status and registry records.";
+    "The formal boundaries, jurisdictional limits, and liability framework governing Source Standard determinations.";
 
   return (
     <>
@@ -173,14 +173,14 @@ const VerificationDisclaimer = () => {
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
               <h2 className="t-section-title-sm text-foreground">
-                What Source Standard verification means
+                What a Source Standard determination means
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard verification is a public-reference finding based on reviewed records within a defined scope and at a defined point in time.
+                  A Source Standard determination is a public-reference finding based on reviewed records within a defined scope and at a defined point in time.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  This page explains what verification status does and does not establish, the limits of the framework, and the boundaries under which registry information should be interpreted.
+                  This page explains what that determination does and does not establish, the limits of the framework, and the boundaries under which registry information should be interpreted.
                 </p>
               </div>
             </div>
@@ -198,11 +198,11 @@ const VerificationDisclaimer = () => {
             <SplitSection
               id="scope"
               n="01"
-              title="Record Review Scope"
-              intro="What verification status is designed to reflect."
+              title="Administrative Attestation Scope"
+              intro="What a determination is designed to reflect."
             >
               <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
-                Source Standard verification reflects whether a vendor's submitted documentation, pharmacy relationship evidence, public records, and operating information support its stated sourcing claim within the declared review scope.
+                A Source Standard verification is an attestation of record consistency. It reflects whether an entity's documented sourcing, licenses, and operating records are consistent with its public-facing claims within the declared scope of review.
               </p>
               <ClauseList clauses={SCOPE} />
             </SplitSection>
@@ -211,8 +211,8 @@ const VerificationDisclaimer = () => {
             <SplitSection
               id="exclusions"
               n="02"
-              title="Matters Outside the Review Scope"
-              intro="What verification status does not establish."
+              title="Matters Outside the Scope of Attestation"
+              intro="What a determination does not establish."
             >
               <ClauseList clauses={EXCLUSIONS} />
             </SplitSection>
@@ -241,10 +241,10 @@ const VerificationDisclaimer = () => {
             <section className="section-pad border-t border-border/40">
               <div className="max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
-                  Verification is a record review, not a medical guarantee.
+                  A determination is a record finding, not a medical guarantee.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of this disclaimer is to ensure that Source Standard verification status is interpreted within its actual scope. The framework exists to improve public understanding of documented sourcing claims, not to replace medical judgment, regulatory oversight, or individualized clinical decision-making.
+                  The purpose of this disclaimer is to ensure that Source Standard determinations are interpreted within their actual scope. The framework exists to improve public understanding of documented sourcing, not to replace medical judgment, statutory oversight, or individualized clinical decision-making.
                 </p>
               </div>
             </section>
