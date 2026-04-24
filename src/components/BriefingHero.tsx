@@ -100,11 +100,11 @@ export const BriefingHero = ({
               </p>
 
               {heroMetrics && (
-                <div className="mt-7 flex justify-center">{heroMetrics}</div>
+                <div className="mt-8 flex justify-start">{heroMetrics}</div>
               )}
 
               {actions && (
-                <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 [&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:text-center [&>*]:text-center">
+                <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3 [&>*]:w-full sm:[&>*]:w-auto">
                   {actions}
                 </div>
               )}
