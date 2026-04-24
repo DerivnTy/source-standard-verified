@@ -142,20 +142,20 @@ const SplitSection = ({
 
 const HowItWorks = () => {
   const heroDescription =
-    "An independent review framework designed to assess sourcing documentation, upstream pharmacy relationships, and public-record consistency across the compounded medicine landscape.";
+    "An independent review framework for compounded therapy vendor sourcing claims, pharmacy relationship evidence, submitted documentation, and public-record consistency.";
 
   return (
     <>
       <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Verification" }]} />
 
-      <PageMeta title="Verification · Source Standard" description={heroDescription} />
+      <PageMeta title="Verification Protocol · Source Standard" description={heroDescription} />
 
       {/* §1 Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
         category="Verification Framework"
-        title="The Verification Standard"
+        title="The Verification Protocol"
         statement={heroDescription}
         docId=""
       />
@@ -166,14 +166,14 @@ const HowItWorks = () => {
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
               <h2 className="t-section-title-sm text-foreground">
-                What this standard is designed to do
+                What this protocol is designed to do
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The Verification Standard defines how Source Standard reviews whether a vendor's public sourcing claims can be substantiated through documentation, pharmacy-of-record relationships, licensure, and related operating records.
+                  The Verification Protocol defines how Source Standard reviews whether a vendor's public sourcing claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, and related operating records.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  It is a framework for documentation review and public-reference consistency. It is not a guarantee of product efficacy, a substitute for medical judgment, or a replacement for federal or state regulatory oversight.
+                  It is a framework for documentation review and public-reference consistency. It is not a guarantee of product safety, treatment effectiveness, clinical quality, or regulatory compliance.
                 </p>
               </div>
             </div>
@@ -187,22 +187,22 @@ const HowItWorks = () => {
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* §4 Audit */}
+            {/* §4 Documentation Review */}
             <SplitSection
               id="audit"
               n="01"
-              title="Audit"
-              intro="How sourcing claims are reviewed against upstream records."
+              title="Documentation Review"
+              intro="How sourcing claims are reviewed against submitted and public records."
               clauses={AUDIT_CLAUSES}
               firstSection
             />
 
-            {/* §5 Surveillance */}
+            {/* §5 Ongoing Monitoring */}
             <SplitSection
               id="surveillance"
               n="02"
-              title="Surveillance"
-              intro="How the framework monitors evidence beyond initial document review."
+              title="Ongoing Monitoring"
+              intro="How the framework reviews changes after initial documentation review."
               clauses={SURVEILLANCE_CLAUSES}
             />
 
@@ -211,7 +211,7 @@ const HowItWorks = () => {
               id="disclosure"
               n="03"
               title="Disclosure"
-              intro="How ongoing changes are expected to be reported and monitored."
+              intro="How vendor changes are expected to be reported and reflected."
               clauses={DISCLOSURE_CLAUSES}
             />
 
