@@ -375,7 +375,7 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard · Independent Verification for Compounded Therapy Vendors"
+        title="Source Standard · Verify the source."
         description="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
       />
 
@@ -384,7 +384,7 @@ const Index = () => {
         variant="cover"
         category="Public Reference System · United States"
         docId=""
-        title="Independent Verification for Compounded Therapy Vendors"
+        title="Verify the source."
         statement="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
         tone="navy"
         actions={<HeroActions />}
