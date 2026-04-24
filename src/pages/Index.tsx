@@ -380,17 +380,19 @@ const Index = () => {
       />
 
       {/* §1 — Hero */}
-      <BriefingHero
-        variant="cover"
-        category="Public Reference System · United States"
-        docId=""
-        title="Verify the source."
-        statement="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
-        tone="navy"
-        actions={<HeroActions />}
-        heroMetrics={<HeroMetrics />}
-        
-      />
+      <div className="flex flex-col min-h-[calc(100dvh-84px)] lg:min-h-0 [&>section]:flex-1 [&>section]:flex [&>section]:flex-col">
+        <BriefingHero
+          variant="cover"
+          category="Public Reference System · United States"
+          docId=""
+          title="Verify the source."
+          statement="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
+          tone="navy"
+          actions={<HeroActions />}
+          heroMetrics={<HeroMetrics />}
+          
+        />
+      </div>
 
       <DocJumpBar waypoints={homeWaypoints} />
 
