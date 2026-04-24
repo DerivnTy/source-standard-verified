@@ -1,19 +1,22 @@
-Add an explainer `<aside>` panel below the facility profile card in `src/pages/GreenlistProfile.tsx`.
+## Homepage Hero — Mobile Bottom Spacing Refinement
 
-**Placement**: 32px below the existing profile card, inside the same 600px-wide wrapper, above the existing `paddingBottom: 48px`.
+**File**: `src/components/BriefingHero.tsx` (only — `isNavy && isCover` branch, used solely by the homepage)
 
-**Styling**: `bg-card`, `0.5px solid hsl(var(--border))`, `10px` border-radius, `24px` padding — matching the profile card.
+### Root cause
+The cover hero forces `minHeight: "calc(100dvh - 84px)"` on both the outer `<section>` and the inner page-shell wrapper. On a 390×844 mobile viewport, this stretches the navy surface to fill the entire dynamic viewport, producing a large empty navy block below the second CTA.
 
-**Block 1 — UPSTREAM RECORD**
-- Eyebrow: `UPSTREAM RECORD` (10px, uppercase, 0.08em tracking, muted-foreground, semibold)
-- Body: "This facility record is maintained as a public-reference entry used during vendor sourcing review." (13px, foreground)
-- Supporting: "Inclusion in the Upstream Registry does not verify that any vendor is actively sourcing from this facility, and it does not constitute product approval, facility recommendation, or a guarantee of safety, sterility, potency, efficacy, or outcome." (12px, muted-foreground)
+### Change
+1. **Outer `<section>`**: remove the inline `minHeight` style. Add `lg:min-h-[calc(100dvh-84px)]` so the full "book cover" effect is preserved on desktop only.
+2. **Inner wrapper**: remove the inline `minHeight` style. Add `lg:min-h-[calc(100dvh-84px)]` so desktop layout is unchanged.
+3. **paddingBottom**: change from `clamp(56px, 8vh, 88px)` to `clamp(64px, 8vh, 88px)` so mobile lands at ~64px navy breathing room below the final CTA (within the requested 56–72px range).
+4. **paddingTop**: unchanged — preserves spacing above the H1.
 
-**Hairline divider** (0.5px border-top, 20px vertical margin)
+### Preserved (no changes)
+- Hero title, statement, live registry stats (`heroMetrics`), CTA labels and routes (`actions`), `heroMeta`
+- All gaps between title → description → metrics → CTAs
+- `chapter` and default (white) hero variants
+- Header, hamburger menu, logo, footer, typography, colors, animations
+- Desktop appearance (full dynamic-viewport "book cover" via `lg:min-h-[calc(100dvh-84px)]`)
 
-**Block 2 — VENDOR-LEVEL VERIFICATION**
-- Eyebrow: `VENDOR-LEVEL VERIFICATION`
-- Body: "Vendor verification is reviewed separately and requires documentation supporting the vendor's stated pharmacy relationships, sourcing claims, and chain-of-custody records."
-- CTA: `Open Vendor Registry →` as a `<Link to="/directory">` styled with underline-offset and 12px semibold uppercase tracking, top-margin 12px.
-
-**Preservation**: No changes to facility data, card fields, back link, header, footer, routes, or database.
+### Result
+On mobile, the navy hero ends ~64px below the second CTA instead of stretching to fill the viewport. Desktop is visually unchanged.
