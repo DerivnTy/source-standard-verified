@@ -149,7 +149,7 @@ const SplitSection = ({
 
 const VerificationDisclaimer = () => {
   const heroDescription =
-    "The formal boundaries, jurisdictional limits, and liability framework governing Source Standard determinations.";
+    "The formal boundaries, jurisdictional limits, and liability framework governing Source Standard verification status and registry records.";
 
   return (
     <>
@@ -173,14 +173,14 @@ const VerificationDisclaimer = () => {
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
               <h2 className="t-section-title-sm text-foreground">
-                What a Source Standard determination means
+                What Source Standard verification means
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  A Source Standard determination is a public-reference finding based on reviewed records within a defined scope and at a defined point in time.
+                  Source Standard verification is a public-reference finding based on reviewed records within a defined scope and at a defined point in time.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  This page explains what that determination does and does not establish, the limits of the framework, and the boundaries under which registry information should be interpreted.
+                  This page explains what verification status does and does not establish, the limits of the framework, and the boundaries under which registry information should be interpreted.
                 </p>
               </div>
             </div>
@@ -198,11 +198,11 @@ const VerificationDisclaimer = () => {
             <SplitSection
               id="scope"
               n="01"
-              title="Administrative Attestation Scope"
-              intro="What a determination is designed to reflect."
+              title="Record Review Scope"
+              intro="What verification status is designed to reflect."
             >
               <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
-                A Source Standard verification is an attestation of record consistency. It reflects whether an entity's documented sourcing, licenses, and operating records are consistent with its public-facing claims within the declared scope of review.
+                Source Standard verification reflects whether a vendor's submitted documentation, pharmacy relationship evidence, public records, and operating information support its stated sourcing claim within the declared review scope.
               </p>
               <ClauseList clauses={SCOPE} />
             </SplitSection>
@@ -211,8 +211,8 @@ const VerificationDisclaimer = () => {
             <SplitSection
               id="exclusions"
               n="02"
-              title="Matters Outside the Scope of Attestation"
-              intro="What a determination does not establish."
+              title="Matters Outside the Review Scope"
+              intro="What verification status does not establish."
             >
               <ClauseList clauses={EXCLUSIONS} />
             </SplitSection>
@@ -241,10 +241,10 @@ const VerificationDisclaimer = () => {
             <section className="section-pad border-t border-border/40">
               <div className="max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
-                  A determination is a record finding, not a medical guarantee.
+                  Verification is a record review, not a medical guarantee.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of this disclaimer is to ensure that Source Standard determinations are interpreted within their actual scope. The framework exists to improve public understanding of documented sourcing, not to replace medical judgment, statutory oversight, or individualized clinical decision-making.
+                  The purpose of this disclaimer is to ensure that Source Standard verification status is interpreted within its actual scope. The framework exists to improve public understanding of documented sourcing claims, not to replace medical judgment, regulatory oversight, or individualized clinical decision-making.
                 </p>
               </div>
             </section>
