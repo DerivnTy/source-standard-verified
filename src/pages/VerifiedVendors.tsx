@@ -108,19 +108,19 @@ const SoftPill = ({
   <button
     type="button"
     onClick={onClick}
+    data-pill
     aria-pressed={active}
-    className={`${fullWidth ? "w-full" : "shrink-0"} font-sans text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors`}
+    className={`inline-flex items-center justify-center font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97] ${
+      fullWidth ? "w-full" : "shrink-0"
+    }`}
     style={{
+      fontSize: "11px",
+      letterSpacing: "0.06em",
       height: "32px",
       padding: "0 14px",
       borderRadius: "20px",
-      border: "1px solid",
-      borderColor: active
-        ? "hsl(var(--navy-surface))"
-        : "hsl(var(--border) / 0.7)",
-      backgroundColor: active
-        ? "hsl(var(--navy-surface))"
-        : "hsl(var(--muted) / 0.6)",
+      border: "1px solid hsl(var(--border))",
+      backgroundColor: active ? "hsl(var(--foreground))" : "#FFFFFF",
       color: active ? "hsl(var(--background))" : "hsl(var(--foreground) / 0.75)",
     }}
   >

@@ -112,9 +112,11 @@ const LibraryCategory = () => {
                   No entries published in this category yet.
                 </div>
               ) : (
-                <ul className="divide-y divide-border">
+                <ul className="flex flex-col gap-2">
                   {sorted.map((e) => (
-                    <ArticleRow key={e.slug} entry={e} />
+                    <li key={e.slug}>
+                      <ArticleRow entry={e} />
+                    </li>
                   ))}
                 </ul>
               )}
