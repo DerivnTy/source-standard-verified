@@ -91,16 +91,23 @@ const VendorProfile = () => {
 
   if (!vendor) {
     return (
-      <section className="container-narrow py-24 text-center">
-        <p className="eyebrow mb-3">Not Found</p>
-        <h1 className="title-page mb-4">No vendor profile found.</h1>
-        <Link
-          to="/verified-vendors"
-          className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
-        >
-          ← Back to Directory
-        </Link>
-      </section>
+      <>
+        <PageMeta
+          title="Vendor not found"
+          description="No vendor profile found in the Source Standard public directory."
+          noindex
+        />
+        <section className="container-narrow py-24 text-center">
+          <p className="eyebrow mb-3">Not Found</p>
+          <h1 className="title-page mb-4">No vendor profile found.</h1>
+          <Link
+            to="/verified-vendors"
+            className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
+          >
+            ← Back to Directory
+          </Link>
+        </section>
+      </>
     );
   }
 
