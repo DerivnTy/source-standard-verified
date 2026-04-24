@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
@@ -9,10 +10,6 @@ const WAYPOINTS = [
   { id: "disclosure", number: "03", label: "Disclosure" },
   { id: "boundaries", number: "04", label: "Boundaries" },
 ];
-
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
 
 type Clause = { n: string; t: string; d: string };
 
@@ -94,51 +91,123 @@ const BOUNDARIES = [
   "It does not approve, recommend, or rank vendors.",
 ];
 
-const SplitSection = ({
-  id,
+/* ------------------------------ Local primitives ------------------------------ */
+
+const Eyebrow = ({ children }: { children: ReactNode }) => (
+  <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">
+    {children}
+  </p>
+);
+
+const ProtocolCard = ({ children }: { children: ReactNode }) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "24px",
+    }}
+  >
+    {children}
+  </div>
+);
+
+const ProtocolRow = ({
+  index,
+  total,
+  title,
+  description,
+}: {
+  index: string;
+  total: string;
+  title: string;
+  description: string;
+}) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "14px 16px",
+    }}
+  >
+    <div className="flex items-baseline justify-between gap-4">
+      <p className="t-body-md font-semibold text-foreground">{title}</p>
+      <span className="font-mono text-[11px] tabular-nums text-muted-foreground/70 shrink-0">
+        {index} / {total}
+      </span>
+    </div>
+    <p
+      className="mt-1.5 text-muted-foreground"
+      style={{ fontSize: "13px", lineHeight: 1.55 }}
+    >
+      {description}
+    </p>
+  </div>
+);
+
+const BoundaryRow = ({ index, text }: { index: string; text: string }) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "12px 14px",
+    }}
+  >
+    <div className="flex items-baseline gap-3">
+      <span className="font-mono text-[10px] tabular-nums text-muted-foreground/60 shrink-0">
+        {index}
+      </span>
+      <p
+        className="text-foreground"
+        style={{ fontSize: "13px", lineHeight: 1.5 }}
+      >
+        {text}
+      </p>
+    </div>
+  </div>
+);
+
+const SectionHeader = ({
   n,
   title,
   intro,
-  clauses,
-  firstSection = false,
 }: {
-  id: string;
   n: string;
   title: string;
   intro: string;
-  clauses: Clause[];
-  firstSection?: boolean;
 }) => (
-  <section
-    id={id}
-    className={`scroll-mt-24 ${firstSection ? "pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24" : "section-pad"} border-b border-border/40`}
-  >
-    <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-      <div className="md:col-span-4">
-        <div className="md:sticky md:top-32">
-          <SectionIndex n={n} />
-          <h2 className="t-section-title-sm text-foreground">{title}</h2>
-          <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">{intro}</p>
-        </div>
-      </div>
-      <div className="md:col-span-8 mt-8 md:mt-0">
-        <ol className="divide-y divide-border/60">
-          {clauses.map((c) => (
-            <li key={c.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
-              <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
-                {c.n}
-              </div>
-              <div className="col-span-10 md:col-span-11">
-                <p className="t-body-md font-semibold text-foreground">{c.t}</p>
-                <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
+  <div className="max-w-2xl mb-6">
+    <p className="font-mono text-[12px] text-muted-foreground/60 mb-1 tabular-nums">{n}</p>
+    <h2 className="t-section-title-sm text-foreground">{title}</h2>
+    <p
+      className="mt-3 text-muted-foreground"
+      style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+    >
+      {intro}
+    </p>
+  </div>
 );
+
+const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
+  const total = String(clauses.length).padStart(2, "0");
+  return (
+    <div className="flex flex-col" style={{ gap: "10px" }}>
+      {clauses.map((c) => (
+        <ProtocolRow
+          key={c.n}
+          index={c.n}
+          total={total}
+          title={c.t}
+          description={c.d}
+        />
+      ))}
+    </div>
+  );
+};
+
+/* ----------------------------------- Page ----------------------------------- */
 
 const HowItWorks = () => {
   const heroDescription =
@@ -150,7 +219,7 @@ const HowItWorks = () => {
 
       <PageMeta title="Verification Protocol · Source Standard" description={heroDescription} />
 
-      {/* §1 Hero */}
+      {/* §1 Hero — untouched */}
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -160,89 +229,122 @@ const HowItWorks = () => {
         docId=""
       />
 
-      {/* §2 Statement of purpose */}
-      <section className="bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard section-pad">
-            <div className="max-w-2xl">
-              <h2 className="t-section-title-sm text-foreground">
-                What this protocol is designed to do
-              </h2>
-              <div className="mt-6 space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The Verification Protocol defines how Source Standard reviews whether a vendor's public sourcing claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, and related operating records.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  It is a framework for documentation review and public-reference consistency. It is not a guarantee of product safety, treatment effectiveness, clinical quality, or regulatory compliance.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §3 Contents nav */}
+      {/* §2 Contents nav — untouched */}
       <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* §4 Documentation Review */}
-            <SplitSection
-              id="audit"
-              n="01"
-              title="Documentation Review"
-              intro="How sourcing claims are reviewed against submitted and public records."
-              clauses={AUDIT_CLAUSES}
-              firstSection
-            />
-
-            {/* §5 Ongoing Monitoring */}
-            <SplitSection
-              id="surveillance"
-              n="02"
-              title="Ongoing Monitoring"
-              intro="How the framework reviews changes after initial documentation review."
-              clauses={SURVEILLANCE_CLAUSES}
-            />
-
-            {/* §6 Disclosure */}
-            <SplitSection
-              id="disclosure"
-              n="03"
-              title="Disclosure"
-              intro="How vendor changes are expected to be reported and reflected."
-              clauses={DISCLOSURE_CLAUSES}
-            />
-
-            {/* §7 Boundaries */}
-            <section id="boundaries" className="scroll-mt-24 section-pad border-b border-border/40">
-              <SectionIndex n="04" />
-              <div className="max-w-2xl mb-8">
-                <h2 className="t-section-title-sm text-foreground">Boundaries</h2>
-                <p className="mt-4 t-body-md text-muted-foreground leading-relaxed">
-                  What the framework does and does not claim.
-                </p>
-              </div>
-              <ul className="divide-y divide-border/60 border-y border-border/60 max-w-3xl">
-                {BOUNDARIES.map((b) => (
-                  <li key={b} className="py-5 t-body-md text-foreground">
-                    {b}
-                  </li>
-                ))}
-              </ul>
+            {/* §3 Purpose */}
+            <section style={{ paddingTop: "40px", paddingBottom: "40px" }}>
+              <ProtocolCard>
+                <Eyebrow>Protocol Purpose</Eyebrow>
+                <h2 className="mt-2 t-section-title-sm text-foreground">
+                  What this protocol is designed to do
+                </h2>
+                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                  >
+                    The Verification Protocol defines how Source Standard reviews whether a vendor's public sourcing claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, and related operating records.
+                  </p>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                  >
+                    It is a framework for documentation review and public-reference consistency. It is not a guarantee of product safety, treatment effectiveness, clinical quality, or regulatory compliance.
+                  </p>
+                </div>
+              </ProtocolCard>
             </section>
 
-            {/* §8 Closing statement */}
-            <section className="section-pad">
-              <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
+            {/* §4 Documentation Review */}
+            <section
+              id="audit"
+              className="scroll-mt-24 border-t border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <SectionHeader
+                n="01"
+                title="Documentation Review"
+                intro="How sourcing claims are reviewed against submitted and public records."
+              />
+              <ClauseStack clauses={AUDIT_CLAUSES} />
+            </section>
+
+            {/* §5 Ongoing Monitoring */}
+            <section
+              id="surveillance"
+              className="scroll-mt-24 border-t border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <SectionHeader
+                n="02"
+                title="Ongoing Monitoring"
+                intro="How the framework reviews changes after initial documentation review."
+              />
+              <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
+            </section>
+
+            {/* §6 Disclosure */}
+            <section
+              id="disclosure"
+              className="scroll-mt-24 border-t border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <SectionHeader
+                n="03"
+                title="Disclosure"
+                intro="How vendor changes are expected to be reported and reflected."
+              />
+              <ClauseStack clauses={DISCLOSURE_CLAUSES} />
+            </section>
+
+            {/* §7 Boundaries */}
+            <section
+              id="boundaries"
+              className="scroll-mt-24 border-t border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <ProtocolCard>
+                <Eyebrow>Review Boundaries</Eyebrow>
+                <h2 className="mt-2 t-section-title-sm text-foreground">Boundaries</h2>
+                <p
+                  className="mt-3 text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+                >
+                  What the framework does and does not claim.
+                </p>
+                <div className="mt-5 flex flex-col" style={{ gap: "8px" }}>
+                  {BOUNDARIES.map((b, i) => (
+                    <BoundaryRow
+                      key={b}
+                      index={String(i + 1).padStart(2, "0")}
+                      text={b}
+                    />
+                  ))}
+                </div>
+              </ProtocolCard>
+            </section>
+
+            {/* §8 Closing — Record Standard */}
+            <section
+              className="border-t border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "64px" }}
+            >
+              <ProtocolCard>
+                <Eyebrow>Record Standard</Eyebrow>
+                <h2 className="mt-2 t-section-title-sm text-foreground">
                   Verification is a record standard.
                 </h2>
-                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                <p
+                  className="mt-4 text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                >
                   The purpose of the Verification Protocol is to help the public interpret whether vendor sourcing claims are supported by documentation. Its role is to bring greater clarity, consistency, and accountability to a market where sourcing claims are often difficult to evaluate independently.
                 </p>
-              </div>
+              </ProtocolCard>
             </section>
           </div>
         </div>
