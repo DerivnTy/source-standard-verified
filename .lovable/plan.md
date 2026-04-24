@@ -1,43 +1,31 @@
 ## Plan
 
-Update only `src/pages/VendorProfile.tsx` so the top-right profile-card status uses an explicit Vendor Profile status renderer instead of the current shared color/label branch.
+1. Update only the actual Vendor Profile header status renderer in `src/pages/VendorProfile.tsx`.
+   - Target the top-right status element inside the white profile card on `/directory/:slug`.
+   - Do not touch the Vendor Registry list cards, filters, routes, layout, or data.
 
-### What will change
-1. Isolate the top-right status UI into a local helper such as `renderProfileStatus(status)` inside `VendorProfile.tsx`.
-2. Make the `verified` branch return the approved inline status group:
-   - `VERIFIED`
-   - Source Standard navy `#001021`
-   - `VerifiedShieldMark` inline SVG on the right
-   - same `inline-flex`, gap, sizing, and vertical offset pattern as the registry preview card
-3. Keep `unverified`, `under-review`, `suspended`, and `removed` behavior visually unchanged.
-4. Remove `verified` from relying on the generic profile status color map for this top-right status so no legacy green treatment can win on this page.
+2. Replace the verified branch with the approved registry treatment.
+   - Render `VERIFIED` in Source Standard navy `#001021`.
+   - Render the same inline `VerifiedShieldMark` SVG immediately to the right.
+   - Match the registry preview card’s spacing, icon sizing, and vertical alignment.
+   - Ensure the profile verified branch bypasses any legacy green treatment or shared verified color token.
 
-### Findings from inspection
-- The active route `/directory/:slug` renders `VendorProfile` directly from `src/App.tsx`.
-- The visible top-right profile status is rendered in `src/pages/VendorProfile.tsx` inside the header branch around the current `<span>` status wrapper.
-- The only shared icon involved is `src/components/registry/VerifiedShieldMark.tsx`.
-- No separate profile-only `StatusBadge`, `ProfileStatus`, or helper component is currently controlling that specific top-right status.
+3. Leave all non-verified profile states unchanged.
+   - Keep `UNVERIFIED` red with no icon.
+   - Keep `UNDER REVIEW` unchanged.
+   - Preserve the existing card position, field grid, spacing, typography scale, and surrounding layout.
 
-### Technical details
-- Touch file: `src/pages/VendorProfile.tsx`
-- Reuse existing icon: `src/components/registry/VerifiedShieldMark.tsx`
-- Preserve:
-  - card layout
-  - field grid
-  - spacing
-  - header/footer
-  - routes/data
-  - Vendor Registry preview cards
-- Implementation shape:
+4. Verify the actual profile route after the change.
+   - Check `/directory/northline-health-hormone-institute` specifically.
+   - Confirm the visible top-right status reads `VERIFIED` with the shield icon to its right.
+   - Confirm no green verified text remains on the actual profile page.
 
-```text
-renderProfileStatus(status)
-  verified      -> explicit navy inline-flex text + shield
-  unverified    -> existing red text only
-  under-review  -> existing amber text only
-  suspended     -> existing muted text only
-  removed       -> existing muted text only
-```
+## Technical details
 
-### Acceptance check
-After implementation, the top-right status on `/directory/northline-health-hormone-institute` will be controlled by the dedicated verified branch in `VendorProfile.tsx`, ensuring it renders as `VERIFIED [shield]` and cannot fall back to any legacy green verified styling.
+- Primary file: `src/pages/VendorProfile.tsx`
+- Reused asset/component: `src/components/registry/VerifiedShieldMark.tsx`
+- Implementation approach: replace the rendered verified JSX branch in the profile card header with the same inline-flex pattern used by the approved registry preview treatment, rather than relying on generic status-color logic.
+- Scope guardrails:
+  - No changes to `VendorRow` or registry preview cards
+  - No changes to data, search, filters, routes, footer, header, or global styling
+  - No image asset loading for the shield
