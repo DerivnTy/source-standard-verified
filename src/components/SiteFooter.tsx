@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Logo } from "@/components/Logo";
 
 type LinkRow = {
   to: string;
@@ -79,26 +80,7 @@ export const SiteFooter = () => {
         <div className="mx-auto w-wide">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-9 md:gap-y-12 items-start text-left">
             <div className="lg:col-span-1">
-              <Link to="/" className="inline-block hover:opacity-90 transition-opacity" aria-label="Source Standard, home">
-                <span
-                  className="block text-white"
-                  style={{
-                    fontFamily: "'Source Serif 4', Georgia, serif",
-                    fontSize: "22px",
-                    fontWeight: 600,
-                    letterSpacing: "-0.022em",
-                    lineHeight: 1.15,
-                  }}
-                >
-                  Source Standard
-                </span>
-              </Link>
-              <p
-                className="mt-2.5 md:mt-4 font-sans text-[12px]"
-                style={{ color: MUTED, letterSpacing: "0.01em" }}
-              >
-                United States · Public Reference System
-              </p>
+              <Logo variant="light" className="h-6" />
             </div>
 
             {columns.map((col) => (
