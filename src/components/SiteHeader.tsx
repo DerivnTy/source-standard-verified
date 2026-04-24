@@ -40,7 +40,7 @@ export const useHeaderVisible = () => {
   return v;
 };
 
-export const SiteHeader = () => {
+export const SiteHeader = ({ transparent = false }: { transparent?: boolean } = {}) => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
@@ -59,15 +59,18 @@ export const SiteHeader = () => {
     setHeaderVisibleGlobal(true);
   }, [location.pathname]);
 
+  const onLightField = transparent; // navy background → invert text/border
   return (
     <header
-      className="!bg-white"
+      className={transparent ? "" : "!bg-white"}
       style={{
-        backgroundColor: "#FFFFFF",
-        borderBottom: "0.5px solid #E5E5EA",
+        backgroundColor: transparent ? "transparent" : "#FFFFFF",
+        borderBottom: transparent ? "0.5px solid rgba(255,255,255,0.08)" : "0.5px solid #E5E5EA",
         backdropFilter: "none",
         WebkitBackdropFilter: "none",
         boxShadow: "none",
+        color: onLightField ? "#FFFFFF" : undefined,
+        transition: "background-color 250ms ease, border-color 250ms ease, color 250ms ease",
       }}
     >
       <div
