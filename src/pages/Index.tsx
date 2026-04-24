@@ -91,7 +91,7 @@ const HeroMetrics = () => {
           letterSpacing: "0",
         }}
       >
-        Live Tracker
+        Live Registry
       </span>
       <span
         aria-hidden
