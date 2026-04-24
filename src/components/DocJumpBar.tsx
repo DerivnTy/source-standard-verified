@@ -90,6 +90,10 @@ export const DocJumpBar = ({
   const SEAM_HEIGHT = 44;
   const stickyTop = headerVisible ? 64 : 0;
   const eased = easeInOut(progress);
+  // When the header is hidden, the pill must sit flush at top:0 with no
+  // negative margin pulling it above the viewport. When the header is
+  // visible, retain the seam-bridging behavior.
+  const flushTop = !headerVisible;
 
   // Measure the bar's actual height so we can pull it up by exactly half
   // its height — placing its vertical center precisely on the seam line.
@@ -122,20 +126,24 @@ export const DocJumpBar = ({
   const navStyle: React.CSSProperties = {
     position: "sticky",
     top: `${stickyTop}px`,
-    width: `${widthPct}%`,
-    maxWidth: isMobile ? "none" : `${maxWidthPx}px`,
+    width: flushTop ? "100%" : `${widthPct}%`,
+    maxWidth: flushTop ? "none" : isMobile ? "none" : `${maxWidthPx}px`,
     marginLeft: "auto",
     marginRight: "auto",
-    // Pull the bar up by exactly half its measured height so its vertical
-    // center aligns precisely with the navy↔white seam (50/50 bridge).
-    marginTop: `-${SEAM_HEIGHT / 2 + barHeight / 2}px`,
-    borderRadius: "9999px",
-    boxShadow: "0 10px 30px -10px hsl(0 0% 0% / 0.12)",
-    border: "1px solid hsl(var(--border))",
+    // Only bridge the seam when the header is visible. When the header is
+    // hidden, sit flush at top:0 with zero negative margin so no gap appears
+    // above the bar.
+    marginTop: flushTop
+      ? "0px"
+      : `-${SEAM_HEIGHT / 2 + barHeight / 2}px`,
+    borderRadius: flushTop ? "0px" : "9999px",
+    boxShadow: flushTop ? "none" : "0 10px 30px -10px hsl(0 0% 0% / 0.12)",
+    border: "none",
+    borderBottom: "0.5px solid hsl(var(--border))",
     backgroundColor: "hsl(var(--background))",
     zIndex: 30,
     overflow: "hidden",
-    transition: "top 200ms ease-out",
+    transition: "top 200ms ease-out, margin-top 200ms ease-out, border-radius 200ms ease-out, width 200ms ease-out",
   };
 
   return (
