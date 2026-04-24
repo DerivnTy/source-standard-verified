@@ -32,25 +32,27 @@ export const VendorRow = ({
   const focus = focusFor(vendor);
 
   const isOnline = fulfillment === "online";
-  const locationLabel = isOnline
-    ? "ONLINE"
-    : location && location !== "—"
-      ? location
-      : null;
+  const hasLocation = location && location !== "—";
+  const modelLabel = isOnline ? "Online" : fulfillment === "in-person" ? "In-person" : "Hybrid";
+  const locationLine = isOnline
+    ? "Online"
+    : hasLocation
+      ? `${location} · ${modelLabel}`
+      : modelLabel;
 
   return (
     <Link
       to={`/directory/${vendor.slug}`}
-      aria-label={`${vendor.name}${focus ? ` — ${focus}` : ""}`}
+      aria-label={`${vendor.name}${focus ? ` — ${focus.label}` : ""}`}
       data-pill
       className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.97]"
       style={{
         border: "0.5px solid hsl(var(--border))",
         borderRadius: "20px",
-        padding: "12px",
+        padding: "12px 14px",
       }}
     >
-      <div className="flex flex-col gap-y-1">
+      <div className="flex flex-col gap-y-[6px]">
         {/* Row 1 — Name (left) · Status (right) */}
         <div className="flex items-start justify-between gap-x-3">
           <h3
@@ -70,7 +72,7 @@ export const VendorRow = ({
               style={{
                 fontSize: "10px",
                 letterSpacing: "0.08em",
-                color: "hsl(142 70% 32%)",
+                color: "#34C759",
               }}
             >
               <span
@@ -94,37 +96,38 @@ export const VendorRow = ({
           )}
         </div>
 
-        {/* Row 2 — [Specialty + Location] (left) · VIEW › (right) */}
+        {/* Row 2 — [Specialty + Location] (left) · View Record (right) */}
         <div className="flex items-center justify-between gap-x-3">
           <div className="flex items-center gap-x-2 min-w-0">
             {focus && (
               <span
-                className="shrink-0 inline-flex items-center font-sans font-semibold uppercase bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] whitespace-nowrap"
+                className="shrink-0 inline-flex items-center gap-1 font-sans font-medium uppercase bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] whitespace-nowrap"
                 style={{
                   fontSize: "9px",
                   letterSpacing: "0.06em",
-                  padding: "2px 5px",
+                  padding: "2px 6px",
                   borderRadius: "3px",
                 }}
               >
-                {focus}
+                {focus.label}
+                {focus.extra > 0 && (
+                  <span style={{ opacity: 0.7 }}>+{focus.extra}</span>
+                )}
               </span>
             )}
-            {locationLabel && (
-              <span
-                className="min-w-0 truncate font-mono text-muted-foreground"
-                style={{ fontSize: "11px", lineHeight: "1.35" }}
-              >
-                {locationLabel}
-              </span>
-            )}
+            <span
+              className="min-w-0 truncate text-muted-foreground"
+              style={{ fontSize: "11px", lineHeight: "1.35" }}
+            >
+              {locationLine}
+            </span>
           </div>
 
           <span
             className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
             style={{ fontSize: "10px", letterSpacing: "0.06em" }}
           >
-            View
+            View Record
             <ChevronRight
               aria-hidden
               style={{ width: "11px", height: "11px", strokeWidth: 1.5 }}
