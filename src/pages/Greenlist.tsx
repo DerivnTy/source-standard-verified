@@ -208,9 +208,9 @@ const Greenlist = () => {
               ) : (
                 <>
                   <ul className="flex flex-col gap-1.5">
-                    {pageItems.map((entry) => (
+                    {pageItems.map((entry, idx) => (
                       <li key={entry.slug}>
-                        <GreenlistRow entry={entry} />
+                        <GreenlistRow entry={entry} index={idx} />
                       </li>
                     ))}
                   </ul>

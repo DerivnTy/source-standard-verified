@@ -827,10 +827,17 @@ body {
   }
 }
 .live-dot {
-  animation: source-standard-live-pulse 2.8s ease-in-out infinite;
+  animation-name: source-standard-live-pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 2.8s;
   transform-origin: center;
   will-change: opacity, transform;
 }
+.live-dot--cadence-1 { animation-duration: 2.6s;  animation-delay: 0s; }
+.live-dot--cadence-2 { animation-duration: 3.1s;  animation-delay: 0.35s; }
+.live-dot--cadence-3 { animation-duration: 2.85s; animation-delay: 0.7s; }
+.live-dot--cadence-4 { animation-duration: 3.35s; animation-delay: 1.05s; }
 @media (prefers-reduced-motion: reduce) {
   .live-dot {
     animation: none;
