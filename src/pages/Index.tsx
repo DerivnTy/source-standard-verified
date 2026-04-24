@@ -83,20 +83,20 @@ const HeroMetrics = () => {
   return (
     <div className="flex flex-col items-center w-full" style={{ maxWidth: "360px" }}>
       <span
-        className="font-mono uppercase text-white/70"
+        className="font-sans text-white text-center"
         style={{
-          fontSize: "10px",
-          lineHeight: "12px",
-          letterSpacing: "0.22em",
-          fontWeight: 500,
+          fontSize: "15px",
+          lineHeight: "1.5",
+          fontWeight: 400,
+          letterSpacing: "0",
         }}
       >
         Live Tracker
       </span>
       <span
         aria-hidden
-        className="block bg-white/20"
-        style={{ height: "1px", width: "80%", marginTop: "8px", marginBottom: "14px" }}
+        className="block bg-white/25"
+        style={{ height: "1px", width: "75%", marginTop: "12px", marginBottom: "20px" }}
       />
       <div
         role="group"
