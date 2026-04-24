@@ -15,7 +15,7 @@ import {
 } from "@/data/resourceLibrary";
 
 const HERO_DESCRIPTION =
-  "Clinical and regulatory reference for peptide sourcing, pharmacy standards, and patient due diligence. All materials are reviewed under the Medical Advisory Board.";
+  "Clinical, regulatory, and documentation reference for compounded therapy sourcing, pharmacy standards, and consumer due diligence. Materials are reviewed for accuracy, scope, and public-reference clarity.";
 
 const COMMON_INQUIRIES: {
   label: string;
@@ -24,22 +24,25 @@ const COMMON_INQUIRIES: {
 }[] = [
   {
     label: "Legal",
-    description: "Statutory framework, federal scheduling, and lawful access.",
+    description:
+      "Statutory framework, public records, vendor contracts, and lawful access boundaries.",
     to: "/library/faq/legal-regulatory",
   },
   {
     label: "Safety",
-    description: "Sterility, handling integrity, and clinical-use scope.",
+    description:
+      "How Source Standard discusses handling, documentation, and product claims without guaranteeing outcomes.",
     to: "/library/faq/clinical-safety",
   },
   {
     label: "Verification",
-    description: "How clinics and upstream pharmacies are reviewed.",
+    description:
+      "How vendors, documentation trails, and upstream facility records are reviewed.",
     to: "/library/faq/verification-process",
   },
   {
     label: "Diligence",
-    description: "Public-facing checks before engaging any source.",
+    description: "Public-facing checks before relying on a vendor sourcing claim.",
     to: "/education/questions#due-diligence",
   },
 ];
@@ -331,8 +334,8 @@ const Education = () => {
               </h2>
               <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
                 Additional reference formats are in development, including
-                video explainers, Board webinars, and the 2026 Integrity
-                Ledger.
+                video explainers, Board-reviewed articles, and the 2026
+                Integrity Ledger.
               </p>
             </div>
           </div>
@@ -351,11 +354,12 @@ const Education = () => {
                 A working reference, not a content feed.
               </h2>
               <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
-                The Resource Library exists to help clinicians, consumers, and
-                listed entities interpret sourcing, regulation, and
-                verification through a consistent public-reference standard.
-                It is maintained as part of the broader framework, not as a
-                standalone publishing channel.
+                The Resource Library helps consumers, clinicians, and listed
+                entities understand sourcing claims, pharmacy categories,
+                documentation review, and verification limits through a
+                consistent public-reference standard. It is maintained as part
+                of the broader Source Standard framework, not as a standalone
+                publishing channel.
               </p>
             </div>
           </div>
