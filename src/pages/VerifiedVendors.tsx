@@ -193,23 +193,23 @@ const VerifiedVendors = () => {
   return (
     <>
       <PageMeta
-        title="The Public Trust Registry · Verified Vendors"
-        description="The national database for peptide and hormone sourcing transparency. Verify whether a clinic's sourcing has been substantiated by licensed facility records."
+        title="Vendor Registry"
+        description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
       />
 
       <RegistryHeader
         indexNumber="01"
-        title="Verified Vendors"
-        description="The recognized registry of clinical vendors cross-referenced with licensed FDA-approved facilities to separate documented medical sourcing from the unverified market."
+        title="Vendor Registry"
+        description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
         recordCount={vendors.length}
       />
 
       <RegistryHorizon
         seam
         cells={[
-          { label: "Total Recognized", value: counts.verified },
+          { label: "Total Indexed", value: vendors.length },
           { label: "States Represented", value: statesRepresented },
-          { label: "Total Audits", value: totalAudits },
+          { label: "Verified Records", value: counts.verified },
         ]}
       />
 
@@ -222,8 +222,8 @@ const VerifiedVendors = () => {
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by name, city, or state..."
-                aria-label="Search by name, city, state, or category"
+                placeholder="Search by vendor name, city, state, or therapy category…"
+                aria-label="Search by vendor name, city, state, or therapy category"
                 className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
@@ -280,10 +280,10 @@ const VerifiedVendors = () => {
                     className="flex flex-1 items-center justify-center gap-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] text-[hsl(var(--foreground)/0.75)] transition-colors"
                   >
                     {focus === "all" ? (
-                      <span>Select Focus</span>
+                      <span>Select Category</span>
                     ) : (
                       <>
-                        <span className="opacity-60">Focus:</span>
+                        <span className="opacity-60">Category:</span>
                         <span>{FOCUS_LABEL[focus]}</span>
                       </>
                     )}

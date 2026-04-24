@@ -25,7 +25,6 @@ const columns: Column[] = [
       { to: "/how-it-works", label: "Verification Protocol" },
       { to: "/status-definitions", label: "Status Definitions" },
       { to: "/accountability", label: "Compliance" },
-      { to: "/education", label: "Resource Library" },
     ],
   },
   {
