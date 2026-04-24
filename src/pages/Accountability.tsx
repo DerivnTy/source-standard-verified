@@ -22,36 +22,36 @@ type Clause = { n: string; t: string; d: string };
 const ATTESTATIONS: Clause[] = [
   {
     n: "01",
-    t: "Integrity of submission",
-    d: "All records, claims, and category descriptions submitted at intake must remain accurate throughout the verification term. Material inaccuracies discovered after issuance are treated as a disclosure event and may reopen review.",
+    t: "Submission accuracy",
+    d: "Records, claims, and category descriptions submitted at intake are expected to remain accurate throughout the review term. Material inaccuracies discovered after publication may trigger additional review.",
   },
   {
     n: "02",
-    t: "Supply-chain transparency",
-    d: "All upstream pharmacies, outsourcing facilities, and qualified suppliers used to fulfill reviewed categories must be disclosed in full and supported by documentation retained in the audit file.",
+    t: "Sourcing transparency",
+    d: "Pharmacy relationships, upstream facilities, and sourcing records tied to reviewed categories are expected to remain documented and consistent with the published record.",
   },
   {
     n: "03",
     t: "Renewal and review cooperation",
-    d: "The entity is expected to respond to renewal requests, clarification requests, and re-examination notices within the published response windows and provide updated records when requested.",
+    d: "The vendor is expected to respond to renewal requests, clarification requests, and review notices within the published response windows and provide updated records when requested.",
   },
   {
     n: "04",
     t: "Public-claims alignment",
-    d: "Public-facing representations, including websites, advertising, intake materials, and third-party listings, must remain consistent with the records reviewed during the verification term.",
+    d: "Public-facing representations, including websites, advertising, intake materials, and third-party listings, are expected to remain consistent with the records reviewed during the verification term.",
   },
 ];
 
 const DISCLOSURE: Clause[] = [
   {
     n: "01",
-    t: "Change in supplier or upstream source",
-    d: "Any substitution, addition, or termination of a disclosed pharmacy, outsourcing facility, or other manufacturing anchor tied to a reviewed category.",
+    t: "Change in pharmacy relationship or upstream source",
+    d: "Any substitution, addition, or termination of a disclosed pharmacy, outsourcing facility, or upstream source tied to a reviewed category.",
   },
   {
     n: "02",
     t: "Change in licensure status",
-    d: "Any suspension, lapse, voluntary surrender, or jurisdictional change affecting the entity or a disclosed upstream source.",
+    d: "Any suspension, lapse, voluntary surrender, or jurisdictional change affecting the vendor or a disclosed upstream facility.",
   },
   {
     n: "03",
@@ -70,8 +70,8 @@ const DISCLOSURE: Clause[] = [
   },
   {
     n: "06",
-    t: "Regulatory action",
-    d: "Any notice of action by the FDA, a State Board of Pharmacy, a State Medical Board, or another authority of competent jurisdiction.",
+    t: "Regulatory or public-record action",
+    d: "Any public notice, enforcement action, license change, warning letter, or administrative update affecting the vendor or a disclosed upstream facility.",
   },
 ];
 
@@ -83,13 +83,13 @@ const TRIGGERS: Clause[] = [
   },
   {
     n: "02",
-    t: "Upstream-source removal or suspension",
-    d: "Delisting, suspension, voluntary surrender, or removal of a disclosed upstream source or manufacturing anchor.",
+    t: "Upstream record change",
+    d: "Status change, delisting, registration lapse, license issue, or public-record update affecting a disclosed upstream facility.",
   },
   {
     n: "03",
-    t: "Regulatory action",
-    d: "Public action against the entity or a disclosed supplier by an authority of competent jurisdiction.",
+    t: "Regulatory or public-record action",
+    d: "Public action, warning letter, licensure update, or administrative change involving the vendor or a disclosed upstream source.",
   },
   {
     n: "04",
@@ -104,7 +104,7 @@ const TRIGGERS: Clause[] = [
   {
     n: "06",
     t: "Credential lapse",
-    d: "Lapse of any required licensure, registration, or accreditation held by the entity or a disclosed upstream source.",
+    d: "Lapse of any required licensure, registration, or accreditation held by the vendor or a disclosed upstream source.",
   },
 ];
 
@@ -112,35 +112,35 @@ const ACTIONS: Clause[] = [
   {
     n: "01",
     t: "Administrative inquiry",
-    d: "A formal written request for documentation, records, or explanation. The listing remains in its current standing during the response window unless other action is required.",
+    d: "A written request for documentation, records, or explanation. The listing may remain in its current status during the response window unless additional action is required.",
   },
   {
     n: "02",
     t: "Scope reduction",
-    d: "The verified scope is narrowed to the categories that remain supported by current records. Unsupported categories are withdrawn from the public listing.",
+    d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
   },
   {
     n: "03",
     t: "Suspension",
-    d: "The Verified standing is temporarily withdrawn pending evidentiary clarification. The entity remains in the registry but no longer carries an affirmative verified status.",
+    d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
     n: "04",
     t: "Removal",
-    d: "The listing is withdrawn from the registry under a Removed standing. Re-entry requires a new application and a fresh examination cycle.",
+    d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
   },
   {
     n: "05",
     t: "Public note",
-    d: "A short factual notation may be attached to a listing where clarification is warranted and the supporting record is verifiable and non-speculative.",
+    d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
   },
 ];
 
 const RELATED = [
-  { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
+  { to: "/how-it-works", label: "Verification Protocol" },
   { to: "/status-definitions", label: "Status Definitions" },
-  { to: "/report-a-concern", label: "Reporting & Market Intelligence" },
-  { to: "/governance", label: "Regulatory Alignment & Oversight" },
+  { to: "/report-a-concern", label: "Reporting & Registry Review" },
+  { to: "/governance", label: "Compliance & Operating Boundaries" },
 ];
 
 const ClauseList = ({ clauses }: { clauses: Clause[] }) => (
@@ -188,20 +188,20 @@ const SplitSection = ({
 
 const Accountability = () => {
   const heroDescription =
-    "Attestations accepted by Verified entities, mandatory disclosure events, audit re-opening triggers, and the graduated actions available to the framework when compliance obligations are not met.";
+    "Ongoing record maintenance for Verified vendors, disclosure events, review triggers, and status actions available when documentation no longer supports the published record.";
 
   return (
     <>
-      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Enforcement" }]} />
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Compliance" }]} />
 
-      <PageMeta title="Enforcement" description={heroDescription} />
+      <PageMeta title="Compliance" description={heroDescription} />
 
       {/* §1 Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
         category="Governance & Oversight"
-        title="Compliance Monitoring & Enforcement Protocols"
+        title="Compliance Monitoring & Record Maintenance"
         statement={heroDescription}
         docId=""
       />
@@ -216,10 +216,13 @@ const Accountability = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  A Verified listing is not permanent. It remains in effect only while the underlying records, sourcing relationships, and public claims continue to support the published scope.
+                  A Verified record is not permanent.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  This page defines the continuing obligations attached to a Verified standing, the events that must be disclosed, the conditions that may reopen review, and the actions the framework may take when the record no longer supports the listing.
+                  It remains in effect only while the underlying documentation, pharmacy relationships, sourcing claims, and public records continue to support the published review scope.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
                 </p>
               </div>
             </div>
@@ -238,7 +241,7 @@ const Accountability = () => {
               id="attestations"
               n="01"
               title="Attestations"
-              intro="The continuing representations accepted when a Verified standing is issued."
+              intro="The continuing representations accepted when Verified status is issued."
             >
               <ClauseList clauses={ATTESTATIONS} />
             </SplitSection>
@@ -248,10 +251,10 @@ const Accountability = () => {
               id="disclosure"
               n="02"
               title="Disclosure"
-              intro="Events that must be reported to the framework when they materially affect the published record."
+              intro="Events vendors are expected to report when they materially affect the published record."
             >
               <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
-                The following events are designated Mandatory Disclosure Events and are expected to be reported within seventy-two hours of occurrence. Failure to report within that window does not negate the underlying event and may itself trigger review.
+                The following events are expected to be reported within the stated response window. Failure to report a material change may itself trigger review or status revision.
               </p>
               <ClauseList clauses={DISCLOSURE} />
             </SplitSection>
@@ -261,7 +264,7 @@ const Accountability = () => {
               id="triggers"
               n="03"
               title="Triggers"
-              intro="Events that may reopen review of an existing listing, regardless of its renewal cycle."
+              intro="Events that may reopen review of an existing record, regardless of renewal timing."
             >
               <ClauseList clauses={TRIGGERS} />
             </SplitSection>
@@ -285,10 +288,13 @@ const Accountability = () => {
             >
               <div className="space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  An entity under Suspension may return to Verified once the underlying matter is resolved and documented in the audit file.
+                  A Suspended record may return to Verified status once the underlying matter is resolved and supported by documentation in the review file.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  An entity under Removal may apply for re-entry only through a new application and a new examination cycle. Prior audit history, including the original determination, the triggering events, and the disposition, remains part of the permanent record and may be referenced in any future review.
+                  A Removed record may return only through a new submission and new review process.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Prior status history, including the original determination, triggering events, and disposition, may remain part of the record and may be referenced in future review.
                 </p>
               </div>
             </SplitSection>
@@ -330,7 +336,7 @@ const Accountability = () => {
                   Verification requires continuing record support.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of this protocol is to preserve the integrity of the registry after a listing is published. Verification remains meaningful only when the record continues to support the claim, the underlying sourcing remains transparent, and material changes are disclosed in time.
+                  The purpose of this protocol is to preserve the integrity of the registry after a record is published. Verification remains meaningful only when the documentation continues to support the claim, the underlying sourcing remains transparent, and material changes are disclosed within the stated review process.
                 </p>
               </div>
             </section>
