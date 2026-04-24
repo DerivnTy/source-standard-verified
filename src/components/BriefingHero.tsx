@@ -65,7 +65,7 @@ export const BriefingHero = ({
       return (
         <section
           aria-labelledby="briefing-title"
-          className="relative min-h-[100svh] border-b border-white/10 overflow-hidden bg-[hsl(var(--navy-surface))]"
+          className="relative min-h-[78svh] border-b border-border overflow-hidden bg-[hsl(var(--navy-surface))]"
         >
           <div
             aria-hidden
@@ -77,7 +77,7 @@ export const BriefingHero = ({
           />
           <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
-          <div className="relative z-30 page-shell flex flex-col justify-center min-h-[100svh] py-24">
+          <div className="relative z-30 page-shell flex flex-col justify-center min-h-[78svh] py-16">
             <div className="relative w-hero">
               <img
                 src={logoLight}
