@@ -23,10 +23,10 @@ export const RegistryHorizon = ({
     <div
       role="group"
       aria-label={ariaLabel}
-      className="rounded-[2px] overflow-hidden"
+      className="overflow-hidden bg-background"
       style={{
-        backgroundColor: "#F1F5F9",
-        border: "1px solid #E2E8F0",
+        borderRadius: "14px",
+        border: "1px solid rgba(0,16,33,0.08)",
       }}
     >
       <div
@@ -40,32 +40,34 @@ export const RegistryHorizon = ({
             key={cell.label}
             className="flex flex-col items-center justify-center text-center min-w-0"
             style={{
-              padding: "20px 12px",
-              borderLeft: idx === 0 ? "none" : "1px solid #E2E8F0",
+              padding: "22px 12px",
+              borderLeft: idx === 0 ? "none" : "1px solid rgba(0,16,33,0.06)",
             }}
           >
             <span
-              className="font-mono tabular-nums tracking-tight"
+              className="font-sans tabular-nums"
               style={{
-                fontSize: "30px",
+                fontSize: "36px",
                 lineHeight: 1,
-                fontWeight: 700,
-                color: "#0F172A",
+                fontWeight: 600,
+                letterSpacing: "-0.02em",
+                color: "#001021",
+                fontVariantNumeric: "tabular-nums",
               }}
             >
               {typeof cell.value === "number"
-                ? cell.value.toLocaleString()
+                ? cell.value.toLocaleString("en-US")
                 : cell.value}
             </span>
             <span
               style={{
                 marginTop: "10px",
-                fontSize: "11px",
-                fontWeight: 500,
-                letterSpacing: "0.08em",
+                fontSize: "10px",
+                fontWeight: 600,
+                letterSpacing: "0.12em",
                 textTransform: "uppercase",
                 lineHeight: 1.2,
-                color: "#64748B",
+                color: "rgba(0,16,33,0.55)",
               }}
             >
               {cell.label}
