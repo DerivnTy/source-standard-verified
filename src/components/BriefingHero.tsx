@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { HeroPattern } from "./HeroPattern";
 import type { MetadataItem } from "./MetadataBar";
 import logoLight from "@/assets/source-standard-logo-light.png";
