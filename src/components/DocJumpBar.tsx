@@ -187,7 +187,15 @@ export const DocJumpBar = ({
     height: `${PILL_HEIGHT}px`, // lock vertical
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: flushTop ? "12px" : `-${SEAM_HEIGHT / 2 + PILL_HEIGHT / 2}px`,
+    // When the pill is hidden (pre-armed), zero out its layout footprint so
+    // it doesn't push the metrics row — and any other content below — down.
+    // Once armed, restore the normal seam overlap (or a 12px gap when flush).
+    marginTop: !armed
+      ? `-${PILL_HEIGHT}px`
+      : flushTop
+        ? "12px"
+        : `-${SEAM_HEIGHT / 2 + PILL_HEIGHT / 2}px`,
+    marginBottom: !armed ? "0px" : undefined,
     borderRadius: "9999px",
     boxShadow: armed && flushTop ? "0 4px 12px rgba(0,0,0,0.05)" : "none",
     border: "0.5px solid hsl(var(--border))",
