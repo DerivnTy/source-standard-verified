@@ -86,22 +86,7 @@ export const BriefingHero = ({
             style={{ minHeight: "calc(100dvh - 84px)" }}
           >
             <div className="relative w-hero">
-              <img
-                src={logoLight}
-                alt="Source Standard"
-                width={384}
-                height={108}
-                loading="eager"
-                decoding="sync"
-                fetchPriority="high"
-                className="h-12 sm:h-16 md:h-20 w-auto mb-8"
-              />
               {brandMark && <span className="sr-only">{brandMark}</span>}
-
-              <div
-                className="h-px w-12 bg-white/20 mb-8"
-                aria-hidden="true"
-              />
 
               <h1
                 id="briefing-title"
