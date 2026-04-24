@@ -36,9 +36,9 @@ const HeroMetrics = () => {
     label: string;
     dotColor: string;
   }) => (
-    <div className="flex flex-col items-start text-left">
-      <div className="flex items-center" style={{ gap: "12px" }}>
-        <span aria-hidden className="relative inline-flex" style={{ width: "10px", height: "10px" }}>
+    <div className="flex flex-col items-center text-center">
+      <div className="flex items-center justify-center" style={{ gap: "8px" }}>
+        <span aria-hidden className="relative inline-flex" style={{ width: "6px", height: "6px" }}>
           <span
             className="absolute inset-0 rounded-full animate-ping"
             style={{ backgroundColor: dotColor, opacity: 0.6 }}
@@ -46,17 +46,17 @@ const HeroMetrics = () => {
           <span
             className="relative inline-block rounded-full"
             style={{
-              width: "10px",
-              height: "10px",
+              width: "6px",
+              height: "6px",
               backgroundColor: dotColor,
-              boxShadow: `0 0 10px ${dotColor}`,
+              boxShadow: `0 0 6px ${dotColor}`,
             }}
           />
         </span>
         <span
           className="font-sans text-white tabular-nums"
           style={{
-            fontSize: "44px",
+            fontSize: "28px",
             lineHeight: "1",
             fontWeight: 600,
             letterSpacing: "-0.02em",
@@ -66,13 +66,13 @@ const HeroMetrics = () => {
         </span>
       </div>
       <span
-        className="font-mono uppercase text-white/70"
+        className="font-mono uppercase text-white/65"
         style={{
-          fontSize: "11px",
-          lineHeight: "14px",
+          fontSize: "10px",
+          lineHeight: "12px",
           letterSpacing: "0.18em",
           fontWeight: 500,
-          marginTop: "10px",
+          marginTop: "8px",
         }}
       >
         {label}
@@ -81,9 +81,9 @@ const HeroMetrics = () => {
   );
 
   return (
-    <div className="flex flex-col items-start w-full max-w-[420px]">
+    <div className="flex flex-col items-center w-full" style={{ maxWidth: "360px" }}>
       <span
-        className="font-mono uppercase text-white"
+        className="font-mono uppercase text-white/70"
         style={{
           fontSize: "10px",
           lineHeight: "12px",
@@ -95,14 +95,14 @@ const HeroMetrics = () => {
       </span>
       <span
         aria-hidden
-        className="block w-full bg-white/20"
-        style={{ height: "1px", marginTop: "10px", marginBottom: "20px" }}
+        className="block bg-white/20"
+        style={{ height: "1px", width: "80%", marginTop: "8px", marginBottom: "14px" }}
       />
       <div
         role="group"
         aria-label="Live registry metrics"
-        className="flex items-start justify-between w-full"
-        style={{ gap: "32px" }}
+        className="flex items-start justify-center w-full"
+        style={{ gap: "48px" }}
       >
         <Unit value={stats.total} label="Identified Sources" dotColor="#FF3B30" />
         <Unit value={stats.verified} label="Verified" dotColor="#22C55E" />
