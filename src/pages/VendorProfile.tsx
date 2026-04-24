@@ -268,43 +268,7 @@ const VendorProfile = () => {
               >
                 {vendor.name}
               </h1>
-              <span
-                className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "0.08em",
-                  gap: "4px",
-                  color: statusColor,
-                }}
-              >
-                {statusLabel}
-                {isVerified && (
-                  <span
-                    aria-hidden
-                    style={{
-                      position: "relative",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      height: "10px",
-                      width: "16px",
-                      overflow: "visible",
-                    }}
-                  >
-                    <span
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: 0,
-                        transform: "translateY(calc(-50% - 1px))",
-                        display: "block",
-                      }}
-                    >
-                      <VerifiedShieldMark height={18} color="#001021" />
-                    </span>
-                  </span>
-                )}
-              </span>
+              {renderProfileStatus(status)}
             </header>
 
             {/* Metadata row: category pill + vendor id */}
