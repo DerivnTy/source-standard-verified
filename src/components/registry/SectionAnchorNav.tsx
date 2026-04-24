@@ -50,17 +50,19 @@ export const SectionAnchorNav = ({
     history.replaceState(null, "", `#${id}`);
   };
 
-  const stickyTop = headerVisible ? 64 : 0;
+  const stickyTop = headerVisible ? 84 : 0;
 
   return (
     <nav
       aria-label="Page contents"
-      className="sticky z-40 border-b transition-shadow duration-200"
+      className="sticky border-b"
       style={{
         top: `${stickyTop}px`,
+        zIndex: 40,
         backgroundColor: "hsl(var(--card))",
         borderBottom: "0.5px solid hsl(var(--border))",
         boxShadow: scrolled ? "0 1px 0 hsl(var(--border) / 0.8)" : "none",
+        transition: "top 300ms ease-in-out, box-shadow 200ms ease-out",
       }}
     >
       <div className="page-shell">
