@@ -124,7 +124,7 @@ export const DocJumpBar = ({
 
   const navStyle: React.CSSProperties = {
     position: "sticky",
-    top: headerVisible ? `${stickyTop}px` : "0px",
+    top: `${stickyTop}px`,
     width: flushTop ? "100%" : `${widthPct}%`,
     maxWidth: flushTop ? "none" : isMobile ? "none" : `${maxWidthPx}px`,
     marginLeft: "auto",
@@ -138,7 +138,7 @@ export const DocJumpBar = ({
     zIndex: 40,
     overflow: "hidden",
     transition:
-      "top 200ms ease-out, margin-top 200ms ease-out, border-radius 200ms ease-out, width 200ms ease-out",
+      "top 300ms ease-in-out, margin-top 300ms ease-in-out, border-radius 200ms ease-out, width 200ms ease-out",
   };
 
   return (
