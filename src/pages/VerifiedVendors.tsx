@@ -425,7 +425,7 @@ const VerifiedVendors = () => {
 
       {/* Explainer panel — Verified vs. Unverified */}
       <section className="bg-background">
-        <div className="page-shell pb-14 md:pb-20 pt-2 md:pt-4">
+        <div className="page-shell pb-14 md:pb-20 pt-0">
           <div className="mx-auto w-wide">
             <div
               className="bg-white"
