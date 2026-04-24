@@ -136,7 +136,7 @@ export const VendorRow = ({
         </div>
 
         {/* Row 3 — View Record action (right) */}
-        <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-2px" }}>
+        <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-4px" }}>
           <span
             className="inline-flex items-center gap-0.5 font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
             style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.02em" }}
