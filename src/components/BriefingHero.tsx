@@ -51,6 +51,7 @@ export const BriefingHero = ({
   brandMark,
   actions,
   heroMetrics,
+  heroMeta,
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
