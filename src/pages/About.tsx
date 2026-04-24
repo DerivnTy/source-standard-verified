@@ -1,4 +1,6 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
@@ -12,20 +14,14 @@ const WAYPOINTS = [
   { id: "related", number: "05", label: "Related Pages" },
 ];
 
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
-
-type Clause = { n: string; t: string; d: string };
+type Clause = { t: string; d: string };
 
 const OBJECTIVES: Clause[] = [
   {
-    n: "01",
     t: "For Consumers",
     d: "Providing a structured public reference so vendor sourcing claims can be evaluated through documentation status, review scope, and last-reviewed dates.",
   },
   {
-    n: "02",
     t: "For Vendors",
     d: "Providing a documentation-based review pathway for vendors that want their sourcing claims evaluated within a defined public-reference framework.",
   },
@@ -33,22 +29,18 @@ const OBJECTIVES: Clause[] = [
 
 const SCOPE: Clause[] = [
   {
-    n: "01",
     t: "Vendor registry",
     d: "Maintenance of a public registry containing verified, unverified, under-review, suspended, and removed vendor records.",
   },
   {
-    n: "02",
     t: "Upstream registry",
     d: "Publication of upstream facility records used as reference points during vendor sourcing review.",
   },
   {
-    n: "03",
     t: "Educational reference",
     d: "Publication of educational material covering sourcing claims, pharmacy categories, public records, documentation boundaries, and consumer due diligence.",
   },
   {
-    n: "04",
     t: "Status maintenance",
     d: "Periodic review of vendor records, documentation status, review scope, and public-facing status definitions within the limits of the framework.",
   },
@@ -69,51 +61,155 @@ const RELATED = [
   { to: "/accountability", label: "Compliance", desc: "Legal posture, operating boundaries, and public-reference limitations." },
 ];
 
-const SplitSection = ({
-  id,
+/* ------------------------------ Local primitives ------------------------------ */
+
+const Eyebrow = ({ children }: { children: ReactNode }) => (
+  <p
+    className="font-mono uppercase text-muted-foreground/70"
+    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+  >
+    {children}
+  </p>
+);
+
+const AboutCard = ({ children }: { children: ReactNode }) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "24px",
+    }}
+  >
+    {children}
+  </div>
+);
+
+const AboutRow = ({
+  index,
+  total,
+  title,
+  description,
+}: {
+  index: number;
+  total: number;
+  title: string;
+  description?: string;
+}) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "14px 16px",
+    }}
+  >
+    <div className="flex items-baseline justify-between gap-4">
+      <h3 className="font-sans font-semibold text-foreground" style={{ fontSize: "14px" }}>
+        {title}
+      </h3>
+      <span
+        className="font-mono tabular-nums text-muted-foreground shrink-0"
+        style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+      >
+        {`${String(index).padStart(2, "0")} / ${String(total).padStart(2, "0")}`}
+      </span>
+    </div>
+    {description ? (
+      <p className="mt-1.5 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.55" }}>
+        {description}
+      </p>
+    ) : null}
+  </div>
+);
+
+const AboutStatementRow = ({ index, text }: { index: number; text: string }) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "12px 14px",
+    }}
+  >
+    <div className="flex items-baseline gap-3">
+      <span
+        className="font-mono tabular-nums text-muted-foreground shrink-0"
+        style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+      >
+        {String(index).padStart(2, "0")}
+      </span>
+      <p className="text-foreground" style={{ fontSize: "13px", lineHeight: "1.5" }}>
+        {text}
+      </p>
+    </div>
+  </div>
+);
+
+const AboutLinkRow = ({
+  to,
+  title,
+  description,
+}: {
+  to: string;
+  title: string;
+  description: string;
+}) => (
+  <Link
+    to={to}
+    aria-label={title}
+    className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.99]"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "14px 16px",
+    }}
+  >
+    <div className="flex items-start justify-between gap-4">
+      <div className="min-w-0">
+        <h3
+          className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors"
+          style={{ fontSize: "14px" }}
+        >
+          {title}
+        </h3>
+        <p className="mt-1 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.5" }}>
+          {description}
+        </p>
+      </div>
+      <span
+        className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity self-center"
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+      >
+        View
+        <ChevronRight aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.5 }} />
+      </span>
+    </div>
+  </Link>
+);
+
+const SectionHeader = ({
   n,
   title,
   intro,
-  clauses,
-  firstSection = false,
 }: {
-  id: string;
   n: string;
   title: string;
   intro: string;
-  clauses: Clause[];
-  firstSection?: boolean;
 }) => (
-  <section
-    id={id}
-    className={`scroll-mt-24 ${firstSection ? "pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24" : "section-pad"} border-b border-border/40`}
-  >
-    <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-      <div className="md:col-span-4">
-        <div className="md:sticky md:top-32">
-          <SectionIndex n={n} />
-          <h2 className="t-section-title-sm text-foreground">{title}</h2>
-          <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">{intro}</p>
-        </div>
-      </div>
-      <div className="md:col-span-8 mt-8 md:mt-0">
-        <ol className="divide-y divide-border/60">
-          {clauses.map((c) => (
-            <li key={c.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
-              <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
-                {c.n}
-              </div>
-              <div className="col-span-10 md:col-span-11">
-                <p className="t-body-md font-semibold text-foreground">{c.t}</p>
-                <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
+  <div className="max-w-2xl mb-6">
+    <p className="font-mono text-[12px] text-muted-foreground/60 mb-1 tabular-nums">{n}</p>
+    <h2 className="t-section-title-sm text-foreground">{title}</h2>
+    <p
+      className="mt-3 text-muted-foreground"
+      style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+    >
+      {intro}
+    </p>
+  </div>
 );
+
+/* ----------------------------------- Page ----------------------------------- */
 
 const About = () => {
   const heroDescription =
@@ -125,7 +221,7 @@ const About = () => {
 
       <PageMeta title="About" description={heroDescription} />
 
-      {/* §1 Hero */}
+      {/* §1 Hero — untouched */}
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -135,161 +231,171 @@ const About = () => {
         docId=""
       />
 
-      {/* §2 Statement of purpose */}
-      <section className="bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard section-pad">
-            <div className="max-w-2xl">
-              <h2 className="t-section-title-sm text-foreground">
-                What Source Standard exists to do
-              </h2>
-              <div className="mt-6 space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard is an independent verification and public-reference framework designed to improve transparency around compounded therapy vendor sourcing claims.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Its role is to help the public identify whether vendor claims are supported by submitted documentation, pharmacy relationship evidence, public records, and review timestamps.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The organization does not market vendors, promote treatment protocols, provide medical advice, or function as a substitute for federal or state oversight.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Its purpose is narrower and more disciplined: to organize vendor records, sourcing documentation, verification status, and public-reference materials into a system that can be reviewed with greater clarity.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §3 Contents nav */}
+      {/* §2 Contents nav */}
       <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
+            {/* §3 Purpose */}
+            <section
+              className="border-b border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <AboutCard>
+                <Eyebrow>Organizational Purpose</Eyebrow>
+                <h2 className="mt-2 t-section-title-sm text-foreground">
+                  What Source Standard exists to do
+                </h2>
+                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Source Standard is an independent verification and public-reference framework designed to improve transparency around compounded therapy vendor sourcing claims.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Its role is to help the public identify whether vendor claims are supported by submitted documentation, pharmacy relationship evidence, public records, and review timestamps.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    The organization does not market vendors, promote treatment protocols, provide medical advice, or function as a substitute for federal or state oversight.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Its purpose is narrower and more disciplined: to organize vendor records, sourcing documentation, verification status, and public-reference materials into a system that can be reviewed with greater clarity.
+                  </p>
+                </div>
+              </AboutCard>
+            </section>
+
             {/* §4 Context */}
             <section
               id="context"
-              className="scroll-mt-24 pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 border-b border-border/40"
+              className="scroll-mt-24 border-b border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
             >
-              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-                <div className="md:col-span-4">
-                  <div className="md:sticky md:top-32">
-                    <SectionIndex n="01" />
-                    <h2 className="t-section-title-sm text-foreground">Context</h2>
-                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      Why this framework exists.
-                    </p>
-                  </div>
+              <AboutCard>
+                <Eyebrow>01 · Context</Eyebrow>
+                <h2 className="mt-2 t-section-title-sm text-foreground">Context</h2>
+                <p
+                  className="mt-3 text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+                >
+                  Why this framework exists.
+                </p>
+                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    In compounded therapy markets, consumers are often asked to evaluate vendors through branding, testimonials, claims, and presentation.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Those signals are difficult to verify independently.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Source Standard was established to create a clearer relationship between vendor sourcing claims and documentation that can be reviewed, time-stamped, and assigned a public status.
+                  </p>
                 </div>
-                <div className="md:col-span-8 mt-8 md:mt-0">
-                  <div className="space-y-5 max-w-2xl">
-                    <p className="t-body-md text-muted-foreground leading-relaxed">
-                      In compounded therapy markets, consumers are often asked to evaluate vendors through branding, testimonials, claims, and presentation.
-                    </p>
-                    <p className="t-body-md text-muted-foreground leading-relaxed">
-                      Those signals are difficult to verify independently.
-                    </p>
-                    <p className="t-body-md text-muted-foreground leading-relaxed">
-                      Source Standard was established to create a clearer relationship between vendor sourcing claims and documentation that can be reviewed, time-stamped, and assigned a public status.
-                    </p>
-                  </div>
-                </div>
+              </AboutCard>
+            </section>
+
+            {/* §5 Operational Boundaries */}
+            <section
+              id="boundaries"
+              className="scroll-mt-24 border-b border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <SectionHeader
+                n="02"
+                title="Operational Boundaries"
+                intro="What the organization does not do."
+              />
+              <div className="flex flex-col" style={{ gap: "8px" }}>
+                {BOUNDARIES.map((b, i) => (
+                  <AboutStatementRow key={b} index={i + 1} text={b} />
+                ))}
               </div>
             </section>
 
-            {/* §5 Boundaries */}
-            <section id="boundaries" className="scroll-mt-24 section-pad border-b border-border/40">
-              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-                <div className="md:col-span-4">
-                  <div className="md:sticky md:top-32">
-                    <SectionIndex n="02" />
-                    <h2 className="t-section-title-sm text-foreground">Operational Boundaries</h2>
-                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      What the organization does not do.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ul className="divide-y divide-border/60 border-y border-border/60">
-                    {BOUNDARIES.map((b) => (
-                      <li key={b} className="py-5 t-body-md text-foreground">
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* §6 Objectives */}
-            <SplitSection
+            {/* §6 Strategic Objectives */}
+            <section
               id="objectives"
-              n="03"
-              title="Strategic Objectives"
-              intro="Who the framework is designed to serve."
-              clauses={OBJECTIVES}
-            />
-
-            {/* §7 Scope */}
-            <SplitSection
-              id="scope"
-              n="04"
-              title="Defined Scope"
-              intro="What the framework is built to maintain and publish."
-              clauses={SCOPE}
-            />
-
-            {/* §8 Related pages */}
-            <section id="related" className="scroll-mt-24 section-pad border-b border-border/40">
-              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-                <div className="md:col-span-4">
-                  <div className="md:sticky md:top-32">
-                    <SectionIndex n="05" />
-                    <h2 className="t-section-title-sm text-foreground">Related Pages</h2>
-                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      Further reading on oversight, standards, and verification methodology.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ul className="divide-y divide-border/60 border-y border-border/60">
-                    {RELATED.map((r) => (
-                      <li key={r.to}>
-                        <Link
-                          to={r.to}
-                          className="group grid grid-cols-12 gap-4 py-5 items-baseline hover:bg-surface-muted/40 transition-colors -mx-4 px-4"
-                        >
-                          <div className="col-span-9 md:col-span-10">
-                            <p className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
-                              {r.label}
-                            </p>
-                            <p className="mt-1 t-body-sm text-muted-foreground">{r.desc}</p>
-                          </div>
-                          <div className="col-span-3 md:col-span-2 text-right">
-                            <span className="t-utility-xs text-muted-foreground group-hover:text-primary transition-colors">
-                              View
-                            </span>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              className="scroll-mt-24 border-b border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <SectionHeader
+                n="03"
+                title="Strategic Objectives"
+                intro="Who the framework is designed to serve."
+              />
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+                {OBJECTIVES.map((c, i) => (
+                  <AboutRow
+                    key={c.t}
+                    index={i + 1}
+                    total={OBJECTIVES.length}
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
               </div>
             </section>
 
-            {/* §9 Closing statement */}
-            <section className="section-pad border-t border-border/40">
-              <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
+            {/* §7 Defined Scope */}
+            <section
+              id="scope"
+              className="scroll-mt-24 border-b border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <SectionHeader
+                n="04"
+                title="Defined Scope"
+                intro="What the framework is built to maintain and publish."
+              />
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+                {SCOPE.map((c, i) => (
+                  <AboutRow
+                    key={c.t}
+                    index={i + 1}
+                    total={SCOPE.length}
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* §8 Related Pages */}
+            <section
+              id="related"
+              className="scroll-mt-24 border-b border-border/40"
+              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+            >
+              <SectionHeader
+                n="05"
+                title="Related Pages"
+                intro="Further reading on oversight, standards, and verification methodology."
+              />
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+                {RELATED.map((r) => (
+                  <AboutLinkRow
+                    key={r.to}
+                    to={r.to}
+                    title={r.label}
+                    description={r.desc}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* §9 Closing — Framework Limits */}
+            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+              <AboutCard>
+                <Eyebrow>Framework Limits</Eyebrow>
+                <h2 className="mt-2 t-section-title-sm text-foreground">
                   A public-reference system with defined limits.
                 </h2>
-                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                <p
+                  className="mt-4 text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                >
                   Source Standard is designed to make compounded therapy vendor sourcing claims easier to interpret. It does not replace clinical judgment, regulatory oversight, or individual medical decision-making. Its role is to provide a disciplined public reference for a market where documentation is often harder to evaluate than presentation.
                 </p>
-              </div>
+              </AboutCard>
             </section>
           </div>
         </div>
