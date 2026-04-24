@@ -227,8 +227,8 @@ const VerificationDisclaimer = () => {
             <section
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -260,8 +260,8 @@ const VerificationDisclaimer = () => {
               id="scope"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -288,8 +288,8 @@ const VerificationDisclaimer = () => {
               id="exclusions"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -310,8 +310,8 @@ const VerificationDisclaimer = () => {
               id="boundaries"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -332,8 +332,8 @@ const VerificationDisclaimer = () => {
               id="liability"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >

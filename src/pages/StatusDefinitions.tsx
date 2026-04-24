@@ -350,8 +350,8 @@ const StatusDefinitions = () => {
               id="purpose"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -382,8 +382,8 @@ const StatusDefinitions = () => {
               id="statuses"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -404,8 +404,8 @@ const StatusDefinitions = () => {
               id="lifecycle"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -426,8 +426,8 @@ const StatusDefinitions = () => {
               id="related"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >

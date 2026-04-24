@@ -397,7 +397,7 @@ const Education = () => {
       <section
         id="common-inquiries"
         className="border-b border-border/40"
-        style={{ paddingTop: "40px", paddingBottom: "32px" }}
+        style={{ paddingTop: "36px", paddingBottom: "32px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-wide">
@@ -451,7 +451,7 @@ const Education = () => {
       </section>
 
       {/* §8 Closing statement */}
-      <section style={{ paddingTop: "40px", paddingBottom: "56px" }}>
+      <section style={{ paddingTop: "36px", paddingBottom: "56px" }}>
         <div className="page-shell">
           <div className="mx-auto w-wide">
             <ReferenceNote
