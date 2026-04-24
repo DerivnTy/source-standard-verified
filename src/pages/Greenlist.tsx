@@ -235,33 +235,63 @@ const Greenlist = () => {
         </div>
       </section>
 
-      {/* Bridge to vendor registry */}
-      <section className="bg-surface-muted/30 border-t border-border">
-        <div className="page-shell py-12 md:py-16">
+      {/* Bridge to vendor registry — institutional explainer panel */}
+      <section className="bg-background">
+        <div className="page-shell pb-14 md:pb-20">
           <div className="mx-auto w-wide">
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+            <div
+              className="bg-white"
+              style={{
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "24px",
+                padding: "28px 24px",
+              }}
+            >
+              {/* Block 1 */}
               <div>
-                <p className="t-utility-xs text-muted-foreground mb-4">
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                >
                   Two layers. One review framework.
                 </p>
-                <p className="t-body-md text-foreground/85 max-w-[52ch]">
+                <p
+                  className="mt-3 text-foreground"
+                  style={{ fontSize: "20px", lineHeight: 1.35 }}
+                >
                   The Upstream Registry identifies facilities used as reference
                   records during vendor sourcing review.
                 </p>
-                <p className="mt-4 t-body-sm text-muted-foreground max-w-[52ch]">
+                <p
+                  className="mt-3 text-muted-foreground"
+                  style={{ fontSize: "15px", lineHeight: 1.45 }}
+                >
                   Inclusion in the Upstream Registry does not verify that any
                   vendor is actively sourcing from that facility.
                 </p>
               </div>
-              <div className="md:pl-8 md:border-l md:border-border/60">
-                <p className="t-utility-xs text-muted-foreground mb-4">
+
+              {/* Divider */}
+              <div
+                className="mt-7 pt-7"
+                style={{ borderTop: "1px solid hsl(var(--border))" }}
+              >
+                {/* Block 2 */}
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                >
                   Vendor-level review
                 </p>
-                <p className="t-body-md text-foreground/85 max-w-[48ch]">
+                <p
+                  className="mt-3 text-foreground"
+                  style={{ fontSize: "20px", lineHeight: 1.35 }}
+                >
                   Vendor verification reviews whether submitted documentation
                   supports the vendor's stated pharmacy relationships, sourcing
                   claims, and chain-of-custody records.
                 </p>
+
                 <Link
                   to="/directory"
                   className="mt-6 inline-flex items-center gap-2 px-5 h-11 border border-foreground text-foreground text-[14px] font-medium rounded-[2px] hover:bg-foreground hover:text-background transition-colors duration-150"
