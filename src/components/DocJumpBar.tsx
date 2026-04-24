@@ -168,11 +168,11 @@ export const DocJumpBar = ({
           waypoints={waypoints}
           activeId={activeId}
           onJump={onJump}
-          navPadY={navPadY}
-          navPadX={navPadX}
-          itemGap={itemGap}
-          itemPadX={itemPadX}
-          chipPadY={chipPadY}
+          navPadY={NAV_PAD_Y}
+          navPadX={NAV_PAD_X}
+          itemGap={ITEM_GAP}
+          itemPadX={ITEM_PAD_X}
+          chipPadY={CHIP_PAD_Y}
           ulPushLeft={ulPushLeft}
         />
       </nav>
