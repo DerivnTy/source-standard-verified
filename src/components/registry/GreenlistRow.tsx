@@ -78,7 +78,7 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
             >
               <span
                 aria-hidden
-                className="inline-block rounded-full"
+                className="inline-block rounded-full live-dot"
                 style={{ width: "5px", height: "5px", backgroundColor: "#34C759" }}
               />
               Recognized
