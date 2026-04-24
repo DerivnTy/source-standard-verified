@@ -7,7 +7,7 @@ import { BriefingHero } from "@/components/BriefingHero";
 const WAYPOINTS = [
   { id: "audit", number: "01", label: "Documentation Review" },
   { id: "surveillance", number: "02", label: "Ongoing Monitoring" },
-  { id: "disclosure", number: "03", label: "Disclosure" },
+  { id: "disclosure", number: "03", label: "Vendor Disclosure" },
   { id: "boundaries", number: "04", label: "Boundaries" },
 ];
 
@@ -16,23 +16,23 @@ type Clause = { n: string; t: string; d: string };
 const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Sourcing-claim review",
-    d: "Review of the vendor's stated sourcing relationships to determine whether the available documentation supports the public claim.",
+    t: "Sourcing claims",
+    d: "Reviews whether the vendor's stated sourcing relationships are supported by documentation.",
   },
   {
     n: "02",
-    t: "Pharmacy record cross-reference",
-    d: "Cross-reference of cited 503A and 503B pharmacy relationships against public registration records, state licensure records, and related public filings where applicable.",
+    t: "Pharmacy records",
+    d: "Cross-checks cited 503A and 503B pharmacy relationships against available registration, licensure, and public-record sources.",
   },
   {
     n: "03",
-    t: "Chain-of-custody review",
-    d: "Review of invoices, lot references, distribution records, and related documentation to determine whether the available record supports a documented sourcing trail.",
+    t: "Chain of custody",
+    d: "Reviews invoices, lot references, distribution records, and related documentation when available.",
   },
   {
     n: "04",
-    t: "Entity and identity review",
-    d: "Review of vendor identity, operating entity, location data, and related records to reduce inconsistency between public claims and submitted documentation.",
+    t: "Entity identity",
+    d: "Checks business identity, operating entity, location data, and related records for consistency.",
   },
 ];
 
@@ -40,22 +40,22 @@ const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Record maintenance",
-    d: "Published records may be reviewed periodically to determine whether licensing data, pharmacy relationships, and documentation remain consistent with the current status.",
+    d: "Published records may be reviewed to confirm that licensing data, pharmacy relationships, and documentation remain current.",
   },
   {
     n: "02",
-    t: "Public-record monitoring",
-    d: "Source Standard may monitor relevant public records, enforcement notices, licensure changes, and administrative updates where applicable.",
+    t: "Public-record updates",
+    d: "Relevant licensure changes, enforcement notices, and administrative updates may be monitored where applicable.",
   },
   {
     n: "03",
     t: "Evidence reconciliation",
-    d: "New information may be compared against the existing vendor record to determine whether a status update, additional review, or limitation statement is required.",
+    d: "New information may be compared against the existing record to determine whether further review is needed.",
   },
   {
     n: "04",
     t: "Status response",
-    d: "Where material documentation gaps or unresolved inconsistencies are identified, registry status may be updated according to Source Standard status definitions.",
+    d: "Material gaps or unresolved inconsistencies may result in a status update.",
   },
 ];
 
@@ -63,32 +63,32 @@ const DISCLOSURE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Change notification",
-    d: "Vendors are expected to disclose material sourcing, ownership, pharmacy relationship, or operating changes that could affect the accuracy of a published record.",
+    d: "Vendors are expected to disclose sourcing, ownership, pharmacy, or operating changes that affect a published record.",
   },
   {
     n: "02",
     t: "Documentation updates",
-    d: "Updated documentation may be required when a vendor changes a pharmacy relationship, adds a therapy category, or expands the scope of a public sourcing claim.",
+    d: "Updated records may be required when sourcing relationships, therapy categories, or public claims change.",
   },
   {
     n: "03",
     t: "Review continuity",
-    d: "Published records may be reviewed to determine whether underlying licenses, pharmacy relationships, and documentation remain consistent with the stated status.",
+    d: "Records may be reviewed to confirm that the published status remains supported.",
   },
   {
     n: "04",
     t: "Status adjustment",
-    d: "Where disclosure failures, expired documentation, or material inconsistencies are identified, registry status may be updated to reflect the current state of the record.",
+    d: "Disclosure failures, expired documentation, or material inconsistencies may change registry status.",
   },
 ];
 
 const BOUNDARIES = [
-  "The framework reviews whether sourcing documentation and related records support the stated public claim within the reviewed scope.",
-  "It does not provide clinical recommendations or individualized medical advice.",
-  "It does not verify medical outcomes, treatment effectiveness, or biological response.",
-  "It does not certify product safety, potency, sterility, or quality.",
-  "It does not replace federal or state regulatory authority.",
-  "It does not approve, recommend, or rank vendors.",
+  "Reviews whether sourcing documentation supports the stated public claim.",
+  "Does not provide medical advice or clinical recommendations.",
+  "Does not verify outcomes, treatment effectiveness, or biological response.",
+  "Does not certify product safety, potency, sterility, or quality.",
+  "Does not replace federal or state regulatory authority.",
+  "Does not approve, recommend, or rank vendors.",
 ];
 
 /* ------------------------------ Local primitives ------------------------------ */
@@ -211,7 +211,7 @@ const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
 
 const HowItWorks = () => {
   const heroDescription =
-    "An independent review framework for compounded therapy vendor sourcing claims, pharmacy relationship evidence, submitted documentation, and public-record consistency.";
+    "Independent review of vendor sourcing claims, pharmacy relationships, submitted documentation, and public-record consistency.";
 
   return (
     <>
@@ -240,20 +240,20 @@ const HowItWorks = () => {
               <ProtocolCard>
                 <Eyebrow>Protocol Purpose</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
-                  What this protocol is designed to do
+                  What this protocol does
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Protocol defines how Source Standard reviews whether a vendor's public sourcing claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, and related operating records.
+                    Source Standard reviews whether a vendor's public sourcing claims are supported by documentation, pharmacy relationship evidence, licensure records, and related public records.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    It is a framework for documentation review and public-reference consistency. It is not a guarantee of product safety, treatment effectiveness, clinical quality, or regulatory compliance.
+                    Verification is a documentation and registry-status review. It is not a guarantee of product safety, treatment effectiveness, clinical quality, or regulatory compliance.
                   </p>
                 </div>
               </ProtocolCard>
@@ -268,7 +268,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="01"
                 title="Documentation Review"
-                intro="How sourcing claims are reviewed against submitted and public records."
+                intro="How submitted claims are checked against records."
               />
               <ClauseStack clauses={AUDIT_CLAUSES} />
             </section>
@@ -282,7 +282,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="02"
                 title="Ongoing Monitoring"
-                intro="How the framework reviews changes after initial documentation review."
+                intro="How published records may be reviewed after verification."
               />
               <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
             </section>
@@ -295,8 +295,8 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="03"
-                title="Disclosure"
-                intro="How vendor changes are expected to be reported and reflected."
+                title="Vendor Disclosure"
+                intro="How material changes are handled."
               />
               <ClauseStack clauses={DISCLOSURE_CLAUSES} />
             </section>
@@ -309,12 +309,12 @@ const HowItWorks = () => {
             >
               <ProtocolCard>
                 <Eyebrow>Review Boundaries</Eyebrow>
-                <h2 className="mt-2 t-section-title-sm text-foreground">Boundaries</h2>
+                <h2 className="mt-2 t-section-title-sm text-foreground">Review Boundaries</h2>
                 <p
                   className="mt-3 text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.55 }}
                 >
-                  What the framework does and does not claim.
+                  What verification does and does not claim.
                 </p>
                 <div className="mt-5 flex flex-col" style={{ gap: "8px" }}>
                   {BOUNDARIES.map((b, i) => (
@@ -342,7 +342,7 @@ const HowItWorks = () => {
                   className="mt-4 text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                 >
-                  The purpose of the Verification Protocol is to help the public interpret whether vendor sourcing claims are supported by documentation. Its role is to bring greater clarity, consistency, and accountability to a market where sourcing claims are often difficult to evaluate independently.
+                  The Verification Protocol helps the public interpret whether vendor sourcing claims are supported by documentation. Its role is to create a clearer public record in a market where sourcing claims are difficult to evaluate independently.
                 </p>
               </ProtocolCard>
             </section>
