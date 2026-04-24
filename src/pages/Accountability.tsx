@@ -188,20 +188,20 @@ const SplitSection = ({
 
 const Accountability = () => {
   const heroDescription =
-    "Attestations accepted by Verified entities, mandatory disclosure events, audit re-opening triggers, and the graduated actions available to the framework when compliance obligations are not met.";
+    "Ongoing record maintenance for Verified vendors, disclosure events, review triggers, and status actions available when documentation no longer supports the published record.";
 
   return (
     <>
-      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Enforcement" }]} />
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Compliance" }]} />
 
-      <PageMeta title="Enforcement" description={heroDescription} />
+      <PageMeta title="Compliance" description={heroDescription} />
 
       {/* §1 Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
         category="Governance & Oversight"
-        title="Compliance Monitoring & Enforcement Protocols"
+        title="Compliance Monitoring & Record Maintenance"
         statement={heroDescription}
         docId=""
       />
@@ -216,10 +216,13 @@ const Accountability = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  A Verified listing is not permanent. It remains in effect only while the underlying records, sourcing relationships, and public claims continue to support the published scope.
+                  A Verified record is not permanent.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  This page defines the continuing obligations attached to a Verified standing, the events that must be disclosed, the conditions that may reopen review, and the actions the framework may take when the record no longer supports the listing.
+                  It remains in effect only while the underlying documentation, pharmacy relationships, sourcing claims, and public records continue to support the published review scope.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
                 </p>
               </div>
             </div>
