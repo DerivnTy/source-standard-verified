@@ -199,7 +199,6 @@ export const DocJumpBar = ({
     visibility: armed ? "visible" : "hidden",
     transition: `opacity 280ms ${APPLE_EASE}, top 300ms ease-in-out, margin-top 500ms ${APPLE_EASE}, width 500ms ${APPLE_EASE}, max-width 500ms ${APPLE_EASE}, box-shadow 400ms ${APPLE_EASE}`,
   };
-  };
 
   return (
     <>
