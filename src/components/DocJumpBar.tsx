@@ -189,12 +189,16 @@ export const DocJumpBar = ({
     marginRight: "auto",
     marginTop: flushTop ? "12px" : `-${SEAM_HEIGHT / 2 + PILL_HEIGHT / 2}px`,
     borderRadius: "9999px",
-    boxShadow: flushTop ? "0 4px 12px rgba(0,0,0,0.05)" : "none",
+    boxShadow: armed && flushTop ? "0 4px 12px rgba(0,0,0,0.05)" : "none",
     border: "0.5px solid hsl(var(--border))",
     backgroundColor: "#FFFFFF",
     zIndex: 40,
     overflow: "hidden",
-    transition: `top 300ms ease-in-out, margin-top 500ms ${APPLE_EASE}, width 500ms ${APPLE_EASE}, max-width 500ms ${APPLE_EASE}, box-shadow 400ms ${APPLE_EASE}`,
+    opacity: armed ? 1 : 0,
+    pointerEvents: armed ? "auto" : "none",
+    visibility: armed ? "visible" : "hidden",
+    transition: `opacity 280ms ${APPLE_EASE}, top 300ms ease-in-out, margin-top 500ms ${APPLE_EASE}, width 500ms ${APPLE_EASE}, max-width 500ms ${APPLE_EASE}, box-shadow 400ms ${APPLE_EASE}`,
+  };
   };
 
   return (
