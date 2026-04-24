@@ -1,9 +1,56 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
+
+// Local governance primitives — white panel + numbered/structured row.
+// Mirrors the homepage public-reference card system.
+const GovCard = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
+  <div
+    className={`bg-card ${className}`}
+    style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "24px" }}
+  >
+    {children}
+  </div>
+);
+
+const GovRow = ({
+  index,
+  title,
+  description,
+  compact = false,
+}: {
+  index?: string;
+  title: ReactNode;
+  description?: ReactNode;
+  compact?: boolean;
+}) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: compact ? "12px 16px" : "16px 18px",
+    }}
+  >
+    <div className="grid grid-cols-12 gap-3 items-baseline">
+      {index !== undefined && (
+        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
+          {index}
+        </div>
+      )}
+      <div className={index !== undefined ? "col-span-10 md:col-span-11" : "col-span-12"}>
+        <p className="t-body-sm font-semibold text-foreground leading-snug">{title}</p>
+        {description && (
+          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{description}</p>
+        )}
+      </div>
+    </div>
+  </div>
+);
 
 const WAYPOINTS = [
   { id: "transparency", number: "01", label: "Mandate" },
