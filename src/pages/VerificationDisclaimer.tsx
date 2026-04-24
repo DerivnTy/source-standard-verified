@@ -11,10 +11,6 @@ const WAYPOINTS = [
   { id: "liability", number: "04", label: "Liability" },
 ];
 
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
-
 type Clause = { n: string; t: string; d: string };
 
 const SCOPE: Clause[] = [
@@ -104,48 +100,102 @@ const LIABILITY: Clause[] = [
   },
 ];
 
-const ClauseList = ({ clauses }: { clauses: Clause[] }) => (
-  <ol className="divide-y divide-border/60 border-y border-border/60">
-    {clauses.map((c) => (
-      <li key={c.n} className="grid grid-cols-12 gap-4 py-6">
-        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70 pt-1">
-          {c.n}
-        </div>
-        <div className="col-span-10 md:col-span-11">
-          <h3 className="t-body-md font-semibold text-foreground mb-2">{c.t}</h3>
-          <p className="t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
-        </div>
-      </li>
-    ))}
-  </ol>
+// --- Local primitives ---
+
+const cardChrome = {
+  backgroundColor: "hsl(var(--card))",
+  border: "0.5px solid hsl(var(--border))",
+  borderRadius: "12px",
+} as const;
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p
+    className="font-mono uppercase text-muted-foreground"
+    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+  >
+    {children}
+  </p>
 );
 
-const SplitSection = ({
-  id,
-  n,
+const SectionHeader = ({
+  index,
   title,
   intro,
-  children,
 }: {
-  id: string;
-  n: string;
+  index: string;
   title: string;
   intro: string;
-  children: React.ReactNode;
 }) => (
-  <section id={id} className="scroll-mt-24 section-pad border-b border-border/40">
-    <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-      <div className="md:col-span-4">
-        <div className="md:sticky md:top-32">
-          <SectionIndex n={n} />
-          <h2 className="t-section-title-sm text-foreground">{title}</h2>
-          <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">{intro}</p>
-        </div>
-      </div>
-      <div className="md:col-span-8 mt-8 md:mt-0">{children}</div>
-    </div>
-  </section>
+  <div className="mb-5">
+    <p className="font-mono tabular-nums text-muted-foreground/60" style={{ fontSize: "11px" }}>
+      {index}
+    </p>
+    <h2 className="t-section-title-sm text-foreground mt-1">{title}</h2>
+    <p
+      className="mt-2 text-muted-foreground"
+      style={{ fontSize: "13.5px", lineHeight: 1.55, maxWidth: "62ch" }}
+    >
+      {intro}
+    </p>
+  </div>
 );
+
+const DisclaimerCard = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ ...cardChrome, padding: "24px" }}>{children}</div>
+);
+
+const DisclaimerRow = ({
+  index,
+  total,
+  title,
+  description,
+}: {
+  index: string;
+  total: string;
+  title: string;
+  description: string;
+}) => (
+  <div style={{ ...cardChrome, padding: "14px 16px" }}>
+    <div className="flex items-baseline justify-between gap-4">
+      <h3
+        className="font-sans font-semibold text-foreground min-w-0"
+        style={{ fontSize: "14px", lineHeight: 1.4 }}
+      >
+        {title}
+      </h3>
+      <span
+        className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+      >
+        {index} / {total}
+      </span>
+    </div>
+    <p
+      className="text-muted-foreground"
+      style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "6px" }}
+    >
+      {description}
+    </p>
+  </div>
+);
+
+const ReturnLinkRow = ({ to, label }: { to: string; label: string }) => (
+  <Link
+    to={to}
+    className="group block hover:bg-surface-muted/40 transition-colors"
+    style={{ ...cardChrome, padding: "14px 16px", marginTop: "16px" }}
+  >
+    <span
+      className="inline-flex items-center gap-2 font-sans font-semibold uppercase text-primary"
+      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+    >
+      <span aria-hidden>←</span>
+      {label}
+    </span>
+  </Link>
+);
+
+// --- Page ---
 
 const VerificationDisclaimer = () => {
   const heroDescription =
@@ -157,7 +207,7 @@ const VerificationDisclaimer = () => {
 
       <PageMeta title="Verification Disclaimer" description={heroDescription} />
 
-      {/* §1 Hero */}
+      {/* Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -167,104 +217,157 @@ const VerificationDisclaimer = () => {
         docId=""
       />
 
-      {/* §2 Statement of purpose */}
-      <section className="bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard section-pad">
-            <div className="max-w-2xl">
-              <h2 className="t-section-title-sm text-foreground">
-                What Source Standard verification means
-              </h2>
-              <div className="mt-6 space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard verification is a public-reference finding based on reviewed records within a defined scope and at a defined point in time.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  This page explains what verification status does and does not establish, the limits of the framework, and the boundaries under which registry information should be interpreted.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §3 Contents nav */}
+      {/* Contents nav */}
       <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* §4 Scope */}
-            <SplitSection
-              id="scope"
-              n="01"
-              title="Record Review Scope"
-              intro="What verification status is designed to reflect."
+            {/* §1 Purpose */}
+            <section
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
+              <DisclaimerCard>
+                <Eyebrow>Verification Scope</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
+                  What Source Standard verification means
+                </h2>
+                <div
+                  style={{
+                    marginTop: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Source Standard verification is a public-reference finding based on reviewed records within a defined scope and at a defined point in time.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    This page explains what verification status does and does not establish, the limits of the framework, and the boundaries under which registry information should be interpreted.
+                  </p>
+                </div>
+              </DisclaimerCard>
+            </section>
+
+            {/* §2 Record Review Scope */}
+            <section
+              id="scope"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="01"
+                title="Record Review Scope"
+                intro="What verification status is designed to reflect."
+              />
+              <p
+                className="text-muted-foreground"
+                style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
+              >
                 Source Standard verification reflects whether a vendor's submitted documentation, pharmacy relationship evidence, public records, and operating information support its stated sourcing claim within the declared review scope.
               </p>
-              <ClauseList clauses={SCOPE} />
-            </SplitSection>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {SCOPE.map((c) => (
+                  <DisclaimerRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
+                ))}
+              </div>
+            </section>
 
-            {/* §5 Exclusions */}
-            <SplitSection
+            {/* §3 Matters Outside the Review Scope */}
+            <section
               id="exclusions"
-              n="02"
-              title="Matters Outside the Review Scope"
-              intro="What verification status does not establish."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <ClauseList clauses={EXCLUSIONS} />
-            </SplitSection>
+              <SectionHeader
+                index="02"
+                title="Matters Outside the Review Scope"
+                intro="What verification status does not establish."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {EXCLUSIONS.map((c) => (
+                  <DisclaimerRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
+                ))}
+              </div>
+            </section>
 
-            {/* §6 Boundaries */}
-            <SplitSection
+            {/* §4 Regulatory & Professional Boundaries */}
+            <section
               id="boundaries"
-              n="03"
-              title="Regulatory & Professional Boundaries"
-              intro="What Source Standard is not."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <ClauseList clauses={BOUNDARIES} />
-            </SplitSection>
+              <SectionHeader
+                index="03"
+                title="Regulatory & Professional Boundaries"
+                intro="What Source Standard is not."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {BOUNDARIES.map((c) => (
+                  <DisclaimerRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
+                ))}
+              </div>
+            </section>
 
-            {/* §7 Liability */}
-            <SplitSection
+            {/* §5 Limitation of Liability */}
+            <section
               id="liability"
-              n="04"
-              title="Limitation of Liability"
-              intro="How registry information should be relied upon."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <ClauseList clauses={LIABILITY} />
-            </SplitSection>
+              <SectionHeader
+                index="04"
+                title="Limitation of Liability"
+                intro="How registry information should be relied upon."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {LIABILITY.map((c) => (
+                  <DisclaimerRow key={c.n} index={c.n} total="03" title={c.t} description={c.d} />
+                ))}
+              </div>
+            </section>
 
-            {/* §8 Closing statement */}
-            <section className="section-pad border-t border-border/40">
-              <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
+            {/* §6 Closing */}
+            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+              <DisclaimerCard>
+                <Eyebrow>Record Review</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
                   Verification is a record review, not a medical guarantee.
                 </h2>
-                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                >
                   The purpose of this disclaimer is to ensure that Source Standard verification status is interpreted within its actual scope. The framework exists to improve public understanding of documented sourcing claims, not to replace medical judgment, regulatory oversight, or individualized clinical decision-making.
                 </p>
-              </div>
+              </DisclaimerCard>
+              <ReturnLinkRow to="/education" label="Return to Resource Library" />
             </section>
           </div>
         </div>
       </div>
-
-      {/* Return link */}
-      <section className="bg-background">
-        <div className="page-shell section-pad">
-          <div className="mx-auto w-standard">
-            <Link
-              to="/education"
-              className="inline-flex items-center gap-2 border border-border px-5 py-3 t-utility-xs text-foreground hover:bg-surface-muted hover:text-primary transition-colors"
-            >
-              ← Return to Resource Library
-            </Link>
-          </div>
-        </div>
-      </section>
     </>
   );
 };
