@@ -1,95 +1,66 @@
-## Terms of Use — Structural UI Pass
+# Vendor Verification Intake Page Simplification
 
-**File:** `src/pages/Terms.tsx` only.
-**Route:** `/terms` (unchanged).
+**Note on file target:** The plan references `src/pages/BeginVerification.tsx`, but that file does not exist in this project. The vendor intake page that contains all the sections you want removed (process steps, "Step 1 collects general business details only", "Documents typically requested during onboarding", and the inline reference link row) is **`src/pages/Apply.tsx`**. I'll apply the changes there. The route stays unchanged.
 
-### What stays untouched
-- `BriefingHero` (navy, "Terms of Use", "Registry User Agreement"), title, statement, `docId`.
-- `PageMeta`, `Breadcrumb`.
-- `SectionAnchorNav` and existing `WAYPOINTS` (`acceptance`, `citation`, `integrity`, `warranty`, `jurisdiction`, `related`).
-- All clause data (`CITATION`, `INTEGRITY`, `WARRANTY`) and copy.
-- All Acceptance, Jurisdiction, and Closing paragraphs (preserved verbatim).
-- Existing `RELATED` routes (preserved as-is):
-  - `/privacy` — Data Governance & Privacy Policy
-  - `/verification-disclaimer` — Verification Disclaimer
-  - `/accountability` — Compliance & Operating Boundaries
-  - `/status-definitions` — Status Definitions
-- Header, footer, hamburger, global CSS, shared components, all other pages.
+## Scope
+Single-file edit: `src/pages/Apply.tsx`. No header, footer, global CSS, shared component, or routing changes.
 
-### Local primitives (added inside the file, non-exported)
+## Final page structure
+1. Header (global, untouched)
+2. Breadcrumb (kept)
+3. BriefingHero (kept, copy unchanged — already matches the requested wording)
+4. Intake submission form, wrapped in a white card
+5. Two reference link rows (Vendor submission standard, How verification works)
+6. Footer (global, untouched)
 
-1. **TermsCard** — white card wrapper (`24px` padding, `12px` radius, `0.5px` border).
-2. **TermsRow** — compact row (`14px 16px` padding) with title left + zero-padded `NN / TT` index right; muted description below at `13px / 1.55` with `6px` top margin.
-3. **RelatedLinkRow** — flex link row matching About / Status Definitions / Compliance: card chrome, `padding 14px 16px`, `flex items-start justify-between gap-4`, text column `min-w-0`, `VIEW ›` self-centered, `11px uppercase font-semibold` primary navy with `ChevronRight` icon.
-4. **SectionHeader** — mono index + `t-section-title-sm` heading + `13.5px / 1.55` muted intro.
-5. **Eyebrow** — `font-mono uppercase 10px / 0.14em` muted label.
+## Changes
 
-### Page composition
+### Remove
+- The "From intake to review" section (3-step process grid)
+- The "Step 1 collects general business details only" section (`stepRequires` list)
+- The "Documents typically requested during onboarding" section (`onboardingDocs` list)
+- The trailing inline link row ("Vendor submission standard → · How verification works →")
+- The unused `processSteps`, `stepRequires`, `onboardingDocs` constants
+- The local `SectionHeader` helper if it's no longer used after the rewrite (will replace with inline eyebrow/heading per spec)
 
-```text
-Hero (BriefingHero, untouched)
-SectionAnchorNav (preserved)
+### Keep (behavior preserved)
+- `PageMeta`, `Breadcrumb`, `BriefingHero`
+- All form fields exactly as today (Legal name, Brand name, Website, Verification category, Prescriber name, States of operation, Contact name, Business email, Business phone)
+- Submit handler, `submitting` state, `filed` success state with reference ID, "Submit another intake" reset
+- Group fieldset legends: Business profile, Operating scope, Administrative contact
 
-§1 Purpose                      [40px / 40px, border-b]
-  TermsCard
-    eyebrow: TERMS PURPOSE
-    h2: How this agreement applies
-    2 body paragraphs (verbatim, 13.5px / 1.6 muted, 14px gap)
+### Intake form section (new wrapping)
+- Section padding: `pt-9 pb-9` (36px), `border-b border-border` (hairline)
+- Eyebrow `VENDOR INTAKE` + heading `Intake submission` + intro paragraph from spec
+- Form (and the success state) wrapped in a card:
+  - `bg-card border border-border rounded-xl p-6`
+- Vertical rhythm inside the card:
+  - Label → input: 8px (`space-y-2`)
+  - Field → field: 18px (`gap-[18px]` on the grid)
+  - Group heading → first field: 18px (`mb-[18px]` on legend)
+  - Group → group: 28px (`space-y-7` on the form)
+  - Submit button: `mt-6` (24px)
+- Submit button: `w-full sm:w-auto sm:ml-auto` so it's full width on mobile, content-width right-aligned on desktop
+- Post-submit note moved inside the card, below a hairline divider:
+  - `mt-5 pt-5 border-t border-border text-[13.5px] leading-[1.6] text-muted-foreground`
+  - Copy: "Submitting this form opens your intake file. If your application is accepted for onboarding, Source Standard will email your team with the next-step access link."
 
-§2 Registry Access & Acceptance [40px / 40px, border-b]   id="acceptance"
-  TermsCard
-    eyebrow: 01 · ACCEPTANCE
-    h2: Registry Access & Acceptance
-    intro line: What use of the registry means.
-    3 body paragraphs (verbatim, 13.5px / 1.6 muted, 14px gap)
+### Reference links section (replaces old inline link row)
+- Section: `pt-8 pb-16` (no large dead gap before footer)
+- Container: `max-w-2xl space-y-3`
+- Two `<Link>` rows, each:
+  - `bg-card border border-border rounded-xl px-4 py-3.5`
+  - `flex items-center justify-between gap-4`
+  - Label `text-[13px] font-semibold text-foreground`
+  - Right-side arrow `→` in `text-muted-foreground` (or primary on hover)
+- Row 1: "Vendor submission standard" → `/for-vendors`
+- Row 2: "How verification works" → `/how-it-works`
 
-§3 Citation & Data Use          [40px / 40px, border-b]   id="citation"
-  SectionHeader 02 / Citation & Data Use / intro
-  Explanatory paragraph (13.5px / 1.55 muted, 16px margin-bottom)
-  Stack of TermsRows (gap 10px) — 4 rows, indices 01/04 … 04/04
+### Hero
+Copy already matches the requested wording, so no text changes. Hero left as-is.
 
-§4 Integrity & Prohibitions     [40px / 40px, border-b]   id="integrity"
-  SectionHeader 03 / Integrity & Prohibitions / intro
-  Stack of TermsRows (gap 10px) — 5 rows, indices 01/05 … 05/05
-
-§5 Warranty & Liability         [40px / 40px, border-b]   id="warranty"
-  SectionHeader 04 / Warranty & Liability / intro
-  Stack of TermsRows (gap 10px) — 4 rows, indices 01/04 … 04/04
-
-§6 Jurisdiction                 [40px / 40px, border-b]   id="jurisdiction"
-  TermsCard
-    eyebrow: 05 · JURISDICTION
-    h2: Jurisdiction
-    intro line: The governing law applied to this agreement.
-    2 body paragraphs (verbatim, 13.5px / 1.6 muted, 14px gap)
-
-§7 Related Policies             [40px / 40px, border-b]   id="related"
-  SectionHeader 06 / Related Policies / intro
-  Stack of RelatedLinkRows (gap 10px) — 4 links, existing routes preserved
-    (each row gets a short muted description, labels exactly as in RELATED data)
-
-§8 Closing                      [40px / 64px, no border]
-  TermsCard
-    eyebrow: PUBLIC ACCESS
-    h2: Public access requires clear terms of use.
-    body paragraph (verbatim, 13.5px / 1.6 muted)
-
-Footer (untouched)
-```
-
-### Spacing & style
-- Sections: `paddingTop: 40px`, `paddingBottom: 40px`, `border-bottom: 0.5px solid hsl(var(--border))`.
-- Final section: `paddingBottom: 64px`, no bottom border.
-- Cards: `12px` radius, `0.5px` border, `24px` interior padding.
-- Rows: `12px` radius, `0.5px` border, `14px 16px` padding.
-- Stacks: TermsRows `10px` gap, RelatedLinkRows `10px` gap.
-- All indices zero-padded (`01`, `02 / 04`, etc.).
-
-### Removed
-- `SectionIndex`, `ClauseList`, `SplitSection` helpers.
-- Sticky two-column 4/8 grid layout.
-- `divide-y` / `border-y` ordered lists.
-- `t-body-md` editorial slabs and `section-pad` usage.
-
-### Acceptance
-Page renders as: Hero → SectionAnchorNav → Purpose card → Registry Access & Acceptance card → Citation row stack → Integrity & Prohibitions row stack → Warranty & Liability row stack → Jurisdiction card → Related Policies link rows → Closing card → Footer. All copy preserved. Matches the institutional system used on Compliance, Status Definitions, About, Verification Protocol, Resource Library, and Advisory Board.
+## Acceptance check
+- Page reads: Header → Hero → Form card → Two link rows → Footer
+- No process timeline, no document preview list, no duplicate explanation, no large dead zones
+- Form submission flow and validation behavior unchanged
+- Mobile (390px): submit button full width; form card padding comfortable; no horizontal overflow
