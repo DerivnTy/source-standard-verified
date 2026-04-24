@@ -133,7 +133,7 @@ const Greenlist = () => {
       />
 
       <section className="bg-background">
-        <div className="page-shell pb-20 md:pb-14">
+        <div className="page-shell pb-10 md:pb-12">
           <div className="mx-auto w-wide">
             {/* Minimalist filter bar — search pill + Category + Status */}
             <div className="-mx-5 md:mx-0 px-5 pt-6 pb-3 md:pt-8">
