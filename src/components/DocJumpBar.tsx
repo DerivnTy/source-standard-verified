@@ -215,7 +215,7 @@ export const DocJumpBar = ({
       <div
         ref={seamRef}
         aria-hidden
-        className="relative w-full"
+        className="relative w-full hidden lg:block"
         style={{
           // Seam only renders its visible navy/white gradient strip once the
           // pill is armed (Section 01 has reached the viewport top). Before
@@ -229,7 +229,7 @@ export const DocJumpBar = ({
           transition: "height 200ms ease-out",
         }}
       />
-      <nav ref={navRef} aria-label="Document contents" style={navStyle}>
+      <nav ref={navRef} aria-label="Document contents" style={navStyle} className="hidden lg:flex">
         <PillContents
           waypoints={waypoints}
           activeId={activeId}
