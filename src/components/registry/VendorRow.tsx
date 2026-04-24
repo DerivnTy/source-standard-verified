@@ -71,59 +71,50 @@ export const VendorRow = ({
             {vendor.name}
           </h3>
 
-          {isVerified ? (
-            <span
-              className="inline-flex items-center font-sans uppercase tabular-nums"
-              style={{
-                flexShrink: 0,
-                fontSize: "12px",
-                fontWeight: 700,
-                letterSpacing: "0.035em",
-                lineHeight: 1,
-                gap: "4px",
-                color: "#001021",
-              }}
-            >
-              Verified
+          <span
+            className="inline-flex items-center justify-end font-sans uppercase tabular-nums"
+            style={{
+              flexShrink: 0,
+              height: "12px",
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "0.035em",
+              lineHeight: 1,
+              gap: "4px",
+              color: isVerified ? "#001021" : "#FF3B30",
+            }}
+          >
+            {isVerified ? "Verified" : "Unverified"}
+            {isVerified && (
               <span
                 aria-hidden
                 style={{
+                  position: "relative",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: "22px",
+                  height: "12px",
                   width: "19px",
-                  overflow: "hidden",
-                  transform: "translateY(-1px)",
+                  overflow: "visible",
                 }}
               >
                 <img
                   src={verifiedShield}
                   alt=""
                   style={{
-                    height: "180%",
+                    position: "absolute",
+                    top: "50%",
+                    left: 0,
+                    transform: "translateY(calc(-50% - 1px))",
+                    height: "22px",
                     width: "auto",
                     objectFit: "contain",
                     display: "block",
                   }}
                 />
               </span>
-            </span>
-          ) : (
-            <span
-              className="font-sans uppercase tabular-nums"
-              style={{
-                flexShrink: 0,
-                fontSize: "12px",
-                fontWeight: 700,
-                letterSpacing: "0.035em",
-                lineHeight: 1,
-                color: "#FF3B30",
-              }}
-            >
-              Unverified
-            </span>
-          )}
+            )}
+          </span>
         </div>
 
         {/* Row 2 — Category pill + Location/model metadata */}
