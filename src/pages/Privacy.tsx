@@ -21,17 +21,17 @@ const PARTITIONING: Clause[] = [
   {
     n: "01",
     t: "Public registry data",
-    d: "Public registry data is limited to business identity, verification categories, current status, status dates, and related public-reference fields published for consumer and clinician use.",
+    d: "Public registry data is limited to business identity, vendor type, therapy category, review scope, current status, status dates, and related public-reference fields published for consumer and clinician use.",
   },
   {
     n: "02",
-    t: "Protected audit material",
-    d: "Protected audit material may include licensing records, supplier invoices, certificates of analysis, internal review notes, and related supporting documentation retained in the audit file.",
+    t: "Protected review materials",
+    d: "Protected review materials may include licensing records, supplier invoices, certificates of analysis, submitted documentation, internal review notes, concern reports, and related supporting materials retained in the review file.",
   },
   {
     n: "03",
     t: "Access restriction",
-    d: "Protected audit material is retained within a restricted internal environment and is not published, sold, or shared with third parties except where required by law or necessary for authorized infrastructure operations.",
+    d: "Protected review materials are retained within a restricted internal environment and are not published, sold, or shared with third parties except where required by law or necessary for authorized infrastructure operations.",
   },
 ];
 
@@ -39,12 +39,12 @@ const COLLECTION: Clause[] = [
   {
     n: "01",
     t: "Vendor intake",
-    d: "Business credentials, operating details, and sourcing records submitted for verification or related review.",
+    d: "Business credentials, operating details, sourcing records, pharmacy relationship documentation, and related materials submitted for verification or review.",
   },
   {
     n: "02",
-    t: "Surveillance data",
-    d: "Where applicable, records associated with analytical review, laboratory findings, and related monitoring activity.",
+    t: "Monitoring data",
+    d: "Where applicable, records associated with public-record monitoring, status review, documentation updates, and related registry maintenance activity.",
   },
   {
     n: "03",
@@ -54,7 +54,7 @@ const COLLECTION: Clause[] = [
   {
     n: "04",
     t: "Site analytics",
-    d: "Site usage is monitored through aggregate, non-identifying signals only. The framework does not rely on advertising trackers or cross-site identification systems.",
+    d: "Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems.",
   },
 ];
 
@@ -62,22 +62,22 @@ const RETENTION: Clause[] = [
   {
     n: "01",
     t: "Active records",
-    d: "Protected audit material is retained for the duration of an entity's active standing in the registry and for the period reasonably necessary to administer review, renewal, and related compliance processes.",
+    d: "Protected review materials may be retained for the duration of an entity's active status in the registry and for the period reasonably necessary to administer review, renewal, record maintenance, and related compliance processes.",
   },
   {
     n: "02",
-    t: "Historical determinations",
+    t: "Status history",
     d: "Public status transitions and related public record history may be retained to preserve the integrity and continuity of the registry timeline.",
   },
   {
     n: "03",
-    t: "Withdrawn or denied applications",
-    d: "Documentation associated with withdrawn or denied applications may be held for a limited administrative period before secure disposal.",
+    t: "Withdrawn or closed submissions",
+    d: "Documentation associated with withdrawn, denied, closed, or incomplete submissions may be held for a limited administrative period before secure disposal.",
   },
   {
     n: "04",
     t: "Secure disposal",
-    d: "Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to prevent unauthorized recovery.",
+    d: "Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to reduce the risk of unauthorized recovery.",
   },
 ];
 
