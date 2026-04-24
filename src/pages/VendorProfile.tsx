@@ -217,11 +217,81 @@ const VendorProfile = () => {
     ? vendor.reviewDate
     : undefined;
 
+  // Build conservative JSON-LD. Default to Organization. Only upgrade to
+  // MedicalBusiness when this vendor is clearly a medical clinic with
+  // sufficient public business/location info (category implies clinical
+  // practice + at least city/state + website on file).
+  const clinicalCategories = new Set(["TRT Clinic", "Hormone Optimization"]);
+  const isClinicalEntity =
+    !!vendor.category &&
+    clinicalCategories.has(vendor.category) &&
+    !!vendor.city &&
+    !!vendor.state &&
+    !!vendor.website;
+  const orgType = isClinicalEntity ? "MedicalBusiness" : "Organization";
+  const canonicalPath = `/directory/${vendor.slug}`;
+  const canonicalUrl = absoluteUrl(canonicalPath);
+
+  const orgLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": orgType,
+    name: vendor.name,
+    url: vendor.website || canonicalUrl,
+    mainEntityOfPage: canonicalUrl,
+  };
+  if (vendor.city || vendor.state) {
+    orgLd.address = {
+      "@type": "PostalAddress",
+      ...(vendor.city ? { addressLocality: vendor.city } : {}),
+      ...(vendor.state ? { addressRegion: vendor.state } : {}),
+      ...(vendor.zip ? { postalCode: vendor.zip } : {}),
+      addressCountry: "US",
+    };
+  }
+  // Source Standard status as a neutral PropertyValue — never Review,
+  // AggregateRating, ClaimReview, award, endorsement, or certification.
+  orgLd.additionalProperty = [
+    {
+      "@type": "PropertyValue",
+      propertyID: "source-standard-status",
+      name: "Source Standard Status",
+      value: VENDOR_STATUS_LABEL[status],
+    },
+    ...(isVerified && vendor.reviewId
+      ? [
+          {
+            "@type": "PropertyValue",
+            propertyID: "source-standard-review-id",
+            name: "Source Standard Review ID",
+            value: vendor.reviewId,
+          },
+        ]
+      : []),
+  ];
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL + "/" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Directory",
+        item: absoluteUrl("/verified-vendors"),
+      },
+      { "@type": "ListItem", position: 3, name: vendor.name, item: canonicalUrl },
+    ],
+  };
+
   return (
     <>
       <PageMeta
         title={`${vendor.name} · ${VENDOR_STATUS_LABEL[status]}`}
         description={`Source Standard public record for ${vendor.name}. ${VENDOR_STATUS_LABEL[status]} · ${location}.`}
+        path={canonicalPath}
+        type="profile"
+        jsonLd={[orgLd, breadcrumbLd]}
       />
       <Breadcrumb
         items={[
