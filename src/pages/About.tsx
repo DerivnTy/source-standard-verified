@@ -287,7 +287,7 @@ const About = () => {
                   A public-reference system with defined limits.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard is designed to make sourcing transparency easier to interpret, not to replace clinical judgment or statutory oversight. Its role is to provide a more disciplined public reference for a market where documentation is often harder to evaluate than presentation.
+                  Source Standard is designed to make compounded therapy vendor sourcing claims easier to interpret. It does not replace clinical judgment, regulatory oversight, or individual medical decision-making. Its role is to provide a disciplined public reference for a market where documentation is often harder to evaluate than presentation.
                 </p>
               </div>
             </section>
