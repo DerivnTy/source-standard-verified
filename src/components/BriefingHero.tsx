@@ -36,6 +36,8 @@ export interface BriefingHeroProps {
   actions?: ReactNode;
   /** Optional metrics row rendered between the statement and the actions (cover variant). */
   heroMetrics?: ReactNode;
+  /** Optional metadata strip rendered below the actions (cover variant). */
+  heroMeta?: ReactNode;
 }
 
 export const BriefingHero = ({
