@@ -80,10 +80,11 @@ export const VendorRow = ({
                 fontWeight: 700,
                 letterSpacing: "0.035em",
                 lineHeight: 1,
-                gap: "5px",
+                gap: "6px",
                 color: "#001021",
               }}
             >
+              Verified
               <span
                 aria-hidden
                 style={{
@@ -106,7 +107,6 @@ export const VendorRow = ({
                   }}
                 />
               </span>
-              Verified
             </span>
           ) : (
             <span
