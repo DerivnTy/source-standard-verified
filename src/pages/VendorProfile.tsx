@@ -179,16 +179,6 @@ const VendorProfile = () => {
     );
   };
 
-  // Vendor Type display (Unverified path)
-  const vendorTypeLabel =
-    fulfillment === "in-person"
-      ? "Physical Clinic"
-      : fulfillment === "online"
-      ? "Online Vendor"
-      : "Hybrid";
-  const therapyCategory =
-    vendor.clinicalFocus?.[0] ?? vendor.category ?? undefined;
-
   // Verified scope flattening
   const hasGroups =
     isVerified &&
@@ -305,73 +295,53 @@ const VendorProfile = () => {
               style={{ borderTop: "0.5px solid hsl(var(--border))" }}
             />
 
-            {/* Public Record grid */}
+            {/* Public Record grid — unified across all statuses */}
             <dl
               className="grid grid-cols-2"
               style={{ columnGap: "20px", rowGap: "16px" }}
             >
-              {isUnverified ? (
-                <>
-                  <Cell label="Vendor Type" value={vendorTypeLabel} />
-                  {therapyCategory && (
-                    <Cell label="Therapy Category" value={therapyCategory} />
-                  )}
-                  {locationLabel !== "—" && (
-                    <Cell label="Location" value={locationLabel} />
-                  )}
-                  <Cell label="Review Status" value="Not reviewed" />
-                  {vendor.website && (
-                    <Cell
-                      label="Website"
-                      value={hostname(vendor.website)}
-                      href={vendor.website}
-                    />
-                  )}
-                </>
-              ) : (
-                <>
-                  <Cell label="Category" value={vendor.category} />
-                  <Cell label="Source Type" value={sourceType} />
-                  <Cell label="Location" value={locationLabel !== "—" ? locationLabel : undefined} />
-                  <Cell label="License / ID" value={license} mono />
-                  {verificationDate && (
-                    <Cell label="Verification Date" value={verificationDate} mono />
-                  )}
-                  <Cell
-                    label="Website"
-                    value={vendor.website ? hostname(vendor.website) : undefined}
-                    href={vendor.website}
-                  />
-                </>
-              )}
+              <Cell label="Category" value={vendor.category} />
+              <Cell label="Source Type" value={isVerified ? sourceType : undefined} />
+              <Cell label="Location" value={locationLabel !== "—" ? locationLabel : undefined} />
+              <Cell
+                label="License / ID"
+                value={isVerified ? license : undefined}
+                mono
+              />
+              <Cell
+                label="Verification Date"
+                value={isVerified ? verificationDate : undefined}
+                mono
+              />
+              <Cell
+                label="Website"
+                value={vendor.website ? hostname(vendor.website) : undefined}
+                href={vendor.website}
+              />
+              <Cell
+                label="Audit Date"
+                value={
+                  isVerified
+                    ? vendor.scopeReviewDate || vendor.reviewDate
+                    : undefined
+                }
+                mono
+              />
+              <Cell
+                label="Medical Director"
+                value={isVerified ? vendor.medicalDirector : undefined}
+              />
+              <Cell
+                label="Clinical Focus"
+                value={isVerified ? vendor.clinicalFocus : undefined}
+              />
+              <Cell
+                label="Verified Scope"
+                value={
+                  isVerified && hasScope ? scopeCompounds.join(" · ") : undefined
+                }
+              />
             </dl>
-
-            {/* Verified Scope — only when verified */}
-            {isVerified && hasScope && (
-              <>
-                <div
-                  aria-hidden
-                  className="mt-5 mb-5"
-                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-                />
-                <dl
-                  className="grid grid-cols-2"
-                  style={{ columnGap: "20px", rowGap: "16px" }}
-                >
-                  <Cell
-                    label="Audit Date"
-                    value={vendor.scopeReviewDate || vendor.reviewDate}
-                    mono
-                  />
-                  <Cell
-                    label="Medical Director"
-                    value={vendor.medicalDirector}
-                  />
-                  <Cell label="Clinical Focus" value={vendor.clinicalFocus} />
-                  <Cell label="Verified Scope" value={scopeCompounds.join(" · ")} />
-                </dl>
-              </>
-            )}
 
             {/* Unverified — Status Meaning + Review Boundary */}
             {isUnverified && (
