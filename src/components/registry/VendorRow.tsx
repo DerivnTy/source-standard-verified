@@ -91,8 +91,8 @@ export const VendorRow = ({
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: "15px",
-                  width: "13px",
+                  height: "20px",
+                  width: "17px",
                   overflow: "hidden",
                 }}
               >
