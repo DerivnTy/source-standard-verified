@@ -1,9 +1,56 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
+
+// Local governance primitives — white panel + numbered/structured row.
+// Mirrors the homepage public-reference card system.
+const GovCard = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
+  <div
+    className={`bg-card ${className}`}
+    style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "24px" }}
+  >
+    {children}
+  </div>
+);
+
+const GovRow = ({
+  index,
+  title,
+  description,
+  compact = false,
+}: {
+  index?: string;
+  title: ReactNode;
+  description?: ReactNode;
+  compact?: boolean;
+}) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: compact ? "12px 16px" : "16px 18px",
+    }}
+  >
+    <div className="grid grid-cols-12 gap-3 items-baseline">
+      {index !== undefined && (
+        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
+          {index}
+        </div>
+      )}
+      <div className={index !== undefined ? "col-span-10 md:col-span-11" : "col-span-12"}>
+        <p className="t-body-sm font-semibold text-foreground leading-snug">{title}</p>
+        {description && (
+          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{description}</p>
+        )}
+      </div>
+    </div>
+  </div>
+);
 
 const WAYPOINTS = [
   { id: "transparency", number: "01", label: "Mandate" },
@@ -131,18 +178,20 @@ const MedicalAdvisory = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <div className="max-w-2xl">
-              <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
-              <div className="mt-6 space-y-4">
-                <p className="t-body-sm text-muted-foreground leading-relaxed">
-                  The Advisory Board exists to support the neutrality, clinical restraint, and procedural discipline of the Source Standard framework.
-                </p>
-                <p className="t-body-sm text-muted-foreground leading-relaxed">
-                  Its role is to provide advisory input on review standards, documentation boundaries, public language, and education materials used across the registry.
-                </p>
-                <p className="t-body-sm text-muted-foreground leading-relaxed">
-                  The Board does not represent vendors, compound distributors, medical clinics, or pharmacy partners. It does not make individual vendor status determinations. It serves as an independent advisory layer for the standards behind the public reference system.
-                </p>
-              </div>
+              <GovCard>
+                <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
+                <div className="mt-4 space-y-3">
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    The Advisory Board exists to support the neutrality, clinical restraint, and procedural discipline of the Source Standard framework.
+                  </p>
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    Its role is to provide advisory input on review standards, documentation boundaries, public language, and education materials used across the registry.
+                  </p>
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    The Board does not represent vendors, compound distributors, medical clinics, or pharmacy partners. It does not make individual vendor status determinations. It serves as an independent advisory layer for the standards behind the public reference system.
+                  </p>
+                </div>
+              </GovCard>
             </div>
           </div>
         </div>
@@ -170,17 +219,13 @@ const MedicalAdvisory = () => {
                   </div>
                 </div>
                 <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ol className="divide-y divide-border/60">
+                  <ul className="space-y-3">
                     {MANDATE_CLAUSES.map((c) => (
-                      <li key={c.n} className="grid grid-cols-12 gap-4 py-4 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">{c.n}</div>
-                        <div className="col-span-10 md:col-span-11">
-                          <p className="t-body-sm font-semibold text-foreground">{c.t}</p>
-                          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{c.d}</p>
-                        </div>
+                      <li key={c.n}>
+                        <GovRow index={c.n} title={c.t} description={c.d} />
                       </li>
                     ))}
-                  </ol>
+                  </ul>
                 </div>
               </div>
             </section>
@@ -200,17 +245,13 @@ const MedicalAdvisory = () => {
                   </div>
                 </div>
                 <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ol className="divide-y divide-border/60">
+                  <ul className="space-y-3">
                     {ROLE_FUNCTIONS.map((s) => (
-                      <li key={s.n} className="grid grid-cols-12 gap-4 py-4 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">{s.n}</div>
-                        <div className="col-span-10 md:col-span-11">
-                          <p className="t-body-sm font-semibold text-foreground">{s.t}</p>
-                          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{s.d}</p>
-                        </div>
+                      <li key={s.n}>
+                        <GovRow index={s.n} title={s.t} description={s.d} />
                       </li>
                     ))}
-                  </ol>
+                  </ul>
                 </div>
               </div>
             </section>
@@ -282,10 +323,14 @@ const MedicalAdvisory = () => {
                   Scope & boundaries
                 </h2>
               </div>
-              <ul className="divide-y divide-border/60 border-y border-border/60 max-w-3xl">
-                {BOUNDARIES.map((b) => (
-                  <li key={b} className="py-4 t-body-sm text-foreground">
-                    {b}
+              <ul className="space-y-2 max-w-3xl">
+                {BOUNDARIES.map((b, i) => (
+                  <li key={b}>
+                    <GovRow
+                      compact
+                      index={String(i + 1).padStart(2, "0")}
+                      title={<span className="font-normal text-foreground">{b}</span>}
+                    />
                   </li>
                 ))}
               </ul>
@@ -294,7 +339,7 @@ const MedicalAdvisory = () => {
             {/* §8 Responsibilities */}
             <section id="responsibilities" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <SectionIndex n="05" />
-              <div className="mb-8 max-w-2xl">
+              <div className="mb-6 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
                   Responsibilities
                 </h2>
@@ -302,14 +347,13 @@ const MedicalAdvisory = () => {
                   Each responsibility maps to a recurring advisory activity recorded under Source Standard's framework maintenance process.
                 </p>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-6">
+              <ul className="grid sm:grid-cols-2 gap-3">
                 {RESPONSIBILITY_ORDER.map((code) => {
                   const o = RESPONSIBILITY_OVERRIDES[code];
                   if (!o) return null;
                   return (
                     <li key={code}>
-                      <p className="t-body-sm font-semibold text-foreground">{o.title}</p>
-                      <p className="mt-2 t-body-sm text-muted-foreground leading-relaxed">{o.description}</p>
+                      <GovRow index={code} title={o.title} description={o.description} />
                     </li>
                   );
                 })}
@@ -319,12 +363,14 @@ const MedicalAdvisory = () => {
             {/* §9 Closing statement */}
             <section style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
-                  Public trust requires disciplined oversight.
-                </h2>
-                <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
-                  The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.
-                </p>
+                <GovCard>
+                  <h2 className="t-section-title-sm text-foreground">
+                    Public trust requires disciplined oversight.
+                  </h2>
+                  <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
+                    The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.
+                  </p>
+                </GovCard>
               </div>
             </section>
 
