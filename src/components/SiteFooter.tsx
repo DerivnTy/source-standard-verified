@@ -68,10 +68,16 @@ export const SiteFooter = () => {
   const now = new Date();
 
   return (
-    <footer
-      className="mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
-    >
-      <div className="page-shell pt-10 md:pt-16 pb-6 md:pb-20">
+    <>
+      {/* Paints navy behind any overscroll bounce so the page never reveals cream below the footer. */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-x-0 bottom-0 h-[50vh] -z-10 pointer-events-none bg-[hsl(var(--navy-surface))]"
+      />
+      <footer
+        className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
+      >
+        <div className="page-shell pt-10 md:pt-16 pb-6 md:pb-20">
         <div className="mx-auto w-wide">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-9 md:gap-y-12 items-start text-left">
             <div className="lg:col-span-1">
@@ -146,6 +152,7 @@ export const SiteFooter = () => {
           </p>
         </div>
       </div>
-    </footer>
+      </footer>
+    </>
   );
 };
