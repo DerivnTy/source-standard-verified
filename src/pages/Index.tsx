@@ -173,6 +173,55 @@ const HeroActions = () => (
   </>
 );
 
+/* ───────────────── Hero Meta Strip ─────────────────
+   Compact 3-column institutional readout anchoring the bottom of the navy hero. */
+const HeroMeta = () => {
+  const total = vendors.length;
+  const items: { label: string; value: string }[] = [
+    { label: "Private Standard", value: "Documentation-first review" },
+    { label: "Public Registry", value: "Searchable vendor status" },
+    { label: "Live Data", value: `${total.toLocaleString("en-US")} sources identified` },
+  ];
+  return (
+    <div
+      role="group"
+      aria-label="Source Standard verification metadata"
+      className="grid"
+      style={{
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+        gap: "20px",
+      }}
+    >
+      {items.map((it) => (
+        <div key={it.label} className="flex flex-col">
+          <span
+            className="font-mono uppercase"
+            style={{
+              fontSize: "10px",
+              letterSpacing: "0.12em",
+              color: "rgba(255,255,255,0.55)",
+              fontWeight: 500,
+            }}
+          >
+            {it.label}
+          </span>
+          <span
+            className="font-sans"
+            style={{
+              marginTop: "6px",
+              fontSize: "12px",
+              lineHeight: 1.35,
+              color: "rgba(255,255,255,0.8)",
+            }}
+          >
+            {it.value}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 /* ───────────────── Static section data ───────────────── */
 
 const howItWorks = [
