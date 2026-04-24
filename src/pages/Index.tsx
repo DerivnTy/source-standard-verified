@@ -84,7 +84,7 @@ const HeroMetrics = () => {
       className="inline-flex items-stretch"
       style={{ paddingTop: "4px", paddingBottom: "4px" }}
     >
-      <Unit value={stats.total} label="Total Vendors" dotColor="#FF3B30" />
+      <Unit value={stats.total} label="Identified Sources" dotColor="#FF3B30" />
       <span
         aria-hidden
         className="self-stretch bg-white/15"
