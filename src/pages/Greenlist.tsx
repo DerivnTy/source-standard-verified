@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
-import { RegistryPagination } from "@/components/registry/RegistryPagination";
+
 import { GreenlistRow } from "@/components/registry/GreenlistRow";
 import {
   greenlistEntries,
