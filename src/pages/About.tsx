@@ -240,7 +240,7 @@ const About = () => {
             {/* §3 Purpose */}
             <section
               className="border-b border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <AboutCard>
                 <Eyebrow>Organizational Purpose</Eyebrow>
@@ -268,7 +268,7 @@ const About = () => {
             <section
               id="context"
               className="scroll-mt-24 border-b border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <AboutCard>
                 <Eyebrow>01 · Context</Eyebrow>
@@ -297,7 +297,7 @@ const About = () => {
             <section
               id="boundaries"
               className="scroll-mt-24 border-b border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
                 n="02"
@@ -315,7 +315,7 @@ const About = () => {
             <section
               id="objectives"
               className="scroll-mt-24 border-b border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
                 n="03"
@@ -339,7 +339,7 @@ const About = () => {
             <section
               id="scope"
               className="scroll-mt-24 border-b border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
                 n="04"
@@ -363,7 +363,7 @@ const About = () => {
             <section
               id="related"
               className="scroll-mt-24 border-b border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
                 n="05"
@@ -383,7 +383,7 @@ const About = () => {
             </section>
 
             {/* §9 Closing — Framework Limits */}
-            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+            <section style={{ paddingTop: "36px", paddingBottom: "64px" }}>
               <AboutCard>
                 <Eyebrow>Framework Limits</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">

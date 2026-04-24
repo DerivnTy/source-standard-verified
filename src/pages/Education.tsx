@@ -190,7 +190,7 @@ const CategoryBlock = ({
     <section
       id={category.id}
       className="border-b border-border/40 scroll-mt-36"
-      style={{ paddingTop: "40px", paddingBottom: "40px" }}
+      style={{ paddingTop: "36px", paddingBottom: "36px" }}
     >
       <div className="mx-auto w-wide">
         <div className="grid grid-cols-12 gap-x-8 gap-y-6">
@@ -435,7 +435,7 @@ const Education = () => {
       {/* §7 Editorial Pipeline */}
       <section
         className="border-b border-border/40"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-wide">

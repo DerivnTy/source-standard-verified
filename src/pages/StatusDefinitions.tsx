@@ -444,7 +444,7 @@ const StatusDefinitions = () => {
             </section>
 
             {/* §5 Closing statement */}
-            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+            <section style={{ paddingTop: "36px", paddingBottom: "64px" }}>
               <StatusCard>
                 <Eyebrow>Public Language</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">

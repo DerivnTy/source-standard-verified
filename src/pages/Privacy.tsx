@@ -388,7 +388,7 @@ const Privacy = () => {
             </section>
 
             {/* §7 Closing */}
-            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+            <section style={{ paddingTop: "36px", paddingBottom: "64px" }}>
               <PrivacyCard>
                 <Eyebrow>Record Handling</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">

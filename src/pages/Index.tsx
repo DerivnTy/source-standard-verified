@@ -398,7 +398,7 @@ const Index = () => {
       <section
         aria-labelledby="trust-problem"
         className="bg-background border-b border-border"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -429,7 +429,7 @@ const Index = () => {
       <section
         aria-labelledby="how-it-works"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -470,7 +470,7 @@ const Index = () => {
       <section
         aria-labelledby="live-registry"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -503,7 +503,7 @@ const Index = () => {
       <section
         aria-labelledby="registry-shows"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -547,7 +547,7 @@ const Index = () => {
       <section
         aria-labelledby="why-matters"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -584,7 +584,7 @@ const Index = () => {
       <section
         aria-labelledby="basics"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -626,7 +626,7 @@ const Index = () => {
       <section
         aria-labelledby="governance"
         className="border-b border-border bg-background"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -664,7 +664,7 @@ const Index = () => {
       <section
         aria-labelledby="enter-registry"
         className="bg-[hsl(var(--navy-surface))]"
-        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+        style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">

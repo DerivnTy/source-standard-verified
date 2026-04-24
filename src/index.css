@@ -356,17 +356,23 @@ html {
   }
 
   /* ─── Section heading rhythm protocol (locked, sitewide) ───
-     Mono index number → H2 : 12px
-     H2 → following content : 24px
+     Mono index number → H2  :  8px
+     H2 → intro paragraph    : 14px   (only when H2 is followed directly by a <p>)
+     H2 → first card / stack : 20px   (any non-paragraph content)
      Enforced with !important so per-page mt-* utilities cannot
      drift the rhythm. Applies inside any <section> or .section-pad block. */
   .section-pad h2 + *,
-  section h2 + * { margin-top: 24px !important; }
-  /* When an H2 directly follows the mono index utility line, lock to 12px. */
+  section h2 + * { margin-top: 20px !important; }
+  /* Intro-paragraph case: H2 immediately followed by a paragraph element.
+     Scoped specifically to <p> so card stacks, row stacks, CTA blocks, and
+     section modules continue to use the 20px rule above. */
+  .section-pad h2 + p,
+  section h2 + p { margin-top: 14px !important; }
+  /* When an H2 directly follows the mono index utility line, lock to 8px. */
   .section-pad .t-utility-xs + h2,
   section .t-utility-xs + h2,
   .section-pad .font-mono + h2,
-  section .font-mono + h2 { margin-top: 12px !important; }
+  section .font-mono + h2 { margin-top: 8px !important; }
 
   .prose-readable {
     max-width: 65ch;

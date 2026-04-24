@@ -236,7 +236,7 @@ const HowItWorks = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard">
             {/* §3 Purpose */}
-            <section style={{ paddingTop: "40px", paddingBottom: "40px" }}>
+            <section style={{ paddingTop: "36px", paddingBottom: "36px" }}>
               <ProtocolCard>
                 <Eyebrow>Protocol Purpose</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
@@ -263,7 +263,7 @@ const HowItWorks = () => {
             <section
               id="audit"
               className="scroll-mt-24 border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
                 n="01"
@@ -277,7 +277,7 @@ const HowItWorks = () => {
             <section
               id="surveillance"
               className="scroll-mt-24 border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
                 n="02"
@@ -291,7 +291,7 @@ const HowItWorks = () => {
             <section
               id="disclosure"
               className="scroll-mt-24 border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
                 n="03"
@@ -305,7 +305,7 @@ const HowItWorks = () => {
             <section
               id="boundaries"
               className="scroll-mt-24 border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "40px" }}
+              style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <ProtocolCard>
                 <Eyebrow>Review Boundaries</Eyebrow>
@@ -331,7 +331,7 @@ const HowItWorks = () => {
             {/* §8 Closing — Record Standard */}
             <section
               className="border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "64px" }}
+              style={{ paddingTop: "36px", paddingBottom: "64px" }}
             >
               <ProtocolCard>
                 <Eyebrow>Record Standard</Eyebrow>
