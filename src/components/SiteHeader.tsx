@@ -135,15 +135,16 @@ export const SiteHeader = () => {
         </button>
       </div>
 
-      {/* Full-screen mobile overlay — navy surface, light type, continuous with hero.
-          Top inset = 30px so the announcement bar stays visible above. */}
+      {/* Full-screen mobile overlay — navy surface, light type, edge-to-edge viewport. */}
       {typeof document !== "undefined" &&
         createPortal(
           <div
-            className="lg:hidden fixed inset-x-0 bottom-0 z-[9999]"
+            className="lg:hidden fixed z-[9999]"
             aria-hidden={!open}
             style={{
-              top: "30px",
+              inset: 0,
+              height: "100dvh",
+              minHeight: "100dvh",
               pointerEvents: open ? "auto" : "none",
               opacity: open ? 1 : 0,
               transition: "opacity 280ms ease-in-out",
