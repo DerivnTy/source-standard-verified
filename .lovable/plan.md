@@ -1,61 +1,21 @@
-# Homepage Hero Correction Pass
+# Homepage Hero Scroll Cue
 
 ## Scope
-`src/pages/Index.tsx` only. No edits to BriefingHero, header, footer, global CSS, or other pages.
+`src/pages/Index.tsx` only. No edits to BriefingHero, global CSS, header, footer, or routes.
 
 ## Change
-Replace the current `flex-col justify-between` descendant layout on the BriefingHero wrapper with a centered composition. The hero still fills the mobile viewport, but the content reads as one cohesive centered block instead of vertically scattered groups.
+Add a quiet "CONTINUE ↓" scroll cue anchored to the bottom of the navy hero panel.
 
-### New wrapper
-
-```tsx
-<div
-  className="
-    min-h-[calc(100svh-96px)] lg:min-h-0
-    [&>section]:min-h-[calc(100svh-96px)]
-    lg:[&>section]:min-h-[calc(100dvh-84px)]
-    [&_.page-shell]:min-h-[calc(100svh-96px)]
-    lg:[&_.page-shell]:min-h-[calc(100dvh-84px)]
-    [&_.page-shell]:flex
-    [&_.page-shell]:items-center
-    [&_.page-shell]:!pt-10
-    [&_.page-shell]:!pb-10
-    [&_.page-shell]:!px-8
-    lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)]
-    lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)]
-    lg:[&_.page-shell]:!px-6
-
-    [&_h1#briefing-title+p]:!mt-6
-    [&_h1#briefing-title~div.flex.justify-center]:!mt-9
-    [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
-    [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
-
-    md:[&_h1#briefing-title+p]:!max-w-[440px]
-  "
->
-  <BriefingHero ... />
-</div>
-```
-
-What this does:
-- Mobile-only `min-h-[calc(100svh-96px)]` propagates down through section → page-shell so the navy hero fills the first iPhone screen below the 96px header.
-- `flex items-center` on `.page-shell` vertically centers the entire hero content block (BriefingHero's inner `div.relative.w-full`) — no more `justify-between` stretching.
-- Mobile padding: 40px top/bottom, 32px horizontal. Desktop reverts to BriefingHero's clamp values via `lg:` overrides.
-- Internal spacing tightened via descendant selectors (BriefingHero structure is: `h1#briefing-title` then `p` then `div.flex.justify-center` (metrics) then `div.flex.flex-col.sm:flex-row` (actions)):
-  - h1 → paragraph: 24px (`!mt-6`)
-  - paragraph → Live Registry: 36px (`!mt-9`)
-  - Live Registry → CTAs: 32px (`!mt-8`)
-  - CTA gap: 14px
-- Mobile-only paragraph cap at 440px so it doesn't feel floaty. Desktop max-width stays at BriefingHero's 520px.
-
-## Removed
-All previously-added selectors that forced flex distribution:
-- `[&>section]:flex-1`, `[&>section]:flex-col`
-- `[&_.page-shell]:flex-1`, `[&_.page-shell]:flex-col`
-- All `[&_.page-shell>div.relative.w-full]:*` flex/justify-between/flex-1/gap-y rules
+1. Add `relative` to the hero wrapper `<div>` className so the absolutely-positioned cue anchors to the hero bounds.
+2. Add a local `<style>` tag inside the hero wrapper defining the `scrollCue` keyframes.
+3. Add the cue element as the last child of the hero wrapper, after `<BriefingHero />`:
+   - `aria-hidden="true"`, `pointer-events-none`
+   - `absolute bottom-5 left-1/2 -translate-x-1/2`
+   - Two stacked elements: small uppercase "Continue" label (10px, mono, 0.18em tracking) and a 12px down arrow `↓`
+   - Color `text-white/60` so it sits over the navy without being a marketing CTA
+   - Inline `animation: "scrollCue 2.4s ease-in-out infinite"` (gentle 5px translate + 0.35→0.7 opacity fade)
 
 ## Acceptance
-- Hero fills the iPhone first screen; section §2 ("Claims are not documentation.") not visible on initial load.
-- Headline, paragraph, Live Registry, and CTAs read as one centered cohesive block — no large vertical gaps.
-- Desktop hero rhythm preserved.
-- No copy, route, color, or shared-component changes.
+- iPhone viewport: cue visible at bottom of hero, below CTA buttons, gently bobbing.
+- Hero copy, metrics, buttons, structure, and section §2 unchanged.
+- No global CSS or shared component edits.
