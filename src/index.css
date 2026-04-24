@@ -818,12 +818,12 @@ body {
 /* Source Standard — live status dot pulse (registry green dots only). */
 @keyframes source-standard-live-pulse {
   0%, 100% {
-    opacity: 0.55;
+    opacity: 0.45;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.15);
+    transform: scale(1.12);
   }
 }
 .live-dot {
