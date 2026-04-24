@@ -1,8 +1,75 @@
+import { ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ProfileHeader, ProfileFootnote } from "@/components/ProfileHeader";
+import { ArrowLeft } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { advisoryBoard } from "@/data/advisoryBoard";
+
+/* ------------------------------------------------------------------
+ * Local primitives — shared across ALL board-member profiles.
+ * Mirror the GovCard / GovRow language used on MedicalAdvisory.tsx
+ * so the profile detail pages read as one unified governance record.
+ * ------------------------------------------------------------------ */
+
+const GovCard = ({
+  children,
+  className = "",
+  padded = true,
+}: {
+  children: ReactNode;
+  className?: string;
+  padded?: boolean;
+}) => (
+  <div
+    className={`bg-card ${className}`}
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: padded ? "24px" : "0",
+    }}
+  >
+    {children}
+  </div>
+);
+
+const SectionLabel = ({ children }: { children: ReactNode }) => (
+  <p className="eyebrow mb-4 text-muted-foreground">{children}</p>
+);
+
+const GovRow = ({
+  index,
+  title,
+}: {
+  index: string;
+  title: ReactNode;
+}) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "12px 16px",
+    }}
+  >
+    <div className="grid grid-cols-12 gap-3 items-baseline">
+      <div className="col-span-2 sm:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
+        {index}
+      </div>
+      <div className="col-span-10 sm:col-span-11 t-body-sm text-foreground/90 leading-relaxed">
+        {title}
+      </div>
+    </div>
+  </div>
+);
+
+const MetaCell = ({ label, value }: { label: string; value?: ReactNode }) => (
+  <div>
+    <dt className="meta-label text-muted-foreground/80">{label}</dt>
+    <dd className="mt-1 t-body-sm text-foreground">{value || "—"}</dd>
+  </div>
+);
+
+/* ------------------------------------------------------------------ */
 
 const AdvisorProfile = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -12,19 +79,24 @@ const AdvisorProfile = () => {
     return (
       <section className="container-wide py-24">
         <p className="meta mb-3">§ · Not Found</p>
-        <h1 className="text-2xl font-semibold tracking-tight">Advisor profile not found.</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Advisor profile not found.
+        </h1>
         <p className="mt-3 t-body-sm text-muted-foreground">
           This board seat record does not exist or has been retired.
         </p>
         <Link
           to="/medical-advisory"
-          className="mt-6 inline-block t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+          className="mt-6 inline-flex items-center gap-2 t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
         >
-          ← Back to Medical Advisory Board
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to Advisory Board
         </Link>
       </section>
     );
   }
+
+  const focusPreview = member.clinicalFocus.slice(0, 2).join(", ") +
+    (member.clinicalFocus.length > 2 ? ` +${member.clinicalFocus.length - 2}` : "");
 
   return (
     <>
@@ -38,220 +110,190 @@ const AdvisorProfile = () => {
           { label: member.name },
         ]}
       />
-      <ProfileHeader
-        backHref="/medical-advisory"
-        backLabel="Medical Advisory Board"
-        eyebrow={`Medical Advisory Board · ${member.boardTitle}`}
-        title={`${member.name}, ${member.credentials}`}
-        identity={
-          <p className="t-body-sm text-muted-foreground">
-            {member.specialization} · {member.yearsPracticing} practicing · {member.jurisdiction}
-          </p>
-        }
-        lead={member.shortSummary}
-        rightSlot={
-          <div className="border border-border/60 bg-surface-muted/40 p-5 rounded-md">
-            <img
-              src={member.photo}
-              alt={`Portrait of ${member.name}`}
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              width={256}
-              height={256}
-              className="h-32 w-32 rounded-[2px] object-cover border border-border bg-surface-muted"
-            />
-          </div>
-        }
-      />
 
-      {/* §1 — Identity */}
-      <section className="border-b border-border">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§1 · Identity & Credentials</p>
-              <div className="border border-border bg-background p-6">
-                <img
-                  src={member.photo}
-                  alt={`Portrait of ${member.name}`}
-                  loading="eager"
-                  decoding="async"
-                  width={256}
-                  height={256}
-                  className="h-40 w-40 rounded-[2px] object-cover border border-border bg-surface-muted mb-5"
+      {/* Back link strip */}
+      <div className="container-wide" style={{ paddingTop: "32px", paddingBottom: "20px" }}>
+        <Link
+          to="/medical-advisory"
+          className="inline-flex items-center gap-2 t-utility-xs uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to Advisory Board
+        </Link>
+      </div>
+
+      {/* Profile record */}
+      <div className="container-wide" style={{ paddingBottom: "64px" }}>
+        <div className="space-y-5">
+          {/* Identity card */}
+          <GovCard>
+            <p className="eyebrow text-muted-foreground">
+              Medical Advisory Board · {member.boardTitle}
+            </p>
+            <div className="mt-4 flex items-start gap-4">
+              <img
+                src={member.photo}
+                alt={`Portrait of ${member.name}`}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                width={128}
+                height={128}
+                className="h-16 w-16 rounded-[2px] object-cover border border-border bg-surface-muted shrink-0"
+              />
+              <div className="min-w-0">
+                <h1 className="t-h3 text-foreground leading-tight">{member.name}</h1>
+                <p className="mt-1 t-body-sm text-muted-foreground">
+                  {member.credentials}
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="mt-5 pt-5"
+              style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+            >
+              <dl className="grid grid-cols-2 gap-x-5 gap-y-4">
+                <MetaCell label="Board Role" value={member.boardTitle} />
+                <MetaCell label="Specialization" value={member.specialization} />
+                <MetaCell label="Jurisdiction" value={member.jurisdiction} />
+                <MetaCell label="Practicing" value={member.yearsPracticing} />
+                <div className="col-span-2">
+                  <MetaCell label="Clinical Focus" value={focusPreview} />
+                </div>
+              </dl>
+            </div>
+
+            {member.shortSummary && (
+              <p
+                className="mt-5 pt-5 t-body-sm text-muted-foreground leading-relaxed"
+                style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+              >
+                {member.shortSummary}
+              </p>
+            )}
+          </GovCard>
+
+          {/* Biography */}
+          <GovCard>
+            <SectionLabel>Biography</SectionLabel>
+            <p className="t-body-sm text-foreground/90 leading-relaxed">
+              {member.biography}
+            </p>
+          </GovCard>
+
+          {/* Background */}
+          <section>
+            <SectionLabel>Background &amp; Training</SectionLabel>
+            <div className="space-y-2">
+              {member.background.map((b, i) => (
+                <GovRow
+                  key={i}
+                  index={(i + 1).toString().padStart(2, "0")}
+                  title={b}
                 />
-                <h2 className="t-h4 text-foreground">{member.name}</h2>
-                <p className="mt-1 t-body-sm text-muted-foreground">{member.credentials}</p>
-                <dl className="mt-5 pt-5 border-t border-border space-y-3 t-utility-xs">
-                  <div className="flex justify-between gap-4">
-                    <dt className="meta-label text-muted-foreground">Board role</dt>
-                    <dd className="text-foreground text-right">{member.boardTitle}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="meta-label text-muted-foreground">Specialization</dt>
-                    <dd className="text-foreground text-right">{member.specialization}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="meta-label text-muted-foreground">Jurisdiction</dt>
-                    <dd className="text-foreground text-right">{member.jurisdiction}</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="meta-label text-muted-foreground">Practicing</dt>
-                    <dd className="text-foreground text-right">{member.yearsPracticing}</dd>
-                  </div>
-                </dl>
-              </div>
+              ))}
             </div>
-            <div className="md:col-span-8 space-y-10">
+          </section>
+
+          {/* Accomplishments */}
+          <section>
+            <SectionLabel>Key Accomplishments</SectionLabel>
+            <div className="space-y-2">
+              {member.accomplishments.map((a, i) => (
+                <GovRow
+                  key={i}
+                  index={(i + 1).toString().padStart(2, "0")}
+                  title={a}
+                />
+              ))}
+            </div>
+          </section>
+
+          {/* Framework Role */}
+          <GovCard>
+            <SectionLabel>Framework Role</SectionLabel>
+            <div className="space-y-5">
               <div>
-                <p className="eyebrow mb-3">§2 · Biography</p>
-                <p className="t-body-sm text-foreground/90 leading-relaxed">{member.biography}</p>
+                <p className="meta-label text-muted-foreground/80 mb-2">
+                  Why This Sector
+                </p>
+                <p className="t-body-sm text-foreground/90 leading-relaxed">
+                  {member.whyTheyCare}
+                </p>
               </div>
-              <div>
-                <p className="eyebrow mb-3">§3 · Background & Training</p>
-                <ul className="border border-border bg-background divide-y divide-border">
-                  {member.background.map((b, i) => (
-                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline">
-                      <div className="col-span-1 meta text-primary">
-                        {(i + 1).toString().padStart(2, "0")}
-                      </div>
-                      <div className="col-span-11 t-body-sm text-foreground/90 leading-relaxed">{b}</div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="eyebrow mb-3">§4 · Key Accomplishments</p>
-                <ul className="border border-border bg-background divide-y divide-border">
-                  {member.accomplishments.map((a, i) => (
-                    <li key={i} className="grid grid-cols-12 gap-3 px-5 py-3 items-baseline">
-                      <div className="col-span-1 meta text-primary">
-                        {(i + 1).toString().padStart(2, "0")}
-                      </div>
-                      <div className="col-span-11 t-body-sm text-foreground/90 leading-relaxed">{a}</div>
-                    </li>
-                  ))}
-                </ul>
+              <div
+                className="pt-5"
+                style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+              >
+                <p className="meta-label text-muted-foreground/80 mb-2">
+                  Contribution to Standard
+                </p>
+                <p className="t-body-sm text-foreground/90 leading-relaxed">
+                  {member.contribution}
+                </p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </GovCard>
 
-      {/* §4 — Why this sector */}
-      <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§4 · Why This Sector</p>
-              <h2 className="h-section">
-                Position on the framework's purpose.
-              </h2>
+          {/* Clinical Focus */}
+          <section>
+            <SectionLabel>Clinical Focus</SectionLabel>
+            <div className="space-y-2">
+              {member.clinicalFocus.map((f, i) => (
+                <GovRow
+                  key={i}
+                  index={(i + 1).toString().padStart(2, "0")}
+                  title={f}
+                />
+              ))}
             </div>
-            <div className="md:col-span-8 t-body-sm text-foreground/90 leading-relaxed border-t border-border pt-6">
-              {member.whyTheyCare}
-            </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* §5 — Contribution */}
-      <section className="border-b border-border">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§5 · Contribution to Source Standard</p>
-              <h2 className="h-section">
-                What this seat is responsible for.
-              </h2>
-            </div>
-            <div className="md:col-span-8 t-body-sm text-foreground/90 leading-relaxed border-t border-border pt-6">
-              {member.contribution}
-            </div>
-          </div>
-        </div>
-      </section>
+          {/* Mission Statement */}
+          <GovCard>
+            <SectionLabel>Mission Statement</SectionLabel>
+            <blockquote className="t-body-sm text-foreground leading-relaxed font-light italic border-l-2 border-primary pl-5">
+              {member.philosophy}
+            </blockquote>
+          </GovCard>
 
-      {/* §6 — Clinical focus */}
-      <section className="border-b border-border bg-surface-muted">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§6 · Clinical Focus Areas</p>
-              <h2 className="h-section">
-                Domains of review attention.
-              </h2>
-            </div>
-            <div className="md:col-span-8">
-              <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
-                {member.clinicalFocus.map((f, i) => (
-                  <li key={i} className="bg-background px-5 py-3 flex items-baseline gap-3">
-                    <span className="meta text-primary">{(i + 1).toString().padStart(2, "0")}</span>
-                    <span className="t-body-sm text-foreground">{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §7 — Philosophy */}
-      <section className="border-b border-border">
-        <div className="container-wide py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-10">
-            <div className="md:col-span-4">
-              <p className="eyebrow mb-3">§7 · Mission Statement</p>
-              <h2 className="h-section">
-                Personal philosophy on oversight.
-              </h2>
-            </div>
-            <div className="md:col-span-8 border-t border-border pt-6">
-              <blockquote className="t-body-md  text-foreground leading-relaxed font-light italic border-l-2 border-primary pl-6">
-                {member.philosophy}
-              </blockquote>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Read deeper */}
-      <section className="border-b border-border">
-        <div className="container-wide py-6">
-          <div className="border border-border bg-surface-muted">
-            <div className="px-4 py-2.5 border-b border-border bg-background">
+          {/* Read deeper */}
+          <GovCard padded={false}>
+            <div
+              className="px-5 py-3"
+              style={{ borderBottom: "0.5px solid hsl(var(--border))" }}
+            >
               <p className="meta-label text-foreground">Read deeper</p>
             </div>
-            <ul className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border">
-              <li className="px-4 py-3">
+            <ul className="divide-y" style={{ borderColor: "hsl(var(--border))" }}>
+              <li>
                 <Link
                   to="/medical-advisory"
-                  className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  className="block px-5 py-3 t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
                 >
                   Medical Advisory Board →
                 </Link>
               </li>
-              <li className="px-4 py-3">
+              <li style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <Link
                   to="/governance"
-                  className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  className="block px-5 py-3 t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
                 >
-                  Governance & oversight →
+                  Governance &amp; oversight →
                 </Link>
               </li>
-              <li className="px-4 py-3">
+              <li style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <Link
                   to="/accountability"
-                  className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
+                  className="block px-5 py-3 t-utility-xs font-semibold uppercase tracking-[0.14em] text-foreground hover:text-primary"
                 >
-                  Accountability & enforcement →
+                  Accountability &amp; enforcement →
                 </Link>
               </li>
             </ul>
-          </div>
+          </GovCard>
         </div>
-      </section>
+      </div>
     </>
   );
 };
