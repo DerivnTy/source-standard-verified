@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Vendor, VendorFulfillment } from "@/data/vendors";
-import verifiedShield from "@/assets/verified-shield.png";
 
 /**
  * VendorRow — Final Two-Row Surgical Card.
@@ -98,9 +97,10 @@ export const VendorRow = ({
                   overflow: "visible",
                 }}
               >
-                <img
-                  src={verifiedShield}
-                  alt=""
+                <svg
+                  viewBox="0 0 24 28"
+                  aria-hidden="true"
+                  focusable="false"
                   style={{
                     position: "absolute",
                     top: "50%",
@@ -108,10 +108,15 @@ export const VendorRow = ({
                     transform: "translateY(calc(-50% - 1px))",
                     height: "22px",
                     width: "auto",
-                    objectFit: "contain",
                     display: "block",
+                    color: "#001021",
                   }}
-                />
+                >
+                  <path
+                    d="M12 1 L22 4 V13 C22 19.5 17.5 24.5 12 27 C6.5 24.5 2 19.5 2 13 V4 Z"
+                    fill="currentColor"
+                  />
+                </svg>
               </span>
             )}
           </span>
