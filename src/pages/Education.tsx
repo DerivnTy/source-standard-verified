@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -13,6 +14,119 @@ import {
   articlesByCategory,
   sortArticles,
 } from "@/data/resourceLibrary";
+
+// Local non-exported primitives — Source Standard reference-database language.
+const LibraryCard = ({
+  children,
+  padded = true,
+}: {
+  children: ReactNode;
+  padded?: boolean;
+}) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: padded ? "24px" : "0",
+    }}
+  >
+    {children}
+  </div>
+);
+
+const ViewAllPill = ({
+  to,
+  children,
+}: {
+  to: string;
+  children: ReactNode;
+}) => (
+  <Link
+    to={to}
+    className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97] hover:bg-[hsl(var(--muted))]/40"
+    style={{
+      fontSize: "11px",
+      letterSpacing: "0.06em",
+      height: "30px",
+      padding: "0 12px",
+      borderRadius: "20px",
+      border: "1px solid hsl(var(--border))",
+      backgroundColor: "#FFFFFF",
+      color: "hsl(var(--foreground) / 0.85)",
+    }}
+  >
+    {children}
+    <ChevronRight aria-hidden style={{ width: "11px", height: "11px", strokeWidth: 1.5 }} />
+  </Link>
+);
+
+const InquiryRow = ({
+  label,
+  description,
+  to,
+}: {
+  label: string;
+  description: string;
+  to: string;
+}) => (
+  <Link
+    to={to}
+    aria-label={label}
+    className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.97]"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "10px 12px",
+    }}
+  >
+    <div className="flex flex-col" style={{ rowGap: "2px" }}>
+      <div className="flex items-start justify-between gap-x-3">
+        <span
+          className="shrink-0 font-mono uppercase tabular-nums text-muted-foreground"
+          style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+        >
+          {label}
+        </span>
+        <span
+          className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+          style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+        >
+          View
+          <ChevronRight aria-hidden style={{ width: "11px", height: "11px", strokeWidth: 1.5 }} />
+        </span>
+      </div>
+      <p
+        className="font-sans text-foreground/85"
+        style={{ fontSize: "12px", lineHeight: "1.45" }}
+      >
+        {description}
+      </p>
+    </div>
+  </Link>
+);
+
+const ReferenceNote = ({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children: ReactNode;
+}) => (
+  <LibraryCard>
+    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+      {eyebrow}
+    </p>
+    <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">
+      {title}
+    </h2>
+    <div className="mt-3 t-body-sm text-muted-foreground leading-[1.55] max-w-[60ch]">
+      {children}
+    </div>
+  </LibraryCard>
+);
 
 const HERO_DESCRIPTION =
   "Clinical, regulatory, and documentation reference for compounded therapy sourcing, pharmacy standards, and consumer due diligence. Materials are reviewed for accuracy, scope, and public-reference clarity.";
