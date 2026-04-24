@@ -401,24 +401,8 @@ const PillContents = ({
               </li>
             );
           })}
-          {/* Single source of truth — sliding indicator. Brand Navy.
-              Driven directly by scroll via DOM writes. No CSS transition. */}
-          <span
-            ref={indicatorRef}
-            aria-hidden
-            className="absolute pointer-events-none"
-            style={{
-              left: 0,
-              width: "0px",
-              height: "2px",
-              bottom: "0px",
-              borderRadius: "2px",
-              backgroundColor: "hsl(var(--primary))",
-              transform: "translate3d(0, 0, 0)",
-              opacity: 0,
-              willChange: "transform, width",
-            }}
-          />
+          {/* Indicator removed — active state is conveyed by chip weight/color only. */}
+          <span ref={indicatorRef} aria-hidden style={{ display: "none" }} />
         </ul>
       </div>
     </div>
