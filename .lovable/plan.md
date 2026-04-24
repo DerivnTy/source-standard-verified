@@ -1,66 +1,88 @@
 
 
-## Upstream Registry Copy Rewrite
+## Advisory Board Page Copy Rewrite
 
-Rewrites text content only on the Upstream Registry page. No layout, components, styling, filter logic, routes, or database changes.
+Rewrites text content only on the Medical Advisory page. No layout, components, styling, routes, member data, images, or animations change.
 
 ### Files Touched
 
-1. **`src/pages/Greenlist.tsx`** — page metadata, header copy, horizon metric labels, search placeholder, status pill labels, bottom explainer section copy.
-2. **`src/components/registry/GreenlistRow.tsx`** — row-level status label ("Authorized" → "Recognized", "Alert" → "Status Alert").
+1. **`src/pages/MedicalAdvisory.tsx`** — page meta, hero copy, purpose statement, mandate clauses, governance functions, members lead, scope/boundaries, responsibilities, closing statement.
+2. **`src/data/advisoryBoard.ts`** — only the `shortSummary` field on each of the 6 members (names, credentials, titles, photos, slugs, and all other fields preserved).
 
 *Footer: already correct from prior pass — Standards column contains only Verification Protocol, Status Definitions, Compliance. No change needed.*
 
 ### Content Changes
 
-**`src/pages/Greenlist.tsx`**
+**`src/pages/MedicalAdvisory.tsx`**
 
 - **PageMeta**
-  - Title: `Upstream Registry · Source Standard`
-  - Description: `A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance.`
+  - Title: `Clinical Oversight · Source Standard`
+  - Description: `Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education.`
 
-- **RegistryHeader**
-  - `title`: `Upstream Registry`
-  - `description`: `A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance.`
-  - `indexNumber`: `02` (unchanged)
+- **BriefingHero**
+  - `category`: `Medical Advisory Board` (unchanged)
+  - `title`: `Clinical Oversight`
+  - `statement`: `Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education. It does not treat patients, market vendors, approve clinics, or participate in promotional activity.`
 
-- **RegistryHorizon cells**
-  - `Total Recognized` → `Total Records`
-  - `503B Facilities` (unchanged)
-  - `503A Facilities` (unchanged)
+- **Purpose section ("Why the Board exists")**
+  - Para 1: `The Advisory Board exists to support the neutrality, clinical restraint, and procedural discipline of the Source Standard framework.`
+  - Para 2: `Its role is to provide advisory input on review standards, documentation boundaries, public language, and education materials used across the registry.`
+  - Para 3 (new): `The Board does not represent vendors, compound distributors, medical clinics, or pharmacy partners. It does not make individual vendor status determinations. It serves as an independent advisory layer for the standards behind the public reference system.`
 
-- **Search input**
-  - `placeholder`: `Search facilities, locations, or facility type…`
-  - `aria-label`: `Search Upstream Registry`
+- **§1 Institutional Mandate**
+  - Section lead: `The operating boundaries under which the Board supports the framework.`
+  - Clause 01: `Independent advisory oversight.` / `The Advisory Board provides clinical, pharmacy, legal, and procedural input on the Source Standard verification framework.`
+  - Clause 02: `Documentation-based standards.` / `Status determinations are based on submitted documentation, public records, pharmacy relationship evidence, and defined review criteria.`
+  - Clause 03: `Periodic review.` / `The Board supports periodic review of standards, terminology, evidence thresholds, and educational materials.`
+  - Clause 04: `Objective distance.` / `Board members do not participate in vendor sales, promotional activity, or individual vendor status decisions.`
 
-- **Status pills**
-  - `Authorized` → `Recognized`
-  - `Alert` → `Status Alert`
-  - (Category pills `All / 503B / 503A / Other` unchanged)
+- **§2 Governance Framework**
+  - Section lead: `The recurring advisory functions used to preserve consistency across the framework.`
+  - 01: `Review boundaries` / `Defining what Source Standard reviews, what it does not review, and how those limits are communicated publicly.`
+  - 02: `Upstream reference criteria` / `Providing advisory input on the criteria used to classify upstream compounding facilities within the registry.`
+  - 03: `Documentation standards` / `Reviewing the evidence categories used in sourcing-claim evaluation, including pharmacy relationship records, chain-of-custody documentation, and public records.`
+  - 04: `Protocol maintenance` / `Supporting updates to Source Standard terminology, public explanations, and review boundaries as regulatory and documentation practices evolve.`
 
-- **EmptyState**
-  - `eyebrow`: `No Records Found`
-  - `body`: `No upstream facility matches these filters.`
+- **§3 Appointed members**
+  - Lead: `Independent clinicians, pharmacy reviewers, and legal advisors appointed to support framework standards, documentation boundaries, and public-reference integrity.`
+  - Member cards: names, credentials, titles, jurisdiction, photos, profile links unchanged. Only `shortSummary` (the description body) updated — see data file changes below.
 
-- **Bottom explainer section**
-  - Left eyebrow: `Two layers · One framework` → `Two layers. One review framework.`
-  - Left body: `The Upstream Registry identifies facilities used as reference records during vendor sourcing review.`
-  - Left sub: `Inclusion in the Upstream Registry does not verify that any vendor is actively sourcing from that facility.`
-  - Right eyebrow: `The vendor layer` → `Vendor-level review`
-  - Right body: `Vendor verification reviews whether submitted documentation supports the vendor's stated pharmacy relationships, sourcing claims, and chain-of-custody records.`
-  - CTA `Open the Vendor Registry` (unchanged)
+- **§4 Scope & boundaries**
+  - Replace `BOUNDARIES` array with:
+    1. `The Board supports the standards behind public determinations.`
+    2. `The Board does not evaluate or treat patients.`
+    3. `The Board does not provide individualized medical advice through Source Standard.`
+    4. `The Board does not approve vendors, clinics, pharmacies, or products.`
+    5. `The Board does not make individual vendor status determinations.`
+    6. `The Board does not participate in sales, marketing, or promotional activity.`
 
-**`src/components/registry/GreenlistRow.tsx`**
+- **§5 Responsibilities**
+  - Lead: `Each responsibility maps to a recurring advisory activity recorded under Source Standard's framework maintenance process.`
+  - R-01: `Standards review` / `Reviews framework standards, review boundaries, and evidence categories used in documentation-based status assignment.`
+  - R-02: `Upstream criteria` / `Provides advisory input on the criteria used to classify 503A and 503B facilities as upstream reference records.`
+  - R-04: `Regulatory awareness` / `Supports review of public terminology and documentation boundaries as FDA, state board, and pharmacy practice standards evolve.`
+  - R-05: `Education review` / `Reviews educational materials for clinical accuracy, neutral language, and appropriate scope.`
 
-- Row status label `Authorized` → `Recognized`
-- Row status label `Alert` → `Status Alert`
-- `aria-label` template unchanged structurally
+- **Closing statement**
+  - H2: `Public trust requires disciplined oversight.`
+  - Body: `The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.`
+
+**`src/data/advisoryBoard.ts`** — `shortSummary` rewrites only:
+
+- `advisor-01` (Eleanor Whitfield): `Board chair supporting clinical oversight of framework standards, evidence boundaries, and renewal terminology across the Source Standard registry.`
+- `advisor-02` (Anand Krishnamurthy): `Provides pharmacy-side input on upstream sourcing criteria and documentation categories used in 503A and 503B review.`
+- `advisor-03` (Marcia Okonkwo): `Reviews public-facing framework language with emphasis on accuracy, restraint, and informed-consumer clarity.`
+- `advisor-04` (Daniel Park): `Provides pharmacy compliance input related to sterile compounding standards, pharmacy documentation, and public-record review boundaries.`
+- `advisor-05` (Camila Reyes): `Reviews educational reference material to support clinical accuracy, clear terminology, and appropriate scope.`
+- `advisor-06` (Richard Halloran): `Provides physician-attorney input on legal posture, ethical boundaries, and public status language used within the framework.`
+
+All other fields (`name`, `credentials`, `boardTitle`, `specialization`, `biography`, `background`, `accomplishments`, `whyTheyCare`, `contribution`, `clinicalFocus`, `philosophy`, `jurisdiction`, `yearsPracticing`, `photo`) preserved exactly as-is.
 
 ### Out of Scope
 
-- All filter logic, sorting, pagination, routing
-- All component styles, colors, spacing, animations
-- Database records (`src/data/greenlist.ts`) — facility names, states, types, and `regulatoryAlert` field unchanged
+- All layout, components, styling, spacing, colors, animations
+- Member photos, names, credentials, titles, profile routes
 - Footer (already aligned)
+- Per-advisor profile pages (`/medical-advisory/:slug`)
 - All other pages
 
