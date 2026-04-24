@@ -103,7 +103,7 @@ export const VendorAuditCard = ({
           aria-hidden
           className={`h-1.5 w-1.5 rounded-full ${
             vendor.status === "verified"
-              ? "bg-verified"
+              ? "bg-verified live-dot"
               : vendor.status === "under-review"
               ? "bg-amber-500"
               : "bg-red-400"

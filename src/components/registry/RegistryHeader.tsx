@@ -83,7 +83,7 @@ export const RegistryHeader = ({
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-sm">
                   <span
                     aria-hidden
-                    className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-503b))] animate-pulse"
+                    className="h-1.5 w-1.5 rounded-full bg-[hsl(var(--src-503b))] live-dot"
                   />
                   <span className="t-utility-xs text-white/70">
                     Live ·{" "}
