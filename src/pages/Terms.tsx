@@ -265,7 +265,7 @@ const Terms = () => {
               id="related"
               n="06"
               title="Related Policies"
-              intro="Further reading on privacy, verification scope, enforcement, and public status meanings."
+              intro="Further reading on privacy, verification scope, operating boundaries, and public status meanings."
             >
               <ul className="divide-y divide-border/60 border-y border-border/60">
                 {RELATED.map((r) => (
