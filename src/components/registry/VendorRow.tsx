@@ -45,20 +45,23 @@ export const VendorRow = ({
       to={`/directory/${vendor.slug}`}
       aria-label={`${vendor.name}${focus ? ` — ${focus.label}` : ""}`}
       data-pill
-      className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.97]"
+      className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.99]"
       style={{
         border: "0.5px solid hsl(var(--border))",
         borderRadius: "20px",
-        padding: "12px 14px",
+        padding: "18px 20px",
+        minHeight: "112px",
       }}
     >
-      <div className="flex flex-col gap-y-[6px]">
+      <div className="flex flex-col" style={{ gap: "10px" }}>
         {/* Row 1 — Name (left) · Status (right) */}
-        <div className="flex items-start justify-between gap-x-3">
+        <div className="flex items-start justify-between" style={{ gap: "16px" }}>
           <h3
-            className="min-w-0 truncate font-sans font-semibold text-foreground"
+            className="font-sans font-semibold text-foreground truncate"
             style={{
-              fontSize: "14px",
+              flex: 1,
+              minWidth: 0,
+              fontSize: "15px",
               lineHeight: "1.3",
               letterSpacing: "-0.01em",
             }}
@@ -68,8 +71,9 @@ export const VendorRow = ({
 
           {isVerified ? (
             <span
-              className="shrink-0 inline-flex items-center gap-1 font-sans font-bold uppercase tabular-nums"
+              className="inline-flex items-center gap-1 font-sans font-bold uppercase tabular-nums"
               style={{
+                flexShrink: 0,
                 fontSize: "10px",
                 letterSpacing: "0.08em",
                 color: "#34C759",
@@ -84,8 +88,9 @@ export const VendorRow = ({
             </span>
           ) : (
             <span
-              className="shrink-0 font-sans font-bold uppercase tabular-nums"
+              className="font-sans font-bold uppercase tabular-nums"
               style={{
+                flexShrink: 0,
                 fontSize: "10px",
                 letterSpacing: "0.08em",
                 color: "#FF3B30",
@@ -96,35 +101,36 @@ export const VendorRow = ({
           )}
         </div>
 
-        {/* Row 2 — [Specialty + Location] (left) · View Record (right) */}
-        <div className="flex items-center justify-between gap-x-3">
-          <div className="flex items-center gap-x-2 min-w-0">
-            {focus && (
-              <span
-                className="shrink-0 inline-flex items-center gap-1 font-sans font-medium uppercase bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] whitespace-nowrap"
-                style={{
-                  fontSize: "9px",
-                  letterSpacing: "0.06em",
-                  padding: "2px 6px",
-                  borderRadius: "3px",
-                }}
-              >
-                {focus.label}
-                {focus.extra > 0 && (
-                  <span style={{ opacity: 0.7 }}>+{focus.extra}</span>
-                )}
-              </span>
-            )}
+        {/* Row 2 — Category pill + Location/model metadata */}
+        <div className="flex items-center" style={{ gap: "8px", flexWrap: "wrap" }}>
+          {focus && (
             <span
-              className="min-w-0 truncate text-muted-foreground"
-              style={{ fontSize: "11px", lineHeight: "1.35" }}
+              className="inline-flex items-center gap-1 font-sans font-medium uppercase bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] whitespace-nowrap"
+              style={{
+                fontSize: "9px",
+                letterSpacing: "0.06em",
+                padding: "2px 6px",
+                borderRadius: "3px",
+              }}
             >
-              {locationLine}
+              {focus.label}
+              {focus.extra > 0 && (
+                <span style={{ opacity: 0.7 }}>+{focus.extra}</span>
+              )}
             </span>
-          </div>
-
+          )}
           <span
-            className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+            className="text-muted-foreground"
+            style={{ fontSize: "11px", lineHeight: "1.35" }}
+          >
+            {locationLine}
+          </span>
+        </div>
+
+        {/* Row 3 — View Record action (right) */}
+        <div className="flex" style={{ justifyContent: "flex-end" }}>
+          <span
+            className="inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
             style={{ fontSize: "10px", letterSpacing: "0.06em" }}
           >
             View Record
