@@ -266,16 +266,43 @@ const VendorProfile = () => {
               className="grid grid-cols-2"
               style={{ columnGap: "20px", rowGap: "16px" }}
             >
-              <Cell label="Category" value={vendor.category} />
-              <Cell label="Source Type" value={sourceType} />
-              <Cell label="Location" value={locationLabel !== "—" ? locationLabel : undefined} />
-              <Cell label="License / ID" value={license} mono />
-              <Cell label="Verification Date" value={verificationDate} mono />
-              <Cell
-                label="Website"
-                value={vendor.website ? hostname(vendor.website) : undefined}
-                href={vendor.website}
-              />
+              {isUnverified ? (
+                <>
+                  <Cell label="Vendor Type" value={vendorTypeLabel} />
+                  {therapyCategory && (
+                    <Cell label="Therapy Category" value={therapyCategory} />
+                  )}
+                  {locationLabel !== "—" && (
+                    <Cell label="Location" value={locationLabel} />
+                  )}
+                  <Cell
+                    label="Review Status"
+                    value="No sufficient documentation reviewed"
+                  />
+                  {vendor.website && (
+                    <Cell
+                      label="Website"
+                      value={hostname(vendor.website)}
+                      href={vendor.website}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  <Cell label="Category" value={vendor.category} />
+                  <Cell label="Source Type" value={sourceType} />
+                  <Cell label="Location" value={locationLabel !== "—" ? locationLabel : undefined} />
+                  <Cell label="License / ID" value={license} mono />
+                  {verificationDate && (
+                    <Cell label="Verification Date" value={verificationDate} mono />
+                  )}
+                  <Cell
+                    label="Website"
+                    value={vendor.website ? hostname(vendor.website) : undefined}
+                    href={vendor.website}
+                  />
+                </>
+              )}
             </dl>
 
             {/* Verified Scope — only when verified */}
@@ -302,6 +329,54 @@ const VendorProfile = () => {
                   <Cell label="Clinical Focus" value={vendor.clinicalFocus} />
                   <Cell label="Verified Scope" value={scopeCompounds.join(" · ")} />
                 </dl>
+              </>
+            )}
+
+            {/* Unverified — Status Meaning + Review Boundary */}
+            {isUnverified && (
+              <>
+                <div
+                  aria-hidden
+                  className="mt-6 pt-6"
+                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                >
+                  <p
+                    className="font-sans font-semibold uppercase text-muted-foreground"
+                    style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                  >
+                    Status Meaning
+                  </p>
+                  <p
+                    className="mt-2 text-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+                  >
+                    No sufficient documentation has been reviewed by Source
+                    Standard to support the stated sourcing claim within the
+                    registry framework.
+                  </p>
+                </div>
+
+                <div
+                  aria-hidden
+                  className="mt-5 pt-5"
+                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                >
+                  <p
+                    className="font-sans font-semibold uppercase text-muted-foreground"
+                    style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                  >
+                    Review Boundary
+                  </p>
+                  <p
+                    className="mt-2 text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+                  >
+                    Unverified status does not imply that the vendor is unsafe,
+                    unlawful, fraudulent, or clinically inappropriate. It
+                    reflects only the absence of sufficient reviewed
+                    documentation within the Source Standard framework.
+                  </p>
+                </div>
               </>
             )}
           </article>
