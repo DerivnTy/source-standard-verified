@@ -22,36 +22,36 @@ type Clause = { n: string; t: string; d: string };
 const ATTESTATIONS: Clause[] = [
   {
     n: "01",
-    t: "Integrity of submission",
-    d: "All records, claims, and category descriptions submitted at intake must remain accurate throughout the verification term. Material inaccuracies discovered after issuance are treated as a disclosure event and may reopen review.",
+    t: "Submission accuracy",
+    d: "Records, claims, and category descriptions submitted at intake are expected to remain accurate throughout the review term. Material inaccuracies discovered after publication may trigger additional review.",
   },
   {
     n: "02",
-    t: "Supply-chain transparency",
-    d: "All upstream pharmacies, outsourcing facilities, and qualified suppliers used to fulfill reviewed categories must be disclosed in full and supported by documentation retained in the audit file.",
+    t: "Sourcing transparency",
+    d: "Pharmacy relationships, upstream facilities, and sourcing records tied to reviewed categories are expected to remain documented and consistent with the published record.",
   },
   {
     n: "03",
     t: "Renewal and review cooperation",
-    d: "The entity is expected to respond to renewal requests, clarification requests, and re-examination notices within the published response windows and provide updated records when requested.",
+    d: "The vendor is expected to respond to renewal requests, clarification requests, and review notices within the published response windows and provide updated records when requested.",
   },
   {
     n: "04",
     t: "Public-claims alignment",
-    d: "Public-facing representations, including websites, advertising, intake materials, and third-party listings, must remain consistent with the records reviewed during the verification term.",
+    d: "Public-facing representations, including websites, advertising, intake materials, and third-party listings, are expected to remain consistent with the records reviewed during the verification term.",
   },
 ];
 
 const DISCLOSURE: Clause[] = [
   {
     n: "01",
-    t: "Change in supplier or upstream source",
-    d: "Any substitution, addition, or termination of a disclosed pharmacy, outsourcing facility, or other manufacturing anchor tied to a reviewed category.",
+    t: "Change in pharmacy relationship or upstream source",
+    d: "Any substitution, addition, or termination of a disclosed pharmacy, outsourcing facility, or upstream source tied to a reviewed category.",
   },
   {
     n: "02",
     t: "Change in licensure status",
-    d: "Any suspension, lapse, voluntary surrender, or jurisdictional change affecting the entity or a disclosed upstream source.",
+    d: "Any suspension, lapse, voluntary surrender, or jurisdictional change affecting the vendor or a disclosed upstream facility.",
   },
   {
     n: "03",
@@ -70,8 +70,8 @@ const DISCLOSURE: Clause[] = [
   },
   {
     n: "06",
-    t: "Regulatory action",
-    d: "Any notice of action by the FDA, a State Board of Pharmacy, a State Medical Board, or another authority of competent jurisdiction.",
+    t: "Regulatory or public-record action",
+    d: "Any public notice, enforcement action, license change, warning letter, or administrative update affecting the vendor or a disclosed upstream facility.",
   },
 ];
 
@@ -83,13 +83,13 @@ const TRIGGERS: Clause[] = [
   },
   {
     n: "02",
-    t: "Upstream-source removal or suspension",
-    d: "Delisting, suspension, voluntary surrender, or removal of a disclosed upstream source or manufacturing anchor.",
+    t: "Upstream record change",
+    d: "Status change, delisting, registration lapse, license issue, or public-record update affecting a disclosed upstream facility.",
   },
   {
     n: "03",
-    t: "Regulatory action",
-    d: "Public action against the entity or a disclosed supplier by an authority of competent jurisdiction.",
+    t: "Regulatory or public-record action",
+    d: "Public action, warning letter, licensure update, or administrative change involving the vendor or a disclosed upstream source.",
   },
   {
     n: "04",
@@ -104,7 +104,7 @@ const TRIGGERS: Clause[] = [
   {
     n: "06",
     t: "Credential lapse",
-    d: "Lapse of any required licensure, registration, or accreditation held by the entity or a disclosed upstream source.",
+    d: "Lapse of any required licensure, registration, or accreditation held by the vendor or a disclosed upstream source.",
   },
 ];
 
@@ -112,35 +112,35 @@ const ACTIONS: Clause[] = [
   {
     n: "01",
     t: "Administrative inquiry",
-    d: "A formal written request for documentation, records, or explanation. The listing remains in its current standing during the response window unless other action is required.",
+    d: "A written request for documentation, records, or explanation. The listing may remain in its current status during the response window unless additional action is required.",
   },
   {
     n: "02",
     t: "Scope reduction",
-    d: "The verified scope is narrowed to the categories that remain supported by current records. Unsupported categories are withdrawn from the public listing.",
+    d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
   },
   {
     n: "03",
     t: "Suspension",
-    d: "The Verified standing is temporarily withdrawn pending evidentiary clarification. The entity remains in the registry but no longer carries an affirmative verified status.",
+    d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
     n: "04",
     t: "Removal",
-    d: "The listing is withdrawn from the registry under a Removed standing. Re-entry requires a new application and a fresh examination cycle.",
+    d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
   },
   {
     n: "05",
     t: "Public note",
-    d: "A short factual notation may be attached to a listing where clarification is warranted and the supporting record is verifiable and non-speculative.",
+    d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
   },
 ];
 
 const RELATED = [
-  { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
+  { to: "/how-it-works", label: "Verification Protocol" },
   { to: "/status-definitions", label: "Status Definitions" },
-  { to: "/report-a-concern", label: "Reporting & Market Intelligence" },
-  { to: "/governance", label: "Regulatory Alignment & Oversight" },
+  { to: "/report-a-concern", label: "Reporting & Registry Review" },
+  { to: "/governance", label: "Compliance & Operating Boundaries" },
 ];
 
 const ClauseList = ({ clauses }: { clauses: Clause[] }) => (
