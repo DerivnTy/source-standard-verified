@@ -111,18 +111,21 @@ export const DocJumpBar = ({
     };
   }, []);
 
-  // Interpolated geometry — pill ALWAYS. Expands horizontally + slims vertically.
+  // Outer pill expands; INTERNAL spacing is fixed to prevent jumping/snapping.
   const widthPct = isMobile
     ? lerp(92, 95, eased)
     : lerp(86, 95, eased);
   const maxWidthPx = lerp(1200, 1600, eased);
-  const navPadY = lerp(8, 3, eased); // slim vertical profile when sticky
-  const navPadX = lerp(22, 24, eased);
-  const itemGap = lerp(8, 14, eased);
-  const itemPadX = lerp(10, 14, eased);
-  const chipPadY = lerp(6, 3, eased);
-  // CONTENTS stays the fixed left anchor — never push the rail right.
+
+  // Fixed internal geometry — never interpolated. Eliminates layout shift.
+  const NAV_PAD_Y = 6;
+  const NAV_PAD_X = 22;
+  const ITEM_GAP = 24; // constant gap-x-6
+  const ITEM_PAD_X = 12;
+  const CHIP_PAD_Y = 4;
+  const PILL_HEIGHT = 44; // locked height, no vertical vibration
   const ulPushLeft = 0;
+  void barHeight;
 
   const APPLE_EASE = "cubic-bezier(0.4, 0, 0.2, 1)";
 
@@ -131,18 +134,17 @@ export const DocJumpBar = ({
     top: `${stickyTop}px`,
     width: `${widthPct}%`,
     maxWidth: isMobile ? "none" : `${maxWidthPx}px`,
+    height: `${PILL_HEIGHT}px`, // lock vertical
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: flushTop ? "12px" : `-${SEAM_HEIGHT / 2 + barHeight / 2}px`,
+    marginTop: flushTop ? "12px" : `-${SEAM_HEIGHT / 2 + PILL_HEIGHT / 2}px`,
     borderRadius: "9999px",
-    boxShadow: flushTop
-      ? "0 4px 12px rgba(0,0,0,0.05)"
-      : "none",
+    boxShadow: flushTop ? "0 4px 12px rgba(0,0,0,0.05)" : "none",
     border: "0.5px solid hsl(var(--border))",
     backgroundColor: "#FFFFFF",
     zIndex: 40,
     overflow: "hidden",
-    transition: `top 300ms ease-in-out, margin-top 500ms ${APPLE_EASE}, width 500ms ${APPLE_EASE}, max-width 500ms ${APPLE_EASE}, box-shadow 400ms ${APPLE_EASE}, padding 500ms ${APPLE_EASE}`,
+    transition: `top 300ms ease-in-out, margin-top 500ms ${APPLE_EASE}, width 500ms ${APPLE_EASE}, max-width 500ms ${APPLE_EASE}, box-shadow 400ms ${APPLE_EASE}`,
   };
 
   return (
