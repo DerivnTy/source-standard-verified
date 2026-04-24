@@ -380,7 +380,20 @@ const Index = () => {
       />
 
       {/* §1 — Hero */}
-      <div className="flex flex-col min-h-[calc(100dvh-84px)] lg:min-h-0 [&>section]:flex-1 [&>section]:flex [&>section]:flex-col">
+      <div
+        className="
+          flex flex-col min-h-[calc(100svh-96px)] lg:min-h-0
+          [&>section]:flex-1 [&>section]:flex [&>section]:flex-col
+          [&_.page-shell]:flex-1 [&_.page-shell]:flex [&_.page-shell]:flex-col
+          [&_.page-shell]:!pt-14 [&_.page-shell]:!pb-10 [&_.page-shell]:!px-8
+          lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)] lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)] lg:[&_.page-shell]:!px-6
+          [&_.page-shell>div.relative.w-full]:flex
+          [&_.page-shell>div.relative.w-full]:flex-col
+          [&_.page-shell>div.relative.w-full]:justify-between
+          [&_.page-shell>div.relative.w-full]:flex-1
+          [&_.page-shell>div.relative.w-full]:gap-y-6
+        "
+      >
         <BriefingHero
           variant="cover"
           category="Public Reference System · United States"
@@ -390,7 +403,6 @@ const Index = () => {
           tone="navy"
           actions={<HeroActions />}
           heroMetrics={<HeroMetrics />}
-          
         />
       </div>
 
