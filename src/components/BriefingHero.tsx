@@ -34,6 +34,8 @@ export interface BriefingHeroProps {
   /** Large brand/identity word displayed above the H1. Cover variant only. */
   brandMark?: string;
   actions?: ReactNode;
+  /** Optional metrics row rendered between the statement and the actions (cover variant). */
+  heroMetrics?: ReactNode;
 }
 
 export const BriefingHero = ({
