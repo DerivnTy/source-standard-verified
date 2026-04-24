@@ -114,21 +114,21 @@ const Greenlist = () => {
   return (
     <>
       <PageMeta
-        title="Upstream Greenlist · Source Standard"
-        description="Maintained reference set of recognized upstream compounding facilities used within the Source Standard framework."
+        title="Upstream Registry · Source Standard"
+        description="A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance."
       />
 
       <RegistryHeader
         indexNumber="02"
-        title="Greenlist Facilities"
-        description="The recognized reference set of upstream 503A and 503B compounding facilities used within the Source Standard framework. Inclusion in this list strictly establishes an audited reference layer."
+        title="Upstream Registry"
+        description="A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance."
         recordCount={counts.total}
       />
 
       <RegistryHorizon
         seam
         cells={[
-          { label: "Total Recognized", value: counts.recognized },
+          { label: "Total Records", value: counts.recognized },
           { label: "503B Facilities", value: counts["503B"] },
           { label: "503A Facilities", value: counts["503A"] },
         ]}
@@ -142,8 +142,8 @@ const Greenlist = () => {
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search facilities, locations, focus areas…"
-                aria-label="Search Greenlist"
+                placeholder="Search facilities, locations, or facility type…"
+                aria-label="Search Upstream Registry"
                 className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
@@ -177,7 +177,7 @@ const Greenlist = () => {
               {/* Status row */}
               <div className="mt-2 grid grid-cols-2 gap-2">
                 <SoftPill
-                  label="Authorized"
+                  label="Recognized"
                   active={status === "authorized"}
                   fullWidth
                   onClick={() =>
@@ -185,7 +185,7 @@ const Greenlist = () => {
                   }
                 />
                 <SoftPill
-                  label="Alert"
+                  label="Status Alert"
                   active={status === "alert"}
                   fullWidth
                   onClick={() =>
@@ -202,7 +202,7 @@ const Greenlist = () => {
             >
               {sorted.length === 0 ? (
                 <EmptyState
-                  eyebrow="No Recognized Sources Found"
+                  eyebrow="No Records Found"
                   body="No upstream facility matches these filters."
                 />
               ) : (
@@ -238,24 +238,25 @@ const Greenlist = () => {
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
               <div>
                 <p className="t-utility-xs text-muted-foreground mb-4">
-                  Two layers · One framework
+                  Two layers. One review framework.
                 </p>
                 <p className="t-body-md text-foreground/85 max-w-[52ch]">
-                  The Greenlist establishes the upstream reference set — the
-                  recognized facilities a vendor may legitimately source from.
+                  The Upstream Registry identifies facilities used as reference
+                  records during vendor sourcing review.
                 </p>
                 <p className="mt-4 t-body-sm text-muted-foreground max-w-[52ch]">
-                  Inclusion in the Greenlist is not a vendor verification.
+                  Inclusion in the Upstream Registry does not verify that any
+                  vendor is actively sourcing from that facility.
                 </p>
               </div>
               <div className="md:pl-8 md:border-l md:border-border/60">
                 <p className="t-utility-xs text-muted-foreground mb-4">
-                  The vendor layer
+                  Vendor-level review
                 </p>
                 <p className="t-body-md text-foreground/85 max-w-[48ch]">
-                  Verification assesses whether a clinic can substantiate its
-                  sourcing through licensed upstream pharmacies and documented
-                  records.
+                  Vendor verification reviews whether submitted documentation
+                  supports the vendor's stated pharmacy relationships, sourcing
+                  claims, and chain-of-custody records.
                 </p>
                 <Link
                   to="/directory"
