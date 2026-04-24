@@ -247,7 +247,7 @@ const StatusDefinitions = () => {
                     <SectionIndex n="03" />
                     <h2 className="t-section-title-sm text-foreground">Lifecycle</h2>
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      No standing is permanent. Every public record moves through review, renewal, and possible revision over time.
+                      No status is permanent. Public records may move through review, renewal, correction, suspension, removal, or reinstatement over time.
                     </p>
                   </div>
                 </div>
