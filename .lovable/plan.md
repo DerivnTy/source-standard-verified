@@ -1,82 +1,76 @@
 
 
-## Terms of Use Page Copy Rewrite
+## Privacy Page Copy Rewrite
 
-Text-only changes to `src/pages/Terms.tsx`. No layout, components, styling, routes, navigation, footer, or animation changes. All anchor IDs (`acceptance`, `citation`, `integrity`, `warranty`, `jurisdiction`, `related`) preserved.
+Text-only changes to `src/pages/Privacy.tsx`. No layout, components, styling, routes, navigation, footer, or animation changes. All anchor IDs (`partitioning`, `collection`, `retention`, `processing`, `inquiries`) preserved.
 
 ### Files Touched
 
-1. **`src/pages/Terms.tsx`** — hero, purpose statement, all six section titles/intros/clauses, related policies labels, closing statement.
+1. **`src/pages/Privacy.tsx`** — hero description, purpose statement, all five section titles/intros/clauses, closing statement.
 
 *Footer: already aligned from prior passes — no change.*
 
 ### Content Changes
 
 **`heroDescription`**
-→ `The governing terms for access to, citation of, and use of the Source Standard public registry and associated framework materials.`
+→ `The administrative framework governing the collection, separation, retention, and processing of public registry data and protected review materials.`
 
-**`PageMeta`** — title `Terms of Use`, description = heroDescription.
+**`PageMeta`** — title `Privacy`, description = heroDescription.
 
 **`BriefingHero`**
-- `category`: `Registry User Agreement` (unchanged)
-- `title`: `Terms of Use`
+- `category`: `Data Governance Protocol` (unchanged)
+- `title`: `Data Governance & Privacy` (unchanged)
 - `statement`: heroDescription
 
-**Purpose section ("How this agreement applies")** — replace two paragraphs:
-1. `These terms govern public access to the Source Standard registry and the related public-reference materials published under the framework.`
-2. `They define the conditions of access, rules for citation and use, prohibited conduct, and the legal boundaries that apply to reliance on registry information.`
+**Purpose section ("How data is handled under the framework")** — replace with three paragraphs:
+1. `Source Standard maintains a distinction between public registry information and protected review materials.`
+2. `This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.`
+3. `The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.`
 
-**§01 Acceptance**
-- Title: `Registry Access & Acceptance`
-- Intro: `What use of the registry means.`
-- Body (3 paragraphs):
-  1. `Access to the Source Standard public registry constitutes acceptance of these terms and the related policies referenced on this page.`
-  2. `If a user does not accept these terms, use of the registry and associated framework materials should be discontinued.`
-  3. `Continued access signifies acceptance of the jurisdictional, liability, and use limitations defined below.`
+**§01 Partitioning**
+- Title: `Record Partitioning` (unchanged)
+- Intro: `How public registry information is separated from protected review materials.`
+- `PARTITIONING` array (3 items):
+  - 01 `Public registry data` / `Public registry data is limited to business identity, vendor type, therapy category, review scope, current status, status dates, and related public-reference fields published for consumer and clinician use.`
+  - 02 `Protected review materials` / `Protected review materials may include licensing records, supplier invoices, certificates of analysis, submitted documentation, internal review notes, concern reports, and related supporting materials retained in the review file.`
+  - 03 `Access restriction` / `Protected review materials are retained within a restricted internal environment and are not published, sold, or shared with third parties except where required by law or necessary for authorized infrastructure operations.`
 
-**§02 Citation**
-- Title: `Citation & Data Use`
-- Intro: `How registry records may be referenced publicly.`
-- Lede: `Registry records may be cited in journalistic, academic, clinical, or commercial contexts provided the citation preserves enough detail for the reader to identify the referenced record accurately.`
-- `CITATION` array (4 items):
-  - 01 `Source Standard ID` / `Include the unique registry identifier associated with the listing, where applicable.`
-  - 02 `Status date` / `Include the date the referenced status was published or last updated.`
-  - 03 `Attribution` / `Provide a direct link to the source registry page so the current public record can be reviewed.`
-  - 04 `Citation integrity` / `Citations that omit identifying details may misstate the status, scope, or timing of the published record.`
+**§02 Collection**
+- Title: `Scope of Collection` (unchanged)
+- Intro: `What categories of data may be collected under the framework.`
+- `COLLECTION` array (4 items):
+  - 01 `Vendor intake` / `Business credentials, operating details, sourcing records, pharmacy relationship documentation, and related materials submitted for verification or review.`
+  - 02 `Monitoring data` / `Where applicable, records associated with public-record monitoring, status review, documentation updates, and related registry maintenance activity.`
+  - 03 `Concern reports` / `Supporting documentation and contact details submitted through the public reporting channel.`
+  - 04 `Site analytics` / `Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems.`
 
-**§03 Integrity**
-- Title: `Integrity & Prohibitions`
-- Intro: `Conduct that is not permitted in connection with the registry or its published materials.`
-- `INTEGRITY` array (5 items):
-  - 01 `Bulk extraction` / `No automated scraping, crawling, or indexing of registry data for resale or creation of derivative datasets without authorization.`
-  - 02 `Status misrepresentation` / `No display or implication of Verified status for any entity not currently published under that status in the registry.`
-  - 03 `Unauthorized use of marks` / `No use of Source Standard names, marks, or badge artwork in a way that implies an uncontracted partnership, endorsement, verified status, or formal relationship.`
-  - 04 `Registry interference` / `No activity intended to disrupt, falsify, manipulate, or degrade the integrity of public records or related framework materials.`
-  - 05 `Policy response` / `Confirmed violations may be addressed under the applicable Source Standard operating policies, registry access controls, badge-use rules, or legal remedies.`
+**§03 Retention**
+- Title: `Data Retention` (unchanged)
+- Intro: `How long records are maintained under different conditions.`
+- `RETENTION` array (4 items):
+  - 01 `Active records` / `Protected review materials may be retained for the duration of an entity's active status in the registry and for the period reasonably necessary to administer review, renewal, record maintenance, and related compliance processes.`
+  - 02 `Status history` / `Public status transitions and related public record history may be retained to preserve the integrity and continuity of the registry timeline.`
+  - 03 `Withdrawn or closed submissions` / `Documentation associated with withdrawn, denied, closed, or incomplete submissions may be held for a limited administrative period before secure disposal.`
+  - 04 `Secure disposal` / `Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to reduce the risk of unauthorized recovery.`
 
-**§04 Warranty**
-- Title: `Warranty & Liability`
-- Intro: `How registry information should be understood and relied upon.`
-- `WARRANTY` array (4 items — adds 1):
-  - 01 `Reference basis` / `The registry reflects Source Standard's review of submitted documentation, public records, pharmacy relationship evidence, and related materials within a defined scope and at a defined point in time.`
-  - 02 `As-is publication` / `Registry data is provided as a public reference only and is not warranted as fit for any specific medical, legal, commercial, regulatory, or investment purpose.`
-  - 03 `Reliance limits` / `Use of registry data is at the user's discretion. Medical decisions should be made with licensed clinicians and not on the basis of registry information alone.`
-  - 04 `No guarantee` / `Source Standard does not guarantee product safety, treatment effectiveness, clinical outcomes, vendor quality, regulatory compliance, or the completeness of third-party information.`
+**§04 Processing**
+- Title: `Authorized Processing` (unchanged)
+- Intro: `How data may be processed in support of the framework.`
+- Body (2 paragraphs):
+  1. `Data processing is limited to essential internal functions and authorized infrastructure partners operating under confidentiality and access restrictions.`
+  2. `Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, secure storage, registry operations, and privacy-respecting analytics.`
 
-**§05 Jurisdiction** — title and intro unchanged; body unchanged (already compliant).
-
-**§06 Related Policies**
-- Title: `Related Policies`
-- Intro: `Further reading on privacy, verification scope, operating boundaries, and public status meanings.`
-- `RELATED` array (routes preserved):
-  - `/privacy` → `Data Governance & Privacy Policy`
-  - `/verification-disclaimer` → `Verification Disclaimer`
-  - `/accountability` → `Compliance & Operating Boundaries`
-  - `/status-definitions` → `Status Definitions`
+**§05 Inquiries**
+- Title: `Inquiries & Requests` (unchanged)
+- Intro: `How privacy-related requests may be made.`
+- Body (3 paragraphs + email):
+  1. `Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.`
+  2. `Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.`
+  3. `Data Privacy Officer:` + email link `privacy@sourcestandard.org` (unchanged styling)
 
 **Closing statement**
-- H2: `Public access requires clear terms of use.` (unchanged)
-- Body: `These terms exist to preserve the integrity of the registry, support accurate public citation, and clarify the limits under which Source Standard information is published and used.`
+- H2: `Public transparency requires disciplined record handling.` (unchanged)
+- Body: `The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve review integrity, privacy, and responsible record administration.`
 
 ### Out of Scope
 
