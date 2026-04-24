@@ -356,7 +356,6 @@ const VendorProfile = () => {
                 </div>
 
                 <div
-                  aria-hidden
                   className="mt-5 pt-5"
                   style={{ borderTop: "0.5px solid hsl(var(--border))" }}
                 >
