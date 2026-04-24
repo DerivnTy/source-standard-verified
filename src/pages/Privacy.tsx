@@ -215,8 +215,8 @@ const Privacy = () => {
             <section
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -251,8 +251,8 @@ const Privacy = () => {
               id="partitioning"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -273,8 +273,8 @@ const Privacy = () => {
               id="collection"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -295,8 +295,8 @@ const Privacy = () => {
               id="retention"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -317,8 +317,8 @@ const Privacy = () => {
               id="processing"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -354,8 +354,8 @@ const Privacy = () => {
               id="inquiries"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -388,7 +388,7 @@ const Privacy = () => {
             </section>
 
             {/* §7 Closing */}
-            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+            <section style={{ paddingTop: "36px", paddingBottom: "64px" }}>
               <PrivacyCard>
                 <Eyebrow>Record Handling</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">

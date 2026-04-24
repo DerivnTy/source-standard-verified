@@ -307,8 +307,8 @@ const Accountability = () => {
             <section
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -343,8 +343,8 @@ const Accountability = () => {
               id="attestations"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -371,8 +371,8 @@ const Accountability = () => {
               id="disclosure"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -405,8 +405,8 @@ const Accountability = () => {
               id="triggers"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -433,8 +433,8 @@ const Accountability = () => {
               id="actions"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -461,8 +461,8 @@ const Accountability = () => {
               id="reentry"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -501,8 +501,8 @@ const Accountability = () => {
               id="related"
               className="scroll-mt-24"
               style={{
-                paddingTop: "40px",
-                paddingBottom: "40px",
+                paddingTop: "36px",
+                paddingBottom: "36px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -524,7 +524,7 @@ const Accountability = () => {
             </section>
 
             {/* §8 Closing */}
-            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+            <section style={{ paddingTop: "36px", paddingBottom: "64px" }}>
               <ComplianceCard>
                 <Eyebrow>Continuing Support</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
