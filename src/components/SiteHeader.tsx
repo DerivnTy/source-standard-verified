@@ -209,9 +209,9 @@ export const SiteHeader = () => {
                 <Link
                   to="/apply"
                   onClick={() => setOpen(false)}
-                  className="mt-10 inline-flex h-12 items-center justify-center px-6 t-button text-foreground transition-colors hover:bg-foreground/[0.04]"
+                  className="mt-10 inline-flex h-12 items-center justify-center px-6 t-button text-white transition-colors hover:bg-white/[0.06]"
                   style={{
-                    border: "1px solid hsl(var(--foreground) / 0.30)",
+                    border: "1px solid rgba(255,255,255,0.30)",
                     borderRadius: "2px",
                   }}
                 >
