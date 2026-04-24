@@ -48,12 +48,11 @@ export const RegistryHeader = ({
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
             <div className="min-w-0 flex-1">
-              {indexNumber && <p className="t-utility-xs tabular-nums text-white/50 mb-3">{indexNumber}</p>}
               <h1 className="t-page-title text-white text-left">
                 {title}
               </h1>
               {statusLine ? (
-                <div className="mt-5 inline-flex items-center" style={{ gap: "12px" }}>
+                <div className="mt-4 inline-flex items-center" style={{ gap: "12px" }}>
                   <span
                     aria-hidden
                     className="rounded-full bg-[#22C55E] animate-pulse"
@@ -64,7 +63,7 @@ export const RegistryHeader = ({
                   </span>
                 </div>
               ) : description ? (
-                <p className="mt-6 t-body-md text-white/70 max-w-[68ch] leading-[1.6]">
+                <p className="mt-4 t-body-md text-white/70 max-w-[600px] leading-[1.4]">
                   {description}
                 </p>
               ) : null}
