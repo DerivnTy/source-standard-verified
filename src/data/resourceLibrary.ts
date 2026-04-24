@@ -74,7 +74,8 @@ export const ARTICLES: Article[] = [
   {
     slug: "what-is-compounding",
     title: "What is Compounding?",
-    blurb: "The critical difference between 503A and 503B facilities.",
+    blurb:
+      "The difference between 503A pharmacies, 503B outsourcing facilities, and vendor-level sourcing claims.",
     meta: "6 min read · Apr 2026",
     publishedAt: "2026-04-12",
     category: "regulation",
@@ -82,7 +83,8 @@ export const ARTICLES: Article[] = [
   {
     slug: "the-2026-compounding-reclassification",
     title: "The 2026 Regulatory Shift",
-    blurb: "Implications of the recent compounding reclassifications.",
+    blurb:
+      "How recent compounding and enforcement developments affect public sourcing review.",
     meta: "8 min read · Apr 2026",
     publishedAt: "2026-04-04",
     category: "regulation",
@@ -90,15 +92,17 @@ export const ARTICLES: Article[] = [
   {
     slug: "how-to-read-a-certificate-of-analysis",
     title: "Interpreting CoAs",
-    blurb: "Reading lab reports and detecting sourcing discrepancies.",
+    blurb:
+      "How certificates of analysis are used in documentation review and where their limits begin.",
     meta: "7 min read · Mar 2026",
     publishedAt: "2026-03-22",
     category: "regulation",
   },
   {
     slug: "the-dual-layer-difference",
-    title: "The Dual-Layer Audit",
-    blurb: "Why we verify both the clinic and the manufacturer.",
+    title: "The Dual-Layer Review",
+    blurb:
+      "Why Source Standard separates upstream facility records from vendor-level sourcing verification.",
     meta: "5 min read · Mar 2026",
     publishedAt: "2026-03-08",
     category: "regulation",
@@ -106,8 +110,9 @@ export const ARTICLES: Article[] = [
   // Clinical
   {
     slug: "safe-peptide-handling-and-reconstitution",
-    title: "Sterile Handling Protocol",
-    blurb: "Best practices for reconstitution and aseptic storage.",
+    title: "Sterile Handling Context",
+    blurb:
+      "General reference on sterile preparation concepts, storage considerations, and documentation relevance.",
     meta: "6 min read · Apr 2026",
     publishedAt: "2026-04-15",
     category: "clinical",
@@ -115,23 +120,26 @@ export const ARTICLES: Article[] = [
   {
     slug: "sanitization-and-aseptic-technique-fundamentals",
     title: "Stability Fundamentals",
-    blurb: "How temperature, light, and time affect peptide integrity.",
+    blurb:
+      "How temperature, light, time, and storage records can affect review context for compounded products.",
     meta: "5 min read · Mar 2026",
     publishedAt: "2026-03-19",
     category: "clinical",
   },
   {
     slug: "the-science-of-aging-and-trt",
-    title: "Endocrinological Context",
-    blurb: "Age-related change and TRT mechanisms.",
+    title: "Hormone Therapy Context",
+    blurb:
+      "Reference terminology for TRT, HRT, and related compounded therapy categories.",
     meta: "9 min read · Feb 2026",
     publishedAt: "2026-02-24",
     category: "clinical",
   },
   {
     slug: "dosing-guidance-summaries-for-common-compounds",
-    title: "Dosing Reference",
-    blurb: "Summaries of commonly cited clinical dosing ranges.",
+    title: "Scope of Clinical References",
+    blurb:
+      "How Source Standard separates public education from individualized medical advice or treatment guidance.",
     meta: "10 min read · Feb 2026",
     publishedAt: "2026-02-10",
     category: "clinical",
@@ -139,8 +147,9 @@ export const ARTICLES: Article[] = [
   // Consumer
   {
     slug: "questions-to-ask-your-clinic",
-    title: "The Clinic Checklist",
-    blurb: "Five essential questions to ask a clinic about sourcing.",
+    title: "The Vendor Checklist",
+    blurb:
+      "Questions consumers can ask about sourcing, pharmacy relationships, documentation, and review status.",
     meta: "4 min read · Apr 2026",
     publishedAt: "2026-04-09",
     category: "consumer",
@@ -148,7 +157,8 @@ export const ARTICLES: Article[] = [
   {
     slug: "warning-signs-of-undocumented-sourcing",
     title: "Warning Signs",
-    blurb: "Identifying undocumented vendors and unsupported sourcing claims.",
+    blurb:
+      "Common patterns in unsupported sourcing claims and undocumented vendor presentations.",
     meta: "6 min read · Mar 2026",
     publishedAt: "2026-03-27",
     category: "consumer",
@@ -156,15 +166,17 @@ export const ARTICLES: Article[] = [
   {
     slug: "what-source-standard-verification-actually-means",
     title: "Verification Scope",
-    blurb: "What a Verified listing establishes and what it does not establish.",
+    blurb:
+      "What a Verified listing establishes and what it does not establish.",
     meta: "5 min read · Mar 2026",
     publishedAt: "2026-03-14",
     category: "consumer",
   },
   {
     slug: "what-are-peptides",
-    title: "Sterile Injection Guide",
-    blurb: "Safe handling and disposal guidance for injectable preparations.",
+    title: "Handling Claims vs. Documentation",
+    blurb:
+      "How to distinguish general product claims from reviewable sourcing documentation.",
     meta: "7 min read · Feb 2026",
     publishedAt: "2026-02-28",
     category: "consumer",
