@@ -413,17 +413,6 @@ const Index = () => {
           heroMetrics={<HeroMetrics />}
         />
       </div>
-        <BriefingHero
-          variant="cover"
-          category="Public Reference System · United States"
-          docId=""
-          title="Verify the source."
-          statement="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
-          tone="navy"
-          actions={<HeroActions />}
-          heroMetrics={<HeroMetrics />}
-        />
-      </div>
 
       <DocJumpBar waypoints={homeWaypoints} />
 
