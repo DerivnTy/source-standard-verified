@@ -78,19 +78,37 @@ const HeroMetrics = () => {
   );
 
   return (
-    <div
-      role="group"
-      aria-label="Live registry metrics"
-      className="inline-flex items-stretch"
-      style={{ paddingTop: "4px", paddingBottom: "4px" }}
-    >
-      <Unit value={stats.total} label="Identified Sources" dotColor="#FF3B30" />
+    <div className="inline-flex flex-col items-center">
+      <span
+        className="font-mono uppercase text-white/65"
+        style={{
+          fontSize: "10px",
+          lineHeight: "12px",
+          letterSpacing: "0.22em",
+          fontWeight: 500,
+        }}
+      >
+        Live Tracker
+      </span>
       <span
         aria-hidden
-        className="self-stretch bg-white/15"
-        style={{ width: "0.5px" }}
+        className="block w-full bg-white/20"
+        style={{ height: "1px", marginTop: "10px", marginBottom: "16px" }}
       />
-      <Unit value={stats.verified} label="Verified" dotColor="#22C55E" />
+      <div
+        role="group"
+        aria-label="Live registry metrics"
+        className="inline-flex items-stretch"
+        style={{ paddingTop: "4px", paddingBottom: "4px" }}
+      >
+        <Unit value={stats.total} label="Identified Sources" dotColor="#FF3B30" />
+        <span
+          aria-hidden
+          className="self-stretch bg-white/15"
+          style={{ width: "0.5px" }}
+        />
+        <Unit value={stats.verified} label="Verified" dotColor="#22C55E" />
+      </div>
     </div>
   );
 };
