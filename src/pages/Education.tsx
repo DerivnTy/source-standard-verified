@@ -354,11 +354,12 @@ const Education = () => {
                 A working reference, not a content feed.
               </h2>
               <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
-                The Resource Library exists to help clinicians, consumers, and
-                listed entities interpret sourcing, regulation, and
-                verification through a consistent public-reference standard.
-                It is maintained as part of the broader framework, not as a
-                standalone publishing channel.
+                The Resource Library helps consumers, clinicians, and listed
+                entities understand sourcing claims, pharmacy categories,
+                documentation review, and verification limits through a
+                consistent public-reference standard. It is maintained as part
+                of the broader Source Standard framework, not as a standalone
+                publishing channel.
               </p>
             </div>
           </div>
