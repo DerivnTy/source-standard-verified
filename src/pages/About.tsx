@@ -22,51 +22,51 @@ const OBJECTIVES: Clause[] = [
   {
     n: "01",
     t: "For Consumers",
-    d: "Providing a structured reference point so healthcare decisions can rest more on documented evidence and less on aesthetic presentation alone.",
+    d: "Providing a structured public reference so vendor sourcing claims can be evaluated through documentation status, review scope, and last-reviewed dates.",
   },
   {
     n: "02",
-    t: "For Operators",
-    d: "Creating a visible standard for transparency that rewards vendors who maintain documented sourcing and operating discipline.",
+    t: "For Vendors",
+    d: "Providing a documentation-based review pathway for vendors that want their sourcing claims evaluated within a defined public-reference framework.",
   },
 ];
 
 const SCOPE: Clause[] = [
   {
     n: "01",
-    t: "Public registry",
-    d: "Maintenance of a public registry of verified vendors and substantiated sourcing records.",
+    t: "Vendor registry",
+    d: "Maintenance of a public registry containing verified, unverified, under-review, suspended, and removed vendor records.",
   },
   {
     n: "02",
-    t: "Upstream reference layer",
-    d: "Continuous publication of recognized upstream pharmaceutical sources used within the framework.",
+    t: "Upstream registry",
+    d: "Publication of upstream facility records used as reference points during vendor sourcing review.",
   },
   {
     n: "03",
     t: "Educational reference",
-    d: "Provision of educational material regarding sourcing, storage, and due-diligence standards.",
+    d: "Publication of educational material covering sourcing claims, pharmacy categories, public records, documentation boundaries, and consumer due diligence.",
   },
   {
     n: "04",
-    t: "Ongoing review",
-    d: "Independent monitoring and, where applicable, analytical review of active registry listings within the limits of the framework.",
+    t: "Status maintenance",
+    d: "Periodic review of vendor records, documentation status, review scope, and public-facing status definitions within the limits of the framework.",
   },
 ];
 
 const BOUNDARIES = [
   "Source Standard does not provide medical advice or prescribe treatment protocols.",
-  "It does not substitute for physician judgment or federal regulatory oversight.",
-  "The framework does not function as a marketing partner or promotional arm for any vendor.",
-  "It does not guarantee clinical outcomes, biological efficacy, or individual product safety.",
-  "Its mandate is limited to the verification of documentation and supply-chain transparency.",
+  "It does not substitute for physician judgment or federal or state regulatory oversight.",
+  "It does not function as a marketing partner or promotional arm for any vendor.",
+  "It does not guarantee clinical outcomes, treatment effectiveness, biological response, product quality, potency, sterility, or individual product safety.",
+  "Its mandate is limited to documentation review, sourcing-claim review, public-record organization, and status-based registry publication.",
 ];
 
 const RELATED = [
-  { to: "/governance", label: "Governance & Oversight", desc: "Clinical advisory and statutory anchors." },
-  { to: "/how-it-works", label: "Verification Protocol", desc: "Detailed audit and renewal processes." },
-  { to: "/status-definitions", label: "Status Definitions", desc: "Glossary of registry statuses and public meanings." },
-  { to: "/accountability", label: "Enforcement", desc: "Accountability procedures and status-response protocols." },
+  { to: "/governance", label: "Governance & Oversight", desc: "Advisory oversight, review boundaries, and framework discipline." },
+  { to: "/how-it-works", label: "Verification Protocol", desc: "Documentation review, monitoring, disclosure, and status-response process." },
+  { to: "/status-definitions", label: "Status Definitions", desc: "Definitions for every public registry status." },
+  { to: "/accountability", label: "Compliance", desc: "Legal posture, operating boundaries, and public-reference limitations." },
 ];
 
 const SplitSection = ({
@@ -117,7 +117,7 @@ const SplitSection = ({
 
 const About = () => {
   const heroDescription =
-    "Source Standard exists to make sourcing claims easier to interpret through documented records, structured review, and public-reference standards.";
+    "Source Standard exists to make vendor sourcing claims easier to interpret through submitted records, public documentation, structured review, and status-based registry standards.";
 
   return (
     <>
@@ -130,7 +130,7 @@ const About = () => {
         tone="navy"
         variant="chapter"
         category="Organization & Mandate"
-        title="An independent verification and public-reference framework for supply-chain transparency in the peptide and hormone optimization markets."
+        title="An independent verification and public-reference framework for compounded therapy vendor sourcing claims."
         statement={heroDescription}
         docId=""
       />
@@ -145,10 +145,16 @@ const About = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard is an independent verification and public-reference framework designed to improve sourcing transparency in peptide, hormone optimization, and adjacent clinical markets. Its role is to help the public interpret whether vendor claims are supported by documentation rather than presentation alone.
+                  Source Standard is an independent verification and public-reference framework designed to improve transparency around compounded therapy vendor sourcing claims.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The organization does not market clinics, promote treatment protocols, or function as a substitute for federal or state oversight. Its purpose is narrower and more disciplined: to organize sourcing records, verification status, and public-reference materials into a system people can evaluate with greater clarity.
+                  Its role is to help the public identify whether vendor claims are supported by submitted documentation, pharmacy relationship evidence, public records, and review timestamps.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  The organization does not market vendors, promote treatment protocols, provide medical advice, or function as a substitute for federal or state oversight.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Its purpose is narrower and more disciplined: to organize vendor records, sourcing documentation, verification status, and public-reference materials into a system that can be reviewed with greater clarity.
                 </p>
               </div>
             </div>
@@ -178,9 +184,17 @@ const About = () => {
                   </div>
                 </div>
                 <div className="md:col-span-8 mt-8 md:mt-0">
-                  <p className="t-body-md text-muted-foreground leading-relaxed max-w-2xl">
-                    In high-growth medical markets, consumers are often asked to make decisions based on branding, trust signals, and marketing language that are difficult to verify independently. Source Standard was established to narrow that information gap by creating a clearer relationship between vendor claims and documented supply-chain reality.
-                  </p>
+                  <div className="space-y-5 max-w-2xl">
+                    <p className="t-body-md text-muted-foreground leading-relaxed">
+                      In compounded therapy markets, consumers are often asked to evaluate vendors through branding, testimonials, claims, and presentation.
+                    </p>
+                    <p className="t-body-md text-muted-foreground leading-relaxed">
+                      Those signals are difficult to verify independently.
+                    </p>
+                    <p className="t-body-md text-muted-foreground leading-relaxed">
+                      Source Standard was established to create a clearer relationship between vendor sourcing claims and documentation that can be reviewed, time-stamped, and assigned a public status.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -273,7 +287,7 @@ const About = () => {
                   A public-reference system with defined limits.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard is designed to make sourcing transparency easier to interpret, not to replace clinical judgment or statutory oversight. Its role is to provide a more disciplined public reference for a market where documentation is often harder to evaluate than presentation.
+                  Source Standard is designed to make compounded therapy vendor sourcing claims easier to interpret. It does not replace clinical judgment, regulatory oversight, or individual medical decision-making. Its role is to provide a disciplined public reference for a market where documentation is often harder to evaluate than presentation.
                 </p>
               </div>
             </section>
