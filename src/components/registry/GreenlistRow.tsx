@@ -27,13 +27,13 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "14px 18px 12px",
-        minHeight: "92px",
+        padding: "12px 14px",
+        minHeight: "74px",
       }}
     >
-      <div className="flex flex-col" style={{ gap: "7px" }}>
+      <div className="flex flex-col" style={{ gap: "8px" }}>
         {/* Row 1 — Name (left) · Status (right) */}
-        <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+        <div className="flex items-start justify-between" style={{ gap: "12px" }}>
           <h3
             className="font-sans text-foreground truncate"
             style={{
@@ -84,34 +84,36 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
           )}
         </div>
 
-        {/* Row 2 — Category pill + Location metadata */}
-        <div className="flex items-center" style={{ gap: "8px", flexWrap: "wrap" }}>
-          <span
-            className="inline-flex items-center font-sans uppercase whitespace-nowrap"
-            style={{
-              fontSize: "10px",
-              fontWeight: 600,
-              letterSpacing: "0.03em",
-              padding: "4px 7px",
-              borderRadius: "4px",
-              background: "rgba(0,16,33,0.07)",
-              color: "rgba(0,16,33,0.68)",
-            }}
+        {/* Row 2 — Pill + location (left) · View (right) */}
+        <div className="flex items-center justify-between" style={{ gap: "12px" }}>
+          <div
+            className="min-w-0"
+            style={{ display: "inline-flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}
           >
-            {category}
-          </span>
-          {location && (
             <span
-              className="text-muted-foreground truncate"
-              style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
+              className="inline-flex items-center font-sans uppercase whitespace-nowrap"
+              style={{
+                fontSize: "10px",
+                fontWeight: 600,
+                letterSpacing: "0.03em",
+                padding: "4px 7px",
+                borderRadius: "4px",
+                background: "rgba(0,16,33,0.07)",
+                color: "rgba(0,16,33,0.68)",
+              }}
             >
-              {location}
+              {category}
             </span>
-          )}
-        </div>
+            {location && (
+              <span
+                className="text-muted-foreground truncate"
+                style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
+              >
+                {location}
+              </span>
+            )}
+          </div>
 
-        {/* Row 3 — View action (right) */}
-        <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-4px" }}>
           <span
             className="font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
             style={{
@@ -120,6 +122,7 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
               gap: "4px",
               marginLeft: "auto",
               marginRight: "-2px",
+              flexShrink: 0,
               fontSize: "11px",
               fontWeight: 700,
               letterSpacing: "0.035em",
