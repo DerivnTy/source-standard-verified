@@ -660,33 +660,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §9 — Final CTA */}
-      <section
-        aria-labelledby="enter-registry"
-        className="bg-[hsl(var(--navy-surface))]"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
-      >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="font-mono uppercase text-white/60"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-            >
-              08 · Access
-            </p>
-            <h2
-              id="enter-registry"
-              className="mt-3 font-sans font-semibold text-white"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
-            >
-              Access the Vendor Registry.
-            </h2>
-            <div className="mt-3">
-              <PillPrimaryWhite to="/verified-vendors">Enter Registry</PillPrimaryWhite>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 };
