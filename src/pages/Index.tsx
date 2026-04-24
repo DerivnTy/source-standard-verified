@@ -59,7 +59,7 @@ const HeroMetrics = () => {
           />
           <span
             className="relative inline-block h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: dotColor }}
+            style={{ backgroundColor: dotColor, boxShadow: `0 0 6px ${dotColor}` }}
           />
         </span>
         <span
