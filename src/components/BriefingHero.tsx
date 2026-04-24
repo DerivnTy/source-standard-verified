@@ -36,6 +36,8 @@ export interface BriefingHeroProps {
   actions?: ReactNode;
   /** Optional metrics row rendered between the statement and the actions (cover variant). */
   heroMetrics?: ReactNode;
+  /** Optional metadata strip rendered below the actions (cover variant). */
+  heroMeta?: ReactNode;
 }
 
 export const BriefingHero = ({
@@ -49,6 +51,7 @@ export const BriefingHero = ({
   brandMark,
   actions,
   heroMetrics,
+  heroMeta,
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
@@ -125,6 +128,20 @@ export const BriefingHero = ({
                   style={{ marginTop: "clamp(24px, 3.5vh, 36px)", gap: "16px" }}
                 >
                   {actions}
+                </div>
+              )}
+
+              {heroMeta && (
+                <div
+                  className="mx-auto w-full"
+                  style={{
+                    marginTop: "clamp(48px, 7vh, 72px)",
+                    paddingTop: "22px",
+                    maxWidth: "560px",
+                    borderTop: "1px solid rgba(255,255,255,0.16)",
+                  }}
+                >
+                  {heroMeta}
                 </div>
               )}
             </div>
