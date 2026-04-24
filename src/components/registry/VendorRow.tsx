@@ -114,7 +114,7 @@ export const VendorRow = ({
               className="font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
-                fontSize: "11px",
+                fontSize: "12px",
                 fontWeight: 700,
                 letterSpacing: "0.035em",
                 lineHeight: 1,
