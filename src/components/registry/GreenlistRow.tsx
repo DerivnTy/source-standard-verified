@@ -58,6 +58,7 @@ export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
                 letterSpacing: "0.035em",
                 lineHeight: 1,
                 color: "#FF3B30",
+                transform: "translateY(2px)",
               }}
             >
               Status Alert
