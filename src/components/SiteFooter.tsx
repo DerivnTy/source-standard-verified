@@ -69,16 +69,15 @@ export const SiteFooter = () => {
 
   return (
     <footer
-      className="mt-0"
+      className="mt-0 pb-10 md:pb-20"
       style={{
         backgroundColor: FOOTER_BG,
-        paddingBottom: "80px",
         borderTop: "1px solid #0B1A33",
       }}
     >
-      <div className="page-shell pt-14 md:pt-16">
+      <div className="page-shell pt-10 md:pt-16">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-12 items-start text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-9 md:gap-y-12 items-start text-left">
             <div className="lg:col-span-1">
               <Link to="/" className="inline-block hover:opacity-90 transition-opacity" aria-label="Source Standard, home">
                 <span
@@ -95,7 +94,7 @@ export const SiteFooter = () => {
                 </span>
               </Link>
               <p
-                className="mt-4 font-sans text-[12px]"
+                className="mt-2.5 md:mt-4 font-sans text-[12px]"
                 style={{ color: MUTED, letterSpacing: "0.01em" }}
               >
                 United States · Public Reference System
@@ -105,12 +104,12 @@ export const SiteFooter = () => {
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-4 font-sans text-[12px] font-semibold uppercase text-white"
+                  className="mb-3 md:mb-4 font-sans text-[12px] font-semibold uppercase text-white"
                   style={{ letterSpacing: "0.08em" }}
                 >
                   {col.title}
                 </p>
-                <ul className="space-y-2.5">
+                <ul className="space-y-2 md:space-y-2.5">
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
@@ -132,7 +131,7 @@ export const SiteFooter = () => {
 
         {/* Legal band — hard-cut hairline, no gradients */}
         <div
-          className="mt-14 pt-6"
+          className="mt-9 md:mt-14 pt-5 md:pt-6"
           style={{ borderTop: `1px solid ${HAIRLINE}` }}
         >
           <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
@@ -158,8 +157,8 @@ export const SiteFooter = () => {
           </div>
 
           <p
-            className="mt-5 max-w-[900px] font-sans text-[11px]"
-            style={{ color: MUTED, lineHeight: 1.7 }}
+            className="mt-4 md:mt-5 max-w-[900px] font-sans text-[11px] leading-[1.5] md:leading-[1.65]"
+            style={{ color: MUTED }}
           >
             Source Standard is an independent public-reference and verification
             framework for compounded therapy vendor sourcing claims. Listings
