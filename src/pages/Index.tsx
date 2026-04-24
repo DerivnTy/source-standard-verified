@@ -335,8 +335,8 @@ const Index = () => {
         variant="cover"
         category="United States Public Peptide Registry"
         docId=""
-        title="The United States Public Peptide Registry"
-        statement="Source Standard is the independent audit layer for the peptide economy. We cross-reference clinics and vendors against licensed records to separate documented medical sourcing from the grey market."
+        title="The Public Peptide Registry"
+        statement="Source Standard is the independent audit layer for peptide sourcing. We cross-reference clinics and vendors against licensed records to separate documented medical sourcing from the grey market."
         tone="navy"
         actions={<HeroActions />}
         heroMetrics={<HeroMetrics />}
