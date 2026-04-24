@@ -103,24 +103,37 @@ const VendorProfile = () => {
 
   const status = vendor.status;
   const isVerified = status === "verified";
-  const isPending = status === "under-review";
+  const isUnverified = status === "unverified";
+  const isUnderReview = status === "under-review";
   const fulfillment = getVendorFulfillment(vendor);
   const isOnline = fulfillment === "online";
   const location = formatLocation(vendor);
-  const locationLabel = isOnline ? "ONLINE" : location;
+  const locationLabel = isOnline ? "Online" : location;
   const sourceType = sourceTypeFor(vendor);
 
-  // Status text styling — surgical, no badge box
-  const statusColor = isVerified
-    ? "#34C759"
-    : isPending
-    ? "#FF9500"
-    : "hsl(var(--muted-foreground))";
-  const statusLabel = isVerified
-    ? "Verified"
-    : isPending
-    ? "Pending"
-    : VENDOR_STATUS_LABEL[status];
+  // Status anchor — registry-card system, never "PENDING".
+  const STATUS_ANCHOR: Record<
+    VendorPublicStatus,
+    { label: string; color: string }
+  > = {
+    verified: { label: "VERIFIED", color: "#34C759" },
+    unverified: { label: "UNVERIFIED", color: "#FF3B30" },
+    "under-review": { label: "UNDER REVIEW", color: "#FF9500" },
+    suspended: { label: "SUSPENDED", color: "hsl(var(--muted-foreground))" },
+    removed: { label: "REMOVED", color: "hsl(var(--muted-foreground))" },
+  };
+  const statusColor = STATUS_ANCHOR[status].color;
+  const statusLabel = STATUS_ANCHOR[status].label;
+
+  // Vendor Type display (Unverified path)
+  const vendorTypeLabel =
+    fulfillment === "in-person"
+      ? "Physical Clinic"
+      : fulfillment === "online"
+      ? "Online Vendor"
+      : "Hybrid";
+  const therapyCategory =
+    vendor.clinicalFocus?.[0] ?? vendor.category ?? undefined;
 
   // Verified scope flattening
   const hasGroups =
