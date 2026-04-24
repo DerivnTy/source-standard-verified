@@ -30,97 +30,115 @@ const STATUSES: Status[] = [
     n: "01",
     title: "Verified",
     definition:
-      "A completed review is on file. The entity has undergone a documented examination against the Source Standard framework, and the published listing reflects the records reviewed at the time of publication.",
+      "Documentation review is complete for the defined scope. The published record reflects the documentation, public records, and pharmacy relationship evidence reviewed at the time of publication.",
     meaning:
-      "Records, regulatory credentials, and sourcing documentation have been reconciled with the entity's public claims within the reviewed scope.",
+      "Submitted documentation, public records, and sourcing evidence supported the stated vendor claim within the reviewed scope.",
     notImply:
-      "It does not constitute an endorsement of clinical outcomes, individual prescriptions, or product safety guarantees.",
+      "It does not imply vendor approval, product approval, clinical recommendation, treatment effectiveness, product safety, or outcome guarantee.",
     issued:
-      "Issued after successful completion of intake, evidentiary review, supply-chain reconciliation, and scope confirmation.",
+      "Assigned after completion of documentation review, pharmacy relationship review, chain-of-custody review, and scope confirmation.",
     revised:
-      "Revised upon lapse of renewal, a material disclosure event, or the reopening of the file for further review.",
+      "Revised after renewal lapse, material disclosure event, documentation expiration, unresolved discrepancy, or reopening of the review file.",
   },
   {
     n: "02",
     title: "Pending Review",
     definition:
-      "An application has been received and the audit file has been opened, but substantive examination has not yet begun.",
-    meaning: "The entity has formally entered the verification pipeline.",
-    notImply: "It does not imply that any part of the evidentiary review has already been completed.",
-    issued: "Issued when the application package is received and acknowledged.",
-    revised: "Revised when examination begins or when the application is withdrawn.",
+      "An application or review request has been received, but documentation review has not yet begun.",
+    meaning: "The entity has entered the Source Standard review pipeline.",
+    notImply:
+      "It does not imply that documentation has been reviewed or that any sourcing claim has been supported.",
+    issued: "Assigned when an application, request, or submission package is received and acknowledged.",
+    revised: "Revised when documentation review begins, the request is withdrawn, or the submission is closed.",
   },
   {
     n: "03",
     title: "Under Review",
     definition:
-      "An active examination is in progress. Records, regulatory credentials, and sourcing documentation are currently being assessed against the framework.",
-    meaning: "The audit file is open and undergoing active review.",
-    notImply: "It does not imply any conclusion regarding the entity's sourcing, documentation, or compliance posture.",
-    issued: "Issued at the start of evidentiary review or upon reopening of a previously published file.",
-    revised: "Revised to Verified, Suspended, or Removed when the current review cycle concludes.",
+      "An active documentation review is in progress. Records, public data, sourcing claims, and submitted materials are being evaluated against the Source Standard framework.",
+    meaning: "The review file is open and being evaluated.",
+    notImply:
+      "It does not imply any conclusion about the vendor, sourcing claim, documentation quality, or compliance posture.",
+    issued: "Assigned at the start of documentation review or when a previously published record is reopened.",
+    revised: "Revised to Verified, Unverified, Suspended, or Removed when the current review cycle concludes.",
   },
   {
     n: "04",
-    title: "Suspended",
+    title: "Unverified",
     definition:
-      "A previously published status is temporarily paused pending evidentiary clarification or unresolved record issues.",
-    meaning: "The record cannot currently support continuation of the prior published status.",
+      "No sufficient documentation has been reviewed to support the stated sourcing claim within the Source Standard framework.",
+    meaning:
+      "The registry does not currently contain sufficient reviewed documentation to support the vendor's stated sourcing claim.",
     notImply:
-      "It does not constitute a finding of misconduct, fraud, or regulatory enforcement action by any governmental body.",
-    issued:
-      "Issued upon failure to renew, failure to respond to clarification requests, or the surfacing of material discrepancies.",
-    revised: "Revised back to Verified upon resolution, or to Removed if the matter remains unresolved.",
+      "It does not imply that the vendor is unsafe, unlawful, fraudulent, or clinically inappropriate.",
+    issued: "Assigned when a vendor record exists but no sufficient documentation review is on file.",
+    revised: "Revised when the vendor enters review, submits documentation, withdraws, or a status update is required.",
   },
   {
     n: "05",
-    title: "Removed",
+    title: "Suspended",
     definition:
-      "The entity has been withdrawn from the public registry and the file is no longer maintained as an active public record.",
-    meaning: "The entity is no longer represented in the registry under the Source Standard framework.",
+      "A previously published status is temporarily inactive pending additional documentation, renewal, or review of an unresolved record issue.",
+    meaning: "The record cannot currently support continuation of the prior published status.",
     notImply:
-      "It does not constitute a specific finding of misconduct unless a public note explicitly states otherwise.",
+      "It does not constitute a finding of misconduct, fraud, medical risk, or regulatory enforcement action.",
     issued:
-      "Issued where the entity has defaulted on compliance obligations through sustained non-response, voluntary withdrawal, material misrepresentation, or loss of a remediable sourcing basis.",
-    revised: "Reinstatement requires a new application and a new review cycle.",
+      "Assigned after missed renewal, non-response to documentation requests, expired documentation, or unresolved material discrepancy.",
+    revised:
+      "Revised back to Verified if resolved, to Unverified if documentation no longer supports verification, or to Removed if the record is closed.",
   },
   {
     n: "06",
-    title: "Greenlisted",
+    title: "Removed",
     definition:
-      "An upstream source, 503A pharmacy, 503B outsourcing facility, or other qualified supplier recognized as a documented and traceable manufacturing or sourcing anchor within the framework.",
+      "The record has been removed from active registry display or active verification status due to failed review, expired documentation, unresolved discrepancy, voluntary withdrawal, or closure of the review file.",
     meaning:
-      "The upstream source operates within a recognized regulatory category and may appear as a documented source within verified vendor records.",
+      "The entity is no longer maintained as an active verified or reviewable record under the Source Standard framework.",
     notImply:
-      "It does not imply endorsement, affiliation, or blanket certification of every product associated with that source.",
-    issued: "Issued upon confirmation of registration, licensing category, and operating record.",
-    revised: "Revised upon lapse of registration, withdrawal of licensure, or removal by the relevant authority.",
+      "It does not imply a specific finding of misconduct unless a public note states a documented record basis.",
+    issued:
+      "Assigned when the review file is closed, the entity withdraws, documentation cannot be reconciled, renewal remains unresolved, or a material discrepancy is not resolved.",
+    revised: "Reinstatement requires a new submission and a new review cycle.",
   },
   {
     n: "07",
-    title: "Not Listed",
-    definition: "No public record exists for the entity under the Source Standard framework.",
+    title: "Recognized Upstream Record",
+    definition:
+      "An upstream 503A pharmacy, 503B outsourcing facility, or other facility record used as a reference point during vendor sourcing review.",
     meaning:
-      "The entity has not entered the registry, has not been examined, or is not currently maintained as a public record within the system.",
+      "The upstream record may be used as a reference point when reviewing vendor sourcing documentation.",
     notImply:
-      "It does not imply that the entity is illegitimate, unsafe, or non-compliant under any external regulatory regime. It reflects only the absence of a Source Standard record.",
-    issued: "This is the default condition for any entity that has not entered the registry.",
-    revised: "Revised only when the entity enters the verification or Greenlist review process.",
+      "It does not imply endorsement, affiliation, vendor verification, product approval, product safety, or certification of every product associated with that facility.",
+    issued:
+      "Assigned when facility identity, public registration category, license status, or review relevance is recorded within the Upstream Registry.",
+    revised:
+      "Revised when public registration status, license status, review relevance, or Source Standard classification changes.",
+  },
+  {
+    n: "08",
+    title: "Not Listed",
+    definition: "No public Source Standard record exists for the entity.",
+    meaning:
+      "The entity is not currently maintained as a public record within the Source Standard registry.",
+    notImply:
+      "It does not imply that the entity is unsafe, unlawful, illegitimate, non-compliant, or clinically inappropriate. It reflects only the absence of a Source Standard record.",
+    issued: "This is the default condition for any entity that does not have a registry record.",
+    revised: "Revised only if the entity enters the registry, submits documentation, or is added as a public-reference record.",
   },
 ];
 
 const LIFECYCLE = [
   { n: "01", t: "Application received → Pending Review" },
-  { n: "02", t: "Examination begins → Under Review" },
-  { n: "03", t: "Review concludes → Verified or Removed" },
+  { n: "02", t: "Documentation review begins → Under Review" },
+  { n: "03", t: "Review concludes → Verified or Unverified" },
   { n: "04", t: "Renewal interval reached → Under Review" },
   { n: "05", t: "Disclosure event or material change → Under Review or Suspended" },
-  { n: "06", t: "Resolution → Verified, Suspended, or Removed" },
+  { n: "06", t: "Resolution → Verified, Unverified, Suspended, or Removed" },
 ];
 
 const RELATED = [
-  { to: "/how-it-works", label: "Verification Protocol & Audit Methodology" },
-  { to: "/accountability", label: "Accountability & Enforcement" },
+  { to: "/how-it-works", label: "Verification Protocol" },
+  { to: "/accountability", label: "Compliance & Operating Boundaries" },
   { to: "/verification-disclaimer", label: "Verification Disclaimer" },
 ];
 
