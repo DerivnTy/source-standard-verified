@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Vendor, VendorFulfillment } from "@/data/vendors";
+import verifiedShield from "@/assets/verified-shield.png";
 
 /**
  * VendorRow — Final Two-Row Surgical Card.
