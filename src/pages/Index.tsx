@@ -449,7 +449,7 @@ const Index = () => {
               How Source Standard Works
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-2.5">
               {howItWorks.map((s, i) => (
                 <DataStrip
                   key={s.h}
@@ -526,7 +526,7 @@ const Index = () => {
               Each listing provides a structured snapshot of vendor documentation status and sourcing review scope.
             </p>
 
-            <div className="mt-5 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-2.5">
               {registryFields.map((f, i) => (
                 <DataStrip
                   key={f.h}
@@ -567,7 +567,7 @@ const Index = () => {
               Function of the framework
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-2.5">
               {whyMatters.map((w, i) => (
                 <DataStrip
                   key={w.h}
@@ -604,7 +604,7 @@ const Index = () => {
               Foundational reference
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-2.5">
               {basics.map((b, i) => (
                 <DataStrip
                   key={b.t}
@@ -646,7 +646,7 @@ const Index = () => {
               Governance and standards
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-2.5">
               {governanceLinks.map((g, i) => (
                 <DataStrip
                   key={g.k}
