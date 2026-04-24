@@ -5,10 +5,12 @@ import { SiteFooter } from "./SiteFooter";
 import { GlobalUtilityBar } from "./GlobalUtilityBar";
 import { useHashScroll } from "@/hooks/useHashScroll";
 
+const HEADER_STACK_HEIGHT = 84;
+
 /**
  * Smart Reveal Header Wrapper.
  * Hides on scroll-down, reveals on scroll-up. Announcement bar + main header
- * move as a single sticky unit.
+ * move as a single fixed unit so hidden state does not reserve layout space.
  */
 const SmartHeader = () => {
   const [hidden, setHidden] = useState(false);
@@ -47,7 +49,7 @@ const SmartHeader = () => {
 
   return (
     <div
-      className="sticky top-0 z-50"
+      className="fixed inset-x-0 top-0 z-50"
       style={{
         transform: hidden ? "translateY(-100%)" : "translateY(0)",
         transition: "transform 0.3s ease-in-out",
@@ -65,7 +67,7 @@ export const SiteLayout = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SmartHeader />
-      <main>
+      <main style={{ paddingTop: `${HEADER_STACK_HEIGHT}px` }}>
         <Outlet />
       </main>
       <SiteFooter />
