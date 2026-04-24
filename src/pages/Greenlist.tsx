@@ -206,21 +206,27 @@ const Greenlist = () => {
               ) : (
                 <>
                   <ul className="flex flex-col gap-1.5">
-                    {pageItems.map((entry, idx) => (
+                    {visibleItems.map((entry, idx) => (
                       <li key={entry.slug}>
                         <GreenlistRow entry={entry} index={idx} />
                       </li>
                     ))}
                   </ul>
 
-                  {sorted.length > pageSize && (
-                    <RegistryPagination
-                      page={currentPage}
-                      totalPages={totalPages}
-                      pageSize={pageSize}
-                      totalRecords={sorted.length}
-                      onPageChange={setPage}
-                    />
+                  {hasMore && (
+                    <div className="mt-6 flex justify-center">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setVisibleCount((n) =>
+                            Math.min(n + PAGE_SIZE, sorted.length),
+                          )
+                        }
+                        className="inline-flex h-11 items-center justify-center rounded-full border border-foreground/15 bg-background px-6 font-sans text-[13.5px] font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-[hsl(var(--muted))]/40"
+                      >
+                        Load More
+                      </button>
+                    </div>
                   )}
                 </>
               )}
