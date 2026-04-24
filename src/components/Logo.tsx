@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import lockupDark from "@/assets/source-standard-lockup-dark.png";
+import lockup from "@/assets/source-standard-lockup-dark.png";
 
 interface LogoProps {
   className?: string;
@@ -11,26 +11,25 @@ interface LogoProps {
 /**
  * Logo — horizontal "S Shield + Source Standard" lockup.
  *
- * Uses a single navy source asset and inverts it for use on dark surfaces:
  *   • variant="dark"   → natural navy lockup (for white/light backgrounds).
  *   • variant="light"  → inverted to white (for navy/dark backgrounds).
  *
- * Sized to 24px height so it fits cleanly inside the header without crowding.
+ * Source asset is a transparent-background PNG of the navy lockup. We use
+ * `brightness(0) invert(1)` to flip it to pure white on dark surfaces, and
+ * leave it untouched on light surfaces. Height is fixed so the lockup reads
+ * cleanly inside the header without crowding.
  */
 export const Logo = ({ className = "", variant = "dark", asLink = true }: LogoProps) => {
   const isLight = variant === "light";
 
   const img = (
     <img
-      src={lockupDark}
+      src={lockup}
       alt="Source Standard"
       draggable={false}
+      className="block h-7 w-auto select-none"
       style={{
-        height: "24px",
-        width: "auto",
-        display: "block",
-        // Invert navy → white on dark surfaces while preserving crisp edges.
-        filter: isLight ? "invert(1) brightness(2)" : "none",
+        filter: isLight ? "brightness(0) invert(1)" : "none",
       }}
     />
   );
