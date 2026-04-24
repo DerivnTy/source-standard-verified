@@ -226,7 +226,7 @@ const VendorProfile = () => {
       <section className="bg-background">
         <div
           className="mx-auto px-4"
-          style={{ maxWidth: "600px", paddingTop: "32px", paddingBottom: "48px" }}
+          style={{ maxWidth: "600px", paddingTop: "16px", paddingBottom: "48px" }}
         >
           {/* Back link — outside card */}
           <Link
