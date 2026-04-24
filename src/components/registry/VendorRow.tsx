@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Vendor, VendorFulfillment } from "@/data/vendors";
+import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
 
 /**
  * VendorRow — Final Two-Row Surgical Card.
@@ -97,26 +98,17 @@ export const VendorRow = ({
                   overflow: "visible",
                 }}
               >
-                <svg
-                  viewBox="0 0 24 28"
-                  aria-hidden="true"
-                  focusable="false"
+                <span
                   style={{
                     position: "absolute",
                     top: "50%",
                     left: 0,
                     transform: "translateY(calc(-50% - 1px))",
-                    height: "22px",
-                    width: "auto",
                     display: "block",
-                    color: "#001021",
                   }}
                 >
-                  <path
-                    d="M12 1 L22 4 V13 C22 19.5 17.5 24.5 12 27 C6.5 24.5 2 19.5 2 13 V4 Z"
-                    fill="currentColor"
-                  />
-                </svg>
+                  <VerifiedShieldMark height={22} color="#001021" />
+                </span>
               </span>
             )}
           </span>
