@@ -216,7 +216,7 @@ const VerifiedVendors = () => {
       />
 
       <section className="bg-background">
-        <div className="page-shell pb-20 md:pb-14">
+        <div className="page-shell pb-10 md:pb-10">
           <div className="mx-auto w-wide">
             {/* Search + filter rail — anchored in flow, no sticky/blur */}
             <div className="-mx-5 md:mx-0 px-5 pt-6 pb-3 md:pt-8">
@@ -425,7 +425,7 @@ const VerifiedVendors = () => {
 
       {/* Explainer panel — Verified vs. Unverified */}
       <section className="bg-background">
-        <div className="page-shell pb-14 md:pb-20 pt-2 md:pt-4">
+        <div className="page-shell pb-14 md:pb-20 pt-0">
           <div className="mx-auto w-wide">
             <div
               className="bg-white"
