@@ -38,28 +38,38 @@ const LiveDashboard = () => {
     label: string;
     live?: boolean;
   }) => (
-    <div className="flex flex-col justify-center px-4 py-4">
-      <div className="flex items-center gap-2">
-        <span
-          className="font-sans font-semibold text-foreground tabular-nums"
-          style={{ fontSize: "14px", lineHeight: "1.2" }}
-        >
-          {typeof value === "number" ? value.toLocaleString("en-US") : value}
-        </span>
-        {live && (
-          <span
-            aria-hidden
-            className="inline-flex h-1.5 w-1.5 rounded-full animate-pulse"
-            style={{ backgroundColor: "#34C759" }}
-          />
-        )}
-      </div>
+    <div className="flex flex-col items-center justify-center text-center px-4 py-5">
+      {/* Label on top — small, muted, mono */}
       <span
-        className="font-mono uppercase text-muted-foreground mt-1"
-        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+        className="font-mono uppercase text-muted-foreground"
+        style={{ fontSize: "10px", letterSpacing: "0.08em", fontWeight: 500 }}
       >
         {label}
       </span>
+      {/* Number below — heavier weight, optional red live dot to its left */}
+      <div className="mt-2 flex items-center justify-center gap-2">
+        {live && (
+          <span
+            aria-hidden
+            className="relative inline-flex h-1.5 w-1.5"
+          >
+            <span
+              className="absolute inset-0 rounded-full animate-ping"
+              style={{ backgroundColor: "#FF3B30", opacity: 0.55 }}
+            />
+            <span
+              className="relative inline-block h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: "#FF3B30" }}
+            />
+          </span>
+        )}
+        <span
+          className="font-sans text-foreground tabular-nums"
+          style={{ fontSize: "20px", lineHeight: "1.1", fontWeight: 600, letterSpacing: "-0.01em" }}
+        >
+          {typeof value === "number" ? value.toLocaleString("en-US") : value}
+        </span>
+      </div>
     </div>
   );
 
@@ -67,10 +77,24 @@ const LiveDashboard = () => {
     <section
       aria-label="Live registry dashboard"
       className="bg-background"
-      style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      style={{ paddingTop: "20px", paddingBottom: "24px" }}
     >
       <div className="page-shell">
         <div className="mx-auto w-standard">
+          {/* Section header — matches "CONTENTS" label cadence */}
+          <div className="mb-3 flex items-center gap-2">
+            <span
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.12em", fontWeight: 500 }}
+            >
+              Live Tracking
+            </span>
+            <span
+              aria-hidden
+              className="h-px flex-1 bg-border"
+            />
+          </div>
+
           <div
             className="grid grid-cols-3 bg-card"
             style={{
@@ -79,13 +103,13 @@ const LiveDashboard = () => {
             }}
           >
             <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
-              <Cell value={stats.total} label="Total Sources" live />
+              <Cell value={stats.total} label="Total Sources" />
             </div>
             <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
               <Cell value={stats.states} label="States Covered" />
             </div>
             <div>
-              <Cell value={stats.verified} label="Verified" />
+              <Cell value={stats.verified} label="Verified" live />
             </div>
           </div>
         </div>
