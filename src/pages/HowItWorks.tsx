@@ -19,46 +19,46 @@ type Clause = { n: string; t: string; d: string };
 const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Supply-chain substantiation",
-    d: "Review of the vendor's primary upstream sourcing relationships to determine whether claimed supply channels can be tied to legitimate, documented sources.",
+    t: "Sourcing-claim review",
+    d: "Review of the vendor's stated sourcing relationships to determine whether the available documentation supports the public claim.",
   },
   {
     n: "02",
-    t: "Registration cross-reference",
-    d: "Cross-checking of cited 503A and 503B pharmacy relationships against federal registration records, state licensure, and related public filings where applicable.",
+    t: "Pharmacy record cross-reference",
+    d: "Cross-reference of cited 503A and 503B pharmacy relationships against public registration records, state licensure records, and related public filings where applicable.",
   },
   {
     n: "03",
     t: "Chain-of-custody review",
-    d: "Assessment of invoices, distribution records, and related documentation to determine whether the available record supports a continuous sourcing chain.",
+    d: "Review of invoices, lot references, distribution records, and related documentation to determine whether the available record supports a documented sourcing trail.",
   },
   {
     n: "04",
-    t: "Entity and standing review",
-    d: "Review of ownership, legal standing, and operating identity to reduce the risk of undocumented intermediary supply arrangements.",
+    t: "Entity and identity review",
+    d: "Review of vendor identity, operating entity, location data, and related records to reduce inconsistency between public claims and submitted documentation.",
   },
 ];
 
 const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Sample acquisition review",
-    d: "Where applicable, product samples may be acquired from active public listings for independent analytical review.",
+    t: "Record maintenance",
+    d: "Published records may be reviewed periodically to determine whether licensing data, pharmacy relationships, and documentation remain consistent with the current status.",
   },
   {
     n: "02",
-    t: "Third-party laboratory analysis",
-    d: "Samples may be submitted to qualified independent laboratories for identity, potency, and sterility testing where that level of review is within scope.",
+    t: "Public-record monitoring",
+    d: "Source Standard may monitor relevant public records, enforcement notices, licensure changes, and administrative updates where applicable.",
   },
   {
     n: "03",
-    t: "Analytical confirmation",
-    d: "Laboratory findings are compared against represented compound identity and concentration to assess whether the available evidence supports the public claim.",
+    t: "Evidence reconciliation",
+    d: "New information may be compared against the existing vendor record to determine whether a status update, additional review, or limitation statement is required.",
   },
   {
     n: "04",
-    t: "Deficiency response",
-    d: "Where material analytical deficiencies are identified within the scope of review, public status may be revised in accordance with the framework's disclosure rules.",
+    t: "Status response",
+    d: "Where material documentation gaps or unresolved inconsistencies are identified, registry status may be updated according to Source Standard status definitions.",
   },
 ];
 
@@ -66,30 +66,32 @@ const DISCLOSURE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Change notification",
-    d: "Vendors are expected to disclose material sourcing, ownership, or operating changes that could affect the accuracy of a published public record.",
+    d: "Vendors are expected to disclose material sourcing, ownership, pharmacy relationship, or operating changes that could affect the accuracy of a published record.",
   },
   {
     n: "02",
-    t: "Regulatory monitoring",
-    d: "The framework monitors relevant federal and state enforcement actions, licensure changes, and related administrative developments where applicable.",
+    t: "Documentation updates",
+    d: "Updated documentation may be required when a vendor changes a pharmacy relationship, adds a therapy category, or expands the scope of a public sourcing claim.",
   },
   {
     n: "03",
-    t: "Credential continuity",
-    d: "Published records are periodically reviewed to determine whether underlying licenses, pharmacy relationships, and related operating credentials remain consistent with the stated record.",
+    t: "Review continuity",
+    d: "Published records may be reviewed to determine whether underlying licenses, pharmacy relationships, and documentation remain consistent with the stated status.",
   },
   {
     n: "04",
     t: "Status adjustment",
-    d: "Where disclosure failures or material inconsistencies are identified, registry status may be updated to reflect the current state of the record.",
+    d: "Where disclosure failures, expired documentation, or material inconsistencies are identified, registry status may be updated to reflect the current state of the record.",
   },
 ];
 
 const BOUNDARIES = [
-  "The framework publishes whether sourcing documentation and related records support the stated public claim within the reviewed scope.",
+  "The framework reviews whether sourcing documentation and related records support the stated public claim within the reviewed scope.",
   "It does not provide clinical recommendations or individualized medical advice.",
-  "It does not certify patient outcomes, treatment efficacy, or biological response.",
+  "It does not verify medical outcomes, treatment effectiveness, or biological response.",
+  "It does not certify product safety, potency, sterility, or quality.",
   "It does not replace federal or state regulatory authority.",
+  "It does not approve, recommend, or rank vendors.",
 ];
 
 const SplitSection = ({
