@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
-import { RegistryPagination } from "@/components/registry/RegistryPagination";
+
 import { GreenlistRow } from "@/components/registry/GreenlistRow";
 import {
   greenlistEntries,
@@ -68,8 +68,8 @@ const Greenlist = () => {
   const [type, setType] = useState<string>(ALL);
   const [state, setStateFilter] = useState<string>(ALL);
   const [status, setStatus] = useState<StatusKey>("any");
-  const [page, setPage] = useState(1);
-  const [pageSize] = useState(50);
+  const PAGE_SIZE = 10;
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const states = useMemo(() => getGreenlistStates(), []);
   const counts = useMemo(() => getGreenlistCounts(), []);
@@ -102,13 +102,11 @@ const Greenlist = () => {
     [filtered],
   );
 
-  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
-  const currentPage = Math.min(page, totalPages);
-  const pageStart = (currentPage - 1) * pageSize;
-  const pageItems = sorted.slice(pageStart, pageStart + pageSize);
+  const visibleItems = sorted.slice(0, visibleCount);
+  const hasMore = visibleCount < sorted.length;
 
   useEffect(() => {
-    setPage(1);
+    setVisibleCount(PAGE_SIZE);
   }, [query, type, state, status]);
 
   return (
@@ -208,21 +206,27 @@ const Greenlist = () => {
               ) : (
                 <>
                   <ul className="flex flex-col gap-1.5">
-                    {pageItems.map((entry, idx) => (
+                    {visibleItems.map((entry, idx) => (
                       <li key={entry.slug}>
                         <GreenlistRow entry={entry} index={idx} />
                       </li>
                     ))}
                   </ul>
 
-                  {sorted.length > pageSize && (
-                    <RegistryPagination
-                      page={currentPage}
-                      totalPages={totalPages}
-                      pageSize={pageSize}
-                      totalRecords={sorted.length}
-                      onPageChange={setPage}
-                    />
+                  {hasMore && (
+                    <div className="mt-6 flex justify-center">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setVisibleCount((n) =>
+                            Math.min(n + PAGE_SIZE, sorted.length),
+                          )
+                        }
+                        className="inline-flex h-11 items-center justify-center rounded-full border border-foreground/15 bg-background px-6 font-sans text-[13.5px] font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-[hsl(var(--muted))]/40"
+                      >
+                        Load More
+                      </button>
+                    </div>
                   )}
                 </>
               )}
