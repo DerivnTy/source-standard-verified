@@ -219,17 +219,13 @@ const MedicalAdvisory = () => {
                   </div>
                 </div>
                 <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ol className="divide-y divide-border/60">
+                  <ul className="space-y-3">
                     {MANDATE_CLAUSES.map((c) => (
-                      <li key={c.n} className="grid grid-cols-12 gap-4 py-4 first:pt-0 last:pb-0 items-baseline">
-                        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">{c.n}</div>
-                        <div className="col-span-10 md:col-span-11">
-                          <p className="t-body-sm font-semibold text-foreground">{c.t}</p>
-                          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{c.d}</p>
-                        </div>
+                      <li key={c.n}>
+                        <GovRow index={c.n} title={c.t} description={c.d} />
                       </li>
                     ))}
-                  </ol>
+                  </ul>
                 </div>
               </div>
             </section>
