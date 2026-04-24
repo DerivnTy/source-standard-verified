@@ -32,46 +32,62 @@ const LiveDashboard = () => {
   const Cell = ({
     value,
     label,
-    live = false,
+    dot,
   }: {
     value: number | string;
     label: string;
-    live?: boolean;
-  }) => (
-    <div className="flex flex-col items-center justify-center text-center px-4 py-5">
-      {/* Label on top — small, muted, mono */}
-      <span
-        className="font-mono uppercase text-muted-foreground"
-        style={{ fontSize: "10px", letterSpacing: "0.08em", fontWeight: 500 }}
+    dot?: "red" | "green";
+  }) => {
+    const dotColor = dot === "red" ? "#FF3B30" : dot === "green" ? "#22C55E" : null;
+    return (
+      <div
+        className="flex flex-col items-center justify-center text-center px-4"
+        style={{ paddingTop: "18px", paddingBottom: "18px" }}
       >
-        {label}
-      </span>
-      {/* Number below — heavier weight, optional red live dot to its left */}
-      <div className="mt-2 flex items-center justify-center gap-2">
-        {live && (
-          <span
-            aria-hidden
-            className="relative inline-flex h-1.5 w-1.5"
-          >
-            <span
-              className="absolute inset-0 rounded-full animate-ping"
-              style={{ backgroundColor: "#FF3B30", opacity: 0.55 }}
-            />
-            <span
-              className="relative inline-block h-1.5 w-1.5 rounded-full"
-              style={{ backgroundColor: "#FF3B30" }}
-            />
-          </span>
-        )}
+        {/* Label on top — small, muted, mono. Fixed height locks vertical rhythm across cards. */}
         <span
-          className="font-sans text-foreground tabular-nums"
-          style={{ fontSize: "20px", lineHeight: "1.1", fontWeight: 600, letterSpacing: "-0.01em" }}
+          className="font-mono uppercase text-muted-foreground"
+          style={{
+            fontSize: "10px",
+            lineHeight: "12px",
+            letterSpacing: "0.08em",
+            fontWeight: 500,
+          }}
         >
-          {typeof value === "number" ? value.toLocaleString("en-US") : value}
+          {label}
         </span>
+        {/* Number row — fixed top gap of 10px so all three cards align identically */}
+        <div
+          className="flex items-center justify-center"
+          style={{ marginTop: "10px", gap: "6px", height: "22px" }}
+        >
+          {dotColor && (
+            <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
+              <span
+                className="absolute inset-0 rounded-full animate-ping"
+                style={{ backgroundColor: dotColor, opacity: 0.55 }}
+              />
+              <span
+                className="relative inline-block h-1.5 w-1.5 rounded-full"
+                style={{ backgroundColor: dotColor }}
+              />
+            </span>
+          )}
+          <span
+            className="font-sans text-foreground tabular-nums"
+            style={{
+              fontSize: "20px",
+              lineHeight: "22px",
+              fontWeight: 600,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {typeof value === "number" ? value.toLocaleString("en-US") : value}
+          </span>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <section
@@ -81,17 +97,25 @@ const LiveDashboard = () => {
     >
       <div className="page-shell">
         <div className="mx-auto w-standard">
-          {/* Section header — matches "CONTENTS" label cadence */}
-          <div className="mb-3 flex items-center gap-2">
+          {/* Section header — high-end sub-header with anchoring rule */}
+          <div
+            className="flex items-center gap-3"
+            style={{ marginBottom: "14px" }}
+          >
             <span
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.12em", fontWeight: 500 }}
+              className="font-sans uppercase text-foreground"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.14em",
+                fontWeight: 500,
+              }}
             >
               Live Tracking
             </span>
             <span
               aria-hidden
-              className="h-px flex-1 bg-border"
+              className="flex-1 bg-border"
+              style={{ height: "0.5px" }}
             />
           </div>
 
@@ -103,13 +127,13 @@ const LiveDashboard = () => {
             }}
           >
             <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
-              <Cell value={stats.total} label="Total Sources" />
+              <Cell value={stats.total} label="Total Sources" dot="red" />
             </div>
             <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
               <Cell value={stats.states} label="States Covered" />
             </div>
             <div>
-              <Cell value={stats.verified} label="Verified" live />
+              <Cell value={stats.verified} label="Verified" dot="green" />
             </div>
           </div>
         </div>
