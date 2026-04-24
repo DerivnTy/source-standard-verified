@@ -130,6 +130,20 @@ export const BriefingHero = ({
                   {actions}
                 </div>
               )}
+
+              {heroMeta && (
+                <div
+                  className="mx-auto w-full"
+                  style={{
+                    marginTop: "clamp(48px, 7vh, 72px)",
+                    paddingTop: "22px",
+                    maxWidth: "560px",
+                    borderTop: "1px solid rgba(255,255,255,0.16)",
+                  }}
+                >
+                  {heroMeta}
+                </div>
+              )}
             </div>
           </div>
         </section>
