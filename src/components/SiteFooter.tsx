@@ -49,7 +49,6 @@ const columns: Column[] = [
   },
 ];
 
-const FOOTER_BG = "#112240";
 const MUTED = "#94A3B8";
 const HAIRLINE = "rgba(148, 163, 184, 0.18)";
 
@@ -70,13 +69,9 @@ export const SiteFooter = () => {
 
   return (
     <footer
-      className="mt-0 pb-10 md:pb-20"
-      style={{
-        backgroundColor: FOOTER_BG,
-        borderTop: "1px solid #0B1A33",
-      }}
+      className="mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
     >
-      <div className="page-shell pt-10 md:pt-16">
+      <div className="page-shell pt-10 md:pt-16 pb-6 md:pb-20">
         <div className="mx-auto w-wide">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-9 md:gap-y-12 items-start text-left">
             <div className="lg:col-span-1">
