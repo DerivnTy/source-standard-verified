@@ -11,10 +11,6 @@ const WAYPOINTS = [
   { id: "inquiries", number: "05", label: "Inquiries" },
 ];
 
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
-
 type Clause = { n: string; t: string; d: string };
 
 const PARTITIONING: Clause[] = [
@@ -81,48 +77,113 @@ const RETENTION: Clause[] = [
   },
 ];
 
-const ClauseList = ({ clauses }: { clauses: Clause[] }) => (
-  <ol className="divide-y divide-border/60 border-y border-border/60">
-    {clauses.map((c) => (
-      <li key={c.n} className="grid grid-cols-12 gap-4 py-6">
-        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70 pt-1">
-          {c.n}
-        </div>
-        <div className="col-span-10 md:col-span-11">
-          <h3 className="t-body-md font-semibold text-foreground mb-2">{c.t}</h3>
-          <p className="t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
-        </div>
-      </li>
-    ))}
-  </ol>
+// --- Local primitives ---
+
+const cardChrome = {
+  backgroundColor: "hsl(var(--card))",
+  border: "0.5px solid hsl(var(--border))",
+  borderRadius: "12px",
+} as const;
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p
+    className="font-mono uppercase text-muted-foreground"
+    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+  >
+    {children}
+  </p>
 );
 
-const SplitSection = ({
-  id,
-  n,
+const SectionHeader = ({
+  index,
   title,
   intro,
-  children,
 }: {
-  id: string;
-  n: string;
+  index: string;
   title: string;
   intro: string;
-  children: React.ReactNode;
 }) => (
-  <section id={id} className="scroll-mt-24 section-pad border-b border-border/40">
-    <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-      <div className="md:col-span-4">
-        <div className="md:sticky md:top-32">
-          <SectionIndex n={n} />
-          <h2 className="t-section-title-sm text-foreground">{title}</h2>
-          <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">{intro}</p>
-        </div>
-      </div>
-      <div className="md:col-span-8 mt-8 md:mt-0">{children}</div>
-    </div>
-  </section>
+  <div className="mb-5">
+    <p className="font-mono tabular-nums text-muted-foreground/60" style={{ fontSize: "11px" }}>
+      {index}
+    </p>
+    <h2 className="t-section-title-sm text-foreground mt-1">{title}</h2>
+    <p
+      className="mt-2 text-muted-foreground"
+      style={{ fontSize: "13.5px", lineHeight: 1.55, maxWidth: "62ch" }}
+    >
+      {intro}
+    </p>
+  </div>
 );
+
+const PrivacyCard = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ ...cardChrome, padding: "24px" }}>{children}</div>
+);
+
+const PrivacyRow = ({
+  index,
+  total,
+  title,
+  description,
+}: {
+  index: string;
+  total: string;
+  title: string;
+  description: string;
+}) => (
+  <div style={{ ...cardChrome, padding: "14px 16px" }}>
+    <div className="flex items-baseline justify-between gap-4">
+      <h3
+        className="font-sans font-semibold text-foreground min-w-0"
+        style={{ fontSize: "14px", lineHeight: 1.4 }}
+      >
+        {title}
+      </h3>
+      <span
+        className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+      >
+        {index} / {total}
+      </span>
+    </div>
+    <p
+      className="text-muted-foreground"
+      style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "6px" }}
+    >
+      {description}
+    </p>
+  </div>
+);
+
+const ContactLine = ({
+  label,
+  email,
+}: {
+  label: string;
+  email: string;
+}) => (
+  <div
+    style={{ ...cardChrome, padding: "12px 14px", marginTop: "16px" }}
+    className="flex items-center justify-between gap-4 flex-wrap"
+  >
+    <span
+      className="font-mono uppercase text-muted-foreground"
+      style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    >
+      {label}
+    </span>
+    <a
+      href={`mailto:${email}`}
+      className="font-sans font-semibold text-primary hover:underline"
+      style={{ fontSize: "13px" }}
+    >
+      {email}
+    </a>
+  </div>
+);
+
+// --- Page ---
 
 const Privacy = () => {
   const heroDescription =
@@ -134,7 +195,7 @@ const Privacy = () => {
 
       <PageMeta title="Privacy" description={heroDescription} />
 
-      {/* §1 Hero */}
+      {/* Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -144,119 +205,202 @@ const Privacy = () => {
         docId=""
       />
 
-      {/* §2 Statement of purpose */}
-      <section className="bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard section-pad">
-            <div className="max-w-2xl">
-              <h2 className="t-section-title-sm text-foreground">
-                How data is handled under the framework
-              </h2>
-              <div className="mt-6 space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard maintains a distinction between public registry information and protected review materials.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §3 Contents nav */}
+      {/* Contents nav */}
       <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* §4 Partitioning */}
-            <SplitSection
+            {/* §1 Purpose */}
+            <section
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <PrivacyCard>
+                <Eyebrow>Data Governance</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
+                  How data is handled under the framework
+                </h2>
+                <div
+                  style={{
+                    marginTop: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Source Standard maintains a distinction between public registry information and protected review materials.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.
+                  </p>
+                </div>
+              </PrivacyCard>
+            </section>
+
+            {/* §2 Record Partitioning */}
+            <section
               id="partitioning"
-              n="01"
-              title="Record Partitioning"
-              intro="How public registry information is separated from protected review materials."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <ClauseList clauses={PARTITIONING} />
-            </SplitSection>
+              <SectionHeader
+                index="01"
+                title="Record Partitioning"
+                intro="How public registry information is separated from protected review materials."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {PARTITIONING.map((c) => (
+                  <PrivacyRow key={c.n} index={c.n} total="03" title={c.t} description={c.d} />
+                ))}
+              </div>
+            </section>
 
-            {/* §5 Collection */}
-            <SplitSection
+            {/* §3 Scope of Collection */}
+            <section
               id="collection"
-              n="02"
-              title="Scope of Collection"
-              intro="What categories of data may be collected under the framework."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <ClauseList clauses={COLLECTION} />
-            </SplitSection>
+              <SectionHeader
+                index="02"
+                title="Scope of Collection"
+                intro="What categories of data may be collected under the framework."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {COLLECTION.map((c) => (
+                  <PrivacyRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
+                ))}
+              </div>
+            </section>
 
-            {/* §6 Retention */}
-            <SplitSection
+            {/* §4 Data Retention */}
+            <section
               id="retention"
-              n="03"
-              title="Data Retention"
-              intro="How long records are maintained under different conditions."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <ClauseList clauses={RETENTION} />
-            </SplitSection>
+              <SectionHeader
+                index="03"
+                title="Data Retention"
+                intro="How long records are maintained under different conditions."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {RETENTION.map((c) => (
+                  <PrivacyRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
+                ))}
+              </div>
+            </section>
 
-            {/* §7 Processing */}
-            <SplitSection
+            {/* §5 Authorized Processing */}
+            <section
               id="processing"
-              n="04"
-              title="Authorized Processing"
-              intro="How data may be processed in support of the framework."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <div className="space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Data processing is limited to essential internal functions and authorized infrastructure partners operating under confidentiality and access restrictions.
+              <PrivacyCard>
+                <Eyebrow>04 · Authorized Processing</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">Authorized Processing</h2>
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "8px" }}
+                >
+                  How data may be processed in support of the framework.
                 </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, secure storage, registry operations, and privacy-respecting analytics.
-                </p>
-              </div>
-            </SplitSection>
+                <div
+                  style={{
+                    marginTop: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Data processing is limited to essential internal functions and authorized infrastructure partners operating under confidentiality and access restrictions.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, secure storage, registry operations, and privacy-respecting analytics.
+                  </p>
+                </div>
+              </PrivacyCard>
+            </section>
 
-            {/* §8 Inquiries */}
-            <SplitSection
+            {/* §6 Inquiries & Requests */}
+            <section
               id="inquiries"
-              n="05"
-              title="Inquiries & Requests"
-              intro="How privacy-related requests may be made."
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <div className="space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.
+              <PrivacyCard>
+                <Eyebrow>05 · Inquiries</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">Inquiries & Requests</h2>
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "8px" }}
+                >
+                  How privacy-related requests may be made.
                 </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.
-                </p>
-                <p className="pt-2 t-body-md text-foreground">
-                  Data Privacy Officer:{" "}
-                  <a
-                    href="mailto:privacy@sourcestandard.org"
-                    className="font-medium text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors"
-                  >
-                    privacy@sourcestandard.org
-                  </a>
-                </p>
-              </div>
-            </SplitSection>
+                <div
+                  style={{
+                    marginTop: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.
+                  </p>
+                </div>
+                <ContactLine label="Data Privacy Officer" email="privacy@sourcestandard.org" />
+              </PrivacyCard>
+            </section>
 
-            {/* §9 Closing statement */}
-            <section className="section-pad border-t border-border/40">
-              <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
+            {/* §7 Closing */}
+            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+              <PrivacyCard>
+                <Eyebrow>Record Handling</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
                   Public transparency requires disciplined record handling.
                 </h2>
-                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                >
                   The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve review integrity, privacy, and responsible record administration.
                 </p>
-              </div>
+              </PrivacyCard>
             </section>
           </div>
         </div>
