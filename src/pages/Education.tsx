@@ -88,9 +88,11 @@ const CategoryBlock = ({
                 No entries match the current search.
               </div>
             ) : (
-              <ul className="border-y border-border/60 divide-y divide-border/60">
+              <ul className="flex flex-col gap-2">
                 {visible.map((e) => (
-                  <ArticleRow key={e.slug} entry={e} />
+                  <li key={e.slug}>
+                    <ArticleRow entry={e} />
+                  </li>
                 ))}
               </ul>
             )}
