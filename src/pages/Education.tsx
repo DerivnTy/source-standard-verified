@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -13,6 +14,119 @@ import {
   articlesByCategory,
   sortArticles,
 } from "@/data/resourceLibrary";
+
+// Local non-exported primitives — Source Standard reference-database language.
+const LibraryCard = ({
+  children,
+  padded = true,
+}: {
+  children: ReactNode;
+  padded?: boolean;
+}) => (
+  <div
+    className="bg-card"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: padded ? "24px" : "0",
+    }}
+  >
+    {children}
+  </div>
+);
+
+const ViewAllPill = ({
+  to,
+  children,
+}: {
+  to: string;
+  children: ReactNode;
+}) => (
+  <Link
+    to={to}
+    className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97] hover:bg-[hsl(var(--muted))]/40"
+    style={{
+      fontSize: "11px",
+      letterSpacing: "0.06em",
+      height: "30px",
+      padding: "0 12px",
+      borderRadius: "20px",
+      border: "1px solid hsl(var(--border))",
+      backgroundColor: "#FFFFFF",
+      color: "hsl(var(--foreground) / 0.85)",
+    }}
+  >
+    {children}
+    <ChevronRight aria-hidden style={{ width: "11px", height: "11px", strokeWidth: 1.5 }} />
+  </Link>
+);
+
+const InquiryRow = ({
+  label,
+  description,
+  to,
+}: {
+  label: string;
+  description: string;
+  to: string;
+}) => (
+  <Link
+    to={to}
+    aria-label={label}
+    className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.97]"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "10px 12px",
+    }}
+  >
+    <div className="flex flex-col" style={{ rowGap: "2px" }}>
+      <div className="flex items-start justify-between gap-x-3">
+        <span
+          className="shrink-0 font-mono uppercase tabular-nums text-muted-foreground"
+          style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+        >
+          {label}
+        </span>
+        <span
+          className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+          style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+        >
+          View
+          <ChevronRight aria-hidden style={{ width: "11px", height: "11px", strokeWidth: 1.5 }} />
+        </span>
+      </div>
+      <p
+        className="font-sans text-foreground/85"
+        style={{ fontSize: "12px", lineHeight: "1.45" }}
+      >
+        {description}
+      </p>
+    </div>
+  </Link>
+);
+
+const ReferenceNote = ({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children: ReactNode;
+}) => (
+  <LibraryCard>
+    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+      {eyebrow}
+    </p>
+    <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">
+      {title}
+    </h2>
+    <div className="mt-3 t-body-sm text-muted-foreground leading-[1.55] max-w-[60ch]">
+      {children}
+    </div>
+  </LibraryCard>
+);
 
 const HERO_DESCRIPTION =
   "Clinical, regulatory, and documentation reference for compounded therapy sourcing, pharmacy standards, and consumer due diligence. Materials are reviewed for accuracy, scope, and public-reference clarity.";
@@ -69,25 +183,33 @@ const CategoryBlock = ({
   return (
     <section
       id={category.id}
-      className="section-pad border-b border-border/40 scroll-mt-36"
+      className="border-b border-border/40 scroll-mt-36"
+      style={{ paddingTop: "40px", paddingBottom: "40px" }}
     >
       <div className="mx-auto w-wide">
-        <div className="grid grid-cols-12 gap-x-8 gap-y-8">
+        <div className="grid grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-12 md:col-span-4">
             <h2 className="t-section-title-sm text-foreground tracking-tight">
               {category.label}
             </h2>
-            <p className="mt-3 t-body-md text-muted-foreground leading-[1.6] max-w-[42ch]">
+            <p className="mt-2 t-body-sm text-muted-foreground leading-[1.55] max-w-[42ch]">
               {category.description}
             </p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
               {entries.length} {entries.length === 1 ? "entry" : "entries"}
             </p>
           </div>
 
           <div className="col-span-12 md:col-span-8">
             {entries.length === 0 ? (
-              <div className="border border-border/60 px-5 py-10 text-center t-body-sm text-muted-foreground">
+              <div
+                className="bg-card text-center t-body-sm text-muted-foreground"
+                style={{
+                  border: "0.5px solid hsl(var(--border))",
+                  borderRadius: "12px",
+                  padding: "32px 20px",
+                }}
+              >
                 No entries match the current search.
               </div>
             ) : (
@@ -101,13 +223,10 @@ const CategoryBlock = ({
             )}
 
             {entries.length > 0 && (
-              <div className="mt-5">
-                <Link
-                  to={category.path}
-                  className="inline-block t-body-sm font-semibold text-foreground hover:text-primary transition-colors"
-                >
-                  View all {category.label} entries
-                </Link>
+              <div className="mt-3">
+                <ViewAllPill to={category.path}>
+                  View all {category.label}
+                </ViewAllPill>
               </div>
             )}
           </div>
@@ -271,47 +390,33 @@ const Education = () => {
       {/* §6 Common Inquiries */}
       <section
         id="common-inquiries"
-        className="section-pad border-b border-border/40"
+        className="border-b border-border/40"
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-wide">
-            <div className="grid grid-cols-12 gap-x-8 gap-y-8">
+            <div className="grid grid-cols-12 gap-x-8 gap-y-6">
               <div className="col-span-12 md:col-span-4">
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                   Reference Questions
                 </p>
-                <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
+                <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">
                   Common Inquiries
                 </h2>
-                <p className="mt-3 t-body-md text-muted-foreground leading-[1.6] max-w-[42ch]">
+                <p className="mt-2 t-body-sm text-muted-foreground leading-[1.55] max-w-[42ch]">
                   Recorded answers to recurring questions, organized by topic.
                 </p>
               </div>
 
               <div className="col-span-12 md:col-span-8">
-                <ul className="border-y border-border/60 divide-y divide-border/60">
+                <ul className="flex flex-col gap-2">
                   {COMMON_INQUIRIES.map((item) => (
                     <li key={item.label}>
-                      <Link
+                      <InquiryRow
+                        label={item.label}
+                        description={item.description}
                         to={item.to}
-                        className="group grid grid-cols-12 gap-4 items-center px-5 py-4 transition-colors hover:bg-surface-muted"
-                      >
-                        <div className="col-span-12 md:col-span-3">
-                          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground group-hover:text-foreground transition-colors">
-                            {item.label}
-                          </span>
-                        </div>
-                        <div className="col-span-12 md:col-span-7">
-                          <p className="t-body-sm text-foreground/85 leading-[1.55]">
-                            {item.description}
-                          </p>
-                        </div>
-                        <div className="col-span-12 md:col-span-2 md:text-right">
-                          <span className="t-body-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                            View
-                          </span>
-                        </div>
-                      </Link>
+                      />
                     </li>
                   ))}
                 </ul>
@@ -322,38 +427,32 @@ const Education = () => {
       </section>
 
       {/* §7 Editorial Pipeline */}
-      <section className="section-pad border-b border-border/40">
+      <section
+        className="border-b border-border/40"
+        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+      >
         <div className="page-shell">
           <div className="mx-auto w-wide">
-            <div className="max-w-[60ch]">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                Forthcoming
-              </p>
-              <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
-                Editorial Pipeline
-              </h2>
-              <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
+            <ReferenceNote eyebrow="Forthcoming" title="Editorial Pipeline">
+              <p>
                 Additional reference formats are in development, including
                 video explainers, Board-reviewed articles, and the 2026
                 Integrity Ledger.
               </p>
-            </div>
+            </ReferenceNote>
           </div>
         </div>
       </section>
 
       {/* §8 Closing statement */}
-      <section className="section-pad border-t border-border/40">
+      <section style={{ paddingTop: "40px", paddingBottom: "56px" }}>
         <div className="page-shell">
           <div className="mx-auto w-wide">
-            <div className="max-w-[60ch]">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                Conclusion
-              </p>
-              <h2 className="mt-3 t-section-title-sm text-foreground tracking-tight">
-                A working reference, not a content feed.
-              </h2>
-              <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
+            <ReferenceNote
+              eyebrow="Conclusion"
+              title="A working reference, not a content feed."
+            >
+              <p>
                 The Resource Library helps consumers, clinicians, and listed
                 entities understand sourcing claims, pharmacy categories,
                 documentation review, and verification limits through a
@@ -361,7 +460,7 @@ const Education = () => {
                 of the broader Source Standard framework, not as a standalone
                 publishing channel.
               </p>
-            </div>
+            </ReferenceNote>
           </div>
         </div>
       </section>
