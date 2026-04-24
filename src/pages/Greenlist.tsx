@@ -114,6 +114,13 @@ const Greenlist = () => {
       <PageMeta
         title="Upstream Registry · Source Standard"
         description="A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance."
+        path="/greenlist"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Upstream Registry",
+          url: "https://sourcestandard.org/greenlist",
+        }}
       />
 
       <RegistryHeader

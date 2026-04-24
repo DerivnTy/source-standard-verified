@@ -377,6 +377,22 @@ const Index = () => {
       <PageMeta
         title="Source Standard · Verify the source."
         description="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
+        path="/"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Source Standard",
+            url: "https://sourcestandard.org/",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Source Standard",
+            url: "https://sourcestandard.org/",
+            logo: "https://sourcestandard.org/placeholder.svg",
+          },
+        ]}
       />
 
       {/* §1 — Hero */}

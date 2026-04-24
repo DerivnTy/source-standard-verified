@@ -217,7 +217,17 @@ const HowItWorks = () => {
     <>
       <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Verification" }]} />
 
-      <PageMeta title="Verification Protocol · Source Standard" description={heroDescription} />
+      <PageMeta
+        title="Verification Protocol · Source Standard"
+        description={heroDescription}
+        path="/how-it-works"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Verification Protocol",
+          url: "https://sourcestandard.org/how-it-works",
+        }}
+      />
 
       {/* §1 Hero — untouched */}
       <BriefingHero

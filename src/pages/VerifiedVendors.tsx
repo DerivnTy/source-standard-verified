@@ -197,6 +197,13 @@ const VerifiedVendors = () => {
       <PageMeta
         title="Vendor Registry"
         description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
+        path="/verified-vendors"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Vendor Registry",
+          url: "https://sourcestandard.org/verified-vendors",
+        }}
       />
 
       <RegistryHeader
