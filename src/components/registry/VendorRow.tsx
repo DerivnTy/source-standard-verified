@@ -108,7 +108,6 @@ export const VendorRow = ({
               </span>
               Verified
             </span>
-            </span>
           ) : (
             <span
               className="font-sans uppercase tabular-nums"
