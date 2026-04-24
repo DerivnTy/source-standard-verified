@@ -138,13 +138,23 @@ export const VendorRow = ({
         {/* Row 3 — View Record action (right) */}
         <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-4px" }}>
           <span
-            className="inline-flex items-center gap-0.5 font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
-            style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.035em", lineHeight: 1 }}
+            className="font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+              marginLeft: "auto",
+              marginRight: "-2px",
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "0.035em",
+              lineHeight: 1,
+            }}
           >
             View Record
             <ChevronRight
               aria-hidden
-              style={{ width: "12px", height: "12px", strokeWidth: 1.5 }}
+              style={{ width: "12px", height: "12px", strokeWidth: 1.5, marginRight: "-2px" }}
             />
           </span>
         </div>
