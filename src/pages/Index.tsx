@@ -382,18 +382,37 @@ const Index = () => {
       {/* §1 — Hero */}
       <div
         className="
-          flex flex-col min-h-[calc(100svh-96px)] lg:min-h-0
-          [&>section]:flex-1 [&>section]:flex [&>section]:flex-col
-          [&_.page-shell]:flex-1 [&_.page-shell]:flex [&_.page-shell]:flex-col
-          [&_.page-shell]:!pt-14 [&_.page-shell]:!pb-10 [&_.page-shell]:!px-8
-          lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)] lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)] lg:[&_.page-shell]:!px-6
-          [&_.page-shell>div.relative.w-full]:flex
-          [&_.page-shell>div.relative.w-full]:flex-col
-          [&_.page-shell>div.relative.w-full]:justify-between
-          [&_.page-shell>div.relative.w-full]:flex-1
-          [&_.page-shell>div.relative.w-full]:gap-y-6
+          min-h-[calc(100svh-96px)] lg:min-h-0
+          [&>section]:min-h-[calc(100svh-96px)]
+          lg:[&>section]:min-h-[calc(100dvh-84px)]
+          [&_.page-shell]:min-h-[calc(100svh-96px)]
+          lg:[&_.page-shell]:min-h-[calc(100dvh-84px)]
+          [&_.page-shell]:flex
+          [&_.page-shell]:items-center
+          [&_.page-shell]:!pt-10
+          [&_.page-shell]:!pb-10
+          [&_.page-shell]:!px-8
+          lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)]
+          lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)]
+          lg:[&_.page-shell]:!px-6
+          [&_h1#briefing-title+p]:!mt-6
+          [&_h1#briefing-title~div.flex.justify-center]:!mt-9
+          [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
+          [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
+          md:[&_h1#briefing-title+p]:!max-w-[440px]
         "
       >
+        <BriefingHero
+          variant="cover"
+          category="Public Reference System · United States"
+          docId=""
+          title="Verify the source."
+          statement="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
+          tone="navy"
+          actions={<HeroActions />}
+          heroMetrics={<HeroMetrics />}
+        />
+      </div>
         <BriefingHero
           variant="cover"
           category="Public Reference System · United States"
