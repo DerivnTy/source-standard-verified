@@ -47,22 +47,23 @@ export const VendorRow = ({
       data-pill
       className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.99]"
       style={{
-        border: "0.5px solid hsl(var(--border))",
-        borderRadius: "20px",
-        padding: "18px 20px",
-        minHeight: "112px",
+        border: "1px solid rgba(0,16,33,0.08)",
+        borderRadius: "22px",
+        padding: "14px 18px",
+        minHeight: "92px",
       }}
     >
-      <div className="flex flex-col" style={{ gap: "10px" }}>
+      <div className="flex flex-col" style={{ gap: "8px" }}>
         {/* Row 1 — Name (left) · Status (right) */}
         <div className="flex items-start justify-between" style={{ gap: "16px" }}>
           <h3
-            className="font-sans font-semibold text-foreground truncate"
+            className="font-sans text-foreground truncate"
             style={{
               flex: 1,
               minWidth: 0,
               fontSize: "15px",
-              lineHeight: "1.3",
+              fontWeight: 650,
+              lineHeight: 1.15,
               letterSpacing: "-0.01em",
             }}
           >
@@ -71,28 +72,32 @@ export const VendorRow = ({
 
           {isVerified ? (
             <span
-              className="inline-flex items-center gap-1 font-sans font-bold uppercase tabular-nums"
+              className="inline-flex items-center gap-1 font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
-                fontSize: "10px",
-                letterSpacing: "0.08em",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.04em",
+                lineHeight: 1,
                 color: "#34C759",
               }}
             >
               <span
                 aria-hidden
                 className="inline-block rounded-full"
-                style={{ width: "4px", height: "4px", backgroundColor: "#34C759" }}
+                style={{ width: "5px", height: "5px", backgroundColor: "#34C759" }}
               />
               Verified
             </span>
           ) : (
             <span
-              className="font-sans font-bold uppercase tabular-nums"
+              className="font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
-                fontSize: "10px",
-                letterSpacing: "0.08em",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.04em",
+                lineHeight: 1,
                 color: "#FF3B30",
               }}
             >
@@ -105,12 +110,15 @@ export const VendorRow = ({
         <div className="flex items-center" style={{ gap: "8px", flexWrap: "wrap" }}>
           {focus && (
             <span
-              className="inline-flex items-center gap-1 font-sans font-medium uppercase bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] whitespace-nowrap"
+              className="inline-flex items-center gap-1 font-sans uppercase whitespace-nowrap"
               style={{
-                fontSize: "9px",
-                letterSpacing: "0.06em",
-                padding: "2px 6px",
-                borderRadius: "3px",
+                fontSize: "10px",
+                fontWeight: 600,
+                letterSpacing: "0.03em",
+                padding: "4px 7px",
+                borderRadius: "4px",
+                background: "rgba(0,16,33,0.07)",
+                color: "rgba(0,16,33,0.68)",
               }}
             >
               {focus.label}
@@ -120,23 +128,23 @@ export const VendorRow = ({
             </span>
           )}
           <span
-            className="text-muted-foreground"
-            style={{ fontSize: "11px", lineHeight: "1.35" }}
+            className="text-muted-foreground truncate"
+            style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
           >
             {locationLine}
           </span>
         </div>
 
         {/* Row 3 — View Record action (right) */}
-        <div className="flex" style={{ justifyContent: "flex-end" }}>
+        <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-2px" }}>
           <span
-            className="inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
-            style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+            className="inline-flex items-center gap-0.5 font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+            style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.02em" }}
           >
             View Record
             <ChevronRight
               aria-hidden
-              style={{ width: "11px", height: "11px", strokeWidth: 1.5 }}
+              style={{ width: "12px", height: "12px", strokeWidth: 1.5 }}
             />
           </span>
         </div>
