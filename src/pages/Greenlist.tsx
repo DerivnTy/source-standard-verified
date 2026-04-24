@@ -68,8 +68,8 @@ const Greenlist = () => {
   const [type, setType] = useState<string>(ALL);
   const [state, setStateFilter] = useState<string>(ALL);
   const [status, setStatus] = useState<StatusKey>("any");
-  const [page, setPage] = useState(1);
-  const [pageSize] = useState(50);
+  const PAGE_SIZE = 10;
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const states = useMemo(() => getGreenlistStates(), []);
   const counts = useMemo(() => getGreenlistCounts(), []);
