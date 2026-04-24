@@ -117,7 +117,7 @@ const SplitSection = ({
 
 const About = () => {
   const heroDescription =
-    "Source Standard exists to make sourcing claims easier to interpret through documented records, structured review, and public-reference standards.";
+    "Source Standard exists to make vendor sourcing claims easier to interpret through submitted records, public documentation, structured review, and status-based registry standards.";
 
   return (
     <>
@@ -130,7 +130,7 @@ const About = () => {
         tone="navy"
         variant="chapter"
         category="Organization & Mandate"
-        title="An independent verification and public-reference framework for supply-chain transparency in the peptide and hormone optimization markets."
+        title="An independent verification and public-reference framework for compounded therapy vendor sourcing claims."
         statement={heroDescription}
         docId=""
       />
@@ -145,10 +145,16 @@ const About = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard is an independent verification and public-reference framework designed to improve sourcing transparency in peptide, hormone optimization, and adjacent clinical markets. Its role is to help the public interpret whether vendor claims are supported by documentation rather than presentation alone.
+                  Source Standard is an independent verification and public-reference framework designed to improve transparency around compounded therapy vendor sourcing claims.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The organization does not market clinics, promote treatment protocols, or function as a substitute for federal or state oversight. Its purpose is narrower and more disciplined: to organize sourcing records, verification status, and public-reference materials into a system people can evaluate with greater clarity.
+                  Its role is to help the public identify whether vendor claims are supported by submitted documentation, pharmacy relationship evidence, public records, and review timestamps.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  The organization does not market vendors, promote treatment protocols, provide medical advice, or function as a substitute for federal or state oversight.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Its purpose is narrower and more disciplined: to organize vendor records, sourcing documentation, verification status, and public-reference materials into a system that can be reviewed with greater clarity.
                 </p>
               </div>
             </div>
