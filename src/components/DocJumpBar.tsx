@@ -361,20 +361,19 @@ const PillContents = ({
               </li>
             );
           })}
-          {/* Sliding underline — GPU-accelerated translateX glide with
-              spring-like easing. Width transitions separately. */}
+          {/* Sliding underline — driven directly by scroll via DOM writes
+              (transform + width). No CSS transition: 1:1 sync with finger. */}
           <span
+            ref={indicatorRef}
             aria-hidden
-            className="absolute left-0 bg-foreground"
+            className="absolute left-0 top-auto bg-foreground"
             style={{
-              width: `${indicator.width}px`,
+              width: "0px",
               height: "2px",
               bottom: "-2px",
               borderRadius: "2px",
-              transform: `translate3d(${indicator.left}px, 0, 0)`,
-              opacity: indicator.width > 0 ? 1 : 0,
-              transition:
-                "transform 380ms cubic-bezier(0.22, 1, 0.36, 1), width 380ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease-out",
+              transform: "translate3d(0, 0, 0)",
+              opacity: 0,
               willChange: "transform, width",
             }}
           />
