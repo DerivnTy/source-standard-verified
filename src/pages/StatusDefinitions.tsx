@@ -207,9 +207,9 @@ const StatusDefinitions = () => {
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
                     <SectionIndex n="02" />
-                    <h2 className="t-section-title-sm text-foreground">Controlled standings</h2>
+                    <h2 className="t-section-title-sm text-foreground">Public Statuses</h2>
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      Each standing has a public meaning, a limit, and a defined path of issuance or revision.
+                      Each status has a public meaning, a limitation, and a defined path for assignment or revision.
                     </p>
                   </div>
                 </div>
