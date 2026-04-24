@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
@@ -10,10 +11,6 @@ const WAYPOINTS = [
   { id: "lifecycle", number: "03", label: "Lifecycle" },
   { id: "related", number: "04", label: "Related Documents" },
 ];
-
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
 
 type Status = {
   n: string;
@@ -116,7 +113,7 @@ const STATUSES: Status[] = [
   },
   {
     n: "08",
-    title: "Not Listed",
+    title: "No Public Record",
     definition: "No public Source Standard record exists for the entity.",
     meaning:
       "The entity is not currently maintained as a public record within the Source Standard registry.",
@@ -137,21 +134,190 @@ const LIFECYCLE = [
 ];
 
 const RELATED = [
-  { to: "/how-it-works", label: "Verification Protocol" },
-  { to: "/accountability", label: "Compliance & Operating Boundaries" },
-  { to: "/verification-disclaimer", label: "Verification Disclaimer" },
+  {
+    to: "/how-it-works",
+    title: "Verification Protocol",
+    description: "How documentation review, monitoring, and disclosure operate.",
+  },
+  {
+    to: "/accountability",
+    title: "Compliance & Operating Boundaries",
+    description: "What the registry does, and what it does not do.",
+  },
+  {
+    to: "/verification-disclaimer",
+    title: "Verification Disclaimer",
+    description: "The defined limits of any published verification status.",
+  },
 ];
 
-const FieldRow = ({ label, value }: { label: string; value: string }) => (
-  <div className="grid grid-cols-12 gap-4 py-3.5">
-    <dt className="col-span-12 md:col-span-3 t-utility-xs font-mono uppercase tracking-[0.1em] text-muted-foreground/70">
-      {label}
-    </dt>
-    <dd className="col-span-12 md:col-span-9 t-body-md text-muted-foreground leading-relaxed m-0">
-      {value}
-    </dd>
+// --- Local primitives ---
+
+const cardChrome = {
+  backgroundColor: "hsl(var(--card))",
+  border: "0.5px solid hsl(var(--border))",
+  borderRadius: "12px",
+} as const;
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p
+    className="font-mono uppercase text-muted-foreground"
+    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+  >
+    {children}
+  </p>
+);
+
+const SectionHeader = ({
+  index,
+  title,
+  intro,
+}: {
+  index: string;
+  title: string;
+  intro: string;
+}) => (
+  <div className="mb-5">
+    <p className="font-mono tabular-nums text-muted-foreground/60" style={{ fontSize: "11px" }}>
+      {index}
+    </p>
+    <h2 className="t-section-title-sm text-foreground mt-1">{title}</h2>
+    <p
+      className="mt-2 text-muted-foreground"
+      style={{ fontSize: "13px", lineHeight: 1.55, maxWidth: "62ch" }}
+    >
+      {intro}
+    </p>
   </div>
 );
+
+const StatusCard = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ ...cardChrome, padding: "24px" }}>{children}</div>
+);
+
+const StatusField = ({
+  label,
+  value,
+  first = false,
+}: {
+  label: string;
+  value: string;
+  first?: boolean;
+}) => (
+  <div
+    style={
+      first
+        ? undefined
+        : {
+            borderTop: "0.5px solid hsl(var(--border))",
+            paddingTop: "14px",
+            marginTop: "14px",
+          }
+    }
+  >
+    <p
+      className="font-mono uppercase text-muted-foreground"
+      style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    >
+      {label}
+    </p>
+    <p
+      className="mt-1.5 text-muted-foreground"
+      style={{ fontSize: "13px", lineHeight: 1.55 }}
+    >
+      {value}
+    </p>
+  </div>
+);
+
+const StatusDefinitionCard = ({ status }: { status: Status }) => (
+  <div style={{ ...cardChrome, padding: "24px" }}>
+    <div className="flex items-baseline gap-3">
+      <span
+        className="font-mono tabular-nums text-muted-foreground/60"
+        style={{ fontSize: "12px" }}
+      >
+        {status.n}
+      </span>
+      <h3
+        className="font-sans font-semibold text-foreground"
+        style={{ fontSize: "22px", lineHeight: 1.2 }}
+      >
+        {status.title}
+      </h3>
+    </div>
+    <p
+      className="mt-3 text-foreground"
+      style={{ fontSize: "14px", lineHeight: 1.55 }}
+    >
+      {status.definition}
+    </p>
+    <div className="mt-5">
+      <StatusField label="Public meaning" value={status.meaning} first />
+      <StatusField label="Does not imply" value={status.notImply} />
+      <StatusField label="Issued when" value={status.issued} />
+      <StatusField label="Revised when" value={status.revised} />
+    </div>
+  </div>
+);
+
+const LifecycleRow = ({ index, text }: { index: string; text: string }) => (
+  <div style={{ ...cardChrome, padding: "12px 14px" }}>
+    <div className="flex items-baseline gap-3">
+      <span
+        className="font-mono tabular-nums text-muted-foreground/60 shrink-0"
+        style={{ fontSize: "11px" }}
+      >
+        {index}
+      </span>
+      <p className="text-foreground" style={{ fontSize: "13px", lineHeight: 1.5 }}>
+        {text}
+      </p>
+    </div>
+  </div>
+);
+
+const RelatedLinkRow = ({
+  to,
+  title,
+  description,
+}: {
+  to: string;
+  title: string;
+  description: string;
+}) => (
+  <Link
+    to={to}
+    className="group block hover:bg-surface-muted/40 transition-colors"
+    style={{ ...cardChrome, padding: "14px 16px" }}
+  >
+    <div className="flex items-start justify-between gap-4">
+      <div className="min-w-0" style={{ paddingRight: "0px" }}>
+        <h3
+          className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors"
+          style={{ fontSize: "14px", lineHeight: 1.4 }}
+        >
+          {title}
+        </h3>
+        <p
+          className="mt-1 text-muted-foreground"
+          style={{ fontSize: "13px", lineHeight: 1.5 }}
+        >
+          {description}
+        </p>
+      </div>
+      <span
+        className="shrink-0 self-center inline-flex items-center gap-0.5 font-sans font-semibold uppercase text-primary"
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      >
+        View
+        <ChevronRight style={{ width: "12px", height: "12px" }} />
+      </span>
+    </div>
+  </Link>
+);
+
+// --- Page ---
 
 const StatusDefinitions = () => {
   const heroDescription =
@@ -163,7 +329,7 @@ const StatusDefinitions = () => {
 
       <PageMeta title="Status Definitions" description={heroDescription} />
 
-      {/* §1 Hero */}
+      {/* Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -173,149 +339,124 @@ const StatusDefinitions = () => {
         docId=""
       />
 
-      {/* §2 Statement of purpose */}
-      <section id="purpose" className="scroll-mt-24 bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard section-pad">
-            <div className="max-w-2xl">
-              <h2 className="t-section-title-sm text-foreground">Why these statuses exist</h2>
-              <div className="mt-6 space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Status labels help consumers, clinicians, and listed entities interpret registry records consistently without needing to review the underlying documentation file.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Each status has a defined public meaning and a defined limit. A status indicates the current documentation review state. It does not imply clinical recommendation, vendor approval, product approval, or regulatory endorsement.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §3 Contents nav */}
+      {/* Contents nav */}
       <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* §4 Statuses */}
+            {/* §1 Purpose */}
+            <section
+              id="purpose"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <StatusCard>
+                <Eyebrow>Status Purpose</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
+                  Why these statuses exist
+                </h2>
+                <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "14px" }}>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                  >
+                    Status labels help consumers, clinicians, and listed entities interpret registry records consistently without needing to review the underlying documentation file.
+                  </p>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                  >
+                    Each status has a defined public meaning and a defined limit. A status indicates the current documentation review state. It does not imply clinical recommendation, vendor approval, product approval, or regulatory endorsement.
+                  </p>
+                </div>
+              </StatusCard>
+            </section>
+
+            {/* §2 Public Statuses */}
             <section
               id="statuses"
-              className="scroll-mt-24 pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 border-b border-border/40"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-                <div className="md:col-span-4">
-                  <div className="md:sticky md:top-32">
-                    <SectionIndex n="02" />
-                    <h2 className="t-section-title-sm text-foreground">Public Statuses</h2>
-                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      Each status has a public meaning, a limitation, and a defined path for assignment or revision.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ol className="divide-y divide-border/60">
-                    {STATUSES.map((s) => (
-                      <li key={s.n} className="py-8 first:pt-0 last:pb-0">
-                        <div className="flex items-baseline gap-4 mb-5">
-                          <span className="font-mono text-[12px] tabular-nums text-muted-foreground/70">
-                            {s.n}
-                          </span>
-                          <h3 className="t-section-title-sm text-foreground">{s.title}</h3>
-                        </div>
-                        <p className="t-body-md text-foreground leading-relaxed mb-6">
-                          {s.definition}
-                        </p>
-                        <dl className="divide-y divide-border/40 border-t border-border/40">
-                          <FieldRow label="Public meaning" value={s.meaning} />
-                          <FieldRow label="Does not imply" value={s.notImply} />
-                          <FieldRow label="Issued when" value={s.issued} />
-                          <FieldRow label="Revised when" value={s.revised} />
-                        </dl>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+              <SectionHeader
+                index="02"
+                title="Public Statuses"
+                intro="Each status has a public meaning, a limitation, and a defined path for assignment or revision."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {STATUSES.map((s) => (
+                  <StatusDefinitionCard key={s.n} status={s} />
+                ))}
               </div>
             </section>
 
-            {/* §5 Lifecycle */}
-            <section id="lifecycle" className="scroll-mt-24 section-pad border-b border-border/40">
-              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-                <div className="md:col-span-4">
-                  <div className="md:sticky md:top-32">
-                    <SectionIndex n="03" />
-                    <h2 className="t-section-title-sm text-foreground">Lifecycle</h2>
-                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      No status is permanent. Public records may move through review, renewal, correction, suspension, removal, or reinstatement over time.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ol className="divide-y divide-border/60 border-y border-border/60">
-                    {LIFECYCLE.map((step) => (
-                      <li key={step.n} className="grid grid-cols-12 gap-4 py-5 items-baseline">
-                        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
-                          {step.n}
-                        </div>
-                        <div className="col-span-10 md:col-span-11 t-body-md text-foreground leading-relaxed">
-                          {step.t}
-                        </div>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+            {/* §3 Lifecycle */}
+            <section
+              id="lifecycle"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="03"
+                title="Lifecycle"
+                intro="No status is permanent. Public records may move through review, renewal, correction, suspension, removal, or reinstatement over time."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {LIFECYCLE.map((step) => (
+                  <LifecycleRow key={step.n} index={step.n} text={step.t} />
+                ))}
               </div>
             </section>
 
-            {/* §6 Related documents */}
-            <section id="related" className="scroll-mt-24 section-pad border-b border-border/40">
-              <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-                <div className="md:col-span-4">
-                  <div className="md:sticky md:top-32">
-                    <SectionIndex n="04" />
-                    <h2 className="t-section-title-sm text-foreground">Related Documents</h2>
-                    <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      Further reading on the framework, review process, and operating boundaries.
-                    </p>
-                  </div>
-                </div>
-                <div className="md:col-span-8 mt-8 md:mt-0">
-                  <ul className="divide-y divide-border/60 border-y border-border/60">
-                    {RELATED.map((r) => (
-                      <li key={r.to}>
-                        <Link
-                          to={r.to}
-                          className="group grid grid-cols-12 gap-4 py-5 items-baseline hover:bg-surface-muted/40 transition-colors -mx-4 px-4"
-                        >
-                          <div className="col-span-9 md:col-span-10">
-                            <p className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
-                              {r.label}
-                            </p>
-                          </div>
-                          <div className="col-span-3 md:col-span-2 text-right">
-                            <span className="t-utility-xs text-muted-foreground group-hover:text-primary transition-colors">
-                              View
-                            </span>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            {/* §4 Related Documents */}
+            <section
+              id="related"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="04"
+                title="Related Documents"
+                intro="Further reading on the framework, review process, and operating boundaries."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {RELATED.map((r) => (
+                  <RelatedLinkRow key={r.to} to={r.to} title={r.title} description={r.description} />
+                ))}
               </div>
             </section>
 
-            {/* §7 Closing statement */}
-            <section className="section-pad border-t border-border/40">
-              <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
+            {/* §5 Closing statement */}
+            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+              <StatusCard>
+                <Eyebrow>Public Language</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
                   A shared public language for the registry.
                 </h2>
-                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                >
                   The purpose of these status definitions is to ensure that public records can be interpreted consistently, without overstatement and without requiring users to infer more than the record supports.
                 </p>
-              </div>
+              </StatusCard>
             </section>
           </div>
         </div>
