@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import {
   getVendor,
   Vendor,
+  VendorPublicStatus,
   VENDOR_STATUS_LABEL,
   VENDOR_FULFILLMENT_LABEL,
   getVendorFulfillment,
