@@ -491,7 +491,7 @@ const Index = () => {
               The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-5 inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
               <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
               <PillSecondary to="/greenlist">Explore Upstream Registry</PillSecondary>
             </div>
