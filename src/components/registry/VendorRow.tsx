@@ -80,7 +80,7 @@ export const VendorRow = ({
                 fontWeight: 700,
                 letterSpacing: "0.035em",
                 lineHeight: 1,
-                gap: "6px",
+                gap: "4px",
                 color: "#001021",
               }}
             >
@@ -91,9 +91,10 @@ export const VendorRow = ({
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: "20px",
-                  width: "17px",
+                  height: "22px",
+                  width: "19px",
                   overflow: "hidden",
+                  transform: "translateY(-1px)",
                 }}
               >
                 <img
