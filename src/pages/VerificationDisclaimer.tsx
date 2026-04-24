@@ -21,22 +21,22 @@ const SCOPE: Clause[] = [
   {
     n: "01",
     t: "Documented identity",
-    d: "Review of business registration, operating identity, and related credentials tied to the entity under review.",
+    d: "Review of business registration, operating identity, vendor type, and related credentials tied to the entity under review.",
   },
   {
     n: "02",
-    t: "Regulatory standing",
-    d: "Cross-checking of relevant licensing and registration records against available federal and state sources at a fixed point in time.",
+    t: "Public-record consistency",
+    d: "Cross-reference of relevant licensing, registration, and public records against available federal and state sources at a fixed point in time.",
   },
   {
     n: "03",
-    t: "Upstream sourcing",
-    d: "Review of disclosed pharmacy or supplier relationships and the supporting records submitted within the review process.",
+    t: "Upstream sourcing evidence",
+    d: "Review of disclosed pharmacy relationships, upstream facility references, and supporting documentation submitted within the review process.",
   },
   {
     n: "04",
     t: "Record basis",
-    d: "The registry reflects Source Standard's review of records and does not supersede the original third-party records on which the determination depends.",
+    d: "The registry reflects Source Standard's review of available records and does not replace, supersede, or guarantee the accuracy of the original third-party records on which the review depends.",
   },
 ];
 
@@ -44,45 +44,45 @@ const EXCLUSIONS: Clause[] = [
   {
     n: "01",
     t: "Clinical outcomes",
-    d: "No determination is made regarding the medical result for any individual patient.",
+    d: "No finding is made regarding the medical result for any individual patient.",
   },
   {
     n: "02",
     t: "Product suitability",
-    d: "The framework does not evaluate whether any formulation, therapy, or protocol is appropriate for a specific person.",
+    d: "The framework does not evaluate whether any formulation, therapy, vendor, or protocol is appropriate for a specific person.",
   },
   {
     n: "03",
     t: "Safety and efficacy",
-    d: "A Source Standard determination does not certify biological safety, sterility, potency, or therapeutic efficacy unless a separate published scope explicitly states otherwise.",
+    d: "Source Standard verification does not certify product safety, sterility, potency, quality, treatment effectiveness, or therapeutic efficacy.",
   },
   {
     n: "04",
     t: "Future conduct",
-    d: "A published determination reflects the records reviewed at a fixed point in time and is not a warranty of future performance or future compliance.",
+    d: "A published status reflects the records reviewed at a fixed point in time and is not a warranty of future performance, future documentation accuracy, or future regulatory compliance.",
   },
 ];
 
 const BOUNDARIES: Clause[] = [
   {
     n: "01",
-    t: "Not a statutory body",
-    d: "Source Standard is a private auditing and public-reference entity. It does not hold governmental enforcement authority.",
+    t: "Not a regulator",
+    d: "Source Standard is a private public-reference and verification framework. It does not hold governmental enforcement authority.",
   },
   {
     n: "02",
     t: "Not a clinical practice",
-    d: "The organization does not diagnose, prescribe, dispense, or practice medicine or pharmacy.",
+    d: "The organization does not diagnose, prescribe, dispense, treat patients, or practice medicine or pharmacy.",
   },
   {
     n: "03",
     t: "Not a manufacturer",
-    d: "Source Standard does not compound, repackage, distribute, or supply pharmaceutical products.",
+    d: "Source Standard does not compound, repackage, distribute, handle, store, or supply pharmaceutical products.",
   },
   {
     n: "04",
     t: "Not a guarantor",
-    d: "A Verified status is an administrative public record, not a warranty, indemnity, or insurance-like guarantee.",
+    d: "Verified status is a documentation-based registry status. It is not a warranty, indemnity, insurance-like guarantee, product approval, vendor approval, or clinical recommendation.",
   },
 ];
 
@@ -90,12 +90,12 @@ const LIABILITY: Clause[] = [
   {
     n: "01",
     t: "User discretion",
-    d: "The registry is a public reference tool. Reliance on any published determination is at the user's discretion.",
+    d: "The registry is a public reference tool. Reliance on any published status or registry record is at the user's discretion.",
   },
   {
     n: "02",
     t: "Professional consultation",
-    d: "Users should consult licensed clinicians for medical matters and appropriate regulatory authorities for statutory matters.",
+    d: "Users should consult licensed clinicians for medical matters and appropriate regulatory authorities for regulatory or legal matters.",
   },
   {
     n: "03",
