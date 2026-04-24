@@ -323,10 +323,10 @@ const Index = () => {
         statement="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
         tone="navy"
         actions={<HeroActions />}
+        heroMetrics={<HeroMetrics />}
       />
 
       <DocJumpBar waypoints={homeWaypoints} />
-      <LiveDashboard />
 
       {/* §2 — The trust problem */}
       <section
