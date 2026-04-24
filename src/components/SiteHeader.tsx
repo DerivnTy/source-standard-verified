@@ -13,8 +13,8 @@ const nav = [
   { to: "/about", label: "About" },
 ];
 
-// Mobile mirrors desktop nav exactly
-const mobileNav = nav;
+// Mobile mirrors desktop nav, with Home prepended as the anchor item.
+const mobileNav = [{ to: "/", label: "Home" }, ...nav];
 
 
 
