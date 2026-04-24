@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
@@ -12,10 +13,6 @@ const WAYPOINTS = [
   { id: "reentry", number: "05", label: "Re-entry" },
   { id: "related", number: "06", label: "Related Documents" },
 ];
-
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
 
 type Clause = { n: string; t: string; d: string };
 
@@ -137,54 +134,148 @@ const ACTIONS: Clause[] = [
 ];
 
 const RELATED = [
-  { to: "/how-it-works", label: "Verification Protocol" },
-  { to: "/status-definitions", label: "Status Definitions" },
-  { to: "/report-a-concern", label: "Reporting & Registry Review" },
-  { to: "/governance", label: "Compliance & Operating Boundaries" },
+  {
+    to: "/how-it-works",
+    label: "Verification Protocol",
+    description: "How documentation review, monitoring, and disclosure operate.",
+  },
+  {
+    to: "/status-definitions",
+    label: "Status Definitions",
+    description: "Public statuses assigned to records within the registry.",
+  },
+  {
+    to: "/report-a-concern",
+    label: "Reporting & Registry Review",
+    description: "How public reports are received, screened, and acted on.",
+  },
+  {
+    to: "/governance",
+    label: "Compliance & Operating Boundaries",
+    description: "What the registry does, and what it does not do.",
+  },
 ];
 
-const ClauseList = ({ clauses }: { clauses: Clause[] }) => (
-  <ol className="divide-y divide-border/60 border-y border-border/60">
-    {clauses.map((c) => (
-      <li key={c.n} className="grid grid-cols-12 gap-4 py-6">
-        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70 pt-1">
-          {c.n}
-        </div>
-        <div className="col-span-10 md:col-span-11">
-          <h3 className="t-body-md font-semibold text-foreground mb-2">{c.t}</h3>
-          <p className="t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
-        </div>
-      </li>
-    ))}
-  </ol>
+// --- Local primitives ---
+
+const cardChrome = {
+  backgroundColor: "hsl(var(--card))",
+  border: "0.5px solid hsl(var(--border))",
+  borderRadius: "12px",
+} as const;
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p
+    className="font-mono uppercase text-muted-foreground"
+    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+  >
+    {children}
+  </p>
 );
 
-const SplitSection = ({
-  id,
-  n,
+const SectionHeader = ({
+  index,
   title,
   intro,
-  children,
 }: {
-  id: string;
-  n: string;
+  index: string;
   title: string;
   intro: string;
-  children: React.ReactNode;
 }) => (
-  <section id={id} className="scroll-mt-24 section-pad border-b border-border/40">
-    <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
-      <div className="md:col-span-4">
-        <div className="md:sticky md:top-32">
-          <SectionIndex n={n} />
-          <h2 className="t-section-title-sm text-foreground">{title}</h2>
-          <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">{intro}</p>
-        </div>
-      </div>
-      <div className="md:col-span-8 mt-8 md:mt-0">{children}</div>
-    </div>
-  </section>
+  <div className="mb-5">
+    <p className="font-mono tabular-nums text-muted-foreground/60" style={{ fontSize: "11px" }}>
+      {index}
+    </p>
+    <h2 className="t-section-title-sm text-foreground mt-1">{title}</h2>
+    <p
+      className="mt-2 text-muted-foreground"
+      style={{ fontSize: "13.5px", lineHeight: 1.55, maxWidth: "62ch" }}
+    >
+      {intro}
+    </p>
+  </div>
 );
+
+const ComplianceCard = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ ...cardChrome, padding: "24px" }}>{children}</div>
+);
+
+const ComplianceRow = ({
+  index,
+  total,
+  title,
+  description,
+}: {
+  index: string;
+  total: string;
+  title: string;
+  description: string;
+}) => (
+  <div style={{ ...cardChrome, padding: "14px 16px" }}>
+    <div className="flex items-baseline justify-between gap-4">
+      <h3
+        className="font-sans font-semibold text-foreground min-w-0"
+        style={{ fontSize: "14px", lineHeight: 1.4 }}
+      >
+        {title}
+      </h3>
+      <span
+        className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+      >
+        {index} / {total}
+      </span>
+    </div>
+    <p
+      className="text-muted-foreground"
+      style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "6px" }}
+    >
+      {description}
+    </p>
+  </div>
+);
+
+const RelatedLinkRow = ({
+  to,
+  label,
+  description,
+}: {
+  to: string;
+  label: string;
+  description: string;
+}) => (
+  <Link
+    to={to}
+    className="group block hover:bg-surface-muted/40 transition-colors"
+    style={{ ...cardChrome, padding: "14px 16px" }}
+  >
+    <div className="flex items-start justify-between gap-4">
+      <div className="min-w-0">
+        <h3
+          className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors"
+          style={{ fontSize: "14px", lineHeight: 1.4 }}
+        >
+          {label}
+        </h3>
+        <p
+          className="mt-1 text-muted-foreground"
+          style={{ fontSize: "13px", lineHeight: 1.5 }}
+        >
+          {description}
+        </p>
+      </div>
+      <span
+        className="shrink-0 self-center inline-flex items-center gap-0.5 font-sans font-semibold uppercase text-primary"
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      >
+        View
+        <ChevronRight style={{ width: "12px", height: "12px" }} />
+      </span>
+    </div>
+  </Link>
+);
+
+// --- Page ---
 
 const Accountability = () => {
   const heroDescription =
@@ -196,7 +287,7 @@ const Accountability = () => {
 
       <PageMeta title="Compliance" description={heroDescription} />
 
-      {/* §1 Hero */}
+      {/* Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -206,139 +297,246 @@ const Accountability = () => {
         docId=""
       />
 
-      {/* §2 Statement of purpose */}
-      <section className="bg-background border-b border-border/40">
-        <div className="page-shell">
-          <div className="mx-auto w-standard section-pad">
-            <div className="max-w-2xl">
-              <h2 className="t-section-title-sm text-foreground">
-                How compliance is maintained after verification
-              </h2>
-              <div className="mt-6 space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  A Verified record is not permanent.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  It remains in effect only while the underlying documentation, pharmacy relationships, sourcing claims, and public records continue to support the published review scope.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §3 Contents nav */}
+      {/* Contents nav */}
       <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* §4 Attestations */}
-            <SplitSection
-              id="attestations"
-              n="01"
-              title="Attestations"
-              intro="The continuing representations accepted when Verified status is issued."
+            {/* §1 Purpose */}
+            <section
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <ClauseList clauses={ATTESTATIONS} />
-            </SplitSection>
+              <ComplianceCard>
+                <Eyebrow>Record Maintenance</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
+                  How compliance is maintained after verification
+                </h2>
+                <div
+                  style={{
+                    marginTop: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    A Verified record is not permanent.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    It remains in effect only while the underlying documentation, pharmacy relationships, sourcing claims, and public records continue to support the published review scope.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
+                  </p>
+                </div>
+              </ComplianceCard>
+            </section>
 
-            {/* §5 Disclosure */}
-            <SplitSection
-              id="disclosure"
-              n="02"
-              title="Disclosure"
-              intro="Events vendors are expected to report when they materially affect the published record."
+            {/* §2 Attestations */}
+            <section
+              id="attestations"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
             >
-              <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
+              <SectionHeader
+                index="01"
+                title="Attestations"
+                intro="The continuing representations accepted when Verified status is issued."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {ATTESTATIONS.map((c) => (
+                  <ComplianceRow
+                    key={c.n}
+                    index={c.n}
+                    total="04"
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* §3 Disclosure */}
+            <section
+              id="disclosure"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="02"
+                title="Disclosure"
+                intro="Events vendors are expected to report when they materially affect the published record."
+              />
+              <p
+                className="text-muted-foreground"
+                style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
+              >
                 The following events are expected to be reported within the stated response window. Failure to report a material change may itself trigger review or status revision.
               </p>
-              <ClauseList clauses={DISCLOSURE} />
-            </SplitSection>
-
-            {/* §6 Triggers */}
-            <SplitSection
-              id="triggers"
-              n="03"
-              title="Triggers"
-              intro="Events that may reopen review of an existing record, regardless of renewal timing."
-            >
-              <ClauseList clauses={TRIGGERS} />
-            </SplitSection>
-
-            {/* §7 Actions */}
-            <SplitSection
-              id="actions"
-              n="04"
-              title="Actions"
-              intro="How the framework responds when a reviewed record no longer supports the published status."
-            >
-              <ClauseList clauses={ACTIONS} />
-            </SplitSection>
-
-            {/* §8 Re-entry */}
-            <SplitSection
-              id="reentry"
-              n="05"
-              title="Re-entry"
-              intro="How a listing may return after suspension or removal."
-            >
-              <div className="space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  A Suspended record may return to Verified status once the underlying matter is resolved and supported by documentation in the review file.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  A Removed record may return only through a new submission and new review process.
-                </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Prior status history, including the original determination, triggering events, and disposition, may remain part of the record and may be referenced in future review.
-                </p>
-              </div>
-            </SplitSection>
-
-            {/* §9 Related documents */}
-            <SplitSection
-              id="related"
-              n="06"
-              title="Related Documents"
-              intro="Further reading on the framework, public statuses, and reporting logic."
-            >
-              <ul className="divide-y divide-border/60 border-y border-border/60">
-                {RELATED.map((r) => (
-                  <li key={r.to}>
-                    <Link
-                      to={r.to}
-                      className="group grid grid-cols-12 gap-4 py-5 items-baseline hover:bg-surface-muted/40 transition-colors -mx-4 px-4"
-                    >
-                      <div className="col-span-9 md:col-span-10">
-                        <p className="t-body-md font-semibold text-foreground group-hover:text-primary transition-colors">
-                          {r.label}
-                        </p>
-                      </div>
-                      <div className="col-span-3 md:col-span-2 text-right">
-                        <span className="t-utility-xs text-muted-foreground group-hover:text-primary transition-colors">
-                          View
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {DISCLOSURE.map((c) => (
+                  <ComplianceRow
+                    key={c.n}
+                    index={c.n}
+                    total="06"
+                    title={c.t}
+                    description={c.d}
+                  />
                 ))}
-              </ul>
-            </SplitSection>
+              </div>
+            </section>
 
-            {/* §10 Closing statement */}
-            <section className="section-pad border-t border-border/40">
-              <div className="max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
+            {/* §4 Triggers */}
+            <section
+              id="triggers"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="03"
+                title="Triggers"
+                intro="Events that may reopen review of an existing record, regardless of renewal timing."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {TRIGGERS.map((c) => (
+                  <ComplianceRow
+                    key={c.n}
+                    index={c.n}
+                    total="06"
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* §5 Actions */}
+            <section
+              id="actions"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="04"
+                title="Actions"
+                intro="How the framework responds when a reviewed record no longer supports the published status."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {ACTIONS.map((c) => (
+                  <ComplianceRow
+                    key={c.n}
+                    index={c.n}
+                    total="05"
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* §6 Re-entry */}
+            <section
+              id="reentry"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <ComplianceCard>
+                <Eyebrow>05 · Re-entry</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">Re-entry</h2>
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "8px" }}
+                >
+                  How a listing may return after suspension or removal.
+                </p>
+                <div
+                  style={{
+                    marginTop: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                  }}
+                >
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    A Suspended record may return to Verified status once the underlying matter is resolved and supported by documentation in the review file.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    A Removed record may return only through a new submission and new review process.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Prior status history, including the original determination, triggering events, and disposition, may remain part of the record and may be referenced in future review.
+                  </p>
+                </div>
+              </ComplianceCard>
+            </section>
+
+            {/* §7 Related Documents */}
+            <section
+              id="related"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "40px",
+                paddingBottom: "40px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="06"
+                title="Related Documents"
+                intro="Further reading on the framework, public statuses, and reporting logic."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {RELATED.map((r) => (
+                  <RelatedLinkRow
+                    key={r.to}
+                    to={r.to}
+                    label={r.label}
+                    description={r.description}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* §8 Closing */}
+            <section style={{ paddingTop: "40px", paddingBottom: "64px" }}>
+              <ComplianceCard>
+                <Eyebrow>Continuing Support</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
                   Verification requires continuing record support.
                 </h2>
-                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                >
                   The purpose of this protocol is to preserve the integrity of the registry after a record is published. Verification remains meaningful only when the documentation continues to support the claim, the underlying sourcing remains transparent, and material changes are disclosed within the stated review process.
                 </p>
-              </div>
+              </ComplianceCard>
             </section>
           </div>
         </div>
