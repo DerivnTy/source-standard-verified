@@ -1,31 +1,19 @@
-## Plan
+Add an explainer `<aside>` panel below the facility profile card in `src/pages/GreenlistProfile.tsx`.
 
-1. Update only the actual Vendor Profile header status renderer in `src/pages/VendorProfile.tsx`.
-   - Target the top-right status element inside the white profile card on `/directory/:slug`.
-   - Do not touch the Vendor Registry list cards, filters, routes, layout, or data.
+**Placement**: 32px below the existing profile card, inside the same 600px-wide wrapper, above the existing `paddingBottom: 48px`.
 
-2. Replace the verified branch with the approved registry treatment.
-   - Render `VERIFIED` in Source Standard navy `#001021`.
-   - Render the same inline `VerifiedShieldMark` SVG immediately to the right.
-   - Match the registry preview card’s spacing, icon sizing, and vertical alignment.
-   - Ensure the profile verified branch bypasses any legacy green treatment or shared verified color token.
+**Styling**: `bg-card`, `0.5px solid hsl(var(--border))`, `10px` border-radius, `24px` padding — matching the profile card.
 
-3. Leave all non-verified profile states unchanged.
-   - Keep `UNVERIFIED` red with no icon.
-   - Keep `UNDER REVIEW` unchanged.
-   - Preserve the existing card position, field grid, spacing, typography scale, and surrounding layout.
+**Block 1 — UPSTREAM RECORD**
+- Eyebrow: `UPSTREAM RECORD` (10px, uppercase, 0.08em tracking, muted-foreground, semibold)
+- Body: "This facility record is maintained as a public-reference entry used during vendor sourcing review." (13px, foreground)
+- Supporting: "Inclusion in the Upstream Registry does not verify that any vendor is actively sourcing from this facility, and it does not constitute product approval, facility recommendation, or a guarantee of safety, sterility, potency, efficacy, or outcome." (12px, muted-foreground)
 
-4. Verify the actual profile route after the change.
-   - Check `/directory/northline-health-hormone-institute` specifically.
-   - Confirm the visible top-right status reads `VERIFIED` with the shield icon to its right.
-   - Confirm no green verified text remains on the actual profile page.
+**Hairline divider** (0.5px border-top, 20px vertical margin)
 
-## Technical details
+**Block 2 — VENDOR-LEVEL VERIFICATION**
+- Eyebrow: `VENDOR-LEVEL VERIFICATION`
+- Body: "Vendor verification is reviewed separately and requires documentation supporting the vendor's stated pharmacy relationships, sourcing claims, and chain-of-custody records."
+- CTA: `Open Vendor Registry →` as a `<Link to="/directory">` styled with underline-offset and 12px semibold uppercase tracking, top-margin 12px.
 
-- Primary file: `src/pages/VendorProfile.tsx`
-- Reused asset/component: `src/components/registry/VerifiedShieldMark.tsx`
-- Implementation approach: replace the rendered verified JSX branch in the profile card header with the same inline-flex pattern used by the approved registry preview treatment, rather than relying on generic status-color logic.
-- Scope guardrails:
-  - No changes to `VendorRow` or registry preview cards
-  - No changes to data, search, filters, routes, footer, header, or global styling
-  - No image asset loading for the shield
+**Preservation**: No changes to facility data, card fields, back link, header, footer, routes, or database.
