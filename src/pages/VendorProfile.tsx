@@ -191,7 +191,7 @@ const VendorProfile = () => {
             className="inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
             style={{ fontSize: "10px", letterSpacing: "0.08em" }}
           >
-            ← Back to Directory
+            ← Back to Registry
           </Link>
 
           {/* Public Record card */}
