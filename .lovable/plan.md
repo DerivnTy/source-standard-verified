@@ -1,69 +1,77 @@
 
 
-## About Page Copy Rewrite
+## Status Definitions Page Copy Rewrite
 
-Text-only changes to `src/pages/About.tsx`. No layout, components, styling, routes, navigation, footer, or animation changes. All anchor IDs (`context`, `boundaries`, `objectives`, `scope`, `related`) preserved.
+Text-only changes to `src/pages/StatusDefinitions.tsx`. No layout, components, styling, routes, navigation, footer, or animation changes. All anchor IDs (`purpose`, `statuses`, `lifecycle`, `related`) preserved.
 
 ### Files Touched
 
-1. **`src/pages/About.tsx`** — hero copy, purpose statement, Context body, Boundaries list, Objectives clauses, Scope clauses, Related Pages descriptions, closing statement.
+1. **`src/pages/StatusDefinitions.tsx`** — hero, purpose section, statuses list (now 8 entries), lifecycle steps, related documents labels, sidebar copy, closing statement.
 
-*Footer: already correct from prior passes — no change.*
+*Footer: already aligned from prior passes — no change.*
 
 ### Content Changes
 
-**`heroDescription`**
-→ `Source Standard exists to make vendor sourcing claims easier to interpret through submitted records, public documentation, structured review, and status-based registry standards.`
+**`PageMeta`** — title `Status Definitions`, description = heroDescription below.
 
-**`PageMeta`** — title `About`, description = heroDescription.
+**`heroDescription`**
+→ `Public statuses assigned to records within the Source Standard registry. Each status reflects the state of the record at the time of last update and may change through review, renewal, disclosure, or record correction.`
 
 **`BriefingHero`**
-- `category`: `Organization & Mandate` (unchanged)
-- `title`: `An independent verification and public-reference framework for compounded therapy vendor sourcing claims.`
+- `category`: `Registry Standards` (unchanged)
+- `title`: `Status Definitions` (replaces "Glossary of Regulatory Standings")
 - `statement`: heroDescription
 
-**Purpose section ("What Source Standard exists to do")** — replace with four paragraphs:
-1. `Source Standard is an independent verification and public-reference framework designed to improve transparency around compounded therapy vendor sourcing claims.`
-2. `Its role is to help the public identify whether vendor claims are supported by submitted documentation, pharmacy relationship evidence, public records, and review timestamps.`
-3. `The organization does not market vendors, promote treatment protocols, provide medical advice, or function as a substitute for federal or state oversight.`
-4. `Its purpose is narrower and more disciplined: to organize vendor records, sourcing documentation, verification status, and public-reference materials into a system that can be reviewed with greater clarity.`
+**§1 Purpose section** — H2 stays `Why these statuses exist`. Replace two paragraphs:
+1. `Status labels help consumers, clinicians, and listed entities interpret registry records consistently without needing to review the underlying documentation file.`
+2. `Each status has a defined public meaning and a defined limit. A status indicates the current documentation review state. It does not imply clinical recommendation, vendor approval, product approval, or regulatory endorsement.`
 
-**§01 Context** body (replaces single paragraph with three short paragraphs):
-- `In compounded therapy markets, consumers are often asked to evaluate vendors through branding, testimonials, claims, and presentation.`
-- `Those signals are difficult to verify independently.`
-- `Source Standard was established to create a clearer relationship between vendor sourcing claims and documentation that can be reviewed, time-stamped, and assigned a public status.`
+**§2 Statuses sidebar**
+- H2: `Public Statuses` (replaces "Controlled standings")
+- Sidebar lede: `Each status has a public meaning, a limitation, and a defined path for assignment or revision.`
 
-**§02 Operational Boundaries** — replace `BOUNDARIES` array with:
-1. `Source Standard does not provide medical advice or prescribe treatment protocols.`
-2. `It does not substitute for physician judgment or federal or state regulatory oversight.`
-3. `It does not function as a marketing partner or promotional arm for any vendor.`
-4. `It does not guarantee clinical outcomes, treatment effectiveness, biological response, product quality, potency, sterility, or individual product safety.`
-5. `Its mandate is limited to documentation review, sourcing-claim review, public-record organization, and status-based registry publication.`
+**`STATUSES` array** — replace with 8 entries (was 7):
 
-**§03 Strategic Objectives** — replace `OBJECTIVES`:
-- 01 `For Consumers` / `Providing a structured public reference so vendor sourcing claims can be evaluated through documentation status, review scope, and last-reviewed dates.`
-- 02 `For Vendors` / `Providing a documentation-based review pathway for vendors that want their sourcing claims evaluated within a defined public-reference framework.`
+- 01 `Verified` — definition: `Documentation review is complete for the defined scope. The published record reflects the documentation, public records, and pharmacy relationship evidence reviewed at the time of publication.` / meaning: `Submitted documentation, public records, and sourcing evidence supported the stated vendor claim within the reviewed scope.` / notImply: `It does not imply vendor approval, product approval, clinical recommendation, treatment effectiveness, product safety, or outcome guarantee.` / issued: `Assigned after completion of documentation review, pharmacy relationship review, chain-of-custody review, and scope confirmation.` / revised: `Revised after renewal lapse, material disclosure event, documentation expiration, unresolved discrepancy, or reopening of the review file.`
 
-**§04 Defined Scope** — replace `SCOPE`:
-- 01 `Vendor registry` / `Maintenance of a public registry containing verified, unverified, under-review, suspended, and removed vendor records.`
-- 02 `Upstream registry` / `Publication of upstream facility records used as reference points during vendor sourcing review.`
-- 03 `Educational reference` / `Publication of educational material covering sourcing claims, pharmacy categories, public records, documentation boundaries, and consumer due diligence.`
-- 04 `Status maintenance` / `Periodic review of vendor records, documentation status, review scope, and public-facing status definitions within the limits of the framework.`
+- 02 `Pending Review` — definition: `An application or review request has been received, but documentation review has not yet begun.` / meaning: `The entity has entered the Source Standard review pipeline.` / notImply: `It does not imply that documentation has been reviewed or that any sourcing claim has been supported.` / issued: `Assigned when an application, request, or submission package is received and acknowledged.` / revised: `Revised when documentation review begins, the request is withdrawn, or the submission is closed.`
 
-**§05 Related Pages** — replace `RELATED` (routes preserved):
-- `/governance` → `Governance & Oversight` / `Advisory oversight, review boundaries, and framework discipline.`
-- `/how-it-works` → `Verification Protocol` / `Documentation review, monitoring, disclosure, and status-response process.`
-- `/status-definitions` → `Status Definitions` / `Definitions for every public registry status.`
-- `/accountability` → `Compliance` / `Legal posture, operating boundaries, and public-reference limitations.`
+- 03 `Under Review` — definition: `An active documentation review is in progress. Records, public data, sourcing claims, and submitted materials are being evaluated against the Source Standard framework.` / meaning: `The review file is open and being evaluated.` / notImply: `It does not imply any conclusion about the vendor, sourcing claim, documentation quality, or compliance posture.` / issued: `Assigned at the start of documentation review or when a previously published record is reopened.` / revised: `Revised to Verified, Unverified, Suspended, or Removed when the current review cycle concludes.`
 
-**Closing statement**
-- H2: `A public-reference system with defined limits.` (unchanged)
-- Body: `Source Standard is designed to make compounded therapy vendor sourcing claims easier to interpret. It does not replace clinical judgment, regulatory oversight, or individual medical decision-making. Its role is to provide a disciplined public reference for a market where documentation is often harder to evaluate than presentation.`
+- 04 `Unverified` *(new)* — definition: `No sufficient documentation has been reviewed to support the stated sourcing claim within the Source Standard framework.` / meaning: `The registry does not currently contain sufficient reviewed documentation to support the vendor's stated sourcing claim.` / notImply: `It does not imply that the vendor is unsafe, unlawful, fraudulent, or clinically inappropriate.` / issued: `Assigned when a vendor record exists but no sufficient documentation review is on file.` / revised: `Revised when the vendor enters review, submits documentation, withdraws, or a status update is required.`
+
+- 05 `Suspended` — definition: `A previously published status is temporarily inactive pending additional documentation, renewal, or review of an unresolved record issue.` / meaning: `The record cannot currently support continuation of the prior published status.` / notImply: `It does not constitute a finding of misconduct, fraud, medical risk, or regulatory enforcement action.` / issued: `Assigned after missed renewal, non-response to documentation requests, expired documentation, or unresolved material discrepancy.` / revised: `Revised back to Verified if resolved, to Unverified if documentation no longer supports verification, or to Removed if the record is closed.`
+
+- 06 `Removed` — definition: `The record has been removed from active registry display or active verification status due to failed review, expired documentation, unresolved discrepancy, voluntary withdrawal, or closure of the review file.` / meaning: `The entity is no longer maintained as an active verified or reviewable record under the Source Standard framework.` / notImply: `It does not imply a specific finding of misconduct unless a public note states a documented record basis.` / issued: `Assigned when the review file is closed, the entity withdraws, documentation cannot be reconciled, renewal remains unresolved, or a material discrepancy is not resolved.` / revised: `Reinstatement requires a new submission and a new review cycle.`
+
+- 07 `Recognized Upstream Record` *(replaces "Greenlisted")* — definition: `An upstream 503A pharmacy, 503B outsourcing facility, or other facility record used as a reference point during vendor sourcing review.` / meaning: `The upstream record may be used as a reference point when reviewing vendor sourcing documentation.` / notImply: `It does not imply endorsement, affiliation, vendor verification, product approval, product safety, or certification of every product associated with that facility.` / issued: `Assigned when facility identity, public registration category, license status, or review relevance is recorded within the Upstream Registry.` / revised: `Revised when public registration status, license status, review relevance, or Source Standard classification changes.`
+
+- 08 `Not Listed` — definition: `No public Source Standard record exists for the entity.` / meaning: `The entity is not currently maintained as a public record within the Source Standard registry.` / notImply: `It does not imply that the entity is unsafe, unlawful, illegitimate, non-compliant, or clinically inappropriate. It reflects only the absence of a Source Standard record.` / issued: `This is the default condition for any entity that does not have a registry record.` / revised: `Revised only if the entity enters the registry, submits documentation, or is added as a public-reference record.`
+
+**§3 Lifecycle**
+- Sidebar lede: `No status is permanent. Public records may move through review, renewal, correction, suspension, removal, or reinstatement over time.`
+- `LIFECYCLE` array:
+  - 01 `Application received → Pending Review`
+  - 02 `Documentation review begins → Under Review`
+  - 03 `Review concludes → Verified or Unverified`
+  - 04 `Renewal interval reached → Under Review`
+  - 05 `Disclosure event or material change → Under Review or Suspended`
+  - 06 `Resolution → Verified, Unverified, Suspended, or Removed`
+
+**§4 Related Documents**
+- Sidebar lede: `Further reading on the framework, review process, and operating boundaries.`
+- `RELATED` array (routes preserved):
+  - `/how-it-works` → `Verification Protocol`
+  - `/accountability` → `Compliance & Operating Boundaries`
+  - `/verification-disclaimer` → `Verification Disclaimer`
+
+**Closing statement** — H2 unchanged: `A shared public language for the registry.`
+- Body: `The purpose of these status definitions is to ensure that public records can be interpreted consistently, without overstatement and without requiring users to infer more than the record supports.`
 
 ### Out of Scope
 
 - All layout, components, styling, spacing, colors, animations
-- Anchor IDs and routes preserved
+- Anchor IDs (`purpose`, `statuses`, `lifecycle`, `related`) preserved
 - Footer (already aligned)
 - All other pages
 
