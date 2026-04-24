@@ -370,7 +370,7 @@ const PillContents = ({
         >
           {waypoints.map((w) => {
             const active = w.id === activeId;
-            const chip = "inline-flex items-center gap-2 t-label-sm transition-colors whitespace-nowrap";
+            const chip = "inline-flex items-center gap-2 t-label-sm transition-colors whitespace-nowrap no-underline hover:no-underline focus:no-underline";
             const tone = active
               ? "text-foreground font-semibold"
               : "text-muted-foreground hover:text-foreground";
@@ -391,6 +391,8 @@ const PillContents = ({
                     paddingRight: `${itemPadX}px`,
                     paddingTop: `${chipPadY}px`,
                     paddingBottom: `${chipPadY}px`,
+                    textDecoration: "none",
+                    textShadow: "none",
                   }}
                 >
                   <span className="tabular-nums text-primary">{w.number.padStart(2, "0")}.</span>
@@ -399,17 +401,19 @@ const PillContents = ({
               </li>
             );
           })}
-          {/* Sliding underline — driven directly by scroll via DOM writes
-              (transform + width). No CSS transition: 1:1 sync with finger. */}
+          {/* Single source of truth — sliding indicator. Brand Navy.
+              Driven directly by scroll via DOM writes. No CSS transition. */}
           <span
             ref={indicatorRef}
             aria-hidden
-            className="absolute left-0 top-auto bg-foreground"
+            className="absolute pointer-events-none"
             style={{
+              left: 0,
               width: "0px",
               height: "2px",
-              bottom: "-2px",
+              bottom: "0px",
               borderRadius: "2px",
+              backgroundColor: "hsl(var(--primary))",
               transform: "translate3d(0, 0, 0)",
               opacity: 0,
               willChange: "transform, width",
