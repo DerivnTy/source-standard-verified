@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import lockupDark from "@/assets/source-standard-lockup-dark.png";
 
 interface LogoProps {
   className?: string;
@@ -8,52 +9,34 @@ interface LogoProps {
 }
 
 /**
- * Logo — unified horizontal lockup.
+ * Logo — horizontal "S Shield + Source Standard" lockup.
  *
- * [S Shield] Source Standard — single row, vertically centered.
- * Adaptive: `variant="dark"` for white surfaces, `variant="light"` for navy.
- * Surgically slim — 22px shield, 15px wordmark, -0.01em tracking.
+ * Uses a single navy source asset and inverts it for use on dark surfaces:
+ *   • variant="dark"   → natural navy lockup (for white/light backgrounds).
+ *   • variant="light"  → inverted to white (for navy/dark backgrounds).
+ *
+ * Sized to 24px height so it fits cleanly inside the header without crowding.
  */
 export const Logo = ({ className = "", variant = "dark", asLink = true }: LogoProps) => {
   const isLight = variant === "light";
-  const fg = isLight ? "#FFFFFF" : "hsl(var(--foreground))";
-  const shieldBg = isLight ? "#FFFFFF" : "hsl(var(--foreground))";
-  const shieldFg = isLight ? "hsl(var(--foreground))" : "#FFFFFF";
 
-  const lockup = (
-    <span className="inline-flex items-center" style={{ gap: "8px" }}>
-      <span
-        aria-hidden
-        className="inline-flex items-center justify-center font-sans font-semibold"
-        style={{
-          width: "22px",
-          height: "22px",
-          borderRadius: "5px",
-          backgroundColor: shieldBg,
-          color: shieldFg,
-          fontSize: "13px",
-          lineHeight: 1,
-          letterSpacing: "-0.02em",
-        }}
-      >
-        S
-      </span>
-      <span
-        className="font-sans font-semibold"
-        style={{
-          color: fg,
-          fontSize: "15px",
-          letterSpacing: "-0.01em",
-          lineHeight: 1,
-        }}
-      >
-        Source Standard
-      </span>
-    </span>
+  const img = (
+    <img
+      src={lockupDark}
+      alt="Source Standard"
+      draggable={false}
+      style={{
+        height: "24px",
+        width: "auto",
+        display: "block",
+        // Invert navy → white on dark surfaces while preserving crisp edges.
+        filter: isLight ? "invert(1) brightness(2)" : "none",
+      }}
+    />
   );
 
   if (!asLink) {
-    return <span className={`inline-flex items-center ${className}`}>{lockup}</span>;
+    return <span className={`inline-flex items-center ${className}`}>{img}</span>;
   }
 
   return (
@@ -62,7 +45,7 @@ export const Logo = ({ className = "", variant = "dark", asLink = true }: LogoPr
       className={`inline-flex items-center hover:opacity-80 transition-opacity ${className}`}
       aria-label="Source Standard, home"
     >
-      {lockup}
+      {img}
     </Link>
   );
 };
