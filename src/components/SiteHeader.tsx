@@ -223,12 +223,12 @@ export const SiteHeader = () => {
               <div
                 className="flex shrink-0 items-center justify-center font-mono uppercase"
                 style={{
-                  color: "#48484A",
+                  color: "rgba(255,255,255,0.55)",
                   fontSize: "10px",
                   letterSpacing: "0.08em",
                   paddingTop: "16px",
                   paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 20px)",
-                  borderTop: "0.5px solid #E5E5EA",
+                  borderTop: "0.5px solid rgba(255,255,255,0.10)",
                 }}
               >
                 Source Standard © 2026
