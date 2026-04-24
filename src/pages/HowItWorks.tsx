@@ -4,8 +4,8 @@ import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
-  { id: "audit", number: "01", label: "Audit" },
-  { id: "surveillance", number: "02", label: "Surveillance" },
+  { id: "audit", number: "01", label: "Documentation Review" },
+  { id: "surveillance", number: "02", label: "Ongoing Monitoring" },
   { id: "disclosure", number: "03", label: "Disclosure" },
   { id: "boundaries", number: "04", label: "Boundaries" },
 ];
@@ -19,46 +19,46 @@ type Clause = { n: string; t: string; d: string };
 const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Supply-chain substantiation",
-    d: "Review of the vendor's primary upstream sourcing relationships to determine whether claimed supply channels can be tied to legitimate, documented sources.",
+    t: "Sourcing-claim review",
+    d: "Review of the vendor's stated sourcing relationships to determine whether the available documentation supports the public claim.",
   },
   {
     n: "02",
-    t: "Registration cross-reference",
-    d: "Cross-checking of cited 503A and 503B pharmacy relationships against federal registration records, state licensure, and related public filings where applicable.",
+    t: "Pharmacy record cross-reference",
+    d: "Cross-reference of cited 503A and 503B pharmacy relationships against public registration records, state licensure records, and related public filings where applicable.",
   },
   {
     n: "03",
     t: "Chain-of-custody review",
-    d: "Assessment of invoices, distribution records, and related documentation to determine whether the available record supports a continuous sourcing chain.",
+    d: "Review of invoices, lot references, distribution records, and related documentation to determine whether the available record supports a documented sourcing trail.",
   },
   {
     n: "04",
-    t: "Entity and standing review",
-    d: "Review of ownership, legal standing, and operating identity to reduce the risk of undocumented intermediary supply arrangements.",
+    t: "Entity and identity review",
+    d: "Review of vendor identity, operating entity, location data, and related records to reduce inconsistency between public claims and submitted documentation.",
   },
 ];
 
 const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Sample acquisition review",
-    d: "Where applicable, product samples may be acquired from active public listings for independent analytical review.",
+    t: "Record maintenance",
+    d: "Published records may be reviewed periodically to determine whether licensing data, pharmacy relationships, and documentation remain consistent with the current status.",
   },
   {
     n: "02",
-    t: "Third-party laboratory analysis",
-    d: "Samples may be submitted to qualified independent laboratories for identity, potency, and sterility testing where that level of review is within scope.",
+    t: "Public-record monitoring",
+    d: "Source Standard may monitor relevant public records, enforcement notices, licensure changes, and administrative updates where applicable.",
   },
   {
     n: "03",
-    t: "Analytical confirmation",
-    d: "Laboratory findings are compared against represented compound identity and concentration to assess whether the available evidence supports the public claim.",
+    t: "Evidence reconciliation",
+    d: "New information may be compared against the existing vendor record to determine whether a status update, additional review, or limitation statement is required.",
   },
   {
     n: "04",
-    t: "Deficiency response",
-    d: "Where material analytical deficiencies are identified within the scope of review, public status may be revised in accordance with the framework's disclosure rules.",
+    t: "Status response",
+    d: "Where material documentation gaps or unresolved inconsistencies are identified, registry status may be updated according to Source Standard status definitions.",
   },
 ];
 
@@ -66,30 +66,32 @@ const DISCLOSURE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Change notification",
-    d: "Vendors are expected to disclose material sourcing, ownership, or operating changes that could affect the accuracy of a published public record.",
+    d: "Vendors are expected to disclose material sourcing, ownership, pharmacy relationship, or operating changes that could affect the accuracy of a published record.",
   },
   {
     n: "02",
-    t: "Regulatory monitoring",
-    d: "The framework monitors relevant federal and state enforcement actions, licensure changes, and related administrative developments where applicable.",
+    t: "Documentation updates",
+    d: "Updated documentation may be required when a vendor changes a pharmacy relationship, adds a therapy category, or expands the scope of a public sourcing claim.",
   },
   {
     n: "03",
-    t: "Credential continuity",
-    d: "Published records are periodically reviewed to determine whether underlying licenses, pharmacy relationships, and related operating credentials remain consistent with the stated record.",
+    t: "Review continuity",
+    d: "Published records may be reviewed to determine whether underlying licenses, pharmacy relationships, and documentation remain consistent with the stated status.",
   },
   {
     n: "04",
     t: "Status adjustment",
-    d: "Where disclosure failures or material inconsistencies are identified, registry status may be updated to reflect the current state of the record.",
+    d: "Where disclosure failures, expired documentation, or material inconsistencies are identified, registry status may be updated to reflect the current state of the record.",
   },
 ];
 
 const BOUNDARIES = [
-  "The framework publishes whether sourcing documentation and related records support the stated public claim within the reviewed scope.",
+  "The framework reviews whether sourcing documentation and related records support the stated public claim within the reviewed scope.",
   "It does not provide clinical recommendations or individualized medical advice.",
-  "It does not certify patient outcomes, treatment efficacy, or biological response.",
+  "It does not verify medical outcomes, treatment effectiveness, or biological response.",
+  "It does not certify product safety, potency, sterility, or quality.",
   "It does not replace federal or state regulatory authority.",
+  "It does not approve, recommend, or rank vendors.",
 ];
 
 const SplitSection = ({
@@ -140,20 +142,20 @@ const SplitSection = ({
 
 const HowItWorks = () => {
   const heroDescription =
-    "An independent review framework designed to assess sourcing documentation, upstream pharmacy relationships, and public-record consistency across the compounded medicine landscape.";
+    "An independent review framework for compounded therapy vendor sourcing claims, pharmacy relationship evidence, submitted documentation, and public-record consistency.";
 
   return (
     <>
       <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Verification" }]} />
 
-      <PageMeta title="Verification · Source Standard" description={heroDescription} />
+      <PageMeta title="Verification Protocol · Source Standard" description={heroDescription} />
 
       {/* §1 Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
         category="Verification Framework"
-        title="The Verification Standard"
+        title="The Verification Protocol"
         statement={heroDescription}
         docId=""
       />
@@ -164,14 +166,14 @@ const HowItWorks = () => {
           <div className="mx-auto w-standard section-pad">
             <div className="max-w-2xl">
               <h2 className="t-section-title-sm text-foreground">
-                What this standard is designed to do
+                What this protocol is designed to do
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The Verification Standard defines how Source Standard reviews whether a vendor's public sourcing claims can be substantiated through documentation, pharmacy-of-record relationships, licensure, and related operating records.
+                  The Verification Protocol defines how Source Standard reviews whether a vendor's public sourcing claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, and related operating records.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  It is a framework for documentation review and public-reference consistency. It is not a guarantee of product efficacy, a substitute for medical judgment, or a replacement for federal or state regulatory oversight.
+                  It is a framework for documentation review and public-reference consistency. It is not a guarantee of product safety, treatment effectiveness, clinical quality, or regulatory compliance.
                 </p>
               </div>
             </div>
@@ -185,22 +187,22 @@ const HowItWorks = () => {
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* §4 Audit */}
+            {/* §4 Documentation Review */}
             <SplitSection
               id="audit"
               n="01"
-              title="Audit"
-              intro="How sourcing claims are reviewed against upstream records."
+              title="Documentation Review"
+              intro="How sourcing claims are reviewed against submitted and public records."
               clauses={AUDIT_CLAUSES}
               firstSection
             />
 
-            {/* §5 Surveillance */}
+            {/* §5 Ongoing Monitoring */}
             <SplitSection
               id="surveillance"
               n="02"
-              title="Surveillance"
-              intro="How the framework monitors evidence beyond initial document review."
+              title="Ongoing Monitoring"
+              intro="How the framework reviews changes after initial documentation review."
               clauses={SURVEILLANCE_CLAUSES}
             />
 
@@ -209,7 +211,7 @@ const HowItWorks = () => {
               id="disclosure"
               n="03"
               title="Disclosure"
-              intro="How ongoing changes are expected to be reported and monitored."
+              intro="How vendor changes are expected to be reported and reflected."
               clauses={DISCLOSURE_CLAUSES}
             />
 
@@ -238,7 +240,7 @@ const HowItWorks = () => {
                   Verification is a record standard.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of the Verification Standard is to help the public interpret whether sourcing claims are supported by documentation, not to simulate regulatory authority or clinical endorsement. Its role is to bring greater clarity, consistency, and accountability to a market where those signals are often difficult to evaluate independently.
+                  The purpose of the Verification Protocol is to help the public interpret whether vendor sourcing claims are supported by documentation. Its role is to bring greater clarity, consistency, and accountability to a market where sourcing claims are often difficult to evaluate independently.
                 </p>
               </div>
             </section>
