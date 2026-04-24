@@ -366,8 +366,8 @@ const VendorProfile = () => {
                     Review Boundary
                   </p>
                   <p
-                    className="mt-2 text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+                    className="mt-2"
+                    style={{ fontSize: "13.5px", lineHeight: 1.55, color: "rgba(0,16,33,0.6)" }}
                   >
                     Unverified status does not imply that the vendor is unsafe,
                     unlawful, fraudulent, or clinically inappropriate. It
