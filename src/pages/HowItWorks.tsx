@@ -262,7 +262,7 @@ const HowItWorks = () => {
             {/* §4 Documentation Review */}
             <section
               id="audit"
-              className="scroll-mt-24 border-t border-border/40"
+              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -276,7 +276,7 @@ const HowItWorks = () => {
             {/* §5 Ongoing Monitoring */}
             <section
               id="surveillance"
-              className="scroll-mt-24 border-t border-border/40"
+              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
@@ -290,7 +290,7 @@ const HowItWorks = () => {
             {/* §6 Disclosure */}
             <section
               id="disclosure"
-              className="scroll-mt-24 border-t border-border/40"
+              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "36px", paddingBottom: "36px" }}
             >
               <SectionHeader
