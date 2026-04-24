@@ -113,19 +113,71 @@ const VendorProfile = () => {
   const locationLabel = isOnline ? "Online" : location;
   const sourceType = sourceTypeFor(vendor);
 
-  // Status anchor — registry-card system, never "PENDING".
-  const STATUS_ANCHOR: Record<
-    VendorPublicStatus,
-    { label: string; color: string }
-  > = {
-    verified: { label: "VERIFIED", color: "#001021" },
-    unverified: { label: "UNVERIFIED", color: "#FF3B30" },
-    "under-review": { label: "UNDER REVIEW", color: "#FF9500" },
-    suspended: { label: "SUSPENDED", color: "hsl(var(--muted-foreground))" },
-    removed: { label: "REMOVED", color: "hsl(var(--muted-foreground))" },
+  // Profile status renderer (top-right of card).
+  // Verified is a dedicated branch — never routed through a generic color
+  // map, so legacy green treatments cannot win on the profile page.
+  const renderProfileStatus = (s: VendorPublicStatus) => {
+    const baseStyle = {
+      fontSize: "10px",
+      letterSpacing: "0.08em",
+      lineHeight: 1,
+      gap: "4px",
+    } as const;
+
+    if (s === "verified") {
+      return (
+        <span
+          className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
+          style={{ ...baseStyle, color: "#001021" }}
+        >
+          VERIFIED
+          <span
+            aria-hidden
+            style={{
+              position: "relative",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "10px",
+              width: "16px",
+              overflow: "visible",
+            }}
+          >
+            <span
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: 0,
+                transform: "translateY(calc(-50% - 1px))",
+                display: "block",
+              }}
+            >
+              <VerifiedShieldMark height={18} color="#001021" />
+            </span>
+          </span>
+        </span>
+      );
+    }
+
+    const FALLBACK: Record<
+      Exclude<VendorPublicStatus, "verified">,
+      { label: string; color: string }
+    > = {
+      unverified: { label: "UNVERIFIED", color: "#FF3B30" },
+      "under-review": { label: "UNDER REVIEW", color: "#FF9500" },
+      suspended: { label: "SUSPENDED", color: "hsl(var(--muted-foreground))" },
+      removed: { label: "REMOVED", color: "hsl(var(--muted-foreground))" },
+    };
+    const { label, color } = FALLBACK[s];
+    return (
+      <span
+        className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
+        style={{ ...baseStyle, color }}
+      >
+        {label}
+      </span>
+    );
   };
-  const statusColor = STATUS_ANCHOR[status].color;
-  const statusLabel = STATUS_ANCHOR[status].label;
 
   // Vendor Type display (Unverified path)
   const vendorTypeLabel =
