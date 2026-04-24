@@ -88,7 +88,8 @@ export const DocJumpBar = ({
   };
 
   const SEAM_HEIGHT = 44;
-  const stickyTop = headerVisible ? 64 : 0;
+  const HEADER_STACK = 84; // GlobalUtilityBar (24) + SiteHeader (60)
+  const stickyTop = headerVisible ? HEADER_STACK : 0;
   const eased = easeInOut(progress);
   const flushTop = !headerVisible;
 
