@@ -241,7 +241,7 @@ const Accountability = () => {
               id="attestations"
               n="01"
               title="Attestations"
-              intro="The continuing representations accepted when a Verified standing is issued."
+              intro="The continuing representations accepted when Verified status is issued."
             >
               <ClauseList clauses={ATTESTATIONS} />
             </SplitSection>
@@ -251,10 +251,10 @@ const Accountability = () => {
               id="disclosure"
               n="02"
               title="Disclosure"
-              intro="Events that must be reported to the framework when they materially affect the published record."
+              intro="Events vendors are expected to report when they materially affect the published record."
             >
               <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
-                The following events are designated Mandatory Disclosure Events and are expected to be reported within seventy-two hours of occurrence. Failure to report within that window does not negate the underlying event and may itself trigger review.
+                The following events are expected to be reported within the stated response window. Failure to report a material change may itself trigger review or status revision.
               </p>
               <ClauseList clauses={DISCLOSURE} />
             </SplitSection>
@@ -264,7 +264,7 @@ const Accountability = () => {
               id="triggers"
               n="03"
               title="Triggers"
-              intro="Events that may reopen review of an existing listing, regardless of its renewal cycle."
+              intro="Events that may reopen review of an existing record, regardless of renewal timing."
             >
               <ClauseList clauses={TRIGGERS} />
             </SplitSection>
@@ -288,10 +288,13 @@ const Accountability = () => {
             >
               <div className="space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  An entity under Suspension may return to Verified once the underlying matter is resolved and documented in the audit file.
+                  A Suspended record may return to Verified status once the underlying matter is resolved and supported by documentation in the review file.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  An entity under Removal may apply for re-entry only through a new application and a new examination cycle. Prior audit history, including the original determination, the triggering events, and the disposition, remains part of the permanent record and may be referenced in any future review.
+                  A Removed record may return only through a new submission and new review process.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  Prior status history, including the original determination, triggering events, and disposition, may remain part of the record and may be referenced in future review.
                 </p>
               </div>
             </SplitSection>
@@ -333,7 +336,7 @@ const Accountability = () => {
                   Verification requires continuing record support.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of this protocol is to preserve the integrity of the registry after a listing is published. Verification remains meaningful only when the record continues to support the claim, the underlying sourcing remains transparent, and material changes are disclosed in time.
+                  The purpose of this protocol is to preserve the integrity of the registry after a record is published. Verification remains meaningful only when the documentation continues to support the claim, the underlying sourcing remains transparent, and material changes are disclosed within the stated review process.
                 </p>
               </div>
             </section>
