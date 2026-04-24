@@ -214,6 +214,71 @@ const GreenlistProfile = () => {
               />
             </dl>
           </article>
+
+          {/* Upstream Record explainer panel */}
+          <aside
+            className="bg-card"
+            style={{
+              marginTop: "32px",
+              border: "0.5px solid hsl(var(--border))",
+              borderRadius: "10px",
+              padding: "24px",
+            }}
+          >
+            <p
+              className="font-sans font-semibold uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              Upstream Record
+            </p>
+            <p
+              className="mt-2 text-foreground"
+              style={{ fontSize: "13px", lineHeight: 1.6 }}
+            >
+              This facility record is maintained as a public-reference entry
+              used during vendor sourcing review.
+            </p>
+            <p
+              className="mt-2 text-muted-foreground"
+              style={{ fontSize: "12px", lineHeight: 1.6 }}
+            >
+              Inclusion in the Upstream Registry does not verify that any
+              vendor is actively sourcing from this facility, and it does not
+              constitute product approval, facility recommendation, or a
+              guarantee of safety, sterility, potency, efficacy, or outcome.
+            </p>
+
+            <div
+              aria-hidden
+              style={{
+                borderTop: "0.5px solid hsl(var(--border))",
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+            />
+
+            <p
+              className="font-sans font-semibold uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              Vendor-Level Verification
+            </p>
+            <p
+              className="mt-2 text-foreground"
+              style={{ fontSize: "13px", lineHeight: 1.6 }}
+            >
+              Vendor verification is reviewed separately and requires
+              documentation supporting the vendor's stated pharmacy
+              relationships, sourcing claims, and chain-of-custody records.
+            </p>
+            <Link
+              to="/directory"
+              className="mt-3 inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
+              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+            >
+              Open Vendor Registry →
+            </Link>
+          </aside>
         </div>
       </section>
     </>
