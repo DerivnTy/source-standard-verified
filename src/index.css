@@ -798,3 +798,20 @@ body {
   background: hsl(var(--background)) !important;
 }
 
+/* Hide the page-level scrollbar on mobile/tablet viewports.
+   The page still scrolls; only the visual track/thumb/arrows are suppressed.
+   Desktop keeps the native scrollbar for usability. */
+@media (max-width: 1023px) {
+  html,
+  body {
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE/Edge legacy */
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none;                /* WebKit (Safari/Chrome) */
+  }
+}
+
