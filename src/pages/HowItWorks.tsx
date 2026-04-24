@@ -178,7 +178,7 @@ const SectionHeader = ({
   title: string;
   intro: string;
 }) => (
-  <div className="max-w-2xl mb-6">
+  <div className="max-w-2xl mb-6 lg:mb-0 lg:sticky lg:top-24">
     <p className="font-mono text-[12px] text-muted-foreground/60 mb-1 tabular-nums">{n}</p>
     <h2 className="t-section-title-sm text-foreground">{title}</h2>
     <p
