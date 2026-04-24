@@ -1,76 +1,72 @@
 
 
-## Privacy Page Copy Rewrite
+## Verification Disclaimer Page Copy Rewrite
 
-Text-only changes to `src/pages/Privacy.tsx`. No layout, components, styling, routes, navigation, footer, or animation changes. All anchor IDs (`partitioning`, `collection`, `retention`, `processing`, `inquiries`) preserved.
+Text-only changes to `src/pages/VerificationDisclaimer.tsx`. No layout, components, styling, routes, navigation, footer, or animation changes. All anchor IDs (`scope`, `exclusions`, `boundaries`, `liability`) preserved.
 
 ### Files Touched
 
-1. **`src/pages/Privacy.tsx`** — hero description, purpose statement, all five section titles/intros/clauses, closing statement.
+1. **`src/pages/VerificationDisclaimer.tsx`** — hero description, purpose statement, all four section titles/intros/clauses, closing statement. Return link preserved.
 
 *Footer: already aligned from prior passes — no change.*
 
 ### Content Changes
 
 **`heroDescription`**
-→ `The administrative framework governing the collection, separation, retention, and processing of public registry data and protected review materials.`
+→ `The formal boundaries, jurisdictional limits, and liability framework governing Source Standard verification status and registry records.`
 
-**`PageMeta`** — title `Privacy`, description = heroDescription.
+**`PageMeta`** — title `Verification Disclaimer`, description = heroDescription.
 
 **`BriefingHero`**
-- `category`: `Data Governance Protocol` (unchanged)
-- `title`: `Data Governance & Privacy` (unchanged)
+- `category`: `Verification Disclaimer` (unchanged)
+- `title`: `Verification Disclaimer` (unchanged)
 - `statement`: heroDescription
 
-**Purpose section ("How data is handled under the framework")** — replace with three paragraphs:
-1. `Source Standard maintains a distinction between public registry information and protected review materials.`
-2. `This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.`
-3. `The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.`
+**Purpose section** — replace H2 to `What Source Standard verification means`. Replace two paragraphs:
+1. `Source Standard verification is a public-reference finding based on reviewed records within a defined scope and at a defined point in time.`
+2. `This page explains what verification status does and does not establish, the limits of the framework, and the boundaries under which registry information should be interpreted.`
 
-**§01 Partitioning**
-- Title: `Record Partitioning` (unchanged)
-- Intro: `How public registry information is separated from protected review materials.`
-- `PARTITIONING` array (3 items):
-  - 01 `Public registry data` / `Public registry data is limited to business identity, vendor type, therapy category, review scope, current status, status dates, and related public-reference fields published for consumer and clinician use.`
-  - 02 `Protected review materials` / `Protected review materials may include licensing records, supplier invoices, certificates of analysis, submitted documentation, internal review notes, concern reports, and related supporting materials retained in the review file.`
-  - 03 `Access restriction` / `Protected review materials are retained within a restricted internal environment and are not published, sold, or shared with third parties except where required by law or necessary for authorized infrastructure operations.`
+**§01 Scope**
+- Title: `Record Review Scope` (replaces "Administrative Attestation Scope")
+- Intro: `What verification status is designed to reflect.`
+- Lede: `Source Standard verification reflects whether a vendor's submitted documentation, pharmacy relationship evidence, public records, and operating information support its stated sourcing claim within the declared review scope.`
+- `SCOPE` array (4 items):
+  - 01 `Documented identity` / `Review of business registration, operating identity, vendor type, and related credentials tied to the entity under review.`
+  - 02 `Public-record consistency` / `Cross-reference of relevant licensing, registration, and public records against available federal and state sources at a fixed point in time.`
+  - 03 `Upstream sourcing evidence` / `Review of disclosed pharmacy relationships, upstream facility references, and supporting documentation submitted within the review process.`
+  - 04 `Record basis` / `The registry reflects Source Standard's review of available records and does not replace, supersede, or guarantee the accuracy of the original third-party records on which the review depends.`
 
-**§02 Collection**
-- Title: `Scope of Collection` (unchanged)
-- Intro: `What categories of data may be collected under the framework.`
-- `COLLECTION` array (4 items):
-  - 01 `Vendor intake` / `Business credentials, operating details, sourcing records, pharmacy relationship documentation, and related materials submitted for verification or review.`
-  - 02 `Monitoring data` / `Where applicable, records associated with public-record monitoring, status review, documentation updates, and related registry maintenance activity.`
-  - 03 `Concern reports` / `Supporting documentation and contact details submitted through the public reporting channel.`
-  - 04 `Site analytics` / `Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems.`
+**§02 Exclusions**
+- Title: `Matters Outside the Review Scope` (replaces "Matters Outside the Scope of Attestation")
+- Intro: `What verification status does not establish.`
+- `EXCLUSIONS` array (4 items):
+  - 01 `Clinical outcomes` / `No finding is made regarding the medical result for any individual patient.`
+  - 02 `Product suitability` / `The framework does not evaluate whether any formulation, therapy, vendor, or protocol is appropriate for a specific person.`
+  - 03 `Safety and efficacy` / `Source Standard verification does not certify product safety, sterility, potency, quality, treatment effectiveness, or therapeutic efficacy.`
+  - 04 `Future conduct` / `A published status reflects the records reviewed at a fixed point in time and is not a warranty of future performance, future documentation accuracy, or future regulatory compliance.`
 
-**§03 Retention**
-- Title: `Data Retention` (unchanged)
-- Intro: `How long records are maintained under different conditions.`
-- `RETENTION` array (4 items):
-  - 01 `Active records` / `Protected review materials may be retained for the duration of an entity's active status in the registry and for the period reasonably necessary to administer review, renewal, record maintenance, and related compliance processes.`
-  - 02 `Status history` / `Public status transitions and related public record history may be retained to preserve the integrity and continuity of the registry timeline.`
-  - 03 `Withdrawn or closed submissions` / `Documentation associated with withdrawn, denied, closed, or incomplete submissions may be held for a limited administrative period before secure disposal.`
-  - 04 `Secure disposal` / `Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to reduce the risk of unauthorized recovery.`
+**§03 Boundaries**
+- Title: `Regulatory & Professional Boundaries` (unchanged)
+- Intro: `What Source Standard is not.`
+- `BOUNDARIES` array (4 items):
+  - 01 `Not a regulator` / `Source Standard is a private public-reference and verification framework. It does not hold governmental enforcement authority.`
+  - 02 `Not a clinical practice` / `The organization does not diagnose, prescribe, dispense, treat patients, or practice medicine or pharmacy.`
+  - 03 `Not a manufacturer` / `Source Standard does not compound, repackage, distribute, handle, store, or supply pharmaceutical products.`
+  - 04 `Not a guarantor` / `Verified status is a documentation-based registry status. It is not a warranty, indemnity, insurance-like guarantee, product approval, vendor approval, or clinical recommendation.`
 
-**§04 Processing**
-- Title: `Authorized Processing` (unchanged)
-- Intro: `How data may be processed in support of the framework.`
-- Body (2 paragraphs):
-  1. `Data processing is limited to essential internal functions and authorized infrastructure partners operating under confidentiality and access restrictions.`
-  2. `Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, secure storage, registry operations, and privacy-respecting analytics.`
-
-**§05 Inquiries**
-- Title: `Inquiries & Requests` (unchanged)
-- Intro: `How privacy-related requests may be made.`
-- Body (3 paragraphs + email):
-  1. `Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.`
-  2. `Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.`
-  3. `Data Privacy Officer:` + email link `privacy@sourcestandard.org` (unchanged styling)
+**§04 Liability**
+- Title: `Limitation of Liability` (unchanged)
+- Intro: `How registry information should be relied upon.`
+- `LIABILITY` array (3 items):
+  - 01 `User discretion` / `The registry is a public reference tool. Reliance on any published status or registry record is at the user's discretion.`
+  - 02 `Professional consultation` / `Users should consult licensed clinicians for medical matters and appropriate regulatory authorities for regulatory or legal matters.`
+  - 03 `Liability boundary` / `Registry access and use are subject to the framework's published terms, disclaimers, and jurisdictional limits. Source Standard does not accept liability for decisions made solely on the basis of registry content.`
 
 **Closing statement**
-- H2: `Public transparency requires disciplined record handling.` (unchanged)
-- Body: `The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve review integrity, privacy, and responsible record administration.`
+- H2: `Verification is a record review, not a medical guarantee.` (replaces "A determination is a record finding, not a medical guarantee.")
+- Body: `The purpose of this disclaimer is to ensure that Source Standard verification status is interpreted within its actual scope. The framework exists to improve public understanding of documented sourcing claims, not to replace medical judgment, regulatory oversight, or individualized clinical decision-making.`
+
+**Return link** — `← Return to Resource Library` (unchanged, preserved).
 
 ### Out of Scope
 
