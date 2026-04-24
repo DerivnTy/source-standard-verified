@@ -49,11 +49,11 @@ export const VendorRow = ({
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "14px 18px",
+        padding: "14px 18px 12px",
         minHeight: "92px",
       }}
     >
-      <div className="flex flex-col" style={{ gap: "8px" }}>
+      <div className="flex flex-col" style={{ gap: "7px" }}>
         {/* Row 1 — Name (left) · Status (right) */}
         <div className="flex items-start justify-between" style={{ gap: "16px" }}>
           <h3
