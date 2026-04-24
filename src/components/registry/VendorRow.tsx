@@ -84,6 +84,7 @@ export const VendorRow = ({
                 color: "#001021",
               }}
             >
+              Verified
               <span
                 aria-hidden
                 style={{
@@ -106,7 +107,6 @@ export const VendorRow = ({
                   }}
                 />
               </span>
-              Verified
             </span>
           ) : (
             <span
