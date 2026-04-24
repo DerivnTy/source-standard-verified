@@ -21,17 +21,17 @@ const PARTITIONING: Clause[] = [
   {
     n: "01",
     t: "Public registry data",
-    d: "Public registry data is limited to business identity, verification categories, current status, status dates, and related public-reference fields published for consumer and clinician use.",
+    d: "Public registry data is limited to business identity, vendor type, therapy category, review scope, current status, status dates, and related public-reference fields published for consumer and clinician use.",
   },
   {
     n: "02",
-    t: "Protected audit material",
-    d: "Protected audit material may include licensing records, supplier invoices, certificates of analysis, internal review notes, and related supporting documentation retained in the audit file.",
+    t: "Protected review materials",
+    d: "Protected review materials may include licensing records, supplier invoices, certificates of analysis, submitted documentation, internal review notes, concern reports, and related supporting materials retained in the review file.",
   },
   {
     n: "03",
     t: "Access restriction",
-    d: "Protected audit material is retained within a restricted internal environment and is not published, sold, or shared with third parties except where required by law or necessary for authorized infrastructure operations.",
+    d: "Protected review materials are retained within a restricted internal environment and are not published, sold, or shared with third parties except where required by law or necessary for authorized infrastructure operations.",
   },
 ];
 
@@ -39,12 +39,12 @@ const COLLECTION: Clause[] = [
   {
     n: "01",
     t: "Vendor intake",
-    d: "Business credentials, operating details, and sourcing records submitted for verification or related review.",
+    d: "Business credentials, operating details, sourcing records, pharmacy relationship documentation, and related materials submitted for verification or review.",
   },
   {
     n: "02",
-    t: "Surveillance data",
-    d: "Where applicable, records associated with analytical review, laboratory findings, and related monitoring activity.",
+    t: "Monitoring data",
+    d: "Where applicable, records associated with public-record monitoring, status review, documentation updates, and related registry maintenance activity.",
   },
   {
     n: "03",
@@ -54,7 +54,7 @@ const COLLECTION: Clause[] = [
   {
     n: "04",
     t: "Site analytics",
-    d: "Site usage is monitored through aggregate, non-identifying signals only. The framework does not rely on advertising trackers or cross-site identification systems.",
+    d: "Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems.",
   },
 ];
 
@@ -62,22 +62,22 @@ const RETENTION: Clause[] = [
   {
     n: "01",
     t: "Active records",
-    d: "Protected audit material is retained for the duration of an entity's active standing in the registry and for the period reasonably necessary to administer review, renewal, and related compliance processes.",
+    d: "Protected review materials may be retained for the duration of an entity's active status in the registry and for the period reasonably necessary to administer review, renewal, record maintenance, and related compliance processes.",
   },
   {
     n: "02",
-    t: "Historical determinations",
+    t: "Status history",
     d: "Public status transitions and related public record history may be retained to preserve the integrity and continuity of the registry timeline.",
   },
   {
     n: "03",
-    t: "Withdrawn or denied applications",
-    d: "Documentation associated with withdrawn or denied applications may be held for a limited administrative period before secure disposal.",
+    t: "Withdrawn or closed submissions",
+    d: "Documentation associated with withdrawn, denied, closed, or incomplete submissions may be held for a limited administrative period before secure disposal.",
   },
   {
     n: "04",
     t: "Secure disposal",
-    d: "Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to prevent unauthorized recovery.",
+    d: "Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to reduce the risk of unauthorized recovery.",
   },
 ];
 
@@ -126,7 +126,7 @@ const SplitSection = ({
 
 const Privacy = () => {
   const heroDescription =
-    "The administrative framework governing the collection, separation, retention, and processing of audit records and registry data.";
+    "The administrative framework governing the collection, separation, retention, and processing of public registry data and protected review materials.";
 
   return (
     <>
@@ -154,10 +154,13 @@ const Privacy = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Source Standard maintains a distinction between public registry information and protected audit material. This page explains what is collected, how it is stored, how long it is retained, and the limits under which it may be processed.
+                  Source Standard maintains a distinction between public registry information and protected review materials.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive audit material that is not published as part of the registry.
+                  This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.
+                </p>
+                <p className="t-body-md text-muted-foreground leading-relaxed">
+                  The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.
                 </p>
               </div>
             </div>
@@ -176,7 +179,7 @@ const Privacy = () => {
               id="partitioning"
               n="01"
               title="Record Partitioning"
-              intro="How public registry information is separated from protected audit material."
+              intro="How public registry information is separated from protected review materials."
             >
               <ClauseList clauses={PARTITIONING} />
             </SplitSection>
@@ -213,7 +216,7 @@ const Privacy = () => {
                   Data processing is limited to essential internal functions and authorized infrastructure partners operating under confidentiality and access restrictions.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, and privacy-respecting analytics.
+                  Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, secure storage, registry operations, and privacy-respecting analytics.
                 </p>
               </div>
             </SplitSection>
@@ -230,7 +233,7 @@ const Privacy = () => {
                   Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative and historical recordkeeping obligations.
+                  Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.
                 </p>
                 <p className="pt-2 t-body-md text-foreground">
                   Data Privacy Officer:{" "}
@@ -251,7 +254,7 @@ const Privacy = () => {
                   Public transparency requires disciplined record handling.
                 </h2>
                 <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
-                  The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve audit integrity, privacy, and responsible record administration.
+                  The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve review integrity, privacy, and responsible record administration.
                 </p>
               </div>
             </section>
