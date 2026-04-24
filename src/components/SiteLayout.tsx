@@ -2,10 +2,9 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { SiteHeader, setHeaderVisibleGlobal } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
-import { GlobalUtilityBar } from "./GlobalUtilityBar";
 import { useHashScroll } from "@/hooks/useHashScroll";
 
-const HEADER_STACK_HEIGHT = 84;
+const HEADER_STACK_HEIGHT = 60;
 
 /**
  * Smart Reveal Header Wrapper.
@@ -56,7 +55,6 @@ const SmartHeader = () => {
         willChange: "transform",
       }}
     >
-      <GlobalUtilityBar />
       <SiteHeader />
     </div>
   );
