@@ -17,9 +17,8 @@ const homeWaypoints = [
 ];
 
 /* ───────────────── Live Dashboard ─────────────────
-   "Certificate of current scale" — stats stitched directly under the
-   DocJumpBar seam. 40px padding above/below, hairline border, and a
-   pulsing live dot anchored to the Total Vendors count. */
+   Surgical 3-cell strip. 14px Inter Semi-bold value, 10px Geist Mono caps
+   label, 0.5px hairline divisions, no shadows, no chunky borders. */
 const LiveDashboard = () => {
   const stats = useMemo(() => {
     const total = vendors.length;
@@ -39,10 +38,11 @@ const LiveDashboard = () => {
     label: string;
     live?: boolean;
   }) => (
-    <div className="flex flex-col gap-2 px-3 py-5 sm:px-6 sm:py-6 items-start">
+    <div className="flex flex-col justify-center px-4 py-4">
       <div className="flex items-center gap-2">
         <span
-          className="font-sans font-semibold text-foreground text-[26px] sm:text-[40px] md:text-[48px] leading-none tabular-nums"
+          className="font-sans font-semibold text-foreground tabular-nums"
+          style={{ fontSize: "14px", lineHeight: "1.2" }}
         >
           {typeof value === "number" ? value.toLocaleString("en-US") : value}
         </span>
@@ -50,11 +50,14 @@ const LiveDashboard = () => {
           <span
             aria-hidden
             className="inline-flex h-1.5 w-1.5 rounded-full animate-pulse"
-            style={{ backgroundColor: "#22C55E" }}
+            style={{ backgroundColor: "#34C759" }}
           />
         )}
       </div>
-      <span className="t-label-sm text-muted-foreground">
+      <span
+        className="font-mono uppercase text-muted-foreground mt-1"
+        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      >
         {label}
       </span>
     </div>
@@ -64,26 +67,25 @@ const LiveDashboard = () => {
     <section
       aria-label="Live registry dashboard"
       className="bg-background"
-      style={{ paddingTop: "40px", paddingBottom: "40px" }}
+      style={{ paddingTop: "24px", paddingBottom: "24px" }}
     >
       <div className="page-shell">
         <div className="mx-auto w-standard">
           <div
-            className="grid grid-cols-3"
+            className="grid grid-cols-3 bg-card"
             style={{
-              backgroundColor: "#F8FAFC",
-              border: "1px solid #E2E8F0",
-              borderRadius: "2px",
+              border: "0.5px solid hsl(var(--border))",
+              borderRadius: "10px",
             }}
           >
-            <div style={{ borderRight: "1px solid #E2E8F0" }}>
-              <Cell value={stats.total} label="Total Vendors" live />
+            <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
+              <Cell value={stats.total} label="Total Sources" live />
             </div>
-            <div style={{ borderRight: "1px solid #E2E8F0" }}>
-              <Cell value={stats.states} label="States Represented" />
+            <div style={{ borderRight: "0.5px solid hsl(var(--border))" }}>
+              <Cell value={stats.states} label="States Covered" />
             </div>
             <div>
-              <Cell value={stats.verified} label="Verified Sourcing" />
+              <Cell value={stats.verified} label="Verified" />
             </div>
           </div>
         </div>
@@ -92,65 +94,93 @@ const LiveDashboard = () => {
   );
 };
 
+/* ───────────────── Pill buttons (unified) ─────────────────
+   Single pill style — 32px height, 20px radius, 1px hairline.
+   Variants: navy primary / white secondary. Mirrors filter-pill geometry. */
+const pillBase =
+  "inline-flex items-center justify-center font-sans font-semibold uppercase transition-all active:scale-[0.97]";
+const pillStyle = {
+  height: "32px",
+  padding: "0 14px",
+  borderRadius: "20px",
+  fontSize: "11px",
+  letterSpacing: "0.06em",
+  borderWidth: "1px",
+  borderStyle: "solid" as const,
+};
 
-/* ───────────────── Hero actions (Navy) ─────────────────
-   Surgical Ledger button protocol:
-   - 2px corner radius (rounded-[2px])
-   - 1px border, white on navy
-   - Transparent fill; subtle white/10 fill on hover/active */
+const PillPrimary = ({ to, children }: { to: string; children: React.ReactNode }) => (
+  <Link
+    to={to}
+    className={`${pillBase} bg-primary text-primary-foreground hover:opacity-90`}
+    style={{ ...pillStyle, borderColor: "hsl(var(--primary))" }}
+  >
+    {children}
+  </Link>
+);
 
-const ghostBtnPrimary =
-  "rounded-[2px] border border-white text-[hsl(var(--navy-surface))] bg-white px-6 py-2.5 t-button hover:bg-white/90 active:bg-white/80 transition-colors";
+const PillSecondary = ({ to, children }: { to: string; children: React.ReactNode }) => (
+  <Link
+    to={to}
+    className={`${pillBase} bg-card text-foreground hover:bg-muted`}
+    style={{ ...pillStyle, borderColor: "hsl(var(--border))" }}
+  >
+    {children}
+  </Link>
+);
 
-const ghostBtnSecondary =
-  "rounded-[2px] border border-white text-white bg-transparent px-6 py-2.5 t-button hover:bg-white/10 active:bg-white/15 transition-colors";
+const PillPrimaryWhite = ({ to, children }: { to: string; children: React.ReactNode }) => (
+  <Link
+    to={to}
+    className={`${pillBase} bg-white text-[hsl(var(--navy-surface))] hover:bg-white/90`}
+    style={{ ...pillStyle, borderColor: "white" }}
+  >
+    {children}
+  </Link>
+);
+
+const PillSecondaryWhite = ({ to, children }: { to: string; children: React.ReactNode }) => (
+  <Link
+    to={to}
+    className={`${pillBase} bg-transparent text-white hover:bg-white/10`}
+    style={{ ...pillStyle, borderColor: "white" }}
+  >
+    {children}
+  </Link>
+);
 
 const HeroActions = () => (
   <>
-    <Link to="/directory" className={ghostBtnPrimary}>
-      Search the Registry
-    </Link>
-    <Link to="/apply" className={ghostBtnSecondary}>
-      For Vendors: Get Verified
-    </Link>
+    <PillPrimaryWhite to="/directory">Search the Registry</PillPrimaryWhite>
+    <PillSecondaryWhite to="/apply">For Vendors</PillSecondaryWhite>
   </>
 );
-
-/* ───────────────── Section 02 actions (White) ─────────────────
-   Black/navy 1px border, black text, no fill.
-   Same 2px radius — institutional, surgical. */
-
-const darkBtnPrimary =
-  "rounded-[2px] border border-foreground text-background bg-foreground px-6 py-2.5 t-button hover:bg-foreground/90 transition-colors";
-
-const darkBtnSecondary =
-  "rounded-[2px] border border-foreground text-foreground bg-transparent px-6 py-2.5 t-button hover:bg-foreground/5 active:bg-foreground/10 transition-colors";
 
 /* ───────────────── Static section data ───────────────── */
 
 const howItWorks = [
   {
     h: "Map the facilities.",
-    b: "We track licensed 503A and 503B compounding pharmacies in the United States and organize them into an upstream reference layer.",
+    b: "Track licensed 503A and 503B compounding pharmacies as an upstream reference layer.",
   },
   {
     h: "Audit the vendors.",
-    b: "Clinics and online vendors are asked to substantiate their sourcing with documentation tied to those pharmacy relationships.",
+    b: "Clinics substantiate sourcing with documentation tied to those pharmacy relationships.",
   },
   {
     h: "Publish the record.",
-    b: "The outcome is published in a public registry. If sourcing cannot be substantiated, the listing remains Unverified.",
+    b: "Outcomes are published publicly. Unsubstantiated claims remain Unverified.",
   },
 ];
 
 const registryFields = [
   {
     h: "Verification status",
-    b: "Whether documented sourcing verification is published, under review, or not currently on file.",
+    b: "Whether documented sourcing verification is published, under review, or not on file.",
   },
   {
     h: "Fulfillment model",
-    b: "Whether the vendor operates as a local clinic, an online platform, or a hybrid model.",
+    b: "Whether the vendor operates as a local clinic, an online platform, or hybrid.",
   },
   {
     h: "Clinical focus",
@@ -158,14 +188,14 @@ const registryFields = [
   },
   {
     h: "Upstream sources",
-    b: "The licensed pharmacies or facilities the vendor is documented to source from when verification is on file.",
+    b: "The licensed pharmacies the vendor is documented to source from.",
   },
 ];
 
 const whyMatters = [
   {
     h: "For consumers",
-    b: "Instant clarity on whether a clinic's sourcing is documented against licensed upstream records.",
+    b: "Instant clarity on whether a clinic's sourcing is documented against licensed records.",
   },
   {
     h: "For vendors",
@@ -173,7 +203,7 @@ const whyMatters = [
   },
   {
     h: "For doctors",
-    b: "A structured reference point for evaluating whether a vendor is operating with documented sources.",
+    b: "A structured reference for evaluating whether a vendor operates with documented sources.",
   },
 ];
 
@@ -196,10 +226,82 @@ const basics = [
 ];
 
 const governanceLinks = [
-  { k: "Advisory Board", to: "/medical-advisory" },
-  { k: "Audit Methodology", to: "/governance" },
-  { k: "Status Definitions", to: "/status-definitions" },
+  { k: "Advisory Board", to: "/medical-advisory", s: "Independent medical oversight panel." },
+  { k: "Audit Methodology", to: "/governance", s: "How verification is conducted and scoped." },
+  { k: "Status Definitions", to: "/status-definitions", s: "Definitions of every public listing status." },
 ];
+
+/* ───────────────── Data Strip primitive ───────────────── */
+
+const DataStrip = ({
+  index,
+  total,
+  title,
+  desc,
+  to,
+}: {
+  index: number;
+  total: number;
+  title: string;
+  desc: string;
+  to?: string;
+}) => {
+  const indexLabel = `${(index + 1).toString().padStart(2, "0")} / ${total
+    .toString()
+    .padStart(2, "0")}`;
+  const Inner = (
+    <>
+      <div className="flex items-center justify-between gap-x-3">
+        <h3
+          className="truncate font-sans font-semibold text-foreground"
+          style={{ fontSize: "14px" }}
+        >
+          {title}
+        </h3>
+        <span
+          className="font-mono text-muted-foreground tabular-nums shrink-0"
+          style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+        >
+          {indexLabel}
+        </span>
+      </div>
+      <div className="flex items-center justify-between gap-x-3 mt-0.5">
+        <p
+          className="truncate text-muted-foreground"
+          style={{ fontSize: "12px" }}
+        >
+          {desc}
+        </p>
+        {to && (
+          <span
+            className="font-sans font-bold uppercase text-primary shrink-0"
+            style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+          >
+            View ›
+          </span>
+        )}
+      </div>
+    </>
+  );
+  const baseStyle = {
+    border: "0.5px solid hsl(var(--border))",
+    borderRadius: "20px",
+    padding: "10px 12px",
+  };
+  return to ? (
+    <Link
+      to={to}
+      className="group block bg-card transition-all active:scale-[0.97] hover:bg-muted"
+      style={baseStyle}
+    >
+      {Inner}
+    </Link>
+  ) : (
+    <div className="bg-card" style={baseStyle}>
+      {Inner}
+    </div>
+  );
+};
 
 /* ───────────────── Page ───────────────── */
 
@@ -211,7 +313,7 @@ const Index = () => {
         description="We verify clinical sourcing so you don't have to. Source Standard cross-references clinics and vendors against licensed pharmacy records to separate documented medical sourcing from the grey market."
       />
 
-      {/* §1 — Hero (cover variant: homepage only) */}
+      {/* §1 — Hero */}
       <BriefingHero
         variant="cover"
         category="United States Public Peptide Registry"
@@ -222,188 +324,191 @@ const Index = () => {
         actions={<HeroActions />}
       />
 
-      {/* DocJumpBar — bridges navy hero seam into white Section 01 */}
       <DocJumpBar waypoints={homeWaypoints} />
-
-      {/* Live Dashboard — certificate of current scale */}
       <LiveDashboard />
 
       {/* §2 — The trust problem */}
       <section
         aria-labelledby="trust-problem"
-        className="bg-background"
-        style={{ borderBottom: "1px solid #F1F5F9" }}
+        className="bg-background border-b border-border"
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
       >
-        <div className="page-shell section-pad">
-          <div className="mx-auto w-standard text-center">
-            <h3 className="t-eyebrow-sm text-foreground">
-              The Source Standard
-            </h3>
-            <div className="mx-auto mt-5 h-px w-12 bg-border" aria-hidden="true" />
+        <div className="page-shell">
+          <div className="mx-auto w-standard">
+            <p
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              01 · Problem
+            </p>
             <h2
               id="trust-problem"
-              className="mt-8 t-page-title text-foreground mx-auto max-w-[22ch]"
+              className="mt-3 font-sans font-semibold text-foreground"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Branding is not documentation.
             </h2>
-            <p className="mt-7 mx-auto t-body-md text-muted-foreground max-w-[64ch] leading-[1.75]">
-              In the peptide industry, marketing claims are easy to make and difficult to prove.
-              Most consumers are left to rely on trust signals, presentation, and website language.
-              Source Standard exists to shift that standard back to records. We audit the supply
-              chain so the public can better understand whether what is being sold is supported by
-              documented sourcing.
+            <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+              Marketing claims are easy to make and difficult to prove. Source Standard
+              audits the supply chain so the public can verify whether what is being sold
+              is supported by documented sourcing.
             </p>
-            <div className="mt-10 flex justify-center">
-              <Link
-                to="/how-it-works"
-                className="inline-flex items-center gap-2 rounded-[2px] border border-foreground bg-foreground text-background px-6 py-3 t-button hover:bg-foreground/90 transition-colors"
-              >
-                <span>View Full Report</span>
-                <span aria-hidden>→</span>
-              </Link>
+            <div className="mt-5">
+              <PillPrimary to="/how-it-works">View Full Report</PillPrimary>
             </div>
           </div>
         </div>
       </section>
 
       {/* §3 — How it works */}
-      <section aria-labelledby="how-it-works" className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
+      <section
+        aria-labelledby="how-it-works"
+        className="border-b border-border bg-background"
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+      >
+        <div className="page-shell">
           <div className="mx-auto w-standard">
-            <div className="max-w-[60ch]">
-              <p className="t-meta-note text-muted-foreground">
-                02 · Methodology
-              </p>
-              <h2
-                id="how-it-works"
-                className="mt-5 t-page-title text-foreground"
-              >
-                How Source Standard Works
-              </h2>
-              <p className="mt-6 t-body-md text-muted-foreground">
-                A three-stage protocol that translates licensed pharmacy records into a
-                public-reference standard for clinical sourcing.
-              </p>
+            <p
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              02 · Methodology
+            </p>
+            <h2
+              id="how-it-works"
+              className="mt-3 font-sans font-semibold text-foreground"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+            >
+              How Source Standard Works
+            </h2>
+
+            <div className="mt-5 flex flex-col gap-2">
+              {howItWorks.map((s, i) => (
+                <DataStrip
+                  key={s.h}
+                  index={i}
+                  total={howItWorks.length}
+                  title={s.h}
+                  desc={s.b}
+                />
+              ))}
             </div>
 
-            <ol className="mt-14 divide-y divide-border border-y border-border">
-              {howItWorks.map((s, i) => (
-                <li key={i} className="grid grid-cols-12 gap-6 py-10 sm:py-12">
-                  <div className="col-span-12 sm:col-span-3">
-                    <span className="t-label-sm tabular-nums text-foreground">
-                      {(i + 1).toString().padStart(2, "0")}
-                    </span>
-                  </div>
-                  <div className="col-span-12 sm:col-span-9">
-                    <h3 className="t-h3 text-foreground">
-                      {s.h}
-                    </h3>
-                    <p className="mt-4 t-body-md text-muted-foreground max-w-[64ch] leading-[1.75]">
-                      {s.b}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            <div className="mt-12">
-              <Link
-                to="/verified-vendors"
-                className="group inline-flex items-center gap-3 rounded-[2px] border border-foreground bg-foreground text-background px-7 py-3.5 t-button hover:bg-foreground/90 transition-colors"
-              >
-                <span>Access the Registry</span>
-                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
-              </Link>
+            <div className="mt-5">
+              <PillPrimary to="/verified-vendors">Access the Registry</PillPrimary>
             </div>
           </div>
         </div>
       </section>
 
       {/* §4 — Live registry */}
-      <section aria-labelledby="live-registry" className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
+      <section
+        aria-labelledby="live-registry"
+        className="border-b border-border bg-background"
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+      >
+        <div className="page-shell">
           <div className="mx-auto w-standard">
-            <p className="t-utility-xs text-muted-foreground">03</p>
+            <p
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              03 · Registry
+            </p>
             <h2
               id="live-registry"
-              className="t-section-title-sm text-foreground max-w-[34ch]"
+              className="mt-3 font-sans font-semibold text-foreground"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Total market visibility.
             </h2>
-            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
+            <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
               Our database tracks the peptide economy as a live public-reference system.
             </p>
 
-            <div className="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-3 [&>*]:w-full sm:[&>*]:w-auto">
-              {/* Mobile: 12px vertical stack, full-width hit area; ≥sm: inline row */}
-              <Link to="/directory" className={darkBtnPrimary}>
-                Search Verified Vendors
-              </Link>
-              <Link to="/greenlist" className={darkBtnSecondary}>
-                Explore Greenlist
-              </Link>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <PillPrimary to="/directory">Search Verified Vendors</PillPrimary>
+              <PillSecondary to="/greenlist">Explore Greenlist</PillSecondary>
             </div>
           </div>
         </div>
       </section>
 
       {/* §5 — Registry fields */}
-      <section aria-labelledby="registry-shows" className="border-b border-border bg-surface-muted/30">
-        <div className="page-shell section-pad">
+      <section
+        aria-labelledby="registry-shows"
+        className="border-b border-border bg-background"
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+      >
+        <div className="page-shell">
           <div className="mx-auto w-standard">
-            <div className="grid grid-cols-12 gap-8 md:gap-12">
-              <div className="col-span-12 md:col-span-4">
-                <p className="t-utility-xs text-muted-foreground">04</p>
-                <h2
-                  id="registry-shows"
-                  className="t-section-title-sm text-foreground max-w-[18ch]"
-                >
-                  Search. Verify. Proceed.
-                </h2>
-                <p className="mt-5 t-body-sm text-muted-foreground max-w-[40ch]">
-                  Every listing in the registry provides a structured snapshot of public sourcing
-                  status and operating profile.
-                </p>
-                <Link
-                  to="/directory"
-                  className="mt-7 inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-                >
-                  Open the registry
-                </Link>
-              </div>
+            <p
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              04 · Fields
+            </p>
+            <h2
+              id="registry-shows"
+              className="mt-3 font-sans font-semibold text-foreground"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+            >
+              Search. Verify. Proceed.
+            </h2>
+            <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+              Every listing provides a structured snapshot of public sourcing status.
+            </p>
 
-              <div className="col-span-12 md:col-span-8">
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-7">
-                  {registryFields.map((f) => (
-                    <li key={f.h}>
-                      <p className="t-body-sm font-semibold text-foreground">{f.h}</p>
-                      <p className="mt-1.5 t-body-sm text-muted-foreground">{f.b}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="mt-5 flex flex-col gap-2">
+              {registryFields.map((f, i) => (
+                <DataStrip
+                  key={f.h}
+                  index={i}
+                  total={registryFields.length}
+                  title={f.h}
+                  desc={f.b}
+                />
+              ))}
+            </div>
+
+            <div className="mt-5">
+              <PillSecondary to="/directory">Open the Registry</PillSecondary>
             </div>
           </div>
         </div>
       </section>
 
       {/* §6 — Function of the framework */}
-      <section aria-labelledby="why-matters" className="border-b border-border bg-background">
-        <div className="page-shell section-pad">
+      <section
+        aria-labelledby="why-matters"
+        className="border-b border-border bg-background"
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+      >
+        <div className="page-shell">
           <div className="mx-auto w-standard">
-            <p className="t-utility-xs text-muted-foreground">05</p>
+            <p
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              05 · Function
+            </p>
             <h2
               id="why-matters"
-              className="t-section-title-sm text-foreground max-w-[34ch]"
+              className="mt-3 font-sans font-semibold text-foreground"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Function of the framework
             </h2>
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 md:divide-x divide-border">
+
+            <div className="mt-5 flex flex-col gap-2">
               {whyMatters.map((w, i) => (
-                <div key={i} className="px-0 md:px-8 first:md:pl-0 py-6 md:py-0">
-                  <p className="t-utility-xs text-muted-foreground">{w.h}</p>
-                  <p className="mt-5 t-body-md text-foreground max-w-[34ch]">{w.b}</p>
-                </div>
+                <DataStrip
+                  key={w.h}
+                  index={i}
+                  total={whyMatters.length}
+                  title={w.h}
+                  desc={w.b}
+                />
               ))}
             </div>
           </div>
@@ -411,109 +516,108 @@ const Index = () => {
       </section>
 
       {/* §7 — Foundational reference */}
-      <section aria-labelledby="basics" className="border-b border-border bg-surface-muted/30">
-        <div className="page-shell section-pad">
+      <section
+        aria-labelledby="basics"
+        className="border-b border-border bg-background"
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+      >
+        <div className="page-shell">
           <div className="mx-auto w-standard">
-            <p className="t-utility-xs text-muted-foreground">06</p>
+            <p
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              06 · Reference
+            </p>
             <h2
               id="basics"
-              className="t-section-title-sm text-foreground max-w-[34ch]"
+              className="mt-3 font-sans font-semibold text-foreground"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Foundational reference
             </h2>
-            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
-              Core reference materials that define the terms, regulatory distinctions, and
-              verification standards used throughout the registry.
-            </p>
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
-              {basics.map((b) => (
-                <Link
+
+            <div className="mt-5 flex flex-col gap-2">
+              {basics.map((b, i) => (
+                <DataStrip
                   key={b.t}
+                  index={i}
+                  total={basics.length}
+                  title={b.t}
+                  desc={b.s}
                   to={b.to}
-                  className="bg-background p-6 flex flex-col group hover:bg-surface-muted/50 transition-colors"
-                >
-                  <h3 className="t-h4 text-foreground">{b.t}</h3>
-                  <p className="mt-3 t-body-sm text-muted-foreground flex-1">{b.s}</p>
-                  <span className="mt-5 t-utility-xs text-muted-foreground group-hover:text-foreground transition-colors">
-                    Read
-                  </span>
-                </Link>
+                />
               ))}
             </div>
-            <div className="mt-6">
-              <Link
-                to="/education"
-                className="inline-block t-utility-xs text-foreground border-b border-foreground/30 hover:border-foreground pb-0.5"
-              >
-                Browse Resource Library
-              </Link>
+
+            <div className="mt-5">
+              <PillSecondary to="/education">Browse Resource Library</PillSecondary>
             </div>
           </div>
         </div>
       </section>
 
       {/* §8 — Governance & standards */}
-      <section aria-labelledby="governance" className="border-b border-border bg-background">
-        <div className="page-shell section-pad pb-0">
+      <section
+        aria-labelledby="governance"
+        className="border-b border-border bg-background"
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
+      >
+        <div className="page-shell">
           <div className="mx-auto w-standard">
-            <p className="t-utility-xs text-muted-foreground">07</p>
+            <p
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
+              07 · Governance
+            </p>
             <h2
               id="governance"
-              className="t-section-title-sm text-foreground max-w-[34ch]"
+              className="mt-3 font-sans font-semibold text-foreground"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Governance and standards
             </h2>
-            <p className="mt-6 t-body-md text-muted-foreground max-w-[70ch]">
-              The framework operates under published standards, recurring review, and medical
-              advisory oversight.
-            </p>
-            <ul className="mt-12 divide-y divide-border border-y border-border">
-              {governanceLinks.map((g) => (
-                <li key={g.k}>
-                  <Link
-                    to={g.to}
-                    className="grid grid-cols-12 gap-4 py-5 items-baseline group hover:bg-surface-muted/40 transition-colors"
-                  >
-                    <span className="col-span-9 sm:col-span-10 t-body-md text-foreground pl-0 sm:pl-4">
-                      {g.k}
-                    </span>
-                    <span className="col-span-3 sm:col-span-2 t-utility-xs text-muted-foreground text-right pr-0 sm:pr-4 group-hover:text-foreground transition-colors">
-                      View
-                    </span>
-                  </Link>
-                </li>
+
+            <div className="mt-5 flex flex-col gap-2">
+              {governanceLinks.map((g, i) => (
+                <DataStrip
+                  key={g.k}
+                  index={i}
+                  total={governanceLinks.length}
+                  title={g.k}
+                  desc={g.s}
+                  to={g.to}
+                />
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* §9 — Primary CTA: Access the Verified Registry */}
+      {/* §9 — Final CTA */}
       <section
         aria-labelledby="enter-registry"
         className="bg-[hsl(var(--navy-surface))]"
-        style={{ paddingTop: "80px", paddingBottom: "80px" }}
+        style={{ paddingTop: "48px", paddingBottom: "48px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-standard text-left">
-            <p className="t-utility-xs text-white/60">
+          <div className="mx-auto w-standard">
+            <p
+              className="font-mono uppercase text-white/60"
+              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+            >
               08 · Access
             </p>
             <h2
               id="enter-registry"
-              className="mt-4 t-section-title-sm text-white max-w-[28ch]"
-              style={{ lineHeight: 1.2 }}
+              className="mt-3 font-sans font-semibold text-white"
+              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Access the Verified Registry.
             </h2>
-            <div className="mt-8">
-              <Link
-                to="/verified-vendors"
-                className="group inline-flex items-center gap-3 rounded-[2px] bg-white text-[hsl(var(--navy-surface))] px-6 py-3 t-button hover:bg-white/90 active:bg-white/80 transition-colors"
-              >
-                <span>Enter Registry</span>
-                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
-              </Link>
+            <div className="mt-5">
+              <PillPrimaryWhite to="/verified-vendors">Enter Registry</PillPrimaryWhite>
             </div>
           </div>
         </div>
