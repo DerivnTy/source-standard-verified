@@ -312,17 +312,11 @@ const PillContents = ({
       <span className="shrink-0 t-label-sm text-foreground/70">
         CONTENTS ·
       </span>
-      {/* Horizontally scrollable rail — scrollbar hidden, scrollLeft is
-          driven by page scroll progress so chips glide into the active zone. */}
+      {/* Rail viewport — clips overflow; the inner <ul> is panned via
+          GPU translate3d in lockstep with page scroll. */}
       <div
         ref={railRef}
-        className="relative flex-1 min-w-0 overflow-x-auto"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          WebkitOverflowScrolling: "touch",
-          scrollBehavior: "auto",
-        }}
+        className="relative flex-1 min-w-0 overflow-hidden"
       >
         <style>{`
           .ss-rail::-webkit-scrollbar { display: none; }
@@ -330,7 +324,11 @@ const PillContents = ({
         <ul
           ref={ulRef}
           className="ss-rail relative flex items-center w-max"
-          style={{ gap: `${itemGap}px` }}
+          style={{
+            gap: `${itemGap}px`,
+            transform: "translate3d(0, 0, 0)",
+            willChange: "transform",
+          }}
         >
           {waypoints.map((w) => {
             const active = w.id === activeId;
