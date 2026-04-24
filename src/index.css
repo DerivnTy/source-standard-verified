@@ -815,3 +815,25 @@ body {
   }
 }
 
+/* Source Standard — live status dot pulse (registry green dots only). */
+@keyframes source-standard-live-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+.live-dot {
+  animation: source-standard-live-pulse 2.8s ease-in-out infinite;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-dot {
+    animation: none;
+  }
+}
+
