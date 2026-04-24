@@ -334,8 +334,8 @@ const Education = () => {
               </h2>
               <p className="mt-4 t-body-md text-muted-foreground leading-[1.6]">
                 Additional reference formats are in development, including
-                video explainers, Board webinars, and the 2026 Integrity
-                Ledger.
+                video explainers, Board-reviewed articles, and the 2026
+                Integrity Ledger.
               </p>
             </div>
           </div>
