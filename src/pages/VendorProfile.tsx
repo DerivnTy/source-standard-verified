@@ -10,6 +10,7 @@ import {
 } from "@/data/vendors";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
 
 /**
  * VendorProfile — Surgical Public Record (mirrors GreenlistProfile).
@@ -117,7 +118,7 @@ const VendorProfile = () => {
     VendorPublicStatus,
     { label: string; color: string }
   > = {
-    verified: { label: "VERIFIED", color: "#34C759" },
+    verified: { label: "VERIFIED", color: "#001021" },
     unverified: { label: "UNVERIFIED", color: "#FF3B30" },
     "under-review": { label: "UNDER REVIEW", color: "#FF9500" },
     suspended: { label: "SUSPENDED", color: "hsl(var(--muted-foreground))" },
@@ -216,14 +217,41 @@ const VendorProfile = () => {
                 {vendor.name}
               </h1>
               <span
-                className="shrink-0 font-sans font-bold uppercase tabular-nums"
+                className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
                 style={{
                   fontSize: "10px",
                   letterSpacing: "0.08em",
+                  gap: "4px",
                   color: statusColor,
                 }}
               >
                 {statusLabel}
+                {isVerified && (
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "relative",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: "10px",
+                      width: "16px",
+                      overflow: "visible",
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: 0,
+                        transform: "translateY(calc(-50% - 1px))",
+                        display: "block",
+                      }}
+                    >
+                      <VerifiedShieldMark height={18} color="#001021" />
+                    </span>
+                  </span>
+                )}
               </span>
             </header>
 
