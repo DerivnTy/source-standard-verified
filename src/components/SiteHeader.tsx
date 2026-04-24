@@ -22,7 +22,7 @@ const mobileNav = [{ to: "/", label: "Home" }, ...nav];
 // hide-on-scroll-down / show-on-scroll-up behavior without prop drilling.
 const visibilityListeners = new Set<(v: boolean) => void>();
 let _headerVisible = true;
-const setHeaderVisibleGlobal = (v: boolean) => {
+export const setHeaderVisibleGlobal = (v: boolean) => {
   if (v === _headerVisible) return;
   _headerVisible = v;
   visibilityListeners.forEach((fn) => fn(v));
