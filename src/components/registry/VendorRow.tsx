@@ -8,11 +8,14 @@ import { Vendor, VendorFulfillment } from "@/data/vendors";
  *   Row 2: [Specialty pill + Location] (left) · VIEW › (right)
  */
 
-const focusFor = (vendor: Vendor): string | null => {
+const focusFor = (vendor: Vendor): { label: string; extra: number } | null => {
   if (vendor.clinicalFocus && vendor.clinicalFocus.length > 0) {
-    return vendor.clinicalFocus[0].toUpperCase();
+    return {
+      label: vendor.clinicalFocus[0].toUpperCase(),
+      extra: Math.max(0, vendor.clinicalFocus.length - 1),
+    };
   }
-  if (vendor.category) return vendor.category.toUpperCase();
+  if (vendor.category) return { label: vendor.category.toUpperCase(), extra: 0 };
   return null;
 };
 
