@@ -151,7 +151,7 @@ const Terms = () => {
     <>
       <Breadcrumb items={[{ label: "Legal" }, { label: "Terms" }]} />
 
-      <PageMeta title="Terms" description={heroDescription} />
+      <PageMeta title="Terms of Use" description={heroDescription} />
 
       {/* §1 Hero */}
       <BriefingHero
@@ -173,7 +173,7 @@ const Terms = () => {
               </h2>
               <div className="mt-6 space-y-5">
                 <p className="t-body-md text-muted-foreground leading-relaxed">
-                  These terms govern public access to the Source Standard registry and the related materials published under the framework.
+                  These terms govern public access to the Source Standard registry and the related public-reference materials published under the framework.
                 </p>
                 <p className="t-body-md text-muted-foreground leading-relaxed">
                   They define the conditions of access, rules for citation and use, prohibited conduct, and the legal boundaries that apply to reliance on registry information.
@@ -214,11 +214,11 @@ const Terms = () => {
             <SplitSection
               id="citation"
               n="02"
-              title="Citation & Data Utilization"
-              intro="How registry entries may be referenced publicly."
+              title="Citation & Data Use"
+              intro="How registry records may be referenced publicly."
             >
               <p className="t-body-md text-muted-foreground leading-relaxed mb-8">
-                Registry entries may be cited in journalistic, academic, or clinical contexts provided the citation preserves sufficient detail for the reader to identify the referenced record accurately.
+                Registry records may be cited in journalistic, academic, clinical, or commercial contexts provided the citation preserves enough detail for the reader to identify the referenced record accurately.
               </p>
               <ClauseList clauses={CITATION} />
             </SplitSection>
