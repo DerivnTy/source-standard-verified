@@ -110,25 +110,16 @@ export const BriefingHero = ({
                 {title}
               </h1>
 
-              {/* Live Registry signal — small, elegant pulse */}
-              <div className="mt-6 flex items-center gap-3">
-                <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
-                  <span className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: "#22C55E", opacity: 0.55 }} />
-                  <span className="relative inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#22C55E" }} />
-                </span>
-                <span className="t-eyebrow-sm text-white/70">
-                  Live Registry
-                </span>
-              </div>
-
-              <p className="mt-5 max-w-[58ch] t-body-md text-white/70">
+              <p className="mt-6 max-w-[58ch] t-body-md text-white/70">
                 {statement}
               </p>
 
-              {heroMetrics && <div className="mt-8">{heroMetrics}</div>}
+              {heroMetrics && (
+                <div className="mt-7 flex justify-center">{heroMetrics}</div>
+              )}
 
               {actions && (
-                <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 [&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:text-center [&>*]:text-center">
+                <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 [&>*]:w-full sm:[&>*]:w-auto sm:[&>*]:text-center [&>*]:text-center">
                   {actions}
                 </div>
               )}
