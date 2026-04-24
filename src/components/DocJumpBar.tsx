@@ -373,6 +373,7 @@ const PillContents = ({
             return (
               <li
                 key={w.id}
+                className="shrink-0"
                 ref={(el) => {
                   itemRefs.current[w.id] = el;
                 }}
@@ -394,19 +395,21 @@ const PillContents = ({
               </li>
             );
           })}
-          {/* Sliding underline indicator — positioned within the scrolling ul
-              so it follows the active chip even as the rail translates. */}
+          {/* Sliding underline — GPU-accelerated translateX glide with
+              spring-like easing. Width transitions separately. */}
           <span
             aria-hidden
-            className="absolute bg-foreground"
+            className="absolute left-0 bg-foreground"
             style={{
-              left: `${indicator.left}px`,
               width: `${indicator.width}px`,
               height: "2px",
               bottom: "-2px",
               borderRadius: "2px",
+              transform: `translate3d(${indicator.left}px, 0, 0)`,
               opacity: indicator.width > 0 ? 1 : 0,
-              transition: "left 200ms ease-out, width 200ms ease-out",
+              transition:
+                "transform 380ms cubic-bezier(0.22, 1, 0.36, 1), width 380ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease-out",
+              willChange: "transform, width",
             }}
           />
         </ul>
