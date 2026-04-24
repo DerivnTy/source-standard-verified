@@ -13,10 +13,11 @@ const locationFor = (e: GreenlistEntry): string | null => {
   return null;
 };
 
-export const GreenlistRow = ({ entry }: { entry: GreenlistEntry }) => {
+export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; index?: number }) => {
   const isAlert = !!entry.regulatoryAlert;
   const location = locationFor(entry);
   const category = entry.category;
+  const cadenceClass = `live-dot--cadence-${(index % 4) + 1}`;
 
   return (
     <Link
