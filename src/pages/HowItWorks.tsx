@@ -4,8 +4,8 @@ import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
-  { id: "audit", number: "01", label: "Audit" },
-  { id: "surveillance", number: "02", label: "Surveillance" },
+  { id: "audit", number: "01", label: "Documentation Review" },
+  { id: "surveillance", number: "02", label: "Ongoing Monitoring" },
   { id: "disclosure", number: "03", label: "Disclosure" },
   { id: "boundaries", number: "04", label: "Boundaries" },
 ];
