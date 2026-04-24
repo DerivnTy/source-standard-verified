@@ -127,19 +127,19 @@ const MedicalAdvisory = () => {
       />
 
       {/* §2 Statement of purpose */}
-      <section className="bg-background border-b border-border/40">
+      <section className="bg-background border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
         <div className="page-shell">
-          <div className="mx-auto w-standard section-pad">
+          <div className="mx-auto w-standard">
             <div className="max-w-2xl">
               <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
-              <div className="mt-6 space-y-5">
-                <p className="t-body-md text-muted-foreground leading-relaxed">
+              <div className="mt-6 space-y-4">
+                <p className="t-body-sm text-muted-foreground leading-relaxed">
                   The Advisory Board exists to support the neutrality, clinical restraint, and procedural discipline of the Source Standard framework.
                 </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
+                <p className="t-body-sm text-muted-foreground leading-relaxed">
                   Its role is to provide advisory input on review standards, documentation boundaries, public language, and education materials used across the registry.
                 </p>
-                <p className="t-body-md text-muted-foreground leading-relaxed">
+                <p className="t-body-sm text-muted-foreground leading-relaxed">
                   The Board does not represent vendors, compound distributors, medical clinics, or pharmacy partners. It does not make individual vendor status determinations. It serves as an independent advisory layer for the standards behind the public reference system.
                 </p>
               </div>
@@ -156,7 +156,7 @@ const MedicalAdvisory = () => {
           <div className="mx-auto w-standard">
 
             {/* §4 Institutional Mandate */}
-            <section id="transparency" className="scroll-mt-24 pt-14 md:pt-20 lg:pt-24 pb-16 md:pb-20 lg:pb-24 border-b border-border/40">
+            <section id="transparency" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
@@ -172,11 +172,11 @@ const MedicalAdvisory = () => {
                 <div className="md:col-span-8 mt-8 md:mt-0">
                   <ol className="divide-y divide-border/60">
                     {MANDATE_CLAUSES.map((c) => (
-                      <li key={c.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
+                      <li key={c.n} className="grid grid-cols-12 gap-4 py-4 first:pt-0 last:pb-0 items-baseline">
                         <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">{c.n}</div>
                         <div className="col-span-10 md:col-span-11">
-                          <p className="t-body-md font-semibold text-foreground">{c.t}</p>
-                          <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{c.d}</p>
+                          <p className="t-body-sm font-semibold text-foreground">{c.t}</p>
+                          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{c.d}</p>
                         </div>
                       </li>
                     ))}
@@ -186,7 +186,7 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §5 Governance Framework */}
-            <section id="verification-chain" className="scroll-mt-24 section-pad border-b border-border/40">
+            <section id="verification-chain" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
@@ -202,11 +202,11 @@ const MedicalAdvisory = () => {
                 <div className="md:col-span-8 mt-8 md:mt-0">
                   <ol className="divide-y divide-border/60">
                     {ROLE_FUNCTIONS.map((s) => (
-                      <li key={s.n} className="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0 items-baseline">
+                      <li key={s.n} className="grid grid-cols-12 gap-4 py-4 first:pt-0 last:pb-0 items-baseline">
                         <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">{s.n}</div>
                         <div className="col-span-10 md:col-span-11">
-                          <p className="t-body-md font-semibold text-foreground">{s.t}</p>
-                          <p className="mt-1.5 t-body-md text-muted-foreground leading-relaxed">{s.d}</p>
+                          <p className="t-body-sm font-semibold text-foreground">{s.t}</p>
+                          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{s.d}</p>
                         </div>
                       </li>
                     ))}
@@ -216,18 +216,18 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §6 Members */}
-            <section id="members" className="scroll-mt-24 section-pad border-b border-border/40">
+            <section id="members" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <SectionIndex n="03" />
-              <div className="mb-10 max-w-2xl">
+              <div className="mb-8 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
                   Appointed members
                 </h2>
-                <p className="mt-4 t-body-md text-muted-foreground leading-relaxed">
+                <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
                   Independent clinicians, pharmacy reviewers, and legal advisors appointed to support framework standards, documentation boundaries, and public-reference integrity.
                 </p>
               </div>
 
-              <ul className="grid md:grid-cols-2 gap-5">
+              <ul className="grid md:grid-cols-2 gap-4">
                 {advisoryBoard.map((m) => {
                   const boardTitle = BOARD_TITLE_OVERRIDES[m.slug] ?? m.boardTitle;
                   return (
@@ -235,7 +235,7 @@ const MedicalAdvisory = () => {
                       key={m.slug}
                       className="flex flex-col text-left rounded-[2px] border border-white/10 bg-[#112240] p-6"
                     >
-                      <div className="flex flex-col items-start text-left gap-4 pb-5 mb-5 border-b border-white/10">
+                      <div className="flex flex-col items-start text-left gap-4 pb-4 mb-4 border-b border-white/10">
                         <img
                           src={m.photo}
                           alt={`Portrait of ${m.name}`}
@@ -243,27 +243,27 @@ const MedicalAdvisory = () => {
                           decoding="async"
                           width={96}
                           height={96}
-                          className="h-20 w-20 rounded-[2px] object-cover border border-white/15 shrink-0 aspect-square"
+                          className="h-16 w-16 rounded-[2px] object-cover border border-white/15 shrink-0 aspect-square"
                         />
                         <div className="w-full min-w-0 text-left">
                           <h3 className="t-body-md font-semibold tracking-tight text-white leading-snug text-left">
                             {m.name}
                             <span className="text-white/70 font-normal">, {m.credentials}</span>
                           </h3>
-                          <p className="mt-3 t-body-sm font-semibold text-white text-left">{boardTitle}</p>
+                          <p className="mt-2 t-body-sm font-semibold text-white text-left">{boardTitle}</p>
                           <p className="mt-1 t-utility-xs text-white/70 text-left">{m.specialization}</p>
-                          <p className="mt-2 t-utility-xs text-white/70 text-left">
+                          <p className="mt-1.5 t-utility-xs text-white/70 text-left">
                             {m.jurisdiction} · {m.yearsPracticing} practicing
                           </p>
                         </div>
                       </div>
 
-                      <p className="t-body-md text-white/85 flex-1 text-left">{m.shortSummary}</p>
+                      <p className="t-body-sm text-white/85 flex-1 text-left leading-relaxed">{m.shortSummary}</p>
 
-                      <div className="mt-5 flex justify-start">
+                      <div className="mt-4 flex justify-start">
                         <Link
                           to={`/medical-advisory/${m.slug}`}
-                          className="t-body-md text-white hover:text-white/80 transition-colors underline-offset-4 hover:underline"
+                          className="t-body-sm text-white hover:text-white/80 transition-colors underline-offset-4 hover:underline"
                         >
                           View profile →
                         </Link>
@@ -275,16 +275,16 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §7 Scope & boundaries */}
-            <section id="scope" className="scroll-mt-24 section-pad border-b border-border/40">
+            <section id="scope" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <SectionIndex n="04" />
-              <div className="max-w-2xl mb-8">
+              <div className="max-w-2xl mb-6">
                 <h2 className="t-section-title-sm text-foreground">
                   Scope & boundaries
                 </h2>
               </div>
               <ul className="divide-y divide-border/60 border-y border-border/60 max-w-3xl">
                 {BOUNDARIES.map((b) => (
-                  <li key={b} className="py-5 t-body-md text-foreground">
+                  <li key={b} className="py-4 t-body-sm text-foreground">
                     {b}
                   </li>
                 ))}
@@ -292,24 +292,24 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §8 Responsibilities */}
-            <section id="responsibilities" className="scroll-mt-24 section-pad border-b border-border/40">
+            <section id="responsibilities" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <SectionIndex n="05" />
-              <div className="mb-10 max-w-2xl">
+              <div className="mb-8 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
                   Responsibilities
                 </h2>
-                <p className="mt-4 t-body-md text-muted-foreground leading-relaxed">
+                <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
                   Each responsibility maps to a recurring advisory activity recorded under Source Standard's framework maintenance process.
                 </p>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-8">
+              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-6">
                 {RESPONSIBILITY_ORDER.map((code) => {
                   const o = RESPONSIBILITY_OVERRIDES[code];
                   if (!o) return null;
                   return (
                     <li key={code}>
-                      <p className="t-body-md font-semibold text-foreground">{o.title}</p>
-                      <p className="mt-2 t-body-md text-muted-foreground leading-relaxed">{o.description}</p>
+                      <p className="t-body-sm font-semibold text-foreground">{o.title}</p>
+                      <p className="mt-2 t-body-sm text-muted-foreground leading-relaxed">{o.description}</p>
                     </li>
                   );
                 })}
@@ -317,12 +317,12 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §9 Closing statement */}
-            <section className="section-pad">
+            <section style={{ paddingTop: "40px", paddingBottom: "40px" }}>
               <div className="max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
                   Public trust requires disciplined oversight.
                 </h2>
-                <p className="mt-6 t-body-md text-muted-foreground leading-relaxed">
+                <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
                   The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.
                 </p>
               </div>
