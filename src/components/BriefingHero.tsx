@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { HeroPattern } from "./HeroPattern";
 import type { MetadataItem } from "./MetadataBar";
 import logoLight from "@/assets/source-standard-logo-light.png";
@@ -52,14 +52,6 @@ export const BriefingHero = ({
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
-  const [showCue, setShowCue] = useState(true);
-
-  useEffect(() => {
-    if (!isCover) return;
-    const onScroll = () => setShowCue(window.scrollY < 80);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isCover]);
   const isDense = !isNavy && Boolean(rightRail);
 
   if (isNavy) {
@@ -82,45 +74,60 @@ export const BriefingHero = ({
           <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
           <div
-            className="relative z-30 page-shell flex flex-col justify-center py-16"
-            style={{ minHeight: "calc(100dvh - 84px)" }}
+            className="relative z-30 page-shell flex flex-col justify-start"
+            style={{
+              minHeight: "calc(100dvh - 84px)",
+              paddingTop: "clamp(48px, 7vh, 72px)",
+              paddingBottom: "clamp(56px, 8vh, 88px)",
+            }}
           >
-            <div className="relative w-hero">
+            <div className="relative w-full">
               {brandMark && <span className="sr-only">{brandMark}</span>}
 
               <h1
                 id="briefing-title"
-                className="t-page-title text-white max-w-[22ch] text-balance"
+                className="text-white text-left text-balance"
+                style={{
+                  maxWidth: "560px",
+                  fontSize: "clamp(44px, 10vw, 64px)",
+                  lineHeight: "1.0",
+                  letterSpacing: "-0.03em",
+                  fontWeight: 600,
+                }}
               >
                 {title}
               </h1>
 
-              <p className="mt-6 max-w-[58ch] t-body-md text-white/70">
+              <p
+                className="text-white/70 text-left"
+                style={{
+                  maxWidth: "520px",
+                  marginTop: "24px",
+                  fontSize: "clamp(18px, 4.2vw, 22px)",
+                  lineHeight: "1.4",
+                }}
+              >
                 {statement}
               </p>
 
               {heroMetrics && (
-                <div className="mt-7 flex justify-center">{heroMetrics}</div>
+                <div
+                  className="flex justify-center"
+                  style={{ marginTop: "clamp(36px, 5vh, 52px)" }}
+                >
+                  {heroMetrics}
+                </div>
               )}
 
               {actions && (
-                <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 [&>*]:w-full sm:[&>*]:w-auto">
+                <div
+                  className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center [&>*]:w-full sm:[&>*]:w-auto"
+                  style={{ marginTop: "clamp(24px, 3.5vh, 36px)", gap: "16px" }}
+                >
                   {actions}
                 </div>
               )}
             </div>
-          </div>
-
-          {/* Scroll cue — cover only */}
-          <div
-            aria-hidden="true"
-            className={`absolute bottom-8 left-0 right-0 flex justify-center transition-opacity duration-300 ${
-              showCue ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/55">
-              ▼&nbsp;&nbsp;CONTINUE
-            </span>
           </div>
         </section>
       );
