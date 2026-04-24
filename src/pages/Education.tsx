@@ -183,25 +183,33 @@ const CategoryBlock = ({
   return (
     <section
       id={category.id}
-      className="section-pad border-b border-border/40 scroll-mt-36"
+      className="border-b border-border/40 scroll-mt-36"
+      style={{ paddingTop: "40px", paddingBottom: "40px" }}
     >
       <div className="mx-auto w-wide">
-        <div className="grid grid-cols-12 gap-x-8 gap-y-8">
+        <div className="grid grid-cols-12 gap-x-8 gap-y-6">
           <div className="col-span-12 md:col-span-4">
             <h2 className="t-section-title-sm text-foreground tracking-tight">
               {category.label}
             </h2>
-            <p className="mt-3 t-body-md text-muted-foreground leading-[1.6] max-w-[42ch]">
+            <p className="mt-2 t-body-sm text-muted-foreground leading-[1.55] max-w-[42ch]">
               {category.description}
             </p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
               {entries.length} {entries.length === 1 ? "entry" : "entries"}
             </p>
           </div>
 
           <div className="col-span-12 md:col-span-8">
             {entries.length === 0 ? (
-              <div className="border border-border/60 px-5 py-10 text-center t-body-sm text-muted-foreground">
+              <div
+                className="bg-card text-center t-body-sm text-muted-foreground"
+                style={{
+                  border: "0.5px solid hsl(var(--border))",
+                  borderRadius: "12px",
+                  padding: "32px 20px",
+                }}
+              >
                 No entries match the current search.
               </div>
             ) : (
@@ -215,13 +223,10 @@ const CategoryBlock = ({
             )}
 
             {entries.length > 0 && (
-              <div className="mt-5">
-                <Link
-                  to={category.path}
-                  className="inline-block t-body-sm font-semibold text-foreground hover:text-primary transition-colors"
-                >
-                  View all {category.label} entries
-                </Link>
+              <div className="mt-3">
+                <ViewAllPill to={category.path}>
+                  View all {category.label}
+                </ViewAllPill>
               </div>
             )}
           </div>
