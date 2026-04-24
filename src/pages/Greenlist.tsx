@@ -102,13 +102,11 @@ const Greenlist = () => {
     [filtered],
   );
 
-  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
-  const currentPage = Math.min(page, totalPages);
-  const pageStart = (currentPage - 1) * pageSize;
-  const pageItems = sorted.slice(pageStart, pageStart + pageSize);
+  const visibleItems = sorted.slice(0, visibleCount);
+  const hasMore = visibleCount < sorted.length;
 
   useEffect(() => {
-    setPage(1);
+    setVisibleCount(PAGE_SIZE);
   }, [query, type, state, status]);
 
   return (
