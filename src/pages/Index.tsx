@@ -403,6 +403,12 @@ const Index = () => {
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
           md:[&_h1#briefing-title+p]:!max-w-[440px]
+          lg:[&_h1#briefing-title]:!max-w-[680px]
+          lg:[&_h1#briefing-title+p]:!max-w-[560px]
+          lg:[&_h1#briefing-title~div.flex.justify-center]:!justify-start
+          lg:[&_h1#briefing-title~div.flex.justify-center]:!mt-10
+          lg:[&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!justify-start
+          lg:[&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
         "
       >
         <BriefingHero
