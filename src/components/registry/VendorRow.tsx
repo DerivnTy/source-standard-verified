@@ -75,9 +75,9 @@ export const VendorRow = ({
               className="inline-flex items-center gap-1 font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
-                fontSize: "13px",
+                fontSize: "11px",
                 fontWeight: 700,
-                letterSpacing: "0.02em",
+                letterSpacing: "0.035em",
                 lineHeight: 1,
                 color: "#34C759",
               }}
@@ -94,9 +94,9 @@ export const VendorRow = ({
               className="font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
-                fontSize: "13px",
+                fontSize: "11px",
                 fontWeight: 700,
-                letterSpacing: "0.02em",
+                letterSpacing: "0.035em",
                 lineHeight: 1,
                 color: "#FF3B30",
               }}
@@ -139,7 +139,7 @@ export const VendorRow = ({
         <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-4px" }}>
           <span
             className="inline-flex items-center gap-0.5 font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
-            style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.02em", lineHeight: 1 }}
+            style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.035em", lineHeight: 1 }}
           >
             View Record
             <ChevronRight
