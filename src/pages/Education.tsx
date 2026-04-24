@@ -75,27 +75,19 @@ const InquiryRow = ({
     aria-label={label}
     className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.97]"
     style={{
+      position: "relative",
       border: "0.5px solid hsl(var(--border))",
       borderRadius: "12px",
       padding: "10px 14px",
     }}
   >
-    <div className="flex flex-col" style={{ rowGap: "2px" }}>
-      <div className="flex items-start justify-between gap-x-3">
-        <span
-          className="shrink-0 font-mono uppercase tabular-nums text-muted-foreground"
-          style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-        >
-          {label}
-        </span>
-        <span
-          className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
-          style={{ fontSize: "10px", letterSpacing: "0.06em" }}
-        >
-          View
-          <ChevronRight aria-hidden style={{ width: "11px", height: "11px", strokeWidth: 1.5 }} />
-        </span>
-      </div>
+    <div className="flex flex-col" style={{ rowGap: "2px", paddingRight: "64px" }}>
+      <span
+        className="font-mono uppercase tabular-nums text-muted-foreground"
+        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      >
+        {label}
+      </span>
       <p
         className="font-sans text-foreground/85 line-clamp-2"
         style={{ fontSize: "12.5px", lineHeight: "1.5" }}
@@ -103,6 +95,20 @@ const InquiryRow = ({
         {description}
       </p>
     </div>
+    <span
+      className="inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+      style={{
+        position: "absolute",
+        right: "14px",
+        top: "50%",
+        transform: "translateY(-50%)",
+        fontSize: "10px",
+        letterSpacing: "0.06em",
+      }}
+    >
+      View
+      <ChevronRight aria-hidden style={{ width: "11px", height: "11px", strokeWidth: 1.5 }} />
+    </span>
   </Link>
 );
 
