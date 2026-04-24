@@ -36,51 +36,54 @@ const HeroMetrics = () => {
     label: string;
     dotColor: string;
   }) => (
-    <div className="flex flex-col items-center text-center px-6 sm:px-10">
-      <span
-        className="font-mono uppercase text-white/60"
-        style={{
-          fontSize: "10px",
-          lineHeight: "12px",
-          letterSpacing: "0.14em",
-          fontWeight: 500,
-        }}
-      >
-        {label}
-      </span>
-      <div
-        className="flex items-center justify-center"
-        style={{ marginTop: "10px", gap: "8px", height: "26px" }}
-      >
-        <span aria-hidden className="relative inline-flex h-1.5 w-1.5">
+    <div className="flex flex-col items-start text-left">
+      <div className="flex items-center" style={{ gap: "12px" }}>
+        <span aria-hidden className="relative inline-flex" style={{ width: "10px", height: "10px" }}>
           <span
             className="absolute inset-0 rounded-full animate-ping"
             style={{ backgroundColor: dotColor, opacity: 0.6 }}
           />
           <span
-            className="relative inline-block h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: dotColor, boxShadow: `0 0 6px ${dotColor}` }}
+            className="relative inline-block rounded-full"
+            style={{
+              width: "10px",
+              height: "10px",
+              backgroundColor: dotColor,
+              boxShadow: `0 0 10px ${dotColor}`,
+            }}
           />
         </span>
         <span
           className="font-sans text-white tabular-nums"
           style={{
-            fontSize: "24px",
-            lineHeight: "26px",
+            fontSize: "44px",
+            lineHeight: "1",
             fontWeight: 600,
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.02em",
           }}
         >
           {value.toLocaleString("en-US")}
         </span>
       </div>
+      <span
+        className="font-mono uppercase text-white/70"
+        style={{
+          fontSize: "11px",
+          lineHeight: "14px",
+          letterSpacing: "0.18em",
+          fontWeight: 500,
+          marginTop: "10px",
+        }}
+      >
+        {label}
+      </span>
     </div>
   );
 
   return (
-    <div className="inline-flex flex-col items-center">
+    <div className="flex flex-col items-start w-full max-w-[420px]">
       <span
-        className="font-mono uppercase text-white/65"
+        className="font-mono uppercase text-white"
         style={{
           fontSize: "10px",
           lineHeight: "12px",
@@ -93,20 +96,15 @@ const HeroMetrics = () => {
       <span
         aria-hidden
         className="block w-full bg-white/20"
-        style={{ height: "1px", marginTop: "10px", marginBottom: "16px" }}
+        style={{ height: "1px", marginTop: "10px", marginBottom: "20px" }}
       />
       <div
         role="group"
         aria-label="Live registry metrics"
-        className="inline-flex items-stretch"
-        style={{ paddingTop: "4px", paddingBottom: "4px" }}
+        className="flex items-start justify-between w-full"
+        style={{ gap: "32px" }}
       >
         <Unit value={stats.total} label="Identified Sources" dotColor="#FF3B30" />
-        <span
-          aria-hidden
-          className="self-stretch bg-white/15"
-          style={{ width: "0.5px" }}
-        />
         <Unit value={stats.verified} label="Verified" dotColor="#22C55E" />
       </div>
     </div>
