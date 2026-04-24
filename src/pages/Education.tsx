@@ -199,25 +199,29 @@ const Education = () => {
           <div className="mx-auto w-wide">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 py-3">
               <div className="flex items-center gap-3 flex-1 min-w-0 md:max-w-md">
-                <Search
-                  className="h-4 w-4 text-muted-foreground shrink-0"
-                  aria-hidden
-                />
                 <input
                   type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search library…"
                   aria-label="Search library"
-                  className="flex-1 min-w-0 bg-transparent border-0 outline-none t-body-sm text-foreground placeholder:text-muted-foreground"
+                  className="font-sans flex-1 min-w-0 text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                  style={{
+                    height: "36px",
+                    borderRadius: "20px",
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid hsl(var(--border))",
+                    paddingLeft: "14px",
+                    paddingRight: "14px",
+                  }}
                 />
-                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground shrink-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground shrink-0 tabular-nums">
                   {totalCount} {totalCount === 1 ? "result" : "results"}
                 </span>
               </div>
 
               <nav
-                className="flex items-center gap-6 -mb-px"
+                className="flex items-center gap-2 flex-wrap"
                 aria-label="Filter library"
               >
                 {FILTER_TABS.map((tab) => {
@@ -228,12 +232,17 @@ const Education = () => {
                       type="button"
                       onClick={() => handleTabClick(tab.id)}
                       aria-pressed={active}
-                      className={
-                        "py-2 text-[12px] font-semibold uppercase tracking-[0.14em] border-b-2 transition-colors " +
-                        (active
-                          ? "border-foreground text-foreground"
-                          : "border-transparent text-muted-foreground hover:text-foreground")
-                      }
+                      className="inline-flex items-center justify-center font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
+                      style={{
+                        fontSize: "11px",
+                        letterSpacing: "0.06em",
+                        height: "30px",
+                        padding: "0 12px",
+                        borderRadius: "20px",
+                        border: "1px solid hsl(var(--border))",
+                        backgroundColor: active ? "hsl(var(--foreground))" : "#FFFFFF",
+                        color: active ? "hsl(var(--background))" : "hsl(var(--foreground) / 0.75)",
+                      }}
                     >
                       {tab.label}
                     </button>
