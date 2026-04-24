@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { SiteHeader } from "./SiteHeader";
+import { SiteHeader, setHeaderVisibleGlobal } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { GlobalUtilityBar } from "./GlobalUtilityBar";
 import { useHashScroll } from "@/hooks/useHashScroll";
@@ -39,6 +39,11 @@ const SmartHeader = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    setHeaderVisibleGlobal(!hidden);
+    return () => setHeaderVisibleGlobal(true);
+  }, [hidden]);
 
   return (
     <div

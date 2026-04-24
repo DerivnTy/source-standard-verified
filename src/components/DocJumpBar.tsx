@@ -90,9 +90,6 @@ export const DocJumpBar = ({
   const SEAM_HEIGHT = 44;
   const stickyTop = headerVisible ? 64 : 0;
   const eased = easeInOut(progress);
-  // When the header is hidden, the pill must sit flush at top:0 with no
-  // negative margin pulling it above the viewport. When the header is
-  // visible, retain the seam-bridging behavior.
   const flushTop = !headerVisible;
 
   // Measure the bar's actual height so we can pull it up by exactly half
@@ -113,7 +110,7 @@ export const DocJumpBar = ({
     };
   }, []);
 
-  // Interpolated geometry — pill throughout
+  // Interpolated geometry — pill throughout until the header vacates.
   const widthPct = isMobile ? 92 : lerp(86, 96, eased);
   const maxWidthPx = lerp(1200, 1360, eased);
   const navPadY = lerp(8, 4, eased);
@@ -125,38 +122,37 @@ export const DocJumpBar = ({
 
   const navStyle: React.CSSProperties = {
     position: "sticky",
-    top: `${stickyTop}px`,
+    top: headerVisible ? `${stickyTop}px` : "0px",
     width: flushTop ? "100%" : `${widthPct}%`,
     maxWidth: flushTop ? "none" : isMobile ? "none" : `${maxWidthPx}px`,
     marginLeft: "auto",
     marginRight: "auto",
-    // Only bridge the seam when the header is visible. When the header is
-    // hidden, sit flush at top:0 with zero negative margin so no gap appears
-    // above the bar.
-    marginTop: flushTop
-      ? "0px"
-      : `-${SEAM_HEIGHT / 2 + barHeight / 2}px`,
+    marginTop: flushTop ? "0px" : `-${SEAM_HEIGHT / 2 + barHeight / 2}px`,
     borderRadius: flushTop ? "0px" : "9999px",
-    boxShadow: flushTop ? "none" : "0 10px 30px -10px hsl(0 0% 0% / 0.12)",
+    boxShadow: "none",
     border: "none",
     borderBottom: "0.5px solid hsl(var(--border))",
-    backgroundColor: "hsl(var(--background))",
-    zIndex: 30,
+    backgroundColor: "hsl(var(--card))",
+    zIndex: 40,
     overflow: "hidden",
-    transition: "top 200ms ease-out, margin-top 200ms ease-out, border-radius 200ms ease-out, width 200ms ease-out",
+    transition:
+      "top 200ms ease-out, margin-top 200ms ease-out, border-radius 200ms ease-out, width 200ms ease-out",
   };
 
   return (
     <>
-      {/* Seam zone — purely decorative navy/white split. */}
+      {/* Seam zone — collapses fully when the header is hidden so the bar can
+          snap to the browser edge with no residual gap. */}
       <div
         ref={seamRef}
         aria-hidden
         className="relative w-full"
         style={{
-          height: `${SEAM_HEIGHT}px`,
-          background:
-            "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)",
+          height: flushTop ? "0px" : `${SEAM_HEIGHT}px`,
+          background: flushTop
+            ? "hsl(var(--card))"
+            : "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)",
+          transition: "height 200ms ease-out",
         }}
       />
       <nav ref={navRef} aria-label="Document contents" style={navStyle}>

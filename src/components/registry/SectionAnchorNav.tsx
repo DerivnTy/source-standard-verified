@@ -55,10 +55,12 @@ export const SectionAnchorNav = ({
   return (
     <nav
       aria-label="Page contents"
-      className="sticky z-30 bg-background border-b border-border/80 transition-shadow duration-200"
+      className="sticky z-40 border-b transition-shadow duration-200"
       style={{
         top: `${stickyTop}px`,
-        boxShadow: scrolled ? "0 1px 0 hsl(var(--border) / 0.8), 0 6px 16px -12px hsl(0 0% 0% / 0.10)" : "none",
+        backgroundColor: "hsl(var(--card))",
+        borderBottom: "0.5px solid hsl(var(--border))",
+        boxShadow: scrolled ? "0 1px 0 hsl(var(--border) / 0.8)" : "none",
       }}
     >
       <div className="page-shell">
