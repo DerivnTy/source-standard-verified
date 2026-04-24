@@ -24,6 +24,7 @@ export const DocJumpBar = ({
   const [activeId, setActiveId] = useState<string>(waypoints[0]?.id ?? "");
   const [progress, setProgress] = useState(0);
   const [barHeight, setBarHeight] = useState(56);
+  const [armed, setArmed] = useState(false);
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth < 768 : false
   );
