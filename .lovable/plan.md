@@ -1,35 +1,61 @@
-# Kill White Overscroll Below Footer
+# Homepage Hero Correction Pass
 
-## Diagnosis
-The white/cream area you see when force-scrolling past the footer is the **page/body background** showing through the browser's overscroll bounce. The footer itself ends correctly on navy — but when you pull the page past its end, the viewport reveals whatever color sits behind the document (currently cream).
+## Scope
+`src/pages/Index.tsx` only. No edits to BriefingHero, header, footer, global CSS, or other pages.
 
-The cleanest fix would be to set `body { background: hsl(var(--navy-surface)) }` in `src/index.css`, but you scoped this change to `SiteFooter.tsx` only. So we'll solve it from inside the footer.
+## Change
+Replace the current `flex-col justify-between` descendant layout on the BriefingHero wrapper with a centered composition. The hero still fills the mobile viewport, but the content reads as one cohesive centered block instead of vertically scattered groups.
 
-## Fix (single file: `src/components/SiteFooter.tsx`)
-
-Add a fixed-position, full-width navy panel pinned to the bottom of the viewport, sitting behind all content (`-z-10`, `pointer-events-none`). Because it's `position: fixed` to the bottom, it stays painted under the overscroll area regardless of scroll position. Because it's behind everything (`-z-10`), it never interferes with page content or interactions — users only see it when the browser's overscroll bounce exposes the area beneath the document.
+### New wrapper
 
 ```tsx
-return (
-  <>
-    {/* Paints navy behind any overscroll bounce */}
-    <div
-      aria-hidden="true"
-      className="fixed inset-x-0 bottom-0 h-[50vh] -z-10 pointer-events-none bg-[hsl(var(--navy-surface))]"
-    />
-    <footer className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]">
-      {/* ... existing footer content unchanged ... */}
-    </footer>
-  </>
-);
+<div
+  className="
+    min-h-[calc(100svh-96px)] lg:min-h-0
+    [&>section]:min-h-[calc(100svh-96px)]
+    lg:[&>section]:min-h-[calc(100dvh-84px)]
+    [&_.page-shell]:min-h-[calc(100svh-96px)]
+    lg:[&_.page-shell]:min-h-[calc(100dvh-84px)]
+    [&_.page-shell]:flex
+    [&_.page-shell]:items-center
+    [&_.page-shell]:!pt-10
+    [&_.page-shell]:!pb-10
+    [&_.page-shell]:!px-8
+    lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)]
+    lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)]
+    lg:[&_.page-shell]:!px-6
+
+    [&_h1#briefing-title+p]:!mt-6
+    [&_h1#briefing-title~div.flex.justify-center]:!mt-9
+    [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
+    [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
+
+    md:[&_h1#briefing-title+p]:!max-w-[440px]
+  "
+>
+  <BriefingHero ... />
+</div>
 ```
 
-Notes:
-- `h-[50vh]` is more than enough to cover any overscroll bounce on mobile and desktop.
-- `relative` on the `<footer>` ensures it stacks above the fixed panel during normal scroll.
-- No changes to footer copy, links, structure, padding, header, routes, or global CSS.
+What this does:
+- Mobile-only `min-h-[calc(100svh-96px)]` propagates down through section → page-shell so the navy hero fills the first iPhone screen below the 96px header.
+- `flex items-center` on `.page-shell` vertically centers the entire hero content block (BriefingHero's inner `div.relative.w-full`) — no more `justify-between` stretching.
+- Mobile padding: 40px top/bottom, 32px horizontal. Desktop reverts to BriefingHero's clamp values via `lg:` overrides.
+- Internal spacing tightened via descendant selectors (BriefingHero structure is: `h1#briefing-title` then `p` then `div.flex.justify-center` (metrics) then `div.flex.flex-col.sm:flex-row` (actions)):
+  - h1 → paragraph: 24px (`!mt-6`)
+  - paragraph → Live Registry: 36px (`!mt-9`)
+  - Live Registry → CTAs: 32px (`!mt-8`)
+  - CTA gap: 14px
+- Mobile-only paragraph cap at 440px so it doesn't feel floaty. Desktop max-width stays at BriefingHero's 520px.
+
+## Removed
+All previously-added selectors that forced flex distribution:
+- `[&>section]:flex-1`, `[&>section]:flex-col`
+- `[&_.page-shell]:flex-1`, `[&_.page-shell]:flex-col`
+- All `[&_.page-shell>div.relative.w-full]:*` flex/justify-between/flex-1/gap-y rules
 
 ## Acceptance
-- Force-scrolling past the footer on mobile reveals navy, not cream.
-- Footer content, spacing, and links are unchanged.
-- No layout shift, no interaction blockers.
+- Hero fills the iPhone first screen; section §2 ("Claims are not documentation.") not visible on initial load.
+- Headline, paragraph, Live Registry, and CTAs read as one centered cohesive block — no large vertical gaps.
+- Desktop hero rhythm preserved.
+- No copy, route, color, or shared-component changes.
