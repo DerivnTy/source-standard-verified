@@ -52,14 +52,6 @@ export const BriefingHero = ({
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
-  const [showCue, setShowCue] = useState(true);
-
-  useEffect(() => {
-    if (!isCover) return;
-    const onScroll = () => setShowCue(window.scrollY < 80);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isCover]);
   const isDense = !isNavy && Boolean(rightRail);
 
   if (isNavy) {
