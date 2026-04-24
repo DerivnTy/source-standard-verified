@@ -317,42 +317,42 @@ const DataStrip = ({
     .padStart(2, "0")}`;
   const Inner = (
     <>
-      <div className="flex items-center justify-between gap-x-3">
+      <div className="flex items-start justify-between gap-x-3">
         <h3
-          className="truncate font-sans font-semibold text-foreground"
-          style={{ fontSize: "14px" }}
+          className="font-sans font-semibold text-foreground"
+          style={{ fontSize: "14px", lineHeight: "1.35" }}
         >
           {title}
         </h3>
         <span
           className="font-mono text-muted-foreground tabular-nums shrink-0"
-          style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+          style={{ fontSize: "10px", letterSpacing: "0.06em", marginTop: "2px" }}
         >
           {indexLabel}
         </span>
       </div>
-      <div className="flex items-center justify-between gap-x-3 mt-0.5">
-        <p
-          className="truncate text-muted-foreground"
-          style={{ fontSize: "12px" }}
-        >
-          {desc}
-        </p>
-        {to && (
+      <p
+        className="text-muted-foreground"
+        style={{ fontSize: "13px", lineHeight: "1.55", marginTop: "5px" }}
+      >
+        {desc}
+      </p>
+      {to && (
+        <div className="mt-2">
           <span
-            className="font-sans font-bold uppercase text-primary shrink-0"
+            className="font-sans font-bold uppercase text-primary"
             style={{ fontSize: "10px", letterSpacing: "0.06em" }}
           >
             View ›
           </span>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
   const baseStyle = {
     border: "0.5px solid hsl(var(--border))",
-    borderRadius: "20px",
-    padding: "10px 12px",
+    borderRadius: "12px",
+    padding: "16px 18px",
   };
   return to ? (
     <Link
