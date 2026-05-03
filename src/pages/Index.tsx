@@ -513,28 +513,28 @@ const Index = () => {
       {/* §2 — The trust problem */}
       <section
         aria-labelledby="trust-problem"
-        className="bg-background border-b border-border"
+        className="home-section bg-background border-b border-border"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
-              className="font-mono uppercase text-muted-foreground"
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
             >
               01 · Problem
             </p>
             <h2
               id="trust-problem"
-              className="mt-3 font-sans font-semibold text-foreground"
+              className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Claims are not documentation.
             </h2>
-            <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
               Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
             </p>
-            <div className="mt-3">
+            <div className="home-cta mt-3">
               <PillPrimary to="/how-it-works">View Verification Protocol</PillPrimary>
             </div>
           </div>
@@ -544,26 +544,26 @@ const Index = () => {
       {/* §3 — How it works */}
       <section
         aria-labelledby="how-it-works"
-        className="border-b border-border bg-background"
+        className="home-section border-b border-border bg-background"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
-              className="font-mono uppercase text-muted-foreground"
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
             >
               02 · Methodology
             </p>
             <h2
               id="how-it-works"
-              className="mt-3 font-sans font-semibold text-foreground"
+              className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               How Source Standard Works
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2.5">
+            <div className="home-grid mt-5 flex flex-col gap-2.5">
               {howItWorks.map((s, i) => (
                 <DataStrip
                   key={s.h}
@@ -575,7 +575,7 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="mt-3">
+            <div className="home-cta mt-3">
               <PillPrimary to="/verified-vendors">Access the Registry</PillPrimary>
             </div>
           </div>
@@ -585,25 +585,25 @@ const Index = () => {
       {/* §4 — Live registry */}
       <section
         aria-labelledby="live-registry"
-        className="border-b border-border bg-background"
+        className="home-section border-b border-border bg-background"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
-              className="font-mono uppercase text-muted-foreground"
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
             >
               03 · Registry
             </p>
             <h2
               id="live-registry"
-              className="mt-3 font-sans font-semibold text-foreground"
+              className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Unified market visibility.
             </h2>
-            <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
               The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
             </p>
 
@@ -618,29 +618,29 @@ const Index = () => {
       {/* §5 — Registry fields */}
       <section
         aria-labelledby="registry-shows"
-        className="border-b border-border bg-background"
+        className="home-section border-b border-border bg-background"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
-              className="font-mono uppercase text-muted-foreground"
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
             >
               04 · Fields
             </p>
             <h2
               id="registry-shows"
-              className="mt-3 font-sans font-semibold text-foreground"
+              className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Search. Review. Verify status.
             </h2>
-            <p className="mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
               Each listing provides a structured snapshot of vendor documentation status and sourcing review scope.
             </p>
 
-            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
+            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
               {registryFields.map((f, i) => (
                 <DataStrip
                   key={f.h}
@@ -652,7 +652,7 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="mt-3">
+            <div className="home-cta mt-3">
               <PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>
             </div>
           </div>
@@ -662,26 +662,26 @@ const Index = () => {
       {/* §6 — Function of the framework */}
       <section
         aria-labelledby="why-matters"
-        className="border-b border-border bg-background"
+        className="home-section border-b border-border bg-background"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
-              className="font-mono uppercase text-muted-foreground"
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
             >
               05 · Function
             </p>
             <h2
               id="why-matters"
-              className="mt-3 font-sans font-semibold text-foreground"
+              className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Function of the framework
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
+            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
               {whyMatters.map((w, i) => (
                 <DataStrip
                   key={w.h}
@@ -699,26 +699,26 @@ const Index = () => {
       {/* §7 — Foundational reference */}
       <section
         aria-labelledby="basics"
-        className="border-b border-border bg-background"
+        className="home-section border-b border-border bg-background"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
-              className="font-mono uppercase text-muted-foreground"
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
             >
               06 · Reference
             </p>
             <h2
               id="basics"
-              className="mt-3 font-sans font-semibold text-foreground"
+              className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Foundational reference
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
+            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
               {basics.map((b, i) => (
                 <DataStrip
                   key={b.t}
@@ -731,7 +731,7 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="mt-3">
+            <div className="home-cta mt-3">
               <PillSecondary to="/education">Browse Resource Library</PillSecondary>
             </div>
           </div>
@@ -741,26 +741,26 @@ const Index = () => {
       {/* §8 — Governance & standards */}
       <section
         aria-labelledby="governance"
-        className="border-b border-border bg-background"
+        className="home-section border-b border-border bg-background"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
-              className="font-mono uppercase text-muted-foreground"
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
             >
               07 · Governance
             </p>
             <h2
               id="governance"
-              className="mt-3 font-sans font-semibold text-foreground"
+              className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
               Governance and standards
             </h2>
 
-            <div className="mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
+            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
               {governanceLinks.map((g, i) => (
                 <DataStrip
                   key={g.k}
