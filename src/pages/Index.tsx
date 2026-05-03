@@ -401,6 +401,66 @@ const Index = () => {
           0%, 100% { transform: translate(-50%, 0); opacity: 0.35; }
           50% { transform: translate(-50%, 5px); opacity: 0.7; }
         }
+
+        /* ────────────── Desktop polish (≥1024px) ──────────────
+           Mobile is locked. These overrides only kick in on lg+
+           to scale type, padding, and centering for desktop. */
+        @media (min-width: 1024px) {
+          /* Hero — center the cover content, lift the H1, widen the lead */
+          .home-hero h1#briefing-title {
+            text-align: center !important;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 14ch !important;
+            font-size: clamp(64px, 6.4vw, 84px) !important;
+            line-height: 1.02 !important;
+            letter-spacing: -0.035em !important;
+          }
+          .home-hero h1#briefing-title + p {
+            text-align: center !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            max-width: 640px !important;
+            font-size: 19px !important;
+            line-height: 1.55 !important;
+            margin-top: 28px !important;
+          }
+          .home-hero h1#briefing-title ~ div.flex.justify-center {
+            justify-content: center !important;
+            margin-top: 44px !important;
+          }
+          .home-hero h1#briefing-title ~ div.flex.flex-col.sm\\:flex-row {
+            justify-content: center !important;
+            margin-top: 36px !important;
+          }
+
+          /* Section rhythm — bump padding and headings on every home section */
+          .home-section { padding-top: 80px !important; padding-bottom: 80px !important; }
+          .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; }
+          .home-section .home-h2 {
+            font-size: 36px !important;
+            line-height: 1.15 !important;
+            letter-spacing: -0.018em !important;
+            margin-top: 14px !important;
+          }
+          .home-section .home-lead {
+            font-size: 16px !important;
+            line-height: 1.7 !important;
+            margin-top: 18px !important;
+            max-width: 68ch !important;
+          }
+          .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
+          .home-section .home-cta { margin-top: 28px !important; }
+
+          /* DataStrip cards — slightly larger type and padding on desktop */
+          .home-section .home-grid > * { padding: 22px 24px !important; }
+          .home-section .home-grid h3 { font-size: 15px !important; line-height: 1.4 !important; }
+          .home-section .home-grid p { font-size: 14px !important; line-height: 1.6 !important; margin-top: 8px !important; }
+        }
+
+        @media (min-width: 1280px) {
+          .home-section .home-h2 { font-size: 40px !important; }
+        }
       `}</style>
       <div
         className="
