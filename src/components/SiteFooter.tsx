@@ -138,6 +138,15 @@ export const SiteFooter = () => {
               >
                 System Status: Operational
               </span>
+              <span aria-hidden style={{ color: MUTED }}>·</span>
+              <button
+                type="button"
+                onClick={lock}
+                className="font-mono text-[10.5px] uppercase hover:opacity-100 transition-opacity opacity-70"
+                style={{ color: MUTED, letterSpacing: "0.12em" }}
+              >
+                Lock
+              </button>
             </div>
           </div>
 
