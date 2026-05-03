@@ -1,52 +1,51 @@
-# Shared Password Gate
+# Desktop Polish Pass
 
-A lightweight, site-wide password gate so you can share the preview/published site with reviewers without adding them to the workspace. One shared password, server-validated, remembered per browser.
+The site is built mobile-first and looks tight on phones, but on desktop everything stays mobile-sized: small headings (22px), narrow text columns hugging the left edge, single-column card stacks, and shallow vertical spacing. On a 1336px screen this leaves huge empty gutters and makes the page feel like a phone screenshot stretched wide.
 
-## How it works
+The fix is a *desktop tier* of styles — not a redesign. Mobile stays exactly as it is.
 
-1. On first visit, a full-screen overlay blocks the entire app (all routes).
-2. Reviewer enters the shared password.
-3. The password is sent to a Lovable Cloud edge function, which compares it against a secret (`SITE_ACCESS_PASSWORD`).
-4. If correct, the function returns a signed token. The token is stored in `localStorage` and the gate unlocks.
-5. On subsequent visits, the stored token is re-validated by the function; if valid, the gate stays open.
-6. A small "Lock" button in the footer lets you sign out of the gate.
+## What changes on desktop (≥1024px)
 
-The password is never hardcoded in the frontend — it lives only as a server secret. The token is an HMAC signed with a second server secret (`SITE_ACCESS_SIGNING_KEY`) so it cannot be forged.
+### 1. Hero (homepage)
+- Lift the H1 ("Verify the source.") from current size to **64–72px** with tighter letter-spacing.
+- Restore center alignment on desktop (currently it left-aligns at `lg:` — that was a mobile-leftover override).
+- Center the supporting paragraph below at a comfortable **600px** measure.
+- Center the two action pills and the Live Registry metrics block under them.
+- Add a small amount of vertical breathing room so the hero fills the viewport without feeling crammed at the top.
 
-## Security notes
+### 2. Section headings (sections 1–7 on the homepage)
+Each section currently uses 22px headings + 13px body — phone sizes. On desktop:
+- Eyebrow (e.g. "01 · Problem"): 11px, slightly more letter-spacing.
+- H2: **32px** at lg, **36px** at xl.
+- Body paragraph: **15px**, line-height 1.7, max measure 65ch.
+- Section vertical padding: **80px top/bottom** at lg (currently 36px everywhere).
 
-- This is gate-level access control, not real auth. Anyone with the password gets in. Suitable for pre-launch reviewer sharing.
-- Brute-force is mitigated by a small per-IP delay in the edge function and a constant-time string compare.
-- Tokens expire after 30 days; you can rotate access at any time by changing `SITE_ACCESS_SIGNING_KEY` (instantly invalidates all existing tokens) or `SITE_ACCESS_PASSWORD` (changes the password).
-- This does NOT protect API/edge functions or database rows — it only hides the UI. Since the project currently has no user-data backend, that's fine for review-sharing purposes.
+### 3. Card grids (DataStrip rows)
+- "How it works", "Function", "Reference", "Governance" stay in their grids but get more generous gap (24px) and slightly larger inner padding at lg.
+- Card title 15px, body 14px on desktop.
+- Keep the card style — just scale the type, don't redesign.
 
-## Technical implementation
+### 4. Centering vs. left-aligned
+Each section content block stays inside the existing `w-standard` (1120px) container, centered on the page. We keep section *content* left-aligned within that column (that's the institutional/registry feel — Stripe and gov directories do the same). Only the hero is centered.
 
-**New secrets (you'll be prompted to add):**
-- `SITE_ACCESS_PASSWORD` — the shared password you give reviewers
-- `SITE_ACCESS_SIGNING_KEY` — random string used to sign tokens (I'll suggest a value)
+### 5. Other pages (light pass)
+Apply the same desktop typography tier to:
+- **Verified Vendors / Greenlist** — slightly larger header bar, more padding above the table.
+- **About, How It Works, Medical Advisory, Education** — same heading + body scaling, same section padding bump.
+- **Library articles** — already use a reading column; just verify desktop padding.
 
-**New edge function:** `supabase/functions/site-access/index.ts`
-- `POST { action: "login", password }` → verifies password, returns `{ token }`
-- `POST { action: "verify", token }` → returns `{ valid: true|false }`
-- HMAC-SHA256 signed token: `base64(expiresAt).base64(hmac)`
+No layout restructuring on these — purely the desktop type/spacing tier.
 
-**New frontend files:**
-- `src/components/SiteAccessGate.tsx` — full-screen overlay with password input, matches the institutional design system (Navy bg, hairline borders, serif heading, single-word "Enter" action)
-- `src/hooks/useSiteAccess.ts` — manages token in `localStorage`, calls the edge function
+## What does NOT change
+- Mobile layout, sizing, and behavior — untouched.
+- Brand colors, fonts, card styles, navigation, footer.
+- Any backend, routing, or data.
+- The password gate.
 
-**Modified:**
-- `src/App.tsx` — wrap `<BrowserRouter>` content with `<SiteAccessGate>`; renders children only once unlocked
-- `src/components/SiteFooter.tsx` — small "Lock" link to clear the token
+## Technical notes
+- Add `lg:` and `xl:` Tailwind variants directly to the existing classes/inline styles in `src/pages/Index.tsx` and the shared section primitives.
+- Where inline `style={{ fontSize: ... }}` is used for mobile, wrap a media query or replace with Tailwind responsive utilities so desktop can override.
+- Bump `.section-pad` desktop value in `src/index.css` if it's currently low.
+- Touch points: `src/pages/Index.tsx`, `src/components/BriefingHero.tsx` (cover variant lg branch), `src/components/PageHeader.tsx`, `src/components/system/Section.tsx`, plus a small responsive sweep on the registry/about/education pages.
 
-## What you'll do after I build it
-
-1. I'll request the two secrets via the secrets tool.
-2. You paste in the password you want to share + a random signing key.
-3. Publish the site. Share the URL + password with reviewers.
-
-## Out of scope
-
-- Per-user accounts or roles
-- Rate limiting beyond a basic delay
-- Protecting any future backend data (we'd switch to real auth for that)
+After approval I'll implement, then walk through each major page at 1336px and confirm it reads naturally.
