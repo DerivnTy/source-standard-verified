@@ -61,6 +61,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <SiteAccessGate>
         <ScrollToTop />
         <Routes>
           <Route element={<SiteLayout />}>
