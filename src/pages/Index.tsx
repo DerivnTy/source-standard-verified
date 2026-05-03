@@ -464,6 +464,7 @@ const Index = () => {
       `}</style>
       <div
         className="
+          home-hero
           relative
           bg-[hsl(var(--navy-surface))]
           flex items-center
@@ -472,19 +473,13 @@ const Index = () => {
           [&>section]:w-full
           [&_.page-shell]:!px-8 [&_.page-shell]:!py-0
           lg:[&_.page-shell]:!px-6
-          lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)]
-          lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)]
+          lg:[&_.page-shell]:!pt-[clamp(72px,10vh,120px)]
+          lg:[&_.page-shell]:!pb-[clamp(72px,10vh,120px)]
           [&_h1#briefing-title+p]:!mt-6
           [&_h1#briefing-title~div.flex.justify-center]:!mt-9
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
           md:[&_h1#briefing-title+p]:!max-w-[440px]
-          lg:[&_h1#briefing-title]:!max-w-[680px]
-          lg:[&_h1#briefing-title+p]:!max-w-[560px]
-          lg:[&_h1#briefing-title~div.flex.justify-center]:!justify-start
-          lg:[&_h1#briefing-title~div.flex.justify-center]:!mt-10
-          lg:[&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!justify-start
-          lg:[&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
         "
       >
         <BriefingHero
