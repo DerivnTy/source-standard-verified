@@ -1,17 +1,3 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+## Site is in private preview. Do not index any content.
 User-agent: *
-Allow: /
-Disallow: /apply
-
-Sitemap: https://sourcestandard.org/sitemap.xml
+Disallow: /
