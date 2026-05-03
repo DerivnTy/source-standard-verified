@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import { useSiteAccess } from "@/hooks/useSiteAccess";
 
 type LinkRow = {
   to: string;
@@ -66,6 +67,7 @@ const FooterLink = ({ row }: { row: LinkRow }) => (
 
 export const SiteFooter = () => {
   const now = new Date();
+  const { lock } = useSiteAccess();
 
   return (
     <>
@@ -136,6 +138,15 @@ export const SiteFooter = () => {
               >
                 System Status: Operational
               </span>
+              <span aria-hidden style={{ color: MUTED }}>·</span>
+              <button
+                type="button"
+                onClick={lock}
+                className="font-mono text-[10.5px] uppercase hover:opacity-100 transition-opacity opacity-70"
+                style={{ color: MUTED, letterSpacing: "0.12em" }}
+              >
+                Lock
+              </button>
             </div>
           </div>
 

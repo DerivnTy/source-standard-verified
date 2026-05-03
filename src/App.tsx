@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { SiteAccessGate } from "@/components/SiteAccessGate";
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
 import HowItWorks from "./pages/HowItWorks.tsx";
@@ -60,6 +61,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <SiteAccessGate>
         <ScrollToTop />
         <Routes>
           <Route element={<SiteLayout />}>
@@ -111,6 +113,7 @@ const App = () => (
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </SiteAccessGate>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
