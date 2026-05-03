@@ -1,54 +1,52 @@
-# Homepage Hero Centering Pass
+# Shared Password Gate
 
-## Scope
-`src/pages/Index.tsx` only. No edits to BriefingHero, header, footer, global CSS, or other pages.
+A lightweight, site-wide password gate so you can share the preview/published site with reviewers without adding them to the workspace. One shared password, server-validated, remembered per browser.
 
-## Change
-Replace the current hero wrapper with a flex-column layout that stretches the inner BriefingHero content column to fill the viewport and `justify-center`s its child blocks. Also remove the previously-added "Continue" scroll cue and its `@keyframes scrollCue` style block.
+## How it works
 
-### New wrapper
+1. On first visit, a full-screen overlay blocks the entire app (all routes).
+2. Reviewer enters the shared password.
+3. The password is sent to a Lovable Cloud edge function, which compares it against a secret (`SITE_ACCESS_PASSWORD`).
+4. If correct, the function returns a signed token. The token is stored in `localStorage` and the gate unlocks.
+5. On subsequent visits, the stored token is re-validated by the function; if valid, the gate stays open.
+6. A small "Lock" button in the footer lets you sign out of the gate.
 
-```tsx
-<div
-  className="
-    relative
-    flex flex-col
-    min-h-[calc(100svh-96px)] lg:min-h-0
-    [&>section]:flex-1 [&>section]:flex [&>section]:flex-col
-    [&_.page-shell]:flex-1 [&_.page-shell]:flex [&_.page-shell]:flex-col
-    [&_.page-shell]:!px-8 [&_.page-shell]:!py-0
-    lg:[&_.page-shell]:!px-6
-    lg:[&_.page-shell]:!pt-[clamp(48px,7vh,72px)]
-    lg:[&_.page-shell]:!pb-[clamp(64px,8vh,88px)]
-    [&_.page-shell>div.relative.w-full]:flex
-    [&_.page-shell>div.relative.w-full]:flex-col
-    [&_.page-shell>div.relative.w-full]:justify-center
-    [&_.page-shell>div.relative.w-full]:flex-1
-    [&_.page-shell>div.relative.w-full]:gap-y-8
+The password is never hardcoded in the frontend — it lives only as a server secret. The token is an HMAC signed with a second server secret (`SITE_ACCESS_SIGNING_KEY`) so it cannot be forged.
 
-    [&_h1#briefing-title+p]:!mt-6
-    [&_h1#briefing-title~div.flex.justify-center]:!mt-9
-    [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
-    [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
-    md:[&_h1#briefing-title+p]:!max-w-[440px]
-  "
->
-  <BriefingHero ... />
-</div>
-```
+## Security notes
 
-What it does:
-- Mobile-only `min-h-[calc(100svh-96px)]` keeps the navy hero filling the viewport under the 96px header. Desktop reverts to BriefingHero's own `lg:min-h-[calc(100dvh-84px)]`.
-- `flex-1` cascades down section → page-shell → BriefingHero's content `div.relative.w-full`, so that inner column fills the available height and can `justify-center` its children (h1, paragraph, metrics, actions).
-- `!py-0 !px-8` on mobile lets the inner column own vertical positioning. Desktop padding restored via `lg:` overrides.
-- Existing tightening selectors for h1→p, p→metrics, metrics→actions, CTA gap, and mobile paragraph max-width are preserved.
+- This is gate-level access control, not real auth. Anyone with the password gets in. Suitable for pre-launch reviewer sharing.
+- Brute-force is mitigated by a small per-IP delay in the edge function and a constant-time string compare.
+- Tokens expire after 30 days; you can rotate access at any time by changing `SITE_ACCESS_SIGNING_KEY` (instantly invalidates all existing tokens) or `SITE_ACCESS_PASSWORD` (changes the password).
+- This does NOT protect API/edge functions or database rows — it only hides the UI. Since the project currently has no user-data backend, that's fine for review-sharing purposes.
 
-### Removed
-- The `<style>{`@keyframes scrollCue`...}</style>` block.
-- The "Continue ↓" cue `<div>` and its label/arrow.
+## Technical implementation
 
-## Acceptance
-- iPhone viewport: navy hero fills first screen; the entire content group (headline → paragraph → Live Registry → CTAs) sits vertically centered with no large dead space below buttons.
-- Desktop hero rhythm preserved.
-- Section §2 not visible on initial load.
-- No copy, route, color, font, BriefingHero, or global CSS changes.
+**New secrets (you'll be prompted to add):**
+- `SITE_ACCESS_PASSWORD` — the shared password you give reviewers
+- `SITE_ACCESS_SIGNING_KEY` — random string used to sign tokens (I'll suggest a value)
+
+**New edge function:** `supabase/functions/site-access/index.ts`
+- `POST { action: "login", password }` → verifies password, returns `{ token }`
+- `POST { action: "verify", token }` → returns `{ valid: true|false }`
+- HMAC-SHA256 signed token: `base64(expiresAt).base64(hmac)`
+
+**New frontend files:**
+- `src/components/SiteAccessGate.tsx` — full-screen overlay with password input, matches the institutional design system (Navy bg, hairline borders, serif heading, single-word "Enter" action)
+- `src/hooks/useSiteAccess.ts` — manages token in `localStorage`, calls the edge function
+
+**Modified:**
+- `src/App.tsx` — wrap `<BrowserRouter>` content with `<SiteAccessGate>`; renders children only once unlocked
+- `src/components/SiteFooter.tsx` — small "Lock" link to clear the token
+
+## What you'll do after I build it
+
+1. I'll request the two secrets via the secrets tool.
+2. You paste in the password you want to share + a random signing key.
+3. Publish the site. Share the URL + password with reviewers.
+
+## Out of scope
+
+- Per-user accounts or roles
+- Rate limiting beyond a basic delay
+- Protecting any future backend data (we'd switch to real auth for that)
