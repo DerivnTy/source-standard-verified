@@ -169,7 +169,7 @@ const PillSecondaryWhite = ({ to, children }: { to: string; children: React.Reac
 const HeroActions = () => (
   <>
     <PillPrimaryWhite to="/verified-vendors">Search the Registry</PillPrimaryWhite>
-    <PillSecondaryWhite to="/protocol">View Verification Protocol</PillSecondaryWhite>
+    <PillSecondaryWhite to="/how-it-works">View Verification Protocol</PillSecondaryWhite>
   </>
 );
 
