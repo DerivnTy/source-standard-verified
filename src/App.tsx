@@ -62,6 +62,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <SiteAccessGate>
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path="/" element={<Index />} />
