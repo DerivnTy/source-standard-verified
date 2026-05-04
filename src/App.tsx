@@ -61,7 +61,6 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <SiteAccessGate>
         <ScrollToTop />
         <Routes>
           <Route element={<SiteLayout />}>
@@ -113,7 +112,6 @@ const App = () => (
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
-        </SiteAccessGate>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
