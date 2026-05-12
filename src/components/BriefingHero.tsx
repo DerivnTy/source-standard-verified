@@ -38,6 +38,8 @@ export interface BriefingHeroProps {
   heroMetrics?: ReactNode;
   /** Optional metadata strip rendered below the actions (cover variant). */
   heroMeta?: ReactNode;
+  /** Horizontal alignment for the navy chapter variant. Defaults to left. */
+  align?: "left" | "center";
 }
 
 export const BriefingHero = ({
@@ -52,6 +54,7 @@ export const BriefingHero = ({
   actions,
   heroMetrics,
   heroMeta,
+  align = "left",
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
@@ -165,18 +168,18 @@ export const BriefingHero = ({
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
         <div className="relative z-10 page-shell section-pad">
-          <div className="w-hero">
+          <div className={align === "center" ? "w-hero mx-auto text-center" : "w-hero"}>
             <h1
               id="briefing-title"
-              className="text-white t-chapter-title max-w-[22ch]"
+              className={`text-white t-chapter-title max-w-[22ch]${align === "center" ? " mx-auto" : ""}`}
             >
               {title}
             </h1>
-            <p className="mt-5 max-w-[68ch] t-body-md text-white/70">
+            <p className={`mt-5 max-w-[68ch] t-body-md text-white/70${align === "center" ? " mx-auto" : ""}`}>
               {statement}
             </p>
             {actions && (
-              <div className="mt-8 flex flex-col sm:flex-row items-start gap-3">
+              <div className={`mt-8 flex flex-col sm:flex-row gap-3 ${align === "center" ? "items-center justify-center" : "items-start"}`}>
                 {actions}
               </div>
             )}
