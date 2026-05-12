@@ -177,7 +177,7 @@ const MedicalAdvisory = () => {
       <section className="bg-background border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            <div className="max-w-2xl">
+            <div className="mx-auto max-w-2xl text-center">
               <GovCard>
                 <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
                 <div className="mt-4 space-y-3">
