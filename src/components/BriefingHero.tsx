@@ -54,6 +54,7 @@ export const BriefingHero = ({
   actions,
   heroMetrics,
   heroMeta,
+  align = "left",
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
