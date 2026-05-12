@@ -1,51 +1,91 @@
-# Desktop Polish Pass
+## Vendor Verification Intake — Structured Form Rebuild
 
-The site is built mobile-first and looks tight on phones, but on desktop everything stays mobile-sized: small headings (22px), narrow text columns hugging the left edge, single-column card stacks, and shallow vertical spacing. On a 1336px screen this leaves huge empty gutters and makes the page feel like a phone screenshot stretched wide.
+Surgical content + form-structure update to `src/pages/Apply.tsx`. Keep all existing page chrome (PageMeta, Breadcrumb, BriefingHero, the two follow-on link cards, the surrounding `section` / `page-shell` / `w-standard` wrappers, the `bg-card border border-border rounded-xl` form container). Only the form body, headings, hero text, and post-submit copy change.
 
-The fix is a *desktop tier* of styles — not a redesign. Mobile stays exactly as it is.
+### Copy changes
 
-## What changes on desktop (≥1024px)
+- `PageMeta.title`: "Vendor Verification Intake"
+- `PageMeta.description`: new subtitle
+- `BriefingHero` `title`: "Vendor Verification Intake"
+- `BriefingHero` `statement`: "Submit your operating profile to open a Source Standard review file. This form does not create verified status. If eligible, your team will receive the secure documentation request and review instructions."
+- Inner section heading stays as `Intake submission` block but retitled to match: eyebrow "Vendor intake", h2 "Vendor Verification Intake", lede = subtitle above.
+- Submit button: "Submit Intake"
+- Post-submit headline + body: "Intake received." / "If eligible for documentation review, Source Standard will send the next-step access instructions to the administrative contact provided."
+- Footer disclaimer under form removed; replaced by the Submission Acknowledgment checkbox (below).
 
-### 1. Hero (homepage)
-- Lift the H1 ("Verify the source.") from current size to **64–72px** with tighter letter-spacing.
-- Restore center alignment on desktop (currently it left-aligns at `lg:` — that was a mobile-leftover override).
-- Center the supporting paragraph below at a comfortable **600px** measure.
-- Center the two action pills and the Live Registry metrics block under them.
-- Add a small amount of vertical breathing room so the hero fills the viewport without feeling crammed at the top.
+### Form structure
 
-### 2. Section headings (sections 1–7 on the homepage)
-Each section currently uses 22px headings + 13px body — phone sizes. On desktop:
-- Eyebrow (e.g. "01 · Problem"): 11px, slightly more letter-spacing.
-- H2: **32px** at lg, **36px** at xl.
-- Body paragraph: **15px**, line-height 1.7, max measure 65ch.
-- Section vertical padding: **80px top/bottom** at lg (currently 36px everywhere).
+Each group rendered as a `<fieldset>` with the existing `legend` styling, separated by the existing 28px (`space-y-7`) rhythm and a thin `border-t border-border pt-7` divider between groups for the institutional sectioned feel. Two-column grid on `sm+` (`grid sm:grid-cols-2 gap-[18px]`), full-width fields use `sm:col-span-2`.
 
-### 3. Card grids (DataStrip rows)
-- "How it works", "Function", "Reference", "Governance" stay in their grids but get more generous gap (24px) and slightly larger inner padding at lg.
-- Card title 15px, body 14px on desktop.
-- Keep the card style — just scale the type, don't redesign.
+1. **Business Identity**
+   - Legal business name
+   - Public brand / DBA name
+   - Website (url)
+   - Principal business address (full-width)
+   - Mailing address, if different (full-width, optional)
+   - State of formation (Select — `usStates`)
+   - Entity type (Select: LLC, S-Corp, C-Corp, PLLC, Professional Corp, Sole Proprietor, Other)
+   - Registered business / license state (Select — `usStates`)
 
-### 4. Centering vs. left-aligned
-Each section content block stays inside the existing `w-standard` (1120px) container, centered on the page. We keep section *content* left-aligned within that column (that's the institutional/registry feel — Stripe and gov directories do the same). Only the hero is centered.
+2. **Operating Scope**
+   - Vendor type (Select: Physical clinic, Telehealth clinic, Online vendor, Pharmacy / supplier, Other)
+   - Verification track (Select: Physical vendor review, Online vendor review, Supplier / upstream source review)
+   - States of operation (text, comma-separated; helper text)
+   - States served (text, comma-separated; helper text)
+   - Therapy categories — multi-select via Checkbox grid (TRT, HRT, GLP-1, Peptides, Longevity compounds, Other compounded therapies). Full-width.
 
-### 5. Other pages (light pass)
-Apply the same desktop typography tier to:
-- **Verified Vendors / Greenlist** — slightly larger header bar, more padding above the table.
-- **About, How It Works, Medical Advisory, Education** — same heading + body scaling, same section padding bump.
-- **Library articles** — already use a reading column; just verify desktop padding.
+3. **Clinical Authority** (all optional — labels include "if applicable")
+   - Prescriber / Medical Director name
+   - NPI
+   - License state (Select — `usStates`)
+   - Role (Select: Medical Director, Prescribing Physician, Nurse Practitioner, Pharmacy Representative, Not applicable)
 
-No layout restructuring on these — purely the desktop type/spacing tier.
+4. **Sourcing Profile**
+   - Primary supplier / pharmacy name
+   - Additional supplier / pharmacy names (Textarea, full-width)
+   - Current sourcing model (Select: 503A pharmacy, 503B outsourcing facility, Multiple suppliers, Unsure, Other)
+   - Products / compounds submitted for review (Textarea, full-width)
 
-## What does NOT change
-- Mobile layout, sizing, and behavior — untouched.
-- Brand colors, fonts, card styles, navigation, footer.
-- Any backend, routing, or data.
-- The password gate.
+5. **Review Readiness**
+   - Intro line: "Can your organization provide the following if accepted for review?"
+   - Stacked Checkbox list (full-width):
+     - Business registration
+     - Medical or pharmacy license, if applicable
+     - Medical Director / prescriber documentation, if applicable
+     - Recent supplier invoice
+     - COA or sourcing documentation
+     - Signed vendor attestation
+     - Signed vendor agreement
 
-## Technical notes
-- Add `lg:` and `xl:` Tailwind variants directly to the existing classes/inline styles in `src/pages/Index.tsx` and the shared section primitives.
-- Where inline `style={{ fontSize: ... }}` is used for mobile, wrap a media query or replace with Tailwind responsive utilities so desktop can override.
-- Bump `.section-pad` desktop value in `src/index.css` if it's currently low.
-- Touch points: `src/pages/Index.tsx`, `src/components/BriefingHero.tsx` (cover variant lg branch), `src/components/PageHeader.tsx`, `src/components/system/Section.tsx`, plus a small responsive sweep on the registry/about/education pages.
+6. **Administrative Contact**
+   - Contact name
+   - Business email (email, required)
+   - Business phone (tel)
+   - Role / title
 
-After approval I'll implement, then walk through each major page at 1336px and confirm it reads naturally.
+7. **Submission Acknowledgment**
+   - Required Checkbox + label with the full disclaimer text. Submit button disabled until checked.
+
+Submit button stays right-aligned on `sm+`, full-width on mobile, label "Submit Intake".
+
+### Behaviour
+
+- Local React state object holds all field values; no backend wiring (preserves the current mock-submit pattern that generates an `SS-INTAKE-YYYY-XXXXXX` reference and shows the post-submit panel with "Submit another intake").
+- Required fields: legal name, brand, website, principal address, state of formation, entity type, registered state, vendor type, verification track, states of operation, states served, at least one therapy category, primary supplier, sourcing model, contact name, business email, acknowledgment checkbox.
+- Use existing shadcn primitives: `Input`, `Textarea`, `Select`, `Checkbox`, `Label`, `Button`. Reuse `usStates` from `src/lib/usStates.ts` for state dropdowns.
+
+### Visual / system rules
+
+- Use only semantic tokens (`text-foreground`, `text-muted-foreground`, `border-border`, `bg-card`) — no hardcoded colors.
+- Section legends: `t-body-md font-semibold text-foreground`.
+- Helper text under multi-state fields: `t-utility-xs text-muted-foreground`.
+- No marketing language, no provider/clinical positioning, no payment copy, no Stripe.
+- No drop shadows; rely on 1px hairline borders and the existing rounded-xl card.
+
+### Files touched
+
+- `src/pages/Apply.tsx` — only file modified.
+
+### Out of scope
+
+- No route changes, no nav changes, no backend, no payments, no email, no DB.
