@@ -130,16 +130,66 @@ const Apply = () => {
   const toggleReadiness = (key: string) =>
     setReadiness((prev) => ({ ...prev, [key]: !prev[key] }));
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!acknowledged) return;
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      const id = crypto.randomUUID().slice(0, 6).toUpperCase();
-      setReference(`SS-INTAKE-${new Date().getFullYear()}-${id}`);
+
+    const fd = new FormData(e.currentTarget);
+    const get = (k: string) => (fd.get(k)?.toString() || "").trim();
+
+    const id = crypto.randomUUID().slice(0, 6).toUpperCase();
+    const referenceId = `SS-INTAKE-${new Date().getFullYear()}-${id}`;
+
+    const therapyList = Object.keys(therapies).filter((k) => therapies[k]).join(", ");
+    const readinessList = Object.keys(readiness).filter((k) => readiness[k]).join(", ");
+
+    const templateData = {
+      referenceId,
+      legalName: get("LegalName"),
+      dba: get("BrandName"),
+      entityType,
+      website: get("Website"),
+      principalAddress: get("PrincipalAddress"),
+      mailingAddress: get("MailingAddress"),
+      stateOfFormation,
+      registeredState,
+      vendorType,
+      verificationTrack,
+      medicalDirector: get("PrescriberName"),
+      npi: get("NPI"),
+      licenseStates: licenseState,
+      prescriberRole: role,
+      sourcingModel,
+      primarySupplier: get("PrimarySupplier"),
+      additionalSuppliers: get("AdditionalSuppliers"),
+      therapyCategories: therapyList,
+      products: get("Products"),
+      readiness: readinessList,
+      contactName: get("ContactName"),
+      contactRole: get("ContactRole"),
+      contactEmail: get("ContactEmail"),
+      contactPhone: get("ContactPhone"),
+    };
+
+    try {
+      const { error } = await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "vendor-intake-notification",
+          recipientEmail: "info@sourcestandard.org",
+          idempotencyKey: `vendor-intake-${referenceId}`,
+          templateData,
+        },
+      });
+      if (error) throw error;
+      setReference(referenceId);
       setFiled(true);
-    }, 600);
+    } catch (err) {
+      console.error("Intake submission failed", err);
+      toast.error("Submission failed. Please try again or contact info@sourcestandard.org.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const fileAnother = () => {
