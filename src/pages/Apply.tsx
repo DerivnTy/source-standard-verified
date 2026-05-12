@@ -16,6 +16,8 @@ import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import { US_STATE_TO_ABBR } from "@/lib/usStates";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/sonner";
 
 const STATE_OPTIONS = Object.entries(US_STATE_TO_ABBR)
   .map(([name, abbr]) => ({
