@@ -311,30 +311,6 @@ const Apply = () => {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="StatesOperation">States of operation</Label>
-                          <Input
-                            id="StatesOperation"
-                            name="StatesOperation"
-                            placeholder="Comma-separated, e.g. CA, TX, FL"
-                            required
-                          />
-                          <p className="t-utility-xs text-muted-foreground">
-                            States where the entity is licensed or registered to operate.
-                          </p>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="StatesServed">States served</Label>
-                          <Input
-                            id="StatesServed"
-                            name="StatesServed"
-                            placeholder="Comma-separated, e.g. CA, TX, FL"
-                            required
-                          />
-                          <p className="t-utility-xs text-muted-foreground">
-                            States in which patients or customers are accepted.
-                          </p>
-                        </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label>Therapy categories</Label>
                           <div className="grid sm:grid-cols-2 gap-x-[18px] gap-y-2 pt-1">
