@@ -38,6 +38,8 @@ export interface BriefingHeroProps {
   heroMetrics?: ReactNode;
   /** Optional metadata strip rendered below the actions (cover variant). */
   heroMeta?: ReactNode;
+  /** Horizontal alignment for the navy chapter variant. Defaults to left. */
+  align?: "left" | "center";
 }
 
 export const BriefingHero = ({
