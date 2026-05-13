@@ -453,7 +453,7 @@ const Education = () => {
       {/* §8 Closing statement */}
       <section style={{ paddingTop: "36px", paddingBottom: "56px" }}>
         <div className="page-shell">
-          <div className="mx-auto w-wide">
+          <div className="mx-auto w-full">
             <ReferenceNote
               eyebrow="Conclusion"
               title="A working reference, not a content feed."
