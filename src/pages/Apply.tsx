@@ -579,36 +579,7 @@ const Apply = () => {
         </div>
       </section>
 
-      <section className="bg-background">
-        <div className="page-shell pt-8 pb-16">
-          <div className="mx-auto w-standard">
-            <div className="max-w-2xl space-y-3">
-              <Link
-                to="/for-vendors"
-                className="group flex items-center justify-between gap-4 bg-card border border-border rounded-xl px-4 py-3.5 hover:border-primary/40 transition-colors"
-              >
-                <span className="text-[13px] font-semibold text-foreground">
-                  Vendor submission standard
-                </span>
-                <span className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all">
-                  →
-                </span>
-              </Link>
-              <Link
-                to="/how-it-works"
-                className="group flex items-center justify-between gap-4 bg-card border border-border rounded-xl px-4 py-3.5 hover:border-primary/40 transition-colors"
-              >
-                <span className="text-[13px] font-semibold text-foreground">
-                  How verification works
-                </span>
-                <span className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all">
-                  →
-                </span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+    
     </>
   );
 };
