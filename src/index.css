@@ -883,4 +883,9 @@ body {
   border-top: 1px solid rgba(0, 16, 33, 0.12) !important;
   padding-top: 28px !important;
 }
+.intake-form input::placeholder,
+.intake-form textarea::placeholder {
+  color: rgba(0, 16, 33, 0.42) !important;
+  opacity: 1;
+}
 
