@@ -531,7 +531,7 @@ const Index = () => {
             >
               Claims are not documentation.
             </h2>
-            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <p className="home-lead mt-4 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
               Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
             </p>
             <div className="home-cta mt-3">
