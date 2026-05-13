@@ -139,7 +139,8 @@ export const DocJumpBar = ({
 
   const SEAM_HEIGHT = 44;
   const HEADER_STACK = 84; // GlobalUtilityBar (24) + SiteHeader (60)
-  const stickyTop = headerVisible ? HEADER_STACK : 0;
+  const stickyTop = 0;
+  void headerVisible;
   const eased = easeInOut(progress);
   const flushTop = !headerVisible;
 
@@ -197,7 +198,7 @@ export const DocJumpBar = ({
     backgroundColor: "#FFFFFF",
     zIndex: 40,
     overflow: "hidden",
-    transition: `top 300ms ease-in-out, box-shadow 400ms ${APPLE_EASE}`,
+    transition: `box-shadow 400ms ${APPLE_EASE}`,
   };
 
   return (
