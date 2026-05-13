@@ -197,7 +197,7 @@ export const DocJumpBar = ({
     backgroundColor: "#FFFFFF",
     zIndex: 40,
     overflow: "hidden",
-    transition: `top 300ms ease-in-out, box-shadow 400ms ${APPLE_EASE}`,
+    transition: `box-shadow 400ms ${APPLE_EASE}`,
   };
 
   return (
