@@ -516,8 +516,9 @@ const Index = () => {
         className="home-section bg-background border-b border-border"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
-        <div className="page-shell">
-          <div className="w-full">
+        <div className="w-full px-5 md:px-8 lg:px-12">
+          <div className="w-full max-w-none">
+
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
