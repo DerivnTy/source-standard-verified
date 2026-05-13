@@ -606,7 +606,7 @@ const Index = () => {
             >
               Unified market visibility.
             </h2>
-            <div className="bg-card mt-4" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "16px 18px" }}>
+            <div className="bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "10px 18px 14px" }}>
               <p className="home-lead text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
                 The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
               </p>
