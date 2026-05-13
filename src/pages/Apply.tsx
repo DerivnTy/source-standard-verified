@@ -173,7 +173,7 @@ const Apply = () => {
                             name="Website"
                             type="url"
                             placeholder="https://example.com"
-                            required
+                            
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
@@ -184,7 +184,7 @@ const Apply = () => {
                             id="PrincipalAddress"
                             name="PrincipalAddress"
                             placeholder="Street, city, state, ZIP"
-                            required
+                            
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
@@ -288,7 +288,7 @@ const Apply = () => {
                             name="ContactEmail"
                             type="email"
                             placeholder="name@company.com"
-                            required
+                            
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
@@ -306,7 +306,7 @@ const Apply = () => {
                           className="mt-0.5"
                           checked={acknowledged}
                           onCheckedChange={(v) => setAcknowledged(v === true)}
-                          required
+                          
                         />
                         <span className="text-muted-foreground">{ACK_TEXT}</span>
                       </label>
