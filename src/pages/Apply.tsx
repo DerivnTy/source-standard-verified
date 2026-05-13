@@ -437,7 +437,7 @@ const Apply = () => {
                           <Label htmlFor="PrimarySupplier">
                             Primary supplier / pharmacy name
                           </Label>
-                          <Input id="PrimarySupplier" name="PrimarySupplier" required />
+                          <Input id="PrimarySupplier" name="PrimarySupplier" placeholder="List known suppliers" required />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label htmlFor="AdditionalSuppliers">
@@ -447,7 +447,7 @@ const Apply = () => {
                             id="AdditionalSuppliers"
                             name="AdditionalSuppliers"
                             rows={3}
-                            placeholder="One per line, if applicable"
+                            placeholder="List known suppliers, one per line"
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
