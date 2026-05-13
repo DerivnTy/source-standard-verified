@@ -57,7 +57,7 @@ export const SectionAnchorNav = ({
     history.replaceState(null, "", `#${id}`);
   };
 
-  const stickyTop = headerVisible ? 84 : 0;
+  const stickyTop = headerVisible ? 60 : 0;
 
   return (
     <nav
@@ -69,7 +69,7 @@ export const SectionAnchorNav = ({
         backgroundColor: "hsl(var(--card))",
         borderBottom: "0.5px solid hsl(var(--border))",
         boxShadow: scrolled ? "0 1px 0 hsl(var(--border) / 0.8)" : "none",
-        transition: "top 300ms ease-in-out, box-shadow 200ms ease-out",
+        transition: "top 0.3s ease-in-out, box-shadow 200ms ease-out",
       }}
     >
       <div className="page-shell">
