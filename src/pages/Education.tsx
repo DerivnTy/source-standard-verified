@@ -128,7 +128,7 @@ const ReferenceNote = ({
     <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">
       {title}
     </h2>
-    <div className="mt-3 t-body-sm text-muted-foreground leading-[1.55] max-w-[60ch]">
+    <div className="mt-3 t-body-sm text-muted-foreground leading-[1.55]">
       {children}
     </div>
   </LibraryCard>
@@ -438,7 +438,7 @@ const Education = () => {
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-wide">
+          <div className="mx-auto w-full">
             <ReferenceNote eyebrow="Forthcoming" title="Editorial Pipeline">
               <p>
                 Additional reference formats are in development, including
@@ -453,7 +453,7 @@ const Education = () => {
       {/* §8 Closing statement */}
       <section style={{ paddingTop: "36px", paddingBottom: "56px" }}>
         <div className="page-shell">
-          <div className="mx-auto w-wide">
+          <div className="mx-auto w-full">
             <ReferenceNote
               eyebrow="Conclusion"
               title="A working reference, not a content feed."
