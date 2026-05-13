@@ -76,7 +76,7 @@ export const BriefingHero = ({
           <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
           <div
-            className="relative z-30 page-shell flex flex-col justify-start lg:min-h-[calc(100dvh-84px)]"
+            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center lg:min-h-[calc(100dvh-84px)]"
             style={{
               paddingTop: "clamp(48px, 7vh, 72px)",
               paddingBottom: "clamp(64px, 8vh, 88px)",
