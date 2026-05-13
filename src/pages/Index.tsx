@@ -545,7 +545,7 @@ const Index = () => {
       {/* §3 — How it works */}
       <section
         aria-labelledby="how-it-works"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
