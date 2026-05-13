@@ -220,8 +220,8 @@ const Apply = () => {
 
       <section className="bg-background border-b border-border">
         <div className="page-shell pt-9 pb-9">
-          <div className="mx-auto w-standard">
-            <div className="max-w-2xl">
+          <div className="mx-auto w-full">
+            <div>
               <p className="t-utility-xs text-muted-foreground tracking-wider uppercase mb-3">
                 Vendor intake
               </p>
