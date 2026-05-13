@@ -76,18 +76,18 @@ export const BriefingHero = ({
           <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
           <div
-            className="relative z-30 page-shell flex flex-col justify-start lg:min-h-[calc(100dvh-84px)]"
+            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center lg:min-h-[calc(100dvh-84px)]"
             style={{
               paddingTop: "clamp(48px, 7vh, 72px)",
               paddingBottom: "clamp(64px, 8vh, 88px)",
             }}
           >
-            <div className="relative w-full">
+            <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center lg:my-auto">
               {brandMark && <span className="sr-only">{brandMark}</span>}
 
               <h1
                 id="briefing-title"
-                className="text-white text-left text-balance"
+                className="text-white text-left lg:text-center text-balance lg:mx-auto"
                 style={{
                   maxWidth: "560px",
                   fontSize: "clamp(44px, 10vw, 64px)",
@@ -100,7 +100,7 @@ export const BriefingHero = ({
               </h1>
 
               <p
-                className="text-white/70 text-left"
+                className="text-white/70 text-left lg:text-center lg:mx-auto"
                 style={{
                   maxWidth: "520px",
                   marginTop: "24px",
@@ -113,7 +113,7 @@ export const BriefingHero = ({
 
               {heroMetrics && (
                 <div
-                  className="flex justify-center"
+                  className="flex justify-start lg:justify-center"
                   style={{ marginTop: "clamp(36px, 5vh, 52px)" }}
                 >
                   {heroMetrics}
@@ -122,7 +122,7 @@ export const BriefingHero = ({
 
               {actions && (
                 <div
-                  className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center [&>*]:w-full sm:[&>*]:w-auto"
+                  className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-center [&>*]:w-full sm:[&>*]:w-auto"
                   style={{ marginTop: "clamp(24px, 3.5vh, 36px)", gap: "16px" }}
                 >
                   {actions}
