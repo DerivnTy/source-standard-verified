@@ -73,7 +73,6 @@ const Apply = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!acknowledged) return;
     setSubmitting(true);
 
     const fd = new FormData(e.currentTarget);
@@ -160,11 +159,11 @@ const Apply = () => {
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="LegalName">Legal business name</Label>
-                          <Input id="LegalName" name="LegalName" placeholder="Example: Source Standard LLC" required />
+                          <Input id="LegalName" name="LegalName" placeholder="Example: Source Standard LLC" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="BrandName">Public brand name</Label>
-                          <Input id="BrandName" name="BrandName" placeholder="Example: Source Standard" required />
+                          <Input id="BrandName" name="BrandName" placeholder="Example: Source Standard" />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label htmlFor="Website">Website</Label>
@@ -173,7 +172,7 @@ const Apply = () => {
                             name="Website"
                             type="url"
                             placeholder="https://example.com"
-                            required
+                            
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
@@ -184,12 +183,12 @@ const Apply = () => {
                             id="PrincipalAddress"
                             name="PrincipalAddress"
                             placeholder="Street, city, state, ZIP"
-                            required
+                            
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label>Vendor type</Label>
-                          <Select value={vendorType} onValueChange={setVendorType} required>
+                          <Select value={vendorType} onValueChange={setVendorType}>
                             <SelectTrigger>
                               <SelectValue placeholder="Select vendor type" />
                             </SelectTrigger>
@@ -229,11 +228,11 @@ const Apply = () => {
                           <Label htmlFor="PrimarySupplier">
                             Primary supplier / pharmacy name
                           </Label>
-                          <Input id="PrimarySupplier" name="PrimarySupplier" placeholder="Pharmacy or supplier name" required />
+                          <Input id="PrimarySupplier" name="PrimarySupplier" placeholder="Pharmacy or supplier name" />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label>Do you currently have recent supplier invoices available?</Label>
-                          <Select value={hasInvoices} onValueChange={setHasInvoices} required>
+                          <Select value={hasInvoices} onValueChange={setHasInvoices}>
                             <SelectTrigger>
                               <SelectValue placeholder="Select one" />
                             </SelectTrigger>
@@ -245,7 +244,7 @@ const Apply = () => {
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label>Do you currently have COAs or sourcing documentation available?</Label>
-                          <Select value={hasCoas} onValueChange={setHasCoas} required>
+                          <Select value={hasCoas} onValueChange={setHasCoas}>
                             <SelectTrigger>
                               <SelectValue placeholder="Select one" />
                             </SelectTrigger>
@@ -279,7 +278,7 @@ const Apply = () => {
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="ContactName">Contact name</Label>
-                          <Input id="ContactName" name="ContactName" placeholder="Full name" required />
+                          <Input id="ContactName" name="ContactName" placeholder="Full name" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="ContactEmail">Business email</Label>
@@ -288,7 +287,7 @@ const Apply = () => {
                             name="ContactEmail"
                             type="email"
                             placeholder="name@company.com"
-                            required
+                            
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
@@ -306,7 +305,7 @@ const Apply = () => {
                           className="mt-0.5"
                           checked={acknowledged}
                           onCheckedChange={(v) => setAcknowledged(v === true)}
-                          required
+                          
                         />
                         <span className="text-muted-foreground">{ACK_TEXT}</span>
                       </label>
@@ -315,7 +314,7 @@ const Apply = () => {
                     <div className="flex sm:justify-end mt-6">
                       <Button
                         type="submit"
-                        disabled={submitting || !acknowledged}
+                        disabled={submitting}
                         size="lg"
                         className="w-full sm:w-auto"
                       >
