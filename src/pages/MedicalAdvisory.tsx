@@ -180,15 +180,9 @@ const MedicalAdvisory = () => {
             <div>
               <GovCard>
                 <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
-                <div className="mt-4 space-y-3">
+                <div className="mt-4">
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    The Advisory Board exists to support the neutrality, clinical restraint, and procedural discipline of the Source Standard framework.
-                  </p>
-                  <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    Its role is to provide advisory input on review standards, documentation boundaries, public language, and education materials used across the registry.
-                  </p>
-                  <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    The Board does not represent vendors, compound distributors, medical clinics, or pharmacy partners. It does not make individual vendor status determinations. It serves as an independent advisory layer for the standards behind the public reference system.
+                    The Advisory Board supports the neutrality and procedural discipline of the Source Standard framework, providing advisory input on review standards, documentation boundaries, and public language used across the registry. It does not represent vendors, clinics, or pharmacy partners, and does not make individual vendor status determinations — it serves as an independent advisory layer for the standards behind the public reference system.
                   </p>
                 </div>
               </GovCard>
