@@ -232,7 +232,7 @@ const Apply = () => {
 
               <div className="mt-8 bg-card border border-border rounded-xl p-6">
                 {!filed ? (
-                  <form onSubmit={onSubmit} className="space-y-7">
+                  <form onSubmit={onSubmit} className="intake-form space-y-7">
                     {/* Business Identity */}
                     <Group legend="Business Identity" first>
                       <div className="grid sm:grid-cols-2 gap-[18px]">
