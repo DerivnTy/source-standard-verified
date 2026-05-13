@@ -81,8 +81,6 @@ const READINESS_ITEMS = [
   "Medical Director / prescriber documentation, if applicable",
   "Recent supplier invoice",
   "COA or sourcing documentation",
-  "Signed vendor attestation",
-  "Signed vendor agreement",
 ];
 
 const ACK_TEXT =
