@@ -73,6 +73,7 @@ const Apply = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!acknowledged) return;
     setSubmitting(true);
 
     const fd = new FormData(e.currentTarget);
@@ -314,7 +315,7 @@ const Apply = () => {
                     <div className="flex sm:justify-end mt-6">
                       <Button
                         type="submit"
-                        disabled={submitting}
+                        disabled={submitting || !acknowledged}
                         size="lg"
                         className="w-full sm:w-auto"
                       >
