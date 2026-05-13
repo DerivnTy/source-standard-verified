@@ -532,9 +532,11 @@ const Index = () => {
             >
               Claims are not documentation.
             </h2>
-            <p className="home-lead mt-4 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
-              Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
-            </p>
+            <div className="bg-card mt-4" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "16px 18px" }}>
+              <p className="home-lead text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+                Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
+              </p>
+            </div>
             <div className="home-cta mt-3">
               <PillPrimary to="/how-it-works">View Verification Protocol</PillPrimary>
             </div>
