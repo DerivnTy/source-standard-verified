@@ -236,7 +236,7 @@ const About = () => {
         tone="navy"
         variant="chapter"
         category="Organization & Mandate"
-        title="An independent verification and public-reference framework for compounded therapy vendor sourcing claims."
+        title="About Us"
         statement={heroDescription}
         docId=""
       />
