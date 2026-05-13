@@ -438,7 +438,7 @@ const Education = () => {
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-wide">
+          <div className="mx-auto w-full">
             <ReferenceNote eyebrow="Forthcoming" title="Editorial Pipeline">
               <p>
                 Additional reference formats are in development, including
