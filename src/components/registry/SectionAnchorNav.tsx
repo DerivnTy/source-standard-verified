@@ -21,28 +21,35 @@ export const SectionAnchorNav = ({
   const headerVisible = useHeaderVisible();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-160px 0px -60% 0px", threshold: 0 }
-    );
-    waypoints.forEach((w) => {
-      const el = document.getElementById(w.id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const compute = () => {
+      // Threshold line ~ just below the sticky nav (header 84 + nav ~52 + padding)
+      const threshold = 160;
+      let currentId = waypoints[0]?.id ?? "";
+      for (const w of waypoints) {
+        const el = document.getElementById(w.id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top - threshold <= 0) {
+          currentId = w.id;
+        } else {
+          break;
+        }
+      }
+      // Bottom-of-page fallback: last section when near page end
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        currentId = waypoints[waypoints.length - 1]?.id ?? currentId;
+      }
+      setActiveId(currentId);
+      setScrolled(window.scrollY > 8);
+    };
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+    };
   }, [waypoints]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const onJump = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
