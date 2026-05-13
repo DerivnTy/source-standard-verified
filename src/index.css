@@ -881,7 +881,11 @@ body {
 .intake-form fieldset + fieldset {
   margin-top: 40px !important;
   border-top: 1px solid rgba(0, 16, 33, 0.12) !important;
-  padding-top: 28px !important;
+  padding-top: 16px !important;
+}
+.intake-form fieldset > legend + div,
+.intake-form fieldset > legend + p {
+  margin-top: 6px !important;
 }
 .intake-form input::placeholder,
 .intake-form textarea::placeholder {
