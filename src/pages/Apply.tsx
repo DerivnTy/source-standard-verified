@@ -70,23 +70,15 @@ const Apply = () => {
   const [reference, setReference] = useState<string>("");
 
   // Selects need controlled state
-  const [stateOfFormation, setStateOfFormation] = useState("");
-  const [entityType, setEntityType] = useState("");
-  const [registeredState, setRegisteredState] = useState("");
   const [vendorType, setVendorType] = useState("");
-  const [verificationTrack, setVerificationTrack] = useState("");
-  const [licenseState, setLicenseState] = useState("");
-  const [role, setRole] = useState("");
-  const [sourcingModel, setSourcingModel] = useState("");
+  const [hasInvoices, setHasInvoices] = useState("");
+  const [hasCoas, setHasCoas] = useState("");
 
   const [therapies, setTherapies] = useState<Record<string, boolean>>({});
-  const [readiness, setReadiness] = useState<Record<string, boolean>>({});
   const [acknowledged, setAcknowledged] = useState(false);
 
   const toggleTherapy = (key: string) =>
     setTherapies((prev) => ({ ...prev, [key]: !prev[key] }));
-  const toggleReadiness = (key: string) =>
-    setReadiness((prev) => ({ ...prev, [key]: !prev[key] }));
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -100,32 +92,21 @@ const Apply = () => {
     const referenceId = `SS-INTAKE-${new Date().getFullYear()}-${id}`;
 
     const therapyList = Object.keys(therapies).filter((k) => therapies[k]).join(", ");
-    const readinessList = Object.keys(readiness).filter((k) => readiness[k]).join(", ");
 
     const templateData = {
       referenceId,
       legalName: get("LegalName"),
       dba: get("BrandName"),
-      entityType,
       website: get("Website"),
       principalAddress: get("PrincipalAddress"),
-      mailingAddress: get("MailingAddress"),
-      stateOfFormation,
-      registeredState,
       vendorType,
-      verificationTrack,
+      therapyCategories: therapyList,
+      primarySupplier: get("PrimarySupplier"),
+      hasInvoices,
+      hasCoas,
       medicalDirector: get("PrescriberName"),
       npi: get("NPI"),
-      licenseStates: licenseState,
-      prescriberRole: role,
-      sourcingModel,
-      primarySupplier: get("PrimarySupplier"),
-      additionalSuppliers: get("AdditionalSuppliers"),
-      therapyCategories: therapyList,
-      products: get("Products"),
-      readiness: readinessList,
       contactName: get("ContactName"),
-      contactRole: get("ContactRole"),
       contactEmail: get("ContactEmail"),
       contactPhone: get("ContactPhone"),
     };
