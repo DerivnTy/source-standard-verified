@@ -513,7 +513,7 @@ const Index = () => {
       {/* §2 — The trust problem */}
       <section
         aria-labelledby="trust-problem"
-        className="home-section bg-background border-b border-border"
+        className="home-section bg-background border-b border-border text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="w-full px-5 md:px-8 lg:px-12">
