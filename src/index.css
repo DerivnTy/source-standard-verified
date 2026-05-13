@@ -851,3 +851,36 @@ body {
   }
 }
 
+/* Vendor Intake form — formal document feel */
+.intake-form input:not([type="checkbox"]):not([type="radio"]),
+.intake-form textarea,
+.intake-form select,
+.intake-form [role="combobox"],
+.intake-form button[role="combobox"],
+.intake-form input[type="file"] {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 16, 33, 0.28) !important;
+  box-shadow: none !important;
+}
+.intake-form input:not([type="checkbox"]):not([type="radio"]):focus,
+.intake-form input:not([type="checkbox"]):not([type="radio"]):focus-visible,
+.intake-form textarea:focus,
+.intake-form textarea:focus-visible,
+.intake-form select:focus,
+.intake-form select:focus-visible,
+.intake-form [role="combobox"]:focus,
+.intake-form [role="combobox"]:focus-visible,
+.intake-form button[role="combobox"]:focus,
+.intake-form button[role="combobox"]:focus-visible,
+.intake-form input[type="file"]:focus,
+.intake-form input[type="file"]:focus-visible {
+  border: 1px solid #001021 !important;
+  box-shadow: 0 0 0 2px rgba(0, 16, 33, 0.08) !important;
+  outline: none !important;
+}
+.intake-form fieldset + fieldset {
+  margin-top: 40px !important;
+  border-top: 1px solid rgba(0, 16, 33, 0.12) !important;
+  padding-top: 28px !important;
+}
+
