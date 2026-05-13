@@ -77,8 +77,6 @@ const THERAPY_CATEGORIES = [
 
 const READINESS_ITEMS = [
   "Business registration",
-  "Medical or pharmacy license, if applicable",
-  "Medical Director / prescriber documentation, if applicable",
   "Recent supplier invoice",
   "COA or sourcing documentation",
 ];
