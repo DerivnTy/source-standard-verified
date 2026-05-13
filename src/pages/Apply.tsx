@@ -228,7 +228,7 @@ const Apply = () => {
               <h2 className="t-section-title-sm text-foreground">
                 Vendor Verification Intake
               </h2>
-              
+              <p className="mt-3 t-body-md text-muted-foreground">{SUBTITLE}</p>
 
               <div className="mt-8 bg-card border border-border rounded-xl p-6">
                 {!filed ? (
