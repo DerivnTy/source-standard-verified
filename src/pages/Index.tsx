@@ -700,7 +700,7 @@ const Index = () => {
       {/* §7 — Foundational reference */}
       <section
         aria-labelledby="basics"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
