@@ -606,9 +606,11 @@ const Index = () => {
             >
               Unified market visibility.
             </h2>
-            <p className="home-lead mt-4 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
-              The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
-            </p>
+            <div className="bg-card mt-4" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "16px 18px" }}>
+              <p className="home-lead text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+                The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
+              </p>
+            </div>
 
             <div className="mt-5 inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
               <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
