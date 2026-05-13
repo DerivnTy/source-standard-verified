@@ -315,7 +315,7 @@ const Apply = () => {
                     <div className="flex sm:justify-end mt-6">
                       <Button
                         type="submit"
-                        disabled={submitting}
+                        disabled={submitting || !acknowledged}
                         size="lg"
                         className="w-full sm:w-auto"
                       >
