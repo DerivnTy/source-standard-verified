@@ -477,7 +477,7 @@ const Apply = () => {
                             id="Products"
                             name="Products"
                             rows={3}
-                            placeholder="List products, compounds, or therapies to be reviewed"
+                            placeholder="Example: TRT, GLP-1, peptides"
                           />
                         </div>
                       </div>
