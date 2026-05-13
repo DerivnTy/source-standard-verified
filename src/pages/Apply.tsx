@@ -26,43 +26,11 @@ const STATE_OPTIONS = Object.entries(US_STATE_TO_ABBR)
   }))
   .sort((a, b) => a.label.localeCompare(b.label));
 
-const ENTITY_TYPES = [
-  "LLC",
-  "S-Corp",
-  "C-Corp",
-  "PLLC",
-  "Professional Corp",
-  "Sole Proprietor",
-  "Other",
-];
-
 const VENDOR_TYPES = [
   "Physical clinic",
   "Telehealth clinic",
   "Online vendor",
   "Pharmacy / supplier",
-  "Other",
-];
-
-const VERIFICATION_TRACKS = [
-  "Physical vendor review",
-  "Online vendor review",
-  "Supplier / upstream source review",
-];
-
-const ROLES = [
-  "Medical Director",
-  "Prescribing Physician",
-  "Nurse Practitioner",
-  "Pharmacy Representative",
-  "Not applicable",
-];
-
-const SOURCING_MODELS = [
-  "503A pharmacy",
-  "503B outsourcing facility",
-  "Multiple suppliers",
-  "Unsure",
   "Other",
 ];
 
@@ -75,17 +43,11 @@ const THERAPY_CATEGORIES = [
   "Other compounded therapies",
 ];
 
-const READINESS_ITEMS = [
-  "Business registration",
-  "Recent supplier invoice",
-  "COA or sourcing documentation",
-];
-
 const ACK_TEXT =
-  "I understand that submitting this intake does not approve, certify, or verify this organization. Source Standard will review the submitted operating profile and determine whether the applicant is eligible to enter documentation review. Verification status is assigned only after required documentation is reviewed, the vendor agreement is signed, and the certification record is activated.";
+  "I understand this intake does not approve, certify, or verify this organization. Source Standard will determine whether the applicant is eligible to enter documentation review. Verified status is assigned only after documentation review, agreement execution, and certification activation.";
 
 const SUBTITLE =
-  "Submit your operating profile to open a Source Standard review file. This form does not create verified status. If eligible, your team will receive the secure documentation request and review instructions.";
+  "Submit your operating profile to determine eligibility for Source Standard documentation review. This form does not create verified status.";
 
 type GroupProps = {
   legend: string;
