@@ -391,11 +391,11 @@ const Apply = () => {
                           <Label htmlFor="PrescriberName">
                             Prescriber / Medical Director name, if applicable
                           </Label>
-                          <Input id="PrescriberName" name="PrescriberName" />
+                          <Input id="PrescriberName" name="PrescriberName" placeholder="Full name" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="NPI">NPI, if applicable</Label>
-                          <Input id="NPI" name="NPI" />
+                          <Input id="NPI" name="NPI" placeholder="10-digit NPI" />
                         </div>
                         <div className="space-y-2">
                           <Label>License state, if applicable</Label>
