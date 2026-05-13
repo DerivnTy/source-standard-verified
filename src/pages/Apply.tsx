@@ -164,15 +164,15 @@ const Apply = () => {
               <div className="bg-card border border-border rounded-xl p-6">
                 {!filed ? (
                   <form onSubmit={onSubmit} className="intake-form space-y-7">
-                    {/* Business Identity */}
-                    <Group legend="Business Identity" first>
+                    {/* Business Profile */}
+                    <Group legend="Business Profile" first>
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="LegalName">Legal business name</Label>
                           <Input id="LegalName" name="LegalName" placeholder="Example: Source Standard LLC" required />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="BrandName">Public brand / DBA name</Label>
+                          <Label htmlFor="BrandName">Public brand name</Label>
                           <Input id="BrandName" name="BrandName" placeholder="Example: Source Standard" required />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
@@ -197,71 +197,6 @@ const Apply = () => {
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
-                          <Label htmlFor="MailingAddress">
-                            Mailing address, if different
-                          </Label>
-                          <Input id="MailingAddress" name="MailingAddress" placeholder="Leave blank if same" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label>State of formation</Label>
-                          <Select
-                            value={stateOfFormation}
-                            onValueChange={setStateOfFormation}
-                            required
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select state" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {STATE_OPTIONS.map((s) => (
-                                <SelectItem key={s.abbr} value={s.abbr}>
-                                  {s.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Entity type</Label>
-                          <Select value={entityType} onValueChange={setEntityType} required>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select entity type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {ENTITY_TYPES.map((t) => (
-                                <SelectItem key={t} value={t}>
-                                  {t}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2 sm:col-span-2">
-                          <Label>Registered business / license state</Label>
-                          <Select
-                            value={registeredState}
-                            onValueChange={setRegisteredState}
-                            required
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select state" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {STATE_OPTIONS.map((s) => (
-                                <SelectItem key={s.abbr} value={s.abbr}>
-                                  {s.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </Group>
-
-                    {/* Operating Scope */}
-                    <Group legend="Operating Scope">
-                      <div className="grid sm:grid-cols-2 gap-[18px]">
-                        <div className="space-y-2">
                           <Label>Vendor type</Label>
                           <Select value={vendorType} onValueChange={setVendorType} required>
                             <SelectTrigger>
@@ -276,25 +211,12 @@ const Apply = () => {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-2">
-                          <Label>Verification track</Label>
-                          <Select
-                            value={verificationTrack}
-                            onValueChange={setVerificationTrack}
-                            required
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select track" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {VERIFICATION_TRACKS.map((t) => (
-                                <SelectItem key={t} value={t}>
-                                  {t}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
+                      </div>
+                    </Group>
+
+                    {/* Category and Sourcing */}
+                    <Group legend="Category and Sourcing">
+                      <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2 sm:col-span-2">
                           <Label>Therapy categories</Label>
                           <div className="grid sm:grid-cols-2 gap-x-[18px] gap-y-2 pt-1">
@@ -312,6 +234,36 @@ const Apply = () => {
                             ))}
                           </div>
                         </div>
+                        <div className="space-y-2 sm:col-span-2">
+                          <Label htmlFor="PrimarySupplier">
+                            Primary supplier / pharmacy name
+                          </Label>
+                          <Input id="PrimarySupplier" name="PrimarySupplier" placeholder="Pharmacy or supplier name" required />
+                        </div>
+                        <div className="space-y-2 sm:col-span-2">
+                          <Label>Do you currently have recent supplier invoices available?</Label>
+                          <Select value={hasInvoices} onValueChange={setHasInvoices} required>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select one" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Yes">Yes</SelectItem>
+                              <SelectItem value="No">No</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2 sm:col-span-2">
+                          <Label>Do you currently have COAs or sourcing documentation available?</Label>
+                          <Select value={hasCoas} onValueChange={setHasCoas} required>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select one" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Yes">Yes</SelectItem>
+                              <SelectItem value="No">No</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                     </Group>
 
@@ -328,111 +280,6 @@ const Apply = () => {
                           <Label htmlFor="NPI">NPI, if applicable</Label>
                           <Input id="NPI" name="NPI" placeholder="10-digit NPI" />
                         </div>
-                        <div className="space-y-2">
-                          <Label>License state, if applicable</Label>
-                          <Select value={licenseState} onValueChange={setLicenseState}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select state" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {STATE_OPTIONS.map((s) => (
-                                <SelectItem key={s.abbr} value={s.abbr}>
-                                  {s.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Label>Role</Label>
-                          <Select value={role} onValueChange={setRole}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select role" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {ROLES.map((r) => (
-                                <SelectItem key={r} value={r}>
-                                  {r}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </Group>
-
-                    {/* Sourcing Profile */}
-                    <Group legend="Sourcing Profile">
-                      <div className="grid sm:grid-cols-2 gap-[18px]">
-                        <div className="space-y-2 sm:col-span-2">
-                          <Label htmlFor="PrimarySupplier">
-                            Primary supplier / pharmacy name
-                          </Label>
-                          <Input id="PrimarySupplier" name="PrimarySupplier" placeholder="List known suppliers" required />
-                        </div>
-                        <div className="space-y-2 sm:col-span-2">
-                          <Label htmlFor="AdditionalSuppliers">
-                            Additional supplier / pharmacy names
-                          </Label>
-                          <Textarea
-                            id="AdditionalSuppliers"
-                            name="AdditionalSuppliers"
-                            rows={3}
-                            placeholder="List known suppliers, one per line"
-                          />
-                        </div>
-                        <div className="space-y-2 sm:col-span-2">
-                          <Label>Current sourcing model</Label>
-                          <Select
-                            value={sourcingModel}
-                            onValueChange={setSourcingModel}
-                            required
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select sourcing model" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {SOURCING_MODELS.map((s) => (
-                                <SelectItem key={s} value={s}>
-                                  {s}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="space-y-2 sm:col-span-2">
-                          <Label htmlFor="Products">
-                            Products / compounds submitted for review
-                          </Label>
-                          <Textarea
-                            id="Products"
-                            name="Products"
-                            rows={3}
-                            placeholder="Example: TRT, GLP-1, peptides"
-                          />
-                        </div>
-                      </div>
-                    </Group>
-
-                    {/* Review Readiness */}
-                    <Group legend="Review Readiness">
-                      <p className="t-body-sm text-muted-foreground mb-3">
-                        Can your organization provide the following if accepted for review?
-                      </p>
-                      <div className="space-y-2.5">
-                        {READINESS_ITEMS.map((item) => (
-                          <label
-                            key={item}
-                            className="flex items-start gap-2.5 text-[13.5px] text-foreground"
-                          >
-                            <Checkbox
-                              className="mt-0.5"
-                              checked={!!readiness[item]}
-                              onCheckedChange={() => toggleReadiness(item)}
-                            />
-                            <span>{item}</span>
-                          </label>
-                        ))}
                       </div>
                     </Group>
 
@@ -453,16 +300,13 @@ const Apply = () => {
                             required
                           />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-2 sm:col-span-2">
                           <Label htmlFor="ContactPhone">Business phone</Label>
                           <Input id="ContactPhone" name="ContactPhone" type="tel" placeholder="(000) 000-0000" />
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="ContactRole">Role / title</Label>
-                          <Input id="ContactRole" name="ContactRole" placeholder="Example: Medical Director" />
-                        </div>
                       </div>
                     </Group>
+
 
                     {/* Submission Acknowledgment */}
                     <Group legend="Submission Acknowledgment">
