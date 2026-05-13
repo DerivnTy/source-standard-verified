@@ -449,6 +449,17 @@ const Index = () => {
             margin-top: 18px !important;
             max-width: 68ch !important;
           }
+          .home-section .home-lead-pill {
+            margin-top: 0 !important;
+            max-width: none !important;
+          }
+          .home-section .home-lead-card {
+            width: calc(100% + 36px) !important;
+            max-width: none !important;
+            margin-left: -18px !important;
+            margin-right: -18px !important;
+            padding: 8px 18px 12px !important;
+          }
           .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
           .home-section .home-cta { margin-top: 28px !important; }
 
