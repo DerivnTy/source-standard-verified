@@ -238,11 +238,11 @@ const Apply = () => {
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="LegalName">Legal business name</Label>
-                          <Input id="LegalName" name="LegalName" required />
+                          <Input id="LegalName" name="LegalName" placeholder="Example: Source Standard LLC" required />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="BrandName">Public brand / DBA name</Label>
-                          <Input id="BrandName" name="BrandName" required />
+                          <Input id="BrandName" name="BrandName" placeholder="Example: Source Standard" required />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label htmlFor="Website">Website</Label>
@@ -250,7 +250,7 @@ const Apply = () => {
                             id="Website"
                             name="Website"
                             type="url"
-                            placeholder="https://"
+                            placeholder="https://example.com"
                             required
                           />
                         </div>
@@ -261,6 +261,7 @@ const Apply = () => {
                           <Input
                             id="PrincipalAddress"
                             name="PrincipalAddress"
+                            placeholder="Street, city, state, ZIP"
                             required
                           />
                         </div>
@@ -268,7 +269,7 @@ const Apply = () => {
                           <Label htmlFor="MailingAddress">
                             Mailing address, if different
                           </Label>
-                          <Input id="MailingAddress" name="MailingAddress" />
+                          <Input id="MailingAddress" name="MailingAddress" placeholder="Leave blank if same" />
                         </div>
                         <div className="space-y-2">
                           <Label>State of formation</Label>
