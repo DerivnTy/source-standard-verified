@@ -238,11 +238,11 @@ const Apply = () => {
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="LegalName">Legal business name</Label>
-                          <Input id="LegalName" name="LegalName" required />
+                          <Input id="LegalName" name="LegalName" placeholder="Example: Source Standard LLC" required />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="BrandName">Public brand / DBA name</Label>
-                          <Input id="BrandName" name="BrandName" required />
+                          <Input id="BrandName" name="BrandName" placeholder="Example: Source Standard" required />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label htmlFor="Website">Website</Label>
@@ -250,7 +250,7 @@ const Apply = () => {
                             id="Website"
                             name="Website"
                             type="url"
-                            placeholder="https://"
+                            placeholder="https://example.com"
                             required
                           />
                         </div>
@@ -261,6 +261,7 @@ const Apply = () => {
                           <Input
                             id="PrincipalAddress"
                             name="PrincipalAddress"
+                            placeholder="Street, city, state, ZIP"
                             required
                           />
                         </div>
@@ -268,7 +269,7 @@ const Apply = () => {
                           <Label htmlFor="MailingAddress">
                             Mailing address, if different
                           </Label>
-                          <Input id="MailingAddress" name="MailingAddress" />
+                          <Input id="MailingAddress" name="MailingAddress" placeholder="Leave blank if same" />
                         </div>
                         <div className="space-y-2">
                           <Label>State of formation</Label>
@@ -390,11 +391,11 @@ const Apply = () => {
                           <Label htmlFor="PrescriberName">
                             Prescriber / Medical Director name, if applicable
                           </Label>
-                          <Input id="PrescriberName" name="PrescriberName" />
+                          <Input id="PrescriberName" name="PrescriberName" placeholder="Full name" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="NPI">NPI, if applicable</Label>
-                          <Input id="NPI" name="NPI" />
+                          <Input id="NPI" name="NPI" placeholder="10-digit NPI" />
                         </div>
                         <div className="space-y-2">
                           <Label>License state, if applicable</Label>
@@ -436,7 +437,7 @@ const Apply = () => {
                           <Label htmlFor="PrimarySupplier">
                             Primary supplier / pharmacy name
                           </Label>
-                          <Input id="PrimarySupplier" name="PrimarySupplier" required />
+                          <Input id="PrimarySupplier" name="PrimarySupplier" placeholder="List known suppliers" required />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
                           <Label htmlFor="AdditionalSuppliers">
@@ -446,7 +447,7 @@ const Apply = () => {
                             id="AdditionalSuppliers"
                             name="AdditionalSuppliers"
                             rows={3}
-                            placeholder="One per line, if applicable"
+                            placeholder="List known suppliers, one per line"
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
@@ -476,7 +477,7 @@ const Apply = () => {
                             id="Products"
                             name="Products"
                             rows={3}
-                            placeholder="List products, compounds, or therapies to be reviewed"
+                            placeholder="Example: TRT, GLP-1, peptides"
                           />
                         </div>
                       </div>
@@ -509,7 +510,7 @@ const Apply = () => {
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="ContactName">Contact name</Label>
-                          <Input id="ContactName" name="ContactName" required />
+                          <Input id="ContactName" name="ContactName" placeholder="Full name" required />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="ContactEmail">Business email</Label>
@@ -517,16 +518,17 @@ const Apply = () => {
                             id="ContactEmail"
                             name="ContactEmail"
                             type="email"
+                            placeholder="name@company.com"
                             required
                           />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="ContactPhone">Business phone</Label>
-                          <Input id="ContactPhone" name="ContactPhone" type="tel" />
+                          <Input id="ContactPhone" name="ContactPhone" type="tel" placeholder="(000) 000-0000" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="ContactRole">Role / title</Label>
-                          <Input id="ContactRole" name="ContactRole" />
+                          <Input id="ContactRole" name="ContactRole" placeholder="Example: Medical Director" />
                         </div>
                       </div>
                     </Group>
