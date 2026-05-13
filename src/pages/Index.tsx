@@ -590,7 +590,7 @@ const Index = () => {
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-standard">
+          <div className="w-full">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
