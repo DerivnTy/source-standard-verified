@@ -590,7 +590,7 @@ const Index = () => {
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-standard">
+          <div className="w-full">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.08em" }}
@@ -604,7 +604,7 @@ const Index = () => {
             >
               Unified market visibility.
             </h2>
-            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <p className="home-lead mt-4 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
               The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
             </p>
 
