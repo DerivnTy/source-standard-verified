@@ -73,7 +73,6 @@ const Apply = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!acknowledged) return;
     setSubmitting(true);
 
     const fd = new FormData(e.currentTarget);
