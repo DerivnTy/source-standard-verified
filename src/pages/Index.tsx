@@ -513,7 +513,7 @@ const Index = () => {
       {/* §2 — The trust problem */}
       <section
         aria-labelledby="trust-problem"
-        className="home-section bg-background border-b border-border"
+        className="home-section bg-background border-b border-border text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="w-full px-5 md:px-8 lg:px-12">
@@ -545,7 +545,7 @@ const Index = () => {
       {/* §3 — How it works */}
       <section
         aria-labelledby="how-it-works"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
@@ -586,7 +586,7 @@ const Index = () => {
       {/* §4 — Live registry */}
       <section
         aria-labelledby="live-registry"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
@@ -619,7 +619,7 @@ const Index = () => {
       {/* §5 — Registry fields */}
       <section
         aria-labelledby="registry-shows"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
@@ -663,7 +663,7 @@ const Index = () => {
       {/* §6 — Function of the framework */}
       <section
         aria-labelledby="why-matters"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
@@ -700,7 +700,7 @@ const Index = () => {
       {/* §7 — Foundational reference */}
       <section
         aria-labelledby="basics"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
