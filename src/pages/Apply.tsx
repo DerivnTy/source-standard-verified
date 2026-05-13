@@ -510,7 +510,7 @@ const Apply = () => {
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="ContactName">Contact name</Label>
-                          <Input id="ContactName" name="ContactName" required />
+                          <Input id="ContactName" name="ContactName" placeholder="Full name" required />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="ContactEmail">Business email</Label>
@@ -518,16 +518,17 @@ const Apply = () => {
                             id="ContactEmail"
                             name="ContactEmail"
                             type="email"
+                            placeholder="name@company.com"
                             required
                           />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="ContactPhone">Business phone</Label>
-                          <Input id="ContactPhone" name="ContactPhone" type="tel" />
+                          <Input id="ContactPhone" name="ContactPhone" type="tel" placeholder="(000) 000-0000" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="ContactRole">Role / title</Label>
-                          <Input id="ContactRole" name="ContactRole" />
+                          <Input id="ContactRole" name="ContactRole" placeholder="Example: Medical Director" />
                         </div>
                       </div>
                     </Group>
