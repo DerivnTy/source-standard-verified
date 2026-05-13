@@ -892,4 +892,11 @@ body {
   color: rgba(0, 16, 33, 0.42) !important;
   opacity: 1;
 }
+.intake-form button[role="checkbox"] {
+  border-color: rgba(0, 16, 33, 0.55) !important;
+  border-width: 1.5px !important;
+}
+.intake-form button[role="checkbox"]:hover {
+  border-color: rgba(0, 16, 33, 0.85) !important;
+}
 
