@@ -178,57 +178,30 @@ export const DocJumpBar = ({
   void barHeight;
 
   const APPLE_EASE = "cubic-bezier(0.4, 0, 0.2, 1)";
+  void eased;
+  void widthPct;
+  void maxWidthPx;
+  void armed;
+  void flushTop;
+  void SEAM_HEIGHT;
 
   const navStyle: React.CSSProperties = {
     position: "sticky",
     top: `${stickyTop}px`,
-    width: `${widthPct}%`,
-    maxWidth: isMobile ? "none" : `${maxWidthPx}px`,
-    height: `${PILL_HEIGHT}px`, // lock vertical
-    marginLeft: "auto",
-    marginRight: "auto",
-    // When the pill is hidden (pre-armed), zero out its layout footprint so
-    // it doesn't push the metrics row — and any other content below — down.
-    // Once armed, restore the normal seam overlap (or a 12px gap when flush).
-    marginTop: !armed
-      ? `-${PILL_HEIGHT}px`
-      : flushTop
-        ? "12px"
-        : `-${SEAM_HEIGHT / 2 + PILL_HEIGHT / 2}px`,
-    marginBottom: !armed ? "0px" : undefined,
-    borderRadius: "9999px",
-    boxShadow: armed && flushTop ? "0 4px 12px rgba(0,0,0,0.05)" : "none",
+    width: "100%",
+    height: `${PILL_HEIGHT}px`,
+    borderRadius: 0,
     border: "0.5px solid hsl(var(--border))",
+    borderLeft: "none",
+    borderRight: "none",
     backgroundColor: "#FFFFFF",
     zIndex: 40,
     overflow: "hidden",
-    opacity: armed ? 1 : 0,
-    pointerEvents: armed ? "auto" : "none",
-    visibility: armed ? "visible" : "hidden",
-    transition: `opacity 280ms ${APPLE_EASE}, top 300ms ease-in-out, margin-top 500ms ${APPLE_EASE}, width 500ms ${APPLE_EASE}, max-width 500ms ${APPLE_EASE}, box-shadow 400ms ${APPLE_EASE}`,
+    transition: `top 300ms ease-in-out, box-shadow 400ms ${APPLE_EASE}`,
   };
 
   return (
     <>
-      {/* Seam zone — collapses fully when the header is hidden so the bar can
-          snap to the browser edge with no residual gap. */}
-      <div
-        ref={seamRef}
-        aria-hidden
-        className="relative w-full hidden lg:block"
-        style={{
-          // Seam only renders its visible navy/white gradient strip once the
-          // pill is armed (Section 01 has reached the viewport top). Before
-          // that, it collapses to 0 so no white line can leak under the hero.
-          height: armed && !flushTop ? `${SEAM_HEIGHT}px` : "0px",
-          background:
-            armed && !flushTop
-              ? "linear-gradient(to bottom, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%)"
-              : "hsl(var(--navy-surface))",
-          marginTop: "-1px",
-          transition: "height 200ms ease-out",
-        }}
-      />
       <nav ref={navRef} aria-label="Document contents" style={navStyle} className="hidden lg:flex">
         <PillContents
           waypoints={waypoints}
