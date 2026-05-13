@@ -161,15 +161,7 @@ const Apply = () => {
         <div className="page-shell pt-9 pb-9">
           <div className="mx-auto w-full">
             <div>
-              <p className="t-utility-xs text-muted-foreground tracking-wider uppercase mb-3">
-                Vendor intake
-              </p>
-              <h2 className="t-section-title-sm text-foreground">
-                Vendor Verification Intake
-              </h2>
-              <p className="mt-3 t-body-md text-muted-foreground">{SUBTITLE}</p>
-
-              <div className="mt-8 bg-card border border-border rounded-xl p-6">
+              <div className="bg-card border border-border rounded-xl p-6">
                 {!filed ? (
                   <form onSubmit={onSubmit} className="intake-form space-y-7">
                     {/* Business Identity */}
