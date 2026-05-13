@@ -449,6 +449,17 @@ const Index = () => {
             margin-top: 18px !important;
             max-width: 68ch !important;
           }
+          .home-section .home-lead-pill {
+            margin-top: 0 !important;
+            max-width: none !important;
+          }
+          .home-section .home-lead-card {
+            width: calc(100% + 36px) !important;
+            max-width: none !important;
+            margin-left: -18px !important;
+            margin-right: -18px !important;
+            padding: 8px 18px 12px !important;
+          }
           .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
           .home-section .home-cta { margin-top: 28px !important; }
 
@@ -532,8 +543,8 @@ const Index = () => {
             >
               Claims are not documentation.
             </h2>
-            <div className="bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "10px 18px 14px" }}>
-              <p className="home-lead text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
                 Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
               </p>
             </div>
@@ -606,8 +617,8 @@ const Index = () => {
             >
               Unified market visibility.
             </h2>
-            <div className="bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "10px 18px 14px" }}>
-              <p className="home-lead text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
                 The Source Standard registry tracks compounded therapy vendors in one public-reference system. Therapy category is metadata. Verification status is assigned through the same documentation framework.
               </p>
             </div>
