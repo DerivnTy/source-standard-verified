@@ -586,7 +586,7 @@ const Index = () => {
       {/* §4 — Live registry */}
       <section
         aria-labelledby="live-registry"
-        className="home-section border-b border-border bg-background"
+        className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "36px", paddingBottom: "36px" }}
       >
         <div className="page-shell">
