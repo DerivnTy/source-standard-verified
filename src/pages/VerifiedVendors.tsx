@@ -150,12 +150,12 @@ const VerifiedVendors = () => {
       />
 
       <RegistryHeader
-        compact
         indexNumber="01"
         title="Vendor Registry"
         description="A public-reference database of compounded therapy vendors indexed by verification status, vendor type, and review scope."
         recordCount={vendors.length}
       />
+
 
       {/* Floating stats card — centered on the navy/gray boundary */}
       <section
