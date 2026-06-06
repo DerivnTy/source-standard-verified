@@ -14,7 +14,6 @@ import {
   sortArticles,
 } from "@/data/resourceLibrary";
 
-const PAGE_TITLE = "All Publications";
 const PAGE_SUBTITLE =
   "Framework updates, educational resources, sourcing transparency articles, industry developments, and public-reference materials published by Source Standard.";
 
@@ -28,6 +27,17 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: "latest", label: "Latest" },
   { id: "core", label: "Core Reference" },
 ];
+
+const headingForFilter = (filter: Filter): string => {
+  switch (filter) {
+    case "all":
+      return "All Publications";
+    case "latest":
+      return "Latest Publications";
+    case "core":
+      return "Core Reference Library";
+  }
+};
 
 const categoryTag = (id: CategoryId): string =>
   findCategory(id)?.label ?? "Publication";
@@ -90,26 +100,16 @@ const PublicationCard = ({ entry }: { entry: Article }) => (
 );
 
 const SectionHeader = ({
-  eyebrow,
   title,
   count,
 }: {
-  eyebrow: string;
   title: string;
   count: number;
 }) => (
   <header className="flex items-baseline justify-between gap-4" style={{ marginBottom: "20px" }}>
-    <div>
-      <p
-        className="font-mono uppercase text-muted-foreground"
-        style={{ fontSize: "10.5px", letterSpacing: "0.14em" }}
-      >
-        {eyebrow}
-      </p>
-      <h2 className="mt-1 t-section-title-sm text-foreground tracking-tight">
-        {title}
-      </h2>
-    </div>
+    <h2 className="t-section-title-sm text-foreground tracking-tight">
+      {title}
+    </h2>
     <span
       className="font-mono uppercase text-muted-foreground tabular-nums shrink-0"
       style={{ fontSize: "10.5px", letterSpacing: "0.1em" }}
@@ -137,11 +137,10 @@ const LibraryPublications = () => {
     return sortArticles(list, "newest");
   }, [query, filter]);
 
-  // Split: top 3 newest = "Latest Publications", rest = "Archive"
-  const latest = filtered.slice(0, 3);
-  const archiveAll = filtered.slice(3);
-  const archiveVisible = archiveAll.slice(0, visibleCount);
-  const hasMore = archiveAll.length > visibleCount;
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = filtered.length > visibleCount;
+
+  const sectionTitle = headingForFilter(filter);
 
   const onFilterClick = (id: Filter) => {
     setFilter(id);
@@ -150,12 +149,12 @@ const LibraryPublications = () => {
 
   return (
     <>
-      <PageMeta title={`${PAGE_TITLE} · Resource Library`} description={PAGE_SUBTITLE} />
+      <PageMeta title={`${sectionTitle} · Resource Library`} description={PAGE_SUBTITLE} />
 
       <Breadcrumb
         items={[
           { label: "Resource Library", to: "/education" },
-          { label: PAGE_TITLE },
+          { label: sectionTitle },
         ]}
       />
 
@@ -177,7 +176,7 @@ const LibraryPublications = () => {
         tone="navy"
         category="Resource Library"
         docId=""
-        title={PAGE_TITLE}
+        title={sectionTitle}
         statement={PAGE_SUBTITLE}
       />
 
@@ -257,59 +256,39 @@ const LibraryPublications = () => {
               No publications match the current search.
             </div>
           ) : (
-            <>
-              {latest.length > 0 && (
-                <section style={{ marginBottom: "48px" }}>
-                  <SectionHeader
-                    eyebrow="Most Recent"
-                    title="Latest Publications"
-                    count={latest.length}
-                  />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {latest.map((entry) => (
-                      <PublicationCard key={entry.slug} entry={entry} />
-                    ))}
-                  </div>
-                </section>
-              )}
+            <section>
+              <SectionHeader
+                title={sectionTitle}
+                count={filtered.length}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {visible.map((entry) => (
+                  <PublicationCard key={entry.slug} entry={entry} />
+                ))}
+              </div>
 
-              {archiveAll.length > 0 && (
-                <section>
-                  <SectionHeader
-                    eyebrow="Earlier Publications"
-                    title="Archive"
-                    count={archiveAll.length}
-                  />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {archiveVisible.map((entry) => (
-                      <PublicationCard key={entry.slug} entry={entry} />
-                    ))}
-                  </div>
-
-                  {hasMore && (
-                    <div className="flex justify-center" style={{ marginTop: "32px" }}>
-                      <button
-                        type="button"
-                        onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                        className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
-                        style={{
-                          fontSize: "11px",
-                          letterSpacing: "0.06em",
-                          height: "36px",
-                          padding: "0 18px",
-                          borderRadius: "20px",
-                          border: "1px solid hsl(var(--border))",
-                          backgroundColor: "#FFFFFF",
-                          color: "hsl(var(--foreground) / 0.85)",
-                        }}
-                      >
-                        Load More
-                      </button>
-                    </div>
-                  )}
-                </section>
+              {hasMore && (
+                <div className="flex justify-center" style={{ marginTop: "32px" }}>
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                    className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
+                    style={{
+                      fontSize: "11px",
+                      letterSpacing: "0.06em",
+                      height: "36px",
+                      padding: "0 18px",
+                      borderRadius: "20px",
+                      border: "1px solid hsl(var(--border))",
+                      backgroundColor: "#FFFFFF",
+                      color: "hsl(var(--foreground) / 0.85)",
+                    }}
+                  >
+                    Load More
+                  </button>
+                </div>
               )}
-            </>
+            </section>
           )}
         </div>
       </div>
