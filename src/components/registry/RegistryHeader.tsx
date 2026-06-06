@@ -59,7 +59,7 @@ export const RegistryHeader = ({
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
             <div className="min-w-0 flex-1">
-              <h1 className="ss-section-title !text-white text-left !mt-0">
+              <h1 className="ss-hero-title !text-white text-left !mt-0">
                 {title}
               </h1>
               {statusLine ? (

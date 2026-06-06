@@ -74,7 +74,7 @@ export const RecordHeader = ({
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-8">
             {eyebrow && <p className="ss-eyebrow">{eyebrow}</p>}
-            {title && <h1 className="ss-section-title text-foreground max-w-3xl">{title}</h1>}
+            {title && <h1 className="ss-hero-title text-foreground max-w-3xl">{title}</h1>}
             {lead && (
               <p className="ss-lead max-w-[68ch]">{lead}</p>
             )}
