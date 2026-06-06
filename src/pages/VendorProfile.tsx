@@ -11,7 +11,7 @@ import {
   MapPin,
   ChevronDown,
   ExternalLink,
-  Star,
+   
   
   UserRound,
 } from "lucide-react";
