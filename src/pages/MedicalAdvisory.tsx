@@ -329,8 +329,11 @@ const MedicalAdvisory = () => {
               <SectionIndex n="04" />
               <div className="max-w-2xl mb-6">
                 <h2 className="t-section-title-sm text-foreground">
-                  Scope & boundaries
+                  Scope & Boundaries
                 </h2>
+                <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
+                  What Clinical Oversight does and does not do.
+                </p>
               </div>
               <ul className="space-y-2 max-w-3xl">
                 {BOUNDARIES.map((b, i) => (
