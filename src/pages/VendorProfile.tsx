@@ -878,82 +878,74 @@ const VendorProfile = () => {
           {/* ────── 7. PROVIDERS ────── */}
           <article className="mt-4" style={CARD}>
             <SectionHeading>Providers &amp; Clinical Leadership</SectionHeading>
-            {hasProvider ? (
-              <>
-                {/* Headshot strip */}
-                {vendor.providerHeadshots?.length ? (
-                  <div className="mt-3 flex flex-wrap gap-3">
-                    {vendor.providerHeadshots.map((p) => (
-                      <div key={p.name} className="flex items-center gap-2">
-                        <div
-                          className="overflow-hidden bg-muted/40 shrink-0"
-                          style={{
-                            width: "44px",
-                            height: "44px",
-                            borderRadius: "22px",
-                            border: "0.5px solid hsl(var(--border))",
-                          }}
+            {/* Headshot strip — only when available */}
+            {vendor.providerHeadshots?.length ? (
+              <div className="mt-3 flex flex-wrap gap-3">
+                {vendor.providerHeadshots.map((p) => (
+                  <div key={p.name} className="flex items-center gap-2">
+                    <div
+                      className="overflow-hidden bg-muted/40 shrink-0"
+                      style={{
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "22px",
+                        border: "0.5px solid hsl(var(--border))",
+                      }}
+                    >
+                      {p.imageUrl ? (
+                        <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          <UserRound size={20} strokeWidth={1.25} />
+                        </div>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p
+                        className="font-sans font-medium text-foreground truncate"
+                        style={{ fontSize: "12.5px" }}
+                      >
+                        {p.name}
+                      </p>
+                      {p.role && (
+                        <p
+                          className="font-sans text-muted-foreground truncate"
+                          style={{ fontSize: "10.5px" }}
                         >
-                          {p.imageUrl ? (
-                            <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                              <UserRound size={20} strokeWidth={1.25} />
-                            </div>
-                          )}
-                        </div>
-                        <div className="min-w-0">
-                          <p
-                            className="font-sans font-medium text-foreground truncate"
-                            style={{ fontSize: "12.5px" }}
-                          >
-                            {p.name}
-                          </p>
-                          {p.role && (
-                            <p
-                              className="font-sans text-muted-foreground truncate"
-                              style={{ fontSize: "10.5px" }}
-                            >
-                              {p.role}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                          {p.role}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                ) : null}
+                ))}
+              </div>
+            ) : null}
 
-                <dl
-                  className="mt-4 grid grid-cols-2"
-                  style={{ columnGap: "20px", rowGap: "16px" }}
-                >
-                  <Cell label="Medical Director" value={vendor.medicalDirector} />
-                  <Cell label="Credentials" value={vendor.credentials} />
-                  <Cell label="Clinical Leadership" value={vendor.clinicalLeadership} />
-                  <Cell
-                    label="Additional Providers"
-                    value={
-                      vendor.additionalProviders?.length
-                        ? vendor.additionalProviders
-                            .map(
-                              (p) =>
-                                [p.name, p.credentials].filter(Boolean).join(", ") +
-                                (p.role ? ` — ${p.role}` : ""),
-                            )
-                            .join(" · ")
-                        : undefined
-                    }
-                  />
-                </dl>
-              </>
-            ) : (
-              <p
-                className="mt-3 text-muted-foreground"
-                style={{ fontSize: "13px", lineHeight: 1.55 }}
-              >
-                Provider information not yet submitted.
-              </p>
-            )}
+            {/* Always render the provider grid — missing fields stay visible as
+                "Information Not Submitted" so unclaimed profiles feel intentionally sparse. */}
+            <dl
+              className="mt-4 grid grid-cols-2"
+              style={{ columnGap: "20px", rowGap: "16px" }}
+            >
+              <Cell label="Medical Director" value={vendor.medicalDirector} />
+              <Cell label="Credentials" value={vendor.credentials} />
+              <Cell label="Clinical Leadership" value={vendor.clinicalLeadership} />
+              <Cell
+                label="Additional Providers"
+                value={
+                  vendor.additionalProviders?.length
+                    ? vendor.additionalProviders
+                        .map(
+                          (p) =>
+                            [p.name, p.credentials].filter(Boolean).join(", ") +
+                            (p.role ? ` — ${p.role}` : ""),
+                        )
+                        .join(" · ")
+                    : undefined
+                }
+              />
+            </dl>
+
           </article>
 
           {/* ────── 8. FACILITY PHOTOS ────── */}
