@@ -8,8 +8,8 @@ import { BriefingHero } from "@/components/BriefingHero";
 const WAYPOINTS = [
   { id: "attestations", number: "01", label: "Attestations" },
   { id: "disclosure", number: "02", label: "Disclosure" },
-  { id: "triggers", number: "03", label: "Triggers" },
-  { id: "actions", number: "04", label: "Actions" },
+  { id: "triggers", number: "03", label: "Review Triggers" },
+  { id: "actions", number: "04", label: "Status & Review Actions" },
   { id: "reentry", number: "05", label: "Re-entry" },
   { id: "related", number: "06", label: "Related Documents" },
 ];
@@ -108,26 +108,31 @@ const TRIGGERS: Clause[] = [
 const ACTIONS: Clause[] = [
   {
     n: "01",
+    t: "Monitoring Review",
+    d: "New information, sourcing updates, public reports, testing activity, or evidence submissions may be reviewed to determine whether additional action is necessary.",
+  },
+  {
+    n: "02",
     t: "Administrative inquiry",
     d: "A written request for documentation, records, or explanation. The listing may remain in its current status during the response window unless additional action is required.",
   },
   {
-    n: "02",
+    n: "03",
     t: "Scope reduction",
     d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
   },
   {
-    n: "03",
+    n: "04",
     t: "Suspension",
     d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
-    n: "04",
+    n: "05",
     t: "Removal",
     d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
   },
   {
-    n: "05",
+    n: "06",
     t: "Public note",
     d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
   },
@@ -440,7 +445,7 @@ const Accountability = () => {
             >
               <SectionHeader
                 index="04"
-                title="Actions"
+                title="Status & Review Actions"
                 intro="How the framework responds when a reviewed record no longer supports the published status."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -448,7 +453,7 @@ const Accountability = () => {
                   <ComplianceRow
                     key={c.n}
                     index={c.n}
-                    total="05"
+                    total="06"
                     title={c.t}
                     description={c.d}
                   />
