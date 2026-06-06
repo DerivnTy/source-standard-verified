@@ -71,7 +71,7 @@ export const FaqPage = ({
     </header>
 
     {/* FAQ list */}
-    <section className="page-shell" style={{ paddingBottom: "72px" }}>
+    <section className="page-shell pb-16">
       <div className="mx-auto w-wide max-w-[68ch]">
         <Accordion
           type="single"
