@@ -108,7 +108,7 @@ const HeroMetrics = () => {
         style={{ gap: "48px" }}
       >
         <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
-        <Unit value={50} label="States Represented" />
+        <Unit value={50} label="States" />
       </div>
     </div>
   );
@@ -172,7 +172,7 @@ const PillSecondaryWhite = ({ to, children }: { to: string; children: React.Reac
 const HeroActions = () => (
   <>
     <PillPrimaryWhite to="/verified-vendors">Search the Registry</PillPrimaryWhite>
-    <PillSecondaryWhite to="/how-it-works">View Verification Protocol</PillSecondaryWhite>
+    <PillSecondaryWhite to="/how-it-works">View Verification Framework</PillSecondaryWhite>
   </>
 );
 
