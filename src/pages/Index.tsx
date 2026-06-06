@@ -557,11 +557,11 @@ const Index = () => {
               className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
-              Claims are not documentation.
+              Claims are not verification.
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
-                Vendors make public sourcing claims across compounded therapy categories. Source Standard reviews those claims against submitted documentation, public records, and pharmacy relationship evidence.
+                Compounded therapy vendors make sourcing, pharmacy, and quality claims every day. Source Standard evaluates those claims through documentation review, supply-chain analysis, manufacturer verification, and independent testing protocols designed to separate supported claims from unsupported claims.
               </p>
             </div>
             <div className="home-cta mt-3">
