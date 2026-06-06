@@ -163,8 +163,8 @@ const Greenlist = () => {
                 Standard testing standards over time.
               </p>
               <p
-                className="mt-3 text-muted-foreground"
-                style={{ fontSize: "14.5px", lineHeight: 1.5 }}
+                className="mt-2 text-muted-foreground"
+                style={{ fontSize: "14px", lineHeight: 1.45 }}
               >
                 Greenlisted status remains subject to continued monitoring and
                 future testing activity.
