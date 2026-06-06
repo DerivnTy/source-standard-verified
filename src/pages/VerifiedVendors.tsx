@@ -222,7 +222,7 @@ const VerifiedVendors = () => {
       </section>
 
       <section className="bg-background">
-        <div className="page-shell pb-10 md:pb-10">
+        <div className="page-shell pb-6 md:pb-8">
           <div className="mx-auto w-wide">
             {/* Grouped filters */}
             <div className="-mx-5 md:mx-0 px-5 pt-5 pb-3 space-y-4">
@@ -358,7 +358,7 @@ const VerifiedVendors = () => {
               style={{
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "24px",
-                padding: "22px 24px",
+                padding: "18px 20px",
               }}
             >
               {/* Block 1 */}
@@ -388,13 +388,13 @@ const VerifiedVendors = () => {
               {/* Divider + Block 2 */}
               <div
                 className="mt-5 pt-5"
-                style={{ borderTop: "1px solid hsl(var(--border))" }}
+                style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}
               >
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
                   style={{ fontSize: "11px", letterSpacing: "0.08em" }}
                 >
-                  Consumer Due Diligence
+                  Registry Framework
                 </p>
                 <p
                   className="mt-2 text-foreground"
