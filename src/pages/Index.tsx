@@ -234,7 +234,7 @@ const HeroMeta = () => {
 const howItWorks = [
   {
     h: "Map the market.",
-    b: "Identify and maintain records for compounded therapy vendors, clinics, telehealth providers, and compounding facilities operating throughout the supply chain.",
+    b: "Identify and maintain records for compounded therapy vendors and compounding facilities operating throughout the supply chain.",
   },
   {
     h: "Verify sourcing claims.",
@@ -561,7 +561,7 @@ const Index = () => {
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
-                Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through documentation review, facility relationship verification, supply-chain analysis, and independent testing activity designed to separate supported claims from unsupported claims.
+                Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through documentation review, facility relationship analysis, supply-chain investigation, and independent testing activity designed to separate supported claims from unsupported claims.
               </p>
             </div>
             <div className="home-cta mt-3">
@@ -635,7 +635,7 @@ const Index = () => {
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
-                The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and supporting documentation. Facility records track Greenlisted status and independent testing activity.
+                The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency, facility relationships, and supporting documentation. Facility records track Greenlisted status, testing activity, and publicly available operational information.
               </p>
             </div>
 
