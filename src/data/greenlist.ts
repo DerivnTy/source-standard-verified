@@ -103,7 +103,64 @@ export type GreenlistProfile = {
 
   // --- Cross-reference (architecture seed) ---
   verifiedVendorSlugs?: string[];
+
+  // ============================================================
+  // NEW MANUFACTURER INTELLIGENCE STRUCTURE
+  // Fields below support the rebuilt Manufacturer Registry profile.
+  // Existing fields above are retained for type-compatibility only.
+  // ============================================================
+
+  // Facility identity
+  yearFounded?: string;
+  headquarters?: string;
+  additionalLocationsList?: string[];
+  website?: string;
+  overview?: string;
+
+  // Regulatory information
+  status503A?: "Designated" | "Not Designated" | "Pending";
+  status503B?: "Designated" | "Not Designated" | "Pending";
+  nabpAccreditation?: boolean;
+  pcabAccreditation?: boolean;
+
+  // Manufacturing capabilities
+  capabilities?: (
+    | "Sterile Compounding"
+    | "Non-Sterile Compounding"
+    | "Injectables"
+    | "Oral Medications"
+    | "Topicals"
+    | "Troches"
+    | "Lyophilized Products"
+    | "Multi-Dose Vials"
+    | "Pre-Filled Syringes"
+  )[];
+
+  // Therapy categories
+  therapyCategories?: (
+    | "TRT"
+    | "HRT"
+    | "GLP-1"
+    | "Peptides"
+    | "Longevity"
+    | "Weight Loss"
+    | "Wellness"
+    | "Sexual Health"
+    | "Aesthetics"
+    | "Functional Medicine"
+  )[];
+
+  // Public records
+  publicRecords?: { label: string; url: string }[];
+
+  // Timeline
+  timeline?: { date: string; event: string }[];
+
+  // Greenlisted / monitoring status
+  greenlistedSince?: string;
+  monitoringSince?: string;
 };
+
 
 export const greenlistEntries: GreenlistEntry[] = [
   // ---------- 503B Outsourcing Facilities ----------
