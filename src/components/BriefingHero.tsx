@@ -162,11 +162,11 @@ export const BriefingHero = ({
           <div className="w-hero">
             <h1
               id="briefing-title"
-              className="text-white t-chapter-title max-w-[22ch]"
+              className="ss-hero-title !text-white !mt-0 max-w-[22ch]"
             >
               {title}
             </h1>
-            <p className="mt-5 max-w-[68ch] t-body-md text-white/70">
+            <p className="ss-lead !text-white/70 max-w-[68ch]">
               {statement}
             </p>
             {actions && (
@@ -176,6 +176,7 @@ export const BriefingHero = ({
             )}
           </div>
         </div>
+
       </section>
     );
   }
