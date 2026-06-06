@@ -33,27 +33,26 @@ export const ProfileHeader = ({
   children?: ReactNode;
 }) => {
   return (
-    <header className="bg-background border-b border-border/60">
-      <div className="container-wide pt-5 pb-14 md:pb-20">
+    <header className="bg-background border-b border-border ss-section">
+      <div className="container-wide">
         {backHref && (
           <Link
             to={backHref}
-            className="inline-flex items-center gap-2 t-utility-xs uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground"
+            className="inline-flex items-center gap-2 ss-eyebrow hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> {backLabel ?? "Back"}
           </Link>
         )}
 
-        <div className={`grid md:grid-cols-12 gap-10 ${backHref ? "mt-5" : ""}`}>
+        <div className={`grid md:grid-cols-12 gap-10 ${backHref ? "mt-3" : ""}`}>
           <div className={rightSlot ? "md:col-span-8" : "md:col-span-12"}>
-            <h1 className="title-page text-foreground">{title}</h1>
-            {identity && <div className="mt-2 text-helper text-muted-foreground">{identity}</div>}
+            {eyebrow && <p className="ss-eyebrow">{eyebrow}</p>}
+            <h1 className="ss-section-title text-foreground">{title}</h1>
+            {identity && <div className="mt-2 ss-body">{identity}</div>}
             {lead && (
-              <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
-                {lead}
-              </p>
+              <p className="ss-lead max-w-[58ch]">{lead}</p>
             )}
-            {children && <div className="mt-5">{children}</div>}
+            {children && <div className="mt-4">{children}</div>}
           </div>
           {rightSlot && <aside className="md:col-span-4">{rightSlot}</aside>}
         </div>
