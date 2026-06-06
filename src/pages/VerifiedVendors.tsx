@@ -351,14 +351,14 @@ const VerifiedVendors = () => {
 
       {/* Explainer panel — Verified vs. Unverified */}
       <section className="bg-background">
-        <div className="page-shell pb-14 md:pb-20 pt-0">
+        <div className="page-shell pb-10 md:pb-14 pt-0">
           <div className="mx-auto w-wide">
             <div
               className="bg-white"
               style={{
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "24px",
-                padding: "28px 24px",
+                padding: "22px 24px",
               }}
             >
               {/* Block 1 */}
