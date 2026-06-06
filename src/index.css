@@ -399,29 +399,51 @@ html {
   }
 
   /* Section vertical rhythm (sitewide constitution).
-     Source of truth: the Home page section rhythm. Every page inherits the
-     same cadence so navigation between Vendor Registry, Facility Registry,
-     Verification Framework, Advisory Board, Resource Library, and About
-     feels identical in structure and weight.
-       section-pad — top/bottom of standard sections (24px mobile → 52px ≥1024 → 56px ≥1280)
+     Two-tier model that mirrors the Home page cadence:
+       1. First content section after the hero keeps the original generous
+          top padding (hero → first card breathing room).
+       2. Every subsequent section uses the Home page tight rhythm so the
+          page does not develop dead zones between later blocks.
+     Tokens:
+       section-pad — top/bottom of standard sections
        section-gap — gap between adjacent sections in same page
        hero-gap    — gap from hero to first body section */
-  .section-pad   { padding-top: 24px; padding-bottom: 24px; }
+  .section-pad   { padding-top: 80px; padding-bottom: 32px; }
   .section-gap   { margin-top: 32px; }
-  .hero-gap      { margin-top: 40px; }
+  .hero-gap      { margin-top: 56px; }
   @media (min-width: 768px) {
-    .section-pad { padding-top: 36px; padding-bottom: 36px; }
+    .section-pad { padding-top: 72px; padding-bottom: 36px; }
     .section-gap { margin-top: 44px; }
-    .hero-gap    { margin-top: 56px; }
+    .hero-gap    { margin-top: 64px; }
   }
   @media (min-width: 1024px) {
-    .section-pad { padding-top: 52px; padding-bottom: 52px; }
+    .section-pad { padding-top: 64px; padding-bottom: 52px; }
     .section-gap { margin-top: 56px; }
-    .hero-gap    { margin-top: 64px; }
+    .hero-gap    { margin-top: 80px; }
     .w-standard  { max-width: 1240px; }
   }
-  @media (min-width: 1280px) {
-    .section-pad { padding-top: 56px; padding-bottom: 56px; }
+
+  /* Tighten the gap between consecutive content sections (post-hero rhythm).
+     Matches the Home page where Section 01 → 02 → 03 sit on the same
+     compact cadence rather than the larger hero→first-card spacing. */
+  section + section > .section-pad,
+  section + section .page-shell.section-pad,
+  .section-pad + .section-pad {
+    padding-top: 24px;
+  }
+  @media (min-width: 768px) {
+    section + section > .section-pad,
+    section + section .page-shell.section-pad,
+    .section-pad + .section-pad {
+      padding-top: 32px;
+    }
+  }
+  @media (min-width: 1024px) {
+    section + section > .section-pad,
+    section + section .page-shell.section-pad,
+    .section-pad + .section-pad {
+      padding-top: 40px;
+    }
   }
 
   /* ─── Hard-Stop protocol (sitewide) ───
