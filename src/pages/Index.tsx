@@ -233,16 +233,16 @@ const HeroMeta = () => {
 
 const howItWorks = [
   {
-    h: "Map the vendors.",
-    b: "Index vendors across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapy categories.",
+    h: "Index the market.",
+    b: "Identify and maintain records for compounded therapy vendors, pharmacies, manufacturers, and supply-chain relationships.",
   },
   {
-    h: "Review the documentation.",
-    b: "Evaluate sourcing claims, pharmacy relationships, chain-of-custody records, and submitted evidence within a defined review scope.",
+    h: "Verify the evidence.",
+    b: "Review sourcing documentation, pharmacy relationships, manufacturer records, chain-of-custody evidence, and independent testing data within a defined review scope.",
   },
   {
-    h: "Publish the status.",
-    b: "Vendor records display the current documentation status. Claims without sufficient reviewed documentation remain Unverified.",
+    h: "Assign the status.",
+    b: "Vendor, manufacturer, and supply-chain records receive a public status based on available evidence and ongoing verification activity.",
   },
 ];
 
@@ -260,48 +260,48 @@ const registryFields = [
     b: "The compounded therapy categories associated with the vendor record.",
   },
   {
-    h: "Sourcing evidence",
-    b: "The pharmacy relationships, documentation trails, and chain-of-custody records reviewed within the defined scope.",
+    h: "Verification scope",
+    b: "The documentation, supply-chain relationships, manufacturer information, and testing activity included within the published review scope.",
   },
 ];
 
 const whyMatters = [
   {
     h: "For consumers",
-    b: "A public record showing what has been reviewed, what remains unverified, and when the status was last updated.",
+    b: "A public verification record showing what has been reviewed, what remains unsupported, what testing has occurred, and when status changes were issued.",
   },
   {
     h: "For vendors",
-    b: "A documentation-based verification pathway tied to sourcing claims, pharmacy relationships, and status history.",
+    b: "An independent verification pathway that evaluates sourcing claims, manufacturer relationships, supply-chain documentation, and testing outcomes.",
   },
   {
     h: "For clinicians",
-    b: "A structured reference for reviewing whether a vendor's sourcing claims are supported by documentation.",
+    b: "A structured reference for evaluating sourcing transparency, verification activity, and supply-chain credibility before making referral or purchasing decisions.",
   },
 ];
 
 const basics = [
   {
-    t: "What \"Verified\" means",
-    s: "The documentation standard a vendor record must meet to display Verified status.",
-    to: "/library/what-source-standard-verification-actually-means",
+    t: "Verification Framework",
+    s: "The standards, procedures, and evidence requirements used throughout the registry.",
+    to: "/how-it-works",
   },
   {
-    t: "503A and 503B sourcing",
-    s: "The licensed compounding pharmacy categories used in sourcing documentation review.",
-    to: "/library/what-is-compounding",
+    t: "Status Definitions",
+    s: "Definitions for Verified, Identified, Under Review, Suspended, Removed, and other public statuses.",
+    to: "/status-definitions",
   },
   {
-    t: "Consumer review checklist",
-    s: "The sourcing and documentation questions consumers should know before evaluating a vendor.",
-    to: "/library/questions-to-ask-your-clinic",
+    t: "Supply Chain Standards",
+    s: "The verification principles applied to vendors, pharmacies, manufacturers, and related supply-chain entities.",
+    to: "/governance",
   },
 ];
 
 const governanceLinks = [
-  { k: "Advisory Board", to: "/medical-advisory", s: "Medical and procedural oversight for education, standards, and review boundaries." },
-  { k: "Verification Protocol", to: "/governance", s: "How vendor documentation review is conducted, scoped, and recorded." },
-  { k: "Status Definitions", to: "/status-definitions", s: "Definitions for every public vendor status displayed in the registry." },
+  { k: "Advisory Board", to: "/medical-advisory", s: "Independent medical, scientific, and procedural guidance supporting framework development and review standards." },
+  { k: "Verification Framework", to: "/how-it-works", s: "The procedures used to evaluate documentation, supply chains, manufacturers, and testing outcomes." },
+  { k: "Status Definitions", to: "/status-definitions", s: "Definitions governing every public status displayed throughout the registry." },
 ];
 
 /* ───────────────── Data Strip primitive ───────────────── */
