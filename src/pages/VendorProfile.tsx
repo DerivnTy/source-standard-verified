@@ -244,7 +244,7 @@ const Cell = ({
             display
           )
         ) : (
-          "—"
+          <span className="italic text-muted-foreground/70">Information Not Submitted</span>
         )}
       </dd>
     </div>
