@@ -100,7 +100,7 @@ export const ArticleFooter = ({
 
   return (
     <footer
-      className="bg-background"
+      className="bg-background article-footer"
       style={{ paddingTop: "24px", paddingBottom: "32px" }}
     >
       <div className="page-shell">
