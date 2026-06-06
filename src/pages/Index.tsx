@@ -34,25 +34,27 @@ const HeroMetrics = () => {
   }: {
     value: number;
     label: string;
-    dotColor: string;
+    dotColor?: string;
   }) => (
     <div className="flex flex-col items-center text-center">
-      <div className="flex items-center justify-center" style={{ gap: "8px" }}>
-        <span aria-hidden className="relative inline-flex" style={{ width: "6px", height: "6px" }}>
-          <span
-            className="absolute inset-0 rounded-full animate-ping"
-            style={{ backgroundColor: dotColor, opacity: 0.6 }}
-          />
-          <span
-            className="relative inline-block rounded-full"
-            style={{
-              width: "6px",
-              height: "6px",
-              backgroundColor: dotColor,
-              boxShadow: `0 0 8px ${dotColor}`,
-            }}
-          />
-        </span>
+      <div className="flex items-center justify-center" style={{ gap: dotColor ? "8px" : undefined }}>
+        {dotColor && (
+          <span aria-hidden className="relative inline-flex" style={{ width: "6px", height: "6px" }}>
+            <span
+              className="absolute inset-0 rounded-full animate-ping"
+              style={{ backgroundColor: dotColor, opacity: 0.6 }}
+            />
+            <span
+              className="relative inline-block rounded-full"
+              style={{
+                width: "6px",
+                height: "6px",
+                backgroundColor: dotColor,
+                boxShadow: `0 0 8px ${dotColor}`,
+              }}
+            />
+          </span>
+        )}
         <span
           className="font-sans text-white tabular-nums"
           style={{
@@ -105,7 +107,7 @@ const HeroMetrics = () => {
         style={{ gap: "48px" }}
       >
         <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
-        <Unit value={50} label="States Represented" dotColor="#0A84FF" />
+        <Unit value={50} label="States Represented" />
       </div>
     </div>
   );
