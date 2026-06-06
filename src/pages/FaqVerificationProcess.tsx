@@ -1,104 +1,48 @@
-import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import {
-  BoardSection,
-  BoardFooterNav,
-  BoardCiteFooter,
-} from "@/components/BoardSection";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { FaqPage } from "@/components/library/FaqPage";
 
-const DOC_ID = "SS-FAQ-CAT-03";
-
-const QA = [
+const ITEMS = [
   {
-    id: "Q1",
-    q: "How does a clinic become 'Source Standard Verified'?",
-    a: "Verification is a three-stage process. First, the clinic must submit a full disclosure of their upstream pharmacy partners. Second, Source Standard performs a 'Licensure Reconciliation' to ensure those pharmacies are in good standing with both the FDA and state boards. Third, the clinic must provide 'Evidence of Procurement' (redacted invoices) to prove they are actually sourcing from the regulated facilities they claim to use.",
+    q: "What does Verified mean?",
+    a: "Verified means Source Standard reviewed documentation supporting a vendor's stated sourcing claims and assigned status within the framework.",
   },
   {
-    id: "Q2",
-    q: "Does Source Standard test the medications themselves?",
-    a: "Source Standard is an auditing body, not a primary testing lab. We verify the validity of the laboratory reports (CoAs) provided by the pharmacies. We contact the issuing labs to confirm that the reports are authentic and have not been altered. This 'Closed-Loop' audit ensures that the pharmacy's own rigorous testing is legitimate.",
+    q: "Does Verified mean the vendor is the best option?",
+    a: "No. Verification is not a ranking system and does not compare vendors against one another.",
   },
   {
-    id: "Q3",
-    q: "What causes a clinic to lose its 'Verified' status?",
-    a: "A 'Verified' status is revoked if a clinic fails a periodic audit, fails to disclose a change in their pharmacy source, or if their primary pharmacy partner receives a significant FDA warning letter or suspension. We also investigate credible consumer reports of undocumented sourcing.",
+    q: "What information is reviewed?",
+    a: "Depending on the review scope, documentation may include sourcing records, pharmacy relationships, licensure records, chain-of-custody evidence, and related public records.",
   },
   {
-    id: "Q4",
-    q: "How often are clinics re-audited?",
-    a: "Verified listings are subject to quarterly 'Administrative Checks' and full 'Institutional Re-Verification' every 12 months. This ensures that the clinical oversight and sourcing channels remain consistent with our safety framework.",
+    q: "Can a vendor lose Verified status?",
+    a: "Yes. Registry status may change when documentation expires, sourcing changes occur, new information emerges, or review standards are no longer satisfied.",
+  },
+  {
+    q: "Are all vendors in the registry Verified?",
+    a: "No. The registry includes multiple status categories, including Verified, Unverified, Under Review, Suspended, and Removed.",
   },
 ];
 
-const FaqVerificationProcess = () => {
-  return (
-    <>
-      <PageMeta title="Verification Process FAQ" description="How Source Standard verification works, stages, audits, and renewal cadence." />
-      <Breadcrumb items={[
-          { label: "Resource Library", to: "/education" },
-          { label: "FAQ" },
-        ]} />
-      <RecordHeader
-        eyebrow="Source Standard · Regulatory FAQ"
-        title="Verification Process"
-        lead="Details on the Source Standard auditing protocol, facility reconciliation, and the criteria for institutional verification."
-        metadata={[
-          { label: "Doc", value: DOC_ID },
-          { label: "Status", value: "Public Record" },
-          { label: "Jurisdiction", value: "United States" },
-          { label: "Updated", value: "04 / 21 / 2026" },
-        ]}
-        verifiedOn="04 / 21 / 2026"
-      />
-
-      <BoardSection
-        n={1}
-        category="Category overview"
-        title="The auditing protocol & re-verification cadence"
-        rationale="Four high-frequency questions on the Source Standard verification stages, the scope of our audits, the criteria for status revocation, and the cadence of re-verification."
-      >
-        <Accordion
-          type="single"
-          collapsible
-          defaultValue="Q1"
-          className="border border-border bg-background divide-y divide-border"
-        >
-          {QA.map((item) => (
-            <AccordionItem key={item.id} value={item.id} className="border-0">
-              <AccordionTrigger className="px-5 py-4 hover:no-underline group">
-                <div className="flex items-baseline gap-4 text-left">
-                  <span className="meta text-primary pt-[2px]">{item.id}</span>
-                  <span className="t-body-sm font-semibold text-foreground leading-snug">
-                    {item.q}
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-5 pb-5 pl-[calc(1.25rem+1.75rem)]">
-                <p className="t-body-sm text-muted-foreground m-0">
-                  {item.a}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </BoardSection>
-
-      <BoardFooterNav
-        back={{ to: "/education#questions", label: "Back to FAQ Index" }}
-        next={{ to: "/library/faq/consumer-diligence", label: "Next Category · Consumer Diligence (SS-FAQ-CAT-04)" }}
-      />
-
-      <BoardCiteFooter citation={`Source Standard · Regulatory FAQ · Verification Process, ${DOC_ID}. Last updated 04 / 21 / 2026.`} />
-    </>
-  );
-};
+const FaqVerificationProcess = () => (
+  <>
+    <PageMeta
+      title="Verification Questions"
+      description="Common questions about how verification works, what documentation is reviewed, and what registry status means."
+    />
+    <Breadcrumb
+      items={[
+        { label: "Resource Library", to: "/education" },
+        { label: "Verification" },
+      ]}
+    />
+    <FaqPage
+      title="Verification Questions"
+      intro="Common questions about how verification works, what documentation is reviewed, and what registry status means."
+      items={ITEMS}
+    />
+  </>
+);
 
 export default FaqVerificationProcess;

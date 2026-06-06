@@ -35,6 +35,7 @@ import LibraryCategory from "./pages/LibraryCategory.tsx";
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
 import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
+import FaqConsumerDiligence from "./pages/FaqConsumerDiligence.tsx";
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
@@ -99,6 +100,7 @@ const App = () => (
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
             <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />
+            <Route path="/library/faq/consumer-diligence" element={<FaqConsumerDiligence />} />
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
