@@ -86,8 +86,8 @@ const BOUNDARIES = [
   "Evaluates whether publicly stated sourcing claims are supported by available evidence and documentation.",
   "Does not provide medical advice, treatment guidance, or clinical recommendations.",
   "Does not evaluate patient outcomes, treatment effectiveness, or biological response.",
-  "Does not certify product potency, sterility, safety, efficacy, or manufacturing quality.",
-  "Does not replace federal, state, pharmacy, or medical regulatory oversight.",
+  "Does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance.",
+  "Does not replace federal, state, or medical regulatory oversight.",
   "Does not endorse, recommend, rank, promote, or market vendors.",
 ];
 
