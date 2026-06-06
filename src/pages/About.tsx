@@ -185,7 +185,7 @@ const AboutStatementRow = ({ index, text }: { index: number; text: string }) => 
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <p
         className="text-foreground"
-        style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.55 }}
+        style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.55 }}
       >
         {text}
       </p>
@@ -285,7 +285,7 @@ const SectionHeader = ({
     </div>
     <p
       className="mt-3 text-muted-foreground"
-      style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400, maxWidth: "68ch" }}
+      style={{ fontSize: "17px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
     >
       {intro}
     </p>

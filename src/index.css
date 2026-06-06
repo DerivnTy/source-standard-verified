@@ -304,8 +304,8 @@ html {
   .t-article-title,
   .ss-hero-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 44px;
-    line-height: 1.08;
+    font-size: 42px;
+    line-height: 1.05;
     letter-spacing: -0.03em !important;
     font-weight: 700;
     color: #0A0A0A;
@@ -313,14 +313,14 @@ html {
   }
   @media (min-width: 768px) {
     .t-page-title, .t-chapter-title, .t-home-title, .t-article-title, .ss-hero-title {
-      font-size: 64px;
+      font-size: 56px;
       letter-spacing: -0.035em !important;
       max-width: 20ch;
     }
   }
   @media (min-width: 1024px) {
     .t-page-title, .t-chapter-title, .t-home-title, .t-article-title, .ss-hero-title {
-      font-size: 76px;
+      font-size: 68px;
     }
   }
 
@@ -328,7 +328,7 @@ html {
   .ss-lead,
   .t-hero-lead {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.6;
     letter-spacing: -0.01em !important;
     font-weight: 400;
@@ -337,7 +337,7 @@ html {
     margin-top: 16px;
   }
   @media (min-width: 768px) {
-    .ss-lead, .t-hero-lead { font-size: 22px; max-width: 38ch; }
+    .ss-lead, .t-hero-lead { font-size: 20px; max-width: 38ch; }
   }
 
   /* TYPE 03 — Section Labels / Eyebrows */
@@ -347,7 +347,7 @@ html {
   .t-label-sm,
   .ss-eyebrow {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.2;
     letter-spacing: 0.12em !important;
     font-weight: 500;
@@ -360,7 +360,7 @@ html {
   .t-section-title-md,
   .ss-section-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 28px;
+    font-size: 26px;
     line-height: 1.15;
     letter-spacing: -0.02em !important;
     font-weight: 700;
@@ -369,7 +369,7 @@ html {
   }
   @media (min-width: 768px) {
     .t-section-title-sm, .t-section-title-md, .ss-section-title {
-      font-size: 34px;
+      font-size: 32px;
     }
   }
 
@@ -377,8 +377,8 @@ html {
   .t-section-intro,
   .t-body-lg {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.7;
     letter-spacing: -0.005em !important;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.60);
@@ -390,7 +390,7 @@ html {
   .t-h4,
   .ss-card-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.3;
     letter-spacing: -0.01em !important;
     font-weight: 600;
@@ -403,7 +403,7 @@ html {
   .t-body-strong,
   .ss-body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.75;
     letter-spacing: -0.005em !important;
     font-weight: 400;
@@ -416,7 +416,7 @@ html {
   .prose-article p,
   .prose-article li {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.85;
     letter-spacing: -0.005em !important;
     font-weight: 400;
@@ -430,26 +430,26 @@ html {
   .t-nav,
   .ss-card-meta {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.4;
     letter-spacing: 0.08em !important;
     font-weight: 500;
     text-transform: uppercase;
     color: rgba(0, 0, 0, 0.42);
   }
-  .t-nav { text-transform: none; letter-spacing: -0.005em !important; font-size: 15px; }
+  .t-nav { text-transform: none; letter-spacing: -0.005em !important; font-size: 14px; }
 
   /* TYPE 10 — Numerical System (IBM Plex Mono) */
   .t-numeric,
   .t-button {
     font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.2;
     letter-spacing: 0.04em !important;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.40);
   }
-  .t-button { text-transform: uppercase; color: inherit; font-size: 13px; }
+  .t-button { text-transform: uppercase; color: inherit; font-size: 12px; }
 
   /* ── Legacy lead-card chrome (kept for layout, types inherit from above) ── */
   .ss-lead-card {

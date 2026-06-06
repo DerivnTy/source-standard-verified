@@ -194,7 +194,7 @@ const SectionHeader = ({
     </div>
     <p
       className="mt-3 text-muted-foreground"
-      style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400, maxWidth: "68ch" }}
+      style={{ fontSize: "17px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
     >
       {intro}
     </p>
@@ -252,7 +252,7 @@ const StatusDefinitionCard = ({ status }: { status: Status }) => (
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <h3
         className="font-sans text-foreground"
-        style={{ fontSize: "20px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+        style={{ fontSize: "18px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
       >
         {status.title}
       </h3>
@@ -272,7 +272,7 @@ const StatusDefinitionCard = ({ status }: { status: Status }) => (
     </div>
     <p
       className="text-muted-foreground"
-      style={{ marginTop: "12px", fontSize: "17px", fontWeight: 400, lineHeight: 1.75 }}
+      style={{ marginTop: "12px", fontSize: "16px", fontWeight: 400, lineHeight: 1.75 }}
     >
       {status.definition}
     </p>
@@ -297,7 +297,7 @@ const LifecycleRow = ({ index, text }: { index: string; text: string }) => (
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <p
         className="text-foreground"
-        style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.55 }}
+        style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.55 }}
       >
         {text}
       </p>
