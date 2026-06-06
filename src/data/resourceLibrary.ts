@@ -53,7 +53,7 @@ export const CATEGORIES: Category[] = [
     label: "Latest Publications",
     short: "Latest",
     description:
-      "Recent articles, industry updates, educational commentary, and emerging topics related to compounded therapy sourcing and transparency.",
+      "Recent articles, framework updates, industry developments, and sourcing-transparency topics relevant to consumers, vendors, and healthcare organizations.",
     path: "/library/latest",
   },
 ];
@@ -67,7 +67,7 @@ export const ARTICLES: Article[] = [
     slug: "what-is-compounding",
     title: "What Is Compounding?",
     blurb:
-      "An introduction to pharmacy compounding and why facility type matters when evaluating a sourcing claim.",
+      "Understanding the difference between 503A pharmacies, 503B outsourcing facilities, and how compounded medications enter the supply chain.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -76,16 +76,16 @@ export const ARTICLES: Article[] = [
     slug: "safe-peptide-handling-and-reconstitution",
     title: "Why Supply Chains Matter in Compounded Therapy",
     blurb:
-      "How compounded medications move through facilities, vendors, and consumers — and why sourcing transparency matters.",
+      "How medications move through facilities, vendors, and distribution channels, and why sourcing transparency matters.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
   },
   {
     slug: "the-dual-layer-difference",
-    title: "Understanding Vendor Verification and Facility Transparency",
+    title: "Understanding Vendor Verification & Facility Transparency",
     blurb:
-      "Why both vendor records and facility records matter when evaluating compounded therapy sourcing claims.",
+      "Why vendor records and facility records provide different pieces of the sourcing transparency picture.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -94,7 +94,7 @@ export const ARTICLES: Article[] = [
     slug: "how-to-read-a-certificate-of-analysis",
     title: "Understanding Certificates of Analysis",
     blurb:
-      "How laboratory reports are used, what information they contain, and why documentation should always be reviewed carefully.",
+      "What Certificates of Analysis show, what they do not show, and why documentation should be reviewed carefully.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -103,7 +103,7 @@ export const ARTICLES: Article[] = [
     slug: "what-are-peptides",
     title: "Claims vs. Documentation",
     blurb:
-      "How to distinguish general product claims from reviewable sourcing documentation.",
+      "How to separate marketing language from sourcing documentation, facility records, and verifiable evidence.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -112,7 +112,7 @@ export const ARTICLES: Article[] = [
     slug: "what-source-standard-verification-actually-means",
     title: "Understanding Verification Scope",
     blurb:
-      "What a Verified listing establishes and what it does not establish.",
+      "What Source Standard verification establishes, what it does not establish, and why verification has defined limits.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -121,7 +121,7 @@ export const ARTICLES: Article[] = [
     slug: "questions-to-ask-your-clinic",
     title: "Vendor Evaluation Checklist",
     blurb:
-      "Questions consumers can ask about sourcing, pharmacy relationships, documentation, and review status.",
+      "A practical checklist consumers can use when evaluating sourcing transparency and documentation quality.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -130,7 +130,7 @@ export const ARTICLES: Article[] = [
     slug: "warning-signs-of-undocumented-sourcing",
     title: "Warning Signs and Red Flags",
     blurb:
-      "Common patterns in unsupported sourcing claims and undocumented vendor presentations.",
+      "Common transparency concerns, unsupported sourcing claims, and documentation gaps consumers should understand.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",

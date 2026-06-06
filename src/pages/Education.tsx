@@ -204,7 +204,7 @@ const CategoryBlock = ({
               {category.description}
             </p>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
-              {entries.length} {entries.length === 1 ? "entry" : "entries"}
+              {category.id === "core" ? "Foundational References" : `${entries.length} ${entries.length === 1 ? "entry" : "entries"}`}
             </p>
           </div>
 
