@@ -97,12 +97,9 @@ const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolea
 
 const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
   <div
-    className="bg-background"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "8px",
-      padding: "12px 14px",
-      minHeight: "62px",
+      borderTop: "0.5px solid hsl(var(--border))",
+      padding: "10px 0 4px",
     }}
   >
     <p
@@ -112,7 +109,7 @@ const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
       {label}
     </p>
     <div
-      className="mt-1.5 font-sans font-medium text-foreground"
+      className="mt-1 font-sans text-foreground"
       style={{ fontSize: "12px", lineHeight: 1.4, wordBreak: "break-word" }}
     >
       {value}
@@ -420,7 +417,7 @@ const GreenlistProfile = () => {
               return (
                 <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                   <SectionLabel>Facility Snapshot</SectionLabel>
-                  <div className="mt-3 grid gap-2 grid-cols-2 sm:grid-cols-3">
+                  <div className="mt-3 grid gap-x-6 grid-cols-2 sm:grid-cols-3">
                     {cards.map((c) => (
                       <SnapCard key={c.label} label={c.label} value={c.value} />
                     ))}
@@ -461,71 +458,22 @@ const GreenlistProfile = () => {
               </div>
             )}
 
-            {/* SECTION 6 — Greenlisted Status */}
+            {/* SECTION 6 — Greenlist Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Greenlist Status</SectionLabel>
-              <div
-                className="mt-3 flex items-center gap-3"
-                style={{
-                  border: "0.5px solid hsl(var(--border))",
-                  borderRadius: "10px",
-                  padding: "14px 16px",
-                  background: "hsl(var(--background))",
-                }}
-              >
-                <span
-                  aria-hidden
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    background: STATUS_COLOR[status],
-                    boxShadow: `0 0 0 4px ${STATUS_COLOR[status]}22`,
-                  }}
-                />
-                <span
-                  className="font-sans font-bold uppercase"
-                  style={{ fontSize: "12px", letterSpacing: "0.08em", color: STATUS_COLOR[status] }}
-                >
+              <p className="mt-3 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+                <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "10px", letterSpacing: "0.08em" }}>
+                  Current Status ·{" "}
+                </span>
+                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "12px" }}>
                   {STATUS_LABEL[status]}
                 </span>
-              </div>
-              <p className="mt-3 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+              </p>
+              <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
                 {statusBlurb}
               </p>
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                {[
-                  { c: STATUS_COLOR.monitoring, l: "Under Monitoring", d: "Facility identified in the registry and tracked for regulatory and supply-chain signals." },
-                  { c: "#3478F6", l: "Testing Active", d: "Independent testing activity is underway on products sourced from this facility." },
-                  { c: STATUS_COLOR.greenlisted, l: "Greenlisted", d: "Facility has met Source Standard independent testing criteria." },
-                  { c: STATUS_COLOR.alert, l: "Status Alert", d: "Regulatory action or supply-chain signal warrants caution." },
-                ].map((s) => (
-                  <div
-                    key={s.l}
-                    className="flex items-start gap-2"
-                    style={{
-                      border: "0.5px solid hsl(var(--border))",
-                      borderRadius: "8px",
-                      padding: "10px 12px",
-                    }}
-                  >
-                    <span
-                      aria-hidden
-                      style={{ width: 8, height: 8, borderRadius: "50%", background: s.c, marginTop: 5, flexShrink: 0 }}
-                    />
-                    <div>
-                      <p className="font-sans font-semibold uppercase text-foreground" style={{ fontSize: "10px", letterSpacing: "0.06em" }}>
-                        {s.l}
-                      </p>
-                      <p className="mt-0.5 text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.5 }}>
-                        {s.d}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-3 text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.6 }}>
-                FDA registration, 503A designation, and 503B designation alone do not qualify a facility for Greenlisted status. Greenlisted status is earned through successful independent testing activity.
+              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
+                Greenlisted status is not assigned based on FDA registration, 503A designation, or 503B designation alone. It is earned through successful independent testing activity.
               </p>
             </div>
 
