@@ -144,8 +144,8 @@ export const SiteFooter = () => {
         >
           <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
             <p
-              className="font-sans text-[11px]"
-              style={{ color: MUTED }}
+              className="font-sans text-[12px] leading-[1.5]"
+              style={{ color: "rgba(255,255,255,0.48)" }}
             >
               © {now.getFullYear()} Source Standard. All Rights Reserved.
             </p>
@@ -156,17 +156,17 @@ export const SiteFooter = () => {
                 style={{ backgroundColor: "#22C55E" }}
               />
               <span
-                className="font-mono text-[10.5px] uppercase"
-                style={{ color: MUTED, letterSpacing: "0.12em" }}
+              className="font-mono text-[11px] font-medium uppercase"
+                style={{ color: "rgba(255,255,255,0.50)", letterSpacing: "0.08em" }}
               >
                 System Status: Operational
               </span>
-              <span aria-hidden style={{ color: MUTED }}>·</span>
+              <span aria-hidden style={{ color: "rgba(255,255,255,0.40)" }}>·</span>
               <button
                 type="button"
                 onClick={lock}
-                className="font-mono text-[10.5px] uppercase hover:opacity-100 transition-opacity opacity-70"
-                style={{ color: MUTED, letterSpacing: "0.12em" }}
+                className="font-mono text-[11px] font-medium uppercase hover:opacity-100 transition-opacity opacity-70"
+                style={{ color: "rgba(255,255,255,0.50)", letterSpacing: "0.08em" }}
               >
                 Lock
               </button>
@@ -175,7 +175,7 @@ export const SiteFooter = () => {
 
           <p
             className="mt-4 md:mt-5 max-w-[900px] font-sans text-[11px] leading-[1.5] md:leading-[1.65]"
-            style={{ color: MUTED }}
+            style={{ color: "rgba(255,255,255,0.40)" }}
           >
             Source Standard is an independent public-reference and verification
             framework for compounded therapy vendor sourcing claims. Listings
