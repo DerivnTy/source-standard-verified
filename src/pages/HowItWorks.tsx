@@ -7,7 +7,7 @@ import { BriefingHero } from "@/components/BriefingHero";
 const WAYPOINTS = [
   { id: "audit", number: "01", label: "Evidence Review" },
   { id: "surveillance", number: "02", label: "Ongoing Monitoring" },
-  { id: "disclosure", number: "03", label: "Vendor Disclosure" },
+  { id: "disclosure", number: "03", label: "Vendor Responsibilities" },
   { id: "boundaries", number: "04", label: "Boundaries" },
 ];
 
@@ -16,7 +16,7 @@ type Clause = { n: string; t: string; d: string };
 const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Sourcing relationships",
+    t: "Sourcing verification",
     d: "Reviews whether claimed pharmacy or manufacturing relationships are supported by documentation, records, and supporting evidence.",
   },
   {
@@ -31,7 +31,7 @@ const AUDIT_CLAUSES: Clause[] = [
   },
   {
     n: "04",
-    t: "Entity validation",
+    t: "Business verification",
     d: "Confirms consistency between business identity, operating entity information, ownership records, locations, and public-facing representations.",
   },
 ];
@@ -40,7 +40,7 @@ const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Record maintenance",
-    d: "Published records may be reviewed periodically to confirm that documentation, licensure information, and sourcing relationships remain current.",
+    d: "Published records remain subject to ongoing review as new information, documentation, or public-record changes become available.",
   },
   {
     n: "02",
@@ -63,7 +63,7 @@ const DISCLOSURE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Material change reporting",
-    d: "Vendors are expected to disclose sourcing, pharmacy, ownership, operational, or structural changes that materially affect a published record.",
+    d: "Vendors are expected to disclose sourcing, pharmacy, manufacturer, ownership, operational, or structural changes that materially affect a published record.",
   },
   {
     n: "02",
@@ -86,8 +86,8 @@ const BOUNDARIES = [
   "Evaluates whether publicly stated sourcing claims are supported by available evidence and documentation.",
   "Does not provide medical advice, treatment guidance, or clinical recommendations.",
   "Does not evaluate patient outcomes, treatment effectiveness, or biological response.",
-  "Does not certify product potency, sterility, safety, efficacy, or manufacturing quality.",
-  "Does not replace federal, state, pharmacy, or medical regulatory oversight.",
+  "Does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance.",
+  "Does not replace federal, state, or medical regulatory oversight.",
   "Does not endorse, recommend, rank, promote, or market vendors.",
 ];
 
@@ -211,7 +211,7 @@ const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
 
 const HowItWorks = () => {
   const heroDescription =
-    "Independent evaluation of vendor sourcing claims, pharmacy relationships, submitted documentation, public records, and ongoing evidence associated with a vendor record.";
+    "Structured evaluation of vendor sourcing claims through documentation review, pharmacy relationship verification, public-record analysis, and ongoing evidence monitoring.";
 
   return (
     <>
@@ -257,13 +257,13 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Source Standard exists to help the public distinguish between sourcing claims that are supported by evidence and sourcing claims that cannot be independently substantiated.
+                    Source Standard exists to create a clearer public record around compounded therapy sourcing. The Verification Framework evaluates whether vendor sourcing representations are supported by documentation, pharmacy, manufacturer, and sourcing organization relationships, public records, and other reviewable evidence available during the verification process.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Framework evaluates whether publicly stated vendor claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, public records, and related materials available during review.
+                    The Verification Framework evaluates whether publicly stated vendor claims are supported by submitted documentation, pharmacy, manufacturer, and sourcing organization relationship evidence, licensure records, public records, and related materials available during review.
                   </p>
                   <p
                     className="text-muted-foreground"
@@ -311,7 +311,7 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="03"
-                title="Vendor Disclosure"
+                title="Vendor Responsibilities"
                 intro="Responsibilities associated with a published record."
               />
               <ClauseStack clauses={DISCLOSURE_CLAUSES} />
@@ -359,13 +359,13 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Framework establishes a structured method for evaluating sourcing transparency within the compounded therapy market. Its purpose is to create a clearer public record by determining whether vendor claims are supported by evidence that can be reviewed, documented, and maintained over time.
+                    The Verification Framework provides a structured method for evaluating sourcing transparency within the compounded therapy market. By organizing documentation, pharmacy, manufacturer, and sourcing organization relationships, public records, and supporting evidence into a consistent review process, the framework creates a clearer public record for consumers, vendors, and healthcare organizations.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The framework is designed to improve transparency, consistency, and public understanding in a market where sourcing relationships are often difficult for consumers to evaluate independently.
+                    Its purpose is not to certify products or replace regulatory oversight. Its purpose is to establish whether sourcing claims are supported by evidence that can be reviewed, documented, and maintained over time.
                   </p>
                 </div>
               </ProtocolCard>
