@@ -222,7 +222,7 @@ const LibraryPublications = () => {
                       aria-pressed={active}
                       className="inline-flex items-center justify-center font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
                       style={{
-                        fontSize: "9px",
+                        fontSize: "11px",
                         letterSpacing: "0.06em",
                         height: "30px",
                         padding: "0 12px",
@@ -274,7 +274,7 @@ const LibraryPublications = () => {
                     onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
                     className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
                     style={{
-                      fontSize: "9px",
+                      fontSize: "11px",
                       letterSpacing: "0.06em",
                       height: "36px",
                       padding: "0 18px",

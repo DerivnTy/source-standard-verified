@@ -104,7 +104,7 @@ const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
   >
     <p
       className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
     >
       {label}
     </p>
@@ -315,7 +315,7 @@ const GreenlistProfile = () => {
                 <span
                   className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
                   style={{
-                    fontSize: "9px",
+                    fontSize: "11px",
                     letterSpacing: "0.06em",
                     padding: "3px 6px",
                     borderRadius: "3px",
@@ -324,7 +324,7 @@ const GreenlistProfile = () => {
                   {typeBadge}
                 </span>
                 {entry.location && (
-                  <span className="font-sans text-muted-foreground" style={{ fontSize: "9px" }}>
+                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
                     {entry.location}
                   </span>
                 )}
@@ -494,7 +494,7 @@ const GreenlistProfile = () => {
               <Link
                 to="/greenlist"
                 className="inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
-                style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
               >
                 Back to Manufacturer Registry →
               </Link>

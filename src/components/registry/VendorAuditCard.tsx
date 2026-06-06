@@ -28,7 +28,7 @@ const AuditStatusLabel = ({ status }: { status: Vendor["status"] }) => {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.08em] ${tone}`}
+      className={`inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] ${tone}`}
     >
       {isVerified && (
         <svg
@@ -121,7 +121,7 @@ export const VendorAuditCard = ({
         </h3>
         <span
           className="font-mono truncate max-w-[92px] sm:max-w-[180px] leading-none"
-          style={{ fontSize: "9px", color: "#64748B" }}
+          style={{ fontSize: "11px", color: "#64748B" }}
         >
           {location}
         </span>

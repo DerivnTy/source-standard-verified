@@ -145,7 +145,7 @@ export const SiteFooter = () => {
         >
           <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
             <p
-              className="font-sans text-[9px]"
+              className="font-sans text-[11px]"
               style={{ color: MUTED }}
             >
               © {now.getFullYear()} Source Standard. All Rights Reserved.
@@ -175,7 +175,7 @@ export const SiteFooter = () => {
           </div>
 
           <p
-            className="mt-4 md:mt-5 max-w-[900px] font-sans text-[9px] leading-[1.5] md:leading-[1.65]"
+            className="mt-4 md:mt-5 max-w-[900px] font-sans text-[11px] leading-[1.5] md:leading-[1.65]"
             style={{ color: MUTED }}
           >
             Source Standard is an independent public-reference and verification

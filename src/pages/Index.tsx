@@ -75,7 +75,7 @@ const HeroMetrics = () => {
       <span
         className="font-mono uppercase text-white/85"
         style={{
-          fontSize: "9px",
+          fontSize: "11px",
           lineHeight: "14px",
           letterSpacing: "0.16em",
           fontWeight: 500,
@@ -127,7 +127,7 @@ const pillStyle = {
   height: "32px",
   padding: "0 14px",
   borderRadius: "20px",
-  fontSize: "9px",
+  fontSize: "11px",
   letterSpacing: "0.06em",
   borderWidth: "1px",
   borderStyle: "solid" as const,
@@ -549,7 +549,7 @@ const Index = () => {
 
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "9px", letterSpacing: "0.12em", fontWeight: 500 }}
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               01 · Problem
             </p>
@@ -582,7 +582,7 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "9px", letterSpacing: "0.12em", fontWeight: 500 }}
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               02 · Methodology
             </p>
@@ -623,7 +623,7 @@ const Index = () => {
           <div className="w-full max-w-none">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "9px", letterSpacing: "0.12em", fontWeight: 500 }}
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               03 · Registry
             </p>
@@ -658,7 +658,7 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "9px", letterSpacing: "0.12em", fontWeight: 500 }}
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               04 · Fields
             </p>
@@ -702,7 +702,7 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "9px", letterSpacing: "0.12em", fontWeight: 500 }}
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               05 · Function
             </p>
@@ -739,7 +739,7 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "9px", letterSpacing: "0.12em", fontWeight: 500 }}
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               06 · Reference
             </p>
@@ -781,7 +781,7 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "9px", letterSpacing: "0.12em", fontWeight: 500 }}
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               07 · Governance
             </p>

@@ -183,7 +183,7 @@ const TermsRow = ({
       </h3>
       <span
         className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "9px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
       >
         {index} / {total}
       </span>
@@ -212,7 +212,7 @@ const RelatedLinkRow = ({ to, label }: { to: string; label: string }) => (
       </h3>
       <span
         className="shrink-0 inline-flex items-center gap-0.5 font-sans font-semibold uppercase text-primary"
-        style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
       >
         View
         <ChevronRight style={{ width: "12px", height: "12px" }} />

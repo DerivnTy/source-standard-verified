@@ -91,7 +91,7 @@ export const QueryBar = ({
               <SlidersHorizontal className="h-3.5 w-3.5" />
               <span>Filters</span>
               {activeCount > 0 && (
-                <span className="font-mono tabular-nums text-[9px] text-muted-foreground">
+                <span className="font-mono tabular-nums text-[11px] text-muted-foreground">
                   {activeCount}
                 </span>
               )}
@@ -139,7 +139,7 @@ export const QueryBar = ({
           <button
             key={chip.key}
             onClick={chip.onRemove}
-            className="group inline-flex items-center gap-1 h-5 pl-1.5 pr-1 border border-foreground/15 bg-background hover:border-foreground/40 text-[9px] text-foreground rounded-[2px] transition-all"
+            className="group inline-flex items-center gap-1 h-5 pl-1.5 pr-1 border border-foreground/15 bg-background hover:border-foreground/40 text-[11px] text-foreground rounded-[2px] transition-all"
           >
             <span className="truncate max-w-[140px]">{chip.label}</span>
             <X className="h-2.5 w-2.5 text-muted-foreground group-hover:text-foreground" />

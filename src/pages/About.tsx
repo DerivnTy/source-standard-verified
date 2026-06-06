@@ -239,7 +239,7 @@ const AboutLinkRow = ({
       </div>
       <span
         className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity self-center"
-        style={{ fontSize: "9px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
       >
         View
         <ChevronRight aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.5 }} />

@@ -46,7 +46,7 @@ const ViewAllPill = ({
     to={to}
     className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97] hover:bg-[hsl(var(--muted))]/40"
     style={{
-      fontSize: "9px",
+      fontSize: "11px",
       letterSpacing: "0.06em",
       height: "30px",
       padding: "0 12px",
@@ -122,7 +122,7 @@ const ReferenceNote = ({
   children: ReactNode;
 }) => (
   <LibraryCard>
-    <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
       {eyebrow}
     </p>
     <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">
@@ -383,7 +383,7 @@ const Education = () => {
                       aria-pressed={active}
                       className="inline-flex items-center justify-center font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
                       style={{
-                        fontSize: "9px",
+                        fontSize: "11px",
                         letterSpacing: "0.06em",
                         height: "30px",
                         padding: "0 12px",

@@ -349,7 +349,7 @@ const RelatedLinkRow = ({
       </div>
       <span
         className="shrink-0 self-center inline-flex items-center gap-0.5 font-sans font-semibold uppercase text-primary"
-        style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
       >
         View
         <ChevronRight style={{ width: "12px", height: "12px" }} />

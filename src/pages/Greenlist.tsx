@@ -37,7 +37,7 @@ const SoftPill = ({
       fullWidth ? "w-full" : ""
     }`}
     style={{
-      fontSize: "9px",
+      fontSize: "11px",
       letterSpacing: "0.06em",
       height: "32px",
       padding: "0 14px",
@@ -141,7 +141,7 @@ const Greenlist = () => {
             >
               <p
                 className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
               >
                 Greenlisted Status
               </p>
@@ -301,7 +301,7 @@ const Greenlist = () => {
             >
               <p
                 className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
               >
                 Status Definitions
               </p>
@@ -334,7 +334,7 @@ const Greenlist = () => {
                   >
                     <p
                       className="font-sans font-semibold uppercase text-foreground"
-                      style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+                      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
                     >
                       {s.label}
                     </p>

@@ -118,7 +118,7 @@ const SectionHeading = ({ children, action }: { children: ReactNode; action?: Re
   <div className="flex items-center justify-between gap-3">
     <h2
       className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "9px", letterSpacing: "0.1em" }}
+      style={{ fontSize: "11px", letterSpacing: "0.1em" }}
     >
       {children}
     </h2>
@@ -681,7 +681,7 @@ const VendorProfile = () => {
                     </span>
                   )}
                   {vendor.reviewId && (
-                    <span className="font-mono text-muted-foreground" style={{ fontSize: "9px" }}>
+                    <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
                       {vendor.reviewId}
                     </span>
                   )}
@@ -1125,7 +1125,7 @@ const VendorProfile = () => {
                   to={`/apply?claim=${encodeURIComponent(vendor.slug)}`}
                   className="shrink-0 inline-flex items-center justify-center font-sans font-semibold uppercase bg-foreground text-background hover:opacity-90 transition-opacity"
                   style={{
-                    fontSize: "9px",
+                    fontSize: "11px",
                     letterSpacing: "0.08em",
                     padding: "10px 16px",
                     borderRadius: "20px",

@@ -79,7 +79,7 @@ const SoftPill = ({
       fullWidth ? "w-full" : "shrink-0"
     }`}
     style={{
-      fontSize: "9px",
+      fontSize: "11px",
       letterSpacing: "0.06em",
       height: "32px",
       padding: "0 14px",
@@ -365,7 +365,7 @@ const VerifiedVendors = () => {
               <div>
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
                 >
                   Verified vs. Unverified
                 </p>
@@ -392,7 +392,7 @@ const VerifiedVendors = () => {
               >
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
                 >
                   Registry Framework
                 </p>

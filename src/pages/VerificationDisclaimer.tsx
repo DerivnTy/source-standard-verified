@@ -178,7 +178,7 @@ const DisclaimerRow = ({
       </h3>
       <span
         className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "9px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
       >
         {index} / {total}
       </span>

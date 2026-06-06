@@ -94,7 +94,7 @@ export const BoardDefList = ({
             </p>
             <span
               className="shrink-0 font-mono tabular-nums uppercase text-muted-foreground/80"
-              style={{ fontSize: "9px", letterSpacing: "0.06em" }}
+              style={{ fontSize: "11px", letterSpacing: "0.06em" }}
             >
               {index}
             </span>
