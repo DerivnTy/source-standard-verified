@@ -196,41 +196,18 @@ const VerifiedVendors = () => {
         recordCount={vendors.length}
       />
 
-      {/* Search */}
-      <section className="bg-background">
-        <div className="page-shell pt-3 md:pt-4 pb-2">
-          <div className="mx-auto w-wide">
-            <div className="-mx-5 md:mx-0 px-5">
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by vendor name, city, state, or therapy category…"
-                aria-label="Search by vendor name, city, state, or therapy category"
-                className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
-                style={{
-                  height: "40px",
-                  borderRadius: "24px",
-                  backgroundColor: "#FAFAFA",
-                  border: "1px solid #E5E5EA",
-                  paddingLeft: "16px",
-                  paddingRight: "16px",
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Compact stats — secondary to records */}
-      <section className="bg-background">
-        <div className="page-shell pb-2">
+      {/* Floating stats card — bridges navy hero and gray controls */}
+      <section className="bg-background relative">
+        <div className="page-shell">
           <div className="mx-auto w-wide">
             <div className="-mx-5 md:mx-0 px-5">
               <div
                 role="group"
                 aria-label="Registry summary"
-                className="grid grid-cols-2 overflow-hidden bg-white"
+                className="grid grid-cols-2 overflow-hidden bg-white relative z-10"
                 style={{
+                  marginTop: "-30px",
+                  marginBottom: "16px",
                   borderRadius: "10px",
                   border: "1px solid rgba(0,16,33,0.08)",
                 }}
@@ -243,7 +220,7 @@ const VerifiedVendors = () => {
                     key={cell.label}
                     className="flex flex-col items-center justify-center text-center"
                     style={{
-                      padding: "12px 10px",
+                      padding: "14px 10px",
                       borderLeft: idx === 0 ? "none" : "1px solid rgba(0,16,33,0.06)",
                     }}
                   >
