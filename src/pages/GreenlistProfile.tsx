@@ -556,13 +556,10 @@ const GreenlistProfile = () => {
 
 
             {/* SECTION 8 — Registry Framework */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Registry Framework</SectionLabel>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
-                Source Standard maintains records on manufacturers identified within
-                the compounded therapy supply chain. Inclusion in the Manufacturer
-                Registry does not imply endorsement, recommendation, or Greenlisted
-                status.
+            <div className="mt-5 pt-4" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <p className="text-muted-foreground" style={{ fontSize: "10px", lineHeight: 1.55, letterSpacing: "0.01em" }}>
+                <span className="font-semibold uppercase" style={{ letterSpacing: "0.08em" }}>Registry Framework · </span>
+                Source Standard maintains public records on manufacturers identified within the compounded therapy supply chain. Inclusion does not imply endorsement, recommendation, or Greenlisted status.
               </p>
             </div>
 
