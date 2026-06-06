@@ -207,27 +207,38 @@ const VerifiedVendors = () => {
       />
 
       <RegistryHeader
+        compact
         indexNumber="01"
         title="Vendor Registry"
         description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
         recordCount={vendors.length}
       />
 
-      <RegistryHorizon
-        seam
-        cells={[
-          { label: "Total Indexed", value: vendors.length },
-          { label: "States Represented", value: 50 },
-          { label: "Verified Records", value: counts.verified },
-        ]}
-      />
-
+      {/* Registry descriptor + search — surfaced above metrics */}
       <section className="bg-background">
-        <div className="page-shell pb-10 md:pb-10">
+        <div className="page-shell pt-6 md:pt-8 pb-4">
           <div className="mx-auto w-wide">
-            {/* Search + filter rail — anchored in flow, no sticky/blur */}
-            <div className="-mx-5 md:mx-0 px-5 pt-6 pb-3 md:pt-8">
-              {/* Apple-style search pill */}
+            <div className="-mx-5 md:mx-0 px-5">
+              {/* Descriptor */}
+              <div className="mb-4">
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "10.5px", letterSpacing: "0.12em" }}
+                >
+                  Registry Includes
+                </p>
+                <ul
+                  className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-foreground/75"
+                  style={{ fontSize: "12.5px", lineHeight: 1.45 }}
+                >
+                  <li>· Verified organizations</li>
+                  <li>· Organizations under review</li>
+                  <li>· Claimed organizations</li>
+                  <li>· Unclaimed organizations</li>
+                </ul>
+              </div>
+
+              {/* Search */}
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -243,142 +254,235 @@ const VerifiedVendors = () => {
                   paddingRight: "16px",
                 }}
               />
+            </div>
+          </div>
+        </div>
+      </section>
 
-              {/* 2x2 filter grid — Status row + Method row */}
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                {STATUS_PILLS.map((p) => (
-                  <SoftPill
-                    key={`s-${p.value}`}
-                    label={p.label}
-                    active={status === p.value}
-                    fullWidth
-                    onClick={() =>
-                      setStatus((curr) => (curr === p.value ? "any" : p.value))
-                    }
-                  />
-                ))}
-                {DELIVERY_PILLS.map((p) => (
-                  <SoftPill
-                    key={`d-${p.value}`}
-                    label={p.label}
-                    active={delivery === p.value}
-                    fullWidth
-                    onClick={() =>
-                      setDelivery((curr) => (curr === p.value ? "any" : p.value))
-                    }
-                  />
-                ))}
-              </div>
-
-              {/* Vendor focus — single unified container that opens like a folder */}
+      {/* Compact stats — secondary to records */}
+      <section className="bg-background">
+        <div className="page-shell pb-4">
+          <div className="mx-auto w-wide">
+            <div className="-mx-5 md:mx-0 px-5">
               <div
-                className="mt-2 w-full overflow-hidden"
+                role="group"
+                aria-label="Registry summary"
+                className="grid grid-cols-2 overflow-hidden bg-background"
                 style={{
-                  borderRadius: "20px",
-                  border: "1px solid hsl(var(--border) / 0.7)",
-                  backgroundColor: "hsl(var(--muted) / 0.6)",
-                  transition: "background-color 300ms ease-in-out",
+                  borderRadius: "10px",
+                  border: "1px solid rgba(0,16,33,0.08)",
                 }}
               >
-                {/* Header row — stays in place */}
-                <div className="flex w-full items-stretch" style={{ height: "32px" }}>
-                  <button
-                    type="button"
-                    onClick={() => setFocusOpen((o) => !o)}
-                    aria-expanded={focusOpen}
-                    className="flex flex-1 items-center justify-center gap-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] text-[hsl(var(--foreground)/0.75)] transition-colors"
+                {[
+                  { label: "Total Indexed", value: vendors.length },
+                  { label: "States Represented", value: 50 },
+                ].map((cell, idx) => (
+                  <div
+                    key={cell.label}
+                    className="flex flex-col items-center justify-center text-center"
+                    style={{
+                      padding: "12px 10px",
+                      borderLeft: idx === 0 ? "none" : "1px solid rgba(0,16,33,0.06)",
+                    }}
                   >
-                    {focus === "all" ? (
-                      <span>Select Category</span>
-                    ) : (
-                      <>
-                        <span className="opacity-60">Category:</span>
-                        <span>{FOCUS_LABEL[focus]}</span>
-                      </>
-                    )}
-                    <svg
-                      aria-hidden
-                      viewBox="0 0 12 12"
-                      width="10"
-                      height="10"
-                      className="opacity-60"
+                    <span
+                      className="font-sans tabular-nums"
                       style={{
-                        transition: "transform 300ms ease-in-out",
-                        transform: focusOpen ? "rotate(180deg)" : "rotate(0deg)",
+                        fontSize: "20px",
+                        lineHeight: 1,
+                        fontWeight: 600,
+                        letterSpacing: "-0.01em",
+                        color: "#001021",
                       }}
                     >
-                      <path
-                        d="M2.5 4.5L6 8l3.5-3.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
+                      {cell.value.toLocaleString("en-US")}
+                    </span>
+                    <span
+                      style={{
+                        marginTop: "6px",
+                        fontSize: "9.5px",
+                        fontWeight: 600,
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: "rgba(0,16,33,0.55)",
+                      }}
+                    >
+                      {cell.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                  {/* Inline X — collapses + clears */}
-                  {focus !== "all" && (
+      <section className="bg-background">
+        <div className="page-shell pb-10 md:pb-10">
+          <div className="mx-auto w-wide">
+            {/* Grouped filters */}
+            <div className="-mx-5 md:mx-0 px-5 pt-2 pb-3 space-y-4">
+              {/* Verification Status */}
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                >
+                  Verification Status
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {STATUS_PILLS.map((p) => (
+                    <SoftPill
+                      key={`s-${p.value}`}
+                      label={p.label}
+                      active={status === p.value}
+                      fullWidth
+                      onClick={() =>
+                        setStatus((curr) => (curr === p.value ? "any" : p.value))
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Vendor Type */}
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                >
+                  Vendor Type
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {DELIVERY_PILLS.map((p) => (
+                    <SoftPill
+                      key={`d-${p.value}`}
+                      label={p.label}
+                      active={delivery === p.value}
+                      fullWidth
+                      onClick={() =>
+                        setDelivery((curr) => (curr === p.value ? "any" : p.value))
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Category — collapsible folder */}
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                >
+                  Category
+                </p>
+                <div
+                  className="w-full overflow-hidden"
+                  style={{
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--border) / 0.7)",
+                    backgroundColor: "hsl(var(--muted) / 0.6)",
+                    transition: "background-color 300ms ease-in-out",
+                  }}
+                >
+                  <div className="flex w-full items-stretch" style={{ height: "32px" }}>
                     <button
                       type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setFocus("all");
-                        setFocusOpen(false);
-                      }}
-                      aria-label="Clear focus filter"
-                      className="flex shrink-0 items-center justify-center text-[hsl(var(--foreground)/0.6)] transition-colors hover:text-[hsl(var(--foreground))]"
-                      style={{
-                        width: "32px",
-                        borderLeft: "1px solid hsl(var(--border) / 0.7)",
-                      }}
+                      onClick={() => setFocusOpen((o) => !o)}
+                      aria-expanded={focusOpen}
+                      className="flex flex-1 items-center justify-center gap-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] text-[hsl(var(--foreground)/0.75)] transition-colors"
                     >
-                      <svg aria-hidden viewBox="0 0 12 12" width="10" height="10">
+                      {focus === "all" ? (
+                        <span>Select Category</span>
+                      ) : (
+                        <>
+                          <span className="opacity-60">Category:</span>
+                          <span>{FOCUS_LABEL[focus]}</span>
+                        </>
+                      )}
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 12 12"
+                        width="10"
+                        height="10"
+                        className="opacity-60"
+                        style={{
+                          transition: "transform 300ms ease-in-out",
+                          transform: focusOpen ? "rotate(180deg)" : "rotate(0deg)",
+                        }}
+                      >
                         <path
-                          d="M3 3l6 6M9 3l-6 6"
+                          d="M2.5 4.5L6 8l3.5-3.5"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="1.5"
+                          strokeWidth="1.4"
                           strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
                     </button>
-                  )}
-                </div>
 
-                {/* Folder body — animates open */}
-                <div
-                  className="grid"
-                  style={{
-                    gridTemplateRows: focusOpen ? "1fr" : "0fr",
-                    transition: "grid-template-rows 300ms ease-in-out",
-                  }}
-                >
-                  <div className="overflow-hidden">
-                    <div
-                      className="grid grid-cols-2 gap-2 px-2 pb-2 pt-2"
-                      style={{
-                        borderTop: "1px solid hsl(var(--border) / 0.5)",
-                      }}
-                    >
-                      {FOCUS_OPTIONS.map((opt) => (
-                        <SoftPill
-                          key={opt.value}
-                          label={opt.label}
-                          active={focus === opt.value}
-                          fullWidth
-                          onClick={() => {
-                            setFocus(opt.value);
-                            setFocusOpen(false);
-                          }}
-                        />
-                      ))}
+                    {focus !== "all" && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFocus("all");
+                          setFocusOpen(false);
+                        }}
+                        aria-label="Clear focus filter"
+                        className="flex shrink-0 items-center justify-center text-[hsl(var(--foreground)/0.6)] transition-colors hover:text-[hsl(var(--foreground))]"
+                        style={{
+                          width: "32px",
+                          borderLeft: "1px solid hsl(var(--border) / 0.7)",
+                        }}
+                      >
+                        <svg aria-hidden viewBox="0 0 12 12" width="10" height="10">
+                          <path
+                            d="M3 3l6 6M9 3l-6 6"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+
+                  <div
+                    className="grid"
+                    style={{
+                      gridTemplateRows: focusOpen ? "1fr" : "0fr",
+                      transition: "grid-template-rows 300ms ease-in-out",
+                    }}
+                  >
+                    <div className="overflow-hidden">
+                      <div
+                        className="grid grid-cols-2 gap-2 px-2 pb-2 pt-2"
+                        style={{
+                          borderTop: "1px solid hsl(var(--border) / 0.5)",
+                        }}
+                      >
+                        {FOCUS_OPTIONS.map((opt) => (
+                          <SoftPill
+                            key={opt.value}
+                            label={opt.label}
+                            active={focus === opt.value}
+                            fullWidth
+                            onClick={() => {
+                              setFocus(opt.value);
+                              setFocusOpen(false);
+                            }}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
 
             {/* Result list */}
             <div key={fadeKey} className="mt-4 animate-fade-in">
