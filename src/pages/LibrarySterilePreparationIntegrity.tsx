@@ -32,7 +32,7 @@ const LibrarySterilePreparationIntegrity = () => {
           A compounded medication can move from an active pharmaceutical ingredient supplier to a compounding facility, then to a dispensing pharmacy, and finally to the vendor that the consumer sees. Each step represents a different organization with its own records, standards, and regulatory classification.
         </p>
         <p>
-          Because consumers typically see only the final vendor, understanding what happens upstream is not always straightforward. Source Standard exists to help bridge that gap by organizing public records and evaluating sourcing claims across the full chain.
+          Because consumers typically see only the final vendor, understanding what happens upstream is not always straightforward. Source Standard helps create greater transparency by organizing facility records, sourcing claims, documentation, and public-reference information into a structured review framework.
         </p>
       </ArticleSection>
 
