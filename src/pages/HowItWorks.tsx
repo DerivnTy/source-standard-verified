@@ -124,22 +124,37 @@ const ProtocolRow = ({
   description: string;
 }) => (
   <div
-    className="bg-card"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "12px",
-      padding: "14px 16px",
+      backgroundColor: "#FFFFFF",
+      border: "1px solid rgba(0,0,0,0.08)",
+      borderRadius: "18px",
+      padding: "24px",
     }}
   >
-    <div className="flex items-baseline justify-between gap-4">
-      <p className="t-body-md font-semibold text-foreground">{title}</p>
-      <span className="font-mono text-[11px] tabular-nums text-muted-foreground/70 shrink-0">
+    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+      <h3
+        className="font-sans text-foreground"
+        style={{ fontSize: "20px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+      >
+        {title}
+      </h3>
+      <span
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.04em",
+          color: "rgba(0,0,0,0.40)",
+          whiteSpace: "nowrap",
+          marginTop: "4px",
+        }}
+      >
         {index} / {total}
       </span>
     </div>
     <p
-      className="mt-1.5 text-muted-foreground"
-      style={{ fontSize: "13px", lineHeight: 1.55 }}
+      className="text-muted-foreground"
+      style={{ marginTop: "12px", fontSize: "17px", fontWeight: 400, lineHeight: 1.75 }}
     >
       {description}
     </p>
@@ -148,23 +163,33 @@ const ProtocolRow = ({
 
 const BoundaryRow = ({ index, text }: { index: string; text: string }) => (
   <div
-    className="bg-card"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "12px",
-      padding: "12px 14px",
+      backgroundColor: "#FFFFFF",
+      border: "1px solid rgba(0,0,0,0.08)",
+      borderRadius: "14px",
+      padding: "16px 18px",
     }}
   >
-    <div className="flex items-baseline gap-3">
-      <span className="font-mono text-[10px] tabular-nums text-muted-foreground/60 shrink-0">
-        {index}
-      </span>
+    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <p
         className="text-foreground"
-        style={{ fontSize: "13px", lineHeight: 1.5 }}
+        style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.55 }}
       >
         {text}
       </p>
+      <span
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.04em",
+          color: "rgba(0,0,0,0.40)",
+          whiteSpace: "nowrap",
+          marginTop: "1px",
+        }}
+      >
+        {index}
+      </span>
     </div>
   </div>
 );
