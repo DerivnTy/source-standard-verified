@@ -195,11 +195,11 @@ export const BriefingHero = ({
             <div className="col-span-12 md:col-span-7">
               <h1
                 id="briefing-title"
-                className="text-foreground t-chapter-title max-w-[22ch]"
+                className="ss-hero-title text-foreground !mt-0 max-w-[22ch]"
               >
                 {title}
               </h1>
-              <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">
+              <p className="ss-lead max-w-[68ch]">
                 {statement}
               </p>
               {rationale && (
@@ -217,16 +217,17 @@ export const BriefingHero = ({
           <div className="w-hero">
             <h1
               id="briefing-title"
-              className="text-foreground t-chapter-title max-w-[22ch]"
+              className="ss-hero-title text-foreground !mt-0 max-w-[22ch]"
             >
               {title}
             </h1>
-            <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">
+            <p className="ss-lead max-w-[68ch]">
               {statement}
             </p>
           </div>
         </div>
       )}
+
     </section>
   );
 };
