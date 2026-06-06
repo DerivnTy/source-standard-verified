@@ -160,7 +160,7 @@ const MedicalAdvisory = () => {
 
       <PageMeta
         title="Clinical Oversight · Source Standard"
-        description="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education."
+        description="Independent medical, pharmacy, legal, and procedural advisors supporting the integrity, neutrality, and evidentiary standards of the Source Standard framework."
       />
 
       {/* §1 Hero — restrained */}
@@ -169,7 +169,7 @@ const MedicalAdvisory = () => {
         variant="chapter"
         category="Medical Advisory Board"
         title="Clinical Oversight"
-        statement="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education. It does not treat patients, market vendors, approve vendors, or participate in promotional activity."
+        statement="Independent medical, pharmacy, legal, and procedural advisors supporting the integrity, neutrality, and evidentiary standards of the Source Standard framework."
         docId=""
       />
 
@@ -179,10 +179,17 @@ const MedicalAdvisory = () => {
           <div className="mx-auto w-standard">
             <div>
               <GovCard>
-                <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
-                <div className="mt-4">
+                <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">Purpose</p>
+                <h2 className="mt-2 t-section-title-sm text-foreground">Why Clinical Oversight exists</h2>
+                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    The Advisory Board supports the neutrality and procedural discipline of the Source Standard framework, providing advisory input on review standards, documentation boundaries, and public language used across the registry. It does not represent vendors or pharmacy partners, and does not make individual vendor status determinations — it serves as an independent advisory layer for the standards behind the public reference system.
+                    Source Standard operates within a complex environment involving healthcare providers, pharmacies, manufacturers, regulators, and consumers. Maintaining public trust requires clear boundaries, consistent standards, and independent review of the framework itself.
+                  </p>
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    Clinical Oversight exists to support the integrity of the standards behind the registry. It provides independent advisory input on framework design, evidence categories, review procedures, public language, and governance practices used throughout the system.
+                  </p>
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    Its responsibility is not to determine which vendors succeed or fail. Its responsibility is to help ensure that the framework itself remains consistent, neutral, and evidence-driven.
                   </p>
                 </div>
               </GovCard>
