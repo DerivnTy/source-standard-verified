@@ -571,47 +571,46 @@ const VendorProfile = () => {
               <div
                 className="relative w-full overflow-hidden"
                 style={{
-                  height: "96px",
+                  height: "72px",
                   background: `center / cover no-repeat url(${vendor.coverImageUrl})`,
                   borderBottom: "0.5px solid hsl(var(--border))",
                 }}
               />
             )}
 
-            {/* Identity body */}
-            <div style={{ padding: "20px" }}>
+            {/* Identity body — compressed */}
+            <div style={{ padding: "14px 16px 12px" }}>
               <div
-                className="flex items-start gap-4"
-                style={vendor.coverImageUrl ? { marginTop: "-36px" } : undefined}
+                className="flex items-start gap-3"
+                style={vendor.coverImageUrl ? { marginTop: "-28px" } : undefined}
               >
                 <div
                   style={
                     vendor.coverImageUrl
-                      ? { boxShadow: "0 0 0 4px hsl(var(--card))", borderRadius: "12px" }
+                      ? { boxShadow: "0 0 0 3px hsl(var(--card))", borderRadius: "10px" }
                       : undefined
                   }
                 >
-                  <LogoBlock vendor={vendor} size={56} />
+                  <LogoBlock vendor={vendor} size={48} />
                 </div>
                 <div
                   className="min-w-0 flex-1"
-                  style={vendor.coverImageUrl ? { paddingTop: "40px" } : { paddingTop: "4px" }}
+                  style={vendor.coverImageUrl ? { paddingTop: "32px" } : { paddingTop: "2px" }}
                 >
                   <StatusPill />
                 </div>
               </div>
 
-
               {/* Name */}
               <h1
-                className="mt-3 font-sans font-semibold text-foreground"
-                style={{ fontSize: "22px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                className="mt-2 font-sans font-semibold text-foreground"
+                style={{ fontSize: "20px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
               >
                 {vendor.name}
               </h1>
 
               {/* Meta row */}
-              <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
                 {vendor.category && (
                   <span
                     className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
@@ -641,61 +640,193 @@ const VendorProfile = () => {
                 )}
               </div>
 
-              {/* Social icon row */}
-              {(vendor.website || phoneHref || emailHref || ig || fb || li || yt || mapsHref) && (
-                <div className="mt-4 flex flex-wrap items-center gap-2">
+              {/* Contact row — website / phone / email / maps */}
+              {(vendor.website || phoneHref || emailHref || mapsHref) && (
+                <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                   {vendor.website && (
                     <SocialIconBtn href={vendor.website} label={`Website: ${hostname(vendor.website)}`}>
-                      <Globe size={15} strokeWidth={1.5} />
+                      <Globe size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                   {phoneHref && (
                     <SocialIconBtn href={phoneHref} label={`Call ${vendor.phone}`}>
-                      <Phone size={15} strokeWidth={1.5} />
+                      <Phone size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                   {emailHref && (
                     <SocialIconBtn href={emailHref} label={`Email ${vendor.email}`}>
-                      <Mail size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {ig && (
-                    <SocialIconBtn href={ig} label="Instagram">
-                      <Instagram size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {fb && (
-                    <SocialIconBtn href={fb} label="Facebook">
-                      <Facebook size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {li && (
-                    <SocialIconBtn href={li} label="LinkedIn">
-                      <Linkedin size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {yt && (
-                    <SocialIconBtn href={yt} label="YouTube">
-                      <Youtube size={15} strokeWidth={1.5} />
+                      <Mail size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                   {mapsHref && (
                     <SocialIconBtn href={mapsHref} label="View on Google Maps">
-                      <MapPin size={15} strokeWidth={1.5} />
+                      <MapPin size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                 </div>
               )}
 
+              {/* Social profiles — always rendered; reinforces claimed vs unclaimed */}
+              <div className="mt-2.5 flex items-center gap-2">
+                <span
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "9.5px", letterSpacing: "0.1em" }}
+                >
+                  Social
+                </span>
+                {ig || fb || li || yt ? (
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {ig && (
+                      <SocialIconBtn href={ig} label="Instagram">
+                        <Instagram size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                    {fb && (
+                      <SocialIconBtn href={fb} label="Facebook">
+                        <Facebook size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                    {li && (
+                      <SocialIconBtn href={li} label="LinkedIn">
+                        <Linkedin size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                    {yt && (
+                      <SocialIconBtn href={yt} label="YouTube">
+                        <Youtube size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                  </div>
+                ) : (
+                  <span
+                    className="italic text-muted-foreground/70"
+                    style={{ fontSize: "11.5px" }}
+                  >
+                    Information Not Submitted
+                  </span>
+                )}
+              </div>
+
               {/* Fulfillment chips */}
-              <div className="mt-4 flex flex-wrap items-center gap-2">
+              <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                 <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
                 <FulfillmentChip active={isOnline || isHybrid} label="Telehealth" />
               </div>
             </div>
           </article>
 
-          {/* ────── 2. SERVICE BADGES HERO STRIP ────── */}
+
+          {/* ────── 2. VERIFICATION RECORD (placed directly under identity) ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading>Verification Record</SectionHeading>
+
+            {/* Compact summary */}
+            <div className="mt-3 flex items-start gap-3">
+              <Star size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
+              <div className="min-w-0">
+                <p className="font-sans font-semibold text-foreground" style={{ fontSize: "13.5px" }}>
+                  Verification Status: {VENDOR_STATUS_LABEL[status]}
+                </p>
+                <p
+                  className="mt-1 text-muted-foreground"
+                  style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                >
+                  {isVerified
+                    ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
+                    : status === "under-review"
+                    ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
+                    : "No verification review has been completed within the Source Standard framework."}
+                </p>
+              </div>
+            </div>
+
+            {/* Expandable detail */}
+            <button
+              type="button"
+              onClick={() => setVerificationOpen((o) => !o)}
+              aria-expanded={verificationOpen}
+              className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+              style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
+            >
+              {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
+              <ChevronDown
+                size={12}
+                strokeWidth={1.5}
+                style={{
+                  transition: "transform 250ms ease-out",
+                  transform: verificationOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              />
+            </button>
+
+            <div
+              className="grid"
+              style={{
+                gridTemplateRows: verificationOpen ? "1fr" : "0fr",
+                transition: "grid-template-rows 300ms ease-out",
+              }}
+            >
+              <div className="overflow-hidden">
+                <div
+                  className="mt-4 pt-4"
+                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                >
+                  <dl
+                    className="grid grid-cols-2"
+                    style={{ columnGap: "20px", rowGap: "16px" }}
+                  >
+                    <Cell label="Status" value={VENDOR_STATUS_LABEL[status]} />
+                    <Cell label="Source Type" value={isVerified ? "503A / 503B / Retail" : undefined} />
+                    <Cell label="Review ID" value={isVerified ? vendor.reviewId : undefined} mono />
+                    <Cell label="Verification Date" value={isVerified ? vendor.reviewDate : undefined} mono />
+                    <Cell
+                      label="Audit Date"
+                      value={isVerified ? vendor.scopeReviewDate || vendor.reviewDate : undefined}
+                      mono
+                    />
+                    <Cell label="Fulfillment" value={VENDOR_FULFILLMENT_LABEL[fulfillment]} />
+                    <Cell
+                      label="Verified Scope"
+                      value={isVerified && hasScope ? scopeCompounds.join(" · ") : undefined}
+                    />
+                    <Cell
+                      label="Documentation Reviewed"
+                      value={
+                        isVerified && vendor.documentation?.length
+                          ? vendor.documentation
+                              .filter((d) => d.status !== "Not provided")
+                              .map((d) => d.label)
+                              .join(" · ")
+                          : undefined
+                      }
+                    />
+                  </dl>
+
+                  <div
+                    className="mt-5 pt-5"
+                    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                  >
+                    <Eyebrow>Review Boundary</Eyebrow>
+                    <p
+                      className="mt-2"
+                      style={{
+                        fontSize: "12.5px",
+                        lineHeight: 1.55,
+                        color: "rgba(0,16,33,0.6)",
+                      }}
+                    >
+                      Verification status reflects only documentation reviewed by Source Standard
+                      within its registry framework. Unverified status does not imply that a vendor
+                      is unsafe, unlawful, fraudulent, or clinically inappropriate.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          {/* ────── 3. SERVICE BADGES HERO STRIP ────── */}
+
           {serviceBadges.length > 0 && (
             <article className="mt-4" style={CARD}>
               <SectionHeading>Services &amp; Clinical Focus</SectionHeading>
@@ -974,123 +1105,8 @@ const VendorProfile = () => {
             </article>
           )}
 
-          {/* ────── 9. VERIFICATION RECORD (compact for unverified) ────── */}
-          <article className="mt-4" style={CARD}>
-            <SectionHeading
-              action={
-                !isVerified ? null : null
-              }
-            >
-              Verification Record
-            </SectionHeading>
 
-            {/* Compact summary */}
-            <div className="mt-3 flex items-start gap-3">
-              <Star size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
-              <div className="min-w-0">
-                <p className="font-sans font-semibold text-foreground" style={{ fontSize: "13.5px" }}>
-                  Verification Status: {VENDOR_STATUS_LABEL[status]}
-                </p>
-                <p
-                  className="mt-1 text-muted-foreground"
-                  style={{ fontSize: "12.5px", lineHeight: 1.55 }}
-                >
-                  {isVerified
-                    ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
-                    : status === "under-review"
-                    ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
-                    : "No verification review has been completed within the Source Standard framework."}
-                </p>
-              </div>
-            </div>
 
-            {/* Expandable detail */}
-            <button
-              type="button"
-              onClick={() => setVerificationOpen((o) => !o)}
-              aria-expanded={verificationOpen}
-              className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
-              style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
-            >
-              {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
-              <ChevronDown
-                size={12}
-                strokeWidth={1.5}
-                style={{
-                  transition: "transform 250ms ease-out",
-                  transform: verificationOpen ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            </button>
-
-            <div
-              className="grid"
-              style={{
-                gridTemplateRows: verificationOpen ? "1fr" : "0fr",
-                transition: "grid-template-rows 300ms ease-out",
-              }}
-            >
-              <div className="overflow-hidden">
-                <div
-                  className="mt-4 pt-4"
-                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-                >
-                  <dl
-                    className="grid grid-cols-2"
-                    style={{ columnGap: "20px", rowGap: "16px" }}
-                  >
-                    <Cell label="Status" value={VENDOR_STATUS_LABEL[status]} />
-                    <Cell label="Source Type" value={isVerified ? "503A / 503B / Retail" : undefined} />
-                    <Cell label="Review ID" value={isVerified ? vendor.reviewId : undefined} mono />
-                    <Cell label="Verification Date" value={isVerified ? vendor.reviewDate : undefined} mono />
-                    <Cell
-                      label="Audit Date"
-                      value={isVerified ? vendor.scopeReviewDate || vendor.reviewDate : undefined}
-                      mono
-                    />
-                    <Cell
-                      label="Fulfillment"
-                      value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
-                    />
-                    <Cell
-                      label="Verified Scope"
-                      value={isVerified && hasScope ? scopeCompounds.join(" · ") : undefined}
-                    />
-                    <Cell
-                      label="Documentation Reviewed"
-                      value={
-                        isVerified && vendor.documentation?.length
-                          ? vendor.documentation
-                              .filter((d) => d.status !== "Not provided")
-                              .map((d) => d.label)
-                              .join(" · ")
-                          : undefined
-                      }
-                    />
-                  </dl>
-
-                  <div
-                    className="mt-5 pt-5"
-                    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-                  >
-                    <Eyebrow>Review Boundary</Eyebrow>
-                    <p
-                      className="mt-2"
-                      style={{
-                        fontSize: "12.5px",
-                        lineHeight: 1.55,
-                        color: "rgba(0,16,33,0.6)",
-                      }}
-                    >
-                      Verification status reflects only documentation reviewed by Source Standard
-                      within its registry framework. Unverified status does not imply that a vendor
-                      is unsafe, unlawful, fraudulent, or clinically inappropriate.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
 
           {/* ────── 10. CLAIM PROFILE ────── */}
           {!claimed && (
@@ -1101,15 +1117,21 @@ const VendorProfile = () => {
                 background: "hsl(var(--muted) / 0.4)",
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="min-w-0">
                   <Eyebrow>Unclaimed Listing</Eyebrow>
                   <p
-                    className="mt-2 text-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+                    className="mt-2 font-sans font-semibold text-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.5 }}
                   >
-                    Represent this clinic? Claim the profile to add a logo, provider information,
-                    services, social links, and begin verification.
+                    This organization has not yet participated in the Source Standard review process.
+                  </p>
+                  <p
+                    className="mt-2 text-muted-foreground"
+                    style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                  >
+                    Claim and complete this profile to add provider information, clinical leadership,
+                    social profiles, service details, and begin the Source Standard review process.
                   </p>
                 </div>
                 <Link
@@ -1125,6 +1147,7 @@ const VendorProfile = () => {
                   Claim This Profile
                 </Link>
               </div>
+
             </article>
           )}
         </div>
