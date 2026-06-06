@@ -428,6 +428,12 @@ const VerifiedVendors = () => {
 
             {/* Search — final filter, adjacent to record list */}
             <div className="-mx-5 md:mx-0 px-5 pt-2 pb-1">
+              <p
+                className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+              >
+                Search
+              </p>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
