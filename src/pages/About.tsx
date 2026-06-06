@@ -263,14 +263,14 @@ const SectionHeader = ({
 
 const About = () => {
   const heroDescription =
-    "Source Standard exists to make vendor sourcing claims easier to interpret through submitted records, public documentation, structured review, and status-based registry standards.";
+    "Source Standard is an independent verification and public-reference organization focused on sourcing transparency within the compounded therapy market.";
 
   return (
     <>
       <Breadcrumb items={[{ label: "About" }]} />
 
       <PageMeta
-        title="About"
+        title="About Source Standard"
         description={heroDescription}
         path="/about"
         jsonLd={{
@@ -286,7 +286,7 @@ const About = () => {
         tone="navy"
         variant="chapter"
         category="Organization & Mandate"
-        title="About Us"
+        title="About Source Standard"
         statement={heroDescription}
         docId=""
       />
