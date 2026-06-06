@@ -97,12 +97,9 @@ const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolea
 
 const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
   <div
-    className="bg-background"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "8px",
-      padding: "12px 14px",
-      minHeight: "62px",
+      borderTop: "0.5px solid hsl(var(--border))",
+      padding: "10px 0 4px",
     }}
   >
     <p
@@ -112,7 +109,7 @@ const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
       {label}
     </p>
     <div
-      className="mt-1.5 font-sans font-medium text-foreground"
+      className="mt-1 font-sans text-foreground"
       style={{ fontSize: "12px", lineHeight: 1.4, wordBreak: "break-word" }}
     >
       {value}
