@@ -24,27 +24,26 @@ const columns: Column[] = [
   {
     title: "Standards",
     links: [
-      { to: "/how-it-works", label: "Verification Protocol" },
+      { to: "/how-it-works", label: "Verification Framework" },
       { to: "/status-definitions", label: "Status Definitions" },
       { to: "/accountability", label: "Compliance" },
+      { to: "/medical-advisory", label: "Advisory Board" },
     ],
   },
   {
     title: "Resource Library",
     links: [
       { to: "/education", label: "Resource Library" },
-      { to: "/education#regulation", label: "Regulation" },
-      { to: "/education#clinical", label: "Clinical" },
-      { to: "/education#consumer", label: "Consumer Due Diligence" },
+      { to: "/library/publications", label: "Publications" },
       { to: "/education#common-inquiries", label: "Common Inquiries" },
     ],
   },
   {
-    title: "Governance",
+    title: "Company",
     links: [
-      { to: "/medical-advisory", label: "Advisory Board" },
-      { to: "/terms", label: "Terms" },
+      { to: "/about", label: "About Source Standard" },
       { to: "/privacy", label: "Privacy" },
+      { to: "/terms", label: "Terms" },
       { to: "/verification-disclaimer", label: "Disclaimer" },
     ],
   },
