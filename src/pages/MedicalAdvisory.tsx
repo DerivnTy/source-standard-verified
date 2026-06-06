@@ -352,11 +352,8 @@ const MedicalAdvisory = () => {
 
             {/* §7 Scope & boundaries */}
             <section id="scope" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
-              <SectionIndex n="04" />
               <div className="max-w-2xl mb-6">
-                <h2 className="t-section-title-sm text-foreground">
-                  Scope & Boundaries
-                </h2>
+                <SectionHeadingInline n="04" title="Scope & Boundaries" />
                 <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
                   What Clinical Oversight does and does not do.
                 </p>
