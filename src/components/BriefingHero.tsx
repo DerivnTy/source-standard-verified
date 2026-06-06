@@ -33,6 +33,8 @@ export interface BriefingHeroProps {
   variant?: "cover" | "chapter";
   /** Large brand/identity word displayed above the H1. Cover variant only. */
   brandMark?: string;
+  /** Optional logo/image rendered above the title. Cover variant only. */
+  heroLogo?: ReactNode;
   actions?: ReactNode;
   /** Optional metrics row rendered between the statement and the actions (cover variant). */
   heroMetrics?: ReactNode;
