@@ -442,7 +442,7 @@ const Index = () => {
           }
 
           /* Section rhythm — bump padding and headings on every home section */
-          .home-section { padding-top: 80px !important; padding-bottom: 80px !important; }
+          .home-section { padding-top: 52px !important; padding-bottom: 52px !important; }
           .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; }
           .home-section .home-h2 {
             font-size: 36px !important;
@@ -541,7 +541,7 @@ const Index = () => {
       <section
         aria-labelledby="trust-problem"
         className="home-section bg-background border-b border-border text-left"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="w-full px-5 md:px-8 lg:px-12">
           <div className="w-full max-w-none">
@@ -575,7 +575,7 @@ const Index = () => {
       <section
         aria-labelledby="how-it-works"
         className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -616,7 +616,7 @@ const Index = () => {
       <section
         aria-labelledby="live-registry"
         className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="w-full px-5 md:px-8 lg:px-12">
           <div className="w-full max-w-none">
@@ -651,7 +651,7 @@ const Index = () => {
       <section
         aria-labelledby="registry-shows"
         className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -695,7 +695,7 @@ const Index = () => {
       <section
         aria-labelledby="why-matters"
         className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -732,7 +732,7 @@ const Index = () => {
       <section
         aria-labelledby="basics"
         className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -774,7 +774,7 @@ const Index = () => {
       <section
         aria-labelledby="governance"
         className="home-section border-b border-border bg-background"
-        style={{ paddingTop: "36px", paddingBottom: "36px" }}
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-standard">
