@@ -10,55 +10,105 @@ const WAYPOINTS = [
   { id: "context", number: "01", label: "Context" },
   { id: "boundaries", number: "02", label: "Boundaries" },
   { id: "objectives", number: "03", label: "Objectives" },
-  { id: "scope", number: "04", label: "Scope" },
-  { id: "related", number: "05", label: "Related Pages" },
+  { id: "scope", number: "04", label: "Components" },
+  { id: "principles", number: "05", label: "Principles" },
 ];
 
 type Clause = { t: string; d: string };
 
-const OBJECTIVES: Clause[] = [
+const CONTEXT: Clause[] = [
   {
-    t: "For Consumers",
-    d: "Providing a structured public reference so vendor sourcing claims can be evaluated through documentation status, review scope, and last-reviewed dates.",
+    t: "Information asymmetry",
+    d: "Consumers often have less information than vendors regarding sourcing relationships, pharmacy partners, and supply-chain practices.",
   },
   {
-    t: "For Vendors",
-    d: "Providing a documentation-based review pathway for vendors that want their sourcing claims evaluated within a defined public-reference framework.",
+    t: "Verification challenges",
+    d: "Many sourcing claims are difficult for the public to independently confirm through available records alone.",
+  },
+  {
+    t: "Documentation complexity",
+    d: "Licensure records, pharmacy relationships, supply-chain documentation, and public records are often fragmented across multiple sources.",
+  },
+  {
+    t: "Transparency gap",
+    d: "The framework exists to create a clearer connection between public claims and supporting evidence.",
+  },
+];
+
+const BOUNDARIES: Clause[] = [
+  {
+    t: "Medical advice",
+    d: "Does not diagnose, treat, recommend therapies, or provide individualized medical guidance.",
+  },
+  {
+    t: "Regulatory authority",
+    d: "Does not replace federal, state, pharmacy, or medical regulatory oversight.",
+  },
+  {
+    t: "Commercial endorsement",
+    d: "Does not market, promote, rank, endorse, or recommend vendors.",
+  },
+  {
+    t: "Product certification",
+    d: "Does not certify product safety, potency, sterility, efficacy, manufacturing quality, or clinical performance.",
+  },
+  {
+    t: "Clinical outcomes",
+    d: "Does not evaluate patient outcomes or treatment effectiveness.",
+  },
+];
+
+const OBJECTIVES: Clause[] = [
+  {
+    t: "Consumers",
+    d: "Provides a structured public-reference system for evaluating sourcing claims through documented evidence, review status, and review history.",
+  },
+  {
+    t: "Providers",
+    d: "Provides transparency regarding sourcing relationships and documentation standards used throughout the framework.",
+  },
+  {
+    t: "Industry",
+    d: "Supports greater consistency, accountability, and transparency within compounded therapy supply chains.",
   },
 ];
 
 const SCOPE: Clause[] = [
   {
-    t: "Vendor registry",
-    d: "Maintenance of a public registry containing verified, unverified, under-review, suspended, and removed vendor records.",
+    t: "Vendor Registry",
+    d: "Maintains public records relating to vendor sourcing transparency, review status, and supporting documentation.",
   },
   {
-    t: "Upstream registry",
-    d: "Publication of upstream facility records used as reference points during vendor sourcing review.",
+    t: "Facility Registry",
+    d: "Maintains reference records relating to manufacturers, compounding facilities, and upstream supply-chain participants.",
   },
   {
-    t: "Educational reference",
-    d: "Publication of educational material covering sourcing claims, pharmacy categories, public records, documentation boundaries, and consumer due diligence.",
+    t: "Verification Framework",
+    d: "Publishes the standards, review procedures, evidence requirements, and status criteria used throughout the system.",
   },
   {
-    t: "Status maintenance",
-    d: "Periodic review of vendor records, documentation status, review scope, and public-facing status definitions within the limits of the framework.",
+    t: "Educational Resources",
+    d: "Provides public-reference materials explaining sourcing claims, documentation standards, registry terminology, and framework limitations.",
   },
 ];
 
-const BOUNDARIES = [
-  "Source Standard does not provide medical advice or prescribe treatment protocols.",
-  "It does not substitute for physician judgment or federal or state regulatory oversight.",
-  "It does not function as a marketing partner or promotional arm for any vendor.",
-  "It does not guarantee clinical outcomes, treatment effectiveness, biological response, product quality, potency, sterility, or individual product safety.",
-  "Its mandate is limited to documentation review, sourcing-claim review, public-record organization, and status-based registry publication.",
-];
-
-const RELATED = [
-  { to: "/governance", label: "Governance & Oversight", desc: "Advisory oversight, review boundaries, and framework discipline." },
-  { to: "/how-it-works", label: "Verification Protocol", desc: "Documentation review, monitoring, disclosure, and status-response process." },
-  { to: "/status-definitions", label: "Status Definitions", desc: "Definitions for every public registry status." },
-  { to: "/accountability", label: "Compliance", desc: "Legal posture, operating boundaries, and public-reference limitations." },
+const PRINCIPLES: Clause[] = [
+  {
+    t: "Evidence before claims",
+    d: "Public claims should be evaluated against supporting evidence whenever possible.",
+  },
+  {
+    t: "Transparency over promotion",
+    d: "The framework exists to increase transparency, not to market vendors.",
+  },
+  {
+    t: "Consistency over discretion",
+    d: "Status determinations are governed by defined standards and review procedures.",
+  },
+  {
+    t: "Public clarity",
+    d: "Information should be organized in a way that is understandable, reviewable, and accessible to the public.",
+  },
 ];
 
 /* ------------------------------ Local primitives ------------------------------ */
