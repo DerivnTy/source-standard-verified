@@ -143,7 +143,7 @@ const BOUNDARIES = [
   "The Board supports the standards behind public determinations.",
   "The Board does not evaluate or treat patients.",
   "The Board does not provide individualized medical advice through Source Standard.",
-  "The Board does not approve vendors, clinics, pharmacies, or products.",
+  "The Board does not approve vendors, pharmacies, or products.",
   "The Board does not make individual vendor status determinations.",
   "The Board does not participate in sales, marketing, or promotional activity.",
 ];
