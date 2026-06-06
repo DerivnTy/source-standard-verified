@@ -442,18 +442,19 @@ const Index = () => {
           }
 
           /* Section rhythm — bump padding and headings on every home section */
-          .home-section { padding-top: 52px !important; padding-bottom: 52px !important; }
-          .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; }
+          .home-section { padding-top: 56px !important; padding-bottom: 56px !important; }
+          .home-section .home-eyebrow { font-size: 12px !important; letter-spacing: 0.12em !important; font-weight: 500 !important; }
           .home-section .home-h2 {
             font-size: 36px !important;
             line-height: 1.15 !important;
-            letter-spacing: -0.018em !important;
+            letter-spacing: -0.02em !important;
+            font-weight: 700 !important;
             margin-top: 14px !important;
           }
           .home-section .home-lead {
-            font-size: 16px !important;
-            line-height: 1.7 !important;
-            margin-top: 18px !important;
+            font-size: 19px !important;
+            line-height: 1.6 !important;
+            margin-top: 20px !important;
             max-width: 68ch !important;
           }
           .home-section .home-lead-pill {
@@ -465,15 +466,15 @@ const Index = () => {
             max-width: none !important;
             margin-left: -18px !important;
             margin-right: -18px !important;
-            padding: 8px 18px 12px !important;
+            padding: 12px 22px 16px !important;
           }
           .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
           .home-section .home-cta { margin-top: 28px !important; }
 
-          /* DataStrip cards — slightly larger type and padding on desktop */
-          .home-section .home-grid > * { padding: 22px 24px !important; }
-          .home-section .home-grid h3 { font-size: 15px !important; line-height: 1.4 !important; }
-          .home-section .home-grid p { font-size: 14px !important; line-height: 1.6 !important; margin-top: 8px !important; }
+          /* DataStrip cards — larger institutional type on desktop */
+          .home-section .home-grid > * { padding: 24px 26px !important; }
+          .home-section .home-grid h3 { font-size: 22px !important; line-height: 1.3 !important; }
+          .home-section .home-grid p { font-size: 17px !important; line-height: 1.75 !important; margin-top: 10px !important; }
         }
 
         @media (min-width: 1280px) {
