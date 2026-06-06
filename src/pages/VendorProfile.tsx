@@ -716,7 +716,117 @@ const VendorProfile = () => {
           </article>
 
 
-          {/* ────── 2. SERVICE BADGES HERO STRIP ────── */}
+          {/* ────── 2. VERIFICATION RECORD (placed directly under identity) ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading>Verification Record</SectionHeading>
+
+            {/* Compact summary */}
+            <div className="mt-3 flex items-start gap-3">
+              <Star size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
+              <div className="min-w-0">
+                <p className="font-sans font-semibold text-foreground" style={{ fontSize: "13.5px" }}>
+                  Verification Status: {VENDOR_STATUS_LABEL[status]}
+                </p>
+                <p
+                  className="mt-1 text-muted-foreground"
+                  style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                >
+                  {isVerified
+                    ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
+                    : status === "under-review"
+                    ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
+                    : "No verification review has been completed within the Source Standard framework."}
+                </p>
+              </div>
+            </div>
+
+            {/* Expandable detail */}
+            <button
+              type="button"
+              onClick={() => setVerificationOpen((o) => !o)}
+              aria-expanded={verificationOpen}
+              className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+              style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
+            >
+              {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
+              <ChevronDown
+                size={12}
+                strokeWidth={1.5}
+                style={{
+                  transition: "transform 250ms ease-out",
+                  transform: verificationOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              />
+            </button>
+
+            <div
+              className="grid"
+              style={{
+                gridTemplateRows: verificationOpen ? "1fr" : "0fr",
+                transition: "grid-template-rows 300ms ease-out",
+              }}
+            >
+              <div className="overflow-hidden">
+                <div
+                  className="mt-4 pt-4"
+                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                >
+                  <dl
+                    className="grid grid-cols-2"
+                    style={{ columnGap: "20px", rowGap: "16px" }}
+                  >
+                    <Cell label="Status" value={VENDOR_STATUS_LABEL[status]} />
+                    <Cell label="Source Type" value={isVerified ? "503A / 503B / Retail" : undefined} />
+                    <Cell label="Review ID" value={isVerified ? vendor.reviewId : undefined} mono />
+                    <Cell label="Verification Date" value={isVerified ? vendor.reviewDate : undefined} mono />
+                    <Cell
+                      label="Audit Date"
+                      value={isVerified ? vendor.scopeReviewDate || vendor.reviewDate : undefined}
+                      mono
+                    />
+                    <Cell label="Fulfillment" value={VENDOR_FULFILLMENT_LABEL[fulfillment]} />
+                    <Cell
+                      label="Verified Scope"
+                      value={isVerified && hasScope ? scopeCompounds.join(" · ") : undefined}
+                    />
+                    <Cell
+                      label="Documentation Reviewed"
+                      value={
+                        isVerified && vendor.documentation?.length
+                          ? vendor.documentation
+                              .filter((d) => d.status !== "Not provided")
+                              .map((d) => d.label)
+                              .join(" · ")
+                          : undefined
+                      }
+                    />
+                  </dl>
+
+                  <div
+                    className="mt-5 pt-5"
+                    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                  >
+                    <Eyebrow>Review Boundary</Eyebrow>
+                    <p
+                      className="mt-2"
+                      style={{
+                        fontSize: "12.5px",
+                        lineHeight: 1.55,
+                        color: "rgba(0,16,33,0.6)",
+                      }}
+                    >
+                      Verification status reflects only documentation reviewed by Source Standard
+                      within its registry framework. Unverified status does not imply that a vendor
+                      is unsafe, unlawful, fraudulent, or clinically inappropriate.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          {/* ────── 3. SERVICE BADGES HERO STRIP ────── */}
+
           {serviceBadges.length > 0 && (
             <article className="mt-4" style={CARD}>
               <SectionHeading>Services &amp; Clinical Focus</SectionHeading>
