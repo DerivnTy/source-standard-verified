@@ -236,7 +236,7 @@ const Cell = ({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 decoration-border hover:decoration-foreground transition-colors break-words"
+              className="underline underline-offset-2 decoration-border hover:decoration-foreground transition-colors break-words [overflow-wrap:anywhere]"
             >
               {display}
             </a>
