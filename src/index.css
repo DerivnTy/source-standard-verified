@@ -464,6 +464,12 @@ html {
       padding-bottom: 52px !important;
     }
   }
+  /* Article pages use a lightweight ArticleFooter — neutralize the
+     Hard-Stop bottom padding so the final article card sits tight
+     to the divider/back-link rhythm. */
+  section:has(+ footer.article-footer) {
+    padding-bottom: 0 !important;
+  }
   footer { margin-top: 0 !important; }
 
   /* ─── Final typography refinement (sitewide) ───
