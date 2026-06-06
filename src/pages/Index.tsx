@@ -49,14 +49,14 @@ const HeroMetrics = () => {
               width: "6px",
               height: "6px",
               backgroundColor: dotColor,
-              boxShadow: `0 0 6px ${dotColor}`,
+              boxShadow: `0 0 8px ${dotColor}`,
             }}
           />
         </span>
         <span
           className="font-sans text-white tabular-nums"
           style={{
-            fontSize: "28px",
+            fontSize: "clamp(30px, 4vw, 40px)",
             lineHeight: "1",
             fontWeight: 600,
             letterSpacing: "-0.02em",
@@ -66,11 +66,11 @@ const HeroMetrics = () => {
         </span>
       </div>
       <span
-        className="font-mono uppercase text-white/65"
+        className="font-mono uppercase text-white/85"
         style={{
-          fontSize: "10px",
-          lineHeight: "12px",
-          letterSpacing: "0.18em",
+          fontSize: "11px",
+          lineHeight: "14px",
+          letterSpacing: "0.16em",
           fontWeight: 500,
           marginTop: "8px",
         }}
@@ -81,22 +81,22 @@ const HeroMetrics = () => {
   );
 
   return (
-    <div className="flex flex-col items-center w-full" style={{ maxWidth: "360px" }}>
+    <div className="flex flex-col items-center w-full" style={{ maxWidth: "420px" }}>
       <span
         className="font-sans text-white text-center"
         style={{
-          fontSize: "15px",
-          lineHeight: "1.5",
-          fontWeight: 400,
-          letterSpacing: "0",
+          fontSize: "clamp(20px, 3vw, 28px)",
+          lineHeight: 1.1,
+          fontWeight: 600,
+          letterSpacing: "-0.02em",
         }}
       >
         Live Registry
       </span>
       <span
         aria-hidden
-        className="block bg-white/25"
-        style={{ height: "1px", width: "75%", marginTop: "12px", marginBottom: "20px" }}
+        className="block bg-white/30"
+        style={{ height: "1px", width: "80%", marginTop: "10px", marginBottom: "16px" }}
       />
       <div
         role="group"
@@ -105,7 +105,7 @@ const HeroMetrics = () => {
         style={{ gap: "48px" }}
       >
         <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
-        <Unit value={stats.verified} label="Verified Records" dotColor="#22C55E" />
+        <Unit value={50} label="States Represented" dotColor="#0A84FF" />
       </div>
     </div>
   );
