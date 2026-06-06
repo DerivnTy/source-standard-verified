@@ -10,11 +10,10 @@ import { resolveStateAbbr } from "@/lib/usStates";
 import {
   vendors,
   Vendor,
-  VendorPublicStatus,
-  getVendorStates,
   getVendorFulfillment,
   VendorFulfillment,
 } from "@/data/vendors";
+
 
 type StatusKey = "any" | "verified" | "unverified";
 type DeliveryKey = "any" | "online" | "in-person";
