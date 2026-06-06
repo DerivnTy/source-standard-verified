@@ -666,47 +666,6 @@ const VendorProfile = () => {
                 </div>
               )}
 
-              {/* Social profiles — always rendered; reinforces claimed vs unclaimed */}
-              <div className="mt-2.5 flex items-center gap-2">
-                <span
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "9.5px", letterSpacing: "0.1em" }}
-                >
-                  Social
-                </span>
-                {ig || fb || li || yt ? (
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    {ig && (
-                      <SocialIconBtn href={ig} label="Instagram">
-                        <Instagram size={14} strokeWidth={1.5} />
-                      </SocialIconBtn>
-                    )}
-                    {fb && (
-                      <SocialIconBtn href={fb} label="Facebook">
-                        <Facebook size={14} strokeWidth={1.5} />
-                      </SocialIconBtn>
-                    )}
-                    {li && (
-                      <SocialIconBtn href={li} label="LinkedIn">
-                        <Linkedin size={14} strokeWidth={1.5} />
-                      </SocialIconBtn>
-                    )}
-                    {yt && (
-                      <SocialIconBtn href={yt} label="YouTube">
-                        <Youtube size={14} strokeWidth={1.5} />
-                      </SocialIconBtn>
-                    )}
-                  </div>
-                ) : (
-                  <span
-                    className="italic text-muted-foreground/70"
-                    style={{ fontSize: "11.5px" }}
-                  >
-                    Information Not Submitted
-                  </span>
-                )}
-              </div>
-
               {/* Fulfillment chips */}
               <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                 <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
