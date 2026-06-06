@@ -713,10 +713,8 @@ const VendorProfile = () => {
             </article>
           )}
 
-          {/* ────── 3. PROFILE COMPLETENESS ────── */}
-          <div className="mt-4">
-            <CompletenessCard vendor={vendor} />
-          </div>
+
+
 
           {/* ────── 4. ABOUT THIS CLINIC ────── */}
           <article className="mt-4" style={CARD}>
