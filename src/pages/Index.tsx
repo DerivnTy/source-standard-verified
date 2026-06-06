@@ -443,17 +443,17 @@ const Index = () => {
 
           /* Section rhythm — bump padding and headings on every home section */
           .home-section { padding-top: 56px !important; padding-bottom: 56px !important; }
-          .home-section .home-eyebrow { font-size: 12px !important; letter-spacing: 0.12em !important; font-weight: 500 !important; }
+          .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; font-weight: 500 !important; }
           .home-section .home-h2 {
-            font-size: 36px !important;
+            font-size: 34px !important;
             line-height: 1.15 !important;
             letter-spacing: -0.02em !important;
             font-weight: 700 !important;
             margin-top: 14px !important;
           }
           .home-section .home-lead {
-            font-size: 19px !important;
-            line-height: 1.6 !important;
+            font-size: 17px !important;
+            line-height: 1.7 !important;
             margin-top: 20px !important;
             max-width: 68ch !important;
           }
@@ -473,12 +473,12 @@ const Index = () => {
 
           /* DataStrip cards — larger institutional type on desktop */
           .home-section .home-grid > * { padding: 24px 26px !important; }
-          .home-section .home-grid h3 { font-size: 22px !important; line-height: 1.3 !important; }
-          .home-section .home-grid p { font-size: 17px !important; line-height: 1.75 !important; margin-top: 10px !important; }
+          .home-section .home-grid h3 { font-size: 20px !important; line-height: 1.3 !important; }
+          .home-section .home-grid p { font-size: 16px !important; line-height: 1.75 !important; margin-top: 10px !important; }
         }
 
         @media (min-width: 1280px) {
-          .home-section .home-h2 { font-size: 40px !important; }
+          .home-section .home-h2 { font-size: 36px !important; }
         }
       `}</style>
       <div
