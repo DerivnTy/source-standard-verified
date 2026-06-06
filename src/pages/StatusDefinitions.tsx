@@ -8,7 +8,7 @@ import { BriefingHero } from "@/components/BriefingHero";
 const WAYPOINTS = [
   { id: "purpose", number: "01", label: "Purpose" },
   { id: "statuses", number: "02", label: "Statuses" },
-  { id: "lifecycle", number: "03", label: "Lifecycle" },
+  { id: "lifecycle", number: "03", label: "Status Progression" },
   { id: "related", number: "04", label: "Related Documents" },
 ];
 
@@ -27,13 +27,13 @@ const STATUSES: Status[] = [
     n: "01",
     title: "Verified",
     definition:
-      "Documentation review is complete for the defined scope. The published record reflects the documentation, public records, and pharmacy relationship evidence reviewed at the time of publication.",
+      "Documentation review is complete for the defined scope. The published record reflects the documentation, public records, and pharmacy, manufacturer, or sourcing relationship evidence reviewed at the time of publication.",
     meaning:
-      "Submitted documentation, public records, and sourcing evidence supported the stated vendor claim within the reviewed scope.",
+      "Available documentation, sourcing evidence, facility relationships, public records, and supporting materials were sufficient to support the reviewed sourcing representations within the defined review scope.",
     notImply:
       "It does not imply vendor approval, product approval, clinical recommendation, treatment effectiveness, product safety, or outcome guarantee.",
     issued:
-      "Assigned after completion of documentation review, pharmacy relationship review, chain-of-custody review, and scope confirmation.",
+      "Assigned after completion of documentation review, pharmacy, manufacturer, or sourcing relationship review, chain-of-custody review, and scope confirmation.",
     revised:
       "Revised after renewal lapse, material disclosure event, documentation expiration, unresolved discrepancy, or reopening of the review file.",
   },
@@ -63,7 +63,7 @@ const STATUSES: Status[] = [
     n: "04",
     title: "Unverified",
     definition:
-      "No sufficient documentation has been reviewed to support the stated sourcing claim within the Source Standard framework.",
+      "Available information was insufficient to support the reviewed sourcing representations within the defined review scope.",
     meaning:
       "The registry does not currently contain sufficient reviewed documentation to support the vendor's stated sourcing claim.",
     notImply:
@@ -99,7 +99,7 @@ const STATUSES: Status[] = [
   },
   {
     n: "07",
-    title: "Recognized Upstream Record",
+    title: "Upstream Reference Record",
     definition:
       "An upstream 503A pharmacy, 503B outsourcing facility, or other facility record used as a reference point during vendor sourcing review.",
     meaning:
@@ -110,17 +110,6 @@ const STATUSES: Status[] = [
       "Assigned when facility identity, public registration category, license status, or review relevance is recorded within the Upstream Registry.",
     revised:
       "Revised when public registration status, license status, review relevance, or Source Standard classification changes.",
-  },
-  {
-    n: "08",
-    title: "No Public Record",
-    definition: "No public Source Standard record exists for the entity.",
-    meaning:
-      "The entity is not currently maintained as a public record within the Source Standard registry.",
-    notImply:
-      "It does not imply that the entity is unsafe, unlawful, illegitimate, non-compliant, or clinically inappropriate. It reflects only the absence of a Source Standard record.",
-    issued: "This is the default condition for any entity that does not have a registry record.",
-    revised: "Revised only if the entity enters the registry, submits documentation, or is added as a public-reference record.",
   },
 ];
 
@@ -321,7 +310,7 @@ const RelatedLinkRow = ({
 
 const StatusDefinitions = () => {
   const heroDescription =
-    "Public statuses assigned to records within the Source Standard registry. Each status reflects the state of the record at the time of last update and may change through review, renewal, disclosure, or record correction.";
+    "Public status classifications used throughout the Source Standard registry. Statuses communicate the current verification state of a vendor, facility, manufacturer, or sourcing record based on available evidence at the time of review.";
 
   return (
     <>
@@ -375,7 +364,7 @@ const StatusDefinitions = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Status labels help consumers, clinicians, and listed entities interpret registry records consistently without needing to review the underlying documentation file.
+                    Status labels provide a standardized public language for understanding the current state of a sourcing record without requiring users to review underlying documentation.
                   </p>
                   <p
                     className="text-muted-foreground"
@@ -421,8 +410,8 @@ const StatusDefinitions = () => {
             >
               <SectionHeader
                 index="03"
-                title="Lifecycle"
-                intro="No status is permanent. Public records may move through review, renewal, correction, suspension, removal, or reinstatement over time."
+                title="Status Progression"
+                intro="Registry records may change as new evidence becomes available, documentation is updated, sourcing relationships change, monitoring activity occurs, or review files are reopened."
               />
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-2" style={{ gap: "8px" }}>
                 {LIFECYCLE.map((step) => (
@@ -456,15 +445,15 @@ const StatusDefinitions = () => {
             {/* §5 Closing statement */}
             <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <StatusCard>
-                <Eyebrow>Public Language</Eyebrow>
+                <Eyebrow>Registry Interpretation Standard</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
-                  A shared public language for the registry.
+                  A consistent public language for Source Standard records.
                 </h2>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  The purpose of these status definitions is to ensure that public records can be interpreted consistently, without overstatement and without requiring users to infer more than the record supports.
+                  The purpose of these definitions is to establish a consistent public language for interpreting Source Standard records. A status communicates the current state of reviewed evidence within a defined scope. It should not be interpreted as a medical recommendation, product approval, or guarantee of future performance.
                 </p>
               </StatusCard>
             </section>
