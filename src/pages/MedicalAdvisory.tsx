@@ -376,12 +376,18 @@ const MedicalAdvisory = () => {
             <section style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <div className="max-w-2xl">
                 <GovCard>
-                  <h2 className="t-section-title-sm text-foreground">
-                    Public trust requires disciplined oversight.
+                  <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">Institutional Integrity</p>
+                  <h2 className="mt-2 t-section-title-sm text-foreground">
+                    Public trust requires independent oversight.
                   </h2>
-                  <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
-                    The Advisory Board exists to preserve neutrality, clinical seriousness, and evidentiary restraint within the Source Standard framework. Its role is to support the standards behind the registry, not to promote vendors, recommend treatment, or replace regulatory review.
-                  </p>
+                  <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
+                    <p className="t-body-sm text-muted-foreground leading-relaxed">
+                      Clinical Oversight exists to strengthen the neutrality, consistency, and evidentiary discipline of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
+                    </p>
+                    <p className="t-body-sm text-muted-foreground leading-relaxed">
+                      Its role is governance. Its responsibility is framework integrity.
+                    </p>
+                  </div>
                 </GovCard>
               </div>
             </section>
