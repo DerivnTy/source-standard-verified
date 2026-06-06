@@ -169,7 +169,7 @@ const MedicalAdvisory = () => {
         variant="chapter"
         category="Medical Advisory Board"
         title="Clinical Oversight"
-        statement="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education. It does not treat patients, market vendors, approve clinics, or participate in promotional activity."
+        statement="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education. It does not treat patients, market vendors, approve vendors, or participate in promotional activity."
         docId=""
       />
 
