@@ -359,13 +359,13 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Framework establishes a structured method for evaluating sourcing transparency within the compounded therapy market. Its purpose is to create a clearer public record by determining whether vendor claims are supported by evidence that can be reviewed, documented, and maintained over time.
+                    The Verification Framework provides a structured method for evaluating sourcing transparency within the compounded therapy market. By organizing documentation, pharmacy, manufacturer, and sourcing organization relationships, public records, and supporting evidence into a consistent review process, the framework creates a clearer public record for consumers, vendors, and healthcare organizations.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The framework is designed to improve transparency, consistency, and public understanding in a market where sourcing relationships are often difficult for consumers to evaluate independently.
+                    Its purpose is not to certify products or replace regulatory oversight. Its purpose is to establish whether sourcing claims are supported by evidence that can be reviewed, documented, and maintained over time.
                   </p>
                 </div>
               </ProtocolCard>
