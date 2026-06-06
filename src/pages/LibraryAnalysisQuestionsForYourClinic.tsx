@@ -10,50 +10,81 @@ import {
 const DOC_ID = "SS-ANALYSIS-004";
 
 const QUESTIONS = [
-  { q: "Which pharmacy is compounding this medication, and are they a 503A or 503B facility?", why: "This tells you if the pharmacy is state-regulated (503A) or FDA-registered (503B) and clarifies the oversight level." },
-  { q: "Can you provide the Lot Number and the Certificate of Analysis (CoA) for this current batch?", why: "This proves the medication has been tested for potency and purity and that the clinic actually has the documentation." },
-  { q: "Is the medication dispensed as 'Office Stock' or is it shipped directly to me from the pharmacy?", why: "Office stock must come from a 503B facility. If a clinic is dispensing 503A medication from their own shelf, they may be in violation of state pharmacy laws." },
-  { q: "What specific diluent is used for reconstitution, and does it contain a preservative?", why: "This ensures you are using the correct handling protocol (SS-GUIDE-001) and alerts you to potential sensitivities (e.g., benzyl alcohol)." },
-  { q: "What is the clinic's process if an adverse event occurs?", why: "A verified clinic must have a formal process for reporting side effects back to the pharmacy and, if necessary, the FDA's MedWatch system." },
+  {
+    q: "Which pharmacy compounds this medication?",
+    why: "Identifying the compounding pharmacy is the starting point for reviewing facility records and public licensing information.",
+  },
+  {
+    q: "Is the medication sourced through a 503A or 503B facility?",
+    why: "Facility classification provides context about the regulatory pathway used to prepare a compounded medication.",
+  },
+  {
+    q: "Can you explain your sourcing process?",
+    why: "A clear, consistent explanation of how a clinic sources medications is a useful indicator of sourcing transparency.",
+  },
+  {
+    q: "What documentation supports your sourcing claims?",
+    why: "Records such as certificates of analysis, invoices, or facility registrations can be reviewed against public statements.",
+  },
+  {
+    q: "How are facility relationships disclosed to patients?",
+    why: "Public disclosure of facility relationships allows consumers to review sourcing claims against available evidence.",
+  },
 ];
 
-const FLAGS = [
-  { label: "Green flag", description: "The clinic provides pharmacy names immediately and offers to email you the CoA." },
-  { label: "Yellow flag", description: "The clinic says they 'use several pharmacies' but can't tell you which one your specific vial is from." },
-  { label: "Red flag", description: "The clinic claims the sourcing information is 'proprietary' or 'trade secret.' In healthcare, sourcing is never a trade secret; it is a matter of public safety." },
+const RESPONSE_EXAMPLES = [
+  {
+    label: "Identifies the pharmacy directly",
+    description: "The clinic names the compounding pharmacy and is willing to share supporting documentation upon request.",
+  },
+  {
+    label: "Describes the sourcing process clearly",
+    description: "The clinic can explain its facility relationships and how sourcing claims are supported.",
+  },
+  {
+    label: "Limited or inconsistent disclosure",
+    description: "The clinic is unable or unwilling to identify its compounding source or provide documentation that can be reviewed.",
+  },
 ];
 
 const LibraryAnalysisQuestionsForYourClinic = () => {
   return (
     <>
-      <PageMeta title="Questions to Ask Your Clinic · Analysis" description="A standardized checklist for evaluating clinic transparency." />
-      <Breadcrumb items={[
+      <PageMeta
+        title="Vendor Evaluation Checklist · Source Standard"
+        description="A neutral consumer-transparency checklist for asking clinics about compounded-medication sourcing."
+      />
+      <Breadcrumb
+        items={[
           { label: "Resource Library", to: "/education" },
-          { label: "Analysis" },
-        ]} />
+          { label: "Consumer Due Diligence" },
+        ]}
+      />
       <ArticleHeader
-        eyebrow="Source Standard · Clinical Analysis"
-        title="Questions to Ask Your Clinic"
-        lead="A neutral, evidence-based checklist consumers can use to evaluate a clinic's sourcing, documentation, and clinical practices."
+        eyebrow="Source Standard · Public Reference"
+        title="Vendor Evaluation Checklist"
+        lead="A neutral set of questions consumers can use to better understand a clinic's sourcing practices, facility relationships, and supporting documentation."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
-          { label: "Status", value: "Analysis / Public Record" },
+          { label: "Status", value: "Public Reference" },
           { label: "Doc", value: DOC_ID },
         ]}
       />
 
-      <ArticleSection n={1} title="The informed consumer">
+      <ArticleSection n={1} title="Asking about sourcing">
         <p>
-          In the compounded medication space, transparency is the primary indicator of safety. A high-integrity clinic should view patient inquiries as a sign of an informed, responsible patient, not as an interrogation. If a clinic is hesitant or unable to answer these foundational questions, it likely indicates a gap in their own supply-chain oversight.
+          Sourcing transparency is one of the most useful reference points consumers can consider when evaluating a compounded-medication provider. The questions below are intended to support informed conversations with a clinic; they are not legal or compliance conclusions.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title='The "Source Five" checklist.'>
-        <p>Before beginning a protocol, we recommend asking your provider these five specific questions.</p>
+      <ArticleSection n={2} title="A consumer-transparency checklist">
+        <p>Consumers may consider asking the following questions when evaluating a clinic.</p>
         <ol className="border border-border bg-background divide-y divide-border my-2">
           {QUESTIONS.map((item, i) => (
             <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5">
-              <div className="col-span-2 font-mono t-utility-xs uppercase tracking-[0.14em] text-primary">Q{i + 1}</div>
+              <div className="col-span-2 font-mono t-utility-xs uppercase tracking-[0.14em] text-primary">
+                Q{i + 1}
+              </div>
               <div className="col-span-10">
                 <p className="text-[15.5px] font-semibold text-foreground leading-snug">
                   &ldquo;{item.q}&rdquo;
@@ -68,18 +99,25 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
         </ol>
       </ArticleSection>
 
-      <ArticleSection n={3} title="Evaluating the responses">
-        <p>Use this legend to interpret a clinic's answers at a glance.</p>
+      <ArticleSection n={3} title="Examples of transparent responses">
+        <p>
+          The examples below describe patterns consumers may encounter. They are illustrative reference points, not determinations about a specific organization.
+        </p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
-          items={FLAGS.map((f) => ({ term: f.label, description: f.description }))}
+          items={RESPONSE_EXAMPLES.map((r) => ({ term: r.label, description: r.description }))}
         />
       </ArticleSection>
 
+      <ArticleSection title="Key Takeaway">
+        <p className="text-foreground font-medium">
+          Asking direct questions about sourcing, facility relationships, and supporting documentation is a reasonable part of consumer due diligence. The clarity and consistency of a clinic's responses can be a useful reference point when reviewing a sourcing claim.
+        </p>
+      </ArticleSection>
+
       <ArticleFooter
-        back={{ to: "/education", label: "Back to Education Hub" }}
-        next={{ to: "/library/analysis/meaning-of-verification", label: "What Verification Actually Means (SS-ANALYSIS-005)" }}
-        citation={`Source Standard · Clinical Analysis · Questions to Ask Your Clinic, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        back={{ to: "/education", label: "Back to Resource Library" }}
+        citation={`Source Standard · Public Reference · Vendor Evaluation Checklist, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

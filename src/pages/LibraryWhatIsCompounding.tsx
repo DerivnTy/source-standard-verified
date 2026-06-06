@@ -67,24 +67,24 @@ const LibraryWhatIsCompounding = () => {
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="Why facility type matters">
+      <ArticleSection n={4} title="Why facility classification matters">
         <p>
           When a clinic, telehealth company, or vendor makes sourcing claims, understanding whether medication originates from a 503A pharmacy or a 503B outsourcing facility provides important context.
         </p>
         <p>
-          The two facility types serve different functions within the healthcare system and operate under different regulatory frameworks.
+          The two facility types serve different functions within the healthcare system and operate under different regulatory frameworks. Facility classification provides reference context about how a medication enters the supply chain; it does not, on its own, establish product quality or clinical outcome.
         </p>
         <p>
-          For consumers evaluating a sourcing claim, facility type is often one of the first reference points used to understand how a medication enters the supply chain, who prepared it, and what regulatory pathway applies.
+          For consumers evaluating a sourcing claim, facility type is often one of the first reference points used to understand who prepared a medication and what regulatory pathway applies.
         </p>
         <p>
-          Because of this, Source Standard records and reviews facility relationships as part of its broader documentation and sourcing-review process.
+          Source Standard records and reviews facility relationships as part of its broader documentation and sourcing-review process.
         </p>
       </ArticleSection>
 
       <ArticleSection title="Key Takeaway">
         <p className="text-foreground font-medium">
-          Compounding is not a single category. The distinction between 503A pharmacies and 503B outsourcing facilities plays an important role in understanding how compounded medications move through the supply chain. Knowing the difference provides useful context when evaluating vendor sourcing claims and facility relationships.
+          Compounding is not a single category. The distinction between 503A pharmacies and 503B outsourcing facilities provides context for understanding how compounded medications move through the supply chain. Facility classification is a reference point, not a guarantee of quality, and is most useful when reviewed alongside documentation and sourcing claims.
         </p>
       </ArticleSection>
 

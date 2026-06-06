@@ -9,73 +9,99 @@ import {
 
 const DOC_ID = "SS-ANALYSIS-006";
 
+const CONCERNS = [
+  {
+    term: "Unidentified sourcing partners",
+    description:
+      "A vendor is unable or unwilling to identify the compounding pharmacy or facility associated with a product.",
+  },
+  {
+    term: "Unsupported facility claims",
+    description:
+      "Public statements reference facility relationships that cannot be matched to available documentation or public records.",
+  },
+  {
+    term: "Missing documentation",
+    description:
+      "Records that would ordinarily support a sourcing claim, such as certificates of analysis or facility registrations, are unavailable for review.",
+  },
+  {
+    term: "Inconsistent public statements",
+    description:
+      "Sourcing descriptions vary across consultations, marketing materials, or written communications without a clear explanation.",
+  },
+  {
+    term: "Unclear facility relationships",
+    description:
+      "The vendor's relationship with its compounding facility is not described in a way that can be reviewed against public information.",
+  },
+  {
+    term: "Inability to identify the compounding source",
+    description:
+      "A consumer cannot determine which facility prepared a specific medication based on labeling or vendor disclosures.",
+  },
+  {
+    term: "Missing chain-of-custody records where expected",
+    description:
+      "Documentation that would typically accompany a compounded product through the supply chain is unavailable when requested.",
+  },
+];
+
 const LibraryAnalysisUndocumentedSourcingSigns = () => {
   return (
     <>
-      <PageMeta title="Undocumented Sourcing, Warning Signs · Analysis" description="Recognizing red flags of undocumented medication sourcing." />
-      <Breadcrumb items={[
+      <PageMeta
+        title="Warning Signs and Red Flags · Source Standard"
+        description="Common transparency concerns consumers may encounter when reviewing compounded-medication sourcing claims."
+      />
+      <Breadcrumb
+        items={[
           { label: "Resource Library", to: "/education" },
-          { label: "Analysis" },
-        ]} />
+          { label: "Consumer Due Diligence" },
+        ]}
+      />
       <ArticleHeader
-        eyebrow="Source Standard · Clinical Analysis"
-        title="Warning Signs of Undocumented Sourcing"
-        lead="Identifying the patterns, disclosures, and behaviors that indicate a clinic may be operating outside of regulated sourcing channels."
+        eyebrow="Source Standard · Public Reference"
+        title="Warning Signs and Red Flags"
+        lead="Common transparency concerns consumers may encounter when reviewing compounded-medication sourcing claims and vendor disclosures."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
-          { label: "Status", value: "Analysis / Public Record" },
+          { label: "Status", value: "Public Reference" },
           { label: "Doc", value: DOC_ID },
         ]}
       />
 
-      <ArticleSection n={1} title='The "grey market" incursion.'>
+      <ArticleSection n={1} title="Transparency as a reference point">
         <p>
-          As demand for therapeutic peptides and hormones increases, a 'grey market' of undocumented substances has emerged. These are often 'research-grade' chemicals repackaged as clinical-grade medications. For a clinic, using these sources is significantly cheaper but carries catastrophic risks for the patient. Spotting these sources requires looking for specific 'evasive' behaviors.
+          Sourcing transparency is one of the most useful reference points consumers can consider when evaluating a compounded-medication provider. The patterns described below are common transparency concerns; they are not determinations of wrongdoing about any specific organization.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Label anonymity">
-        <p>The most glaring sign of undocumented sourcing is a medication vial that lacks a specific pharmacy's credentials.</p>
+      <ArticleSection n={2} title="Common transparency concerns">
+        <p>
+          The following patterns may indicate that a sourcing claim is difficult to verify against available evidence.
+        </p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
-          items={[
-            { term: "Generic branding", description: "If the vial only features the clinic's logo and does not list the compounding pharmacy's name, address, and license number, the source is likely undocumented." },
-            { term: "Handwritten details", description: "While some small-batch pharmacies use hand-filled dates, a lack of professional, thermal-printed Lot Numbers and Expiration Dates is a major compliance failure." },
-          ]}
+          items={CONCERNS}
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title='The "proprietary blend" defense.'>
-        <p>When asked about their source, some clinics will claim their pharmacy is a 'trade secret' or a 'proprietary partnership.'</p>
-        <BoardDefList
-          prefix={(i) => `§3.${i + 1}`}
-          items={[
-            { term: "The truth", description: "There is no such thing as a proprietary pharmacy in the US regulatory framework. Every pharmacy must be licensed and every medication must be traceable. 'Proprietary' is almost always code for 'Undocumented.'" },
-          ]}
-        />
+      <ArticleSection n={3} title="Why transparency matters">
+        <p>
+          When sourcing information cannot be identified, reviewed, or cross-referenced against public records, consumers have fewer reference points available for evaluating a compounded-medication claim. Transparency does not replace clinical judgment or regulatory oversight, but it allows sourcing claims to be reviewed within a structured public-reference framework.
+        </p>
       </ArticleSection>
 
-      <ArticleSection n={4} title="Payment and shipping anomalies">
-        <p>High-integrity clinical sourcing follows traditional medical billing and shipping paths.</p>
-        <BoardDefList
-          prefix={(i) => `§4.${i + 1}`}
-          items={[
-            { term: "Non-traditional payments", description: "Clinics that insist on Zelle, Cryptocurrency, or 'Friends and Family' PayPal payments are often bypassing the financial audits that traditional merchant banks require for medical services." },
-            { term: "Residential return addresses", description: "If a medication arrives with a return address that is a residential home or a generic PO Box rather than a licensed pharmacy facility, the supply chain has been compromised." },
-          ]}
-        />
-      </ArticleSection>
-
-      <ArticleSection n={5} title="The cost of low transparency">
+      <ArticleSection title="Key Takeaway">
         <p className="text-foreground font-medium">
-          Undocumented sourcing isn't just a legal technicality; it's a safety vacuum. Without a documented pharmacy, there is no one to hold accountable for sterility failures, incorrect potencies, or heavy metal contamination. If a clinic cannot, or will not, prove their source, they have failed the primary duty of patient care.
+          Transparency concerns are most useful when interpreted as reference points for further inquiry. Where sourcing partners, facility relationships, or supporting documentation cannot be identified or reviewed, consumers may consider asking additional questions before relying on a sourcing claim.
         </p>
       </ArticleSection>
 
       <ArticleFooter
-        back={{ to: "/education", label: "Back to Education Hub" }}
-        next={{ to: "/directory", label: "Search the Verified Registry" }}
-        citation={`Source Standard · Clinical Analysis · Warning Signs of Undocumented Sourcing, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        back={{ to: "/education", label: "Back to Resource Library" }}
+        citation={`Source Standard · Public Reference · Warning Signs and Red Flags, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

@@ -12,66 +12,84 @@ const DOC_ID = "SS-ANALYSIS-005";
 const LibraryAnalysisMeaningOfVerification = () => {
   return (
     <>
-      <PageMeta title="The Meaning of Verification · Analysis" description="What Source Standard Verification actualizes, and what it does not." />
-      <Breadcrumb items={[
+      <PageMeta
+        title="Understanding Verification Scope · Source Standard"
+        description="What a Verified listing in the Source Standard registry establishes, and what it does not establish."
+      />
+      <Breadcrumb
+        items={[
           { label: "Resource Library", to: "/education" },
-          { label: "Analysis" },
-        ]} />
+          { label: "Verification Methodology" },
+        ]}
+      />
       <ArticleHeader
-        eyebrow="Source Standard · Clinical Analysis"
-        title="What Source Standard Verification Actually Means"
-        lead="A disclosure of the scope, limits, and reviewable evidence behind a verified listing in the Source Standard registry."
+        eyebrow="Source Standard · Public Reference"
+        title="Understanding Verification Scope"
+        lead="A neutral disclosure of what a Verified listing in the Source Standard registry establishes, what it does not establish, and how status may change over time."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
-          { label: "Status", value: "Analysis / Public Record" },
+          { label: "Status", value: "Public Reference" },
           { label: "Doc", value: DOC_ID },
         ]}
       />
 
-      <ArticleSection n={1} title="Defining the standard">
-        <p className="text-foreground font-medium">
-          A 'Source Standard Verified' badge is not a participation trophy; it is a point-in-time attestation that a clinic has passed our multi-point institutional audit. Our verification focus is narrow and deep, targeting the intersection of medical oversight and pharmaceutical supply chains.
+      <ArticleSection n={1} title="What verification establishes">
+        <p>
+          A Verified listing in the Source Standard registry reflects a structured review of available information at a specific point in time.
         </p>
+        <BoardDefList
+          prefix={(i) => `§1.${i + 1}`}
+          items={[
+            { term: "Documentation review", description: "Documentation submitted or made available was reviewed." },
+            { term: "Sourcing claims review", description: "Public sourcing claims were reviewed against available evidence." },
+            { term: "Facility relationships review", description: "Stated facility relationships were reviewed for consistency with available records." },
+            { term: "Public records review", description: "Publicly available records relating to the vendor or referenced facilities were reviewed." },
+            { term: "Status assignment", description: "A status was assigned based on the evidence available at the time of review." },
+          ]}
+        />
       </ArticleSection>
 
-      <ArticleSection n={2} title="What we verify">
-        <p>When a clinic carries our verification, we have confirmed the following.</p>
+      <ArticleSection n={2} title="What verification does not establish">
+        <p>
+          Verification is a documentation and sourcing-transparency review. It is not a clinical, regulatory, or product-quality determination.
+        </p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
           items={[
-            { term: "Documented procurement", description: "We have reviewed redacted invoices or shipping manifests proving the clinic buys from the pharmacies they claim." },
-            { term: "Facility standing", description: "We have confirmed their partner pharmacies hold active licenses and are not currently under FDA 'Do Not Compound' orders." },
-            { term: "Credential authenticity", description: "We have verified the medical director's NPI and state licensure status." },
-            { term: "CoA reconciliation", description: "We have performed 'spot-check' authentications of the lab reports provided by their sources." },
+            { term: "Product safety", description: "Verification does not establish that a product is safe." },
+            { term: "Product quality", description: "Verification does not establish that a product is of a particular quality." },
+            { term: "Clinical effectiveness", description: "Verification does not establish that a product is clinically effective." },
+            { term: "Medical appropriateness", description: "Verification does not establish that a product is medically appropriate for any individual." },
+            { term: "Regulatory approval", description: "Verification does not constitute regulatory approval, endorsement, or certification." },
+            { term: "Future compliance", description: "Verification does not guarantee future compliance, sourcing practices, or status." },
           ]}
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="What we do not do, limits of scope">
-        <p>To remain a neutral auditing body, we must maintain clear boundaries.</p>
+      <ArticleSection n={3} title="Ongoing status monitoring">
+        <p>
+          Verification reflects information available at a specific point in time. The public record is not static.
+        </p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
           items={[
-            { term: "No medical endorsement", description: "We verify the source of the medicine, not the necessity of the treatment. We do not provide medical advice." },
-            { term: "No primary lab testing", description: "We do not operate a laboratory. We audit the laboratory reports generated by the pharmacies." },
-            { term: "No financial interest", description: "Source Standard does not take commissions from pharmacies or clinics. Our fee is strictly for the administrative labor of the audit." },
+            { term: "Records may be updated", description: "Registry records may be updated as new information becomes available." },
+            { term: "Documentation may change", description: "Supporting documentation, sourcing relationships, or public claims may change over time." },
+            { term: "Status may change", description: "A listing's status may be updated, suspended, or removed based on subsequent review." },
+            { term: "New evidence may affect public records", description: "New information made available to Source Standard may affect the public record associated with a listing." },
           ]}
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="The 'active' nature of verification">
-        <p>
-          Verification is a dynamic state, not a static one. Because supply chains can change overnight, our registry is updated in real-time. If a clinic moves to an undocumented source, their verification is suspended immediately.{" "}
-          <span className="text-foreground font-medium">
-            For the consumer, the registry represents the most current 'snapshot' of institutional integrity available in the compounding industry.
-          </span>
+      <ArticleSection title="Key Takeaway">
+        <p className="text-foreground font-medium">
+          A Verified listing reflects a documentation and sourcing-claim review at a point in time. It does not establish product safety, clinical effectiveness, regulatory approval, or future compliance. The public record may change as new information becomes available.
         </p>
       </ArticleSection>
 
       <ArticleFooter
-        back={{ to: "/education", label: "Back to Education Hub" }}
-        next={{ to: "/library/analysis/undocumented-sourcing-signs", label: "Warning Signs of Undocumented Sourcing (SS-ANALYSIS-006)" }}
-        citation={`Source Standard · Clinical Analysis · Meaning of Verification, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        back={{ to: "/education", label: "Back to Resource Library" }}
+        citation={`Source Standard · Public Reference · Understanding Verification Scope, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

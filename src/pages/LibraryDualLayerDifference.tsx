@@ -61,7 +61,7 @@ const LibraryDualLayerDifference = () => {
           items={[
             { term: "Facility identification", description: "Maintains reference records relating to 503A and 503B compounding facilities." },
             { term: "Operational transparency", description: "Organizes publicly available information relating to facility operations, classifications, and regulatory status." },
-            { term: "Independent testing activity", description: "Tracks Greenlisted status and testing activity associated with facilities monitored within the Source Standard ecosystem." },
+            { term: "Independent testing activity", description: "Maintains facility-reference records and documents testing activity, status history, and supporting evidence where applicable." },
           ]}
         />
       </ArticleSection>
