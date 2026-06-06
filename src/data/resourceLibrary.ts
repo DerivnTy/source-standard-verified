@@ -29,7 +29,6 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "safe-peptide-handling-and-reconstitution": "/library/sterile-preparation-integrity",
   "sanitization-and-aseptic-technique-fundamentals": "/library/aseptic-technique",
   "the-science-of-aging-and-trt": "/library/endocrinological-context",
-  "dosing-guidance-summaries-for-common-compounds": "/library/reference-dosing-ranges",
   "the-2026-compounding-reclassification": "/library/analysis/2026-reclassification",
   "questions-to-ask-your-clinic": "/library/analysis/questions-for-your-clinic",
   "what-source-standard-verification-actually-means": "/library/analysis/meaning-of-verification",
@@ -101,9 +100,9 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: "what-are-peptides",
-    title: "Claims vs. Documentation",
+    title: "Understanding Peptides",
     blurb:
-      "How to separate marketing language from sourcing documentation, facility records, and verifiable evidence.",
+      "What peptides are, how they appear in research and medicine, and why sourcing transparency and facility disclosure matter for compounded peptide products.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -119,16 +118,16 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: "questions-to-ask-your-clinic",
-    title: "Vendor Evaluation Checklist",
+    title: "Questions to Ask About Sourcing",
     blurb:
-      "A practical checklist consumers can use when evaluating sourcing transparency and documentation quality.",
+      "A neutral set of sourcing-transparency questions consumers can use when evaluating a compounded-medication provider.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
   },
   {
     slug: "warning-signs-of-undocumented-sourcing",
-    title: "Warning Signs and Red Flags",
+    title: "Transparency Concerns & Documentation Gaps",
     blurb:
       "Common transparency concerns, unsupported sourcing claims, and documentation gaps consumers should understand.",
     meta: "Updated Apr 2026",
@@ -141,36 +140,27 @@ export const ARTICLES: Article[] = [
     slug: "the-2026-compounding-reclassification",
     title: "Understanding Regulatory Changes in Compounding",
     blurb:
-      "How regulatory updates can affect compounded medications, sourcing pathways, and supply-chain transparency.",
+      "How regulatory updates can affect sourcing pathways, facility operations, documentation practices, and supply-chain transparency.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "latest",
   },
   {
     slug: "sanitization-and-aseptic-technique-fundamentals",
-    title: "Stability Fundamentals",
+    title: "Understanding Sterile Compounding",
     blurb:
-      "How temperature, light, time, and storage records can affect review context for compounded products.",
+      "What sterile compounding means, why sterile environments matter, and how it differs from non-sterile preparation pathways.",
     meta: "Updated Mar 2026",
     publishedAt: "2026-03-19",
     category: "latest",
   },
   {
     slug: "the-science-of-aging-and-trt",
-    title: "Hormone Therapy Context",
+    title: "Understanding Compounded Hormone Therapy",
     blurb:
-      "Reference terminology for TRT, HRT, and related compounded therapy categories.",
+      "Why hormone therapies are sometimes compounded, the role of 503A and 503B facilities, and why sourcing transparency matters.",
     meta: "Updated Feb 2026",
     publishedAt: "2026-02-24",
-    category: "latest",
-  },
-  {
-    slug: "dosing-guidance-summaries-for-common-compounds",
-    title: "Scope of Clinical References",
-    blurb:
-      "How Source Standard separates public education from individualized medical advice or treatment guidance.",
-    meta: "Updated Feb 2026",
-    publishedAt: "2026-02-10",
     category: "latest",
   },
 ];
