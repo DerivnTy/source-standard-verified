@@ -85,16 +85,24 @@ export const BoardDefList = ({
             padding: "14px 16px",
           }}
         >
-          <div className="flex items-baseline justify-between gap-4">
+          <div className="flex items-start justify-between gap-4">
             <p
-              className="font-sans font-semibold text-foreground"
-              style={{ fontSize: "12px", lineHeight: "1.35" }}
+              className="font-sans text-foreground"
+              style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, margin: 0 }}
             >
               {it.term}
             </p>
             <span
-              className="shrink-0 font-mono tabular-nums uppercase text-muted-foreground/80"
-              style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+              className="shrink-0 font-mono tabular-nums uppercase"
+              style={{
+                fontSize: "11px",
+                fontWeight: 500,
+                lineHeight: 1,
+                letterSpacing: "0.06em",
+                color: "rgba(0,0,0,0.38)",
+                whiteSpace: "nowrap",
+                paddingTop: "2px",
+              }}
             >
               {index}
             </span>

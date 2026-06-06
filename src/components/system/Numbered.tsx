@@ -52,10 +52,11 @@ export const NumberedCard = ({
         <h3
           className="font-sans text-foreground"
           style={{
-            fontSize: "18px",
+            fontSize: "16px",
             fontWeight: 600,
             lineHeight: 1.3,
             letterSpacing: "-0.01em",
+            margin: 0,
           }}
         >
           {title}
@@ -64,12 +65,13 @@ export const NumberedCard = ({
           <span
             className="font-mono tabular-nums shrink-0"
             style={{
-              fontSize: "12px",
+              fontSize: "11px",
               fontWeight: 500,
-              letterSpacing: "0.04em",
-              color: "rgba(0,0,0,0.40)",
+              lineHeight: 1,
+              letterSpacing: "0.06em",
+              color: "rgba(0,0,0,0.38)",
               whiteSpace: "nowrap",
-              marginTop: "4px",
+              paddingTop: "2px",
             }}
           >
             {label}
