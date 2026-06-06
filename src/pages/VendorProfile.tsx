@@ -580,9 +580,21 @@ const VendorProfile = () => {
 
             {/* Identity body — compressed */}
             <div style={{ padding: "14px 16px 12px" }}>
+              {/* Status */}
+              <div className="flex items-start justify-between">
+                <StatusPill />
+              </div>
+
+              {/* Service model */}
+              <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
+                <FulfillmentChip active={isOnline || isHybrid} label="Telehealth" />
+              </div>
+
+              {/* Name + logo */}
               <div
-                className="flex items-start gap-3"
-                style={vendor.coverImageUrl ? { marginTop: "-28px" } : undefined}
+                className="mt-3 flex items-start gap-3"
+                style={vendor.coverImageUrl ? { marginTop: "12px" } : undefined}
               >
                 <div
                   style={
@@ -593,51 +605,45 @@ const VendorProfile = () => {
                 >
                   <LogoBlock vendor={vendor} size={48} />
                 </div>
-                <div
-                  className="min-w-0 flex-1"
-                  style={vendor.coverImageUrl ? { paddingTop: "32px" } : { paddingTop: "2px" }}
-                >
-                  <StatusPill />
+                <div className="min-w-0 flex-1">
+                  <h1
+                    className="font-sans font-semibold text-foreground"
+                    style={{ fontSize: "20px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                  >
+                    {vendor.name}
+                  </h1>
+
+                  {/* Meta row */}
+                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                    {vendor.category && (
+                      <span
+                        className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
+                        style={{
+                          fontSize: "9px",
+                          letterSpacing: "0.06em",
+                          padding: "3px 6px",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        {vendor.category}
+                      </span>
+                    )}
+                    {location !== "—" && (
+                      <span
+                        className="inline-flex items-center gap-1 text-muted-foreground"
+                        style={{ fontSize: "12px" }}
+                      >
+                        <MapPin size={12} strokeWidth={1.5} />
+                        {location}
+                      </span>
+                    )}
+                    {vendor.reviewId && (
+                      <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
+                        {vendor.reviewId}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-
-              {/* Name */}
-              <h1
-                className="mt-2 font-sans font-semibold text-foreground"
-                style={{ fontSize: "20px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
-              >
-                {vendor.name}
-              </h1>
-
-              {/* Meta row */}
-              <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
-                {vendor.category && (
-                  <span
-                    className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
-                    style={{
-                      fontSize: "9px",
-                      letterSpacing: "0.06em",
-                      padding: "3px 6px",
-                      borderRadius: "3px",
-                    }}
-                  >
-                    {vendor.category}
-                  </span>
-                )}
-                {location !== "—" && (
-                  <span
-                    className="inline-flex items-center gap-1 text-muted-foreground"
-                    style={{ fontSize: "12px" }}
-                  >
-                    <MapPin size={12} strokeWidth={1.5} />
-                    {location}
-                  </span>
-                )}
-                {vendor.reviewId && (
-                  <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
-                    {vendor.reviewId}
-                  </span>
-                )}
               </div>
 
               {/* Contact row — website / phone / email / maps */}
@@ -665,12 +671,6 @@ const VendorProfile = () => {
                   )}
                 </div>
               )}
-
-              {/* Fulfillment chips */}
-              <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-                <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
-                <FulfillmentChip active={isOnline || isHybrid} label="Telehealth" />
-              </div>
             </div>
           </article>
 
