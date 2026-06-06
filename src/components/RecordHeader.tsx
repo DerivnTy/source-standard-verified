@@ -70,17 +70,15 @@ export const RecordHeader = ({
 
   return (
     <header className="bg-background border-b border-border">
-      <div className={compact ? "page-shell py-8 md:py-10" : "page-shell section-pad"}>
+      <div className={compact ? "page-shell py-6 md:py-8" : "page-shell ss-section"}>
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-8">
-            <div className="h-px w-8 bg-border mb-6" aria-hidden="true" />
-            {title && <h1 className="t-page-title text-foreground max-w-3xl">{title}</h1>}
+            {eyebrow && <p className="ss-eyebrow">{eyebrow}</p>}
+            {title && <h1 className="ss-section-title text-foreground max-w-3xl">{title}</h1>}
             {lead && (
-              <p className="mt-5 max-w-[68ch] t-body-md text-muted-foreground">
-                {lead}
-              </p>
+              <p className="ss-lead max-w-[68ch]">{lead}</p>
             )}
-            {children && <div className="mt-6">{children}</div>}
+            {children && <div className="mt-4">{children}</div>}
           </div>
           <aside className="md:col-span-4 space-y-4">
             {downloadable && (
