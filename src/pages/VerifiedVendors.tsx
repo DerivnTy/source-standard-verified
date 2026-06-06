@@ -216,7 +216,7 @@ const VerifiedVendors = () => {
       <RegistryHorizon
         seam
         cells={[
-          { label: "Total Indexed", value: 5583 },
+          { label: "Total Indexed", value: vendors.length },
           { label: "States Represented", value: 50 },
           { label: "Verified Records", value: counts.verified },
         ]}
