@@ -95,6 +95,41 @@ const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolea
   </span>
 );
 
+const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
+  <div
+    className="bg-background"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "8px",
+      padding: "12px 14px",
+      minHeight: "62px",
+    }}
+  >
+    <p
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+    >
+      {label}
+    </p>
+    <div
+      className="mt-1.5 font-sans font-medium text-foreground"
+      style={{ fontSize: "12px", lineHeight: 1.4, wordBreak: "break-word" }}
+    >
+      {value}
+    </div>
+  </div>
+);
+
+const hasVal = (v: unknown): boolean => {
+  if (v === null || v === undefined) return false;
+  if (typeof v === "string") {
+    const s = v.trim().toLowerCase();
+    return s !== "" && s !== "—" && s !== "-" && s !== "n/a" && s !== "na" && s !== "not available" && s !== "unknown";
+  }
+  if (Array.isArray(v)) return v.length > 0;
+  return true;
+};
+
 // Capability detection from existing free-text data fields.
 const CAPABILITY_DEFS: { key: string; label: string; match: RegExp }[] = [
   { key: "sterile", label: "Sterile Compounding", match: /sterile|injectable|infusion|admixture|ophthalmic|prefilled|iv\b/i },
