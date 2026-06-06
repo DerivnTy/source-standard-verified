@@ -5,7 +5,7 @@ import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
-  { id: "audit", number: "01", label: "Documentation Review" },
+  { id: "audit", number: "01", label: "Evidence Review" },
   { id: "surveillance", number: "02", label: "Ongoing Monitoring" },
   { id: "disclosure", number: "03", label: "Vendor Disclosure" },
   { id: "boundaries", number: "04", label: "Boundaries" },
@@ -16,23 +16,23 @@ type Clause = { n: string; t: string; d: string };
 const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Sourcing claims",
-    d: "Reviews whether the vendor's stated sourcing relationships are supported by documentation.",
+    t: "Sourcing relationships",
+    d: "Reviews whether claimed pharmacy or manufacturing relationships are supported by documentation, records, and supporting evidence.",
   },
   {
     n: "02",
-    t: "Pharmacy records",
-    d: "Cross-checks cited 503A and 503B pharmacy relationships against available registration, licensure, and public-record sources.",
+    t: "Pharmacy verification",
+    d: "Evaluates cited 503A and 503B pharmacy relationships against registration records, licensure information, and publicly available sources.",
   },
   {
     n: "03",
-    t: "Chain of custody",
-    d: "Reviews invoices, lot references, distribution records, and related documentation when available.",
+    t: "Supply-chain documentation",
+    d: "Reviews invoices, fulfillment records, distribution documentation, chain-of-custody materials, and related records when available.",
   },
   {
     n: "04",
-    t: "Entity identity",
-    d: "Checks business identity, operating entity, location data, and related records for consistency.",
+    t: "Entity validation",
+    d: "Confirms consistency between business identity, operating entity information, ownership records, locations, and public-facing representations.",
   },
 ];
 
@@ -40,55 +40,55 @@ const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Record maintenance",
-    d: "Published records may be reviewed to confirm that licensing data, pharmacy relationships, and documentation remain current.",
+    d: "Published records may be reviewed periodically to confirm that documentation, licensure information, and sourcing relationships remain current.",
   },
   {
     n: "02",
-    t: "Public-record updates",
-    d: "Relevant licensure changes, enforcement notices, and administrative updates may be monitored where applicable.",
+    t: "Public-record monitoring",
+    d: "Relevant licensure actions, enforcement notices, administrative actions, and public-record changes may be incorporated into future reviews.",
   },
   {
     n: "03",
     t: "Evidence reconciliation",
-    d: "New information may be compared against the existing record to determine whether further review is needed.",
+    d: "New information may be compared against an existing record to determine whether previously supported claims remain supported.",
   },
   {
     n: "04",
-    t: "Status response",
-    d: "Material gaps or unresolved inconsistencies may result in a status update.",
+    t: "Status review",
+    d: "Material inconsistencies, documentation deficiencies, or unresolved evidence gaps may result in a reassessment of public status.",
   },
 ];
 
 const DISCLOSURE_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Change notification",
-    d: "Vendors are expected to disclose sourcing, ownership, pharmacy, or operating changes that affect a published record.",
+    t: "Material change reporting",
+    d: "Vendors are expected to disclose sourcing, pharmacy, ownership, operational, or structural changes that materially affect a published record.",
   },
   {
     n: "02",
-    t: "Documentation updates",
-    d: "Updated records may be required when sourcing relationships, therapy categories, or public claims change.",
+    t: "Documentation maintenance",
+    d: "Supporting documentation may require updates when sourcing relationships, operating entities, therapy categories, or public claims change.",
   },
   {
     n: "03",
     t: "Review continuity",
-    d: "Records may be reviewed to confirm that the published status remains supported.",
+    d: "Published records may be re-evaluated to determine whether the existing status remains supported by available evidence.",
   },
   {
     n: "04",
     t: "Status adjustment",
-    d: "Disclosure failures, expired documentation, or material inconsistencies may change registry status.",
+    d: "Failure to disclose material changes, maintain documentation, or resolve significant inconsistencies may result in status modification.",
   },
 ];
 
 const BOUNDARIES = [
-  "Reviews whether sourcing documentation supports the stated public claim.",
-  "Does not provide medical advice or clinical recommendations.",
-  "Does not verify outcomes, treatment effectiveness, or biological response.",
-  "Does not certify product safety, potency, sterility, or quality.",
-  "Does not replace federal or state regulatory authority.",
-  "Does not approve, recommend, or rank vendors.",
+  "Evaluates whether publicly stated sourcing claims are supported by available evidence and documentation.",
+  "Does not provide medical advice, treatment guidance, or clinical recommendations.",
+  "Does not evaluate patient outcomes, treatment effectiveness, or biological response.",
+  "Does not certify product potency, sterility, safety, efficacy, or manufacturing quality.",
+  "Does not replace federal, state, pharmacy, or medical regulatory oversight.",
+  "Does not endorse, recommend, rank, promote, or market vendors.",
 ];
 
 /* ------------------------------ Local primitives ------------------------------ */
