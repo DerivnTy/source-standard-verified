@@ -29,26 +29,61 @@ const GovRow = ({
   compact?: boolean;
 }) => (
   <div
-    className="bg-card"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "12px",
-      padding: compact ? "12px 16px" : "16px 18px",
+      backgroundColor: "#FFFFFF",
+      border: "1px solid rgba(0,0,0,0.08)",
+      borderRadius: "18px",
+      padding: compact ? "20px 22px" : "24px",
     }}
   >
-    <div className="grid grid-cols-12 gap-3 items-baseline">
+    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+      <p
+        className="font-sans text-foreground"
+        style={{ fontSize: "20px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+      >
+        {title}
+      </p>
       {index !== undefined && (
-        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
+        <span
+          className="font-mono tabular-nums shrink-0"
+          style={{
+            fontSize: "14px",
+            fontWeight: 500,
+            letterSpacing: "0.04em",
+            color: "rgba(0,0,0,0.40)",
+            whiteSpace: "nowrap",
+            marginTop: "4px",
+          }}
+        >
           {index}
-        </div>
+        </span>
       )}
-      <div className={index !== undefined ? "col-span-10 md:col-span-11" : "col-span-12"}>
-        <p className="t-body-sm font-semibold text-foreground leading-snug">{title}</p>
-        {description && (
-          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{description}</p>
-        )}
-      </div>
     </div>
+    {description && (
+      <p
+        className="text-muted-foreground"
+        style={{ marginTop: "12px", fontSize: "17px", fontWeight: 400, lineHeight: 1.75 }}
+      >
+        {description}
+      </p>
+    )}
+  </div>
+);
+
+const SectionHeadingInline = ({ n, title }: { n: string; title: React.ReactNode }) => (
+  <div className="flex items-baseline" style={{ gap: "12px" }}>
+    <span
+      className="font-mono tabular-nums shrink-0"
+      style={{ fontSize: "14px", fontWeight: 500, letterSpacing: "0.04em", color: "rgba(0,0,0,0.40)" }}
+    >
+      {n}
+    </span>
+    <h2
+      className="font-sans text-foreground"
+      style={{ fontSize: "28px", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.02em", color: "#0A0A0A" }}
+    >
+      {title}
+    </h2>
   </div>
 );
 
