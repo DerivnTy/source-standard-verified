@@ -94,7 +94,7 @@ export const ARTICLES: Article[] = [
     slug: "how-to-read-a-certificate-of-analysis",
     title: "Understanding Certificates of Analysis",
     blurb:
-      "How laboratory reports are used, what information they contain, and why documentation should always be reviewed carefully.",
+      "What Certificates of Analysis show, what they do not show, and why documentation should be reviewed carefully.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -103,7 +103,7 @@ export const ARTICLES: Article[] = [
     slug: "what-are-peptides",
     title: "Claims vs. Documentation",
     blurb:
-      "How to distinguish general product claims from reviewable sourcing documentation.",
+      "How to separate marketing language from sourcing documentation, facility records, and verifiable evidence.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -112,7 +112,7 @@ export const ARTICLES: Article[] = [
     slug: "what-source-standard-verification-actually-means",
     title: "Understanding Verification Scope",
     blurb:
-      "What a Verified listing establishes and what it does not establish.",
+      "What Source Standard verification establishes, what it does not establish, and why verification has defined limits.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -121,7 +121,7 @@ export const ARTICLES: Article[] = [
     slug: "questions-to-ask-your-clinic",
     title: "Vendor Evaluation Checklist",
     blurb:
-      "Questions consumers can ask about sourcing, pharmacy relationships, documentation, and review status.",
+      "A practical checklist consumers can use when evaluating sourcing transparency and documentation quality.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
@@ -130,7 +130,7 @@ export const ARTICLES: Article[] = [
     slug: "warning-signs-of-undocumented-sourcing",
     title: "Warning Signs and Red Flags",
     blurb:
-      "Common patterns in unsupported sourcing claims and undocumented vendor presentations.",
+      "Common transparency concerns, unsupported sourcing claims, and documentation gaps consumers should understand.",
     meta: "Updated Apr 2026",
     publishedAt: "2026-04-21",
     category: "core",
