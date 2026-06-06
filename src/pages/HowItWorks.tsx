@@ -16,7 +16,7 @@ type Clause = { n: string; t: string; d: string };
 const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Sourcing relationships",
+    t: "Sourcing verification",
     d: "Reviews whether claimed pharmacy or manufacturing relationships are supported by documentation, records, and supporting evidence.",
   },
   {
