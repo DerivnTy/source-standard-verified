@@ -43,7 +43,7 @@ export const FaqPage = ({
     </div>
 
     {/* Header */}
-    <header className="page-shell" style={{ paddingTop: "48px", paddingBottom: "32px" }}>
+    <header className="page-shell pt-5 pb-8">
       <div className="mx-auto w-wide max-w-[68ch]">
         <p
           className="font-mono uppercase text-muted-foreground"
@@ -71,7 +71,7 @@ export const FaqPage = ({
     </header>
 
     {/* FAQ list */}
-    <section className="page-shell" style={{ paddingBottom: "72px" }}>
+    <section className="page-shell pb-16">
       <div className="mx-auto w-wide max-w-[68ch]">
         <Accordion
           type="single"
