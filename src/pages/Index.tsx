@@ -268,15 +268,15 @@ const registryFields = [
 const whyMatters = [
   {
     h: "For consumers",
-    b: "A public-reference system showing who vendors claim to source from, what documentation has been reviewed, and whether sourcing claims are supported.",
+    b: "A public-reference system designed to improve transparency around compounded therapy sourcing claims.",
   },
   {
-    h: "For vendors",
-    b: "An independent verification pathway for demonstrating sourcing transparency, facility relationships, and supply-chain credibility.",
+    h: "For providers",
+    b: "A verification pathway for clinics, telehealth providers, and wellness businesses seeking to demonstrate sourcing transparency and facility relationships.",
   },
   {
-    h: "For clinicians",
-    b: "A structured reference for evaluating sourcing practices and facility relationships before making purchasing or referral decisions.",
+    h: "For the industry",
+    b: "A centralized intelligence layer tracking facility relationships, sourcing trends, and supply-chain transparency across the compounded therapy market.",
   },
 ];
 
