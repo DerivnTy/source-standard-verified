@@ -697,6 +697,22 @@ const VendorProfile = () => {
                 value={vendor.linkedin ? normalizeHandle(vendor.linkedin) : undefined}
                 href={li}
               />
+              <div className="col-span-2">
+                <Cell
+                  label="Address"
+                  value={
+                    vendor.address || vendor.city || vendor.state || vendor.zip
+                      ? [
+                          vendor.address,
+                          [vendor.city, vendor.state].filter(Boolean).join(", "),
+                          vendor.zip,
+                        ]
+                          .filter(Boolean)
+                          .join(" ")
+                      : undefined
+                  }
+                />
+              </div>
             </dl>
           </article>
 
