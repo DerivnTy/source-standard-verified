@@ -706,41 +706,19 @@ const VendorProfile = () => {
 
           {/* ────── 3. VERIFICATION RECORD (placed directly under identity) ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Verification Status</SectionHeading>
+            <SectionHeading>Verification Record</SectionHeading>
 
-            {/* Registry status module */}
-            <div className="mt-3">
-              <p
-                className="font-sans font-bold uppercase"
-                style={{
-                  fontSize: "24px",
-                  letterSpacing: "0.04em",
-                  lineHeight: 1.1,
-                  color:
-                    status === "verified"
-                      ? "hsl(var(--verified))"
-                      : status === "unverified"
-                      ? "hsl(var(--unverified))"
-                      : status === "under-review"
-                      ? "hsl(var(--under-review))"
-                      : status === "suspended"
-                      ? "hsl(var(--suspended))"
-                      : "hsl(var(--muted-foreground))",
-                }}
-              >
-                {VENDOR_STATUS_LABEL[status].toUpperCase()}
-              </p>
-              <p
-                className="mt-2 text-muted-foreground"
-                style={{ fontSize: "12.5px", lineHeight: 1.55 }}
-              >
-                {isVerified
-                  ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
-                  : status === "under-review"
-                  ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
-                  : "No Source Standard review has been completed."}
-              </p>
-            </div>
+            <p
+              className="mt-3 text-muted-foreground"
+              style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+            >
+              {isVerified
+                ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
+                : status === "under-review"
+                ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
+                : "No Source Standard review has been completed."}
+            </p>
+
 
             {/* Expandable detail */}
             <button
