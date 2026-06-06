@@ -46,76 +46,103 @@ export const VendorRow = ({
       to={`/directory/${vendor.slug}`}
       aria-label={`${vendor.name}${focus ? ` — ${focus.label}` : ""}`}
       data-pill
-      className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 hover:border-[hsl(var(--foreground))]/20 active:scale-[0.99]"
+      className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 hover:border-[hsl(var(--foreground))]/20 active:scale-[0.99] relative"
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
         padding: "12px 16px 10px",
-        minHeight: "84px",
+        minHeight: "104px",
       }}
     >
-      <div className="flex flex-col" style={{ gap: "5px" }}>
-        {/* Row 1 — Name (left) · Status (right) */}
-        <div className="flex items-start justify-between" style={{ gap: "16px" }}>
-          <h3
-            className="font-sans text-foreground truncate"
-            style={{
-              flex: 1,
-              minWidth: 0,
-              fontSize: "15px",
-              fontWeight: 650,
-              lineHeight: 1.15,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {vendor.name}
-          </h3>
-
+      {/* Status — pinned top-right */}
+      <span
+        className="absolute inline-flex items-center justify-end font-sans uppercase tabular-nums"
+        style={{
+          top: "12px",
+          right: "16px",
+          height: "12px",
+          fontSize: isVerified ? "12px" : "10.5px",
+          fontWeight: isVerified ? 700 : 600,
+          letterSpacing: "0.04em",
+          lineHeight: 1,
+          gap: "4px",
+          color: isVerified ? "#001021" : "#FF3B30",
+          opacity: isVerified ? 1 : 0.85,
+        }}
+      >
+        {isVerified ? "Verified" : "Unverified"}
+        {isVerified && (
           <span
-            className="inline-flex items-center justify-end font-sans uppercase tabular-nums"
+            aria-hidden
             style={{
-              flexShrink: 0,
+              position: "relative",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
               height: "12px",
-              fontSize: isVerified ? "12px" : "10.5px",
-              fontWeight: isVerified ? 700 : 600,
-              letterSpacing: "0.04em",
-              lineHeight: 1,
-              gap: "4px",
-              color: isVerified ? "#001021" : "#FF3B30",
-              opacity: isVerified ? 1 : 0.85,
+              width: "19px",
+              overflow: "visible",
             }}
           >
-            {isVerified ? "Verified" : "Unverified"}
-            {isVerified && (
-              <span
-                aria-hidden
-                style={{
-                  position: "relative",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "12px",
-                  width: "19px",
-                  overflow: "visible",
-                }}
-              >
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: 0,
-                    transform: "translateY(calc(-50% - 1px))",
-                    display: "block",
-                  }}
-                >
-                  <VerifiedShieldMark height={22} color="#001021" />
-                </span>
-              </span>
-            )}
+            <span
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: 0,
+                transform: "translateY(calc(-50% - 1px))",
+                display: "block",
+              }}
+            >
+              <VerifiedShieldMark height={22} color="#001021" />
+            </span>
           </span>
-        </div>
+        )}
+      </span>
 
-        {/* Row 2 — Location · Vendor type */}
+      {/* View Record — pinned bottom-right */}
+      <span
+        className="absolute font-sans uppercase text-foreground group-hover:translate-x-[1px] transition-transform"
+        style={{
+          bottom: "10px",
+          right: "14px",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "4px",
+          fontSize: "10.5px",
+          fontWeight: 700,
+          letterSpacing: "0.09em",
+          lineHeight: 1,
+        }}
+      >
+        View Record
+        <ChevronRight
+          aria-hidden
+          style={{ width: "11px", height: "11px", strokeWidth: 2, marginRight: "-2px" }}
+        />
+      </span>
+
+      {/* Centered content group: name, location, category */}
+      <div
+        className="flex flex-col justify-center h-full"
+        style={{
+          gap: "4px",
+          minHeight: "84px",
+          paddingRight: "92px",
+        }}
+      >
+        <h3
+          className="font-sans text-foreground truncate"
+          style={{
+            minWidth: 0,
+            fontSize: "15px",
+            fontWeight: 650,
+            lineHeight: 1.15,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          {vendor.name}
+        </h3>
+
         <div
           className="text-muted-foreground truncate"
           style={{ fontSize: "11.5px", lineHeight: 1.35 }}
@@ -123,7 +150,6 @@ export const VendorRow = ({
           {locationLine}
         </div>
 
-        {/* Row 3 — Category badge on its own line */}
         {focus && (
           <div style={{ marginTop: "1px" }}>
             <span
@@ -148,31 +174,8 @@ export const VendorRow = ({
             </span>
           </div>
         )}
-
-        {/* Row 4 — View Record action */}
-        <div className="flex items-center" style={{ justifyContent: "flex-end", marginTop: "1px" }}>
-          <span
-            className="font-sans uppercase text-foreground group-hover:translate-x-[1px] transition-transform"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "4px",
-              marginRight: "-2px",
-              fontSize: "10.5px",
-              fontWeight: 700,
-              letterSpacing: "0.09em",
-              lineHeight: 1,
-            }}
-          >
-            View Record
-            <ChevronRight
-              aria-hidden
-              style={{ width: "11px", height: "11px", strokeWidth: 2, marginRight: "-2px" }}
-            />
-          </span>
-        </div>
-
       </div>
     </Link>
   );
 };
+
