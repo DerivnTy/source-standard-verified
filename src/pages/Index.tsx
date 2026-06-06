@@ -106,7 +106,7 @@ const HeroMetrics = () => {
         className="flex items-start justify-center w-full"
         style={{ gap: "48px" }}
       >
-        <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
+        <Unit value={stats.total} label="Identified Vendors" />
         <Unit value={50} label="States Represented" />
       </div>
     </div>
