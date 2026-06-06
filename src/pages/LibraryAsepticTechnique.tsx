@@ -12,70 +12,82 @@ const DOC_ID = "SS-GUIDE-002";
 const LibraryAsepticTechnique = () => {
   return (
     <>
-      <PageMeta title="Aseptic Technique · Clinical Guide" description="Foundational principles of aseptic compounding and barrier technique." />
-      <Breadcrumb items={[
+      <PageMeta
+        title="Understanding Sterile Compounding · Resource Library"
+        description="What sterile compounding means, why sterile environments matter, and how it differs from non-sterile preparation."
+      />
+      <Breadcrumb
+        items={[
           { label: "Resource Library", to: "/education" },
-          { label: "Clinical Guides" },
-        ]} />
+          { label: "Latest Publications" },
+        ]}
+      />
       <ArticleHeader
-        eyebrow="Source Standard · Clinical Guide"
-        title="Aseptic Technique: Sanitization Fundamentals"
-        lead="Foundational principles of aseptic handling for clinicians and patients to minimize the risk of microbial introduction during medication administration."
+        eyebrow="Educational Resource"
+        title="Understanding Sterile Compounding"
+        lead="An overview of sterile compounding, why controlled environments matter, and why consumers may want to know whether a medication was prepared under sterile conditions."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
-          { label: "Status", value: "MAB Reviewed / Active" },
+          { label: "Status", value: "Public Reference" },
           { label: "Doc", value: DOC_ID },
         ]}
       />
 
-      <ArticleSection n={1} title="Defining the aseptic field">
+      <ArticleSection n={1} title="What sterile compounding means">
         <p>
-          In clinical practice, 'aseptic' means the absence of pathogenic microorganisms. While a home or office environment is never truly sterile, we can create a 'Controlled Field' for medication preparation. This involves identifying a clean, well-lit, non-porous surface away from high-traffic areas, open windows, or air vents.
+          Sterile compounding refers to the preparation of medications in a controlled environment designed to prevent microbial contamination. It is generally associated with injectable products, ophthalmic preparations, and other medications that bypass the body&rsquo;s natural barriers and therefore must be free of microorganisms when administered.
+        </p>
+        <p>
+          Sterile compounding is distinct from non-sterile compounding, which covers preparations such as oral capsules, topical creams, and other dosage forms that do not require a sterile environment to be prepared.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Hand hygiene & barrier protection">
-        <p>The most common vector for contamination is the human hand.</p>
+      <ArticleSection n={2} title="Why sterile environments matter">
+        <p>
+          Because sterile preparations are introduced into the body in ways that bypass natural defenses, the environment in which they are prepared is closely tied to the integrity of the finished product. Controlled facilities are designed to limit the introduction of particulate matter, microorganisms, and other contaminants during preparation.
+        </p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
           items={[
-            { term: "Mechanical cleaning", description: "Hands should be washed with antimicrobial soap for at least 30 seconds, focusing on the fingernails and webbing between fingers." },
-            { term: "Gloves", description: "While patient self-administration often relies on hand washing, clinical staff must utilize medical-grade, powder-free gloves. Note: Wearing gloves does not replace the need for hand washing; it is an additional layer of protection." },
+            { term: "Controlled air environments", description: "Sterile preparation areas are designed to manage airflow, particulate levels, and surface conditions in a way that supports product integrity." },
+            { term: "Defined operational standards", description: "USP General Chapters, including those addressing sterile preparation, outline expectations that apply to facilities engaged in sterile compounding." },
+            { term: "Facility classification", description: "Compounding facilities operate under defined regulatory categories (503A or 503B) that establish the framework within which sterile preparation occurs." },
           ]}
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="The 'Swab and Wait' protocol">
-        <p>Alcohol-based sanitization is a chemical reaction that requires time to be effective.</p>
+      <ArticleSection n={3} title="Sterile vs. non-sterile compounding">
+        <p>
+          Whether a medication is compounded under sterile or non-sterile conditions depends on the product, its route of administration, and the regulatory pathway under which it is prepared.
+        </p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
           items={[
-            { term: "Septum sanitization", description: "Before every needle entry, the rubber stopper (septum) of the vial must be wiped firmly with a 70% Isopropyl Alcohol swab." },
-            { term: "The 10-second rule", description: "You must allow the alcohol to air-dry for at least 10 seconds. Do not blow on the surface to speed up drying, as this introduces oral bacteria back onto the sterile field." },
-            { term: "Single use", description: "Never use the same alcohol swab for both the vial and the skin site. Each requires a fresh, sterile swab." },
+            { term: "Sterile preparations", description: "Generally include injectable, inhaled, and ophthalmic products that are required to be free of microorganisms at the point of dispensing." },
+            { term: "Non-sterile preparations", description: "Include oral, topical, and other dosage forms that do not require a sterile environment for preparation." },
+            { term: "Different facility expectations", description: "Sterile and non-sterile preparations are typically associated with different facility design, documentation, and operational expectations under applicable USP chapters and regulatory categories." },
           ]}
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="Equipment areas that must remain sterile">
-        <p>Certain parts of the administration equipment must never touch a non-sterile surface:</p>
-        <BoardDefList
-          prefix={(i) => `§4.${i + 1}`}
-          items={[
-            { term: "The needle", description: "From the moment the cap is removed until the injection is complete." },
-            { term: "The syringe hub", description: "The point where the needle attaches to the syringe." },
-            { term: "The vial septum", description: "Once sanitized and dried." },
-          ]}
-        />
+      <ArticleSection n={4} title="Why consumers may want to know">
+        <p>
+          For consumers reviewing a compounded medication, understanding whether the preparation is sterile or non-sterile is a basic reference point. When a product is sterile, the facility that prepared it, its regulatory classification, and the documentation associated with that preparation become relevant context when evaluating sourcing claims.
+        </p>
+        <p>
+          Source Standard organizes facility records, regulatory classifications, and sourcing documentation so that compounded-medication claims can be reviewed within a structured public-reference framework.
+        </p>
+      </ArticleSection>
+
+      <ArticleSection title="Key Takeaway">
         <p className="text-foreground font-medium">
-          If any of these 'Critical Sites' come into contact with a finger, table, or clothing, the equipment is considered compromised and must be discarded.
+          Sterile compounding describes a defined preparation environment used for certain categories of medications. Knowing whether a product was prepared under sterile conditions, and which facility prepared it, is a useful reference point for reviewing a sourcing claim.
         </p>
       </ArticleSection>
 
       <ArticleFooter
-        back={{ to: "/education", label: "Back to Clinical Library" }}
-        next={{ to: "/library/endocrinological-context", label: "Endocrinological Context (SS-GUIDE-003)" }}
-        citation={`Source Standard · Clinical Guide · Aseptic Technique, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        back={{ to: "/education", label: "Back to Resource Library" }}
+        citation={`Source Standard · Resource Library · Understanding Sterile Compounding, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

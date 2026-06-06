@@ -10,7 +10,7 @@ import {
 const LibraryAnalysis2026Reclassification = () => {
   return (
     <>
-      <PageMeta title="Understanding Regulatory Changes in Compounding · Resource Library" description="How regulatory updates can affect compounded medications, sourcing pathways, and supply-chain transparency." />
+      <PageMeta title="Understanding Regulatory Changes in Compounding · Resource Library" description="How regulatory updates can affect sourcing pathways, facility operations, documentation practices, and supply-chain transparency." />
       <Breadcrumb items={[
           { label: "Resource Library", to: "/education" },
           { label: "Analysis" },
@@ -18,7 +18,7 @@ const LibraryAnalysis2026Reclassification = () => {
       <ArticleHeader
         eyebrow="Educational Resource"
         title="Understanding Regulatory Changes in Compounding"
-        lead="How regulatory updates can affect compounded medications, sourcing pathways, and supply-chain transparency."
+        lead="How regulatory updates can affect sourcing pathways, facility operations, documentation practices, and supply-chain transparency."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
         ]}

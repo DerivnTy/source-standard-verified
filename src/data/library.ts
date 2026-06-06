@@ -157,16 +157,6 @@ export const libraryGuides: LibraryEntry[] = [
     reviewedBy: "Medical Advisory Board",
   },
   {
-    id: "SS-GUIDE-004",
-    slug: "dosing-guidance-summaries-for-common-compounds",
-    lane: "guide",
-    title: "Dosing-Guidance Summaries for Common Compounds",
-    summary:
-      "High-level reference summaries of dosing ranges commonly cited for selected compounds. Not personalized advice.",
-    status: "outlined",
-    reviewedBy: "Medical Advisory Board",
-  },
-  {
     id: "SS-GUIDE-005",
     slug: "storage-and-stability-fundamentals",
     lane: "guide",

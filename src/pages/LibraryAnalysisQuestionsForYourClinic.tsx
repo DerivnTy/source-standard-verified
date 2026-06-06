@@ -11,39 +11,24 @@ const DOC_ID = "SS-ANALYSIS-004";
 
 const QUESTIONS = [
   {
-    q: "Which pharmacy compounds this medication?",
-    why: "Identifying the compounding pharmacy is the starting point for reviewing facility records and public licensing information.",
+    q: "Which pharmacy or facility prepares this medication?",
+    why: "Identifying the compounding pharmacy or outsourcing facility is the starting point for reviewing facility records and public licensing information.",
   },
   {
-    q: "Is the medication sourced through a 503A or 503B facility?",
-    why: "Facility classification provides context about the regulatory pathway used to prepare a compounded medication.",
+    q: "Is sourcing information available publicly?",
+    why: "Public sourcing information can be reviewed against documentation, licensing records, and other available evidence.",
   },
   {
-    q: "Can you explain your sourcing process?",
-    why: "A clear, consistent explanation of how a clinic sources medications is a useful indicator of sourcing transparency.",
+    q: "Has the facility relationship changed recently?",
+    why: "Changes to facility relationships can affect what current sourcing claims describe, even when prior statements remain visible publicly.",
   },
   {
-    q: "What documentation supports your sourcing claims?",
-    why: "Records such as certificates of analysis, invoices, or facility registrations can be reviewed against public statements.",
+    q: "Is documentation available supporting sourcing claims?",
+    why: "Records such as certificates of analysis, invoices, or facility registrations provide reviewable evidence that can support public statements.",
   },
   {
-    q: "How are facility relationships disclosed to patients?",
-    why: "Public disclosure of facility relationships allows consumers to review sourcing claims against available evidence.",
-  },
-];
-
-const RESPONSE_EXAMPLES = [
-  {
-    label: "Identifies the pharmacy directly",
-    description: "The clinic names the compounding pharmacy and is willing to share supporting documentation upon request.",
-  },
-  {
-    label: "Describes the sourcing process clearly",
-    description: "The clinic can explain its facility relationships and how sourcing claims are supported.",
-  },
-  {
-    label: "Limited or inconsistent disclosure",
-    description: "The clinic is unable or unwilling to identify its compounding source or provide documentation that can be reviewed.",
+    q: "When was this information last reviewed?",
+    why: "Sourcing information has a point-in-time character; knowing when it was last reviewed helps consumers interpret the current public record.",
   },
 ];
 
@@ -51,8 +36,8 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
   return (
     <>
       <PageMeta
-        title="Vendor Evaluation Checklist · Source Standard"
-        description="A neutral consumer-transparency checklist for asking clinics about compounded-medication sourcing."
+        title="Questions to Ask About Sourcing · Source Standard"
+        description="A neutral set of sourcing-transparency questions consumers can use when evaluating a compounded-medication provider."
       />
       <Breadcrumb
         items={[
@@ -62,8 +47,8 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
       />
       <ArticleHeader
         eyebrow="Source Standard · Public Reference"
-        title="Vendor Evaluation Checklist"
-        lead="A neutral set of questions consumers can use to better understand a clinic's sourcing practices, facility relationships, and supporting documentation."
+        title="Questions to Ask About Sourcing"
+        lead="A neutral set of questions consumers can use to better understand a vendor&rsquo;s sourcing practices, facility relationships, and supporting documentation."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
           { label: "Status", value: "Public Reference" },
@@ -71,14 +56,14 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="Asking about sourcing">
+      <ArticleSection n={1} title="Framing">
         <p>
-          Sourcing transparency is one of the most useful reference points consumers can consider when evaluating a compounded-medication provider. The questions below are intended to support informed conversations with a clinic; they are not legal or compliance conclusions.
+          Sourcing transparency is one of the most useful reference points consumers can consider when evaluating a compounded-medication provider. The questions below are intended to support informed conversations about sourcing; they are not treatment guidance, handling instructions, or compliance determinations.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="A consumer-transparency checklist">
-        <p>Consumers may consider asking the following questions when evaluating a clinic.</p>
+      <ArticleSection n={2} title="Sourcing-transparency questions">
+        <p>Consumers may consider asking the following questions when reviewing a vendor.</p>
         <ol className="border border-border bg-background divide-y divide-border my-2">
           {QUESTIONS.map((item, i) => (
             <li key={i} className="grid grid-cols-12 gap-4 px-5 py-5">
@@ -99,25 +84,29 @@ const LibraryAnalysisQuestionsForYourClinic = () => {
         </ol>
       </ArticleSection>
 
-      <ArticleSection n={3} title="Examples of transparent responses">
+      <ArticleSection n={3} title="How to interpret the answers">
         <p>
-          The examples below describe patterns consumers may encounter. They are illustrative reference points, not determinations about a specific organization.
+          Clarity and consistency are useful reference points. A vendor that can identify its compounding source, describe its facility relationships, and point to supporting documentation provides more reviewable information than one that cannot.
         </p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
-          items={RESPONSE_EXAMPLES.map((r) => ({ term: r.label, description: r.description }))}
+          items={[
+            { term: "Identifies the source directly", description: "The vendor names the compounding pharmacy or outsourcing facility and is willing to share supporting documentation upon request." },
+            { term: "Describes the sourcing process clearly", description: "The vendor can explain its facility relationships and how sourcing claims are supported." },
+            { term: "Limited or inconsistent disclosure", description: "The vendor is unable or unwilling to identify its compounding source or provide documentation that can be reviewed." },
+          ]}
         />
       </ArticleSection>
 
       <ArticleSection title="Key Takeaway">
         <p className="text-foreground font-medium">
-          Asking direct questions about sourcing, facility relationships, and supporting documentation is a reasonable part of consumer due diligence. The clarity and consistency of a clinic's responses can be a useful reference point when reviewing a sourcing claim.
+          Asking direct questions about sourcing, facility relationships, and supporting documentation is a reasonable part of consumer due diligence. The clarity and consistency of a vendor&rsquo;s responses are useful reference points when reviewing a sourcing claim.
         </p>
       </ArticleSection>
 
       <ArticleFooter
         back={{ to: "/education", label: "Back to Resource Library" }}
-        citation={`Source Standard · Public Reference · Vendor Evaluation Checklist, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Public Reference · Questions to Ask About Sourcing, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

@@ -33,18 +33,19 @@ const LibraryAnalysisMeaningOfVerification = () => {
         ]}
       />
 
-      <ArticleSection n={1} title="What verification establishes">
+      <ArticleSection n={1} title="What verification reviews">
         <p>
-          A Verified listing in the Source Standard registry reflects a structured review of available information at a specific point in time.
+          Verification reflects a review of submitted documentation, sourcing claims, facility relationships, public records, and supporting evidence within the scope of the Source Standard framework. It is a structured review of available information at a point in time.
         </p>
         <BoardDefList
           prefix={(i) => `§1.${i + 1}`}
           items={[
-            { term: "Documentation review", description: "Documentation submitted or made available was reviewed." },
-            { term: "Sourcing claims review", description: "Public sourcing claims were reviewed against available evidence." },
-            { term: "Facility relationships review", description: "Stated facility relationships were reviewed for consistency with available records." },
-            { term: "Public records review", description: "Publicly available records relating to the vendor or referenced facilities were reviewed." },
-            { term: "Status assignment", description: "A status was assigned based on the evidence available at the time of review." },
+            { term: "Vendor sourcing claims", description: "Public statements describing how a vendor sources compounded medications are reviewed against available evidence." },
+            { term: "Facility relationships", description: "Stated relationships between a vendor and compounding pharmacies or outsourcing facilities are reviewed for consistency with available records." },
+            { term: "Submitted documentation", description: "Records made available by the vendor are reviewed within the scope of the framework." },
+            { term: "Public records", description: "Publicly available information relating to the vendor or referenced facilities is reviewed where applicable." },
+            { term: "Licensing records", description: "Publicly accessible licensing information is reviewed as a reference point for facility classification and operational status." },
+            { term: "Testing activity where applicable", description: "Where testing activity is part of the public record or made available for review, it is considered within the structured review." },
           ]}
         />
       </ArticleSection>
