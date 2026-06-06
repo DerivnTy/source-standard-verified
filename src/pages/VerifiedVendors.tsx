@@ -97,8 +97,6 @@ const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<StatusKey>("any");
   const [delivery, setDelivery] = useState<DeliveryKey>("any");
-  const [focus, setFocus] = useState<FocusKey>("all");
-  const [focusOpen, setFocusOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   
