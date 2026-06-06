@@ -182,7 +182,7 @@ const MedicalAdvisory = () => {
                 <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
                 <div className="mt-4">
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    The Advisory Board supports the neutrality and procedural discipline of the Source Standard framework, providing advisory input on review standards, documentation boundaries, and public language used across the registry. It does not represent vendors, clinics, or pharmacy partners, and does not make individual vendor status determinations — it serves as an independent advisory layer for the standards behind the public reference system.
+                    The Advisory Board supports the neutrality and procedural discipline of the Source Standard framework, providing advisory input on review standards, documentation boundaries, and public language used across the registry. It does not represent vendors or pharmacy partners, and does not make individual vendor status determinations — it serves as an independent advisory layer for the standards behind the public reference system.
                   </p>
                 </div>
               </GovCard>
