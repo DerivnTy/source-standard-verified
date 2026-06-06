@@ -7,9 +7,9 @@ import {
 } from "@/data/greenlist";
 
 /**
- * GreenlistProfile — Surgical Audit Record.
- * One-screen, high-density public record card. No marketing copy,
- * no "About", no big CTAs. Single 600px-wide document on white.
+ * GreenlistProfile — Manufacturer Intelligence Profile.
+ * Restructured to function as a supply-chain intelligence profile,
+ * not a static database record.
  */
 
 const formatAsOf = (iso?: string): string | undefined => {
@@ -25,60 +25,54 @@ const formatAsOf = (iso?: string): string | undefined => {
   }
 };
 
-const hostname = (url: string): string => {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-  }
+type StatusTier = "greenlisted" | "monitoring" | "alert";
+
+const STATUS_LABEL: Record<StatusTier, string> = {
+  greenlisted: "Greenlisted",
+  monitoring: "Under Monitoring",
+  alert: "Status Alert",
 };
 
-const Cell = ({
-  label,
-  value,
-  mono,
-  href,
-}: {
-  label: string;
-  value?: ReactNode;
-  mono?: boolean;
-  href?: string;
-}) => {
-  const present = value !== undefined && value !== null && value !== "";
-  return (
-    <div>
-      <dt
-        className="font-sans font-semibold uppercase text-muted-foreground"
-        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-      >
-        {label}
-      </dt>
-      <dd
-        className={`mt-1 ${mono ? "font-mono tabular-nums" : "font-sans font-medium"} ${
-          present ? "text-foreground" : "text-muted-foreground"
-        }`}
-        style={{ fontSize: "12px", lineHeight: "1.5" }}
-      >
-        {present ? (
-          href ? (
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 decoration-border hover:decoration-foreground transition-colors"
-            >
-              {value}
-            </a>
-          ) : (
-            value
-          )
-        ) : (
-          "—"
-        )}
-      </dd>
-    </div>
-  );
+const STATUS_COLOR: Record<StatusTier, string> = {
+  greenlisted: "#34C759",
+  monitoring: "#C99A2E",
+  alert: "#FF3B30",
 };
+
+const manufacturerTypeLabel = (raw?: string): string => {
+  if (!raw) return "Manufacturer";
+  const t = raw.toLowerCase();
+  if (t.includes("api")) return "API Manufacturer";
+  if (t.includes("503b")) return "503B Facility";
+  if (t.includes("503a")) return "503A Facility";
+  return raw;
+};
+
+const SectionLabel = ({ children }: { children: ReactNode }) => (
+  <p
+    className="font-sans font-semibold uppercase text-muted-foreground"
+    style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+  >
+    {children}
+  </p>
+);
+
+const Row = ({ label, value }: { label: string; value: ReactNode }) => (
+  <div className="flex items-baseline justify-between gap-4 py-2" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+    <span
+      className="font-sans uppercase text-muted-foreground"
+      style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+    >
+      {label}
+    </span>
+    <span
+      className="font-sans font-medium text-foreground tabular-nums text-right"
+      style={{ fontSize: "12px" }}
+    >
+      {value ?? "—"}
+    </span>
+  </div>
+);
 
 const GreenlistProfile = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -88,32 +82,50 @@ const GreenlistProfile = () => {
     return (
       <section className="container-narrow py-24 text-center">
         <p className="eyebrow mb-3">Not Found</p>
-        <h1 className="title-page mb-4">No facility profile found.</h1>
+        <h1 className="title-page mb-4">No manufacturer profile found.</h1>
         <Link
           to="/greenlist"
           className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
         >
-          ← Back to Greenlist
+          ← Back to Manufacturer Registry
         </Link>
       </section>
     );
   }
 
   const p: GLProfile = entry.profile ?? {};
-  const isAlert = !!entry.regulatoryAlert;
+  const status: StatusTier = entry.regulatoryAlert ? "alert" : "monitoring";
+  const isGreenlisted: boolean = false;
 
-  const license =
-    p.fdaRegistration ?? (p.feiNumber ? `FEI ${p.feiNumber}` : undefined);
-  const verificationDate =
-    formatAsOf(p.lastInspectionDate) ?? formatAsOf(p.mostRecentRegistrationYear);
-  const sourceType = entry.category;
-  const locationLabel = entry.location;
+  const typeBadge = manufacturerTypeLabel(entry.type);
+  const lastUpdated =
+    formatAsOf(p.ssReviewDate) ??
+    formatAsOf(p.ssAuditDate) ??
+    formatAsOf(p.lastInspectionDate) ??
+    (p.mostRecentRegistrationYear ?? "—");
+
+  // Testing activity — none recorded until program goes live.
+  const testsRecorded = 0;
+  const passingResults = 0;
+  const failedResults = 0;
+  const lastTestingActivity: string | undefined = undefined;
+
+  // Supply chain presence — derive from existing profile fields.
+  const observedVendors = p.vendorCount ?? 0;
+  const observedCategories = (p.specializations ?? []).slice(0, 8);
+
+  const statusBlurb =
+    isGreenlisted
+      ? "This manufacturer currently holds Greenlisted status based on successful independent testing activity observed through ongoing supply-chain monitoring."
+      : status === "alert"
+      ? "This manufacturer is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
+      : "This manufacturer has been identified within the Source Standard database but has not yet achieved Greenlisted status.";
 
   return (
     <>
       <PageMeta
-        title={`${entry.name} · Public Record`}
-        description={`Source Standard public registry record for ${entry.name}.`}
+        title={`${entry.name} · Manufacturer Profile`}
+        description={`Source Standard manufacturer intelligence profile for ${entry.name}.`}
         path={`/greenlist/${entry.slug}`}
         type="profile"
         jsonLd={[
@@ -128,13 +140,13 @@ const GreenlistProfile = () => {
                 "@type": "PropertyValue",
                 propertyID: "source-standard-registry",
                 name: "Registry",
-                value: "Upstream",
+                value: "Manufacturer",
               },
               {
                 "@type": "PropertyValue",
                 propertyID: "source-standard-status",
                 name: "Source Standard Status",
-                value: entry.regulatoryAlert ? "Alert" : "Authorized",
+                value: STATUS_LABEL[status],
               },
             ],
           },
@@ -143,7 +155,7 @@ const GreenlistProfile = () => {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://sourcestandard.org/" },
-              { "@type": "ListItem", position: 2, name: "Upstream Registry", item: "https://sourcestandard.org/greenlist" },
+              { "@type": "ListItem", position: 2, name: "Manufacturer Registry", item: "https://sourcestandard.org/greenlist" },
               { "@type": "ListItem", position: 3, name: entry.name, item: `https://sourcestandard.org/greenlist/${entry.slug}` },
             ],
           },
@@ -153,154 +165,218 @@ const GreenlistProfile = () => {
       <section className="bg-background">
         <div
           className="mx-auto px-4"
-          style={{ maxWidth: "600px", paddingTop: "16px", paddingBottom: "48px" }}
+          style={{ maxWidth: "680px", paddingTop: "16px", paddingBottom: "56px" }}
         >
-          {/* Back link — outside the record card */}
+          {/* Back link */}
           <Link
             to="/greenlist"
             className="inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
             style={{ fontSize: "10px", letterSpacing: "0.08em" }}
           >
-            ← Back to Registry
+            ← Back to Manufacturer Registry
           </Link>
 
-          {/* Authority record card */}
+          {/* Intelligence profile card */}
           <article
             className="mt-4 bg-card"
             style={{
               border: "0.5px solid hsl(var(--border))",
               borderRadius: "10px",
-              padding: "24px",
+              padding: "28px",
             }}
           >
-            {/* Header: name + status */}
-            <header className="flex items-start justify-between gap-4">
-              <h1
-                className="min-w-0 font-sans font-semibold text-foreground"
-                style={{
-                  fontSize: "18px",
-                  lineHeight: "1.3",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {entry.name}
-              </h1>
-              <span
-                className="shrink-0 font-sans font-bold uppercase tabular-nums"
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "0.08em",
-                  color: isAlert ? "#FF3B30" : "#34C759",
-                }}
-              >
-                {isAlert ? "Alert" : "Authorized"}
-              </span>
-            </header>
-
-            {/* Metadata row: specialty pill + registration ID */}
-            <div className="mt-3 flex items-center gap-x-2 flex-wrap">
-              <span
-                className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
-                style={{
-                  fontSize: "9px",
-                  letterSpacing: "0.06em",
-                  padding: "3px 6px",
-                  borderRadius: "3px",
-                }}
-              >
-                {entry.type}
-              </span>
-              {license && (
+            {/* HEADER */}
+            <header>
+              <div className="flex items-start justify-between gap-4">
+                <h1
+                  className="min-w-0 font-sans font-semibold text-foreground"
+                  style={{
+                    fontSize: "20px",
+                    lineHeight: "1.25",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {entry.name}
+                </h1>
                 <span
-                  className="font-mono text-muted-foreground"
+                  className="shrink-0 font-sans font-bold uppercase"
+                  style={{
+                    fontSize: "10px",
+                    letterSpacing: "0.08em",
+                    color: STATUS_COLOR[status],
+                  }}
+                >
+                  {STATUS_LABEL[status]}
+                </span>
+              </div>
+
+              <div className="mt-3 flex items-center gap-x-2 gap-y-2 flex-wrap">
+                <span
+                  className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
+                  style={{
+                    fontSize: "9px",
+                    letterSpacing: "0.06em",
+                    padding: "3px 6px",
+                    borderRadius: "3px",
+                  }}
+                >
+                  {typeBadge}
+                </span>
+                {entry.location && (
+                  <span
+                    className="font-sans text-muted-foreground"
+                    style={{ fontSize: "11px" }}
+                  >
+                    {entry.location}
+                  </span>
+                )}
+                <span
+                  className="font-sans text-muted-foreground"
                   style={{ fontSize: "11px" }}
                 >
-                  {license}
+                  · Last Updated {lastUpdated}
                 </span>
-              )}
-            </div>
+              </div>
+            </header>
 
-            {/* Hairline separator */}
-            <div
-              aria-hidden
-              className="mt-5 mb-5"
-              style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-            />
-
-            {/* Public Record — 2-column grid */}
-            <dl
-              className="grid grid-cols-2"
-              style={{ columnGap: "20px", rowGap: "16px" }}
-            >
-              <Cell label="Category" value={entry.type} />
-              <Cell label="Source Type" value={sourceType} />
-              <Cell label="Location" value={locationLabel} />
-              <Cell label="License / ID" value={license} mono />
-              <Cell
-                label="Verification Date"
-                value={verificationDate}
-                mono
-              />
-              <Cell
-                label="Website"
-                value={entry.website ? hostname(entry.website) : undefined}
-                href={entry.website}
-              />
-            </dl>
-
-            {/* Upstream Record explainer — inside the same profile card */}
-            <div
-              className="mt-7 pt-7"
-              style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-            >
-              <p
-                className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-              >
-                Upstream Record
-              </p>
-              <p
-                className="mt-2 text-foreground"
-                style={{ fontSize: "13px", lineHeight: 1.6 }}
-              >
-                This facility record is maintained as a public-reference entry
-                used during vendor sourcing review.
-              </p>
-              <p
-                className="mt-2 text-muted-foreground"
-                style={{ fontSize: "12px", lineHeight: 1.6 }}
-              >
-                Inclusion in the Upstream Registry does not verify that any
-                vendor is actively sourcing from this facility, and it does not
-                constitute product approval, facility recommendation, or a
-                guarantee of safety, sterility, potency, efficacy, or outcome.
+            {/* SECTION 1 — Manufacturer Overview */}
+            <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Manufacturer Overview</SectionLabel>
+              <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+                {entry.name} is a {typeBadge.toLowerCase()} identified within the
+                Source Standard supply-chain database. Manufacturer records are
+                maintained to support supply-chain visibility and ongoing
+                testing activity.
               </p>
             </div>
 
-            <div
-              className="mt-6 pt-6"
-              style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-            >
-              <p
-                className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-              >
-                Vendor-Level Verification
+            {/* SECTION 2 — Greenlisted Status */}
+            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Greenlisted Status</SectionLabel>
+              <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+                {statusBlurb}
               </p>
-              <p
-                className="mt-2 text-foreground"
-                style={{ fontSize: "13px", lineHeight: 1.6 }}
-              >
-                Vendor verification is reviewed separately and requires
-                documentation supporting the vendor's stated pharmacy
-                relationships, sourcing claims, and chain-of-custody records.
+              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
+                FDA registration, 503A designation, and 503B designation alone
+                do not qualify a manufacturer for Greenlisted status.
+                Greenlisted status is earned through successful independent
+                testing activity.
               </p>
+            </div>
+
+            {/* SECTION 3 — Testing Activity */}
+            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Testing Activity</SectionLabel>
+              <div className="mt-3">
+                <Row
+                  label="Status"
+                  value={
+                    <span style={{ color: STATUS_COLOR.monitoring }} className="font-semibold uppercase" >
+                      Monitoring Active
+                    </span>
+                  }
+                />
+                <Row label="Tests Recorded" value={testsRecorded} />
+                <Row label="Passing Results" value={passingResults} />
+                <Row label="Failed Results" value={failedResults} />
+                <Row label="Last Testing Activity" value={lastTestingActivity ?? "—"} />
+              </div>
+            </div>
+
+            {/* SECTION 4 — Supply Chain Presence */}
+            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Supply Chain Presence</SectionLabel>
+              <div className="mt-3">
+                <Row
+                  label="Observed Vendor Relationships"
+                  value={`${observedVendors} ${observedVendors === 1 ? "Vendor" : "Vendors"}`}
+                />
+              </div>
+              <div className="mt-4">
+                <p
+                  className="font-sans uppercase text-muted-foreground"
+                  style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+                >
+                  Observed Categories
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {observedCategories.length === 0 ? (
+                    <span className="text-muted-foreground" style={{ fontSize: "12px" }}>—</span>
+                  ) : (
+                    observedCategories.map((c) => (
+                      <span
+                        key={c}
+                        className="inline-flex items-center font-sans font-semibold uppercase text-foreground"
+                        style={{
+                          fontSize: "10px",
+                          letterSpacing: "0.06em",
+                          padding: "4px 9px",
+                          borderRadius: "20px",
+                          border: "1px solid hsl(var(--border))",
+                        }}
+                      >
+                        {c}
+                      </span>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION 5 — Status History */}
+            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Status History</SectionLabel>
+              <ol className="mt-3 space-y-3">
+                {[
+                  { date: lastUpdated, event: "Manufacturer added to registry" },
+                  { date: lastUpdated, event: "Monitoring initiated" },
+                ].map((row, i) => (
+                  <li key={i} className="flex items-baseline gap-4">
+                    <span
+                      className="font-mono tabular-nums text-muted-foreground shrink-0"
+                      style={{ fontSize: "11px", minWidth: "92px" }}
+                    >
+                      {row.date}
+                    </span>
+                    <span className="text-foreground" style={{ fontSize: "13px", lineHeight: 1.5 }}>
+                      {row.event}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* SECTION 6 — Registry Notes */}
+            {p.reviewNotes && (
+              <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+                <SectionLabel>Registry Notes</SectionLabel>
+                <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+                  {p.reviewNotes}
+                </p>
+              </div>
+            )}
+
+            {/* SECTION 7 — Registry Framework */}
+            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Registry Framework</SectionLabel>
+              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
+                Source Standard maintains records on manufacturers identified
+                within the compounded therapy supply chain. Inclusion in the
+                Manufacturer Registry does not imply endorsement,
+                recommendation, or Greenlisted status. Registry records exist
+                to improve supply-chain transparency and support ongoing
+                monitoring activity.
+              </p>
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <Link
-                to="/directory"
-                className="mt-3 inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
+                to="/greenlist"
+                className="inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
                 style={{ fontSize: "11px", letterSpacing: "0.08em" }}
               >
-                Open Vendor Registry →
+                Back to Manufacturer Registry →
               </Link>
             </div>
           </article>
