@@ -326,21 +326,21 @@ const DataStrip = ({
     <>
       <div className="flex items-start justify-between gap-x-3">
         <h3
-          className="font-sans font-semibold text-foreground"
-          style={{ fontSize: "14px", lineHeight: "1.35" }}
+          className="font-sans text-foreground"
+          style={{ fontSize: "20px", lineHeight: 1.3, fontWeight: 600, letterSpacing: "-0.01em" }}
         >
           {title}
         </h3>
         <span
           className="font-mono text-muted-foreground tabular-nums shrink-0"
-          style={{ fontSize: "10px", letterSpacing: "0.06em", marginTop: "2px" }}
+          style={{ fontSize: "14px", letterSpacing: "0.04em", fontWeight: 500, marginTop: "4px" }}
         >
           {indexLabel}
         </span>
       </div>
       <p
         className="text-muted-foreground"
-        style={{ fontSize: "13px", lineHeight: "1.55", marginTop: "5px" }}
+        style={{ fontSize: "17px", lineHeight: 1.75, fontWeight: 400, marginTop: "8px" }}
       >
         {desc}
       </p>
@@ -442,18 +442,19 @@ const Index = () => {
           }
 
           /* Section rhythm — bump padding and headings on every home section */
-          .home-section { padding-top: 52px !important; padding-bottom: 52px !important; }
-          .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; }
+          .home-section { padding-top: 56px !important; padding-bottom: 56px !important; }
+          .home-section .home-eyebrow { font-size: 12px !important; letter-spacing: 0.12em !important; font-weight: 500 !important; }
           .home-section .home-h2 {
             font-size: 36px !important;
             line-height: 1.15 !important;
-            letter-spacing: -0.018em !important;
+            letter-spacing: -0.02em !important;
+            font-weight: 700 !important;
             margin-top: 14px !important;
           }
           .home-section .home-lead {
-            font-size: 16px !important;
-            line-height: 1.7 !important;
-            margin-top: 18px !important;
+            font-size: 19px !important;
+            line-height: 1.6 !important;
+            margin-top: 20px !important;
             max-width: 68ch !important;
           }
           .home-section .home-lead-pill {
@@ -465,15 +466,15 @@ const Index = () => {
             max-width: none !important;
             margin-left: -18px !important;
             margin-right: -18px !important;
-            padding: 8px 18px 12px !important;
+            padding: 12px 22px 16px !important;
           }
           .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
           .home-section .home-cta { margin-top: 28px !important; }
 
-          /* DataStrip cards — slightly larger type and padding on desktop */
-          .home-section .home-grid > * { padding: 22px 24px !important; }
-          .home-section .home-grid h3 { font-size: 15px !important; line-height: 1.4 !important; }
-          .home-section .home-grid p { font-size: 14px !important; line-height: 1.6 !important; margin-top: 8px !important; }
+          /* DataStrip cards — larger institutional type on desktop */
+          .home-section .home-grid > * { padding: 24px 26px !important; }
+          .home-section .home-grid h3 { font-size: 22px !important; line-height: 1.3 !important; }
+          .home-section .home-grid p { font-size: 17px !important; line-height: 1.75 !important; margin-top: 10px !important; }
         }
 
         @media (min-width: 1280px) {
@@ -548,19 +549,19 @@ const Index = () => {
 
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "12px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               01 · Problem
             </p>
             <h2
               id="trust-problem"
-              className="home-h2 mt-3 font-sans font-semibold text-foreground"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "28px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
               Claims are not verification.
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
-              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
                 Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through documentation review, facility relationship analysis, supply-chain investigation, and independent testing activity designed to separate supported claims from unsupported claims.
               </p>
             </div>
@@ -581,14 +582,14 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "12px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               02 · Methodology
             </p>
             <h2
               id="how-it-works"
-              className="home-h2 mt-3 font-sans font-semibold text-foreground"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "28px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
               How Source Standard Works
             </h2>
@@ -622,19 +623,19 @@ const Index = () => {
           <div className="w-full max-w-none">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "12px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               03 · Registry
             </p>
             <h2
               id="live-registry"
-              className="home-h2 mt-3 font-sans font-semibold text-foreground"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "28px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
               Visibility across the supply chain.
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
-              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
                 The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency, facility relationships, and supporting documentation. Facility records track Greenlisted status, testing activity, and publicly available operational information.
               </p>
             </div>
@@ -657,18 +658,18 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "12px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               04 · Fields
             </p>
             <h2
               id="registry-shows"
-              className="home-h2 mt-3 font-sans font-semibold text-foreground"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "28px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
               Search. Review. Verify status.
             </h2>
-            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
+            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400 }}>
               Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status.
             </p>
 
@@ -701,14 +702,14 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "12px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               05 · Function
             </p>
             <h2
               id="why-matters"
-              className="home-h2 mt-3 font-sans font-semibold text-foreground"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "28px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
               Function of the framework
             </h2>
@@ -738,14 +739,14 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "12px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               06 · Reference
             </p>
             <h2
               id="basics"
-              className="home-h2 mt-3 font-sans font-semibold text-foreground"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "28px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
               Foundational reference
             </h2>
@@ -780,14 +781,14 @@ const Index = () => {
           <div className="mx-auto w-standard">
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "12px", letterSpacing: "0.12em", fontWeight: 500 }}
             >
               07 · Governance
             </p>
             <h2
               id="governance"
-              className="home-h2 mt-3 font-sans font-semibold text-foreground"
-              style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "28px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
               Governance and standards
             </h2>
