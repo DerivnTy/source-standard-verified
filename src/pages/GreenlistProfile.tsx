@@ -177,11 +177,6 @@ const GreenlistProfile = () => {
   const isGreenlisted = false;
 
   const typeBadge = manufacturerTypeLabel(entry.type);
-  const lastUpdated =
-    formatAsOf(p.ssReviewDate) ??
-    formatAsOf(p.ssAuditDate) ??
-    formatAsOf(p.lastInspectionDate) ??
-    (p.mostRecentRegistrationYear ?? "—");
 
   // Derive capabilities and therapies from existing free-text fields.
   const searchText = [
