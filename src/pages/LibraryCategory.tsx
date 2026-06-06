@@ -82,14 +82,14 @@ const LibraryCategory = () => {
                   <h2 className="t-body-md font-semibold text-foreground tracking-tight">
                     {category.label} · Full Index
                   </h2>
-                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
                     {sorted.length} {sorted.length === 1 ? "entry" : "entries"}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <label
                     htmlFor="sort-mode"
-                    className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground"
+                    className="font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground"
                   >
                     Sort
                   </label>
@@ -97,7 +97,7 @@ const LibraryCategory = () => {
                     id="sort-mode"
                     value={sortMode}
                     onChange={(e) => setSortMode(e.target.value as SortMode)}
-                    className="rounded-md border border-border bg-background px-2.5 py-1.5 text-[12px] font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="rounded-md border border-border bg-background px-2.5 py-1.5 text-[10px] font-semibold text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     <option value="newest">Newest first</option>
                     <option value="oldest">Oldest first</option>

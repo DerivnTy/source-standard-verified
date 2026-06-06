@@ -40,7 +40,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
             style={{
               flex: 1,
               minWidth: 0,
-              fontSize: "15px",
+              fontSize: "13px",
               fontWeight: 650,
               lineHeight: 1.15,
               letterSpacing: "-0.01em",
@@ -54,7 +54,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
               className="font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
-                fontSize: "11px",
+                fontSize: "9px",
                 fontWeight: 700,
                 letterSpacing: "0.035em",
                 lineHeight: 1,
@@ -69,7 +69,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
               className="inline-flex items-center gap-1 font-sans uppercase tabular-nums"
               style={{
                 flexShrink: 0,
-                fontSize: "11px",
+                fontSize: "9px",
                 fontWeight: 700,
                 letterSpacing: "0.035em",
                 lineHeight: 1,
@@ -110,7 +110,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
             {location && (
               <span
                 className="text-muted-foreground truncate"
-                style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
+                style={{ minWidth: 0, fontSize: "9px", lineHeight: 1.35 }}
               >
                 {location}
               </span>
@@ -126,7 +126,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
               marginLeft: "auto",
               marginRight: "-2px",
               flexShrink: 0,
-              fontSize: "11px",
+              fontSize: "9px",
               fontWeight: 700,
               letterSpacing: "0.035em",
               lineHeight: 1,

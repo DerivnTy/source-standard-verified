@@ -71,7 +71,7 @@ const Row = ({ label, value }: { label: string; value: ReactNode }) => (
     </span>
     <span
       className="font-sans font-medium text-foreground tabular-nums text-right max-w-[60%]"
-      style={{ fontSize: "12px" }}
+      style={{ fontSize: "10px" }}
     >
       {value ?? "—"}
     </span>
@@ -110,7 +110,7 @@ const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
     </p>
     <div
       className="mt-1 font-sans text-foreground"
-      style={{ fontSize: "12px", lineHeight: 1.4, wordBreak: "break-word" }}
+      style={{ fontSize: "10px", lineHeight: 1.4, wordBreak: "break-word" }}
     >
       {value}
     </div>
@@ -291,7 +291,7 @@ const GreenlistProfile = () => {
               <div className="flex items-start justify-between gap-4">
                 <h1
                   className="min-w-0 font-sans font-semibold text-foreground"
-                  style={{ fontSize: "20px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+                  style={{ fontSize: "18px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
                 >
                   {entry.name}
                 </h1>
@@ -324,7 +324,7 @@ const GreenlistProfile = () => {
                   {typeBadge}
                 </span>
                 {entry.location && (
-                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
+                  <span className="font-sans text-muted-foreground" style={{ fontSize: "9px" }}>
                     {entry.location}
                   </span>
                 )}
@@ -335,7 +335,7 @@ const GreenlistProfile = () => {
             {/* SECTION 1 — Overview */}
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Overview</SectionLabel>
-              <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
                 {p.overview ?? p.background ??
                   `${entry.name} is a ${typeBadge.toLowerCase()} identified within the Source Standard supply-chain database. Records are maintained to support supply-chain visibility and ongoing testing activity.`}
               </p>
@@ -403,7 +403,7 @@ const GreenlistProfile = () => {
                   {hasVal(p.registrationNotes) && (
                     <p
                       className="mt-3 text-muted-foreground"
-                      style={{ fontSize: "12px", lineHeight: 1.6 }}
+                      style={{ fontSize: "10px", lineHeight: 1.6 }}
                     >
                       {p.registrationNotes}
                     </p>
@@ -439,18 +439,18 @@ const GreenlistProfile = () => {
             {/* SECTION 6 — Greenlist Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Greenlist Status</SectionLabel>
-              <p className="mt-3 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+              <p className="mt-3 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
                 <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "10px", letterSpacing: "0.08em" }}>
                   Current Status ·{" "}
                 </span>
-                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "12px" }}>
+                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "10px" }}>
                   {STATUS_LABEL[status]}
                 </span>
               </p>
-              <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
                 {statusBlurb}
               </p>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-muted-foreground" style={{ fontSize: "10px", lineHeight: 1.65 }}>
                 Greenlisted status is not assigned based on FDA registration, 503A designation, or 503B designation alone. It is earned through successful independent testing activity.
               </p>
             </div>
@@ -467,7 +467,7 @@ const GreenlistProfile = () => {
                         target="_blank"
                         rel="noreferrer noopener"
                         className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
-                        style={{ fontSize: "12px" }}
+                        style={{ fontSize: "10px" }}
                       >
                         {r.label} →
                       </a>
@@ -494,7 +494,7 @@ const GreenlistProfile = () => {
               <Link
                 to="/greenlist"
                 className="inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
-                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                style={{ fontSize: "9px", letterSpacing: "0.08em" }}
               >
                 Back to Manufacturer Registry →
               </Link>

@@ -105,7 +105,7 @@ export const FocusFilter = ({
                       onChange(opt.value);
                       setOpen(false);
                     }}
-                    className="flex w-full items-center justify-between px-4 text-left font-sans text-[14px] transition-colors hover:bg-[hsl(var(--muted))]/60"
+                    className="flex w-full items-center justify-between px-4 text-left font-sans text-[12px] transition-colors hover:bg-[hsl(var(--muted))]/60"
                     style={{
                       height: "40px",
                       color: active

@@ -44,7 +44,7 @@ export const ArticleSection = ({
                 <p
                   className="font-mono uppercase text-muted-foreground"
                   style={{
-                    fontSize: "11px",
+                    fontSize: "9px",
                     letterSpacing: "0.08em",
                     marginBottom: "6px",
                   }}

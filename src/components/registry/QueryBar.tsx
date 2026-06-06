@@ -70,7 +70,7 @@ export const QueryBar = ({
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder={searchPlaceholder}
-            className="w-full pl-8 pr-3 h-9 bg-background text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+            className="w-full pl-8 pr-3 h-9 bg-background text-[11px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
             aria-label="Search registry"
           />
         </div>
@@ -91,7 +91,7 @@ export const QueryBar = ({
               <SlidersHorizontal className="h-3.5 w-3.5" />
               <span>Filters</span>
               {activeCount > 0 && (
-                <span className="font-mono tabular-nums text-[11px] text-muted-foreground">
+                <span className="font-mono tabular-nums text-[9px] text-muted-foreground">
                   {activeCount}
                 </span>
               )}
@@ -99,7 +99,7 @@ export const QueryBar = ({
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-md p-0">
             <SheetHeader className="px-6 pt-6 pb-4 border-b border-border">
-              <SheetTitle className="text-[15px] font-semibold tracking-tight">
+              <SheetTitle className="text-[13px] font-semibold tracking-tight">
                 Filter Registry
               </SheetTitle>
             </SheetHeader>
@@ -139,7 +139,7 @@ export const QueryBar = ({
           <button
             key={chip.key}
             onClick={chip.onRemove}
-            className="group inline-flex items-center gap-1 h-5 pl-1.5 pr-1 border border-foreground/15 bg-background hover:border-foreground/40 text-[11px] text-foreground rounded-[2px] transition-all"
+            className="group inline-flex items-center gap-1 h-5 pl-1.5 pr-1 border border-foreground/15 bg-background hover:border-foreground/40 text-[9px] text-foreground rounded-[2px] transition-all"
           >
             <span className="truncate max-w-[140px]">{chip.label}</span>
             <X className="h-2.5 w-2.5 text-muted-foreground group-hover:text-foreground" />
@@ -180,7 +180,7 @@ export const FacetSelect = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       aria-label={ariaLabel}
-      className="w-full h-9 px-2.5 pr-8 bg-background text-[13px] text-foreground rounded-[2px] focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center]"
+      className="w-full h-9 px-2.5 pr-8 bg-background text-[11px] text-foreground rounded-[2px] focus:outline-none focus:ring-0 cursor-pointer appearance-none bg-no-repeat bg-[length:9px_9px] bg-[right_10px_center]"
       style={{
         border: "1px solid hsl(var(--border))",
         backgroundImage:
@@ -256,7 +256,7 @@ export const FacetToggle = ({
     type="button"
     aria-pressed={active}
     onClick={onClick}
-    className={`h-8 px-3 rounded-[2px] text-[12px] transition-all ${
+    className={`h-8 px-3 rounded-[2px] text-[10px] transition-all ${
       active
         ? tone === "verified"
           ? "bg-verified text-verified-foreground"

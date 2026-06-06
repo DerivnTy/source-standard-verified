@@ -61,7 +61,7 @@ export const SourceBot = () => {
                 <p className="text-[13.5px] font-semibold text-foreground leading-tight">
                   Clinical Assistant
                 </p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                <p className="mt-0.5 text-[9px] text-muted-foreground">
                   Educational reference · not medical advice
                 </p>
               </div>

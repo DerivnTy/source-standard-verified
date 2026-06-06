@@ -69,7 +69,7 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
       <Link
         to={row.to}
         onClick={handleClick}
-        className="block font-sans text-[13px] hover:text-white transition-colors"
+        className="block font-sans text-[11px] hover:text-white transition-colors"
         style={{ color: MUTED }}
       >
         {row.label}
@@ -103,7 +103,7 @@ export const SiteFooter = () => {
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-3 md:mb-4 font-sans text-[12px] font-semibold uppercase text-white"
+                  className="mb-3 md:mb-4 font-sans text-[10px] font-semibold uppercase text-white"
                   style={{ letterSpacing: "0.08em" }}
                 >
                   {col.title}
@@ -118,14 +118,14 @@ export const SiteFooter = () => {
                         <button
                           type="button"
                           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                          className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
+                          className="inline-flex items-center gap-1 font-sans text-[11px] font-medium text-white hover:text-white/80 transition-colors"
                         >
                           Begin Verification <span aria-hidden="true">→</span>
                         </button>
                       ) : (
                         <Link
                           to="/apply"
-                          className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
+                          className="inline-flex items-center gap-1 font-sans text-[11px] font-medium text-white hover:text-white/80 transition-colors"
                         >
                           Begin Verification <span aria-hidden="true">→</span>
                         </Link>
@@ -145,7 +145,7 @@ export const SiteFooter = () => {
         >
           <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
             <p
-              className="font-sans text-[11px]"
+              className="font-sans text-[9px]"
               style={{ color: MUTED }}
             >
               © {now.getFullYear()} Source Standard. All Rights Reserved.
@@ -175,7 +175,7 @@ export const SiteFooter = () => {
           </div>
 
           <p
-            className="mt-4 md:mt-5 max-w-[900px] font-sans text-[11px] leading-[1.5] md:leading-[1.65]"
+            className="mt-4 md:mt-5 max-w-[900px] font-sans text-[9px] leading-[1.5] md:leading-[1.65]"
             style={{ color: MUTED }}
           >
             Source Standard is an independent public-reference and verification

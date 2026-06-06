@@ -228,7 +228,7 @@ html {
 
   /* Helper text — table cells, identity rows, field helper text. */
   .text-helper {
-    @apply text-[13px] leading-[1.55];
+    @apply text-[11px] leading-[1.55];
   }
 }
 
@@ -589,12 +589,12 @@ html {
   /* Descriptive metadata — sentence case, no caps. Use .meta-mono for technical IDs. */
   .meta {
     font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    @apply text-[12px] font-normal tracking-[0.02em] text-muted-foreground/90;
+    @apply text-[10px] font-normal tracking-[0.02em] text-muted-foreground/90;
   }
 
   .meta-label {
     font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    @apply text-[12px] font-normal tracking-[0.02em] text-muted-foreground/90;
+    @apply text-[10px] font-normal tracking-[0.02em] text-muted-foreground/90;
   }
 
   /* Technical identifiers — doc IDs, version strings, status codes.
@@ -646,7 +646,7 @@ html {
     @apply list-none pl-0 space-y-2.5;
   }
   .trust-list > li {
-    @apply flex items-start gap-3 text-[14px] leading-[1.6] text-foreground;
+    @apply flex items-start gap-3 text-[12px] leading-[1.6] text-foreground;
   }
 
   /* Elevated card chrome — institutional depth without Material flatness. */

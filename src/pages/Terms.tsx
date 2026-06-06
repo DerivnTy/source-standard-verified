@@ -128,7 +128,7 @@ const SectionHeader = ({
       <span
         className="font-mono tabular-nums shrink-0"
         style={{
-          fontSize: "14px",
+          fontSize: "12px",
           fontWeight: 500,
           letterSpacing: "0.04em",
           color: "rgba(0,0,0,0.40)",
@@ -139,7 +139,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "28px",
+          fontSize: "26px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -151,7 +151,7 @@ const SectionHeader = ({
     </div>
     <p
       className="mt-3 text-muted-foreground"
-      style={{ fontSize: "17px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
+      style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
     >
       {intro}
     </p>
@@ -177,20 +177,20 @@ const TermsRow = ({
     <div className="flex items-baseline justify-between gap-4">
       <h3
         className="font-sans font-semibold text-foreground min-w-0"
-        style={{ fontSize: "14px", lineHeight: 1.4 }}
+        style={{ fontSize: "12px", lineHeight: 1.4 }}
       >
         {title}
       </h3>
       <span
         className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "9px", letterSpacing: "0.06em" }}
       >
         {index} / {total}
       </span>
     </div>
     <p
       className="text-muted-foreground"
-      style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "6px" }}
+      style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "6px" }}
     >
       {description}
     </p>
@@ -206,13 +206,13 @@ const RelatedLinkRow = ({ to, label }: { to: string; label: string }) => (
     <div className="flex items-center justify-between gap-4">
       <h3
         className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors min-w-0"
-        style={{ fontSize: "14px", lineHeight: 1.4 }}
+        style={{ fontSize: "12px", lineHeight: 1.4 }}
       >
         {label}
       </h3>
       <span
         className="shrink-0 inline-flex items-center gap-0.5 font-sans font-semibold uppercase text-primary"
-        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+        style={{ fontSize: "9px", letterSpacing: "0.08em" }}
       >
         View
         <ChevronRight style={{ width: "12px", height: "12px" }} />
@@ -298,7 +298,7 @@ const Terms = () => {
                 </h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "8px" }}
+                  style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "8px" }}
                 >
                   What use of the registry means.
                 </p>
@@ -428,7 +428,7 @@ const Terms = () => {
                 <h2 className="t-section-title-sm text-foreground mt-2">Jurisdiction</h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "8px" }}
+                  style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "8px" }}
                 >
                   The governing law applied to this agreement.
                 </p>

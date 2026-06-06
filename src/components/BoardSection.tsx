@@ -88,20 +88,20 @@ export const BoardDefList = ({
           <div className="flex items-baseline justify-between gap-4">
             <p
               className="font-sans font-semibold text-foreground"
-              style={{ fontSize: "14px", lineHeight: "1.35" }}
+              style={{ fontSize: "12px", lineHeight: "1.35" }}
             >
               {it.term}
             </p>
             <span
               className="shrink-0 font-mono tabular-nums uppercase text-muted-foreground/80"
-              style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+              style={{ fontSize: "9px", letterSpacing: "0.06em" }}
             >
               {index}
             </span>
           </div>
           <p
             className="text-muted-foreground"
-            style={{ fontSize: "13px", lineHeight: "1.55", marginTop: "6px" }}
+            style={{ fontSize: "11px", lineHeight: "1.55", marginTop: "6px" }}
           >
             {it.description}
           </p>

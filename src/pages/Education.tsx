@@ -46,7 +46,7 @@ const ViewAllPill = ({
     to={to}
     className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97] hover:bg-[hsl(var(--muted))]/40"
     style={{
-      fontSize: "11px",
+      fontSize: "9px",
       letterSpacing: "0.06em",
       height: "30px",
       padding: "0 12px",
@@ -122,7 +122,7 @@ const ReferenceNote = ({
   children: ReactNode;
 }) => (
   <LibraryCard>
-    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+    <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
       {eyebrow}
     </p>
     <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">
@@ -241,7 +241,7 @@ const CategoryBlock = ({
                 <Link
                   to="/library/publications"
                   className="inline-flex items-center gap-1 font-sans font-semibold text-[hsl(var(--primary))] hover:opacity-80 transition-opacity"
-                  style={{ fontSize: "13px", letterSpacing: "-0.005em" }}
+                  style={{ fontSize: "11px", letterSpacing: "-0.005em" }}
                 >
                   View All Publications
                   <ChevronRight aria-hidden style={{ width: "13px", height: "13px", strokeWidth: 1.75 }} />
@@ -354,7 +354,7 @@ const Education = () => {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search library…"
                   aria-label="Search library"
-                  className="font-sans flex-1 min-w-0 text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                  className="font-sans flex-1 min-w-0 text-[12px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                   style={{
                     height: "36px",
                     borderRadius: "20px",
@@ -383,7 +383,7 @@ const Education = () => {
                       aria-pressed={active}
                       className="inline-flex items-center justify-center font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
                       style={{
-                        fontSize: "11px",
+                        fontSize: "9px",
                         letterSpacing: "0.06em",
                         height: "30px",
                         padding: "0 12px",

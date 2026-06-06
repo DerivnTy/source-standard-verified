@@ -22,7 +22,7 @@ export const Stat = ({
       )}
       <span className="t-utility-xs text-muted-foreground">{label}</span>
     </div>
-    <div className="font-mono text-[20px] leading-[28px] font-medium tabular-nums text-foreground mt-auto">
+    <div className="font-mono text-[18px] leading-[28px] font-medium tabular-nums text-foreground mt-auto">
       {value}
     </div>
   </div>

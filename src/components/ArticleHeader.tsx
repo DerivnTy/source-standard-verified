@@ -46,7 +46,7 @@ export const ArticleHeader = ({
           <Link
             to={backHref}
             className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
-            style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+            style={{ fontSize: "9px", letterSpacing: "0.08em" }}
           >
             <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">
               ←
@@ -80,7 +80,7 @@ export const ArticleHeader = ({
               <p
                 className="text-muted-foreground"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "10px",
                   marginTop: "12px",
                 }}
               >

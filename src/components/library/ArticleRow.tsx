@@ -26,7 +26,7 @@ export const ArticleRow = ({ entry }: { entry: Article }) => (
         <h3
           className="min-w-0 truncate font-sans font-semibold text-foreground"
           style={{
-            fontSize: "14px",
+            fontSize: "12px",
             lineHeight: "1.3",
             letterSpacing: "-0.01em",
           }}
@@ -47,7 +47,7 @@ export const ArticleRow = ({ entry }: { entry: Article }) => (
       <div className="flex items-center justify-between gap-x-3">
         <p
           className="min-w-0 truncate font-sans text-muted-foreground"
-          style={{ fontSize: "12px", lineHeight: "1.4" }}
+          style={{ fontSize: "10px", lineHeight: "1.4" }}
         >
           {entry.blurb}
         </p>

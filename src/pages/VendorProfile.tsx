@@ -118,7 +118,7 @@ const SectionHeading = ({ children, action }: { children: ReactNode; action?: Re
   <div className="flex items-center justify-between gap-3">
     <h2
       className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "11px", letterSpacing: "0.1em" }}
+      style={{ fontSize: "9px", letterSpacing: "0.1em" }}
     >
       {children}
     </h2>
@@ -662,7 +662,7 @@ const VendorProfile = () => {
                 </div>
                 <h1
                   className="min-w-0 flex-1 font-sans font-semibold text-foreground"
-                  style={{ fontSize: "20px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                  style={{ fontSize: "18px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
                 >
                   {vendor.name}
                 </h1>
@@ -674,14 +674,14 @@ const VendorProfile = () => {
                   {location !== "—" && (
                     <span
                       className="inline-flex items-center gap-1 text-muted-foreground"
-                      style={{ fontSize: "13px" }}
+                      style={{ fontSize: "11px" }}
                     >
                       <MapPin size={13} strokeWidth={1.5} />
                       {location}
                     </span>
                   )}
                   {vendor.reviewId && (
-                    <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
+                    <span className="font-mono text-muted-foreground" style={{ fontSize: "9px" }}>
                       {vendor.reviewId}
                     </span>
                   )}
@@ -899,7 +899,7 @@ const VendorProfile = () => {
                     <Eyebrow>Clinical Philosophy</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "13px", lineHeight: 1.6 }}
+                      style={{ fontSize: "11px", lineHeight: 1.6 }}
                     >
                       {vendor.clinicalPhilosophy}
                     </p>
@@ -910,7 +910,7 @@ const VendorProfile = () => {
                     <Eyebrow>Patient Focus</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "13px", lineHeight: 1.6 }}
+                      style={{ fontSize: "11px", lineHeight: 1.6 }}
                     >
                       {vendor.patientFocus}
                     </p>
@@ -920,7 +920,7 @@ const VendorProfile = () => {
             ) : (
               <p
                 className="mt-3 text-muted-foreground"
-                style={{ fontSize: "13px", lineHeight: 1.55 }}
+                style={{ fontSize: "11px", lineHeight: 1.55 }}
               >
                 No description provided yet.{" "}
                 {!claimed && (
@@ -968,7 +968,7 @@ const VendorProfile = () => {
                     <Eyebrow>States Served</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "13px", lineHeight: 1.55 }}
+                      style={{ fontSize: "11px", lineHeight: 1.55 }}
                     >
                       {vendor.statesServed?.length
                         ? vendor.statesServed.join(" · ")
@@ -981,7 +981,7 @@ const VendorProfile = () => {
                     <Eyebrow>Telehealth Availability</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "13px", lineHeight: 1.55 }}
+                      style={{ fontSize: "11px", lineHeight: 1.55 }}
                     >
                       {vendor.telehealthAvailability}
                     </p>
@@ -1125,7 +1125,7 @@ const VendorProfile = () => {
                   to={`/apply?claim=${encodeURIComponent(vendor.slug)}`}
                   className="shrink-0 inline-flex items-center justify-center font-sans font-semibold uppercase bg-foreground text-background hover:opacity-90 transition-opacity"
                   style={{
-                    fontSize: "11px",
+                    fontSize: "9px",
                     letterSpacing: "0.08em",
                     padding: "10px 16px",
                     borderRadius: "20px",

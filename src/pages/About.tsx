@@ -155,7 +155,7 @@ const AboutRow = ({
     }}
   >
     <div className="flex items-baseline justify-between gap-4">
-      <h3 className="font-sans font-semibold text-foreground" style={{ fontSize: "14px" }}>
+      <h3 className="font-sans font-semibold text-foreground" style={{ fontSize: "12px" }}>
         {title}
       </h3>
       <span
@@ -166,7 +166,7 @@ const AboutRow = ({
       </span>
     </div>
     {description ? (
-      <p className="mt-1.5 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.55" }}>
+      <p className="mt-1.5 text-muted-foreground" style={{ fontSize: "11px", lineHeight: "1.55" }}>
         {description}
       </p>
     ) : null}
@@ -185,14 +185,14 @@ const AboutStatementRow = ({ index, text }: { index: number; text: string }) => 
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <p
         className="text-foreground"
-        style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.55 }}
+        style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.55 }}
       >
         {text}
       </p>
       <span
         className="font-mono tabular-nums shrink-0"
         style={{
-          fontSize: "14px",
+          fontSize: "12px",
           fontWeight: 500,
           letterSpacing: "0.04em",
           color: "rgba(0,0,0,0.40)",
@@ -229,17 +229,17 @@ const AboutLinkRow = ({
       <div className="min-w-0">
         <h3
           className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors"
-          style={{ fontSize: "14px" }}
+          style={{ fontSize: "12px" }}
         >
           {title}
         </h3>
-        <p className="mt-1 text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.5" }}>
+        <p className="mt-1 text-muted-foreground" style={{ fontSize: "11px", lineHeight: "1.5" }}>
           {description}
         </p>
       </div>
       <span
         className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity self-center"
-        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "9px", letterSpacing: "0.06em" }}
       >
         View
         <ChevronRight aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.5 }} />
@@ -262,7 +262,7 @@ const SectionHeader = ({
       <span
         className="font-mono tabular-nums shrink-0"
         style={{
-          fontSize: "14px",
+          fontSize: "12px",
           fontWeight: 500,
           letterSpacing: "0.04em",
           color: "rgba(0,0,0,0.40)",
@@ -273,7 +273,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "28px",
+          fontSize: "26px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -285,7 +285,7 @@ const SectionHeader = ({
     </div>
     <p
       className="mt-3 text-muted-foreground"
-      style={{ fontSize: "17px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
+      style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
     >
       {intro}
     </p>
