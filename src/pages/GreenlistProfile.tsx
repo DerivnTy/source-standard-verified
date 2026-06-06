@@ -366,107 +366,76 @@ const GreenlistProfile = () => {
               </p>
             </div>
 
-            {/* SECTION 2 — Facility Information */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Facility Information</SectionLabel>
-              <div className="mt-3">
-                <Row label="Facility Type" value={typeBadge} />
-                <Row label="Headquarters" value={p.headquarters ?? entry.location ?? "—"} />
-                {p.additionalLocationsList && p.additionalLocationsList.length > 0 && (
-                  <Row
-                    label="Additional Locations"
-                    value={p.additionalLocationsList.join(" · ")}
-                  />
-                )}
-                {!p.additionalLocationsList && entry.additionalLocations && entry.additionalLocations.length > 0 && (
-                  <Row
-                    label="Additional Locations"
-                    value={entry.additionalLocations
-                      .map((l) => [l.city, l.state].filter(Boolean).join(", "))
-                      .join(" · ")}
-                  />
-                )}
-                {(p.yearFounded ?? p.initialRegistrationYear) && (
-                  <Row label="Year Founded" value={p.yearFounded ?? p.initialRegistrationYear} />
-                )}
-                {entry.website && (
-                  <Row
-                    label="Website"
-                    value={
-                      <a
-                        href={entry.website}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="hover:text-primary underline underline-offset-2 decoration-border"
-                      >
-                        {entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                      </a>
-                    }
-                  />
-                )}
-                {p.statesServed && p.statesServed.length > 0 && (
-                  <Row
-                    label="States Served"
-                    value={
-                      p.statesServed.length > 8
-                        ? `${p.statesServed.join(", ")} (${p.statesServed.length})`
-                        : p.statesServed.join(", ")
-                    }
-                  />
-                )}
-                <Row
-                  label="Coverage"
-                  value={
-                    p.statesServed && p.statesServed.length >= 25
-                      ? "National"
-                      : p.statesServed && p.statesServed.length > 1
-                      ? "Multi-State"
-                      : entry.serviceArea ?? "Regional"
-                  }
-                />
-              </div>
-            </div>
+            {/* SECTION 2 — Facility Snapshot */}
+            {(() => {
+              const headquarters = p.headquarters ?? entry.location;
+              const founded = p.yearFounded ?? p.initialRegistrationYear;
+              const additionalLocs = p.additionalLocationsList && p.additionalLocationsList.length > 0
+                ? p.additionalLocationsList.join(" · ")
+                : entry.additionalLocations && entry.additionalLocations.length > 0
+                ? entry.additionalLocations.map((l) => [l.city, l.state].filter(Boolean).join(", ")).join(" · ")
+                : undefined;
+              const coverage =
+                p.statesServed && p.statesServed.length >= 25
+                  ? "National"
+                  : p.statesServed && p.statesServed.length > 1
+                  ? "Multi-State"
+                  : entry.serviceArea;
+              const states = p.statesServed && p.statesServed.length > 0
+                ? (p.statesServed.length > 6 ? `${p.statesServed.length} States` : p.statesServed.join(", "))
+                : undefined;
+              const fdaStatus = p.currentRegistrationStatus;
+              const status503A = p.status503A ?? ((entry.category === "503A" || entry.type?.includes("503A")) ? "Designated" : undefined);
+              const status503B = p.status503B ?? ((entry.category === "503B" || entry.type?.includes("503B")) ? "Designated" : undefined);
+              const websiteHost = entry.website ? entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "") : undefined;
 
-            {/* SECTION 3 — Regulatory Information */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Regulatory Information</SectionLabel>
-              <div className="mt-3">
-                <Row
-                  label="FDA Registration"
-                  value={p.currentRegistrationStatus ?? "—"}
-                />
-                <Row
-                  label="503A Status"
-                  value={
-                    p.status503A ??
-                    (entry.category === "503A" || entry.type.includes("503A") ? "Designated" : "—")
-                  }
-                />
-                <Row
-                  label="503B Status"
-                  value={
-                    p.status503B ??
-                    (entry.category === "503B" || entry.type.includes("503B") ? "Designated" : "—")
-                  }
-                />
-                <Row
-                  label="NABP Accreditation"
-                  value={p.nabpAccreditation ? "Accredited" : "—"}
-                />
-                <Row
-                  label="PCAB Accreditation"
-                  value={p.pcabAccreditation ? "Accredited" : "—"}
-                />
-              </div>
-              {p.registrationNotes && (
-                <p
-                  className="mt-3 text-muted-foreground"
-                  style={{ fontSize: "12px", lineHeight: 1.6 }}
-                >
-                  {p.registrationNotes}
-                </p>
-              )}
-            </div>
+              const cards: { label: string; value: ReactNode }[] = [
+                { label: "Facility Type", value: typeBadge },
+                hasVal(headquarters) && { label: "Headquarters", value: headquarters },
+                hasVal(founded) && { label: "Founded", value: founded },
+                hasVal(coverage) && { label: "Coverage", value: coverage },
+                hasVal(states) && { label: "States Served", value: states },
+                hasVal(additionalLocs) && { label: "Additional Locations", value: additionalLocs },
+                hasVal(fdaStatus) && { label: "FDA Registration", value: fdaStatus },
+                hasVal(status503A) && { label: "503A Status", value: status503A },
+                hasVal(status503B) && { label: "503B Status", value: status503B },
+                p.nabpAccreditation && { label: "NABP", value: "Accredited" },
+                p.pcabAccreditation && { label: "PCAB", value: "Accredited" },
+                hasVal(websiteHost) && {
+                  label: "Website",
+                  value: (
+                    <a
+                      href={entry.website}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-primary underline underline-offset-2 decoration-border"
+                    >
+                      {websiteHost}
+                    </a>
+                  ),
+                },
+                hasVal(p.feiNumber) && { label: "FEI Number", value: p.feiNumber },
+              ].filter(Boolean) as { label: string; value: ReactNode }[];
+
+              return (
+                <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+                  <SectionLabel>Facility Snapshot</SectionLabel>
+                  <div className="mt-3 grid gap-2 grid-cols-2 sm:grid-cols-3">
+                    {cards.map((c) => (
+                      <SnapCard key={c.label} label={c.label} value={c.value} />
+                    ))}
+                  </div>
+                  {hasVal(p.registrationNotes) && (
+                    <p
+                      className="mt-3 text-muted-foreground"
+                      style={{ fontSize: "12px", lineHeight: 1.6 }}
+                    >
+                      {p.registrationNotes}
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* SECTION 4 — Compounding Capabilities */}
             {capabilities.length > 0 && (
