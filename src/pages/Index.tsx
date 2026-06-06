@@ -505,10 +505,11 @@ const Index = () => {
           tone="navy"
           heroLogo={
             <img
-              src={shieldWhite}
+              src={lockup}
               alt="Source Standard"
-              className="block select-none"
-              style={{ height: "36px", width: "auto" }}
+              draggable={false}
+              className="block w-auto select-none"
+              style={{ height: "44px", filter: "brightness(0) invert(1)" }}
             />
           }
           actions={<HeroActions />}
