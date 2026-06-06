@@ -15,9 +15,8 @@ import {
 type SortMode = "newest" | "oldest" | "title";
 
 const SLUG_TO_CATEGORY: Record<string, CategoryId> = {
-  sourcing: "regulation",
-  clinical: "clinical",
-  consumer: "consumer",
+  core: "core",
+  latest: "latest",
 };
 
 const LibraryCategory = () => {
