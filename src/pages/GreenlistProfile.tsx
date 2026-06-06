@@ -95,6 +95,41 @@ const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolea
   </span>
 );
 
+const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
+  <div
+    className="bg-background"
+    style={{
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "8px",
+      padding: "12px 14px",
+      minHeight: "62px",
+    }}
+  >
+    <p
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "9px", letterSpacing: "0.08em" }}
+    >
+      {label}
+    </p>
+    <div
+      className="mt-1.5 font-sans font-medium text-foreground"
+      style={{ fontSize: "12px", lineHeight: 1.4, wordBreak: "break-word" }}
+    >
+      {value}
+    </div>
+  </div>
+);
+
+const hasVal = (v: unknown): boolean => {
+  if (v === null || v === undefined) return false;
+  if (typeof v === "string") {
+    const s = v.trim().toLowerCase();
+    return s !== "" && s !== "—" && s !== "-" && s !== "n/a" && s !== "na" && s !== "not available" && s !== "unknown";
+  }
+  if (Array.isArray(v)) return v.length > 0;
+  return true;
+};
+
 // Capability detection from existing free-text data fields.
 const CAPABILITY_DEFS: { key: string; label: string; match: RegExp }[] = [
   { key: "sterile", label: "Sterile Compounding", match: /sterile|injectable|infusion|admixture|ophthalmic|prefilled|iv\b/i },
@@ -331,107 +366,76 @@ const GreenlistProfile = () => {
               </p>
             </div>
 
-            {/* SECTION 2 — Facility Information */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Facility Information</SectionLabel>
-              <div className="mt-3">
-                <Row label="Facility Type" value={typeBadge} />
-                <Row label="Headquarters" value={p.headquarters ?? entry.location ?? "—"} />
-                {p.additionalLocationsList && p.additionalLocationsList.length > 0 && (
-                  <Row
-                    label="Additional Locations"
-                    value={p.additionalLocationsList.join(" · ")}
-                  />
-                )}
-                {!p.additionalLocationsList && entry.additionalLocations && entry.additionalLocations.length > 0 && (
-                  <Row
-                    label="Additional Locations"
-                    value={entry.additionalLocations
-                      .map((l) => [l.city, l.state].filter(Boolean).join(", "))
-                      .join(" · ")}
-                  />
-                )}
-                {(p.yearFounded ?? p.initialRegistrationYear) && (
-                  <Row label="Year Founded" value={p.yearFounded ?? p.initialRegistrationYear} />
-                )}
-                {entry.website && (
-                  <Row
-                    label="Website"
-                    value={
-                      <a
-                        href={entry.website}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="hover:text-primary underline underline-offset-2 decoration-border"
-                      >
-                        {entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                      </a>
-                    }
-                  />
-                )}
-                {p.statesServed && p.statesServed.length > 0 && (
-                  <Row
-                    label="States Served"
-                    value={
-                      p.statesServed.length > 8
-                        ? `${p.statesServed.join(", ")} (${p.statesServed.length})`
-                        : p.statesServed.join(", ")
-                    }
-                  />
-                )}
-                <Row
-                  label="Coverage"
-                  value={
-                    p.statesServed && p.statesServed.length >= 25
-                      ? "National"
-                      : p.statesServed && p.statesServed.length > 1
-                      ? "Multi-State"
-                      : entry.serviceArea ?? "Regional"
-                  }
-                />
-              </div>
-            </div>
+            {/* SECTION 2 — Facility Snapshot */}
+            {(() => {
+              const headquarters = p.headquarters ?? entry.location;
+              const founded = p.yearFounded ?? p.initialRegistrationYear;
+              const additionalLocs = p.additionalLocationsList && p.additionalLocationsList.length > 0
+                ? p.additionalLocationsList.join(" · ")
+                : entry.additionalLocations && entry.additionalLocations.length > 0
+                ? entry.additionalLocations.map((l) => [l.city, l.state].filter(Boolean).join(", ")).join(" · ")
+                : undefined;
+              const coverage =
+                p.statesServed && p.statesServed.length >= 25
+                  ? "National"
+                  : p.statesServed && p.statesServed.length > 1
+                  ? "Multi-State"
+                  : entry.serviceArea;
+              const states = p.statesServed && p.statesServed.length > 0
+                ? (p.statesServed.length > 6 ? `${p.statesServed.length} States` : p.statesServed.join(", "))
+                : undefined;
+              const fdaStatus = p.currentRegistrationStatus;
+              const status503A = p.status503A ?? ((entry.category === "503A" || entry.type?.includes("503A")) ? "Designated" : undefined);
+              const status503B = p.status503B ?? ((entry.category === "503B" || entry.type?.includes("503B")) ? "Designated" : undefined);
+              const websiteHost = entry.website ? entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "") : undefined;
 
-            {/* SECTION 3 — Regulatory Information */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Regulatory Information</SectionLabel>
-              <div className="mt-3">
-                <Row
-                  label="FDA Registration"
-                  value={p.currentRegistrationStatus ?? "—"}
-                />
-                <Row
-                  label="503A Status"
-                  value={
-                    p.status503A ??
-                    (entry.category === "503A" || entry.type.includes("503A") ? "Designated" : "—")
-                  }
-                />
-                <Row
-                  label="503B Status"
-                  value={
-                    p.status503B ??
-                    (entry.category === "503B" || entry.type.includes("503B") ? "Designated" : "—")
-                  }
-                />
-                <Row
-                  label="NABP Accreditation"
-                  value={p.nabpAccreditation ? "Accredited" : "—"}
-                />
-                <Row
-                  label="PCAB Accreditation"
-                  value={p.pcabAccreditation ? "Accredited" : "—"}
-                />
-              </div>
-              {p.registrationNotes && (
-                <p
-                  className="mt-3 text-muted-foreground"
-                  style={{ fontSize: "12px", lineHeight: 1.6 }}
-                >
-                  {p.registrationNotes}
-                </p>
-              )}
-            </div>
+              const cards: { label: string; value: ReactNode }[] = [
+                { label: "Facility Type", value: typeBadge },
+                hasVal(headquarters) && { label: "Headquarters", value: headquarters },
+                hasVal(founded) && { label: "Founded", value: founded },
+                hasVal(coverage) && { label: "Coverage", value: coverage },
+                hasVal(states) && { label: "States Served", value: states },
+                hasVal(additionalLocs) && { label: "Additional Locations", value: additionalLocs },
+                hasVal(fdaStatus) && { label: "FDA Registration", value: fdaStatus },
+                hasVal(status503A) && { label: "503A Status", value: status503A },
+                hasVal(status503B) && { label: "503B Status", value: status503B },
+                p.nabpAccreditation && { label: "NABP", value: "Accredited" },
+                p.pcabAccreditation && { label: "PCAB", value: "Accredited" },
+                hasVal(websiteHost) && {
+                  label: "Website",
+                  value: (
+                    <a
+                      href={entry.website}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-primary underline underline-offset-2 decoration-border"
+                    >
+                      {websiteHost}
+                    </a>
+                  ),
+                },
+                hasVal(p.feiNumber) && { label: "FEI Number", value: p.feiNumber },
+              ].filter(Boolean) as { label: string; value: ReactNode }[];
+
+              return (
+                <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+                  <SectionLabel>Facility Snapshot</SectionLabel>
+                  <div className="mt-3 grid gap-2 grid-cols-2 sm:grid-cols-3">
+                    {cards.map((c) => (
+                      <SnapCard key={c.label} label={c.label} value={c.value} />
+                    ))}
+                  </div>
+                  {hasVal(p.registrationNotes) && (
+                    <p
+                      className="mt-3 text-muted-foreground"
+                      style={{ fontSize: "12px", lineHeight: 1.6 }}
+                    >
+                      {p.registrationNotes}
+                    </p>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* SECTION 4 — Compounding Capabilities */}
             {capabilities.length > 0 && (
@@ -459,14 +463,69 @@ const GreenlistProfile = () => {
 
             {/* SECTION 6 — Greenlisted Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Greenlisted Status</SectionLabel>
-              <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+              <SectionLabel>Greenlist Status</SectionLabel>
+              <div
+                className="mt-3 flex items-center gap-3"
+                style={{
+                  border: "0.5px solid hsl(var(--border))",
+                  borderRadius: "10px",
+                  padding: "14px 16px",
+                  background: "hsl(var(--background))",
+                }}
+              >
+                <span
+                  aria-hidden
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: STATUS_COLOR[status],
+                    boxShadow: `0 0 0 4px ${STATUS_COLOR[status]}22`,
+                  }}
+                />
+                <span
+                  className="font-sans font-bold uppercase"
+                  style={{ fontSize: "12px", letterSpacing: "0.08em", color: STATUS_COLOR[status] }}
+                >
+                  {STATUS_LABEL[status]}
+                </span>
+              </div>
+              <p className="mt-3 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
                 {statusBlurb}
               </p>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
-                FDA registration, 503A designation, and 503B designation alone do not
-                qualify a facility for Greenlisted status. Greenlisted status is
-                earned through successful independent testing activity.
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                {[
+                  { c: STATUS_COLOR.monitoring, l: "Under Monitoring", d: "Facility identified in the registry and tracked for regulatory and supply-chain signals." },
+                  { c: "#3478F6", l: "Testing Active", d: "Independent testing activity is underway on products sourced from this facility." },
+                  { c: STATUS_COLOR.greenlisted, l: "Greenlisted", d: "Facility has met Source Standard independent testing criteria." },
+                  { c: STATUS_COLOR.alert, l: "Status Alert", d: "Regulatory action or supply-chain signal warrants caution." },
+                ].map((s) => (
+                  <div
+                    key={s.l}
+                    className="flex items-start gap-2"
+                    style={{
+                      border: "0.5px solid hsl(var(--border))",
+                      borderRadius: "8px",
+                      padding: "10px 12px",
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{ width: 8, height: 8, borderRadius: "50%", background: s.c, marginTop: 5, flexShrink: 0 }}
+                    />
+                    <div>
+                      <p className="font-sans font-semibold uppercase text-foreground" style={{ fontSize: "10px", letterSpacing: "0.06em" }}>
+                        {s.l}
+                      </p>
+                      <p className="mt-0.5 text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.5 }}>
+                        {s.d}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.6 }}>
+                FDA registration, 503A designation, and 503B designation alone do not qualify a facility for Greenlisted status. Greenlisted status is earned through successful independent testing activity.
               </p>
             </div>
 
@@ -497,13 +556,10 @@ const GreenlistProfile = () => {
 
 
             {/* SECTION 8 — Registry Framework */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Registry Framework</SectionLabel>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
-                Source Standard maintains records on manufacturers identified within
-                the compounded therapy supply chain. Inclusion in the Manufacturer
-                Registry does not imply endorsement, recommendation, or Greenlisted
-                status.
+            <div className="mt-5 pt-4" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <p className="text-muted-foreground" style={{ fontSize: "10px", lineHeight: 1.55, letterSpacing: "0.01em" }}>
+                <span className="font-semibold uppercase" style={{ letterSpacing: "0.08em" }}>Registry Framework · </span>
+                Source Standard maintains public records on manufacturers identified within the compounded therapy supply chain. Inclusion does not imply endorsement, recommendation, or Greenlisted status.
               </p>
             </div>
 
