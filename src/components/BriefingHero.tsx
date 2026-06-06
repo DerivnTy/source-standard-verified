@@ -98,7 +98,7 @@ export const BriefingHero = ({
                 className="text-white text-left lg:text-center text-balance lg:mx-auto"
                 style={{
                   maxWidth: "560px",
-                  fontSize: "clamp(44px, 10vw, 64px)",
+                  fontSize: "clamp(38px, 10vw, 64px)",
                   lineHeight: "1.0",
                   letterSpacing: "-0.03em",
                   fontWeight: 600,
