@@ -34,6 +34,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "what-source-standard-verification-actually-means": "/library/analysis/meaning-of-verification",
   "warning-signs-of-undocumented-sourcing": "/library/analysis/undocumented-sourcing-signs",
   "why-vendor-transparency-matters": "/library/why-vendor-transparency-matters",
+  "what-happens-during-a-verification-review": "/library/what-happens-during-a-verification-review",
 };
 
 export const routeForArticle = (slug: string) =>
@@ -169,6 +170,15 @@ export const ARTICLES: Article[] = [
     title: "Why Vendor Transparency Matters",
     blurb:
       "Why transparent sourcing relationships help consumers evaluate compounded therapy providers with greater confidence.",
+    meta: "Updated Jun 2026",
+    publishedAt: "2026-06-06",
+    category: "latest",
+  },
+  {
+    slug: "what-happens-during-a-verification-review",
+    title: "What Happens During a Verification Review?",
+    blurb:
+      "A high-level overview of how documentation, sourcing claims, facility relationships, and public records are reviewed within the Source Standard framework.",
     meta: "Updated Jun 2026",
     publishedAt: "2026-06-06",
     category: "latest",
