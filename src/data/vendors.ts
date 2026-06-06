@@ -54,6 +54,31 @@ export type Vendor = {
   // Free-form summary for profile body (optional)
   summary?: string;
 
+  // ---------- Extended public profile (optional, populated as clinics claim) ----------
+  // Identity & contact
+  logoUrl?: string;
+  phone?: string;
+
+  // Social / discoverability
+  instagram?: string;
+  facebook?: string;
+  linkedin?: string;
+  youtube?: string;
+  googleBusinessUrl?: string;
+
+  // Narrative
+  clinicalPhilosophy?: string;
+  patientFocus?: string;
+  treatmentCategories?: string[];
+
+  // Providers
+  credentials?: string;
+  additionalProviders?: { name: string; role?: string; credentials?: string }[];
+  clinicalLeadership?: string;
+
+  // Claim state
+  claimed?: boolean;
+
   // Legacy documentation table — preserved for back-compat with existing
   // verified vendor profiles. New imports do not need to populate this.
   documentation?: {
@@ -62,6 +87,7 @@ export type Vendor = {
     note?: string;
   }[];
 };
+
 
 // ---------- Status presentation ----------
 
