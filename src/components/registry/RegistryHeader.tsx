@@ -59,29 +59,29 @@ export const RegistryHeader = ({
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
             <div className="min-w-0 flex-1">
-              <h1 className="t-page-title text-white text-left">
+              <h1 className="ss-section-title !text-white text-left !mt-0">
                 {title}
               </h1>
               {statusLine ? (
-                <div className="mt-4 inline-flex items-center" style={{ gap: "12px" }}>
+                <div className="mt-3 inline-flex items-center" style={{ gap: "12px" }}>
                   <span
                     aria-hidden
                     className="rounded-full bg-[#22C55E] animate-pulse"
                     style={{ height: "6px", width: "6px" }}
                   />
-                  <span className="t-utility-xs text-white/70">
+                  <span className="ss-eyebrow !text-white/70">
                     {statusLine}
                   </span>
                 </div>
               ) : description ? (
-                <p className="mt-4 t-body-md text-white/70 max-w-[600px] leading-[1.4]">
+                <p className="ss-lead !text-white/70 max-w-[600px]">
                   {description}
                 </p>
               ) : null}
               {scopeText && scopeHref && (
                 <Link
                   to={scopeHref}
-                  className="mt-3 inline-flex items-center gap-1 t-body-sm text-white/70 hover:text-white underline-offset-4 hover:underline transition-colors"
+                  className="mt-3 inline-flex items-center gap-1 ss-body !text-white/70 hover:!text-white underline-offset-4 hover:underline transition-colors"
                 >
                   {scopeText} <span aria-hidden>→</span>
                 </Link>

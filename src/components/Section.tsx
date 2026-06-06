@@ -55,7 +55,7 @@ export const Section = ({
  */
 export const SectionLabel = ({
   number,
-  eyebrow: _eyebrow,
+  eyebrow,
   title,
   description,
 }: {
@@ -64,19 +64,15 @@ export const SectionLabel = ({
   title: string;
   description?: string;
 }) => (
-  <div className="mb-8">
-    <h2 className="t-section-title-sm text-foreground">
-      {number && (
-        <span className="t-utility-xs text-muted-foreground mr-3 align-baseline">
-          {number}
-        </span>
-      )}
-      {title}
-    </h2>
-    {description && (
-      <p className="mt-3 t-body-sm text-muted-foreground">
-        {description}
+  <div className="mb-5">
+    {(number || eyebrow) && (
+      <p className="ss-eyebrow">
+        {[number, eyebrow].filter(Boolean).join(" · ")}
       </p>
+    )}
+    <h2 className="ss-section-title text-foreground">{title}</h2>
+    {description && (
+      <p className="ss-lead">{description}</p>
     )}
   </div>
 );

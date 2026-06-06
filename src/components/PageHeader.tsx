@@ -1,12 +1,9 @@
 import { ReactNode } from "react";
-import { PageTitle, Lead } from "@/components/system";
 
 /**
- * PageHeader — token-aligned page intro band.
- *
- * Uses the canonical PageTitle (48/56) + Lead (18/30) + Eyebrow tokens.
- * Sits inside `container-wide` for backwards compatibility with any
- * remaining caller; new pages should compose `system/Section` directly.
+ * PageHeader — Source Standard institutional page intro band.
+ * Uses the Home-page typography system (ss-section-title + ss-lead)
+ * so every page reads with the same hierarchy.
  */
 export const PageHeader = ({
   eyebrow,
@@ -19,12 +16,15 @@ export const PageHeader = ({
   description?: string;
   children?: ReactNode;
 }) => (
-  <section className="border-b border-border bg-background">
-    <div className="page-shell section-pad">
+  <section className="border-b border-border bg-background ss-section">
+    <div className="page-shell">
       <div className="mx-auto w-standard">
-        <PageTitle className="max-w-[26ch]">{title}</PageTitle>
-        {description && <Lead className="mt-5 max-w-[68ch]">{description}</Lead>}
-        {children && <div className="mt-7">{children}</div>}
+        {eyebrow && <p className="ss-eyebrow">{eyebrow}</p>}
+        <h1 className="ss-section-title text-foreground max-w-[36ch]">{title}</h1>
+        {description && (
+          <p className="ss-lead max-w-[68ch]">{description}</p>
+        )}
+        {children && <div className="mt-4">{children}</div>}
       </div>
     </div>
   </section>

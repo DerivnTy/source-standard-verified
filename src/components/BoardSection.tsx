@@ -30,28 +30,28 @@ export const BoardSection = ({
 }) => (
   <section
     id={id}
-    className={`scroll-mt-20 border-b border-border ${
+    className={`scroll-mt-20 border-b border-border ss-section ${
       muted ? "bg-surface-muted" : "bg-background"
     }`}
   >
-    <div className="page-shell section-pad">
+    <div className="page-shell">
       <div className="mx-auto w-standard grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
           {hideEyebrow ? (
-            <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">
+            <p className="ss-eyebrow tabular-nums">
               {String(n).padStart(2, "0")}
             </p>
           ) : (
-            <p className="t-utility-xs text-muted-foreground mb-4">
-              {category ? `§${n} · ${category}` : `§${n}`}
+            <p className="ss-eyebrow">
+              {category ? `${String(n).padStart(2, "0")} · ${category}` : `§${n}`}
             </p>
           )}
-          <h2 className="t-section-title-sm text-foreground">{title}</h2>
+          <h2 className="ss-section-title text-foreground">{title}</h2>
           {rationale && (
-            <p className="mt-4 t-body-md text-muted-foreground">{rationale}</p>
+            <p className="ss-lead">{rationale}</p>
           )}
         </div>
-        <div className="md:col-span-8 t-body-md text-foreground/85 space-y-5">
+        <div className="md:col-span-8 ss-body space-y-4">
           {children}
         </div>
       </div>
