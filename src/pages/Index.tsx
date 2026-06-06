@@ -38,9 +38,13 @@ const HeroMetrics = () => {
     dotColor?: string;
   }) => (
     <div className="flex flex-col items-center text-center">
-      <div className="flex items-center justify-center" style={{ gap: dotColor ? "8px" : undefined }}>
+      <div className="relative inline-flex items-center justify-center">
         {dotColor && (
-          <span aria-hidden className="relative inline-flex" style={{ width: "6px", height: "6px" }}>
+          <span
+            aria-hidden
+            className="absolute inline-flex"
+            style={{ width: "6px", height: "6px", left: "-14px", top: "50%", transform: "translateY(-50%)" }}
+          >
             <span
               className="absolute inset-0 rounded-full animate-ping"
               style={{ backgroundColor: dotColor, opacity: 0.6 }}
@@ -108,7 +112,7 @@ const HeroMetrics = () => {
         style={{ gap: "48px" }}
       >
         <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
-        <Unit value={50} label="States" />
+        <Unit value={50} label="States Represented" />
       </div>
     </div>
   );
