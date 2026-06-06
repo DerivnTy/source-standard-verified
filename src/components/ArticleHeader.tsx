@@ -10,15 +10,14 @@ const cardChrome = {
 } as const;
 
 /**
- * ArticleHeader — institutional record header for Library article pages.
+ * ArticleHeader — consumer-facing educational resource header.
  *
- * Renders a compact "← Back to Resource Library" utility link aligned to
- * the article column, followed by an `ArticleHeaderCard`: bordered white
- * card with mono eyebrow, title, dek, hairline divider, and a tight
- * metadata grid. Replaces the prior editorial band layout.
- *
- * Public prop signature is preserved so individual article pages need
- * no edits.
+ * Renders a compact "← Back" utility link, then a bordered card with a
+ * small "Educational Resource" eyebrow, the title, a short consumer
+ * description, and a low-emphasis "Updated …" line. Internal
+ * document-control fields (Doc ID, Status, Reviewed by, etc.) are
+ * intentionally not rendered — only the Updated date is surfaced from
+ * the metadata array, for backward compatibility with existing pages.
  */
 export const ArticleHeader = ({
   eyebrow: _eyebrow,
@@ -35,16 +34,16 @@ export const ArticleHeader = ({
   backHref?: string;
   backLabel?: string;
 }) => {
-  // eyebrow accepted for back-compat but visually replaced by the
-  // canonical "RESOURCE DOCUMENT" label.
   void _eyebrow;
+
+  const updated = metadata.find(
+    (m) => typeof m.label === "string" && m.label.toLowerCase().includes("updated"),
+  );
 
   return (
     <header className="bg-background">
       <div className="page-shell pt-6">
         <div className="mx-auto w-reading-wide">
-          {/* Compact utility back link — sits inside the article column,
-              not a separate full-width band. */}
           <Link
             to={backHref}
             className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
@@ -56,13 +55,12 @@ export const ArticleHeader = ({
             <span>{backLabel}</span>
           </Link>
 
-          {/* ArticleHeaderCard */}
           <div style={{ ...cardChrome, padding: "24px", marginTop: "16px" }}>
             <p
               className="font-mono uppercase text-muted-foreground"
               style={{ fontSize: "10px", letterSpacing: "0.14em" }}
             >
-              Resource Document
+              Educational Resource
             </p>
 
             <h1
@@ -86,38 +84,16 @@ export const ArticleHeader = ({
               </p>
             )}
 
-            {metadata.length > 0 && (
-              <>
-                <div
-                  aria-hidden
-                  style={{
-                    height: "0.5px",
-                    background: "hsl(var(--border))",
-                    margin: "20px 0 16px",
-                  }}
-                />
-                <dl
-                  className="grid gap-x-6 gap-y-3"
-                  style={{ gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))" }}
-                >
-                  {metadata.map((m, i) => (
-                    <div key={i} className="flex flex-col" style={{ rowGap: "3px" }}>
-                      <dt
-                        className="font-mono uppercase text-muted-foreground"
-                        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-                      >
-                        {m.label}
-                      </dt>
-                      <dd
-                        className="text-foreground font-sans"
-                        style={{ fontSize: "12.5px", lineHeight: "1.4" }}
-                      >
-                        {m.value}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </>
+            {updated && (
+              <p
+                className="text-muted-foreground"
+                style={{
+                  fontSize: "12px",
+                  marginTop: "12px",
+                }}
+              >
+                Updated {updated.value}
+              </p>
             )}
           </div>
         </div>
