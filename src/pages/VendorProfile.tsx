@@ -12,7 +12,7 @@ import {
   ChevronDown,
   ExternalLink,
   Star,
-  Building2,
+  
   UserRound,
 } from "lucide-react";
 import {
