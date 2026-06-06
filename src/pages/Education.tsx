@@ -230,7 +230,7 @@ const CategoryBlock = ({
               </ul>
             )}
 
-            {entries.length > 0 && (
+            {hasMore && (
               <div className="mt-3">
                 <ViewAllPill to={category.path}>
                   View all {category.label}
