@@ -234,7 +234,7 @@ const HeroMeta = () => {
 const howItWorks = [
   {
     h: "Map the market.",
-    b: "Identify and maintain records for compounded therapy vendors, clinics, telehealth providers, and compounding facilities operating throughout the supply chain.",
+    b: "Identify and maintain records for compounded therapy vendors and compounding facilities operating throughout the supply chain.",
   },
   {
     h: "Verify sourcing claims.",
