@@ -305,52 +305,53 @@ const About = () => {
               <AboutCard>
                 <Eyebrow>Organizational Purpose</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
-                  What Source Standard exists to do
+                  Why Source Standard exists
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Source Standard is an independent verification and public-reference framework designed to improve transparency around compounded therapy vendor sourcing claims.
+                    Compounded therapy vendors frequently make claims regarding sourcing relationships, pharmacy partnerships, quality standards, manufacturing practices, and supply-chain integrity.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Its role is to help the public identify whether vendor claims are supported by submitted documentation, pharmacy relationship evidence, public records, and review timestamps.
+                    For consumers, determining whether those claims are supported by evidence can be difficult.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    The organization does not market vendors, promote treatment protocols, provide medical advice, or function as a substitute for federal or state oversight.
+                    Source Standard was established to create a structured framework for reviewing sourcing claims, organizing documentation, evaluating supporting evidence, and publishing public-reference records that can be reviewed with greater clarity.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Its purpose is narrower and more disciplined: to organize vendor records, sourcing documentation, verification status, and public-reference materials into a system that can be reviewed with greater clarity.
+                    The objective is not to determine which treatments are best.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    The objective is not to replace physicians, regulators, or pharmacists.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    The objective is to improve transparency by creating a disciplined system for evaluating whether sourcing claims are supported by evidence.
                   </p>
                 </div>
               </AboutCard>
             </section>
 
-            {/* §4 Context */}
+            {/* §4 Market Context */}
             <section
               id="context"
-              className="scroll-mt-24 border-b border-border/40"
+              className="scroll-mt-24 border-b border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "24px", paddingBottom: "24px" }}
             >
-              <AboutCard>
-                <Eyebrow>01 · Context</Eyebrow>
-                <h2 className="mt-2 t-section-title-sm text-foreground">Context</h2>
-                <p
-                  className="mt-3 text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.55 }}
-                >
-                  Why this framework exists.
-                </p>
-                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    In compounded therapy markets, consumers are often asked to evaluate vendors through branding, testimonials, claims, and presentation.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Those signals are difficult to verify independently.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Source Standard was established to create a clearer relationship between vendor sourcing claims and documentation that can be reviewed, time-stamped, and assigned a public status.
-                  </p>
-                </div>
-              </AboutCard>
+              <SectionHeader
+                n="01"
+                title="Market Context"
+                intro="Why the framework is needed."
+              />
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+                {CONTEXT.map((c, i) => (
+                  <AboutRow
+                    key={c.t}
+                    index={i + 1}
+                    total={CONTEXT.length}
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
+              </div>
             </section>
 
             {/* §5 Operational Boundaries */}
@@ -362,11 +363,17 @@ const About = () => {
               <SectionHeader
                 n="02"
                 title="Operational Boundaries"
-                intro="What the organization does not do."
+                intro="What Source Standard does not do."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "8px" }}>
-                {BOUNDARIES.map((b, i) => (
-                  <AboutStatementRow key={b} index={i + 1} text={b} />
+              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+                {BOUNDARIES.map((c, i) => (
+                  <AboutRow
+                    key={c.t}
+                    index={i + 1}
+                    total={BOUNDARIES.length}
+                    title={c.t}
+                    description={c.d}
+                  />
                 ))}
               </div>
             </section>
@@ -380,7 +387,7 @@ const About = () => {
               <SectionHeader
                 n="03"
                 title="Strategic Objectives"
-                intro="Who the framework is designed to serve."
+                intro="Who the framework serves."
               />
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
                 {OBJECTIVES.map((c, i) => (
@@ -395,7 +402,7 @@ const About = () => {
               </div>
             </section>
 
-            {/* §7 Defined Scope */}
+            {/* §7 Framework Components */}
             <section
               id="scope"
               className="scroll-mt-24 border-b border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
@@ -403,8 +410,8 @@ const About = () => {
             >
               <SectionHeader
                 n="04"
-                title="Defined Scope"
-                intro="What the framework is built to maintain and publish."
+                title="Framework Components"
+                intro="The systems maintained by Source Standard."
               />
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
                 {SCOPE.map((c, i) => (
@@ -419,42 +426,51 @@ const About = () => {
               </div>
             </section>
 
-            {/* §8 Related Pages */}
+            {/* §8 Institutional Principles */}
             <section
-              id="related"
+              id="principles"
               className="scroll-mt-24 border-b border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{ paddingTop: "24px", paddingBottom: "24px" }}
             >
               <SectionHeader
                 n="05"
-                title="Related Pages"
-                intro="Further reading on oversight, standards, and verification methodology."
+                title="Institutional Principles"
+                intro="The principles guiding the framework."
               />
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
-                {RELATED.map((r) => (
-                  <AboutLinkRow
-                    key={r.to}
-                    to={r.to}
-                    title={r.label}
-                    description={r.desc}
+                {PRINCIPLES.map((c, i) => (
+                  <AboutRow
+                    key={c.t}
+                    index={i + 1}
+                    total={PRINCIPLES.length}
+                    title={c.t}
+                    description={c.d}
                   />
                 ))}
               </div>
             </section>
 
-            {/* §9 Closing — Framework Limits */}
+            {/* §9 Closing — Institutional Role */}
             <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <AboutCard>
-                <Eyebrow>Framework Limits</Eyebrow>
+                <Eyebrow>Institutional Role</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
-                  A public-reference system with defined limits.
+                  A transparency framework with defined limits.
                 </h2>
-                <p
-                  className="mt-4 text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.6 }}
-                >
-                  Source Standard is designed to make compounded therapy vendor sourcing claims easier to interpret. It does not replace clinical judgment, regulatory oversight, or individual medical decision-making. Its role is to provide a disciplined public reference for a market where documentation is often harder to evaluate than presentation.
-                </p>
+                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Source Standard operates as an independent public-reference system focused on sourcing transparency within the compounded therapy market.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Its role is to organize evidence, evaluate sourcing claims, maintain public records, and provide greater visibility into supply-chain relationships that are often difficult for consumers to evaluate independently.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    The framework does not replace clinical judgment, regulatory oversight, or personal decision-making.
+                  </p>
+                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    Its role is narrower, but important: creating a more transparent and evidence-based public record.
+                  </p>
+                </div>
               </AboutCard>
             </section>
           </div>
