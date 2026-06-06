@@ -101,7 +101,7 @@ export const ArticleFooter = ({
   return (
     <footer
       className="bg-background"
-      style={{ paddingTop: "32px", paddingBottom: "24px" }}
+      style={{ paddingTop: "24px", paddingBottom: "32px" }}
     >
       <div className="page-shell">
         <div className="mx-auto w-reading-wide">
@@ -110,7 +110,7 @@ export const ArticleFooter = ({
             style={{
               height: "0.5px",
               background: "hsl(var(--border))",
-              marginBottom: "20px",
+              marginBottom: "18px",
             }}
           />
           <Link
