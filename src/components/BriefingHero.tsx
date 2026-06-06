@@ -87,6 +87,11 @@ export const BriefingHero = ({
           >
             <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center lg:my-auto">
               {brandMark && <span className="sr-only">{brandMark}</span>}
+              {heroLogo && (
+                <div className="flex justify-center" style={{ marginBottom: "20px" }}>
+                  {heroLogo}
+                </div>
+              )}
 
               <h1
                 id="briefing-title"
