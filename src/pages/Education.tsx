@@ -171,9 +171,8 @@ const PREVIEW_LIMIT = 4;
 
 const FILTER_TABS: { id: "all" | CategoryId; label: string }[] = [
   { id: "all", label: "All" },
-  { id: "regulation", label: "Regulation" },
-  { id: "clinical", label: "Clinical" },
-  { id: "consumer", label: "Consumer" },
+  { id: "core", label: "Core Reference" },
+  { id: "latest", label: "Latest" },
 ];
 
 
