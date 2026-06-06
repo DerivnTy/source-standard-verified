@@ -335,12 +335,12 @@ const GreenlistProfile = () => {
               </div>
             </header>
 
-            {/* SECTION 1 — Manufacturer Overview */}
+            {/* SECTION 1 — Overview */}
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Manufacturer Overview</SectionLabel>
+              <SectionLabel>Overview</SectionLabel>
               <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
-                {p.background ??
-                  `${entry.name} is a ${typeBadge.toLowerCase()} identified within the Source Standard supply-chain database. Manufacturer records are maintained to support supply-chain visibility and ongoing testing activity.`}
+                {p.overview ?? p.background ??
+                  `${entry.name} is a ${typeBadge.toLowerCase()} identified within the Source Standard supply-chain database. Records are maintained to support supply-chain visibility and ongoing testing activity.`}
               </p>
             </div>
 
@@ -349,8 +349,14 @@ const GreenlistProfile = () => {
               <SectionLabel>Facility Information</SectionLabel>
               <div className="mt-3">
                 <Row label="Facility Type" value={typeBadge} />
-                <Row label="Headquarters" value={entry.location ?? "—"} />
-                {entry.additionalLocations && entry.additionalLocations.length > 0 && (
+                <Row label="Headquarters" value={p.headquarters ?? entry.location ?? "—"} />
+                {p.additionalLocationsList && p.additionalLocationsList.length > 0 && (
+                  <Row
+                    label="Additional Locations"
+                    value={p.additionalLocationsList.join(" · ")}
+                  />
+                )}
+                {!p.additionalLocationsList && entry.additionalLocations && entry.additionalLocations.length > 0 && (
                   <Row
                     label="Additional Locations"
                     value={entry.additionalLocations
@@ -358,8 +364,8 @@ const GreenlistProfile = () => {
                       .join(" · ")}
                   />
                 )}
-                {p.initialRegistrationYear && (
-                  <Row label="Year Founded" value={p.initialRegistrationYear} />
+                {(p.yearFounded ?? p.initialRegistrationYear) && (
+                  <Row label="Year Founded" value={p.yearFounded ?? p.initialRegistrationYear} />
                 )}
                 {entry.website && (
                   <Row
@@ -380,30 +386,70 @@ const GreenlistProfile = () => {
                   <Row
                     label="States Served"
                     value={
-                      p.statesServed.length > 6
-                        ? `${p.statesServed.length} states`
+                      p.statesServed.length > 8
+                        ? `${p.statesServed.join(", ")} (${p.statesServed.length})`
                         : p.statesServed.join(", ")
                     }
                   />
                 )}
-                {p.currentRegistrationStatus && (
-                  <Row label="FDA Registration" value={p.currentRegistrationStatus} />
-                )}
                 <Row
-                  label="503A Status"
-                  value={entry.category === "503A" || entry.type.includes("503A") ? "Designated" : "—"}
-                />
-                <Row
-                  label="503B Status"
-                  value={entry.category === "503B" || entry.type.includes("503B") ? "Designated" : "—"}
+                  label="Coverage"
+                  value={
+                    p.statesServed && p.statesServed.length >= 25
+                      ? "National"
+                      : p.statesServed && p.statesServed.length > 1
+                      ? "Multi-State"
+                      : entry.serviceArea ?? "Regional"
+                  }
                 />
               </div>
             </div>
 
-            {/* SECTION 3 — Manufacturing Capabilities */}
+            {/* SECTION 3 — Regulatory Information */}
+            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Regulatory Information</SectionLabel>
+              <div className="mt-3">
+                <Row
+                  label="FDA Registration"
+                  value={p.currentRegistrationStatus ?? "—"}
+                />
+                <Row
+                  label="503A Status"
+                  value={
+                    p.status503A ??
+                    (entry.category === "503A" || entry.type.includes("503A") ? "Designated" : "—")
+                  }
+                />
+                <Row
+                  label="503B Status"
+                  value={
+                    p.status503B ??
+                    (entry.category === "503B" || entry.type.includes("503B") ? "Designated" : "—")
+                  }
+                />
+                <Row
+                  label="NABP Accreditation"
+                  value={p.nabpAccreditation ? "Accredited" : "—"}
+                />
+                <Row
+                  label="PCAB Accreditation"
+                  value={p.pcabAccreditation ? "Accredited" : "—"}
+                />
+              </div>
+              {p.registrationNotes && (
+                <p
+                  className="mt-3 text-muted-foreground"
+                  style={{ fontSize: "12px", lineHeight: 1.6 }}
+                >
+                  {p.registrationNotes}
+                </p>
+              )}
+            </div>
+
+            {/* SECTION 4 — Compounding Capabilities */}
             {capabilities.length > 0 && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-                <SectionLabel>Manufacturing Capabilities</SectionLabel>
+                <SectionLabel>Compounding Capabilities</SectionLabel>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {capabilities.map((c) => (
                     <Pill key={c}>{c}</Pill>
@@ -412,7 +458,7 @@ const GreenlistProfile = () => {
               </div>
             )}
 
-            {/* SECTION 4 — Therapy Categories */}
+            {/* SECTION 5 — Therapy Categories */}
             {therapies.length > 0 && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <SectionLabel>Therapy Categories</SectionLabel>
@@ -424,7 +470,7 @@ const GreenlistProfile = () => {
               </div>
             )}
 
-            {/* SECTION 5 — Greenlisted Status */}
+            {/* SECTION 6 — Greenlisted Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Greenlisted Status</SectionLabel>
               <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
@@ -432,45 +478,33 @@ const GreenlistProfile = () => {
               </p>
               <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
                 FDA registration, 503A designation, and 503B designation alone do not
-                qualify a manufacturer for Greenlisted status. Greenlisted status is
+                qualify a facility for Greenlisted status. Greenlisted status is
                 earned through successful independent testing activity.
               </p>
             </div>
 
-            {/* SECTION 6 — Public Records */}
-            {(entry.website || fdaInspectionUrl) && (
+            {/* SECTION 7 — Public Records */}
+            {publicRecords.length > 0 && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <SectionLabel>Public Records</SectionLabel>
                 <ul className="mt-3 space-y-2">
-                  {entry.website && (
-                    <li>
+                  {publicRecords.map((r) => (
+                    <li key={r.url}>
                       <a
-                        href={entry.website}
+                        href={r.url}
                         target="_blank"
                         rel="noreferrer noopener"
                         className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
                         style={{ fontSize: "12px" }}
                       >
-                        Company Website →
+                        {r.label} →
                       </a>
                     </li>
-                  )}
-                  {fdaInspectionUrl && (
-                    <li>
-                      <a
-                        href={fdaInspectionUrl}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
-                        style={{ fontSize: "12px" }}
-                      >
-                        FDA Inspection Records →
-                      </a>
-                    </li>
-                  )}
+                  ))}
                 </ul>
               </div>
             )}
+
 
             {/* SECTION 7 — Timeline */}
             {timeline.length > 0 && (
