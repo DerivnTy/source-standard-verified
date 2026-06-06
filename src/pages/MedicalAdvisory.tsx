@@ -262,11 +262,19 @@ const MedicalAdvisory = () => {
               <SectionIndex n="03" />
               <div className="mb-8 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
-                  Appointed members
+                  Advisory Structure
                 </h2>
-                <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
-                  Independent clinicians, pharmacy reviewers, and legal advisors appointed to support framework standards, documentation boundaries, and public-reference integrity.
-                </p>
+                <div className="mt-4 flex flex-col" style={{ gap: "12px" }}>
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    Clinical Oversight may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework.
+                  </p>
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    Appointments are made based on relevant experience, professional standing, and alignment with the framework's independence requirements.
+                  </p>
+                  <p className="t-body-sm text-muted-foreground leading-relaxed">
+                    All advisory participation exists to support standards development, governance review, and public-reference integrity.
+                  </p>
+                </div>
               </div>
 
               <ul className="grid md:grid-cols-2 gap-4">
