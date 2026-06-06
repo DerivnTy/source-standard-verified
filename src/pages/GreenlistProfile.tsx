@@ -8,8 +8,8 @@ import {
 
 /**
  * GreenlistProfile — Manufacturer Intelligence Profile.
- * Restructured to function as a supply-chain intelligence profile,
- * not a static database record.
+ * Public reference record. Excludes proprietary supply-chain intelligence
+ * (vendor relationships, network mappings, internal risk scoring, etc.).
  */
 
 const formatAsOf = (iso?: string): string | undefined => {
@@ -43,6 +43,7 @@ const manufacturerTypeLabel = (raw?: string): string => {
   if (!raw) return "Manufacturer";
   const t = raw.toLowerCase();
   if (t.includes("api")) return "API Manufacturer";
+  if (t.includes("503a + 503b") || t.includes("hybrid")) return "Hybrid Facility";
   if (t.includes("503b")) return "503B Facility";
   if (t.includes("503a")) return "503A Facility";
   return raw;
@@ -58,7 +59,10 @@ const SectionLabel = ({ children }: { children: ReactNode }) => (
 );
 
 const Row = ({ label, value }: { label: string; value: ReactNode }) => (
-  <div className="flex items-baseline justify-between gap-4 py-2" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+  <div
+    className="flex items-baseline justify-between gap-4 py-2"
+    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+  >
     <span
       className="font-sans uppercase text-muted-foreground"
       style={{ fontSize: "10px", letterSpacing: "0.08em" }}
@@ -66,13 +70,56 @@ const Row = ({ label, value }: { label: string; value: ReactNode }) => (
       {label}
     </span>
     <span
-      className="font-sans font-medium text-foreground tabular-nums text-right"
+      className="font-sans font-medium text-foreground tabular-nums text-right max-w-[60%]"
       style={{ fontSize: "12px" }}
     >
       {value ?? "—"}
     </span>
   </div>
 );
+
+const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolean }) => (
+  <span
+    className={`inline-flex items-center font-sans font-semibold uppercase ${
+      muted ? "text-muted-foreground" : "text-foreground"
+    }`}
+    style={{
+      fontSize: "10px",
+      letterSpacing: "0.06em",
+      padding: "4px 9px",
+      borderRadius: "20px",
+      border: "1px solid hsl(var(--border))",
+    }}
+  >
+    {children}
+  </span>
+);
+
+// Capability detection from existing free-text data fields.
+const CAPABILITY_DEFS: { key: string; label: string; match: RegExp }[] = [
+  { key: "sterile", label: "Sterile Compounding", match: /sterile|injectable|infusion|admixture|ophthalmic|prefilled|iv\b/i },
+  { key: "nonsterile", label: "Non-Sterile Compounding", match: /non[- ]?sterile|nonsterile|oral|topical|troche|capsule|tablet/i },
+  { key: "injectables", label: "Injectables", match: /injectable|injection|im\/sc|intramuscular/i },
+  { key: "oral", label: "Oral Medications", match: /oral|capsule|tablet|liquid/i },
+  { key: "topicals", label: "Topicals", match: /topical|cream|gel|ointment/i },
+  { key: "troches", label: "Troches", match: /troche|lozenge/i },
+  { key: "lyophilized", label: "Lyophilized Products", match: /lyophil|freeze[- ]dried/i },
+  { key: "multidose", label: "Multi-Dose Vials", match: /multi[- ]?dose|mdv/i },
+  { key: "prefilled", label: "Pre-Filled Syringes", match: /prefilled|pre[- ]?filled|syringe/i },
+];
+
+const THERAPY_DEFS: { label: string; match: RegExp }[] = [
+  { label: "TRT", match: /\btrt\b|testosterone/i },
+  { label: "HRT", match: /\bhrt\b|hormone/i },
+  { label: "GLP-1", match: /glp[- ]?1|semaglutide|tirzepatide/i },
+  { label: "Peptides", match: /peptide/i },
+  { label: "Longevity", match: /longevity|anti[- ]?aging/i },
+  { label: "Weight Loss", match: /weight[- ]?loss|obesity/i },
+  { label: "Wellness", match: /wellness|integrative/i },
+  { label: "Sexual Health", match: /sexual|libido|ed\b|erectile/i },
+  { label: "Aesthetics", match: /aesthetic|dermatolog|cosmetic/i },
+  { label: "Functional Medicine", match: /functional medicine/i },
+];
 
 const GreenlistProfile = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -95,7 +142,7 @@ const GreenlistProfile = () => {
 
   const p: GLProfile = entry.profile ?? {};
   const status: StatusTier = entry.regulatoryAlert ? "alert" : "monitoring";
-  const isGreenlisted: boolean = false;
+  const isGreenlisted = false;
 
   const typeBadge = manufacturerTypeLabel(entry.type);
   const lastUpdated =
@@ -104,22 +151,52 @@ const GreenlistProfile = () => {
     formatAsOf(p.lastInspectionDate) ??
     (p.mostRecentRegistrationYear ?? "—");
 
-  // Testing activity — none recorded until program goes live.
-  const testsRecorded = 0;
-  const passingResults = 0;
-  const failedResults = 0;
-  const lastTestingActivity: string | undefined = undefined;
+  // Derive capabilities and therapies from existing free-text fields.
+  const searchText = [
+    ...(p.dosageForms ?? []),
+    ...(p.specializations ?? []),
+    entry.focus ?? "",
+    p.background ?? "",
+  ].join(" | ");
 
-  // Supply chain presence — derive from existing profile fields.
-  const observedVendors = p.vendorCount ?? 0;
-  const observedCategories = (p.specializations ?? []).slice(0, 8);
+  const capabilities = CAPABILITY_DEFS.filter((c) => {
+    if (c.key === "sterile" && p.compoundingScope?.sterile) return true;
+    if (c.key === "nonsterile" && p.compoundingScope?.nonSterile) return true;
+    return c.match.test(searchText);
+  }).map((c) => c.label);
 
-  const statusBlurb =
-    isGreenlisted
-      ? "This manufacturer currently holds Greenlisted status based on successful independent testing activity observed through ongoing supply-chain monitoring."
-      : status === "alert"
-      ? "This manufacturer is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
-      : "This manufacturer has been identified within the Source Standard database but has not yet achieved Greenlisted status.";
+  const therapies = THERAPY_DEFS.filter((t) => t.match.test(searchText)).map((t) => t.label);
+
+  const statusBlurb = isGreenlisted
+    ? "This manufacturer currently holds Greenlisted status based on successful independent testing activity."
+    : status === "alert"
+    ? "This manufacturer is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
+    : "This manufacturer has been identified within the Source Standard database but has not yet achieved Greenlisted status.";
+
+  // Public records — only render rows that have data.
+  const fdaInspectionUrl = p.feiNumber
+    ? `https://www.accessdata.fda.gov/scripts/inspsearch/index.cfm?action=Search.ShowInspectionsTable&FEINumber=${encodeURIComponent(
+        p.feiNumber,
+      )}`
+    : undefined;
+
+  // Timeline — only render entries we actually know.
+  const timeline: { date: string; event: string }[] = [];
+  if (p.initialRegistrationYear)
+    timeline.push({ date: p.initialRegistrationYear, event: "FDA Registration" });
+  if (entry.category === "503A")
+    timeline.push({
+      date: p.initialRegistrationYear ?? "—",
+      event: "503A Designation",
+    });
+  if (entry.category === "503B")
+    timeline.push({
+      date: p.initialRegistrationYear ?? "—",
+      event: "503B Designation",
+    });
+  timeline.push({ date: lastUpdated, event: "Added to Source Standard Registry" });
+  if (status === "monitoring")
+    timeline.push({ date: lastUpdated, event: "Monitoring Initiated" });
 
   return (
     <>
@@ -133,7 +210,8 @@ const GreenlistProfile = () => {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: entry.name,
-            url: entry.website || `https://sourcestandard.org/greenlist/${entry.slug}`,
+            url:
+              entry.website || `https://sourcestandard.org/greenlist/${entry.slug}`,
             mainEntityOfPage: `https://sourcestandard.org/greenlist/${entry.slug}`,
             additionalProperty: [
               {
@@ -165,9 +243,8 @@ const GreenlistProfile = () => {
       <section className="bg-background">
         <div
           className="mx-auto px-4"
-          style={{ maxWidth: "680px", paddingTop: "16px", paddingBottom: "56px" }}
+          style={{ maxWidth: "720px", paddingTop: "16px", paddingBottom: "56px" }}
         >
-          {/* Back link */}
           <Link
             to="/greenlist"
             className="inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
@@ -176,7 +253,6 @@ const GreenlistProfile = () => {
             ← Back to Manufacturer Registry
           </Link>
 
-          {/* Intelligence profile card */}
           <article
             className="mt-4 bg-card"
             style={{
@@ -190,11 +266,7 @@ const GreenlistProfile = () => {
               <div className="flex items-start justify-between gap-4">
                 <h1
                   className="min-w-0 font-sans font-semibold text-foreground"
-                  style={{
-                    fontSize: "20px",
-                    lineHeight: "1.25",
-                    letterSpacing: "-0.01em",
-                  }}
+                  style={{ fontSize: "20px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
                 >
                   {entry.name}
                 </h1>
@@ -223,17 +295,30 @@ const GreenlistProfile = () => {
                   {typeBadge}
                 </span>
                 {entry.location && (
-                  <span
-                    className="font-sans text-muted-foreground"
-                    style={{ fontSize: "11px" }}
-                  >
+                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
                     {entry.location}
                   </span>
                 )}
-                <span
-                  className="font-sans text-muted-foreground"
-                  style={{ fontSize: "11px" }}
-                >
+                {entry.website && (
+                  <>
+                    <span className="text-muted-foreground" style={{ fontSize: "11px" }}>·</span>
+                    <a
+                      href={entry.website}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
+                      style={{ fontSize: "11px" }}
+                    >
+                      {entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                    </a>
+                  </>
+                )}
+                {p.initialRegistrationYear && (
+                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
+                    · Founded {p.initialRegistrationYear}
+                  </span>
+                )}
+                <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
                   · Last Updated {lastUpdated}
                 </span>
               </div>
@@ -243,129 +328,169 @@ const GreenlistProfile = () => {
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Manufacturer Overview</SectionLabel>
               <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
-                {entry.name} is a {typeBadge.toLowerCase()} identified within the
-                Source Standard supply-chain database. Manufacturer records are
-                maintained to support supply-chain visibility and ongoing
-                testing activity.
+                {p.background ??
+                  `${entry.name} is a ${typeBadge.toLowerCase()} identified within the Source Standard supply-chain database. Manufacturer records are maintained to support supply-chain visibility and ongoing testing activity.`}
               </p>
             </div>
 
-            {/* SECTION 2 — Greenlisted Status */}
+            {/* SECTION 2 — Facility Information */}
+            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+              <SectionLabel>Facility Information</SectionLabel>
+              <div className="mt-3">
+                <Row label="Facility Type" value={typeBadge} />
+                <Row label="Headquarters" value={entry.location ?? "—"} />
+                {entry.additionalLocations && entry.additionalLocations.length > 0 && (
+                  <Row
+                    label="Additional Locations"
+                    value={entry.additionalLocations
+                      .map((l) => [l.city, l.state].filter(Boolean).join(", "))
+                      .join(" · ")}
+                  />
+                )}
+                {p.initialRegistrationYear && (
+                  <Row label="Year Founded" value={p.initialRegistrationYear} />
+                )}
+                {entry.website && (
+                  <Row
+                    label="Website"
+                    value={
+                      <a
+                        href={entry.website}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="hover:text-primary underline underline-offset-2 decoration-border"
+                      >
+                        {entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                      </a>
+                    }
+                  />
+                )}
+                {p.statesServed && p.statesServed.length > 0 && (
+                  <Row
+                    label="States Served"
+                    value={
+                      p.statesServed.length > 6
+                        ? `${p.statesServed.length} states`
+                        : p.statesServed.join(", ")
+                    }
+                  />
+                )}
+                {p.currentRegistrationStatus && (
+                  <Row label="FDA Registration" value={p.currentRegistrationStatus} />
+                )}
+                <Row
+                  label="503A Status"
+                  value={entry.category === "503A" || entry.type.includes("503A") ? "Designated" : "—"}
+                />
+                <Row
+                  label="503B Status"
+                  value={entry.category === "503B" || entry.type.includes("503B") ? "Designated" : "—"}
+                />
+              </div>
+            </div>
+
+            {/* SECTION 3 — Manufacturing Capabilities */}
+            {capabilities.length > 0 && (
+              <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+                <SectionLabel>Manufacturing Capabilities</SectionLabel>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {capabilities.map((c) => (
+                    <Pill key={c}>{c}</Pill>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SECTION 4 — Therapy Categories */}
+            {therapies.length > 0 && (
+              <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+                <SectionLabel>Therapy Categories</SectionLabel>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {therapies.map((t) => (
+                    <Pill key={t}>{t}</Pill>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SECTION 5 — Greenlisted Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Greenlisted Status</SectionLabel>
               <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
                 {statusBlurb}
               </p>
               <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
-                FDA registration, 503A designation, and 503B designation alone
-                do not qualify a manufacturer for Greenlisted status.
-                Greenlisted status is earned through successful independent
-                testing activity.
+                FDA registration, 503A designation, and 503B designation alone do not
+                qualify a manufacturer for Greenlisted status. Greenlisted status is
+                earned through successful independent testing activity.
               </p>
             </div>
 
-            {/* SECTION 3 — Testing Activity */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Testing Activity</SectionLabel>
-              <div className="mt-3">
-                <Row
-                  label="Status"
-                  value={
-                    <span style={{ color: STATUS_COLOR.monitoring }} className="font-semibold uppercase" >
-                      Monitoring Active
-                    </span>
-                  }
-                />
-                <Row label="Tests Recorded" value={testsRecorded} />
-                <Row label="Passing Results" value={passingResults} />
-                <Row label="Failed Results" value={failedResults} />
-                <Row label="Last Testing Activity" value={lastTestingActivity ?? "—"} />
-              </div>
-            </div>
-
-            {/* SECTION 4 — Supply Chain Presence */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Supply Chain Presence</SectionLabel>
-              <div className="mt-3">
-                <Row
-                  label="Observed Vendor Relationships"
-                  value={`${observedVendors} ${observedVendors === 1 ? "Vendor" : "Vendors"}`}
-                />
-              </div>
-              <div className="mt-4">
-                <p
-                  className="font-sans uppercase text-muted-foreground"
-                  style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-                >
-                  Observed Categories
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {observedCategories.length === 0 ? (
-                    <span className="text-muted-foreground" style={{ fontSize: "12px" }}>—</span>
-                  ) : (
-                    observedCategories.map((c) => (
-                      <span
-                        key={c}
-                        className="inline-flex items-center font-sans font-semibold uppercase text-foreground"
-                        style={{
-                          fontSize: "10px",
-                          letterSpacing: "0.06em",
-                          padding: "4px 9px",
-                          borderRadius: "20px",
-                          border: "1px solid hsl(var(--border))",
-                        }}
-                      >
-                        {c}
-                      </span>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* SECTION 5 — Status History */}
-            <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Status History</SectionLabel>
-              <ol className="mt-3 space-y-3">
-                {[
-                  { date: lastUpdated, event: "Manufacturer added to registry" },
-                  { date: lastUpdated, event: "Monitoring initiated" },
-                ].map((row, i) => (
-                  <li key={i} className="flex items-baseline gap-4">
-                    <span
-                      className="font-mono tabular-nums text-muted-foreground shrink-0"
-                      style={{ fontSize: "11px", minWidth: "92px" }}
-                    >
-                      {row.date}
-                    </span>
-                    <span className="text-foreground" style={{ fontSize: "13px", lineHeight: 1.5 }}>
-                      {row.event}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            {/* SECTION 6 — Registry Notes */}
-            {p.reviewNotes && (
+            {/* SECTION 6 — Public Records */}
+            {(entry.website || fdaInspectionUrl) && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-                <SectionLabel>Registry Notes</SectionLabel>
-                <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
-                  {p.reviewNotes}
-                </p>
+                <SectionLabel>Public Records</SectionLabel>
+                <ul className="mt-3 space-y-2">
+                  {entry.website && (
+                    <li>
+                      <a
+                        href={entry.website}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
+                        style={{ fontSize: "12px" }}
+                      >
+                        Company Website →
+                      </a>
+                    </li>
+                  )}
+                  {fdaInspectionUrl && (
+                    <li>
+                      <a
+                        href={fdaInspectionUrl}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
+                        style={{ fontSize: "12px" }}
+                      >
+                        FDA Inspection Records →
+                      </a>
+                    </li>
+                  )}
+                </ul>
               </div>
             )}
 
-            {/* SECTION 7 — Registry Framework */}
+            {/* SECTION 7 — Timeline */}
+            {timeline.length > 0 && (
+              <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
+                <SectionLabel>Timeline</SectionLabel>
+                <ol className="mt-3 space-y-3">
+                  {timeline.map((row, i) => (
+                    <li key={i} className="flex items-baseline gap-4">
+                      <span
+                        className="font-mono tabular-nums text-muted-foreground shrink-0"
+                        style={{ fontSize: "11px", minWidth: "92px" }}
+                      >
+                        {row.date}
+                      </span>
+                      <span className="text-foreground" style={{ fontSize: "13px", lineHeight: 1.5 }}>
+                        {row.event}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {/* SECTION 8 — Registry Framework */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Registry Framework</SectionLabel>
               <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
-                Source Standard maintains records on manufacturers identified
-                within the compounded therapy supply chain. Inclusion in the
-                Manufacturer Registry does not imply endorsement,
-                recommendation, or Greenlisted status. Registry records exist
-                to improve supply-chain transparency and support ongoing
-                monitoring activity.
+                Source Standard maintains records on manufacturers identified within
+                the compounded therapy supply chain. Inclusion in the Manufacturer
+                Registry does not imply endorsement, recommendation, or Greenlisted
+                status.
               </p>
             </div>
 
