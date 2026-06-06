@@ -631,17 +631,17 @@ const Index = () => {
               className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
-              Verification across the supply chain.
+              Visibility across the supply chain.
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
-                The Source Standard registry tracks vendors, manufacturers, pharmacies, and supply-chain relationships within a unified verification framework. Status assignments are based on documented evidence, verification procedures, and ongoing monitoring activities.
+                The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and supporting documentation. Facility records track Greenlisted status and independent testing activity.
               </p>
             </div>
 
             <div className="mt-5 inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
               <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
-              <PillSecondary to="/greenlist">Explore Upstream Registry</PillSecondary>
+              <PillSecondary to="/greenlist">Explore Facility Registry</PillSecondary>
             </div>
           </div>
         </div>
