@@ -422,9 +422,27 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
+            {/* Search — final filter, adjacent to record list */}
+            <div className="-mx-5 md:mx-0 px-5 pt-2 pb-1">
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search by vendor name, city, state, or therapy category…"
+                aria-label="Search by vendor name, city, state, or therapy category"
+                className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                style={{
+                  height: "40px",
+                  borderRadius: "24px",
+                  backgroundColor: "#FAFAFA",
+                  border: "1px solid #E5E5EA",
+                  paddingLeft: "16px",
+                  paddingRight: "16px",
+                }}
+              />
+            </div>
 
             {/* Result list */}
-            <div key={fadeKey} className="mt-4 animate-fade-in">
+            <div key={fadeKey} className="mt-3 animate-fade-in">
               {sorted.length === 0 ? (
                 <EmptyState
                   eyebrow="No matching vendors"
