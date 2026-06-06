@@ -205,8 +205,8 @@ const VerifiedVendors = () => {
         }}
       >
         <div className="page-shell">
-          <div className="mx-auto flex min-h-[76px] w-wide items-center">
-            <div className="-mx-5 md:mx-0 w-full px-5">
+          <div className="mx-auto flex min-h-[64px] w-wide items-center justify-center">
+            <div className="w-full">
               <div
                 role="group"
                 aria-label="Registry summary"
