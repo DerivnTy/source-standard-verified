@@ -37,7 +37,7 @@ export const UtilityHeader = ({
         )}
         <div className={backHref ? "mt-3" : ""}>
           {eyebrow && <p className="ss-eyebrow">{eyebrow}</p>}
-          <h1 className="ss-section-title text-foreground max-w-3xl">{title}</h1>
+          <h1 className="ss-hero-title text-foreground max-w-3xl">{title}</h1>
           {description && (
             <p className="ss-lead max-w-[58ch]">{description}</p>
           )}

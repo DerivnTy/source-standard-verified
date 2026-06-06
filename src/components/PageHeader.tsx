@@ -20,7 +20,7 @@ export const PageHeader = ({
     <div className="page-shell">
       <div className="mx-auto w-standard">
         {eyebrow && <p className="ss-eyebrow">{eyebrow}</p>}
-        <h1 className="ss-section-title text-foreground max-w-[36ch]">{title}</h1>
+        <h1 className="ss-hero-title text-foreground max-w-[36ch]">{title}</h1>
         {description && (
           <p className="ss-lead max-w-[68ch]">{description}</p>
         )}
