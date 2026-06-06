@@ -571,47 +571,46 @@ const VendorProfile = () => {
               <div
                 className="relative w-full overflow-hidden"
                 style={{
-                  height: "96px",
+                  height: "72px",
                   background: `center / cover no-repeat url(${vendor.coverImageUrl})`,
                   borderBottom: "0.5px solid hsl(var(--border))",
                 }}
               />
             )}
 
-            {/* Identity body */}
-            <div style={{ padding: "20px" }}>
+            {/* Identity body — compressed */}
+            <div style={{ padding: "14px 16px 12px" }}>
               <div
-                className="flex items-start gap-4"
-                style={vendor.coverImageUrl ? { marginTop: "-36px" } : undefined}
+                className="flex items-start gap-3"
+                style={vendor.coverImageUrl ? { marginTop: "-28px" } : undefined}
               >
                 <div
                   style={
                     vendor.coverImageUrl
-                      ? { boxShadow: "0 0 0 4px hsl(var(--card))", borderRadius: "12px" }
+                      ? { boxShadow: "0 0 0 3px hsl(var(--card))", borderRadius: "10px" }
                       : undefined
                   }
                 >
-                  <LogoBlock vendor={vendor} size={56} />
+                  <LogoBlock vendor={vendor} size={48} />
                 </div>
                 <div
                   className="min-w-0 flex-1"
-                  style={vendor.coverImageUrl ? { paddingTop: "40px" } : { paddingTop: "4px" }}
+                  style={vendor.coverImageUrl ? { paddingTop: "32px" } : { paddingTop: "2px" }}
                 >
                   <StatusPill />
                 </div>
               </div>
 
-
               {/* Name */}
               <h1
-                className="mt-3 font-sans font-semibold text-foreground"
-                style={{ fontSize: "22px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                className="mt-2 font-sans font-semibold text-foreground"
+                style={{ fontSize: "20px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
               >
                 {vendor.name}
               </h1>
 
               {/* Meta row */}
-              <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
                 {vendor.category && (
                   <span
                     className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
@@ -641,59 +640,81 @@ const VendorProfile = () => {
                 )}
               </div>
 
-              {/* Social icon row */}
-              {(vendor.website || phoneHref || emailHref || ig || fb || li || yt || mapsHref) && (
-                <div className="mt-4 flex flex-wrap items-center gap-2">
+              {/* Contact row — website / phone / email / maps */}
+              {(vendor.website || phoneHref || emailHref || mapsHref) && (
+                <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                   {vendor.website && (
                     <SocialIconBtn href={vendor.website} label={`Website: ${hostname(vendor.website)}`}>
-                      <Globe size={15} strokeWidth={1.5} />
+                      <Globe size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                   {phoneHref && (
                     <SocialIconBtn href={phoneHref} label={`Call ${vendor.phone}`}>
-                      <Phone size={15} strokeWidth={1.5} />
+                      <Phone size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                   {emailHref && (
                     <SocialIconBtn href={emailHref} label={`Email ${vendor.email}`}>
-                      <Mail size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {ig && (
-                    <SocialIconBtn href={ig} label="Instagram">
-                      <Instagram size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {fb && (
-                    <SocialIconBtn href={fb} label="Facebook">
-                      <Facebook size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {li && (
-                    <SocialIconBtn href={li} label="LinkedIn">
-                      <Linkedin size={15} strokeWidth={1.5} />
-                    </SocialIconBtn>
-                  )}
-                  {yt && (
-                    <SocialIconBtn href={yt} label="YouTube">
-                      <Youtube size={15} strokeWidth={1.5} />
+                      <Mail size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                   {mapsHref && (
                     <SocialIconBtn href={mapsHref} label="View on Google Maps">
-                      <MapPin size={15} strokeWidth={1.5} />
+                      <MapPin size={14} strokeWidth={1.5} />
                     </SocialIconBtn>
                   )}
                 </div>
               )}
 
+              {/* Social profiles — always rendered; reinforces claimed vs unclaimed */}
+              <div className="mt-2.5 flex items-center gap-2">
+                <span
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "9.5px", letterSpacing: "0.1em" }}
+                >
+                  Social
+                </span>
+                {ig || fb || li || yt ? (
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {ig && (
+                      <SocialIconBtn href={ig} label="Instagram">
+                        <Instagram size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                    {fb && (
+                      <SocialIconBtn href={fb} label="Facebook">
+                        <Facebook size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                    {li && (
+                      <SocialIconBtn href={li} label="LinkedIn">
+                        <Linkedin size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                    {yt && (
+                      <SocialIconBtn href={yt} label="YouTube">
+                        <Youtube size={14} strokeWidth={1.5} />
+                      </SocialIconBtn>
+                    )}
+                  </div>
+                ) : (
+                  <span
+                    className="italic text-muted-foreground/70"
+                    style={{ fontSize: "11.5px" }}
+                  >
+                    Information Not Submitted
+                  </span>
+                )}
+              </div>
+
               {/* Fulfillment chips */}
-              <div className="mt-4 flex flex-wrap items-center gap-2">
+              <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                 <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
                 <FulfillmentChip active={isOnline || isHybrid} label="Telehealth" />
               </div>
             </div>
           </article>
+
 
           {/* ────── 2. SERVICE BADGES HERO STRIP ────── */}
           {serviceBadges.length > 0 && (
