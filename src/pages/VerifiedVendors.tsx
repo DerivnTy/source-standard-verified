@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
-import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
+
 import { VendorRow } from "@/components/registry/VendorRow";
 import { resolveStateAbbr } from "@/lib/usStates";
 import {
