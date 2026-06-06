@@ -553,7 +553,7 @@ const VendorProfile = () => {
       <section className="bg-background">
         <div
           className="mx-auto px-4"
-          style={{ maxWidth: "760px", paddingTop: "12px", paddingBottom: "64px" }}
+          style={{ maxWidth: "760px", paddingTop: "12px", paddingBottom: "24px" }}
         >
           {/* Back link */}
           <Link
