@@ -12,9 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', 'sans-serif'],
         serif: ['"Source Serif 4"', '"Source Serif Pro"', 'Georgia', 'ui-serif', 'serif'],
-        mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        mono: ['"IBM Plex Mono"', '"SF Mono"', 'Menlo', 'ui-monospace', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
