@@ -81,22 +81,22 @@ const HeroMetrics = () => {
   );
 
   return (
-    <div className="flex flex-col items-center w-full" style={{ maxWidth: "360px" }}>
+    <div className="flex flex-col items-center w-full" style={{ maxWidth: "420px" }}>
       <span
         className="font-sans text-white text-center"
         style={{
-          fontSize: "15px",
-          lineHeight: "1.5",
-          fontWeight: 400,
-          letterSpacing: "0",
+          fontSize: "clamp(20px, 3vw, 28px)",
+          lineHeight: 1.1,
+          fontWeight: 600,
+          letterSpacing: "-0.02em",
         }}
       >
         Live Registry
       </span>
       <span
         aria-hidden
-        className="block bg-white/25"
-        style={{ height: "1px", width: "75%", marginTop: "12px", marginBottom: "20px" }}
+        className="block bg-white/30"
+        style={{ height: "1px", width: "80%", marginTop: "10px", marginBottom: "16px" }}
       />
       <div
         role="group"
@@ -105,7 +105,7 @@ const HeroMetrics = () => {
         style={{ gap: "48px" }}
       >
         <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
-        <Unit value={stats.verified} label="Verified Records" dotColor="#22C55E" />
+        <Unit value={50} label="States Represented" dotColor="#0A84FF" />
       </div>
     </div>
   );
