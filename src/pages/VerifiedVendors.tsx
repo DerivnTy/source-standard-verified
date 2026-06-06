@@ -264,7 +264,7 @@ const VerifiedVendors = () => {
         <div className="page-shell pb-10 md:pb-10">
           <div className="mx-auto w-wide">
             {/* Grouped filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-1 pb-3 space-y-4">
+            <div className="-mx-5 md:mx-0 px-5 pt-5 pb-3 space-y-4">
               {/* Verification Status */}
               <div>
                 <p
@@ -428,6 +428,12 @@ const VerifiedVendors = () => {
 
             {/* Search — final filter, adjacent to record list */}
             <div className="-mx-5 md:mx-0 px-5 pt-2 pb-1">
+              <p
+                className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+              >
+                Search
+              </p>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
