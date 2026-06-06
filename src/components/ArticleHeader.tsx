@@ -56,13 +56,6 @@ export const ArticleHeader = ({
           </Link>
 
           <div style={{ ...cardChrome, padding: "24px", marginTop: "16px" }}>
-            <p
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.14em" }}
-            >
-              Educational Resource
-            </p>
-
             <h1
               className="t-page-title text-foreground max-w-[26ch]"
               style={{ marginTop: "12px" }}
