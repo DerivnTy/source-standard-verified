@@ -117,14 +117,14 @@ export const SiteFooter = () => {
                         <button
                           type="button"
                           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                          className="inline-flex items-center gap-1 font-sans text-[11px] font-medium text-white hover:text-white/80 transition-colors"
+                          className="inline-flex items-center gap-1 font-sans text-[14px] font-medium text-white hover:text-white/80 transition-colors"
                         >
                           Begin Verification <span aria-hidden="true">→</span>
                         </button>
                       ) : (
                         <Link
                           to="/apply"
-                          className="inline-flex items-center gap-1 font-sans text-[11px] font-medium text-white hover:text-white/80 transition-colors"
+                          className="inline-flex items-center gap-1 font-sans text-[14px] font-medium text-white hover:text-white/80 transition-colors"
                         >
                           Begin Verification <span aria-hidden="true">→</span>
                         </Link>
