@@ -151,7 +151,7 @@ const SectionHeader = ({
     </div>
     <p
       className="mt-3 text-muted-foreground"
-      style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400, maxWidth: "68ch" }}
+      style={{ fontSize: "17px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
     >
       {intro}
     </p>
