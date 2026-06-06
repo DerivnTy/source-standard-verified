@@ -373,11 +373,8 @@ const MedicalAdvisory = () => {
 
             {/* §8 Responsibilities */}
             <section id="responsibilities" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
-              <SectionIndex n="05" />
               <div className="mb-6 max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
-                  Core Responsibilities
-                </h2>
+                <SectionHeadingInline n="05" title="Core Responsibilities" />
                 <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
                   The recurring functions supporting framework integrity.
                 </p>
