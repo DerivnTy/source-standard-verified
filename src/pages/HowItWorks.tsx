@@ -311,7 +311,7 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="03"
-                title="Vendor Disclosure"
+                title="Vendor Responsibilities"
                 intro="Responsibilities associated with a published record."
               />
               <ClauseStack clauses={DISCLOSURE_CLAUSES} />
