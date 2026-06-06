@@ -89,7 +89,7 @@ export const RegistryHeader = ({
             </div>
 
             {!hideRecordPill && (
-              <div className="shrink-0 md:text-right md:pt-2">
+              <div className="shrink-0 text-center md:pt-2">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-sm">
                   <span
                     aria-hidden
