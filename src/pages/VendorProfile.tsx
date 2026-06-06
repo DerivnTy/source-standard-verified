@@ -251,33 +251,79 @@ const Cell = ({
   );
 };
 
-// Logo with fallback initial
-const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => (
-  <div
-    className="shrink-0 flex items-center justify-center bg-background overflow-hidden"
-    style={{
-      width: `${size}px`,
-      height: `${size}px`,
-      borderRadius: `${Math.round(size * 0.18)}px`,
-      border: "0.5px solid hsl(var(--border))",
-    }}
-  >
-    {vendor.logoUrl ? (
-      <img
-        src={vendor.logoUrl}
-        alt={`${vendor.name} logo`}
-        className="w-full h-full object-contain"
-      />
-    ) : (
-      <span
-        className="font-sans font-semibold text-muted-foreground"
-        style={{ fontSize: `${Math.round(size * 0.42)}px`, letterSpacing: "-0.02em" }}
-      >
-        {vendor.name.trim().charAt(0).toUpperCase()}
-      </span>
-    )}
-  </div>
-);
+// Logo with registry placeholder fallback
+const getInitials = (name: string) => {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "·";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
+const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => {
+  const showMark = size >= 56;
+  return (
+    <div
+      className="shrink-0 relative flex items-center justify-center overflow-hidden"
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        borderRadius: `${Math.round(size * 0.14)}px`,
+        border: "0.5px solid hsl(var(--border))",
+        background: vendor.logoUrl ? "hsl(var(--background))" : "hsl(var(--muted) / 0.45)",
+      }}
+      aria-label={vendor.logoUrl ? undefined : `${vendor.name} registry placeholder`}
+    >
+      {vendor.logoUrl ? (
+        <img
+          src={vendor.logoUrl}
+          alt={`${vendor.name} logo`}
+          className="w-full h-full object-contain"
+        />
+      ) : (
+        <>
+          {showMark && (
+            <span
+              className="absolute font-mono uppercase text-muted-foreground/70"
+              style={{
+                top: "5px",
+                left: "6px",
+                fontSize: "7px",
+                letterSpacing: "0.14em",
+                lineHeight: 1,
+              }}
+            >
+              SS
+            </span>
+          )}
+          <span
+            className="font-serif text-foreground/75"
+            style={{
+              fontSize: `${Math.round(size * 0.36)}px`,
+              letterSpacing: "0.02em",
+              lineHeight: 1,
+            }}
+          >
+            {getInitials(vendor.name)}
+          </span>
+          {showMark && (
+            <span
+              className="absolute font-mono tabular-nums text-muted-foreground/60"
+              style={{
+                bottom: "5px",
+                right: "6px",
+                fontSize: "7px",
+                letterSpacing: "0.1em",
+                lineHeight: 1,
+              }}
+            >
+              REG
+            </span>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
 
 // ─── (Profile completeness intentionally omitted — Source Standard does not gamify completion.) ───
 
