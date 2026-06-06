@@ -245,10 +245,7 @@ const MedicalAdvisory = () => {
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
-                    <SectionIndex n="01" />
-                    <h2 className="t-section-title-sm text-foreground">
-                      Institutional Mandate
-                    </h2>
+                    <SectionHeadingInline n="01" title={<>Institutional Mandate</>} />
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
                       The operating principles governing Clinical Oversight.
                     </p>
@@ -271,10 +268,7 @@ const MedicalAdvisory = () => {
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
-                    <SectionIndex n="02" />
-                    <h2 className="t-section-title-sm text-foreground">
-                      Governance Functions
-                    </h2>
+                    <SectionHeadingInline n="02" title={<>Governance Functions</>} />
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
                       How Clinical Oversight supports the framework.
                     </p>
