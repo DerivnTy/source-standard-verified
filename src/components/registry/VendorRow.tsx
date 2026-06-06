@@ -61,9 +61,9 @@ export const VendorRow = ({
           top: "12px",
           right: "16px",
           height: "12px",
-          fontSize: isVerified ? "12px" : "10.5px",
-          fontWeight: isVerified ? 700 : 600,
-          letterSpacing: "0.04em",
+          fontSize: "11px",
+          fontWeight: 700,
+          letterSpacing: "0.035em",
           lineHeight: 1,
           gap: "4px",
           color: isVerified ? "#001021" : "#FF3B30",
@@ -101,23 +101,23 @@ export const VendorRow = ({
 
       {/* View Record — pinned bottom-right */}
       <span
-        className="absolute font-sans uppercase text-foreground group-hover:translate-x-[1px] transition-transform"
+        className="absolute font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
         style={{
           bottom: "10px",
           right: "14px",
           display: "inline-flex",
           alignItems: "center",
           gap: "4px",
-          fontSize: "10.5px",
+          fontSize: "11px",
           fontWeight: 700,
-          letterSpacing: "0.09em",
+          letterSpacing: "0.035em",
           lineHeight: 1,
         }}
       >
-        View Record
+        View
         <ChevronRight
           aria-hidden
-          style={{ width: "11px", height: "11px", strokeWidth: 2, marginRight: "-2px" }}
+          style={{ width: "12px", height: "12px", strokeWidth: 1.5, marginRight: "-2px" }}
         />
       </span>
 
@@ -125,7 +125,7 @@ export const VendorRow = ({
       <div
         className="flex flex-col justify-center h-full"
         style={{
-          gap: "4px",
+          gap: "8px",
           minHeight: "84px",
           paddingRight: "92px",
         }}
@@ -144,26 +144,21 @@ export const VendorRow = ({
         </h3>
 
         <div
-          className="text-muted-foreground truncate"
-          style={{ fontSize: "11.5px", lineHeight: 1.35 }}
+          className="min-w-0"
+          style={{ display: "inline-flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}
         >
-          {locationLine}
-        </div>
-
-        {focus && (
-          <div style={{ marginTop: "1px" }}>
+          {focus && (
             <span
               className="inline-flex items-center font-sans uppercase whitespace-nowrap"
               style={{
                 gap: "4px",
-                fontSize: "9.5px",
+                fontSize: "10px",
                 fontWeight: 600,
-                letterSpacing: "0.08em",
-                color: "hsl(var(--foreground))",
-                background: "hsl(var(--muted))",
-                border: "1px solid rgba(0,16,33,0.08)",
-                borderRadius: "6px",
-                padding: "3px 7px",
+                letterSpacing: "0.03em",
+                padding: "4px 7px",
+                borderRadius: "4px",
+                background: "rgba(0,16,33,0.07)",
+                color: "rgba(0,16,33,0.68)",
                 lineHeight: 1,
               }}
             >
@@ -172,8 +167,14 @@ export const VendorRow = ({
                 <span style={{ opacity: 0.6 }}>+{focus.extra}</span>
               )}
             </span>
-          </div>
-        )}
+          )}
+          <span
+            className="text-muted-foreground truncate"
+            style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
+          >
+            {locationLine}
+          </span>
+        </div>
       </div>
     </Link>
   );
