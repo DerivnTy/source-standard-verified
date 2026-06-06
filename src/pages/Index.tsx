@@ -501,8 +501,16 @@ const Index = () => {
           category="Public Reference System · United States"
           docId=""
           title="Verify the source."
-          statement="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
+          statement="Independent verification of vendor sourcing claims and supporting documentation."
           tone="navy"
+          heroLogo={
+            <img
+              src={shieldWhite}
+              alt="Source Standard"
+              className="block select-none"
+              style={{ height: "36px", width: "auto" }}
+            />
+          }
           actions={<HeroActions />}
           heroMetrics={<HeroMetrics />}
         />
