@@ -69,7 +69,6 @@ export const FaqPage = ({
         <Accordion
           type="single"
           collapsible
-          defaultValue="q-0"
           className="border-t border-border/60"
         >
           {items.map((item, i) => (
