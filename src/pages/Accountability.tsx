@@ -8,8 +8,8 @@ import { BriefingHero } from "@/components/BriefingHero";
 const WAYPOINTS = [
   { id: "attestations", number: "01", label: "Attestations" },
   { id: "disclosure", number: "02", label: "Disclosure" },
-  { id: "triggers", number: "03", label: "Triggers" },
-  { id: "actions", number: "04", label: "Actions" },
+  { id: "triggers", number: "03", label: "Review Triggers" },
+  { id: "actions", number: "04", label: "Status & Review Actions" },
   { id: "reentry", number: "05", label: "Re-entry" },
   { id: "related", number: "06", label: "Related Documents" },
 ];
@@ -25,7 +25,7 @@ const ATTESTATIONS: Clause[] = [
   {
     n: "02",
     t: "Sourcing transparency",
-    d: "Pharmacy relationships, upstream facilities, and sourcing records tied to reviewed categories are expected to remain documented and consistent with the published record.",
+    d: "Pharmacy relationships, manufacturer relationships, upstream facilities, and sourcing records tied to reviewed categories are expected to remain documented, supportable, and consistent with the published record.",
   },
   {
     n: "03",
@@ -42,7 +42,7 @@ const ATTESTATIONS: Clause[] = [
 const DISCLOSURE: Clause[] = [
   {
     n: "01",
-    t: "Change in pharmacy relationship or upstream source",
+    t: "Change in pharmacy, manufacturer, or upstream sourcing relationship",
     d: "Any substitution, addition, or termination of a disclosed pharmacy, outsourcing facility, or upstream source tied to a reviewed category.",
   },
   {
@@ -81,7 +81,7 @@ const TRIGGERS: Clause[] = [
   {
     n: "02",
     t: "Upstream record change",
-    d: "Status change, delisting, registration lapse, license issue, or public-record update affecting a disclosed upstream facility.",
+    d: "Status change, monitoring event, testing event, registration lapse, licensure issue, sourcing change, or public-record update affecting a disclosed upstream facility or manufacturer.",
   },
   {
     n: "03",
@@ -108,26 +108,31 @@ const TRIGGERS: Clause[] = [
 const ACTIONS: Clause[] = [
   {
     n: "01",
+    t: "Monitoring Review",
+    d: "New information, sourcing updates, public reports, testing activity, or evidence submissions may be reviewed to determine whether additional action is necessary.",
+  },
+  {
+    n: "02",
     t: "Administrative inquiry",
     d: "A written request for documentation, records, or explanation. The listing may remain in its current status during the response window unless additional action is required.",
   },
   {
-    n: "02",
+    n: "03",
     t: "Scope reduction",
     d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
   },
   {
-    n: "03",
+    n: "04",
     t: "Suspension",
     d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
-    n: "04",
+    n: "05",
     t: "Removal",
     d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
   },
   {
-    n: "05",
+    n: "06",
     t: "Public note",
     d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
   },
@@ -279,7 +284,7 @@ const RelatedLinkRow = ({
 
 const Accountability = () => {
   const heroDescription =
-    "Ongoing record maintenance for Verified vendors, disclosure events, review triggers, and status actions available when documentation no longer supports the published record.";
+    "Ongoing monitoring, disclosure requirements, review triggers, and status actions used to maintain the integrity of Source Standard records after publication.";
 
   return (
     <>
@@ -329,7 +334,7 @@ const Accountability = () => {
                     A Verified record is not permanent.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    It remains in effect only while the underlying documentation, pharmacy relationships, sourcing claims, and public records continue to support the published review scope.
+                    It remains in effect only while the available evidence, sourcing relationships, submitted documentation, public records, and ongoing monitoring activity continue to support the published review scope.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
                     This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
@@ -412,8 +417,8 @@ const Accountability = () => {
             >
               <SectionHeader
                 index="03"
-                title="Triggers"
-                intro="Events that may reopen review of an existing record, regardless of renewal timing."
+                title="Review Triggers"
+                intro="Events that may trigger monitoring activity, evidence review, status reassessment, or reopening of an existing record."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {TRIGGERS.map((c) => (
@@ -440,7 +445,7 @@ const Accountability = () => {
             >
               <SectionHeader
                 index="04"
-                title="Actions"
+                title="Status & Review Actions"
                 intro="How the framework responds when a reviewed record no longer supports the published status."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -448,7 +453,7 @@ const Accountability = () => {
                   <ComplianceRow
                     key={c.n}
                     index={c.n}
-                    total="05"
+                    total="06"
                     title={c.t}
                     description={c.d}
                   />
@@ -487,7 +492,7 @@ const Accountability = () => {
                     A Suspended record may return to Verified status once the underlying matter is resolved and supported by documentation in the review file.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    A Removed record may return only through a new submission and new review process.
+                    A Removed record may return only through a new submission, new review cycle, and reassessment under the then-current framework.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
                     Prior status history, including the original determination, triggering events, and disposition, may remain part of the record and may be referenced in future review.
@@ -526,7 +531,7 @@ const Accountability = () => {
             {/* §8 Closing */}
             <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <ComplianceCard>
-                <Eyebrow>Continuing Support</Eyebrow>
+                <Eyebrow>Ongoing Record Integrity</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
                   Verification requires continuing record support.
                 </h2>
@@ -534,7 +539,7 @@ const Accountability = () => {
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  The purpose of this protocol is to preserve the integrity of the registry after a record is published. Verification remains meaningful only when the documentation continues to support the claim, the underlying sourcing remains transparent, and material changes are disclosed within the stated review process.
+                  The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification remains meaningful only when evidence continues to support the published scope, sourcing relationships remain transparent, material changes are disclosed, and monitoring activities are able to reconcile new information as it becomes available.
                 </p>
               </ComplianceCard>
             </section>
