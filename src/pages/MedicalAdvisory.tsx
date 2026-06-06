@@ -238,10 +238,10 @@ const MedicalAdvisory = () => {
                   <div className="md:sticky md:top-32">
                     <SectionIndex n="02" />
                     <h2 className="t-section-title-sm text-foreground">
-                      Governance Framework
+                      Governance Functions
                     </h2>
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      The recurring advisory functions used to preserve consistency across the framework.
+                      How Clinical Oversight supports the framework.
                     </p>
                   </div>
                 </div>
