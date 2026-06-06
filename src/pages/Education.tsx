@@ -163,7 +163,7 @@ const COMMON_INQUIRIES: {
   {
     label: "Diligence",
     description: "Public-facing checks before relying on a vendor sourcing claim.",
-    to: "/education/questions#due-diligence",
+    to: "/library/faq/consumer-diligence",
   },
 ];
 
