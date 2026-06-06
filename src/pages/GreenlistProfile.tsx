@@ -115,7 +115,7 @@ const GreenlistProfile = () => {
   const observedCategories = (p.specializations ?? []).slice(0, 8);
 
   const statusBlurb =
-    status === "greenlisted"
+    isGreenlisted
       ? "This manufacturer currently holds Greenlisted status based on successful independent testing activity observed through ongoing supply-chain monitoring."
       : status === "alert"
       ? "This manufacturer is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
