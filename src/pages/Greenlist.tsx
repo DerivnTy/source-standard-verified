@@ -127,18 +127,9 @@ const Greenlist = () => {
         recordCount={counts.total}
       />
 
-      <RegistryHorizon
-        seam
-        cells={[
-          { label: "Manufacturers Indexed", value: counts.total },
-          { label: "Greenlisted", value: greenlistedCount },
-          { label: "Under Monitoring", value: monitoringCount },
-        ]}
-      />
-
       {/* Framework card — Greenlisted Status */}
       <section className="bg-background">
-        <div className="page-shell pt-6 md:pt-8">
+        <div className="page-shell pt-5 md:pt-6">
           <div className="mx-auto w-wide">
             <div
               className="bg-white"
