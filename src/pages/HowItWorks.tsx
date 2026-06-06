@@ -134,19 +134,20 @@ const ProtocolRow = ({
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <h3
         className="font-sans text-foreground"
-        style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+        style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em", margin: 0 }}
       >
         {title}
       </h3>
       <span
         className="font-mono tabular-nums shrink-0"
         style={{
-          fontSize: "12px",
+          fontSize: "11px",
           fontWeight: 500,
-          letterSpacing: "0.04em",
-          color: "rgba(0,0,0,0.40)",
+          lineHeight: 1,
+          letterSpacing: "0.06em",
+          color: "rgba(0,0,0,0.38)",
           whiteSpace: "nowrap",
-          marginTop: "4px",
+          paddingTop: "2px",
         }}
       >
         {index} / {total}
@@ -173,19 +174,20 @@ const BoundaryRow = ({ index, text }: { index: string; text: string }) => (
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <p
         className="text-foreground"
-        style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.55 }}
+        style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.55, margin: 0 }}
       >
         {text}
       </p>
       <span
         className="font-mono tabular-nums shrink-0"
         style={{
-          fontSize: "12px",
+          fontSize: "11px",
           fontWeight: 500,
-          letterSpacing: "0.04em",
-          color: "rgba(0,0,0,0.40)",
+          lineHeight: 1,
+          letterSpacing: "0.06em",
+          color: "rgba(0,0,0,0.38)",
           whiteSpace: "nowrap",
-          marginTop: "1px",
+          paddingTop: "2px",
         }}
       >
         {index}
