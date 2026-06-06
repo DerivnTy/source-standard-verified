@@ -1117,15 +1117,21 @@ const VendorProfile = () => {
                 background: "hsl(var(--muted) / 0.4)",
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="min-w-0">
                   <Eyebrow>Unclaimed Listing</Eyebrow>
                   <p
-                    className="mt-2 text-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+                    className="mt-2 font-sans font-semibold text-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.5 }}
                   >
-                    Represent this clinic? Claim the profile to add a logo, provider information,
-                    services, social links, and begin verification.
+                    This organization has not yet participated in the Source Standard review process.
+                  </p>
+                  <p
+                    className="mt-2 text-muted-foreground"
+                    style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                  >
+                    Claim and complete this profile to add provider information, clinical leadership,
+                    social profiles, service details, and begin the Source Standard review process.
                   </p>
                 </div>
                 <Link
@@ -1141,6 +1147,7 @@ const VendorProfile = () => {
                   Claim This Profile
                 </Link>
               </div>
+
             </article>
           )}
         </div>
