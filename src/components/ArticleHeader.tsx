@@ -10,12 +10,11 @@ const cardChrome = {
 } as const;
 
 /**
- * ArticleHeader — consumer-facing educational resource header.
+ * ArticleHeader — consumer-facing article header.
  *
- * Renders a compact "← Back" utility link, then a bordered card with a
- * small "Educational Resource" eyebrow, the title, a short consumer
- * description, and a low-emphasis "Updated …" line. Internal
- * document-control fields (Doc ID, Status, Reviewed by, etc.) are
+ * Renders a compact "← Back" utility link, then a bordered card with the
+ * title, a short description, and a low-emphasis "Updated …" line.
+ * Internal document-control fields (Doc ID, Status, Reviewed by, etc.) are
  * intentionally not rendered — only the Updated date is surfaced from
  * the metadata array, for backward compatibility with existing pages.
  */
