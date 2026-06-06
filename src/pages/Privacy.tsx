@@ -4,11 +4,11 @@ import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
-  { id: "partitioning", number: "01", label: "Partitioning" },
-  { id: "collection", number: "02", label: "Collection" },
+  { id: "partitioning", number: "01", label: "Classification" },
+  { id: "collection", number: "02", label: "Sources" },
   { id: "retention", number: "03", label: "Retention" },
-  { id: "processing", number: "04", label: "Processing" },
-  { id: "inquiries", number: "05", label: "Inquiries" },
+  { id: "processing", number: "04", label: "Use" },
+  { id: "inquiries", number: "05", label: "Requests" },
 ];
 
 type Clause = { n: string; t: string; d: string };
@@ -17,17 +17,17 @@ const PARTITIONING: Clause[] = [
   {
     n: "01",
     t: "Public registry data",
-    d: "Public registry data is limited to business identity, vendor type, therapy category, review scope, current status, status dates, and related public-reference fields published for consumer and clinician use.",
+    d: "Public registry records may include vendor identity, facility relationships, status classifications, review scope, status history, and other information published to support transparency and public understanding.",
   },
   {
     n: "02",
     t: "Protected review materials",
-    d: "Protected review materials may include licensing records, supplier invoices, certificates of analysis, submitted documentation, internal review notes, concern reports, and related supporting materials retained in the review file.",
+    d: "Protected review materials may include invoices, sourcing records, facility documentation, certificates of analysis, licensing materials, submitted evidence, internal review materials, concern reports, and other records used to support verification activities.",
   },
   {
     n: "03",
     t: "Access restriction",
-    d: "Protected review materials are retained within a restricted internal environment and are not published, sold, or shared with third parties except where required by law or necessary for authorized infrastructure operations.",
+    d: "Protected review materials are maintained within restricted environments and are accessible only to authorized personnel and approved infrastructure partners operating under confidentiality and access-control requirements.",
   },
 ];
 
@@ -35,7 +35,7 @@ const COLLECTION: Clause[] = [
   {
     n: "01",
     t: "Vendor intake",
-    d: "Business credentials, operating details, sourcing records, pharmacy relationship documentation, and related materials submitted for verification or review.",
+    d: "Business credentials, operating details, sourcing records, facility relationship documentation, and related materials submitted for verification or review.",
   },
   {
     n: "02",
@@ -49,6 +49,11 @@ const COLLECTION: Clause[] = [
   },
   {
     n: "04",
+    t: "Verification activity",
+    d: "Records generated through documentation review, evidence assessment, status review, monitoring activity, and registry maintenance processes.",
+  },
+  {
+    n: "05",
     t: "Site analytics",
     d: "Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems.",
   },
@@ -187,7 +192,7 @@ const ContactLine = ({
 
 const Privacy = () => {
   const heroDescription =
-    "The administrative framework governing the collection, separation, retention, and processing of public registry data and protected review materials.";
+    "The governance framework governing how Source Standard collects, stores, protects, and administers registry records, review materials, and verification-related information.";
 
   return (
     <>
@@ -234,7 +239,7 @@ const Privacy = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Source Standard maintains a distinction between public registry information and protected review materials.
+                    Source Standard maintains two distinct information environments: public-reference records that support transparency and protected review materials that support verification. This framework defines how those records are collected, maintained, protected, and administered throughout the verification lifecycle.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
                     This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.
@@ -246,7 +251,7 @@ const Privacy = () => {
               </PrivacyCard>
             </section>
 
-            {/* §2 Record Partitioning */}
+            {/* §2 Information Classification */}
             <section
               id="partitioning"
               className="scroll-mt-24"
@@ -258,7 +263,7 @@ const Privacy = () => {
             >
               <SectionHeader
                 index="01"
-                title="Record Partitioning"
+                title="Information Classification"
                 intro="How public registry information is separated from protected review materials."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -268,7 +273,7 @@ const Privacy = () => {
               </div>
             </section>
 
-            {/* §3 Scope of Collection */}
+            {/* §3 Information Sources */}
             <section
               id="collection"
               className="scroll-mt-24"
@@ -280,12 +285,12 @@ const Privacy = () => {
             >
               <SectionHeader
                 index="02"
-                title="Scope of Collection"
+                title="Information Sources"
                 intro="What categories of data may be collected under the framework."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {COLLECTION.map((c) => (
-                  <PrivacyRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
+                  <PrivacyRow key={c.n} index={c.n} total="05" title={c.t} description={c.d} />
                 ))}
               </div>
             </section>
@@ -312,7 +317,7 @@ const Privacy = () => {
               </div>
             </section>
 
-            {/* §5 Authorized Processing */}
+            {/* §5 Authorized Use */}
             <section
               id="processing"
               className="scroll-mt-24"
@@ -323,13 +328,13 @@ const Privacy = () => {
               }}
             >
               <PrivacyCard>
-                <Eyebrow>04 · Authorized Processing</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">Authorized Processing</h2>
+                <Eyebrow>04 · Authorized Use</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">Authorized Use</h2>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "8px" }}
                 >
-                  How data may be processed in support of the framework.
+                  How data may be used in support of the framework.
                 </p>
                 <div
                   style={{
@@ -340,16 +345,13 @@ const Privacy = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Data processing is limited to essential internal functions and authorized infrastructure partners operating under confidentiality and access restrictions.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Any such partner is limited to the minimum data reasonably necessary for hosting, transactional communications, secure storage, registry operations, and privacy-respecting analytics.
+                    Information maintained by Source Standard is used solely to support verification activities, registry administration, monitoring processes, public-reference records, operational infrastructure, and related governance functions. Access is limited to authorized personnel and approved service providers operating under confidentiality obligations.
                   </p>
                 </div>
               </PrivacyCard>
             </section>
 
-            {/* §6 Inquiries & Requests */}
+            {/* §6 Privacy Requests */}
             <section
               id="inquiries"
               className="scroll-mt-24"
@@ -360,8 +362,8 @@ const Privacy = () => {
               }}
             >
               <PrivacyCard>
-                <Eyebrow>05 · Inquiries</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">Inquiries & Requests</h2>
+                <Eyebrow>05 · Requests</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">Privacy Requests</h2>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: "13px", lineHeight: 1.55, marginTop: "8px" }}
@@ -390,15 +392,15 @@ const Privacy = () => {
             {/* §7 Closing */}
             <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <PrivacyCard>
-                <Eyebrow>Record Handling</Eyebrow>
+                <Eyebrow>Information Integrity</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
-                  Public transparency requires disciplined record handling.
+                  Public transparency requires disciplined stewardship.
                 </h2>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  The purpose of this protocol is to separate what must be published for public clarity from what must remain protected to preserve review integrity, privacy, and responsible record administration.
+                  The purpose of this framework is to balance transparency with responsible stewardship of sensitive information. Public records exist to improve visibility into sourcing relationships and verification status. Protected review materials exist to support evidence-based review while preserving privacy, security, and verification integrity.
                 </p>
               </PrivacyCard>
             </section>
