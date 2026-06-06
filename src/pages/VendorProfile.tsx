@@ -591,7 +591,7 @@ const VendorProfile = () => {
       <Breadcrumb
         items={[
           { label: "Directory", to: "/verified-vendors" },
-          { label: vendor.category ?? "Clinic" },
+          { label: vendor.category ?? "Vendor" },
           { label: vendor.name },
         ]}
       />
