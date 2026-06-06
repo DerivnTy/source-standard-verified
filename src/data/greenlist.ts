@@ -164,6 +164,9 @@ export type GreenlistProfile = {
 
 export const greenlistEntries: GreenlistEntry[] = [
   // Cleared — registry is being rebuilt with the new Manufacturer Intelligence structure.
+];
+
+
 
 export const GREENLIST_TYPES: GreenlistType[] = [
   "503B Outsourcing Facility",
