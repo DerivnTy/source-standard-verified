@@ -1,14 +1,14 @@
 // Shared resource-library content model. Used by both the main library hub
-// (`/education`) and the dedicated category sub-pages (`/library/sourcing`,
-// `/library/clinical`, `/library/consumer`).
+// (`/education`) and the dedicated section sub-pages (`/library/core`,
+// `/library/latest`).
 
-export type CategoryId = "regulation" | "clinical" | "consumer";
+export type CategoryId = "core" | "latest";
 
 export type Article = {
   slug: string;
   title: string;
   blurb: string;
-  meta: string; // display label, e.g. "6 min read · Apr 2026"
+  meta: string; // display label, e.g. "Updated Apr 2026"
   publishedAt: string; // ISO date, used for sorting
   category: CategoryId;
 };
@@ -41,28 +41,20 @@ export const routeForArticle = (slug: string) =>
 
 export const CATEGORIES: Category[] = [
   {
-    id: "regulation",
-    label: "Sourcing & Regulation",
-    short: "Regulation",
+    id: "core",
+    label: "Core Reference Library",
+    short: "Core Reference",
     description:
-      "Statutory framework, facility classifications, pharmacy sourcing, and verification methodology.",
-    path: "/library/sourcing",
+      "Permanent resources explaining vendor verification, facility relationships, sourcing claims, documentation review, and public registry status.",
+    path: "/library/core",
   },
   {
-    id: "clinical",
-    label: "Clinical Context",
-    short: "Clinical",
+    id: "latest",
+    label: "Latest Publications",
+    short: "Latest",
     description:
-      "Clinical terminology, handling context, and category-specific reference reviewed within Source Standard's non-treatment scope.",
-    path: "/library/clinical",
-  },
-  {
-    id: "consumer",
-    label: "Consumer Due Diligence",
-    short: "Consumer",
-    description:
-      "Consumer-facing reference for understanding vendor status, sourcing claims, and documentation boundaries.",
-    path: "/library/consumer",
+      "Recent articles, industry updates, educational commentary, and emerging topics related to compounded therapy sourcing and transparency.",
+    path: "/library/latest",
   },
 ];
 
@@ -70,116 +62,116 @@ export const findCategory = (id: CategoryId) =>
   CATEGORIES.find((c) => c.id === id);
 
 export const ARTICLES: Article[] = [
-  // Regulation
+  // ─── Core Reference Library ──────────────────────────────────────────
   {
     slug: "what-is-compounding",
-    title: "What is Compounding?",
+    title: "What Is Compounding?",
     blurb:
-      "The difference between 503A pharmacies, 503B outsourcing facilities, and vendor-level sourcing claims.",
-    meta: "6 min read · Apr 2026",
-    publishedAt: "2026-04-12",
-    category: "regulation",
+      "An introduction to pharmacy compounding and why facility type matters when evaluating a sourcing claim.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
   },
-  {
-    slug: "the-2026-compounding-reclassification",
-    title: "The 2026 Regulatory Shift",
-    blurb:
-      "How recent compounding and enforcement developments affect public sourcing review.",
-    meta: "8 min read · Apr 2026",
-    publishedAt: "2026-04-04",
-    category: "regulation",
-  },
-  {
-    slug: "how-to-read-a-certificate-of-analysis",
-    title: "Interpreting CoAs",
-    blurb:
-      "How certificates of analysis are used in documentation review and where their limits begin.",
-    meta: "7 min read · Mar 2026",
-    publishedAt: "2026-03-22",
-    category: "regulation",
-  },
-  {
-    slug: "the-dual-layer-difference",
-    title: "The Dual-Layer Review",
-    blurb:
-      "Why Source Standard separates upstream facility records from vendor-level sourcing verification.",
-    meta: "5 min read · Mar 2026",
-    publishedAt: "2026-03-08",
-    category: "regulation",
-  },
-  // Clinical
   {
     slug: "safe-peptide-handling-and-reconstitution",
     title: "Why Supply Chains Matter in Compounded Therapy",
     blurb:
-      "How compounded medications move through facilities, vendors, and consumers, and why sourcing transparency matters.",
-    meta: "6 min read · Apr 2026",
-    publishedAt: "2026-04-15",
-    category: "regulation",
+      "How compounded medications move through facilities, vendors, and consumers — and why sourcing transparency matters.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
+  },
+  {
+    slug: "the-dual-layer-difference",
+    title: "Understanding Vendor Verification and Facility Transparency",
+    blurb:
+      "Why both vendor records and facility records matter when evaluating compounded therapy sourcing claims.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
+  },
+  {
+    slug: "how-to-read-a-certificate-of-analysis",
+    title: "Understanding Certificates of Analysis",
+    blurb:
+      "How laboratory reports are used, what information they contain, and why documentation should always be reviewed carefully.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
+  },
+  {
+    slug: "what-are-peptides",
+    title: "Claims vs. Documentation",
+    blurb:
+      "How to distinguish general product claims from reviewable sourcing documentation.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
+  },
+  {
+    slug: "what-source-standard-verification-actually-means",
+    title: "Understanding Verification Scope",
+    blurb:
+      "What a Verified listing establishes and what it does not establish.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
+  },
+  {
+    slug: "questions-to-ask-your-clinic",
+    title: "Vendor Evaluation Checklist",
+    blurb:
+      "Questions consumers can ask about sourcing, pharmacy relationships, documentation, and review status.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
+  },
+  {
+    slug: "warning-signs-of-undocumented-sourcing",
+    title: "Warning Signs and Red Flags",
+    blurb:
+      "Common patterns in unsupported sourcing claims and undocumented vendor presentations.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "core",
+  },
+
+  // ─── Latest Publications ─────────────────────────────────────────────
+  {
+    slug: "the-2026-compounding-reclassification",
+    title: "Understanding Regulatory Changes in Compounding",
+    blurb:
+      "How regulatory updates can affect compounded medications, sourcing pathways, and supply-chain transparency.",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
+    category: "latest",
   },
   {
     slug: "sanitization-and-aseptic-technique-fundamentals",
     title: "Stability Fundamentals",
     blurb:
       "How temperature, light, time, and storage records can affect review context for compounded products.",
-    meta: "5 min read · Mar 2026",
+    meta: "Updated Mar 2026",
     publishedAt: "2026-03-19",
-    category: "clinical",
+    category: "latest",
   },
   {
     slug: "the-science-of-aging-and-trt",
     title: "Hormone Therapy Context",
     blurb:
       "Reference terminology for TRT, HRT, and related compounded therapy categories.",
-    meta: "9 min read · Feb 2026",
+    meta: "Updated Feb 2026",
     publishedAt: "2026-02-24",
-    category: "clinical",
+    category: "latest",
   },
   {
     slug: "dosing-guidance-summaries-for-common-compounds",
     title: "Scope of Clinical References",
     blurb:
       "How Source Standard separates public education from individualized medical advice or treatment guidance.",
-    meta: "10 min read · Feb 2026",
+    meta: "Updated Feb 2026",
     publishedAt: "2026-02-10",
-    category: "clinical",
-  },
-  // Consumer
-  {
-    slug: "questions-to-ask-your-clinic",
-    title: "The Vendor Checklist",
-    blurb:
-      "Questions consumers can ask about sourcing, pharmacy relationships, documentation, and review status.",
-    meta: "4 min read · Apr 2026",
-    publishedAt: "2026-04-09",
-    category: "consumer",
-  },
-  {
-    slug: "warning-signs-of-undocumented-sourcing",
-    title: "Warning Signs",
-    blurb:
-      "Common patterns in unsupported sourcing claims and undocumented vendor presentations.",
-    meta: "6 min read · Mar 2026",
-    publishedAt: "2026-03-27",
-    category: "consumer",
-  },
-  {
-    slug: "what-source-standard-verification-actually-means",
-    title: "Verification Scope",
-    blurb:
-      "What a Verified listing establishes and what it does not establish.",
-    meta: "5 min read · Mar 2026",
-    publishedAt: "2026-03-14",
-    category: "consumer",
-  },
-  {
-    slug: "what-are-peptides",
-    title: "Handling Claims vs. Documentation",
-    blurb:
-      "How to distinguish general product claims from reviewable sourcing documentation.",
-    meta: "7 min read · Feb 2026",
-    publishedAt: "2026-02-28",
-    category: "consumer",
+    category: "latest",
   },
 ];
 
