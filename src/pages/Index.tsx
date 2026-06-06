@@ -5,7 +5,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
 import { vendors } from "@/data/vendors";
-import shieldWhite from "@/assets/source-standard-shield-white.png";
+import lockup from "@/assets/source-standard-lockup-dark.png";
 
 const homeWaypoints = [
   { id: "trust-problem", number: "1", label: "Problem" },
