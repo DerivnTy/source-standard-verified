@@ -78,9 +78,9 @@ export const ArticleSection = ({
 /**
  * ArticleFooter — lightweight article navigation for Library pages.
  *
- * Renders a single divider + back/next links directly on the page
- * background with no card chrome. Citation prop accepted for back-compat
- * but rendered as null (handled in metadata bar).
+ * Renders a single divider + back link directly on the page background
+ * with no card chrome. Next-article and citation props accepted for
+ * back-compat but no longer rendered.
  *
  * Public prop signature is preserved so individual article pages need
  * no edits.
@@ -94,13 +94,14 @@ export const ArticleFooter = ({
   next?: { to: string; label: string };
   citation?: string;
 }) => {
+  void next;
   void citation;
-  if (!back && !next) return <div style={{ paddingBottom: "32px" }} />;
+  if (!back) return <div style={{ paddingBottom: "24px" }} />;
 
   return (
     <footer
       className="bg-background"
-      style={{ paddingTop: "36px", paddingBottom: "32px" }}
+      style={{ paddingTop: "32px", paddingBottom: "24px" }}
     >
       <div className="page-shell">
         <div className="mx-auto w-reading-wide">
@@ -109,43 +110,17 @@ export const ArticleFooter = ({
             style={{
               height: "0.5px",
               background: "hsl(var(--border))",
+              marginBottom: "20px",
             }}
           />
-          <div
-            className="flex flex-col md:flex-row md:justify-between md:items-start gap-6"
-            style={{ paddingTop: "24px" }}
+          <Link
+            to={back.to}
+            className="group inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+            style={{ fontSize: "13.5px", lineHeight: "1.4" }}
           >
-            {back && (
-              <Link
-                to={back.to}
-                className="group inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors"
-                style={{ fontSize: "13.5px", lineHeight: "1.4" }}
-              >
-                <span aria-hidden>←</span>
-                <span>{back.label}</span>
-              </Link>
-            )}
-            {next && (
-              <Link
-                to={next.to}
-                className="group flex flex-col items-start md:items-end"
-              >
-                <span
-                  className="inline-flex items-center gap-2 text-foreground group-hover:text-primary transition-colors"
-                  style={{ fontSize: "13.5px", lineHeight: "1.4" }}
-                >
-                  <span>Next Article</span>
-                  <span aria-hidden>→</span>
-                </span>
-                <span
-                  className="text-muted-foreground group-hover:text-muted-foreground/80 transition-colors"
-                  style={{ fontSize: "12px", lineHeight: "1.4" }}
-                >
-                  {next.label}
-                </span>
-              </Link>
-            )}
-          </div>
+            <span aria-hidden>←</span>
+            <span>{back.label}</span>
+          </Link>
         </div>
       </div>
     </footer>
