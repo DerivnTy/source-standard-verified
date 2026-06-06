@@ -114,58 +114,56 @@ export const VendorRow = ({
           </span>
         </div>
 
-        {/* Row 2 — Category pill + Location/model metadata */}
+        {/* Row 2 — Location/model metadata + small category tag */}
         <div className="flex items-center" style={{ gap: "8px", flexWrap: "wrap" }}>
+          <span
+            className="text-muted-foreground truncate"
+            style={{ minWidth: 0, fontSize: "11.5px", lineHeight: 1.35 }}
+          >
+            {locationLine}
+          </span>
           {focus && (
             <span
-              className="inline-flex items-center gap-1 font-sans uppercase whitespace-nowrap"
+              className="inline-flex items-center gap-1 font-sans uppercase whitespace-nowrap text-muted-foreground"
               style={{
-                fontSize: "10px",
-                fontWeight: 600,
-                letterSpacing: "0.03em",
-                padding: "4px 7px",
-                borderRadius: "4px",
-                background: "rgba(0,16,33,0.07)",
-                color: "rgba(0,16,33,0.68)",
+                fontSize: "9.5px",
+                fontWeight: 500,
+                letterSpacing: "0.06em",
+                opacity: 0.7,
               }}
             >
-              {focus.label}
+              · {focus.label}
               {focus.extra > 0 && (
                 <span style={{ opacity: 0.7 }}>+{focus.extra}</span>
               )}
             </span>
           )}
-          <span
-            className="text-muted-foreground truncate"
-            style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
-          >
-            {locationLine}
-          </span>
         </div>
 
-        {/* Row 3 — View Record action (right) */}
-        <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-4px" }}>
+        {/* Row 3 — View Record action (right, quieter) */}
+        <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-2px" }}>
           <span
-            className="font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+            className="font-sans uppercase text-muted-foreground group-hover:text-foreground transition-colors"
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "4px",
+              gap: "3px",
               marginLeft: "auto",
               marginRight: "-2px",
-              fontSize: "11px",
-              fontWeight: 700,
-              letterSpacing: "0.035em",
+              fontSize: "10px",
+              fontWeight: 500,
+              letterSpacing: "0.08em",
               lineHeight: 1,
             }}
           >
             View Record
             <ChevronRight
               aria-hidden
-              style={{ width: "12px", height: "12px", strokeWidth: 1.5, marginRight: "-2px" }}
+              style={{ width: "10px", height: "10px", strokeWidth: 1.5, marginRight: "-2px" }}
             />
           </span>
         </div>
+
       </div>
     </Link>
   );
