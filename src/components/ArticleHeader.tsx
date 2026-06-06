@@ -10,12 +10,11 @@ const cardChrome = {
 } as const;
 
 /**
- * ArticleHeader — consumer-facing educational resource header.
+ * ArticleHeader — consumer-facing article header.
  *
- * Renders a compact "← Back" utility link, then a bordered card with a
- * small "Educational Resource" eyebrow, the title, a short consumer
- * description, and a low-emphasis "Updated …" line. Internal
- * document-control fields (Doc ID, Status, Reviewed by, etc.) are
+ * Renders a compact "← Back" utility link, then a bordered card with the
+ * title, a short description, and a low-emphasis "Updated …" line.
+ * Internal document-control fields (Doc ID, Status, Reviewed by, etc.) are
  * intentionally not rendered — only the Updated date is surfaced from
  * the metadata array, for backward compatibility with existing pages.
  */
@@ -56,13 +55,6 @@ export const ArticleHeader = ({
           </Link>
 
           <div style={{ ...cardChrome, padding: "24px", marginTop: "16px" }}>
-            <p
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.14em" }}
-            >
-              Educational Resource
-            </p>
-
             <h1
               className="t-page-title text-foreground max-w-[26ch]"
               style={{ marginTop: "12px" }}
