@@ -51,8 +51,8 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
   return (
     <>
       <PageMeta
-        title="Warning Signs and Red Flags · Source Standard"
-        description="Common transparency concerns consumers may encounter when reviewing compounded-medication sourcing claims."
+        title="Transparency Concerns & Documentation Gaps · Source Standard"
+        description="Common transparency concerns and documentation gaps consumers may encounter when reviewing compounded-medication sourcing claims."
       />
       <Breadcrumb
         items={[
@@ -62,8 +62,8 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
       />
       <ArticleHeader
         eyebrow="Source Standard · Public Reference"
-        title="Warning Signs and Red Flags"
-        lead="Common transparency concerns consumers may encounter when reviewing compounded-medication sourcing claims and vendor disclosures."
+        title="Transparency Concerns & Documentation Gaps"
+        lead="Common transparency concerns and documentation gaps consumers may encounter when reviewing compounded-medication sourcing claims and vendor disclosures."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
           { label: "Status", value: "Public Reference" },
@@ -101,7 +101,7 @@ const LibraryAnalysisUndocumentedSourcingSigns = () => {
 
       <ArticleFooter
         back={{ to: "/education", label: "Back to Resource Library" }}
-        citation={`Source Standard · Public Reference · Warning Signs and Red Flags, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        citation={`Source Standard · Public Reference · Transparency Concerns & Documentation Gaps, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );
