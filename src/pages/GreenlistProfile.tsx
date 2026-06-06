@@ -326,26 +326,6 @@ const GreenlistProfile = () => {
                 )}
               </div>
 
-              {(entry.website || p.initialRegistrationYear) && (
-                <div className="mt-2 flex items-center gap-x-2 gap-y-2 flex-wrap font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
-                  {entry.website && (
-                    <a
-                      href={entry.website}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
-                    >
-                      {entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                    </a>
-                  )}
-                  {entry.website && p.initialRegistrationYear && (
-                    <span>·</span>
-                  )}
-                  {p.initialRegistrationYear && (
-                    <span>Founded {p.initialRegistrationYear}</span>
-                  )}
-                </div>
-              )}
             </header>
 
             {/* SECTION 1 — Overview */}
