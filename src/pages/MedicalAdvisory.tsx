@@ -174,7 +174,7 @@ const MedicalAdvisory = () => {
       />
 
       {/* §2 Statement of purpose */}
-      <section className="bg-background border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
+      <section className="bg-background border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "24px" }}>
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <div>
@@ -199,7 +199,7 @@ const MedicalAdvisory = () => {
           <div className="mx-auto w-standard">
 
             {/* §4 Institutional Mandate */}
-            <section id="transparency" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
+            <section id="transparency" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
@@ -225,7 +225,7 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §5 Governance Framework */}
-            <section id="verification-chain" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
+            <section id="verification-chain" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
@@ -251,7 +251,7 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §6 Members */}
-            <section id="members" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
+            <section id="members" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <SectionIndex n="03" />
               <div className="mb-8 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
@@ -310,7 +310,7 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §7 Scope & boundaries */}
-            <section id="scope" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
+            <section id="scope" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <SectionIndex n="04" />
               <div className="max-w-2xl mb-6">
                 <h2 className="t-section-title-sm text-foreground">
@@ -331,7 +331,7 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §8 Responsibilities */}
-            <section id="responsibilities" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "36px" }}>
+            <section id="responsibilities" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <SectionIndex n="05" />
               <div className="mb-6 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
@@ -355,7 +355,7 @@ const MedicalAdvisory = () => {
             </section>
 
             {/* §9 Closing statement */}
-            <section style={{ paddingTop: "36px", paddingBottom: "36px" }}>
+            <section style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <div className="max-w-2xl">
                 <GovCard>
                   <h2 className="t-section-title-sm text-foreground">

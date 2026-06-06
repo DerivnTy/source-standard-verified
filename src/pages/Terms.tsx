@@ -233,7 +233,7 @@ const Terms = () => {
               className="scroll-mt-24"
               style={{
                 paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -265,8 +265,8 @@ const Terms = () => {
               id="acceptance"
               className="scroll-mt-24"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -307,8 +307,8 @@ const Terms = () => {
               id="citation"
               className="scroll-mt-24"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -341,8 +341,8 @@ const Terms = () => {
               id="integrity"
               className="scroll-mt-24"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -369,8 +369,8 @@ const Terms = () => {
               id="warranty"
               className="scroll-mt-24"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -397,8 +397,8 @@ const Terms = () => {
               id="jurisdiction"
               className="scroll-mt-24"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -434,8 +434,8 @@ const Terms = () => {
               id="related"
               className="scroll-mt-24"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -452,7 +452,7 @@ const Terms = () => {
             </section>
 
             {/* §8 Closing */}
-            <section style={{ paddingTop: "36px", paddingBottom: "64px" }}>
+            <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <TermsCard>
                 <Eyebrow>Public Access</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
