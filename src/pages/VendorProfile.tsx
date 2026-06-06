@@ -12,7 +12,7 @@ import {
   ChevronDown,
   ExternalLink,
   Star,
-  Building2,
+  
   UserRound,
 } from "lucide-react";
 import {
@@ -244,7 +244,7 @@ const Cell = ({
             display
           )
         ) : (
-          "—"
+          <span className="italic text-muted-foreground/70">Information Not Submitted</span>
         )}
       </dd>
     </div>
@@ -279,127 +279,8 @@ const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => (
   </div>
 );
 
-// ─── Profile completeness ─────────────────────────────────────────────────────
+// ─── (Profile completeness intentionally omitted — Source Standard does not gamify completion.) ───
 
-type CompletenessField = { label: string; present: boolean; weight: number };
-
-const computeCompleteness = (v: Vendor) => {
-  const has = (x: unknown) =>
-    Array.isArray(x) ? x.length > 0 : Boolean(x && String(x).trim() !== "");
-
-  const fields: CompletenessField[] = [
-    { label: "Logo", present: has(v.logoUrl), weight: 8 },
-    { label: "Cover image", present: has(v.coverImageUrl), weight: 5 },
-    { label: "Description", present: has(v.summary), weight: 10 },
-    { label: "Clinical philosophy", present: has(v.clinicalPhilosophy), weight: 6 },
-    { label: "Patient focus", present: has(v.patientFocus), weight: 4 },
-    { label: "Phone number", present: has(v.phone), weight: 6 },
-    { label: "Email", present: has(v.email), weight: 5 },
-    { label: "Full address", present: has(v.address) || (has(v.city) && has(v.state)), weight: 6 },
-    { label: "Website", present: has(v.website), weight: 7 },
-    {
-      label: "Social profiles",
-      present: has(v.instagram) || has(v.facebook) || has(v.linkedin) || has(v.youtube),
-      weight: 6,
-    },
-    { label: "Google Business link", present: has(v.googleBusinessUrl), weight: 3 },
-    { label: "Medical director", present: has(v.medicalDirector), weight: 7 },
-    { label: "Credentials", present: has(v.credentials), weight: 4 },
-    { label: "Additional providers", present: has(v.additionalProviders), weight: 4 },
-    { label: "Provider headshots", present: has(v.providerHeadshots), weight: 5 },
-    { label: "Services list", present: has(v.servicesOffered) || has(v.clinicalFocus), weight: 7 },
-    { label: "Conditions treated", present: has(v.conditionsTreated), weight: 5 },
-    { label: "States served", present: has(v.statesServed) || has(v.telehealthAvailability), weight: 4 },
-    { label: "Facility photos", present: has(v.facilityPhotos), weight: 3 },
-  ];
-  const total = fields.reduce((s, f) => s + f.weight, 0);
-  const got = fields.reduce((s, f) => s + (f.present ? f.weight : 0), 0);
-  const pct = Math.round((got / total) * 100);
-  const missing = fields.filter((f) => !f.present).sort((a, b) => b.weight - a.weight);
-  return { pct, missing };
-};
-
-const CompletenessCard = ({ vendor }: { vendor: Vendor }) => {
-  const { pct, missing } = computeCompleteness(vendor);
-  const claimed = vendor.claimed === true || vendor.status === "verified";
-  const topMissing = missing.slice(0, 5);
-  // Color band
-  const bandColor =
-    pct >= 75 ? "hsl(var(--foreground))" : pct >= 40 ? "#FF9500" : "#FF3B30";
-
-  return (
-    <article style={CARD}>
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <Eyebrow>Profile Completeness</Eyebrow>
-          <p
-            className="mt-1 font-sans font-semibold tabular-nums text-foreground"
-            style={{ fontSize: "28px", lineHeight: 1, letterSpacing: "-0.02em" }}
-          >
-            {pct}%
-          </p>
-        </div>
-        {!claimed && (
-          <Link
-            to={`/apply?claim=${encodeURIComponent(vendor.slug)}`}
-            className="shrink-0 inline-flex items-center justify-center font-sans font-semibold uppercase bg-foreground text-background hover:opacity-90 transition-opacity"
-            style={{
-              fontSize: "10.5px",
-              letterSpacing: "0.08em",
-              padding: "8px 14px",
-              borderRadius: "18px",
-            }}
-          >
-            Claim & Complete
-          </Link>
-        )}
-      </div>
-
-      {/* Progress bar */}
-      <div
-        className="mt-3 w-full overflow-hidden"
-        style={{
-          height: "4px",
-          borderRadius: "2px",
-          background: "hsl(var(--muted) / 0.6)",
-        }}
-      >
-        <div
-          aria-hidden
-          style={{
-            width: `${pct}%`,
-            height: "100%",
-            background: bandColor,
-            transition: "width 400ms ease-out",
-          }}
-        />
-      </div>
-
-      {topMissing.length > 0 && (
-        <div className="mt-4">
-          <Eyebrow>Missing</Eyebrow>
-          <ul className="mt-2 flex flex-wrap gap-1.5">
-            {topMissing.map((m) => (
-              <li
-                key={m.label}
-                className="inline-flex items-center font-sans text-muted-foreground"
-                style={{
-                  fontSize: "11px",
-                  padding: "3px 8px",
-                  borderRadius: "10px",
-                  background: "hsl(var(--muted) / 0.5)",
-                  border: "0.5px solid hsl(var(--border))",
-                }}
-              >
-                {m.label}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </article>
-  );
-};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -683,44 +564,43 @@ const VendorProfile = () => {
             ← Back to Registry
           </Link>
 
-          {/* ────── 1. COVER + IDENTITY HEADER ────── */}
+          {/* ────── 1. IDENTITY HEADER ────── */}
           <article className="mt-4 overflow-hidden" style={{ ...CARD, padding: 0 }}>
-            {/* Cover */}
-            <div
-              className="relative w-full overflow-hidden"
-              style={{
-                height: "140px",
-                background: vendor.coverImageUrl
-                  ? `center / cover no-repeat url(${vendor.coverImageUrl})`
-                  : "linear-gradient(180deg, hsl(var(--muted) / 0.5), hsl(var(--background)))",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              {!vendor.coverImageUrl && (
-                <div
-                  aria-hidden
-                  className="absolute inset-0 flex items-center justify-center text-muted-foreground/40"
-                >
-                  <Building2 strokeWidth={1} size={42} />
-                </div>
-              )}
-            </div>
+            {/* Cover — only when an image is provided */}
+            {vendor.coverImageUrl && (
+              <div
+                className="relative w-full overflow-hidden"
+                style={{
+                  height: "96px",
+                  background: `center / cover no-repeat url(${vendor.coverImageUrl})`,
+                  borderBottom: "0.5px solid hsl(var(--border))",
+                }}
+              />
+            )}
 
             {/* Identity body */}
             <div style={{ padding: "20px" }}>
-              <div className="flex items-start gap-4" style={{ marginTop: "-44px" }}>
+              <div
+                className="flex items-start gap-4"
+                style={vendor.coverImageUrl ? { marginTop: "-36px" } : undefined}
+              >
                 <div
-                  style={{
-                    boxShadow: "0 0 0 4px hsl(var(--card))",
-                    borderRadius: "14px",
-                  }}
+                  style={
+                    vendor.coverImageUrl
+                      ? { boxShadow: "0 0 0 4px hsl(var(--card))", borderRadius: "12px" }
+                      : undefined
+                  }
                 >
-                  <LogoBlock vendor={vendor} size={72} />
+                  <LogoBlock vendor={vendor} size={56} />
                 </div>
-                <div className="min-w-0 flex-1 pt-12">
+                <div
+                  className="min-w-0 flex-1"
+                  style={vendor.coverImageUrl ? { paddingTop: "40px" } : { paddingTop: "4px" }}
+                >
                   <StatusPill />
                 </div>
               </div>
+
 
               {/* Name */}
               <h1
@@ -832,10 +712,8 @@ const VendorProfile = () => {
             </article>
           )}
 
-          {/* ────── 3. PROFILE COMPLETENESS ────── */}
-          <div className="mt-4">
-            <CompletenessCard vendor={vendor} />
-          </div>
+
+
 
           {/* ────── 4. ABOUT THIS CLINIC ────── */}
           <article className="mt-4" style={CARD}>
@@ -1000,82 +878,74 @@ const VendorProfile = () => {
           {/* ────── 7. PROVIDERS ────── */}
           <article className="mt-4" style={CARD}>
             <SectionHeading>Providers &amp; Clinical Leadership</SectionHeading>
-            {hasProvider ? (
-              <>
-                {/* Headshot strip */}
-                {vendor.providerHeadshots?.length ? (
-                  <div className="mt-3 flex flex-wrap gap-3">
-                    {vendor.providerHeadshots.map((p) => (
-                      <div key={p.name} className="flex items-center gap-2">
-                        <div
-                          className="overflow-hidden bg-muted/40 shrink-0"
-                          style={{
-                            width: "44px",
-                            height: "44px",
-                            borderRadius: "22px",
-                            border: "0.5px solid hsl(var(--border))",
-                          }}
+            {/* Headshot strip — only when available */}
+            {vendor.providerHeadshots?.length ? (
+              <div className="mt-3 flex flex-wrap gap-3">
+                {vendor.providerHeadshots.map((p) => (
+                  <div key={p.name} className="flex items-center gap-2">
+                    <div
+                      className="overflow-hidden bg-muted/40 shrink-0"
+                      style={{
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "22px",
+                        border: "0.5px solid hsl(var(--border))",
+                      }}
+                    >
+                      {p.imageUrl ? (
+                        <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          <UserRound size={20} strokeWidth={1.25} />
+                        </div>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p
+                        className="font-sans font-medium text-foreground truncate"
+                        style={{ fontSize: "12.5px" }}
+                      >
+                        {p.name}
+                      </p>
+                      {p.role && (
+                        <p
+                          className="font-sans text-muted-foreground truncate"
+                          style={{ fontSize: "10.5px" }}
                         >
-                          {p.imageUrl ? (
-                            <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                              <UserRound size={20} strokeWidth={1.25} />
-                            </div>
-                          )}
-                        </div>
-                        <div className="min-w-0">
-                          <p
-                            className="font-sans font-medium text-foreground truncate"
-                            style={{ fontSize: "12.5px" }}
-                          >
-                            {p.name}
-                          </p>
-                          {p.role && (
-                            <p
-                              className="font-sans text-muted-foreground truncate"
-                              style={{ fontSize: "10.5px" }}
-                            >
-                              {p.role}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                          {p.role}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                ) : null}
+                ))}
+              </div>
+            ) : null}
 
-                <dl
-                  className="mt-4 grid grid-cols-2"
-                  style={{ columnGap: "20px", rowGap: "16px" }}
-                >
-                  <Cell label="Medical Director" value={vendor.medicalDirector} />
-                  <Cell label="Credentials" value={vendor.credentials} />
-                  <Cell label="Clinical Leadership" value={vendor.clinicalLeadership} />
-                  <Cell
-                    label="Additional Providers"
-                    value={
-                      vendor.additionalProviders?.length
-                        ? vendor.additionalProviders
-                            .map(
-                              (p) =>
-                                [p.name, p.credentials].filter(Boolean).join(", ") +
-                                (p.role ? ` — ${p.role}` : ""),
-                            )
-                            .join(" · ")
-                        : undefined
-                    }
-                  />
-                </dl>
-              </>
-            ) : (
-              <p
-                className="mt-3 text-muted-foreground"
-                style={{ fontSize: "13px", lineHeight: 1.55 }}
-              >
-                Provider information not yet submitted.
-              </p>
-            )}
+            {/* Always render the provider grid — missing fields stay visible as
+                "Information Not Submitted" so unclaimed profiles feel intentionally sparse. */}
+            <dl
+              className="mt-4 grid grid-cols-2"
+              style={{ columnGap: "20px", rowGap: "16px" }}
+            >
+              <Cell label="Medical Director" value={vendor.medicalDirector} />
+              <Cell label="Credentials" value={vendor.credentials} />
+              <Cell label="Clinical Leadership" value={vendor.clinicalLeadership} />
+              <Cell
+                label="Additional Providers"
+                value={
+                  vendor.additionalProviders?.length
+                    ? vendor.additionalProviders
+                        .map(
+                          (p) =>
+                            [p.name, p.credentials].filter(Boolean).join(", ") +
+                            (p.role ? ` — ${p.role}` : ""),
+                        )
+                        .join(" · ")
+                    : undefined
+                }
+              />
+            </dl>
+
           </article>
 
           {/* ────── 8. FACILITY PHOTOS ────── */}
