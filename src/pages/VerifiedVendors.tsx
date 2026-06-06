@@ -196,18 +196,22 @@ const VerifiedVendors = () => {
         recordCount={vendors.length}
       />
 
-      {/* Floating stats card — bridges navy hero and gray controls */}
-      <section className="bg-background relative">
+      {/* Floating stats card — centered on the navy/gray boundary */}
+      <section
+        className="relative"
+        style={{
+          background:
+            "linear-gradient(to bottom, hsl(var(--navy-surface)) 0%, hsl(var(--navy-surface)) 50%, hsl(var(--background)) 50%, hsl(var(--background)) 100%)",
+        }}
+      >
         <div className="page-shell">
-          <div className="mx-auto w-wide">
-            <div className="-mx-5 md:mx-0 px-5">
+          <div className="mx-auto flex min-h-[88px] w-wide items-center">
+            <div className="-mx-5 md:mx-0 w-full px-5">
               <div
                 role="group"
                 aria-label="Registry summary"
-                className="grid grid-cols-2 overflow-hidden bg-white relative z-10"
+                className="relative z-10 grid grid-cols-2 overflow-hidden bg-white"
                 style={{
-                  marginTop: "-44px",
-                  marginBottom: "8px",
                   borderRadius: "10px",
                   border: "1px solid rgba(0,16,33,0.08)",
                 }}
@@ -260,7 +264,7 @@ const VerifiedVendors = () => {
         <div className="page-shell pb-10 md:pb-10">
           <div className="mx-auto w-wide">
             {/* Grouped filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-2 pb-3 space-y-4">
+            <div className="-mx-5 md:mx-0 px-5 pt-1 pb-3 space-y-4">
               {/* Verification Status */}
               <div>
                 <p
