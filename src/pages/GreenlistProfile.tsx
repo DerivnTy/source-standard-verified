@@ -463,14 +463,69 @@ const GreenlistProfile = () => {
 
             {/* SECTION 6 — Greenlisted Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Greenlisted Status</SectionLabel>
-              <p className="mt-2 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
+              <SectionLabel>Greenlist Status</SectionLabel>
+              <div
+                className="mt-3 flex items-center gap-3"
+                style={{
+                  border: "0.5px solid hsl(var(--border))",
+                  borderRadius: "10px",
+                  padding: "14px 16px",
+                  background: "hsl(var(--background))",
+                }}
+              >
+                <span
+                  aria-hidden
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: STATUS_COLOR[status],
+                    boxShadow: `0 0 0 4px ${STATUS_COLOR[status]}22`,
+                  }}
+                />
+                <span
+                  className="font-sans font-bold uppercase"
+                  style={{ fontSize: "12px", letterSpacing: "0.08em", color: STATUS_COLOR[status] }}
+                >
+                  {STATUS_LABEL[status]}
+                </span>
+              </div>
+              <p className="mt-3 text-foreground" style={{ fontSize: "13px", lineHeight: 1.65 }}>
                 {statusBlurb}
               </p>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.65 }}>
-                FDA registration, 503A designation, and 503B designation alone do not
-                qualify a facility for Greenlisted status. Greenlisted status is
-                earned through successful independent testing activity.
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                {[
+                  { c: STATUS_COLOR.monitoring, l: "Under Monitoring", d: "Facility identified in the registry and tracked for regulatory and supply-chain signals." },
+                  { c: "#3478F6", l: "Testing Active", d: "Independent testing activity is underway on products sourced from this facility." },
+                  { c: STATUS_COLOR.greenlisted, l: "Greenlisted", d: "Facility has met Source Standard independent testing criteria." },
+                  { c: STATUS_COLOR.alert, l: "Status Alert", d: "Regulatory action or supply-chain signal warrants caution." },
+                ].map((s) => (
+                  <div
+                    key={s.l}
+                    className="flex items-start gap-2"
+                    style={{
+                      border: "0.5px solid hsl(var(--border))",
+                      borderRadius: "8px",
+                      padding: "10px 12px",
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{ width: 8, height: 8, borderRadius: "50%", background: s.c, marginTop: 5, flexShrink: 0 }}
+                    />
+                    <div>
+                      <p className="font-sans font-semibold uppercase text-foreground" style={{ fontSize: "10px", letterSpacing: "0.06em" }}>
+                        {s.l}
+                      </p>
+                      <p className="mt-0.5 text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.5 }}>
+                        {s.d}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.6 }}>
+                FDA registration, 503A designation, and 503B designation alone do not qualify a facility for Greenlisted status. Greenlisted status is earned through successful independent testing activity.
               </p>
             </div>
 
