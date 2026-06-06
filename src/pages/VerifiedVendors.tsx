@@ -138,7 +138,7 @@ const VerifiedVendors = () => {
   const [focusOpen, setFocusOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const states = useMemo(() => getVendorStates(), []);
+  void getVendorStates;
 
   const fulfillmentByVendor = useMemo(() => {
     const map = new Map<string, VendorFulfillment>();
@@ -146,23 +146,6 @@ const VerifiedVendors = () => {
     return map;
   }, []);
 
-  const counts = useMemo(() => {
-    const next: Record<VendorPublicStatus, number> = {
-      verified: 0,
-      unverified: 0,
-      "under-review": 0,
-      suspended: 0,
-      removed: 0,
-    };
-    for (const vendor of vendors) next[vendor.status] += 1;
-    return next;
-  }, []);
-
-  const statesRepresented = states.length;
-  const totalAudits = useMemo(
-    () => vendors.filter((vendor) => Boolean(vendor.reviewId)).length,
-    [],
-  );
 
   const filtered = useMemo(() => {
     return vendors.filter((vendor) => {
