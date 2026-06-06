@@ -49,7 +49,6 @@ const columns: Column[] = [
   },
 ];
 
-const MUTED = "#94A3B8";
 const HAIRLINE = "rgba(148, 163, 184, 0.18)";
 
 const FooterLink = ({ row }: { row: LinkRow }) => {
