@@ -945,58 +945,7 @@ const VendorProfile = () => {
             </article>
           )}
 
-          {/* ────── 6. LOCATION ────── */}
-          {hasLocation && (
-            <article className="mt-4" style={CARD}>
-              <SectionHeading>Location</SectionHeading>
-              <div className="mt-3 flex items-start gap-3">
-                <MapPin size={16} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-foreground" style={{ fontSize: "13.5px", lineHeight: 1.55 }}>
-                    {vendor.address && <>{vendor.address}<br /></>}
-                    {location !== "—" && location}
-                    {vendor.zip ? ` ${vendor.zip}` : ""}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {mapsHref && (
-                      <a
-                        href={mapsHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-sans font-semibold uppercase text-foreground hover:opacity-70 transition-opacity"
-                        style={{
-                          fontSize: "10.5px",
-                          letterSpacing: "0.08em",
-                          padding: "6px 12px",
-                          borderRadius: "16px",
-                          border: "0.5px solid hsl(var(--border))",
-                        }}
-                      >
-                        Open in Maps <ExternalLink size={11} strokeWidth={1.5} />
-                      </a>
-                    )}
-                    {dirHref && (
-                      <a
-                        href={dirHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-sans font-semibold uppercase text-foreground hover:opacity-70 transition-opacity"
-                        style={{
-                          fontSize: "10.5px",
-                          letterSpacing: "0.08em",
-                          padding: "6px 12px",
-                          borderRadius: "16px",
-                          border: "0.5px solid hsl(var(--border))",
-                        }}
-                      >
-                        Directions <ExternalLink size={11} strokeWidth={1.5} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </article>
-          )}
+          {/* Location section removed — address now lives in Contact */}
 
           {/* ────── 7. PROVIDERS ────── */}
           <article className="mt-4" style={CARD}>
