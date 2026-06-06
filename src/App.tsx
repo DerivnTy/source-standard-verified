@@ -96,7 +96,8 @@ const App = () => (
             <Route path="/library/analysis/meaning-of-verification" element={<LibraryAnalysisMeaningOfVerification />} />
             <Route path="/library/analysis/undocumented-sourcing-signs" element={<LibraryAnalysisUndocumentedSourcingSigns />} />
             <Route path="/library/core" element={<LibraryCategory />} />
-            <Route path="/library/latest" element={<LibraryCategory />} />
+            <Route path="/library/latest" element={<LibraryPublications />} />
+            <Route path="/library/publications" element={<LibraryPublications />} />
             {/* Legacy category routes — redirect to new structure */}
             <Route path="/library/sourcing" element={<LibraryCategory />} />
             <Route path="/library/clinical" element={<LibraryCategory />} />
