@@ -18,8 +18,9 @@ import { toast } from "@/components/ui/sonner";
 
 
 const VENDOR_TYPES = [
-  "Physical clinic",
-  "Telehealth clinic",
+  "In-person vendor",
+  "Telehealth vendor",
+  "Hybrid vendor",
   "Online vendor",
   "Pharmacy / supplier",
   "Other",
