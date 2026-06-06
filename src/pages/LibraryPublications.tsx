@@ -66,7 +66,7 @@ const PublicationCard = ({ entry }: { entry: Article }) => (
 
       <h3
         className="font-sans font-semibold text-foreground tracking-tight"
-        style={{ fontSize: "20px", lineHeight: "1.25", letterSpacing: "-0.015em" }}
+        style={{ fontSize: "18px", lineHeight: "1.25", letterSpacing: "-0.015em" }}
       >
         {entry.title}
       </h3>
@@ -80,7 +80,7 @@ const PublicationCard = ({ entry }: { entry: Article }) => (
 
       <p
         className="font-sans text-muted-foreground"
-        style={{ fontSize: "14px", lineHeight: "1.55" }}
+        style={{ fontSize: "12px", lineHeight: "1.55" }}
       >
         {entry.blurb}
       </p>
@@ -89,7 +89,7 @@ const PublicationCard = ({ entry }: { entry: Article }) => (
         <Link
           to={routeForArticle(entry.slug)}
           className="inline-flex items-center gap-1 font-sans font-semibold text-[hsl(var(--primary))] hover:opacity-80 transition-opacity"
-          style={{ fontSize: "13px", letterSpacing: "-0.005em" }}
+          style={{ fontSize: "11px", letterSpacing: "-0.005em" }}
         >
           View Article
           <ChevronRight aria-hidden style={{ width: "13px", height: "13px", strokeWidth: 1.75 }} />
@@ -207,7 +207,7 @@ const LibraryPublications = () => {
                   }}
                   placeholder="Search publications…"
                   aria-label="Search publications"
-                  className="font-sans flex-1 min-w-0 text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none bg-transparent"
+                  className="font-sans flex-1 min-w-0 text-[12px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none bg-transparent"
                 />
               </div>
 

@@ -80,7 +80,7 @@ export const ArticleHeader = ({
               <p
                 className="text-muted-foreground"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "10px",
                   marginTop: "12px",
                 }}
               >

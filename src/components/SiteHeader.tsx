@@ -196,7 +196,7 @@ export const SiteHeader = () => {
                         onClick={() => setOpen(false)}
                         className="block transition-opacity hover:opacity-70 text-white font-sans font-semibold"
                         style={{
-                          fontSize: "20px",
+                          fontSize: "18px",
                           letterSpacing: "-0.015em",
                           lineHeight: "1.2",
                         }}

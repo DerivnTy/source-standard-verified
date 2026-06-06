@@ -64,7 +64,7 @@ export const FilterBottomSheet = ({
         </button>
 
         <div className="px-5 pb-1 pt-1">
-          <Dialog.Title className="font-serif text-[17px] font-semibold tracking-tight text-foreground">
+          <Dialog.Title className="font-serif text-[15px] font-semibold tracking-tight text-foreground">
             {title}
           </Dialog.Title>
         </div>
@@ -84,7 +84,7 @@ export const FilterBottomSheet = ({
                   style={{ height: "56px" }}
                 >
                   <span
-                    className={`text-[15px] ${
+                    className={`text-[13px] ${
                       active ? "font-semibold text-foreground" : "text-foreground/85"
                     }`}
                   >

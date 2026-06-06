@@ -36,7 +36,7 @@ export const GlobalUtilityBar = () => {
         </span>
         <span
           className="sm:hidden"
-          style={{ fontSize: "9px" }}
+          style={{ fontSize: "11px" }}
         >
           The gold standard for sourcing and clinical verification.
         </span>

@@ -72,7 +72,7 @@ export const FaqPage = ({
           </h1>
           <p
             className="mt-4 text-muted-foreground"
-            style={{ fontSize: "16px", lineHeight: "1.6" }}
+            style={{ fontSize: "14px", lineHeight: "1.6" }}
           >
             {intro}
           </p>
@@ -96,7 +96,7 @@ export const FaqPage = ({
                 <AccordionTrigger className="py-5 hover:no-underline text-left">
                   <span
                     className="font-sans font-semibold text-foreground"
-                    style={{ fontSize: "16px", lineHeight: "1.4" }}
+                    style={{ fontSize: "14px", lineHeight: "1.4" }}
                   >
                     {item.q}
                   </span>
@@ -104,7 +104,7 @@ export const FaqPage = ({
                 <AccordionContent className="pb-6">
                   <p
                     className="text-muted-foreground"
-                    style={{ fontSize: "15px", lineHeight: "1.65" }}
+                    style={{ fontSize: "13px", lineHeight: "1.65" }}
                   >
                     {item.a}
                   </p>
@@ -119,12 +119,12 @@ export const FaqPage = ({
       <section className="page-shell py-8">
         <div className="mx-auto w-wide max-w-[68ch]">
           <div className="bg-card border border-border/60 rounded-xl p-6 md:p-8">
-            <h2 className="font-sans font-semibold text-foreground" style={{ fontSize: "18px", lineHeight: "1.3" }}>
+            <h2 className="font-sans font-semibold text-foreground" style={{ fontSize: "16px", lineHeight: "1.3" }}>
               Still Have a Question?
             </h2>
             <p
               className="mt-2 text-muted-foreground"
-              style={{ fontSize: "14px", lineHeight: "1.6" }}
+              style={{ fontSize: "12px", lineHeight: "1.6" }}
             >
               Can&apos;t find the answer you&apos;re looking for? Submit a question to the Source Standard team. Common questions may be reviewed and added to the public Resource Library and Common Inquiry database.
             </p>
@@ -136,10 +136,10 @@ export const FaqPage = ({
               </DialogTrigger>
               <DialogContent className="sm:max-w-[480px]">
                 <DialogHeader>
-                  <DialogTitle className="font-sans font-semibold text-foreground" style={{ fontSize: "18px", lineHeight: "1.3" }}>
+                  <DialogTitle className="font-sans font-semibold text-foreground" style={{ fontSize: "16px", lineHeight: "1.3" }}>
                     Submit a Question
                   </DialogTitle>
-                  <DialogDescription className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: "1.6" }}>
+                  <DialogDescription className="text-muted-foreground" style={{ fontSize: "12px", lineHeight: "1.6" }}>
                     Common questions may be reviewed and added to the public Resource Library.
                   </DialogDescription>
                 </DialogHeader>

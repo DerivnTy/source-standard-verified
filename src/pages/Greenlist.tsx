@@ -147,14 +147,14 @@ const Greenlist = () => {
               </p>
               <p
                 className="mt-2 text-foreground"
-                style={{ fontSize: "14px", lineHeight: 1.45 }}
+                style={{ fontSize: "12px", lineHeight: 1.45 }}
               >
                 FDA registration, 503A designation, and 503B designation alone
                 do not qualify a manufacturer for Greenlisted status.
               </p>
               <p
                 className="mt-2 text-muted-foreground"
-                style={{ fontSize: "14px", lineHeight: 1.45 }}
+                style={{ fontSize: "12px", lineHeight: 1.45 }}
               >
                 Source Standard assigns Greenlisted status through ongoing
                 independent testing activity conducted throughout the supply
@@ -164,7 +164,7 @@ const Greenlist = () => {
               </p>
               <p
                 className="mt-2 text-muted-foreground"
-                style={{ fontSize: "14px", lineHeight: 1.45 }}
+                style={{ fontSize: "12px", lineHeight: 1.45 }}
               >
                 Greenlisted status remains subject to continued monitoring and
                 future testing activity.
@@ -228,7 +228,7 @@ const Greenlist = () => {
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search manufacturers, locations, or verification status…"
                 aria-label="Search Facility Registry"
-                className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
                   borderRadius: "24px",
@@ -340,7 +340,7 @@ const Greenlist = () => {
                     </p>
                     <p
                       className="mt-2 text-muted-foreground"
-                      style={{ fontSize: "14px", lineHeight: 1.45 }}
+                      style={{ fontSize: "12px", lineHeight: 1.45 }}
                     >
                       {s.body}
                     </p>

@@ -208,7 +208,7 @@ const CategoryBlock = ({
               {category.description}
             </p>
             {category.id === "core" && (
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
+              <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
                 Foundational References
               </p>
             )}
@@ -241,7 +241,7 @@ const CategoryBlock = ({
                 <Link
                   to="/library/publications"
                   className="inline-flex items-center gap-1 font-sans font-semibold text-[hsl(var(--primary))] hover:opacity-80 transition-opacity"
-                  style={{ fontSize: "13px", letterSpacing: "-0.005em" }}
+                  style={{ fontSize: "11px", letterSpacing: "-0.005em" }}
                 >
                   View All Publications
                   <ChevronRight aria-hidden style={{ width: "13px", height: "13px", strokeWidth: 1.75 }} />
@@ -354,7 +354,7 @@ const Education = () => {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search library…"
                   aria-label="Search library"
-                  className="font-sans flex-1 min-w-0 text-[14px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                  className="font-sans flex-1 min-w-0 text-[12px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                   style={{
                     height: "36px",
                     borderRadius: "20px",
@@ -364,7 +364,7 @@ const Education = () => {
                     paddingRight: "14px",
                   }}
                 />
-                <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground shrink-0 tabular-nums">
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground shrink-0 tabular-nums">
                   {totalCount} {totalCount === 1 ? "result" : "results"}
                 </span>
               </div>
@@ -424,7 +424,7 @@ const Education = () => {
           <div className="mx-auto w-wide">
             <div className="grid grid-cols-12 gap-x-8 gap-y-4">
               <div className="col-span-12 md:col-span-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                   Reference Questions
                 </p>
                 <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">

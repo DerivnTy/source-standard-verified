@@ -40,7 +40,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
             style={{
               flex: 1,
               minWidth: 0,
-              fontSize: "15px",
+              fontSize: "13px",
               fontWeight: 650,
               lineHeight: 1.15,
               letterSpacing: "-0.01em",

@@ -134,7 +134,7 @@ export const VendorRow = ({
           className="font-sans text-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "15px",
+            fontSize: "13px",
             fontWeight: 650,
             lineHeight: 1.15,
             letterSpacing: "-0.01em",

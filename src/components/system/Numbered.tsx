@@ -52,7 +52,7 @@ export const NumberedCard = ({
         <h3
           className="font-sans text-foreground"
           style={{
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: 600,
             lineHeight: 1.3,
             letterSpacing: "-0.01em",
@@ -64,7 +64,7 @@ export const NumberedCard = ({
           <span
             className="font-mono tabular-nums shrink-0"
             style={{
-              fontSize: "14px",
+              fontSize: "12px",
               fontWeight: 500,
               letterSpacing: "0.04em",
               color: "rgba(0,0,0,0.40)",
@@ -81,7 +81,7 @@ export const NumberedCard = ({
           className="text-muted-foreground"
           style={{
             marginTop: "12px",
-            fontSize: "17px",
+            fontSize: "15px",
             fontWeight: 400,
             lineHeight: 1.75,
             color: "rgba(0,0,0,0.62)",
@@ -138,7 +138,7 @@ export const NumberedSectionHeader = ({
         <span
           className="font-mono tabular-nums shrink-0"
           style={{
-            fontSize: "14px",
+            fontSize: "12px",
             fontWeight: 500,
             letterSpacing: "0.04em",
             color: "rgba(0,0,0,0.40)",
@@ -150,7 +150,7 @@ export const NumberedSectionHeader = ({
           id={id}
           className="font-sans text-foreground"
           style={{
-            fontSize: "28px",
+            fontSize: "26px",
             fontWeight: 700,
             lineHeight: 1.15,
             letterSpacing: "-0.02em",
@@ -165,7 +165,7 @@ export const NumberedSectionHeader = ({
           className="text-muted-foreground"
           style={{
             marginTop: "12px",
-            fontSize: "18px",
+            fontSize: "16px",
             fontWeight: 400,
             lineHeight: 1.6,
             maxWidth: "68ch",

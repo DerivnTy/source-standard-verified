@@ -51,7 +51,7 @@ export const RegistrySummaryStrip = ({
                     </span>
                   </div>
                   <div
-                    className={`font-mono text-[22px] leading-[28px] font-medium tabular-nums mt-auto ${
+                    className={`font-mono text-[20px] leading-[28px] font-medium tabular-nums mt-auto ${
                       isDestructive ? "text-destructive" : "text-foreground"
                     }`}
                   >

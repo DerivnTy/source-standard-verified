@@ -47,7 +47,7 @@ export const RegistryHorizon = ({
             <span
               className="font-sans tabular-nums"
               style={{
-                fontSize: "36px",
+                fontSize: "34px",
                 lineHeight: 1,
                 fontWeight: 600,
                 letterSpacing: "-0.02em",

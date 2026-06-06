@@ -18,10 +18,10 @@ const buttonVariants = cva(
       },
       size: {
         // Locked sitewide button sizes — see design-system spec.
-        sm: "min-h-10 px-[18px] py-3 text-[13px] leading-[16px] rounded-[10px]",
-        default: "min-h-12 px-[22px] py-3.5 text-[13px] leading-[16px] rounded-[12px]",
-        md: "min-h-12 px-[22px] py-3.5 text-[13px] leading-[16px] rounded-[12px]",
-        lg: "min-h-14 px-[26px] py-4 text-[13px] leading-[16px] rounded-[12px]",
+        sm: "min-h-10 px-[18px] py-3 text-[11px] leading-[16px] rounded-[10px]",
+        default: "min-h-12 px-[22px] py-3.5 text-[11px] leading-[16px] rounded-[12px]",
+        md: "min-h-12 px-[22px] py-3.5 text-[11px] leading-[16px] rounded-[12px]",
+        lg: "min-h-14 px-[26px] py-4 text-[11px] leading-[16px] rounded-[12px]",
         icon: "min-h-10 w-10 rounded-[10px]",
       },
     },

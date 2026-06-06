@@ -52,7 +52,7 @@ const GovRow = ({
     }}
   >
     <div className="grid grid-cols-12 gap-3 items-baseline">
-      <div className="col-span-2 sm:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
+      <div className="col-span-2 sm:col-span-1 font-mono text-[10px] tabular-nums text-muted-foreground/70">
         {index}
       </div>
       <div className="col-span-10 sm:col-span-11 t-body-sm text-foreground/90 leading-relaxed">

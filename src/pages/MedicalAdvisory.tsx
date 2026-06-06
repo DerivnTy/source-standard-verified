@@ -39,7 +39,7 @@ const GovRow = ({
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <p
         className="font-sans text-foreground"
-        style={{ fontSize: "18px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+        style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
       >
         {title}
       </p>
@@ -47,7 +47,7 @@ const GovRow = ({
         <span
           className="font-mono tabular-nums shrink-0"
           style={{
-            fontSize: "14px",
+            fontSize: "12px",
             fontWeight: 500,
             letterSpacing: "0.04em",
             color: "rgba(0,0,0,0.40)",
@@ -62,7 +62,7 @@ const GovRow = ({
     {description && (
       <p
         className="text-muted-foreground"
-        style={{ marginTop: "12px", fontSize: "16px", fontWeight: 400, lineHeight: 1.75 }}
+        style={{ marginTop: "12px", fontSize: "14px", fontWeight: 400, lineHeight: 1.75 }}
       >
         {description}
       </p>
@@ -74,13 +74,13 @@ const SectionHeadingInline = ({ n, title }: { n: string; title: React.ReactNode 
   <div className="flex items-baseline" style={{ gap: "12px" }}>
     <span
       className="font-mono tabular-nums shrink-0"
-      style={{ fontSize: "13px", fontWeight: 500, letterSpacing: "0.04em", color: "rgba(0,0,0,0.40)" }}
+      style={{ fontSize: "11px", fontWeight: 500, letterSpacing: "0.04em", color: "rgba(0,0,0,0.40)" }}
     >
       {n}
     </span>
     <h2
       className="font-sans text-foreground"
-      style={{ fontSize: "26px", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.02em", color: "#0A0A0A" }}
+      style={{ fontSize: "24px", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.02em", color: "#0A0A0A" }}
     >
       {title}
     </h2>
@@ -211,7 +211,7 @@ const MedicalAdvisory = () => {
           <div className="mx-auto w-standard">
             <div>
               <GovCard>
-                <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">Purpose</p>
+                <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">Purpose</p>
                 <h2 className="mt-2 t-section-title-sm text-foreground">Why Clinical Oversight exists</h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
@@ -393,7 +393,7 @@ const MedicalAdvisory = () => {
             <section style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <div className="max-w-2xl">
                 <GovCard>
-                  <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">Institutional Integrity</p>
+                  <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">Institutional Integrity</p>
                   <h2 className="mt-2 t-section-title-sm text-foreground">
                     Public trust requires independent oversight.
                   </h2>
