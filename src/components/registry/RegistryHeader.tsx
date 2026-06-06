@@ -17,6 +17,7 @@ export const RegistryHeader = ({
   recordCount,
   updatedOn,
   hideRecordPill = false,
+  compact = false,
 }: {
   /** @deprecated — use indexNumber for Geist Mono index. */
   eyebrow?: string;
@@ -31,6 +32,8 @@ export const RegistryHeader = ({
   recordCount: number;
   updatedOn?: string;
   hideRecordPill?: boolean;
+  /** Reduce hero padding ~30% for registry surfaces that prioritize records. */
+  compact?: boolean;
 }) => {
   const updated =
     updatedOn ??
@@ -39,6 +42,7 @@ export const RegistryHeader = ({
       month: "2-digit",
       day: "2-digit",
     });
+
 
   return (
     <section className="relative overflow-hidden bg-[hsl(var(--navy-surface))]">
