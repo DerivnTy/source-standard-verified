@@ -23,7 +23,7 @@ import logoLight from "@/assets/source-standard-logo-light.png";
 export interface BriefingHeroProps {
   category: string;
   docId: string;
-  title: string;
+  title?: string;
   statement: string;
   metadata?: MetadataItem[];
   verifiedOn?: string;
@@ -65,7 +65,8 @@ export const BriefingHero = ({
     if (isCover) {
       return (
         <section
-          aria-labelledby="briefing-title"
+          aria-labelledby={title ? "briefing-title" : undefined}
+          aria-label={title ? undefined : "Live Registry"}
           className="relative overflow-hidden bg-[hsl(var(--navy-surface))] lg:min-h-[calc(100dvh-84px)]"
         >
           <div
@@ -93,19 +94,21 @@ export const BriefingHero = ({
                 </div>
               )}
 
-              <h1
-                id="briefing-title"
-                className="text-white text-left lg:text-center text-balance lg:mx-auto"
-                style={{
-                  maxWidth: "560px",
-                  fontSize: "clamp(38px, 10vw, 64px)",
-                  lineHeight: "1.0",
-                  letterSpacing: "-0.03em",
-                  fontWeight: 600,
-                }}
-              >
-                {title}
-              </h1>
+              {title && (
+                <h1
+                  id="briefing-title"
+                  className="text-white text-left lg:text-center text-balance lg:mx-auto"
+                  style={{
+                    maxWidth: "560px",
+                    fontSize: "clamp(38px, 10vw, 64px)",
+                    lineHeight: "1.0",
+                    letterSpacing: "-0.03em",
+                    fontWeight: 600,
+                  }}
+                >
+                  {title}
+                </h1>
+              )}
 
               <p
                 className="text-white/70 text-left lg:text-center lg:mx-auto"
