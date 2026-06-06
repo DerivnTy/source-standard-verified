@@ -162,9 +162,9 @@ export type GreenlistProfile = {
 };
 
 
-export const greenlistEntries: GreenlistEntry[] = [
-  // Cleared — registry is being rebuilt with the new Manufacturer Intelligence structure.
-];
+import registryData from "./registryData.json";
+
+export const greenlistEntries: GreenlistEntry[] = registryData as GreenlistEntry[];
 
 
 
