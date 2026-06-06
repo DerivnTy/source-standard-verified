@@ -1,5 +1,20 @@
 import { Link, useParams } from "react-router-dom";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import {
+  Instagram,
+  Facebook,
+  Linkedin,
+  Youtube,
+  Phone,
+  Mail,
+  Globe,
+  MapPin,
+  ChevronDown,
+  ExternalLink,
+  Star,
+  Building2,
+  UserRound,
+} from "lucide-react";
 import {
   getVendor,
   Vendor,
@@ -16,34 +31,32 @@ import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
 /**
  * VendorProfile — Public clinic identity + verification record.
  *
- * Structure (top → bottom):
- *   1. Identity Header (logo, name, status, category, contact + social row,
- *      fulfillment indicators)
- *   2. About This Clinic (summary, philosophy, patient focus, treatments)
- *   3. Services & Clinical Focus (searchable badges)
- *   4. Providers (medical director, credentials, additional providers)
- *   5. Social Proof (socials, Google Business)
- *   6. Verification Record (status, scope, dates, documentation, history)
- *   7. Claim This Profile (only when not claimed)
+ * Balance (deliberate): ~40% provider directory, ~30% clinic profile,
+ * ~30% verification record. Verification is authoritative but no longer
+ * dominant.
  *
- * Visual rules — match Source Standard's institutional aesthetic:
- *   white cards, 0.5px hairline borders, no shadows, no marketing prose,
- *   monospaced ids and dates.
+ * Section order:
+ *   1. Cover + Identity header (logo, name, status, socials, fulfillment)
+ *   2. Service badges (hero discoverability strip)
+ *   3. Profile Completeness meter (claim incentive)
+ *   4. About / Overview (summary, philosophy, patient focus)
+ *   5. Conditions Treated · Services Offered · States Served
+ *   6. Location card (address, map, directions)
+ *   7. Providers (headshots, medical director, leadership)
+ *   8. Facility Photos
+ *   9. Verification Record (compact for unverified, expandable for detail)
+ *  10. Claim This Profile
  */
 
-const CARD_STYLE: React.CSSProperties = {
+const CARD: React.CSSProperties = {
   border: "0.5px solid hsl(var(--border))",
-  borderRadius: "10px",
-  padding: "24px",
+  borderRadius: "12px",
+  padding: "20px",
   background: "hsl(var(--card))",
 };
 
-const formatLocation = (vendor: Vendor): string =>
-  vendor.city && vendor.state
-    ? `${vendor.city}, ${vendor.state}`
-    : vendor.city || vendor.state || "—";
-
-const sourceTypeFor = (_v: Vendor): string => "503A / 503B / Retail";
+const formatLocation = (v: Vendor): string =>
+  v.city && v.state ? `${v.city}, ${v.state}` : v.city || v.state || "—";
 
 const hostname = (url: string): string => {
   try {
@@ -58,36 +71,132 @@ const normalizeHandle = (h?: string): string | undefined => {
   return h.startsWith("@") ? h.slice(1) : h.replace(/^https?:\/\/[^/]+\//, "").replace(/\/$/, "");
 };
 
-const socialUrl = (platform: "instagram" | "facebook" | "linkedin" | "youtube", value?: string): string | undefined => {
+const socialUrl = (
+  platform: "instagram" | "facebook" | "linkedin" | "youtube",
+  value?: string,
+): string | undefined => {
   if (!value) return undefined;
   if (/^https?:\/\//i.test(value)) return value;
-  const handle = value.replace(/^@/, "");
+  const h = value.replace(/^@/, "");
   switch (platform) {
-    case "instagram": return `https://instagram.com/${handle}`;
-    case "facebook": return `https://facebook.com/${handle}`;
-    case "linkedin": return `https://linkedin.com/company/${handle}`;
-    case "youtube": return `https://youtube.com/${handle.startsWith("@") ? handle : "@" + handle}`;
+    case "instagram":
+      return `https://instagram.com/${h}`;
+    case "facebook":
+      return `https://facebook.com/${h}`;
+    case "linkedin":
+      return `https://linkedin.com/company/${h}`;
+    case "youtube":
+      return `https://youtube.com/${h.startsWith("@") ? h : "@" + h}`;
   }
 };
 
-// ─── Atomic UI ────────────────────────────────────────────────────────────────
+const mapsSearchUrl = (v: Vendor): string | undefined => {
+  if (v.googleMapsUrl) return v.googleMapsUrl;
+  const parts = [v.name, v.address, v.city, v.state, v.zip].filter(Boolean).join(", ");
+  if (!parts) return undefined;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(parts)}`;
+};
 
-const SectionLabel = ({ children }: { children: ReactNode }) => (
+const directionsUrl = (v: Vendor): string | undefined => {
+  const parts = [v.address, v.city, v.state, v.zip].filter(Boolean).join(", ");
+  if (!parts) return undefined;
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(parts)}`;
+};
+
+// ─── Atoms ────────────────────────────────────────────────────────────────────
+
+const Eyebrow = ({ children }: { children: ReactNode }) => (
   <p
     className="font-sans font-semibold uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+    style={{ fontSize: "10px", letterSpacing: "0.1em" }}
   >
     {children}
   </p>
 );
 
-const SectionHeading = ({ children }: { children: ReactNode }) => (
-  <h2
-    className="font-sans font-semibold uppercase text-muted-foreground"
-    style={{ fontSize: "11px", letterSpacing: "0.1em" }}
+const SectionHeading = ({ children, action }: { children: ReactNode; action?: ReactNode }) => (
+  <div className="flex items-center justify-between gap-3">
+    <h2
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "11px", letterSpacing: "0.1em" }}
+    >
+      {children}
+    </h2>
+    {action}
+  </div>
+);
+
+const Tag = ({ children, href }: { children: ReactNode; href?: string }) => {
+  const cls =
+    "inline-flex items-center font-sans font-semibold uppercase border border-border text-foreground bg-background transition-colors hover:border-foreground/60";
+  const style: React.CSSProperties = {
+    fontSize: "10.5px",
+    letterSpacing: "0.06em",
+    padding: "5px 10px",
+    borderRadius: "16px",
+  };
+  return href ? (
+    <Link to={href} className={cls} style={style}>
+      {children}
+    </Link>
+  ) : (
+    <span className={cls} style={style}>
+      {children}
+    </span>
+  );
+};
+
+const SocialIconBtn = ({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: ReactNode;
+}) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={label}
+    title={label}
+    className="inline-flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+    style={{
+      width: "32px",
+      height: "32px",
+      borderRadius: "16px",
+      border: "0.5px solid hsl(var(--border))",
+    }}
   >
     {children}
-  </h2>
+  </a>
+);
+
+const FulfillmentChip = ({ active, label }: { active: boolean; label: string }) => (
+  <span
+    className="inline-flex items-center gap-1.5 font-sans font-semibold uppercase"
+    style={{
+      fontSize: "9.5px",
+      letterSpacing: "0.08em",
+      padding: "4px 9px",
+      borderRadius: "12px",
+      border: "0.5px solid hsl(var(--border))",
+      color: active ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground) / 0.5)",
+      background: active ? "hsl(var(--muted) / 0.5)" : "transparent",
+    }}
+  >
+    <span
+      aria-hidden
+      style={{
+        width: "5px",
+        height: "5px",
+        borderRadius: "50%",
+        background: active ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground) / 0.35)",
+      }}
+    />
+    {label}
+  </span>
 );
 
 const Cell = ({
@@ -102,7 +211,9 @@ const Cell = ({
   href?: string;
 }) => {
   const present =
-    value !== undefined && value !== null && value !== "" &&
+    value !== undefined &&
+    value !== null &&
+    value !== "" &&
     !(Array.isArray(value) && value.length === 0);
   const display = Array.isArray(value) ? (value as ReactNode[]).join(", ") : value;
   return (
@@ -117,7 +228,7 @@ const Cell = ({
         className={`mt-1 ${mono ? "font-mono tabular-nums" : "font-sans font-medium"} ${
           present ? "text-foreground" : "text-muted-foreground"
         }`}
-        style={{ fontSize: "12px", lineHeight: "1.5" }}
+        style={{ fontSize: "12.5px", lineHeight: "1.5" }}
       >
         {present ? (
           href ? (
@@ -140,90 +251,162 @@ const Cell = ({
   );
 };
 
-const Tag = ({ children, href }: { children: ReactNode; href?: string }) => {
-  const cls =
-    "inline-flex items-center font-sans font-semibold uppercase border border-border text-foreground bg-background transition-colors hover:border-foreground/60";
-  const style: React.CSSProperties = {
-    fontSize: "10px",
-    letterSpacing: "0.06em",
-    padding: "4px 9px",
-    borderRadius: "16px",
-  };
-  return href ? (
-    <Link to={href} className={cls} style={style}>{children}</Link>
-  ) : (
-    <span className={cls} style={style}>{children}</span>
-  );
-};
-
-// Tiny 1px-stroke social icons. No fills, no emojis — matches institutional rule.
-const SocialIcon = ({ kind, size = 14 }: { kind: "instagram" | "facebook" | "linkedin" | "youtube" | "google" | "phone" | "web"; size?: number }) => {
-  const stroke = "currentColor";
-  const sw = 1.25;
-  const props = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke, strokeWidth: sw, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
-  switch (kind) {
-    case "instagram":
-      return (<svg {...props}><rect x="3" y="3" width="18" height="18" rx="4" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.6" fill={stroke} stroke="none" /></svg>);
-    case "facebook":
-      return (<svg {...props}><path d="M14 8h2V5h-2a3 3 0 0 0-3 3v2H9v3h2v8h3v-8h2.5l.5-3H14V8.5C14 8.2 14.2 8 14 8z" /></svg>);
-    case "linkedin":
-      return (<svg {...props}><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 13v4" /></svg>);
-    case "youtube":
-      return (<svg {...props}><rect x="2.5" y="6" width="19" height="12" rx="3" /><path d="M10 9.5v5l4-2.5z" fill={stroke} /></svg>);
-    case "google":
-      return (<svg {...props}><circle cx="12" cy="12" r="9" /><path d="M8 12h8M12 8v8" /></svg>);
-    case "phone":
-      return (<svg {...props}><path d="M5 4h3l2 4-2 1a10 10 0 0 0 5 5l1-2 4 2v3a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2z" /></svg>);
-    case "web":
-      return (<svg {...props}><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></svg>);
-  }
-};
-
-const ContactLink = ({ href, label, icon }: { href: string; label: string; icon: ReactNode }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={label}
-    className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-    style={{ fontSize: "12px" }}
-  >
-    {icon}
-    <span className="font-sans">{label}</span>
-  </a>
-);
-
-const FulfillmentChip = ({ active, label }: { active: boolean; label: string }) => (
-  <span
-    className="inline-flex items-center gap-1 font-sans font-semibold uppercase"
+// Logo with fallback initial
+const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => (
+  <div
+    className="shrink-0 flex items-center justify-center bg-background overflow-hidden"
     style={{
-      fontSize: "9.5px",
-      letterSpacing: "0.08em",
-      padding: "3px 8px",
-      borderRadius: "12px",
+      width: `${size}px`,
+      height: `${size}px`,
+      borderRadius: `${Math.round(size * 0.18)}px`,
       border: "0.5px solid hsl(var(--border))",
-      color: active ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground) / 0.55)",
-      background: active ? "hsl(var(--muted) / 0.5)" : "transparent",
     }}
   >
-    <span
-      aria-hidden
-      style={{
-        width: "5px",
-        height: "5px",
-        borderRadius: "50%",
-        background: active ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground) / 0.4)",
-      }}
-    />
-    {label}
-  </span>
+    {vendor.logoUrl ? (
+      <img
+        src={vendor.logoUrl}
+        alt={`${vendor.name} logo`}
+        className="w-full h-full object-contain"
+      />
+    ) : (
+      <span
+        className="font-sans font-semibold text-muted-foreground"
+        style={{ fontSize: `${Math.round(size * 0.42)}px`, letterSpacing: "-0.02em" }}
+      >
+        {vendor.name.trim().charAt(0).toUpperCase()}
+      </span>
+    )}
+  </div>
 );
+
+// ─── Profile completeness ─────────────────────────────────────────────────────
+
+type CompletenessField = { label: string; present: boolean; weight: number };
+
+const computeCompleteness = (v: Vendor) => {
+  const has = (x: unknown) =>
+    Array.isArray(x) ? x.length > 0 : Boolean(x && String(x).trim() !== "");
+
+  const fields: CompletenessField[] = [
+    { label: "Logo", present: has(v.logoUrl), weight: 8 },
+    { label: "Cover image", present: has(v.coverImageUrl), weight: 5 },
+    { label: "Description", present: has(v.summary), weight: 10 },
+    { label: "Clinical philosophy", present: has(v.clinicalPhilosophy), weight: 6 },
+    { label: "Patient focus", present: has(v.patientFocus), weight: 4 },
+    { label: "Phone number", present: has(v.phone), weight: 6 },
+    { label: "Email", present: has(v.email), weight: 5 },
+    { label: "Full address", present: has(v.address) || (has(v.city) && has(v.state)), weight: 6 },
+    { label: "Website", present: has(v.website), weight: 7 },
+    {
+      label: "Social profiles",
+      present: has(v.instagram) || has(v.facebook) || has(v.linkedin) || has(v.youtube),
+      weight: 6,
+    },
+    { label: "Google Business link", present: has(v.googleBusinessUrl), weight: 3 },
+    { label: "Medical director", present: has(v.medicalDirector), weight: 7 },
+    { label: "Credentials", present: has(v.credentials), weight: 4 },
+    { label: "Additional providers", present: has(v.additionalProviders), weight: 4 },
+    { label: "Provider headshots", present: has(v.providerHeadshots), weight: 5 },
+    { label: "Services list", present: has(v.servicesOffered) || has(v.clinicalFocus), weight: 7 },
+    { label: "Conditions treated", present: has(v.conditionsTreated), weight: 5 },
+    { label: "States served", present: has(v.statesServed) || has(v.telehealthAvailability), weight: 4 },
+    { label: "Facility photos", present: has(v.facilityPhotos), weight: 3 },
+  ];
+  const total = fields.reduce((s, f) => s + f.weight, 0);
+  const got = fields.reduce((s, f) => s + (f.present ? f.weight : 0), 0);
+  const pct = Math.round((got / total) * 100);
+  const missing = fields.filter((f) => !f.present).sort((a, b) => b.weight - a.weight);
+  return { pct, missing };
+};
+
+const CompletenessCard = ({ vendor }: { vendor: Vendor }) => {
+  const { pct, missing } = computeCompleteness(vendor);
+  const claimed = vendor.claimed === true || vendor.status === "verified";
+  const topMissing = missing.slice(0, 5);
+  // Color band
+  const bandColor =
+    pct >= 75 ? "hsl(var(--foreground))" : pct >= 40 ? "#FF9500" : "#FF3B30";
+
+  return (
+    <article style={CARD}>
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <Eyebrow>Profile Completeness</Eyebrow>
+          <p
+            className="mt-1 font-sans font-semibold tabular-nums text-foreground"
+            style={{ fontSize: "28px", lineHeight: 1, letterSpacing: "-0.02em" }}
+          >
+            {pct}%
+          </p>
+        </div>
+        {!claimed && (
+          <Link
+            to={`/apply?claim=${encodeURIComponent(vendor.slug)}`}
+            className="shrink-0 inline-flex items-center justify-center font-sans font-semibold uppercase bg-foreground text-background hover:opacity-90 transition-opacity"
+            style={{
+              fontSize: "10.5px",
+              letterSpacing: "0.08em",
+              padding: "8px 14px",
+              borderRadius: "18px",
+            }}
+          >
+            Claim & Complete
+          </Link>
+        )}
+      </div>
+
+      {/* Progress bar */}
+      <div
+        className="mt-3 w-full overflow-hidden"
+        style={{
+          height: "4px",
+          borderRadius: "2px",
+          background: "hsl(var(--muted) / 0.6)",
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            width: `${pct}%`,
+            height: "100%",
+            background: bandColor,
+            transition: "width 400ms ease-out",
+          }}
+        />
+      </div>
+
+      {topMissing.length > 0 && (
+        <div className="mt-4">
+          <Eyebrow>Missing</Eyebrow>
+          <ul className="mt-2 flex flex-wrap gap-1.5">
+            {topMissing.map((m) => (
+              <li
+                key={m.label}
+                className="inline-flex items-center font-sans text-muted-foreground"
+                style={{
+                  fontSize: "11px",
+                  padding: "3px 8px",
+                  borderRadius: "10px",
+                  background: "hsl(var(--muted) / 0.5)",
+                  border: "0.5px solid hsl(var(--border))",
+                }}
+              >
+                {m.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </article>
+  );
+};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const VendorProfile = () => {
   const { slug } = useParams();
   const vendor = slug ? getVendor(slug) : undefined;
+  const [verificationOpen, setVerificationOpen] = useState(false);
 
   if (!vendor) {
     return (
@@ -249,24 +432,22 @@ const VendorProfile = () => {
 
   const status = vendor.status;
   const isVerified = status === "verified";
-  const isUnverified = status === "unverified";
   const fulfillment = getVendorFulfillment(vendor);
   const isOnline = fulfillment === "online";
   const isInPerson = fulfillment === "in-person";
   const isHybrid = fulfillment === "hybrid";
   const location = formatLocation(vendor);
-  const sourceType = sourceTypeFor(vendor);
   const claimed = vendor.claimed === true || isVerified;
 
-  // Status pill (top-right of identity header)
-  const renderProfileStatus = (s: VendorPublicStatus) => {
+  // Status pill
+  const StatusPill = () => {
     const baseStyle = {
       fontSize: "10px",
       letterSpacing: "0.08em",
       lineHeight: 1,
       gap: "4px",
     } as const;
-    if (s === "verified") {
+    if (isVerified) {
       return (
         <span
           className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
@@ -282,7 +463,6 @@ const VendorProfile = () => {
               justifyContent: "center",
               height: "10px",
               width: "16px",
-              overflow: "visible",
             }}
           >
             <span
@@ -309,7 +489,7 @@ const VendorProfile = () => {
       suspended: { label: "SUSPENDED", color: "hsl(var(--muted-foreground))" },
       removed: { label: "REMOVED", color: "hsl(var(--muted-foreground))" },
     };
-    const { label, color } = FALLBACK[s];
+    const { label, color } = FALLBACK[status];
     return (
       <span
         className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
@@ -320,7 +500,7 @@ const VendorProfile = () => {
     );
   };
 
-  // Verified scope flattening (unchanged)
+  // Verified scope flattening
   const hasGroups =
     isVerified &&
     vendor.verifiedScopeGroups &&
@@ -341,24 +521,26 @@ const VendorProfile = () => {
     ? vendor.verifiedCategories!
     : [];
   const hasScope = scopeCompounds.length > 0;
-  const license = isVerified
-    ? vendor.reviewId
-    : VENDOR_FULFILLMENT_LABEL[fulfillment];
-  const verificationDate = isVerified ? vendor.reviewDate : undefined;
 
-  // Contact links collection
+  // Socials
   const ig = socialUrl("instagram", vendor.instagram);
   const fb = socialUrl("facebook", vendor.facebook);
   const li = socialUrl("linkedin", vendor.linkedin);
   const yt = socialUrl("youtube", vendor.youtube);
   const phoneHref = vendor.phone ? `tel:${vendor.phone.replace(/[^\d+]/g, "")}` : undefined;
-  const hasAnySocial = Boolean(ig || fb || li || yt || vendor.googleBusinessUrl);
+  const emailHref = vendor.email ? `mailto:${vendor.email}` : undefined;
+  const mapsHref = mapsSearchUrl(vendor);
+  const dirHref = directionsUrl(vendor);
 
-  // Services badges: merge clinicalFocus + treatmentCategories (dedupe, preserve order)
+  // Service badges — merge clinicalFocus + treatmentCategories + servicesOffered (dedupe)
   const serviceBadges = (() => {
     const seen = new Set<string>();
     const out: string[] = [];
-    for (const v of [...(vendor.clinicalFocus ?? []), ...(vendor.treatmentCategories ?? [])]) {
+    for (const v of [
+      ...(vendor.clinicalFocus ?? []),
+      ...(vendor.treatmentCategories ?? []),
+      ...(vendor.servicesOffered ?? []),
+    ]) {
       const key = v.trim().toLowerCase();
       if (!key || seen.has(key)) continue;
       seen.add(key);
@@ -367,18 +549,18 @@ const VendorProfile = () => {
     return out;
   })();
 
-  // Aboutness — combine philosophy, summary, patient focus into a single SEO-rich body
   const hasAbout = Boolean(vendor.summary || vendor.clinicalPhilosophy || vendor.patientFocus);
-
-  // Provider data presence
   const hasProvider = Boolean(
     vendor.medicalDirector ||
       vendor.credentials ||
       vendor.clinicalLeadership ||
-      (vendor.additionalProviders && vendor.additionalProviders.length > 0),
+      (vendor.additionalProviders && vendor.additionalProviders.length > 0) ||
+      (vendor.providerHeadshots && vendor.providerHeadshots.length > 0),
   );
+  const hasLocation = Boolean(vendor.address || vendor.city || vendor.state);
+  const hasFacility = Boolean(vendor.facilityPhotos && vendor.facilityPhotos.length > 0);
 
-  // JSON-LD — upgrade to MedicalBusiness when this is clearly a clinic
+  // JSON-LD
   const clinicalCategories = new Set(["TRT Clinic", "Hormone Optimization"]);
   const isClinicalEntity =
     !!vendor.category &&
@@ -389,7 +571,6 @@ const VendorProfile = () => {
   const orgType = isClinicalEntity ? "MedicalBusiness" : "Organization";
   const canonicalPath = `/directory/${vendor.slug}`;
   const canonicalUrl = absoluteUrl(canonicalPath);
-
   const sameAs = [ig, fb, li, yt, vendor.googleBusinessUrl].filter(Boolean) as string[];
 
   const orgLd: Record<string, unknown> = {
@@ -400,20 +581,26 @@ const VendorProfile = () => {
     mainEntityOfPage: canonicalUrl,
   };
   if (vendor.logoUrl) orgLd.logo = vendor.logoUrl;
+  if (vendor.coverImageUrl) orgLd.image = vendor.coverImageUrl;
   if (vendor.phone) orgLd.telephone = vendor.phone;
+  if (vendor.email) orgLd.email = vendor.email;
   if (sameAs.length) orgLd.sameAs = sameAs;
   if (vendor.summary) orgLd.description = vendor.summary;
-  if (vendor.city || vendor.state) {
+  if (vendor.address || vendor.city || vendor.state) {
     orgLd.address = {
       "@type": "PostalAddress",
+      ...(vendor.address ? { streetAddress: vendor.address } : {}),
       ...(vendor.city ? { addressLocality: vendor.city } : {}),
       ...(vendor.state ? { addressRegion: vendor.state } : {}),
       ...(vendor.zip ? { postalCode: vendor.zip } : {}),
       addressCountry: "US",
     };
   }
-  if (serviceBadges.length) {
-    orgLd.knowsAbout = serviceBadges;
+  if (serviceBadges.length) orgLd.knowsAbout = serviceBadges;
+  if (vendor.statesServed?.length || vendor.telehealthAvailability) {
+    orgLd.areaServed = vendor.statesServed?.length
+      ? vendor.statesServed
+      : vendor.telehealthAvailability;
   }
   if (vendor.medicalDirector) {
     orgLd.employee = [
@@ -449,12 +636,7 @@ const VendorProfile = () => {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL + "/" },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Directory",
-        item: absoluteUrl("/verified-vendors"),
-      },
+      { "@type": "ListItem", position: 2, name: "Directory", item: absoluteUrl("/verified-vendors") },
       { "@type": "ListItem", position: 3, name: vendor.name, item: canonicalUrl },
     ],
   };
@@ -490,7 +672,7 @@ const VendorProfile = () => {
       <section className="bg-background">
         <div
           className="mx-auto px-4"
-          style={{ maxWidth: "720px", paddingTop: "16px", paddingBottom: "64px" }}
+          style={{ maxWidth: "760px", paddingTop: "12px", paddingBottom: "64px" }}
         >
           {/* Back link */}
           <Link
@@ -501,174 +683,142 @@ const VendorProfile = () => {
             ← Back to Registry
           </Link>
 
-          {/* ───────────────── 1. IDENTITY HEADER ───────────────── */}
-          <article className="mt-4" style={CARD_STYLE}>
-            <header className="flex items-start gap-4">
-              {/* Logo */}
-              <div
-                className="shrink-0 flex items-center justify-center bg-background overflow-hidden"
-                style={{
-                  width: "56px",
-                  height: "56px",
-                  borderRadius: "10px",
-                  border: "0.5px solid hsl(var(--border))",
-                }}
+          {/* ────── 1. COVER + IDENTITY HEADER ────── */}
+          <article className="mt-4 overflow-hidden" style={{ ...CARD, padding: 0 }}>
+            {/* Cover */}
+            <div
+              className="relative w-full overflow-hidden"
+              style={{
+                height: "140px",
+                background: vendor.coverImageUrl
+                  ? `center / cover no-repeat url(${vendor.coverImageUrl})`
+                  : "linear-gradient(180deg, hsl(var(--muted) / 0.5), hsl(var(--background)))",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              {!vendor.coverImageUrl && (
+                <div
+                  aria-hidden
+                  className="absolute inset-0 flex items-center justify-center text-muted-foreground/40"
+                >
+                  <Building2 strokeWidth={1} size={42} />
+                </div>
+              )}
+            </div>
+
+            {/* Identity body */}
+            <div style={{ padding: "20px" }}>
+              <div className="flex items-start gap-4" style={{ marginTop: "-44px" }}>
+                <div
+                  style={{
+                    boxShadow: "0 0 0 4px hsl(var(--card))",
+                    borderRadius: "14px",
+                  }}
+                >
+                  <LogoBlock vendor={vendor} size={72} />
+                </div>
+                <div className="min-w-0 flex-1 pt-12">
+                  <StatusPill />
+                </div>
+              </div>
+
+              {/* Name */}
+              <h1
+                className="mt-3 font-sans font-semibold text-foreground"
+                style={{ fontSize: "22px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
               >
-                {vendor.logoUrl ? (
-                  <img
-                    src={vendor.logoUrl}
-                    alt={`${vendor.name} logo`}
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
+                {vendor.name}
+              </h1>
+
+              {/* Meta row */}
+              <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+                {vendor.category && (
                   <span
-                    className="font-sans font-semibold text-muted-foreground"
-                    style={{ fontSize: "18px", letterSpacing: "-0.01em" }}
+                    className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
+                    style={{
+                      fontSize: "9px",
+                      letterSpacing: "0.06em",
+                      padding: "3px 6px",
+                      borderRadius: "3px",
+                    }}
                   >
-                    {vendor.name.trim().charAt(0).toUpperCase()}
+                    {vendor.category}
+                  </span>
+                )}
+                {location !== "—" && (
+                  <span
+                    className="inline-flex items-center gap-1 text-muted-foreground"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <MapPin size={12} strokeWidth={1.5} />
+                    {location}
+                  </span>
+                )}
+                {vendor.reviewId && (
+                  <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
+                    {vendor.reviewId}
                   </span>
                 )}
               </div>
 
-              <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-3">
-                  <h1
-                    className="min-w-0 font-sans font-semibold text-foreground"
-                    style={{ fontSize: "20px", lineHeight: 1.25, letterSpacing: "-0.01em" }}
-                  >
-                    {vendor.name}
-                  </h1>
-                  {renderProfileStatus(status)}
-                </div>
-
-                {/* Category + Review ID */}
-                {(vendor.category || vendor.reviewId) && (
-                  <div className="mt-2 flex items-center gap-x-2 flex-wrap">
-                    {vendor.category && (
-                      <span
-                        className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
-                        style={{
-                          fontSize: "9px",
-                          letterSpacing: "0.06em",
-                          padding: "3px 6px",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        {vendor.category}
-                      </span>
-                    )}
-                    {vendor.reviewId && (
-                      <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
-                        {vendor.reviewId}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                {/* Location */}
-                {location !== "—" && (
-                  <p
-                    className="mt-2 text-muted-foreground"
-                    style={{ fontSize: "12.5px", lineHeight: 1.4 }}
-                  >
-                    {location}
-                  </p>
-                )}
-              </div>
-            </header>
-
-            {/* Fulfillment chips */}
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
-              <FulfillmentChip active={isOnline || isHybrid} label="Telehealth" />
-            </div>
-
-            {/* Contact + Social row */}
-            {(vendor.website || vendor.phone || hasAnySocial) && (
-              <>
-                <div
-                  aria-hidden
-                  className="mt-5 mb-4"
-                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-                />
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              {/* Social icon row */}
+              {(vendor.website || phoneHref || emailHref || ig || fb || li || yt || mapsHref) && (
+                <div className="mt-4 flex flex-wrap items-center gap-2">
                   {vendor.website && (
-                    <ContactLink
-                      href={vendor.website}
-                      label={hostname(vendor.website)}
-                      icon={<SocialIcon kind="web" />}
-                    />
+                    <SocialIconBtn href={vendor.website} label={`Website: ${hostname(vendor.website)}`}>
+                      <Globe size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
                   )}
                   {phoneHref && (
-                    <ContactLink href={phoneHref} label={vendor.phone!} icon={<SocialIcon kind="phone" />} />
+                    <SocialIconBtn href={phoneHref} label={`Call ${vendor.phone}`}>
+                      <Phone size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
+                  )}
+                  {emailHref && (
+                    <SocialIconBtn href={emailHref} label={`Email ${vendor.email}`}>
+                      <Mail size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
                   )}
                   {ig && (
-                    <ContactLink href={ig} label={normalizeHandle(vendor.instagram) ?? "Instagram"} icon={<SocialIcon kind="instagram" />} />
+                    <SocialIconBtn href={ig} label="Instagram">
+                      <Instagram size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
                   )}
                   {fb && (
-                    <ContactLink href={fb} label="Facebook" icon={<SocialIcon kind="facebook" />} />
+                    <SocialIconBtn href={fb} label="Facebook">
+                      <Facebook size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
                   )}
                   {li && (
-                    <ContactLink href={li} label="LinkedIn" icon={<SocialIcon kind="linkedin" />} />
+                    <SocialIconBtn href={li} label="LinkedIn">
+                      <Linkedin size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
                   )}
                   {yt && (
-                    <ContactLink href={yt} label="YouTube" icon={<SocialIcon kind="youtube" />} />
+                    <SocialIconBtn href={yt} label="YouTube">
+                      <Youtube size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
                   )}
-                  {vendor.googleBusinessUrl && (
-                    <ContactLink href={vendor.googleBusinessUrl} label="Google Business" icon={<SocialIcon kind="google" />} />
+                  {mapsHref && (
+                    <SocialIconBtn href={mapsHref} label="View on Google Maps">
+                      <MapPin size={15} strokeWidth={1.5} />
+                    </SocialIconBtn>
                   )}
                 </div>
-              </>
-            )}
-          </article>
+              )}
 
-          {/* ───────────────── 2. ABOUT THIS CLINIC ───────────────── */}
-          <article className="mt-4" style={CARD_STYLE}>
-            <SectionHeading>About This Clinic</SectionHeading>
-            {hasAbout ? (
-              <div className="mt-3 space-y-4">
-                {vendor.summary && (
-                  <p
-                    className="text-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
-                  >
-                    {vendor.summary}
-                  </p>
-                )}
-                {vendor.clinicalPhilosophy && (
-                  <div>
-                    <SectionLabel>Clinical Philosophy</SectionLabel>
-                    <p
-                      className="mt-1.5 text-foreground"
-                      style={{ fontSize: "13px", lineHeight: 1.6 }}
-                    >
-                      {vendor.clinicalPhilosophy}
-                    </p>
-                  </div>
-                )}
-                {vendor.patientFocus && (
-                  <div>
-                    <SectionLabel>Patient Focus</SectionLabel>
-                    <p
-                      className="mt-1.5 text-foreground"
-                      style={{ fontSize: "13px", lineHeight: 1.6 }}
-                    >
-                      {vendor.patientFocus}
-                    </p>
-                  </div>
-                )}
+              {/* Fulfillment chips */}
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
+                <FulfillmentChip active={isOnline || isHybrid} label="Telehealth" />
               </div>
-            ) : (
-              <p className="mt-3 text-muted-foreground" style={{ fontSize: "13px", lineHeight: 1.55 }}>
-                Information Not Yet Submitted.
-              </p>
-            )}
+            </div>
           </article>
 
-          {/* ───────────────── 3. SERVICES & CLINICAL FOCUS ───────────────── */}
-          <article className="mt-4" style={CARD_STYLE}>
-            <SectionHeading>Services &amp; Clinical Focus</SectionHeading>
-            {serviceBadges.length > 0 ? (
+          {/* ────── 2. SERVICE BADGES HERO STRIP ────── */}
+          {serviceBadges.length > 0 && (
+            <article className="mt-4" style={CARD}>
+              <SectionHeading>Services &amp; Clinical Focus</SectionHeading>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {serviceBadges.map((tag) => (
                   <Tag
@@ -679,175 +829,417 @@ const VendorProfile = () => {
                   </Tag>
                 ))}
               </div>
-            ) : (
-              <p className="mt-3 text-muted-foreground" style={{ fontSize: "13px", lineHeight: 1.55 }}>
-                Information Not Yet Submitted.
-              </p>
-            )}
-          </article>
+            </article>
+          )}
 
-          {/* ───────────────── 4. PROVIDERS ───────────────── */}
-          <article className="mt-4" style={CARD_STYLE}>
-            <SectionHeading>Providers &amp; Clinical Leadership</SectionHeading>
-            {hasProvider ? (
-              <dl
-                className="mt-3 grid grid-cols-2"
-                style={{ columnGap: "20px", rowGap: "16px" }}
-              >
-                <Cell label="Medical Director" value={vendor.medicalDirector} />
-                <Cell label="Credentials" value={vendor.credentials} />
-                <Cell label="Clinical Leadership" value={vendor.clinicalLeadership} />
-                <Cell
-                  label="Additional Providers"
-                  value={
-                    vendor.additionalProviders?.length
-                      ? vendor.additionalProviders
-                          .map((p) =>
-                            [p.name, p.credentials].filter(Boolean).join(", ") +
-                            (p.role ? ` — ${p.role}` : ""),
-                          )
-                          .join(" · ")
-                      : undefined
-                  }
-                />
-              </dl>
-            ) : (
-              <p className="mt-3 text-muted-foreground" style={{ fontSize: "13px", lineHeight: 1.55 }}>
-                Information Not Yet Submitted.
-              </p>
-            )}
-          </article>
+          {/* ────── 3. PROFILE COMPLETENESS ────── */}
+          <div className="mt-4">
+            <CompletenessCard vendor={vendor} />
+          </div>
 
-          {/* ───────────────── 5. SOCIAL PRESENCE ───────────────── */}
-          {hasAnySocial && (
-            <article className="mt-4" style={CARD_STYLE}>
-              <SectionHeading>Social Presence</SectionHeading>
+          {/* ────── 4. ABOUT THIS CLINIC ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading>About This Clinic</SectionHeading>
+            {hasAbout ? (
+              <div className="mt-3 space-y-4">
+                {vendor.summary && (
+                  <p className="text-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                    {vendor.summary}
+                  </p>
+                )}
+                {vendor.clinicalPhilosophy && (
+                  <div>
+                    <Eyebrow>Clinical Philosophy</Eyebrow>
+                    <p
+                      className="mt-1.5 text-foreground"
+                      style={{ fontSize: "13px", lineHeight: 1.6 }}
+                    >
+                      {vendor.clinicalPhilosophy}
+                    </p>
+                  </div>
+                )}
+                {vendor.patientFocus && (
+                  <div>
+                    <Eyebrow>Patient Focus</Eyebrow>
+                    <p
+                      className="mt-1.5 text-foreground"
+                      style={{ fontSize: "13px", lineHeight: 1.6 }}
+                    >
+                      {vendor.patientFocus}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
               <p
-                className="mt-2 text-muted-foreground"
-                style={{ fontSize: "11px", lineHeight: 1.5 }}
+                className="mt-3 text-muted-foreground"
+                style={{ fontSize: "13px", lineHeight: 1.55 }}
               >
-                Informational links to the clinic's public channels. These references do not
-                affect Source Standard verification status.
+                No description provided yet.{" "}
+                {!claimed && (
+                  <Link
+                    to={`/apply?claim=${encodeURIComponent(vendor.slug)}`}
+                    className="underline underline-offset-2 decoration-border hover:decoration-foreground text-foreground"
+                  >
+                    Claim this profile
+                  </Link>
+                )}
               </p>
-              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-                {ig && (
-                  <ContactLink
-                    href={ig}
-                    label={normalizeHandle(vendor.instagram) ?? "Instagram"}
-                    icon={<SocialIcon kind="instagram" />}
-                  />
+            )}
+          </article>
+
+          {/* ────── 5. CONDITIONS · SERVICES · STATES ────── */}
+          {(vendor.conditionsTreated?.length ||
+            vendor.servicesOffered?.length ||
+            vendor.statesServed?.length ||
+            vendor.telehealthAvailability) && (
+            <article className="mt-4" style={CARD}>
+              <SectionHeading>Clinical Coverage</SectionHeading>
+              <div className="mt-3 grid gap-4">
+                {vendor.conditionsTreated?.length ? (
+                  <div>
+                    <Eyebrow>Conditions Treated</Eyebrow>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {vendor.conditionsTreated.map((c) => (
+                        <Tag key={c}>{c}</Tag>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                {vendor.servicesOffered?.length ? (
+                  <div>
+                    <Eyebrow>Services Offered</Eyebrow>
+                    <div className="mt-1.5 flex flex-wrap gap-1.5">
+                      {vendor.servicesOffered.map((c) => (
+                        <Tag key={c}>{c}</Tag>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                {(vendor.statesServed?.length || vendor.telehealthAvailability) && (
+                  <div>
+                    <Eyebrow>States Served</Eyebrow>
+                    <p
+                      className="mt-1.5 text-foreground"
+                      style={{ fontSize: "13px", lineHeight: 1.55 }}
+                    >
+                      {vendor.statesServed?.length
+                        ? vendor.statesServed.join(" · ")
+                        : vendor.telehealthAvailability}
+                    </p>
+                  </div>
                 )}
-                {fb && <ContactLink href={fb} label="Facebook" icon={<SocialIcon kind="facebook" />} />}
-                {li && <ContactLink href={li} label="LinkedIn" icon={<SocialIcon kind="linkedin" />} />}
-                {yt && <ContactLink href={yt} label="YouTube" icon={<SocialIcon kind="youtube" />} />}
-                {vendor.googleBusinessUrl && (
-                  <ContactLink
-                    href={vendor.googleBusinessUrl}
-                    label="Google Business Profile"
-                    icon={<SocialIcon kind="google" />}
-                  />
-                )}
+                {vendor.telehealthAvailability && vendor.statesServed?.length ? (
+                  <div>
+                    <Eyebrow>Telehealth Availability</Eyebrow>
+                    <p
+                      className="mt-1.5 text-foreground"
+                      style={{ fontSize: "13px", lineHeight: 1.55 }}
+                    >
+                      {vendor.telehealthAvailability}
+                    </p>
+                  </div>
+                ) : null}
               </div>
             </article>
           )}
 
-          {/* ───────────────── 6. VERIFICATION RECORD ───────────────── */}
-          <article className="mt-4" style={CARD_STYLE}>
-            <SectionHeading>Verification Record</SectionHeading>
+          {/* ────── 6. LOCATION ────── */}
+          {hasLocation && (
+            <article className="mt-4" style={CARD}>
+              <SectionHeading>Location</SectionHeading>
+              <div className="mt-3 flex items-start gap-3">
+                <MapPin size={16} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-foreground" style={{ fontSize: "13.5px", lineHeight: 1.55 }}>
+                    {vendor.address && <>{vendor.address}<br /></>}
+                    {location !== "—" && location}
+                    {vendor.zip ? ` ${vendor.zip}` : ""}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {mapsHref && (
+                      <a
+                        href={mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-sans font-semibold uppercase text-foreground hover:opacity-70 transition-opacity"
+                        style={{
+                          fontSize: "10.5px",
+                          letterSpacing: "0.08em",
+                          padding: "6px 12px",
+                          borderRadius: "16px",
+                          border: "0.5px solid hsl(var(--border))",
+                        }}
+                      >
+                        Open in Maps <ExternalLink size={11} strokeWidth={1.5} />
+                      </a>
+                    )}
+                    {dirHref && (
+                      <a
+                        href={dirHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-sans font-semibold uppercase text-foreground hover:opacity-70 transition-opacity"
+                        style={{
+                          fontSize: "10.5px",
+                          letterSpacing: "0.08em",
+                          padding: "6px 12px",
+                          borderRadius: "16px",
+                          border: "0.5px solid hsl(var(--border))",
+                        }}
+                      >
+                        Directions <ExternalLink size={11} strokeWidth={1.5} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
+          )}
 
-            <dl
-              className="mt-4 grid grid-cols-2"
-              style={{ columnGap: "20px", rowGap: "16px" }}
-            >
-              <Cell label="Status" value={VENDOR_STATUS_LABEL[status]} />
-              <Cell label="Source Type" value={isVerified ? sourceType : undefined} />
-              <Cell label="License / Review ID" value={isVerified ? license : undefined} mono />
-              <Cell label="Verification Date" value={isVerified ? verificationDate : undefined} mono />
-              <Cell
-                label="Audit Date"
-                value={isVerified ? vendor.scopeReviewDate || vendor.reviewDate : undefined}
-                mono
-              />
-              <Cell
-                label="Verified Scope"
-                value={isVerified && hasScope ? scopeCompounds.join(" · ") : undefined}
-              />
-              <Cell
-                label="Documentation Reviewed"
-                value={
-                  isVerified && vendor.documentation?.length
-                    ? vendor.documentation
-                        .filter((d) => d.status !== "Not provided")
-                        .map((d) => d.label)
-                        .join(" · ")
-                    : undefined
-                }
-              />
-              <Cell
-                label="Status History"
-                value={
-                  isVerified && vendor.reviewDate
-                    ? `Verified ${vendor.reviewDate}`
-                    : status === "under-review"
-                    ? "Application under review"
-                    : "No published status history."
-                }
-              />
-            </dl>
-
-            {/* Status meaning blocks */}
-            {isUnverified && (
+          {/* ────── 7. PROVIDERS ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading>Providers &amp; Clinical Leadership</SectionHeading>
+            {hasProvider ? (
               <>
-                <div
-                  className="mt-6 pt-6"
-                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-                >
-                  <SectionLabel>Status Meaning</SectionLabel>
-                  <p
-                    className="mt-2 text-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.55 }}
-                  >
-                    No sufficient documentation has been reviewed by Source Standard to
-                    support the stated sourcing claim within the registry framework.
-                  </p>
-                </div>
+                {/* Headshot strip */}
+                {vendor.providerHeadshots?.length ? (
+                  <div className="mt-3 flex flex-wrap gap-3">
+                    {vendor.providerHeadshots.map((p) => (
+                      <div key={p.name} className="flex items-center gap-2">
+                        <div
+                          className="overflow-hidden bg-muted/40 shrink-0"
+                          style={{
+                            width: "44px",
+                            height: "44px",
+                            borderRadius: "22px",
+                            border: "0.5px solid hsl(var(--border))",
+                          }}
+                        >
+                          {p.imageUrl ? (
+                            <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                              <UserRound size={20} strokeWidth={1.25} />
+                            </div>
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <p
+                            className="font-sans font-medium text-foreground truncate"
+                            style={{ fontSize: "12.5px" }}
+                          >
+                            {p.name}
+                          </p>
+                          {p.role && (
+                            <p
+                              className="font-sans text-muted-foreground truncate"
+                              style={{ fontSize: "10.5px" }}
+                            >
+                              {p.role}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
 
-                <div
-                  className="mt-5 pt-5"
-                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                <dl
+                  className="mt-4 grid grid-cols-2"
+                  style={{ columnGap: "20px", rowGap: "16px" }}
                 >
-                  <SectionLabel>Review Boundary</SectionLabel>
-                  <p
-                    className="mt-2"
-                    style={{ fontSize: "13.5px", lineHeight: 1.55, color: "rgba(0,16,33,0.6)" }}
-                  >
-                    Unverified status does not imply that the vendor is unsafe, unlawful,
-                    fraudulent, or clinically inappropriate. It reflects only the absence
-                    of sufficient reviewed documentation within the Source Standard framework.
-                  </p>
-                </div>
+                  <Cell label="Medical Director" value={vendor.medicalDirector} />
+                  <Cell label="Credentials" value={vendor.credentials} />
+                  <Cell label="Clinical Leadership" value={vendor.clinicalLeadership} />
+                  <Cell
+                    label="Additional Providers"
+                    value={
+                      vendor.additionalProviders?.length
+                        ? vendor.additionalProviders
+                            .map(
+                              (p) =>
+                                [p.name, p.credentials].filter(Boolean).join(", ") +
+                                (p.role ? ` — ${p.role}` : ""),
+                            )
+                            .join(" · ")
+                        : undefined
+                    }
+                  />
+                </dl>
               </>
+            ) : (
+              <p
+                className="mt-3 text-muted-foreground"
+                style={{ fontSize: "13px", lineHeight: 1.55 }}
+              >
+                Provider information not yet submitted.
+              </p>
             )}
           </article>
 
-          {/* ───────────────── 7. CLAIM PROFILE ───────────────── */}
+          {/* ────── 8. FACILITY PHOTOS ────── */}
+          {hasFacility && (
+            <article className="mt-4" style={CARD}>
+              <SectionHeading>Facility</SectionHeading>
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {vendor.facilityPhotos!.map((p, i) => (
+                  <div
+                    key={i}
+                    className="overflow-hidden bg-muted/40"
+                    style={{
+                      aspectRatio: "1 / 1",
+                      borderRadius: "8px",
+                      border: "0.5px solid hsl(var(--border))",
+                    }}
+                  >
+                    <img
+                      src={p.url}
+                      alt={p.caption ?? `${vendor.name} facility`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </article>
+          )}
+
+          {/* ────── 9. VERIFICATION RECORD (compact for unverified) ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading
+              action={
+                !isVerified ? null : null
+              }
+            >
+              Verification Record
+            </SectionHeading>
+
+            {/* Compact summary */}
+            <div className="mt-3 flex items-start gap-3">
+              <Star size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
+              <div className="min-w-0">
+                <p className="font-sans font-semibold text-foreground" style={{ fontSize: "13.5px" }}>
+                  Verification Status: {VENDOR_STATUS_LABEL[status]}
+                </p>
+                <p
+                  className="mt-1 text-muted-foreground"
+                  style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                >
+                  {isVerified
+                    ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
+                    : status === "under-review"
+                    ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
+                    : "No verification review has been completed within the Source Standard framework."}
+                </p>
+              </div>
+            </div>
+
+            {/* Expandable detail */}
+            <button
+              type="button"
+              onClick={() => setVerificationOpen((o) => !o)}
+              aria-expanded={verificationOpen}
+              className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+              style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
+            >
+              {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
+              <ChevronDown
+                size={12}
+                strokeWidth={1.5}
+                style={{
+                  transition: "transform 250ms ease-out",
+                  transform: verificationOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              />
+            </button>
+
+            <div
+              className="grid"
+              style={{
+                gridTemplateRows: verificationOpen ? "1fr" : "0fr",
+                transition: "grid-template-rows 300ms ease-out",
+              }}
+            >
+              <div className="overflow-hidden">
+                <div
+                  className="mt-4 pt-4"
+                  style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                >
+                  <dl
+                    className="grid grid-cols-2"
+                    style={{ columnGap: "20px", rowGap: "16px" }}
+                  >
+                    <Cell label="Status" value={VENDOR_STATUS_LABEL[status]} />
+                    <Cell label="Source Type" value={isVerified ? "503A / 503B / Retail" : undefined} />
+                    <Cell label="Review ID" value={isVerified ? vendor.reviewId : undefined} mono />
+                    <Cell label="Verification Date" value={isVerified ? vendor.reviewDate : undefined} mono />
+                    <Cell
+                      label="Audit Date"
+                      value={isVerified ? vendor.scopeReviewDate || vendor.reviewDate : undefined}
+                      mono
+                    />
+                    <Cell
+                      label="Fulfillment"
+                      value={VENDOR_FULFILLMENT_LABEL[fulfillment]}
+                    />
+                    <Cell
+                      label="Verified Scope"
+                      value={isVerified && hasScope ? scopeCompounds.join(" · ") : undefined}
+                    />
+                    <Cell
+                      label="Documentation Reviewed"
+                      value={
+                        isVerified && vendor.documentation?.length
+                          ? vendor.documentation
+                              .filter((d) => d.status !== "Not provided")
+                              .map((d) => d.label)
+                              .join(" · ")
+                          : undefined
+                      }
+                    />
+                  </dl>
+
+                  <div
+                    className="mt-5 pt-5"
+                    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+                  >
+                    <Eyebrow>Review Boundary</Eyebrow>
+                    <p
+                      className="mt-2"
+                      style={{
+                        fontSize: "12.5px",
+                        lineHeight: 1.55,
+                        color: "rgba(0,16,33,0.6)",
+                      }}
+                    >
+                      Verification status reflects only documentation reviewed by Source Standard
+                      within its registry framework. Unverified status does not imply that a vendor
+                      is unsafe, unlawful, fraudulent, or clinically inappropriate.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          {/* ────── 10. CLAIM PROFILE ────── */}
           {!claimed && (
             <article
               className="mt-4"
               style={{
-                ...CARD_STYLE,
+                ...CARD,
                 background: "hsl(var(--muted) / 0.4)",
               }}
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="min-w-0">
-                  <SectionLabel>Unclaimed Listing</SectionLabel>
+                  <Eyebrow>Unclaimed Listing</Eyebrow>
                   <p
                     className="mt-2 text-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.55 }}
                   >
-                    Represent this clinic? Claim the profile to add a logo, provider
-                    information, services, social links, and begin verification.
+                    Represent this clinic? Claim the profile to add a logo, provider information,
+                    services, social links, and begin verification.
                   </p>
                 </div>
                 <Link
