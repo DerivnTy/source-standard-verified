@@ -191,21 +191,8 @@ const GreenlistProfile = () => {
         ...(fdaInspectionUrl ? [{ label: "FDA Inspection Records", url: fdaInspectionUrl }] : []),
       ];
 
-  // Timeline — prefer data-driven entries from registry dataset.
-  const timeline: { date: string; event: string }[] = p.timeline?.length
-    ? [...p.timeline]
-    : [];
-  if (timeline.length === 0) {
-    if (p.initialRegistrationYear)
-      timeline.push({ date: p.initialRegistrationYear, event: "FDA Registration" });
-    if (entry.category === "503A")
-      timeline.push({ date: p.initialRegistrationYear ?? "—", event: "503A Designation" });
-    if (entry.category === "503B")
-      timeline.push({ date: p.initialRegistrationYear ?? "—", event: "503B Designation" });
-  }
-  timeline.push({ date: lastUpdated, event: "Added to Source Standard Registry" });
-  if (status === "monitoring")
-    timeline.push({ date: lastUpdated, event: "Monitoring Initiated" });
+
+
 
 
 
@@ -506,27 +493,8 @@ const GreenlistProfile = () => {
             )}
 
 
-            {/* SECTION 7 — Timeline */}
-            {timeline.length > 0 && (
-              <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-                <SectionLabel>Timeline</SectionLabel>
-                <ol className="mt-3 space-y-3">
-                  {timeline.map((row, i) => (
-                    <li key={i} className="flex items-baseline gap-4">
-                      <span
-                        className="font-mono tabular-nums text-muted-foreground shrink-0"
-                        style={{ fontSize: "11px", minWidth: "92px" }}
-                      >
-                        {row.date}
-                      </span>
-                      <span className="text-foreground" style={{ fontSize: "13px", lineHeight: 1.5 }}>
-                        {row.event}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
+
+
 
             {/* SECTION 8 — Registry Framework */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
