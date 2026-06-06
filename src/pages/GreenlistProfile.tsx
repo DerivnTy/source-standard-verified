@@ -35,7 +35,7 @@ const STATUS_LABEL: Record<StatusTier, string> = {
 
 const STATUS_COLOR: Record<StatusTier, string> = {
   greenlisted: "#34C759",
-  monitoring: "#C99A2E",
+  monitoring: "#FF3B30",
   alert: "#FF3B30",
 };
 
