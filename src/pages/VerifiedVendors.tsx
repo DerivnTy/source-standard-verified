@@ -129,17 +129,17 @@ const VerifiedVendors = () => {
 
   const visibleItems = sorted.slice(0, visibleCount);
   const hasMore = visibleCount < sorted.length;
-  const fadeKey = `${query}|${status}|${delivery}|${focus}`;
+  const fadeKey = `${query}|${status}|${delivery}`;
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, status, delivery, focus]);
+  }, [query, status, delivery]);
 
   return (
     <>
       <PageMeta
         title="Vendor Registry"
-        description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
+        description="A public-reference database of compounded therapy vendors indexed by verification status, vendor type, and review scope."
         path="/verified-vendors"
         jsonLd={{
           "@context": "https://schema.org",
