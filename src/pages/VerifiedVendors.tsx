@@ -196,31 +196,11 @@ const VerifiedVendors = () => {
         recordCount={vendors.length}
       />
 
-      {/* Registry descriptor + search — surfaced above metrics */}
+      {/* Search */}
       <section className="bg-background">
-        <div className="page-shell pt-6 md:pt-8 pb-4">
+        <div className="page-shell pt-3 md:pt-4 pb-2">
           <div className="mx-auto w-wide">
             <div className="-mx-5 md:mx-0 px-5">
-              {/* Descriptor */}
-              <div className="mb-4">
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "10.5px", letterSpacing: "0.12em" }}
-                >
-                  Registry Includes
-                </p>
-                <ul
-                  className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-foreground/75"
-                  style={{ fontSize: "12.5px", lineHeight: 1.45 }}
-                >
-                  <li>· Verified organizations</li>
-                  <li>· Organizations under review</li>
-                  <li>· Claimed organizations</li>
-                  <li>· Unclaimed organizations</li>
-                </ul>
-              </div>
-
-              {/* Search */}
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -243,13 +223,13 @@ const VerifiedVendors = () => {
 
       {/* Compact stats — secondary to records */}
       <section className="bg-background">
-        <div className="page-shell pb-4">
+        <div className="page-shell pb-2">
           <div className="mx-auto w-wide">
             <div className="-mx-5 md:mx-0 px-5">
               <div
                 role="group"
                 aria-label="Registry summary"
-                className="grid grid-cols-2 overflow-hidden bg-background"
+                className="grid grid-cols-2 overflow-hidden bg-white"
                 style={{
                   borderRadius: "10px",
                   border: "1px solid rgba(0,16,33,0.08)",
