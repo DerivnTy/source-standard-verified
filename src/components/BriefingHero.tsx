@@ -114,7 +114,7 @@ export const BriefingHero = ({
               {heroMetrics && (
                 <div
                   className="flex justify-start lg:justify-center"
-                  style={{ marginTop: "clamp(36px, 5vh, 52px)" }}
+                  style={{ marginTop: "clamp(20px, 3vh, 32px)" }}
                 >
                   {heroMetrics}
                 </div>
