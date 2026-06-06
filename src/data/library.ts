@@ -130,9 +130,9 @@ export const libraryGuides: LibraryEntry[] = [
     id: "SS-GUIDE-001",
     slug: "safe-peptide-handling-and-reconstitution",
     lane: "guide",
-    title: "Safe Peptide Handling and Reconstitution",
+    title: "Why Supply Chains Matter in Compounded Therapy",
     summary:
-      "Practical reference for handling, reconstitution, and storage of peptide preparations in clinical settings.",
+      "How compounded medications move through facilities, vendors, and consumers, and why sourcing transparency matters.",
     status: "outlined",
     reviewedBy: "Medical Advisory Board",
   },
