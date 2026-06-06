@@ -417,7 +417,7 @@ const GreenlistProfile = () => {
               return (
                 <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                   <SectionLabel>Facility Snapshot</SectionLabel>
-                  <div className="mt-3 grid gap-2 grid-cols-2 sm:grid-cols-3">
+                  <div className="mt-3 grid gap-x-6 grid-cols-2 sm:grid-cols-3">
                     {cards.map((c) => (
                       <SnapCard key={c.label} label={c.label} value={c.value} />
                     ))}
