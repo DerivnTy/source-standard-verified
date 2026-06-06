@@ -104,25 +104,25 @@ const Greenlist = () => {
   }, [query, state, status]);
 
   const heroDescription =
-    "A public-reference registry of manufacturers identified within the Source Standard supply chain. Manufacturer status is determined through ongoing independent testing activity and supply-chain monitoring.";
+    "A public-reference registry of 503A and 503B compounding facilities. Greenlisted status is earned through Source Standard independent testing activity.";
 
   return (
     <>
       <PageMeta
-        title="Manufacturer Registry · Source Standard"
+        title="Facility Registry · Source Standard"
         description={heroDescription}
         path="/greenlist"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "Manufacturer Registry",
+          name: "Facility Registry",
           url: "https://sourcestandard.org/greenlist",
         }}
       />
 
       <RegistryHeader
         indexNumber="02"
-        title="Manufacturer Registry"
+        title="Facility Registry"
         description={heroDescription}
         recordCount={counts.total}
       />
