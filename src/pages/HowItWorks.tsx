@@ -31,7 +31,7 @@ const AUDIT_CLAUSES: Clause[] = [
   },
   {
     n: "04",
-    t: "Entity validation",
+    t: "Business verification",
     d: "Confirms consistency between business identity, operating entity information, ownership records, locations, and public-facing representations.",
   },
 ];
