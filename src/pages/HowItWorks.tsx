@@ -211,7 +211,7 @@ const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
 
 const HowItWorks = () => {
   const heroDescription =
-    "Independent evaluation of vendor sourcing claims, pharmacy relationships, submitted documentation, public records, and ongoing evidence associated with a vendor record.";
+    "Structured evaluation of vendor sourcing claims through documentation review, pharmacy relationship verification, public-record analysis, and ongoing evidence monitoring.";
 
   return (
     <>
