@@ -135,7 +135,7 @@ const ReferenceNote = ({
 );
 
 const HERO_DESCRIPTION =
-  "Clinical, regulatory, and documentation reference for compounded therapy sourcing, pharmacy standards, and consumer due diligence. Materials are reviewed for accuracy, scope, and public-reference clarity.";
+  "Foundational sourcing transparency resources and current publications from Source Standard. Reference materials covering vendor verification, facility relationships, documentation review, and emerging industry topics in compounded therapy.";
 
 const COMMON_INQUIRIES: {
   label: string;
@@ -167,7 +167,7 @@ const COMMON_INQUIRIES: {
   },
 ];
 
-const PREVIEW_LIMIT = 4;
+const PREVIEW_LIMIT_LATEST = 6;
 
 const FILTER_TABS: { id: "all" | CategoryId; label: string }[] = [
   { id: "all", label: "All" },
@@ -183,7 +183,10 @@ const CategoryBlock = ({
   category: Category;
   entries: ReturnType<typeof articlesByCategory>;
 }) => {
-  const visible = entries.slice(0, PREVIEW_LIMIT);
+  const visible =
+    category.id === "core" ? entries : entries.slice(0, PREVIEW_LIMIT_LATEST);
+  const hasMore =
+    category.id !== "core" && entries.length > PREVIEW_LIMIT_LATEST;
 
   return (
     <section
