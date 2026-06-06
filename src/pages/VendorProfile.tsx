@@ -564,44 +564,43 @@ const VendorProfile = () => {
             ← Back to Registry
           </Link>
 
-          {/* ────── 1. COVER + IDENTITY HEADER ────── */}
+          {/* ────── 1. IDENTITY HEADER ────── */}
           <article className="mt-4 overflow-hidden" style={{ ...CARD, padding: 0 }}>
-            {/* Cover */}
-            <div
-              className="relative w-full overflow-hidden"
-              style={{
-                height: "140px",
-                background: vendor.coverImageUrl
-                  ? `center / cover no-repeat url(${vendor.coverImageUrl})`
-                  : "linear-gradient(180deg, hsl(var(--muted) / 0.5), hsl(var(--background)))",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              {!vendor.coverImageUrl && (
-                <div
-                  aria-hidden
-                  className="absolute inset-0 flex items-center justify-center text-muted-foreground/40"
-                >
-                  <Building2 strokeWidth={1} size={42} />
-                </div>
-              )}
-            </div>
+            {/* Cover — only when an image is provided */}
+            {vendor.coverImageUrl && (
+              <div
+                className="relative w-full overflow-hidden"
+                style={{
+                  height: "96px",
+                  background: `center / cover no-repeat url(${vendor.coverImageUrl})`,
+                  borderBottom: "0.5px solid hsl(var(--border))",
+                }}
+              />
+            )}
 
             {/* Identity body */}
             <div style={{ padding: "20px" }}>
-              <div className="flex items-start gap-4" style={{ marginTop: "-44px" }}>
+              <div
+                className="flex items-start gap-4"
+                style={vendor.coverImageUrl ? { marginTop: "-36px" } : undefined}
+              >
                 <div
-                  style={{
-                    boxShadow: "0 0 0 4px hsl(var(--card))",
-                    borderRadius: "14px",
-                  }}
+                  style={
+                    vendor.coverImageUrl
+                      ? { boxShadow: "0 0 0 4px hsl(var(--card))", borderRadius: "12px" }
+                      : undefined
+                  }
                 >
-                  <LogoBlock vendor={vendor} size={72} />
+                  <LogoBlock vendor={vendor} size={56} />
                 </div>
-                <div className="min-w-0 flex-1 pt-12">
+                <div
+                  className="min-w-0 flex-1"
+                  style={vendor.coverImageUrl ? { paddingTop: "40px" } : { paddingTop: "4px" }}
+                >
                   <StatusPill />
                 </div>
               </div>
+
 
               {/* Name */}
               <h1
