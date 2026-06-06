@@ -215,7 +215,7 @@ const MedicalAdvisory = () => {
                       Institutional Mandate
                     </h2>
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      The operating boundaries under which the Board supports the framework.
+                      The operating principles governing Clinical Oversight.
                     </p>
                   </div>
                 </div>
