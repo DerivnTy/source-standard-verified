@@ -11,7 +11,7 @@ const WAYPOINTS = [
   { id: "integrity", number: "03", label: "Integrity" },
   { id: "warranty", number: "04", label: "Warranty" },
   { id: "jurisdiction", number: "05", label: "Jurisdiction" },
-  { id: "related", number: "06", label: "Related Policies" },
+  { id: "related", number: "06", label: "Related Framework Documents" },
 ];
 
 type Clause = { n: string; t: string; d: string };
@@ -43,7 +43,7 @@ const INTEGRITY: Clause[] = [
   {
     n: "01",
     t: "Bulk extraction",
-    d: "No automated scraping, crawling, or indexing of registry data for resale or creation of derivative datasets without authorization.",
+    d: "No automated extraction, scraping, crawling, replication, or aggregation of registry content for resale, republication, or creation of derivative databases without authorization.",
   },
   {
     n: "02",
@@ -71,7 +71,7 @@ const WARRANTY: Clause[] = [
   {
     n: "01",
     t: "Reference basis",
-    d: "The registry reflects Source Standard's review of submitted documentation, public records, pharmacy relationship evidence, and related materials within a defined scope and at a defined point in time.",
+    d: "The registry reflects Source Standard's review of available documentation, sourcing evidence, facility relationships, public records, and related materials within a defined scope and at a defined point in time.",
   },
   {
     n: "02",
@@ -204,7 +204,7 @@ const RelatedLinkRow = ({ to, label }: { to: string; label: string }) => (
 
 const Terms = () => {
   const heroDescription =
-    "The governing terms for access to, citation of, and use of the Source Standard public registry and associated framework materials.";
+    "The terms governing access to, use of, citation of, and reliance upon Source Standard registry records, publications, and framework materials.";
 
   return (
     <>
@@ -251,10 +251,10 @@ const Terms = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    These terms govern public access to the Source Standard registry and the related public-reference materials published under the framework.
+                    These terms govern public access to Source Standard registry records, publications, framework materials, and public-reference resources.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    They define the conditions of access, rules for citation and use, prohibited conduct, and the legal boundaries that apply to reliance on registry information.
+                    They establish the rules governing access to Source Standard materials, the permitted use of registry information, citation requirements, prohibited conduct, and the limits under which Source Standard information may be relied upon.
                   </p>
                 </div>
               </TermsCard>
@@ -290,13 +290,13 @@ const Terms = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Access to the Source Standard public registry constitutes acceptance of these terms and the related policies referenced on this page.
+                    Access to Source Standard registry records, publications, and framework materials constitutes acceptance of these terms and the related policies referenced on this page.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    If a user does not accept these terms, use of the registry and associated framework materials should be discontinued.
+                    If a user does not accept these terms, use of Source Standard materials should be discontinued.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Continued access signifies acceptance of the jurisdictional, liability, and use limitations defined below.
+                    Continued access and use of Source Standard materials constitutes acceptance of the terms, limitations, and responsibilities described on this page.
                   </p>
                 </div>
               </TermsCard>
@@ -314,7 +314,7 @@ const Terms = () => {
             >
               <SectionHeader
                 index="02"
-                title="Citation & Data Use"
+                title="Citation & Reference Use"
                 intro="How registry records may be referenced publicly."
               />
               <p
@@ -349,7 +349,7 @@ const Terms = () => {
               <SectionHeader
                 index="03"
                 title="Integrity & Prohibitions"
-                intro="Conduct that is not permitted in connection with the registry or its published materials."
+                intro="Conduct that is not permitted in connection with Source Standard registry records, publications, framework materials, and public-reference resources."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {INTEGRITY.map((c) => (
@@ -441,7 +441,7 @@ const Terms = () => {
             >
               <SectionHeader
                 index="06"
-                title="Related Policies"
+                title="Related Framework Documents"
                 intro="Further reading on privacy, verification scope, operating boundaries, and public status meanings."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -454,15 +454,15 @@ const Terms = () => {
             {/* §8 Closing */}
             <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <TermsCard>
-                <Eyebrow>Public Access</Eyebrow>
+                <Eyebrow>Responsible Use</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
-                  Public access requires clear terms of use.
+                  Responsible use preserves the integrity of the registry.
                 </h2>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  These terms exist to preserve the integrity of the registry, support accurate public citation, and clarify the limits under which Source Standard information is published and used.
+                  These terms exist to preserve the integrity of the registry, promote accurate public reference, and establish the limits under which Source Standard information may be accessed, cited, and relied upon.
                 </p>
               </TermsCard>
             </section>
