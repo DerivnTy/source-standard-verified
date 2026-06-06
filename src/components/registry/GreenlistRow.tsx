@@ -73,16 +73,16 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
                 fontWeight: 700,
                 letterSpacing: "0.035em",
                 lineHeight: 1,
-                color: "#34C759",
+                color: "#C99A2E",
                 transform: "translateY(2px)",
               }}
             >
               <span
                 aria-hidden
                 className={`inline-block rounded-full live-dot ${cadenceClass}`}
-                style={{ width: "5px", height: "5px", backgroundColor: "#34C759" }}
+                style={{ width: "5px", height: "5px", backgroundColor: "#C99A2E" }}
               />
-              Recognized
+              Under Monitoring
             </span>
           )}
         </div>

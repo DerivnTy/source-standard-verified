@@ -1,6 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
@@ -9,8 +7,6 @@ import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 import { GreenlistRow } from "@/components/registry/GreenlistRow";
 import {
   greenlistEntries,
-  GreenlistEntry,
-  GreenlistCategory,
   getGreenlistCounts,
   getGreenlistStates,
   entryMatchesState,
@@ -19,15 +15,7 @@ import {
 const ALL = "__all__";
 const NATIONWIDE = "__nationwide__";
 
-const CATEGORY_ORDER: GreenlistCategory[] = ["503B", "503A", "Other"];
-
-const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
-  "503B": "503B Outsourcing",
-  "503A": "503A Pharmacy",
-  Other: "Other",
-};
-
-type StatusKey = "any" | "authorized" | "alert";
+type StatusKey = "all" | "greenlisted" | "monitoring" | "alert";
 
 const SoftPill = ({
   label,
@@ -65,14 +53,19 @@ const SoftPill = ({
 
 const Greenlist = () => {
   const [query, setQuery] = useState("");
-  const [type, setType] = useState<string>(ALL);
-  const [state, setStateFilter] = useState<string>(ALL);
-  const [status, setStatus] = useState<StatusKey>("any");
+  const [state] = useState<string>(ALL);
+  const [status, setStatus] = useState<StatusKey>("all");
   const PAGE_SIZE = 10;
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const states = useMemo(() => getGreenlistStates(), []);
   const counts = useMemo(() => getGreenlistCounts(), []);
+  void getGreenlistStates;
+
+  // Derived manufacturer-tier counts.
+  // At launch no manufacturer has yet satisfied Greenlisted requirements.
+  const greenlistedCount = 0;
+  const alertCount = counts.notRecognized;
+  const monitoringCount = counts.total - greenlistedCount - alertCount;
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -83,7 +76,6 @@ const Greenlist = () => {
           .toLowerCase();
         if (!hay.includes(q)) return false;
       }
-      if (type !== ALL && e.category !== type) return false;
       if (state !== ALL) {
         if (state === NATIONWIDE) {
           if (!e.serviceArea) return false;
@@ -91,11 +83,13 @@ const Greenlist = () => {
           return false;
         }
       }
-      if (status === "authorized" && e.regulatoryAlert) return false;
+      // Greenlisted: none at launch
+      if (status === "greenlisted") return false;
       if (status === "alert" && !e.regulatoryAlert) return false;
+      if (status === "monitoring" && e.regulatoryAlert) return false;
       return true;
     });
-  }, [query, type, state, status]);
+  }, [query, state, status]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -107,48 +101,98 @@ const Greenlist = () => {
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, type, state, status]);
+  }, [query, state, status]);
+
+  const heroDescription =
+    "A public-reference registry of manufacturers identified within the Source Standard supply chain. Manufacturer status is determined through ongoing independent testing activity and supply-chain monitoring.";
 
   return (
     <>
       <PageMeta
-        title="Upstream Registry · Source Standard"
-        description="A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance."
+        title="Manufacturer Registry · Source Standard"
+        description={heroDescription}
         path="/greenlist"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "Upstream Registry",
+          name: "Manufacturer Registry",
           url: "https://sourcestandard.org/greenlist",
         }}
       />
 
       <RegistryHeader
         indexNumber="02"
-        title="Upstream Registry"
-        description="A public-reference list of upstream compounding facilities used for Source Standard sourcing review. Records are organized by facility type, location, public registration status, and review relevance."
+        title="Manufacturer Registry"
+        description={heroDescription}
         recordCount={counts.total}
       />
 
       <RegistryHorizon
         seam
         cells={[
-          { label: "Total Records", value: counts.recognized },
-          { label: "503B Facilities", value: counts["503B"] },
-          { label: "503A Facilities", value: counts["503A"] },
+          { label: "Manufacturers Indexed", value: counts.total },
+          { label: "Greenlisted", value: greenlistedCount },
+          { label: "Under Monitoring", value: monitoringCount },
         ]}
       />
+
+      {/* Framework card — Greenlisted Status */}
+      <section className="bg-background">
+        <div className="page-shell pt-6 md:pt-8">
+          <div className="mx-auto w-wide">
+            <div
+              className="bg-white"
+              style={{
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "24px",
+                padding: "24px 22px",
+              }}
+            >
+              <p
+                className="font-sans font-semibold uppercase text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+              >
+                Greenlisted Status
+              </p>
+              <p
+                className="mt-3 text-foreground"
+                style={{ fontSize: "16px", lineHeight: 1.45 }}
+              >
+                FDA registration, 503A designation, and 503B designation alone
+                do not qualify a manufacturer for Greenlisted status.
+              </p>
+              <p
+                className="mt-3 text-muted-foreground"
+                style={{ fontSize: "14.5px", lineHeight: 1.5 }}
+              >
+                Source Standard assigns Greenlisted status through ongoing
+                independent testing activity conducted throughout the supply
+                chain. Manufacturers earn Greenlisted status when products
+                associated with that manufacturer consistently satisfy Source
+                Standard testing standards over time.
+              </p>
+              <p
+                className="mt-3 text-muted-foreground"
+                style={{ fontSize: "14.5px", lineHeight: 1.5 }}
+              >
+                Greenlisted status remains subject to continued monitoring and
+                future testing activity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-background">
         <div className="page-shell pb-10 md:pb-12">
           <div className="mx-auto w-wide">
-            {/* Minimalist filter bar — search pill + Category + Status */}
+            {/* Search + status filter */}
             <div className="-mx-5 md:mx-0 px-5 pt-6 pb-3 md:pt-8">
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search facilities, locations, or facility type…"
-                aria-label="Search Upstream Registry"
+                placeholder="Search manufacturers, locations, or verification status…"
+                aria-label="Search Manufacturer Registry"
                 className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
@@ -160,55 +204,48 @@ const Greenlist = () => {
                 }}
               />
 
-              {/* Category row */}
-              <div className="mt-3 grid grid-cols-4 gap-2">
+              {/* Status filter row */}
+              <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-4">
                 <SoftPill
                   label="All"
-                  active={type === ALL}
+                  active={status === "all"}
                   fullWidth
-                  onClick={() => setType(ALL)}
+                  onClick={() => setStatus("all")}
                 />
-                {CATEGORY_ORDER.map((c) => (
-                  <SoftPill
-                    key={c}
-                    label={c}
-                    active={type === c}
-                    fullWidth
-                    onClick={() => setType(type === c ? ALL : c)}
-                  />
-                ))}
-              </div>
-
-              {/* Status row */}
-              <div className="mt-2 grid grid-cols-2 gap-2">
                 <SoftPill
-                  label="Recognized"
-                  active={status === "authorized"}
+                  label="Greenlisted"
+                  active={status === "greenlisted"}
                   fullWidth
-                  onClick={() =>
-                    setStatus((c) => (c === "authorized" ? "any" : "authorized"))
-                  }
+                  onClick={() => setStatus("greenlisted")}
+                />
+                <SoftPill
+                  label="Under Monitoring"
+                  active={status === "monitoring"}
+                  fullWidth
+                  onClick={() => setStatus("monitoring")}
                 />
                 <SoftPill
                   label="Status Alert"
                   active={status === "alert"}
                   fullWidth
-                  onClick={() =>
-                    setStatus((c) => (c === "alert" ? "any" : "alert"))
-                  }
+                  onClick={() => setStatus("alert")}
                 />
               </div>
             </div>
 
-            {/* Result list — strip cards */}
+            {/* Result list */}
             <div
-              key={`${query}|${type}|${state}|${status}`}
+              key={`${query}|${state}|${status}`}
               className="mt-4 animate-fade-in"
             >
               {sorted.length === 0 ? (
                 <EmptyState
                   eyebrow="No Records Found"
-                  body="No upstream facility matches these filters."
+                  body={
+                    status === "greenlisted"
+                      ? "No manufacturer has yet satisfied Greenlisted criteria."
+                      : "No manufacturer matches these filters."
+                  }
                 />
               ) : (
                 <>
@@ -242,7 +279,7 @@ const Greenlist = () => {
         </div>
       </section>
 
-      {/* Bridge to vendor registry — institutional explainer panel */}
+      {/* Status Definitions */}
       <section className="bg-background">
         <div className="page-shell pb-14 md:pb-20">
           <div className="mx-auto w-wide">
@@ -251,62 +288,57 @@ const Greenlist = () => {
               style={{
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "24px",
-                padding: "28px 24px",
+                padding: "26px 22px",
               }}
             >
-              {/* Block 1 */}
-              <div>
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-                >
-                  Two layers. One review framework.
-                </p>
-                <p
-                  className="mt-3 text-foreground"
-                  style={{ fontSize: "20px", lineHeight: 1.35 }}
-                >
-                  The Upstream Registry identifies facilities used as reference
-                  records during vendor sourcing review.
-                </p>
-                <p
-                  className="mt-3 text-muted-foreground"
-                  style={{ fontSize: "15px", lineHeight: 1.45 }}
-                >
-                  Inclusion in the Upstream Registry does not verify that any
-                  vendor is actively sourcing from that facility.
-                </p>
-              </div>
-
-              {/* Divider */}
-              <div
-                className="mt-7 pt-7"
-                style={{ borderTop: "1px solid hsl(var(--border))" }}
+              <p
+                className="font-sans font-semibold uppercase text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
               >
-                {/* Block 2 */}
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-                >
-                  Vendor-level review
-                </p>
-                <p
-                  className="mt-3 text-foreground"
-                  style={{ fontSize: "20px", lineHeight: 1.35 }}
-                >
-                  Vendor verification reviews whether submitted documentation
-                  supports the vendor's stated pharmacy relationships, sourcing
-                  claims, and chain-of-custody records.
-                </p>
-
-                <Link
-                  to="/directory"
-                  className="mt-6 inline-flex items-center gap-2 px-5 h-11 border border-foreground text-foreground text-[14px] font-medium rounded-[2px] hover:bg-foreground hover:text-background transition-colors duration-150"
-                >
-                  Open the Vendor Registry
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
+                Status Definitions
+              </p>
+              <ul className="mt-5 flex flex-col gap-5">
+                {[
+                  {
+                    label: "Greenlisted",
+                    body: "Products associated with the manufacturer have consistently satisfied Source Standard testing standards during the current review period.",
+                  },
+                  {
+                    label: "Under Monitoring",
+                    body: "Source Standard is actively collecting testing data associated with products sourced from the manufacturer.",
+                  },
+                  {
+                    label: "Status Alert",
+                    body: "Testing activity has identified results requiring additional investigation or confirmation.",
+                  },
+                  {
+                    label: "Removed",
+                    body: "The manufacturer no longer satisfies current Greenlisted requirements.",
+                  },
+                ].map((s, i) => (
+                  <li
+                    key={s.label}
+                    style={{
+                      paddingTop: i === 0 ? 0 : "18px",
+                      borderTop:
+                        i === 0 ? "none" : "1px solid hsl(var(--border))",
+                    }}
+                  >
+                    <p
+                      className="font-sans font-semibold uppercase text-foreground"
+                      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                    >
+                      {s.label}
+                    </p>
+                    <p
+                      className="mt-2 text-muted-foreground"
+                      style={{ fontSize: "14.5px", lineHeight: 1.5 }}
+                    >
+                      {s.body}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
