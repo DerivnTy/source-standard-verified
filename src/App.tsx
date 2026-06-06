@@ -27,6 +27,7 @@ import LibrarySterilePreparationIntegrity from "./pages/LibrarySterilePreparatio
 import LibraryAsepticTechnique from "./pages/LibraryAsepticTechnique.tsx";
 import LibraryEndocrinologicalContext from "./pages/LibraryEndocrinologicalContext.tsx";
 import LibraryWhyVendorTransparencyMatters from "./pages/LibraryWhyVendorTransparencyMatters.tsx";
+import LibraryWhatHappensDuringVerificationReview from "./pages/LibraryWhatHappensDuringVerificationReview.tsx";
 
 import LibraryAnalysis2026Reclassification from "./pages/LibraryAnalysis2026Reclassification.tsx";
 import LibraryAnalysisQuestionsForYourClinic from "./pages/LibraryAnalysisQuestionsForYourClinic.tsx";
