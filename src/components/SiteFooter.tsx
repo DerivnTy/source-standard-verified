@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { useSiteAccess } from "@/hooks/useSiteAccess";
 
@@ -52,21 +52,36 @@ const columns: Column[] = [
 const MUTED = "#94A3B8";
 const HAIRLINE = "rgba(148, 163, 184, 0.18)";
 
-const FooterLink = ({ row }: { row: LinkRow }) => (
-  <li>
-    <Link
-      to={row.to}
-      className="block font-sans text-[13px] hover:text-white transition-colors"
-      style={{ color: MUTED }}
-    >
-      {row.label}
-    </Link>
-  </li>
-);
+const FooterLink = ({ row }: { row: LinkRow }) => {
+  const { pathname } = useLocation();
+  const basePath = row.to.split("#")[0];
+  const isCurrentPage = basePath === pathname;
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isCurrentPage) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <li>
+      <Link
+        to={row.to}
+        onClick={handleClick}
+        className="block font-sans text-[13px] hover:text-white transition-colors"
+        style={{ color: MUTED }}
+      >
+        {row.label}
+      </Link>
+    </li>
+  );
+};
 
 export const SiteFooter = () => {
   const now = new Date();
   const { lock } = useSiteAccess();
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -99,12 +114,22 @@ export const SiteFooter = () => {
                   ))}
                   {col.title === "Registry" && (
                     <li>
-                      <Link
-                        to="/apply"
-                        className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
-                      >
-                        Begin Verification <span aria-hidden="true">→</span>
-                      </Link>
+                      {pathname === "/apply" ? (
+                        <button
+                          type="button"
+                          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                          className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
+                        >
+                          Begin Verification <span aria-hidden="true">→</span>
+                        </button>
+                      ) : (
+                        <Link
+                          to="/apply"
+                          className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
+                        >
+                          Begin Verification <span aria-hidden="true">→</span>
+                        </Link>
+                      )}
                     </li>
                   )}
                 </ul>
