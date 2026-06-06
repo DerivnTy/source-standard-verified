@@ -152,8 +152,8 @@ export const ARTICLES: Article[] = [
     title: "Understanding Sterile Compounding",
     blurb:
       "What sterile compounding means, why sterile environments matter, and how it differs from non-sterile preparation pathways.",
-    meta: "Updated Mar 2026",
-    publishedAt: "2026-03-19",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
     category: "latest",
   },
   {
@@ -161,8 +161,8 @@ export const ARTICLES: Article[] = [
     title: "Understanding Compounded Hormone Therapy",
     blurb:
       "Why hormone therapies are sometimes compounded, the role of 503A and 503B facilities, and why sourcing transparency matters.",
-    meta: "Updated Feb 2026",
-    publishedAt: "2026-02-24",
+    meta: "Updated Apr 2026",
+    publishedAt: "2026-04-21",
     category: "latest",
   },
   {
