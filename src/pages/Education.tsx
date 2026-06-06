@@ -208,7 +208,7 @@ const CategoryBlock = ({
               {category.description}
             </p>
             {category.id === "core" && (
-              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
+              <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
                 Foundational References
               </p>
             )}
@@ -364,7 +364,7 @@ const Education = () => {
                     paddingRight: "14px",
                   }}
                 />
-                <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground shrink-0 tabular-nums">
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground shrink-0 tabular-nums">
                   {totalCount} {totalCount === 1 ? "result" : "results"}
                 </span>
               </div>
@@ -424,7 +424,7 @@ const Education = () => {
           <div className="mx-auto w-wide">
             <div className="grid grid-cols-12 gap-x-8 gap-y-4">
               <div className="col-span-12 md:col-span-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                   Reference Questions
                 </p>
                 <h2 className="mt-2 t-section-title-sm text-foreground tracking-tight">

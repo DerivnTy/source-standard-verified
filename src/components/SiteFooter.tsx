@@ -103,7 +103,7 @@ export const SiteFooter = () => {
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-3 md:mb-4 font-sans text-[10px] font-semibold uppercase text-white"
+                  className="mb-3 md:mb-4 font-sans text-[11px] font-semibold uppercase text-white"
                   style={{ letterSpacing: "0.08em" }}
                 >
                   {col.title}

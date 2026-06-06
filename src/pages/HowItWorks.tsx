@@ -94,7 +94,7 @@ const BOUNDARIES = [
 /* ------------------------------ Local primitives ------------------------------ */
 
 const Eyebrow = ({ children }: { children: ReactNode }) => (
-  <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">
+  <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">
     {children}
   </p>
 );

@@ -211,7 +211,7 @@ const MedicalAdvisory = () => {
           <div className="mx-auto w-standard">
             <div>
               <GovCard>
-                <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">Purpose</p>
+                <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">Purpose</p>
                 <h2 className="mt-2 t-section-title-sm text-foreground">Why Clinical Oversight exists</h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
@@ -393,7 +393,7 @@ const MedicalAdvisory = () => {
             <section style={{ paddingTop: "24px", paddingBottom: "24px" }}>
               <div className="max-w-2xl">
                 <GovCard>
-                  <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">Institutional Integrity</p>
+                  <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">Institutional Integrity</p>
                   <h2 className="mt-2 t-section-title-sm text-foreground">
                     Public trust requires independent oversight.
                   </h2>
