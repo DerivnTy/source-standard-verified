@@ -12,67 +12,82 @@ const DOC_ID = "SS-GUIDE-003";
 const LibraryEndocrinologicalContext = () => {
   return (
     <>
-      <PageMeta title="Endocrinological Context · Foundational Series" description="Clinical context for the endocrine pathways modulated by therapeutic peptides." />
-      <Breadcrumb items={[
+      <PageMeta
+        title="Understanding Compounded Hormone Therapy · Resource Library"
+        description="Why hormone therapies are sometimes compounded, the role of 503A and 503B facilities, and why sourcing transparency matters."
+      />
+      <Breadcrumb
+        items={[
           { label: "Resource Library", to: "/education" },
-          { label: "Foundational Series" },
-        ]} />
+          { label: "Latest Publications" },
+        ]}
+      />
       <ArticleHeader
-        eyebrow="Source Standard · Clinical Guide"
-        title="Endocrinological Context: Age-Related Hormonal Change & TRT"
-        lead="A clinical overview of the mechanisms behind hormonal decline and the therapeutic framework of Testosterone Replacement Therapy (TRT)."
+        eyebrow="Educational Resource"
+        title="Understanding Compounded Hormone Therapy"
+        lead="A neutral overview of why hormone therapies are sometimes compounded, how facility classification fits into the supply chain, and why sourcing transparency matters for consumers."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
-          { label: "Status", value: "MAB Reviewed / Active" },
+          { label: "Status", value: "Public Reference" },
           { label: "Doc", value: DOC_ID },
         ]}
       />
 
-      <ArticleSection n={1} title="The HPG feedback loop">
+      <ArticleSection n={1} title="Why hormone therapies are sometimes compounded">
         <p>
-          The human endocrine system operates on a complex feedback loop primarily governed by the Hypothalamic-Pituitary-Gonadal (HPG) axis. As individuals age, this axis can experience 'hypogonadism', a state where the body fails to produce sufficient levels of testosterone. Unlike an acute injury, age-related decline is often gradual, leading to a constellation of symptoms including metabolic dysfunction, reduced bone density, and cognitive changes.
+          Hormone-related medications are available in a range of commercially manufactured forms. In some cases, a prescriber may request a compounded preparation when a specific formulation, concentration, or delivery format is not commercially available, or when an individualized formulation is required by the prescribing clinician.
+        </p>
+        <p>
+          This page does not discuss treatment goals, dosing, monitoring, or clinical outcomes. Those decisions belong to a licensed prescriber and patient. The focus here is on how compounded hormone preparations enter the supply chain and how their sourcing can be reviewed.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="The clinical goal of TRT">
+      <ArticleSection n={2} title="The role of 503A and 503B facilities">
         <p>
-          Testosterone Replacement Therapy (TRT) is not intended to create 'supraphysiological' levels (levels far beyond natural human capacity). Instead, the clinical objective is restoration.
+          Compounded hormone preparations, like other compounded medications, are produced by pharmacies and outsourcing facilities operating under defined regulatory categories.
         </p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
           items={[
-            { term: "Symptom resolution", description: "Aiming for the lowest effective dose that resolves clinical symptoms of deficiency." },
-            { term: "Hormonal optimization", description: "Bringing serum testosterone levels back into a healthy 'physiological range' appropriate for the patient's biological context." },
+            { term: "503A pharmacies", description: "Traditional compounding pharmacies that prepare medications in response to individual prescriptions and operate under state pharmacy regulation alongside federal compounding provisions." },
+            { term: "503B outsourcing facilities", description: "Facilities registered with the FDA that may prepare compounded medications in larger batches under additional federal oversight." },
+            { term: "Facility classification as context", description: "Knowing whether a compounded hormone preparation originated from a 503A pharmacy or a 503B outsourcing facility provides context for reviewing public records and licensing information." },
           ]}
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Why compounded options matter">
+      <ArticleSection n={3} title="Why sourcing transparency matters">
         <p>
-          Many patients require TRT in specific concentrations or delivery methods (such as specific carrier oils like Grapeseed or MCT) to avoid allergic reactions or to allow for more precise micro-dosing. Because commercial 'Big Pharma' products often offer limited dosage strengths, highly regulated 503A and 503B compounding pharmacies fill a critical gap in personalized endocrine care.
-        </p>
-      </ArticleSection>
-
-      <ArticleSection n={4} title="What ongoing supervision looks like">
-        <p>
-          TRT is a dynamic therapy that requires ongoing medical supervision. Verification through Source Standard ensures that the clinic providing the therapy is performing necessary monitoring, including:
+          Compounded hormone preparations may move through multiple organizations before reaching a consumer. Understanding which facility prepared a medication, and how that facility relationship is disclosed, is an important reference point when evaluating a sourcing claim.
         </p>
         <BoardDefList
-          prefix={(i) => `§4.${i + 1}`}
+          prefix={(i) => `§3.${i + 1}`}
           items={[
-            { term: "Baseline & follow-up labs", description: "Regularly checking Total/Free Testosterone, Estradiol, and Hematocrit levels." },
-            { term: "PSA monitoring", description: "Ensuring prostate health is maintained throughout the course of therapy." },
+            { term: "Facility identification", description: "Knowing which pharmacy or outsourcing facility prepared a compounded hormone product provides context for reviewing public records and registrations." },
+            { term: "Facility disclosure", description: "Public disclosure of facility relationships allows consumers to compare a vendor&rsquo;s stated sourcing against available evidence." },
+            { term: "Supporting documentation", description: "Records such as certificates of analysis, invoices, and facility registrations can support or clarify a vendor&rsquo;s sourcing claims when made available for review." },
           ]}
         />
+      </ArticleSection>
+
+      <ArticleSection n={4} title="How consumers can evaluate sourcing claims">
+        <p>
+          When reviewing a compounded hormone therapy vendor, consumers can focus on transparency rather than promotional language. Useful questions include which facility prepares the medication, how that relationship is disclosed, and what documentation is available to support those statements.
+        </p>
+        <p>
+          Source Standard organizes facility records, regulatory classifications, and sourcing-related documentation so that compounded-medication claims can be reviewed within a structured public-reference framework.
+        </p>
+      </ArticleSection>
+
+      <ArticleSection title="Key Takeaway">
         <p className="text-foreground font-medium">
-          Restoration of hormonal balance is a clinical process, not a retail transaction. Proper sourcing of the hormones is the foundation of patient safety.
+          Compounded hormone therapy exists within the broader compounded-medication supply chain. Facility identification, facility disclosure, and supporting documentation are the most useful reference points for understanding how a compounded hormone preparation entered the supply chain.
         </p>
       </ArticleSection>
 
       <ArticleFooter
-        back={{ to: "/education", label: "Back to Clinical Library" }}
-        next={{ to: "/library/reference-dosing-ranges", label: "Reference Dosing Ranges (SS-GUIDE-004)" }}
-        citation={`Source Standard · Clinical Guide · Endocrinological Context, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        back={{ to: "/education", label: "Back to Resource Library" }}
+        citation={`Source Standard · Resource Library · Understanding Compounded Hormone Therapy, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
       />
     </>
   );

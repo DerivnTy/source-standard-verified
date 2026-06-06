@@ -13,18 +13,18 @@ const LibraryWhatArePeptides = () => {
   return (
     <>
       <PageMeta
-        title="What Are Peptides? · Foundational Series"
-        description="An educational overview of peptides, how they are used, and why sourcing transparency and documentation matter when reviewing compounded peptide products."
+        title="Understanding Peptides · Resource Library"
+        description="An educational overview of peptides, how they are used in research and medicine, and why sourcing transparency and facility disclosure matter for compounded peptide products."
       />
       <Breadcrumb
         items={[
           { label: "Resource Library", to: "/education" },
-          { label: "Foundational Series" },
+          { label: "Foundational References" },
         ]}
       />
       <ArticleHeader
-        title="What Are Peptides?"
-        lead="An educational overview of peptides, the contexts in which they are used, and why sourcing transparency and documentation matter when reviewing compounded peptide products."
+        title="Understanding Peptides"
+        lead="An educational overview of peptides, how they appear in research and medicine, and why sourcing transparency, facility disclosure, and documentation matter when reviewing compounded peptide products."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
           { label: "Status", value: "Active / Public Reference" },
