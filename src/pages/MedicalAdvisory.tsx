@@ -353,10 +353,10 @@ const MedicalAdvisory = () => {
               <SectionIndex n="05" />
               <div className="mb-6 max-w-2xl">
                 <h2 className="t-section-title-sm text-foreground">
-                  Responsibilities
+                  Core Responsibilities
                 </h2>
                 <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
-                  Each responsibility maps to a recurring advisory activity recorded under Source Standard's framework maintenance process.
+                  The recurring functions supporting framework integrity.
                 </p>
               </div>
               <ul className="grid sm:grid-cols-2 gap-3">
