@@ -26,6 +26,7 @@ import LibraryDualLayerDifference from "./pages/LibraryDualLayerDifference.tsx";
 import LibrarySterilePreparationIntegrity from "./pages/LibrarySterilePreparationIntegrity.tsx";
 import LibraryAsepticTechnique from "./pages/LibraryAsepticTechnique.tsx";
 import LibraryEndocrinologicalContext from "./pages/LibraryEndocrinologicalContext.tsx";
+import LibraryWhyVendorTransparencyMatters from "./pages/LibraryWhyVendorTransparencyMatters.tsx";
 
 import LibraryAnalysis2026Reclassification from "./pages/LibraryAnalysis2026Reclassification.tsx";
 import LibraryAnalysisQuestionsForYourClinic from "./pages/LibraryAnalysisQuestionsForYourClinic.tsx";
@@ -86,6 +87,7 @@ const App = () => (
             <Route path="/library/sterile-preparation-integrity" element={<LibrarySterilePreparationIntegrity />} />
             <Route path="/library/aseptic-technique" element={<LibraryAsepticTechnique />} />
             <Route path="/library/endocrinological-context" element={<LibraryEndocrinologicalContext />} />
+            <Route path="/library/why-vendor-transparency-matters" element={<LibraryWhyVendorTransparencyMatters />} />
             
             <Route path="/library/analysis/2026-reclassification" element={<LibraryAnalysis2026Reclassification />} />
             <Route path="/library/analysis/questions-for-your-clinic" element={<LibraryAnalysisQuestionsForYourClinic />} />

@@ -33,6 +33,7 @@ const SLUG_ROUTE_OVERRIDES: Record<string, string> = {
   "questions-to-ask-your-clinic": "/library/analysis/questions-for-your-clinic",
   "what-source-standard-verification-actually-means": "/library/analysis/meaning-of-verification",
   "warning-signs-of-undocumented-sourcing": "/library/analysis/undocumented-sourcing-signs",
+  "why-vendor-transparency-matters": "/library/why-vendor-transparency-matters",
 };
 
 export const routeForArticle = (slug: string) =>
@@ -161,6 +162,15 @@ export const ARTICLES: Article[] = [
       "Why hormone therapies are sometimes compounded, the role of 503A and 503B facilities, and why sourcing transparency matters.",
     meta: "Updated Feb 2026",
     publishedAt: "2026-02-24",
+    category: "latest",
+  },
+  {
+    slug: "why-vendor-transparency-matters",
+    title: "Why Vendor Transparency Matters",
+    blurb:
+      "Why transparent sourcing relationships help consumers evaluate compounded therapy providers with greater confidence.",
+    meta: "Updated Jun 2026",
+    publishedAt: "2026-06-06",
     category: "latest",
   },
 ];
