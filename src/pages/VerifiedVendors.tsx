@@ -153,7 +153,7 @@ const VerifiedVendors = () => {
         compact
         indexNumber="01"
         title="Vendor Registry"
-        description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
+        description="A public-reference database of compounded therapy vendors indexed by verification status, vendor type, and review scope."
         recordCount={vendors.length}
       />
 
@@ -272,119 +272,6 @@ const VerifiedVendors = () => {
                 </div>
               </div>
 
-              {/* Category — collapsible folder */}
-              <div>
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-                >
-                  Category
-                </p>
-                <div
-                  className="w-full overflow-hidden"
-                  style={{
-                    borderRadius: "20px",
-                    border: "1px solid hsl(var(--border) / 0.7)",
-                    backgroundColor: "hsl(var(--muted) / 0.6)",
-                    transition: "background-color 300ms ease-in-out",
-                  }}
-                >
-                  <div className="flex w-full items-stretch" style={{ height: "32px" }}>
-                    <button
-                      type="button"
-                      onClick={() => setFocusOpen((o) => !o)}
-                      aria-expanded={focusOpen}
-                      className="flex flex-1 items-center justify-center gap-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] text-[hsl(var(--foreground)/0.75)] transition-colors"
-                    >
-                      {focus === "all" ? (
-                        <span>Select Category</span>
-                      ) : (
-                        <>
-                          <span className="opacity-60">Category:</span>
-                          <span>{FOCUS_LABEL[focus]}</span>
-                        </>
-                      )}
-                      <svg
-                        aria-hidden
-                        viewBox="0 0 12 12"
-                        width="10"
-                        height="10"
-                        className="opacity-60"
-                        style={{
-                          transition: "transform 300ms ease-in-out",
-                          transform: focusOpen ? "rotate(180deg)" : "rotate(0deg)",
-                        }}
-                      >
-                        <path
-                          d="M2.5 4.5L6 8l3.5-3.5"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-
-                    {focus !== "all" && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setFocus("all");
-                          setFocusOpen(false);
-                        }}
-                        aria-label="Clear focus filter"
-                        className="flex shrink-0 items-center justify-center text-[hsl(var(--foreground)/0.6)] transition-colors hover:text-[hsl(var(--foreground))]"
-                        style={{
-                          width: "32px",
-                          borderLeft: "1px solid hsl(var(--border) / 0.7)",
-                        }}
-                      >
-                        <svg aria-hidden viewBox="0 0 12 12" width="10" height="10">
-                          <path
-                            d="M3 3l6 6M9 3l-6 6"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
-
-                  <div
-                    className="grid"
-                    style={{
-                      gridTemplateRows: focusOpen ? "1fr" : "0fr",
-                      transition: "grid-template-rows 300ms ease-in-out",
-                    }}
-                  >
-                    <div className="overflow-hidden">
-                      <div
-                        className="grid grid-cols-2 gap-2 px-2 pb-2 pt-2"
-                        style={{
-                          borderTop: "1px solid hsl(var(--border) / 0.5)",
-                        }}
-                      >
-                        {FOCUS_OPTIONS.map((opt) => (
-                          <SoftPill
-                            key={opt.value}
-                            label={opt.label}
-                            active={focus === opt.value}
-                            fullWidth
-                            onClick={() => {
-                              setFocus(opt.value);
-                              setFocusOpen(false);
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Search — final filter, adjacent to record list */}
