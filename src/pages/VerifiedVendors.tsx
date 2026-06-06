@@ -264,7 +264,7 @@ const VerifiedVendors = () => {
         <div className="page-shell pb-10 md:pb-10">
           <div className="mx-auto w-wide">
             {/* Grouped filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-1 pb-3 space-y-4">
+            <div className="-mx-5 md:mx-0 px-5 pt-5 pb-3 space-y-4">
               {/* Verification Status */}
               <div>
                 <p
