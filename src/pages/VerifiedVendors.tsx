@@ -229,7 +229,7 @@ const VerifiedVendors = () => {
               <div
                 role="group"
                 aria-label="Registry summary"
-                className="grid grid-cols-2 overflow-hidden bg-background"
+                className="grid grid-cols-2 overflow-hidden bg-white"
                 style={{
                   borderRadius: "10px",
                   border: "1px solid rgba(0,16,33,0.08)",
