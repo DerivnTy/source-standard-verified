@@ -112,7 +112,7 @@ const HeroMetrics = () => {
         style={{ gap: "48px" }}
       >
         <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
-        <Unit value={50} label="States" />
+        <Unit value={50} label="States Represented" />
       </div>
     </div>
   );
