@@ -205,7 +205,7 @@ const VerifiedVendors = () => {
         }}
       >
         <div className="page-shell">
-          <div className="mx-auto flex min-h-[88px] w-wide items-center">
+          <div className="mx-auto flex min-h-[76px] w-wide items-center">
             <div className="-mx-5 md:mx-0 w-full px-5">
               <div
                 role="group"
