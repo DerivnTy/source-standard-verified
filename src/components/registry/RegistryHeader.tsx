@@ -51,9 +51,10 @@ export const RegistryHeader = ({
       <div
         className="relative z-10 page-shell"
         style={{
-          paddingTop: "clamp(72px, 9vh, 96px)",
-          paddingBottom: "clamp(40px, 5vh, 56px)",
+          paddingTop: compact ? "clamp(48px, 6vh, 64px)" : "clamp(72px, 9vh, 96px)",
+          paddingBottom: compact ? "clamp(28px, 3.5vh, 40px)" : "clamp(40px, 5vh, 56px)",
         }}
+
       >
         <div className="mx-auto w-wide">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
