@@ -307,7 +307,7 @@ const GreenlistProfile = () => {
                 </span>
               </div>
 
-              <div className="mt-3">
+              <div className="mt-3 flex items-center gap-2">
                 <span
                   className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
                   style={{
@@ -320,9 +320,9 @@ const GreenlistProfile = () => {
                   {typeBadge}
                 </span>
                 {entry.location && (
-                  <div className="mt-1 font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
+                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
                     {entry.location}
-                  </div>
+                  </span>
                 )}
               </div>
 
