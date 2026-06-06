@@ -25,24 +25,23 @@ export const UtilityHeader = ({
   children?: ReactNode;
 }) => {
   return (
-    <section className="border-b border-border/50 bg-background">
-      <div className="container-wide pt-5 pb-10 md:pb-12">
+    <section className="border-b border-border bg-background ss-section">
+      <div className="container-wide">
         {backHref && (
           <Link
             to={backHref}
-            className="inline-flex items-center gap-1.5 t-utility-xs text-muted-foreground hover:text-foreground"
+            className="inline-flex items-center gap-1.5 ss-eyebrow hover:text-foreground"
           >
             <ArrowLeft className="h-3 w-3" /> {backLabel ?? "Back"}
           </Link>
         )}
-        <div className={backHref ? "mt-4" : ""}>
-          <h1 className="title-page text-foreground max-w-3xl">{title}</h1>
+        <div className={backHref ? "mt-3" : ""}>
+          {eyebrow && <p className="ss-eyebrow">{eyebrow}</p>}
+          <h1 className="ss-section-title text-foreground max-w-3xl">{title}</h1>
           {description && (
-            <p className="mt-3 max-w-[58ch] t-body-sm text-muted-foreground leading-[1.65]">
-              {description}
-            </p>
+            <p className="ss-lead max-w-[58ch]">{description}</p>
           )}
-          {children && <div className="mt-6">{children}</div>}
+          {children && <div className="mt-4">{children}</div>}
         </div>
       </div>
     </section>
