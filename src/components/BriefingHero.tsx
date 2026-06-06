@@ -86,56 +86,42 @@ export const BriefingHero = ({
             }}
           >
             <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center lg:my-auto">
-              {brandMark && <span className="sr-only">{brandMark}</span>}
-              {heroLogo && (
-                <div className="flex justify-center" style={{ marginBottom: "28px" }}>
-                  {heroLogo}
-                </div>
-              )}
+            {brandMark && <span className="sr-only">{brandMark}</span>}
+            {heroLogo && (
+              <div className="flex justify-center" style={{ marginBottom: "28px" }}>
+                {heroLogo}
+              </div>
+            )}
 
-              <h1
-                id="briefing-title"
-                className="text-white text-left lg:text-center text-balance lg:mx-auto"
-                style={{
-                  maxWidth: "560px",
-                  fontSize: "clamp(38px, 10vw, 64px)",
-                  lineHeight: "1.0",
-                  letterSpacing: "-0.03em",
-                  fontWeight: 600,
-                }}
+            {heroMetrics && (
+              <div
+                className="flex justify-start lg:justify-center"
+                style={{ marginTop: "0px" }}
               >
-                {title}
-              </h1>
+                {heroMetrics}
+              </div>
+            )}
 
-              <p
-                className="text-white/70 text-left lg:text-center lg:mx-auto"
-                style={{
-                  maxWidth: "520px",
-                  marginTop: "24px",
-                  fontSize: "clamp(18px, 4.2vw, 22px)",
-                  lineHeight: "1.4",
-                }}
+            <p
+              className="text-white/70 text-left lg:text-center lg:mx-auto"
+              style={{
+                maxWidth: "520px",
+                marginTop: "24px",
+                fontSize: "clamp(18px, 4.2vw, 22px)",
+                lineHeight: "1.4",
+              }}
+            >
+              {statement}
+            </p>
+
+            {actions && (
+              <div
+                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-center [&>*]:w-full sm:[&>*]:w-auto"
+                style={{ marginTop: "clamp(24px, 3.5vh, 36px)", gap: "16px" }}
               >
-                {statement}
-              </p>
-
-              {heroMetrics && (
-                <div
-                  className="flex justify-start lg:justify-center"
-                  style={{ marginTop: "clamp(20px, 3vh, 32px)" }}
-                >
-                  {heroMetrics}
-                </div>
-              )}
-
-              {actions && (
-                <div
-                  className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-center [&>*]:w-full sm:[&>*]:w-auto"
-                  style={{ marginTop: "clamp(24px, 3.5vh, 36px)", gap: "16px" }}
-                >
-                  {actions}
-                </div>
-              )}
+                {actions}
+              </div>
+            )}
 
               {heroMeta && (
                 <div
