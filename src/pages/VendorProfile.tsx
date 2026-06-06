@@ -715,8 +715,37 @@ const VendorProfile = () => {
             </div>
           </article>
 
+          {/* ────── 2. CONTACT INFORMATION ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading>Contact</SectionHeading>
+            <dl
+              className="mt-3 grid grid-cols-2"
+              style={{ columnGap: "20px", rowGap: "16px" }}
+            >
+              <Cell
+                label="Website"
+                value={vendor.website ? hostname(vendor.website) : undefined}
+                href={vendor.website}
+              />
+              <Cell
+                label="Phone"
+                value={vendor.phone}
+                href={phoneHref}
+              />
+              <Cell
+                label="Instagram"
+                value={vendor.instagram ? normalizeHandle(vendor.instagram) : undefined}
+                href={ig}
+              />
+              <Cell
+                label="LinkedIn"
+                value={vendor.linkedin ? normalizeHandle(vendor.linkedin) : undefined}
+                href={li}
+              />
+            </dl>
+          </article>
 
-          {/* ────── 2. VERIFICATION RECORD (placed directly under identity) ────── */}
+          {/* ────── 3. VERIFICATION RECORD (placed directly under identity) ────── */}
           <article className="mt-4" style={CARD}>
             <SectionHeading>Verification Record</SectionHeading>
 
