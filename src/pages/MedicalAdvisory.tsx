@@ -95,9 +95,6 @@ const WAYPOINTS = [
   { id: "responsibilities", number: "05", label: "Responsibilities" },
 ];
 
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
   "advisor-01": "Chair · Clinical Audit Standards",
