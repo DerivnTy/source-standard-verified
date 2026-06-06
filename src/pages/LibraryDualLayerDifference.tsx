@@ -7,67 +7,95 @@ import {
   BoardDefList,
 } from "@/components/ArticleSection";
 
-const DOC_ID = "SS-SERIES-003";
-
 const LibraryDualLayerDifference = () => {
   return (
     <>
-      <PageMeta title="The Dual-Layer Difference · Clinical Guide" description="Why Source Standard audits both the vendor and the upstream pharmacy." />
+      <PageMeta title="Understanding Vendor Verification and Facility Transparency · Source Standard" description="Why both vendor records and facility records matter when evaluating compounded therapy sourcing claims." />
       <Breadcrumb items={[
           { label: "Resource Library", to: "/education" },
-          { label: "Clinical Guides" },
+          { label: "Vendor Verification & Facility Transparency" },
         ]} />
       <ArticleHeader
-        eyebrow="Source Standard · Foundational Philosophy"
-        title="The Dual-Layer Difference"
-        lead="Understanding the symbiotic verification of both the clinical entity and the upstream pharmacy provider."
+        eyebrow="Educational Resource"
+        title="Understanding Vendor Verification and Facility Transparency"
+        lead="Why both vendor records and facility records matter when evaluating compounded therapy sourcing claims."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
-          { label: "Status", value: "In Review / Public Reference" },
-          { label: "Doc", value: DOC_ID },
         ]}
       />
 
-      <ArticleSection n={1} title='The "single-point" failure.'>
+      <ArticleSection n={1} title="The transparency gap">
         <p>
-          In the current healthcare landscape, verification usually happens in a vacuum. A pharmacy might be licensed by a state board, or a clinic might have a licensed medical director. However, the connection between the two is rarely audited. Source Standard was founded to eliminate the 'blind spot' that exists between the prescription and the procurement.
+          When consumers evaluate a compounded therapy provider, they are often evaluating only the business they can see.
+        </p>
+        <p>
+          A clinic, telehealth provider, or online vendor may make claims regarding sourcing, quality, facility relationships, or supply-chain standards. However, the organization dispensing medication is often only one part of a larger supply chain.
+        </p>
+        <p>
+          Understanding where a medication originates requires visibility into both the vendor and the facility supporting that vendor's sourcing claims.
         </p>
       </ArticleSection>
 
-      <ArticleSection n={2} title="Layer one, the clinical entity">
-        <p>We first audit the clinic itself. This layer of verification focuses on:</p>
+      <ArticleSection n={2} title="The vendor layer">
+        <p>Vendor records focus on transparency.</p>
+        <p>
+          When Source Standard reviews a vendor record, the objective is to determine whether public sourcing claims are supported by documentation, facility relationships, public records, and other available evidence.
+        </p>
         <BoardDefList
           prefix={(i) => `§2.${i + 1}`}
           items={[
-            { term: "Medical oversight", description: "Confirming the Medical Director is licensed and in good standing without OIG exclusions." },
-            { term: "Prescribing integrity", description: "Ensuring that medications are issued via valid patient-provider relationships, not 'click-to-buy' automated systems." },
-            { term: "Transparency", description: "Confirming the clinic accurately represents its sourcing to the consumer." },
+            { term: "Sourcing claims", description: "Reviews whether a vendor identifies the facilities it claims to use and whether those relationships can be supported." },
+            { term: "Documentation review", description: "Evaluates supporting records associated with vendor sourcing claims and public representations." },
+            { term: "Public transparency", description: "Provides a structured public-reference record that allows sourcing claims to be reviewed with greater clarity." },
           ]}
         />
       </ArticleSection>
 
-      <ArticleSection n={3} title="Layer two, the upstream pharmacy">
-        <p>A clinic is only a pass-through for the medication. Therefore, we verify the source:</p>
+      <ArticleSection n={3} title="The facility layer">
+        <p>Facility records focus on supply-chain visibility.</p>
+        <p>
+          Compounding facilities operate upstream from the vendor and play an important role in how medications enter the healthcare system.
+        </p>
         <BoardDefList
           prefix={(i) => `§3.${i + 1}`}
           items={[
-            { term: "Licensure reconciliation", description: "Cross-referencing pharmacy licenses in every state they ship to." },
-            { term: "Facility classification", description: "Distinguishing between 503A (Patient-Specific) and 503B (Outsourcing) and ensuring the clinic is using the correct facility for their business model." },
-            { term: "Evidence of sourcing", description: "Requiring invoices that prove the clinic is actually buying from the regulated pharmacy they claim to use." },
+            { term: "Facility identification", description: "Maintains reference records relating to 503A and 503B compounding facilities." },
+            { term: "Operational transparency", description: "Organizes publicly available information relating to facility operations, classifications, and regulatory status." },
+            { term: "Independent testing activity", description: "Tracks Greenlisted status and testing activity associated with facilities monitored within the Source Standard ecosystem." },
           ]}
         />
       </ArticleSection>
 
-      <ArticleSection n={4} title="The symbiotic, closed-loop outcome">
+      <ArticleSection n={4} title="Why both layers matter">
         <p>
-          By verifying both layers, Source Standard creates a 'Closed-Loop' of accountability. If a pharmacy fails an inspection, the clinic's verification is flagged. If a clinic switches to an undocumented source, their 'Verified' status is revoked. This dual-layer approach is the only way to ensure that the medication in the patient's hand is the same medication documented in the audit.
+          A vendor may make sourcing claims.
+        </p>
+        <p>
+          A facility may produce the medication.
+        </p>
+        <p>
+          Neither layer provides a complete picture by itself.
+        </p>
+        <p>
+          Vendor transparency helps establish whether sourcing claims are supported by evidence.
+        </p>
+        <p>
+          Facility transparency helps establish visibility into the organizations participating within the supply chain.
+        </p>
+        <p>
+          Together, these records provide a more complete understanding of how medications move from compounding facilities to consumers.
+        </p>
+      </ArticleSection>
+
+      <ArticleSection title="Key Takeaway">
+        <p className="font-medium">
+          Supply-chain transparency requires visibility into both the vendor and the facility. Vendor records help evaluate sourcing claims. Facility records help provide context regarding the organizations operating upstream. Together, they create a clearer public reference for evaluating compounded therapy sourcing relationships.
         </p>
       </ArticleSection>
 
       <ArticleFooter
-        back={{ to: "/education", label: "Back to Clinical Library" }}
-        next={{ to: "/library/aseptic-protocols", label: "Clinical Handling & Aseptic Protocols (SS-GUIDE-001)" }}
-        citation={`Source Standard · Foundational Philosophy · The Dual-Layer Difference, ${DOC_ID}. Last updated 04 / 21 / 2026.`}
+        back={{ to: "/education", label: "Back to Resource Library" }}
+        citation={`Source Standard · Resource Library. Last updated 04 / 21 / 2026.`}
       />
     </>
   );
