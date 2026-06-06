@@ -223,7 +223,7 @@ const VerifiedVendors = () => {
 
       {/* Compact stats — secondary to records */}
       <section className="bg-background">
-        <div className="page-shell pb-4">
+        <div className="page-shell pb-2">
           <div className="mx-auto w-wide">
             <div className="-mx-5 md:mx-0 px-5">
               <div
