@@ -76,10 +76,11 @@ export const ArticleSection = ({
 );
 
 /**
- * ArticleFooter — institutional previous/next navigation card for Library
- * article pages. Renders prev/next as a single bordered card with two
- * stacked rows separated by a hairline. Citation prop accepted for
- * back-compat but rendered as null (handled in metadata bar).
+ * ArticleFooter — lightweight article navigation for Library pages.
+ *
+ * Renders a single divider + back/next links directly on the page
+ * background with no card chrome. Citation prop accepted for back-compat
+ * but rendered as null (handled in metadata bar).
  *
  * Public prop signature is preserved so individual article pages need
  * no edits.
@@ -94,69 +95,59 @@ export const ArticleFooter = ({
   citation?: string;
 }) => {
   void citation;
-  if (!back && !next) return <div style={{ paddingBottom: "64px" }} />;
+  if (!back && !next) return <div style={{ paddingBottom: "32px" }} />;
 
   return (
     <footer
       className="bg-background"
-      style={{ paddingTop: "20px", paddingBottom: "64px" }}
+      style={{ paddingTop: "36px", paddingBottom: "32px" }}
     >
       <div className="page-shell">
         <div className="mx-auto w-reading-wide">
-          <div style={{ ...cardChrome, padding: "18px 20px" }}>
-            {back && <ArticleNavRow label="Previous" to={back.to} title={back.label} direction="back" />}
-            {back && next && (
-              <div
-                aria-hidden
-                style={{
-                  height: "0.5px",
-                  background: "hsl(var(--border))",
-                  margin: "14px 0",
-                }}
-              />
+          <div
+            aria-hidden
+            style={{
+              height: "0.5px",
+              background: "hsl(var(--border))",
+            }}
+          />
+          <div
+            className="flex flex-col md:flex-row md:justify-between md:items-start gap-6"
+            style={{ paddingTop: "24px" }}
+          >
+            {back && (
+              <Link
+                to={back.to}
+                className="group inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                style={{ fontSize: "13.5px", lineHeight: "1.4" }}
+              >
+                <span aria-hidden>←</span>
+                <span>{back.label}</span>
+              </Link>
             )}
-            {next && <ArticleNavRow label="Next" to={next.to} title={next.label} direction="forward" />}
+            {next && (
+              <Link
+                to={next.to}
+                className="group flex flex-col items-start md:items-end"
+              >
+                <span
+                  className="inline-flex items-center gap-2 text-foreground group-hover:text-primary transition-colors"
+                  style={{ fontSize: "13.5px", lineHeight: "1.4" }}
+                >
+                  <span>Next Article</span>
+                  <span aria-hidden>→</span>
+                </span>
+                <span
+                  className="text-muted-foreground group-hover:text-muted-foreground/80 transition-colors"
+                  style={{ fontSize: "12px", lineHeight: "1.4" }}
+                >
+                  {next.label}
+                </span>
+              </Link>
+            )}
           </div>
         </div>
       </div>
     </footer>
   );
 };
-
-const ArticleNavRow = ({
-  label,
-  to,
-  title,
-  direction,
-}: {
-  label: string;
-  to: string;
-  title: string;
-  direction: "back" | "forward";
-}) => (
-  <Link to={to} className="group block">
-    <div
-      className={
-        direction === "forward"
-          ? "flex flex-col items-end text-right"
-          : "flex flex-col items-start"
-      }
-      style={{ rowGap: "4px" }}
-    >
-      <span
-        className="font-mono uppercase text-muted-foreground"
-        style={{ fontSize: "10px", letterSpacing: "0.14em" }}
-      >
-        {label}
-      </span>
-      <span
-        className="inline-flex items-center gap-2 text-foreground group-hover:text-primary transition-colors font-sans"
-        style={{ fontSize: "13.5px", lineHeight: "1.4" }}
-      >
-        {direction === "back" && <span aria-hidden>←</span>}
-        <span>{title}</span>
-        {direction === "forward" && <span aria-hidden>→</span>}
-      </span>
-    </div>
-  </Link>
-);
