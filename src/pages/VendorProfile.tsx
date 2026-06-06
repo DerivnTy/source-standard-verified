@@ -579,7 +579,7 @@ const VendorProfile = () => {
             )}
 
             {/* Identity body — compressed */}
-            <div style={{ padding: "12px 12px 12px" }}>
+            <div style={{ padding: "16px 14px 14px" }}>
               {/* Status + Service model — single registry line */}
               <div
                 className="flex flex-wrap items-center font-sans font-bold uppercase"
@@ -602,49 +602,49 @@ const VendorProfile = () => {
 
               {/* Name + logo */}
               <div
-                className="mt-2.5 flex items-start gap-2.5"
-                style={vendor.coverImageUrl ? { marginTop: "10px" } : undefined}
+                className="mt-4 flex items-center gap-2.5"
+                style={vendor.coverImageUrl ? { marginTop: "14px" } : undefined}
               >
                 <div
                   style={
                     vendor.coverImageUrl
-                      ? { boxShadow: "0 0 0 3px hsl(var(--card))", borderRadius: "10px" }
+                      ? { boxShadow: "0 0 0 3px hsl(var(--card))", borderRadius: "8px" }
                       : undefined
                   }
                 >
-                  <LogoBlock vendor={vendor} size={44} />
+                  <LogoBlock vendor={vendor} size={36} />
                 </div>
-                <div className="min-w-0 flex-1">
-                  <h1
-                    className="font-sans font-semibold text-foreground"
-                    style={{ fontSize: "20px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
-                  >
-                    {vendor.name}
-                  </h1>
-
-                  {/* Meta row */}
-                  <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-                    {location !== "—" && (
-                      <span
-                        className="inline-flex items-center gap-1 text-muted-foreground"
-                        style={{ fontSize: "12px" }}
-                      >
-                        <MapPin size={12} strokeWidth={1.5} />
-                        {location}
-                      </span>
-                    )}
-                    {vendor.reviewId && (
-                      <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
-                        {vendor.reviewId}
-                      </span>
-                    )}
-                  </div>
-                </div>
+                <h1
+                  className="min-w-0 flex-1 font-sans font-semibold text-foreground"
+                  style={{ fontSize: "20px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                >
+                  {vendor.name}
+                </h1>
               </div>
+
+              {/* Location — aligned with card edge, part of identity */}
+              {(location !== "—" || vendor.reviewId) && (
+                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+                  {location !== "—" && (
+                    <span
+                      className="inline-flex items-center gap-1 text-muted-foreground"
+                      style={{ fontSize: "13px" }}
+                    >
+                      <MapPin size={13} strokeWidth={1.5} />
+                      {location}
+                    </span>
+                  )}
+                  {vendor.reviewId && (
+                    <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
+                      {vendor.reviewId}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Contact row — website / phone / email / maps */}
               {(vendor.website || phoneHref || emailHref || mapsHref) && (
-                <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                <div className="mt-3.5 flex flex-wrap items-center gap-1.5">
                   {vendor.website && (
                     <SocialIconBtn href={vendor.website} label={`Website: ${hostname(vendor.website)}`}>
                       <Globe size={14} strokeWidth={1.5} />
