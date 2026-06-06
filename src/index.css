@@ -288,80 +288,170 @@ html {
   .w-hero          { max-width: 720px;  }
   .w-two-col       { max-width: 520px;  }
 
-  /* Typography tokens — locked to one site-wide hierarchy.
-     Spec: 48/56 H1 · 36/44 large section · 30/38 std section · 24/32 H3 ·
-           20/28 H4 · 19/32 body-lg · 18/30 body-md · 16/28 body-sm ·
-           13/20 eyebrow · 12/18 utility/micro. */
-  .font-sans          { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; letter-spacing: -0.022em !important; }
-  .font-serif         { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
-  .font-mono          { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important; letter-spacing: 0.02em !important; }
-  .t-utility-xs       { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; line-height: 16px; letter-spacing: 0.08em !important; font-weight: 400; text-transform: uppercase; }
-  .t-meta-note        { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; line-height: 16px; letter-spacing: 0.02em !important; font-weight: 400; }
-  .t-eyebrow-sm       { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; line-height: 16px; letter-spacing: 0.08em !important; font-weight: 400; text-transform: uppercase; }
-  .t-micro            { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; line-height: 16px; letter-spacing: 0.08em !important; font-weight: 400; text-transform: uppercase; }
-  .t-nav              { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif; font-size: 15px; line-height: 20px; font-weight: 500; letter-spacing: -0.022em !important; }
-  .t-label-sm         { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif; font-size: 11px; line-height: 16px; letter-spacing: 0.06em !important; font-weight: 600; text-transform: uppercase; }
-  .t-button           { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif; font-size: 13px; line-height: 16px; letter-spacing: 0.05em !important; font-weight: 600; text-transform: uppercase; }
-  .t-body-sm          { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 13px; line-height: 1.65; font-weight: 400; letter-spacing: -0.01em !important; }
-  .t-body-md          { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 13px; line-height: 1.65; font-weight: 400; letter-spacing: -0.01em !important; }
-  .t-body-lg          { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 15px; line-height: 1.65; font-weight: 400; letter-spacing: -0.01em !important; }
-  .t-body-strong      { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 13px; line-height: 1.65; font-weight: 600; letter-spacing: -0.01em !important; }
-  .t-h3               { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 15px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em !important; }
-  .t-h4               { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 15px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em !important; }
-  .t-section-title-sm { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 22px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em !important; }
-  .t-section-title-md { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 22px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em !important; }
-  .t-page-title       { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important; font-size: 22px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em !important; }
-  .t-chapter-title    { @apply t-page-title; }
-  .t-home-title       { @apply t-page-title; }
-  .t-article-title    { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.022em !important; }
+  /* ────────────────────────────────────────────────────────────
+     GLOBAL TYPOGRAPHY SYSTEM (10 types — applied sitewide).
+     Mobile-first values per spec. Headings/eyebrows scale up modestly
+     at md+ but never break the institutional hierarchy.
+     ──────────────────────────────────────────────────────────── */
+  .font-sans  { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important; letter-spacing: -0.01em !important; }
+  .font-serif { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
+  .font-mono  { font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important; letter-spacing: 0.04em !important; }
 
-  /* ── Source Standard institutional typography (Home page is source of truth) ──
-     These utilities encode the exact Home page hierarchy so every page in the
-     platform shares a single typographic system. Use these on registry pages,
-     framework pages, profile pages, and reference pages. */
-  .ss-section        { padding-top: 24px; padding-bottom: 24px; }
+  /* TYPE 01 — Primary Hero Titles */
+  .t-page-title,
+  .t-chapter-title,
+  .t-home-title,
+  .t-article-title,
   .ss-hero-title {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important;
-    font-size: 38px;
-    line-height: 1.05;
-    letter-spacing: -0.035em !important;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 44px;
+    line-height: 1.08;
+    letter-spacing: -0.03em !important;
     font-weight: 700;
-    color: hsl(var(--foreground));
-    margin-top: 14px;
+    color: #0A0A0A;
+    max-width: 18ch;
   }
   @media (min-width: 768px) {
-    .ss-hero-title { font-size: 56px; letter-spacing: -0.04em !important; }
+    .t-page-title, .t-chapter-title, .t-home-title, .t-article-title, .ss-hero-title {
+      font-size: 64px;
+      letter-spacing: -0.035em !important;
+      max-width: 20ch;
+    }
   }
   @media (min-width: 1024px) {
-    .ss-hero-title { font-size: 64px; }
+    .t-page-title, .t-chapter-title, .t-home-title, .t-article-title, .ss-hero-title {
+      font-size: 76px;
+    }
   }
-  .ss-eyebrow {
-    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 10px;
-    line-height: 16px;
-    letter-spacing: 0.08em !important;
-    text-transform: uppercase;
-    font-weight: 400;
-    color: hsl(var(--muted-foreground));
-  }
-  .ss-section-title {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important;
-    font-size: 22px;
-    line-height: 1.25;
-    letter-spacing: -0.01em !important;
-    font-weight: 600;
-    color: hsl(var(--foreground));
-    margin-top: 12px;
-  }
-  .ss-lead {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important;
-    font-size: 15px;
-    line-height: 1.75;
+
+  /* TYPE 02 — Hero Description */
+  .ss-lead,
+  .t-hero-lead {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 20px;
+    line-height: 1.6;
     letter-spacing: -0.01em !important;
     font-weight: 400;
-    color: hsl(var(--muted-foreground));
+    color: rgba(0, 0, 0, 0.60);
+    max-width: 36ch;
     margin-top: 16px;
   }
+  @media (min-width: 768px) {
+    .ss-lead, .t-hero-lead { font-size: 22px; max-width: 38ch; }
+  }
+
+  /* TYPE 03 — Section Labels / Eyebrows */
+  .t-eyebrow-sm,
+  .t-utility-xs,
+  .t-micro,
+  .t-label-sm,
+  .ss-eyebrow {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.12em !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  /* TYPE 04 — Major Section Titles */
+  .t-section-title-sm,
+  .t-section-title-md,
+  .ss-section-title {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.02em !important;
+    font-weight: 700;
+    color: #0A0A0A;
+    margin-top: 12px;
+  }
+  @media (min-width: 768px) {
+    .t-section-title-sm, .t-section-title-md, .ss-section-title {
+      font-size: 34px;
+    }
+  }
+
+  /* TYPE 05 — Section Intro Copy */
+  .t-section-intro,
+  .t-body-lg {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 18px;
+    line-height: 1.6;
+    letter-spacing: -0.005em !important;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.60);
+    max-width: 40ch;
+  }
+
+  /* TYPE 06 — Card Titles */
+  .t-h3,
+  .t-h4,
+  .ss-card-title {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.01em !important;
+    font-weight: 600;
+    color: #111111;
+  }
+
+  /* TYPE 07 — Card Body Copy (dominant reading size) */
+  .t-body-md,
+  .t-body-sm,
+  .t-body-strong,
+  .ss-body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 17px;
+    line-height: 1.75;
+    letter-spacing: -0.005em !important;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.62);
+  }
+  .t-body-strong { font-weight: 600; color: #111111; }
+
+  /* TYPE 08 — Article Body Text (publications, library, FAQ) */
+  .t-article-body,
+  .prose-article p,
+  .prose-article li {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 19px;
+    line-height: 1.85;
+    letter-spacing: -0.005em !important;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.72);
+    max-width: 72ch;
+  }
+
+  /* TYPE 09 — Metadata */
+  .t-meta,
+  .t-meta-note,
+  .t-nav,
+  .ss-card-meta {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: 0.08em !important;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.42);
+  }
+  .t-nav { text-transform: none; letter-spacing: -0.005em !important; font-size: 15px; }
+
+  /* TYPE 10 — Numerical System (IBM Plex Mono) */
+  .t-numeric,
+  .t-button {
+    font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0.04em !important;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.40);
+  }
+  .t-button { text-transform: uppercase; color: inherit; font-size: 13px; }
+
+  /* ── Legacy lead-card chrome (kept for layout, types inherit from above) ── */
   .ss-lead-card {
     background: hsl(var(--card));
     border: 0.5px solid hsl(var(--border));
@@ -372,32 +462,6 @@ html {
   .ss-lead-card > .ss-lead,
   .ss-lead-card > p {
     margin-top: 0;
-    font-size: 13px;
-    line-height: 1.65;
-    color: hsl(var(--muted-foreground));
-  }
-  .ss-card-title {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important;
-    font-size: 15px;
-    line-height: 1.3;
-    letter-spacing: -0.01em !important;
-    font-weight: 600;
-    color: hsl(var(--foreground));
-  }
-  .ss-card-meta {
-    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.06em !important;
-    text-transform: uppercase;
-    color: hsl(var(--muted-foreground));
-  }
-  .ss-body {
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif !important;
-    font-size: 13px;
-    line-height: 1.65;
-    letter-spacing: -0.01em !important;
-    color: hsl(var(--muted-foreground));
   }
 
   /* Section vertical rhythm (sitewide constitution).
