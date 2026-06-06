@@ -49,14 +49,14 @@ const HeroMetrics = () => {
               width: "6px",
               height: "6px",
               backgroundColor: dotColor,
-              boxShadow: `0 0 6px ${dotColor}`,
+              boxShadow: `0 0 8px ${dotColor}`,
             }}
           />
         </span>
         <span
           className="font-sans text-white tabular-nums"
           style={{
-            fontSize: "28px",
+            fontSize: "clamp(30px, 4vw, 40px)",
             lineHeight: "1",
             fontWeight: 600,
             letterSpacing: "-0.02em",
@@ -66,11 +66,11 @@ const HeroMetrics = () => {
         </span>
       </div>
       <span
-        className="font-mono uppercase text-white/65"
+        className="font-mono uppercase text-white/85"
         style={{
-          fontSize: "10px",
-          lineHeight: "12px",
-          letterSpacing: "0.18em",
+          fontSize: "11px",
+          lineHeight: "14px",
+          letterSpacing: "0.16em",
           fontWeight: 500,
           marginTop: "8px",
         }}
