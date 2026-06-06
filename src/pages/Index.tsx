@@ -86,20 +86,9 @@ const HeroMetrics = () => {
   return (
     <div className="flex flex-col items-center w-full" style={{ maxWidth: "420px" }}>
       <span
-        className="font-sans text-white text-center"
-        style={{
-          fontSize: "clamp(20px, 3vw, 28px)",
-          lineHeight: 1.1,
-          fontWeight: 600,
-          letterSpacing: "-0.02em",
-        }}
-      >
-        Live Registry
-      </span>
-      <span
         aria-hidden
         className="block bg-white/30"
-        style={{ height: "1px", width: "80%", marginTop: "10px", marginBottom: "16px" }}
+        style={{ height: "1px", width: "80%", marginBottom: "16px" }}
       />
       <div
         role="group"
@@ -378,7 +367,7 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard · Verify the source."
+        title="Source Standard · Live Registry"
         description="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
         path="/"
         jsonLd={[
@@ -500,7 +489,7 @@ const Index = () => {
           variant="cover"
           category="Public Reference System · United States"
           docId=""
-          title="Verify the source."
+          title="Live Registry"
           statement="Independent verification of vendor sourcing claims and supporting documentation."
           tone="navy"
           heroLogo={
