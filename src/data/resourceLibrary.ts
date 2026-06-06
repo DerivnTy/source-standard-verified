@@ -55,7 +55,7 @@ export const CATEGORIES: Category[] = [
     short: "Latest",
     description:
       "Recent articles, framework updates, industry developments, and sourcing-transparency topics relevant to consumers, vendors, and healthcare organizations.",
-    path: "/library/latest",
+    path: "/library/publications",
   },
 ];
 
