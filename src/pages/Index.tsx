@@ -442,7 +442,7 @@ const Index = () => {
           }
 
           /* Section rhythm — bump padding and headings on every home section */
-          .home-section { padding-top: 80px !important; padding-bottom: 80px !important; }
+          .home-section { padding-top: 52px !important; padding-bottom: 52px !important; }
           .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; }
           .home-section .home-h2 {
             font-size: 36px !important;
