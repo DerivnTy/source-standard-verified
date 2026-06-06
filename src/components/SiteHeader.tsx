@@ -5,12 +5,12 @@ import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  { to: "/verified-vendors", label: "Verified Vendors" },
-  { to: "/greenlist", label: "Green List" },
+  { to: "/verified-vendors", label: "Vendor Registry" },
+  { to: "/greenlist", label: "Facility Registry" },
+  { to: "/how-it-works", label: "Verification Framework" },
   { to: "/medical-advisory", label: "Advisory Board" },
   { to: "/education", label: "Resource Library" },
-  { to: "/how-it-works", label: "Verification" },
-  { to: "/about", label: "About" },
+  { to: "/about", label: "About Source Standard" },
 ];
 
 // Mobile mirrors desktop nav, with Home prepended as the anchor item.
