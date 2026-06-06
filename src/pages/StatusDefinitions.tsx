@@ -315,7 +315,6 @@ const LifecycleRow = ({ index, text }: { index: string; text: string }) => (
         {index}
       </span>
     </div>
-    </div>
   </div>
 );
 
