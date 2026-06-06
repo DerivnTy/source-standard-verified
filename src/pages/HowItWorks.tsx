@@ -40,7 +40,7 @@ const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Record maintenance",
-    d: "Published records may be reviewed periodically to confirm that documentation, licensure information, and sourcing relationships remain current.",
+    d: "Published records remain subject to ongoing review as new information, documentation, or public-record changes become available.",
   },
   {
     n: "02",
