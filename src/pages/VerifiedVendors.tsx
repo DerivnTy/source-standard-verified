@@ -113,7 +113,6 @@ const VerifiedVendors = () => {
       if (!matchesQuery(vendor, query)) return false;
       if (status === "verified" && vendor.status !== "verified") return false;
       if (status === "unverified" && vendor.status === "verified") return false;
-      if (!matchesFocus(vendor, focus)) return false;
       if (delivery !== "any") {
         const f = fulfillmentByVendor.get(vendor.slug);
         if (delivery === "online" && f === "in-person") return false;
@@ -121,7 +120,7 @@ const VerifiedVendors = () => {
       }
       return true;
     });
-  }, [query, status, delivery, focus, fulfillmentByVendor]);
+  }, [query, status, delivery, fulfillmentByVendor]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
