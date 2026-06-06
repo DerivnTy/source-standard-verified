@@ -156,47 +156,58 @@ const GreenlistProfile = () => {
     ...(p.dosageForms ?? []),
     ...(p.specializations ?? []),
     entry.focus ?? "",
-    p.background ?? "",
+    p.overview ?? p.background ?? "",
   ].join(" | ");
 
-  const capabilities = CAPABILITY_DEFS.filter((c) => {
-    if (c.key === "sterile" && p.compoundingScope?.sterile) return true;
-    if (c.key === "nonsterile" && p.compoundingScope?.nonSterile) return true;
-    return c.match.test(searchText);
-  }).map((c) => c.label);
+  const capabilities = p.capabilities && p.capabilities.length > 0
+    ? p.capabilities
+    : CAPABILITY_DEFS.filter((c) => {
+        if (c.key === "sterile" && p.compoundingScope?.sterile) return true;
+        if (c.key === "nonsterile" && p.compoundingScope?.nonSterile) return true;
+        return c.match.test(searchText);
+      }).map((c) => c.label);
 
-  const therapies = THERAPY_DEFS.filter((t) => t.match.test(searchText)).map((t) => t.label);
+  const therapies = p.therapyCategories && p.therapyCategories.length > 0
+    ? p.therapyCategories
+    : THERAPY_DEFS.filter((t) => t.match.test(searchText)).map((t) => t.label);
 
   const statusBlurb = isGreenlisted
-    ? "This manufacturer currently holds Greenlisted status based on successful independent testing activity."
+    ? "This facility currently holds Greenlisted status based on successful independent testing activity."
     : status === "alert"
-    ? "This manufacturer is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
-    : "This manufacturer has been identified within the Source Standard database but has not yet achieved Greenlisted status.";
+    ? "This facility is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
+    : "This facility has been identified within the Source Standard database and is currently under monitoring. Greenlisted status will be assigned through Source Standard independent testing activity.";
 
-  // Public records — only render rows that have data.
+  // Public records — prefer data-driven, fallback to derived FDA inspection link.
   const fdaInspectionUrl = p.feiNumber
     ? `https://www.accessdata.fda.gov/scripts/inspsearch/index.cfm?action=Search.ShowInspectionsTable&FEINumber=${encodeURIComponent(
         p.feiNumber,
       )}`
     : undefined;
 
-  // Timeline — only render entries we actually know.
-  const timeline: { date: string; event: string }[] = [];
-  if (p.initialRegistrationYear)
-    timeline.push({ date: p.initialRegistrationYear, event: "FDA Registration" });
-  if (entry.category === "503A")
-    timeline.push({
-      date: p.initialRegistrationYear ?? "—",
-      event: "503A Designation",
-    });
-  if (entry.category === "503B")
-    timeline.push({
-      date: p.initialRegistrationYear ?? "—",
-      event: "503B Designation",
-    });
+  const publicRecords: { label: string; url: string }[] = p.publicRecords?.length
+    ? p.publicRecords
+    : [
+        ...(entry.website ? [{ label: "Company Website", url: entry.website }] : []),
+        ...(fdaInspectionUrl ? [{ label: "FDA Inspection Records", url: fdaInspectionUrl }] : []),
+      ];
+
+  // Timeline — prefer data-driven entries from registry dataset.
+  const timeline: { date: string; event: string }[] = p.timeline?.length
+    ? [...p.timeline]
+    : [];
+  if (timeline.length === 0) {
+    if (p.initialRegistrationYear)
+      timeline.push({ date: p.initialRegistrationYear, event: "FDA Registration" });
+    if (entry.category === "503A")
+      timeline.push({ date: p.initialRegistrationYear ?? "—", event: "503A Designation" });
+    if (entry.category === "503B")
+      timeline.push({ date: p.initialRegistrationYear ?? "—", event: "503B Designation" });
+  }
   timeline.push({ date: lastUpdated, event: "Added to Source Standard Registry" });
   if (status === "monitoring")
     timeline.push({ date: lastUpdated, event: "Monitoring Initiated" });
+
+
 
   return (
     <>
