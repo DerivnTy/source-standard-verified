@@ -340,7 +340,7 @@ const Greenlist = () => {
                     </p>
                     <p
                       className="mt-2 text-muted-foreground"
-                      style={{ fontSize: "14.5px", lineHeight: 1.5 }}
+                      style={{ fontSize: "14px", lineHeight: 1.45 }}
                     >
                       {s.body}
                     </p>
