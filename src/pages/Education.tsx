@@ -183,6 +183,7 @@ const CategoryBlock = ({
   category: Category;
   entries: ReturnType<typeof articlesByCategory>;
 }) => {
+  const isLatest = category.id === "latest";
   const visible =
     category.id === "core" ? entries : entries.slice(0, PREVIEW_LIMIT_LATEST);
   const hasMore =
@@ -192,7 +193,10 @@ const CategoryBlock = ({
     <section
       id={category.id}
       className="border-b border-border/40 scroll-mt-36"
-      style={{ paddingTop: "36px", paddingBottom: "24px" }}
+      style={{
+        paddingTop: "36px",
+        paddingBottom: isLatest ? "48px" : "24px",
+      }}
     >
       <div className="mx-auto w-wide">
         <div className="grid grid-cols-12 gap-x-8 gap-y-6">
@@ -203,9 +207,11 @@ const CategoryBlock = ({
             <p className="mt-2 t-body-sm text-muted-foreground leading-[1.55] max-w-[42ch]">
               {category.description}
             </p>
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
-              {category.id === "core" ? "Foundational References" : `${entries.length} ${entries.length === 1 ? "entry" : "entries"}`}
-            </p>
+            {category.id === "core" && (
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
+                Foundational References
+              </p>
+            )}
           </div>
 
           <div className="col-span-12 md:col-span-8">
@@ -230,7 +236,20 @@ const CategoryBlock = ({
               </ul>
             )}
 
-            {hasMore && (
+            {isLatest && entries.length > 0 && (
+              <div style={{ marginTop: "24px" }}>
+                <Link
+                  to="/library/publications"
+                  className="inline-flex items-center gap-1 font-sans font-semibold text-[hsl(var(--primary))] hover:opacity-80 transition-opacity"
+                  style={{ fontSize: "13px", letterSpacing: "-0.005em" }}
+                >
+                  View All Publications
+                  <ChevronRight aria-hidden style={{ width: "13px", height: "13px", strokeWidth: 1.75 }} />
+                </Link>
+              </div>
+            )}
+
+            {hasMore && !isLatest && (
               <div className="mt-3">
                 <ViewAllPill to={category.path}>
                   View all {category.label}
