@@ -137,7 +137,7 @@ const VerifiedVendors = () => {
   const [focusOpen, setFocusOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  void getVendorStates;
+  
 
   const fulfillmentByVendor = useMemo(() => {
     const map = new Map<string, VendorFulfillment>();
