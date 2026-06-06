@@ -644,7 +644,7 @@ const VendorProfile = () => {
 
               {/* Contact row — website / phone / email / maps */}
               {(vendor.website || phoneHref || emailHref || mapsHref) && (
-                <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                <div className="mt-3.5 flex flex-wrap items-center gap-1.5">
                   {vendor.website && (
                     <SocialIconBtn href={vendor.website} label={`Website: ${hostname(vendor.website)}`}>
                       <Globe size={14} strokeWidth={1.5} />
