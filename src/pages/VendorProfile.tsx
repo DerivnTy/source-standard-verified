@@ -582,7 +582,7 @@ const VendorProfile = () => {
   return (
     <>
       <PageMeta
-        title={`${vendor.name} · ${vendor.category ?? "Clinic"}${location !== "—" ? " · " + location : ""}`}
+        title={`${vendor.name} · ${vendor.category ?? "Vendor"}${location !== "—" ? " · " + location : ""}`}
         description={metaDescription}
         path={canonicalPath}
         type="profile"
