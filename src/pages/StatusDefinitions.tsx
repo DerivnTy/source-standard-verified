@@ -361,7 +361,7 @@ const StatusDefinitions = () => {
               className="scroll-mt-24"
               style={{
                 paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -392,8 +392,8 @@ const StatusDefinitions = () => {
               id="statuses"
               className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -414,8 +414,8 @@ const StatusDefinitions = () => {
               id="lifecycle"
               className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -436,8 +436,8 @@ const StatusDefinitions = () => {
               id="related"
               className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{
-                paddingTop: "36px",
-                paddingBottom: "36px",
+                paddingTop: "24px",
+                paddingBottom: "24px",
                 borderBottom: "0.5px solid hsl(var(--border))",
               }}
             >
@@ -454,7 +454,7 @@ const StatusDefinitions = () => {
             </section>
 
             {/* §5 Closing statement */}
-            <section style={{ paddingTop: "36px", paddingBottom: "64px" }}>
+            <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <StatusCard>
                 <Eyebrow>Public Language</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
