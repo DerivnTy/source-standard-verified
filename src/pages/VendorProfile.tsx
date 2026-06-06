@@ -579,22 +579,31 @@ const VendorProfile = () => {
             )}
 
             {/* Identity body — compressed */}
-            <div style={{ padding: "14px 16px 12px" }}>
-              {/* Status */}
-              <div className="flex items-start justify-between">
+            <div style={{ padding: "12px 12px 12px" }}>
+              {/* Status + Service model — single registry line */}
+              <div
+                className="flex flex-wrap items-center font-sans font-bold uppercase"
+                style={{ fontSize: "10px", letterSpacing: "0.08em", lineHeight: 1, gap: "6px" }}
+              >
                 <StatusPill />
-              </div>
-
-              {/* Service model */}
-              <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                <FulfillmentChip active={isInPerson || isHybrid} label="In-Person" />
-                <FulfillmentChip active={isOnline || isHybrid} label="Telehealth" />
+                {(isInPerson || isHybrid) && (
+                  <>
+                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
+                    <span style={{ color: "hsl(var(--muted-foreground))" }}>In-Person</span>
+                  </>
+                )}
+                {(isOnline || isHybrid) && (
+                  <>
+                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
+                    <span style={{ color: "hsl(var(--muted-foreground))" }}>Telehealth</span>
+                  </>
+                )}
               </div>
 
               {/* Name + logo */}
               <div
-                className="mt-3 flex items-start gap-3"
-                style={vendor.coverImageUrl ? { marginTop: "12px" } : undefined}
+                className="mt-2.5 flex items-start gap-2.5"
+                style={vendor.coverImageUrl ? { marginTop: "10px" } : undefined}
               >
                 <div
                   style={
@@ -603,7 +612,7 @@ const VendorProfile = () => {
                       : undefined
                   }
                 >
-                  <LogoBlock vendor={vendor} size={48} />
+                  <LogoBlock vendor={vendor} size={44} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <h1
@@ -615,19 +624,6 @@ const VendorProfile = () => {
 
                   {/* Meta row */}
                   <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-                    {vendor.category && (
-                      <span
-                        className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
-                        style={{
-                          fontSize: "9px",
-                          letterSpacing: "0.06em",
-                          padding: "3px 6px",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        {vendor.category}
-                      </span>
-                    )}
                     {location !== "—" && (
                       <span
                         className="inline-flex items-center gap-1 text-muted-foreground"
