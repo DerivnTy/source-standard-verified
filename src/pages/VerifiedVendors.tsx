@@ -17,7 +17,6 @@ import {
 
 type StatusKey = "any" | "verified" | "unverified";
 type DeliveryKey = "any" | "online" | "in-person";
-type FocusKey = "all" | "peptides" | "hormone" | "longevity" | "wellness";
 
 const PAGE_SIZE = 10;
 
@@ -30,41 +29,6 @@ const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
   { value: "online", label: "ONLINE" },
   { value: "in-person", label: "IN-PERSON" },
 ];
-
-// 2x2 grid of focus pills (mirrors the primary 2x2 status/method grid)
-const FOCUS_OPTIONS: { value: Exclude<FocusKey, "all">; label: string }[] = [
-  { value: "peptides", label: "PEPTIDES" },
-  { value: "hormone", label: "HORMONE" },
-  { value: "longevity", label: "LONGEVITY" },
-  { value: "wellness", label: "WELLNESS" },
-];
-
-const FOCUS_LABEL: Record<FocusKey, string> = {
-  all: "All",
-  peptides: "PEPTIDES",
-  hormone: "HORMONE",
-  longevity: "LONGEVITY",
-  wellness: "WELLNESS",
-};
-
-/** Map vendor → consumer focus bucket. */
-const matchesFocus = (vendor: Vendor, key: FocusKey): boolean => {
-  if (key === "all") return true;
-  const haystack = [vendor.category, ...(vendor.clinicalFocus ?? [])]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-  switch (key) {
-    case "peptides":
-      return /peptide/.test(haystack);
-    case "hormone":
-      return /(hormone|trt|hrt|testosterone|estrogen)/.test(haystack);
-    case "longevity":
-      return /(longevity|anti[- ]?aging|nad|regenerative)/.test(haystack);
-    case "wellness":
-      return /(wellness|weight|aesthetic|iv|recovery|vitamin)/.test(haystack);
-  }
-};
 
 /** Smart query: name, city, state name/abbr, category, focus. */
 const matchesQuery = (vendor: Vendor, query: string): boolean => {
