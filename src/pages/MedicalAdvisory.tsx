@@ -288,11 +288,8 @@ const MedicalAdvisory = () => {
 
             {/* §6 Members */}
             <section id="members" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
-              <SectionIndex n="03" />
               <div className="mb-8 max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
-                  Advisory Structure
-                </h2>
+                <SectionHeadingInline n="03" title="Advisory Structure" />
                 <div className="mt-4 flex flex-col" style={{ gap: "12px" }}>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
                     Clinical Oversight may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework.
