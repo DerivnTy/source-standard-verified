@@ -114,12 +114,22 @@ export const SiteFooter = () => {
                   ))}
                   {col.title === "Registry" && (
                     <li>
-                      <Link
-                        to="/apply"
-                        className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
-                      >
-                        Begin Verification <span aria-hidden="true">→</span>
-                      </Link>
+                      {pathname === "/apply" ? (
+                        <button
+                          type="button"
+                          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                          className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
+                        >
+                          Begin Verification <span aria-hidden="true">→</span>
+                        </button>
+                      ) : (
+                        <Link
+                          to="/apply"
+                          className="inline-flex items-center gap-1 font-sans text-[13px] font-medium text-white hover:text-white/80 transition-colors"
+                        >
+                          Begin Verification <span aria-hidden="true">→</span>
+                        </Link>
+                      )}
                     </li>
                   )}
                 </ul>
