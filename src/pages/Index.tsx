@@ -327,13 +327,21 @@ const DataStrip = ({
       <div className="flex items-start justify-between gap-x-3">
         <h3
           className="font-sans text-foreground"
-          style={{ fontSize: "18px", lineHeight: 1.3, fontWeight: 600, letterSpacing: "-0.01em" }}
+          style={{ fontSize: "16px", lineHeight: 1.3, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}
         >
           {title}
         </h3>
         <span
-          className="font-mono text-muted-foreground tabular-nums shrink-0"
-          style={{ fontSize: "12px", letterSpacing: "0.04em", fontWeight: 500, marginTop: "4px" }}
+          className="font-mono tabular-nums shrink-0"
+          style={{
+            fontSize: "11px",
+            fontWeight: 500,
+            lineHeight: 1,
+            letterSpacing: "0.06em",
+            color: "rgba(0,0,0,0.38)",
+            whiteSpace: "nowrap",
+            paddingTop: "2px",
+          }}
         >
           {indexLabel}
         </span>

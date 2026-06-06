@@ -154,13 +154,24 @@ const AboutRow = ({
       padding: "14px 16px",
     }}
   >
-    <div className="flex items-baseline justify-between gap-4">
-      <h3 className="font-sans font-semibold text-foreground" style={{ fontSize: "12px" }}>
+    <div className="flex items-start justify-between gap-4">
+      <h3
+        className="font-sans text-foreground"
+        style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, margin: 0 }}
+      >
         {title}
       </h3>
       <span
-        className="font-mono tabular-nums text-muted-foreground shrink-0"
-        style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "11px",
+          fontWeight: 500,
+          lineHeight: 1,
+          letterSpacing: "0.06em",
+          color: "rgba(0,0,0,0.38)",
+          whiteSpace: "nowrap",
+          paddingTop: "2px",
+        }}
       >
         {`${String(index).padStart(2, "0")} / ${String(total).padStart(2, "0")}`}
       </span>
@@ -185,19 +196,20 @@ const AboutStatementRow = ({ index, text }: { index: number; text: string }) => 
     <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <p
         className="text-foreground"
-        style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.55 }}
+        style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.55, margin: 0 }}
       >
         {text}
       </p>
       <span
         className="font-mono tabular-nums shrink-0"
         style={{
-          fontSize: "12px",
+          fontSize: "11px",
           fontWeight: 500,
-          letterSpacing: "0.04em",
-          color: "rgba(0,0,0,0.40)",
+          lineHeight: 1,
+          letterSpacing: "0.06em",
+          color: "rgba(0,0,0,0.38)",
           whiteSpace: "nowrap",
-          marginTop: "1px",
+          paddingTop: "2px",
         }}
       >
         {String(index).padStart(2, "0")}
