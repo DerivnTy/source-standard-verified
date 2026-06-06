@@ -46,15 +46,15 @@ export const VendorRow = ({
       to={`/directory/${vendor.slug}`}
       aria-label={`${vendor.name}${focus ? ` — ${focus.label}` : ""}`}
       data-pill
-      className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.99]"
+      className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 hover:border-[hsl(var(--foreground))]/20 active:scale-[0.99]"
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "14px 18px 12px",
-        minHeight: "92px",
+        padding: "12px 16px 10px",
+        minHeight: "84px",
       }}
     >
-      <div className="flex flex-col" style={{ gap: "7px" }}>
+      <div className="flex flex-col" style={{ gap: "5px" }}>
         {/* Row 1 — Name (left) · Status (right) */}
         <div className="flex items-start justify-between" style={{ gap: "16px" }}>
           <h3
@@ -76,12 +76,13 @@ export const VendorRow = ({
             style={{
               flexShrink: 0,
               height: "12px",
-              fontSize: "12px",
-              fontWeight: 700,
-              letterSpacing: "0.035em",
+              fontSize: isVerified ? "12px" : "10.5px",
+              fontWeight: isVerified ? 700 : 600,
+              letterSpacing: "0.04em",
               lineHeight: 1,
               gap: "4px",
               color: isVerified ? "#001021" : "#FF3B30",
+              opacity: isVerified ? 1 : 0.85,
             }}
           >
             {isVerified ? "Verified" : "Unverified"}
@@ -114,52 +115,59 @@ export const VendorRow = ({
           </span>
         </div>
 
-        {/* Row 2 — Location/model metadata + small category tag */}
-        <div className="flex items-center" style={{ gap: "8px", flexWrap: "wrap" }}>
-          <span
-            className="text-muted-foreground truncate"
-            style={{ minWidth: 0, fontSize: "11.5px", lineHeight: 1.35 }}
-          >
-            {locationLine}
-          </span>
-          {focus && (
-            <span
-              className="inline-flex items-center gap-1 font-sans uppercase whitespace-nowrap text-muted-foreground"
-              style={{
-                fontSize: "9.5px",
-                fontWeight: 500,
-                letterSpacing: "0.06em",
-                opacity: 0.7,
-              }}
-            >
-              · {focus.label}
-              {focus.extra > 0 && (
-                <span style={{ opacity: 0.7 }}>+{focus.extra}</span>
-              )}
-            </span>
-          )}
+        {/* Row 2 — Location · Vendor type */}
+        <div
+          className="text-muted-foreground truncate"
+          style={{ fontSize: "11.5px", lineHeight: 1.35 }}
+        >
+          {locationLine}
         </div>
 
-        {/* Row 3 — View Record action (right, quieter) */}
-        <div className="flex" style={{ justifyContent: "flex-end", marginTop: "-2px" }}>
+        {/* Row 3 — Category badge on its own line */}
+        {focus && (
+          <div style={{ marginTop: "1px" }}>
+            <span
+              className="inline-flex items-center font-sans uppercase whitespace-nowrap"
+              style={{
+                gap: "4px",
+                fontSize: "9.5px",
+                fontWeight: 600,
+                letterSpacing: "0.08em",
+                color: "hsl(var(--foreground))",
+                background: "hsl(var(--muted))",
+                border: "1px solid rgba(0,16,33,0.08)",
+                borderRadius: "6px",
+                padding: "3px 7px",
+                lineHeight: 1,
+              }}
+            >
+              {focus.label}
+              {focus.extra > 0 && (
+                <span style={{ opacity: 0.6 }}>+{focus.extra}</span>
+              )}
+            </span>
+          </div>
+        )}
+
+        {/* Row 4 — View Record action */}
+        <div className="flex items-center" style={{ justifyContent: "flex-end", marginTop: "1px" }}>
           <span
-            className="font-sans uppercase text-muted-foreground group-hover:text-foreground transition-colors"
+            className="font-sans uppercase text-foreground group-hover:translate-x-[1px] transition-transform"
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "3px",
-              marginLeft: "auto",
+              gap: "4px",
               marginRight: "-2px",
-              fontSize: "10px",
-              fontWeight: 500,
-              letterSpacing: "0.08em",
+              fontSize: "10.5px",
+              fontWeight: 700,
+              letterSpacing: "0.09em",
               lineHeight: 1,
             }}
           >
             View Record
             <ChevronRight
               aria-hidden
-              style={{ width: "10px", height: "10px", strokeWidth: 1.5, marginRight: "-2px" }}
+              style={{ width: "11px", height: "11px", strokeWidth: 2, marginRight: "-2px" }}
             />
           </span>
         </div>
