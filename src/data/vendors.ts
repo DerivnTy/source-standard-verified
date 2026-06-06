@@ -35874,7 +35874,24 @@ const vendorsRaw = [
   { slug: "neighborhood-naturopathic-9", name: "Neighborhood Naturopathic", status: "unverified", city: "Boise", state: "ID", website: normalizeWebsite("https://neighborhoodnaturopathic.com"), clinicalFocus: ["HRT", "Wellness"], category: "Wellness", summary: "Neighborhood Naturopathic publicly offers functional medicine, functional primary care, BHRT, root-cause testing, and IV therapy services. The site also lists detox, hydration, recovery, and iron infusion offerings." },
 
 ] as const;
-export const vendors: Vendor[] = vendorsRaw as unknown as Vendor[];
+
+import { REMOVED_DUPLICATE_SLUGS, REVIEW_QUEUE_SLUGS, CLEANUP_STATS } from "./vendorsCleanup";
+
+const allVendors: Vendor[] = vendorsRaw as unknown as Vendor[];
+
+// Public registry — high-confidence only. Excludes detected duplicates and low-information records.
+export const vendors: Vendor[] = allVendors.filter(
+  (v) => !REMOVED_DUPLICATE_SLUGS.has(v.slug) && !REVIEW_QUEUE_SLUGS.has(v.slug),
+);
+
+// Records flagged for manual review (incomplete profiles). Retained for audit, not surfaced in registry.
+export const vendorsReviewQueue: Vendor[] = allVendors.filter((v) => REVIEW_QUEUE_SLUGS.has(v.slug));
+
+// Records removed as duplicates. Retained for audit.
+export const vendorsDuplicates: Vendor[] = allVendors.filter((v) => REMOVED_DUPLICATE_SLUGS.has(v.slug));
+
+export const REGISTRY_CLEANUP_STATS = CLEANUP_STATS;
+
 
 // ---------- Normalization layer ----------
 // Cleans state, city, and clinicalFocus values at module load so every
