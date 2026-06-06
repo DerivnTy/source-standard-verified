@@ -95,6 +95,7 @@ const GreenlistProfile = () => {
 
   const p: GLProfile = entry.profile ?? {};
   const status: StatusTier = entry.regulatoryAlert ? "alert" : "monitoring";
+  const isGreenlisted: boolean = false;
 
   const typeBadge = manufacturerTypeLabel(entry.type);
   const lastUpdated =
