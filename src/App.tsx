@@ -34,6 +34,7 @@ import LibraryAnalysisQuestionsForYourClinic from "./pages/LibraryAnalysisQuesti
 import LibraryAnalysisMeaningOfVerification from "./pages/LibraryAnalysisMeaningOfVerification.tsx";
 import LibraryAnalysisUndocumentedSourcingSigns from "./pages/LibraryAnalysisUndocumentedSourcingSigns.tsx";
 import LibraryCategory from "./pages/LibraryCategory.tsx";
+import LibraryPublications from "./pages/LibraryPublications.tsx";
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
 import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
