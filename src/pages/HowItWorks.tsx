@@ -257,13 +257,13 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Source Standard exists to create a clearer public record around compounded therapy sourcing. The Verification Framework evaluates whether vendor sourcing representations are supported by documentation, pharmacies, manufacturers, and sourcing organization relationships, public records, and other reviewable evidence available during the verification process.
+                    Source Standard exists to create a clearer public record around compounded therapy sourcing. The Verification Framework evaluates whether vendor sourcing representations are supported by documentation, pharmacy, manufacturer, and sourcing organization relationships, public records, and other reviewable evidence available during the verification process.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Framework evaluates whether publicly stated vendor claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, public records, and related materials available during review.
+                    The Verification Framework evaluates whether publicly stated vendor claims are supported by submitted documentation, pharmacy, manufacturer, and sourcing organization relationship evidence, licensure records, public records, and related materials available during review.
                   </p>
                   <p
                     className="text-muted-foreground"
