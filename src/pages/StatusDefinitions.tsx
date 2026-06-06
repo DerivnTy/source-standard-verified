@@ -241,24 +241,38 @@ const StatusField = ({
 );
 
 const StatusDefinitionCard = ({ status }: { status: Status }) => (
-  <div style={{ ...cardChrome, padding: "24px" }}>
-    <div className="flex items-baseline gap-3">
-      <span
-        className="font-mono tabular-nums text-muted-foreground/60"
-        style={{ fontSize: "12px" }}
-      >
-        {status.n}
-      </span>
+  <div
+    style={{
+      backgroundColor: "#FFFFFF",
+      border: "1px solid rgba(0,0,0,0.08)",
+      borderRadius: "18px",
+      padding: "24px",
+    }}
+  >
+    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
       <h3
-        className="font-sans font-semibold text-foreground"
-        style={{ fontSize: "22px", lineHeight: 1.2 }}
+        className="font-sans text-foreground"
+        style={{ fontSize: "20px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
       >
         {status.title}
       </h3>
+      <span
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.04em",
+          color: "rgba(0,0,0,0.40)",
+          whiteSpace: "nowrap",
+          marginTop: "4px",
+        }}
+      >
+        {status.n}
+      </span>
     </div>
     <p
-      className="mt-3 text-foreground"
-      style={{ fontSize: "14px", lineHeight: 1.55 }}
+      className="text-muted-foreground"
+      style={{ marginTop: "12px", fontSize: "17px", fontWeight: 400, lineHeight: 1.75 }}
     >
       {status.definition}
     </p>
@@ -272,17 +286,35 @@ const StatusDefinitionCard = ({ status }: { status: Status }) => (
 );
 
 const LifecycleRow = ({ index, text }: { index: string; text: string }) => (
-  <div style={{ ...cardChrome, padding: "12px 14px" }}>
-    <div className="flex items-baseline gap-3">
+  <div
+    style={{
+      backgroundColor: "#FFFFFF",
+      border: "1px solid rgba(0,0,0,0.08)",
+      borderRadius: "14px",
+      padding: "16px 18px",
+    }}
+  >
+    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+      <p
+        className="text-foreground"
+        style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.55 }}
+      >
+        {text}
+      </p>
       <span
-        className="font-mono tabular-nums text-muted-foreground/60 shrink-0"
-        style={{ fontSize: "11px" }}
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.04em",
+          color: "rgba(0,0,0,0.40)",
+          whiteSpace: "nowrap",
+          marginTop: "1px",
+        }}
       >
         {index}
       </span>
-      <p className="text-foreground" style={{ fontSize: "13px", lineHeight: 1.5 }}>
-        {text}
-      </p>
+    </div>
     </div>
   </div>
 );
