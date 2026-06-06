@@ -175,23 +175,33 @@ const AboutRow = ({
 
 const AboutStatementRow = ({ index, text }: { index: number; text: string }) => (
   <div
-    className="bg-card"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "12px",
-      padding: "12px 14px",
+      backgroundColor: "#FFFFFF",
+      border: "1px solid rgba(0,0,0,0.08)",
+      borderRadius: "14px",
+      padding: "16px 18px",
     }}
   >
-    <div className="flex items-baseline gap-3">
+    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+      <p
+        className="text-foreground"
+        style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.55 }}
+      >
+        {text}
+      </p>
       <span
-        className="font-mono tabular-nums text-muted-foreground shrink-0"
-        style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.04em",
+          color: "rgba(0,0,0,0.40)",
+          whiteSpace: "nowrap",
+          marginTop: "1px",
+        }}
       >
         {String(index).padStart(2, "0")}
       </span>
-      <p className="text-foreground" style={{ fontSize: "13px", lineHeight: "1.5" }}>
-        {text}
-      </p>
     </div>
   </div>
 );
@@ -248,11 +258,34 @@ const SectionHeader = ({
   intro: string;
 }) => (
   <div className="max-w-2xl mb-6 lg:mb-0 lg:sticky lg:top-24">
-    <p className="font-mono text-[12px] text-muted-foreground/60 mb-1 tabular-nums">{n}</p>
-    <h2 className="t-section-title-sm text-foreground">{title}</h2>
+    <div className="flex items-baseline" style={{ gap: "12px" }}>
+      <span
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.04em",
+          color: "rgba(0,0,0,0.40)",
+        }}
+      >
+        {n}
+      </span>
+      <h2
+        className="font-sans text-foreground"
+        style={{
+          fontSize: "28px",
+          fontWeight: 700,
+          lineHeight: 1.15,
+          letterSpacing: "-0.02em",
+          color: "#0A0A0A",
+        }}
+      >
+        {title}
+      </h2>
+    </div>
     <p
       className="mt-3 text-muted-foreground"
-      style={{ fontSize: "13.5px", lineHeight: 1.55 }}
+      style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400, maxWidth: "68ch" }}
     >
       {intro}
     </p>

@@ -29,26 +29,61 @@ const GovRow = ({
   compact?: boolean;
 }) => (
   <div
-    className="bg-card"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "12px",
-      padding: compact ? "12px 16px" : "16px 18px",
+      backgroundColor: "#FFFFFF",
+      border: "1px solid rgba(0,0,0,0.08)",
+      borderRadius: "18px",
+      padding: compact ? "20px 22px" : "24px",
     }}
   >
-    <div className="grid grid-cols-12 gap-3 items-baseline">
+    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+      <p
+        className="font-sans text-foreground"
+        style={{ fontSize: "20px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+      >
+        {title}
+      </p>
       {index !== undefined && (
-        <div className="col-span-2 md:col-span-1 font-mono text-[12px] tabular-nums text-muted-foreground/70">
+        <span
+          className="font-mono tabular-nums shrink-0"
+          style={{
+            fontSize: "14px",
+            fontWeight: 500,
+            letterSpacing: "0.04em",
+            color: "rgba(0,0,0,0.40)",
+            whiteSpace: "nowrap",
+            marginTop: "4px",
+          }}
+        >
           {index}
-        </div>
+        </span>
       )}
-      <div className={index !== undefined ? "col-span-10 md:col-span-11" : "col-span-12"}>
-        <p className="t-body-sm font-semibold text-foreground leading-snug">{title}</p>
-        {description && (
-          <p className="mt-1.5 t-body-sm text-muted-foreground leading-relaxed">{description}</p>
-        )}
-      </div>
     </div>
+    {description && (
+      <p
+        className="text-muted-foreground"
+        style={{ marginTop: "12px", fontSize: "17px", fontWeight: 400, lineHeight: 1.75 }}
+      >
+        {description}
+      </p>
+    )}
+  </div>
+);
+
+const SectionHeadingInline = ({ n, title }: { n: string; title: React.ReactNode }) => (
+  <div className="flex items-baseline" style={{ gap: "12px" }}>
+    <span
+      className="font-mono tabular-nums shrink-0"
+      style={{ fontSize: "14px", fontWeight: 500, letterSpacing: "0.04em", color: "rgba(0,0,0,0.40)" }}
+    >
+      {n}
+    </span>
+    <h2
+      className="font-sans text-foreground"
+      style={{ fontSize: "28px", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.02em", color: "#0A0A0A" }}
+    >
+      {title}
+    </h2>
   </div>
 );
 
@@ -60,9 +95,6 @@ const WAYPOINTS = [
   { id: "responsibilities", number: "05", label: "Responsibilities" },
 ];
 
-const SectionIndex = ({ n }: { n: string }) => (
-  <p className="font-mono text-[12px] text-muted-foreground/50 mb-1 tabular-nums">{n}</p>
-);
 
 const BOARD_TITLE_OVERRIDES: Record<string, string> = {
   "advisor-01": "Chair · Clinical Audit Standards",
@@ -210,10 +242,7 @@ const MedicalAdvisory = () => {
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
-                    <SectionIndex n="01" />
-                    <h2 className="t-section-title-sm text-foreground">
-                      Institutional Mandate
-                    </h2>
+                    <SectionHeadingInline n="01" title={<>Institutional Mandate</>} />
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
                       The operating principles governing Clinical Oversight.
                     </p>
@@ -236,10 +265,7 @@ const MedicalAdvisory = () => {
               <div className="grid md:grid-cols-12 md:gap-12 lg:gap-16">
                 <div className="md:col-span-4">
                   <div className="md:sticky md:top-32">
-                    <SectionIndex n="02" />
-                    <h2 className="t-section-title-sm text-foreground">
-                      Governance Functions
-                    </h2>
+                    <SectionHeadingInline n="02" title={<>Governance Functions</>} />
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
                       How Clinical Oversight supports the framework.
                     </p>
@@ -259,11 +285,8 @@ const MedicalAdvisory = () => {
 
             {/* §6 Members */}
             <section id="members" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
-              <SectionIndex n="03" />
               <div className="mb-8 max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
-                  Advisory Structure
-                </h2>
+                <SectionHeadingInline n="03" title="Advisory Structure" />
                 <div className="mt-4 flex flex-col" style={{ gap: "12px" }}>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
                     Clinical Oversight may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework.
@@ -326,11 +349,8 @@ const MedicalAdvisory = () => {
 
             {/* §7 Scope & boundaries */}
             <section id="scope" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
-              <SectionIndex n="04" />
               <div className="max-w-2xl mb-6">
-                <h2 className="t-section-title-sm text-foreground">
-                  Scope & Boundaries
-                </h2>
+                <SectionHeadingInline n="04" title="Scope & Boundaries" />
                 <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
                   What Clinical Oversight does and does not do.
                 </p>
@@ -350,11 +370,8 @@ const MedicalAdvisory = () => {
 
             {/* §8 Responsibilities */}
             <section id="responsibilities" className="scroll-mt-24 border-b border-border/40" style={{ paddingTop: "24px", paddingBottom: "24px" }}>
-              <SectionIndex n="05" />
               <div className="mb-6 max-w-2xl">
-                <h2 className="t-section-title-sm text-foreground">
-                  Core Responsibilities
-                </h2>
+                <SectionHeadingInline n="05" title="Core Responsibilities" />
                 <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
                   The recurring functions supporting framework integrity.
                 </p>

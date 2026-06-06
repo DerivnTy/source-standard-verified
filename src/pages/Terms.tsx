@@ -124,13 +124,34 @@ const SectionHeader = ({
   intro: string;
 }) => (
   <div className="mb-5">
-    <p className="font-mono tabular-nums text-muted-foreground/60" style={{ fontSize: "11px" }}>
-      {index}
-    </p>
-    <h2 className="t-section-title-sm text-foreground mt-1">{title}</h2>
+    <div className="flex items-baseline" style={{ gap: "12px" }}>
+      <span
+        className="font-mono tabular-nums shrink-0"
+        style={{
+          fontSize: "14px",
+          fontWeight: 500,
+          letterSpacing: "0.04em",
+          color: "rgba(0,0,0,0.40)",
+        }}
+      >
+        {index}
+      </span>
+      <h2
+        className="font-sans text-foreground"
+        style={{
+          fontSize: "28px",
+          fontWeight: 700,
+          lineHeight: 1.15,
+          letterSpacing: "-0.02em",
+          color: "#0A0A0A",
+        }}
+      >
+        {title}
+      </h2>
+    </div>
     <p
-      className="mt-2 text-muted-foreground"
-      style={{ fontSize: "13.5px", lineHeight: 1.55, maxWidth: "62ch" }}
+      className="mt-3 text-muted-foreground"
+      style={{ fontSize: "18px", lineHeight: 1.6, fontWeight: 400, maxWidth: "68ch" }}
     >
       {intro}
     </p>
