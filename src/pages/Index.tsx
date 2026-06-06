@@ -233,74 +233,74 @@ const HeroMeta = () => {
 
 const howItWorks = [
   {
-    h: "Index the market.",
-    b: "Identify and maintain records for compounded therapy vendors, pharmacies, manufacturers, and supply-chain relationships.",
+    h: "Map the market.",
+    b: "Identify and maintain records for compounded therapy vendors, clinics, telehealth providers, and compounding facilities operating throughout the supply chain.",
   },
   {
-    h: "Verify the evidence.",
-    b: "Review sourcing documentation, pharmacy relationships, manufacturer records, chain-of-custody evidence, and independent testing data within a defined review scope.",
+    h: "Verify sourcing claims.",
+    b: "Review facility relationships, sourcing documentation, chain-of-custody records, and supporting evidence associated with vendor claims.",
   },
   {
-    h: "Assign the status.",
-    b: "Vendor, manufacturer, and supply-chain records receive a public status based on available evidence and ongoing verification activity.",
+    h: "Monitor and publish status.",
+    b: "Vendor and facility records receive a public status based on reviewed evidence, testing activity, and ongoing monitoring.",
   },
 ];
 
 const registryFields = [
   {
     h: "Verification status",
-    b: "Whether documentation review is published, in progress, suspended, removed, or not on file.",
+    b: "Whether a vendor is Verified, Unverified, Under Review, Suspended, Removed, or otherwise designated within the registry.",
   },
   {
     h: "Vendor type",
-    b: "Whether the vendor operates as a telehealth, in-person, hybrid, or online vendor.",
+    b: "Whether the vendor operates as a telehealth provider, in-person clinic, hybrid practice, or online platform.",
   },
   {
     h: "Therapy category",
     b: "The compounded therapy categories associated with the vendor record.",
   },
   {
-    h: "Verification scope",
-    b: "The documentation, supply-chain relationships, manufacturer information, and testing activity included within the published review scope.",
+    h: "Facility relationships",
+    b: "The compounding facilities, sourcing claims, supporting documentation, and review activity associated with the record.",
   },
 ];
 
 const whyMatters = [
   {
     h: "For consumers",
-    b: "A public verification record showing what has been reviewed, what remains unsupported, what testing has occurred, and when status changes were issued.",
+    b: "A public-reference system showing who vendors claim to source from, what documentation has been reviewed, and whether sourcing claims are supported.",
   },
   {
     h: "For vendors",
-    b: "An independent verification pathway that evaluates sourcing claims, manufacturer relationships, supply-chain documentation, and testing outcomes.",
+    b: "An independent verification pathway for demonstrating sourcing transparency, facility relationships, and supply-chain credibility.",
   },
   {
     h: "For clinicians",
-    b: "A structured reference for evaluating sourcing transparency, verification activity, and supply-chain credibility before making referral or purchasing decisions.",
+    b: "A structured reference for evaluating sourcing practices and facility relationships before making purchasing or referral decisions.",
   },
 ];
 
 const basics = [
   {
     t: "Verification Framework",
-    s: "The standards, procedures, and evidence requirements used throughout the registry.",
+    s: "The standards, procedures, and review methodology used throughout the registry.",
     to: "/how-it-works",
   },
   {
     t: "Status Definitions",
-    s: "Definitions for Verified, Identified, Under Review, Suspended, Removed, and other public statuses.",
+    s: "Definitions for Verified, Unverified, Under Review, Suspended, Removed, Greenlisted, Under Monitoring, and Status Alert.",
     to: "/status-definitions",
   },
   {
-    t: "Supply Chain Standards",
-    s: "The verification principles applied to vendors, pharmacies, manufacturers, and related supply-chain entities.",
-    to: "/governance",
+    t: "Facility Standards",
+    s: "How Greenlisted status is earned, maintained, and monitored through independent testing activity.",
+    to: "/greenlist",
   },
 ];
 
 const governanceLinks = [
   { k: "Advisory Board", to: "/medical-advisory", s: "Independent medical, scientific, and procedural guidance supporting framework development and review standards." },
-  { k: "Verification Framework", to: "/how-it-works", s: "The procedures used to evaluate documentation, supply chains, manufacturers, and testing outcomes." },
+  { k: "Verification Framework", to: "/how-it-works", s: "The procedures used to evaluate sourcing claims, facility relationships, supporting documentation, and testing activity." },
   { k: "Status Definitions", to: "/status-definitions", s: "Definitions governing every public status displayed throughout the registry." },
 ];
 
@@ -561,11 +561,11 @@ const Index = () => {
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
-                Compounded therapy vendors make sourcing, pharmacy, and quality claims every day. Source Standard evaluates those claims through documentation review, supply-chain analysis, manufacturer verification, and independent testing protocols designed to separate supported claims from unsupported claims.
+                Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through documentation review, facility relationship verification, supply-chain analysis, and independent testing activity designed to separate supported claims from unsupported claims.
               </p>
             </div>
             <div className="home-cta mt-3">
-              <PillPrimary to="/how-it-works">View Verification Protocol</PillPrimary>
+              <PillPrimary to="/how-it-works">View Verification Framework</PillPrimary>
             </div>
           </div>
         </div>
@@ -631,17 +631,17 @@ const Index = () => {
               className="home-h2 mt-3 font-sans font-semibold text-foreground"
               style={{ fontSize: "22px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
             >
-              Verification across the supply chain.
+              Visibility across the supply chain.
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "13px", lineHeight: "1.65", marginTop: 0, maxWidth: "none" }}>
-                The Source Standard registry tracks vendors, manufacturers, pharmacies, and supply-chain relationships within a unified verification framework. Status assignments are based on documented evidence, verification procedures, and ongoing monitoring activities.
+                The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and supporting documentation. Facility records track Greenlisted status and independent testing activity.
               </p>
             </div>
 
             <div className="mt-5 inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
               <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
-              <PillSecondary to="/greenlist">Explore Upstream Registry</PillSecondary>
+              <PillSecondary to="/greenlist">Explore Facility Registry</PillSecondary>
             </div>
           </div>
         </div>
@@ -669,7 +669,7 @@ const Index = () => {
               Search. Review. Verify status.
             </h2>
             <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
-              Each listing provides a structured snapshot of vendor documentation status and sourcing review scope.
+              Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status.
             </p>
 
             <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
