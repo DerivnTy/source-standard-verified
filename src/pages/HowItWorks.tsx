@@ -63,7 +63,7 @@ const DISCLOSURE_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Material change reporting",
-    d: "Vendors are expected to disclose sourcing, pharmacy, ownership, operational, or structural changes that materially affect a published record.",
+    d: "Vendors are expected to disclose sourcing, pharmacy, manufacturer, ownership, operational, or structural changes that materially affect a published record.",
   },
   {
     n: "02",
