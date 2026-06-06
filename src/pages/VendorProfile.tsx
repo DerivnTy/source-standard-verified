@@ -706,26 +706,40 @@ const VendorProfile = () => {
 
           {/* ────── 3. VERIFICATION RECORD (placed directly under identity) ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Verification Record</SectionHeading>
+            <SectionHeading>Verification Status</SectionHeading>
 
-            {/* Compact summary */}
-            <div className="mt-3 flex items-start gap-3">
-              <Star size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
-              <div className="min-w-0">
-                <p className="font-sans font-semibold text-foreground" style={{ fontSize: "13.5px" }}>
-                  Verification Status: {VENDOR_STATUS_LABEL[status]}
-                </p>
-                <p
-                  className="mt-1 text-muted-foreground"
-                  style={{ fontSize: "12.5px", lineHeight: 1.55 }}
-                >
-                  {isVerified
-                    ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
-                    : status === "under-review"
-                    ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
-                    : "No verification review has been completed within the Source Standard framework."}
-                </p>
-              </div>
+            {/* Registry status module */}
+            <div className="mt-3">
+              <p
+                className="font-sans font-bold uppercase"
+                style={{
+                  fontSize: "24px",
+                  letterSpacing: "0.04em",
+                  lineHeight: 1.1,
+                  color:
+                    status === "verified"
+                      ? "hsl(var(--verified))"
+                      : status === "unverified"
+                      ? "hsl(var(--unverified))"
+                      : status === "under-review"
+                      ? "hsl(var(--under-review))"
+                      : status === "suspended"
+                      ? "hsl(var(--suspended))"
+                      : "hsl(var(--muted-foreground))",
+                }}
+              >
+                {VENDOR_STATUS_LABEL[status].toUpperCase()}
+              </p>
+              <p
+                className="mt-2 text-muted-foreground"
+                style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+              >
+                {isVerified
+                  ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
+                  : status === "under-review"
+                  ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
+                  : "No Source Standard review has been completed."}
+              </p>
             </div>
 
             {/* Expandable detail */}
