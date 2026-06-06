@@ -505,7 +505,7 @@ const Index = () => {
           category="Public Reference System · United States"
           docId=""
           title="Verify the source."
-          statement="Independent verification of vendor sourcing claims and supporting documentation."
+          statement="Independent verification of vendor sourcing, supply-chain documentation, and manufacturer quality across compounded therapy categories."
           tone="navy"
           heroLogo={
             <img
