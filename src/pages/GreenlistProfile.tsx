@@ -307,7 +307,7 @@ const GreenlistProfile = () => {
                 </span>
               </div>
 
-              <div className="mt-3 flex items-center gap-x-2 gap-y-2 flex-wrap">
+              <div className="mt-3">
                 <span
                   className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
                   style={{
@@ -320,33 +320,32 @@ const GreenlistProfile = () => {
                   {typeBadge}
                 </span>
                 {entry.location && (
-                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
+                  <div className="mt-1 font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
                     {entry.location}
-                  </span>
+                  </div>
                 )}
-                {entry.website && (
-                  <>
-                    <span className="text-muted-foreground" style={{ fontSize: "11px" }}>·</span>
+              </div>
+
+              {(entry.website || p.initialRegistrationYear) && (
+                <div className="mt-2 flex items-center gap-x-2 gap-y-2 flex-wrap font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
+                  {entry.website && (
                     <a
                       href={entry.website}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
-                      style={{ fontSize: "11px" }}
+                      className="text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
                     >
                       {entry.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
                     </a>
-                  </>
-                )}
-                {p.initialRegistrationYear && (
-                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
-                    · Founded {p.initialRegistrationYear}
-                  </span>
-                )}
-                <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
-                  · Last Updated {lastUpdated}
-                </span>
-              </div>
+                  )}
+                  {entry.website && p.initialRegistrationYear && (
+                    <span>·</span>
+                  )}
+                  {p.initialRegistrationYear && (
+                    <span>Founded {p.initialRegistrationYear}</span>
+                  )}
+                </div>
+              )}
             </header>
 
             {/* SECTION 1 — Overview */}
