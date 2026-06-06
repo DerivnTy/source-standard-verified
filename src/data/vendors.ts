@@ -57,7 +57,10 @@ export type Vendor = {
   // ---------- Extended public profile (optional, populated as clinics claim) ----------
   // Identity & contact
   logoUrl?: string;
+  coverImageUrl?: string;
   phone?: string;
+  email?: string;
+  address?: string; // full street address when available
 
   // Social / discoverability
   instagram?: string;
@@ -65,11 +68,20 @@ export type Vendor = {
   linkedin?: string;
   youtube?: string;
   googleBusinessUrl?: string;
+  googleMapsUrl?: string;
 
   // Narrative
   clinicalPhilosophy?: string;
   patientFocus?: string;
   treatmentCategories?: string[];
+  conditionsTreated?: string[];
+  servicesOffered?: string[];
+  statesServed?: string[];
+  telehealthAvailability?: string; // e.g. "Nationwide", "CA, FL, TX, NY"
+
+  // Visual identity
+  providerHeadshots?: { name: string; imageUrl: string; role?: string }[];
+  facilityPhotos?: { url: string; caption?: string }[];
 
   // Providers
   credentials?: string;
@@ -78,6 +90,7 @@ export type Vendor = {
 
   // Claim state
   claimed?: boolean;
+
 
   // Legacy documentation table — preserved for back-compat with existing
   // verified vendor profiles. New imports do not need to populate this.
