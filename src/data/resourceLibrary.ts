@@ -110,12 +110,12 @@ export const ARTICLES: Article[] = [
   // Clinical
   {
     slug: "safe-peptide-handling-and-reconstitution",
-    title: "Sterile Handling Context",
+    title: "Why Supply Chains Matter in Compounded Therapy",
     blurb:
-      "General reference on sterile preparation concepts, storage considerations, and documentation relevance.",
+      "How compounded medications move through facilities, vendors, and consumers, and why sourcing transparency matters.",
     meta: "6 min read · Apr 2026",
     publishedAt: "2026-04-15",
-    category: "clinical",
+    category: "regulation",
   },
   {
     slug: "sanitization-and-aseptic-technique-fundamentals",
