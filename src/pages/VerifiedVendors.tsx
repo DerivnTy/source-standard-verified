@@ -206,8 +206,8 @@ const VerifiedVendors = () => {
                 aria-label="Registry summary"
                 className="grid grid-cols-2 overflow-hidden bg-white relative z-10"
                 style={{
-                  marginTop: "-30px",
-                  marginBottom: "16px",
+                  marginTop: "-34px",
+                  marginBottom: "8px",
                   borderRadius: "10px",
                   border: "1px solid rgba(0,16,33,0.08)",
                 }}
