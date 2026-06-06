@@ -296,13 +296,17 @@ const GreenlistProfile = () => {
                   {entry.name}
                 </h1>
                 <span
-                  className="shrink-0 font-sans font-bold uppercase"
+                  className="shrink-0 inline-flex items-center gap-1.5 font-sans font-bold uppercase"
                   style={{
                     fontSize: "10px",
                     letterSpacing: "0.08em",
                     color: STATUS_COLOR[status],
                   }}
                 >
+                  <span
+                    className="inline-block rounded-full animate-pulse"
+                    style={{ width: 5, height: 5, backgroundColor: "currentColor" }}
+                  />
                   {STATUS_LABEL[status]}
                 </span>
               </div>
