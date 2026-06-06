@@ -669,7 +669,7 @@ const Index = () => {
               Search. Review. Verify status.
             </h2>
             <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "13px", lineHeight: "1.65" }}>
-              Each listing provides a structured snapshot of vendor documentation status and sourcing review scope.
+              Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status.
             </p>
 
             <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
