@@ -250,26 +250,32 @@ const HowItWorks = () => {
               <ProtocolCard>
                 <Eyebrow>Protocol Purpose</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
-                  What this protocol does
+                  What this framework exists to do
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Source Standard reviews whether a vendor's public sourcing claims are supported by documentation, pharmacy relationship evidence, licensure records, and related public records.
+                    Source Standard exists to help the public distinguish between sourcing claims that are supported by evidence and sourcing claims that cannot be independently substantiated.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Verification is a documentation and registry-status review. It is not a guarantee of product safety, treatment effectiveness, clinical quality, or regulatory compliance.
+                    The Verification Framework evaluates whether publicly stated vendor claims are supported by submitted documentation, pharmacy relationship evidence, licensure records, public records, and related materials available during review.
+                  </p>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                  >
+                    Verification is an evidence-based record review and public-reference process. It is not a certification of product quality, treatment effectiveness, clinical outcomes, regulatory compliance, or patient safety.
                   </p>
                 </div>
               </ProtocolCard>
             </section>
 
-            {/* §4 Documentation Review */}
+            {/* §4 Evidence Review */}
             <section
               id="audit"
               className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
@@ -277,8 +283,8 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="01"
-                title="Documentation Review"
-                intro="How submitted claims are checked against records."
+                title="Evidence Review"
+                intro="How sourcing claims are evaluated."
               />
               <ClauseStack clauses={AUDIT_CLAUSES} />
             </section>
@@ -292,7 +298,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="02"
                 title="Ongoing Monitoring"
-                intro="How published records may be reviewed after verification."
+                intro="How records are maintained after publication."
               />
               <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
             </section>
@@ -306,7 +312,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="03"
                 title="Vendor Disclosure"
-                intro="How material changes are handled."
+                intro="Responsibilities associated with a published record."
               />
               <ClauseStack clauses={DISCLOSURE_CLAUSES} />
             </section>
@@ -324,7 +330,7 @@ const HowItWorks = () => {
                   className="mt-3 text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.55 }}
                 >
-                  What verification does and does not claim.
+                  What verification does and does not represent.
                 </p>
                 <div className="mt-5 flex flex-col lg:grid lg:grid-cols-2 lg:gap-2" style={{ gap: "8px" }}>
                   {BOUNDARIES.map((b, i) => (
@@ -346,14 +352,22 @@ const HowItWorks = () => {
               <ProtocolCard>
                 <Eyebrow>Record Standard</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
-                  Verification is a record standard.
+                  Verification is an evidence standard.
                 </h2>
-                <p
-                  className="mt-4 text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.6 }}
-                >
-                  The Verification Protocol helps the public interpret whether vendor sourcing claims are supported by documentation. Its role is to create a clearer public record in a market where sourcing claims are difficult to evaluate independently.
-                </p>
+                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                  >
+                    The Verification Framework establishes a structured method for evaluating sourcing transparency within the compounded therapy market. Its purpose is to create a clearer public record by determining whether vendor claims are supported by evidence that can be reviewed, documented, and maintained over time.
+                  </p>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                  >
+                    The framework is designed to improve transparency, consistency, and public understanding in a market where sourcing relationships are often difficult for consumers to evaluate independently.
+                  </p>
+                </div>
               </ProtocolCard>
             </section>
           </div>
