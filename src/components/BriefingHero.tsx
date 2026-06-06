@@ -51,6 +51,7 @@ export const BriefingHero = ({
   tone = "default",
   variant = "chapter",
   brandMark,
+  heroLogo,
   actions,
   heroMetrics,
   heroMeta,
