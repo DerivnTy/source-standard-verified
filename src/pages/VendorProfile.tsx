@@ -582,7 +582,7 @@ const VendorProfile = () => {
   return (
     <>
       <PageMeta
-        title={`${vendor.name} · ${vendor.category ?? "Clinic"}${location !== "—" ? " · " + location : ""}`}
+        title={`${vendor.name} · ${vendor.category ?? "Vendor"}${location !== "—" ? " · " + location : ""}`}
         description={metaDescription}
         path={canonicalPath}
         type="profile"
@@ -591,7 +591,7 @@ const VendorProfile = () => {
       <Breadcrumb
         items={[
           { label: "Directory", to: "/verified-vendors" },
-          { label: vendor.category ?? "Clinic" },
+          { label: vendor.category ?? "Vendor" },
           { label: vendor.name },
         ]}
       />
@@ -884,9 +884,9 @@ const VendorProfile = () => {
 
 
 
-          {/* ────── 4. ABOUT THIS CLINIC ────── */}
+          {/* ────── 4. ABOUT THIS VENDOR ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>About This Clinic</SectionHeading>
+            <SectionHeading>About This Vendor</SectionHeading>
             {hasAbout ? (
               <div className="mt-3 space-y-4">
                 {vendor.summary && (

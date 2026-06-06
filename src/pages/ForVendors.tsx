@@ -38,7 +38,7 @@ const ForVendors = () => {
     <>
       <PageMeta
         title="For Vendors"
-        description="How clinics, pharmacies, and medical vendors enter the Source Standard verification framework."
+        description="How vendors enter the Source Standard verification framework."
       />
       <Breadcrumb
         items={[

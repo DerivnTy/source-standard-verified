@@ -253,7 +253,7 @@ const registryFields = [
   },
   {
     h: "Vendor type",
-    b: "Whether the vendor operates as a telehealth platform, physical clinic, hybrid provider, or online vendor.",
+    b: "Whether the vendor operates as a telehealth, in-person, hybrid, or online vendor.",
   },
   {
     h: "Therapy category",

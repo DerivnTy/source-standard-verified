@@ -143,7 +143,7 @@ const BOUNDARIES = [
   "The Board supports the standards behind public determinations.",
   "The Board does not evaluate or treat patients.",
   "The Board does not provide individualized medical advice through Source Standard.",
-  "The Board does not approve vendors, clinics, pharmacies, or products.",
+  "The Board does not approve vendors, pharmacies, or products.",
   "The Board does not make individual vendor status determinations.",
   "The Board does not participate in sales, marketing, or promotional activity.",
 ];
@@ -169,7 +169,7 @@ const MedicalAdvisory = () => {
         variant="chapter"
         category="Medical Advisory Board"
         title="Clinical Oversight"
-        statement="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education. It does not treat patients, market vendors, approve clinics, or participate in promotional activity."
+        statement="Independent medical, pharmacy, and legal advisors supporting the integrity of the Source Standard framework. The Board reviews standards, terminology, evidence boundaries, and public-facing education. It does not treat patients, market vendors, approve vendors, or participate in promotional activity."
         docId=""
       />
 
@@ -182,7 +182,7 @@ const MedicalAdvisory = () => {
                 <h2 className="t-section-title-sm text-foreground">Why the Board exists</h2>
                 <div className="mt-4">
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    The Advisory Board supports the neutrality and procedural discipline of the Source Standard framework, providing advisory input on review standards, documentation boundaries, and public language used across the registry. It does not represent vendors, clinics, or pharmacy partners, and does not make individual vendor status determinations — it serves as an independent advisory layer for the standards behind the public reference system.
+                    The Advisory Board supports the neutrality and procedural discipline of the Source Standard framework, providing advisory input on review standards, documentation boundaries, and public language used across the registry. It does not represent vendors or pharmacy partners, and does not make individual vendor status determinations — it serves as an independent advisory layer for the standards behind the public reference system.
                   </p>
                 </div>
               </GovCard>
