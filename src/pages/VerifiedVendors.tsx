@@ -17,7 +17,6 @@ import {
 
 type StatusKey = "any" | "verified" | "unverified";
 type DeliveryKey = "any" | "online" | "in-person";
-type FocusKey = "all" | "peptides" | "hormone" | "longevity" | "wellness";
 
 const PAGE_SIZE = 10;
 
@@ -30,41 +29,6 @@ const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
   { value: "online", label: "ONLINE" },
   { value: "in-person", label: "IN-PERSON" },
 ];
-
-// 2x2 grid of focus pills (mirrors the primary 2x2 status/method grid)
-const FOCUS_OPTIONS: { value: Exclude<FocusKey, "all">; label: string }[] = [
-  { value: "peptides", label: "PEPTIDES" },
-  { value: "hormone", label: "HORMONE" },
-  { value: "longevity", label: "LONGEVITY" },
-  { value: "wellness", label: "WELLNESS" },
-];
-
-const FOCUS_LABEL: Record<FocusKey, string> = {
-  all: "All",
-  peptides: "PEPTIDES",
-  hormone: "HORMONE",
-  longevity: "LONGEVITY",
-  wellness: "WELLNESS",
-};
-
-/** Map vendor → consumer focus bucket. */
-const matchesFocus = (vendor: Vendor, key: FocusKey): boolean => {
-  if (key === "all") return true;
-  const haystack = [vendor.category, ...(vendor.clinicalFocus ?? [])]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-  switch (key) {
-    case "peptides":
-      return /peptide/.test(haystack);
-    case "hormone":
-      return /(hormone|trt|hrt|testosterone|estrogen)/.test(haystack);
-    case "longevity":
-      return /(longevity|anti[- ]?aging|nad|regenerative)/.test(haystack);
-    case "wellness":
-      return /(wellness|weight|aesthetic|iv|recovery|vitamin)/.test(haystack);
-  }
-};
 
 /** Smart query: name, city, state name/abbr, category, focus. */
 const matchesQuery = (vendor: Vendor, query: string): boolean => {
@@ -133,8 +97,6 @@ const VerifiedVendors = () => {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<StatusKey>("any");
   const [delivery, setDelivery] = useState<DeliveryKey>("any");
-  const [focus, setFocus] = useState<FocusKey>("all");
-  const [focusOpen, setFocusOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   
@@ -151,7 +113,6 @@ const VerifiedVendors = () => {
       if (!matchesQuery(vendor, query)) return false;
       if (status === "verified" && vendor.status !== "verified") return false;
       if (status === "unverified" && vendor.status === "verified") return false;
-      if (!matchesFocus(vendor, focus)) return false;
       if (delivery !== "any") {
         const f = fulfillmentByVendor.get(vendor.slug);
         if (delivery === "online" && f === "in-person") return false;
@@ -159,7 +120,7 @@ const VerifiedVendors = () => {
       }
       return true;
     });
-  }, [query, status, delivery, focus, fulfillmentByVendor]);
+  }, [query, status, delivery, fulfillmentByVendor]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -168,17 +129,17 @@ const VerifiedVendors = () => {
 
   const visibleItems = sorted.slice(0, visibleCount);
   const hasMore = visibleCount < sorted.length;
-  const fadeKey = `${query}|${status}|${delivery}|${focus}`;
+  const fadeKey = `${query}|${status}|${delivery}`;
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, status, delivery, focus]);
+  }, [query, status, delivery]);
 
   return (
     <>
       <PageMeta
         title="Vendor Registry"
-        description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
+        description="A public-reference database of compounded therapy vendors indexed by verification status, vendor type, and review scope."
         path="/verified-vendors"
         jsonLd={{
           "@context": "https://schema.org",
@@ -192,7 +153,7 @@ const VerifiedVendors = () => {
         compact
         indexNumber="01"
         title="Vendor Registry"
-        description="A public-reference database of compounded therapy vendors indexed by verification status, therapy category, vendor type, and review scope."
+        description="A public-reference database of compounded therapy vendors indexed by verification status, vendor type, and review scope."
         recordCount={vendors.length}
       />
 
@@ -311,119 +272,6 @@ const VerifiedVendors = () => {
                 </div>
               </div>
 
-              {/* Category — collapsible folder */}
-              <div>
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-                >
-                  Category
-                </p>
-                <div
-                  className="w-full overflow-hidden"
-                  style={{
-                    borderRadius: "20px",
-                    border: "1px solid hsl(var(--border) / 0.7)",
-                    backgroundColor: "hsl(var(--muted) / 0.6)",
-                    transition: "background-color 300ms ease-in-out",
-                  }}
-                >
-                  <div className="flex w-full items-stretch" style={{ height: "32px" }}>
-                    <button
-                      type="button"
-                      onClick={() => setFocusOpen((o) => !o)}
-                      aria-expanded={focusOpen}
-                      className="flex flex-1 items-center justify-center gap-1.5 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] text-[hsl(var(--foreground)/0.75)] transition-colors"
-                    >
-                      {focus === "all" ? (
-                        <span>Select Category</span>
-                      ) : (
-                        <>
-                          <span className="opacity-60">Category:</span>
-                          <span>{FOCUS_LABEL[focus]}</span>
-                        </>
-                      )}
-                      <svg
-                        aria-hidden
-                        viewBox="0 0 12 12"
-                        width="10"
-                        height="10"
-                        className="opacity-60"
-                        style={{
-                          transition: "transform 300ms ease-in-out",
-                          transform: focusOpen ? "rotate(180deg)" : "rotate(0deg)",
-                        }}
-                      >
-                        <path
-                          d="M2.5 4.5L6 8l3.5-3.5"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-
-                    {focus !== "all" && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setFocus("all");
-                          setFocusOpen(false);
-                        }}
-                        aria-label="Clear focus filter"
-                        className="flex shrink-0 items-center justify-center text-[hsl(var(--foreground)/0.6)] transition-colors hover:text-[hsl(var(--foreground))]"
-                        style={{
-                          width: "32px",
-                          borderLeft: "1px solid hsl(var(--border) / 0.7)",
-                        }}
-                      >
-                        <svg aria-hidden viewBox="0 0 12 12" width="10" height="10">
-                          <path
-                            d="M3 3l6 6M9 3l-6 6"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
-
-                  <div
-                    className="grid"
-                    style={{
-                      gridTemplateRows: focusOpen ? "1fr" : "0fr",
-                      transition: "grid-template-rows 300ms ease-in-out",
-                    }}
-                  >
-                    <div className="overflow-hidden">
-                      <div
-                        className="grid grid-cols-2 gap-2 px-2 pb-2 pt-2"
-                        style={{
-                          borderTop: "1px solid hsl(var(--border) / 0.5)",
-                        }}
-                      >
-                        {FOCUS_OPTIONS.map((opt) => (
-                          <SoftPill
-                            key={opt.value}
-                            label={opt.label}
-                            active={focus === opt.value}
-                            fullWidth
-                            onClick={() => {
-                              setFocus(opt.value);
-                              setFocusOpen(false);
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Search — final filter, adjacent to record list */}
