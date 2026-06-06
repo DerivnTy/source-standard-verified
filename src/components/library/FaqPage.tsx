@@ -21,7 +21,6 @@ type FaqPageProps = {
  * Eyebrow · Title · Intro · Expandable Q&A. No metadata cards, no record IDs.
  */
 export const FaqPage = ({
-  eyebrow = "Source Standard · Common Inquiry",
   title,
   intro,
   items,
@@ -45,14 +44,8 @@ export const FaqPage = ({
     {/* Header */}
     <header className="page-shell pt-5 pb-8">
       <div className="mx-auto w-wide max-w-[68ch]">
-        <p
-          className="font-mono uppercase text-muted-foreground"
-          style={{ fontSize: "11px", letterSpacing: "0.18em" }}
-        >
-          {eyebrow}
-        </p>
         <h1
-          className="mt-3 font-serif text-foreground"
+          className="font-serif text-foreground"
           style={{
             fontSize: "clamp(34px, 5vw, 48px)",
             lineHeight: "1.08",
@@ -71,12 +64,11 @@ export const FaqPage = ({
     </header>
 
     {/* FAQ list */}
-    <section className="page-shell pb-16">
+    <section className="page-shell pb-0">
       <div className="mx-auto w-wide max-w-[68ch]">
         <Accordion
           type="single"
           collapsible
-          defaultValue="q-0"
           className="border-t border-border/60"
         >
           {items.map((item, i) => (
