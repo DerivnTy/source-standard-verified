@@ -177,13 +177,57 @@ const Greenlist = () => {
       <section className="bg-background">
         <div className="page-shell pb-10 md:pb-12">
           <div className="mx-auto w-wide">
-            {/* Search + status filter */}
-            <div className="-mx-5 md:mx-0 px-5 pt-6 pb-3 md:pt-8">
+            {/* Status filter group */}
+            <div className="-mx-5 md:mx-0 px-5 pt-5 pb-3 space-y-4">
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                >
+                  Verification Status
+                </p>
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                  <SoftPill
+                    label="All"
+                    active={status === "all"}
+                    fullWidth
+                    onClick={() => setStatus("all")}
+                  />
+                  <SoftPill
+                    label="Greenlisted"
+                    active={status === "greenlisted"}
+                    fullWidth
+                    onClick={() => setStatus("greenlisted")}
+                  />
+                  <SoftPill
+                    label="Under Monitoring"
+                    active={status === "monitoring"}
+                    fullWidth
+                    onClick={() => setStatus("monitoring")}
+                  />
+                  <SoftPill
+                    label="Status Alert"
+                    active={status === "alert"}
+                    fullWidth
+                    onClick={() => setStatus("alert")}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Search — final filter, adjacent to record list */}
+            <div className="-mx-5 md:mx-0 px-5 pt-2 pb-1">
+              <p
+                className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+              >
+                Search
+              </p>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search manufacturers, locations, or verification status…"
-                aria-label="Search Manufacturer Registry"
+                aria-label="Search Facility Registry"
                 className="font-sans w-full text-[15px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
@@ -194,35 +238,8 @@ const Greenlist = () => {
                   paddingRight: "16px",
                 }}
               />
-
-              {/* Status filter row */}
-              <div className="mt-3 grid grid-cols-2 gap-2 md:grid-cols-4">
-                <SoftPill
-                  label="All"
-                  active={status === "all"}
-                  fullWidth
-                  onClick={() => setStatus("all")}
-                />
-                <SoftPill
-                  label="Greenlisted"
-                  active={status === "greenlisted"}
-                  fullWidth
-                  onClick={() => setStatus("greenlisted")}
-                />
-                <SoftPill
-                  label="Under Monitoring"
-                  active={status === "monitoring"}
-                  fullWidth
-                  onClick={() => setStatus("monitoring")}
-                />
-                <SoftPill
-                  label="Status Alert"
-                  active={status === "alert"}
-                  fullWidth
-                  onClick={() => setStatus("alert")}
-                />
-              </div>
             </div>
+
 
             {/* Result list */}
             <div
