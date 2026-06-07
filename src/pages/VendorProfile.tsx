@@ -108,7 +108,7 @@ const directionsUrl = (v: Vendor): string | undefined => {
 const Eyebrow = ({ children }: { children: ReactNode }) => (
   <p
     className="font-sans font-semibold uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.1em" }}
+    style={{ fontSize: "13px", letterSpacing: "0.06em" }}
   >
     {children}
   </p>
@@ -118,7 +118,7 @@ const SectionHeading = ({ children, action }: { children: ReactNode; action?: Re
   <div className="flex items-center justify-between gap-3">
     <h2
       className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "11px", letterSpacing: "0.1em" }}
+      style={{ fontSize: "13px", letterSpacing: "0.06em" }}
     >
       {children}
     </h2>
@@ -130,7 +130,7 @@ const Tag = ({ children, href }: { children: ReactNode; href?: string }) => {
   const cls =
     "inline-flex items-center font-sans font-semibold uppercase border border-border text-foreground bg-background transition-colors hover:border-foreground/60";
   const style: React.CSSProperties = {
-    fontSize: "10.5px",
+    fontSize: "14px",
     letterSpacing: "0.06em",
     padding: "5px 10px",
     borderRadius: "16px",
@@ -145,6 +145,7 @@ const Tag = ({ children, href }: { children: ReactNode; href?: string }) => {
     </span>
   );
 };
+
 
 const SocialIconBtn = ({
   href,
