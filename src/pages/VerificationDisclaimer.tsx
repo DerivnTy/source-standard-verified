@@ -236,6 +236,9 @@ const VerificationDisclaimer = () => {
             >
               <DisclaimerCard>
                 <Eyebrow>Purpose of this document</Eyebrow>
+                <h2 className="t-section-title-sm text-foreground mt-2">
+                  How to interpret this document
+                </h2>
                 <div
                   style={{
                     marginTop: "16px",
