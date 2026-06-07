@@ -66,7 +66,7 @@ export const BriefingHero = ({
       return (
         <section
           aria-labelledby="briefing-title"
-          className="relative overflow-hidden bg-[hsl(var(--navy-surface))] lg:min-h-[calc(100dvh-84px)]"
+          className="relative overflow-hidden bg-[hsl(var(--navy-surface))] lg:min-h-[70vh] lg:max-h-[760px]"
         >
           <div
             aria-hidden
@@ -79,10 +79,10 @@ export const BriefingHero = ({
           <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
           <div
-            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center lg:min-h-[calc(100dvh-84px)]"
+            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center lg:min-h-[70vh] lg:max-h-[760px]"
             style={{
               paddingTop: "clamp(38px, 5.5vh, 58px)",
-              paddingBottom: "clamp(64px, 8vh, 88px)",
+              paddingBottom: "clamp(56px, 7vh, 80px)",
             }}
           >
             <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center lg:my-auto">
