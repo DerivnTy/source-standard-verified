@@ -271,7 +271,7 @@ html {
   }
 
   .container-wide {
-    @apply mx-auto w-full max-w-[1280px] px-6 md:px-10 lg:px-14;
+    @apply mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-12;
   }
 
   /* New canonical page shell — preferred over container-wide for new work. */
@@ -486,14 +486,11 @@ html {
     .section-pad { padding-top: 64px; padding-bottom: 52px; }
     .section-gap { margin-top: 56px; }
     .hero-gap    { margin-top: 80px; }
-    /* Desktop restraint: long-form / framework / governance pages stay at the
-       institutional 1120px measure on desktop. The previous 1240px widening
-       produced 100-character lines that read like a marketing page rather
-       than a public registry. */
-    .w-standard  { max-width: 1120px; }
-    /* Registry/index surfaces (vendor list, facility list, etc.) — slightly
-       tighter than before so cards and filter rows don't drift apart on
-       larger monitors. */
+    /* Desktop unified content boundary — every major section (standard
+       long-form, registry/index surfaces, hero content blocks) shares the
+       same 1200px max-width so the page reads as one aligned institutional
+       document rather than alternating wide/narrow bands. */
+    .w-standard  { max-width: 1200px; }
     .w-wide      { max-width: 1200px; }
   }
 
