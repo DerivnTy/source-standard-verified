@@ -210,10 +210,18 @@ export const SiteHeader = () => {
                 <Link
                   to="/apply"
                   onClick={() => setOpen(false)}
-                  className="mt-10 inline-flex h-12 items-center justify-center px-6 t-button text-white transition-colors hover:bg-white/[0.06]"
+                  className="mt-10 w-full inline-flex items-center justify-center px-8 text-white transition-colors hover:bg-white/[0.06]"
                   style={{
-                    border: "1px solid rgba(255,255,255,0.30)",
-                    borderRadius: "2px",
+                    height: "52px",
+                    border: "1px solid rgba(255,255,255,0.22)",
+                    backgroundColor: "rgba(255,255,255,0.03)",
+                    borderRadius: "0px",
+                    fontFamily: "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    lineHeight: "1.2",
+                    textTransform: "uppercase",
                   }}
                 >
                   Apply for Verification
