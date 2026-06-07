@@ -670,22 +670,15 @@ const VendorProfile = () => {
               </div>
 
               {/* Location — aligned with card edge, part of identity */}
-              {(location !== "—" || vendor.reviewId) && (
+              {location !== "—" && (
                 <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
-                  {location !== "—" && (
-                    <span
-                      className="inline-flex items-center gap-1 text-muted-foreground"
-                      style={{ fontSize: "15px", fontWeight: 400 }}
-                    >
-                      <MapPin size={14} strokeWidth={1.5} />
-                      {location}
-                    </span>
-                  )}
-                  {vendor.reviewId && (
-                    <span className="font-mono text-muted-foreground" style={{ fontSize: "13px" }}>
-                      {vendor.reviewId}
-                    </span>
-                  )}
+                  <span
+                    className="inline-flex items-center gap-1 text-muted-foreground"
+                    style={{ fontSize: "15px", fontWeight: 400 }}
+                  >
+                    <MapPin size={14} strokeWidth={1.5} />
+                    {location}
+                  </span>
                 </div>
               )}
 
