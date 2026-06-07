@@ -436,8 +436,8 @@ const GreenlistProfile = () => {
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Current Status</SectionLabel>
               <div
-                className="mt-3 flex items-center font-sans font-semibold"
-                style={{ fontSize: "18px", lineHeight: 1.2, color: STATUS_COLOR[status] }}
+                className="mt-2 flex items-center font-sans font-semibold"
+                style={{ fontSize: "16px", lineHeight: 1.2, color: STATUS_COLOR[status] }}
               >
                 <span
                   className="inline-block rounded-full animate-pulse mr-2"
@@ -445,7 +445,7 @@ const GreenlistProfile = () => {
                 />
                 {STATUS_LABEL[status]}
               </div>
-              <p className="mt-3 text-foreground" style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.6 }}>
+              <p className="mt-5 text-foreground" style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.6 }}>
                 {isGreenlisted
                   ? "This facility currently holds Greenlisted status based on successful independent testing activity."
                   : status === "alert"
