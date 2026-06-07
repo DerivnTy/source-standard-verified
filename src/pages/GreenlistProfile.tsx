@@ -441,18 +441,18 @@ const GreenlistProfile = () => {
             {/* SECTION 6 — Greenlist Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Greenlist Status</SectionLabel>
-              <p className="mt-3 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
-                <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "10px", letterSpacing: "0.08em" }}>
+              <p className="mt-3 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
+                <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "13px", letterSpacing: "0.06em" }}>
                   Current Status ·{" "}
                 </span>
-                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "10px" }}>
+                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "15px" }}>
                   {STATUS_LABEL[status]}
                 </span>
               </p>
-              <p className="mt-2 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
                 {statusBlurb}
               </p>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "10px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-muted-foreground" style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.65 }}>
                 Greenlisted status is not assigned based on FDA registration, 503A designation, or 503B designation alone. It is earned through successful independent testing activity.
               </p>
             </div>
