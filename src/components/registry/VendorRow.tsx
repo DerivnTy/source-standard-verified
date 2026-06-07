@@ -123,7 +123,7 @@ export const VendorRow = ({
           className="text-muted-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "15px",
+            fontSize: "13px",
             fontWeight: 400,
             lineHeight: 1.35,
             margin: 0,
