@@ -773,7 +773,7 @@ const VendorProfile = () => {
 
             <p
               className="mt-3 text-muted-foreground"
-              style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+              style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
             >
               {isVerified
                 ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
