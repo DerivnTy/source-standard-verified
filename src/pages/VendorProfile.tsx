@@ -108,7 +108,7 @@ const directionsUrl = (v: Vendor): string | undefined => {
 const Eyebrow = ({ children }: { children: ReactNode }) => (
   <p
     className="font-sans font-semibold uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.1em" }}
+    style={{ fontSize: "13px", letterSpacing: "0.06em" }}
   >
     {children}
   </p>
@@ -118,7 +118,7 @@ const SectionHeading = ({ children, action }: { children: ReactNode; action?: Re
   <div className="flex items-center justify-between gap-3">
     <h2
       className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "11px", letterSpacing: "0.1em" }}
+      style={{ fontSize: "13px", letterSpacing: "0.06em" }}
     >
       {children}
     </h2>
@@ -130,7 +130,7 @@ const Tag = ({ children, href }: { children: ReactNode; href?: string }) => {
   const cls =
     "inline-flex items-center font-sans font-semibold uppercase border border-border text-foreground bg-background transition-colors hover:border-foreground/60";
   const style: React.CSSProperties = {
-    fontSize: "10.5px",
+    fontSize: "14px",
     letterSpacing: "0.06em",
     padding: "5px 10px",
     borderRadius: "16px",
@@ -145,6 +145,7 @@ const Tag = ({ children, href }: { children: ReactNode; href?: string }) => {
     </span>
   );
 };
+
 
 const SocialIconBtn = ({
   href,
@@ -220,15 +221,15 @@ const Cell = ({
     <div>
       <dt
         className="font-sans font-semibold uppercase text-muted-foreground"
-        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+        style={{ fontSize: "15px", letterSpacing: "0.06em" }}
       >
         {label}
       </dt>
       <dd
-        className={`mt-1 ${mono ? "font-mono tabular-nums" : "font-sans font-medium"} ${
+        className={`mt-1 ${mono ? "font-mono tabular-nums" : "font-sans"} ${
           present ? "text-foreground" : "text-muted-foreground"
         }`}
-        style={{ fontSize: "12.5px", lineHeight: "1.5" }}
+        style={{ fontSize: "17px", fontWeight: 400, lineHeight: "1.5" }}
       >
         {present ? (
           href ? (
@@ -250,6 +251,7 @@ const Cell = ({
     </div>
   );
 };
+
 
 // Logo with registry placeholder fallback
 const getInitials = (name: string) => {
@@ -369,15 +371,16 @@ const VendorProfile = () => {
   // Status pill
   const StatusPill = () => {
     const baseStyle = {
-      fontSize: "10px",
-      letterSpacing: "0.08em",
+      fontSize: "15px",
+      letterSpacing: "0.06em",
       lineHeight: 1,
       gap: "4px",
+      fontWeight: 600,
     } as const;
     if (isVerified) {
       return (
         <span
-          className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
+          className="shrink-0 inline-flex items-center justify-end font-sans uppercase tabular-nums"
           style={{ ...baseStyle, color: "#001021" }}
         >
           VERIFIED
@@ -388,8 +391,8 @@ const VendorProfile = () => {
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              height: "10px",
-              width: "16px",
+              height: "14px",
+              width: "20px",
             }}
           >
             <span
@@ -401,7 +404,7 @@ const VendorProfile = () => {
                 display: "block",
               }}
             >
-              <VerifiedShieldMark height={18} color="#001021" />
+              <VerifiedShieldMark height={22} color="#001021" />
             </span>
           </span>
         </span>
@@ -419,13 +422,14 @@ const VendorProfile = () => {
     const { label, color } = FALLBACK[status];
     return (
       <span
-        className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
+        className="shrink-0 inline-flex items-center justify-end font-sans uppercase tabular-nums"
         style={{ ...baseStyle, color }}
       >
         {label}
       </span>
     );
   };
+
 
   // Verified scope flattening
   const hasGroups =
@@ -628,8 +632,8 @@ const VendorProfile = () => {
             <div style={{ padding: "16px 14px 14px" }}>
               {/* Status + Service model — single registry line */}
               <div
-                className="flex flex-wrap items-center font-sans font-bold uppercase"
-                style={{ fontSize: "10px", letterSpacing: "0.08em", lineHeight: 1, gap: "6px" }}
+                className="flex flex-wrap items-center font-sans font-semibold uppercase"
+                style={{ fontSize: "15px", letterSpacing: "0.06em", lineHeight: 1, gap: "6px" }}
               >
                 <StatusPill />
                 {(isInPerson || isHybrid) && (
@@ -661,8 +665,8 @@ const VendorProfile = () => {
                   <LogoBlock vendor={vendor} size={36} />
                 </div>
                 <h1
-                  className="min-w-0 flex-1 font-sans font-semibold text-foreground"
-                  style={{ fontSize: "18px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                  className="min-w-0 flex-1 font-sans text-foreground"
+                  style={{ fontSize: "32px", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.01em" }}
                 >
                   {vendor.name}
                 </h1>
@@ -674,19 +678,20 @@ const VendorProfile = () => {
                   {location !== "—" && (
                     <span
                       className="inline-flex items-center gap-1 text-muted-foreground"
-                      style={{ fontSize: "11px" }}
+                      style={{ fontSize: "17px", fontWeight: 400 }}
                     >
-                      <MapPin size={13} strokeWidth={1.5} />
+                      <MapPin size={16} strokeWidth={1.5} />
                       {location}
                     </span>
                   )}
                   {vendor.reviewId && (
-                    <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
+                    <span className="font-mono text-muted-foreground" style={{ fontSize: "15px" }}>
                       {vendor.reviewId}
                     </span>
                   )}
                 </div>
               )}
+
 
               {/* Contact row — website / phone / email / maps */}
               {(vendor.website || phoneHref || emailHref || mapsHref) && (
@@ -768,7 +773,7 @@ const VendorProfile = () => {
 
             <p
               className="mt-3 text-muted-foreground"
-              style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+              style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
             >
               {isVerified
                 ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
@@ -784,7 +789,7 @@ const VendorProfile = () => {
               onClick={() => setVerificationOpen((o) => !o)}
               aria-expanded={verificationOpen}
               className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
-              style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "13px", letterSpacing: "0.06em" }}
             >
               {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
               <ChevronDown
@@ -848,9 +853,10 @@ const VendorProfile = () => {
                     <p
                       className="mt-2"
                       style={{
-                        fontSize: "12.5px",
-                        lineHeight: 1.55,
-                        color: "rgba(0,16,33,0.6)",
+                        fontSize: "18px",
+                        fontWeight: 400,
+                        lineHeight: 1.65,
+                        color: "rgba(0,16,33,0.7)",
                       }}
                     >
                       Verification status reflects only documentation reviewed by Source Standard
@@ -890,7 +896,7 @@ const VendorProfile = () => {
             {hasAbout ? (
               <div className="mt-3 space-y-4">
                 {vendor.summary && (
-                  <p className="text-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
                     {vendor.summary}
                   </p>
                 )}
@@ -899,7 +905,7 @@ const VendorProfile = () => {
                     <Eyebrow>Clinical Philosophy</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "11px", lineHeight: 1.6 }}
+                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                     >
                       {vendor.clinicalPhilosophy}
                     </p>
@@ -910,7 +916,7 @@ const VendorProfile = () => {
                     <Eyebrow>Patient Focus</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "11px", lineHeight: 1.6 }}
+                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                     >
                       {vendor.patientFocus}
                     </p>
@@ -920,7 +926,7 @@ const VendorProfile = () => {
             ) : (
               <p
                 className="mt-3 text-muted-foreground"
-                style={{ fontSize: "11px", lineHeight: 1.55 }}
+                style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
               >
                 No description provided yet.{" "}
                 {!claimed && (
@@ -968,7 +974,7 @@ const VendorProfile = () => {
                     <Eyebrow>States Served</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "11px", lineHeight: 1.55 }}
+                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                     >
                       {vendor.statesServed?.length
                         ? vendor.statesServed.join(" · ")
@@ -981,7 +987,7 @@ const VendorProfile = () => {
                     <Eyebrow>Telehealth Availability</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "11px", lineHeight: 1.55 }}
+                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                     >
                       {vendor.telehealthAvailability}
                     </p>
@@ -1020,15 +1026,15 @@ const VendorProfile = () => {
                     </div>
                     <div className="min-w-0">
                       <p
-                        className="font-sans font-medium text-foreground truncate"
-                        style={{ fontSize: "12.5px" }}
+                        className="font-sans font-semibold text-foreground truncate"
+                        style={{ fontSize: "17px" }}
                       >
                         {p.name}
                       </p>
                       {p.role && (
                         <p
                           className="font-sans text-muted-foreground truncate"
-                          style={{ fontSize: "10.5px" }}
+                          style={{ fontSize: "15px", fontWeight: 400 }}
                         >
                           {p.role}
                         </p>
@@ -1109,13 +1115,13 @@ const VendorProfile = () => {
                   <Eyebrow>Unclaimed Listing</Eyebrow>
                   <p
                     className="mt-2 font-sans font-semibold text-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.5 }}
+                    style={{ fontSize: "18px", lineHeight: 1.5 }}
                   >
                     This organization has not yet participated in the Source Standard review process.
                   </p>
                   <p
                     className="mt-2 text-muted-foreground"
-                    style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                    style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                   >
                     Claim and complete this profile to add provider information, clinical leadership,
                     social profiles, service details, and begin the Source Standard review process.

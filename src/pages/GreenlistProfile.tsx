@@ -52,7 +52,7 @@ const manufacturerTypeLabel = (raw?: string): string => {
 const SectionLabel = ({ children }: { children: ReactNode }) => (
   <p
     className="font-sans font-semibold uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+    style={{ fontSize: "13px", letterSpacing: "0.06em" }}
   >
     {children}
   </p>
@@ -64,14 +64,14 @@ const Row = ({ label, value }: { label: string; value: ReactNode }) => (
     style={{ borderTop: "0.5px solid hsl(var(--border))" }}
   >
     <span
-      className="font-sans uppercase text-muted-foreground"
-      style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "13px", letterSpacing: "0.06em" }}
     >
       {label}
     </span>
     <span
-      className="font-sans font-medium text-foreground tabular-nums text-right max-w-[60%]"
-      style={{ fontSize: "10px" }}
+      className="font-sans text-foreground tabular-nums text-right max-w-[60%]"
+      style={{ fontSize: "17px", fontWeight: 400 }}
     >
       {value ?? "—"}
     </span>
@@ -84,7 +84,7 @@ const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolea
       muted ? "text-muted-foreground" : "text-foreground"
     }`}
     style={{
-      fontSize: "10px",
+      fontSize: "14px",
       letterSpacing: "0.06em",
       padding: "4px 9px",
       borderRadius: "20px",
@@ -104,18 +104,19 @@ const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
   >
     <p
       className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      style={{ fontSize: "15px", letterSpacing: "0.06em" }}
     >
       {label}
     </p>
     <div
       className="mt-1 font-sans text-foreground"
-      style={{ fontSize: "10px", lineHeight: 1.4, wordBreak: "break-word" }}
+      style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.45, wordBreak: "break-word" }}
     >
       {value}
     </div>
   </div>
 );
+
 
 const hasVal = (v: unknown): boolean => {
   if (v === null || v === undefined) return false;
@@ -290,22 +291,22 @@ const GreenlistProfile = () => {
             <header>
               <div className="flex items-start justify-between gap-4">
                 <h1
-                  className="min-w-0 font-sans font-semibold text-foreground"
-                  style={{ fontSize: "18px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+                  className="min-w-0 font-sans text-foreground"
+                  style={{ fontSize: "32px", fontWeight: 700, lineHeight: "1.15", letterSpacing: "-0.01em" }}
                 >
                   {entry.name}
                 </h1>
                 <span
-                  className="shrink-0 inline-flex items-center gap-1.5 font-sans font-bold uppercase"
+                  className="shrink-0 inline-flex items-center gap-1.5 font-sans font-semibold uppercase"
                   style={{
-                    fontSize: "10px",
-                    letterSpacing: "0.08em",
+                    fontSize: "15px",
+                    letterSpacing: "0.06em",
                     color: STATUS_COLOR[status],
                   }}
                 >
                   <span
                     className="inline-block rounded-full animate-pulse"
-                    style={{ width: 5, height: 5, backgroundColor: "currentColor" }}
+                    style={{ width: 6, height: 6, backgroundColor: "currentColor" }}
                   />
                   {STATUS_LABEL[status]}
                 </span>
@@ -315,27 +316,28 @@ const GreenlistProfile = () => {
                 <span
                   className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
                   style={{
-                    fontSize: "11px",
+                    fontSize: "13px",
                     letterSpacing: "0.06em",
-                    padding: "3px 6px",
+                    padding: "3px 8px",
                     borderRadius: "3px",
                   }}
                 >
                   {typeBadge}
                 </span>
                 {entry.location && (
-                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
+                  <span className="font-sans text-muted-foreground" style={{ fontSize: "17px", fontWeight: 400 }}>
                     {entry.location}
                   </span>
                 )}
               </div>
+
 
             </header>
 
             {/* SECTION 1 — Overview */}
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Overview</SectionLabel>
-              <p className="mt-2 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
                 {p.overview ?? p.background ??
                   `${entry.name} is a ${typeBadge.toLowerCase()} identified within the Source Standard supply-chain database. Records are maintained to support supply-chain visibility and ongoing testing activity.`}
               </p>
@@ -403,7 +405,7 @@ const GreenlistProfile = () => {
                   {hasVal(p.registrationNotes) && (
                     <p
                       className="mt-3 text-muted-foreground"
-                      style={{ fontSize: "10px", lineHeight: 1.6 }}
+                      style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.6 }}
                     >
                       {p.registrationNotes}
                     </p>
@@ -439,18 +441,18 @@ const GreenlistProfile = () => {
             {/* SECTION 6 — Greenlist Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Greenlist Status</SectionLabel>
-              <p className="mt-3 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
-                <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "10px", letterSpacing: "0.08em" }}>
+              <p className="mt-3 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
+                <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "13px", letterSpacing: "0.06em" }}>
                   Current Status ·{" "}
                 </span>
-                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "10px" }}>
+                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "15px" }}>
                   {STATUS_LABEL[status]}
                 </span>
               </p>
-              <p className="mt-2 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
                 {statusBlurb}
               </p>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "10px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-muted-foreground" style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.65 }}>
                 Greenlisted status is not assigned based on FDA registration, 503A designation, or 503B designation alone. It is earned through successful independent testing activity.
               </p>
             </div>
@@ -467,7 +469,7 @@ const GreenlistProfile = () => {
                         target="_blank"
                         rel="noreferrer noopener"
                         className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: "17px", fontWeight: 400 }}
                       >
                         {r.label} →
                       </a>
