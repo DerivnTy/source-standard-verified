@@ -37,7 +37,7 @@ const SoftPill = ({
       fullWidth ? "w-full" : ""
     }`}
     style={{
-      fontSize: "15px",
+      fontSize: "11px",
       letterSpacing: "0.06em",
       height: "32px",
       padding: "0 14px",
