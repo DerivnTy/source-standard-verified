@@ -408,10 +408,10 @@ const VerifiedVendors = () => {
 
                 <Link
                   to="/how-it-works"
-                  className="mt-5 inline-flex items-center gap-2 px-6 h-12 border border-foreground text-foreground text-[16px] font-medium rounded-[12px] hover:bg-foreground hover:text-background transition-colors duration-150"
+                  className="mt-5 inline-flex items-center gap-1.5 px-5 h-10 border border-foreground text-foreground text-[14px] font-medium rounded-[10px] hover:bg-foreground hover:text-background transition-colors duration-150"
                 >
                   View Verification Protocol
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
