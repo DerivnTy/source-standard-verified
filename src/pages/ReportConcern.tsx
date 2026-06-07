@@ -3,84 +3,35 @@ import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
-import { NumberedCard } from "@/components/system/Numbered";
 
 /* ───────────────── Content ───────────────── */
 
 const REPORTABLE = [
-  {
-    t: "Registry Information",
-    d: "Report incorrect vendor information, business details, classifications, or public record references.",
-  },
-  {
-    t: "Sourcing Claims",
-    d: "Report sourcing representations that appear inconsistent with available evidence.",
-  },
-  {
-    t: "Status Misrepresentation",
-    d: "Report unauthorized use or inaccurate representation of Source Standard status language.",
-  },
-  {
-    t: "Public Record Changes",
-    d: "Report licensing, registration, enforcement, or public record changes that may affect an existing registry listing.",
-  },
+  { t: "Registry Information", d: "Report incorrect vendor information, business details, classifications, or public record references." },
+  { t: "Sourcing Claims", d: "Report sourcing representations that appear inconsistent with available evidence." },
+  { t: "Status Misrepresentation", d: "Report unauthorized use or inaccurate representation of Source Standard status language." },
+  { t: "Public Record Changes", d: "Report licensing, registration, enforcement, or public record changes that may affect an existing registry listing." },
 ];
 
 const OUT_OF_SCOPE = [
-  {
-    t: "Medical Advice",
-    d: "Source Standard does not provide medical guidance or treatment recommendations.",
-  },
-  {
-    t: "Billing Disputes",
-    d: "Payment disputes must be handled directly with the vendor.",
-  },
-  {
-    t: "Personal Complaints",
-    d: "Private disputes unrelated to public registry information are outside review scope.",
-  },
-  {
-    t: "Emergency Matters",
-    d: "Urgent safety concerns should be directed to the appropriate regulatory authority.",
-  },
+  { t: "Medical Advice", d: "Source Standard does not provide medical guidance or treatment recommendations." },
+  { t: "Billing Disputes", d: "Payment disputes must be handled directly with the vendor." },
+  { t: "Personal Complaints", d: "Private disputes unrelated to public registry information are outside review scope." },
+  { t: "Emergency Matters", d: "Urgent safety concerns should be directed to the appropriate regulatory authority." },
 ];
 
 const PROCESS = [
-  {
-    t: "Submission Received",
-    d: "Concern is logged into the intake system.",
-  },
-  {
-    t: "Initial Review",
-    d: "Scope and supporting information are reviewed.",
-  },
-  {
-    t: "Record Reconciliation",
-    d: "Available documentation and registry records are evaluated.",
-  },
-  {
-    t: "Resolution",
-    d: "The registry may be updated, monitored, or retained based on reviewed evidence.",
-  },
+  { t: "Submission Received", d: "Concern is logged into the intake system." },
+  { t: "Initial Review", d: "Scope and supporting information are reviewed." },
+  { t: "Record Reconciliation", d: "Available documentation and registry records are evaluated." },
+  { t: "Resolution", d: "The registry may be updated, monitored, or retained based on reviewed evidence." },
 ];
 
 const EVIDENCE = [
-  {
-    t: "Documentation",
-    d: "Invoices, records, licenses, registrations, and supporting documents.",
-  },
-  {
-    t: "Public Records",
-    d: "Government databases, disciplinary records, or official filings.",
-  },
-  {
-    t: "Screenshots",
-    d: "Website content, advertisements, or public statements.",
-  },
-  {
-    t: "Chain-of-Custody Materials",
-    d: "Relevant sourcing and fulfillment documentation when available.",
-  },
+  { t: "Documentation", d: "Invoices, records, licenses, registrations, and supporting documents." },
+  { t: "Public Records", d: "Government databases, disciplinary records, or official filings." },
+  { t: "Screenshots", d: "Website content, advertisements, or public statements." },
+  { t: "Chain-of-Custody Materials", d: "Relevant sourcing and fulfillment documentation when available." },
 ];
 
 const CONCERN_TYPES = [
@@ -104,13 +55,14 @@ const TrustBadge = ({ children }: { children: ReactNode }) => (
     style={{
       borderRadius: "999px",
       border: "1px solid rgba(0,0,0,0.10)",
-      padding: "6px 14px",
-      fontSize: "11px",
+      padding: "4px 10px",
+      fontSize: "10px",
       fontWeight: 500,
       letterSpacing: "0.08em",
       color: "rgba(0,0,0,0.62)",
       backgroundColor: "#FFFFFF",
       whiteSpace: "nowrap",
+      lineHeight: 1.4,
     }}
   >
     {children}
@@ -128,8 +80,8 @@ const SectionHeader = ({
   intro?: string;
   id?: string;
 }) => (
-  <div className="mb-6" id={id}>
-    <div className="flex items-baseline" style={{ gap: "12px" }}>
+  <div className="mb-4" id={id}>
+    <div className="flex items-baseline" style={{ gap: "10px" }}>
       <span
         className="font-mono tabular-nums shrink-0"
         style={{
@@ -144,9 +96,9 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "24px",
+          fontSize: "20px",
           fontWeight: 700,
-          lineHeight: 1.15,
+          lineHeight: 1.2,
           letterSpacing: "-0.02em",
           color: "#0A0A0A",
           margin: 0,
@@ -157,8 +109,8 @@ const SectionHeader = ({
     </div>
     {intro && (
       <p
-        className="mt-3 text-muted-foreground"
-        style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 400, maxWidth: "62ch" }}
+        className="mt-2 text-muted-foreground"
+        style={{ fontSize: "13px", lineHeight: 1.5, fontWeight: 400, maxWidth: "62ch" }}
       >
         {intro}
       </p>
@@ -166,15 +118,86 @@ const SectionHeader = ({
   </div>
 );
 
+/* Compact card variant tuned to this page only */
+const CompactCard = ({
+  title,
+  number,
+  total,
+  children,
+  as: Tag = "div",
+}: {
+  title: ReactNode;
+  number: number;
+  total: number;
+  children?: ReactNode;
+  as?: "div" | "li";
+}) => {
+  const label = `${String(number).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+  return (
+    <Tag
+      style={{
+        backgroundColor: "#FFFFFF",
+        border: "1px solid rgba(0,0,0,0.08)",
+        borderRadius: "14px",
+        padding: "14px 16px",
+      }}
+    >
+      <div className="flex items-start justify-between" style={{ gap: "12px" }}>
+        <h3
+          className="font-sans text-foreground"
+          style={{
+            fontSize: "14px",
+            fontWeight: 600,
+            lineHeight: 1.3,
+            letterSpacing: "-0.01em",
+            margin: 0,
+          }}
+        >
+          {title}
+        </h3>
+        <span
+          className="font-mono tabular-nums shrink-0"
+          style={{
+            fontSize: "10px",
+            fontWeight: 500,
+            lineHeight: 1,
+            letterSpacing: "0.06em",
+            color: "rgba(0,0,0,0.38)",
+            whiteSpace: "nowrap",
+            paddingTop: "3px",
+          }}
+        >
+          {label}
+        </span>
+      </div>
+      {children && (
+        <p
+          className="text-muted-foreground"
+          style={{
+            marginTop: "6px",
+            marginBottom: 0,
+            fontSize: "13px",
+            fontWeight: 400,
+            lineHeight: 1.5,
+            color: "rgba(0,0,0,0.62)",
+          }}
+        >
+          {children}
+        </p>
+      )}
+    </Tag>
+  );
+};
+
 const FieldLabel = ({ children, required }: { children: ReactNode; required?: boolean }) => (
   <label
     className="font-mono uppercase block"
     style={{
-      fontSize: "11px",
+      fontSize: "10px",
       fontWeight: 500,
       letterSpacing: "0.08em",
       color: "rgba(0,0,0,0.62)",
-      marginBottom: "8px",
+      marginBottom: "6px",
     }}
   >
     {children}
@@ -187,9 +210,9 @@ const FieldLabel = ({ children, required }: { children: ReactNode; required?: bo
 const inputBase: React.CSSProperties = {
   width: "100%",
   border: "1px solid rgba(0,0,0,0.12)",
-  borderRadius: "10px",
-  padding: "12px 14px",
-  fontSize: "14px",
+  borderRadius: "8px",
+  padding: "9px 12px",
+  fontSize: "13px",
   fontWeight: 400,
   lineHeight: 1.4,
   color: "#0A0A0A",
@@ -204,12 +227,14 @@ const ReportConcern = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Submission handled downstream; show acknowledgement in place.
     setSubmitted(true);
     if (typeof window !== "undefined") {
       window.scrollTo({ top: document.getElementById("submit")?.offsetTop ?? 0, behavior: "smooth" });
     }
   };
+
+  const sectionStyle = { paddingTop: "24px", paddingBottom: "20px" } as const;
+  const gridGap = { gap: "8px" } as const;
 
   return (
     <>
@@ -272,116 +297,83 @@ const ReportConcern = () => {
         <div className="page-shell">
           <div className="mx-auto w-standard">
             {/* Trust badges */}
-            <section style={{ paddingTop: "28px", paddingBottom: "8px" }}>
-              <div className="flex flex-wrap" style={{ gap: "8px" }}>
+            <section style={{ paddingTop: "16px", paddingBottom: "4px" }}>
+              <div className="flex flex-wrap" style={{ gap: "6px" }}>
                 {TRUST_BADGES.map((b) => (
                   <TrustBadge key={b}>{b}</TrustBadge>
                 ))}
               </div>
             </section>
 
-            {/* §01 What Can Be Reported */}
-            <section
-              className="border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "32px" }}
-            >
+            {/* §01 */}
+            <section className="border-t border-border/40" style={sectionStyle}>
               <SectionHeader
                 n="01"
                 title="What Can Be Reported"
                 intro="Concerns within review scope of the Source Standard framework."
               />
-              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "12px" }}>
+              <div className="grid grid-cols-1 md:grid-cols-2" style={gridGap}>
                 {REPORTABLE.map((c, i) => (
-                  <NumberedCard
-                    key={c.t}
-                    title={c.t}
-                    number={i + 1}
-                    total={REPORTABLE.length}
-                  >
+                  <CompactCard key={c.t} title={c.t} number={i + 1} total={REPORTABLE.length}>
                     {c.d}
-                  </NumberedCard>
+                  </CompactCard>
                 ))}
               </div>
             </section>
 
-            {/* §02 What Cannot Be Reported */}
-            <section
-              className="border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "32px" }}
-            >
+            {/* §02 */}
+            <section className="border-t border-border/40" style={sectionStyle}>
               <SectionHeader
                 n="02"
                 title="What Cannot Be Reported"
                 intro="Matters outside the registry review scope. Direct to the appropriate authority."
               />
-              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "12px" }}>
+              <div className="grid grid-cols-1 md:grid-cols-2" style={gridGap}>
                 {OUT_OF_SCOPE.map((c, i) => (
-                  <NumberedCard
-                    key={c.t}
-                    title={c.t}
-                    number={i + 1}
-                    total={OUT_OF_SCOPE.length}
-                  >
+                  <CompactCard key={c.t} title={c.t} number={i + 1} total={OUT_OF_SCOPE.length}>
                     {c.d}
-                  </NumberedCard>
+                  </CompactCard>
                 ))}
               </div>
             </section>
 
-            {/* §03 Review Process */}
-            <section
-              className="border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "32px" }}
-            >
+            {/* §03 */}
+            <section className="border-t border-border/40" style={sectionStyle}>
               <SectionHeader
                 n="03"
                 title="Review Process"
                 intro="Each submission moves through a four-step intake flow."
               />
-              <ol className="flex flex-col" style={{ gap: "10px" }}>
+              <ol className="flex flex-col" style={{ gap: "6px" }}>
                 {PROCESS.map((s, i) => (
-                  <NumberedCard
-                    key={s.t}
-                    as="li"
-                    title={s.t}
-                    number={i + 1}
-                    total={PROCESS.length}
-                  >
+                  <CompactCard key={s.t} as="li" title={s.t} number={i + 1} total={PROCESS.length}>
                     {s.d}
-                  </NumberedCard>
+                  </CompactCard>
                 ))}
               </ol>
             </section>
 
-            {/* §04 Evidence Guidelines */}
-            <section
-              className="border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "32px" }}
-            >
+            {/* §04 */}
+            <section className="border-t border-border/40" style={sectionStyle}>
               <SectionHeader
                 n="04"
                 title="Evidence Guidelines"
                 intro="Help us review concerns efficiently. Attach any materials relevant to the report."
               />
-              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "12px" }}>
+              <div className="grid grid-cols-1 md:grid-cols-2" style={gridGap}>
                 {EVIDENCE.map((c, i) => (
-                  <NumberedCard
-                    key={c.t}
-                    title={c.t}
-                    number={i + 1}
-                    total={EVIDENCE.length}
-                  >
+                  <CompactCard key={c.t} title={c.t} number={i + 1} total={EVIDENCE.length}>
                     {c.d}
-                  </NumberedCard>
+                  </CompactCard>
                 ))}
               </div>
             </section>
 
-            {/* §05 Submit a Concern */}
+            {/* §05 Submit */}
             <section
               id="submit"
               className="scroll-mt-24 border-t border-border/40"
-              style={{ paddingTop: "40px", paddingBottom: "64px" }}
+              style={{ paddingTop: "24px", paddingBottom: "48px" }}
             >
               <SectionHeader
                 n="05"
@@ -393,16 +385,16 @@ const ReportConcern = () => {
                 style={{
                   backgroundColor: "#FFFFFF",
                   border: "1px solid rgba(0,0,0,0.08)",
-                  borderRadius: "18px",
-                  padding: "24px",
+                  borderRadius: "14px",
+                  padding: "18px",
                 }}
               >
                 {submitted ? (
-                  <div className="flex flex-col" style={{ gap: "10px" }}>
+                  <div className="flex flex-col" style={{ gap: "6px" }}>
                     <p
                       className="font-mono uppercase"
                       style={{
-                        fontSize: "11px",
+                        fontSize: "10px",
                         fontWeight: 500,
                         letterSpacing: "0.08em",
                         color: "rgba(0,0,0,0.38)",
@@ -412,54 +404,37 @@ const ReportConcern = () => {
                     </p>
                     <h3
                       className="font-sans text-foreground"
-                      style={{ fontSize: "20px", fontWeight: 600, lineHeight: 1.3, margin: 0 }}
+                      style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, margin: 0 }}
                     >
                       Concern logged for review.
                     </h3>
                     <p
                       className="text-muted-foreground"
-                      style={{ fontSize: "14px", lineHeight: 1.6, marginTop: "4px" }}
+                      style={{ fontSize: "13px", lineHeight: 1.5, marginTop: "2px" }}
                     >
                       The submission has been added to the intake register. No additional action is required.
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: "18px" }}>
+                  <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: "12px" }}>
                     <div>
                       <FieldLabel required>Concern Type</FieldLabel>
                       <select required name="concernType" style={inputBase} defaultValue="">
-                        <option value="" disabled>
-                          Select a category
-                        </option>
+                        <option value="" disabled>Select a category</option>
                         {CONCERN_TYPES.map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
+                          <option key={t} value={t}>{t}</option>
                         ))}
                       </select>
                     </div>
 
                     <div>
                       <FieldLabel required>Vendor Name</FieldLabel>
-                      <input
-                        required
-                        name="vendor"
-                        type="text"
-                        maxLength={120}
-                        placeholder="Legal or trade name"
-                        style={inputBase}
-                      />
+                      <input required name="vendor" type="text" maxLength={120} placeholder="Legal or trade name" style={inputBase} />
                     </div>
 
                     <div>
                       <FieldLabel>Registry Record</FieldLabel>
-                      <input
-                        name="record"
-                        type="text"
-                        maxLength={120}
-                        placeholder="Listing URL or record ID"
-                        style={inputBase}
-                      />
+                      <input name="record" type="text" maxLength={120} placeholder="Listing URL or record ID" style={inputBase} />
                     </div>
 
                     <div>
@@ -468,7 +443,7 @@ const ReportConcern = () => {
                         required
                         name="description"
                         maxLength={2000}
-                        rows={6}
+                        rows={5}
                         placeholder="Describe the concern, the relevant claim or record, and any inconsistency identified."
                         style={{ ...inputBase, resize: "vertical", fontFamily: "inherit" }}
                       />
@@ -480,22 +455,16 @@ const ReportConcern = () => {
                         name="documentation"
                         type="file"
                         multiple
-                        style={{ ...inputBase, padding: "10px 14px", fontSize: "13px" }}
+                        style={{ ...inputBase, padding: "8px 12px", fontSize: "12px" }}
                       />
                     </div>
 
                     <div>
                       <FieldLabel>Email Address</FieldLabel>
-                      <input
-                        name="email"
-                        type="email"
-                        maxLength={255}
-                        placeholder="For clarification correspondence"
-                        style={inputBase}
-                      />
+                      <input name="email" type="email" maxLength={255} placeholder="For clarification correspondence" style={inputBase} />
                     </div>
 
-                    <div className="flex flex-wrap items-center" style={{ gap: "12px", marginTop: "4px" }}>
+                    <div className="flex flex-wrap items-center" style={{ gap: "10px", marginTop: "2px" }}>
                       <button
                         type="submit"
                         className="inline-flex items-center font-sans"
@@ -503,8 +472,8 @@ const ReportConcern = () => {
                           backgroundColor: "#0A0A0A",
                           color: "#FFFFFF",
                           borderRadius: "999px",
-                          padding: "12px 22px",
-                          fontSize: "13px",
+                          padding: "10px 18px",
+                          fontSize: "12px",
                           fontWeight: 600,
                           letterSpacing: "0.02em",
                           border: "none",
@@ -513,10 +482,7 @@ const ReportConcern = () => {
                       >
                         Submit Concern
                       </button>
-                      <p
-                        className="text-muted-foreground"
-                        style={{ fontSize: "12px", lineHeight: 1.5 }}
-                      >
+                      <p className="text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.5 }}>
                         Reporter identity remains confidential within the review file.
                       </p>
                     </div>
