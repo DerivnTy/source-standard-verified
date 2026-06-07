@@ -198,7 +198,7 @@ const Greenlist = () => {
                     onClick={() => setStatus("greenlisted")}
                   />
                   <SoftPill
-                    label="Under Monitoring"
+                    label="Monitoring"
                     active={status === "monitoring"}
                     fullWidth
                     onClick={() => setStatus("monitoring")}
@@ -310,7 +310,7 @@ const Greenlist = () => {
                     body: "Products associated with the manufacturer have consistently satisfied Source Standard testing standards during the current review period.",
                   },
                   {
-                    label: "Under Monitoring",
+                    label: "Monitoring",
                     body: "Source Standard is actively collecting testing data associated with products sourced from the manufacturer.",
                   },
                   {
