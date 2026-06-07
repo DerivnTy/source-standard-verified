@@ -149,7 +149,7 @@ export const VendorAuditCard = ({
       <div className="flex flex-col gap-3 text-left" style={{ padding: "20px" }}>
         <AuditStatusLabel status={vendor.status} />
 
-        <h3 className="text-left t-h3 text-foreground">
+        <h3 className="text-left t-body-strong text-foreground">
           {vendor.name}
         </h3>
 

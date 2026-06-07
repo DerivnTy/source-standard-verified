@@ -362,10 +362,10 @@ html {
   .ss-lead,
   .t-hero-lead {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 16px !important;
-    line-height: 1.6 !important;
+    font-size: 16px;
+    line-height: 1.6;
     letter-spacing: -0.01em !important;
-    font-weight: 400 !important;
+    font-weight: 400;
     color: rgba(0, 0, 0, 0.60);
     max-width: 36ch;
     margin-top: 16px;
@@ -381,11 +381,11 @@ html {
   .t-label-sm,
   .ss-eyebrow {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 11px !important;
-    line-height: 1.2 !important;
+    font-size: 11px;
+    line-height: 1.2;
     letter-spacing: 0.12em !important;
-    font-weight: 500 !important;
-    text-transform: uppercase !important;
+    font-weight: 500;
+    text-transform: uppercase;
     color: rgba(0, 0, 0, 0.45);
   }
 
@@ -411,10 +411,10 @@ html {
   .t-section-intro,
   .t-body-lg {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 15px !important;
-    line-height: 1.7 !important;
+    font-size: 15px;
+    line-height: 1.7;
     letter-spacing: -0.005em !important;
-    font-weight: 400 !important;
+    font-weight: 400;
     color: rgba(0, 0, 0, 0.60);
     max-width: 40ch;
   }
@@ -424,10 +424,10 @@ html {
   .t-h4,
   .ss-card-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 16px !important;
-    line-height: 1.3 !important;
+    font-size: 16px;
+    line-height: 1.3;
     letter-spacing: -0.01em !important;
-    font-weight: 600 !important;
+    font-weight: 600;
     color: #111111;
   }
 
@@ -437,10 +437,10 @@ html {
   .t-body-strong,
   .ss-body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 14px !important;
-    line-height: 1.75 !important;
+    font-size: 14px;
+    line-height: 1.75;
     letter-spacing: -0.005em !important;
-    font-weight: 400 !important;
+    font-weight: 400;
     color: rgba(0, 0, 0, 0.62);
   }
   .t-body-strong { font-weight: 600 !important; color: #111111; }
@@ -450,10 +450,10 @@ html {
   .prose-article p,
   .prose-article li {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 16px !important;
-    line-height: 1.85 !important;
+    font-size: 16px;
+    line-height: 1.85;
     letter-spacing: -0.005em !important;
-    font-weight: 400 !important;
+    font-weight: 400;
     color: rgba(0, 0, 0, 0.72);
     max-width: 72ch;
   }
@@ -464,10 +464,10 @@ html {
   .t-nav,
   .ss-card-meta {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 10px !important;
-    line-height: 1.4 !important;
+    font-size: 10px;
+    line-height: 1.4;
     letter-spacing: 0.08em !important;
-    font-weight: 500 !important;
+    font-weight: 500;
     text-transform: uppercase;
     color: rgba(0, 0, 0, 0.42);
   }
@@ -477,10 +477,10 @@ html {
   .t-numeric,
   .t-button {
     font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important;
-    font-size: 11px !important;
-    line-height: 1.2 !important;
+    font-size: 11px;
+    line-height: 1.2;
     letter-spacing: 0.04em !important;
-    font-weight: 500 !important;
+    font-weight: 500;
     color: rgba(0, 0, 0, 0.40);
   }
   .t-button { text-transform: uppercase; color: inherit; font-size: 10px !important; }
