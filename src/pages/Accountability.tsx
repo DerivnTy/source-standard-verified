@@ -8,10 +8,11 @@ import { BriefingHero } from "@/components/BriefingHero";
 const WAYPOINTS = [
   { id: "attestations", number: "01", label: "Attestations" },
   { id: "disclosure", number: "02", label: "Disclosure" },
-  { id: "triggers", number: "03", label: "Review Triggers" },
-  { id: "actions", number: "04", label: "Status & Review Actions" },
-  { id: "reentry", number: "05", label: "Re-entry" },
-  { id: "related", number: "06", label: "Related Documents" },
+  { id: "testing", number: "03", label: "Testing Activity" },
+  { id: "triggers", number: "04", label: "Review Triggers" },
+  { id: "actions", number: "05", label: "Status & Review Actions" },
+  { id: "reentry", number: "06", label: "Re-entry" },
+  { id: "related", number: "07", label: "Related Documents" },
 ];
 
 type Clause = { n: string; t: string; d: string };
@@ -103,6 +104,24 @@ const TRIGGERS: Clause[] = [
     t: "Credential lapse",
     d: "Lapse of any required licensure, registration, or accreditation held by the vendor or a disclosed upstream source.",
   },
+  {
+    n: "07",
+    t: "Independent testing result",
+    d: "An outcome from independent testing activity that warrants reassessment of a vendor, facility, manufacturer, product, or supply-chain relationship.",
+  },
+];
+
+const TESTING: Clause[] = [
+  {
+    n: "01",
+    t: "Scope of testing activity",
+    d: "Source Standard may conduct testing activity involving vendors, facilities, manufacturers, products, and supply-chain relationships within the framework.",
+  },
+  {
+    n: "02",
+    t: "Use of testing activity",
+    d: "Testing activity may be used to validate sourcing claims, investigate concerns, review manufacturer performance, review facility performance, and support status reassessment.",
+  },
 ];
 
 const ACTIONS: Clause[] = [
@@ -118,21 +137,31 @@ const ACTIONS: Clause[] = [
   },
   {
     n: "03",
+    t: "Facility investigation",
+    d: "Source Standard may initiate deeper review of a facility when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+  },
+  {
+    n: "04",
+    t: "Manufacturer investigation",
+    d: "Source Standard may initiate deeper review of a manufacturer when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+  },
+  {
+    n: "05",
     t: "Scope reduction",
     d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
   },
   {
-    n: "04",
+    n: "06",
     t: "Suspension",
     d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
-    n: "05",
+    n: "07",
     t: "Removal",
     d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
   },
   {
-    n: "06",
+    n: "08",
     t: "Public note",
     d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
   },
@@ -426,6 +455,34 @@ const Accountability = () => {
               </div>
             </section>
 
+            {/* §3 Testing Activity */}
+            <section
+              id="testing"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "24px",
+                paddingBottom: "24px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="03"
+                title="Independent Testing Activity"
+                intro="Source Standard may conduct independent testing activity as part of the framework."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {TESTING.map((c) => (
+                  <ComplianceRow
+                    key={c.n}
+                    index={c.n}
+                    total="02"
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
+              </div>
+            </section>
+
             {/* §4 Triggers */}
             <section
               id="triggers"
@@ -437,7 +494,7 @@ const Accountability = () => {
               }}
             >
               <SectionHeader
-                index="03"
+                index="04"
                 title="Review Triggers"
                 intro="Events that may trigger monitoring activity, evidence review, status reassessment, or reopening of an existing record."
               />
@@ -446,7 +503,7 @@ const Accountability = () => {
                   <ComplianceRow
                     key={c.n}
                     index={c.n}
-                    total="06"
+                    total="07"
                     title={c.t}
                     description={c.d}
                   />
@@ -465,16 +522,16 @@ const Accountability = () => {
               }}
             >
               <SectionHeader
-                index="04"
+                index="05"
                 title="Status & Review Actions"
-                intro="How the framework responds when a reviewed record no longer supports the published status."
+                intro="How the framework responds when a reviewed record no longer supports the published status, or when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {ACTIONS.map((c) => (
                   <ComplianceRow
                     key={c.n}
                     index={c.n}
-                    total="06"
+                    total="08"
                     title={c.t}
                     description={c.d}
                   />
@@ -493,7 +550,7 @@ const Accountability = () => {
               }}
             >
               <ComplianceCard>
-                <Eyebrow>05 · Re-entry</Eyebrow>
+                <Eyebrow>06 · Re-entry</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">Re-entry</h2>
                 <p
                   className="text-muted-foreground"
@@ -533,7 +590,7 @@ const Accountability = () => {
               }}
             >
               <SectionHeader
-                index="06"
+                index="07"
                 title="Related Documents"
                 intro="Further reading on the framework, public statuses, and reporting logic."
               />
@@ -560,7 +617,7 @@ const Accountability = () => {
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification remains meaningful only when evidence continues to support the published scope, sourcing relationships remain transparent, material changes are disclosed, and monitoring activities are able to reconcile new information as it becomes available.
+                  The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification integrity depends on monitoring activity, supply-chain transparency, testing activity, facility monitoring, manufacturer oversight, and documentation support — not documentation alone. Verification remains meaningful only when these inputs continue to reconcile with the published scope as new information becomes available.
                 </p>
               </ComplianceCard>
             </section>

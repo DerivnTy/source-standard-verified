@@ -17,7 +17,7 @@ const ESTABLISHES: Clause[] = [
   {
     n: "01",
     t: "Reviewed evidence",
-    d: "Verification reflects the evidence reviewed at the time of determination.",
+    d: "Verification reflects the evidence reviewed at the time of determination, which may include documentation, sourcing records, public records, facility records, manufacturer records, chain-of-custody records, testing activity, and other verification materials.",
   },
   {
     n: "02",
@@ -27,7 +27,7 @@ const ESTABLISHES: Clause[] = [
   {
     n: "03",
     t: "Point-in-time determination",
-    d: "Verification reflects conditions at the time of review and may change as new information becomes available.",
+    d: "Verification reflects conditions at the time of review and may change as new information, monitoring activity, or testing activity becomes available.",
   },
   {
     n: "04",
@@ -40,7 +40,7 @@ const DOES_NOT_ESTABLISH: Clause[] = [
   {
     n: "01",
     t: "Product safety",
-    d: "Source Standard does not certify product safety, sterility, potency, purity, efficacy, or manufacturing quality.",
+    d: "Source Standard does not guarantee product safety, potency, purity, sterility, or future quality, even when testing activity is incorporated into a status determination.",
   },
   {
     n: "02",
@@ -83,12 +83,17 @@ const BOUNDARIES: Clause[] = [
   {
     n: "04",
     t: "Not a testing laboratory",
-    d: "Source Standard does not operate an analytical laboratory and does not represent itself as a laboratory certification body.",
+    d: "Source Standard does not operate an analytical laboratory and does not represent itself as a laboratory certification body. Independent testing activity, when conducted, is performed through qualified third parties for the purpose of supporting verification determinations.",
   },
   {
     n: "05",
     t: "Not an endorsement organization",
     d: "Verification does not constitute vendor endorsement, product endorsement, treatment recommendation, ranking, or promotional approval.",
+  },
+  {
+    n: "06",
+    t: "Not a certifying authority",
+    d: "Source Standard assigns statuses under its own framework and is not a government certification body, accreditation organization, or regulatory authority.",
   },
 ];
 
@@ -240,13 +245,13 @@ const VerificationDisclaimer = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Source Standard exists to improve transparency around sourcing claims, supply-chain relationships, facility records, and supporting evidence within the compounded therapy market.
+                    Source Standard exists to improve transparency around sourcing claims, supply-chain relationships, facility records, manufacturer records, and supporting evidence within the compounded therapy market.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    Because verification statuses may be viewed by consumers, providers, vendors, and third parties, it is important that the framework be interpreted within its intended scope.
+                    Verification is an evidence-based determination informed by documentation review, sourcing review, facility review, manufacturer review, public-record review, monitoring activity, and independent testing activity where applicable.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
-                    This document defines what Source Standard verification establishes, what it does not establish, and the limits under which registry information should be interpreted.
+                    Because verification statuses may be viewed by consumers, providers, vendors, and third parties, it is important that the framework be interpreted within its intended scope. This document defines what Source Standard verification establishes, what it does not establish, and the limits under which registry information should be interpreted.
                   </p>
                 </div>
               </DisclaimerCard>
@@ -271,7 +276,7 @@ const VerificationDisclaimer = () => {
                 className="text-muted-foreground"
                 style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
               >
-                A Verified status indicates that available documentation, sourcing evidence, facility relationships, public records, and supporting materials were sufficient to support the reviewed sourcing representations within the defined review scope at the time of review.
+                A Verified status indicates that available documentation, sourcing records, public records, facility records, manufacturer records, chain-of-custody records, testing activity, and other verification materials were sufficient to support the reviewed sourcing representations within the defined review scope at the time of review.
               </p>
               <p
                 className="text-muted-foreground"
@@ -331,7 +336,7 @@ const VerificationDisclaimer = () => {
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {BOUNDARIES.map((c) => (
-                  <DisclaimerRow key={c.n} index={c.n} total="05" title={c.t} description={c.d} />
+                  <DisclaimerRow key={c.n} index={c.n} total="06" title={c.t} description={c.d} />
                 ))}
               </div>
             </section>
@@ -393,7 +398,7 @@ const VerificationDisclaimer = () => {
               <SectionHeader
                 index="05"
                 title="Framework Interpretation"
-                intro="Source Standard verification should be interpreted as an evidence-based transparency determination within a defined scope."
+                intro="Source Standard verification should be interpreted as a transparency determination informed by documentation review, monitoring activity, facility review, manufacturer review, testing activity, and supply-chain verification within a defined scope."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <DisclaimerCard>
@@ -412,7 +417,7 @@ const VerificationDisclaimer = () => {
                     <p>It is not a regulatory designation.</p>
                     <p>It is not a medical recommendation.</p>
                     <p>
-                      Its purpose is to improve public visibility into sourcing claims, facility relationships, supporting evidence, and supply-chain transparency.
+                      Its purpose is to improve public visibility into sourcing claims, facility relationships, manufacturer relationships, testing activity, supporting evidence, and supply-chain transparency.
                     </p>
                   </div>
                 </DisclaimerCard>
@@ -430,7 +435,7 @@ const VerificationDisclaimer = () => {
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  The purpose of the Source Standard framework is to create a clearer public record around sourcing transparency. Verification reflects reviewed evidence within a defined scope and should always be interpreted within the limits established by that scope.
+                  The purpose of the Source Standard framework is to create a clearer public record around sourcing transparency through documentation review, supply-chain verification, facility review, manufacturer review, monitoring activity, and independent testing activity. Verification reflects reviewed evidence within a defined scope and should always be interpreted within the limits established by that scope.
                 </p>
               </DisclaimerCard>
             </section>
