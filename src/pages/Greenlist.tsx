@@ -149,25 +149,23 @@ const Greenlist = () => {
                 className="mt-2 text-foreground"
                 style={{ fontSize: "18px", lineHeight: 1.55 }}
               >
-                FDA registration, 503A designation, and 503B designation alone
-                do not qualify a manufacturer for Greenlisted status.
+                Greenlisted status is not based on FDA registration, 503A
+                designation, or 503B designation alone.
               </p>
               <p
                 className="mt-2 text-muted-foreground"
                 style={{ fontSize: "17px", lineHeight: 1.6 }}
               >
-                Source Standard assigns Greenlisted status through ongoing
-                independent testing activity conducted throughout the supply
-                chain. Manufacturers earn Greenlisted status when products
-                associated with that manufacturer consistently satisfy Source
-                Standard testing standards over time.
+                Manufacturers earn Greenlisted status through ongoing
+                independent testing and continued compliance with Source
+                Standard testing standards.
               </p>
               <p
                 className="mt-2 text-muted-foreground"
                 style={{ fontSize: "17px", lineHeight: 1.6 }}
               >
-                Greenlisted status remains subject to continued monitoring and
-                future testing activity.
+                All Greenlisted manufacturers remain subject to ongoing
+                monitoring and future testing.
               </p>
             </div>
           </div>
