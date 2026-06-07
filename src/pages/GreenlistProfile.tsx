@@ -496,7 +496,7 @@ const GreenlistProfile = () => {
                 className="inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
                 style={{ fontSize: "11px", letterSpacing: "0.08em" }}
               >
-                Back to Manufacturer Registry →
+                Back to Facility Records →
               </Link>
             </div>
           </article>
