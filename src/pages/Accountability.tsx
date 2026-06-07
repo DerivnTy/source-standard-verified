@@ -8,10 +8,11 @@ import { BriefingHero } from "@/components/BriefingHero";
 const WAYPOINTS = [
   { id: "attestations", number: "01", label: "Attestations" },
   { id: "disclosure", number: "02", label: "Disclosure" },
-  { id: "triggers", number: "03", label: "Review Triggers" },
-  { id: "actions", number: "04", label: "Status & Review Actions" },
-  { id: "reentry", number: "05", label: "Re-entry" },
-  { id: "related", number: "06", label: "Related Documents" },
+  { id: "testing", number: "03", label: "Testing Activity" },
+  { id: "triggers", number: "04", label: "Review Triggers" },
+  { id: "actions", number: "05", label: "Status & Review Actions" },
+  { id: "reentry", number: "06", label: "Re-entry" },
+  { id: "related", number: "07", label: "Related Documents" },
 ];
 
 type Clause = { n: string; t: string; d: string };
@@ -103,6 +104,24 @@ const TRIGGERS: Clause[] = [
     t: "Credential lapse",
     d: "Lapse of any required licensure, registration, or accreditation held by the vendor or a disclosed upstream source.",
   },
+  {
+    n: "07",
+    t: "Independent testing result",
+    d: "An outcome from independent testing activity that warrants reassessment of a vendor, facility, manufacturer, product, or supply-chain relationship.",
+  },
+];
+
+const TESTING: Clause[] = [
+  {
+    n: "01",
+    t: "Scope of testing activity",
+    d: "Source Standard may conduct testing activity involving vendors, facilities, manufacturers, products, and supply-chain relationships within the framework.",
+  },
+  {
+    n: "02",
+    t: "Use of testing activity",
+    d: "Testing activity may be used to validate sourcing claims, investigate concerns, review manufacturer performance, review facility performance, and support status reassessment.",
+  },
 ];
 
 const ACTIONS: Clause[] = [
@@ -118,21 +137,31 @@ const ACTIONS: Clause[] = [
   },
   {
     n: "03",
+    t: "Facility investigation",
+    d: "Source Standard may initiate deeper review of a facility when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+  },
+  {
+    n: "04",
+    t: "Manufacturer investigation",
+    d: "Source Standard may initiate deeper review of a manufacturer when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+  },
+  {
+    n: "05",
     t: "Scope reduction",
     d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
   },
   {
-    n: "04",
+    n: "06",
     t: "Suspension",
     d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
-    n: "05",
+    n: "07",
     t: "Removal",
     d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
   },
   {
-    n: "06",
+    n: "08",
     t: "Public note",
     d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
   },
