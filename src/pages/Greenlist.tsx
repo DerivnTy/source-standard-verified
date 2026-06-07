@@ -141,20 +141,20 @@ const Greenlist = () => {
             >
               <p
                 className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                style={{ fontSize: "13px", letterSpacing: "0.08em" }}
               >
                 Greenlisted Status
               </p>
               <p
                 className="mt-2 text-foreground"
-                style={{ fontSize: "12px", lineHeight: 1.45 }}
+                style={{ fontSize: "18px", lineHeight: 1.55 }}
               >
                 FDA registration, 503A designation, and 503B designation alone
                 do not qualify a manufacturer for Greenlisted status.
               </p>
               <p
                 className="mt-2 text-muted-foreground"
-                style={{ fontSize: "12px", lineHeight: 1.45 }}
+                style={{ fontSize: "17px", lineHeight: 1.6 }}
               >
                 Source Standard assigns Greenlisted status through ongoing
                 independent testing activity conducted throughout the supply
@@ -164,7 +164,7 @@ const Greenlist = () => {
               </p>
               <p
                 className="mt-2 text-muted-foreground"
-                style={{ fontSize: "12px", lineHeight: 1.45 }}
+                style={{ fontSize: "17px", lineHeight: 1.6 }}
               >
                 Greenlisted status remains subject to continued monitoring and
                 future testing activity.
