@@ -50,16 +50,16 @@ export const VendorRow = ({
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "16px 18px 14px",
+        padding: "10px 14px 8px",
       }}
     >
       {/* Status — pinned top-right */}
       <span
         className="absolute inline-flex items-center font-sans"
         style={{
-          top: "16px",
-          right: "18px",
-          fontSize: "14px",
+          top: "10px",
+          right: "14px",
+          fontSize: "12px",
           fontWeight: 600,
           lineHeight: 1,
           gap: "5px",
@@ -87,12 +87,12 @@ export const VendorRow = ({
       <span
         className="absolute font-sans text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
         style={{
-          bottom: "14px",
-          right: "18px",
+          bottom: "8px",
+          right: "14px",
           display: "inline-flex",
           alignItems: "center",
           gap: "4px",
-          fontSize: "15px",
+          fontSize: "14px",
           fontWeight: 600,
           lineHeight: 1,
         }}
@@ -104,13 +104,13 @@ export const VendorRow = ({
       {/* Stacked content: name, location/type, therapy tag */}
       <div
         className="flex flex-col"
-        style={{ gap: "6px", paddingRight: "108px" }}
+        style={{ gap: "3px", paddingRight: "108px" }}
       >
         <h3
           className="font-sans text-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "18px",
+            fontSize: "15px",
             fontWeight: 600,
             lineHeight: 1.2,
             letterSpacing: "-0.01em",
@@ -123,7 +123,7 @@ export const VendorRow = ({
           className="text-muted-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "15px",
+            fontSize: "13px",
             fontWeight: 400,
             lineHeight: 1.35,
             margin: 0,
@@ -133,16 +133,16 @@ export const VendorRow = ({
         </p>
 
         {focus && (
-          <div style={{ marginTop: "2px" }}>
+          <div>
             <span
               className="inline-flex items-center font-sans uppercase whitespace-nowrap"
               style={{
-                gap: "5px",
-                fontSize: "12px",
+                gap: "4px",
+                fontSize: "10px",
                 fontWeight: 600,
                 letterSpacing: "0.04em",
-                padding: "5px 9px",
-                borderRadius: "5px",
+                padding: "3px 7px",
+                borderRadius: "4px",
                 background: "rgba(0,16,33,0.07)",
                 color: "rgba(0,16,33,0.72)",
                 lineHeight: 1,
