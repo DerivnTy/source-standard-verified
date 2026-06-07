@@ -82,7 +82,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
                 className={`inline-block rounded-full live-dot ${cadenceClass}`}
                 style={{ width: "5px", height: "5px", backgroundColor: "#FF3B30" }}
               />
-              Under Monitoring
+              Monitoring
             </span>
           )}
         </div>
