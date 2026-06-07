@@ -104,25 +104,25 @@ const Greenlist = () => {
   }, [query, state, status]);
 
   const heroDescription =
-    "A public-reference registry of 503A and 503B compounding facilities. Greenlisted status is earned through Source Standard independent testing activity.";
+    "A public-reference database of manufacturers, 503A pharmacies, 503B outsourcing facilities, and other organizations operating within compounded therapy supply chains.";
 
   return (
     <>
       <PageMeta
-        title="Facility Registry · Source Standard"
+        title="Facility Records · Source Standard"
         description={heroDescription}
         path="/greenlist"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "Facility Registry",
+          name: "Facility Records",
           url: "https://sourcestandard.org/greenlist",
         }}
       />
 
       <RegistryHeader
         indexNumber="02"
-        title="Facility Registry"
+        title="Facility Records"
         description={heroDescription}
         recordCount={counts.total}
       />
