@@ -377,7 +377,8 @@ const About = () => {
                 title="Market Context"
                 intro="Why the framework is needed."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {CONTEXT.map((c, i) => (
                   <AboutRow
                     key={c.t}
