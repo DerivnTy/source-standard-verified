@@ -171,7 +171,7 @@ const AboutRow = ({
     {description ? (
       <p
         className="text-muted-foreground"
-        style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
+        style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "6px" }}
       >
         {description}
       </p>
@@ -377,7 +377,8 @@ const About = () => {
                 title="Market Context"
                 intro="Why the framework is needed."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {CONTEXT.map((c, i) => (
                   <AboutRow
                     key={c.t}
@@ -401,7 +402,8 @@ const About = () => {
                 title="Operational Boundaries"
                 intro="What Source Standard does not do."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {BOUNDARIES.map((c, i) => (
                   <AboutRow
                     key={c.t}
@@ -425,7 +427,8 @@ const About = () => {
                 title="Who the Framework Serves"
                 intro="Who the framework serves."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {OBJECTIVES.map((c, i) => (
                   <AboutRow
                     key={c.t}
@@ -449,7 +452,8 @@ const About = () => {
                 title="Framework Components"
                 intro="The systems maintained by Source Standard."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {SCOPE.map((c, i) => (
                   <AboutRow
                     key={c.t}
