@@ -26,8 +26,13 @@ const PARTITIONING: Clause[] = [
   },
   {
     n: "03",
+    t: "Independent verification records",
+    d: "Independent verification records may include laboratory testing reports, chain-of-custody records, product acquisition records, manufacturer testing records, facility monitoring records, verification investigations, testing-triggered reviews, and other verification-generated evidence produced by Source Standard.",
+  },
+  {
+    n: "04",
     t: "Access restriction",
-    d: "Protected review materials are maintained within restricted environments and are accessible only to authorized personnel and approved infrastructure partners operating under confidentiality and access-control requirements.",
+    d: "Protected review materials and independent verification records are maintained within restricted environments and are accessible only to authorized personnel and approved infrastructure partners operating under confidentiality and access-control requirements.",
   },
 ];
 
@@ -40,7 +45,7 @@ const COLLECTION: Clause[] = [
   {
     n: "02",
     t: "Monitoring data",
-    d: "Where applicable, records associated with public-record monitoring, status review, documentation updates, and related registry maintenance activity.",
+    d: "Records associated with vendor monitoring, facility monitoring, manufacturer monitoring, testing-triggered review activity, public-record monitoring, and supply-chain monitoring conducted under the framework.",
   },
   {
     n: "03",
@@ -56,6 +61,11 @@ const COLLECTION: Clause[] = [
     n: "05",
     t: "Site analytics",
     d: "Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems.",
+  },
+  {
+    n: "06",
+    t: "Independent testing activity",
+    d: "Source Standard may generate records through product acquisition, laboratory analysis, chain-of-custody tracking, facility testing, manufacturer testing, verification investigations, and supply-chain monitoring.",
   },
 ];
 
@@ -289,7 +299,7 @@ const Privacy = () => {
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {PARTITIONING.map((c) => (
-                  <PrivacyRow key={c.n} index={c.n} total="03" title={c.t} description={c.d} />
+                  <PrivacyRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
                 ))}
               </div>
             </section>
@@ -311,7 +321,7 @@ const Privacy = () => {
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {COLLECTION.map((c) => (
-                  <PrivacyRow key={c.n} index={c.n} total="05" title={c.t} description={c.d} />
+                  <PrivacyRow key={c.n} index={c.n} total="06" title={c.t} description={c.d} />
                 ))}
               </div>
             </section>
@@ -421,7 +431,7 @@ const Privacy = () => {
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  The purpose of this framework is to balance transparency with responsible stewardship of sensitive information. Public records exist to improve visibility into sourcing relationships and verification status. Protected review materials exist to support evidence-based review while preserving privacy, security, and verification integrity.
+                  The purpose of this framework is to balance transparency with responsible stewardship of sensitive information. Public records exist to improve visibility into sourcing transparency, manufacturer relationships, facility relationships, testing activity, status history, and supply-chain transparency. Protected review materials and independent verification records exist to support evidence-based review while preserving privacy, security, and verification integrity.
                 </p>
               </PrivacyCard>
             </section>
