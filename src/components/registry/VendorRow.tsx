@@ -92,7 +92,7 @@ export const VendorRow = ({
           display: "inline-flex",
           alignItems: "center",
           gap: "4px",
-          fontSize: "16px",
+          fontSize: "15px",
           fontWeight: 600,
           lineHeight: 1,
         }}
@@ -110,7 +110,7 @@ export const VendorRow = ({
           className="font-sans text-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: 600,
             lineHeight: 1.2,
             letterSpacing: "-0.01em",
@@ -123,7 +123,7 @@ export const VendorRow = ({
           className="text-muted-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "16px",
+            fontSize: "15px",
             fontWeight: 400,
             lineHeight: 1.35,
             margin: 0,
@@ -138,7 +138,7 @@ export const VendorRow = ({
               className="inline-flex items-center font-sans uppercase whitespace-nowrap"
               style={{
                 gap: "5px",
-                fontSize: "13px",
+                fontSize: "12px",
                 fontWeight: 600,
                 letterSpacing: "0.04em",
                 padding: "5px 9px",
