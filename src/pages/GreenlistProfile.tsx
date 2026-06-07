@@ -276,7 +276,7 @@ const GreenlistProfile = () => {
             className="inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
             style={{ fontSize: "10px", letterSpacing: "0.08em" }}
           >
-            ← Back to Manufacturer Registry
+            ← Back to Facility Records
           </Link>
 
           <article
@@ -289,34 +289,32 @@ const GreenlistProfile = () => {
           >
             {/* HEADER */}
             <header>
-              <div className="flex items-start justify-between gap-4">
-                <h1
-                  className="min-w-0 font-sans text-foreground"
-                  style={{ fontSize: "22px", fontWeight: 700, lineHeight: "1.2", letterSpacing: "-0.01em" }}
-                >
-                  {entry.name}
-                </h1>
+              {/* Status row — metadata above the name */}
+              <div
+                className="flex items-center font-sans font-semibold uppercase"
+                style={{ fontSize: "12px", letterSpacing: "0.06em", color: STATUS_COLOR[status] }}
+              >
                 <span
-                  className="shrink-0 inline-flex items-center gap-1.5 font-sans font-semibold uppercase"
-                  style={{
-                    fontSize: "13px",
-                    letterSpacing: "0.04em",
-                    color: STATUS_COLOR[status],
-                  }}
-                >
-                  <span
-                    className="inline-block rounded-full animate-pulse"
-                    style={{ width: 6, height: 6, backgroundColor: "currentColor" }}
-                  />
-                  {STATUS_LABEL[status]}
-                </span>
+                  className="inline-block rounded-full animate-pulse mr-1.5"
+                  style={{ width: 6, height: 6, backgroundColor: "currentColor" }}
+                />
+                {STATUS_LABEL[status]}
               </div>
 
-              <div className="mt-3 flex items-center gap-2">
+              {/* Facility name — dominant element */}
+              <h1
+                className="mt-2 font-sans text-foreground"
+                style={{ fontSize: "18px", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-0.01em" }}
+              >
+                {entry.name}
+              </h1>
+
+              {/* Facility type pill + location */}
+              <div className="mt-2 flex items-center gap-2 flex-wrap">
                 <span
-                  className="inline-flex items-center font-sans font-medium uppercase bg-primary text-primary-foreground"
+                  className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
                   style={{
-                    fontSize: "13px",
+                    fontSize: "12px",
                     letterSpacing: "0.04em",
                     padding: "3px 8px",
                     borderRadius: "3px",
@@ -330,8 +328,6 @@ const GreenlistProfile = () => {
                   </span>
                 )}
               </div>
-
-
             </header>
 
             {/* SECTION 1 — Overview */}
