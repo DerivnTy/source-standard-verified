@@ -270,15 +270,6 @@ const ReportConcern = () => {
       <div className="bg-background">
         <div className="page-shell">
           <div className="mx-auto w-standard">
-            {/* Trust badges */}
-            <section style={{ paddingTop: "16px", paddingBottom: "4px" }}>
-              <div className="flex flex-wrap" style={{ gap: "6px" }}>
-                {TRUST_BADGES.map((b) => (
-                  <TrustBadge key={b}>{b}</TrustBadge>
-                ))}
-              </div>
-            </section>
-
             {/* §01 */}
             <section className="border-t border-border/40" style={sectionStyle}>
               <SectionHeader
