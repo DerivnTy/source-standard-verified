@@ -289,43 +289,39 @@ const GreenlistProfile = () => {
           >
             {/* HEADER */}
             <header>
-              {/* Status row — metadata above the name */}
-              <div
-                className="flex items-center font-sans font-semibold uppercase"
-                style={{ fontSize: "12px", letterSpacing: "0.06em", color: STATUS_COLOR[status] }}
-              >
+              {/* Row 1 — Facility name (left) · Status (right) */}
+              <div className="flex items-center justify-between gap-4">
+                <h1
+                  className="min-w-0 font-sans text-foreground"
+                  style={{ fontSize: "18px", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                >
+                  {entry.name}
+                </h1>
                 <span
-                  className="inline-block rounded-full animate-pulse mr-1.5"
-                  style={{ width: 6, height: 6, backgroundColor: "currentColor" }}
-                />
-                {STATUS_LABEL[status]}
+                  className="shrink-0 inline-flex items-center font-sans font-semibold uppercase"
+                  style={{ fontSize: "12px", letterSpacing: "0.06em", color: STATUS_COLOR[status] }}
+                >
+                  <span
+                    className="inline-block rounded-full animate-pulse mr-1.5"
+                    style={{ width: 6, height: 6, backgroundColor: "currentColor" }}
+                  />
+                  {STATUS_LABEL[status]}
+                </span>
               </div>
 
-              {/* Facility name — dominant element */}
-              <h1
-                className="mt-2 font-sans text-foreground"
-                style={{ fontSize: "18px", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-0.01em" }}
+              {/* Row 2 — Location • Facility Type */}
+              <div
+                className="mt-1.5 font-sans text-muted-foreground"
+                style={{ fontSize: "14px", lineHeight: 1.4 }}
               >
-                {entry.name}
-              </h1>
-
-              {/* Facility type pill + location */}
-              <div className="mt-2 flex items-center gap-2 flex-wrap">
-                <span
-                  className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
-                  style={{
-                    fontSize: "12px",
-                    letterSpacing: "0.04em",
-                    padding: "3px 8px",
-                    borderRadius: "3px",
-                  }}
-                >
-                  {typeBadge}
-                </span>
                 {entry.location && (
-                  <span className="font-sans text-muted-foreground" style={{ fontSize: "15px", fontWeight: 400 }}>
-                    {entry.location}
-                  </span>
+                  <span style={{ fontWeight: 400 }}>{entry.location}</span>
+                )}
+                {entry.location && typeBadge && (
+                  <span className="mx-1.5" style={{ fontWeight: 400 }}>·</span>
+                )}
+                {typeBadge && (
+                  <span style={{ fontWeight: 500 }}>{typeBadge}</span>
                 )}
               </div>
             </header>
