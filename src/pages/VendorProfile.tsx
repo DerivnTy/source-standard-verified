@@ -630,8 +630,28 @@ const VendorProfile = () => {
 
             {/* Identity body — compressed */}
             <div style={{ padding: "16px 14px 14px" }}>
+              {/* Status + Service model — record classification */}
+              <div
+                className="flex flex-wrap items-center font-sans uppercase"
+                style={{ fontSize: "12px", letterSpacing: "0.06em", lineHeight: 1, gap: "6px" }}
+              >
+                <StatusPill />
+                {(isInPerson || isHybrid) && (
+                  <>
+                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
+                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))", fontSize: "12px", letterSpacing: "0.06em" }}>In-Person</span>
+                  </>
+                )}
+                {(isOnline || isHybrid) && (
+                  <>
+                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
+                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))", fontSize: "12px", letterSpacing: "0.06em" }}>Telehealth</span>
+                  </>
+                )}
+              </div>
+
               {/* Name + logo */}
-              <div className="flex items-center gap-2.5">
+              <div className="mt-2 flex items-center gap-2.5">
                 <div
                   style={
                     vendor.coverImageUrl
@@ -651,7 +671,7 @@ const VendorProfile = () => {
 
               {/* Location — aligned with card edge, part of identity */}
               {(location !== "—" || vendor.reviewId) && (
-                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
                   {location !== "—" && (
                     <span
                       className="inline-flex items-center gap-1 text-muted-foreground"
@@ -669,25 +689,6 @@ const VendorProfile = () => {
                 </div>
               )}
 
-              {/* Status + Service model — record classification */}
-              <div
-                className="mt-2.5 flex flex-wrap items-center font-sans uppercase"
-                style={{ fontSize: "12px", letterSpacing: "0.06em", lineHeight: 1, gap: "6px" }}
-              >
-                <StatusPill />
-                {(isInPerson || isHybrid) && (
-                  <>
-                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
-                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))", fontSize: "12px", letterSpacing: "0.06em" }}>In-Person</span>
-                  </>
-                )}
-                {(isOnline || isHybrid) && (
-                  <>
-                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
-                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))", fontSize: "12px", letterSpacing: "0.06em" }}>Telehealth</span>
-                  </>
-                )}
-              </div>
 
 
               {/* Contact row — website / phone / email / maps */}
