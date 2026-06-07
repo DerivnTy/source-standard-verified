@@ -292,18 +292,18 @@ const Greenlist = () => {
             <div
               className="bg-white"
               style={{
-                border: "0.5px solid hsl(var(--border))",
-                borderRadius: "12px",
-                padding: "18px 18px",
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "24px",
+                padding: "24px 22px",
               }}
             >
               <p
-                className="font-mono uppercase text-muted-foreground"
-                style={{ fontSize: "11px", letterSpacing: "0.12em" }}
+                className="font-sans font-semibold uppercase text-muted-foreground"
+                style={{ fontSize: "13px", letterSpacing: "0.08em" }}
               >
                 Status Definitions
               </p>
-              <ul className="mt-3 flex flex-col gap-0">
+              <ul className="mt-4 flex flex-col gap-0">
                 {[
                   {
                     label: "Greenlisted",
@@ -325,21 +325,21 @@ const Greenlist = () => {
                   <li
                     key={s.label}
                     style={{
-                      paddingTop: i === 0 ? "10px" : "12px",
-                      paddingBottom: "12px",
+                      paddingTop: i === 0 ? "0" : "14px",
+                      paddingBottom: "14px",
                       borderTop:
-                        i === 0 ? "none" : "0.5px solid hsl(var(--border))",
+                        i === 0 ? "none" : "1px solid hsl(var(--border))",
                     }}
                   >
                     <p
-                      className="font-mono uppercase text-foreground"
-                      style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 600 }}
+                      className="font-sans font-semibold uppercase text-foreground"
+                      style={{ fontSize: "13px", letterSpacing: "0.08em" }}
                     >
                       {s.label}
                     </p>
                     <p
-                      className="mt-1.5 text-muted-foreground"
-                      style={{ fontSize: "13px", lineHeight: 1.7 }}
+                      className="mt-2 text-muted-foreground"
+                      style={{ fontSize: "17px", lineHeight: 1.6 }}
                     >
                       {s.body}
                     </p>
@@ -347,6 +347,7 @@ const Greenlist = () => {
                 ))}
               </ul>
             </div>
+
 
           </div>
         </div>
