@@ -198,7 +198,7 @@ const Greenlist = () => {
                     onClick={() => setStatus("greenlisted")}
                   />
                   <SoftPill
-                    label="Under Monitoring"
+                    label="Monitoring"
                     active={status === "monitoring"}
                     fullWidth
                     onClick={() => setStatus("monitoring")}
