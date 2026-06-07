@@ -365,20 +365,20 @@ const VerifiedVendors = () => {
               <div>
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                  style={{ fontSize: "12px", letterSpacing: "0.08em" }}
                 >
                   Verified vs. Unverified
                 </p>
                 <p
                   className="mt-2 text-foreground"
-                  style={{ fontSize: "12px", lineHeight: 1.45 }}
+                  style={{ fontSize: "16px", lineHeight: 1.6, fontWeight: 400 }}
                 >
                   Verified records contain documentation reviewed by Source
                   Standard within a defined review scope and point in time.
                 </p>
                 <p
                   className="mt-2 text-muted-foreground"
-                  style={{ fontSize: "12px", lineHeight: 1.45 }}
+                  style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 400 }}
                 >
                   Unverified records do not currently have sufficient reviewed
                   documentation within the registry framework.
@@ -392,13 +392,13 @@ const VerifiedVendors = () => {
               >
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+                  style={{ fontSize: "12px", letterSpacing: "0.08em" }}
                 >
                   Registry Framework
                 </p>
                 <p
                   className="mt-2 text-foreground"
-                  style={{ fontSize: "12px", lineHeight: 1.45 }}
+                  style={{ fontSize: "16px", lineHeight: 1.6, fontWeight: 400 }}
                 >
                   Source Standard helps consumers evaluate sourcing claims
                   through reviewed documentation. Verification is not an
@@ -408,10 +408,10 @@ const VerifiedVendors = () => {
 
                 <Link
                   to="/how-it-works"
-                  className="mt-4 inline-flex items-center gap-2 px-5 h-11 border border-foreground text-foreground text-[12px] font-medium rounded-[2px] hover:bg-foreground hover:text-background transition-colors duration-150"
+                  className="mt-5 inline-flex items-center gap-2 px-6 h-12 border border-foreground text-foreground text-[16px] font-medium rounded-[12px] hover:bg-foreground hover:text-background transition-colors duration-150"
                 >
                   View Verification Protocol
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-5 w-5" />
                 </Link>
               </div>
             </div>
