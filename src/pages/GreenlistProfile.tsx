@@ -381,7 +381,9 @@ const GreenlistProfile = () => {
                       href={entry.website}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="hover:text-primary underline underline-offset-2 decoration-border"
+                      className="hover:text-primary underline underline-offset-2 decoration-border block truncate"
+                      style={{ fontSize: "14px" }}
+                      title={websiteHost}
                     >
                       {websiteHost}
                     </a>
