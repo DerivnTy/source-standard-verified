@@ -221,15 +221,15 @@ const Cell = ({
     <div>
       <dt
         className="font-sans font-semibold uppercase text-muted-foreground"
-        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+        style={{ fontSize: "15px", letterSpacing: "0.06em" }}
       >
         {label}
       </dt>
       <dd
-        className={`mt-1 ${mono ? "font-mono tabular-nums" : "font-sans font-medium"} ${
+        className={`mt-1 ${mono ? "font-mono tabular-nums" : "font-sans"} ${
           present ? "text-foreground" : "text-muted-foreground"
         }`}
-        style={{ fontSize: "12.5px", lineHeight: "1.5" }}
+        style={{ fontSize: "17px", fontWeight: 400, lineHeight: "1.5" }}
       >
         {present ? (
           href ? (
@@ -251,6 +251,7 @@ const Cell = ({
     </div>
   );
 };
+
 
 // Logo with registry placeholder fallback
 const getInitials = (name: string) => {
