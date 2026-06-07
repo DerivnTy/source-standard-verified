@@ -291,22 +291,22 @@ const GreenlistProfile = () => {
             <header>
               <div className="flex items-start justify-between gap-4">
                 <h1
-                  className="min-w-0 font-sans font-semibold text-foreground"
-                  style={{ fontSize: "18px", lineHeight: "1.25", letterSpacing: "-0.01em" }}
+                  className="min-w-0 font-sans text-foreground"
+                  style={{ fontSize: "32px", fontWeight: 700, lineHeight: "1.15", letterSpacing: "-0.01em" }}
                 >
                   {entry.name}
                 </h1>
                 <span
-                  className="shrink-0 inline-flex items-center gap-1.5 font-sans font-bold uppercase"
+                  className="shrink-0 inline-flex items-center gap-1.5 font-sans font-semibold uppercase"
                   style={{
-                    fontSize: "10px",
-                    letterSpacing: "0.08em",
+                    fontSize: "15px",
+                    letterSpacing: "0.06em",
                     color: STATUS_COLOR[status],
                   }}
                 >
                   <span
                     className="inline-block rounded-full animate-pulse"
-                    style={{ width: 5, height: 5, backgroundColor: "currentColor" }}
+                    style={{ width: 6, height: 6, backgroundColor: "currentColor" }}
                   />
                   {STATUS_LABEL[status]}
                 </span>
@@ -316,20 +316,21 @@ const GreenlistProfile = () => {
                 <span
                   className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
                   style={{
-                    fontSize: "11px",
+                    fontSize: "13px",
                     letterSpacing: "0.06em",
-                    padding: "3px 6px",
+                    padding: "3px 8px",
                     borderRadius: "3px",
                   }}
                 >
                   {typeBadge}
                 </span>
                 {entry.location && (
-                  <span className="font-sans text-muted-foreground" style={{ fontSize: "11px" }}>
+                  <span className="font-sans text-muted-foreground" style={{ fontSize: "17px", fontWeight: 400 }}>
                     {entry.location}
                   </span>
                 )}
               </div>
+
 
             </header>
 
