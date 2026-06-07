@@ -29,7 +29,7 @@ type StatusTier = "greenlisted" | "monitoring" | "alert";
 
 const STATUS_LABEL: Record<StatusTier, string> = {
   greenlisted: "Greenlisted",
-  monitoring: "Under Monitoring",
+  monitoring: "Monitoring",
   alert: "Status Alert",
 };
 
