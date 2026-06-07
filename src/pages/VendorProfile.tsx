@@ -391,8 +391,8 @@ const VendorProfile = () => {
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              height: "14px",
-              width: "20px",
+              height: "12px",
+              width: "16px",
             }}
           >
             <span
@@ -404,7 +404,7 @@ const VendorProfile = () => {
                 display: "block",
               }}
             >
-              <VerifiedShieldMark height={22} color="#001021" />
+              <VerifiedShieldMark height={18} color="#001021" />
             </span>
           </span>
         </span>
