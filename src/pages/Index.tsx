@@ -650,7 +650,7 @@ const Index = () => {
 
             <div className="mt-5 inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
               <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
-              <PillSecondary to="/greenlist">Explore Facility Registry</PillSecondary>
+              <PillSecondary to="/greenlist">Explore Facility Records</PillSecondary>
             </div>
           </div>
         </div>
