@@ -115,8 +115,8 @@ const PRINCIPLES: Clause[] = [
 
 const Eyebrow = ({ children }: { children: ReactNode }) => (
   <p
-    className="font-mono uppercase text-muted-foreground/70"
-    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    className="font-mono uppercase text-muted-foreground"
+    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
   >
     {children}
   </p>
@@ -154,30 +154,25 @@ const AboutRow = ({
       padding: "14px 16px",
     }}
   >
-    <div className="flex items-start justify-between gap-4">
+    <div className="flex items-baseline justify-between gap-4">
       <h3
-        className="font-sans text-foreground"
-        style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, margin: 0 }}
+        className="font-sans font-semibold text-foreground min-w-0"
+        style={{ fontSize: "14px", lineHeight: 1.3, margin: 0 }}
       >
         {title}
       </h3>
       <span
-        className="font-mono tabular-nums shrink-0"
-        style={{
-          fontSize: "11px",
-          fontWeight: 500,
-          lineHeight: 1,
-          letterSpacing: "0.06em",
-          color: "rgba(0,0,0,0.38)",
-          whiteSpace: "nowrap",
-          paddingTop: "2px",
-        }}
+        className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
+        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
       >
         {`${String(index).padStart(2, "0")} / ${String(total).padStart(2, "0")}`}
       </span>
     </div>
     {description ? (
-      <p className="mt-1.5 text-muted-foreground" style={{ fontSize: "11px", lineHeight: "1.55" }}>
+      <p
+        className="text-muted-foreground"
+        style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
+      >
         {description}
       </p>
     ) : null}
@@ -186,14 +181,14 @@ const AboutRow = ({
 
 const AboutStatementRow = ({ index, text }: { index: number; text: string }) => (
   <div
+    className="bg-card"
     style={{
-      backgroundColor: "#FFFFFF",
-      border: "1px solid rgba(0,0,0,0.08)",
-      borderRadius: "14px",
-      padding: "16px 18px",
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
+      padding: "14px 16px",
     }}
   >
-    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+    <div className="flex items-baseline justify-between" style={{ gap: "16px" }}>
       <p
         className="text-foreground"
         style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.55, margin: 0 }}
@@ -201,16 +196,8 @@ const AboutStatementRow = ({ index, text }: { index: number; text: string }) => 
         {text}
       </p>
       <span
-        className="font-mono tabular-nums shrink-0"
-        style={{
-          fontSize: "11px",
-          fontWeight: 500,
-          lineHeight: 1,
-          letterSpacing: "0.06em",
-          color: "rgba(0,0,0,0.38)",
-          whiteSpace: "nowrap",
-          paddingTop: "2px",
-        }}
+        className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
+        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
       >
         {String(index).padStart(2, "0")}
       </span>
@@ -241,20 +228,23 @@ const AboutLinkRow = ({
       <div className="min-w-0">
         <h3
           className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors"
-          style={{ fontSize: "12px" }}
+          style={{ fontSize: "14px", lineHeight: 1.3 }}
         >
           {title}
         </h3>
-        <p className="mt-1 text-muted-foreground" style={{ fontSize: "11px", lineHeight: "1.5" }}>
+        <p
+          className="mt-1 text-muted-foreground"
+          style={{ fontSize: "13px", lineHeight: 1.7 }}
+        >
           {description}
         </p>
       </div>
       <span
-        className="shrink-0 inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity self-center"
-        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+        className="shrink-0 self-center inline-flex items-center gap-0.5 font-sans font-semibold uppercase text-primary"
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
       >
         View
-        <ChevronRight aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.5 }} />
+        <ChevronRight aria-hidden style={{ width: "12px", height: "12px" }} />
       </span>
     </div>
   </Link>
@@ -269,7 +259,7 @@ const SectionHeader = ({
   title: string;
   intro: string;
 }) => (
-  <div className="max-w-2xl mb-6 lg:mb-0 lg:sticky lg:top-24">
+  <div className="mb-5 lg:mb-0 lg:sticky lg:top-24">
     <div className="flex items-baseline" style={{ gap: "12px" }}>
       <span
         className="font-mono tabular-nums shrink-0"
@@ -285,7 +275,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "26px",
+          fontSize: "24px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -303,6 +293,7 @@ const SectionHeader = ({
     </p>
   </div>
 );
+
 
 /* ----------------------------------- Page ----------------------------------- */
 
@@ -353,22 +344,22 @@ const About = () => {
                   Why Source Standard exists
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Compounded therapy vendors frequently make claims regarding sourcing relationships, facility and manufacturer partnerships, quality standards, manufacturing practices, and supply-chain integrity.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     For consumers, determining whether those claims are supported by evidence can be difficult.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Source Standard was established to create a structured framework for evaluating sourcing claims, organizing evidence, documenting supply-chain relationships, and maintaining public-reference records that improve transparency within a complex and rapidly growing market.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The objective is not to determine which treatments are best.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The objective is not to replace physicians, regulators, or pharmacists.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The objective is to improve transparency by creating a disciplined system for evaluating whether sourcing claims are supported by evidence.
                   </p>
                 </div>
@@ -503,16 +494,16 @@ const About = () => {
                   A transparency framework with defined limits.
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Source Standard operates as an independent public-reference system focused on sourcing transparency within the compounded therapy market.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Its role is to organize evidence, evaluate sourcing claims, maintain public records, and provide greater visibility into supply-chain relationships that are often difficult for consumers to evaluate independently.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The framework does not replace clinical judgment, regulatory oversight, or personal decision-making.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Its role is focused but important: creating a more transparent, evidence-based public record for a market where sourcing relationships are often difficult for consumers to evaluate independently.
                   </p>
                 </div>
