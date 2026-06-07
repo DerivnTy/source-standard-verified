@@ -337,7 +337,7 @@ const GreenlistProfile = () => {
             {/* SECTION 1 — Overview */}
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Overview</SectionLabel>
-              <p className="mt-2 text-foreground" style={{ fontSize: "11px", lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
                 {p.overview ?? p.background ??
                   `${entry.name} is a ${typeBadge.toLowerCase()} identified within the Source Standard supply-chain database. Records are maintained to support supply-chain visibility and ongoing testing activity.`}
               </p>
