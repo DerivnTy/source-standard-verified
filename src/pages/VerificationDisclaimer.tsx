@@ -429,7 +429,7 @@ const VerificationDisclaimer = () => {
             {/* §7 Closing */}
             <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <DisclaimerCard>
-                <Eyebrow>Framework Boundary</Eyebrow>
+                <Eyebrow>Claims are not verification</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
                   Verification is an evidence determination, not a guarantee.
                 </h2>
