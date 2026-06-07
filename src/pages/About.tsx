@@ -171,7 +171,7 @@ const AboutRow = ({
     {description ? (
       <p
         className="text-muted-foreground"
-        style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
+        style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "6px" }}
       >
         {description}
       </p>
