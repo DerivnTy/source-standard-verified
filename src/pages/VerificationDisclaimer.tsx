@@ -108,7 +108,7 @@ const cardChrome = {
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p
     className="font-mono uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
   >
     {children}
   </p>
@@ -139,7 +139,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "26px",
+          fontSize: "24px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -177,20 +177,20 @@ const DisclaimerRow = ({
     <div className="flex items-baseline justify-between gap-4">
       <h3
         className="font-sans font-semibold text-foreground min-w-0"
-        style={{ fontSize: "12px", lineHeight: 1.4 }}
+        style={{ fontSize: "14px", lineHeight: 1.3 }}
       >
         {title}
       </h3>
       <span
         className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
       >
         {index} / {total}
       </span>
     </div>
     <p
       className="text-muted-foreground"
-      style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "6px" }}
+      style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
     >
       {description}
     </p>
@@ -244,13 +244,13 @@ const VerificationDisclaimer = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Source Standard exists to improve transparency around sourcing claims, supply-chain relationships, facility records, manufacturer records, and supporting evidence within the compounded therapy market.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Verification is an evidence-based determination informed by documentation review, sourcing review, facility review, manufacturer review, public-record review, monitoring activity, and independent testing activity where applicable.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Because verification statuses may be viewed by consumers, providers, vendors, and third parties, it is important that the framework be interpreted within its intended scope. This document defines what Source Standard verification establishes, what it does not establish, and the limits under which registry information should be interpreted.
                   </p>
                 </div>
@@ -274,13 +274,13 @@ const VerificationDisclaimer = () => {
               />
               <p
                 className="text-muted-foreground"
-                style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
+                style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
                 A Verified status indicates that available documentation, sourcing records, public records, facility records, manufacturer records, chain-of-custody records, testing activity, and other verification materials were sufficient to support the reviewed sourcing representations within the defined review scope at the time of review.
               </p>
               <p
                 className="text-muted-foreground"
-                style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
+                style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
                 Verification establishes only the state of reviewed evidence within that scope. It does not establish facts beyond the evidence available during the review process.
               </p>
@@ -308,7 +308,7 @@ const VerificationDisclaimer = () => {
               />
               <p
                 className="text-muted-foreground"
-                style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
+                style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
                 Verification does not establish:
               </p>
@@ -358,20 +358,20 @@ const VerificationDisclaimer = () => {
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <DisclaimerCard>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Registry records are intended to improve transparency and public understanding.
                   </p>
                   <p
                     className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "12px" }}
+                    style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "12px" }}
                   >
                     Users should not rely on Source Standard records as a substitute for medical advice, legal advice, regulatory guidance, or independent due diligence.
                   </p>
                   <div
                     className="text-muted-foreground"
                     style={{
-                      fontSize: "13.5px",
-                      lineHeight: 1.6,
+                      fontSize: "14px",
+                      lineHeight: 1.75,
                       marginTop: "16px",
                       display: "flex",
                       flexDirection: "column",
@@ -405,8 +405,8 @@ const VerificationDisclaimer = () => {
                   <div
                     className="text-muted-foreground"
                     style={{
-                      fontSize: "13.5px",
-                      lineHeight: 1.6,
+                      fontSize: "14px",
+                      lineHeight: 1.75,
                       display: "flex",
                       flexDirection: "column",
                       gap: "10px",
@@ -433,7 +433,7 @@ const VerificationDisclaimer = () => {
                 </h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                  style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
                   The purpose of the Source Standard framework is to create a clearer public record around sourcing transparency through documentation review, supply-chain verification, facility review, manufacturer review, monitoring activity, and independent testing activity. Verification reflects reviewed evidence within a defined scope and should always be interpreted within the limits established by that scope.
                 </p>

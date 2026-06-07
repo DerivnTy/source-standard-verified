@@ -108,7 +108,7 @@ const cardChrome = {
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p
     className="font-mono uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
   >
     {children}
   </p>
@@ -139,7 +139,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "26px",
+          fontSize: "24px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -177,20 +177,20 @@ const TermsRow = ({
     <div className="flex items-baseline justify-between gap-4">
       <h3
         className="font-sans font-semibold text-foreground min-w-0"
-        style={{ fontSize: "12px", lineHeight: 1.4 }}
+        style={{ fontSize: "14px", lineHeight: 1.3 }}
       >
         {title}
       </h3>
       <span
         className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
       >
         {index} / {total}
       </span>
     </div>
     <p
       className="text-muted-foreground"
-      style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "6px" }}
+      style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
     >
       {description}
     </p>
@@ -206,7 +206,7 @@ const RelatedLinkRow = ({ to, label }: { to: string; label: string }) => (
     <div className="flex items-center justify-between gap-4">
       <h3
         className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors min-w-0"
-        style={{ fontSize: "12px", lineHeight: 1.4 }}
+        style={{ fontSize: "14px", lineHeight: 1.3 }}
       >
         {label}
       </h3>
@@ -271,10 +271,10 @@ const Terms = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     These terms govern public access to Source Standard registry records, publications, framework materials, and public-reference resources.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     They establish the rules governing access to Source Standard materials, the permitted use of registry information, citation requirements, prohibited conduct, and the limits under which Source Standard information may be relied upon.
                   </p>
                 </div>
@@ -298,7 +298,7 @@ const Terms = () => {
                 </h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "8px" }}
+                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
                 >
                   What use of the registry means.
                 </p>
@@ -310,13 +310,13 @@ const Terms = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Access to Source Standard registry records, publications, and framework materials constitutes acceptance of these terms and the related policies referenced on this page.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     If a user does not accept these terms, use of Source Standard materials should be discontinued.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Continued access and use of Source Standard materials constitutes acceptance of the terms, limitations, and responsibilities described on this page.
                   </p>
                 </div>
@@ -340,7 +340,7 @@ const Terms = () => {
               />
               <p
                 className="text-muted-foreground"
-                style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
+                style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
                 Registry records may be cited in journalistic, academic, clinical, or commercial contexts provided the citation preserves enough detail for the reader to identify the referenced record accurately.
               </p>
@@ -428,7 +428,7 @@ const Terms = () => {
                 <h2 className="t-section-title-sm text-foreground mt-2">Jurisdiction</h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "8px" }}
+                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
                 >
                   The governing law applied to this agreement.
                 </p>
@@ -440,10 +440,10 @@ const Terms = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     These terms are governed by the laws of the State of Florida and applicable laws of the United States.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Any dispute arising under these terms is subject to the jurisdiction of the appropriate state and federal courts located in Florida.
                   </p>
                 </div>
@@ -481,7 +481,7 @@ const Terms = () => {
                 </h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                  style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
                   These terms exist to preserve the integrity of the registry, promote accurate public reference, and establish the limits under which Source Standard information may be accessed, cited, and relied upon.
                 </p>
