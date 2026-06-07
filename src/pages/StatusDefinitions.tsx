@@ -7,9 +7,10 @@ import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
   { id: "purpose", number: "01", label: "Purpose" },
-  { id: "statuses", number: "02", label: "Statuses" },
-  { id: "lifecycle", number: "03", label: "Status Progression" },
-  { id: "related", number: "04", label: "Related Documents" },
+  { id: "vendor-statuses", number: "02", label: "Vendor Statuses" },
+  { id: "facility-statuses", number: "03", label: "Facility Statuses" },
+  { id: "lifecycle", number: "04", label: "Status Progression" },
+  { id: "related", number: "05", label: "Related Documents" },
 ];
 
 type Status = {
@@ -22,104 +23,90 @@ type Status = {
   revised: string;
 };
 
-const STATUSES: Status[] = [
+const VENDOR_STATUSES: Status[] = [
   {
     n: "01",
     title: "Verified",
     definition:
-      "Documentation review is complete for the defined scope. The published record reflects the documentation, public records, and pharmacy, manufacturer, or sourcing relationship evidence reviewed at the time of publication.",
+      "Documentation, sourcing records, facility relationships, manufacturer records, public records, and verification materials were sufficient to support the reviewed sourcing representations within the defined review scope.",
     meaning:
-      "Available documentation, sourcing evidence, facility relationships, public records, and supporting materials were sufficient to support the reviewed sourcing representations within the defined review scope.",
+      "Documentation, sourcing records, facility relationships, and verification materials were sufficient to support the reviewed sourcing representations within the defined review scope.",
     notImply:
-      "It does not imply vendor approval, product approval, clinical recommendation, treatment effectiveness, product safety, or outcome guarantee.",
+      "It does not imply product approval, treatment recommendation, guaranteed safety, future performance, or regulatory endorsement.",
     issued:
-      "Assigned after completion of documentation review, pharmacy, manufacturer, or sourcing relationship review, chain-of-custody review, and scope confirmation.",
+      "Issued when verification review is successfully completed.",
     revised:
-      "Revised after renewal lapse, material disclosure event, documentation expiration, unresolved discrepancy, or reopening of the review file.",
+      "Revised when monitoring activity, testing activity, material changes, or updated records require reassessment.",
   },
   {
     n: "02",
-    title: "Pending Review",
-    definition:
-      "An application or review request has been received, but documentation review has not yet begun.",
-    meaning: "The entity has entered the Source Standard review pipeline.",
-    notImply:
-      "It does not imply that documentation has been reviewed or that any sourcing claim has been supported.",
-    issued: "Assigned when an application, request, or submission package is received and acknowledged.",
-    revised: "Revised when documentation review begins, the request is withdrawn, or the submission is closed.",
-  },
-  {
-    n: "03",
-    title: "Under Review",
-    definition:
-      "An active documentation review is in progress. Records, public data, sourcing claims, and submitted materials are being evaluated against the Source Standard framework.",
-    meaning: "The review file is open and being evaluated.",
-    notImply:
-      "It does not imply any conclusion about the vendor, sourcing claim, documentation quality, or compliance posture.",
-    issued: "Assigned at the start of documentation review or when a previously published record is reopened.",
-    revised: "Revised to Verified, Unverified, Suspended, or Removed when the current review cycle concludes.",
-  },
-  {
-    n: "04",
     title: "Unverified",
     definition:
-      "Available information was insufficient to support the reviewed sourcing representations within the defined review scope.",
+      "The registry does not currently contain sufficient reviewed information to support the vendor's sourcing representations.",
     meaning:
-      "The registry does not currently contain sufficient reviewed documentation to support the vendor's stated sourcing claim.",
+      "The registry does not currently contain sufficient reviewed information to support the vendor's sourcing representations.",
     notImply:
-      "It does not imply that the vendor is unsafe, unlawful, fraudulent, or clinically inappropriate.",
-    issued: "Assigned when a vendor record exists but no sufficient documentation review is on file.",
-    revised: "Revised when the vendor enters review, submits documentation, withdraws, or a status update is required.",
-  },
-  {
-    n: "05",
-    title: "Suspended",
-    definition:
-      "A previously published status is temporarily inactive pending additional documentation, renewal, or review of an unresolved record issue.",
-    meaning: "The record cannot currently support continuation of the prior published status.",
-    notImply:
-      "It does not constitute a finding of misconduct, fraud, medical risk, or regulatory enforcement action.",
+      "It does not imply fraud, misconduct, regulatory violations, product quality concerns, or patient risk.",
     issued:
-      "Assigned after missed renewal, non-response to documentation requests, expired documentation, or unresolved material discrepancy.",
+      "Issued when a vendor record exists without sufficient completed verification activity.",
     revised:
-      "Revised back to Verified if resolved, to Unverified if documentation no longer supports verification, or to Removed if the record is closed.",
-  },
-  {
-    n: "06",
-    title: "Removed",
-    definition:
-      "The record has been removed from active registry display or active verification status due to failed review, expired documentation, unresolved discrepancy, voluntary withdrawal, or closure of the review file.",
-    meaning:
-      "The entity is no longer maintained as an active verified or reviewable record under the Source Standard framework.",
-    notImply:
-      "It does not imply a specific finding of misconduct unless a public note states a documented record basis.",
-    issued:
-      "Assigned when the review file is closed, the entity withdraws, documentation cannot be reconciled, renewal remains unresolved, or a material discrepancy is not resolved.",
-    revised: "Reinstatement requires a new submission and a new review cycle.",
-  },
-  {
-    n: "07",
-    title: "Upstream Reference Record",
-    definition:
-      "An upstream 503A pharmacy, 503B outsourcing facility, or other facility record used as a reference point during vendor sourcing review.",
-    meaning:
-      "The upstream record may be used as a reference point when reviewing vendor sourcing documentation.",
-    notImply:
-      "It does not imply endorsement, affiliation, vendor verification, product approval, product safety, or certification of every product associated with that facility.",
-    issued:
-      "Assigned when facility identity, public registration category, license status, or review relevance is recorded within the Upstream Registry.",
-    revised:
-      "Revised when public registration status, license status, review relevance, or Source Standard classification changes.",
+      "Revised when documentation review, testing activity, monitoring activity, or reassessment occurs.",
   },
 ];
 
-const LIFECYCLE = [
-  { n: "01", t: "Application received → Pending Review" },
-  { n: "02", t: "Documentation review begins → Under Review" },
-  { n: "03", t: "Review concludes → Verified or Unverified" },
-  { n: "04", t: "Renewal interval reached → Under Review" },
-  { n: "05", t: "Disclosure event or material change → Under Review or Suspended" },
-  { n: "06", t: "Resolution → Verified, Unverified, Suspended, or Removed" },
+const FACILITY_STATUSES: Status[] = [
+  {
+    n: "01",
+    title: "Monitoring",
+    definition:
+      "The facility exists within the Source Standard database and is currently being monitored through facility intelligence, public records, manufacturer review, testing activity, or supply-chain review.",
+    meaning:
+      "The facility exists within the Source Standard database and is currently being monitored through facility intelligence, public records, manufacturer review, testing activity, or supply-chain review.",
+    notImply:
+      "It does not imply a negative finding, product quality issue, enforcement action, or regulatory concern.",
+    issued:
+      "Issued when a facility is entered into the Source Standard database and active monitoring is initiated.",
+    revised:
+      "Revised as facility intelligence, monitoring activity, testing activity, manufacturer review, or supply-chain information accumulates.",
+  },
+  {
+    n: "02",
+    title: "Greenlisted",
+    definition:
+      "Available facility records, monitoring activity, testing activity, and supporting evidence currently support Greenlisted status under the Source Standard framework.",
+    meaning:
+      "Available facility records, monitoring activity, testing activity, and supporting evidence currently support Greenlisted status under the Source Standard framework.",
+    notImply:
+      "It does not imply guaranteed quality, product approval, future performance, or regulatory endorsement.",
+    issued:
+      "Issued when facility records, monitoring activity, testing activity, and supporting evidence are sufficient to support Greenlisted status.",
+    revised:
+      "Revised when monitoring activity, testing activity, public records, or supply-chain information no longer support the status.",
+  },
+  {
+    n: "03",
+    title: "Status Alert",
+    definition:
+      "Testing activity, monitoring activity, public records, or supply-chain intelligence indicate information that may require heightened attention or additional review.",
+    meaning:
+      "Testing activity, monitoring activity, public records, or supply-chain intelligence indicate information that may require heightened attention or additional review.",
+    notImply:
+      "It does not imply a final determination, regulatory finding, or confirmed product defect.",
+    issued:
+      "Issued when monitoring activity, testing activity, public records, or supply-chain intelligence indicate that additional review is warranted.",
+    revised:
+      "Revised when subsequent review, monitoring activity, testing activity, or new information resolves the underlying matter.",
+  },
+];
+
+const PROGRESSION_INPUTS = [
+  { n: "01", t: "New documentation" },
+  { n: "02", t: "Monitoring activity" },
+  { n: "03", t: "Testing activity" },
+  { n: "04", t: "Facility intelligence" },
+  { n: "05", t: "Manufacturer review" },
+  { n: "06", t: "Public-record updates" },
+  { n: "07", t: "Supply-chain information" },
 ];
 
 const RELATED = [
