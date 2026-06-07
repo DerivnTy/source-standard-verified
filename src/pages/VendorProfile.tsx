@@ -371,8 +371,8 @@ const VendorProfile = () => {
   // Status pill
   const StatusPill = () => {
     const baseStyle = {
-      fontSize: "13px",
-      letterSpacing: "0.04em",
+      fontSize: "12px",
+      letterSpacing: "0.06em",
       lineHeight: 1,
       gap: "4px",
       fontWeight: 600,
