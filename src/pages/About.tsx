@@ -452,7 +452,8 @@ const About = () => {
                 title="Framework Components"
                 intro="The systems maintained by Source Standard."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {SCOPE.map((c, i) => (
                   <AboutRow
                     key={c.t}
