@@ -371,8 +371,8 @@ const VendorProfile = () => {
   // Status pill
   const StatusPill = () => {
     const baseStyle = {
-      fontSize: "13px",
-      letterSpacing: "0.04em",
+      fontSize: "12px",
+      letterSpacing: "0.06em",
       lineHeight: 1,
       gap: "4px",
       fontWeight: 600,
@@ -630,31 +630,8 @@ const VendorProfile = () => {
 
             {/* Identity body — compressed */}
             <div style={{ padding: "16px 14px 14px" }}>
-              {/* Status + Service model — single registry line */}
-              <div
-                className="flex flex-wrap items-center font-sans uppercase"
-                style={{ fontSize: "13px", letterSpacing: "0.04em", lineHeight: 1, gap: "6px" }}
-              >
-                <StatusPill />
-                {(isInPerson || isHybrid) && (
-                  <>
-                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
-                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))" }}>In-Person</span>
-                  </>
-                )}
-                {(isOnline || isHybrid) && (
-                  <>
-                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
-                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))" }}>Telehealth</span>
-                  </>
-                )}
-              </div>
-
               {/* Name + logo */}
-              <div
-                className="mt-4 flex items-center gap-2.5"
-                style={vendor.coverImageUrl ? { marginTop: "14px" } : undefined}
-              >
+              <div className="flex items-center gap-2.5">
                 <div
                   style={
                     vendor.coverImageUrl
@@ -691,6 +668,26 @@ const VendorProfile = () => {
                   )}
                 </div>
               )}
+
+              {/* Status + Service model — record classification */}
+              <div
+                className="mt-2.5 flex flex-wrap items-center font-sans uppercase"
+                style={{ fontSize: "12px", letterSpacing: "0.06em", lineHeight: 1, gap: "6px" }}
+              >
+                <StatusPill />
+                {(isInPerson || isHybrid) && (
+                  <>
+                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
+                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))", fontSize: "12px", letterSpacing: "0.06em" }}>In-Person</span>
+                  </>
+                )}
+                {(isOnline || isHybrid) && (
+                  <>
+                    <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
+                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))", fontSize: "12px", letterSpacing: "0.06em" }}>Telehealth</span>
+                  </>
+                )}
+              </div>
 
 
               {/* Contact row — website / phone / email / maps */}
