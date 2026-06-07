@@ -30,19 +30,19 @@ export const SiteAccessGate = ({ children }: { children: React.ReactNode }) => {
       <div className="w-full max-w-sm">
         <div className="mb-10 text-center">
           <p
-            className="text-[10px] uppercase tracking-[0.28em] mb-4"
+            className="t-utility-xs mb-4"
             style={{ color: "hsl(var(--cream) / 0.55)" }}
           >
             Source Standard
           </p>
           <h1
-            className="font-serif text-3xl leading-tight"
-            style={{ color: "hsl(var(--cream))" }}
+            className="t-page-title"
+            style={{ color: "hsl(var(--cream))", maxWidth: "none" }}
           >
             {status === "checking" ? "Verifying access" : "Restricted access"}
           </h1>
           <p
-            className="mt-3 text-sm"
+            className="mt-3 t-body-sm"
             style={{ color: "hsl(var(--cream) / 0.6)" }}
           >
             {status === "checking"
@@ -59,7 +59,7 @@ export const SiteAccessGate = ({ children }: { children: React.ReactNode }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full bg-transparent px-4 py-3 text-base outline-none transition-colors"
+              className="w-full bg-transparent px-4 py-3 t-body-md outline-none transition-colors"
               style={{
                 color: "hsl(var(--cream))",
                 border: "1px solid hsl(var(--cream) / 0.2)",
@@ -68,14 +68,14 @@ export const SiteAccessGate = ({ children }: { children: React.ReactNode }) => {
               disabled={submitting}
             />
             {error && (
-              <p className="text-xs" style={{ color: "hsl(var(--cream) / 0.7)" }}>
+              <p className="t-utility-xs" style={{ color: "hsl(var(--cream) / 0.7)" }}>
                 {error}
               </p>
             )}
             <button
               type="submit"
               disabled={submitting || !password}
-              className="w-full py-3 text-xs font-semibold uppercase tracking-[0.2em] transition-opacity disabled:opacity-40"
+              className="w-full py-3 t-utility-xs transition-opacity disabled:opacity-40"
               style={{
                 color: "hsl(var(--navy-surface))",
                 backgroundColor: "hsl(var(--cream))",
