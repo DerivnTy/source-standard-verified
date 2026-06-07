@@ -74,11 +74,11 @@ export const VendorRow = ({
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              height: "16px",
-              width: "20px",
+              height: "14px",
+              width: "16px",
             }}
           >
-            <VerifiedShieldMark height={22} color="#001021" />
+            <VerifiedShieldMark height={18} color="#001021" />
           </span>
         )}
       </span>
