@@ -236,6 +236,40 @@ html {
    Sitewide Design System — canonical tokens
    Build pages from these classes. Do not invent new sizes.
    ------------------------------------------------------------
+   CANONICAL ROLE → TOKEN MAP (apply sitewide; no exceptions)
+     H1 hero / page / chapter / article title  → .t-page-title
+                                                 (or .t-home-title on / only)
+     H2 major section title                    → .t-section-title-sm
+     H3 card / profile / registry title        → .t-h3
+     H3 compact (list rows, sub-cards)         → .t-h4
+     Section intro / hero lead                 → .t-section-intro / .t-hero-lead
+     Body default                              → .t-body-md
+     Body compact (cards, dense rows)          → .t-body-sm
+     Body emphasized                           → .t-body-strong
+     Long-form article / FAQ / library copy    → .t-article-body / .prose-article
+     Form labels                               → .t-label-sm
+     Eyebrow above section title               → .t-eyebrow-sm
+     Status / tags / IDs / section numbers     → .t-utility-xs
+     Dates / metadata / supporting info        → .t-meta / .ss-card-meta
+     Navigation labels                         → .t-nav
+     Footer link rows                          → .t-body-sm
+     Footer column titles + legal              → .t-utility-xs / .t-meta
+     Button label (default / sm)               → .t-label-sm / .t-utility-xs
+     Modal/dialog title                        → .t-h4
+     Modal/dialog description                  → .t-body-sm
+   ------------------------------------------------------------
+   DO NOT (in pages or components):
+     • Use text-[Npx] arbitrary sizes
+     • Use raw Tailwind sizes (text-xs/sm/base/lg/xl/2xl/3xl…)
+       for visible app text — use a t-* token
+     • Stack font-semibold / font-bold on top of a t-* token
+       (tokens already set weight)
+     • Set inline style fontSize / fontWeight / lineHeight /
+       letterSpacing on visible app text
+   Visual consistency wins: if a component uses the right token
+   but still looks off, adjust the component until it matches
+   the platform standard.
+   ------------------------------------------------------------
    TYPE TOKENS
      .t-utility-xs         12 / 16, 0.16em, 500, uppercase
      .t-eyebrow-sm         13 / 18, 0.14em, 500, uppercase
