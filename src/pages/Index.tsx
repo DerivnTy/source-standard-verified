@@ -288,7 +288,7 @@ const basics = [
   },
   {
     t: "Status Definitions",
-    s: "Definitions for Verified, Unverified, Under Review, Suspended, Removed, Greenlisted, Under Monitoring, and Status Alert.",
+    s: "Definitions for Verified, Unverified, Under Review, Suspended, Removed, Greenlisted, Monitoring, and Status Alert.",
     to: "/status-definitions",
   },
   {
