@@ -57,9 +57,9 @@ export const VendorRow = ({
       <span
         className="absolute inline-flex items-center font-sans"
         style={{
-          top: "16px",
-          right: "18px",
-          fontSize: "14px",
+          top: "10px",
+          right: "14px",
+          fontSize: "12px",
           fontWeight: 600,
           lineHeight: 1,
           gap: "5px",
