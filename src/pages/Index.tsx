@@ -470,10 +470,7 @@ const Index = () => {
             max-width: none !important;
           }
           .home-section .home-lead-card {
-            width: calc(100% + 36px) !important;
-            max-width: none !important;
-            margin-left: -18px !important;
-            margin-right: -18px !important;
+            margin-top: 16px !important;
             padding: 12px 22px 16px !important;
           }
           .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
@@ -552,8 +549,9 @@ const Index = () => {
         className="home-section bg-background border-b border-border text-left"
         style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
-        <div className="w-full px-5 md:px-8 lg:px-12">
-          <div className="w-full max-w-none">
+        <div className="page-shell">
+          <div className="mx-auto w-standard">
+
 
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
@@ -627,8 +625,9 @@ const Index = () => {
         className="home-section border-b border-border bg-background text-left"
         style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
-        <div className="w-full px-5 md:px-8 lg:px-12">
-          <div className="w-full max-w-none">
+        <div className="page-shell">
+          <div className="mx-auto w-standard">
+
             <p
               className="home-eyebrow font-mono uppercase text-muted-foreground"
               style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
