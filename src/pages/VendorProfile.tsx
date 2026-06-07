@@ -896,7 +896,7 @@ const VendorProfile = () => {
             {hasAbout ? (
               <div className="mt-3 space-y-4">
                 {vendor.summary && (
-                  <p className="text-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
                     {vendor.summary}
                   </p>
                 )}
@@ -905,7 +905,7 @@ const VendorProfile = () => {
                     <Eyebrow>Clinical Philosophy</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "11px", lineHeight: 1.6 }}
+                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                     >
                       {vendor.clinicalPhilosophy}
                     </p>
@@ -916,7 +916,7 @@ const VendorProfile = () => {
                     <Eyebrow>Patient Focus</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "11px", lineHeight: 1.6 }}
+                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                     >
                       {vendor.patientFocus}
                     </p>
@@ -926,7 +926,7 @@ const VendorProfile = () => {
             ) : (
               <p
                 className="mt-3 text-muted-foreground"
-                style={{ fontSize: "11px", lineHeight: 1.55 }}
+                style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
               >
                 No description provided yet.{" "}
                 {!claimed && (
