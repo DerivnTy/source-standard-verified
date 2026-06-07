@@ -470,10 +470,7 @@ const Index = () => {
             max-width: none !important;
           }
           .home-section .home-lead-card {
-            width: calc(100% + 36px) !important;
-            max-width: none !important;
-            margin-left: -18px !important;
-            margin-right: -18px !important;
+            margin-top: 16px !important;
             padding: 12px 22px 16px !important;
           }
           .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
