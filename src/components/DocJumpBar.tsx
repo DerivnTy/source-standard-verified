@@ -336,7 +336,7 @@ const PillContents = ({
 
   return (
     <div
-      className="flex items-center"
+      className="flex items-center mx-auto"
       style={{
         paddingLeft: `${navPadX}px`,
         paddingRight: `${navPadX}px`,
@@ -344,6 +344,8 @@ const PillContents = ({
         paddingBottom: `${navPadY}px`,
         gap: "14px",
         width: "100%",
+        maxWidth: "1180px",
+        justifyContent: "center",
         minWidth: 0,
         overflow: "hidden",
       }}
@@ -356,7 +358,8 @@ const PillContents = ({
           GPU translate3d in lockstep with page scroll. */}
       <div
         ref={railRef}
-        className="relative flex-1 min-w-0 overflow-hidden"
+        className="relative min-w-0 overflow-hidden"
+        style={{ flex: "0 1 auto" }}
       >
         <style>{`
           .ss-rail::-webkit-scrollbar { display: none; }
