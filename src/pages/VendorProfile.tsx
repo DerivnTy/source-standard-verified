@@ -1026,15 +1026,15 @@ const VendorProfile = () => {
                     </div>
                     <div className="min-w-0">
                       <p
-                        className="font-sans font-medium text-foreground truncate"
-                        style={{ fontSize: "12.5px" }}
+                        className="font-sans font-semibold text-foreground truncate"
+                        style={{ fontSize: "17px" }}
                       >
                         {p.name}
                       </p>
                       {p.role && (
                         <p
                           className="font-sans text-muted-foreground truncate"
-                          style={{ fontSize: "10.5px" }}
+                          style={{ fontSize: "15px", fontWeight: 400 }}
                         >
                           {p.role}
                         </p>
