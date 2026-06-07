@@ -41,7 +41,7 @@ export const ArticleHeader = ({
 
   return (
     <header className="bg-background">
-      <div className="page-shell pt-6">
+      <div className="page-shell pt-5">
         <div className="mx-auto w-reading-wide">
           <Link
             to={backHref}

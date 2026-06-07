@@ -81,7 +81,7 @@ export const BriefingHero = ({
           <div
             className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center lg:min-h-[calc(100dvh-84px)]"
             style={{
-              paddingTop: "clamp(48px, 7vh, 72px)",
+              paddingTop: "clamp(38px, 5.5vh, 58px)",
               paddingBottom: "clamp(64px, 8vh, 88px)",
             }}
           >
