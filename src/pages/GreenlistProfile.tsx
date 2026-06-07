@@ -436,7 +436,7 @@ const GreenlistProfile = () => {
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Current Status</SectionLabel>
               <div
-                className="mt-2 flex items-center font-sans font-semibold"
+                className="mt-2 flex items-center font-semibold"
                 style={{ fontSize: "16px", lineHeight: 1.2, color: STATUS_COLOR[status] }}
               >
                 <span
