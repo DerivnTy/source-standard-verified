@@ -402,7 +402,8 @@ const About = () => {
                 title="Operational Boundaries"
                 intro="What Source Standard does not do."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {BOUNDARIES.map((c, i) => (
                   <AboutRow
                     key={c.t}
