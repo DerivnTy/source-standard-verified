@@ -133,16 +133,16 @@ export const VendorRow = ({
         </p>
 
         {focus && (
-          <div style={{ marginTop: "2px" }}>
+          <div>
             <span
               className="inline-flex items-center font-sans uppercase whitespace-nowrap"
               style={{
-                gap: "5px",
-                fontSize: "12px",
+                gap: "4px",
+                fontSize: "10px",
                 fontWeight: 600,
                 letterSpacing: "0.04em",
-                padding: "5px 9px",
-                borderRadius: "5px",
+                padding: "3px 7px",
+                borderRadius: "4px",
                 background: "rgba(0,16,33,0.07)",
                 color: "rgba(0,16,33,0.72)",
                 lineHeight: 1,
