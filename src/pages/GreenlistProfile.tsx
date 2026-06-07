@@ -469,7 +469,7 @@ const GreenlistProfile = () => {
                         target="_blank"
                         rel="noreferrer noopener"
                         className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
-                        style={{ fontSize: "10px" }}
+                        style={{ fontSize: "17px", fontWeight: 400 }}
                       >
                         {r.label} →
                       </a>
