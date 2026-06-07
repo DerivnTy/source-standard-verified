@@ -79,7 +79,7 @@ const AdvisorProfile = () => {
     return (
       <section className="container-wide py-24">
         <p className="meta mb-3">§ · Not Found</p>
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="t-h3">
           Advisor profile not found.
         </h1>
         <p className="mt-3 t-body-sm text-muted-foreground">
