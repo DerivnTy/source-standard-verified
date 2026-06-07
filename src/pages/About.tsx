@@ -427,7 +427,8 @@ const About = () => {
                 title="Who the Framework Serves"
                 intro="Who the framework serves."
               />
-              <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
+              <div className="flex flex-col" style={{ gap: "10px" }}>
+
                 {OBJECTIVES.map((c, i) => (
                   <AboutRow
                     key={c.t}
