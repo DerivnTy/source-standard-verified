@@ -789,7 +789,7 @@ const VendorProfile = () => {
               onClick={() => setVerificationOpen((o) => !o)}
               aria-expanded={verificationOpen}
               className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
-              style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
+              style={{ fontSize: "13px", letterSpacing: "0.06em" }}
             >
               {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
               <ChevronDown
