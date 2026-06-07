@@ -225,7 +225,7 @@ const Greenlist = () => {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search manufacturers, locations, or verification status…"
-                aria-label="Search Facility Registry"
+                aria-label="Search Facility Records"
                 className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
