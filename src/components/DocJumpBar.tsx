@@ -336,7 +336,7 @@ const PillContents = ({
 
   return (
     <div
-      className="flex items-center"
+      className="flex items-center mx-auto"
       style={{
         paddingLeft: `${navPadX}px`,
         paddingRight: `${navPadX}px`,
@@ -344,6 +344,8 @@ const PillContents = ({
         paddingBottom: `${navPadY}px`,
         gap: "14px",
         width: "100%",
+        maxWidth: "1180px",
+        justifyContent: "center",
         minWidth: 0,
         overflow: "hidden",
       }}
