@@ -373,15 +373,13 @@ const VerifiedVendors = () => {
                   className="mt-2 text-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 500 }}
                 >
-                  Verified records contain documentation reviewed by Source
-                  Standard within a defined review scope and point in time.
+                  Verified records contain sourcing claims, facility relationships, public records, submitted materials, and supporting evidence reviewed by Source Standard within a defined review scope and point in time.
                 </p>
                 <p
                   className="mt-2 text-muted-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
                 >
-                  Unverified records do not currently have sufficient reviewed
-                  documentation within the registry framework.
+                  Unverified records do not currently have sufficient reviewed evidence within the registry framework.
                 </p>
               </div>
 
@@ -401,7 +399,7 @@ const VerifiedVendors = () => {
                   style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
                 >
                   Source Standard helps consumers evaluate sourcing claims
-                  through reviewed documentation. Verification is not an
+                  through reviewed evidence. Verification is not an
                   endorsement, guarantee, medical recommendation, or product
                   approval.
                 </p>
