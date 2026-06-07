@@ -59,7 +59,7 @@ export const VendorRow = ({
         style={{
           top: "10px",
           right: "14px",
-          fontSize: "12px",
+          fontSize: "11px",
           fontWeight: 600,
           lineHeight: 1,
           gap: "5px",
@@ -78,7 +78,7 @@ export const VendorRow = ({
               width: "16px",
             }}
           >
-            <VerifiedShieldMark height={18} color="#001021" />
+            <VerifiedShieldMark height={16} color="#001021" />
           </span>
         )}
       </span>
@@ -92,7 +92,7 @@ export const VendorRow = ({
           display: "inline-flex",
           alignItems: "center",
           gap: "4px",
-        fontSize: "13px",
+        fontSize: "11px",
         fontWeight: 600,
         lineHeight: 1,
       }}
@@ -110,7 +110,7 @@ export const VendorRow = ({
           className="font-sans text-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "15px",
+            fontSize: "14px",
             fontWeight: 600,
             lineHeight: 1.2,
             letterSpacing: "-0.01em",
@@ -123,7 +123,7 @@ export const VendorRow = ({
           className="text-muted-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "13px",
+            fontSize: "12px",
             fontWeight: 400,
             lineHeight: 1.35,
             margin: 0,
