@@ -403,7 +403,7 @@ const MedicalAdvisory = () => {
 
             {/* §9 Closing statement */}
             <section style={{ paddingTop: "24px", paddingBottom: "24px" }}>
-              <div className="max-w-2xl">
+              <div>
                 <GovCard>
                   <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">Institutional Integrity</p>
                   <h2 className="mt-2 t-section-title-sm text-foreground">
