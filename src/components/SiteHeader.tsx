@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const nav = [
   { to: "/verified-vendors", label: "Vendor Registry" },
-  { to: "/greenlist", label: "Facility Registry" },
+  { to: "/greenlist", label: "Facility Records" },
   { to: "/how-it-works", label: "Verification Framework" },
   { to: "/medical-advisory", label: "Advisory Board" },
   { to: "/education", label: "Resource Library" },

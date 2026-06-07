@@ -79,7 +79,7 @@ const SCOPE: Clause[] = [
     d: "Maintains public records relating to vendor sourcing transparency, review status, and supporting documentation.",
   },
   {
-    t: "Facility Registry",
+    t: "Facility Records",
     d: "Maintains public-reference records relating to compounding facilities, manufacturers, and upstream supply-chain participants operating within the Source Standard ecosystem.",
   },
   {
