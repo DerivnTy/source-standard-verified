@@ -20,24 +20,16 @@ export const GlobalUtilityBar = () => {
       }}
     >
       <div
-        className="flex items-center justify-center font-mono uppercase whitespace-nowrap overflow-hidden text-ellipsis"
+        className="flex items-center justify-center t-utility-xs whitespace-nowrap overflow-hidden text-ellipsis"
         style={{
           color: "#48484A",
-          fontSize: "10px",
-          letterSpacing: "0.08em",
           paddingTop: "6px",
           paddingBottom: "6px",
           paddingLeft: "16px",
           paddingRight: "16px",
         }}
       >
-        <span className="hidden sm:inline">
-          The gold standard for sourcing and clinical verification.
-        </span>
-        <span
-          className="sm:hidden"
-          style={{ fontSize: "11px" }}
-        >
+        <span>
           The gold standard for sourcing and clinical verification.
         </span>
       </div>
