@@ -299,8 +299,8 @@ const GreenlistProfile = () => {
                 <span
                   className="shrink-0 inline-flex items-center gap-1.5 font-sans font-semibold uppercase"
                   style={{
-                    fontSize: "14px",
-                    letterSpacing: "0.06em",
+                    fontSize: "13px",
+                    letterSpacing: "0.04em",
                     color: STATUS_COLOR[status],
                   }}
                 >
@@ -314,10 +314,10 @@ const GreenlistProfile = () => {
 
               <div className="mt-3 flex items-center gap-2">
                 <span
-                  className="inline-flex items-center font-sans font-semibold uppercase bg-primary text-primary-foreground"
+                  className="inline-flex items-center font-sans font-medium uppercase bg-primary text-primary-foreground"
                   style={{
-                    fontSize: "12px",
-                    letterSpacing: "0.06em",
+                    fontSize: "13px",
+                    letterSpacing: "0.04em",
                     padding: "3px 8px",
                     borderRadius: "3px",
                   }}
