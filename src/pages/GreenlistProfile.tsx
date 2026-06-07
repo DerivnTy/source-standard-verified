@@ -52,7 +52,7 @@ const manufacturerTypeLabel = (raw?: string): string => {
 const SectionLabel = ({ children }: { children: ReactNode }) => (
   <p
     className="font-sans font-semibold uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+    style={{ fontSize: "13px", letterSpacing: "0.06em" }}
   >
     {children}
   </p>
@@ -64,14 +64,14 @@ const Row = ({ label, value }: { label: string; value: ReactNode }) => (
     style={{ borderTop: "0.5px solid hsl(var(--border))" }}
   >
     <span
-      className="font-sans uppercase text-muted-foreground"
-      style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "13px", letterSpacing: "0.06em" }}
     >
       {label}
     </span>
     <span
-      className="font-sans font-medium text-foreground tabular-nums text-right max-w-[60%]"
-      style={{ fontSize: "10px" }}
+      className="font-sans text-foreground tabular-nums text-right max-w-[60%]"
+      style={{ fontSize: "17px", fontWeight: 400 }}
     >
       {value ?? "—"}
     </span>
@@ -84,7 +84,7 @@ const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolea
       muted ? "text-muted-foreground" : "text-foreground"
     }`}
     style={{
-      fontSize: "10px",
+      fontSize: "14px",
       letterSpacing: "0.06em",
       padding: "4px 9px",
       borderRadius: "20px",
@@ -104,18 +104,19 @@ const SnapCard = ({ label, value }: { label: string; value: ReactNode }) => (
   >
     <p
       className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      style={{ fontSize: "15px", letterSpacing: "0.06em" }}
     >
       {label}
     </p>
     <div
       className="mt-1 font-sans text-foreground"
-      style={{ fontSize: "10px", lineHeight: 1.4, wordBreak: "break-word" }}
+      style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.45, wordBreak: "break-word" }}
     >
       {value}
     </div>
   </div>
 );
+
 
 const hasVal = (v: unknown): boolean => {
   if (v === null || v === undefined) return false;
