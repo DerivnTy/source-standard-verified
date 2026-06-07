@@ -313,49 +313,51 @@ const MedicalAdvisory = () => {
               </div>
 
               <ul className="grid md:grid-cols-2 gap-4">
-                {advisoryBoard.map((m) => {
-                  const boardTitle = BOARD_TITLE_OVERRIDES[m.slug] ?? m.boardTitle;
-                  return (
-                    <li
-                      key={m.slug}
-                      className="flex flex-col text-left rounded-[2px] border border-white/10 bg-[#112240] p-6"
-                    >
-                      <div className="flex flex-col items-start text-left gap-4 pb-4 mb-4 border-b border-white/10">
-                        <img
-                          src={m.photo}
-                          alt={`Portrait of ${m.name}`}
-                          loading="eager"
-                          decoding="async"
-                          width={96}
-                          height={96}
-                          className="h-16 w-16 rounded-[2px] object-cover border border-white/15 shrink-0 aspect-square"
+                {[
+                  { role: "Medical Advisor", focus: "Clinical Audit Standards" },
+                  { role: "Pharmacy Advisor", focus: "Pharmacy Sourcing Review" },
+                  { role: "Clinical Advisor", focus: "Patient Safety & Public Clarity" },
+                  { role: "Legal Advisor", focus: "Regulatory Policy & Ethics" },
+                ].map((p, i) => (
+                  <li
+                    key={i}
+                    className="flex flex-col text-left rounded-[2px] border border-white/10 bg-[#112240] p-6"
+                  >
+                    <div className="flex flex-col items-start text-left gap-4 pb-4 mb-4 border-b border-white/10">
+                      <div
+                        aria-hidden="true"
+                        className="h-16 w-16 rounded-[2px] border border-white/15 shrink-0 aspect-square overflow-hidden bg-white/5"
+                      >
+                        <div
+                          className="h-full w-full"
+                          style={{
+                            filter: "blur(16px)",
+                            background:
+                              "linear-gradient(135deg, hsl(var(--muted) / 0.6), hsl(var(--primary) / 0.35))",
+                          }}
                         />
-                        <div className="w-full min-w-0 text-left">
-                          <h3 className="t-body-md font-semibold tracking-tight text-white leading-snug text-left">
-                            {m.name}
-                            <span className="text-white/70 font-normal">, {m.credentials}</span>
-                          </h3>
-                          <p className="mt-2 t-body-sm font-semibold text-white text-left">{boardTitle}</p>
-                          <p className="mt-1 t-utility-xs text-white/70 text-left">{m.specialization}</p>
-                          <p className="mt-1.5 t-utility-xs text-white/70 text-left">
-                            {m.jurisdiction} · {m.yearsPracticing} practicing
-                          </p>
-                        </div>
                       </div>
-
-                      <p className="t-body-sm text-white/85 flex-1 text-left leading-relaxed">{m.shortSummary}</p>
-
-                      <div className="mt-4 flex justify-start">
-                        <Link
-                          to={`/medical-advisory/${m.slug}`}
-                          className="t-body-sm text-white hover:text-white/80 transition-colors underline-offset-4 hover:underline"
-                        >
-                          View profile →
-                        </Link>
+                      <div className="w-full min-w-0 text-left">
+                        <h3 className="t-body-md font-semibold tracking-tight text-white leading-snug text-left">
+                          To Be Announced
+                        </h3>
+                        <p className="mt-2 t-body-sm font-semibold text-white text-left">{p.role}</p>
+                        <p className="mt-1 t-utility-xs text-white/70 text-left">{p.focus}</p>
                       </div>
-                    </li>
-                  );
-                })}
+                    </div>
+
+                    <p className="t-body-sm text-white/60 flex-1 text-left leading-relaxed italic">
+                      Advisor profile, credentials, and biography will be published upon formal appointment.
+                    </p>
+
+                    <div className="mt-4 flex justify-start">
+                      <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[2px] border border-white/15 bg-white/5 t-utility-xs uppercase tracking-wider text-white/80">
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                        Appointment To Be Announced
+                      </span>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </section>
 
