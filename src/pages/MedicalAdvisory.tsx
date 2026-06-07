@@ -32,14 +32,20 @@ const GovRow = ({
     style={{
       backgroundColor: "#FFFFFF",
       border: "1px solid rgba(0,0,0,0.08)",
-      borderRadius: "18px",
-      padding: compact ? "20px 22px" : "24px",
+      borderRadius: compact ? "14px" : "18px",
+      padding: compact ? "14px 16px" : "24px",
     }}
   >
-    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
+    <div className="flex items-start justify-between" style={{ gap: compact ? "12px" : "16px" }}>
       <p
         className="font-sans text-foreground"
-        style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+        style={{
+          fontSize: compact ? "14px" : "16px",
+          fontWeight: compact ? 400 : 600,
+          lineHeight: compact ? 1.5 : 1.3,
+          letterSpacing: compact ? 0 : "-0.01em",
+          margin: 0,
+        }}
       >
         {title}
       </p>
@@ -47,12 +53,13 @@ const GovRow = ({
         <span
           className="font-mono tabular-nums shrink-0"
           style={{
-            fontSize: "12px",
+            fontSize: compact ? "10px" : "12px",
             fontWeight: 500,
-            letterSpacing: "0.04em",
-            color: "rgba(0,0,0,0.40)",
+            lineHeight: 1,
+            letterSpacing: "0.06em",
+            color: "rgba(0,0,0,0.38)",
             whiteSpace: "nowrap",
-            marginTop: "4px",
+            paddingTop: compact ? "3px" : "2px",
           }}
         >
           {index}
@@ -62,7 +69,12 @@ const GovRow = ({
     {description && (
       <p
         className="text-muted-foreground"
-        style={{ marginTop: "12px", fontSize: "14px", fontWeight: 400, lineHeight: 1.75 }}
+        style={{
+          marginTop: compact ? "6px" : "12px",
+          fontSize: compact ? "13px" : "14px",
+          fontWeight: 400,
+          lineHeight: compact ? 1.5 : 1.75,
+        }}
       >
         {description}
       </p>
