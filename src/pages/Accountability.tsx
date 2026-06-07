@@ -550,7 +550,7 @@ const Accountability = () => {
               }}
             >
               <ComplianceCard>
-                <Eyebrow>05 · Re-entry</Eyebrow>
+                <Eyebrow>06 · Re-entry</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">Re-entry</h2>
                 <p
                   className="text-muted-foreground"
@@ -590,7 +590,7 @@ const Accountability = () => {
               }}
             >
               <SectionHeader
-                index="06"
+                index="07"
                 title="Related Documents"
                 intro="Further reading on the framework, public statuses, and reporting logic."
               />
@@ -617,7 +617,7 @@ const Accountability = () => {
                   className="text-muted-foreground"
                   style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
                 >
-                  The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification remains meaningful only when evidence continues to support the published scope, sourcing relationships remain transparent, material changes are disclosed, and monitoring activities are able to reconcile new information as it becomes available.
+                  The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification integrity depends on monitoring activity, supply-chain transparency, testing activity, facility monitoring, manufacturer oversight, and documentation support — not documentation alone. Verification remains meaningful only when these inputs continue to reconcile with the published scope as new information becomes available.
                 </p>
               </ComplianceCard>
             </section>
