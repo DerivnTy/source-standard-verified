@@ -490,8 +490,8 @@ html {
        long-form, registry/index surfaces, hero content blocks) shares the
        same 1200px max-width so the page reads as one aligned institutional
        document rather than alternating wide/narrow bands. */
-    .w-standard  { max-width: 1200px; }
-    .w-wide      { max-width: 1200px; }
+    .w-standard  { max-width: 1180px; }
+    .w-wide      { max-width: 1180px; }
   }
 
   /* Tighten the gap between consecutive content sections (post-hero rhythm).
