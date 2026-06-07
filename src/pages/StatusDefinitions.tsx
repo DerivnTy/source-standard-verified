@@ -415,9 +415,9 @@ const StatusDefinitions = () => {
               </StatusCard>
             </section>
 
-            {/* §2 Public Statuses */}
+            {/* §2 Vendor Statuses */}
             <section
-              id="statuses"
+              id="vendor-statuses"
               className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
               style={{
                 paddingTop: "24px",
@@ -427,17 +427,39 @@ const StatusDefinitions = () => {
             >
               <SectionHeader
                 index="02"
-                title="Public Statuses"
-                intro="Each status has a public meaning, a limitation, and a defined path for assignment or revision."
+                title="Vendor Statuses"
+                intro="Public statuses applied to vendors within the Source Standard registry. Each status has a public meaning, a limitation, and a defined path for assignment or revision."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {STATUSES.map((s) => (
+                {VENDOR_STATUSES.map((s) => (
                   <StatusDefinitionCard key={s.n} status={s} />
                 ))}
               </div>
             </section>
 
-            {/* §3 Lifecycle */}
+            {/* §3 Facility Statuses */}
+            <section
+              id="facility-statuses"
+              className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
+              style={{
+                paddingTop: "24px",
+                paddingBottom: "24px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="03"
+                title="Facility Statuses"
+                intro="Public statuses applied to facilities monitored within the Source Standard framework, including 503A pharmacies, 503B outsourcing facilities, and related manufacturing operations."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {FACILITY_STATUSES.map((s) => (
+                  <StatusDefinitionCard key={s.n} status={s} />
+                ))}
+              </div>
+            </section>
+
+            {/* §4 Status Progression */}
             <section
               id="lifecycle"
               className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
@@ -448,18 +470,18 @@ const StatusDefinitions = () => {
               }}
             >
               <SectionHeader
-                index="03"
+                index="04"
                 title="Status Progression"
-                intro="Registry records may change as new evidence becomes available, documentation is updated, sourcing relationships change, monitoring activity occurs, or review files are reopened."
+                intro="Statuses are dynamic. They represent the current state of available evidence and may evolve as new information becomes available through any of the following inputs."
               />
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-2" style={{ gap: "8px" }}>
-                {LIFECYCLE.map((step) => (
+                {PROGRESSION_INPUTS.map((step) => (
                   <LifecycleRow key={step.n} index={step.n} text={step.t} />
                 ))}
               </div>
             </section>
 
-            {/* §4 Related Documents */}
+            {/* §5 Related Documents */}
             <section
               id="related"
               className="scroll-mt-24 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
@@ -470,7 +492,7 @@ const StatusDefinitions = () => {
               }}
             >
               <SectionHeader
-                index="04"
+                index="05"
                 title="Related Documents"
                 intro="Further reading on the framework, review process, and operating boundaries."
               />
