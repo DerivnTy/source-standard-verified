@@ -72,7 +72,7 @@ export const SiteHeader = () => {
     >
       <div
         className="relative flex items-center justify-between"
-        style={{ height: "60px", paddingLeft: "24px", paddingRight: "24px" }}
+        style={{ height: "70px", paddingLeft: "24px", paddingRight: "24px" }}
       >
         <Logo />
         <nav className="hidden lg:flex items-center gap-7 h-full">
@@ -104,7 +104,7 @@ export const SiteHeader = () => {
           </Button>
         </div>
         <button
-          className="lg:hidden p-2 -mr-2 relative h-9 w-9 transition-colors"
+          className="lg:hidden p-2 -mr-2 relative h-10 w-10 transition-colors"
           style={{
             zIndex: open ? 70 : undefined,
             color: open ? "#FFFFFF" : "hsl(var(--foreground))",
@@ -116,7 +116,7 @@ export const SiteHeader = () => {
           {/* Clean 2-bar hamburger ↔ X */}
           <span
             aria-hidden
-            className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 -translate-x-1/2 bg-current transition-all duration-300 ease-out"
+            className="absolute left-1/2 top-1/2 block h-[1.5px] w-[22px] -translate-x-1/2 bg-current transition-all duration-300 ease-out"
             style={{
               transform: open
                 ? "translate(-50%, -50%) rotate(45deg)"
@@ -125,7 +125,7 @@ export const SiteHeader = () => {
           />
           <span
             aria-hidden
-            className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 -translate-x-1/2 bg-current transition-all duration-300 ease-out"
+            className="absolute left-1/2 top-1/2 block h-[1.5px] w-[22px] -translate-x-1/2 bg-current transition-all duration-300 ease-out"
             style={{
               transform: open
                 ? "translate(-50%, -50%) rotate(-45deg)"
@@ -156,7 +156,7 @@ export const SiteHeader = () => {
               <div
                 className="flex shrink-0 items-center justify-between"
                 style={{
-                  height: "60px",
+                  height: "70px",
                   paddingLeft: "24px",
                   paddingRight: "24px",
                   borderBottom: "0.5px solid rgba(255,255,255,0.10)",
@@ -167,16 +167,16 @@ export const SiteHeader = () => {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close menu"
-                  className="relative h-9 w-9 text-white"
+                  className="relative h-10 w-10 text-white"
                 >
                   <span
                     aria-hidden
-                    className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 bg-current"
+                    className="absolute left-1/2 top-1/2 block h-[1.5px] w-[22px] bg-current"
                     style={{ transform: "translate(-50%, -50%) rotate(45deg)" }}
                   />
                   <span
                     aria-hidden
-                    className="absolute left-1/2 top-1/2 block h-[1.5px] w-5 bg-current"
+                    className="absolute left-1/2 top-1/2 block h-[1.5px] w-[22px] bg-current"
                     style={{ transform: "translate(-50%, -50%) rotate(-45deg)" }}
                   />
                 </button>
