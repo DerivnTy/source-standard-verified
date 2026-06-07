@@ -72,7 +72,7 @@ export const SiteHeader = () => {
     >
       <div
         className="relative flex items-center justify-between"
-        style={{ height: "70px", paddingLeft: "24px", paddingRight: "24px" }}
+        style={{ height: "63px", paddingLeft: "24px", paddingRight: "24px" }}
       >
         <Logo />
         <nav className="hidden lg:flex items-center gap-7 h-full">
@@ -156,7 +156,7 @@ export const SiteHeader = () => {
               <div
                 className="flex shrink-0 items-center justify-between"
                 style={{
-                  height: "70px",
+                  height: "63px",
                   paddingLeft: "24px",
                   paddingRight: "24px",
                   borderBottom: "0.5px solid rgba(255,255,255,0.10)",
