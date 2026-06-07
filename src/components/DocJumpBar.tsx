@@ -358,7 +358,8 @@ const PillContents = ({
           GPU translate3d in lockstep with page scroll. */}
       <div
         ref={railRef}
-        className="relative flex-1 min-w-0 overflow-hidden"
+        className="relative min-w-0 overflow-hidden"
+        style={{ flex: "0 1 auto" }}
       >
         <style>{`
           .ss-rail::-webkit-scrollbar { display: none; }
