@@ -217,7 +217,10 @@ const MedicalAdvisory = () => {
         docId=""
       />
 
-      {/* §2 Statement of purpose */}
+      {/* §2 Contents nav */}
+      <SectionAnchorNav waypoints={WAYPOINTS} />
+
+      {/* §3 Statement of purpose */}
       <section className="bg-background border-b border-border/40" style={{ paddingTop: "36px", paddingBottom: "24px" }}>
         <div className="page-shell">
           <div className="mx-auto w-standard">
@@ -241,9 +244,6 @@ const MedicalAdvisory = () => {
           </div>
         </div>
       </section>
-
-      {/* §3 Contents nav */}
-      <SectionAnchorNav waypoints={WAYPOINTS} />
 
       <div className="bg-background">
         <div className="page-shell">
