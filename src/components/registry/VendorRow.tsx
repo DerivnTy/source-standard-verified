@@ -92,13 +92,13 @@ export const VendorRow = ({
           display: "inline-flex",
           alignItems: "center",
           gap: "4px",
-          fontSize: "14px",
-          fontWeight: 600,
-          lineHeight: 1,
-        }}
-      >
-        View
-        <ChevronRight aria-hidden style={{ width: "14px", height: "14px", strokeWidth: 1.75 }} />
+        fontSize: "13px",
+        fontWeight: 600,
+        lineHeight: 1,
+      }}
+    >
+      View
+      <ChevronRight aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.75 }} />
       </span>
 
       {/* Stacked content: name, location/type, therapy tag */}
