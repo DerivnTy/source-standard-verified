@@ -455,6 +455,34 @@ const Accountability = () => {
               </div>
             </section>
 
+            {/* §3 Testing Activity */}
+            <section
+              id="testing"
+              className="scroll-mt-24"
+              style={{
+                paddingTop: "24px",
+                paddingBottom: "24px",
+                borderBottom: "0.5px solid hsl(var(--border))",
+              }}
+            >
+              <SectionHeader
+                index="03"
+                title="Independent Testing Activity"
+                intro="Source Standard may conduct independent testing activity as part of the framework."
+              />
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {TESTING.map((c) => (
+                  <ComplianceRow
+                    key={c.n}
+                    index={c.n}
+                    total="02"
+                    title={c.t}
+                    description={c.d}
+                  />
+                ))}
+              </div>
+            </section>
+
             {/* §4 Triggers */}
             <section
               id="triggers"
@@ -466,7 +494,7 @@ const Accountability = () => {
               }}
             >
               <SectionHeader
-                index="03"
+                index="04"
                 title="Review Triggers"
                 intro="Events that may trigger monitoring activity, evidence review, status reassessment, or reopening of an existing record."
               />
@@ -475,7 +503,7 @@ const Accountability = () => {
                   <ComplianceRow
                     key={c.n}
                     index={c.n}
-                    total="06"
+                    total="07"
                     title={c.t}
                     description={c.d}
                   />
@@ -494,16 +522,16 @@ const Accountability = () => {
               }}
             >
               <SectionHeader
-                index="04"
+                index="05"
                 title="Status & Review Actions"
-                intro="How the framework responds when a reviewed record no longer supports the published status."
+                intro="How the framework responds when a reviewed record no longer supports the published status, or when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {ACTIONS.map((c) => (
                   <ComplianceRow
                     key={c.n}
                     index={c.n}
-                    total="06"
+                    total="08"
                     title={c.t}
                     description={c.d}
                   />
