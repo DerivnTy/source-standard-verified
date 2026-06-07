@@ -344,22 +344,22 @@ const About = () => {
                   Why Source Standard exists
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Compounded therapy vendors frequently make claims regarding sourcing relationships, facility and manufacturer partnerships, quality standards, manufacturing practices, and supply-chain integrity.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     For consumers, determining whether those claims are supported by evidence can be difficult.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Source Standard was established to create a structured framework for evaluating sourcing claims, organizing evidence, documenting supply-chain relationships, and maintaining public-reference records that improve transparency within a complex and rapidly growing market.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The objective is not to determine which treatments are best.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The objective is not to replace physicians, regulators, or pharmacists.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The objective is to improve transparency by creating a disciplined system for evaluating whether sourcing claims are supported by evidence.
                   </p>
                 </div>
@@ -494,16 +494,16 @@ const About = () => {
                   A transparency framework with defined limits.
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Source Standard operates as an independent public-reference system focused on sourcing transparency within the compounded therapy market.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Its role is to organize evidence, evaluate sourcing claims, maintain public records, and provide greater visibility into supply-chain relationships that are often difficult for consumers to evaluate independently.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The framework does not replace clinical judgment, regulatory oversight, or personal decision-making.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Its role is focused but important: creating a more transparent, evidence-based public record for a market where sourcing relationships are often difficult for consumers to evaluate independently.
                   </p>
                 </div>
