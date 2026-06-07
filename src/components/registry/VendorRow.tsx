@@ -50,24 +50,20 @@ export const VendorRow = ({
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "12px 16px 10px",
-        minHeight: "104px",
+        padding: "16px 18px 14px",
       }}
     >
       {/* Status — pinned top-right */}
       <span
-        className="absolute inline-flex items-center justify-end font-sans uppercase tabular-nums"
+        className="absolute inline-flex items-center font-sans"
         style={{
-          top: "12px",
-          right: "16px",
-          height: "12px",
-          fontSize: "11px",
-          fontWeight: 700,
-          letterSpacing: "0.035em",
+          top: "16px",
+          right: "18px",
+          fontSize: "15px",
+          fontWeight: 600,
           lineHeight: 1,
-          gap: "4px",
+          gap: "5px",
           color: isVerified ? "#001021" : "#FF3B30",
-          opacity: isVerified ? 1 : 0.85,
         }}
       >
         {isVerified ? "Verified" : "Unverified"}
@@ -75,106 +71,88 @@ export const VendorRow = ({
           <span
             aria-hidden
             style={{
-              position: "relative",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              height: "12px",
-              width: "19px",
-              overflow: "visible",
+              height: "16px",
+              width: "20px",
             }}
           >
-            <span
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: 0,
-                transform: "translateY(calc(-50% - 1px))",
-                display: "block",
-              }}
-            >
-              <VerifiedShieldMark height={22} color="#001021" />
-            </span>
+            <VerifiedShieldMark height={22} color="#001021" />
           </span>
         )}
       </span>
 
-      {/* View Record — pinned bottom-right */}
+      {/* View — pinned bottom-right */}
       <span
-        className="absolute font-sans uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
+        className="absolute font-sans text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
         style={{
-          bottom: "10px",
-          right: "14px",
+          bottom: "14px",
+          right: "18px",
           display: "inline-flex",
           alignItems: "center",
           gap: "4px",
-          fontSize: "11px",
-          fontWeight: 700,
-          letterSpacing: "0.035em",
+          fontSize: "16px",
+          fontWeight: 600,
           lineHeight: 1,
         }}
       >
         View
-        <ChevronRight
-          aria-hidden
-          style={{ width: "12px", height: "12px", strokeWidth: 1.5, marginRight: "-2px" }}
-        />
+        <ChevronRight aria-hidden style={{ width: "14px", height: "14px", strokeWidth: 1.75 }} />
       </span>
 
-      {/* Centered content group: name, location, category */}
+      {/* Stacked content: name, location/type, therapy tag */}
       <div
-        className="flex flex-col justify-center h-full"
-        style={{
-          gap: "8px",
-          minHeight: "84px",
-          paddingRight: "92px",
-        }}
+        className="flex flex-col"
+        style={{ gap: "6px", paddingRight: "108px" }}
       >
         <h3
           className="font-sans text-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "13px",
-            fontWeight: 650,
-            lineHeight: 1.15,
+            fontSize: "20px",
+            fontWeight: 600,
+            lineHeight: 1.2,
             letterSpacing: "-0.01em",
           }}
         >
           {vendor.name}
         </h3>
 
-        <div
-          className="min-w-0"
-          style={{ display: "inline-flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}
+        <p
+          className="text-muted-foreground truncate"
+          style={{
+            minWidth: 0,
+            fontSize: "16px",
+            fontWeight: 400,
+            lineHeight: 1.35,
+            margin: 0,
+          }}
         >
-          {focus && (
+          {locationLine}
+        </p>
+
+        {focus && (
+          <div style={{ marginTop: "2px" }}>
             <span
               className="inline-flex items-center font-sans uppercase whitespace-nowrap"
               style={{
-                gap: "4px",
-                fontSize: "10px",
+                gap: "5px",
+                fontSize: "13px",
                 fontWeight: 600,
-                letterSpacing: "0.03em",
-                padding: "4px 7px",
-                borderRadius: "4px",
+                letterSpacing: "0.04em",
+                padding: "5px 9px",
+                borderRadius: "5px",
                 background: "rgba(0,16,33,0.07)",
-                color: "rgba(0,16,33,0.68)",
+                color: "rgba(0,16,33,0.72)",
                 lineHeight: 1,
               }}
             >
               {focus.label}
-              {focus.extra > 0 && (
-                <span style={{ opacity: 0.6 }}>+{focus.extra}</span>
-              )}
+              {focus.extra > 0 && <span style={{ opacity: 0.6 }}>+{focus.extra}</span>}
             </span>
-          )}
-          <span
-            className="text-muted-foreground truncate"
-            style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
-          >
-            {locationLine}
-          </span>
-        </div>
+          </div>
+        )}
       </div>
     </Link>
   );
