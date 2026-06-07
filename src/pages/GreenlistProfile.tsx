@@ -337,7 +337,7 @@ const GreenlistProfile = () => {
             {/* SECTION 1 — Overview */}
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Overview</SectionLabel>
-              <p className="mt-2 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
                 {p.overview ?? p.background ??
                   `${entry.name} is a ${typeBadge.toLowerCase()} identified within the Source Standard supply-chain database. Records are maintained to support supply-chain visibility and ongoing testing activity.`}
               </p>
@@ -441,7 +441,7 @@ const GreenlistProfile = () => {
             {/* SECTION 6 — Greenlist Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Greenlist Status</SectionLabel>
-              <p className="mt-3 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
+              <p className="mt-3 text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
                 <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "13px", letterSpacing: "0.06em" }}>
                   Current Status ·{" "}
                 </span>
@@ -449,7 +449,7 @@ const GreenlistProfile = () => {
                   {STATUS_LABEL[status]}
                 </span>
               </p>
-              <p className="mt-2 text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
+              <p className="mt-2 text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
                 {statusBlurb}
               </p>
               <p className="mt-2 text-muted-foreground" style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.65 }}>

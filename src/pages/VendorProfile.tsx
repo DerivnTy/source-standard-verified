@@ -773,7 +773,7 @@ const VendorProfile = () => {
 
             <p
               className="mt-3 text-muted-foreground"
-              style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
+              style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
             >
               {isVerified
                 ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
@@ -853,7 +853,7 @@ const VendorProfile = () => {
                     <p
                       className="mt-2"
                       style={{
-                        fontSize: "18px",
+                        fontSize: "16px",
                         fontWeight: 400,
                         lineHeight: 1.65,
                         color: "rgba(0,16,33,0.7)",
@@ -896,7 +896,7 @@ const VendorProfile = () => {
             {hasAbout ? (
               <div className="mt-3 space-y-4">
                 {vendor.summary && (
-                  <p className="text-foreground" style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}>
+                  <p className="text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
                     {vendor.summary}
                   </p>
                 )}
@@ -905,7 +905,7 @@ const VendorProfile = () => {
                     <Eyebrow>Clinical Philosophy</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
+                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
                     >
                       {vendor.clinicalPhilosophy}
                     </p>
@@ -916,7 +916,7 @@ const VendorProfile = () => {
                     <Eyebrow>Patient Focus</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
+                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
                     >
                       {vendor.patientFocus}
                     </p>
@@ -926,7 +926,7 @@ const VendorProfile = () => {
             ) : (
               <p
                 className="mt-3 text-muted-foreground"
-                style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
+                style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
               >
                 No description provided yet.{" "}
                 {!claimed && (
@@ -974,7 +974,7 @@ const VendorProfile = () => {
                     <Eyebrow>States Served</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
+                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
                     >
                       {vendor.statesServed?.length
                         ? vendor.statesServed.join(" · ")
@@ -987,7 +987,7 @@ const VendorProfile = () => {
                     <Eyebrow>Telehealth Availability</Eyebrow>
                     <p
                       className="mt-1.5 text-foreground"
-                      style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
+                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
                     >
                       {vendor.telehealthAvailability}
                     </p>
@@ -1115,13 +1115,13 @@ const VendorProfile = () => {
                   <Eyebrow>Unclaimed Listing</Eyebrow>
                   <p
                     className="mt-2 font-sans font-semibold text-foreground"
-                    style={{ fontSize: "18px", lineHeight: 1.5 }}
+                    style={{ fontSize: "16px", lineHeight: 1.5 }}
                   >
                     This organization has not yet participated in the Source Standard review process.
                   </p>
                   <p
                     className="mt-2 text-muted-foreground"
-                    style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
+                    style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
                   >
                     Claim and complete this profile to add provider information, clinical leadership,
                     social profiles, service details, and begin the Source Standard review process.
