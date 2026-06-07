@@ -853,9 +853,10 @@ const VendorProfile = () => {
                     <p
                       className="mt-2"
                       style={{
-                        fontSize: "12.5px",
-                        lineHeight: 1.55,
-                        color: "rgba(0,16,33,0.6)",
+                        fontSize: "18px",
+                        fontWeight: 400,
+                        lineHeight: 1.65,
+                        color: "rgba(0,16,33,0.7)",
                       }}
                     >
                       Verification status reflects only documentation reviewed by Source Standard
