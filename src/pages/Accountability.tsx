@@ -381,7 +381,7 @@ const Accountability = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    A Verified record is not permanent.
+                    A Verified record is not permanent
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     It remains in effect only while the available evidence, sourcing relationships, submitted documentation, public records, and ongoing monitoring activity continue to support the published review scope.
