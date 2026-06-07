@@ -68,7 +68,7 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
       <Link
         to={row.to}
         onClick={handleClick}
-        className="block font-sans text-[14px] leading-[1.6] hover:text-white transition-colors"
+        className="block t-body-sm hover:text-white transition-colors"
         style={{ color: "rgba(255,255,255,0.62)" }}
       >
         {row.label}
