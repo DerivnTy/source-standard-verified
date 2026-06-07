@@ -59,7 +59,7 @@ export const VendorRow = ({
         style={{
           top: "16px",
           right: "18px",
-          fontSize: "15px",
+          fontSize: "14px",
           fontWeight: 600,
           lineHeight: 1,
           gap: "5px",
