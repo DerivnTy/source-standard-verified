@@ -141,20 +141,20 @@ const Greenlist = () => {
             >
               <p
                 className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "13px", letterSpacing: "0.08em" }}
+                style={{ fontSize: "11px", letterSpacing: "0.12em" }}
               >
                 Greenlisted Status
               </p>
               <p
                 className="mt-2 text-foreground"
-                style={{ fontSize: "18px", lineHeight: 1.55 }}
+                style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 500 }}
               >
                 Greenlisted status is not based on FDA registration, 503A
                 designation, or 503B designation alone.
               </p>
               <p
                 className="mt-2 text-muted-foreground"
-                style={{ fontSize: "17px", lineHeight: 1.6 }}
+                style={{ fontSize: "14px", lineHeight: 1.65 }}
               >
                 Manufacturers earn Greenlisted status through ongoing
                 independent testing and continued compliance with Source
@@ -162,7 +162,7 @@ const Greenlist = () => {
               </p>
               <p
                 className="mt-2 text-muted-foreground"
-                style={{ fontSize: "17px", lineHeight: 1.6 }}
+                style={{ fontSize: "14px", lineHeight: 1.65 }}
               >
                 All Greenlisted manufacturers remain subject to ongoing
                 monitoring and future testing.
@@ -226,7 +226,7 @@ const Greenlist = () => {
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search manufacturers, locations, or verification status…"
                 aria-label="Search Facility Records"
-                className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                className="font-sans w-full text-[12px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
                   borderRadius: "24px",
@@ -299,7 +299,7 @@ const Greenlist = () => {
             >
               <p
                 className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "13px", letterSpacing: "0.08em" }}
+                style={{ fontSize: "11px", letterSpacing: "0.12em" }}
               >
                 Status Definitions
               </p>
@@ -333,13 +333,13 @@ const Greenlist = () => {
                   >
                     <p
                       className="font-sans font-semibold uppercase text-foreground"
-                      style={{ fontSize: "13px", letterSpacing: "0.08em" }}
+                      style={{ fontSize: "11px", letterSpacing: "0.12em" }}
                     >
                       {s.label}
                     </p>
                     <p
                       className="mt-2 text-muted-foreground"
-                      style={{ fontSize: "17px", lineHeight: 1.6 }}
+                      style={{ fontSize: "14px", lineHeight: 1.65 }}
                     >
                       {s.body}
                     </p>

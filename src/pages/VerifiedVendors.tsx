@@ -192,7 +192,7 @@ const VerifiedVendors = () => {
                     <span
                       className="font-sans tabular-nums"
                       style={{
-                        fontSize: "18px",
+                        fontSize: "16px",
                         lineHeight: 1,
                         fontWeight: 600,
                         letterSpacing: "-0.01em",
@@ -205,7 +205,7 @@ const VerifiedVendors = () => {
                       style={{
                         marginTop: "6px",
                         fontSize: "9.5px",
-                        fontWeight: 600,
+                        fontWeight: 500,
                         letterSpacing: "0.12em",
                         textTransform: "uppercase",
                         color: "rgba(0,16,33,0.55)",
@@ -287,7 +287,7 @@ const VerifiedVendors = () => {
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search by vendor name, city, state, or therapy category…"
                 aria-label="Search by vendor name, city, state, or therapy category"
-                className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+                className="font-sans w-full text-[12px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
                   borderRadius: "24px",
@@ -365,20 +365,20 @@ const VerifiedVendors = () => {
               <div>
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "12px", letterSpacing: "0.08em" }}
+                  style={{ fontSize: "11px", letterSpacing: "0.12em" }}
                 >
                   Verified vs. Unverified
                 </p>
                 <p
                   className="mt-2 text-foreground"
-                  style={{ fontSize: "16px", lineHeight: 1.6, fontWeight: 400 }}
+                  style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 500 }}
                 >
                   Verified records contain documentation reviewed by Source
                   Standard within a defined review scope and point in time.
                 </p>
                 <p
                   className="mt-2 text-muted-foreground"
-                  style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 400 }}
+                  style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
                 >
                   Unverified records do not currently have sufficient reviewed
                   documentation within the registry framework.
@@ -392,13 +392,13 @@ const VerifiedVendors = () => {
               >
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "12px", letterSpacing: "0.08em" }}
+                  style={{ fontSize: "11px", letterSpacing: "0.12em" }}
                 >
                   Registry Framework
                 </p>
                 <p
                   className="mt-2 text-foreground"
-                  style={{ fontSize: "16px", lineHeight: 1.6, fontWeight: 400 }}
+                  style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
                 >
                   Source Standard helps consumers evaluate sourcing claims
                   through reviewed documentation. Verification is not an
@@ -408,7 +408,7 @@ const VerifiedVendors = () => {
 
                 <Link
                   to="/how-it-works"
-                  className="mt-5 inline-flex items-center gap-1.5 px-5 h-10 border border-foreground text-foreground text-[14px] font-medium rounded-[10px] hover:bg-foreground hover:text-background transition-colors duration-150"
+                  className="mt-5 inline-flex items-center gap-1.5 px-5 h-10 border border-foreground text-foreground text-[12px] font-medium rounded-[10px] hover:bg-foreground hover:text-background transition-colors duration-150"
                 >
                   View Verification Protocol
                   <ArrowRight className="h-4 w-4" />
