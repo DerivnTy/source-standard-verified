@@ -102,8 +102,8 @@ export const SiteFooter = () => {
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-3 md:mb-4 font-sans text-[12px] font-bold uppercase leading-[1.2]"
-                  style={{ color: "rgba(255,255,255,0.92)", letterSpacing: "0" }}
+                  className="mb-3 md:mb-4 t-utility-xs"
+                  style={{ color: "rgba(255,255,255,0.92)" }}
                 >
                   {col.title}
                 </p>
@@ -117,14 +117,14 @@ export const SiteFooter = () => {
                         <button
                           type="button"
                           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                          className="inline-flex items-center gap-1 font-sans text-[14px] font-medium text-white hover:text-white/80 transition-colors"
+                          className="inline-flex items-center gap-1 t-body-sm text-white hover:text-white/80 transition-colors"
                         >
                           Begin Verification <span aria-hidden="true">→</span>
                         </button>
                       ) : (
                         <Link
                           to="/apply"
-                          className="inline-flex items-center gap-1 font-sans text-[14px] font-medium text-white hover:text-white/80 transition-colors"
+                          className="inline-flex items-center gap-1 t-body-sm text-white hover:text-white/80 transition-colors"
                         >
                           Begin Verification <span aria-hidden="true">→</span>
                         </Link>
