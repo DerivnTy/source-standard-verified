@@ -144,7 +144,7 @@ export const SiteFooter = () => {
         >
           <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
             <p
-              className="font-sans text-[12px] leading-[1.5]"
+              className="t-utility-xs"
               style={{ color: "rgba(255,255,255,0.48)" }}
             >
               © {now.getFullYear()} Source Standard. All Rights Reserved.
@@ -156,8 +156,8 @@ export const SiteFooter = () => {
                 style={{ backgroundColor: "#22C55E" }}
               />
               <span
-              className="font-mono text-[11px] font-medium uppercase"
-                style={{ color: "rgba(255,255,255,0.50)", letterSpacing: "0.08em" }}
+                className="t-numeric uppercase"
+                style={{ color: "rgba(255,255,255,0.50)" }}
               >
                 System Status: Operational
               </span>
@@ -165,8 +165,8 @@ export const SiteFooter = () => {
               <button
                 type="button"
                 onClick={lock}
-                className="font-mono text-[11px] font-medium uppercase hover:opacity-100 transition-opacity opacity-70"
-                style={{ color: "rgba(255,255,255,0.50)", letterSpacing: "0.08em" }}
+                className="t-numeric uppercase hover:opacity-100 transition-opacity opacity-70"
+                style={{ color: "rgba(255,255,255,0.50)" }}
               >
                 Lock
               </button>
@@ -174,8 +174,8 @@ export const SiteFooter = () => {
           </div>
 
           <p
-            className="mt-4 md:mt-5 max-w-[900px] font-sans text-[11px] leading-[1.5] md:leading-[1.65]"
-            style={{ color: "rgba(255,255,255,0.40)" }}
+            className="mt-4 md:mt-5 max-w-[900px] t-utility-xs normal-case"
+            style={{ color: "rgba(255,255,255,0.40)", letterSpacing: "0", lineHeight: 1.6, textTransform: "none" }}
           >
             Source Standard is an independent public-reference and verification
             framework for compounded therapy vendor sourcing claims. Listings
