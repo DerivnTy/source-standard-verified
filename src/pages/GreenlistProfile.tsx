@@ -405,7 +405,7 @@ const GreenlistProfile = () => {
                   {hasVal(p.registrationNotes) && (
                     <p
                       className="mt-3 text-muted-foreground"
-                      style={{ fontSize: "10px", lineHeight: 1.6 }}
+                      style={{ fontSize: "17px", fontWeight: 400, lineHeight: 1.6 }}
                     >
                       {p.registrationNotes}
                     </p>
