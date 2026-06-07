@@ -371,15 +371,16 @@ const VendorProfile = () => {
   // Status pill
   const StatusPill = () => {
     const baseStyle = {
-      fontSize: "10px",
-      letterSpacing: "0.08em",
+      fontSize: "15px",
+      letterSpacing: "0.06em",
       lineHeight: 1,
       gap: "4px",
+      fontWeight: 600,
     } as const;
     if (isVerified) {
       return (
         <span
-          className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
+          className="shrink-0 inline-flex items-center justify-end font-sans uppercase tabular-nums"
           style={{ ...baseStyle, color: "#001021" }}
         >
           VERIFIED
@@ -390,8 +391,8 @@ const VendorProfile = () => {
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              height: "10px",
-              width: "16px",
+              height: "14px",
+              width: "20px",
             }}
           >
             <span
@@ -403,7 +404,7 @@ const VendorProfile = () => {
                 display: "block",
               }}
             >
-              <VerifiedShieldMark height={18} color="#001021" />
+              <VerifiedShieldMark height={22} color="#001021" />
             </span>
           </span>
         </span>
@@ -421,13 +422,14 @@ const VendorProfile = () => {
     const { label, color } = FALLBACK[status];
     return (
       <span
-        className="shrink-0 inline-flex items-center justify-end font-sans font-bold uppercase tabular-nums"
+        className="shrink-0 inline-flex items-center justify-end font-sans uppercase tabular-nums"
         style={{ ...baseStyle, color }}
       >
         {label}
       </span>
     );
   };
+
 
   // Verified scope flattening
   const hasGroups =
