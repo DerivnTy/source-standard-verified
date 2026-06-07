@@ -370,8 +370,8 @@ const VerificationDisclaimer = () => {
                   <div
                     className="text-muted-foreground"
                     style={{
-                      fontSize: "13.5px",
-                      lineHeight: 1.6,
+                      fontSize: "14px",
+                      lineHeight: 1.75,
                       marginTop: "16px",
                       display: "flex",
                       flexDirection: "column",
@@ -405,8 +405,8 @@ const VerificationDisclaimer = () => {
                   <div
                     className="text-muted-foreground"
                     style={{
-                      fontSize: "13.5px",
-                      lineHeight: 1.6,
+                      fontSize: "14px",
+                      lineHeight: 1.75,
                       display: "flex",
                       flexDirection: "column",
                       gap: "10px",
