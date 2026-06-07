@@ -50,7 +50,7 @@ export const VendorRow = ({
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "16px 18px 14px",
+        padding: "10px 14px 8px",
       }}
     >
       {/* Status — pinned top-right */}
