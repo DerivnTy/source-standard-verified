@@ -5,7 +5,7 @@ import { FaqPage } from "@/components/library/FaqPage";
 const ITEMS = [
   {
     q: "What does Verified mean?",
-    a: "Verified means Source Standard reviewed documentation supporting a vendor's stated sourcing claims and assigned status within the framework.",
+    a: "Verified means Source Standard reviewed evidence supporting a vendor's stated sourcing claims and assigned status within the framework.",
   },
   {
     q: "Does Verified mean the vendor is the best option?",
@@ -29,7 +29,7 @@ const FaqVerificationProcess = () => (
   <>
     <PageMeta
       title="Verification Questions"
-      description="Common questions about how verification works, what documentation is reviewed, and what registry status means."
+      description="Common questions about how verification works, what evidence is reviewed, and what registry status means."
     />
     <Breadcrumb
       items={[
@@ -39,7 +39,7 @@ const FaqVerificationProcess = () => (
     />
     <FaqPage
       title="Verification Questions"
-      intro="Common questions about how verification works, what documentation is reviewed, and what registry status means."
+      intro="Common questions about how verification works, what evidence is reviewed, and what registry status means."
       items={ITEMS}
     />
   </>
