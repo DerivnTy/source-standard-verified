@@ -367,7 +367,7 @@ const MedicalAdvisory = () => {
                   What Clinical Oversight does and does not do.
                 </p>
               </div>
-              <ul className="space-y-2 max-w-3xl">
+              <ul className="space-y-2">
                 {BOUNDARIES.map((b, i) => (
                   <li key={b}>
                     <GovRow
