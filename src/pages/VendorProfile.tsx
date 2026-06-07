@@ -1115,13 +1115,13 @@ const VendorProfile = () => {
                   <Eyebrow>Unclaimed Listing</Eyebrow>
                   <p
                     className="mt-2 font-sans font-semibold text-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.5 }}
+                    style={{ fontSize: "18px", lineHeight: 1.5 }}
                   >
                     This organization has not yet participated in the Source Standard review process.
                   </p>
                   <p
                     className="mt-2 text-muted-foreground"
-                    style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                    style={{ fontSize: "18px", fontWeight: 400, lineHeight: 1.65 }}
                   >
                     Claim and complete this profile to add provider information, clinical leadership,
                     social profiles, service details, and begin the Source Standard review process.
