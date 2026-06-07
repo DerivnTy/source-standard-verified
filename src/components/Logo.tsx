@@ -27,7 +27,7 @@ export const Logo = ({ className = "", variant = "dark", asLink = true }: LogoPr
       src={lockup}
       alt="Source Standard"
       draggable={false}
-      className="block h-[26px] w-auto select-none translate-y-[1px]"
+      className="block h-[24px] w-auto select-none translate-y-[2px]"
       style={{
         filter: isLight ? "brightness(0) invert(1)" : "none",
       }}
