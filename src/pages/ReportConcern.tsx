@@ -41,33 +41,7 @@ const CONCERN_TYPES = [
   "Public Record Changes",
 ];
 
-const TRUST_BADGES = [
-  "Independent Review Process",
-  "Documentation-Based Assessment",
-  "Public Record Reconciliation",
-];
-
 /* ───────────────── Local primitives ───────────────── */
-
-const TrustBadge = ({ children }: { children: ReactNode }) => (
-  <span
-    className="inline-flex items-center font-mono uppercase"
-    style={{
-      borderRadius: "999px",
-      border: "1px solid rgba(0,0,0,0.10)",
-      padding: "4px 10px",
-      fontSize: "10px",
-      fontWeight: 500,
-      letterSpacing: "0.08em",
-      color: "rgba(0,0,0,0.62)",
-      backgroundColor: "#FFFFFF",
-      whiteSpace: "nowrap",
-      lineHeight: 1.4,
-    }}
-  >
-    {children}
-  </span>
-);
 
 const SectionHeader = ({
   n,
