@@ -632,8 +632,8 @@ const VendorProfile = () => {
             <div style={{ padding: "16px 14px 14px" }}>
               {/* Status + Service model — single registry line */}
               <div
-                className="flex flex-wrap items-center font-sans font-bold uppercase"
-                style={{ fontSize: "10px", letterSpacing: "0.08em", lineHeight: 1, gap: "6px" }}
+                className="flex flex-wrap items-center font-sans font-semibold uppercase"
+                style={{ fontSize: "15px", letterSpacing: "0.06em", lineHeight: 1, gap: "6px" }}
               >
                 <StatusPill />
                 {(isInPerson || isHybrid) && (
@@ -665,8 +665,8 @@ const VendorProfile = () => {
                   <LogoBlock vendor={vendor} size={36} />
                 </div>
                 <h1
-                  className="min-w-0 flex-1 font-sans font-semibold text-foreground"
-                  style={{ fontSize: "18px", lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                  className="min-w-0 flex-1 font-sans text-foreground"
+                  style={{ fontSize: "32px", fontWeight: 700, lineHeight: 1.15, letterSpacing: "-0.01em" }}
                 >
                   {vendor.name}
                 </h1>
@@ -678,19 +678,20 @@ const VendorProfile = () => {
                   {location !== "—" && (
                     <span
                       className="inline-flex items-center gap-1 text-muted-foreground"
-                      style={{ fontSize: "11px" }}
+                      style={{ fontSize: "17px", fontWeight: 400 }}
                     >
-                      <MapPin size={13} strokeWidth={1.5} />
+                      <MapPin size={16} strokeWidth={1.5} />
                       {location}
                     </span>
                   )}
                   {vendor.reviewId && (
-                    <span className="font-mono text-muted-foreground" style={{ fontSize: "11px" }}>
+                    <span className="font-mono text-muted-foreground" style={{ fontSize: "15px" }}>
                       {vendor.reviewId}
                     </span>
                   )}
                 </div>
               )}
+
 
               {/* Contact row — website / phone / email / maps */}
               {(vendor.website || phoneHref || emailHref || mapsHref) && (
