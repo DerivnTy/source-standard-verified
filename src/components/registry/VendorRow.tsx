@@ -104,13 +104,13 @@ export const VendorRow = ({
       {/* Stacked content: name, location/type, therapy tag */}
       <div
         className="flex flex-col"
-        style={{ gap: "6px", paddingRight: "108px" }}
+        style={{ gap: "3px", paddingRight: "108px" }}
       >
         <h3
           className="font-sans text-foreground truncate"
           style={{
             minWidth: 0,
-            fontSize: "18px",
+            fontSize: "15px",
             fontWeight: 600,
             lineHeight: 1.2,
             letterSpacing: "-0.01em",
