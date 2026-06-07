@@ -201,7 +201,7 @@ const cardChrome = {
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p
     className="font-mono uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
   >
     {children}
   </p>
@@ -232,7 +232,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "26px",
+          fontSize: "24px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -270,20 +270,20 @@ const ComplianceRow = ({
     <div className="flex items-baseline justify-between gap-4">
       <h3
         className="font-sans font-semibold text-foreground min-w-0"
-        style={{ fontSize: "12px", lineHeight: 1.4 }}
+        style={{ fontSize: "14px", lineHeight: 1.3 }}
       >
         {title}
       </h3>
       <span
         className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
       >
         {index} / {total}
       </span>
     </div>
     <p
       className="text-muted-foreground"
-      style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "6px" }}
+      style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
     >
       {description}
     </p>
@@ -308,13 +308,13 @@ const RelatedLinkRow = ({
       <div className="min-w-0">
         <h3
           className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors"
-          style={{ fontSize: "12px", lineHeight: 1.4 }}
+          style={{ fontSize: "14px", lineHeight: 1.3 }}
         >
           {label}
         </h3>
         <p
           className="mt-1 text-muted-foreground"
-          style={{ fontSize: "11px", lineHeight: 1.5 }}
+          style={{ fontSize: "13px", lineHeight: 1.7 }}
         >
           {description}
         </p>
@@ -380,13 +380,13 @@ const Accountability = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     A Verified record is not permanent.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     It remains in effect only while the available evidence, sourcing relationships, submitted documentation, public records, and ongoing monitoring activity continue to support the published review scope.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
                   </p>
                 </div>
@@ -438,7 +438,7 @@ const Accountability = () => {
               />
               <p
                 className="text-muted-foreground"
-                style={{ fontSize: "13.5px", lineHeight: 1.55, marginBottom: "16px", maxWidth: "62ch" }}
+                style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
                 The following events are expected to be reported within the stated response window. Failure to report a material change may itself trigger review or status revision.
               </p>
@@ -554,7 +554,7 @@ const Accountability = () => {
                 <h2 className="t-section-title-sm text-foreground mt-2">Re-entry</h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "8px" }}
+                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
                 >
                   How a listing may return after suspension or removal.
                 </p>
@@ -566,13 +566,13 @@ const Accountability = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     A Suspended record may return to Verified status once the underlying matter is resolved and supported by documentation in the review file.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     A Removed record may return only through a new submission, new review cycle, and reassessment under the then-current framework.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Prior status history, including the original determination, triggering events, and disposition, may remain part of the record and may be referenced in future review.
                   </p>
                 </div>
@@ -615,7 +615,7 @@ const Accountability = () => {
                 </h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                  style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
                   The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification integrity depends on monitoring activity, supply-chain transparency, testing activity, facility monitoring, manufacturer oversight, and documentation support — not documentation alone. Verification remains meaningful only when these inputs continue to reconcile with the published scope as new information becomes available.
                 </p>

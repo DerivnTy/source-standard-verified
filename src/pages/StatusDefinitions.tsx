@@ -138,7 +138,7 @@ const cardChrome = {
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p
     className="font-mono uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
   >
     {children}
   </p>
@@ -169,7 +169,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "26px",
+          fontSize: "24px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -214,13 +214,13 @@ const StatusField = ({
   >
     <p
       className="font-mono uppercase text-muted-foreground"
-      style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+      style={{ fontSize: "11px", letterSpacing: "0.12em" }}
     >
       {label}
     </p>
     <p
       className="mt-1.5 text-muted-foreground"
-      style={{ fontSize: "11px", lineHeight: 1.55 }}
+      style={{ fontSize: "13px", lineHeight: 1.7 }}
     >
       {value}
     </p>
@@ -323,13 +323,13 @@ const RelatedLinkRow = ({
       <div className="min-w-0" style={{ paddingRight: "0px" }}>
         <h3
           className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors"
-          style={{ fontSize: "12px", lineHeight: 1.4 }}
+          style={{ fontSize: "14px", lineHeight: 1.3 }}
         >
           {title}
         </h3>
         <p
           className="mt-1 text-muted-foreground"
-          style={{ fontSize: "11px", lineHeight: 1.5 }}
+          style={{ fontSize: "13px", lineHeight: 1.7 }}
         >
           {description}
         </p>
@@ -401,13 +401,13 @@ const StatusDefinitions = () => {
                 <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "14px" }}>
                   <p
                     className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                    style={{ fontSize: "14px", lineHeight: 1.75 }}
                   >
                     Status labels provide a standardized public language for understanding the current state of a sourcing record without requiring users to review underlying documentation.
                   </p>
                   <p
                     className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                    style={{ fontSize: "14px", lineHeight: 1.75 }}
                   >
                     Each status has a defined public meaning and a defined limit. A status indicates the current documentation review state. It does not imply clinical recommendation, vendor approval, product approval, or regulatory endorsement.
                   </p>
@@ -512,7 +512,7 @@ const StatusDefinitions = () => {
                 </h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                  style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
                   The purpose of these definitions is to establish a consistent public language for interpreting Source Standard records. A status communicates the current state of reviewed evidence within a defined scope. It should not be interpreted as a medical recommendation, product approval, or guarantee of future performance.
                 </p>

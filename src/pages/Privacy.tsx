@@ -103,7 +103,7 @@ const cardChrome = {
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p
     className="font-mono uppercase text-muted-foreground"
-    style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
   >
     {children}
   </p>
@@ -134,7 +134,7 @@ const SectionHeader = ({
       <h2
         className="font-sans text-foreground"
         style={{
-          fontSize: "26px",
+          fontSize: "24px",
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.02em",
@@ -172,20 +172,20 @@ const PrivacyRow = ({
     <div className="flex items-baseline justify-between gap-4">
       <h3
         className="font-sans font-semibold text-foreground min-w-0"
-        style={{ fontSize: "12px", lineHeight: 1.4 }}
+        style={{ fontSize: "14px", lineHeight: 1.3 }}
       >
         {title}
       </h3>
       <span
         className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
       >
         {index} / {total}
       </span>
     </div>
     <p
       className="text-muted-foreground"
-      style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "6px" }}
+      style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
     >
       {description}
     </p>
@@ -205,7 +205,7 @@ const ContactLine = ({
   >
     <span
       className="font-mono uppercase text-muted-foreground"
-      style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+      style={{ fontSize: "11px", letterSpacing: "0.12em" }}
     >
       {label}
     </span>
@@ -269,13 +269,13 @@ const Privacy = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Source Standard maintains two distinct information environments: public-reference records that support transparency and protected review materials that support verification. This framework defines how those records are collected, maintained, protected, and administered throughout the verification lifecycle.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.
                   </p>
                 </div>
@@ -363,7 +363,7 @@ const Privacy = () => {
                 <h2 className="t-section-title-sm text-foreground mt-2">Authorized Use</h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "8px" }}
+                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
                 >
                   How data may be used in support of the framework.
                 </p>
@@ -375,7 +375,7 @@ const Privacy = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Information maintained by Source Standard is used solely to support verification activities, registry administration, monitoring processes, public-reference records, operational infrastructure, and related governance functions. Access is limited to authorized personnel and approved service providers operating under confidentiality obligations.
                   </p>
                 </div>
@@ -397,7 +397,7 @@ const Privacy = () => {
                 <h2 className="t-section-title-sm text-foreground mt-2">Privacy Requests</h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "11px", lineHeight: 1.55, marginTop: "8px" }}
+                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
                 >
                   How privacy-related requests may be made.
                 </p>
@@ -409,10 +409,10 @@ const Privacy = () => {
                     gap: "14px",
                   }}
                 >
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.
                   </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "13.5px", lineHeight: 1.6 }}>
+                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.
                   </p>
                 </div>
@@ -429,7 +429,7 @@ const Privacy = () => {
                 </h2>
                 <p
                   className="text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.6, marginTop: "16px" }}
+                  style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
                   The purpose of this framework is to balance transparency with responsible stewardship of sensitive information. Public records exist to improve visibility into sourcing transparency, manufacturer relationships, facility relationships, testing activity, status history, and supply-chain transparency. Protected review materials and independent verification records exist to support evidence-based review while preserving privacy, security, and verification integrity.
                 </p>
