@@ -432,22 +432,28 @@ const GreenlistProfile = () => {
               </div>
             )}
 
-            {/* SECTION 6 — Greenlist Status */}
+            {/* SECTION 6 — Current Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
-              <SectionLabel>Greenlist Status</SectionLabel>
-              <p className="mt-3 text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
-                <span className="font-sans font-semibold uppercase text-muted-foreground" style={{ fontSize: "12px", letterSpacing: "0.05em" }}>
-                  Current Status ·{" "}
-                </span>
-                <span className="font-sans font-semibold text-foreground" style={{ fontSize: "13px" }}>
-                  {STATUS_LABEL[status]}
-                </span>
+              <SectionLabel>Current Status</SectionLabel>
+              <div
+                className="mt-3 flex items-center font-sans font-semibold"
+                style={{ fontSize: "18px", lineHeight: 1.2, color: STATUS_COLOR[status] }}
+              >
+                <span
+                  className="inline-block rounded-full animate-pulse mr-2"
+                  style={{ width: 8, height: 8, backgroundColor: "currentColor" }}
+                />
+                {STATUS_LABEL[status]}
+              </div>
+              <p className="mt-3 text-foreground" style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.6 }}>
+                {isGreenlisted
+                  ? "This facility currently holds Greenlisted status based on successful independent testing activity."
+                  : status === "alert"
+                  ? "This facility is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
+                  : "This facility has been identified within the Source Standard database and is currently under monitoring."}
               </p>
-              <p className="mt-2 text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
-                {statusBlurb}
-              </p>
-              <p className="mt-2 text-muted-foreground" style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.6 }}>
-                Greenlisted status is not assigned based on FDA registration, 503A designation, or 503B designation alone. It is earned through successful independent testing activity.
+              <p className="mt-2 text-muted-foreground" style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.6 }}>
+                Greenlisted status is earned through ongoing independent testing activity and is not assigned based solely on FDA registration, 503A designation, or 503B designation.
               </p>
             </div>
 
