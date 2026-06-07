@@ -663,7 +663,7 @@ const VendorProfile = () => {
                 </div>
                 <h1
                   className="min-w-0 flex-1 font-sans text-foreground"
-                  style={{ fontSize: "18px", fontWeight: 700, lineHeight: 1.2, letterSpacing: "-0.01em" }}
+                  style={{ fontSize: "15px", fontWeight: 600, lineHeight: 1.2, letterSpacing: "-0.01em" }}
                 >
                   {vendor.name}
                 </h1>
