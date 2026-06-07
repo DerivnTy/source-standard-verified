@@ -371,8 +371,8 @@ const VendorProfile = () => {
   // Status pill
   const StatusPill = () => {
     const baseStyle = {
-      fontSize: "14px",
-      letterSpacing: "0.06em",
+      fontSize: "13px",
+      letterSpacing: "0.04em",
       lineHeight: 1,
       gap: "4px",
       fontWeight: 600,
@@ -632,20 +632,20 @@ const VendorProfile = () => {
             <div style={{ padding: "16px 14px 14px" }}>
               {/* Status + Service model — single registry line */}
               <div
-                className="flex flex-wrap items-center font-sans font-semibold uppercase"
-                style={{ fontSize: "14px", letterSpacing: "0.05em", lineHeight: 1, gap: "6px" }}
+                className="flex flex-wrap items-center font-sans uppercase"
+                style={{ fontSize: "13px", letterSpacing: "0.04em", lineHeight: 1, gap: "6px" }}
               >
                 <StatusPill />
                 {(isInPerson || isHybrid) && (
                   <>
                     <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
-                    <span style={{ color: "hsl(var(--muted-foreground))" }}>In-Person</span>
+                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))" }}>In-Person</span>
                   </>
                 )}
                 {(isOnline || isHybrid) && (
                   <>
                     <span aria-hidden style={{ color: "hsl(var(--muted-foreground))" }}>•</span>
-                    <span style={{ color: "hsl(var(--muted-foreground))" }}>Telehealth</span>
+                    <span className="font-medium" style={{ color: "hsl(var(--muted-foreground))" }}>Telehealth</span>
                   </>
                 )}
               </div>
