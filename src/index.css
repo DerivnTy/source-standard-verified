@@ -486,7 +486,15 @@ html {
     .section-pad { padding-top: 64px; padding-bottom: 52px; }
     .section-gap { margin-top: 56px; }
     .hero-gap    { margin-top: 80px; }
-    .w-standard  { max-width: 1240px; }
+    /* Desktop restraint: long-form / framework / governance pages stay at the
+       institutional 1120px measure on desktop. The previous 1240px widening
+       produced 100-character lines that read like a marketing page rather
+       than a public registry. */
+    .w-standard  { max-width: 1120px; }
+    /* Registry/index surfaces (vendor list, facility list, etc.) — slightly
+       tighter than before so cards and filter rows don't drift apart on
+       larger monitors. */
+    .w-wide      { max-width: 1200px; }
   }
 
   /* Tighten the gap between consecutive content sections (post-hero rhythm).
