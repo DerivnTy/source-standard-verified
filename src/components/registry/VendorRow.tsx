@@ -87,12 +87,12 @@ export const VendorRow = ({
       <span
         className="absolute font-sans text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
         style={{
-          bottom: "14px",
-          right: "18px",
+          bottom: "8px",
+          right: "14px",
           display: "inline-flex",
           alignItems: "center",
           gap: "4px",
-          fontSize: "15px",
+          fontSize: "14px",
           fontWeight: 600,
           lineHeight: 1,
         }}
