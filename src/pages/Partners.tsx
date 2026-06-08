@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { PageMeta } from "@/components/PageMeta";
-import { Section, Eyebrow, PageTitle, SectionHeading, Lead } from "@/components/system";
+import { Section, Eyebrow, SectionHeading, Lead } from "@/components/system";
+import { BriefingHero } from "@/components/BriefingHero";
 import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const PROCESS = [
@@ -24,24 +25,21 @@ const FieldRow = ({ label, children }: { label: string; children: React.ReactNod
 const Partners = () => (
   <>
     <PageMeta
-      title="Partners & Infrastructure"
-      description="Independent laboratory partners, verification network participants, and the research partnership between Source Standard and Open."
+      title="Partners"
+      description="Independent laboratories, participating organizations, and research partners that support the Source Standard verification ecosystem."
       path="/partners"
     />
 
-    {/* Page header */}
-    <Section bordered={false}>
-      <Eyebrow>Infrastructure</Eyebrow>
-      <div className="mt-4">
-        <PageTitle>Partners & Infrastructure</PageTitle>
-      </div>
-      <div className="mt-5 max-w-2xl">
-        <Lead>
-          Public documentation of the independent laboratories, participating organizations, and research
-          partners that support the Source Standard verification framework.
-        </Lead>
-      </div>
-    </Section>
+    {/* Page hero — matches Verification Framework */}
+    <BriefingHero
+      tone="navy"
+      variant="chapter"
+      category="Partners"
+      title="Partners"
+      statement="Independent laboratories, participating organizations, and research partners that support the Source Standard verification ecosystem."
+      docId=""
+    />
+
 
     {/* Section 1 — Verification Infrastructure */}
     <Section>
