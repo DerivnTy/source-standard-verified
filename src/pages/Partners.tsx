@@ -160,11 +160,6 @@ const Partners = () => (
               </p>
             </div>
           </FieldRow>
-          <FieldRow label="Website">
-            <span className="t-utility-xs uppercase tracking-wider text-muted-foreground">
-              Website — Coming Soon
-            </span>
-          </FieldRow>
         </div>
       </article>
     </Section>
