@@ -3,31 +3,6 @@ import { PageMeta } from "@/components/PageMeta";
 import { Section, Eyebrow, PageTitle, SectionHeading, Lead } from "@/components/system";
 import openLogo from "@/assets/open-logo.png.asset.json";
 
-type Lab = {
-  name: string;
-  capabilities: string;
-  status: string;
-  accreditation: string;
-  website: string;
-};
-
-const LABS: Lab[] = [
-  {
-    name: "Independent Laboratory — Placeholder A",
-    capabilities: "Identity, potency, and sterility testing for compounded preparations.",
-    status: "Active participant",
-    accreditation: "Accreditation details pending publication.",
-    website: "Website pending",
-  },
-  {
-    name: "Independent Laboratory — Placeholder B",
-    capabilities: "Endotoxin, particulate, and stability analysis.",
-    status: "Active participant",
-    accreditation: "Accreditation details pending publication.",
-    website: "Website pending",
-  },
-];
-
 const PROCESS = [
   { n: "01", label: "Intelligence Partners" },
   { n: "02", label: "Facility Verification" },
