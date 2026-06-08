@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { PageMeta } from "@/components/PageMeta";
 import { Section, Eyebrow, PageTitle, SectionHeading, Lead } from "@/components/system";
-import openLogo from "@/assets/open-logo.png.asset.json";
+import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const PROCESS = [
   { n: "01", label: "Intelligence Partners" },
@@ -131,7 +131,7 @@ const Partners = () => (
           <img
             src={openLogo.url}
             alt="Open"
-            className="h-9 w-auto md:h-11"
+            className="h-14 w-auto md:h-16"
             loading="lazy"
           />
         </div>
