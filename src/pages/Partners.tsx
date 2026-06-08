@@ -13,7 +13,7 @@ const PROCESS = [
 ];
 
 const FieldRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <div className="flex flex-col gap-1 border-t border-border py-3 first:border-t-0 first:pt-0 sm:flex-row sm:gap-6">
+  <div className="flex flex-col gap-1 border-t border-border py-3 sm:flex-row sm:gap-6">
     <div className="t-utility-xs text-muted-foreground sm:w-44 sm:shrink-0 sm:pt-0.5 uppercase tracking-wider">
       {label}
     </div>
