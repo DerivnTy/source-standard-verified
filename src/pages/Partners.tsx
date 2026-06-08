@@ -131,7 +131,7 @@ const Partners = () => (
           <img
             src={openLogo.url}
             alt="Open"
-            className="h-9 w-auto md:h-11"
+            className="h-14 w-auto md:h-16"
             loading="lazy"
           />
         </div>
