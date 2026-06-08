@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { PageMeta } from "@/components/PageMeta";
 import { Section, Eyebrow, PageTitle, SectionHeading, Lead } from "@/components/system";
 import openLogo from "@/assets/open-logo.png.asset.json";
@@ -146,17 +147,17 @@ const Partners = () => (
       {/* Desktop: horizontal flow */}
       <div className="mt-10 hidden lg:grid lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr] lg:items-stretch">
         {PROCESS.map((step, i) => (
-          <>
-            <div key={step.n} className="border border-border bg-background px-4 py-5">
+          <Fragment key={step.n}>
+            <div className="border border-border bg-background px-4 py-5">
               <div className="t-utility-xs uppercase tracking-wider text-muted-foreground">{step.n}</div>
               <div className="mt-1 t-body-sm font-medium text-foreground">{step.label}</div>
             </div>
             {i < PROCESS.length - 1 && (
-              <div key={`${step.n}-sep`} className="flex items-center justify-center px-2">
+              <div className="flex items-center justify-center px-2">
                 <span className="block h-px w-6 bg-border" aria-hidden />
               </div>
             )}
-          </>
+          </Fragment>
         ))}
       </div>
     </Section>
