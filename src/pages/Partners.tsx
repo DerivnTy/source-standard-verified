@@ -63,11 +63,6 @@ const Partners = () => (
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-        {LABS.map((lab) => (
-          <LabCard key={lab.name} lab={lab} />
-        ))}
-      </div>
     </Section>
 
     {/* Section 2 — Verification Network */}
