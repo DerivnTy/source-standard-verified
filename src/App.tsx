@@ -55,6 +55,7 @@ import Terms from "./pages/Terms.tsx";
 import VerificationDisclaimer from "./pages/VerificationDisclaimer.tsx";
 import HowToReadTheDirectory from "./pages/HowToReadTheDirectory.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
+import Partners from "./pages/Partners.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -123,6 +124,7 @@ const App = () => (
             <Route path="/verification-disclaimer" element={<VerificationDisclaimer />} />
             <Route path="/how-to-read-the-directory" element={<HowToReadTheDirectory />} />
             <Route path="/unsubscribe" element={<Unsubscribe />} />
+            <Route path="/partners" element={<Partners />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
