@@ -8,7 +8,7 @@ const nav = [
   { to: "/verified-vendors", label: "Vendor Registry" },
   { to: "/greenlist", label: "Facility Records" },
   { to: "/how-it-works", label: "Verification Framework" },
-  { to: "/partners", label: "Partners & Infrastructure" },
+  { to: "/partners", label: "Partners" },
   { to: "/medical-advisory", label: "Advisory Board" },
   { to: "/education", label: "Resource Library" },
   { to: "/about", label: "About Source Standard" },
