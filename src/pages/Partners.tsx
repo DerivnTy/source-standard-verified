@@ -133,7 +133,7 @@ const Partners = () => (
             loading="lazy"
           />
         </div>
-        <div className="mt-6 flex flex-col">
+        <div className="mt-8 flex flex-col">
           <FieldRow label="Organization">Open</FieldRow>
           <FieldRow label="Classification">Clinical Intelligence Partner</FieldRow>
           <FieldRow label="Description">
