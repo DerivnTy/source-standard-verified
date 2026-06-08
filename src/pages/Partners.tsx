@@ -3,31 +3,6 @@ import { PageMeta } from "@/components/PageMeta";
 import { Section, Eyebrow, PageTitle, SectionHeading, Lead } from "@/components/system";
 import openLogo from "@/assets/open-logo.png.asset.json";
 
-type Lab = {
-  name: string;
-  capabilities: string;
-  status: string;
-  accreditation: string;
-  website: string;
-};
-
-const LABS: Lab[] = [
-  {
-    name: "Independent Laboratory — Placeholder A",
-    capabilities: "Identity, potency, and sterility testing for compounded preparations.",
-    status: "Active participant",
-    accreditation: "Accreditation details pending publication.",
-    website: "Website pending",
-  },
-  {
-    name: "Independent Laboratory — Placeholder B",
-    capabilities: "Endotoxin, particulate, and stability analysis.",
-    status: "Active participant",
-    accreditation: "Accreditation details pending publication.",
-    website: "Website pending",
-  },
-];
-
 const PROCESS = [
   { n: "01", label: "Intelligence Partners" },
   { n: "02", label: "Facility Verification" },
@@ -45,19 +20,6 @@ const FieldRow = ({ label, children }: { label: string; children: React.ReactNod
   </div>
 );
 
-const LabCard = ({ lab }: { lab: Lab }) => (
-  <article className="border border-border bg-background p-6 md:p-7">
-    <h3 className="h-card text-foreground">{lab.name}</h3>
-    <div className="mt-5 flex flex-col">
-      <FieldRow label="Testing Capabilities">{lab.capabilities}</FieldRow>
-      <FieldRow label="Verification Status">{lab.status}</FieldRow>
-      <FieldRow label="Accreditation">{lab.accreditation}</FieldRow>
-      <FieldRow label="Website">
-        <span className="t-utility-xs uppercase tracking-wider text-muted-foreground">{lab.website}</span>
-      </FieldRow>
-    </div>
-  </article>
-);
 
 const Partners = () => (
   <>
@@ -101,11 +63,6 @@ const Partners = () => (
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-        {LABS.map((lab) => (
-          <LabCard key={lab.name} lab={lab} />
-        ))}
-      </div>
     </Section>
 
     {/* Section 2 — Verification Network */}
