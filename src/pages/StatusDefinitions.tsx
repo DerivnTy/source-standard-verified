@@ -137,7 +137,7 @@ const cardChrome = {
 
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p
-    className="font-mono uppercase text-muted-foreground"
+    className="font-mono uppercase text-primary"
     style={{ fontSize: "11px", letterSpacing: "0.12em" }}
   >
     {children}
@@ -213,7 +213,7 @@ const StatusField = ({
     }
   >
     <p
-      className="font-mono uppercase text-muted-foreground"
+      className="font-mono uppercase text-primary"
       style={{ fontSize: "11px", letterSpacing: "0.12em" }}
     >
       {label}
