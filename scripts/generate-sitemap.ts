@@ -20,6 +20,7 @@ const staticRoutes: string[] = [
   "/",
   "/about",
   "/how-it-works",
+  "/partners",
   "/greenlist",
   "/verified-vendors",
   "/directory",
