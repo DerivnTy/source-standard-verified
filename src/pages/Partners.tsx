@@ -20,19 +20,6 @@ const FieldRow = ({ label, children }: { label: string; children: React.ReactNod
   </div>
 );
 
-const LabCard = ({ lab }: { lab: Lab }) => (
-  <article className="border border-border bg-background p-6 md:p-7">
-    <h3 className="h-card text-foreground">{lab.name}</h3>
-    <div className="mt-5 flex flex-col">
-      <FieldRow label="Testing Capabilities">{lab.capabilities}</FieldRow>
-      <FieldRow label="Verification Status">{lab.status}</FieldRow>
-      <FieldRow label="Accreditation">{lab.accreditation}</FieldRow>
-      <FieldRow label="Website">
-        <span className="t-utility-xs uppercase tracking-wider text-muted-foreground">{lab.website}</span>
-      </FieldRow>
-    </div>
-  </article>
-);
 
 const Partners = () => (
   <>
