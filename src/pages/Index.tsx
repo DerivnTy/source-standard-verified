@@ -565,12 +565,14 @@ const Index = () => {
             >
               Why Source Standard Exists
             </h2>
-            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400 }}>
-              Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent.
-            </p>
-            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400 }}>
-              Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
-            </p>
+            <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "64ch" }}>
+                Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent.
+              </p>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: "16px", maxWidth: "64ch" }}>
+                Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
+              </p>
+            </div>
           </div>
         </div>
       </section>
