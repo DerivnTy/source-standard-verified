@@ -56,7 +56,7 @@ const ForVendors = () => {
         ]}
         eyebrow="Vendor onboarding"
         title="Vendor Submission Standard"
-        lead="Technical specifications for the records, credentials, and procurement evidence required at intake. Submitted materials are entered into the controlled audit file and examined under the forensic review protocol."
+        lead="An overview of the records, credentials, and sourcing evidence requested at intake. Submitted materials are reviewed against the Source Standard framework before any determination of standing."
       />
 
       {/* §1 Mandatory Evidentiary Inventory */}
