@@ -259,8 +259,8 @@ const Apply = () => {
                       </div>
                     </Group>
 
-                    {/* Clinical Authority */}
-                    <Group legend="Clinical Authority">
+                    {/* Prescriber */}
+                    <Group legend="Prescriber Information">
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="PrescriberName">
