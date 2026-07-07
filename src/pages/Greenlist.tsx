@@ -140,13 +140,15 @@ const Greenlist = () => {
               }}
             >
               {/* Lead-in paragraph */}
-              <p
-                className="text-muted-foreground"
-                style={{ fontSize: "14px", lineHeight: 1.65 }}
-              >
-                Facility records provide transparency into recognized upstream
-                organizations operating within the compounded therapy supply chain.
-              </p>
+              <div className="max-w-[760px]">
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "14px", lineHeight: 1.65 }}
+                >
+                  Facility records provide transparency into recognized upstream
+                  organizations operating within the compounded therapy supply chain.
+                </p>
+              </div>
 
               {/* Hairline divider */}
               <div
@@ -155,7 +157,7 @@ const Greenlist = () => {
               />
 
               {/* Greenlisted Status */}
-              <div className="mt-5">
+              <div className="mt-5 max-w-[760px]">
                 <p
                   className="font-sans font-semibold uppercase text-muted-foreground"
                   style={{ fontSize: "11px", letterSpacing: "0.12em" }}
