@@ -27,9 +27,9 @@ const docs = [
 ];
 
 const issued = [
-  "A public Verified profile entered in the Source Standard Registry of record.",
-  "A unique Audit ID (format SS-AUD-YYYY-NNNNN) that may be cited and independently confirmed against the registry.",
-  "A Verification Transcript, the itemized public record of documentation reviewed, examination domains covered, and the standing issued.",
+  "A public Verified profile listed in the Source Standard registry.",
+  "A unique public reference identifier that may be cited and confirmed against the registry.",
+  "A public verification record describing the scope of review and the standing issued.",
   "A verification badge for use on vendor-controlled surfaces, governed by the framework's attribution terms.",
 ];
 
