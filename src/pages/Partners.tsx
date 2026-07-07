@@ -5,11 +5,11 @@ import { BriefingHero } from "@/components/BriefingHero";
 import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const PROCESS = [
-  { n: "01", label: "Intelligence Partners" },
-  { n: "02", label: "Facility Verification" },
-  { n: "03", label: "Independent Testing" },
-  { n: "04", label: "Source Standard Registry" },
-  { n: "05", label: "Ongoing Monitoring" },
+  { n: "01", label: "Healthcare Organizations" },
+  { n: "02", label: "Independent Laboratories" },
+  { n: "03", label: "Upstream Facilities" },
+  { n: "04", label: "Public Registry" },
+  { n: "05", label: "Research Partners" },
 ];
 
 const FieldRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
@@ -49,9 +49,8 @@ const Partners = () => (
       </div>
       <div className="mt-6 max-w-3xl space-y-5 t-body-md text-muted-foreground">
         <p>
-          Source Standard operates through independent third-party laboratory testing, structured verification
-          procedures, and ongoing monitoring protocols designed to strengthen confidence throughout the
-          compounded therapy supply chain.
+          Source Standard collaborates with independent organizations to support objective verification and
+          improve transparency throughout the compounded therapy supply chain.
         </p>
         <p>
           All testing used within the Source Standard framework is performed by independent laboratories.
@@ -71,14 +70,12 @@ const Partners = () => (
       </div>
       <div className="mt-6 max-w-3xl space-y-5 t-body-md text-muted-foreground">
         <p>
-          Source Standard works with participating clinics, vendors, pharmacies, manufacturers, and
-          healthcare organizations to support source verification, facility intelligence, product monitoring,
-          and supply-chain transparency.
+          Source Standard works alongside healthcare organizations, independent laboratories, upstream
+          facilities, and research partners to build a transparent and accountable public-reference ecosystem.
         </p>
         <p>
-          Participating organizations contribute to the verification ecosystem through documentation review,
-          facility verification, product testing, monitoring activities, and ongoing compliance with Source
-          Standard procedures.
+          Participating organizations contribute expertise, infrastructure, and services that support the
+          Source Standard framework and strengthen confidence across the compounded therapy supply chain.
         </p>
       </div>
 
@@ -140,17 +137,14 @@ const Partners = () => (
             <div className="space-y-4">
               <p>
                 Open is a physician-led clinical intelligence organization focused on helping healthcare
-                professionals better understand emerging therapies, protocols, procedures, and treatment
-                outcomes.
+                professionals better understand emerging therapies and treatment outcomes.
               </p>
               <p>While Source Standard verifies the source layer, Open studies the response layer.</p>
               <p>
-                Source Standard focuses on source integrity, supply-chain verification, facility monitoring,
-                and product accountability.
+                Source Standard focuses on source integrity and supply-chain accountability.
               </p>
               <p>
-                Open focuses on clinical outcomes, monitoring frameworks, protocol intelligence, evidence
-                generation, and professional decision support.
+                Open focuses on clinical outcomes and professional decision support.
               </p>
               <p>
                 Together, these organizations represent two complementary layers of infrastructure for
@@ -173,14 +167,14 @@ const Partners = () => (
         <div className="border border-border bg-background p-6 md:p-8 lg:border-r-0">
           <p className="t-section-title-sm text-foreground">“Was the source trustworthy?”</p>
           <p className="mt-5 t-body-md text-muted-foreground">
-            Source Standard provides independent verification, monitoring, and source accountability.
+            Source Standard provides independent verification and source accountability.
           </p>
         </div>
         <div className="border border-border bg-background p-6 md:p-8">
           <p className="t-section-title-sm text-foreground">“What happened after it was used?”</p>
           <p className="mt-5 t-body-md text-muted-foreground">
-            Open provides structured clinical intelligence designed to help professionals better understand
-            outcomes, safety, monitoring, and response patterns.
+            Open provides clinical intelligence designed to help professionals better understand outcomes and
+            response patterns.
           </p>
         </div>
       </div>
