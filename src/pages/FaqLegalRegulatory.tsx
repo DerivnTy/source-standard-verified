@@ -16,8 +16,8 @@ const ITEMS = [
     a: "No. Verification reflects documentation reviewed within the Source Standard framework. It is not government approval, certification, accreditation, or endorsement.",
   },
   {
-    q: "Can Source Standard remove a vendor from operation?",
-    a: "No. Source Standard can update or remove a registry listing, but it does not control a vendor's ability to operate.",
+    q: "What actions can Source Standard take regarding a vendor?",
+    a: "Source Standard can update or remove a registry listing based on the information available. It does not have authority over a vendor's ability to operate; that authority rests with regulators.",
   },
   {
     q: "Does Source Standard provide legal advice?",
