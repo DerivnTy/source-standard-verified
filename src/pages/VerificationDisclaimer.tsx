@@ -419,7 +419,7 @@ const VerificationDisclaimer = () => {
                     <p>It is not a regulatory designation.</p>
                     <p>It is not a medical recommendation.</p>
                     <p>
-                      Its purpose is to improve public visibility into sourcing claims, facility relationships, manufacturer relationships, testing activity, supporting evidence, and supply-chain transparency.
+                      Its purpose is to improve public visibility into sourcing claims and the pharmacies, facilities, and manufacturers that vendors rely on.
                     </p>
                   </div>
                 </DisclaimerCard>
