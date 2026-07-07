@@ -46,7 +46,7 @@ const EducationGuides = () => {
     <>
       <PageMeta
         title="Clinical & Audit Guides"
-        description="Operational guides for interpreting CoAs, sterile preparation, aseptic technique, and reference dosing."
+        description="Clinical reference guides on interpreting CoAs, sterile preparation, aseptic technique, and reference dosing."
       />
       <Breadcrumb
         items={[
