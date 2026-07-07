@@ -247,6 +247,12 @@ const VerifiedVendors = () => {
                     />
                   ))}
                 </div>
+                <p
+                  className="mt-2 text-muted-foreground"
+                  style={{ fontSize: "12px", lineHeight: 1.5, fontWeight: 400 }}
+                >
+                  Status reflects Source Standard's review within a defined scope and at a defined point in time.
+                </p>
               </div>
 
               {/* Vendor Type */}
