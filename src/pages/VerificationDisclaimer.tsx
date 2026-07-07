@@ -400,7 +400,7 @@ const VerificationDisclaimer = () => {
               <SectionHeader
                 index="05"
                 title="Framework Interpretation"
-                intro="Source Standard verification should be interpreted as a transparency determination informed by documentation review, monitoring activity, facility review, manufacturer review, testing activity, and supply-chain verification within a defined scope."
+                intro="Source Standard verification should be interpreted as a transparency determination made within a defined public review framework."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <DisclaimerCard>
