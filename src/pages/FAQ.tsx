@@ -200,7 +200,7 @@ const FAQ = () => (
     <Section density="tight">
       <SectionLabel number={`§${groups.length + 1}`} title="Read deeper" />
       <ul className="space-y-2 t-body-sm">
-        <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
+        <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Ongoing Standing →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
         <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">How Verification Works →</Link></li>
         <li><Link to="/governance" className="text-foreground underline-offset-4 hover:underline">Governance →</Link></li>
