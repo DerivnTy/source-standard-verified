@@ -13,11 +13,11 @@ const ITEMS = [
   },
   {
     q: "What information is reviewed?",
-    a: "Depending on the review scope, documentation may include sourcing records, pharmacy relationships, licensure records, chain-of-custody evidence, and related public records.",
+    a: "Depending on the review scope, information considered may include sourcing documentation, pharmacy relationships, licensure records, and related public records.",
   },
   {
     q: "Can a vendor lose Verified status?",
-    a: "Yes. Registry status may change when documentation expires, sourcing changes occur, new information emerges, or review standards are no longer satisfied.",
+    a: "Yes. Registry status may change when documentation expires, sourcing changes occur, or new information indicates the record no longer reflects current conditions.",
   },
   {
     q: "Are all vendors in the registry Verified?",
