@@ -437,7 +437,7 @@ const VerificationDisclaimer = () => {
                   className="text-muted-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
-                  The purpose of the Source Standard framework is to create a clearer public record around sourcing transparency through documentation review, supply-chain verification, facility review, manufacturer review, monitoring activity, and independent testing activity. Verification reflects reviewed evidence within a defined scope and should always be interpreted within the limits established by that scope.
+                  The purpose of the Source Standard framework is to create a clearer public record around sourcing transparency. Verification reflects reviewed information within a defined scope and should always be interpreted within the limits of that scope.
                 </p>
               </DisclaimerCard>
             </section>
