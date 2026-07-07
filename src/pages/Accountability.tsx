@@ -611,13 +611,13 @@ const Accountability = () => {
               <ComplianceCard>
                 <Eyebrow>Ongoing Record Integrity</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
-                  Verification requires continuing record support.
+                  Verification is grounded in current information.
                 </h2>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
-                  The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification integrity depends on monitoring activity, supply-chain transparency, testing activity, facility monitoring, manufacturer oversight, and documentation support — not documentation alone. Verification remains meaningful only when these inputs continue to reconcile with the published scope as new information becomes available.
+                  Public standing is meaningful only while the underlying information continues to support the published scope. Records are maintained on that basis, so consumers, clinicians, and industry can rely on what the registry reflects.
                 </p>
               </ComplianceCard>
             </section>
