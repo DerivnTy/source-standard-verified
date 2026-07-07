@@ -5,11 +5,11 @@ import { BriefingHero } from "@/components/BriefingHero";
 import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const PROCESS = [
-  { n: "01", label: "Intelligence Partners" },
-  { n: "02", label: "Facility Verification" },
-  { n: "03", label: "Independent Testing" },
-  { n: "04", label: "Source Standard Registry" },
-  { n: "05", label: "Ongoing Monitoring" },
+  { n: "01", label: "Healthcare Organizations" },
+  { n: "02", label: "Independent Laboratories" },
+  { n: "03", label: "Upstream Facilities" },
+  { n: "04", label: "Public Registry" },
+  { n: "05", label: "Research Partners" },
 ];
 
 const FieldRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
@@ -49,9 +49,8 @@ const Partners = () => (
       </div>
       <div className="mt-6 max-w-3xl space-y-5 t-body-md text-muted-foreground">
         <p>
-          Source Standard operates through independent third-party laboratory testing, structured verification
-          procedures, and ongoing monitoring protocols designed to strengthen confidence throughout the
-          compounded therapy supply chain.
+          Source Standard collaborates with independent organizations to support objective verification and
+          improve transparency throughout the compounded therapy supply chain.
         </p>
         <p>
           All testing used within the Source Standard framework is performed by independent laboratories.
@@ -71,14 +70,12 @@ const Partners = () => (
       </div>
       <div className="mt-6 max-w-3xl space-y-5 t-body-md text-muted-foreground">
         <p>
-          Source Standard works with participating clinics, vendors, pharmacies, manufacturers, and
-          healthcare organizations to support source verification, facility intelligence, product monitoring,
-          and supply-chain transparency.
+          Source Standard works alongside healthcare organizations, independent laboratories, upstream
+          facilities, and research partners to build a transparent and accountable public-reference ecosystem.
         </p>
         <p>
-          Participating organizations contribute to the verification ecosystem through documentation review,
-          facility verification, product testing, monitoring activities, and ongoing compliance with Source
-          Standard procedures.
+          Participating organizations contribute expertise, infrastructure, and services that support the
+          Source Standard framework and strengthen confidence across the compounded therapy supply chain.
         </p>
       </div>
 
