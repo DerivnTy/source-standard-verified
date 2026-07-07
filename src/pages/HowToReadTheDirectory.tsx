@@ -44,9 +44,9 @@ const statusLong: Record<
   },
   suspended: {
     meaning:
-      "A previously published verification has been temporarily withdrawn pending clarification or correction.",
+      "A previously published verification has been temporarily withdrawn while a matter is being clarified.",
     tells:
-      "A triggering event has paused the public verification while review is reopened.",
+      "New information has paused the public verification while additional review takes place.",
     notImply:
       "Does not constitute a final adverse finding against the vendor.",
   },
