@@ -47,7 +47,7 @@ const Partners = () => (
       <div className="mt-4">
         <SectionHeading>Independent Verification Infrastructure</SectionHeading>
       </div>
-      <div className="mt-6 max-w-3xl space-y-5 t-body-md text-muted-foreground">
+      <div className="mt-6 space-y-5 t-body-md text-muted-foreground">
         <p>
           Source Standard collaborates with independent organizations to support objective verification and
           improve transparency throughout the compounded therapy supply chain.
@@ -68,7 +68,7 @@ const Partners = () => (
       <div className="mt-4">
         <SectionHeading>Verification Network</SectionHeading>
       </div>
-      <div className="mt-6 max-w-3xl space-y-5 t-body-md text-muted-foreground">
+      <div className="mt-6 space-y-5 t-body-md text-muted-foreground">
         <p>
           Source Standard works alongside healthcare organizations, independent laboratories, upstream
           facilities, and research partners to build a transparent and accountable public-reference ecosystem.
