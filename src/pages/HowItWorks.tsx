@@ -256,7 +256,7 @@ const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
 
 const HowItWorks = () => {
   const heroDescription =
-    "The Source Standard Verification Framework establishes the principles used to evaluate sourcing transparency and maintain consistent public-reference records.";
+    "The Source Standard Verification Framework establishes the principles behind sourcing transparency and how public-reference records are maintained.";
 
   return (
     <>
