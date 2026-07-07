@@ -127,43 +127,43 @@ const TESTING: Clause[] = [
 const ACTIONS: Clause[] = [
   {
     n: "01",
-    t: "Monitoring Review",
-    d: "New information, sourcing updates, public reports, testing activity, or evidence submissions may be reviewed to determine whether additional action is necessary.",
+    t: "Additional review",
+    d: "New information, sourcing updates, public reports, or independent testing results may be reviewed to determine whether any change to the public record is warranted.",
   },
   {
     n: "02",
-    t: "Administrative inquiry",
-    d: "A written request for documentation, records, or explanation. The listing may remain in its current status during the response window unless additional action is required.",
+    t: "Request for clarification",
+    d: "A written request for updated information or clarification. The listing may remain in its current status while the request is being addressed.",
   },
   {
     n: "03",
-    t: "Facility investigation",
-    d: "Source Standard may initiate deeper review of a facility when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+    t: "Facility review",
+    d: "A more detailed review of a facility may be undertaken when public records, independent testing, or new information indicate that additional review is warranted.",
   },
   {
     n: "04",
-    t: "Manufacturer investigation",
-    d: "Source Standard may initiate deeper review of a manufacturer when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+    t: "Manufacturer review",
+    d: "A more detailed review of a manufacturer may be undertaken when public records, independent testing, or new information indicate that additional review is warranted.",
   },
   {
     n: "05",
-    t: "Scope reduction",
-    d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
+    t: "Scope adjustment",
+    d: "The verified scope may be narrowed to the categories that remain supported by current records. Categories no longer supported may be removed from the public listing.",
   },
   {
     n: "06",
     t: "Suspension",
-    d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
+    d: "Verified status may be temporarily inactive while an unresolved matter is addressed. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
     n: "07",
     t: "Removal",
-    d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
+    d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review.",
   },
   {
     n: "08",
     t: "Public note",
-    d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
+    d: "A short factual notation may be attached to a listing when clarification is warranted and supported by verifiable, non-speculative information.",
   },
 ];
 
