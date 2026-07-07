@@ -413,7 +413,7 @@ const MedicalAdvisory = () => {
                   </h2>
                   <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                     <p className="t-body-sm text-muted-foreground leading-relaxed">
-                      Clinical Oversight exists to strengthen the neutrality, consistency, and evidentiary discipline of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
+                      Clinical Oversight exists to strengthen the integrity and independence of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
                     </p>
                     <p className="t-body-sm text-muted-foreground leading-relaxed">
                       Its role is governance. Its responsibility is framework integrity.
