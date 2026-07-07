@@ -137,17 +137,14 @@ const Partners = () => (
             <div className="space-y-4">
               <p>
                 Open is a physician-led clinical intelligence organization focused on helping healthcare
-                professionals better understand emerging therapies, protocols, procedures, and treatment
-                outcomes.
+                professionals better understand emerging therapies and treatment outcomes.
               </p>
               <p>While Source Standard verifies the source layer, Open studies the response layer.</p>
               <p>
-                Source Standard focuses on source integrity, supply-chain verification, facility monitoring,
-                and product accountability.
+                Source Standard focuses on source integrity and supply-chain accountability.
               </p>
               <p>
-                Open focuses on clinical outcomes, monitoring frameworks, protocol intelligence, evidence
-                generation, and professional decision support.
+                Open focuses on clinical outcomes and professional decision support.
               </p>
               <p>
                 Together, these organizations represent two complementary layers of infrastructure for
@@ -170,14 +167,14 @@ const Partners = () => (
         <div className="border border-border bg-background p-6 md:p-8 lg:border-r-0">
           <p className="t-section-title-sm text-foreground">“Was the source trustworthy?”</p>
           <p className="mt-5 t-body-md text-muted-foreground">
-            Source Standard provides independent verification, monitoring, and source accountability.
+            Source Standard provides independent verification and source accountability.
           </p>
         </div>
         <div className="border border-border bg-background p-6 md:p-8">
           <p className="t-section-title-sm text-foreground">“What happened after it was used?”</p>
           <p className="mt-5 t-body-md text-muted-foreground">
-            Open provides structured clinical intelligence designed to help professionals better understand
-            outcomes, safety, monitoring, and response patterns.
+            Open provides clinical intelligence designed to help professionals better understand outcomes and
+            response patterns.
           </p>
         </div>
       </div>
