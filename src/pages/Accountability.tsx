@@ -114,13 +114,13 @@ const TRIGGERS: Clause[] = [
 const TESTING: Clause[] = [
   {
     n: "01",
-    t: "Scope of testing activity",
-    d: "Source Standard may conduct testing activity involving vendors, facilities, manufacturers, products, and supply-chain relationships within the framework.",
+    t: "Scope of independent testing",
+    d: "Source Standard may incorporate independent testing results as part of the framework, including results relating to vendors, facilities, manufacturers, products, and sourcing relationships.",
   },
   {
     n: "02",
-    t: "Use of testing activity",
-    d: "Testing activity may be used to validate sourcing claims, investigate concerns, review manufacturer performance, review facility performance, and support status reassessment.",
+    t: "Use of independent testing",
+    d: "Independent testing results may inform the review of sourcing claims, manufacturer standing, facility standing, and public status.",
   },
 ];
 
