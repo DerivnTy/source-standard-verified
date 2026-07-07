@@ -322,8 +322,8 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="01"
-                title="Evidence Review"
-                intro="Principles that guide the evaluation process."
+                title="Framework Principles"
+                intro="The principles that guide the framework."
               />
               <ClauseStack clauses={AUDIT_CLAUSES} />
             </section>
