@@ -481,11 +481,10 @@ const Education = () => {
             >
               <p>
                 The Resource Library helps consumers, clinicians, and listed
-                entities understand sourcing claims, pharmacy categories,
-                documentation review, and verification limits through a
-                consistent public-reference standard. It is maintained as part
-                of the broader Source Standard framework, not as a standalone
-                publishing channel.
+                entities understand sourcing claims, pharmacy categories, and
+                what verification does and does not represent. It is maintained
+                as part of the broader Source Standard framework, not as a
+                standalone publishing channel.
               </p>
             </ReferenceNote>
           </div>
