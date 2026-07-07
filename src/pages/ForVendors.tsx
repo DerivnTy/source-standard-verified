@@ -17,12 +17,12 @@ const docs = [
     d: "Independent third-party analytical records for relevant lots or batches, issued by ISO/IEC 17025-accredited laboratories where applicable to the category under review.",
   },
   {
-    t: "Prescriber Credentials of Record",
-    d: "For clinical operating models, current licensure and credentialing records for prescribing practitioners associated with the entity.",
+    t: "Prescriber Credentials",
+    d: "For clinical operating models, current licensure and credentialing for prescribing practitioners associated with the entity.",
   },
   {
     t: "503A / 503B Pharmacy Partnerships",
-    d: "Documentation evidencing the relationship between the entity and any 503A compounding pharmacy or 503B outsourcing facility relied upon to fulfill listed categories.",
+    d: "Records reflecting the relationship between the entity and any 503A compounding pharmacy or 503B outsourcing facility relied upon to fulfill listed categories.",
   },
 ];
 
