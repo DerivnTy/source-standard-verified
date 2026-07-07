@@ -127,6 +127,18 @@ const Greenlist = () => {
         recordCount={counts.total}
       />
 
+      <div className="page-shell pt-0 pb-0">
+        <div className="mx-auto w-wide">
+          <p
+            className="text-muted-foreground"
+            style={{ fontSize: "14px", lineHeight: 1.65 }}
+          >
+            Facility records provide transparency into recognized upstream
+            organizations operating within the compounded therapy supply chain.
+          </p>
+        </div>
+      </div>
+
       {/* Framework card — Greenlisted Status */}
       <section className="bg-background">
         <div className="page-shell pt-5 md:pt-6">
@@ -156,16 +168,16 @@ const Greenlist = () => {
                 className="mt-2 text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.65 }}
               >
-                Manufacturers earn Greenlisted status through ongoing
-                independent testing and continued compliance with Source
-                Standard testing standards.
+                Greenlisted status reflects recognition within the Source
+                Standard framework based on our review of the available
+                information and evidence within a defined scope.
               </p>
               <p
                 className="mt-2 text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.65 }}
               >
-                All Greenlisted manufacturers remain subject to ongoing
-                monitoring and future testing.
+                Greenlisted status is periodically reviewed and may change as new
+                information becomes available.
               </p>
             </div>
           </div>
@@ -307,19 +319,19 @@ const Greenlist = () => {
                 {[
                   {
                     label: "Greenlisted",
-                    body: "Products associated with the manufacturer have consistently satisfied Source Standard testing standards during the current review period.",
+                    body: "The organization is currently recognized within the Source Standard framework for the reviewed scope.",
                   },
                   {
                     label: "Monitoring",
-                    body: "Source Standard is actively collecting testing data associated with products sourced from the manufacturer.",
+                    body: "The organization is undergoing additional review before a final status determination.",
                   },
                   {
                     label: "Status Alert",
-                    body: "Testing activity has identified results requiring additional investigation or confirmation.",
+                    body: "Additional information has been identified that requires further review before the current status can be confirmed.",
                   },
                   {
                     label: "Removed",
-                    body: "The manufacturer no longer satisfies current Greenlisted requirements.",
+                    body: "The organization is no longer recognized within the current Source Standard framework.",
                   },
                 ].map((s, i) => (
                   <li
