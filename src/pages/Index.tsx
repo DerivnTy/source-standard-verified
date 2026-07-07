@@ -238,11 +238,11 @@ const howItWorks = [
   },
   {
     h: "Verify sourcing claims.",
-    b: "Review facility relationships, sourcing documentation, chain-of-custody records, and supporting evidence associated with vendor claims.",
+    b: "Review documentation and available evidence supporting vendor sourcing claims.",
   },
   {
     h: "Monitor and publish status.",
-    b: "Vendor and facility records receive a public status based on reviewed evidence, testing activity, and ongoing monitoring.",
+    b: "Maintain public verification records through ongoing review and status updates.",
   },
 ];
 
@@ -261,7 +261,7 @@ const registryFields = [
   },
   {
     h: "Facility relationships",
-    b: "The compounding facilities, sourcing claims, supporting documentation, and review activity associated with the record.",
+    b: "Recognized upstream sources and current verification status.",
   },
 ];
 
@@ -272,18 +272,18 @@ const whyMatters = [
   },
   {
     h: "For providers",
-    b: "A verification pathway for clinics, telehealth providers, and wellness businesses seeking to demonstrate sourcing transparency and facility relationships.",
+    b: "A verification pathway for clinics, telehealth providers, and wellness businesses seeking to demonstrate sourcing transparency.",
   },
   {
     h: "For the industry",
-    b: "A centralized intelligence layer tracking facility relationships, sourcing trends, and supply-chain transparency across the compounded therapy market.",
+    b: "A centralized public reference layer that improves transparency across the compounded therapy market.",
   },
 ];
 
 const basics = [
   {
     t: "Verification Framework",
-    s: "The standards, procedures, and review methodology used throughout the registry.",
+    s: "Learn how the Source Standard Verification Framework is structured and how verification statuses are defined.",
     to: "/how-it-works",
   },
   {
@@ -293,14 +293,14 @@ const basics = [
   },
   {
     t: "Facility Standards",
-    s: "How Greenlisted status is earned, maintained, and monitored through independent testing activity.",
+    s: "Learn how upstream sources are recognized within the Source Standard framework.",
     to: "/greenlist",
   },
 ];
 
 const governanceLinks = [
   { k: "Advisory Board", to: "/medical-advisory", s: "Independent medical, scientific, and procedural guidance supporting framework development and review standards." },
-  { k: "Verification Framework", to: "/how-it-works", s: "The procedures used to evaluate sourcing claims, facility relationships, supporting documentation, and testing activity." },
+  { k: "Verification Framework", to: "/how-it-works", s: "The standards that govern verification and status designations throughout the registry." },
   { k: "Status Definitions", to: "/status-definitions", s: "Definitions governing every public status displayed throughout the registry." },
 ];
 
