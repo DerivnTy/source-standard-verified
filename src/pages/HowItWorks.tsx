@@ -293,7 +293,7 @@ const HowItWorks = () => {
             {/* §3 Purpose */}
             <section style={{ paddingTop: "36px", paddingBottom: "24px" }}>
               <ProtocolCard>
-                <Eyebrow>Protocol Purpose</Eyebrow>
+                <Eyebrow>Framework Purpose</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
                   What this framework exists to do
                 </h2>
@@ -302,13 +302,13 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Framework establishes a consistent standard for evaluating sourcing transparency and maintaining public-reference records. Its purpose is to organize available information into a structured framework that helps consumers better understand vendor sourcing claims.
+                    The Verification Framework establishes a consistent public standard for sourcing transparency. Its purpose is to help consumers, clinicians, and industry better understand the sourcing claims vendors make in the compounded therapy market.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Verification is an evidence-based record review and public-reference process. It is not a certification of product quality, treatment effectiveness, clinical outcomes, regulatory compliance, or patient safety.
+                    Verification is a structured public-reference standard. It is not a certification of product quality, treatment effectiveness, clinical outcomes, regulatory compliance, or patient safety.
                   </p>
                 </div>
               </ProtocolCard>
