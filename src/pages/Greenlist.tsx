@@ -168,23 +168,19 @@ const Greenlist = () => {
                   className="mt-2 text-foreground"
                   style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 500 }}
                 >
-                  Greenlisted status is not based on FDA registration, 503A
-                  designation, or 503B designation alone.
+                  Greenlisted status reflects recognition within the Source Standard framework based on available information within a defined scope.
                 </p>
                 <p
                   className="mt-2 text-muted-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.65 }}
                 >
-                  Greenlisted status reflects recognition within the Source
-                  Standard framework based on our review of the available
-                  information and evidence within a defined scope.
+                  It is a recognition under the Source Standard framework and is distinct from FDA registration, 503A designation, or 503B designation.
                 </p>
                 <p
                   className="mt-2 text-muted-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.65 }}
                 >
-                  Greenlisted status is periodically reviewed and may change as new
-                  information becomes available.
+                  Greenlisted status is reviewed periodically and may change as new information becomes available.
                 </p>
               </div>
             </div>
