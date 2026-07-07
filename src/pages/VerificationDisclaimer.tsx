@@ -40,7 +40,7 @@ const DOES_NOT_ESTABLISH: Clause[] = [
   {
     n: "01",
     t: "Product safety",
-    d: "Source Standard does not guarantee product safety, potency, purity, sterility, or future quality, even when testing activity is incorporated into a status determination.",
+    d: "Source Standard does not guarantee product safety, potency, purity, sterility, or future quality.",
   },
   {
     n: "02",
