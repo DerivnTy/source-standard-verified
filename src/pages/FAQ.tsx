@@ -38,25 +38,25 @@ const groups: { title: string; items: QA[] }[] = [
     ],
   },
   {
-    title: "Verification Protocols",
+    title: "Verification",
     items: [
       {
         q: "What does \u201CVerified\u201D mean?",
-        a: "A time-bound determination by the auditing body that the entity has produced records of identity, licensing, sourcing, and public claims sufficient to satisfy the verification protocol at the date of issue.",
+        a: "Verified indicates that the vendor's identity, licensure, sourcing relationships, and public claims have been reviewed under the Source Standard framework and reflect the information available at the time of review.",
         to: "/how-it-works",
-        toLabel: "Verification protocol",
+        toLabel: "How verification works",
       },
       {
-        q: "What is examined during verification?",
-        a: "Business identity; jurisdictional licenses and registrations; pharmacy and supplier records; certificates of analysis and category records; procurement and invoice history; consistency of public claims; and renewal-related updates.",
+        q: "What is reviewed under the framework?",
+        a: "The framework considers business identity, licensure and registrations, pharmacy and sourcing relationships, supporting records, and the consistency of public claims.",
         to: "/how-it-works",
-        toLabel: "What we review",
+        toLabel: "How verification works",
       },
       {
-        q: "How long does a determination last?",
-        a: "Determinations are time-bound and reviewed on a defined renewal interval. Material changes can trigger an out-of-cycle re-review at any time.",
+        q: "How long does Verified status remain in effect?",
+        a: "Verified status is reviewed on a defined renewal interval. Material changes to sourcing, licensure, or public claims may prompt additional review at any time.",
         to: "/accountability",
-        toLabel: "Accountability & Enforcement",
+        toLabel: "Ongoing standing",
       },
       {
         q: "What does \u201CVerified\u201D not mean?",
@@ -66,19 +66,19 @@ const groups: { title: string; items: QA[] }[] = [
       },
       {
         q: "What public statuses exist?",
-        a: "Verified, Pending Review, Under Review, Suspended, Removed, Greenlisted, and Not Listed. Each is defined in the controlling reference.",
+        a: "Verified, Pending Review, Under Review, Suspended, Removed, Greenlisted, and Not Listed. Each is defined on the Status Definitions page.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
       {
         q: "What does \u201CSuspended\u201D mean?",
-        a: "A previously Verified determination has been temporarily withdrawn pending clarification. It does not constitute a finding of wrongdoing.",
+        a: "Verified status has been temporarily withdrawn while a matter is clarified. It does not constitute a finding of wrongdoing.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
       {
-        q: "What does an audit cost?",
-        a: "Audit fees are disclosed during Step 2 of the application process and vary by category.",
+        q: "What does verification cost?",
+        a: "Fees are disclosed during the application process and vary by category.",
         to: "/for-vendors",
         toLabel: "Vendor Submission Standard",
       },
