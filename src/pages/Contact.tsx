@@ -35,7 +35,7 @@ const Contact = () => {
       />
 
       <UtilityHeader
-        eyebrow="Administrative correspondence"
+        eyebrow="Get in touch"
         title="Reach Source Standard"
         description="For verification inquiries, partnership questions, or general correspondence."
       />
