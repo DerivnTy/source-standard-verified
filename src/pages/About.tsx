@@ -19,7 +19,7 @@ type Clause = { t: string; d: string };
 const CONTEXT: Clause[] = [
   {
     t: "Information asymmetry",
-    d: "Consumers often have less information than vendors regarding sourcing relationships, facility and manufacturer partners, and supply-chain practices.",
+    d: "Consumers often have limited visibility into vendor sourcing claims, making informed decisions difficult.",
   },
   {
     t: "Verification challenges",
@@ -27,11 +27,11 @@ const CONTEXT: Clause[] = [
   },
   {
     t: "Documentation complexity",
-    d: "Licensure records, facility and manufacturer relationships, supply-chain documentation, and public records are often fragmented across multiple sources.",
+    d: "Publicly available sourcing information is often incomplete or difficult for consumers to access and evaluate independently.",
   },
   {
     t: "Transparency gap",
-    d: "The framework exists to create a clearer connection between public claims and supporting evidence.",
+    d: "The framework exists to improve transparency by helping consumers better understand vendor sourcing claims.",
   },
 ];
 
@@ -61,34 +61,34 @@ const BOUNDARIES: Clause[] = [
 const OBJECTIVES: Clause[] = [
   {
     t: "Consumers",
-    d: "Provides a structured public-reference system that helps consumers better understand sourcing claims, facility relationships, and the evidence supporting those claims.",
+    d: "Provides a structured public-reference system that helps consumers better understand sourcing transparency.",
   },
   {
     t: "Providers",
-    d: "Provides a transparent framework for demonstrating sourcing relationships, supporting documentation, and supply-chain accountability.",
+    d: "Provides a trusted, independent framework for demonstrating sourcing transparency.",
   },
   {
     t: "Industry",
-    d: "Supports greater transparency, accountability, and evidence-based sourcing practices across the compounded therapy ecosystem.",
+    d: "Supports greater transparency and accountability across the compounded therapy market.",
   },
 ];
 
 const SCOPE: Clause[] = [
   {
     t: "Vendor Registry",
-    d: "Maintains public records relating to vendor sourcing transparency, review status, and supporting documentation.",
+    d: "Maintains public-reference records that improve transparency around vendor sourcing.",
   },
   {
     t: "Facility Records",
-    d: "Maintains public-reference records relating to compounding facilities, manufacturers, and upstream supply-chain participants operating within the Source Standard ecosystem.",
+    d: "Maintains public-reference records relating to upstream organizations within the compounded therapy supply chain.",
   },
   {
     t: "Verification Framework",
-    d: "Publishes the standards, review procedures, evidence requirements, and status criteria used throughout the system.",
+    d: "Explains the principles that guide Source Standard's public-reference framework and verification standards.",
   },
   {
     t: "Educational Resources",
-    d: "Provides public-reference materials explaining sourcing claims, documentation standards, registry terminology, and framework limitations.",
+    d: "Provides educational materials explaining sourcing transparency, verification concepts, and public terminology.",
   },
 ];
 
@@ -103,7 +103,7 @@ const PRINCIPLES: Clause[] = [
   },
   {
     t: "Consistency over discretion",
-    d: "Status determinations are governed by defined standards and review procedures.",
+    d: "Status determinations are guided by consistent public standards.",
   },
   {
     t: "Public clarity",
@@ -299,7 +299,7 @@ const SectionHeader = ({
 
 const About = () => {
   const heroDescription =
-    "Source Standard is an independent verification and public-reference organization dedicated to improving sourcing transparency, supply-chain visibility, and accountability within the compounded therapy market.";
+    "Source Standard is an independent verification and public-reference organization dedicated to improving sourcing transparency and accountability within the compounded therapy market.";
 
   return (
     <>
@@ -351,7 +351,7 @@ const About = () => {
                     For consumers, determining whether those claims are supported by evidence can be difficult.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Source Standard was established to create a structured framework for evaluating sourcing claims, organizing evidence, documenting supply-chain relationships, and maintaining public-reference records that improve transparency within a complex and rapidly growing market.
+                    Source Standard was established to improve sourcing transparency, create trusted public-reference records, increase accountability, and help consumers better understand sourcing claims within a complex and rapidly growing market.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The objective is not to determine which treatments are best.
@@ -360,7 +360,7 @@ const About = () => {
                     The objective is not to replace physicians, regulators, or pharmacists.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    The objective is to improve transparency by creating a disciplined system for evaluating whether sourcing claims are supported by evidence.
+                    The objective is to improve sourcing transparency and help consumers better understand claims through a structured public-reference system.
                   </p>
                 </div>
               </AboutCard>
@@ -502,13 +502,13 @@ const About = () => {
                     Source Standard operates as an independent public-reference system focused on sourcing transparency within the compounded therapy market.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Its role is to organize evidence, evaluate sourcing claims, maintain public records, and provide greater visibility into supply-chain relationships that are often difficult for consumers to evaluate independently.
+                    Its role is to improve sourcing transparency, maintain trusted public-reference records, help consumers better understand sourcing claims, and increase accountability within the compounded therapy market.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     The framework does not replace clinical judgment, regulatory oversight, or personal decision-making.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Its role is focused but important: creating a more transparent, evidence-based public record for a market where sourcing relationships are often difficult for consumers to evaluate independently.
+                    Its role is focused but important: improving sourcing transparency and helping consumers better understand sourcing claims within a market where that information is often difficult to evaluate independently.
                   </p>
                 </div>
               </AboutCard>
