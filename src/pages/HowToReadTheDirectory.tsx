@@ -206,7 +206,7 @@ const HowToReadTheDirectory = () => {
             <p>
               <span className="text-foreground">Under Review</span> is assigned when an active
               review opens, either at intake of a new application, or when an existing
-              Verified listing is reopened in response to a triggering event.
+              Verified listing is reopened based on new information.
             </p>
             <p>
               The status changes when the review concludes. Possible outcomes are: Verified
