@@ -202,7 +202,7 @@ const FAQ = () => (
       <ul className="space-y-2 t-body-sm">
         <li><Link to="/accountability" className="text-foreground underline-offset-4 hover:underline">Accountability & Enforcement →</Link></li>
         <li><Link to="/status-definitions" className="text-foreground underline-offset-4 hover:underline">Status Definitions →</Link></li>
-        <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">SOP: Verification Protocol & Audit Methodology →</Link></li>
+        <li><Link to="/how-it-works" className="text-foreground underline-offset-4 hover:underline">How Verification Works →</Link></li>
         <li><Link to="/governance" className="text-foreground underline-offset-4 hover:underline">Governance →</Link></li>
         <li><Link to="/verification-disclaimer" className="text-foreground underline-offset-4 hover:underline">Verification Disclaimer →</Link></li>
       </ul>
