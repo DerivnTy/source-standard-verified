@@ -19,19 +19,19 @@ const groups: { title: string; items: QA[] }[] = [
     items: [
       {
         q: "What is Source Standard?",
-        a: "Source Standard is an auditing body that maintains a public registry of medical and health vendors reviewed against documented sourcing, licensing, and public-claims criteria. The registry is a reference layer; it is not a clinic, pharmacy, or manufacturer.",
+        a: "Source Standard is an independent public-reference organization that maintains a registry of medical and health vendors, along with the pharmacies and facilities they rely on. The registry is a reference layer; it is not a clinic, pharmacy, or manufacturer.",
         to: "/about",
         toLabel: "About Source Standard",
       },
       {
         q: "Is Source Standard a regulator?",
-        a: "No. Source Standard is not a regulator. It references existing regulatory anchors (FDA, state boards of pharmacy, PCAB, NSF, USP) and publishes time-bound determinations against those anchors.",
+        a: "No. Source Standard is not a regulator. It references existing regulatory anchors (FDA, state boards of pharmacy, PCAB, NSF, USP) and publishes public statuses against those anchors.",
         to: "/governance",
         toLabel: "Governance",
       },
       {
         q: "Who oversees the framework?",
-        a: "An internal review function and a medical advisory body. Authority references are drawn from FDA, state boards of pharmacy, PCAB, NSF, and USP standards.",
+        a: "The framework is guided by an independent Medical Advisory Board and grounded in recognized standards from FDA, state boards of pharmacy, PCAB, NSF, and USP.",
         to: "/medical-advisory",
         toLabel: "Medical Advisory",
       },
