@@ -9,8 +9,8 @@ const docs = [
     d: "Active state and federal registrations applicable to the operating entity, including any Board of Pharmacy, Department of Health, or DEA registrations of competent jurisdiction.",
   },
   {
-    t: "Procurement Nodes & Supplier Records",
-    d: "Itemized disclosure of upstream procurement nodes, pharmacies, outsourcing facilities, qualified suppliers, supporting each reviewed product category, with corresponding records retained in the audit file.",
+    t: "Upstream Sourcing Relationships",
+    d: "Disclosure of the pharmacies, outsourcing facilities, and qualified suppliers relied upon for each reviewed product category, with supporting records available for reference.",
   },
   {
     t: "Certificates of Analysis (ISO-Accredited Laboratories)",
