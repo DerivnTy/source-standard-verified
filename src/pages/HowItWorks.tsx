@@ -17,22 +17,22 @@ const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Transparency",
-    d: "Evaluate information within a consistent public framework.",
+    d: "Sourcing claims are considered within a consistent public framework.",
   },
   {
     n: "02",
     t: "Consistency",
-    d: "Apply the same standards across all reviewed organizations.",
+    d: "The same standards apply across all reviewed organizations.",
   },
   {
     n: "03",
     t: "Documentation",
-    d: "Base determinations on information that can be reviewed and maintained.",
+    d: "Public standing is grounded in information that can be referenced.",
   },
   {
     n: "04",
     t: "Independence",
-    d: "Maintain objective and impartial evaluation standards.",
+    d: "The framework is applied objectively and without vendor influence.",
   },
 ];
 
@@ -45,12 +45,12 @@ const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "02",
     t: "Status Updates",
-    d: "Changes in public information may be reflected in record status over time.",
+    d: "Changes in public information may be reflected in record standing over time.",
   },
   {
     n: "03",
     t: "Periodic Review",
-    d: "Records are subject to periodic review to help ensure continued accuracy.",
+    d: "Records are reviewed periodically to help ensure continued accuracy.",
   },
   {
     n: "04",
@@ -72,8 +72,8 @@ const DISCLOSURE_CLAUSES: Clause[] = [
   },
   {
     n: "03",
-    t: "Periodic Review",
-    d: "Vendors are expected to cooperate with periodic review when applicable.",
+    t: "Ongoing Currency",
+    d: "Vendors are expected to support the continued accuracy of the public record.",
   },
 ];
 
