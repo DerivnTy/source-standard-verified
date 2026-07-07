@@ -448,7 +448,7 @@ const ReportConcern = () => {
                         Submit Concern
                       </button>
                       <p className="text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.5 }}>
-                        Reporter identity remains confidential within the review file.
+                        Your identity is kept confidential.
                       </p>
                     </div>
                   </form>
