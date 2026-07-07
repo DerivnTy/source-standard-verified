@@ -391,7 +391,7 @@ const HowItWorks = () => {
               <ProtocolCard>
                 <Eyebrow>Record Standard</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
-                  Verification is an evidence standard.
+                  What verification reflects.
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p
