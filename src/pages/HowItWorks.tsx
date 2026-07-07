@@ -16,69 +16,64 @@ type Clause = { n: string; t: string; d: string };
 const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Sourcing verification",
-    d: "Reviews whether claimed pharmacy or manufacturing relationships are supported by documentation, records, and supporting evidence.",
+    t: "Transparency",
+    d: "Evaluate information within a consistent public framework.",
   },
   {
     n: "02",
-    t: "Pharmacy verification",
-    d: "Evaluates cited 503A and 503B pharmacy relationships against registration records, licensure information, and publicly available sources.",
+    t: "Consistency",
+    d: "Apply the same standards across all reviewed organizations.",
   },
   {
     n: "03",
-    t: "Supply-chain documentation",
-    d: "Reviews invoices, fulfillment records, distribution documentation, chain-of-custody materials, and related records when available.",
+    t: "Documentation",
+    d: "Base determinations on information that can be reviewed and maintained.",
   },
   {
     n: "04",
-    t: "Business verification",
-    d: "Confirms consistency between business identity, operating entity information, ownership records, locations, and public-facing representations.",
+    t: "Independence",
+    d: "Maintain objective and impartial evaluation standards.",
   },
 ];
 
 const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Record maintenance",
-    d: "Published records remain subject to ongoing review as new information, documentation, or public-record changes become available.",
+    t: "Record Maintenance",
+    d: "Published records are maintained and updated as new information becomes available.",
   },
   {
     n: "02",
-    t: "Public-record monitoring",
-    d: "Relevant licensure actions, enforcement notices, administrative actions, and public-record changes may be incorporated into future reviews.",
+    t: "Status Updates",
+    d: "Changes in public information may be reflected in record status over time.",
   },
   {
     n: "03",
-    t: "Evidence reconciliation",
-    d: "New information may be compared against an existing record to determine whether previously supported claims remain supported.",
+    t: "Periodic Review",
+    d: "Records are subject to periodic review to help ensure continued accuracy.",
   },
   {
     n: "04",
-    t: "Status review",
-    d: "Material inconsistencies, documentation deficiencies, or unresolved evidence gaps may result in a reassessment of public status.",
+    t: "Public Information Updates",
+    d: "The framework incorporates new public information as it becomes available.",
   },
 ];
 
 const DISCLOSURE_CLAUSES: Clause[] = [
   {
     n: "01",
-    t: "Material change reporting",
-    d: "Vendors are expected to disclose sourcing, pharmacy, manufacturer, ownership, operational, or structural changes that materially affect a published record.",
+    t: "Accurate Information",
+    d: "Vendors are expected to maintain accurate public information.",
   },
   {
     n: "02",
-    t: "Documentation maintenance",
-    d: "Supporting documentation may require updates when sourcing relationships, operating entities, therapy categories, or public claims change.",
+    t: "Material Changes",
+    d: "Vendors should notify Source Standard of material changes affecting published records.",
   },
   {
     n: "03",
-    t: "Review continuity",
-    d: "Published records may be re-evaluated to determine whether the existing status remains supported by available evidence.",
-  },
-  {
-    n: "04",
-    t: "Status adjustment",
-    d: "Failure to disclose material changes, maintain documentation, or resolve significant inconsistencies may result in status modification.",
+    t: "Periodic Review",
+    d: "Vendors are expected to cooperate with periodic review when applicable.",
   },
 ];
 
@@ -261,7 +256,7 @@ const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
 
 const HowItWorks = () => {
   const heroDescription =
-    "Structured evaluation of vendor sourcing claims through documentation review, pharmacy relationship verification, public-record analysis, and ongoing evidence monitoring.";
+    "The Source Standard Verification Framework establishes the principles used to evaluate sourcing transparency and maintain consistent public-reference records.";
 
   return (
     <>
@@ -307,13 +302,7 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Source Standard exists to create a clearer public record around compounded therapy sourcing. The Verification Framework evaluates whether vendor sourcing representations are supported by documentation, pharmacy, manufacturer, and sourcing organization relationships, public records, and other reviewable evidence available during the verification process.
-                  </p>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
-                  >
-                    The Verification Framework evaluates whether publicly stated vendor claims are supported by submitted documentation, pharmacy, manufacturer, and sourcing organization relationship evidence, licensure records, public records, and related materials available during review.
+                    The Verification Framework establishes a consistent standard for evaluating sourcing transparency and maintaining public-reference records. Its purpose is to organize available information into a structured framework that helps consumers better understand vendor sourcing claims.
                   </p>
                   <p
                     className="text-muted-foreground"
@@ -334,7 +323,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="01"
                 title="Evidence Review"
-                intro="How sourcing claims are evaluated."
+                intro="Principles that guide the evaluation process."
               />
               <ClauseStack clauses={AUDIT_CLAUSES} />
             </section>
@@ -348,7 +337,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="02"
                 title="Ongoing Monitoring"
-                intro="How records are maintained after publication."
+                intro="How public records are maintained over time."
               />
               <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
             </section>
@@ -362,7 +351,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="03"
                 title="Vendor Responsibilities"
-                intro="Responsibilities associated with a published record."
+                intro="Expectations for organizations with published records."
               />
               <ClauseStack clauses={DISCLOSURE_CLAUSES} />
             </section>
@@ -409,7 +398,7 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Framework provides a structured method for evaluating sourcing transparency within the compounded therapy market. By organizing documentation, pharmacy, manufacturer, and sourcing organization relationships, public records, and supporting evidence into a consistent review process, the framework creates a clearer public record for consumers, vendors, and healthcare organizations.
+                    The Verification Framework establishes a consistent public-reference standard for sourcing transparency. It creates a structured way for consumers, vendors, and healthcare organizations to understand whether sourcing claims are supported by available information.
                   </p>
                   <p
                     className="text-muted-foreground"
