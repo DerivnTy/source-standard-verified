@@ -8,6 +8,7 @@ import { vendors } from "@/data/vendors";
 import lockup from "@/assets/source-standard-lockup-dark.png";
 
 const homeWaypoints = [
+  { id: "mission", number: "0", label: "Mission" },
   { id: "trust-problem", number: "1", label: "Problem" },
   { id: "how-it-works", number: "2", label: "How it works" },
   { id: "live-registry", number: "3", label: "Registry" },
