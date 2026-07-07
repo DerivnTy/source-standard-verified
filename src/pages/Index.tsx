@@ -277,7 +277,7 @@ const whyMatters = [
   },
   {
     h: "For the industry",
-    b: "A centralized public reference layer that improves transparency across the compounded therapy market.",
+    b: "An independent public reference that supports greater transparency across the compounded therapy market.",
   },
 ];
 
