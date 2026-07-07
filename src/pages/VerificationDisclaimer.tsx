@@ -201,7 +201,7 @@ const DisclaimerRow = ({
 
 const VerificationDisclaimer = () => {
   const heroDescription =
-    "The formal limits of Source Standard verification, status assignments, monitoring activities, and public-reference records.";
+    "The scope and limits of Source Standard verification, public statuses, and public-reference records.";
 
   return (
     <>
