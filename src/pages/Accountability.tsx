@@ -440,7 +440,7 @@ const Accountability = () => {
                 className="text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
-                The following events are expected to be reported within the stated response window. Failure to report a material change may itself trigger review or status revision.
+                The following events are expected to be reported within a reasonable window. Timely disclosure supports the accuracy of the public record.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {DISCLOSURE.map((c) => (
