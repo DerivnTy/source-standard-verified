@@ -370,7 +370,7 @@ const Accountability = () => {
               <ComplianceCard>
                 <Eyebrow>Record Maintenance</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
-                  How compliance is maintained after verification
+                  Verified standing is maintained over time.
                 </h2>
                 <div
                   style={{
@@ -381,13 +381,13 @@ const Accountability = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    A Verified record is not permanent
+                    A Verified record reflects the information supporting a listing at a defined point in time.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    It remains in effect only while the available evidence, sourcing relationships, submitted documentation, public records, and ongoing monitoring activity continue to support the published review scope.
+                    Standing continues while the underlying sourcing relationships, records, and public information remain consistent with the published scope.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
+                    This page outlines what vendors are expected to disclose, the conditions under which a record may be revisited, and how public standing may change as new information becomes available.
                   </p>
                 </div>
               </ComplianceCard>
