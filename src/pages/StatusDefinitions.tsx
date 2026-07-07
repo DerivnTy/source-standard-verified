@@ -101,12 +101,11 @@ const FACILITY_STATUSES: Status[] = [
 
 const PROGRESSION_INPUTS = [
   { n: "01", t: "New documentation" },
-  { n: "02", t: "Monitoring activity" },
-  { n: "03", t: "Testing activity" },
-  { n: "04", t: "Facility intelligence" },
-  { n: "05", t: "Manufacturer review" },
-  { n: "06", t: "Public-record updates" },
-  { n: "07", t: "Supply-chain information" },
+  { n: "02", t: "Independent testing results" },
+  { n: "03", t: "Facility information" },
+  { n: "04", t: "Manufacturer information" },
+  { n: "05", t: "Public-record updates" },
+  { n: "06", t: "Sourcing information" },
 ];
 
 const RELATED = [
