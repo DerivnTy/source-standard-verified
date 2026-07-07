@@ -127,21 +127,9 @@ const Greenlist = () => {
         recordCount={counts.total}
       />
 
-      <div className="page-shell pt-0 pb-0">
-        <div className="mx-auto w-wide">
-          <p
-            className="text-muted-foreground"
-            style={{ fontSize: "14px", lineHeight: 1.65 }}
-          >
-            Facility records provide transparency into recognized upstream
-            organizations operating within the compounded therapy supply chain.
-          </p>
-        </div>
-      </div>
-
-      {/* Framework card — Greenlisted Status */}
+      {/* Opening context + Greenlisted Status — unified white section */}
       <section className="bg-background">
-        <div className="page-shell pt-5 md:pt-6">
+        <div className="page-shell pt-5 md:pt-6 pb-0">
           <div className="mx-auto w-wide">
             <div
               className="bg-white"
@@ -151,34 +139,52 @@ const Greenlist = () => {
                 padding: "24px 22px",
               }}
             >
+              {/* Lead-in paragraph */}
               <p
-                className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-              >
-                Greenlisted Status
-              </p>
-              <p
-                className="mt-2 text-foreground"
-                style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 500 }}
-              >
-                Greenlisted status is not based on FDA registration, 503A
-                designation, or 503B designation alone.
-              </p>
-              <p
-                className="mt-2 text-muted-foreground"
+                className="text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.65 }}
               >
-                Greenlisted status reflects recognition within the Source
-                Standard framework based on our review of the available
-                information and evidence within a defined scope.
+                Facility records provide transparency into recognized upstream
+                organizations operating within the compounded therapy supply chain.
               </p>
-              <p
-                className="mt-2 text-muted-foreground"
-                style={{ fontSize: "14px", lineHeight: 1.65 }}
-              >
-                Greenlisted status is periodically reviewed and may change as new
-                information becomes available.
-              </p>
+
+              {/* Hairline divider */}
+              <div
+                className="mt-5"
+                style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}
+              />
+
+              {/* Greenlisted Status */}
+              <div className="mt-5">
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "11px", letterSpacing: "0.12em" }}
+                >
+                  Greenlisted Status
+                </p>
+                <p
+                  className="mt-2 text-foreground"
+                  style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 500 }}
+                >
+                  Greenlisted status is not based on FDA registration, 503A
+                  designation, or 503B designation alone.
+                </p>
+                <p
+                  className="mt-2 text-muted-foreground"
+                  style={{ fontSize: "14px", lineHeight: 1.65 }}
+                >
+                  Greenlisted status reflects recognition within the Source
+                  Standard framework based on our review of the available
+                  information and evidence within a defined scope.
+                </p>
+                <p
+                  className="mt-2 text-muted-foreground"
+                  style={{ fontSize: "14px", lineHeight: 1.65 }}
+                >
+                  Greenlisted status is periodically reviewed and may change as new
+                  information becomes available.
+                </p>
+              </div>
             </div>
           </div>
         </div>
