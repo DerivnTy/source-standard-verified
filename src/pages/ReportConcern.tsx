@@ -21,17 +21,17 @@ const OUT_OF_SCOPE = [
 ];
 
 const PROCESS = [
-  { t: "Submission Received", d: "Concern is logged into the intake system." },
+  { t: "Submission Received", d: "Concern is received through the public intake channel." },
   { t: "Initial Review", d: "Scope and supporting information are reviewed." },
-  { t: "Record Reconciliation", d: "Available documentation and registry records are evaluated." },
-  { t: "Resolution", d: "The registry may be updated, monitored, or retained based on reviewed evidence." },
+  { t: "Evidence Review", d: "Available documentation and registry records are considered." },
+  { t: "Resolution", d: "The registry may be updated or the concern may be closed based on the information reviewed." },
 ];
 
 const EVIDENCE = [
   { t: "Documentation", d: "Invoices, records, licenses, registrations, and supporting documents." },
   { t: "Public Records", d: "Government databases, disciplinary records, or official filings." },
   { t: "Screenshots", d: "Website content, advertisements, or public statements." },
-  { t: "Chain-of-Custody Materials", d: "Relevant sourcing and fulfillment documentation when available." },
+  { t: "Sourcing Documents", d: "Relevant sourcing and fulfillment information when available." },
 ];
 
 const CONCERN_TYPES = [
