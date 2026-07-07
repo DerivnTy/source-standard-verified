@@ -36,10 +36,10 @@ const THERAPY_CATEGORIES = [
 ];
 
 const ACK_TEXT =
-  "I understand this intake does not approve, certify, or verify this organization. Source Standard will determine whether the applicant is eligible to enter documentation review. Verified status is assigned only after documentation review, agreement execution, and certification activation.";
+  "I understand this intake does not approve, certify, or verify this organization. Source Standard will confirm eligibility before any review begins. Verified status is only issued after review under the Source Standard framework is completed.";
 
 const SUBTITLE =
-  "Submit your operating profile to determine eligibility for Source Standard documentation review. This form does not create verified status.";
+  "Submit your operating profile to begin the Source Standard verification process. This form does not create verified status.";
 
 type GroupProps = {
   legend: string;
