@@ -247,10 +247,10 @@ const VerificationDisclaimer = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Source Standard exists to improve transparency around sourcing claims, supply-chain relationships, facility records, manufacturer records, and supporting evidence within the compounded therapy market.
+                    Source Standard exists to improve transparency around sourcing claims and the pharmacies, facilities, and manufacturers that vendors rely on within the compounded therapy market.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Verification is an evidence-based determination informed by documentation review, sourcing review, facility review, manufacturer review, public-record review, monitoring activity, and independent testing activity where applicable.
+                    Verification is an evidence-informed determination made within a defined public review framework.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
                     Because verification statuses may be viewed by consumers, providers, vendors, and third parties, it is important that the framework be interpreted within its intended scope. This document defines what Source Standard verification establishes, what it does not establish, and the limits under which registry information should be interpreted.
