@@ -83,7 +83,7 @@ const BOUNDARIES: Clause[] = [
   {
     n: "04",
     t: "Not a testing laboratory",
-    d: "Source Standard does not operate an analytical laboratory and does not represent itself as a laboratory certification body. Independent testing activity, when conducted, is performed through qualified third parties for the purpose of supporting verification determinations.",
+    d: "Source Standard does not operate an analytical laboratory. Independent testing results, when referenced, come from qualified third-party laboratories.",
   },
   {
     n: "05",
