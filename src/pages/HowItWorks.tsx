@@ -302,13 +302,7 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Source Standard exists to create a clearer public record around compounded therapy sourcing. The Verification Framework evaluates whether vendor sourcing representations are supported by documentation, pharmacy, manufacturer, and sourcing organization relationships, public records, and other reviewable evidence available during the verification process.
-                  </p>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
-                  >
-                    The Verification Framework evaluates whether publicly stated vendor claims are supported by submitted documentation, pharmacy, manufacturer, and sourcing organization relationship evidence, licensure records, public records, and related materials available during review.
+                    The Verification Framework establishes a consistent standard for evaluating sourcing transparency and maintaining public-reference records. Its purpose is to organize available information into a structured framework that helps consumers better understand vendor sourcing claims.
                   </p>
                   <p
                     className="text-muted-foreground"
@@ -329,7 +323,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="01"
                 title="Evidence Review"
-                intro="How sourcing claims are evaluated."
+                intro="Principles that guide the evaluation process."
               />
               <ClauseStack clauses={AUDIT_CLAUSES} />
             </section>
@@ -343,7 +337,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="02"
                 title="Ongoing Monitoring"
-                intro="How records are maintained after publication."
+                intro="How public records are maintained over time."
               />
               <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
             </section>
@@ -357,7 +351,7 @@ const HowItWorks = () => {
               <SectionHeader
                 n="03"
                 title="Vendor Responsibilities"
-                intro="Responsibilities associated with a published record."
+                intro="Expectations for organizations with published records."
               />
               <ClauseStack clauses={DISCLOSURE_CLAUSES} />
             </section>
