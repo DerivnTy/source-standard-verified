@@ -135,7 +135,7 @@ const ReferenceNote = ({
 );
 
 const HERO_DESCRIPTION =
-  "Foundational sourcing transparency resources and current publications from Source Standard. Reference materials covering vendor verification, facility relationships, documentation review, and emerging industry topics in compounded therapy.";
+  "Foundational sourcing transparency resources and current publications from Source Standard. Reference materials covering vendor verification, pharmacy relationships, and emerging industry topics in compounded therapy.";
 
 const COMMON_INQUIRIES: {
   label: string;
@@ -151,13 +151,13 @@ const COMMON_INQUIRIES: {
   {
     label: "Safety",
     description:
-      "How Source Standard discusses handling, documentation, and product claims without guaranteeing outcomes.",
+      "What Source Standard covers on sourcing, pharmacy standards, and product claims — and where clinical judgment belongs.",
     to: "/library/faq/clinical-safety",
   },
   {
     label: "Verification",
     description:
-      "How vendors, documentation trails, and upstream facility records are reviewed.",
+      "What Source Standard reviews, and what public statuses represent.",
     to: "/library/faq/verification-process",
   },
   {
