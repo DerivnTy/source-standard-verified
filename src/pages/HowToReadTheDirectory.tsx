@@ -231,7 +231,7 @@ const HowToReadTheDirectory = () => {
             <p>
               <span className="text-foreground">Removed</span> indicates that the listing has
               been taken down from the public directory. Removal may follow a vendor's
-              withdrawal request or a determination by the framework.
+              withdrawal request or a decision made under the Source Standard framework.
             </p>
           </div>,
         )}
