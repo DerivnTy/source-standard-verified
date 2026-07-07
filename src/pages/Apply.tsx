@@ -328,8 +328,7 @@ const Apply = () => {
                   <div className="space-y-4">
                     <h3 className="t-h3 text-foreground">Intake received</h3>
                     <p className="t-body-md text-muted-foreground">
-                      If eligible for documentation review, Source Standard will send the
-                      next-step access instructions to the administrative contact provided.
+                      Thank you. Source Standard will be in touch with next steps at the administrative contact provided.
                     </p>
                     <p className="t-body-md text-muted-foreground pt-2">
                       Reference:{" "}
