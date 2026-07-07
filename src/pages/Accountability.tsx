@@ -524,7 +524,7 @@ const Accountability = () => {
               <SectionHeader
                 index="05"
                 title="Status & Review Actions"
-                intro="How the framework responds when a reviewed record no longer supports the published status, or when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary."
+                intro="How public standing may change when a record no longer supports the published scope, or when new information indicates that additional review is warranted."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {ACTIONS.map((c) => (
