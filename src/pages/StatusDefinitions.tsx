@@ -348,7 +348,7 @@ const RelatedLinkRow = ({
 
 const StatusDefinitions = () => {
   const heroDescription =
-    "Public status classifications used throughout the Source Standard registry. Statuses communicate the current verification state of a vendor, facility, manufacturer, or sourcing record based on available evidence at the time of review.";
+    "Public status classifications used throughout the Source Standard registry. Statuses communicate the current standing of a vendor, facility, manufacturer, or sourcing record based on available information at the time of review.";
 
   return (
     <>
