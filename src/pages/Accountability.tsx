@@ -334,7 +334,7 @@ const RelatedLinkRow = ({
 
 const Accountability = () => {
   const heroDescription =
-    "Ongoing monitoring, disclosure requirements, review triggers, and status actions used to maintain the integrity of Source Standard records after publication.";
+    "How Source Standard records are kept current, and how public standing is maintained over time.";
 
   return (
     <>
@@ -347,7 +347,7 @@ const Accountability = () => {
         tone="navy"
         variant="chapter"
         category="Governance & Oversight"
-        title="Compliance Monitoring & Record Maintenance"
+        title="Record Maintenance & Ongoing Standing"
         statement={heroDescription}
         docId=""
       />
