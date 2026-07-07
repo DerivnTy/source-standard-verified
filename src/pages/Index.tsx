@@ -8,6 +8,7 @@ import { vendors } from "@/data/vendors";
 import lockup from "@/assets/source-standard-lockup-dark.png";
 
 const homeWaypoints = [
+  { id: "mission", number: "0", label: "Mission" },
   { id: "trust-problem", number: "1", label: "Problem" },
   { id: "how-it-works", number: "2", label: "How it works" },
   { id: "live-registry", number: "3", label: "Registry" },
@@ -543,18 +544,33 @@ const Index = () => {
 
       <DocJumpBar waypoints={homeWaypoints} />
 
-      {/* §1.5 — Mission */}
-      <section className="home-section bg-background border-b border-border" style={{ paddingTop: "40px", paddingBottom: "32px" }}>
+      {/* §1 — Mission */}
+      <section
+        aria-labelledby="mission"
+        className="home-section bg-background border-b border-border text-left"
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      >
         <div className="page-shell">
-          <div className="mx-auto w-standard text-center">
-            <p className="home-lead text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch", margin: "0 auto" }}>
+          <div className="mx-auto w-standard">
+            <p
+              className="home-eyebrow font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
+            >
+              00 · Mission
+            </p>
+            <h2
+              id="mission"
+              className="home-h2 mt-3 font-sans text-foreground"
+              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
+            >
+              Why Source Standard Exists
+            </h2>
+            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400 }}>
               Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent.
             </p>
-            <div className="home-lead-card bg-card mt-5 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "14px 20px" }}>
-              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
-                Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
-              </p>
-            </div>
+            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400 }}>
+              Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
+            </p>
           </div>
         </div>
       </section>
