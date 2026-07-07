@@ -214,7 +214,7 @@ const ReportConcern = () => {
     <>
       <PageMeta
         title="Report a Concern · Source Standard"
-        description="Public intake channel for registry accuracy, sourcing claims, public-record discrepancies, and unauthorized use of Source Standard status language."
+        description="Public intake channel for registry accuracy, sourcing claims, and public-record discrepancies."
         path="/report-a-concern"
       />
       <Breadcrumb
@@ -229,7 +229,7 @@ const ReportConcern = () => {
         variant="chapter"
         category="Public Intake Channel"
         title="Report a Concern"
-        statement="Submit information related to registry accuracy, sourcing claims, public-record discrepancies, or unauthorized use of Source Standard status language. Submissions are reviewed against available records and supporting evidence."
+        statement="Submit information related to registry accuracy, sourcing claims, or public-record discrepancies. Submissions are reviewed against available records."
         docId=""
         actions={
           <div className="flex flex-wrap items-center" style={{ gap: "10px" }}>
