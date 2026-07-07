@@ -16,8 +16,8 @@ type Clause = { n: string; t: string; d: string };
 const ESTABLISHES: Clause[] = [
   {
     n: "01",
-    t: "Reviewed evidence",
-    d: "Verification reflects the evidence reviewed at the time of determination, which may include documentation, sourcing records, public records, facility records, manufacturer records, chain-of-custody records, testing activity, and other verification materials.",
+    t: "Reviewed information",
+    d: "Verification reflects the information considered at the time of review, which may include documentation, sourcing records, public records, and other supporting materials.",
   },
   {
     n: "02",
@@ -27,7 +27,7 @@ const ESTABLISHES: Clause[] = [
   {
     n: "03",
     t: "Point-in-time determination",
-    d: "Verification reflects conditions at the time of review and may change as new information, monitoring activity, or testing activity becomes available.",
+    d: "Verification reflects conditions at the time of review and may change as new information becomes available.",
   },
   {
     n: "04",
