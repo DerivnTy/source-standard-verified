@@ -543,6 +543,22 @@ const Index = () => {
 
       <DocJumpBar waypoints={homeWaypoints} />
 
+      {/* §1.5 — Mission */}
+      <section className="home-section bg-background border-b border-border" style={{ paddingTop: "40px", paddingBottom: "32px" }}>
+        <div className="page-shell">
+          <div className="mx-auto w-standard text-center">
+            <p className="home-lead text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch", margin: "0 auto" }}>
+              Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent.
+            </p>
+            <div className="home-lead-card bg-card mt-5 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "14px 20px" }}>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
+                Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* §2 — The trust problem */}
       <section
         aria-labelledby="trust-problem"
