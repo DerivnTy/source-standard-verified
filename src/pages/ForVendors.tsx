@@ -155,10 +155,10 @@ const ForVendors = () => {
             <div className="md:col-span-9">
               <div className="border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3">
                 <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-1.5">
-                  Administrative notice · SS-VENDOR-STD-2026.01 · §3
+                  Administrative notice · §3
                 </p>
                 <p className="t-body-sm text-foreground">
-                  Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake does not constitute forensic review. Submitted materials are entered into the controlled audit file and examined under the verification protocol prior to any determination of standing.
+                  Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake alone does not confer Verified status. Submitted materials are reviewed against the Source Standard framework before any determination of standing.
                 </p>
               </div>
             </div>
