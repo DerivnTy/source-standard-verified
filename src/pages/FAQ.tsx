@@ -116,15 +116,15 @@ const groups: { title: string; items: QA[] }[] = [
       },
       {
         q: "I have a concern about a listed vendor \u2014 what do I do?",
-        a: "Submit a report through the Report a Concern channel. Reports are reviewed under the framework's triage process and may trigger an out-of-cycle re-review.",
+        a: "Submit a report through the Report a Concern channel. Reports are reviewed against available records and may prompt additional review.",
         to: "/report-a-concern",
         toLabel: "Report a Concern",
       },
       {
         q: "How does a vendor apply?",
-        a: "Step 1 is a public-data registry initialization (Form SS-INTAKE-01). Step 2, issued by a Verification Officer, covers controlled document uploads and payment.",
+        a: "Vendors begin with an intake submission and, if eligible, proceed to a documentation review under the framework.",
         to: "/apply",
-        toLabel: "Begin a filing",
+        toLabel: "Begin an application",
       },
       {
         q: "What changes must a verified vendor report?",
