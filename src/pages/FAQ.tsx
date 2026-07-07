@@ -163,14 +163,13 @@ const FAQ = () => (
 
     <RecordHeader
       metadata={[
-        { label: "Doc", value: "SS-FAQ-2026.01" },
         { label: "Status", value: "Active" },
         { label: "Updated", value: "04/21/26" },
         { label: "Jurisdiction", value: "United States" },
       ]}
-      eyebrow="Public reference · Administrative briefing"
-      title="Registry FAQs & Interpretations"
-      lead="Direct, time-bound interpretations of the registry's verification protocols, greenlist scope, and permitted public use. Issued by the auditing body for reference; not a substitute for the controlling source documents cited in each answer."
+      eyebrow="Public reference"
+      title="Registry FAQs"
+      lead="Answers to common questions about Source Standard, the verification framework, the Greenlist, and how the public registry should be used."
     />
 
     {groups.map((g, gi) => (
