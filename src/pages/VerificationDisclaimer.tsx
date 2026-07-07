@@ -278,13 +278,13 @@ const VerificationDisclaimer = () => {
                 className="text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
-                A Verified status indicates that available documentation, sourcing records, public records, facility records, manufacturer records, chain-of-custody records, testing activity, and other verification materials were sufficient to support the reviewed sourcing representations within the defined review scope at the time of review.
+                A Verified status indicates that the information available to Source Standard supported the reviewed sourcing representations within the defined review scope at the time of review.
               </p>
               <p
                 className="text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
-                Verification establishes only the state of reviewed evidence within that scope. It does not establish facts beyond the evidence available during the review process.
+                Verification establishes only the state of reviewed information within that scope. It does not establish facts beyond what was available at the time of review.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {ESTABLISHES.map((c) => (
