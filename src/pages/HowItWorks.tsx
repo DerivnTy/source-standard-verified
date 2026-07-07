@@ -336,8 +336,8 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="02"
-                title="Ongoing Monitoring"
-                intro="How public records are maintained over time."
+                title="Ongoing Record Maintenance"
+                intro="How public records are kept current over time."
               />
               <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
             </section>
