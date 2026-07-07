@@ -40,8 +40,8 @@ const EducationQuestions = () => {
         backHref="/education"
         backLabel="Back to Resource Library"
         eyebrow="Recorded inquiries"
-        title="Regulatory FAQ: full archive"
-        description="Recorded answers to recurring inquiries on verification, clinical safety, and regulatory standing."
+        title="Common Questions"
+        description="Answers to recurring questions on verification, clinical safety, and the regulatory landscape."
       />
       <Section density="doc">
         <div className="space-y-10">
