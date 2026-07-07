@@ -185,7 +185,7 @@ const HeroActions = () => (
 const HeroMeta = () => {
   const total = vendors.length;
   const items: { label: string; value: string }[] = [
-    { label: "Private Standard", value: "Documentation-first review" },
+    { label: "Private Standard", value: "Independent verification" },
     { label: "Public Registry", value: "Searchable vendor status" },
     { label: "Live Data", value: `${total.toLocaleString("en-US")} vendors indexed` },
   ];
@@ -238,11 +238,11 @@ const howItWorks = [
   },
   {
     h: "Verify sourcing claims.",
-    b: "Review facility relationships, sourcing documentation, chain-of-custody records, and supporting evidence associated with vendor claims.",
+    b: "Review documentation and available evidence supporting vendor sourcing claims.",
   },
   {
     h: "Monitor and publish status.",
-    b: "Vendor and facility records receive a public status based on reviewed evidence, testing activity, and ongoing monitoring.",
+    b: "Maintain public verification records through ongoing review and status updates.",
   },
 ];
 
@@ -261,7 +261,7 @@ const registryFields = [
   },
   {
     h: "Facility relationships",
-    b: "The compounding facilities, sourcing claims, supporting documentation, and review activity associated with the record.",
+    b: "Recognized upstream sources and current verification status.",
   },
 ];
 
@@ -272,18 +272,18 @@ const whyMatters = [
   },
   {
     h: "For providers",
-    b: "A verification pathway for clinics, telehealth providers, and wellness businesses seeking to demonstrate sourcing transparency and facility relationships.",
+    b: "A verification pathway for clinics, telehealth providers, and wellness businesses seeking to demonstrate sourcing transparency.",
   },
   {
     h: "For the industry",
-    b: "A centralized intelligence layer tracking facility relationships, sourcing trends, and supply-chain transparency across the compounded therapy market.",
+    b: "A centralized public reference layer that improves transparency across the compounded therapy market.",
   },
 ];
 
 const basics = [
   {
     t: "Verification Framework",
-    s: "The standards, procedures, and review methodology used throughout the registry.",
+    s: "Learn how the Source Standard Verification Framework is structured and how verification statuses are defined.",
     to: "/how-it-works",
   },
   {
@@ -293,14 +293,14 @@ const basics = [
   },
   {
     t: "Facility Standards",
-    s: "How Greenlisted status is earned, maintained, and monitored through independent testing activity.",
+    s: "Learn how upstream sources are recognized within the Source Standard framework.",
     to: "/greenlist",
   },
 ];
 
 const governanceLinks = [
   { k: "Advisory Board", to: "/medical-advisory", s: "Independent medical, scientific, and procedural guidance supporting framework development and review standards." },
-  { k: "Verification Framework", to: "/how-it-works", s: "The procedures used to evaluate sourcing claims, facility relationships, supporting documentation, and testing activity." },
+  { k: "Verification Framework", to: "/how-it-works", s: "The standards that govern verification and status designations throughout the registry." },
   { k: "Status Definitions", to: "/status-definitions", s: "Definitions governing every public status displayed throughout the registry." },
 ];
 
@@ -543,6 +543,22 @@ const Index = () => {
 
       <DocJumpBar waypoints={homeWaypoints} />
 
+      {/* §1.5 — Mission */}
+      <section className="home-section bg-background border-b border-border" style={{ paddingTop: "40px", paddingBottom: "32px" }}>
+        <div className="page-shell">
+          <div className="mx-auto w-standard text-center">
+            <p className="home-lead text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch", margin: "0 auto" }}>
+              Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent.
+            </p>
+            <div className="home-lead-card bg-card mt-5 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "14px 20px" }}>
+              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
+                Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* §2 — The trust problem */}
       <section
         aria-labelledby="trust-problem"
@@ -568,7 +584,7 @@ const Index = () => {
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
-                Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through documentation review, facility relationship analysis, supply-chain investigation, and independent testing activity designed to separate supported claims from unsupported claims.
+                Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through a structured verification framework and publishes factual verification records designed to distinguish supported claims from unsupported claims.
               </p>
             </div>
             <div className="home-cta mt-3">
@@ -643,7 +659,7 @@ const Index = () => {
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
-                The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency, facility relationships, and supporting documentation. Facility records track Greenlisted status, testing activity, and publicly available operational information.
+                The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and facility relationships. Facility records reflect current verification status and recognized upstream sources within the Source Standard framework.
               </p>
             </div>
 
