@@ -242,8 +242,8 @@ const howItWorks = [
     b: "Review documentation and available evidence supporting vendor sourcing claims.",
   },
   {
-    h: "Monitor and publish status.",
-    b: "Maintain public verification records through ongoing review and status updates.",
+    h: "Maintain the public record.",
+    b: "Publish verification standing and keep records current as new information becomes available.",
   },
 ];
 
