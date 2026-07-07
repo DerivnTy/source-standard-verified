@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
-import { advisoryBoard } from "@/data/advisoryBoard";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 
@@ -119,20 +117,20 @@ const BOARD_TITLE_OVERRIDES: Record<string, string> = {
 
 const RESPONSIBILITY_OVERRIDES: Record<string, { title: string; description: string }> = {
   "R-01": {
-    title: "Standards review",
-    description: "Reviews framework standards, evidence categories, review boundaries, and governance procedures.",
+    title: "Framework consistency",
+    description: "Supports consistent application of standards and principles across the Source Standard registry and public-reference materials.",
   },
   "R-02": {
-    title: "Documentation criteria",
-    description: "Provides advisory input regarding documentation requirements, sourcing evidence standards, and public-record evaluation criteria.",
+    title: "Independent oversight",
+    description: "Provides independent perspective to help maintain the objectivity and integrity of the framework.",
   },
   "R-03": {
-    title: "Regulatory awareness",
-    description: "Supports periodic review of terminology and framework materials as regulatory environments and industry practices evolve.",
+    title: "Public standards",
+    description: "Promotes clear, accessible standards that support public understanding of the framework.",
   },
   "R-04": {
     title: "Educational review",
-    description: "Reviews public-reference materials for accuracy, neutrality, clarity, and appropriate scope.",
+    description: "Reviews public-reference materials for clarity, accuracy, and appropriate scope.",
   },
 };
 const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-03", "R-04"];
@@ -140,46 +138,46 @@ const RESPONSIBILITY_ORDER = ["R-01", "R-02", "R-03", "R-04"];
 const MANDATE_CLAUSES = [
   {
     n: "01",
-    t: "Framework independence",
-    d: "Supports the neutrality and procedural integrity of the Source Standard framework independent of vendor, pharmacy, or commercial interests.",
+    t: "Independence",
+    d: "Helps maintain the independence of the Source Standard framework from vendor, pharmacy, or commercial interests.",
   },
   {
     n: "02",
-    t: "Evidence-based standards",
-    d: "Advises on documentation requirements, evidence categories, review criteria, and public-reference standards used throughout the registry.",
+    t: "Consistency",
+    d: "Supports consistent application of standards across the registry and public-reference materials.",
   },
   {
     n: "03",
-    t: "Periodic review",
-    d: "Participates in ongoing review of terminology, review boundaries, governance procedures, and public-facing educational materials.",
+    t: "Objectivity",
+    d: "Promotes objective evaluation of framework boundaries, scope, and stated purpose.",
   },
   {
     n: "04",
-    t: "Objective separation",
-    d: "Maintains separation from vendor sales, marketing activity, promotional relationships, and individual status determinations.",
+    t: "Public Trust",
+    d: "Supports public confidence by helping keep the framework independent, consistent, and appropriately scoped.",
   },
 ];
 
 const ROLE_FUNCTIONS = [
   {
     n: "01",
-    t: "Review boundaries",
-    d: "Provides advisory input regarding what Source Standard evaluates, what falls outside the framework, and how those distinctions are communicated publicly.",
+    t: "Framework Guidance",
+    d: "Provides independent perspective on the structure, scope, and public communication of the Source Standard framework.",
   },
   {
     n: "02",
-    t: "Evidence standards",
-    d: "Reviews the documentation categories and evidence requirements used during sourcing-claim evaluation and registry review.",
+    t: "Standards Consistency",
+    d: "Supports the consistent application of framework principles across registry materials and public-reference content.",
   },
   {
     n: "03",
-    t: "Framework maintenance",
-    d: "Supports periodic updates to terminology, standards, educational materials, and procedural documentation as industry conditions evolve.",
+    t: "Public Clarity",
+    d: "Helps ensure that public-facing language remains clear, accurate, and aligned with the framework's purpose.",
   },
   {
     n: "04",
-    t: "Public-reference integrity",
-    d: "Helps ensure that public-facing materials remain accurate, appropriately scoped, and consistent with the framework's stated purpose.",
+    t: "Independent Perspective",
+    d: "Offers independent review of framework boundaries, standards, and educational materials.",
   },
 ];
 
@@ -233,7 +231,7 @@ const MedicalAdvisory = () => {
                     Source Standard operates within a complex environment involving healthcare providers, pharmacies, manufacturers, regulators, and consumers. Maintaining public trust requires clear boundaries, consistent standards, and independent review of the framework itself.
                   </p>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    Clinical Oversight exists to support the integrity of the standards behind the registry. It provides independent advisory input on framework design, evidence categories, review procedures, public language, and governance practices used throughout the system.
+                    Clinical Oversight exists to support the integrity of the standards behind the registry. It provides independent advisory guidance to help maintain independence, consistency, and public trust in the framework.
                   </p>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
                     Its responsibility is not to determine which vendors succeed or fail. Its responsibility is to help ensure that the framework itself remains consistent, neutral, and evidence-driven.
@@ -413,7 +411,7 @@ const MedicalAdvisory = () => {
                   </h2>
                   <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                     <p className="t-body-sm text-muted-foreground leading-relaxed">
-                      Clinical Oversight exists to strengthen the neutrality, consistency, and evidentiary discipline of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
+                      Clinical Oversight exists to strengthen the integrity and independence of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
                     </p>
                     <p className="t-body-sm text-muted-foreground leading-relaxed">
                       Its role is governance. Its responsibility is framework integrity.
