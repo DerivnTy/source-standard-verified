@@ -306,8 +306,8 @@ const ReportConcern = () => {
             <section className="border-t border-border/40" style={sectionStyle}>
               <SectionHeader
                 n="03"
-                title="Review Process"
-                intro="Each submission moves through a four-step intake flow."
+                title="How Concerns Are Reviewed"
+                intro="Each submission moves through a four-step review."
               />
               <ol className="flex flex-col" style={{ gap: "6px" }}>
                 {PROCESS.map((s, i) => (
