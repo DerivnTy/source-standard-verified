@@ -65,10 +65,10 @@ const ForVendors = () => {
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-8">
               <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-3">
-                §1 · Mandatory evidentiary inventory
+                §1 · Documentation requested
               </p>
               <h2 className="h-section max-w-2xl mb-8">
-                Records entered into the controlled audit file.
+                Records considered during verification.
               </h2>
               <div className="border border-border bg-background">
                 <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted border-b border-border">
