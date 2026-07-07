@@ -9,27 +9,27 @@ const docs = [
     d: "Active state and federal registrations applicable to the operating entity, including any Board of Pharmacy, Department of Health, or DEA registrations of competent jurisdiction.",
   },
   {
-    t: "Procurement Nodes & Supplier Records",
-    d: "Itemized disclosure of upstream procurement nodes, pharmacies, outsourcing facilities, qualified suppliers, supporting each reviewed product category, with corresponding records retained in the audit file.",
+    t: "Upstream Sourcing Relationships",
+    d: "Disclosure of the pharmacies, outsourcing facilities, and qualified suppliers relied upon for each reviewed product category, with supporting records available for reference.",
   },
   {
     t: "Certificates of Analysis (ISO-Accredited Laboratories)",
     d: "Independent third-party analytical records for relevant lots or batches, issued by ISO/IEC 17025-accredited laboratories where applicable to the category under review.",
   },
   {
-    t: "Prescriber Credentials of Record",
-    d: "For clinical operating models, current licensure and credentialing records for prescribing practitioners associated with the entity.",
+    t: "Prescriber Credentials",
+    d: "For clinical operating models, current licensure and credentialing for prescribing practitioners associated with the entity.",
   },
   {
     t: "503A / 503B Pharmacy Partnerships",
-    d: "Documentation evidencing the relationship between the entity and any 503A compounding pharmacy or 503B outsourcing facility relied upon to fulfill listed categories.",
+    d: "Records reflecting the relationship between the entity and any 503A compounding pharmacy or 503B outsourcing facility relied upon to fulfill listed categories.",
   },
 ];
 
 const issued = [
-  "A public Verified profile entered in the Source Standard Registry of record.",
-  "A unique Audit ID (format SS-AUD-YYYY-NNNNN) that may be cited and independently confirmed against the registry.",
-  "A Verification Transcript, the itemized public record of documentation reviewed, examination domains covered, and the standing issued.",
+  "A public Verified profile listed in the Source Standard registry.",
+  "A unique public reference identifier that may be cited and confirmed against the registry.",
+  "A public verification record describing the scope of review and the standing issued.",
   "A verification badge for use on vendor-controlled surfaces, governed by the framework's attribution terms.",
 ];
 
@@ -56,7 +56,7 @@ const ForVendors = () => {
         ]}
         eyebrow="Vendor onboarding"
         title="Vendor Submission Standard"
-        lead="Technical specifications for the records, credentials, and procurement evidence required at intake. Submitted materials are entered into the controlled audit file and examined under the forensic review protocol."
+        lead="An overview of the records, credentials, and sourcing evidence requested at intake. Submitted materials are reviewed against the Source Standard framework before any determination of standing."
       />
 
       {/* §1 Mandatory Evidentiary Inventory */}
@@ -65,10 +65,10 @@ const ForVendors = () => {
           <div className="grid md:grid-cols-12 gap-10">
             <div className="md:col-span-8">
               <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-3">
-                §1 · Mandatory evidentiary inventory
+                §1 · Documentation requested
               </p>
               <h2 className="h-section max-w-2xl mb-8">
-                Records entered into the controlled audit file.
+                Records considered during verification.
               </h2>
               <div className="border border-border bg-background">
                 <div className="grid grid-cols-12 px-4 py-2.5 bg-surface-muted border-b border-border">
@@ -91,7 +91,7 @@ const ForVendors = () => {
                 </ul>
               </div>
               <p className="mt-5 meta-label">
-                Required records vary by operating model. The reviewer of record may identify additional materials during intake; all such requests are logged to the controlled audit file.
+                Records requested vary by operating model. Additional materials may be requested during intake as needed for the review scope.
               </p>
             </div>
 
@@ -155,10 +155,10 @@ const ForVendors = () => {
             <div className="md:col-span-9">
               <div className="border-l-2 border-l-foreground bg-surface-muted/40 px-4 py-3">
                 <p className="font-mono uppercase tracking-[0.08em] t-utility-xs text-muted-foreground mb-1.5">
-                  Administrative notice · SS-VENDOR-STD-2026.01 · §3
+                  Administrative notice · §3
                 </p>
                 <p className="t-body-sm text-foreground">
-                  Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake does not constitute forensic review. Submitted materials are entered into the controlled audit file and examined under the verification protocol prior to any determination of standing.
+                  Initial intake is an administrative submission step and takes approximately fifteen minutes to complete. Intake alone does not confer Verified status. Submitted materials are reviewed against the Source Standard framework before any determination of standing.
                 </p>
               </div>
             </div>

@@ -44,9 +44,9 @@ const statusLong: Record<
   },
   suspended: {
     meaning:
-      "A previously published verification has been temporarily withdrawn pending clarification or correction.",
+      "A previously published verification has been temporarily withdrawn while a matter is being clarified.",
     tells:
-      "A triggering event has paused the public verification while review is reopened.",
+      "New information has paused the public verification while additional review takes place.",
     notImply:
       "Does not constitute a final adverse finding against the vendor.",
   },
@@ -206,7 +206,7 @@ const HowToReadTheDirectory = () => {
             <p>
               <span className="text-foreground">Under Review</span> is assigned when an active
               review opens, either at intake of a new application, or when an existing
-              Verified listing is reopened in response to a triggering event.
+              Verified listing is reopened based on new information.
             </p>
             <p>
               The status changes when the review concludes. Possible outcomes are: Verified
@@ -231,7 +231,7 @@ const HowToReadTheDirectory = () => {
             <p>
               <span className="text-foreground">Removed</span> indicates that the listing has
               been taken down from the public directory. Removal may follow a vendor's
-              withdrawal request or a determination by the framework.
+              withdrawal request or a decision made under the Source Standard framework.
             </p>
           </div>,
         )}

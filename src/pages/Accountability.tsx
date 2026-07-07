@@ -114,56 +114,56 @@ const TRIGGERS: Clause[] = [
 const TESTING: Clause[] = [
   {
     n: "01",
-    t: "Scope of testing activity",
-    d: "Source Standard may conduct testing activity involving vendors, facilities, manufacturers, products, and supply-chain relationships within the framework.",
+    t: "Scope of independent testing",
+    d: "Source Standard may incorporate independent testing results as part of the framework, including results relating to vendors, facilities, manufacturers, products, and sourcing relationships.",
   },
   {
     n: "02",
-    t: "Use of testing activity",
-    d: "Testing activity may be used to validate sourcing claims, investigate concerns, review manufacturer performance, review facility performance, and support status reassessment.",
+    t: "Use of independent testing",
+    d: "Independent testing results may inform the review of sourcing claims, manufacturer standing, facility standing, and public status.",
   },
 ];
 
 const ACTIONS: Clause[] = [
   {
     n: "01",
-    t: "Monitoring Review",
-    d: "New information, sourcing updates, public reports, testing activity, or evidence submissions may be reviewed to determine whether additional action is necessary.",
+    t: "Additional review",
+    d: "New information, sourcing updates, public reports, or independent testing results may be reviewed to determine whether any change to the public record is warranted.",
   },
   {
     n: "02",
-    t: "Administrative inquiry",
-    d: "A written request for documentation, records, or explanation. The listing may remain in its current status during the response window unless additional action is required.",
+    t: "Request for clarification",
+    d: "A written request for updated information or clarification. The listing may remain in its current status while the request is being addressed.",
   },
   {
     n: "03",
-    t: "Facility investigation",
-    d: "Source Standard may initiate deeper review of a facility when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+    t: "Facility review",
+    d: "A more detailed review of a facility may be undertaken when public records, independent testing, or new information indicate that additional review is warranted.",
   },
   {
     n: "04",
-    t: "Manufacturer investigation",
-    d: "Source Standard may initiate deeper review of a manufacturer when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary.",
+    t: "Manufacturer review",
+    d: "A more detailed review of a manufacturer may be undertaken when public records, independent testing, or new information indicate that additional review is warranted.",
   },
   {
     n: "05",
-    t: "Scope reduction",
-    d: "The verified scope may be narrowed to the categories that remain supported by current records. Unsupported categories may be removed from the public listing.",
+    t: "Scope adjustment",
+    d: "The verified scope may be narrowed to the categories that remain supported by current records. Categories no longer supported may be removed from the public listing.",
   },
   {
     n: "06",
     t: "Suspension",
-    d: "Verified status may be temporarily inactive pending additional documentation or review of an unresolved record issue. The vendor may remain in the registry but no longer displays active Verified status.",
+    d: "Verified status may be temporarily inactive while an unresolved matter is addressed. The vendor may remain in the registry but no longer displays active Verified status.",
   },
   {
     n: "07",
     t: "Removal",
-    d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review process.",
+    d: "The record may be removed from active verification status. Re-entry requires a new submission and a new review.",
   },
   {
     n: "08",
     t: "Public note",
-    d: "A short factual notation may be attached to a listing when clarification is warranted and the supporting record is verifiable and non-speculative.",
+    d: "A short factual notation may be attached to a listing when clarification is warranted and supported by verifiable, non-speculative information.",
   },
 ];
 
@@ -334,7 +334,7 @@ const RelatedLinkRow = ({
 
 const Accountability = () => {
   const heroDescription =
-    "Ongoing monitoring, disclosure requirements, review triggers, and status actions used to maintain the integrity of Source Standard records after publication.";
+    "How Source Standard records are kept current, and how public standing is maintained over time.";
 
   return (
     <>
@@ -347,7 +347,7 @@ const Accountability = () => {
         tone="navy"
         variant="chapter"
         category="Governance & Oversight"
-        title="Compliance Monitoring & Record Maintenance"
+        title="Record Maintenance & Ongoing Standing"
         statement={heroDescription}
         docId=""
       />
@@ -370,7 +370,7 @@ const Accountability = () => {
               <ComplianceCard>
                 <Eyebrow>Record Maintenance</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
-                  How compliance is maintained after verification
+                  Verified standing is maintained over time.
                 </h2>
                 <div
                   style={{
@@ -381,13 +381,13 @@ const Accountability = () => {
                   }}
                 >
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    A Verified record is not permanent
+                    A Verified record reflects the information supporting a listing at a defined point in time.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    It remains in effect only while the available evidence, sourcing relationships, submitted documentation, public records, and ongoing monitoring activity continue to support the published review scope.
+                    Standing continues while the underlying sourcing relationships, records, and public information remain consistent with the published scope.
                   </p>
                   <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    This page defines the continuing expectations attached to Verified status, the events vendors are expected to disclose, the conditions that may reopen review, and the status actions Source Standard may apply when a record no longer supports the listing.
+                    This page outlines what vendors are expected to disclose, the conditions under which a record may be revisited, and how public standing may change as new information becomes available.
                   </p>
                 </div>
               </ComplianceCard>
@@ -440,7 +440,7 @@ const Accountability = () => {
                 className="text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
               >
-                The following events are expected to be reported within the stated response window. Failure to report a material change may itself trigger review or status revision.
+                The following events are expected to be reported within a reasonable window. Timely disclosure supports the accuracy of the public record.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {DISCLOSURE.map((c) => (
@@ -524,7 +524,7 @@ const Accountability = () => {
               <SectionHeader
                 index="05"
                 title="Status & Review Actions"
-                intro="How the framework responds when a reviewed record no longer supports the published status, or when testing activity, monitoring activity, public records, or supply-chain intelligence indicate additional review is necessary."
+                intro="How public standing may change when a record no longer supports the published scope, or when new information indicates that additional review is warranted."
               />
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {ACTIONS.map((c) => (
@@ -611,13 +611,13 @@ const Accountability = () => {
               <ComplianceCard>
                 <Eyebrow>Ongoing Record Integrity</Eyebrow>
                 <h2 className="t-section-title-sm text-foreground mt-2">
-                  Verification requires continuing record support.
+                  Verification is grounded in current information.
                 </h2>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
                 >
-                  The purpose of this protocol is to preserve the integrity and reliability of Source Standard records after publication. Verification integrity depends on monitoring activity, supply-chain transparency, testing activity, facility monitoring, manufacturer oversight, and documentation support — not documentation alone. Verification remains meaningful only when these inputs continue to reconcile with the published scope as new information becomes available.
+                  Public standing is meaningful only while the underlying information continues to support the published scope. Records are maintained on that basis, so consumers, clinicians, and industry can rely on what the registry reflects.
                 </p>
               </ComplianceCard>
             </section>

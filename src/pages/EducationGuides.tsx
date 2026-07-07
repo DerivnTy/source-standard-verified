@@ -46,7 +46,7 @@ const EducationGuides = () => {
     <>
       <PageMeta
         title="Clinical & Audit Guides"
-        description="Operational guides for interpreting CoAs, sterile preparation, aseptic technique, and reference dosing."
+        description="Clinical reference guides on interpreting CoAs, sterile preparation, aseptic technique, and reference dosing."
       />
       <Breadcrumb
         items={[
@@ -59,7 +59,7 @@ const EducationGuides = () => {
         backHref="/education"
         backLabel="Back to Resource Library"
         eyebrow="Clinical reference"
-        title="Clinical guides: full index"
+        title="Clinical guides"
         description="Handling, sterile preparation, storage, and clinical context. Reviewed by the Medical Advisory Board."
       />
       <Section density="doc">

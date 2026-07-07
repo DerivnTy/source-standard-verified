@@ -242,8 +242,8 @@ const howItWorks = [
     b: "Review documentation and available evidence supporting vendor sourcing claims.",
   },
   {
-    h: "Monitor and publish status.",
-    b: "Maintain public verification records through ongoing review and status updates.",
+    h: "Maintain the public record.",
+    b: "Publish verification standing and keep records current as new information becomes available.",
   },
 ];
 
@@ -277,7 +277,7 @@ const whyMatters = [
   },
   {
     h: "For the industry",
-    b: "A centralized public reference layer that improves transparency across the compounded therapy market.",
+    b: "An independent public reference that supports greater transparency across the compounded therapy market.",
   },
 ];
 
@@ -392,7 +392,7 @@ const Index = () => {
     <>
       <PageMeta
         title="Source Standard · Verify the source."
-        description="Source Standard reviews vendor sourcing claims, pharmacy relationships, and documentation trails across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
+        description="Source Standard is an independent public-reference organization providing verification and transparency around vendor sourcing claims and pharmacy relationships across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
         path="/"
         jsonLd={[
           {

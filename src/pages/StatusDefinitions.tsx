@@ -28,15 +28,15 @@ const VENDOR_STATUSES: Status[] = [
     n: "01",
     title: "Verified",
     definition:
-      "Documentation, sourcing records, facility relationships, manufacturer records, public records, and verification materials were sufficient to support the reviewed sourcing representations within the defined review scope.",
+      "Available information supported the vendor's sourcing representations within the defined review scope at the time of review.",
     meaning:
-      "Documentation, sourcing records, facility relationships, and verification materials were sufficient to support the reviewed sourcing representations within the defined review scope.",
+      "Available information supported the vendor's sourcing representations within the defined review scope at the time of review.",
     notImply:
       "It does not imply product approval, treatment recommendation, guaranteed safety, future performance, or regulatory endorsement.",
     issued:
-      "Issued when verification review is successfully completed.",
+      "Issued when review under the framework is successfully completed.",
     revised:
-      "Revised when monitoring activity, testing activity, material changes, or updated records require reassessment.",
+      "Revised when new information, material changes, or updated records indicate the current record no longer supports the published scope.",
   },
   {
     n: "02",
@@ -48,9 +48,9 @@ const VENDOR_STATUSES: Status[] = [
     notImply:
       "It does not imply fraud, misconduct, regulatory violations, product quality concerns, or patient risk.",
     issued:
-      "Issued when a vendor record exists without sufficient completed verification activity.",
+      "Issued when a vendor record exists without sufficient completed review under the framework.",
     revised:
-      "Revised when documentation review, testing activity, monitoring activity, or reassessment occurs.",
+      "Revised when additional review or new information becomes available.",
   },
 ];
 
@@ -59,54 +59,53 @@ const FACILITY_STATUSES: Status[] = [
     n: "01",
     title: "Monitoring",
     definition:
-      "The facility exists within the Source Standard database and is currently being monitored through facility intelligence, public records, manufacturer review, testing activity, or supply-chain review.",
+      "The facility is included in the Source Standard database and is currently being followed against public records and supporting information.",
     meaning:
-      "The facility exists within the Source Standard database and is currently being monitored through facility intelligence, public records, manufacturer review, testing activity, or supply-chain review.",
+      "The facility is included in the Source Standard database and is currently being followed against public records and supporting information.",
     notImply:
       "It does not imply a negative finding, product quality issue, enforcement action, or regulatory concern.",
     issued:
-      "Issued when a facility is entered into the Source Standard database and active monitoring is initiated.",
+      "Issued when a facility is added to the Source Standard database.",
     revised:
-      "Revised as facility intelligence, monitoring activity, testing activity, manufacturer review, or supply-chain information accumulates.",
+      "Revised as public records and supporting information accumulate.",
   },
   {
     n: "02",
     title: "Greenlisted",
     definition:
-      "Available facility records, monitoring activity, testing activity, and supporting evidence currently support Greenlisted status under the Source Standard framework.",
+      "Available facility records and supporting information currently support Greenlisted status under the Source Standard framework.",
     meaning:
-      "Available facility records, monitoring activity, testing activity, and supporting evidence currently support Greenlisted status under the Source Standard framework.",
+      "Available facility records and supporting information currently support Greenlisted status under the Source Standard framework.",
     notImply:
       "It does not imply guaranteed quality, product approval, future performance, or regulatory endorsement.",
     issued:
-      "Issued when facility records, monitoring activity, testing activity, and supporting evidence are sufficient to support Greenlisted status.",
+      "Issued when facility records and supporting information support Greenlisted status.",
     revised:
-      "Revised when monitoring activity, testing activity, public records, or supply-chain information no longer support the status.",
+      "Revised when public records or supporting information no longer support the status.",
   },
   {
     n: "03",
     title: "Status Alert",
     definition:
-      "Testing activity, monitoring activity, public records, or supply-chain intelligence indicate information that may require heightened attention or additional review.",
+      "Public records or other information indicate that additional review is warranted before the current status can be confirmed.",
     meaning:
-      "Testing activity, monitoring activity, public records, or supply-chain intelligence indicate information that may require heightened attention or additional review.",
+      "Public records or other information indicate that additional review is warranted before the current status can be confirmed.",
     notImply:
       "It does not imply a final determination, regulatory finding, or confirmed product defect.",
     issued:
-      "Issued when monitoring activity, testing activity, public records, or supply-chain intelligence indicate that additional review is warranted.",
+      "Issued when public records or other information indicate that additional review is warranted.",
     revised:
-      "Revised when subsequent review, monitoring activity, testing activity, or new information resolves the underlying matter.",
+      "Revised when subsequent review or new information resolves the underlying matter.",
   },
 ];
 
 const PROGRESSION_INPUTS = [
   { n: "01", t: "New documentation" },
-  { n: "02", t: "Monitoring activity" },
-  { n: "03", t: "Testing activity" },
-  { n: "04", t: "Facility intelligence" },
-  { n: "05", t: "Manufacturer review" },
-  { n: "06", t: "Public-record updates" },
-  { n: "07", t: "Supply-chain information" },
+  { n: "02", t: "Independent testing results" },
+  { n: "03", t: "Facility information" },
+  { n: "04", t: "Manufacturer information" },
+  { n: "05", t: "Public-record updates" },
+  { n: "06", t: "Sourcing information" },
 ];
 
 const RELATED = [
@@ -349,7 +348,7 @@ const RelatedLinkRow = ({
 
 const StatusDefinitions = () => {
   const heroDescription =
-    "Public status classifications used throughout the Source Standard registry. Statuses communicate the current verification state of a vendor, facility, manufacturer, or sourcing record based on available evidence at the time of review.";
+    "Public status classifications used throughout the Source Standard registry. Statuses communicate the current standing of a vendor, facility, manufacturer, or sourcing record based on available information at the time of review.";
 
   return (
     <>

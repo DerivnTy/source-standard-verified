@@ -35,7 +35,7 @@ const Contact = () => {
       />
 
       <UtilityHeader
-        eyebrow="Administrative correspondence"
+        eyebrow="Get in touch"
         title="Reach Source Standard"
         description="For verification inquiries, partnership questions, or general correspondence."
       />
@@ -62,8 +62,7 @@ const Contact = () => {
                 </div>
                 <div className="px-5 py-3 border-t border-border/60 bg-surface-muted/60">
                   <p className="t-utility-xs text-muted-foreground leading-relaxed">
-                    Source Standard is not a regulator and does not accept consumer complaints,
-                    enforcement requests, or clinical inquiries.
+                    For clinical questions or regulatory matters, please contact the appropriate healthcare professional or regulatory authority.
                   </p>
                 </div>
               </div>
@@ -71,7 +70,7 @@ const Contact = () => {
 
             <form onSubmit={onSubmit} className="md:col-span-8 card-elevated overflow-hidden">
               <div className="px-6 md:px-8 py-3 border-b border-border/60 bg-surface-muted/60">
-                <p className="meta-label text-foreground">Form SS-CONTACT-01</p>
+                <p className="meta-label text-foreground">Message</p>
               </div>
               <div className="p-6 md:p-8 space-y-6">
                 <div className="grid sm:grid-cols-2 gap-5">

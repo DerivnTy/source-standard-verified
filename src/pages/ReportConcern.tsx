@@ -21,17 +21,17 @@ const OUT_OF_SCOPE = [
 ];
 
 const PROCESS = [
-  { t: "Submission Received", d: "Concern is logged into the intake system." },
+  { t: "Submission Received", d: "Concern is received through the public intake channel." },
   { t: "Initial Review", d: "Scope and supporting information are reviewed." },
-  { t: "Record Reconciliation", d: "Available documentation and registry records are evaluated." },
-  { t: "Resolution", d: "The registry may be updated, monitored, or retained based on reviewed evidence." },
+  { t: "Evidence Review", d: "Available documentation and registry records are considered." },
+  { t: "Resolution", d: "The registry may be updated or the concern may be closed based on the information reviewed." },
 ];
 
 const EVIDENCE = [
   { t: "Documentation", d: "Invoices, records, licenses, registrations, and supporting documents." },
   { t: "Public Records", d: "Government databases, disciplinary records, or official filings." },
   { t: "Screenshots", d: "Website content, advertisements, or public statements." },
-  { t: "Chain-of-Custody Materials", d: "Relevant sourcing and fulfillment documentation when available." },
+  { t: "Sourcing Documents", d: "Relevant sourcing and fulfillment information when available." },
 ];
 
 const CONCERN_TYPES = [
@@ -214,7 +214,7 @@ const ReportConcern = () => {
     <>
       <PageMeta
         title="Report a Concern · Source Standard"
-        description="Public intake channel for registry accuracy, sourcing claims, public-record discrepancies, and unauthorized use of Source Standard status language."
+        description="Public intake channel for registry accuracy, sourcing claims, and public-record discrepancies."
         path="/report-a-concern"
       />
       <Breadcrumb
@@ -229,7 +229,7 @@ const ReportConcern = () => {
         variant="chapter"
         category="Public Intake Channel"
         title="Report a Concern"
-        statement="Submit information related to registry accuracy, sourcing claims, public-record discrepancies, or unauthorized use of Source Standard status language. Submissions are reviewed against available records and supporting evidence."
+        statement="Submit information related to registry accuracy, sourcing claims, or public-record discrepancies. Submissions are reviewed against available records."
         docId=""
         actions={
           <div className="flex flex-wrap items-center" style={{ gap: "10px" }}>
@@ -306,8 +306,8 @@ const ReportConcern = () => {
             <section className="border-t border-border/40" style={sectionStyle}>
               <SectionHeader
                 n="03"
-                title="Review Process"
-                intro="Each submission moves through a four-step intake flow."
+                title="How Concerns Are Reviewed"
+                intro="Each submission moves through a four-step review."
               />
               <ol className="flex flex-col" style={{ gap: "6px" }}>
                 {PROCESS.map((s, i) => (
@@ -448,7 +448,7 @@ const ReportConcern = () => {
                         Submit Concern
                       </button>
                       <p className="text-muted-foreground" style={{ fontSize: "11px", lineHeight: 1.5 }}>
-                        Reporter identity remains confidential within the review file.
+                        Your identity is kept confidential.
                       </p>
                     </div>
                   </form>

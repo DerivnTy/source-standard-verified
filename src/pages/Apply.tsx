@@ -36,10 +36,10 @@ const THERAPY_CATEGORIES = [
 ];
 
 const ACK_TEXT =
-  "I understand this intake does not approve, certify, or verify this organization. Source Standard will determine whether the applicant is eligible to enter documentation review. Verified status is assigned only after documentation review, agreement execution, and certification activation.";
+  "I understand this intake does not approve, certify, or verify this organization. Source Standard will confirm eligibility before any review begins. Verified status is only issued after review under the Source Standard framework is completed.";
 
 const SUBTITLE =
-  "Submit your operating profile to determine eligibility for Source Standard documentation review. This form does not create verified status.";
+  "Submit your operating profile to begin the Source Standard verification process. This form does not create verified status.";
 
 type GroupProps = {
   legend: string;
@@ -259,8 +259,8 @@ const Apply = () => {
                       </div>
                     </Group>
 
-                    {/* Clinical Authority */}
-                    <Group legend="Clinical Authority">
+                    {/* Prescriber */}
+                    <Group legend="Prescriber Information">
                       <div className="grid sm:grid-cols-2 gap-[18px]">
                         <div className="space-y-2">
                           <Label htmlFor="PrescriberName">
@@ -328,8 +328,7 @@ const Apply = () => {
                   <div className="space-y-4">
                     <h3 className="t-h3 text-foreground">Intake received</h3>
                     <p className="t-body-md text-muted-foreground">
-                      If eligible for documentation review, Source Standard will send the
-                      next-step access instructions to the administrative contact provided.
+                      Thank you. Source Standard will be in touch with next steps at the administrative contact provided.
                     </p>
                     <p className="t-body-md text-muted-foreground pt-2">
                       Reference:{" "}

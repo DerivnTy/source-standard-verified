@@ -5,8 +5,8 @@ import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { BriefingHero } from "@/components/BriefingHero";
 
 const WAYPOINTS = [
-  { id: "audit", number: "01", label: "Evidence Review" },
-  { id: "surveillance", number: "02", label: "Ongoing Monitoring" },
+  { id: "audit", number: "01", label: "Framework Principles" },
+  { id: "surveillance", number: "02", label: "Ongoing Record Maintenance" },
   { id: "disclosure", number: "03", label: "Vendor Responsibilities" },
   { id: "boundaries", number: "04", label: "Boundaries" },
 ];
@@ -17,22 +17,22 @@ const AUDIT_CLAUSES: Clause[] = [
   {
     n: "01",
     t: "Transparency",
-    d: "Evaluate information within a consistent public framework.",
+    d: "Sourcing claims are considered within a consistent public framework.",
   },
   {
     n: "02",
     t: "Consistency",
-    d: "Apply the same standards across all reviewed organizations.",
+    d: "The same standards apply across all reviewed organizations.",
   },
   {
     n: "03",
     t: "Documentation",
-    d: "Base determinations on information that can be reviewed and maintained.",
+    d: "Public standing is grounded in information that can be referenced.",
   },
   {
     n: "04",
     t: "Independence",
-    d: "Maintain objective and impartial evaluation standards.",
+    d: "The framework is applied objectively and without vendor influence.",
   },
 ];
 
@@ -45,12 +45,12 @@ const SURVEILLANCE_CLAUSES: Clause[] = [
   {
     n: "02",
     t: "Status Updates",
-    d: "Changes in public information may be reflected in record status over time.",
+    d: "Changes in public information may be reflected in record standing over time.",
   },
   {
     n: "03",
     t: "Periodic Review",
-    d: "Records are subject to periodic review to help ensure continued accuracy.",
+    d: "Records are reviewed periodically to help ensure continued accuracy.",
   },
   {
     n: "04",
@@ -72,8 +72,8 @@ const DISCLOSURE_CLAUSES: Clause[] = [
   },
   {
     n: "03",
-    t: "Periodic Review",
-    d: "Vendors are expected to cooperate with periodic review when applicable.",
+    t: "Ongoing Currency",
+    d: "Vendors are expected to support the continued accuracy of the public record.",
   },
 ];
 
@@ -256,7 +256,7 @@ const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
 
 const HowItWorks = () => {
   const heroDescription =
-    "The Source Standard Verification Framework establishes the principles used to evaluate sourcing transparency and maintain consistent public-reference records.";
+    "The Source Standard Verification Framework establishes the principles behind sourcing transparency and how public-reference records are maintained.";
 
   return (
     <>
@@ -293,7 +293,7 @@ const HowItWorks = () => {
             {/* §3 Purpose */}
             <section style={{ paddingTop: "36px", paddingBottom: "24px" }}>
               <ProtocolCard>
-                <Eyebrow>Protocol Purpose</Eyebrow>
+                <Eyebrow>Framework Purpose</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
                   What this framework exists to do
                 </h2>
@@ -302,13 +302,13 @@ const HowItWorks = () => {
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    The Verification Framework establishes a consistent standard for evaluating sourcing transparency and maintaining public-reference records. Its purpose is to organize available information into a structured framework that helps consumers better understand vendor sourcing claims.
+                    The Verification Framework establishes a consistent public standard for sourcing transparency. Its purpose is to help consumers, clinicians, and industry better understand the sourcing claims vendors make in the compounded therapy market.
                   </p>
                   <p
                     className="text-muted-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.6 }}
                   >
-                    Verification is an evidence-based record review and public-reference process. It is not a certification of product quality, treatment effectiveness, clinical outcomes, regulatory compliance, or patient safety.
+                    Verification is a structured public-reference standard. It is not a certification of product quality, treatment effectiveness, clinical outcomes, regulatory compliance, or patient safety.
                   </p>
                 </div>
               </ProtocolCard>
@@ -322,8 +322,8 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="01"
-                title="Evidence Review"
-                intro="Principles that guide the evaluation process."
+                title="Framework Principles"
+                intro="The principles that guide the framework."
               />
               <ClauseStack clauses={AUDIT_CLAUSES} />
             </section>
@@ -336,8 +336,8 @@ const HowItWorks = () => {
             >
               <SectionHeader
                 n="02"
-                title="Ongoing Monitoring"
-                intro="How public records are maintained over time."
+                title="Ongoing Record Maintenance"
+                intro="How public records are kept current over time."
               />
               <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
             </section>
@@ -391,7 +391,7 @@ const HowItWorks = () => {
               <ProtocolCard>
                 <Eyebrow>Record Standard</Eyebrow>
                 <h2 className="mt-2 t-section-title-sm text-foreground">
-                  Verification is an evidence standard.
+                  What verification reflects.
                 </h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p
