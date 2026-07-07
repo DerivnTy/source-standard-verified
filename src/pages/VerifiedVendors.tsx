@@ -247,6 +247,12 @@ const VerifiedVendors = () => {
                     />
                   ))}
                 </div>
+                <p
+                  className="mt-2 text-muted-foreground"
+                  style={{ fontSize: "12px", lineHeight: 1.5, fontWeight: 400 }}
+                >
+                  Status reflects Source Standard's review within a defined scope and at a defined point in time.
+                </p>
               </div>
 
               {/* Vendor Type */}
@@ -373,13 +379,13 @@ const VerifiedVendors = () => {
                   className="mt-2 text-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 500 }}
                 >
-                  Verified records contain sourcing claims, facility relationships, public records, submitted materials, and supporting evidence reviewed by Source Standard within a defined review scope and point in time.
+                  Verified records reflect vendor information that has been reviewed by Source Standard within a defined scope and at a defined point in time. Verification status is based on the evidence available during that review.
                 </p>
                 <p
                   className="mt-2 text-muted-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
                 >
-                  Unverified records do not currently have sufficient reviewed evidence within the registry framework.
+                  Unverified records have not yet met the requirements for Verified status within the Source Standard framework.
                 </p>
               </div>
 
@@ -398,8 +404,7 @@ const VerifiedVendors = () => {
                   className="mt-2 text-foreground"
                   style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
                 >
-                  Source Standard helps consumers evaluate sourcing claims
-                  through reviewed evidence. Verification is not an
+                  Source Standard provides a public-reference framework that helps consumers better understand vendor sourcing transparency. Verification is not an
                   endorsement, guarantee, medical recommendation, or product
                   approval.
                 </p>
@@ -408,7 +413,7 @@ const VerifiedVendors = () => {
                   to="/how-it-works"
                   className="mt-5 inline-flex items-center gap-1.5 px-5 h-10 border border-foreground text-foreground text-[12px] font-medium rounded-[10px] hover:bg-foreground hover:text-background transition-colors duration-150"
                 >
-                  View Verification Protocol
+                  View Verification Framework
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>

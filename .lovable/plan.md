@@ -1,57 +1,30 @@
-Revise the homepage copy on `src/pages/Index.tsx` to shift from operational detail to mission-driven messaging. All changes below incorporate the approved wording revisions.
+## Verified Vendors — Copy Refinements
 
-**Guiding principle:** Show the mission. Protect the mechanism.
+### Goal
+Update public-facing copy on the Verified Vendors page to communicate verification outcomes and framework positioning without revealing internal operational details.
 
----
+### Changes
 
-**1. Hero meta strip**
-Change `"Documentation-first review"` → `"Independent verification"`.
+1. **"Verified vs. Unverified" section**
+   - Replace the Verified paragraph with:
+     > Verified records reflect vendor information that has been reviewed by Source Standard within a defined scope and at a defined point in time. Verification status is based on the evidence available during that review.
+   - Replace the Unverified paragraph with:
+     > Unverified records have not yet met the requirements for Verified status within the Source Standard framework.
 
-**2. Mission statement (new section immediately below hero)**
-Add a new white-background section between the hero and the Problem section containing:
-> "Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent."
+2. **"Registry Framework" description**
+   - Replace:
+     > Source Standard helps consumers evaluate sourcing claims through reviewed evidence.
+   - With:
+     > Source Standard provides a public-reference framework that helps consumers better understand vendor sourcing transparency.
 
-Style it as a single centered paragraph inside the standard page shell, using the same `.home-lead` typography as other section intros.
+3. **Button label**
+   - Rename "View Verification Protocol" to "View Verification Framework".
 
-**3. Independence statement (new, placed within the page)**
-Add a short trust statement:
-> "Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system."
+4. **Helper text near Verification Status filters**
+   - Add directly beneath the Verification Status filter pills:
+     > Status reflects Source Standard's review within a defined scope and at a defined point in time.
 
-Placement: after the Mission statement, styled as a compact card or inset within the same section, maintaining visual hierarchy.
-
-**4. Problem Section (§2 — "Claims are not verification")**
-Replace the current body copy with:
-> "Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through a structured verification framework and publishes factual verification records designed to distinguish supported claims from unsupported claims."
-
-**5. How Source Standard Works (§3)**
-Update the `howItWorks` array:
-- Step 1 — Keep as-is: `"Map the market."` / `"Identify and maintain records for compounded therapy vendors and compounding facilities operating throughout the supply chain."`
-- Step 2 — Replace description with: `"Review documentation and available evidence supporting vendor sourcing claims."`
-- Step 3 — Replace description with: `"Maintain public verification records through ongoing review and status updates."`
-
-**6. Registry Section (§4)**
-Replace the body copy with:
-> "The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and facility relationships. Facility records reflect current verification status and recognized upstream sources within the Source Standard framework."
-
-**7. Registry Fields (§5)**
-Update `registryFields`:
-- "Verification status", "Vendor type", "Therapy category" — keep as-is.
-- "Facility relationships" description — replace with: `"Recognized upstream sources and current verification status."`
-
-**8. Foundational Reference / Facility Standards (§7 `basics` array)**
-- "Facility Standards" subtitle — replace with: `"Learn how upstream sources are recognized within the Source Standard framework."`
-- "Verification Framework" subtitle — replace with: `"Learn how the Source Standard Verification Framework is structured and how verification statuses are defined."`
-- "Status Definitions" — keep as-is.
-
-**9. Governance Section (§8)**
-Update the `governanceLinks` descriptions:
-- Advisory Board — keep as-is.
-- Verification Framework link — replace with: `"The standards that govern verification and status designations throughout the registry."`
-- Status Definitions — keep as-is.
-
-**10. Function of the framework (§6 `whyMatters` array)**
-- "For consumers" — keep as-is.
-- "For providers" — replace with: `"A verification pathway for clinics, telehealth providers, and wellness businesses seeking to demonstrate sourcing transparency."`
-- "For the industry" — replace with: `"A centralized public reference layer that improves transparency across the compounded therapy market."`
-
-**Out of scope:** No visual design changes, no layout changes, no new components. Only copy updates within the existing structure.
+### Scope
+- File: `src/pages/VerifiedVendors.tsx`
+- No layout, design, search, or registry structure changes.
+- Pure copy replacements and one small helper text addition.
