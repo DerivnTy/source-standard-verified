@@ -165,13 +165,13 @@ const Partners = () => (
 
       <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-0">
         <div className="border border-border bg-background p-6 md:p-8 lg:border-r-0">
-          <p className="t-section-title-sm text-foreground">“Was the source trustworthy?”</p>
+          <p className="t-section-title-sm text-3xl text-foreground">"Was the source trustworthy?"</p>
           <p className="mt-5 t-body-md text-muted-foreground">
             Source Standard provides independent verification and source accountability.
           </p>
         </div>
         <div className="border border-border bg-background p-6 md:p-8">
-          <p className="t-section-title-sm text-foreground">“What happened after it was used?”</p>
+          <p className="t-section-title-sm text-3xl text-foreground">"What happened after it was used?"</p>
           <p className="mt-5 t-body-md text-muted-foreground">
             Open provides clinical intelligence designed to help professionals better understand outcomes and
             response patterns.
