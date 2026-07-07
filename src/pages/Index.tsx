@@ -185,7 +185,7 @@ const HeroActions = () => (
 const HeroMeta = () => {
   const total = vendors.length;
   const items: { label: string; value: string }[] = [
-    { label: "Private Standard", value: "Documentation-first review" },
+    { label: "Private Standard", value: "Independent verification" },
     { label: "Public Registry", value: "Searchable vendor status" },
     { label: "Live Data", value: `${total.toLocaleString("en-US")} vendors indexed` },
   ];
