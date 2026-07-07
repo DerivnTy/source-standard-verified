@@ -17,7 +17,7 @@ const ITEMS = [
   },
   {
     q: "Why does Source Standard discuss safety if it does not provide medical advice?",
-    a: "Consumer education requires discussing sourcing transparency, pharmacy standards, documentation quality, and verification limits without providing individualized medical guidance.",
+    a: "Source Standard discusses sourcing transparency, pharmacy standards, and public claims so consumers can ask better questions of their clinicians. It does not provide individualized medical guidance.",
   },
   {
     q: "What should consumers focus on most?",
