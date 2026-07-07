@@ -91,7 +91,7 @@ const ForVendors = () => {
                 </ul>
               </div>
               <p className="mt-5 meta-label">
-                Required records vary by operating model. The reviewer of record may identify additional materials during intake; all such requests are logged to the controlled audit file.
+                Records requested vary by operating model. Additional materials may be requested during intake as needed for the review scope.
               </p>
             </div>
 
