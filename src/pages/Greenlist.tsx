@@ -327,7 +327,7 @@ const Greenlist = () => {
                   },
                   {
                     label: "Monitoring",
-                    body: "The organization is undergoing additional review before a final status determination.",
+                    body: "The organization is under additional review before a status is confirmed.",
                   },
                   {
                     label: "Status Alert",
