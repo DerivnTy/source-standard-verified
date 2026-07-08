@@ -54,13 +54,13 @@ const HeroContent = () => {
       <p
         className="text-white/70 text-center mx-auto"
         style={{
-          marginTop: "14px",
-          maxWidth: "480px",
+          marginTop: "10px",
+          maxWidth: "520px",
           fontSize: "clamp(15px, 3.6vw, 17px)",
           lineHeight: 1.5,
         }}
       >
-        The independent public reference for verifying provider sourcing transparency.
+        Search the Source Standard Registry to better understand your provider's peptide sourcing transparency and verification status.
       </p>
 
       {/* Search — primary action */}
