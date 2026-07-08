@@ -327,7 +327,115 @@ const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => {
   );
 };
 
-// ─── (Profile completeness intentionally omitted — Source Standard does not gamify completion.) ───
+// ─── Transparency helpers ─────────────────────────────────────────────────────
+
+const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
+  const copy: Record<VendorPublicStatus, string> = {
+    verified:
+      "This provider has completed the Source Standard verification process and currently maintains Verified status.",
+    unverified:
+      "This provider has not completed the Source Standard verification process.",
+    "under-review": "This provider is currently under Source Standard review.",
+    suspended:
+      "This provider's Source Standard status is currently suspended.",
+    removed:
+      "This provider has been removed from the Source Standard registry.",
+  };
+  return (
+    <p
+      className="mt-3 text-muted-foreground"
+      style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+    >
+      {copy[status]}
+    </p>
+  );
+};
+
+const QuickFact = ({ label, value }: { label: string; value: string }) => (
+  <div
+    className="py-2"
+    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+  >
+    <p
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
+    >
+      {label}
+    </p>
+    <p
+      className="mt-1 font-sans text-foreground"
+      style={{ fontSize: "14px", fontWeight: 500, lineHeight: 1.35 }}
+    >
+      {value}
+    </p>
+  </div>
+);
+
+const QuickFacts = ({
+  providerType,
+  location,
+  verification,
+  profile,
+  lastReviewed,
+}: {
+  providerType: string;
+  location: string;
+  verification: string;
+  profile: string;
+  lastReviewed: string;
+}) => (
+  <section
+    aria-label="Quick facts"
+    className="mt-4 grid grid-cols-2 md:grid-cols-4"
+    style={{ columnGap: "16px" }}
+  >
+    <QuickFact label="Provider Type" value={providerType} />
+    <QuickFact label="Location" value={location} />
+    <QuickFact label="Verification" value={verification} />
+    <QuickFact label="Profile" value={profile} />
+    <div className="col-span-2 md:col-span-4">
+      <QuickFact label="Last Reviewed" value={lastReviewed} />
+    </div>
+  </section>
+);
+
+const ProfileCompletenessCard = ({ claimed }: { claimed: boolean }) => (
+  <article className="mt-4" style={CARD}>
+    <p
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "12px", letterSpacing: "0.05em" }}
+    >
+      Profile Completeness
+    </p>
+    <p
+      className="mt-2 text-foreground"
+      style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+    >
+      {claimed
+        ? "This profile has been claimed but has not yet completed Source Standard verification. Some information displayed on this page has not been provided to Source Standard and therefore cannot currently be verified."
+        : "This provider has not yet claimed or completed their Source Standard profile. Some information displayed on this page has not been provided to Source Standard and therefore cannot currently be verified."}
+    </p>
+  </article>
+);
+
+const ReadMore = ({ children }: { children: ReactNode }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <div className={open ? "" : "line-clamp-6"}>{children}</div>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="mt-2 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+      >
+        {open ? "Read Less" : "Read More"}
+      </button>
+    </div>
+  );
+};
+
+
 
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
