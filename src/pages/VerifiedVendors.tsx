@@ -218,16 +218,14 @@ const VerifiedVendors = () => {
   }, [searchParams]);
 
   // Search-mode transitions:
-  // - Entering search (empty → non-empty): auto-collapse filters + definitions.
-  // - Clearing search (non-empty → empty): auto-restore both to expanded.
+  // - Entering search (empty → non-empty): auto-collapse filters.
+  // - Clearing search (non-empty → empty): auto-restore filters to expanded.
   // User manual toggles during search persist until the field is cleared.
   useEffect(() => {
     if (isSearching) {
       setFiltersOpen(false);
-      setDefinitionsOpen(false);
     } else {
       setFiltersOpen(true);
-      setDefinitionsOpen(true);
     }
   }, [isSearching]);
 
