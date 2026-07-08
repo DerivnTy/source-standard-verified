@@ -70,12 +70,12 @@ const HeroContent = () => {
         aria-label="Search the Source Standard Registry"
         className="flex items-center w-full mx-auto"
         style={{
-          marginTop: "22px",
+          marginTop: "18px",
           maxWidth: "520px",
-          height: "48px",
+          height: "52px",
           padding: "4px 4px 4px 18px",
           borderRadius: "999px",
-          border: "1px solid rgba(255,255,255,0.22)",
+          border: "1px solid rgba(255,255,255,0.30)",
           backgroundColor: "rgba(255,255,255,0.06)",
           backdropFilter: "blur(12px)",
         }}
@@ -86,14 +86,14 @@ const HeroContent = () => {
           type="search"
           aria-label="Search by provider, clinic, or telehealth company"
           placeholder="Search by provider, clinic, or telehealth company…"
-          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/45 focus:outline-none focus:ring-0"
+          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0"
           style={{ fontSize: "14px", minWidth: 0 }}
         />
         <button
           type="submit"
           className="inline-flex items-center justify-center font-sans font-semibold uppercase transition-all active:scale-[0.97] bg-white text-[hsl(var(--navy-surface))] hover:bg-white/90 shrink-0"
           style={{
-            height: "40px",
+            height: "42px",
             padding: "0 18px",
             borderRadius: "999px",
             fontSize: "11px",
