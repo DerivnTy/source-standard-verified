@@ -1315,18 +1315,50 @@ const VendorProfile = () => {
           )}
 
 
+          {/* ────── 9. ACTIVITY ────── */}
+          <Activity
+            rows={[
+              {
+                label: "Profile Created",
+                value: vendor.profileCreatedDate ?? "—",
+                provided: Boolean(vendor.profileCreatedDate),
+              },
+              {
+                label: "Last Reviewed",
+                value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet reviewed",
+                provided: Boolean(isVerified && vendor.reviewDate),
+              },
+              {
+                label: "Verification Status Issued",
+                value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet issued",
+                provided: Boolean(isVerified && vendor.reviewDate),
+              },
+              {
+                label: "Last Updated",
+                value: vendor.lastUpdatedDate ?? "—",
+                provided: Boolean(vendor.lastUpdatedDate),
+              },
+            ]}
+          />
 
-
-          {/* ────── 10. CLAIM PROFILE ────── */}
+          {/* ────── 10. CLAIM YOUR PROFILE (elevated CTA) ────── */}
           {!claimed && (
             <article
-              className="mt-4"
+              className="mt-6"
               style={{
-                ...CARD,
-                background: "hsl(var(--muted) / 0.4)",
+                border: "0.5px solid hsl(var(--border))",
+                borderRadius: "16px",
+                padding: "24px",
+                background: "hsl(var(--foreground) / 0.04)",
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <p
+                className="font-sans font-semibold uppercase text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+              >
+                For Providers
+              </p>
+              <div className="mt-2 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="min-w-0">
                   <h2
                     className="font-sans font-semibold text-foreground"
@@ -1346,19 +1378,18 @@ const VendorProfile = () => {
                   to={`/apply?claim=${encodeURIComponent(vendor.slug)}`}
                   className="shrink-0 inline-flex items-center justify-center font-sans font-semibold uppercase bg-foreground text-background hover:opacity-90 transition-opacity"
                   style={{
-                    fontSize: "11px",
+                    fontSize: "12px",
                     letterSpacing: "0.08em",
-                    padding: "10px 16px",
-                    borderRadius: "20px",
+                    padding: "14px 22px",
+                    borderRadius: "24px",
                   }}
                 >
                   Claim Profile
                 </Link>
-
               </div>
-
             </article>
           )}
+
         </div>
       </section>
     </>
