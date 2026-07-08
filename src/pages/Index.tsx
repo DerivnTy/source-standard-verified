@@ -185,11 +185,9 @@ const PillSecondaryWhite = ({ to, children }: { to: string; children: React.Reac
 );
 
 const HeroActions = () => (
-  <>
-    <PillPrimaryWhite to="/verified-vendors">Search the Registry</PillPrimaryWhite>
-    <PillSecondaryWhite to="/how-it-works">View Verification Framework</PillSecondaryWhite>
-  </>
+  <PillSecondaryWhite to="/how-it-works">How Verification Works</PillSecondaryWhite>
 );
+
 
 /* ───────────────── Hero Meta Strip ─────────────────
    Compact 3-column institutional readout anchoring the bottom of the navy hero. */
