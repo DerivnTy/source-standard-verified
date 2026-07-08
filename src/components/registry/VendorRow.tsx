@@ -32,14 +32,10 @@ export const VendorRow = ({
   const isVerified = vendor.status === "verified";
   const focus = focusFor(vendor);
 
-  const isOnline = fulfillment === "online";
+  const modelLabel =
+    fulfillment === "online" ? "Online" : fulfillment === "in-person" ? "In-person" : "Hybrid";
   const hasLocation = location && location !== "—";
-  const modelLabel = isOnline ? "Online" : fulfillment === "in-person" ? "In-person" : "Hybrid";
-  const locationLine = isOnline
-    ? "Online"
-    : hasLocation
-      ? `${location} · ${modelLabel}`
-      : modelLabel;
+  const locationLine = hasLocation ? location : modelLabel;
 
   return (
     <Link
@@ -50,7 +46,7 @@ export const VendorRow = ({
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "10px 14px 8px",
+        padding: "9px 14px 8px",
       }}
     >
       {/* Status — pinned top-right */}
