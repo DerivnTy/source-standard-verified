@@ -158,6 +158,18 @@ const Greenlist = () => {
   const [stateFilter, setStateFilter] = useState<string>(ALL);
   const PAGE_SIZE = 10;
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [filtersOpen, setFiltersOpen] = useState(true);
+
+  const isSearching = query.trim().length > 0;
+
+  useEffect(() => {
+    setFiltersOpen(!isSearching);
+  }, [isSearching]);
+
+  const activeFilterCount =
+    (status !== "all" ? 1 : 0) +
+    (facilityType !== "all" ? 1 : 0) +
+    (stateFilter !== ALL ? 1 : 0);
 
   const counts = useMemo(() => getGreenlistCounts(), []);
 
