@@ -112,6 +112,92 @@ const SoftPill = ({
   </button>
 );
 
+/**
+ * FilterSelect — Source Standard styled select.
+ * Trigger matches the pill/input language (36px, 20px radius, hairline, white).
+ * Menu is a white card with hairline border, 16px radius, subtle elevation.
+ */
+const FilterSelect = ({
+  value,
+  onValueChange,
+  ariaLabel,
+  placeholder,
+  options,
+}: {
+  value: string;
+  onValueChange: (v: string) => void;
+  ariaLabel: string;
+  placeholder: string;
+  options: { value: string; label: string }[];
+}) => (
+  <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
+    <SelectPrimitive.Trigger
+      aria-label={ariaLabel}
+      className="font-sans w-full text-foreground focus:outline-none focus:ring-0 inline-flex items-center justify-between"
+      style={{
+        fontSize: "12px",
+        fontWeight: 500,
+        letterSpacing: "0.02em",
+        height: "36px",
+        borderRadius: "20px",
+        border: "1px solid hsl(var(--border))",
+        backgroundColor: "#FFFFFF",
+        padding: "0 14px",
+      }}
+    >
+      <SelectPrimitive.Value placeholder={placeholder} />
+      <SelectPrimitive.Icon asChild>
+        <ChevronDown
+          aria-hidden
+          style={{ width: "12px", height: "12px", strokeWidth: 1.75, opacity: 0.55 }}
+        />
+      </SelectPrimitive.Icon>
+    </SelectPrimitive.Trigger>
+    <SelectPrimitive.Portal>
+      <SelectPrimitive.Content
+        position="popper"
+        sideOffset={6}
+        className="z-50 overflow-hidden bg-white animate-fade-in"
+        style={{
+          minWidth: "var(--radix-select-trigger-width)",
+          maxHeight: "min(60vh, 320px)",
+          border: "1px solid hsl(var(--border))",
+          borderRadius: "16px",
+          boxShadow: "0 8px 24px -12px rgba(0,16,33,0.18)",
+        }}
+      >
+        <SelectPrimitive.Viewport style={{ padding: "6px" }}>
+          {options.map((opt) => (
+            <SelectPrimitive.Item
+              key={opt.value}
+              value={opt.value}
+              className="relative flex cursor-pointer select-none items-center justify-between outline-none data-[highlighted]:bg-[hsl(var(--muted))]/60 data-[state=checked]:text-foreground"
+              style={{
+                fontSize: "12.5px",
+                fontWeight: 500,
+                letterSpacing: "0.01em",
+                color: "#001021",
+                padding: "8px 12px",
+                borderRadius: "10px",
+                lineHeight: 1.35,
+              }}
+            >
+              <SelectPrimitive.ItemText>{opt.label}</SelectPrimitive.ItemText>
+              <SelectPrimitive.ItemIndicator>
+                <Check
+                  aria-hidden
+                  style={{ width: "14px", height: "14px", strokeWidth: 2, marginLeft: "10px" }}
+                />
+              </SelectPrimitive.ItemIndicator>
+            </SelectPrimitive.Item>
+          ))}
+        </SelectPrimitive.Viewport>
+      </SelectPrimitive.Content>
+    </SelectPrimitive.Portal>
+  </SelectPrimitive.Root>
+);
+
+
 const VerifiedVendors = () => {
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
