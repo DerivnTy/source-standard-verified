@@ -106,14 +106,14 @@ const HeroContent = () => {
 
       {/* Trust indicators */}
       <div
-        className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mx-auto"
-        style={{ marginTop: "16px" }}
+        className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mx-auto"
+        style={{ marginTop: "12px" }}
       >
         {["Independent Verification", "Public Reference Registry", "Evidence-Informed"].map(
           (t) => (
             <span
               key={t}
-              className="font-mono uppercase text-white/60"
+              className="font-mono uppercase text-white/65"
               style={{ fontSize: "10px", letterSpacing: "0.12em" }}
             >
               <span aria-hidden className="text-white/80" style={{ marginRight: "6px" }}>
