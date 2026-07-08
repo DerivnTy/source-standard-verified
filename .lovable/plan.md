@@ -1,84 +1,90 @@
-## Facility Records — Density & Hierarchy Pass (Phase 2, revised)
+## Vendor Profile — Consumer Trust & Transparency Refinement (v2)
 
-### Goal
-Increase information density and refine visual hierarchy so the page feels faster and more efficient on mobile. Copy is done; this phase is about spacing, weight, color semantics, per-card information, and a **restrained** sticky behavior.
+Refine `src/pages/VendorProfile.tsx` so each profile reads as a public transparency record. Preserve existing colors, typography, spacing, routing, verification logic, status badges, and profile data. Hierarchy + copy + missing-state pass — no data model changes.
 
----
+### 1. Hero status summary
+Directly beneath the hero identity block, add one plain-language line:
+- Verified: "This provider has completed the Source Standard verification process and currently maintains Verified status."
+- Unverified: "This provider has not completed the Source Standard verification process."
+- Under review: "This provider is currently under Source Standard review."
+- Suspended / removed: reuse `VENDOR_STATUS_LABEL` phrasing in one sentence.
+Styling: `t-body` muted, no card.
 
-### 1. Shrink the Greenlisted Info Card (~50% shorter)
-Target: ~80–100px tall.
+### 2. Quick Facts (new, compact)
+Immediately under the status summary, a tight 2×2 (mobile) / 4-col (desktop) fact grid — the first thing users scan:
+- Provider Type — In-Person / Online / Hybrid (from `getVendorFulfillment`)
+- Location — `formatLocation(vendor)`
+- Verification — Verified / Unverified / Under Review / Suspended
+- Profile — Claimed / Unclaimed
+Uses existing eyebrow-label + value styling (mirror `Cell`), no card chrome, hairline dividers only.
 
-- Reduce padding from `14px 16px` → `12px 14px`
-- Two lines + link:
-  - Primary (14px, medium): "Greenlisted facilities are currently recognized within the Source Standard framework."
-  - Muted (12.5px): "Recognition is based on Source Standard's review and may change as new information becomes available."
-  - Link: "Learn more →"
-- Tighten inter-line gaps
+### 3. Last Reviewed (new, in hero band)
+Small mono field near the hero (adjacent to Quick Facts or beneath status pill):
+- Verified with `reviewDate`: "Last Reviewed — {reviewDate}"
+- Otherwise: "Review Status — Not yet reviewed"
+Reuses existing mono/tabular styling from status area.
 
-### 2. Demote Status Definitions to a Compact Legend
-Inline helper text style, not filter-weight.
+### 4. Profile Completeness card (conditional)
+Insert immediately beneath hero band, above Verification Status:
+- Unclaimed: "This provider has not yet claimed or completed their Source Standard profile. Some information displayed on this page has not been provided to Source Standard and therefore cannot currently be verified."
+- Claimed but unverified: shortened variant acknowledging claim without verification.
+- Verified: **do not render** the card at all.
+Uses existing `CARD` style.
 
-- Eyebrow: `STATUS GUIDE` (10px, uppercase, 0.12em, muted)
-- No hairline dividers
-- Compact list with dot bullets:
-  - `Greenlisted — Currently recognized`
-  - `Monitoring — Under additional review`
-  - `Status Alert — Additional information requires review`
-- ~11.5px, muted, tight line-height (~1.4)
-- Placement: directly beneath the Status pills
+### 5. Unified missing-info treatment
+Replace the italic "Information Not Submitted" in `Cell` (line ~248) with a consistent, non-italic, muted label: **"Not provided to Source Standard"**. Apply everywhere a field is absent across Contact, Providers, and Clinical Leadership. Empty fields remain visible — never hidden.
 
-### 3. Add One More Info Line to Facility Cards
-Modify `GreenlistRow.tsx` to surface `entry.type`.
+### 6. Rename "Verification Record" → "Verification Status"
+- Rename heading.
+- Unverified copy: "This provider has not yet participated in the Source Standard verification process."
+- CTA: "View Verification Details" → "Learn how verification works →" (preserve existing target route).
+- Verified path unchanged (expandable scope details stay).
 
-- Inline on Row 2: `[Category Pill] · [Facility Type] · [Location]` with dot separators
-- Style: 11px, `text-muted-foreground`, truncate on overflow
-- Preserves card height
+### 7. Contact section hierarchy
+Reorder to: Website, Phone, Address, Instagram, LinkedIn. Missing rows use the unified transparency label. Keep social icons in hero as-is.
 
-### 4. Recolor Status Indicators (Semantic Traffic-Light)
-Replace the all-red pattern in `GreenlistRow.tsx`:
+### 8. Services & Clinical Focus
+Keep section. Render `serviceBadges` (already computed) as existing `Tag` chips in a wrap. No structural change.
 
-- **Greenlisted** → green `#22C55E`
-- **Monitoring** → amber `#F59E0B`
-- **Status Alert** → red `#FF3B30` (preserved as true alert)
+### 9. About This Vendor — clamp with Read More
+Wrap About/summary in a collapsible:
+- Collapsed via `line-clamp-6` (~4–6 lines).
+- Text-only "Read More" / "Read Less" toggle, only when overflow exists.
+- No layout change for short content.
 
-Apply to both status label + live dot on the row, and to a small colored dot preceding each label in the Status Guide legend.
+### 10. Providers & Clinical Leadership — always render
+Keep section visible even when `hasProvider` is false. Medical Director, Credentials, Clinical Leadership, Additional Providers each render with the unified "Not provided to Source Standard" treatment when absent.
 
-### 5. Sticky Behavior — Compact Bar Only (revised)
-**Do NOT** make the full search + info card + filter stack sticky. That would consume too much vertical space on mobile.
+### 11. Claim Your Profile
+Bottom claim block:
+- Heading: **"Claim Your Profile"** (speaking directly to the vendor).
+- Body: "Claiming this profile allows your organization to submit additional information, maintain public profile details, and begin the Source Standard verification process."
+- Primary CTA: "Claim Profile" (existing link target preserved).
+- Hide entire block when `claimed === true`.
 
-Instead:
+### 12. Section order (mobile + desktop DOM order)
+1. Hero (name, status pill, type, city/state, socials)
+2. Status summary (§1)
+3. Quick Facts (§2)
+4. Last Reviewed (§3) — may sit inside the Quick Facts band
+5. Profile Completeness card (§4, conditional)
+6. Verification Status (§6) — kept above Contact; this is why users are here
+7. Contact (§7)
+8. Services & Clinical Focus (§8)
+9. About This Vendor (§9)
+10. Providers & Clinical Leadership (§10)
+11. Claim Your Profile (§11)
 
-- Page layout scrolls normally by default.
-- Observe the original search input with an `IntersectionObserver`. Once it scrolls out of view, render a **compact sticky bar** pinned to the top containing:
-  - Compact search input (40px height, same styling)
-  - A single `Filters` button (opens or scrolls back to the full filter stack — MVP: smooth-scrolls to the original controls; a full in-place filter sheet is out of scope for this phase)
-- Sticky bar uses `position: fixed; top: 0; left: 0; right: 0; z-index: 40` with `backdrop-filter: blur(12px)` + `background-color: hsl(var(--background) / 0.85)` and a hairline bottom border.
-- Slide-in transition (~200ms ease-out) when appearing/disappearing.
-- The Greenlisted info card and full filter controls remain in normal document flow.
-- Desktop: same behavior; the compact bar is still useful on longer result lists.
+Desktop grid preserved; mobile is a single column in this order.
 
-### 6. Simplify Hero Copy
-Replace description in both `RegistryHeader` and `PageMeta`:
-> "Search manufacturers and compounding pharmacies recognized within the Source Standard Registry."
+### Technical notes
+- Single file touched: `src/pages/VendorProfile.tsx`.
+- New local components: `StatusSummary`, `QuickFacts`, `ProfileCompletenessCard`, `ReadMore`. All colocated.
+- `Cell` empty-state string is the single source of the "Not provided…" label.
+- No changes to `data/vendors.ts`, routing, JSON-LD, or verification/status logic.
+- Verify via typecheck + spot-check on one verified and one unverified vendor route.
 
-### 7. Tighten Vertical Spacing
-- Search → info card: `pt-3` → `pt-2`
-- Info card → filters: `pt-4` → `pt-3`
-- Between filter groups: `space-y-4` → `space-y-3`
-- Filters → result list: `mt-5` → `mt-4`
-- Net reduction: ~16–20px above filters
-
-### 8. Preserve
-- All existing filter logic and data flow
-- `GreenlistRow` structural layout (only add one muted string + swap status color)
-- Radius, hairlines, typography scale
-- Institutional visual language
-
----
-
-### Files to modify
-- `src/pages/Greenlist.tsx` — info card shrink, legend restyle, compact sticky bar, hero copy, spacing
-- `src/components/registry/GreenlistRow.tsx` — inline facility type, semantic status colors
-
-### Outcome
-The page becomes visibly denser and calmer: shorter info strip, quiet legend, richer cards (name + type + location + color-coded status), a lightweight sticky search bar that only appears after scrolling — preserving maximum results space on mobile — and less dead space between elements.
+### Out of scope
+- Completeness percentage/meter
+- New data fields or schema changes
+- Changes to Facility Records or shared components
