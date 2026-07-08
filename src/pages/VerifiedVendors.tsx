@@ -459,35 +459,22 @@ const VerifiedVendors = () => {
                   >
                     Specialty
                   </p>
-                  <select
+                  <FilterSelect
                     value={specialties[0] ?? "any"}
-                    onChange={(e) =>
-                      setSpecialties(e.target.value === "any" ? [] : [e.target.value])
+                    onValueChange={(v) =>
+                      setSpecialties(v === "any" ? [] : [v])
                     }
-                    aria-label="Filter by specialty"
-                    className="font-sans w-full text-foreground focus:outline-none focus:ring-0 appearance-none"
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 500,
-                      letterSpacing: "0.02em",
-                      height: "36px",
-                      borderRadius: "20px",
-                      border: "1px solid hsl(var(--border))",
-                      backgroundColor: "#FFFFFF",
-                      padding: "0 14px",
-                      backgroundImage:
-                        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='none' stroke='%23001021' stroke-opacity='0.55' stroke-width='1.5' d='M1 1l4 4 4-4'/></svg>\")",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 14px center",
-                    }}
-                  >
-                    <option value="any">All specialties</option>
-                    {specialtyOptions.map((opt) => (
-                      <option key={opt.key} value={opt.key}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
+                    ariaLabel="Filter by specialty"
+                    placeholder="All specialties"
+                    options={[
+                      { value: "any", label: "All specialties" },
+                      ...specialtyOptions.map((opt) => ({
+                        value: opt.key,
+                        label: opt.label,
+                      })),
+                    ]}
+                  />
+
                 </div>
               )}
 
