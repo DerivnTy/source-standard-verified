@@ -1051,7 +1051,7 @@ const VendorProfile = () => {
               />
               <div className="col-span-2">
                 <Cell
-                  label="Address"
+                  label="Practice Address"
                   value={
                     vendor.address || vendor.city || vendor.state || vendor.zip
                       ? [
