@@ -81,14 +81,14 @@ export const BriefingHero = ({
           <div
             className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center lg:min-h-[70vh] lg:max-h-[760px]"
             style={{
-              paddingTop: "clamp(38px, 5.5vh, 58px)",
-              paddingBottom: "clamp(56px, 7vh, 80px)",
+              paddingTop: "clamp(32px, 4.5vh, 52px)",
+              paddingBottom: "clamp(48px, 6vh, 72px)",
             }}
           >
             <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center lg:my-auto">
             {brandMark && <span className="sr-only">{brandMark}</span>}
             {heroLogo && (
-              <div className="flex justify-center" style={{ marginBottom: "28px" }}>
+              <div className="flex justify-center" style={{ marginBottom: "20px" }}>
                 {heroLogo}
               </div>
             )}
@@ -120,7 +120,7 @@ export const BriefingHero = ({
             {actions && (
               <div
                 className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-center [&>*]:w-full sm:[&>*]:w-auto"
-                style={{ marginTop: "clamp(24px, 3.5vh, 36px)", gap: "16px" }}
+                style={{ marginTop: "clamp(20px, 3vh, 32px)", gap: "16px" }}
               >
                 {actions}
               </div>
@@ -130,7 +130,7 @@ export const BriefingHero = ({
                 <div
                   className="mx-auto w-full"
                   style={{
-                    marginTop: "clamp(48px, 7vh, 72px)",
+                    marginTop: "clamp(40px, 6vh, 64px)",
                     paddingTop: "22px",
                     maxWidth: "560px",
                     borderTop: "1px solid rgba(255,255,255,0.16)",

@@ -54,13 +54,13 @@ const HeroContent = () => {
       <p
         className="text-white/70 text-center mx-auto"
         style={{
-          marginTop: "14px",
-          maxWidth: "480px",
+          marginTop: "10px",
+          maxWidth: "520px",
           fontSize: "clamp(15px, 3.6vw, 17px)",
           lineHeight: 1.5,
         }}
       >
-        The independent public reference for verifying provider sourcing transparency.
+        Search the Source Standard Registry to better understand your provider's peptide sourcing transparency and verification status.
       </p>
 
       {/* Search — primary action */}
@@ -70,12 +70,12 @@ const HeroContent = () => {
         aria-label="Search the Source Standard Registry"
         className="flex items-center w-full mx-auto"
         style={{
-          marginTop: "22px",
+          marginTop: "18px",
           maxWidth: "520px",
-          height: "48px",
+          height: "52px",
           padding: "4px 4px 4px 18px",
           borderRadius: "999px",
-          border: "1px solid rgba(255,255,255,0.22)",
+          border: "1px solid rgba(255,255,255,0.30)",
           backgroundColor: "rgba(255,255,255,0.06)",
           backdropFilter: "blur(12px)",
         }}
@@ -86,14 +86,14 @@ const HeroContent = () => {
           type="search"
           aria-label="Search by provider, clinic, or telehealth company"
           placeholder="Search by provider, clinic, or telehealth company…"
-          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/45 focus:outline-none focus:ring-0"
+          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0"
           style={{ fontSize: "14px", minWidth: 0 }}
         />
         <button
           type="submit"
           className="inline-flex items-center justify-center font-sans font-semibold uppercase transition-all active:scale-[0.97] bg-white text-[hsl(var(--navy-surface))] hover:bg-white/90 shrink-0"
           style={{
-            height: "40px",
+            height: "42px",
             padding: "0 18px",
             borderRadius: "999px",
             fontSize: "11px",
@@ -106,14 +106,14 @@ const HeroContent = () => {
 
       {/* Trust indicators */}
       <div
-        className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mx-auto"
-        style={{ marginTop: "16px" }}
+        className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mx-auto"
+        style={{ marginTop: "12px" }}
       >
         {["Independent Verification", "Public Reference Registry", "Evidence-Informed"].map(
           (t) => (
             <span
               key={t}
-              className="font-mono uppercase text-white/60"
+              className="font-mono uppercase text-white/65"
               style={{ fontSize: "10px", letterSpacing: "0.12em" }}
             >
               <span aria-hidden className="text-white/80" style={{ marginRight: "6px" }}>
@@ -455,15 +455,15 @@ const Index = () => {
             max-width: 640px !important;
             font-size: 19px !important;
             line-height: 1.55 !important;
-            margin-top: 28px !important;
+            margin-top: 20px !important;
           }
           .home-hero h1#briefing-title ~ div.flex.justify-center {
             justify-content: center !important;
-            margin-top: 44px !important;
+            margin-top: 36px !important;
           }
           .home-hero h1#briefing-title ~ div.flex.flex-col.sm\\:flex-row {
             justify-content: center !important;
-            margin-top: 36px !important;
+            margin-top: 28px !important;
           }
 
           /* Section rhythm — bump padding and headings on every home section */
@@ -516,9 +516,9 @@ const Index = () => {
           lg:[&_.page-shell]:!px-6
           lg:[&_.page-shell]:!pt-[clamp(72px,10vh,120px)]
           lg:[&_.page-shell]:!pb-[clamp(72px,10vh,120px)]
-          [&_h1#briefing-title+p]:!mt-6
-          [&_h1#briefing-title~div.flex.justify-center]:!mt-9
-          [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
+          [&_h1#briefing-title+p]:!mt-4
+          [&_h1#briefing-title~div.flex.justify-center]:!mt-7
+          [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-6
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
           md:[&_h1#briefing-title+p]:!max-w-[440px]
         "
