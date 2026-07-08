@@ -351,61 +351,53 @@ const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
   );
 };
 
-const QuickFact = ({ label, value }: { label: string; value: string }) => (
-  <div
-    className="py-2"
-    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-  >
-    <p
-      className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
-    >
-      {label}
-    </p>
-    <p
-      className="mt-1 font-sans text-foreground"
-      style={{ fontSize: "14px", fontWeight: 500, lineHeight: 1.35 }}
-    >
-      {value}
-    </p>
-  </div>
-);
+type QuickFactRow = { label: string; value: string };
 
-const QuickFacts = ({
-  providerType,
-  location,
-  verification,
-  profile,
-  lastReviewed,
-}: {
-  providerType: string;
-  location: string;
-  verification: string;
-  profile: string;
-  lastReviewed: string;
-}) => (
+const QuickFactsTable = ({ rows }: { rows: QuickFactRow[] }) => (
   <section
     aria-label="Quick facts"
-    className="mt-4 grid grid-cols-2 md:grid-cols-4"
-    style={{ columnGap: "16px" }}
+    className="mt-4"
+    style={{
+      borderTop: "0.5px solid hsl(var(--border))",
+      borderBottom: "0.5px solid hsl(var(--border))",
+    }}
   >
-    <QuickFact label="Provider Type" value={providerType} />
-    <QuickFact label="Location" value={location} />
-    <QuickFact label="Verification" value={verification} />
-    <QuickFact label="Profile" value={profile} />
-    <div className="col-span-2 md:col-span-4">
-      <QuickFact label="Last Reviewed" value={lastReviewed} />
-    </div>
+    <dl>
+      {rows.map((r, i) => (
+        <div
+          key={r.label}
+          className="flex items-baseline justify-between gap-4 py-2"
+          style={
+            i > 0
+              ? { borderTop: "0.5px solid hsl(var(--border) / 0.6)" }
+              : undefined
+          }
+        >
+          <dt
+            className="font-sans font-semibold uppercase text-muted-foreground"
+            style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+          >
+            {r.label}
+          </dt>
+          <dd
+            className="font-sans text-foreground text-right"
+            style={{ fontSize: "14px", fontWeight: 500, lineHeight: 1.35 }}
+          >
+            {r.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
   </section>
 );
 
-const ProfileCompletenessCard = ({ claimed }: { claimed: boolean }) => (
+const AboutThisProfileCard = ({ claimed }: { claimed: boolean }) => (
   <article className="mt-4" style={CARD}>
     <p
       className="font-sans font-semibold uppercase text-muted-foreground"
       style={{ fontSize: "12px", letterSpacing: "0.05em" }}
     >
-      Profile Completeness
+      About This Profile
     </p>
     <p
       className="mt-2 text-foreground"
@@ -417,6 +409,80 @@ const ProfileCompletenessCard = ({ claimed }: { claimed: boolean }) => (
     </p>
   </article>
 );
+
+type ActivityRow = { label: string; value: string; provided: boolean };
+
+const Activity = ({ rows }: { rows: ActivityRow[] }) => {
+  const provided = rows.filter((r) => r.provided);
+  // Compact fallback when the timeline would otherwise feel empty.
+  if (provided.length < 2) {
+    const summary =
+      provided[0]?.value ?? rows.find((r) => r.label === "Last Reviewed")?.value ?? "Not yet reviewed";
+    return (
+      <section
+        aria-label="Activity"
+        className="mt-4 flex items-baseline justify-between gap-4 py-2"
+        style={{
+          borderTop: "0.5px solid hsl(var(--border))",
+          borderBottom: "0.5px solid hsl(var(--border))",
+        }}
+      >
+        <p
+          className="font-sans font-semibold uppercase text-muted-foreground"
+          style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+        >
+          Activity
+        </p>
+        <p
+          className="font-sans text-muted-foreground text-right"
+          style={{ fontSize: "13px", fontWeight: 400 }}
+        >
+          {summary}
+        </p>
+      </section>
+    );
+  }
+  return (
+    <article className="mt-4" style={CARD}>
+      <p
+        className="font-sans font-semibold uppercase text-muted-foreground"
+        style={{ fontSize: "12px", letterSpacing: "0.05em" }}
+      >
+        Activity
+      </p>
+      <dl className="mt-3">
+        {rows.map((r, i) => (
+          <div
+            key={r.label}
+            className="flex items-baseline justify-between gap-4 py-2"
+            style={
+              i > 0
+                ? { borderTop: "0.5px solid hsl(var(--border) / 0.6)" }
+                : undefined
+            }
+          >
+            <dt
+              className="font-sans font-semibold uppercase text-muted-foreground"
+              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+            >
+              {r.label}
+            </dt>
+            <dd
+              className={`font-mono tabular-nums text-right ${
+                r.provided ? "text-foreground" : "text-muted-foreground"
+              }`}
+              style={{ fontSize: "13px", fontWeight: 400 }}
+            >
+              {r.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </article>
+  );
+};
+
+
 
 const ReadMore = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
