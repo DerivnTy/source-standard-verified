@@ -453,7 +453,73 @@ const Greenlist = () => {
           </div>
         </div>
       </section>
+
+      {/* Compact sticky bar — appears after the original search scrolls out of view */}
+      <div
+        aria-hidden={!stickyVisible}
+        className="fixed left-0 right-0 top-0 z-40"
+        style={{
+          transform: stickyVisible ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 220ms ease-out",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          backgroundColor: "hsl(var(--background) / 0.85)",
+          borderBottom: "1px solid hsl(var(--border))",
+          pointerEvents: stickyVisible ? "auto" : "none",
+        }}
+      >
+        <div className="page-shell" style={{ paddingTop: "8px", paddingBottom: "8px" }}>
+          <div className="mx-auto w-wide flex items-center" style={{ gap: "8px" }}>
+            <div className="relative flex-1 min-w-0">
+              <Search
+                aria-hidden
+                className="pointer-events-none absolute text-muted-foreground/70"
+                style={{
+                  top: "50%",
+                  left: "14px",
+                  width: "14px",
+                  height: "14px",
+                  strokeWidth: 1.75,
+                  transform: "translateY(-50%)",
+                }}
+              />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search facility..."
+                aria-label="Search Facility Records"
+                className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+                style={{
+                  height: "40px",
+                  borderRadius: "20px",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid hsl(var(--border))",
+                  paddingLeft: "36px",
+                  paddingRight: "14px",
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={scrollToFilters}
+              className="font-sans font-semibold uppercase text-foreground/80 hover:text-foreground transition-colors shrink-0"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.06em",
+                height: "40px",
+                padding: "0 14px",
+                borderRadius: "20px",
+                border: "1px solid hsl(var(--border))",
+                backgroundColor: "#FFFFFF",
+              }}
+            >
+              Filters
+            </button>
+          </div>
+        </div>
+      </div>
     </>
+
   );
 };
 
