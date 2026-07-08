@@ -194,49 +194,57 @@ const HeroActions = () => (
 const HeroMeta = () => {
   const total = vendors.length;
   const items: { label: string; value: string }[] = [
-    { label: "Private Standard", value: "Independent verification" },
-    { label: "Public Registry", value: "Searchable vendor status" },
-    { label: "Live Data", value: `${total.toLocaleString("en-US")} vendors indexed` },
+    { label: "Providers Indexed", value: total.toLocaleString("en-US") },
+    { label: "States Represented", value: "50" },
   ];
   return (
     <div
       role="group"
-      aria-label="Source Standard verification metadata"
-      className="grid"
+      aria-label="Registry summary"
+      className="grid mx-auto"
       style={{
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        gap: "20px",
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+        maxWidth: "420px",
       }}
     >
-      {items.map((it) => (
-        <div key={it.label} className="flex flex-col">
+      {items.map((it, idx) => (
+        <div
+          key={it.label}
+          className="flex flex-col items-center text-center"
+          style={{
+            padding: "0 12px",
+            borderLeft: idx === 0 ? "none" : "1px solid rgba(255,255,255,0.16)",
+          }}
+        >
+          <span
+            className="font-sans text-white tabular-nums"
+            style={{
+              fontSize: "clamp(22px, 4.6vw, 28px)",
+              lineHeight: 1,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {it.value}
+          </span>
           <span
             className="font-mono uppercase"
             style={{
+              marginTop: "8px",
               fontSize: "10px",
-              letterSpacing: "0.12em",
-              color: "rgba(255,255,255,0.55)",
+              letterSpacing: "0.14em",
+              color: "rgba(255,255,255,0.6)",
               fontWeight: 500,
             }}
           >
             {it.label}
-          </span>
-          <span
-            className="font-sans"
-            style={{
-              marginTop: "6px",
-              fontSize: "10px",
-              lineHeight: 1.35,
-              color: "rgba(255,255,255,0.8)",
-            }}
-          >
-            {it.value}
           </span>
         </div>
       ))}
     </div>
   );
 };
+
 
 /* ───────────────── Static section data ───────────────── */
 
