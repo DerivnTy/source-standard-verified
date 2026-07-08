@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
@@ -94,10 +95,19 @@ const SoftPill = ({
 );
 
 const VerifiedVendors = () => {
-  const [query, setQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [status, setStatus] = useState<StatusKey>("any");
   const [delivery, setDelivery] = useState<DeliveryKey>("any");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  // Sync query state with the ?q= param when it changes via navigation.
+  useEffect(() => {
+    const paramQ = searchParams.get("q") ?? "";
+    setQuery((current) => (current === paramQ ? current : paramQ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
 
   
 

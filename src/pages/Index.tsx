@@ -1,5 +1,6 @@
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
@@ -18,106 +19,115 @@ const homeWaypoints = [
   { id: "governance", number: "7", label: "Governance" },
 ];
 
-/* ───────────────── Hero Metrics ─────────────────
-   Two-cell live tracking module embedded in the navy hero. White-on-navy
-   adaptive typography, vibrant colored pulse dots, hairline vertical
-   separator. */
-const HeroMetrics = () => {
-  const stats = useMemo(() => {
-    const total = vendors.length;
-    const verified = vendors.filter((v) => v.status === "verified").length;
-    return { total, verified };
-  }, []);
+/* ───────────────── Hero Content ─────────────────
+   Consumer-first hero: headline answers the visitor's question, a
+   one-line definer establishes what Source Standard is, and the search
+   field is the single primary action. Trust indicators reinforce
+   credibility without visual dominance. */
+const HeroContent = () => {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState("");
 
-  const Unit = ({
-    value,
-    label,
-    dotColor,
-  }: {
-    value: number;
-    label: string;
-    dotColor?: string;
-  }) => (
-    <div className="flex flex-col items-center text-center">
-      <div className="relative inline-flex items-center justify-center">
-        {dotColor && (
-          <span
-            aria-hidden
-            className="absolute inline-flex"
-            style={{ width: "6px", height: "6px", left: "-14px", top: "50%", transform: "translateY(-50%)" }}
-          >
-            <span
-              className="absolute inset-0 rounded-full animate-ping"
-              style={{ backgroundColor: dotColor, opacity: 0.6 }}
-            />
-            <span
-              className="relative inline-block rounded-full"
-              style={{
-                width: "6px",
-                height: "6px",
-                backgroundColor: dotColor,
-                boxShadow: `0 0 8px ${dotColor}`,
-              }}
-            />
-          </span>
-        )}
-        <span
-          className="font-sans text-white tabular-nums"
-          style={{
-            fontSize: "clamp(30px, 4vw, 40px)",
-            lineHeight: "1",
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          {value.toLocaleString("en-US")}
-        </span>
-      </div>
-      <span
-        className="font-mono uppercase text-white/85"
-        style={{
-          fontSize: "11px",
-          lineHeight: "14px",
-          letterSpacing: "0.16em",
-          fontWeight: 500,
-          marginTop: "8px",
-        }}
-      >
-        {label}
-      </span>
-    </div>
-  );
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const q = query.trim();
+    navigate(q ? `/verified-vendors?q=${encodeURIComponent(q)}` : "/verified-vendors");
+  };
 
   return (
-    <div className="flex flex-col items-center w-full" style={{ maxWidth: "420px" }}>
-      <span
-        className="font-sans text-white text-center"
+    <div className="flex flex-col items-stretch w-full" style={{ maxWidth: "560px" }}>
+      {/* Headline */}
+      <h1
+        id="briefing-title"
+        className="font-sans text-white text-center !mt-0"
         style={{
-          fontSize: "clamp(20px, 3vw, 28px)",
-          lineHeight: 1.1,
+          fontSize: "clamp(32px, 6.4vw, 52px)",
+          lineHeight: 1.05,
           fontWeight: 600,
-          letterSpacing: "-0.02em",
+          letterSpacing: "-0.03em",
         }}
       >
-        Live Registry
-      </span>
-      <span
-        aria-hidden
-        className="block bg-white/30"
-        style={{ height: "1px", width: "80%", marginTop: "10px", marginBottom: "16px" }}
-      />
-      <div
-        role="group"
-        aria-label="Live registry metrics"
-        className="flex items-start justify-center w-full"
-        style={{ gap: "48px" }}
+        Is Your Provider Verified?
+      </h1>
+
+      {/* One-line definer */}
+      <p
+        className="text-white/70 text-center mx-auto"
+        style={{
+          marginTop: "14px",
+          maxWidth: "480px",
+          fontSize: "clamp(15px, 3.6vw, 17px)",
+          lineHeight: 1.5,
+        }}
       >
-        <Unit value={stats.total} label="Identified Vendors" dotColor="#FF3B30" />
-        <Unit value={50} label="States Represented" />
+        The independent public reference for verifying provider sourcing transparency.
+      </p>
+
+      {/* Search — primary action */}
+      <form
+        onSubmit={onSubmit}
+        role="search"
+        aria-label="Search the Source Standard Registry"
+        className="flex items-center w-full mx-auto"
+        style={{
+          marginTop: "22px",
+          maxWidth: "520px",
+          height: "48px",
+          padding: "4px 4px 4px 18px",
+          borderRadius: "999px",
+          border: "1px solid rgba(255,255,255,0.22)",
+          backgroundColor: "rgba(255,255,255,0.06)",
+          backdropFilter: "blur(12px)",
+        }}
+      >
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          type="search"
+          aria-label="Search by provider, clinic, or telehealth company"
+          placeholder="Search by provider, clinic, or telehealth company…"
+          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/45 focus:outline-none focus:ring-0"
+          style={{ fontSize: "14px", minWidth: 0 }}
+        />
+        <button
+          type="submit"
+          className="inline-flex items-center justify-center font-sans font-semibold uppercase transition-all active:scale-[0.97] bg-white text-[hsl(var(--navy-surface))] hover:bg-white/90 shrink-0"
+          style={{
+            height: "40px",
+            padding: "0 18px",
+            borderRadius: "999px",
+            fontSize: "11px",
+            letterSpacing: "0.06em",
+          }}
+        >
+          Search
+        </button>
+      </form>
+
+      {/* Trust indicators */}
+      <div
+        className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mx-auto"
+        style={{ marginTop: "16px" }}
+      >
+        {["Independent Verification", "Public Reference Registry", "Evidence-Informed"].map(
+          (t) => (
+            <span
+              key={t}
+              className="font-mono uppercase text-white/60"
+              style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+            >
+              <span aria-hidden className="text-white/80" style={{ marginRight: "6px" }}>
+                ✓
+              </span>
+              {t}
+            </span>
+          ),
+        )}
       </div>
     </div>
   );
 };
+
 
 /* ───────────────── Pill buttons (unified) ─────────────────
    Single pill style — 32px height, 20px radius, 1px hairline.
@@ -175,60 +185,66 @@ const PillSecondaryWhite = ({ to, children }: { to: string; children: React.Reac
 );
 
 const HeroActions = () => (
-  <>
-    <PillPrimaryWhite to="/verified-vendors">Search the Registry</PillPrimaryWhite>
-    <PillSecondaryWhite to="/how-it-works">View Verification Framework</PillSecondaryWhite>
-  </>
+  <PillSecondaryWhite to="/how-it-works">How Verification Works</PillSecondaryWhite>
 );
+
 
 /* ───────────────── Hero Meta Strip ─────────────────
    Compact 3-column institutional readout anchoring the bottom of the navy hero. */
 const HeroMeta = () => {
   const total = vendors.length;
   const items: { label: string; value: string }[] = [
-    { label: "Private Standard", value: "Independent verification" },
-    { label: "Public Registry", value: "Searchable vendor status" },
-    { label: "Live Data", value: `${total.toLocaleString("en-US")} vendors indexed` },
+    { label: "Providers Indexed", value: total.toLocaleString("en-US") },
+    { label: "States Represented", value: "50" },
   ];
   return (
     <div
       role="group"
-      aria-label="Source Standard verification metadata"
-      className="grid"
+      aria-label="Registry summary"
+      className="grid mx-auto"
       style={{
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        gap: "20px",
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+        maxWidth: "420px",
       }}
     >
-      {items.map((it) => (
-        <div key={it.label} className="flex flex-col">
+      {items.map((it, idx) => (
+        <div
+          key={it.label}
+          className="flex flex-col items-center text-center"
+          style={{
+            padding: "0 12px",
+            borderLeft: idx === 0 ? "none" : "1px solid rgba(255,255,255,0.16)",
+          }}
+        >
+          <span
+            className="font-sans text-white tabular-nums"
+            style={{
+              fontSize: "clamp(22px, 4.6vw, 28px)",
+              lineHeight: 1,
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {it.value}
+          </span>
           <span
             className="font-mono uppercase"
             style={{
+              marginTop: "8px",
               fontSize: "10px",
-              letterSpacing: "0.12em",
-              color: "rgba(255,255,255,0.55)",
+              letterSpacing: "0.14em",
+              color: "rgba(255,255,255,0.6)",
               fontWeight: 500,
             }}
           >
             {it.label}
-          </span>
-          <span
-            className="font-sans"
-            style={{
-              marginTop: "6px",
-              fontSize: "10px",
-              lineHeight: 1.35,
-              color: "rgba(255,255,255,0.8)",
-            }}
-          >
-            {it.value}
           </span>
         </div>
       ))}
     </div>
   );
 };
+
 
 /* ───────────────── Static section data ───────────────── */
 
@@ -511,8 +527,8 @@ const Index = () => {
           variant="cover"
           category="Public Reference System · United States"
           docId=""
-          title="Verify the source."
-          statement="Independent verification of vendor sourcing and manufacturer quality across compounded therapy categories."
+          title="Is Your Provider Verified?"
+          statement=""
           tone="navy"
           heroLogo={
             <img
@@ -520,12 +536,14 @@ const Index = () => {
               alt="Source Standard"
               draggable={false}
               className="block w-auto select-none"
-              style={{ height: "44px", filter: "brightness(0) invert(1)" }}
+              style={{ height: "38px", filter: "brightness(0) invert(1)" }}
             />
           }
           actions={<HeroActions />}
-          heroMetrics={<HeroMetrics />}
+          heroMetrics={<HeroContent />}
+          heroMeta={<HeroMeta />}
         />
+
 
         <div
           aria-hidden="true"

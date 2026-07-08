@@ -102,17 +102,20 @@ export const BriefingHero = ({
               </div>
             )}
 
-            <p
-              className="text-white/70 text-left lg:text-center lg:mx-auto"
-              style={{
-                maxWidth: "520px",
-                marginTop: "24px",
-                fontSize: "clamp(18px, 4.2vw, 22px)",
-                lineHeight: "1.4",
-              }}
-            >
-              {statement}
-            </p>
+            {statement && (
+              <p
+                className="text-white/70 text-left lg:text-center lg:mx-auto"
+                style={{
+                  maxWidth: "520px",
+                  marginTop: "24px",
+                  fontSize: "clamp(18px, 4.2vw, 22px)",
+                  lineHeight: "1.4",
+                }}
+              >
+                {statement}
+              </p>
+            )}
+
 
             {actions && (
               <div
