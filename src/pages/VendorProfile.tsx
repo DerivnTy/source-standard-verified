@@ -833,7 +833,7 @@ const VendorProfile = () => {
                       : undefined
                   }
                 >
-                  <LogoBlock vendor={vendor} size={36} />
+                  <LogoBlock vendor={vendor} size={44} />
                 </div>
                 <h1
                   className="min-w-0 flex-1 font-sans text-foreground"
