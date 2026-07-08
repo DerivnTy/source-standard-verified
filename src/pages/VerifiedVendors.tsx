@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, Check, ChevronDown } from "lucide-react";
+import * as SelectPrimitive from "@radix-ui/react-select";
 
 import { PageMeta } from "@/components/PageMeta";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
@@ -13,6 +14,7 @@ import {
   getVendorFulfillment,
   VendorFulfillment,
 } from "@/data/vendors";
+
 
 
 type StatusKey = "any" | "verified" | "unverified";
