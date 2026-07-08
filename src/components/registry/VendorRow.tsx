@@ -32,14 +32,10 @@ export const VendorRow = ({
   const isVerified = vendor.status === "verified";
   const focus = focusFor(vendor);
 
-  const isOnline = fulfillment === "online";
+  const modelLabel =
+    fulfillment === "online" ? "Online" : fulfillment === "in-person" ? "In-person" : "Hybrid";
   const hasLocation = location && location !== "—";
-  const modelLabel = isOnline ? "Online" : fulfillment === "in-person" ? "In-person" : "Hybrid";
-  const locationLine = isOnline
-    ? "Online"
-    : hasLocation
-      ? `${location} · ${modelLabel}`
-      : modelLabel;
+  const locationLine = hasLocation ? location : modelLabel;
 
   return (
     <Link
@@ -50,7 +46,7 @@ export const VendorRow = ({
       style={{
         border: "1px solid rgba(0,16,33,0.08)",
         borderRadius: "22px",
-        padding: "10px 14px 8px",
+        padding: "9px 14px 8px",
       }}
     >
       {/* Status — pinned top-right */}
@@ -101,10 +97,10 @@ export const VendorRow = ({
       <ChevronRight aria-hidden style={{ width: "12px", height: "12px", strokeWidth: 1.75 }} />
       </span>
 
-      {/* Stacked content: name, location/type, therapy tag */}
+      {/* Stacked content: name, location, specialty + vendor type */}
       <div
         className="flex flex-col"
-        style={{ gap: "3px", paddingRight: "108px" }}
+        style={{ gap: "2px", paddingRight: "108px" }}
       >
         <h3
           className="font-sans text-foreground truncate"
@@ -132,8 +128,8 @@ export const VendorRow = ({
           {locationLine}
         </p>
 
-        {focus && (
-          <div>
+        <div className="flex items-center flex-wrap" style={{ gap: "6px", marginTop: "1px" }}>
+          {focus && (
             <span
               className="inline-flex items-center font-sans uppercase whitespace-nowrap"
               style={{
@@ -151,8 +147,20 @@ export const VendorRow = ({
               {focus.label}
               {focus.extra > 0 && <span style={{ opacity: 0.6 }}>+{focus.extra}</span>}
             </span>
-          </div>
-        )}
+          )}
+          <span
+            className="inline-flex items-center font-sans whitespace-nowrap"
+            style={{
+              fontSize: "10px",
+              fontWeight: 500,
+              letterSpacing: "0.02em",
+              color: "rgba(0,16,33,0.55)",
+              lineHeight: 1,
+            }}
+          >
+            {modelLabel}
+          </span>
+        </div>
       </div>
     </Link>
   );

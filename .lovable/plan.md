@@ -1,89 +1,92 @@
-# About Source Standard Page – Content Refinement
 
-## Goal
-Refocus the About page so it communicates who Source Standard is, why it exists, and what its role is — without describing internal verification mechanics.
+# Vendor Registry – Consumer Experience Refinement (v3)
 
-**Guiding principle:** Show the mission. Protect the methodology.
+Goal: reposition `/verified-vendors` as a consumer lookup tool. Preserve typography, colors, card style, and institutional aesthetic — usability refinement only.
 
-## Scope
-- **Single file:** `src/pages/About.tsx`
-- **Only copy changes** — no structural, visual, component, import, routing, or dependency changes.
-- All changes target local string constants and inline paragraph text. Existing components, layout, and styling remain exactly as-is.
+## 1. Registry Hero
 
-## Changes by Section
+Keep H1 as **"Vendor Registry"** (institutional voice). Update the `RegistryHeader` description to:
 
-### 1. Hero Description
-Replace "supply-chain visibility" with "sourcing transparency" to maintain consistent language throughout the site.
+> *"Search the Source Standard Registry to find out whether your provider has been independently verified and to better understand their peptide sourcing transparency."*
 
-### 2. Organizational Purpose (§3)
-Simplify the body copy to focus on the broader mission:
-- improving sourcing transparency
-- creating trusted public-reference records
-- increasing accountability
-- helping consumers better understand sourcing claims
+Keep the compact navy hero treatment, live-updated pill, index number, and floating stats card. No structural changes to `RegistryHeader.tsx`.
 
-Remove references to:
-- organizing evidence
-- evaluating sourcing claims
-- documenting supply-chain relationships
-- maintaining evidence
-- evaluating claims through evidence
+## 2. Search as Primary Action
 
-Retain the "does not" boundary statements (not replacing physicians, regulators, pharmacists; not determining best treatments).
+Promote the search input into the visual centerpiece, placed **above** the filters (currently below):
 
-### 3. Market Context (CONTEXT array, §4)
-Simplify the four clauses. Remove references to:
-- facility and manufacturer relationships
-- supply-chain documentation
-- fragmented records
+- A small orienting line **directly above** the search input:
+  > *"Search clinics, telehealth providers, and wellness practices nationwide."*
+  Muted 12px, no uppercase eyebrow — a plain informational line.
+- Full width on mobile, capped ~640px on desktop, centered.
+- Height 52–54px, 24px radius, 1px hairline, white background, 14px text.
+- Placeholder: *"Search by provider, clinic, telehealth company, city, or state..."*
+- Inline lucide `Search` glyph (1.75 stroke, muted) on the left.
+- Remove the current "Search" uppercase eyebrow — placeholder is self-explanatory.
 
-Focus on the broader transparency challenge: consumers often have limited visibility into vendor sourcing claims, making informed decisions difficult.
+## 3. Expanded Filters (default = All Providers)
 
-### 4. Operational Boundaries (§5)
-No changes. This section is already well-positioned.
+Reorganize into clearly labeled groups directly under the search:
 
-### 5. Who the Framework Serves (OBJECTIVES array, §6)
-Simplify descriptions for each audience:
-- **Consumers:** Remove references to facility relationships, supporting documentation, and evidence supporting claims. Focus on helping consumers understand sourcing transparency through a structured public-reference system.
-- **Providers:** Remove references to supporting documentation and supply-chain accountability. Focus on providing a trusted, independent framework for demonstrating sourcing transparency.
-- **Industry:** Maintain current emphasis on transparency and accountability without describing operational processes.
+1. **Verification Status** — `Verified` / `Unverified` pills, **default `any`**. Neither active = all records. Badges remain clear on cards for both states.
+2. **Specialty** *(new, dynamic)* — options generated at runtime from actual data. Union of `vendor.clinicalFocus[]` + `vendor.category`, normalized (trim, title-case, dedupe case-insensitively). Only surface options with ≥ 2 matching vendors to avoid one-off noise. Multi-select, OR semantics. Uses existing `SoftPill`; horizontal scroll on mobile.
+3. **Vendor Type** — Online, In-Person, **Hybrid** (new). Extend `DeliveryKey` to include `hybrid`, wired to `getVendorFulfillment`.
+4. **State** *(new, dynamic)* — compact `<select>` styled to match pill/input language (32–36px height, 20px radius, 1px hairline, white bg). Populated from unique `vendor.state` values in the dataset, sorted, displayed with full state names via `usStates`. "All states" default.
 
-### 6. Framework Components (SCOPE array, §7)
-Simplify each component description:
-- **Vendor Registry:** Remove "review status" and "supporting documentation." Focus on public-reference records that improve transparency around vendor sourcing.
-- **Facility Records:** Simplify to public-reference records relating to upstream organizations within the compounded therapy supply chain. Avoid describing the ecosystem or internal classifications.
-- **Verification Framework:** Replace references to standards, review procedures, evidence requirements, and status criteria. Focus on the principles that guide the public-reference framework and verification standards.
-- **Educational Resources:** Replace "documentation standards" with broader wording about educational materials explaining sourcing transparency, verification concepts, and public terminology.
+All groups combine with AND; Specialty uses OR internally.
 
-### 7. Institutional Principles (PRINCIPLES array, §8)
-Keep the overall 4-item structure.
-Simplify Principle 3:
-- From: "Status determinations are governed by defined standards and review procedures."
-- To: "Status determinations are guided by consistent public standards."
+## 4. Move Status Definitions
 
-### 8. Institutional Role (closing §9)
-Simplify to reinforce mission rather than operational methodology.
-Remove references to:
-- organizing evidence
-- evaluating sourcing claims
-- maintaining public records
+Remove the bottom "Verified vs. Unverified" panel. Replace with a **compact definitions strip directly beneath the filter section**, above results:
 
-Focus on:
-- improving sourcing transparency
-- maintaining trusted public-reference records
-- helping consumers better understand sourcing claims
-- increasing accountability
+- Two cells side-by-side on desktop, stacked on mobile.
+- Each cell: small uppercase eyebrow (VERIFIED / UNVERIFIED) + one-sentence definition (reuse trimmed existing copy).
+- Hairline border, white bg, 12px radius.
+- Subtle text link "View Verification Framework" → `/how-it-works` at the end of the strip.
 
-Retain the boundary statement that Source Standard does not replace clinical judgment, regulatory oversight, or personal decision-making.
+## 5. Registry Card Hierarchy (`VendorRow.tsx`)
 
-## Overall Direction
-The page should answer four questions:
-1. What is Source Standard?
-2. Why does it exist?
-3. Who does it serve?
-4. What does it not do?
+Preserve card shell (radius, border, hover). Minor hierarchy tweaks only:
 
-It should not explain internal review methodology, documentation workflows, evidence management, operational framework mechanics, or status determination methodology.
+- Provider name 14px/600 (unchanged).
+- Status (Verified/Unverified + shield) top-right (unchanged) — badge language remains clear for both states since Unverified rows are visible by default.
+- Second line: **Location** (City, ST) — muted, clean (no vendor-type suffix).
+- Third line: **Specialty pill** (existing style) with `+N` if multiple; **Vendor type** as a tiny neutral 10px tag next to it (Online / In-person / Hybrid).
+- "View ›" bottom-right (unchanged).
+- Vertical padding `10px 14px 8px` → `9px 14px 8px`; content gap `3px` → `2px`.
 
-## Verification
-Run `bun run build` to confirm the file compiles cleanly after copy changes.
+## 6. Mobile Density
+
+- Filter section padding `pt-5 pb-3` → `pt-3 pb-2`; `space-y-4` → `space-y-3`.
+- Card list gap `gap-1.5` → `gap-1` on mobile, `gap-1.5` on `md+`.
+- Results section `pb-6 md:pb-8` → `pb-4 md:pb-6`.
+- Stats card padding `14px 10px` → `12px 10px`.
+
+## 7. Empty State (single CTA)
+
+When active filters/query produce zero matches:
+
+- Eyebrow: *"Can't find your provider?"*
+- Body: *"Let us know so we can add them to the registry for review."*
+- One outline CTA: **Request Provider Review** → `/contact?topic=request-provider-review`.
+
+Fallback (registry entirely empty) keeps the generic message.
+
+## 8. Preserve
+
+- No color, typography, radius, or card visual redesign.
+- Navy hero, `HeroPattern`, floating stats, `SoftPill`, `VendorRow` shell — retained.
+- No backend changes; all filtering client-side over `vendors`.
+
+## Files to modify
+
+- `src/pages/VerifiedVendors.tsx` — hero description, search placement + intro line, dynamic filter derivation (specialty, state), hybrid delivery, in-place definitions strip, empty state, spacing.
+- `src/components/registry/VendorRow.tsx` — vendor-type tag placement, tighter padding.
+- (No changes to `RegistryHeader.tsx`, `SoftPill`, `HeroPattern`, or vendor data.)
+
+## Follow-ups (not in this pass)
+
+- **"Verified Only" quick toggle** near the search bar once the verified population grows — one-tap filter without changing the default.
+- Persist active filters to URL query params for shareable links.
+- `/contact` deep-link handling for `?topic=` values.
+- Apply the same consumer-first treatment to the Facility Records page next.
