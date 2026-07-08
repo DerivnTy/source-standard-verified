@@ -120,7 +120,7 @@ export const BriefingHero = ({
             {actions && (
               <div
                 className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-center [&>*]:w-full sm:[&>*]:w-auto"
-                style={{ marginTop: "clamp(24px, 3.5vh, 36px)", gap: "16px" }}
+                style={{ marginTop: "clamp(20px, 3vh, 32px)", gap: "16px" }}
               >
                 {actions}
               </div>
