@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { PageMeta } from "@/components/PageMeta";
-import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 
 import { VendorRow } from "@/components/registry/VendorRow";
-import { resolveStateAbbr } from "@/lib/usStates";
+import { resolveStateAbbr, US_STATE_TO_ABBR } from "@/lib/usStates";
 import {
   vendors,
   Vendor,
@@ -17,7 +16,7 @@ import {
 
 
 type StatusKey = "any" | "verified" | "unverified";
-type DeliveryKey = "any" | "online" | "in-person";
+type DeliveryKey = "any" | "online" | "in-person" | "hybrid";
 
 const PAGE_SIZE = 10;
 
@@ -29,7 +28,18 @@ const STATUS_PILLS: { value: StatusKey; label: string }[] = [
 const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [
   { value: "online", label: "ONLINE" },
   { value: "in-person", label: "IN-PERSON" },
+  { value: "hybrid", label: "HYBRID" },
 ];
+
+const SPECIALTY_MIN_COUNT = 2;
+
+// Full state name lookup (abbr → "Full Name")
+const ABBR_TO_STATE_NAME: Record<string, string> = Object.fromEntries(
+  Object.entries(US_STATE_TO_ABBR).map(([name, abbr]) => [
+    abbr,
+    name.replace(/\b\w/g, (c) => c.toUpperCase()),
+  ]),
+);
 
 /** Smart query: name, city, state name/abbr, category, focus. */
 const matchesQuery = (vendor: Vendor, query: string): boolean => {
@@ -54,6 +64,12 @@ const matchesQuery = (vendor: Vendor, query: string): boolean => {
 const formatLocation = (vendor: Vendor) => {
   if (vendor.city && vendor.state) return `${vendor.city}, ${vendor.state}`;
   return vendor.city || vendor.state || "—";
+};
+
+const vendorSpecialties = (v: Vendor): string[] => {
+  const s = [...(v.clinicalFocus ?? [])];
+  if (v.category) s.push(v.category);
+  return s.map((x) => x.trim()).filter(Boolean);
 };
 
 /**
@@ -99,6 +115,8 @@ const VerifiedVendors = () => {
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [status, setStatus] = useState<StatusKey>("any");
   const [delivery, setDelivery] = useState<DeliveryKey>("any");
+  const [specialties, setSpecialties] = useState<string[]>([]); // canonical lowercased keys
+  const [stateFilter, setStateFilter] = useState<string>("any"); // 2-letter abbr or "any"
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   // Sync query state with the ?q= param when it changes via navigation.
@@ -108,15 +126,41 @@ const VerifiedVendors = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-
-  
-
   const fulfillmentByVendor = useMemo(() => {
     const map = new Map<string, VendorFulfillment>();
     for (const vendor of vendors) map.set(vendor.slug, getVendorFulfillment(vendor));
     return map;
   }, []);
 
+  // Dynamic specialty options — dedupe case-insensitively, keep first-seen label,
+  // only surface options with >= SPECIALTY_MIN_COUNT vendors.
+  const specialtyOptions = useMemo(() => {
+    const counts = new Map<string, { label: string; count: number }>();
+    for (const v of vendors) {
+      const seen = new Set<string>();
+      for (const raw of vendorSpecialties(v)) {
+        const key = raw.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const existing = counts.get(key);
+        if (existing) existing.count += 1;
+        else counts.set(key, { label: raw, count: 1 });
+      }
+    }
+    return Array.from(counts.entries())
+      .filter(([, v]) => v.count >= SPECIALTY_MIN_COUNT)
+      .sort((a, b) => b[1].count - a[1].count || a[1].label.localeCompare(b[1].label))
+      .map(([key, v]) => ({ key, label: v.label, count: v.count }));
+  }, []);
+
+  // Dynamic state options — only states actually present in the dataset.
+  const stateOptions = useMemo(() => {
+    const set = new Set<string>();
+    for (const v of vendors) if (v.state) set.add(v.state);
+    return Array.from(set)
+      .map((abbr) => ({ abbr, name: ABBR_TO_STATE_NAME[abbr] ?? abbr }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, []);
 
   const filtered = useMemo(() => {
     return vendors.filter((vendor) => {
@@ -125,12 +169,17 @@ const VerifiedVendors = () => {
       if (status === "unverified" && vendor.status === "verified") return false;
       if (delivery !== "any") {
         const f = fulfillmentByVendor.get(vendor.slug);
-        if (delivery === "online" && f === "in-person") return false;
-        if (delivery === "in-person" && f === "online") return false;
+        if (f !== delivery) return false;
+      }
+      if (stateFilter !== "any" && vendor.state !== stateFilter) return false;
+      if (specialties.length > 0) {
+        const vs = new Set(vendorSpecialties(vendor).map((s) => s.toLowerCase()));
+        const anyMatch = specialties.some((k) => vs.has(k));
+        if (!anyMatch) return false;
       }
       return true;
     });
-  }, [query, status, delivery, fulfillmentByVendor]);
+  }, [query, status, delivery, stateFilter, specialties, fulfillmentByVendor]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -139,17 +188,30 @@ const VerifiedVendors = () => {
 
   const visibleItems = sorted.slice(0, visibleCount);
   const hasMore = visibleCount < sorted.length;
-  const fadeKey = `${query}|${status}|${delivery}`;
+  const fadeKey = `${query}|${status}|${delivery}|${stateFilter}|${specialties.join(",")}`;
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, status, delivery]);
+  }, [query, status, delivery, stateFilter, specialties]);
+
+  const toggleSpecialty = (key: string) => {
+    setSpecialties((curr) =>
+      curr.includes(key) ? curr.filter((k) => k !== key) : [...curr, key],
+    );
+  };
+
+  const hasActiveFilters =
+    query.trim().length > 0 ||
+    status !== "any" ||
+    delivery !== "any" ||
+    stateFilter !== "any" ||
+    specialties.length > 0;
 
   return (
     <>
       <PageMeta
         title="Vendor Registry"
-        description="A public-reference database of compounded therapy vendors indexed by verification status, vendor type, and review scope."
+        description="Search the Source Standard Registry to find out whether your provider has been independently verified and to better understand their peptide sourcing transparency."
         path="/verified-vendors"
         jsonLd={{
           "@context": "https://schema.org",
@@ -162,7 +224,7 @@ const VerifiedVendors = () => {
       <RegistryHeader
         indexNumber="01"
         title="Vendor Registry"
-        description="A public-reference database of compounded therapy vendors indexed by verification status, vendor type, and review scope."
+        description="Search the Source Standard Registry to find out whether your provider has been independently verified and to better understand their peptide sourcing transparency."
         recordCount={vendors.length}
       />
 
@@ -189,13 +251,13 @@ const VerifiedVendors = () => {
               >
                 {[
                   { label: "Total Indexed", value: vendors.length },
-                  { label: "States Represented", value: 50 },
+                  { label: "States Represented", value: stateOptions.length },
                 ].map((cell, idx) => (
                   <div
                     key={cell.label}
                     className="flex flex-col items-center justify-center text-center"
                     style={{
-                      padding: "14px 10px",
+                      padding: "12px 10px",
                       borderLeft: idx === 0 ? "none" : "1px solid rgba(0,16,33,0.06)",
                     }}
                   >
@@ -232,10 +294,51 @@ const VerifiedVendors = () => {
       </section>
 
       <section className="bg-background">
-        <div className="page-shell pb-6 md:pb-8">
+        <div className="page-shell pb-4 md:pb-6">
           <div className="mx-auto w-wide">
+            {/* Search — centerpiece, above filters */}
+            <div className="-mx-5 md:mx-0 px-5 pt-4 md:pt-6">
+              <div className="mx-auto w-full md:max-w-[640px]">
+                <p
+                  className="text-muted-foreground mb-2 text-center"
+                  style={{ fontSize: "12px", lineHeight: 1.5, fontWeight: 400 }}
+                >
+                  Search clinics, telehealth providers, and wellness practices nationwide.
+                </p>
+                <div className="relative">
+                  <Search
+                    aria-hidden
+                    className="pointer-events-none absolute text-muted-foreground/70"
+                    style={{
+                      top: "50%",
+                      left: "18px",
+                      width: "16px",
+                      height: "16px",
+                      strokeWidth: 1.75,
+                      transform: "translateY(-50%)",
+                    }}
+                  />
+                  <input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Search by provider, clinic, telehealth company, city, or state..."
+                    aria-label="Search by provider, clinic, telehealth company, city, or state"
+                    className="font-sans w-full text-[14px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+                    style={{
+                      height: "52px",
+                      borderRadius: "24px",
+                      backgroundColor: "#FFFFFF",
+                      border: "1px solid hsl(var(--border))",
+                      paddingLeft: "44px",
+                      paddingRight: "18px",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* Grouped filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-5 pb-3 space-y-4">
+            <div className="-mx-5 md:mx-0 px-5 pt-3 pb-2 space-y-3">
               {/* Verification Status */}
               <div>
                 <p
@@ -257,13 +360,31 @@ const VerifiedVendors = () => {
                     />
                   ))}
                 </div>
-                <p
-                  className="mt-2 text-muted-foreground"
-                  style={{ fontSize: "12px", lineHeight: 1.5, fontWeight: 400 }}
-                >
-                  Status reflects Source Standard's review within a defined scope and at a defined point in time.
-                </p>
               </div>
+
+              {/* Specialty (dynamic) */}
+              {specialtyOptions.length > 0 && (
+                <div>
+                  <p
+                    className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                    style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                  >
+                    Specialty
+                  </p>
+                  <div className="-mx-5 md:mx-0 overflow-x-auto no-scrollbar">
+                    <div className="flex gap-2 px-5 md:px-0">
+                      {specialtyOptions.map((opt) => (
+                        <SoftPill
+                          key={`sp-${opt.key}`}
+                          label={opt.label.toUpperCase()}
+                          active={specialties.includes(opt.key)}
+                          onClick={() => toggleSpecialty(opt.key)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Vendor Type */}
               <div>
@@ -273,7 +394,7 @@ const VerifiedVendors = () => {
                 >
                   Vendor Type
                 </p>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   {DELIVERY_PILLS.map((p) => (
                     <SoftPill
                       key={`d-${p.value}`}
@@ -288,47 +409,144 @@ const VerifiedVendors = () => {
                 </div>
               </div>
 
+              {/* State */}
+              {stateOptions.length > 0 && (
+                <div>
+                  <p
+                    className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                    style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                  >
+                    State
+                  </p>
+                  <select
+                    value={stateFilter}
+                    onChange={(e) => setStateFilter(e.target.value)}
+                    aria-label="Filter by state"
+                    className="font-sans w-full text-foreground focus:outline-none focus:ring-0 appearance-none"
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: 500,
+                      letterSpacing: "0.02em",
+                      height: "36px",
+                      borderRadius: "20px",
+                      border: "1px solid hsl(var(--border))",
+                      backgroundColor: "#FFFFFF",
+                      padding: "0 14px",
+                      backgroundImage:
+                        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='none' stroke='%23001021' stroke-opacity='0.55' stroke-width='1.5' d='M1 1l4 4 4-4'/></svg>\")",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "right 14px center",
+                    }}
+                  >
+                    <option value="any">All states</option>
+                    {stateOptions.map((s) => (
+                      <option key={s.abbr} value={s.abbr}>
+                        {s.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
-            {/* Search — final filter, adjacent to record list */}
-            <div className="-mx-5 md:mx-0 px-5 pt-2 pb-1">
-              <p
-                className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+            {/* Status definitions — compact strip above results */}
+            <div
+              className="mt-3 bg-white"
+              style={{
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "12px",
+              }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[hsl(var(--border))]">
+                {[
+                  {
+                    label: "VERIFIED",
+                    body:
+                      "Reviewed by Source Standard within a defined scope and point in time based on available evidence.",
+                  },
+                  {
+                    label: "UNVERIFIED",
+                    body:
+                      "Has not yet met the requirements for Verified status within the Source Standard framework.",
+                  },
+                ].map((cell) => (
+                  <div key={cell.label} style={{ padding: "12px 14px" }}>
+                    <p
+                      className="font-sans font-semibold uppercase text-muted-foreground"
+                      style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                    >
+                      {cell.label}
+                    </p>
+                    <p
+                      className="mt-1.5 text-foreground"
+                      style={{ fontSize: "12.5px", lineHeight: 1.5, fontWeight: 400 }}
+                    >
+                      {cell.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div
+                className="px-3.5 py-2 text-right"
+                style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}
               >
-                Search
-              </p>
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by vendor name, city, state, or therapy category…"
-                aria-label="Search by vendor name, city, state, or therapy category"
-                className="font-sans w-full text-[12px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
-                style={{
-                  height: "40px",
-                  borderRadius: "24px",
-                  backgroundColor: "#FAFAFA",
-                  border: "1px solid #E5E5EA",
-                  paddingLeft: "16px",
-                  paddingRight: "16px",
-                }}
-              />
+                <Link
+                  to="/how-it-works"
+                  className="font-sans text-muted-foreground hover:text-foreground transition-colors"
+                  style={{ fontSize: "11px", letterSpacing: "0.02em" }}
+                >
+                  View Verification Framework →
+                </Link>
+              </div>
             </div>
 
             {/* Result list */}
             <div key={fadeKey} className="mt-3 animate-fade-in">
               {sorted.length === 0 ? (
-                <EmptyState
-                  eyebrow="No matching vendors"
-                  body={
-                    vendors.length === 0
-                      ? "Directory pending population."
-                      : "No vendors match the current search."
-                  }
-                />
+                hasActiveFilters ? (
+                  <div
+                    className="bg-white text-center"
+                    style={{
+                      border: "1px solid hsl(var(--border))",
+                      borderRadius: "16px",
+                      padding: "28px 20px",
+                    }}
+                  >
+                    <p
+                      className="font-sans font-semibold text-foreground"
+                      style={{ fontSize: "14px", lineHeight: 1.35 }}
+                    >
+                      Can't find your provider?
+                    </p>
+                    <p
+                      className="mt-1.5 text-muted-foreground mx-auto"
+                      style={{ fontSize: "13px", lineHeight: 1.55, maxWidth: "420px" }}
+                    >
+                      Let us know so we can add them to the registry for review.
+                    </p>
+                    <Link
+                      to="/contact?topic=request-provider-review"
+                      className="mt-4 inline-flex items-center gap-1.5 px-5 h-10 border border-foreground text-foreground text-[12px] font-medium rounded-full hover:bg-foreground hover:text-background transition-colors duration-150"
+                    >
+                      Request Provider Review
+                    </Link>
+                  </div>
+                ) : (
+                  <div
+                    className="bg-white text-center text-muted-foreground"
+                    style={{
+                      border: "1px solid hsl(var(--border))",
+                      borderRadius: "16px",
+                      padding: "28px 20px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    Directory pending population.
+                  </div>
+                )
               ) : (
                 <>
-                  <ul className="flex flex-col gap-1.5">
+                  <ul className="flex flex-col gap-1 md:gap-1.5">
                     {visibleItems.map((vendor) => {
                       const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
                       return (
@@ -360,73 +578,6 @@ const VerifiedVendors = () => {
                   )}
                 </>
               )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Explainer panel — Verified vs. Unverified */}
-      <section className="bg-background">
-        <div className="page-shell pb-10 md:pb-14 pt-0">
-          <div className="mx-auto w-wide">
-            <div
-              className="bg-white"
-              style={{
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "24px",
-                padding: "18px 20px",
-              }}
-            >
-              {/* Block 1 */}
-              <div>
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-                >
-                  Verified vs. Unverified
-                </p>
-                <p
-                  className="mt-2 text-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 500 }}
-                >
-                  Verified records reflect vendor information that has been reviewed by Source Standard within a defined scope and at a defined point in time. Verification status is based on the evidence available during that review.
-                </p>
-                <p
-                  className="mt-2 text-muted-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
-                >
-                  Unverified records have not yet met the requirements for Verified status within the Source Standard framework.
-                </p>
-              </div>
-
-              {/* Divider + Block 2 */}
-              <div
-                className="mt-5 pt-5"
-                style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}
-              >
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-                >
-                  Registry Framework
-                </p>
-                <p
-                  className="mt-2 text-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.65, fontWeight: 400 }}
-                >
-                  Source Standard provides a public-reference framework that helps consumers better understand vendor sourcing transparency. Verification is not an
-                  endorsement, guarantee, medical recommendation, or product
-                  approval.
-                </p>
-
-                <Link
-                  to="/how-it-works"
-                  className="mt-5 inline-flex items-center gap-1.5 px-5 h-10 border border-foreground text-foreground text-[12px] font-medium rounded-[10px] hover:bg-foreground hover:text-background transition-colors duration-150"
-                >
-                  View Verification Framework
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
             </div>
           </div>
         </div>
