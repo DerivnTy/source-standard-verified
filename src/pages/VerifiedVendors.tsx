@@ -508,6 +508,15 @@ const VerifiedVendors = () => {
                     />
                   ))}
                 </div>
+                <div className="mt-2">
+                  <Link
+                    to="/how-it-works"
+                    className="font-sans text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ fontSize: "11px", letterSpacing: "0.02em" }}
+                  >
+                    What do these statuses mean?
+                  </Link>
+                </div>
               </div>
 
               {/* Specialty (dynamic, single-select dropdown) */}
