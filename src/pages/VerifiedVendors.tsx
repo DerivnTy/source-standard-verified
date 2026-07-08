@@ -207,7 +207,6 @@ const VerifiedVendors = () => {
   const [stateFilter, setStateFilter] = useState<string>("any"); // 2-letter abbr or "any"
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [filtersOpen, setFiltersOpen] = useState(true);
-  const [definitionsOpen, setDefinitionsOpen] = useState(true);
 
   const isSearching = query.trim().length > 0;
 
@@ -219,16 +218,14 @@ const VerifiedVendors = () => {
   }, [searchParams]);
 
   // Search-mode transitions:
-  // - Entering search (empty → non-empty): auto-collapse filters + definitions.
-  // - Clearing search (non-empty → empty): auto-restore both to expanded.
+  // - Entering search (empty → non-empty): auto-collapse filters.
+  // - Clearing search (non-empty → empty): auto-restore filters to expanded.
   // User manual toggles during search persist until the field is cleared.
   useEffect(() => {
     if (isSearching) {
       setFiltersOpen(false);
-      setDefinitionsOpen(false);
     } else {
       setFiltersOpen(true);
-      setDefinitionsOpen(true);
     }
   }, [isSearching]);
 
@@ -511,6 +508,15 @@ const VerifiedVendors = () => {
                     />
                   ))}
                 </div>
+                <div className="mt-2">
+                  <Link
+                    to="/how-it-works"
+                    className="font-sans text-muted-foreground hover:text-foreground transition-colors"
+                    style={{ fontSize: "11px", letterSpacing: "0.02em" }}
+                  >
+                    What do these statuses mean?
+                  </Link>
+                </div>
               </div>
 
               {/* Specialty (dynamic, single-select dropdown) */}
@@ -589,95 +595,6 @@ const VerifiedVendors = () => {
               )}
             </div>
             )}
-
-            {/* Status definitions — collapsible during search */}
-            {isSearching && (
-              <div className="-mx-5 md:mx-0 px-5 pt-3">
-                <button
-                  type="button"
-                  onClick={() => setDefinitionsOpen((o) => !o)}
-                  aria-expanded={definitionsOpen}
-                  className="font-sans w-full inline-flex items-center justify-between text-foreground transition-colors hover:bg-[hsl(var(--muted))]/40"
-                  style={{
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    letterSpacing: "0.02em",
-                    height: "36px",
-                    borderRadius: "20px",
-                    border: "1px solid hsl(var(--border))",
-                    backgroundColor: "#FFFFFF",
-                    padding: "0 14px",
-                  }}
-                >
-                  <span>Verification Status Definitions</span>
-                  <ChevronDown
-                    aria-hidden
-                    style={{
-                      width: "12px",
-                      height: "12px",
-                      strokeWidth: 1.75,
-                      opacity: 0.55,
-                      transform: definitionsOpen ? "rotate(180deg)" : "none",
-                      transition: "transform 200ms ease",
-                    }}
-                  />
-                </button>
-              </div>
-            )}
-            {(!isSearching || definitionsOpen) && (
-            <div
-              className="mt-3 bg-white animate-fade-in"
-              style={{
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "12px",
-              }}
-            >
-
-              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[hsl(var(--border))]">
-                {[
-                  {
-                    label: "VERIFIED",
-                    body:
-                      "Reviewed by Source Standard within a defined scope and point in time based on available evidence.",
-                  },
-                  {
-                    label: "UNVERIFIED",
-                    body:
-                      "Has not yet met the requirements for Verified status within the Source Standard framework.",
-                  },
-                ].map((cell) => (
-                  <div key={cell.label} style={{ padding: "12px 14px" }}>
-                    <p
-                      className="font-sans font-semibold uppercase text-muted-foreground"
-                      style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-                    >
-                      {cell.label}
-                    </p>
-                    <p
-                      className="mt-1.5 text-foreground"
-                      style={{ fontSize: "12.5px", lineHeight: 1.5, fontWeight: 400 }}
-                    >
-                      {cell.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div
-                className="px-3.5 py-2 text-right"
-                style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}
-              >
-                <Link
-                  to="/how-it-works"
-                  className="font-sans text-muted-foreground hover:text-foreground transition-colors"
-                  style={{ fontSize: "11px", letterSpacing: "0.02em" }}
-                >
-                  View Verification Framework →
-                </Link>
-              </div>
-            </div>
-            )}
-
-
 
             {/* Result list */}
             <div key={fadeKey} className="mt-3 animate-fade-in">
