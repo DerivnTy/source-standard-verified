@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, Check, ChevronDown } from "lucide-react";
+import * as SelectPrimitive from "@radix-ui/react-select";
 
 import { PageMeta } from "@/components/PageMeta";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
@@ -13,6 +14,7 @@ import {
   getVendorFulfillment,
   VendorFulfillment,
 } from "@/data/vendors";
+
 
 
 type StatusKey = "any" | "verified" | "unverified";
@@ -109,6 +111,92 @@ const SoftPill = ({
     {label}
   </button>
 );
+
+/**
+ * FilterSelect — Source Standard styled select.
+ * Trigger matches the pill/input language (36px, 20px radius, hairline, white).
+ * Menu is a white card with hairline border, 16px radius, subtle elevation.
+ */
+const FilterSelect = ({
+  value,
+  onValueChange,
+  ariaLabel,
+  placeholder,
+  options,
+}: {
+  value: string;
+  onValueChange: (v: string) => void;
+  ariaLabel: string;
+  placeholder: string;
+  options: { value: string; label: string }[];
+}) => (
+  <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
+    <SelectPrimitive.Trigger
+      aria-label={ariaLabel}
+      className="font-sans w-full text-foreground focus:outline-none focus:ring-0 inline-flex items-center justify-between"
+      style={{
+        fontSize: "12px",
+        fontWeight: 500,
+        letterSpacing: "0.02em",
+        height: "36px",
+        borderRadius: "20px",
+        border: "1px solid hsl(var(--border))",
+        backgroundColor: "#FFFFFF",
+        padding: "0 14px",
+      }}
+    >
+      <SelectPrimitive.Value placeholder={placeholder} />
+      <SelectPrimitive.Icon asChild>
+        <ChevronDown
+          aria-hidden
+          style={{ width: "12px", height: "12px", strokeWidth: 1.75, opacity: 0.55 }}
+        />
+      </SelectPrimitive.Icon>
+    </SelectPrimitive.Trigger>
+    <SelectPrimitive.Portal>
+      <SelectPrimitive.Content
+        position="popper"
+        sideOffset={6}
+        className="z-50 overflow-hidden bg-white animate-fade-in"
+        style={{
+          minWidth: "var(--radix-select-trigger-width)",
+          maxHeight: "min(60vh, 320px)",
+          border: "1px solid hsl(var(--border))",
+          borderRadius: "16px",
+          boxShadow: "0 8px 24px -12px rgba(0,16,33,0.18)",
+        }}
+      >
+        <SelectPrimitive.Viewport style={{ padding: "6px" }}>
+          {options.map((opt) => (
+            <SelectPrimitive.Item
+              key={opt.value}
+              value={opt.value}
+              className="relative flex cursor-pointer select-none items-center justify-between outline-none data-[highlighted]:bg-[hsl(var(--muted))]/60 data-[state=checked]:text-foreground"
+              style={{
+                fontSize: "12.5px",
+                fontWeight: 500,
+                letterSpacing: "0.01em",
+                color: "#001021",
+                padding: "8px 12px",
+                borderRadius: "10px",
+                lineHeight: 1.35,
+              }}
+            >
+              <SelectPrimitive.ItemText>{opt.label}</SelectPrimitive.ItemText>
+              <SelectPrimitive.ItemIndicator>
+                <Check
+                  aria-hidden
+                  style={{ width: "14px", height: "14px", strokeWidth: 2, marginLeft: "10px" }}
+                />
+              </SelectPrimitive.ItemIndicator>
+            </SelectPrimitive.Item>
+          ))}
+        </SelectPrimitive.Viewport>
+      </SelectPrimitive.Content>
+    </SelectPrimitive.Portal>
+  </SelectPrimitive.Root>
+);
+
 
 const VerifiedVendors = () => {
   const [searchParams] = useSearchParams();
@@ -371,35 +459,22 @@ const VerifiedVendors = () => {
                   >
                     Specialty
                   </p>
-                  <select
+                  <FilterSelect
                     value={specialties[0] ?? "any"}
-                    onChange={(e) =>
-                      setSpecialties(e.target.value === "any" ? [] : [e.target.value])
+                    onValueChange={(v) =>
+                      setSpecialties(v === "any" ? [] : [v])
                     }
-                    aria-label="Filter by specialty"
-                    className="font-sans w-full text-foreground focus:outline-none focus:ring-0 appearance-none"
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 500,
-                      letterSpacing: "0.02em",
-                      height: "36px",
-                      borderRadius: "20px",
-                      border: "1px solid hsl(var(--border))",
-                      backgroundColor: "#FFFFFF",
-                      padding: "0 14px",
-                      backgroundImage:
-                        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='none' stroke='%23001021' stroke-opacity='0.55' stroke-width='1.5' d='M1 1l4 4 4-4'/></svg>\")",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 14px center",
-                    }}
-                  >
-                    <option value="any">All specialties</option>
-                    {specialtyOptions.map((opt) => (
-                      <option key={opt.key} value={opt.key}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
+                    ariaLabel="Filter by specialty"
+                    placeholder="All specialties"
+                    options={[
+                      { value: "any", label: "All specialties" },
+                      ...specialtyOptions.map((opt) => ({
+                        value: opt.key,
+                        label: opt.label,
+                      })),
+                    ]}
+                  />
+
                 </div>
               )}
 
@@ -436,33 +511,17 @@ const VerifiedVendors = () => {
                   >
                     State
                   </p>
-                  <select
+                  <FilterSelect
                     value={stateFilter}
-                    onChange={(e) => setStateFilter(e.target.value)}
-                    aria-label="Filter by state"
-                    className="font-sans w-full text-foreground focus:outline-none focus:ring-0 appearance-none"
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 500,
-                      letterSpacing: "0.02em",
-                      height: "36px",
-                      borderRadius: "20px",
-                      border: "1px solid hsl(var(--border))",
-                      backgroundColor: "#FFFFFF",
-                      padding: "0 14px",
-                      backgroundImage:
-                        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='none' stroke='%23001021' stroke-opacity='0.55' stroke-width='1.5' d='M1 1l4 4 4-4'/></svg>\")",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 14px center",
-                    }}
-                  >
-                    <option value="any">All states</option>
-                    {stateOptions.map((s) => (
-                      <option key={s.abbr} value={s.abbr}>
-                        {s.name}
-                      </option>
-                    ))}
-                  </select>
+                    onValueChange={setStateFilter}
+                    ariaLabel="Filter by state"
+                    placeholder="All states"
+                    options={[
+                      { value: "any", label: "All states" },
+                      ...stateOptions.map((s) => ({ value: s.abbr, label: s.name })),
+                    ]}
+                  />
+
                 </div>
               )}
             </div>
