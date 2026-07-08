@@ -588,15 +588,51 @@ const VerifiedVendors = () => {
                 </div>
               )}
             </div>
+            )}
 
-            {/* Status definitions — compact strip above results */}
+            {/* Status definitions — collapsible during search */}
+            {isSearching && (
+              <div className="-mx-5 md:mx-0 px-5 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setDefinitionsOpen((o) => !o)}
+                  aria-expanded={definitionsOpen}
+                  className="font-sans w-full inline-flex items-center justify-between text-foreground transition-colors hover:bg-[hsl(var(--muted))]/40"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    letterSpacing: "0.02em",
+                    height: "36px",
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--border))",
+                    backgroundColor: "#FFFFFF",
+                    padding: "0 14px",
+                  }}
+                >
+                  <span>Verification Status Definitions</span>
+                  <ChevronDown
+                    aria-hidden
+                    style={{
+                      width: "12px",
+                      height: "12px",
+                      strokeWidth: 1.75,
+                      opacity: 0.55,
+                      transform: definitionsOpen ? "rotate(180deg)" : "none",
+                      transition: "transform 200ms ease",
+                    }}
+                  />
+                </button>
+              </div>
+            )}
+            {(!isSearching || definitionsOpen) && (
             <div
-              className="mt-3 bg-white"
+              className="mt-3 bg-white animate-fade-in"
               style={{
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "12px",
               }}
             >
+
               <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[hsl(var(--border))]">
                 {[
                   {
