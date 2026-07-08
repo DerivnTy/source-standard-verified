@@ -206,6 +206,10 @@ const VerifiedVendors = () => {
   const [specialties, setSpecialties] = useState<string[]>([]); // canonical lowercased keys
   const [stateFilter, setStateFilter] = useState<string>("any"); // 2-letter abbr or "any"
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [filtersOpen, setFiltersOpen] = useState(true);
+  const [definitionsOpen, setDefinitionsOpen] = useState(true);
+
+  const isSearching = query.trim().length > 0;
 
   // Sync query state with the ?q= param when it changes via navigation.
   useEffect(() => {
@@ -213,6 +217,21 @@ const VerifiedVendors = () => {
     setQuery((current) => (current === paramQ ? current : paramQ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  // Search-mode transitions:
+  // - Entering search (empty → non-empty): auto-collapse filters + definitions.
+  // - Clearing search (non-empty → empty): auto-restore both to expanded.
+  // User manual toggles during search persist until the field is cleared.
+  useEffect(() => {
+    if (isSearching) {
+      setFiltersOpen(false);
+      setDefinitionsOpen(false);
+    } else {
+      setFiltersOpen(true);
+      setDefinitionsOpen(true);
+    }
+  }, [isSearching]);
+
 
   const fulfillmentByVendor = useMemo(() => {
     const map = new Map<string, VendorFulfillment>();
