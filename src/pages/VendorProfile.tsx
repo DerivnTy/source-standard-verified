@@ -889,21 +889,32 @@ const VendorProfile = () => {
           {/* ────── 2. STATUS SUMMARY ────── */}
           <StatusSummary status={status} />
 
-          {/* ────── 3. QUICK FACTS (with Last Reviewed) ────── */}
-          <QuickFacts
-            providerType={VENDOR_FULFILLMENT_LABEL[fulfillment]}
-            location={location}
-            verification={VENDOR_STATUS_LABEL[status]}
-            profile={claimed ? "Claimed" : "Unclaimed"}
-            lastReviewed={
-              isVerified && vendor.reviewDate
-                ? vendor.reviewDate
-                : "Not yet reviewed"
-            }
+          {/* ────── 3. QUICK FACTS (summary table) ────── */}
+          <QuickFactsTable
+            rows={[
+              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
+              { label: "Location", value: location },
+              { label: "Verification", value: VENDOR_STATUS_LABEL[status] },
+              { label: "Profile", value: claimed ? "Claimed" : "Unclaimed" },
+              {
+                label: "Last Reviewed",
+                value:
+                  isVerified && vendor.reviewDate
+                    ? vendor.reviewDate
+                    : "Not yet reviewed",
+              },
+              ...(isVerified && vendor.reviewDate && vendor.nextReviewDate
+                ? [{
+                    label: "Verification Period",
+                    value: `${vendor.reviewDate} → ${vendor.nextReviewDate}`,
+                  }]
+                : []),
+            ]}
           />
 
-          {/* ────── 4. PROFILE COMPLETENESS (unclaimed / claimed-but-unverified only) ────── */}
-          {!isVerified && <ProfileCompletenessCard claimed={claimed} />}
+          {/* ────── 4. ABOUT THIS PROFILE (unclaimed / claimed-but-unverified only) ────── */}
+          {!isVerified && <AboutThisProfileCard claimed={claimed} />}
+
 
           {/* ────── 5. VERIFICATION STATUS ────── */}
           <article className="mt-4" style={CARD}>
