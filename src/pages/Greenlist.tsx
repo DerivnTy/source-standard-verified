@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { Search, Check, ChevronDown } from "lucide-react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
-import { RegistryHorizon } from "@/components/registry/RegistryHorizon";
 
 import { GreenlistRow } from "@/components/registry/GreenlistRow";
 import {
@@ -11,11 +14,19 @@ import {
   getGreenlistStates,
   entryMatchesState,
 } from "@/data/greenlist";
+import { US_STATE_TO_ABBR } from "@/lib/usStates";
 
 const ALL = "__all__";
-const NATIONWIDE = "__nationwide__";
 
 type StatusKey = "all" | "greenlisted" | "monitoring" | "alert";
+type FacilityTypeKey = "all" | "503A" | "503B" | "Manufacturer";
+
+const ABBR_TO_STATE_NAME: Record<string, string> = Object.fromEntries(
+  Object.entries(US_STATE_TO_ABBR).map(([name, abbr]) => [
+    abbr,
+    name.replace(/\b\w/g, (c) => c.toUpperCase()),
+  ]),
+);
 
 const SoftPill = ({
   label,
@@ -51,21 +62,112 @@ const SoftPill = ({
   </button>
 );
 
+/**
+ * FilterSelect — Source Standard styled select, matching Vendor Registry.
+ */
+const FilterSelect = ({
+  value,
+  onValueChange,
+  ariaLabel,
+  placeholder,
+  options,
+}: {
+  value: string;
+  onValueChange: (v: string) => void;
+  ariaLabel: string;
+  placeholder: string;
+  options: { value: string; label: string }[];
+}) => (
+  <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
+    <SelectPrimitive.Trigger
+      aria-label={ariaLabel}
+      className="font-sans w-full text-foreground focus:outline-none focus:ring-0 inline-flex items-center justify-between"
+      style={{
+        fontSize: "12px",
+        fontWeight: 500,
+        letterSpacing: "0.02em",
+        height: "36px",
+        borderRadius: "20px",
+        border: "1px solid hsl(var(--border))",
+        backgroundColor: "#FFFFFF",
+        padding: "0 14px",
+      }}
+    >
+      <SelectPrimitive.Value placeholder={placeholder} />
+      <SelectPrimitive.Icon asChild>
+        <ChevronDown
+          aria-hidden
+          style={{ width: "12px", height: "12px", strokeWidth: 1.75, opacity: 0.55 }}
+        />
+      </SelectPrimitive.Icon>
+    </SelectPrimitive.Trigger>
+    <SelectPrimitive.Portal>
+      <SelectPrimitive.Content
+        position="popper"
+        sideOffset={6}
+        className="z-50 overflow-hidden bg-white animate-fade-in"
+        style={{
+          minWidth: "var(--radix-select-trigger-width)",
+          maxHeight: "min(60vh, 320px)",
+          border: "1px solid hsl(var(--border))",
+          borderRadius: "16px",
+          boxShadow: "0 8px 24px -12px rgba(0,16,33,0.18)",
+        }}
+      >
+        <SelectPrimitive.Viewport style={{ padding: "6px" }}>
+          {options.map((opt) => (
+            <SelectPrimitive.Item
+              key={opt.value}
+              value={opt.value}
+              className="relative flex cursor-pointer select-none items-center justify-between outline-none data-[highlighted]:bg-[hsl(var(--muted))]/60 data-[state=checked]:text-foreground"
+              style={{
+                fontSize: "12.5px",
+                fontWeight: 500,
+                letterSpacing: "0.01em",
+                color: "#001021",
+                padding: "8px 12px",
+                borderRadius: "10px",
+                lineHeight: 1.35,
+              }}
+            >
+              <SelectPrimitive.ItemText>{opt.label}</SelectPrimitive.ItemText>
+              <SelectPrimitive.ItemIndicator>
+                <Check
+                  aria-hidden
+                  style={{ width: "14px", height: "14px", strokeWidth: 2, marginLeft: "10px" }}
+                />
+              </SelectPrimitive.ItemIndicator>
+            </SelectPrimitive.Item>
+          ))}
+        </SelectPrimitive.Viewport>
+      </SelectPrimitive.Content>
+    </SelectPrimitive.Portal>
+  </SelectPrimitive.Root>
+);
+
+const STATUS_DEFINITIONS = [
+  { label: "Greenlisted", body: "Currently recognized within the Source Standard framework." },
+  { label: "Monitoring", body: "Currently under additional review." },
+  { label: "Status Alert", body: "Additional information requires further review." },
+];
+
 const Greenlist = () => {
   const [query, setQuery] = useState("");
-  const [state] = useState<string>(ALL);
   const [status, setStatus] = useState<StatusKey>("all");
+  const [facilityType, setFacilityType] = useState<FacilityTypeKey>("all");
+  const [stateFilter, setStateFilter] = useState<string>(ALL);
   const PAGE_SIZE = 10;
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const counts = useMemo(() => getGreenlistCounts(), []);
-  void getGreenlistStates;
 
-  // Derived manufacturer-tier counts.
-  // At launch no manufacturer has yet satisfied Greenlisted requirements.
-  const greenlistedCount = 0;
-  const alertCount = counts.notRecognized;
-  const monitoringCount = counts.total - greenlistedCount - alertCount;
+  const stateOptions = useMemo(() => {
+    const states = getGreenlistStates();
+    return [
+      { value: ALL, label: "All states" },
+      ...states.map((abbr) => ({ value: abbr, label: ABBR_TO_STATE_NAME[abbr] ?? abbr })),
+    ];
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -76,20 +178,24 @@ const Greenlist = () => {
           .toLowerCase();
         if (!hay.includes(q)) return false;
       }
-      if (state !== ALL) {
-        if (state === NATIONWIDE) {
-          if (!e.serviceArea) return false;
-        } else if (!entryMatchesState(e, state)) {
-          return false;
-        }
+      if (stateFilter !== ALL && !entryMatchesState(e, stateFilter)) return false;
+
+      // Facility Type
+      if (facilityType === "503A" && e.category !== "503A") return false;
+      if (facilityType === "503B" && e.category !== "503B") return false;
+      if (facilityType === "Manufacturer") {
+        const isManufacturer =
+          e.category === "Other" || /manufactur/i.test(e.type ?? "");
+        if (!isManufacturer) return false;
       }
-      // Greenlisted: none at launch
+
+      // Status: no entries are Greenlisted at launch
       if (status === "greenlisted") return false;
       if (status === "alert" && !e.regulatoryAlert) return false;
       if (status === "monitoring" && e.regulatoryAlert) return false;
       return true;
     });
-  }, [query, state, status]);
+  }, [query, stateFilter, facilityType, status]);
 
   const sorted = useMemo(
     () => [...filtered].sort((a, b) => a.name.localeCompare(b.name)),
@@ -101,10 +207,10 @@ const Greenlist = () => {
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [query, state, status]);
+  }, [query, stateFilter, facilityType, status]);
 
   const heroDescription =
-    "A public-reference database of manufacturers, 503A pharmacies, 503B outsourcing facilities, and other organizations operating within compounded therapy supply chains.";
+    "Search the Source Standard Registry to learn more about manufacturers, compounding pharmacies, and other upstream organizations within the peptide supply chain.";
 
   return (
     <>
@@ -127,138 +233,165 @@ const Greenlist = () => {
         recordCount={counts.total}
       />
 
-      {/* Opening context + Greenlisted Status — unified white section */}
       <section className="bg-background">
-        <div className="page-shell pt-5 md:pt-6 pb-0">
+        <div className="page-shell pt-4 md:pt-6 pb-10 md:pb-14">
           <div className="mx-auto w-wide">
-            <div
-              className="bg-white"
-              style={{
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "24px",
-                padding: "24px 22px",
-              }}
-            >
-              {/* Lead-in paragraph */}
-              <div className="max-w-[760px]">
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.65 }}
-                >
-                  Facility records provide transparency into recognized upstream
-                  organizations operating within the compounded therapy supply chain.
-                </p>
-              </div>
-
-              {/* Hairline divider */}
-              <div
-                className="mt-5"
-                style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}
-              />
-
-              {/* Greenlisted Status */}
-              <div className="mt-5 max-w-[760px]">
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-                >
-                  Greenlisted Status
-                </p>
-                <p
-                  className="mt-2 text-foreground"
-                  style={{ fontSize: "15px", lineHeight: 1.6, fontWeight: 500 }}
-                >
-                  Greenlisted status reflects recognition within the Source Standard framework based on available information within a defined scope.
-                </p>
-                <p
-                  className="mt-2 text-muted-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.65 }}
-                >
-                  It is a recognition under the Source Standard framework and is distinct from FDA registration, 503A designation, or 503B designation.
-                </p>
-                <p
-                  className="mt-2 text-muted-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.65 }}
-                >
-                  Greenlisted status is reviewed periodically and may change as new information becomes available.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-background">
-        <div className="page-shell pb-10 md:pb-12">
-          <div className="mx-auto w-wide">
-            {/* Status filter group */}
-            <div className="-mx-5 md:mx-0 px-5 pt-5 pb-3 space-y-4">
-              <div>
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-                >
-                  Verification Status
-                </p>
-                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-                  <SoftPill
-                    label="All"
-                    active={status === "all"}
-                    fullWidth
-                    onClick={() => setStatus("all")}
+            {/* Search — first interactive element */}
+            <div className="-mx-5 md:mx-0 px-5">
+              <div className="mx-auto w-full md:max-w-[640px]">
+                <div className="relative">
+                  <Search
+                    aria-hidden
+                    className="pointer-events-none absolute text-muted-foreground/70"
+                    style={{
+                      top: "50%",
+                      left: "18px",
+                      width: "16px",
+                      height: "16px",
+                      strokeWidth: 1.75,
+                      transform: "translateY(-50%)",
+                    }}
                   />
-                  <SoftPill
-                    label="Greenlisted"
-                    active={status === "greenlisted"}
-                    fullWidth
-                    onClick={() => setStatus("greenlisted")}
-                  />
-                  <SoftPill
-                    label="Monitoring"
-                    active={status === "monitoring"}
-                    fullWidth
-                    onClick={() => setStatus("monitoring")}
-                  />
-                  <SoftPill
-                    label="Status Alert"
-                    active={status === "alert"}
-                    fullWidth
-                    onClick={() => setStatus("alert")}
+                  <input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Search manufacturer, pharmacy, or facility..."
+                    aria-label="Search Facility Records"
+                    className="font-sans w-full text-[14px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+                    style={{
+                      height: "52px",
+                      borderRadius: "24px",
+                      backgroundColor: "#FFFFFF",
+                      border: "1px solid hsl(var(--border))",
+                      paddingLeft: "44px",
+                      paddingRight: "18px",
+                    }}
                   />
                 </div>
               </div>
             </div>
 
-            {/* Search — final filter, adjacent to record list */}
-            <div className="-mx-5 md:mx-0 px-5 pt-2 pb-1">
-              <p
-                className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-              >
-                Search
-              </p>
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search manufacturers, locations, or verification status…"
-                aria-label="Search Facility Records"
-                className="font-sans w-full text-[12px] text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-0"
+            {/* Compact Greenlisted context strip */}
+            <div className="-mx-5 md:mx-0 px-5 pt-3">
+              <div
+                className="bg-white"
                 style={{
-                  height: "40px",
-                  borderRadius: "24px",
-                  backgroundColor: "#FAFAFA",
-                  border: "1px solid #E5E5EA",
-                  paddingLeft: "16px",
-                  paddingRight: "16px",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: "18px",
+                  padding: "14px 16px",
                 }}
-              />
+              >
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "10.5px", letterSpacing: "0.12em" }}
+                >
+                  Greenlisted Status
+                </p>
+                <p
+                  className="mt-1.5 text-foreground"
+                  style={{ fontSize: "14px", lineHeight: 1.5, fontWeight: 500 }}
+                >
+                  Greenlisted facilities are organizations currently recognized within the Source Standard framework.
+                </p>
+                <p
+                  className="mt-1 text-muted-foreground"
+                  style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                >
+                  Greenlisted status is based on Source Standard's review within a defined scope and may change as new information becomes available.
+                </p>
+                <Link
+                  to="/how-it-works"
+                  className="mt-2 inline-flex items-center gap-1 font-sans text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
+                  style={{ fontSize: "12px", fontWeight: 500 }}
+                >
+                  Learn more about Greenlisted Status <span aria-hidden>→</span>
+                </Link>
+              </div>
             </div>
 
+            {/* Filters */}
+            <div className="-mx-5 md:mx-0 px-5 pt-4 space-y-4">
+              {/* Status */}
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                >
+                  Status
+                </p>
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                  <SoftPill label="All" active={status === "all"} fullWidth onClick={() => setStatus("all")} />
+                  <SoftPill label="Greenlisted" active={status === "greenlisted"} fullWidth onClick={() => setStatus("greenlisted")} />
+                  <SoftPill label="Monitoring" active={status === "monitoring"} fullWidth onClick={() => setStatus("monitoring")} />
+                  <SoftPill label="Status Alert" active={status === "alert"} fullWidth onClick={() => setStatus("alert")} />
+                </div>
+
+                {/* Inline status definitions */}
+                <ul className="mt-3 flex flex-col">
+                  {STATUS_DEFINITIONS.map((s, i) => (
+                    <li
+                      key={s.label}
+                      style={{
+                        paddingTop: i === 0 ? "8px" : "8px",
+                        paddingBottom: "8px",
+                        borderTop: i === 0 ? "none" : "1px solid hsl(var(--border) / 0.6)",
+                      }}
+                    >
+                      <span
+                        className="font-sans font-semibold text-foreground"
+                        style={{ fontSize: "12px", letterSpacing: "0.01em" }}
+                      >
+                        {s.label}
+                      </span>
+                      <span
+                        className="text-muted-foreground"
+                        style={{ fontSize: "12px", lineHeight: 1.5 }}
+                      >
+                        {" — "}{s.body}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Facility Type */}
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                >
+                  Facility Type
+                </p>
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                  <SoftPill label="All" active={facilityType === "all"} fullWidth onClick={() => setFacilityType("all")} />
+                  <SoftPill label="503A Pharmacy" active={facilityType === "503A"} fullWidth onClick={() => setFacilityType("503A")} />
+                  <SoftPill label="503B Facility" active={facilityType === "503B"} fullWidth onClick={() => setFacilityType("503B")} />
+                  <SoftPill label="Manufacturer" active={facilityType === "Manufacturer"} fullWidth onClick={() => setFacilityType("Manufacturer")} />
+                </div>
+              </div>
+
+              {/* State */}
+              <div>
+                <p
+                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                >
+                  State
+                </p>
+                <FilterSelect
+                  value={stateFilter}
+                  onValueChange={setStateFilter}
+                  ariaLabel="Filter by state"
+                  placeholder="All states"
+                  options={stateOptions}
+                />
+              </div>
+            </div>
 
             {/* Result list */}
             <div
-              key={`${query}|${state}|${status}`}
-              className="mt-4 animate-fade-in"
+              key={`${query}|${stateFilter}|${facilityType}|${status}`}
+              className="mt-5 animate-fade-in"
             >
               {sorted.length === 0 ? (
                 <EmptyState
@@ -266,7 +399,7 @@ const Greenlist = () => {
                   body={
                     status === "greenlisted"
                       ? "No manufacturer has yet satisfied Greenlisted criteria."
-                      : "No manufacturer matches these filters."
+                      : "No facility matches these filters."
                   }
                 />
               ) : (
@@ -284,9 +417,7 @@ const Greenlist = () => {
                       <button
                         type="button"
                         onClick={() =>
-                          setVisibleCount((n) =>
-                            Math.min(n + PAGE_SIZE, sorted.length),
-                          )
+                          setVisibleCount((n) => Math.min(n + PAGE_SIZE, sorted.length))
                         }
                         className="inline-flex h-11 items-center justify-center rounded-full border border-foreground/15 bg-background px-6 font-sans text-[13.5px] font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-[hsl(var(--muted))]/40"
                       >
@@ -297,74 +428,6 @@ const Greenlist = () => {
                 </>
               )}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Status Definitions */}
-      <section className="bg-background">
-        <div className="page-shell pb-14 md:pb-20">
-          <div className="mx-auto w-wide">
-            <div
-              className="bg-white"
-              style={{
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "24px",
-                padding: "24px 22px",
-              }}
-            >
-              <p
-                className="font-sans font-semibold uppercase text-muted-foreground"
-                style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-              >
-                Status Definitions
-              </p>
-              <ul className="mt-4 flex flex-col gap-0">
-                {[
-                  {
-                    label: "Greenlisted",
-                    body: "The organization is currently recognized within the Source Standard framework for the reviewed scope.",
-                  },
-                  {
-                    label: "Monitoring",
-                    body: "The organization is under additional review before a status is confirmed.",
-                  },
-                  {
-                    label: "Status Alert",
-                    body: "Additional information has been identified that requires further review before the current status can be confirmed.",
-                  },
-                  {
-                    label: "Removed",
-                    body: "The organization is no longer recognized within the current Source Standard framework.",
-                  },
-                ].map((s, i) => (
-                  <li
-                    key={s.label}
-                    style={{
-                      paddingTop: i === 0 ? "0" : "14px",
-                      paddingBottom: "14px",
-                      borderTop:
-                        i === 0 ? "none" : "1px solid hsl(var(--border))",
-                    }}
-                  >
-                    <p
-                      className="font-sans font-semibold uppercase text-foreground"
-                      style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-                    >
-                      {s.label}
-                    </p>
-                    <p
-                      className="mt-2 text-muted-foreground"
-                      style={{ fontSize: "14px", lineHeight: 1.65 }}
-                    >
-                      {s.body}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-
           </div>
         </div>
       </section>

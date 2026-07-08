@@ -1,92 +1,98 @@
+## Facility Records — Consumer Experience Refinement (Phase 1)
 
-# Vendor Registry – Consumer Experience Refinement (v3)
+### Problem
+The Facility Records page buries search beneath a tall explanatory card. Users must scroll through framework definitions before they can interact. But unlike the Vendor Registry, most consumers don't know what "Greenlisted", "503A", or "503B" mean — so the explanation cannot be hidden behind a link. The goal is to compress context, not remove it.
 
-Goal: reposition `/verified-vendors` as a consumer lookup tool. Preserve typography, colors, card style, and institutional aesthetic — usability refinement only.
+### Solution
+Apply the Vendor Registry hierarchy (search-first, tight spacing, styled filters) to `Greenlist.tsx`, but retain a **compact** Greenlisted context strip and inline status definitions. Preserve all existing typography, colors, and institutional styling.
 
-## 1. Registry Hero
+---
 
-Keep H1 as **"Vendor Registry"** (institutional voice). Update the `RegistryHeader` description to:
+### 1. Update Hero Description
+Replace the paragraph in `<RegistryHeader description={...}>` with:
+> "Search the Source Standard Registry to learn more about manufacturers, compounding pharmacies, and other upstream organizations within the peptide supply chain."
 
-> *"Search the Source Standard Registry to find out whether your provider has been independently verified and to better understand their peptide sourcing transparency."*
+### 2. Move Search Above Everything
+After the hero, search becomes the first interactive element.
 
-Keep the compact navy hero treatment, live-updated pill, index number, and floating stats card. No structural changes to `RegistryHeader.tsx`.
+New hierarchy:
+- Hero
+- Search
+- Compact Greenlisted Status info strip
+- Filters (Status → Facility Type → State)
+- Inline Status Definitions (beneath Status pills)
+- Results
 
-## 2. Search as Primary Action
+Search input matches the Vendor Registry:
+- 52px height, 24px radius, white bg, hairline border
+- Left-aligned `Search` icon
+- Placeholder: `Search manufacturer, pharmacy, or facility...`
 
-Promote the search input into the visual centerpiece, placed **above** the filters (currently below):
+### 3. Remove the Large Greenlisted Explanatory Card
+Delete the tall white card (current lines ~131–189).
 
-- A small orienting line **directly above** the search input:
-  > *"Search clinics, telehealth providers, and wellness practices nationwide."*
-  Muted 12px, no uppercase eyebrow — a plain informational line.
-- Full width on mobile, capped ~640px on desktop, centered.
-- Height 52–54px, 24px radius, 1px hairline, white background, 14px text.
-- Placeholder: *"Search by provider, clinic, telehealth company, city, or state..."*
-- Inline lucide `Search` glyph (1.75 stroke, muted) on the left.
-- Remove the current "Search" uppercase eyebrow — placeholder is self-explanatory.
+### 4. Replace with a Compact Greenlisted Information Block
+Placed immediately beneath the search field. Approx 80–100px tall.
 
-## 3. Expanded Filters (default = All Providers)
+Structure:
+- Eyebrow: `GREENLISTED STATUS` (11px, uppercase, 0.12em, muted)
+- Primary line (15px, medium): "Greenlisted facilities are organizations currently recognized within the Source Standard framework."
+- Muted supporting line (13.5px, muted): "Greenlisted status is based on Source Standard's review within a defined scope and may change as new information becomes available."
+- Text link: `Learn more about Greenlisted Status →` linking to `/how-it-works`
 
-Reorganize into clearly labeled groups directly under the search:
+Uses hairline border, 16–20px radius, white background — visually calm, not a hero card.
 
-1. **Verification Status** — `Verified` / `Unverified` pills, **default `any`**. Neither active = all records. Badges remain clear on cards for both states.
-2. **Specialty** *(new, dynamic)* — options generated at runtime from actual data. Union of `vendor.clinicalFocus[]` + `vendor.category`, normalized (trim, title-case, dedupe case-insensitively). Only surface options with ≥ 2 matching vendors to avoid one-off noise. Multi-select, OR semantics. Uses existing `SoftPill`; horizontal scroll on mobile.
-3. **Vendor Type** — Online, In-Person, **Hybrid** (new). Extend `DeliveryKey` to include `hybrid`, wired to `getVendorFulfillment`.
-4. **State** *(new, dynamic)* — compact `<select>` styled to match pill/input language (32–36px height, 20px radius, 1px hairline, white bg). Populated from unique `vendor.state` values in the dataset, sorted, displayed with full state names via `usStates`. "All states" default.
+### 5. Simplify & Reorder Filters
+Reuse the existing `SoftPill`. Port the `FilterSelect` component from `VerifiedVendors.tsx` (either inline-duplicated or lifted to `src/components/registry/FilterSelect.tsx` — implementation detail).
 
-All groups combine with AND; Specialty uses OR internally.
+Filter order:
+1. **Status** — All | Greenlisted | Monitoring | Status Alert (pills, 2×2 mobile, 4-col desktop) — already exists
+2. **Facility Type** — All | 503A Pharmacy | 503B Outsourcing Facility | Manufacturer (pills, same style)
+3. **State** — `FilterSelect` dropdown driven by `getGreenlistStates()`
 
-## 4. Move Status Definitions
+Facility Type mapping:
+- `503A Pharmacy` → `category === "503A"`
+- `503B Outsourcing Facility` → `category === "503B"`
+- `Manufacturer` → `category === "Other"` OR `type` contains "Manufacturer"
 
-Remove the bottom "Verified vs. Unverified" panel. Replace with a **compact definitions strip directly beneath the filter section**, above results:
+### 6. Inline Status Definitions (Replaces Bottom Card)
+Directly beneath the Status filter pills, add three concise lines:
 
-- Two cells side-by-side on desktop, stacked on mobile.
-- Each cell: small uppercase eyebrow (VERIFIED / UNVERIFIED) + one-sentence definition (reuse trimmed existing copy).
-- Hairline border, white bg, 12px radius.
-- Subtle text link "View Verification Framework" → `/how-it-works` at the end of the strip.
+- **Greenlisted** — Currently recognized within the Source Standard framework.
+- **Monitoring** — Currently under additional review.
+- **Status Alert** — Additional information requires further review.
 
-## 5. Registry Card Hierarchy (`VendorRow.tsx`)
+Small type (12–13px), muted, hairline-separated. Remove the "Removed" definition. Delete the large bottom Status Definitions section entirely.
 
-Preserve card shell (radius, border, hover). Minor hierarchy tweaks only:
+### 7. Reduce Vertical Spacing
+- Trim `page-shell` padding under the hero
+- Tighten padding between search, info strip, filters, and results
+- Removing the bottom definitions section eliminates the largest scroll gap
 
-- Provider name 14px/600 (unchanged).
-- Status (Verified/Unverified + shield) top-right (unchanged) — badge language remains clear for both states since Unverified rows are visible by default.
-- Second line: **Location** (City, ST) — muted, clean (no vendor-type suffix).
-- Third line: **Specialty pill** (existing style) with `+N` if multiple; **Vendor type** as a tiny neutral 10px tag next to it (Online / In-person / Hybrid).
-- "View ›" bottom-right (unchanged).
-- Vertical padding `10px 14px 8px` → `9px 14px 8px`; content gap `3px` → `2px`.
+### 8. Navigation Label — Exploration Only (No Code Change This Phase)
+"Facility Records" tests poorly with first-time visitors. Candidate labels to evaluate in a follow-up:
+- Manufacturers
+- Manufacturers & Pharmacies
+- Supply Chain
+- Upstream Facilities
 
-## 6. Mobile Density
+This phase does NOT change the nav label or page title. It's flagged for a subsequent decision so language can be validated before rollout across nav, breadcrumbs, footer, and internal links.
 
-- Filter section padding `pt-5 pb-3` → `pt-3 pb-2`; `space-y-4` → `space-y-3`.
-- Card list gap `gap-1.5` → `gap-1` on mobile, `gap-1.5` on `md+`.
-- Results section `pb-6 md:pb-8` → `pb-4 md:pb-6`.
-- Stats card padding `14px 10px` → `12px 10px`.
+### 9. Preserve
+- Navy hero (`RegistryHeader`)
+- Existing typography, borders, pill styling
+- `GreenlistRow` card styling
+- All existing filter/search logic and data
+- `PageMeta` + JSON-LD
+- Institutional visual language
 
-## 7. Empty State (single CTA)
+---
 
-When active filters/query produce zero matches:
+### Files to modify
+- `src/pages/Greenlist.tsx` — layout, search placement, compact info block, Facility Type filter, State `FilterSelect`, inline status definitions, spacing
 
-- Eyebrow: *"Can't find your provider?"*
-- Body: *"Let us know so we can add them to the registry for review."*
-- One outline CTA: **Request Provider Review** → `/contact?topic=request-provider-review`.
+### Optional
+- Extract `FilterSelect` from `VerifiedVendors.tsx` into `src/components/registry/FilterSelect.tsx` for reuse (implementation detail; can also inline-duplicate to keep the change scoped)
 
-Fallback (registry entirely empty) keeps the generic message.
-
-## 8. Preserve
-
-- No color, typography, radius, or card visual redesign.
-- Navy hero, `HeroPattern`, floating stats, `SoftPill`, `VendorRow` shell — retained.
-- No backend changes; all filtering client-side over `vendors`.
-
-## Files to modify
-
-- `src/pages/VerifiedVendors.tsx` — hero description, search placement + intro line, dynamic filter derivation (specialty, state), hybrid delivery, in-place definitions strip, empty state, spacing.
-- `src/components/registry/VendorRow.tsx` — vendor-type tag placement, tighter padding.
-- (No changes to `RegistryHeader.tsx`, `SoftPill`, `HeroPattern`, or vendor data.)
-
-## Follow-ups (not in this pass)
-
-- **"Verified Only" quick toggle** near the search bar once the verified population grows — one-tap filter without changing the default.
-- Persist active filters to URL query params for shareable links.
-- `/contact` deep-link handling for `?topic=` values.
-- Apply the same consumer-first treatment to the Facility Records page next.
+### Outcome
+Consumers land on the page, see the hero, search immediately, get just enough context to interpret Greenlisted status without hunting for it, and reach results with dramatically less scrolling — while preserving the trust cues that make this page credible.
