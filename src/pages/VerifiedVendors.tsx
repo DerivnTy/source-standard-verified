@@ -511,33 +511,17 @@ const VerifiedVendors = () => {
                   >
                     State
                   </p>
-                  <select
+                  <FilterSelect
                     value={stateFilter}
-                    onChange={(e) => setStateFilter(e.target.value)}
-                    aria-label="Filter by state"
-                    className="font-sans w-full text-foreground focus:outline-none focus:ring-0 appearance-none"
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 500,
-                      letterSpacing: "0.02em",
-                      height: "36px",
-                      borderRadius: "20px",
-                      border: "1px solid hsl(var(--border))",
-                      backgroundColor: "#FFFFFF",
-                      padding: "0 14px",
-                      backgroundImage:
-                        "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='none' stroke='%23001021' stroke-opacity='0.55' stroke-width='1.5' d='M1 1l4 4 4-4'/></svg>\")",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "right 14px center",
-                    }}
-                  >
-                    <option value="any">All states</option>
-                    {stateOptions.map((s) => (
-                      <option key={s.abbr} value={s.abbr}>
-                        {s.name}
-                      </option>
-                    ))}
-                  </select>
+                    onValueChange={setStateFilter}
+                    ariaLabel="Filter by state"
+                    placeholder="All states"
+                    options={[
+                      { value: "any", label: "All states" },
+                      ...stateOptions.map((s) => ({ value: s.abbr, label: s.name })),
+                    ]}
+                  />
+
                 </div>
               )}
             </div>
