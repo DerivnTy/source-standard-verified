@@ -675,6 +675,9 @@ const VerifiedVendors = () => {
                 </Link>
               </div>
             </div>
+            )}
+
+
 
             {/* Result list */}
             <div key={fadeKey} className="mt-3 animate-fade-in">
