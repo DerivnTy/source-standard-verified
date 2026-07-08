@@ -445,8 +445,51 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            {/* Grouped filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-3 pb-2 space-y-3">
+            {/* Grouped filters — collapsible during search */}
+            {isSearching && (
+              <div className="-mx-5 md:mx-0 px-5 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen((o) => !o)}
+                  aria-expanded={filtersOpen}
+                  className="font-sans w-full inline-flex items-center justify-between text-foreground transition-colors hover:bg-[hsl(var(--muted))]/40"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    letterSpacing: "0.02em",
+                    height: "36px",
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--border))",
+                    backgroundColor: "#FFFFFF",
+                    padding: "0 14px",
+                  }}
+                >
+                  <span>
+                    Filters
+                    {activeFilterCount > 0 && (
+                      <span className="text-muted-foreground font-medium">
+                        {" "}
+                        ({activeFilterCount})
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDown
+                    aria-hidden
+                    style={{
+                      width: "12px",
+                      height: "12px",
+                      strokeWidth: 1.75,
+                      opacity: 0.55,
+                      transform: filtersOpen ? "rotate(180deg)" : "none",
+                      transition: "transform 200ms ease",
+                    }}
+                  />
+                </button>
+              </div>
+            )}
+            {(!isSearching || filtersOpen) && (
+            <div className="-mx-5 md:mx-0 px-5 pt-3 pb-2 space-y-3 animate-fade-in">
+
               {/* Verification Status */}
               <div>
                 <p
