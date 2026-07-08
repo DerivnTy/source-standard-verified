@@ -519,8 +519,8 @@ const Index = () => {
           variant="cover"
           category="Public Reference System · United States"
           docId=""
-          title="Verify the source."
-          statement="Independent verification of vendor sourcing and manufacturer quality across compounded therapy categories."
+          title="Is Your Provider Verified?"
+          statement=""
           tone="navy"
           heroLogo={
             <img
@@ -528,12 +528,14 @@ const Index = () => {
               alt="Source Standard"
               draggable={false}
               className="block w-auto select-none"
-              style={{ height: "44px", filter: "brightness(0) invert(1)" }}
+              style={{ height: "38px", filter: "brightness(0) invert(1)" }}
             />
           }
           actions={<HeroActions />}
-          heroMetrics={<HeroMetrics />}
+          heroMetrics={<HeroContent />}
+          heroMeta={<HeroMeta />}
         />
+
 
         <div
           aria-hidden="true"
