@@ -1013,35 +1013,40 @@ const VendorProfile = () => {
           <article className="mt-4" style={CARD}>
             <SectionHeading>About This Vendor</SectionHeading>
             {hasAbout ? (
-              <div className="mt-3 space-y-4">
-                {vendor.summary && (
-                  <p className="text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
-                    {vendor.summary}
-                  </p>
-                )}
-                {vendor.clinicalPhilosophy && (
-                  <div>
-                    <Eyebrow>Clinical Philosophy</Eyebrow>
-                    <p
-                      className="mt-1.5 text-foreground"
-                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
-                    >
-                      {vendor.clinicalPhilosophy}
-                    </p>
+              <div className="mt-3">
+                <ReadMore>
+                  <div className="space-y-4">
+                    {vendor.summary && (
+                      <p className="text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
+                        {vendor.summary}
+                      </p>
+                    )}
+                    {vendor.clinicalPhilosophy && (
+                      <div>
+                        <Eyebrow>Clinical Philosophy</Eyebrow>
+                        <p
+                          className="mt-1.5 text-foreground"
+                          style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
+                        >
+                          {vendor.clinicalPhilosophy}
+                        </p>
+                      </div>
+                    )}
+                    {vendor.patientFocus && (
+                      <div>
+                        <Eyebrow>Patient Focus</Eyebrow>
+                        <p
+                          className="mt-1.5 text-foreground"
+                          style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
+                        >
+                          {vendor.patientFocus}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                )}
-                {vendor.patientFocus && (
-                  <div>
-                    <Eyebrow>Patient Focus</Eyebrow>
-                    <p
-                      className="mt-1.5 text-foreground"
-                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
-                    >
-                      {vendor.patientFocus}
-                    </p>
-                  </div>
-                )}
+                </ReadMore>
               </div>
+
             ) : (
               <p
                 className="mt-3 text-muted-foreground"
