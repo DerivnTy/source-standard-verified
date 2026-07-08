@@ -412,75 +412,45 @@ const AboutThisProfileCard = ({ claimed }: { claimed: boolean }) => (
 
 type ActivityRow = { label: string; value: string; provided: boolean };
 
-const Activity = ({ rows }: { rows: ActivityRow[] }) => {
-  const provided = rows.filter((r) => r.provided);
-  // Compact fallback when the timeline would otherwise feel empty.
-  if (provided.length < 2) {
-    const summary =
-      provided[0]?.value ?? rows.find((r) => r.label === "Last Reviewed")?.value ?? "Not yet reviewed";
-    return (
-      <section
-        aria-label="Activity"
-        className="mt-4 flex items-baseline justify-between gap-4 py-2"
-        style={{
-          borderTop: "0.5px solid hsl(var(--border))",
-          borderBottom: "0.5px solid hsl(var(--border))",
-        }}
-      >
-        <p
-          className="font-sans font-semibold uppercase text-muted-foreground"
-          style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+const Activity = ({ rows }: { rows: ActivityRow[] }) => (
+  <article className="mt-4" style={CARD}>
+    <p
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "12px", letterSpacing: "0.05em" }}
+    >
+      Activity
+    </p>
+    <dl className="mt-3">
+      {rows.map((r, i) => (
+        <div
+          key={r.label}
+          className="flex items-baseline justify-between gap-4 py-2"
+          style={
+            i > 0
+              ? { borderTop: "0.5px solid hsl(var(--border) / 0.6)" }
+              : undefined
+          }
         >
-          Activity
-        </p>
-        <p
-          className="font-sans text-muted-foreground text-right"
-          style={{ fontSize: "13px", fontWeight: 400 }}
-        >
-          {summary}
-        </p>
-      </section>
-    );
-  }
-  return (
-    <article className="mt-4" style={CARD}>
-      <p
-        className="font-sans font-semibold uppercase text-muted-foreground"
-        style={{ fontSize: "12px", letterSpacing: "0.05em" }}
-      >
-        Activity
-      </p>
-      <dl className="mt-3">
-        {rows.map((r, i) => (
-          <div
-            key={r.label}
-            className="flex items-baseline justify-between gap-4 py-2"
-            style={
-              i > 0
-                ? { borderTop: "0.5px solid hsl(var(--border) / 0.6)" }
-                : undefined
-            }
+          <dt
+            className="font-sans font-semibold uppercase text-muted-foreground"
+            style={{ fontSize: "11px", letterSpacing: "0.08em" }}
           >
-            <dt
-              className="font-sans font-semibold uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-            >
-              {r.label}
-            </dt>
-            <dd
-              className={`font-mono tabular-nums text-right ${
-                r.provided ? "text-foreground" : "text-muted-foreground"
-              }`}
-              style={{ fontSize: "13px", fontWeight: 400 }}
-            >
-              {r.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </article>
-  );
-};
+            {r.label}
+          </dt>
+          <dd
+            className={`font-mono tabular-nums text-right ${
+              r.provided ? "text-foreground" : "text-muted-foreground"
+            }`}
+            style={{ fontSize: "13px", fontWeight: 400 }}
+          >
+            {r.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </article>
+);
+
 
 
 
@@ -892,10 +862,8 @@ const VendorProfile = () => {
           {/* ────── 3. QUICK FACTS (summary table) ────── */}
           <QuickFactsTable
             rows={[
-              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
-              { label: "Location", value: location },
+              { label: "Profile Status", value: claimed ? "Claimed" : "Unclaimed" },
               { label: "Verification", value: VENDOR_STATUS_LABEL[status] },
-              { label: "Profile", value: claimed ? "Claimed" : "Unclaimed" },
               {
                 label: "Last Reviewed",
                 value:
@@ -903,6 +871,7 @@ const VendorProfile = () => {
                     ? vendor.reviewDate
                     : "Not yet reviewed",
               },
+              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
               ...(isVerified && vendor.reviewDate && vendor.nextReviewDate
                 ? [{
                     label: "Verification Period",
@@ -1052,7 +1021,7 @@ const VendorProfile = () => {
               />
               <div className="col-span-2">
                 <Cell
-                  label="Address"
+                  label="Practice Address"
                   value={
                     vendor.address || vendor.city || vendor.state || vendor.zip
                       ? [
