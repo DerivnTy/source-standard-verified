@@ -1,44 +1,58 @@
-## Vendor Profile — Hierarchy & Redundancy Cleanup
+## How Verification Works — Consumer Rewrite (approved)
 
-Refine `src/pages/VendorProfile.tsx` only. No changes to styling, colors, typography, cards, routing, data model, or verification logic.
+Rewrite `src/pages/HowItWorks.tsx` end-to-end as a five-section consumer guide. Preserve routing (`/how-it-works`), color palette, typography, `BriefingHero`, `Breadcrumb`, `PageMeta`, and site chrome.
 
-### 1. Quick Facts — remove Location, reorder
-Quick Facts becomes purely administrative:
+### Removed
+- Internal waypoints and `SectionAnchorNav`.
+- Numbered `Clause` cards (`AUDIT_CLAUSES`, `SURVEILLANCE_CLAUSES`, etc.).
+- Long procedural methodology paragraphs.
 
-1. Profile Status — Claimed / Unclaimed
-2. Verification — Verified / Unverified (or under-review / suspended / removed label)
-3. Last Reviewed — date or "Not yet reviewed"
-4. Provider Type — In-Person / Online / Hybrid
+### New page structure
 
-Change from the current table:
-- Remove the **Location** row (already in hero).
-- Rename **Profile** → **Profile Status**.
-- Reorder as listed above.
-- Keep the conditional **Verification Period** row (verified + both dates present) at the bottom of the table.
+1. **BriefingHero** (kept)
+   - Eyebrow: "Public Guide"
+   - Title: "How Verification Works"
+   - Deck: one plain-language sentence.
 
-### 2. Rename Contact "Address" → "Practice Address"
-Single `<Cell label>` change in the Contact section. Missing-state copy ("Not provided to Source Standard") is unchanged.
+2. **What is Verification?** — short 2–3 sentence lead. Consumer-focused, no internal methodology.
 
-### 3. Section responsibilities
-No structural changes required — current sections already map to the intended questions. No copy edits beyond §1 and §2. This item is a guardrail: do not reintroduce location/identity duplication.
+3. **How Verification Works** — 4-step visual flow
+   - Horizontal on desktop, vertical on mobile. Hairline connector, no cards.
+   - Steps:
+     1. Provider enters the registry
+     2. **Source Standard reviews available information for providers undergoing verification** — worded so it does not imply every registry entry has been reviewed.
+     3. A public verification status is assigned
+     4. Records are periodically reviewed and updated
 
-### 4. Activity — always render the full timeline
-Remove the "compact single-line fallback" branch inside the `Activity` component. Always render the four-row timeline:
+4. **What Verification Means** — compact checklist, Lucide `Check` (14px, foreground):
+   - Public sourcing transparency
+   - Independent review within the Source Standard framework
+   - Public verification status
+   - Ongoing record maintenance
 
-- Profile Created — value or muted "—"
-- Last Reviewed — value or muted "Not yet reviewed"
-- Verification Status Issued — value or muted "Not yet issued"
-- Last Updated — value or muted "—"
+5. **What Verification Does Not Mean** — same layout, neutral glyph (Lucide `Minus`, muted):
+   - Medical advice
+   - FDA approval
+   - Product approval
+   - Safety guarantee
+   - Treatment recommendation
+   - Future outcome guarantee
 
-Missing values render in muted color using the existing `provided` flag. Card chrome, dividers, and typography stay as-is.
+6. **Why It Matters** — 2–3 sentence close about helping consumers make more informed decisions about compounded peptide providers through public verification and transparency.
 
-### Technical notes
-- Single file: `src/pages/VendorProfile.tsx`.
-- `QuickFactsTable` component API unchanged; only the `rows` array passed at the call site changes.
-- `Activity` component simplified — drop the `< 2 provided` branch, always render the `<article>` variant.
-- Typecheck after edits.
+7. **Disclaimer footer** — keep existing legal / positioning paragraph verbatim.
+
+### Visual treatment
+- `container-narrow` layout, existing `Eyebrow` / small-caps pattern.
+- Section spacing tightened to `mt-10`/`mt-12`.
+- 0.5px `hsl(var(--border))` hairlines between §2–§6.
+- Lucide `Check`, `Minus` at 14px, `strokeWidth={1.75}`. No badges, no gradients, no new tokens.
+
+### Files
+- Edit `src/pages/HowItWorks.tsx` only. Remove unused imports.
+
+### Preserved
+- Route `/how-it-works`, `BriefingHero`, `Breadcrumb`, `PageMeta`, palette, typography, legal disclaimer copy.
 
 ### Out of scope
-- New sections, fields, or data.
-- Any Greenlist / Facility Records changes.
-- Restyling of any element.
+- `FaqVerificationProcess`, `VendorProfile` verification toggle, `FAQ` links, new routes/images.

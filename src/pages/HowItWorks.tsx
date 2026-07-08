@@ -1,92 +1,55 @@
 import { ReactNode } from "react";
+import { Check, Minus } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { BriefingHero } from "@/components/BriefingHero";
 
-const WAYPOINTS = [
-  { id: "audit", number: "01", label: "Framework Principles" },
-  { id: "surveillance", number: "02", label: "Ongoing Record Maintenance" },
-  { id: "disclosure", number: "03", label: "Vendor Responsibilities" },
-  { id: "boundaries", number: "04", label: "Boundaries" },
-];
+/* ------------------------------ Content ------------------------------ */
 
-type Clause = { n: string; t: string; d: string };
-
-const AUDIT_CLAUSES: Clause[] = [
+const STEPS: { n: string; title: string; description: string }[] = [
   {
     n: "01",
-    t: "Transparency",
-    d: "Sourcing claims are considered within a consistent public framework.",
+    title: "Provider enters the registry",
+    description:
+      "A compounding pharmacy or clinic is added to the Source Standard public registry.",
   },
   {
     n: "02",
-    t: "Consistency",
-    d: "The same standards apply across all reviewed organizations.",
+    title: "Review of available information",
+    description:
+      "Source Standard reviews available information for providers undergoing verification.",
   },
   {
     n: "03",
-    t: "Documentation",
-    d: "Public standing is grounded in information that can be referenced.",
+    title: "Public verification status",
+    description:
+      "A public verification status is assigned and shown on the provider's profile.",
   },
   {
     n: "04",
-    t: "Independence",
-    d: "The framework is applied objectively and without vendor influence.",
+    title: "Ongoing record maintenance",
+    description:
+      "Records are periodically reviewed and updated as new public information becomes available.",
   },
 ];
 
-const SURVEILLANCE_CLAUSES: Clause[] = [
-  {
-    n: "01",
-    t: "Record Maintenance",
-    d: "Published records are maintained and updated as new information becomes available.",
-  },
-  {
-    n: "02",
-    t: "Status Updates",
-    d: "Changes in public information may be reflected in record standing over time.",
-  },
-  {
-    n: "03",
-    t: "Periodic Review",
-    d: "Records are reviewed periodically to help ensure continued accuracy.",
-  },
-  {
-    n: "04",
-    t: "Public Information Updates",
-    d: "The framework incorporates new public information as it becomes available.",
-  },
+const MEANS: string[] = [
+  "Public sourcing transparency",
+  "Independent review within the Source Standard framework",
+  "Public verification status",
+  "Ongoing record maintenance",
 ];
 
-const DISCLOSURE_CLAUSES: Clause[] = [
-  {
-    n: "01",
-    t: "Accurate Information",
-    d: "Vendors are expected to maintain accurate public information.",
-  },
-  {
-    n: "02",
-    t: "Material Changes",
-    d: "Vendors should notify Source Standard of material changes affecting published records.",
-  },
-  {
-    n: "03",
-    t: "Ongoing Currency",
-    d: "Vendors are expected to support the continued accuracy of the public record.",
-  },
+const DOES_NOT_MEAN: string[] = [
+  "Medical advice",
+  "FDA approval",
+  "Product approval",
+  "Safety guarantee",
+  "Treatment recommendation",
+  "Future outcome guarantee",
 ];
 
-const BOUNDARIES = [
-  "Evaluates whether publicly stated sourcing claims are supported by available evidence and documentation.",
-  "Does not provide medical advice, treatment guidance, or clinical recommendations.",
-  "Does not evaluate patient outcomes, treatment effectiveness, or biological response.",
-  "Does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance.",
-  "Does not replace federal, state, or medical regulatory oversight.",
-  "Does not endorse, recommend, rank, promote, or market vendors.",
-];
-
-/* ------------------------------ Local primitives ------------------------------ */
+/* ------------------------------ Primitives ------------------------------ */
 
 const Eyebrow = ({ children }: { children: ReactNode }) => (
   <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">
@@ -94,321 +57,244 @@ const Eyebrow = ({ children }: { children: ReactNode }) => (
   </p>
 );
 
-const ProtocolCard = ({ children }: { children: ReactNode }) => (
-  <div
-    className="bg-card"
+const SectionTitle = ({ children }: { children: ReactNode }) => (
+  <h2
+    className="mt-2 font-sans text-foreground"
     style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "12px",
-      padding: "24px",
+      fontSize: "22px",
+      fontWeight: 700,
+      lineHeight: 1.2,
+      letterSpacing: "-0.015em",
     }}
   >
     {children}
-  </div>
+  </h2>
 );
 
-const ProtocolRow = ({
-  index,
-  total,
-  title,
-  description,
-}: {
-  index: string;
-  total: string;
-  title: string;
-  description: string;
-}) => (
-  <div
-    style={{
-      backgroundColor: "#FFFFFF",
-      border: "1px solid rgba(0,0,0,0.08)",
-      borderRadius: "18px",
-      padding: "24px",
-    }}
+const Prose = ({ children }: { children: ReactNode }) => (
+  <p
+    className="mt-3 text-muted-foreground"
+    style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, maxWidth: "62ch" }}
   >
-    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
-      <h3
-        className="font-sans text-foreground"
-        style={{ fontSize: "16px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em", margin: 0 }}
-      >
-        {title}
-      </h3>
-      <span
-        className="font-mono tabular-nums shrink-0"
-        style={{
-          fontSize: "11px",
-          fontWeight: 500,
-          lineHeight: 1,
-          letterSpacing: "0.06em",
-          color: "rgba(0,0,0,0.38)",
-          whiteSpace: "nowrap",
-          paddingTop: "2px",
-        }}
-      >
-        {index} / {total}
-      </span>
-    </div>
-    <p
-      className="text-muted-foreground"
-      style={{ marginTop: "12px", fontSize: "14px", fontWeight: 400, lineHeight: 1.75 }}
-    >
-      {description}
-    </p>
-  </div>
+    {children}
+  </p>
 );
 
-const BoundaryRow = ({ index, text }: { index: string; text: string }) => (
+const SectionDivider = () => (
   <div
-    style={{
-      backgroundColor: "#FFFFFF",
-      border: "1px solid rgba(0,0,0,0.08)",
-      borderRadius: "14px",
-      padding: "16px 18px",
-    }}
-  >
-    <div className="flex items-start justify-between" style={{ gap: "16px" }}>
-      <p
-        className="text-foreground"
-        style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.55, margin: 0 }}
-      >
-        {text}
-      </p>
-      <span
-        className="font-mono tabular-nums shrink-0"
-        style={{
-          fontSize: "11px",
-          fontWeight: 500,
-          lineHeight: 1,
-          letterSpacing: "0.06em",
-          color: "rgba(0,0,0,0.38)",
-          whiteSpace: "nowrap",
-          paddingTop: "2px",
-        }}
-      >
-        {index}
-      </span>
-    </div>
-  </div>
+    aria-hidden
+    className="my-10 lg:my-12"
+    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+  />
 );
-
-const SectionHeader = ({
-  n,
-  title,
-  intro,
-}: {
-  n: string;
-  title: string;
-  intro: string;
-}) => (
-  <div className="max-w-2xl mb-6 lg:mb-0 lg:sticky lg:top-24">
-    <div className="flex items-baseline" style={{ gap: "12px" }}>
-      <span
-        className="font-mono tabular-nums shrink-0"
-        style={{
-          fontSize: "12px",
-          fontWeight: 500,
-          letterSpacing: "0.04em",
-          color: "rgba(0,0,0,0.40)",
-        }}
-      >
-        {n}
-      </span>
-      <h2
-        className="font-sans text-foreground"
-        style={{
-          fontSize: "26px",
-          fontWeight: 700,
-          lineHeight: 1.15,
-          letterSpacing: "-0.02em",
-          color: "#0A0A0A",
-        }}
-      >
-        {title}
-      </h2>
-    </div>
-    <p
-      className="mt-3 text-muted-foreground"
-      style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
-    >
-      {intro}
-    </p>
-  </div>
-);
-
-const ClauseStack = ({ clauses }: { clauses: Clause[] }) => {
-  const total = String(clauses.length).padStart(2, "0");
-  return (
-    <div className="flex flex-col" style={{ gap: "10px" }}>
-      {clauses.map((c) => (
-        <ProtocolRow
-          key={c.n}
-          index={c.n}
-          total={total}
-          title={c.t}
-          description={c.d}
-        />
-      ))}
-    </div>
-  );
-};
 
 /* ----------------------------------- Page ----------------------------------- */
 
 const HowItWorks = () => {
   const heroDescription =
-    "The Source Standard Verification Framework establishes the principles behind sourcing transparency and how public-reference records are maintained.";
+    "A short public guide to what Source Standard verification is, how it works, and what it does and does not represent.";
 
   return (
     <>
-      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Verification" }]} />
+      <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "How Verification Works" }]} />
 
       <PageMeta
-        title="Verification Framework · Source Standard"
+        title="How Verification Works · Source Standard"
         description={heroDescription}
         path="/how-it-works"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Verification Framework",
+          name: "How Verification Works",
           url: "https://sourcestandard.org/how-it-works",
         }}
       />
 
-      {/* §1 Hero — untouched */}
       <BriefingHero
         tone="navy"
         variant="chapter"
-        category="Verification Framework"
-        title="Verification Framework"
+        category="Public Guide"
+        title="How Verification Works"
         statement={heroDescription}
         docId=""
       />
 
-      {/* §2 Contents nav — untouched */}
-      <SectionAnchorNav waypoints={WAYPOINTS} />
-
       <div className="bg-background">
         <div className="page-shell">
-          <div className="mx-auto w-standard">
-            {/* §3 Purpose */}
-            <section style={{ paddingTop: "36px", paddingBottom: "24px" }}>
-              <ProtocolCard>
-                <Eyebrow>Framework Purpose</Eyebrow>
-                <h2 className="mt-2 t-section-title-sm text-foreground">
-                  What this framework exists to do
-                </h2>
-                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+          <div className="mx-auto w-standard" style={{ paddingTop: "32px", paddingBottom: "56px" }}>
+
+            {/* §1 · What is Verification? */}
+            <section>
+              <Eyebrow>What is verification?</Eyebrow>
+              <SectionTitle>A public standard for sourcing transparency.</SectionTitle>
+              <Prose>
+                Source Standard verification is a public reference standard. It gives consumers a
+                consistent way to see whether a compounding pharmacy or clinic has undergone
+                independent review of the sourcing information it publishes.
+              </Prose>
+              <Prose>
+                Verification is not a clinical, medical, or regulatory certification. It is a
+                transparency signal about publicly available sourcing information.
+              </Prose>
+            </section>
+
+            <SectionDivider />
+
+            {/* §2 · How Verification Works — 4-step flow */}
+            <section>
+              <Eyebrow>How it works</Eyebrow>
+              <SectionTitle>A four-step process.</SectionTitle>
+
+              <ol
+                className="mt-6 grid grid-cols-1 md:grid-cols-4"
+                style={{ gap: 0 }}
+              >
+                {STEPS.map((s, i) => (
+                  <li
+                    key={s.n}
+                    className="relative"
+                    style={{
+                      padding: "16px 0 16px 0",
+                      borderTop: "0.5px solid hsl(var(--border))",
+                      ...(i > 0
+                        ? {
+                            // Vertical hairline connector on desktop
+                          }
+                        : {}),
+                    }}
                   >
-                    The Verification Framework establishes a consistent public standard for sourcing transparency. Its purpose is to help consumers, clinicians, and industry better understand the sourcing claims vendors make in the compounded therapy market.
-                  </p>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+                    <div
+                      className="md:pr-5"
+                      style={{
+                        borderRight:
+                          i < STEPS.length - 1
+                            ? "0.5px solid hsl(var(--border) / 0.6)"
+                            : undefined,
+                        paddingRight: i < STEPS.length - 1 ? "20px" : undefined,
+                        marginRight: i < STEPS.length - 1 ? "20px" : undefined,
+                      }}
+                    >
+                      <span
+                        className="font-mono tabular-nums"
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 500,
+                          letterSpacing: "0.06em",
+                          color: "hsl(var(--muted-foreground))",
+                        }}
+                      >
+                        {s.n}
+                      </span>
+                      <h3
+                        className="mt-2 font-sans text-foreground"
+                        style={{
+                          fontSize: "15px",
+                          fontWeight: 600,
+                          lineHeight: 1.3,
+                          letterSpacing: "-0.005em",
+                        }}
+                      >
+                        {s.title}
+                      </h3>
+                      <p
+                        className="mt-1.5 text-muted-foreground"
+                        style={{ fontSize: "13.5px", lineHeight: 1.55, fontWeight: 400 }}
+                      >
+                        {s.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            <SectionDivider />
+
+            {/* §3 · What Verification Means */}
+            <section>
+              <Eyebrow>What verification means</Eyebrow>
+              <SectionTitle>What a verified record represents.</SectionTitle>
+              <ul className="mt-5 flex flex-col" style={{ gap: "10px" }}>
+                {MEANS.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5"
+                    style={{ fontSize: "15px", lineHeight: 1.5 }}
                   >
-                    Verification is a structured public-reference standard. It is not a certification of product quality, treatment effectiveness, clinical outcomes, regulatory compliance, or patient safety.
-                  </p>
-                </div>
-              </ProtocolCard>
-            </section>
-
-            {/* §4 Evidence Review */}
-            <section
-              id="audit"
-              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
-              style={{ paddingTop: "24px", paddingBottom: "24px" }}
-            >
-              <SectionHeader
-                n="01"
-                title="Framework Principles"
-                intro="The principles that guide the framework."
-              />
-              <ClauseStack clauses={AUDIT_CLAUSES} />
-            </section>
-
-            {/* §5 Ongoing Monitoring */}
-            <section
-              id="surveillance"
-              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
-              style={{ paddingTop: "24px", paddingBottom: "24px" }}
-            >
-              <SectionHeader
-                n="02"
-                title="Ongoing Record Maintenance"
-                intro="How public records are kept current over time."
-              />
-              <ClauseStack clauses={SURVEILLANCE_CLAUSES} />
-            </section>
-
-            {/* §6 Disclosure */}
-            <section
-              id="disclosure"
-              className="scroll-mt-24 border-t border-border/40 lg:grid lg:grid-cols-[280px_1fr] lg:gap-x-12 lg:items-start"
-              style={{ paddingTop: "24px", paddingBottom: "24px" }}
-            >
-              <SectionHeader
-                n="03"
-                title="Vendor Responsibilities"
-                intro="Expectations for organizations with published records."
-              />
-              <ClauseStack clauses={DISCLOSURE_CLAUSES} />
-            </section>
-
-            {/* §7 Boundaries */}
-            <section
-              id="boundaries"
-              className="scroll-mt-24 border-t border-border/40"
-              style={{ paddingTop: "24px", paddingBottom: "24px" }}
-            >
-              <ProtocolCard>
-                <Eyebrow>Review Boundaries</Eyebrow>
-                <h2 className="mt-2 t-section-title-sm text-foreground">Review Boundaries</h2>
-                <p
-                  className="mt-3 text-muted-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.55 }}
-                >
-                  What verification does and does not represent.
-                </p>
-                <div className="mt-5 flex flex-col lg:grid lg:grid-cols-2 lg:gap-2" style={{ gap: "8px" }}>
-                  {BOUNDARIES.map((b, i) => (
-                    <BoundaryRow
-                      key={b}
-                      index={String(i + 1).padStart(2, "0")}
-                      text={b}
+                    <Check
+                      size={14}
+                      strokeWidth={1.75}
+                      className="mt-1 shrink-0 text-foreground"
+                      aria-hidden
                     />
-                  ))}
-                </div>
-              </ProtocolCard>
+                    <span className="text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </section>
 
-            {/* §8 Closing — Record Standard */}
-            <section
-              className="border-t border-border/40"
-              style={{ paddingTop: "24px", paddingBottom: "64px" }}
-            >
-              <ProtocolCard>
-                <Eyebrow>Record Standard</Eyebrow>
-                <h2 className="mt-2 t-section-title-sm text-foreground">
-                  What verification reflects.
-                </h2>
-                <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
+            <SectionDivider />
+
+            {/* §4 · What Verification Does Not Mean */}
+            <section>
+              <Eyebrow>What verification does not mean</Eyebrow>
+              <SectionTitle>What a verified record does not represent.</SectionTitle>
+              <ul className="mt-5 flex flex-col" style={{ gap: "10px" }}>
+                {DOES_NOT_MEAN.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5"
+                    style={{ fontSize: "15px", lineHeight: 1.5 }}
                   >
-                    The Verification Framework establishes a consistent public-reference standard for sourcing transparency. It creates a structured way for consumers, vendors, and healthcare organizations to understand whether sourcing claims are supported by available information.
-                  </p>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.6 }}
-                  >
-                    Its purpose is not to certify products or replace regulatory oversight. Its purpose is to establish whether sourcing claims are supported by evidence that can be reviewed, documented, and maintained over time.
-                  </p>
-                </div>
-              </ProtocolCard>
+                    <Minus
+                      size={14}
+                      strokeWidth={1.75}
+                      className="mt-1 shrink-0 text-muted-foreground/70"
+                      aria-hidden
+                    />
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </section>
+
+            <SectionDivider />
+
+            {/* §5 · Why It Matters */}
+            <section>
+              <Eyebrow>Why it matters</Eyebrow>
+              <SectionTitle>Helping consumers make more informed decisions.</SectionTitle>
+              <Prose>
+                Source Standard exists to bring public transparency to the compounded peptide
+                market. By reviewing sourcing information and publishing verification status,
+                Source Standard helps consumers, clinicians, and healthcare organizations
+                understand where their care comes from.
+              </Prose>
+              <Prose>
+                Verification is one input among many. It is intended to support informed
+                decision-making, not to replace medical judgment or regulatory oversight.
+              </Prose>
+            </section>
+
+            {/* §6 · Disclaimer footer */}
+            <div
+              className="mt-12 pt-6"
+              style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+            >
+              <p
+                className="text-muted-foreground"
+                style={{ fontSize: "12px", lineHeight: 1.6, fontWeight: 400 }}
+              >
+                Source Standard does not provide medical advice, treatment guidance, or clinical
+                recommendations. Verification reflects only publicly reviewed sourcing information
+                within the Source Standard framework. Unverified status does not imply that a
+                provider is unsafe, unlawful, fraudulent, or clinically inappropriate. Source
+                Standard does not certify product potency, sterility, safety, efficacy,
+                manufacturing quality, or future performance, and does not replace federal, state,
+                or medical regulatory oversight.
+              </p>
+            </div>
+
           </div>
         </div>
       </div>
