@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, Check, ChevronDown } from "lucide-react";
 import * as SelectPrimitive from "@radix-ui/react-select";
@@ -145,10 +145,10 @@ const FilterSelect = ({
   </SelectPrimitive.Root>
 );
 
-const STATUS_DEFINITIONS = [
-  { label: "Greenlisted", body: "Currently recognized within the Source Standard framework." },
-  { label: "Monitoring", body: "Currently under additional review." },
-  { label: "Status Alert", body: "Additional information requires further review." },
+const STATUS_DEFINITIONS: { label: string; body: string; color: string }[] = [
+  { label: "Greenlisted", body: "Currently recognized", color: "#22C55E" },
+  { label: "Monitoring", body: "Under additional review", color: "#F59E0B" },
+  { label: "Status Alert", body: "Additional information requires review", color: "#FF3B30" },
 ];
 
 const Greenlist = () => {
@@ -210,7 +210,27 @@ const Greenlist = () => {
   }, [query, stateFilter, facilityType, status]);
 
   const heroDescription =
-    "Search the Source Standard Registry to learn more about manufacturers, compounding pharmacies, and other upstream organizations within the peptide supply chain.";
+    "Search manufacturers and compounding pharmacies recognized within the Source Standard Registry.";
+
+  // Sticky compact bar — appears once the original search scrolls out of view.
+  const searchRef = useRef<HTMLDivElement | null>(null);
+  const filtersAnchorRef = useRef<HTMLDivElement | null>(null);
+  const [stickyVisible, setStickyVisible] = useState(false);
+
+  useEffect(() => {
+    const el = searchRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setStickyVisible(!entry.isIntersecting),
+      { rootMargin: "-8px 0px 0px 0px", threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const scrollToFilters = () => {
+    filtersAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
@@ -237,7 +257,7 @@ const Greenlist = () => {
         <div className="page-shell pt-4 md:pt-6 pb-10 md:pb-14">
           <div className="mx-auto w-wide">
             {/* Search — first interactive element */}
-            <div className="-mx-5 md:mx-0 px-5">
+            <div ref={searchRef} className="-mx-5 md:mx-0 px-5">
               <div className="mx-auto w-full md:max-w-[640px]">
                 <div className="relative">
                   <Search
@@ -272,13 +292,13 @@ const Greenlist = () => {
             </div>
 
             {/* Compact Greenlisted context strip */}
-            <div className="-mx-5 md:mx-0 px-5 pt-3">
+            <div className="-mx-5 md:mx-0 px-5 pt-2">
               <div
                 className="bg-white"
                 style={{
                   border: "1px solid hsl(var(--border))",
-                  borderRadius: "18px",
-                  padding: "14px 16px",
+                  borderRadius: "16px",
+                  padding: "12px 14px",
                 }}
               >
                 <p
@@ -288,29 +308,29 @@ const Greenlist = () => {
                   Greenlisted Status
                 </p>
                 <p
-                  className="mt-1.5 text-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.5, fontWeight: 500 }}
+                  className="mt-1 text-foreground"
+                  style={{ fontSize: "13.5px", lineHeight: 1.45, fontWeight: 500 }}
                 >
-                  Greenlisted facilities are organizations currently recognized within the Source Standard framework.
+                  Greenlisted facilities are currently recognized within the Source Standard framework.
                 </p>
                 <p
-                  className="mt-1 text-muted-foreground"
-                  style={{ fontSize: "12.5px", lineHeight: 1.55 }}
+                  className="mt-0.5 text-muted-foreground"
+                  style={{ fontSize: "12px", lineHeight: 1.45 }}
                 >
-                  Greenlisted status is based on Source Standard's review within a defined scope and may change as new information becomes available.
+                  Recognition is based on Source Standard's review and may change as new information becomes available.
                 </p>
                 <Link
                   to="/how-it-works"
-                  className="mt-2 inline-flex items-center gap-1 font-sans text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
+                  className="mt-1.5 inline-flex items-center gap-1 font-sans text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
                   style={{ fontSize: "12px", fontWeight: 500 }}
                 >
-                  Learn more about Greenlisted Status <span aria-hidden>→</span>
+                  Learn more <span aria-hidden>→</span>
                 </Link>
               </div>
             </div>
 
             {/* Filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-4 space-y-4">
+            <div ref={filtersAnchorRef} className="-mx-5 md:mx-0 px-5 pt-3 space-y-3 scroll-mt-16">
               {/* Status */}
               <div>
                 <p
@@ -326,32 +346,34 @@ const Greenlist = () => {
                   <SoftPill label="Status Alert" active={status === "alert"} fullWidth onClick={() => setStatus("alert")} />
                 </div>
 
-                {/* Inline status definitions */}
-                <ul className="mt-3 flex flex-col">
-                  {STATUS_DEFINITIONS.map((s, i) => (
-                    <li
-                      key={s.label}
-                      style={{
-                        paddingTop: i === 0 ? "8px" : "8px",
-                        paddingBottom: "8px",
-                        borderTop: i === 0 ? "none" : "1px solid hsl(var(--border) / 0.6)",
-                      }}
-                    >
-                      <span
-                        className="font-sans font-semibold text-foreground"
-                        style={{ fontSize: "12px", letterSpacing: "0.01em" }}
+                {/* Compact status guide legend */}
+                <div className="mt-2.5">
+                  <p
+                    className="font-sans font-semibold uppercase text-muted-foreground mb-1"
+                    style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                  >
+                    Status Guide
+                  </p>
+                  <ul className="flex flex-col" style={{ gap: "2px" }}>
+                    {STATUS_DEFINITIONS.map((s) => (
+                      <li
+                        key={s.label}
+                        className="flex items-center text-muted-foreground"
+                        style={{ fontSize: "11.5px", lineHeight: 1.4, gap: "6px" }}
                       >
-                        {s.label}
-                      </span>
-                      <span
-                        className="text-muted-foreground"
-                        style={{ fontSize: "12px", lineHeight: 1.5 }}
-                      >
-                        {" — "}{s.body}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                        <span
+                          aria-hidden
+                          className="inline-block rounded-full shrink-0"
+                          style={{ width: "6px", height: "6px", backgroundColor: s.color }}
+                        />
+                        <span className="text-foreground/85" style={{ fontWeight: 600 }}>
+                          {s.label}
+                        </span>
+                        <span>— {s.body}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
               {/* Facility Type */}
@@ -391,7 +413,7 @@ const Greenlist = () => {
             {/* Result list */}
             <div
               key={`${query}|${stateFilter}|${facilityType}|${status}`}
-              className="mt-5 animate-fade-in"
+              className="mt-4 animate-fade-in"
             >
               {sorted.length === 0 ? (
                 <EmptyState
@@ -431,7 +453,73 @@ const Greenlist = () => {
           </div>
         </div>
       </section>
+
+      {/* Compact sticky bar — appears after the original search scrolls out of view */}
+      <div
+        aria-hidden={!stickyVisible}
+        className="fixed left-0 right-0 top-0 z-40"
+        style={{
+          transform: stickyVisible ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 220ms ease-out",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          backgroundColor: "hsl(var(--background) / 0.85)",
+          borderBottom: "1px solid hsl(var(--border))",
+          pointerEvents: stickyVisible ? "auto" : "none",
+        }}
+      >
+        <div className="page-shell" style={{ paddingTop: "8px", paddingBottom: "8px" }}>
+          <div className="mx-auto w-wide flex items-center" style={{ gap: "8px" }}>
+            <div className="relative flex-1 min-w-0">
+              <Search
+                aria-hidden
+                className="pointer-events-none absolute text-muted-foreground/70"
+                style={{
+                  top: "50%",
+                  left: "14px",
+                  width: "14px",
+                  height: "14px",
+                  strokeWidth: 1.75,
+                  transform: "translateY(-50%)",
+                }}
+              />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search facility..."
+                aria-label="Search Facility Records"
+                className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+                style={{
+                  height: "40px",
+                  borderRadius: "20px",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid hsl(var(--border))",
+                  paddingLeft: "36px",
+                  paddingRight: "14px",
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={scrollToFilters}
+              className="font-sans font-semibold uppercase text-foreground/80 hover:text-foreground transition-colors shrink-0"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.06em",
+                height: "40px",
+                padding: "0 14px",
+                borderRadius: "20px",
+                border: "1px solid hsl(var(--border))",
+                backgroundColor: "#FFFFFF",
+              }}
+            >
+              Filters
+            </button>
+          </div>
+        </div>
+      </div>
     </>
+
   );
 };
 
