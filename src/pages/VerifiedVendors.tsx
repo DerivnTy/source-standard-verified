@@ -399,17 +399,11 @@ const VerifiedVendors = () => {
       </section>
 
       <section className="bg-background">
-        <div className="page-shell pb-4 md:pb-6">
+        <div className="page-shell pb-2 md:pb-4">
           <div className="mx-auto w-wide">
             {/* Search — centerpiece, above filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-4 md:pt-6">
+            <div className="-mx-5 md:mx-0 px-5 pt-2 md:pt-4">
               <div className="mx-auto w-full md:max-w-[640px]">
-                <p
-                  className="text-muted-foreground mb-2 text-center"
-                  style={{ fontSize: "12px", lineHeight: 1.5, fontWeight: 400 }}
-                >
-                  Search clinics, telehealth providers, and wellness practices nationwide.
-                </p>
                 <div className="relative">
                   <Search
                     aria-hidden
