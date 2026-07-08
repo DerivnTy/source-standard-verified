@@ -820,55 +820,28 @@ const VendorProfile = () => {
             </div>
           </article>
 
-          {/* ────── 2. CONTACT INFORMATION ────── */}
-          <article className="mt-4" style={CARD}>
-            <SectionHeading>Contact</SectionHeading>
-            <dl
-              className="mt-3 grid grid-cols-2"
-              style={{ columnGap: "20px", rowGap: "16px" }}
-            >
-              <Cell
-                label="Website"
-                value={vendor.website ? hostname(vendor.website) : undefined}
-                href={vendor.website}
-              />
-              <Cell
-                label="Phone"
-                value={vendor.phone}
-                href={phoneHref}
-              />
-              <Cell
-                label="Instagram"
-                value={vendor.instagram ? normalizeHandle(vendor.instagram) : undefined}
-                href={ig}
-              />
-              <Cell
-                label="LinkedIn"
-                value={vendor.linkedin ? normalizeHandle(vendor.linkedin) : undefined}
-                href={li}
-              />
-              <div className="col-span-2">
-                <Cell
-                  label="Address"
-                  value={
-                    vendor.address || vendor.city || vendor.state || vendor.zip
-                      ? [
-                          vendor.address,
-                          [vendor.city, vendor.state].filter(Boolean).join(", "),
-                          vendor.zip,
-                        ]
-                          .filter(Boolean)
-                          .join(" ")
-                      : undefined
-                  }
-                />
-              </div>
-            </dl>
-          </article>
+          {/* ────── 2. STATUS SUMMARY ────── */}
+          <StatusSummary status={status} />
 
-          {/* ────── 3. VERIFICATION RECORD (placed directly under identity) ────── */}
+          {/* ────── 3. QUICK FACTS (with Last Reviewed) ────── */}
+          <QuickFacts
+            providerType={VENDOR_FULFILLMENT_LABEL[fulfillment]}
+            location={location}
+            verification={VENDOR_STATUS_LABEL[status]}
+            profile={claimed ? "Claimed" : "Unclaimed"}
+            lastReviewed={
+              isVerified && vendor.reviewDate
+                ? vendor.reviewDate
+                : "Not yet reviewed"
+            }
+          />
+
+          {/* ────── 4. PROFILE COMPLETENESS (unclaimed / claimed-but-unverified only) ────── */}
+          {!isVerified && <ProfileCompletenessCard claimed={claimed} />}
+
+          {/* ────── 5. VERIFICATION STATUS ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Verification Record</SectionHeading>
+            <SectionHeading>Verification Status</SectionHeading>
 
             <p
               className="mt-3 text-muted-foreground"
@@ -878,7 +851,7 @@ const VendorProfile = () => {
                 ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
                 : status === "under-review"
                 ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
-                : "No Source Standard review has been completed."}
+                : "This provider has not yet participated in the Source Standard verification process."}
             </p>
 
 
@@ -890,7 +863,7 @@ const VendorProfile = () => {
               className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
               style={{ fontSize: "12px", letterSpacing: "0.05em" }}
             >
-              {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
+              {verificationOpen ? "Hide verification details" : "Learn how verification works"}
               <ChevronDown
                 size={12}
                 strokeWidth={1.5}
@@ -967,6 +940,53 @@ const VendorProfile = () => {
               </div>
             </div>
           </article>
+
+          {/* ────── 6. CONTACT ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading>Contact</SectionHeading>
+            <dl
+              className="mt-3 grid grid-cols-2"
+              style={{ columnGap: "20px", rowGap: "16px" }}
+            >
+              <Cell
+                label="Website"
+                value={vendor.website ? hostname(vendor.website) : undefined}
+                href={vendor.website}
+              />
+              <Cell
+                label="Phone"
+                value={vendor.phone}
+                href={phoneHref}
+              />
+              <div className="col-span-2">
+                <Cell
+                  label="Address"
+                  value={
+                    vendor.address || vendor.city || vendor.state || vendor.zip
+                      ? [
+                          vendor.address,
+                          [vendor.city, vendor.state].filter(Boolean).join(", "),
+                          vendor.zip,
+                        ]
+                          .filter(Boolean)
+                          .join(" ")
+                      : undefined
+                  }
+                />
+              </div>
+              <Cell
+                label="Instagram"
+                value={vendor.instagram ? normalizeHandle(vendor.instagram) : undefined}
+                href={ig}
+              />
+              <Cell
+                label="LinkedIn"
+                value={vendor.linkedin ? normalizeHandle(vendor.linkedin) : undefined}
+                href={li}
+              />
+            </dl>
+          </article>
+
 
           {/* ────── 3. SERVICE BADGES HERO STRIP ────── */}
 
