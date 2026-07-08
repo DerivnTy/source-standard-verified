@@ -245,7 +245,7 @@ const Cell = ({
             display
           )
         ) : (
-          <span className="italic text-muted-foreground/70">Information Not Submitted</span>
+          <span className="text-muted-foreground/70">Not provided to Source Standard</span>
         )}
       </dd>
     </div>
@@ -327,7 +327,115 @@ const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => {
   );
 };
 
-// ─── (Profile completeness intentionally omitted — Source Standard does not gamify completion.) ───
+// ─── Transparency helpers ─────────────────────────────────────────────────────
+
+const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
+  const copy: Record<VendorPublicStatus, string> = {
+    verified:
+      "This provider has completed the Source Standard verification process and currently maintains Verified status.",
+    unverified:
+      "This provider has not completed the Source Standard verification process.",
+    "under-review": "This provider is currently under Source Standard review.",
+    suspended:
+      "This provider's Source Standard status is currently suspended.",
+    removed:
+      "This provider has been removed from the Source Standard registry.",
+  };
+  return (
+    <p
+      className="mt-3 text-muted-foreground"
+      style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+    >
+      {copy[status]}
+    </p>
+  );
+};
+
+const QuickFact = ({ label, value }: { label: string; value: string }) => (
+  <div
+    className="py-2"
+    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
+  >
+    <p
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
+    >
+      {label}
+    </p>
+    <p
+      className="mt-1 font-sans text-foreground"
+      style={{ fontSize: "14px", fontWeight: 500, lineHeight: 1.35 }}
+    >
+      {value}
+    </p>
+  </div>
+);
+
+const QuickFacts = ({
+  providerType,
+  location,
+  verification,
+  profile,
+  lastReviewed,
+}: {
+  providerType: string;
+  location: string;
+  verification: string;
+  profile: string;
+  lastReviewed: string;
+}) => (
+  <section
+    aria-label="Quick facts"
+    className="mt-4 grid grid-cols-2 md:grid-cols-4"
+    style={{ columnGap: "16px" }}
+  >
+    <QuickFact label="Provider Type" value={providerType} />
+    <QuickFact label="Location" value={location} />
+    <QuickFact label="Verification" value={verification} />
+    <QuickFact label="Profile" value={profile} />
+    <div className="col-span-2 md:col-span-4">
+      <QuickFact label="Last Reviewed" value={lastReviewed} />
+    </div>
+  </section>
+);
+
+const ProfileCompletenessCard = ({ claimed }: { claimed: boolean }) => (
+  <article className="mt-4" style={CARD}>
+    <p
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "12px", letterSpacing: "0.05em" }}
+    >
+      Profile Completeness
+    </p>
+    <p
+      className="mt-2 text-foreground"
+      style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+    >
+      {claimed
+        ? "This profile has been claimed but has not yet completed Source Standard verification. Some information displayed on this page has not been provided to Source Standard and therefore cannot currently be verified."
+        : "This provider has not yet claimed or completed their Source Standard profile. Some information displayed on this page has not been provided to Source Standard and therefore cannot currently be verified."}
+    </p>
+  </article>
+);
+
+const ReadMore = ({ children }: { children: ReactNode }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <div className={open ? "" : "line-clamp-6"}>{children}</div>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="mt-2 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+        style={{ fontSize: "11px", letterSpacing: "0.06em" }}
+      >
+        {open ? "Read Less" : "Read More"}
+      </button>
+    </div>
+  );
+};
+
+
 
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -712,55 +820,28 @@ const VendorProfile = () => {
             </div>
           </article>
 
-          {/* ────── 2. CONTACT INFORMATION ────── */}
-          <article className="mt-4" style={CARD}>
-            <SectionHeading>Contact</SectionHeading>
-            <dl
-              className="mt-3 grid grid-cols-2"
-              style={{ columnGap: "20px", rowGap: "16px" }}
-            >
-              <Cell
-                label="Website"
-                value={vendor.website ? hostname(vendor.website) : undefined}
-                href={vendor.website}
-              />
-              <Cell
-                label="Phone"
-                value={vendor.phone}
-                href={phoneHref}
-              />
-              <Cell
-                label="Instagram"
-                value={vendor.instagram ? normalizeHandle(vendor.instagram) : undefined}
-                href={ig}
-              />
-              <Cell
-                label="LinkedIn"
-                value={vendor.linkedin ? normalizeHandle(vendor.linkedin) : undefined}
-                href={li}
-              />
-              <div className="col-span-2">
-                <Cell
-                  label="Address"
-                  value={
-                    vendor.address || vendor.city || vendor.state || vendor.zip
-                      ? [
-                          vendor.address,
-                          [vendor.city, vendor.state].filter(Boolean).join(", "),
-                          vendor.zip,
-                        ]
-                          .filter(Boolean)
-                          .join(" ")
-                      : undefined
-                  }
-                />
-              </div>
-            </dl>
-          </article>
+          {/* ────── 2. STATUS SUMMARY ────── */}
+          <StatusSummary status={status} />
 
-          {/* ────── 3. VERIFICATION RECORD (placed directly under identity) ────── */}
+          {/* ────── 3. QUICK FACTS (with Last Reviewed) ────── */}
+          <QuickFacts
+            providerType={VENDOR_FULFILLMENT_LABEL[fulfillment]}
+            location={location}
+            verification={VENDOR_STATUS_LABEL[status]}
+            profile={claimed ? "Claimed" : "Unclaimed"}
+            lastReviewed={
+              isVerified && vendor.reviewDate
+                ? vendor.reviewDate
+                : "Not yet reviewed"
+            }
+          />
+
+          {/* ────── 4. PROFILE COMPLETENESS (unclaimed / claimed-but-unverified only) ────── */}
+          {!isVerified && <ProfileCompletenessCard claimed={claimed} />}
+
+          {/* ────── 5. VERIFICATION STATUS ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Verification Record</SectionHeading>
+            <SectionHeading>Verification Status</SectionHeading>
 
             <p
               className="mt-3 text-muted-foreground"
@@ -770,7 +851,7 @@ const VendorProfile = () => {
                 ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
                 : status === "under-review"
                 ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
-                : "No Source Standard review has been completed."}
+                : "This provider has not yet participated in the Source Standard verification process."}
             </p>
 
 
@@ -782,7 +863,7 @@ const VendorProfile = () => {
               className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
               style={{ fontSize: "12px", letterSpacing: "0.05em" }}
             >
-              {verificationOpen ? "Hide Verification Details" : "View Verification Details"}
+              {verificationOpen ? "Hide verification details" : "Learn how verification works"}
               <ChevronDown
                 size={12}
                 strokeWidth={1.5}
@@ -860,6 +941,53 @@ const VendorProfile = () => {
             </div>
           </article>
 
+          {/* ────── 6. CONTACT ────── */}
+          <article className="mt-4" style={CARD}>
+            <SectionHeading>Contact</SectionHeading>
+            <dl
+              className="mt-3 grid grid-cols-2"
+              style={{ columnGap: "20px", rowGap: "16px" }}
+            >
+              <Cell
+                label="Website"
+                value={vendor.website ? hostname(vendor.website) : undefined}
+                href={vendor.website}
+              />
+              <Cell
+                label="Phone"
+                value={vendor.phone}
+                href={phoneHref}
+              />
+              <div className="col-span-2">
+                <Cell
+                  label="Address"
+                  value={
+                    vendor.address || vendor.city || vendor.state || vendor.zip
+                      ? [
+                          vendor.address,
+                          [vendor.city, vendor.state].filter(Boolean).join(", "),
+                          vendor.zip,
+                        ]
+                          .filter(Boolean)
+                          .join(" ")
+                      : undefined
+                  }
+                />
+              </div>
+              <Cell
+                label="Instagram"
+                value={vendor.instagram ? normalizeHandle(vendor.instagram) : undefined}
+                href={ig}
+              />
+              <Cell
+                label="LinkedIn"
+                value={vendor.linkedin ? normalizeHandle(vendor.linkedin) : undefined}
+                href={li}
+              />
+            </dl>
+          </article>
+
+
           {/* ────── 3. SERVICE BADGES HERO STRIP ────── */}
 
           {serviceBadges.length > 0 && (
@@ -885,35 +1013,40 @@ const VendorProfile = () => {
           <article className="mt-4" style={CARD}>
             <SectionHeading>About This Vendor</SectionHeading>
             {hasAbout ? (
-              <div className="mt-3 space-y-4">
-                {vendor.summary && (
-                  <p className="text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
-                    {vendor.summary}
-                  </p>
-                )}
-                {vendor.clinicalPhilosophy && (
-                  <div>
-                    <Eyebrow>Clinical Philosophy</Eyebrow>
-                    <p
-                      className="mt-1.5 text-foreground"
-                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
-                    >
-                      {vendor.clinicalPhilosophy}
-                    </p>
+              <div className="mt-3">
+                <ReadMore>
+                  <div className="space-y-4">
+                    {vendor.summary && (
+                      <p className="text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
+                        {vendor.summary}
+                      </p>
+                    )}
+                    {vendor.clinicalPhilosophy && (
+                      <div>
+                        <Eyebrow>Clinical Philosophy</Eyebrow>
+                        <p
+                          className="mt-1.5 text-foreground"
+                          style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
+                        >
+                          {vendor.clinicalPhilosophy}
+                        </p>
+                      </div>
+                    )}
+                    {vendor.patientFocus && (
+                      <div>
+                        <Eyebrow>Patient Focus</Eyebrow>
+                        <p
+                          className="mt-1.5 text-foreground"
+                          style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
+                        >
+                          {vendor.patientFocus}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                )}
-                {vendor.patientFocus && (
-                  <div>
-                    <Eyebrow>Patient Focus</Eyebrow>
-                    <p
-                      className="mt-1.5 text-foreground"
-                      style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
-                    >
-                      {vendor.patientFocus}
-                    </p>
-                  </div>
-                )}
+                </ReadMore>
               </div>
+
             ) : (
               <p
                 className="mt-3 text-muted-foreground"
@@ -1103,19 +1236,18 @@ const VendorProfile = () => {
             >
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="min-w-0">
-                  <Eyebrow>Unclaimed Listing</Eyebrow>
-                  <p
-                    className="mt-2 font-sans font-semibold text-foreground"
-                    style={{ fontSize: "16px", lineHeight: 1.5 }}
+                  <h2
+                    className="font-sans font-semibold text-foreground"
+                    style={{ fontSize: "18px", lineHeight: 1.3, letterSpacing: "-0.01em" }}
                   >
-                    This organization has not yet participated in the Source Standard review process.
-                  </p>
+                    Claim Your Profile
+                  </h2>
                   <p
                     className="mt-2 text-muted-foreground"
                     style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
                   >
-                    Claim and complete this profile to add provider information, clinical leadership,
-                    social profiles, service details, and begin the Source Standard review process.
+                    Claiming this profile allows your organization to submit additional information,
+                    maintain public profile details, and begin the Source Standard verification process.
                   </p>
                 </div>
                 <Link
@@ -1128,8 +1260,9 @@ const VendorProfile = () => {
                     borderRadius: "20px",
                   }}
                 >
-                  Claim This Profile
+                  Claim Profile
                 </Link>
+
               </div>
 
             </article>
