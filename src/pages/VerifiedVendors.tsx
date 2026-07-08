@@ -206,6 +206,10 @@ const VerifiedVendors = () => {
   const [specialties, setSpecialties] = useState<string[]>([]); // canonical lowercased keys
   const [stateFilter, setStateFilter] = useState<string>("any"); // 2-letter abbr or "any"
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [filtersOpen, setFiltersOpen] = useState(true);
+  const [definitionsOpen, setDefinitionsOpen] = useState(true);
+
+  const isSearching = query.trim().length > 0;
 
   // Sync query state with the ?q= param when it changes via navigation.
   useEffect(() => {
@@ -213,6 +217,21 @@ const VerifiedVendors = () => {
     setQuery((current) => (current === paramQ ? current : paramQ));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  // Search-mode transitions:
+  // - Entering search (empty → non-empty): auto-collapse filters + definitions.
+  // - Clearing search (non-empty → empty): auto-restore both to expanded.
+  // User manual toggles during search persist until the field is cleared.
+  useEffect(() => {
+    if (isSearching) {
+      setFiltersOpen(false);
+      setDefinitionsOpen(false);
+    } else {
+      setFiltersOpen(true);
+      setDefinitionsOpen(true);
+    }
+  }, [isSearching]);
+
 
   const fulfillmentByVendor = useMemo(() => {
     const map = new Map<string, VendorFulfillment>();
@@ -282,11 +301,11 @@ const VerifiedVendors = () => {
     setVisibleCount(PAGE_SIZE);
   }, [query, status, delivery, stateFilter, specialties]);
 
-  const toggleSpecialty = (key: string) => {
-    setSpecialties((curr) =>
-      curr.includes(key) ? curr.filter((k) => k !== key) : [...curr, key],
-    );
-  };
+  const activeFilterCount =
+    (status !== "any" ? 1 : 0) +
+    (delivery !== "any" ? 1 : 0) +
+    (stateFilter !== "any" ? 1 : 0) +
+    (specialties.length > 0 ? 1 : 0);
 
   const hasActiveFilters =
     query.trim().length > 0 ||
@@ -294,6 +313,7 @@ const VerifiedVendors = () => {
     delivery !== "any" ||
     stateFilter !== "any" ||
     specialties.length > 0;
+
 
   return (
     <>
@@ -425,8 +445,51 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            {/* Grouped filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-3 pb-2 space-y-3">
+            {/* Grouped filters — collapsible during search */}
+            {isSearching && (
+              <div className="-mx-5 md:mx-0 px-5 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen((o) => !o)}
+                  aria-expanded={filtersOpen}
+                  className="font-sans w-full inline-flex items-center justify-between text-foreground transition-colors hover:bg-[hsl(var(--muted))]/40"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    letterSpacing: "0.02em",
+                    height: "36px",
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--border))",
+                    backgroundColor: "#FFFFFF",
+                    padding: "0 14px",
+                  }}
+                >
+                  <span>
+                    Filters
+                    {activeFilterCount > 0 && (
+                      <span className="text-muted-foreground font-medium">
+                        {" "}
+                        ({activeFilterCount})
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDown
+                    aria-hidden
+                    style={{
+                      width: "12px",
+                      height: "12px",
+                      strokeWidth: 1.75,
+                      opacity: 0.55,
+                      transform: filtersOpen ? "rotate(180deg)" : "none",
+                      transition: "transform 200ms ease",
+                    }}
+                  />
+                </button>
+              </div>
+            )}
+            {(!isSearching || filtersOpen) && (
+            <div className="-mx-5 md:mx-0 px-5 pt-3 pb-2 space-y-3 animate-fade-in">
+
               {/* Verification Status */}
               <div>
                 <p
@@ -525,15 +588,51 @@ const VerifiedVendors = () => {
                 </div>
               )}
             </div>
+            )}
 
-            {/* Status definitions — compact strip above results */}
+            {/* Status definitions — collapsible during search */}
+            {isSearching && (
+              <div className="-mx-5 md:mx-0 px-5 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setDefinitionsOpen((o) => !o)}
+                  aria-expanded={definitionsOpen}
+                  className="font-sans w-full inline-flex items-center justify-between text-foreground transition-colors hover:bg-[hsl(var(--muted))]/40"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    letterSpacing: "0.02em",
+                    height: "36px",
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--border))",
+                    backgroundColor: "#FFFFFF",
+                    padding: "0 14px",
+                  }}
+                >
+                  <span>Verification Status Definitions</span>
+                  <ChevronDown
+                    aria-hidden
+                    style={{
+                      width: "12px",
+                      height: "12px",
+                      strokeWidth: 1.75,
+                      opacity: 0.55,
+                      transform: definitionsOpen ? "rotate(180deg)" : "none",
+                      transition: "transform 200ms ease",
+                    }}
+                  />
+                </button>
+              </div>
+            )}
+            {(!isSearching || definitionsOpen) && (
             <div
-              className="mt-3 bg-white"
+              className="mt-3 bg-white animate-fade-in"
               style={{
                 border: "1px solid hsl(var(--border))",
                 borderRadius: "12px",
               }}
             >
+
               <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[hsl(var(--border))]">
                 {[
                   {
@@ -576,6 +675,9 @@ const VerifiedVendors = () => {
                 </Link>
               </div>
             </div>
+            )}
+
+
 
             {/* Result list */}
             <div key={fadeKey} className="mt-3 animate-fade-in">
