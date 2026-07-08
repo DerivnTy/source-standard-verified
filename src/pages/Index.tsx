@@ -516,9 +516,9 @@ const Index = () => {
           lg:[&_.page-shell]:!px-6
           lg:[&_.page-shell]:!pt-[clamp(72px,10vh,120px)]
           lg:[&_.page-shell]:!pb-[clamp(72px,10vh,120px)]
-          [&_h1#briefing-title+p]:!mt-6
-          [&_h1#briefing-title~div.flex.justify-center]:!mt-9
-          [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-8
+          [&_h1#briefing-title+p]:!mt-4
+          [&_h1#briefing-title~div.flex.justify-center]:!mt-7
+          [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!mt-6
           [&_h1#briefing-title~div.flex.flex-col.sm\\:flex-row]:!gap-[14px]
           md:[&_h1#briefing-title+p]:!max-w-[440px]
         "
