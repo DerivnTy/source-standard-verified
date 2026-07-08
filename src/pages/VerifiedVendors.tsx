@@ -301,11 +301,11 @@ const VerifiedVendors = () => {
     setVisibleCount(PAGE_SIZE);
   }, [query, status, delivery, stateFilter, specialties]);
 
-  const toggleSpecialty = (key: string) => {
-    setSpecialties((curr) =>
-      curr.includes(key) ? curr.filter((k) => k !== key) : [...curr, key],
-    );
-  };
+  const activeFilterCount =
+    (status !== "any" ? 1 : 0) +
+    (delivery !== "any" ? 1 : 0) +
+    (stateFilter !== "any" ? 1 : 0) +
+    (specialties.length > 0 ? 1 : 0);
 
   const hasActiveFilters =
     query.trim().length > 0 ||
@@ -313,6 +313,7 @@ const VerifiedVendors = () => {
     delivery !== "any" ||
     stateFilter !== "any" ||
     specialties.length > 0;
+
 
   return (
     <>
