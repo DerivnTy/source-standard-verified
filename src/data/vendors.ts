@@ -91,6 +91,21 @@ export type Vendor = {
   // Claim state
   claimed?: boolean;
 
+  // Activity timeline (all optional; render defensively)
+  profileCreatedDate?: string; // ISO yyyy-mm-dd
+  lastUpdatedDate?: string;    // ISO yyyy-mm-dd
+  nextReviewDate?: string;     // ISO yyyy-mm-dd — verification period end
+
+  // Verified-only enrichment (never inferred; only rendered when explicitly set)
+  verifiedManufacturers?: string[];
+  verifiedFields?: Partial<Record<
+    "phone" | "website" | "address" | "instagram" | "linkedin" |
+    "medicalDirector" | "credentials" | "clinicalLeadership" | "additionalProviders",
+    true
+  >>;
+
+
+
 
   // Legacy documentation table — preserved for back-compat with existing
   // verified vendor profiles. New imports do not need to populate this.

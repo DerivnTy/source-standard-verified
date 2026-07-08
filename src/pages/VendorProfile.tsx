@@ -351,61 +351,53 @@ const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
   );
 };
 
-const QuickFact = ({ label, value }: { label: string; value: string }) => (
-  <div
-    className="py-2"
-    style={{ borderTop: "0.5px solid hsl(var(--border))" }}
-  >
-    <p
-      className="font-sans font-semibold uppercase text-muted-foreground"
-      style={{ fontSize: "10.5px", letterSpacing: "0.08em" }}
-    >
-      {label}
-    </p>
-    <p
-      className="mt-1 font-sans text-foreground"
-      style={{ fontSize: "14px", fontWeight: 500, lineHeight: 1.35 }}
-    >
-      {value}
-    </p>
-  </div>
-);
+type QuickFactRow = { label: string; value: string };
 
-const QuickFacts = ({
-  providerType,
-  location,
-  verification,
-  profile,
-  lastReviewed,
-}: {
-  providerType: string;
-  location: string;
-  verification: string;
-  profile: string;
-  lastReviewed: string;
-}) => (
+const QuickFactsTable = ({ rows }: { rows: QuickFactRow[] }) => (
   <section
     aria-label="Quick facts"
-    className="mt-4 grid grid-cols-2 md:grid-cols-4"
-    style={{ columnGap: "16px" }}
+    className="mt-4"
+    style={{
+      borderTop: "0.5px solid hsl(var(--border))",
+      borderBottom: "0.5px solid hsl(var(--border))",
+    }}
   >
-    <QuickFact label="Provider Type" value={providerType} />
-    <QuickFact label="Location" value={location} />
-    <QuickFact label="Verification" value={verification} />
-    <QuickFact label="Profile" value={profile} />
-    <div className="col-span-2 md:col-span-4">
-      <QuickFact label="Last Reviewed" value={lastReviewed} />
-    </div>
+    <dl>
+      {rows.map((r, i) => (
+        <div
+          key={r.label}
+          className="flex items-baseline justify-between gap-4 py-2"
+          style={
+            i > 0
+              ? { borderTop: "0.5px solid hsl(var(--border) / 0.6)" }
+              : undefined
+          }
+        >
+          <dt
+            className="font-sans font-semibold uppercase text-muted-foreground"
+            style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+          >
+            {r.label}
+          </dt>
+          <dd
+            className="font-sans text-foreground text-right"
+            style={{ fontSize: "14px", fontWeight: 500, lineHeight: 1.35 }}
+          >
+            {r.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
   </section>
 );
 
-const ProfileCompletenessCard = ({ claimed }: { claimed: boolean }) => (
+const AboutThisProfileCard = ({ claimed }: { claimed: boolean }) => (
   <article className="mt-4" style={CARD}>
     <p
       className="font-sans font-semibold uppercase text-muted-foreground"
       style={{ fontSize: "12px", letterSpacing: "0.05em" }}
     >
-      Profile Completeness
+      About This Profile
     </p>
     <p
       className="mt-2 text-foreground"
@@ -417,6 +409,80 @@ const ProfileCompletenessCard = ({ claimed }: { claimed: boolean }) => (
     </p>
   </article>
 );
+
+type ActivityRow = { label: string; value: string; provided: boolean };
+
+const Activity = ({ rows }: { rows: ActivityRow[] }) => {
+  const provided = rows.filter((r) => r.provided);
+  // Compact fallback when the timeline would otherwise feel empty.
+  if (provided.length < 2) {
+    const summary =
+      provided[0]?.value ?? rows.find((r) => r.label === "Last Reviewed")?.value ?? "Not yet reviewed";
+    return (
+      <section
+        aria-label="Activity"
+        className="mt-4 flex items-baseline justify-between gap-4 py-2"
+        style={{
+          borderTop: "0.5px solid hsl(var(--border))",
+          borderBottom: "0.5px solid hsl(var(--border))",
+        }}
+      >
+        <p
+          className="font-sans font-semibold uppercase text-muted-foreground"
+          style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+        >
+          Activity
+        </p>
+        <p
+          className="font-sans text-muted-foreground text-right"
+          style={{ fontSize: "13px", fontWeight: 400 }}
+        >
+          {summary}
+        </p>
+      </section>
+    );
+  }
+  return (
+    <article className="mt-4" style={CARD}>
+      <p
+        className="font-sans font-semibold uppercase text-muted-foreground"
+        style={{ fontSize: "12px", letterSpacing: "0.05em" }}
+      >
+        Activity
+      </p>
+      <dl className="mt-3">
+        {rows.map((r, i) => (
+          <div
+            key={r.label}
+            className="flex items-baseline justify-between gap-4 py-2"
+            style={
+              i > 0
+                ? { borderTop: "0.5px solid hsl(var(--border) / 0.6)" }
+                : undefined
+            }
+          >
+            <dt
+              className="font-sans font-semibold uppercase text-muted-foreground"
+              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+            >
+              {r.label}
+            </dt>
+            <dd
+              className={`font-mono tabular-nums text-right ${
+                r.provided ? "text-foreground" : "text-muted-foreground"
+              }`}
+              style={{ fontSize: "13px", fontWeight: 400 }}
+            >
+              {r.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </article>
+  );
+};
+
+
 
 const ReadMore = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
@@ -737,7 +803,7 @@ const VendorProfile = () => {
             )}
 
             {/* Identity body — compressed */}
-            <div style={{ padding: "16px 14px 14px" }}>
+            <div style={{ padding: "14px 14px 12px" }}>
               {/* Status + Service model — record classification */}
               <div
                 className="flex flex-wrap items-center font-sans uppercase"
@@ -767,7 +833,7 @@ const VendorProfile = () => {
                       : undefined
                   }
                 >
-                  <LogoBlock vendor={vendor} size={36} />
+                  <LogoBlock vendor={vendor} size={44} />
                 </div>
                 <h1
                   className="min-w-0 flex-1 font-sans text-foreground"
@@ -794,7 +860,7 @@ const VendorProfile = () => {
 
               {/* Contact row — website / phone / email / maps */}
               {(vendor.website || phoneHref || emailHref || mapsHref) && (
-                <div className="mt-3.5 flex flex-wrap items-center gap-1.5">
+                <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                   {vendor.website && (
                     <SocialIconBtn href={vendor.website} label={`Website: ${hostname(vendor.website)}`}>
                       <Globe size={14} strokeWidth={1.5} />
@@ -823,29 +889,40 @@ const VendorProfile = () => {
           {/* ────── 2. STATUS SUMMARY ────── */}
           <StatusSummary status={status} />
 
-          {/* ────── 3. QUICK FACTS (with Last Reviewed) ────── */}
-          <QuickFacts
-            providerType={VENDOR_FULFILLMENT_LABEL[fulfillment]}
-            location={location}
-            verification={VENDOR_STATUS_LABEL[status]}
-            profile={claimed ? "Claimed" : "Unclaimed"}
-            lastReviewed={
-              isVerified && vendor.reviewDate
-                ? vendor.reviewDate
-                : "Not yet reviewed"
-            }
+          {/* ────── 3. QUICK FACTS (summary table) ────── */}
+          <QuickFactsTable
+            rows={[
+              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
+              { label: "Location", value: location },
+              { label: "Verification", value: VENDOR_STATUS_LABEL[status] },
+              { label: "Profile", value: claimed ? "Claimed" : "Unclaimed" },
+              {
+                label: "Last Reviewed",
+                value:
+                  isVerified && vendor.reviewDate
+                    ? vendor.reviewDate
+                    : "Not yet reviewed",
+              },
+              ...(isVerified && vendor.reviewDate && vendor.nextReviewDate
+                ? [{
+                    label: "Verification Period",
+                    value: `${vendor.reviewDate} → ${vendor.nextReviewDate}`,
+                  }]
+                : []),
+            ]}
           />
 
-          {/* ────── 4. PROFILE COMPLETENESS (unclaimed / claimed-but-unverified only) ────── */}
-          {!isVerified && <ProfileCompletenessCard claimed={claimed} />}
+          {/* ────── 4. ABOUT THIS PROFILE (unclaimed / claimed-but-unverified only) ────── */}
+          {!isVerified && <AboutThisProfileCard claimed={claimed} />}
+
 
           {/* ────── 5. VERIFICATION STATUS ────── */}
           <article className="mt-4" style={CARD}>
             <SectionHeading>Verification Status</SectionHeading>
 
             <p
-              className="mt-3 text-muted-foreground"
-              style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
+              className="mt-2 text-muted-foreground"
+              style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
             >
               {isVerified
                 ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
@@ -854,15 +931,30 @@ const VendorProfile = () => {
                 : "This provider has not yet participated in the Source Standard verification process."}
             </p>
 
+            {isVerified && vendor.verifiedManufacturers && vendor.verifiedManufacturers.length > 0 && (
+              <p
+                className="mt-1.5 text-foreground"
+                style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.5 }}
+              >
+                <span
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "11px", letterSpacing: "0.08em", marginRight: "6px" }}
+                >
+                  Verified Manufacturer{vendor.verifiedManufacturers.length > 1 ? "s" : ""}
+                </span>
+                {vendor.verifiedManufacturers.join(" · ")}
+              </p>
+            )}
 
             {/* Expandable detail */}
             <button
               type="button"
               onClick={() => setVerificationOpen((o) => !o)}
               aria-expanded={verificationOpen}
-              className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+              className="mt-3 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
               style={{ fontSize: "12px", letterSpacing: "0.05em" }}
             >
+
               {verificationOpen ? "Hide verification details" : "Learn how verification works"}
               <ChevronDown
                 size={12}
@@ -1223,18 +1315,50 @@ const VendorProfile = () => {
           )}
 
 
+          {/* ────── 9. ACTIVITY ────── */}
+          <Activity
+            rows={[
+              {
+                label: "Profile Created",
+                value: vendor.profileCreatedDate ?? "—",
+                provided: Boolean(vendor.profileCreatedDate),
+              },
+              {
+                label: "Last Reviewed",
+                value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet reviewed",
+                provided: Boolean(isVerified && vendor.reviewDate),
+              },
+              {
+                label: "Verification Status Issued",
+                value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet issued",
+                provided: Boolean(isVerified && vendor.reviewDate),
+              },
+              {
+                label: "Last Updated",
+                value: vendor.lastUpdatedDate ?? "—",
+                provided: Boolean(vendor.lastUpdatedDate),
+              },
+            ]}
+          />
 
-
-          {/* ────── 10. CLAIM PROFILE ────── */}
+          {/* ────── 10. CLAIM YOUR PROFILE (elevated CTA) ────── */}
           {!claimed && (
             <article
-              className="mt-4"
+              className="mt-6"
               style={{
-                ...CARD,
-                background: "hsl(var(--muted) / 0.4)",
+                border: "0.5px solid hsl(var(--border))",
+                borderRadius: "16px",
+                padding: "24px",
+                background: "hsl(var(--foreground) / 0.04)",
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <p
+                className="font-sans font-semibold uppercase text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+              >
+                For Providers
+              </p>
+              <div className="mt-2 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="min-w-0">
                   <h2
                     className="font-sans font-semibold text-foreground"
@@ -1254,19 +1378,18 @@ const VendorProfile = () => {
                   to={`/apply?claim=${encodeURIComponent(vendor.slug)}`}
                   className="shrink-0 inline-flex items-center justify-center font-sans font-semibold uppercase bg-foreground text-background hover:opacity-90 transition-opacity"
                   style={{
-                    fontSize: "11px",
+                    fontSize: "12px",
                     letterSpacing: "0.08em",
-                    padding: "10px 16px",
-                    borderRadius: "20px",
+                    padding: "14px 22px",
+                    borderRadius: "24px",
                   }}
                 >
                   Claim Profile
                 </Link>
-
               </div>
-
             </article>
           )}
+
         </div>
       </section>
     </>

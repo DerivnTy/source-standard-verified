@@ -1,90 +1,51 @@
-## Vendor Profile — Consumer Trust & Transparency Refinement (v2)
+## Vendor Profile — Phase 4 Polish (approved)
 
-Refine `src/pages/VendorProfile.tsx` so each profile reads as a public transparency record. Preserve existing colors, typography, spacing, routing, verification logic, status badges, and profile data. Hierarchy + copy + missing-state pass — no data model changes.
+Refine `src/pages/VendorProfile.tsx` only. Preserve data, routing, JSON-LD, verification logic, colors, and typography scale. Density + framing + forward-compat for verified profiles.
 
-### 1. Hero status summary
-Directly beneath the hero identity block, add one plain-language line:
-- Verified: "This provider has completed the Source Standard verification process and currently maintains Verified status."
-- Unverified: "This provider has not completed the Source Standard verification process."
-- Under review: "This provider is currently under Source Standard review."
-- Suspended / removed: reuse `VENDOR_STATUS_LABEL` phrasing in one sentence.
-Styling: `t-body` muted, no card.
+### 1. Hero density
+- `LogoBlock` size 36 → 44.
+- Card padding `16px 14px 14px` → `14px 14px 12px`.
+- Tighten inner margins (`mt-3.5` icon row → `mt-2.5`).
 
-### 2. Quick Facts (new, compact)
-Immediately under the status summary, a tight 2×2 (mobile) / 4-col (desktop) fact grid — the first thing users scan:
-- Provider Type — In-Person / Online / Hybrid (from `getVendorFulfillment`)
-- Location — `formatLocation(vendor)`
-- Verification — Verified / Unverified / Under Review / Suspended
-- Profile — Claimed / Unclaimed
-Uses existing eyebrow-label + value styling (mirror `Cell`), no card chrome, hairline dividers only.
+### 2. Quick Facts → compact summary table
+Vertical `<dl>`, one row per fact, label left / value right, 0.5px hairline dividers, no card chrome. Rows: Provider Type · Location · Verification · Profile · Last Reviewed.
 
-### 3. Last Reviewed (new, in hero band)
-Small mono field near the hero (adjacent to Quick Facts or beneath status pill):
-- Verified with `reviewDate`: "Last Reviewed — {reviewDate}"
-- Otherwise: "Review Status — Not yet reviewed"
-Reuses existing mono/tabular styling from status area.
+### 3. Rename "Profile Completeness" → "About This Profile"
+Label change only; body copy and conditional visibility unchanged (hidden when verified).
 
-### 4. Profile Completeness card (conditional)
-Insert immediately beneath hero band, above Verification Status:
-- Unclaimed: "This provider has not yet claimed or completed their Source Standard profile. Some information displayed on this page has not been provided to Source Standard and therefore cannot currently be verified."
-- Claimed but unverified: shortened variant acknowledging claim without verification.
-- Verified: **do not render** the card at all.
-Uses existing `CARD` style.
+### 4. Shrink Verification Status card
+Default state = heading + one-line status + "Learn how verification works →" toggle. Reduce paragraph to 15px / lh 1.55 and tighten margins. Expanded detail unchanged.
 
-### 5. Unified missing-info treatment
-Replace the italic "Information Not Submitted" in `Cell` (line ~248) with a consistent, non-italic, muted label: **"Not provided to Source Standard"**. Apply everywhere a field is absent across Contact, Providers, and Clinical Leadership. Empty fields remain visible — never hidden.
+### 5–7. Contact / About / Clinical Leadership
+Unchanged.
 
-### 6. Rename "Verification Record" → "Verification Status"
-- Rename heading.
-- Unverified copy: "This provider has not yet participated in the Source Standard verification process."
-- CTA: "View Verification Details" → "Learn how verification works →" (preserve existing target route).
-- Verified path unchanged (expandable scope details stay).
+### 8. Claim Your Profile — visual distinction
+Distinct surface: `hsl(var(--foreground) / 0.04)` background, `borderRadius: 16px`, `padding: 24px`, `mt-6`. Eyebrow "For Providers" above the heading. Larger primary button (`padding: 14px 22px`, `fontSize: 12px`).
 
-### 7. Contact section hierarchy
-Reorder to: Website, Phone, Address, Instagram, LinkedIn. Missing rows use the unified transparency label. Keep social icons in hero as-is.
+### 9. Activity timeline (new, compact)
+Insert between Clinical Leadership and Claim Your Profile.
+- Only render rows that have real data OR are core lifecycle events.
+- Render logic: build the row list first; if fewer than 2 rows have real dates, use a single-line compact variant ("Activity — Not yet reviewed") instead of the full section, so it never feels empty.
+- Core rows (when data present): Profile Created, Last Reviewed, Verification Status Issued, Last Updated.
+- Uses only optional vendor fields; missing fields render muted "—" only inside the full variant.
 
-### 8. Services & Clinical Focus
-Keep section. Render `serviceBadges` (already computed) as existing `Tag` chips in a wrap. No structural change.
+### 10. Verified profile enrichment (additive, guarded)
+Same skeleton, richer when `isVerified`:
+- **Quick Facts:** append "Verification Period" row only when both `vendor.reviewDate` and `vendor.nextReviewDate` are present.
+- **Verification Status:** append "Verified Manufacturer(s)" line only when `vendor.verifiedManufacturers?.length`. No fallback to `scopeCompounds`.
+- **"✓ Verified" micro-labels:** only render when the specific field has an explicit truthy verification flag (e.g. `vendor.verifiedFields?.phone === true`). No inference. If the data source doesn't provide field-level flags, no labels render — never imply verification.
+- **Activity:** verified profiles naturally populate more rows.
 
-### 9. About This Vendor — clamp with Read More
-Wrap About/summary in a collapsible:
-- Collapsed via `line-clamp-6` (~4–6 lines).
-- Text-only "Read More" / "Read Less" toggle, only when overflow exists.
-- No layout change for short content.
-
-### 10. Providers & Clinical Leadership — always render
-Keep section visible even when `hasProvider` is false. Medical Director, Credentials, Clinical Leadership, Additional Providers each render with the unified "Not provided to Source Standard" treatment when absent.
-
-### 11. Claim Your Profile
-Bottom claim block:
-- Heading: **"Claim Your Profile"** (speaking directly to the vendor).
-- Body: "Claiming this profile allows your organization to submit additional information, maintain public profile details, and begin the Source Standard verification process."
-- Primary CTA: "Claim Profile" (existing link target preserved).
-- Hide entire block when `claimed === true`.
-
-### 12. Section order (mobile + desktop DOM order)
-1. Hero (name, status pill, type, city/state, socials)
-2. Status summary (§1)
-3. Quick Facts (§2)
-4. Last Reviewed (§3) — may sit inside the Quick Facts band
-5. Profile Completeness card (§4, conditional)
-6. Verification Status (§6) — kept above Contact; this is why users are here
-7. Contact (§7)
-8. Services & Clinical Focus (§8)
-9. About This Vendor (§9)
-10. Providers & Clinical Leadership (§10)
-11. Claim Your Profile (§11)
-
-Desktop grid preserved; mobile is a single column in this order.
+### Section order (final)
+Hero · Status Summary · Quick Facts · About This Profile · Verification Status · Contact · Services · About This Vendor · Clinical Coverage · Providers · Facility · Activity · Claim Your Profile.
 
 ### Technical notes
-- Single file touched: `src/pages/VendorProfile.tsx`.
-- New local components: `StatusSummary`, `QuickFacts`, `ProfileCompletenessCard`, `ReadMore`. All colocated.
-- `Cell` empty-state string is the single source of the "Not provided…" label.
-- No changes to `data/vendors.ts`, routing, JSON-LD, or verification/status logic.
-- Verify via typecheck + spot-check on one verified and one unverified vendor route.
+- Single file: `src/pages/VendorProfile.tsx`.
+- New local components: `QuickFactsTable`, `Activity`. Rename `ProfileCompletenessCard` → `AboutThisProfileCard`.
+- Optional fields (`profileCreatedDate`, `lastUpdatedDate`, `nextReviewDate`, `verifiedManufacturers`, `verifiedFields`) read defensively; extend `Vendor` type only if TS requires it — all as optional.
+- Typecheck + spot-check the current unverified route.
 
 ### Out of scope
-- Completeness percentage/meter
-- New data fields or schema changes
-- Changes to Facility Records or shared components
+- Seeding real timeline data.
+- New pages/routes/shared components.
+- Facility Records / Greenlist changes.
