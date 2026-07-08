@@ -803,7 +803,7 @@ const VendorProfile = () => {
             )}
 
             {/* Identity body — compressed */}
-            <div style={{ padding: "16px 14px 14px" }}>
+            <div style={{ padding: "14px 14px 12px" }}>
               {/* Status + Service model — record classification */}
               <div
                 className="flex flex-wrap items-center font-sans uppercase"
