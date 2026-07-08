@@ -245,7 +245,7 @@ const Cell = ({
             display
           )
         ) : (
-          <span className="italic text-muted-foreground/70">Information Not Submitted</span>
+          <span className="text-muted-foreground/70">Not provided to Source Standard</span>
         )}
       </dd>
     </div>
