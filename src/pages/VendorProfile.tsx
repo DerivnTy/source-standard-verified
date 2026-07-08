@@ -892,10 +892,8 @@ const VendorProfile = () => {
           {/* ────── 3. QUICK FACTS (summary table) ────── */}
           <QuickFactsTable
             rows={[
-              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
-              { label: "Location", value: location },
+              { label: "Profile Status", value: claimed ? "Claimed" : "Unclaimed" },
               { label: "Verification", value: VENDOR_STATUS_LABEL[status] },
-              { label: "Profile", value: claimed ? "Claimed" : "Unclaimed" },
               {
                 label: "Last Reviewed",
                 value:
@@ -903,6 +901,7 @@ const VendorProfile = () => {
                     ? vendor.reviewDate
                     : "Not yet reviewed",
               },
+              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
               ...(isVerified && vendor.reviewDate && vendor.nextReviewDate
                 ? [{
                     label: "Verification Period",
