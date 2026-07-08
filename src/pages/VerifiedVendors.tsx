@@ -95,7 +95,7 @@ const SoftPill = ({
 );
 
 const VerifiedVendors = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [status, setStatus] = useState<StatusKey>("any");
   const [delivery, setDelivery] = useState<DeliveryKey>("any");
