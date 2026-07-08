@@ -921,8 +921,8 @@ const VendorProfile = () => {
             <SectionHeading>Verification Status</SectionHeading>
 
             <p
-              className="mt-3 text-muted-foreground"
-              style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}
+              className="mt-2 text-muted-foreground"
+              style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
             >
               {isVerified
                 ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
@@ -931,15 +931,30 @@ const VendorProfile = () => {
                 : "This provider has not yet participated in the Source Standard verification process."}
             </p>
 
+            {isVerified && vendor.verifiedManufacturers && vendor.verifiedManufacturers.length > 0 && (
+              <p
+                className="mt-1.5 text-foreground"
+                style={{ fontSize: "14px", fontWeight: 400, lineHeight: 1.5 }}
+              >
+                <span
+                  className="font-sans font-semibold uppercase text-muted-foreground"
+                  style={{ fontSize: "11px", letterSpacing: "0.08em", marginRight: "6px" }}
+                >
+                  Verified Manufacturer{vendor.verifiedManufacturers.length > 1 ? "s" : ""}
+                </span>
+                {vendor.verifiedManufacturers.join(" · ")}
+              </p>
+            )}
 
             {/* Expandable detail */}
             <button
               type="button"
               onClick={() => setVerificationOpen((o) => !o)}
               aria-expanded={verificationOpen}
-              className="mt-4 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+              className="mt-3 inline-flex items-center gap-1 font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
               style={{ fontSize: "12px", letterSpacing: "0.05em" }}
             >
+
               {verificationOpen ? "Hide verification details" : "Learn how verification works"}
               <ChevronDown
                 size={12}
