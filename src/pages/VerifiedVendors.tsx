@@ -207,7 +207,6 @@ const VerifiedVendors = () => {
   const [stateFilter, setStateFilter] = useState<string>("any"); // 2-letter abbr or "any"
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [filtersOpen, setFiltersOpen] = useState(true);
-  const [definitionsOpen, setDefinitionsOpen] = useState(true);
 
   const isSearching = query.trim().length > 0;
 
