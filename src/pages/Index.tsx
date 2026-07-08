@@ -455,15 +455,15 @@ const Index = () => {
             max-width: 640px !important;
             font-size: 19px !important;
             line-height: 1.55 !important;
-            margin-top: 28px !important;
+            margin-top: 20px !important;
           }
           .home-hero h1#briefing-title ~ div.flex.justify-center {
             justify-content: center !important;
-            margin-top: 44px !important;
+            margin-top: 36px !important;
           }
           .home-hero h1#briefing-title ~ div.flex.flex-col.sm\\:flex-row {
             justify-content: center !important;
-            margin-top: 36px !important;
+            margin-top: 28px !important;
           }
 
           /* Section rhythm — bump padding and headings on every home section */
