@@ -303,46 +303,90 @@ const Greenlist = () => {
               </div>
             </div>
 
-            {/* Compact Greenlisted context strip */}
-            <div className="-mx-5 md:mx-0 px-5 pt-2">
-              <div
-                className="bg-white"
-                style={{
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "16px",
-                  padding: "12px 14px",
-                }}
-              >
-                <p
-                  className="font-sans font-semibold uppercase text-muted-foreground"
-                  style={{ fontSize: "10.5px", letterSpacing: "0.12em" }}
+            {/* Compact Greenlisted context strip — hidden during search */}
+            {!isSearching && (
+              <div className="-mx-5 md:mx-0 px-5 pt-2">
+                <div
+                  className="bg-white"
+                  style={{
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: "16px",
+                    padding: "12px 14px",
+                  }}
                 >
-                  Greenlisted Status
-                </p>
-                <p
-                  className="mt-1 text-foreground"
-                  style={{ fontSize: "13.5px", lineHeight: 1.45, fontWeight: 500 }}
-                >
-                  Greenlisted facilities are currently recognized within the Source Standard framework.
-                </p>
-                <p
-                  className="mt-0.5 text-muted-foreground"
-                  style={{ fontSize: "12px", lineHeight: 1.45 }}
-                >
-                  Recognition is based on Source Standard's review and may change as new information becomes available.
-                </p>
-                <Link
-                  to="/how-it-works"
-                  className="mt-1.5 inline-flex items-center gap-1 font-sans text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
-                  style={{ fontSize: "12px", fontWeight: 500 }}
-                >
-                  Learn more <span aria-hidden>→</span>
-                </Link>
+                  <p
+                    className="font-sans font-semibold uppercase text-muted-foreground"
+                    style={{ fontSize: "10.5px", letterSpacing: "0.12em" }}
+                  >
+                    Greenlisted Status
+                  </p>
+                  <p
+                    className="mt-1 text-foreground"
+                    style={{ fontSize: "13.5px", lineHeight: 1.45, fontWeight: 500 }}
+                  >
+                    Greenlisted facilities are currently recognized within the Source Standard framework.
+                  </p>
+                  <p
+                    className="mt-0.5 text-muted-foreground"
+                    style={{ fontSize: "12px", lineHeight: 1.45 }}
+                  >
+                    Recognition is based on Source Standard's review and may change as new information becomes available.
+                  </p>
+                  <Link
+                    to="/how-it-works"
+                    className="mt-1.5 inline-flex items-center gap-1 font-sans text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
+                    style={{ fontSize: "12px", fontWeight: 500 }}
+                  >
+                    Learn more <span aria-hidden>→</span>
+                  </Link>
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* Filters */}
-            <div ref={filtersAnchorRef} className="-mx-5 md:mx-0 px-5 pt-3 space-y-3 scroll-mt-16">
+            {/* Filters — compact toggle during search */}
+            {isSearching && (
+              <div className="-mx-5 md:mx-0 px-5 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen((o) => !o)}
+                  aria-expanded={filtersOpen}
+                  className="font-sans w-full inline-flex items-center justify-between text-foreground transition-colors hover:bg-[hsl(var(--muted))]/40"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    letterSpacing: "0.02em",
+                    height: "36px",
+                    borderRadius: "20px",
+                    border: "1px solid hsl(var(--border))",
+                    backgroundColor: "#FFFFFF",
+                    padding: "0 14px",
+                  }}
+                >
+                  <span>
+                    Filters
+                    {activeFilterCount > 0 && (
+                      <span className="text-muted-foreground font-medium">
+                        {" "}({activeFilterCount})
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDown
+                    aria-hidden
+                    style={{
+                      width: "12px",
+                      height: "12px",
+                      strokeWidth: 1.75,
+                      opacity: 0.55,
+                      transform: filtersOpen ? "rotate(180deg)" : "none",
+                      transition: "transform 200ms ease",
+                    }}
+                  />
+                </button>
+              </div>
+            )}
+
+            {(!isSearching || filtersOpen) && (
+            <div ref={filtersAnchorRef} className="-mx-5 md:mx-0 px-5 pt-3 space-y-3 scroll-mt-16 animate-fade-in">
               {/* Status */}
               <div>
                 <p
@@ -421,6 +465,7 @@ const Greenlist = () => {
                 />
               </div>
             </div>
+            )}
 
             {/* Result list */}
             <div
