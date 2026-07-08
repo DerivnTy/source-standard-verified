@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, Check, ChevronDown } from "lucide-react";
 import * as SelectPrimitive from "@radix-ui/react-select";
@@ -145,10 +145,10 @@ const FilterSelect = ({
   </SelectPrimitive.Root>
 );
 
-const STATUS_DEFINITIONS = [
-  { label: "Greenlisted", body: "Currently recognized within the Source Standard framework." },
-  { label: "Monitoring", body: "Currently under additional review." },
-  { label: "Status Alert", body: "Additional information requires further review." },
+const STATUS_DEFINITIONS: { label: string; body: string; color: string }[] = [
+  { label: "Greenlisted", body: "Currently recognized", color: "#22C55E" },
+  { label: "Monitoring", body: "Under additional review", color: "#F59E0B" },
+  { label: "Status Alert", body: "Additional information requires review", color: "#FF3B30" },
 ];
 
 const Greenlist = () => {
@@ -210,7 +210,27 @@ const Greenlist = () => {
   }, [query, stateFilter, facilityType, status]);
 
   const heroDescription =
-    "Search the Source Standard Registry to learn more about manufacturers, compounding pharmacies, and other upstream organizations within the peptide supply chain.";
+    "Search manufacturers and compounding pharmacies recognized within the Source Standard Registry.";
+
+  // Sticky compact bar — appears once the original search scrolls out of view.
+  const searchRef = useRef<HTMLDivElement | null>(null);
+  const filtersAnchorRef = useRef<HTMLDivElement | null>(null);
+  const [stickyVisible, setStickyVisible] = useState(false);
+
+  useEffect(() => {
+    const el = searchRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setStickyVisible(!entry.isIntersecting),
+      { rootMargin: "-8px 0px 0px 0px", threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const scrollToFilters = () => {
+    filtersAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
