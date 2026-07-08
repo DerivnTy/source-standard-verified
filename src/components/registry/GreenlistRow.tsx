@@ -4,8 +4,8 @@ import { GreenlistEntry } from "@/data/greenlist";
 
 /**
  * GreenlistRow — Surgical Database Strip.
- *   Row 1: Facility Name (left) · AUTHORIZED status (right)
- *   Row 2: [Category Pill (Navy)] + Registration ID (Geist Mono) (left) · VIEW › (right)
+ *   Row 1: Facility Name (left) · Status (right; semantic color)
+ *   Row 2: [Category Pill] · [Facility Type] · [Location] (left) · VIEW › (right)
  */
 
 const locationFor = (e: GreenlistEntry): string | null => {
@@ -13,11 +13,22 @@ const locationFor = (e: GreenlistEntry): string | null => {
   return null;
 };
 
+type StatusVisual = { label: string; color: string; withDot: boolean };
+
+const statusVisualFor = (entry: GreenlistEntry): StatusVisual => {
+  if (entry.regulatoryAlert) {
+    return { label: "Status Alert", color: "#FF3B30", withDot: false };
+  }
+  // At launch no entry has satisfied Greenlisted criteria, so remaining entries
+  // are surfaced as Monitoring. When Greenlisted is introduced, add a check here.
+  return { label: "Monitoring", color: "#F59E0B", withDot: true };
+};
+
 export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; index?: number }) => {
-  const isAlert = !!entry.regulatoryAlert;
   const location = locationFor(entry);
   const category = entry.category;
   const cadenceClass = `live-dot--cadence-${(index % 4) + 1}`;
+  const status = statusVisualFor(entry);
 
   return (
     <Link
@@ -49,53 +60,39 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
             {entry.name}
           </h3>
 
-          {isAlert ? (
-            <span
-              className="font-sans uppercase tabular-nums"
-              style={{
-                flexShrink: 0,
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.035em",
-                lineHeight: 1,
-                color: "#FF3B30",
-                transform: "translateY(2px)",
-              }}
-            >
-              Status Alert
-            </span>
-          ) : (
-            <span
-              className="inline-flex items-center gap-1 font-sans uppercase tabular-nums"
-              style={{
-                flexShrink: 0,
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "0.035em",
-                lineHeight: 1,
-                color: "#FF3B30",
-                transform: "translateY(2px)",
-              }}
-            >
+          <span
+            className="inline-flex items-center gap-1 font-sans uppercase tabular-nums"
+            style={{
+              flexShrink: 0,
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "0.035em",
+              lineHeight: 1,
+              color: status.color,
+              transform: "translateY(2px)",
+            }}
+          >
+            {status.withDot && (
               <span
                 aria-hidden
                 className={`inline-block rounded-full live-dot ${cadenceClass}`}
-                style={{ width: "5px", height: "5px", backgroundColor: "#FF3B30" }}
+                style={{ width: "5px", height: "5px", backgroundColor: status.color }}
               />
-              Monitoring
-            </span>
-          )}
+            )}
+            {status.label}
+          </span>
         </div>
 
-        {/* Row 2 — Pill + location (left) · View (right) */}
+        {/* Row 2 — Pill · Facility Type · Location (left) · View (right) */}
         <div className="flex items-center justify-between" style={{ gap: "12px" }}>
           <div
-            className="min-w-0"
-            style={{ display: "inline-flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}
+            className="min-w-0 flex items-center"
+            style={{ gap: "8px", flex: 1, minWidth: 0 }}
           >
             <span
               className="inline-flex items-center font-sans uppercase whitespace-nowrap"
               style={{
+                flexShrink: 0,
                 fontSize: "10px",
                 fontWeight: 600,
                 letterSpacing: "0.03em",
@@ -107,13 +104,30 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
             >
               {category}
             </span>
-            {location && (
+            {entry.type && (
               <span
                 className="text-muted-foreground truncate"
                 style={{ minWidth: 0, fontSize: "11px", lineHeight: 1.35 }}
               >
-                {location}
+                {entry.type}
               </span>
+            )}
+            {location && (
+              <>
+                <span
+                  aria-hidden
+                  className="text-muted-foreground/50"
+                  style={{ fontSize: "11px", lineHeight: 1.35, flexShrink: 0 }}
+                >
+                  ·
+                </span>
+                <span
+                  className="text-muted-foreground"
+                  style={{ fontSize: "11px", lineHeight: 1.35, flexShrink: 0 }}
+                >
+                  {location}
+                </span>
+              </>
             )}
           </div>
 
