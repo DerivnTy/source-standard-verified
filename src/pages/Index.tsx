@@ -5,18 +5,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
+import { PageSection, DataStrip } from "@/components/system";
 import { vendors } from "@/data/vendors";
 import lockup from "@/assets/source-standard-lockup-dark.png";
 
 const homeWaypoints = [
-  { id: "mission", number: "0", label: "Mission" },
-  { id: "trust-problem", number: "1", label: "Problem" },
-  { id: "how-it-works", number: "2", label: "How it works" },
-  { id: "live-registry", number: "3", label: "Registry" },
-  { id: "registry-shows", number: "4", label: "Fields" },
-  { id: "why-matters", number: "5", label: "Function" },
-  { id: "basics", number: "6", label: "Reference" },
-  { id: "governance", number: "7", label: "Governance" },
+  { id: "mission", number: "", label: "Mission" },
+  { id: "trust-problem", number: "", label: "Problem" },
+  { id: "how-it-works", number: "", label: "How it works" },
+  { id: "live-registry", number: "", label: "Registry" },
+  { id: "registry-shows", number: "", label: "Fields" },
+  { id: "why-matters", number: "", label: "Function" },
+  { id: "basics", number: "", label: "Reference" },
+  { id: "governance", number: "", label: "Governance" },
 ];
 
 /* ───────────────── Hero Content ─────────────────
