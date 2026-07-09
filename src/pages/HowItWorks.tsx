@@ -92,7 +92,7 @@ const SectionDivider = () => (
 
 const HowItWorks = () => {
   const heroDescription =
-    "A short public guide to what Source Standard verification is, how it works, and what it does and does not represent.";
+    "How Source Standard verification works, what it means, and what it does not mean for consumers.";
 
   return (
     <>
@@ -126,7 +126,7 @@ const HowItWorks = () => {
             {/* §1 · What is Verification? */}
             <section>
               <Eyebrow>What is verification?</Eyebrow>
-              <SectionTitle>A public standard for sourcing transparency.</SectionTitle>
+              <SectionTitle>What Is Verification?</SectionTitle>
               <Prose>
                 Source Standard verification is a public reference standard. It gives consumers a
                 consistent way to see whether a compounding pharmacy or clinic has undergone
@@ -143,7 +143,7 @@ const HowItWorks = () => {
             {/* §2 · How Verification Works — 4-step flow */}
             <section>
               <Eyebrow>How it works</Eyebrow>
-              <SectionTitle>A four-step process.</SectionTitle>
+              <SectionTitle>How Does Verification Work?</SectionTitle>
 
               <ol
                 className="mt-6 grid grid-cols-1 md:grid-cols-4"
@@ -213,7 +213,7 @@ const HowItWorks = () => {
             {/* §3 · What Verification Means */}
             <section>
               <Eyebrow>What verification means</Eyebrow>
-              <SectionTitle>What a verified record represents.</SectionTitle>
+              <SectionTitle>What Does Verified Mean?</SectionTitle>
               <ul className="mt-5 flex flex-col" style={{ gap: "10px" }}>
                 {MEANS.map((item) => (
                   <li
@@ -238,7 +238,7 @@ const HowItWorks = () => {
             {/* §4 · What Verification Does Not Mean */}
             <section>
               <Eyebrow>What verification does not mean</Eyebrow>
-              <SectionTitle>What a verified record does not represent.</SectionTitle>
+              <SectionTitle>What Does Verified Not Mean?</SectionTitle>
               <ul className="mt-5 flex flex-col" style={{ gap: "10px" }}>
                 {DOES_NOT_MEAN.map((item) => (
                   <li
@@ -263,7 +263,7 @@ const HowItWorks = () => {
             {/* §5 · Why It Matters */}
             <section>
               <Eyebrow>Why it matters</Eyebrow>
-              <SectionTitle>Helping consumers make more informed decisions.</SectionTitle>
+              <SectionTitle>Why Does This Matter?</SectionTitle>
               <Prose>
                 Source Standard exists to bring public transparency to the compounded peptide
                 market. By reviewing sourcing information and publishing verification status,

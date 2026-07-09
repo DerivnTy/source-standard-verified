@@ -299,14 +299,14 @@ const SectionHeader = ({
 
 const About = () => {
   const heroDescription =
-    "Source Standard is an independent verification and public-reference organization dedicated to improving sourcing transparency and accountability within the compounded therapy market.";
+    "Source Standard is an independent public-reference organization that helps consumers understand provider verification status and sourcing transparency for compounded therapies.";
 
   return (
     <>
       <Breadcrumb items={[{ label: "About" }]} />
 
       <PageMeta
-        title="About Source Standard"
+        title="What is Source Standard?"
         description={heroDescription}
         path="/about"
         jsonLd={{
@@ -322,7 +322,7 @@ const About = () => {
         tone="navy"
         variant="chapter"
         category="Organization & Mandate"
-        title="About Source Standard"
+        title="What is Source Standard?"
         statement={heroDescription}
         docId=""
       />
@@ -374,7 +374,7 @@ const About = () => {
             >
               <SectionHeader
                 n="01"
-                title="Market Context"
+                title="Why Is This Needed?"
                 intro="Why the framework is needed."
               />
               <div className="flex flex-col" style={{ gap: "10px" }}>
@@ -399,7 +399,7 @@ const About = () => {
             >
               <SectionHeader
                 n="02"
-                title="Operational Boundaries"
+                title="What Does Source Standard Not Do?"
                 intro="What Source Standard does not do."
               />
               <div className="flex flex-col" style={{ gap: "10px" }}>
@@ -424,7 +424,7 @@ const About = () => {
             >
               <SectionHeader
                 n="03"
-                title="Who the Framework Serves"
+                title="Who Does This Help?"
                 intro="Who the framework serves."
               />
               <div className="flex flex-col" style={{ gap: "10px" }}>
@@ -449,7 +449,7 @@ const About = () => {
             >
               <SectionHeader
                 n="04"
-                title="Framework Components"
+                title="What Does Source Standard Do?"
                 intro="The systems maintained by Source Standard."
               />
               <div className="flex flex-col" style={{ gap: "10px" }}>
@@ -474,7 +474,7 @@ const About = () => {
             >
               <SectionHeader
                 n="05"
-                title="Institutional Principles"
+                title="What Guides Source Standard?"
                 intro="The principles guiding the framework."
               />
               <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-3" style={{ gap: "10px" }}>
