@@ -46,26 +46,13 @@ export const ArticleHeader = ({
       <header className="bg-background">
         <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "0" }}>
           <div className="mx-auto w-reading-wide">
-            <Link
-              to={backHref}
-              className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
-              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-            >
-              <span
-                aria-hidden
-                className="transition-transform group-hover:-translate-x-0.5"
-              >
-                ←
-              </span>
-              <span>{backLabel}</span>
-            </Link>
-
             <p
               className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.12em", marginTop: "14px" }}
+              style={{ fontSize: "10px", letterSpacing: "0.12em" }}
             >
               {category}
             </p>
+
 
             <h1 className="t-article-title text-foreground" style={{ marginTop: "10px" }}>
               {title}
