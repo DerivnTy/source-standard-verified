@@ -7,7 +7,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 
-import { GreenlistRow } from "@/components/registry/GreenlistRow";
+import { RegistryRow, type StatusKey as PillStatusKey } from "@/components/system";
 import {
   greenlistEntries,
   getGreenlistCounts,
@@ -483,12 +483,26 @@ const Greenlist = () => {
                 />
               ) : (
                 <>
-                  <ul className="flex flex-col gap-1.5">
-                    {visibleItems.map((entry, idx) => (
-                      <li key={entry.slug}>
-                        <GreenlistRow entry={entry} index={idx} />
-                      </li>
-                    ))}
+                  <ul className="divide-y divide-border/60 border-t border-border/60">
+                    {visibleItems.map((entry) => {
+                      const pillStatus: PillStatusKey = entry.regulatoryAlert
+                        ? "alert"
+                        : "monitoring";
+                      const loc = entry.state?.toUpperCase();
+                      const metaParts = [entry.type, loc].filter(Boolean) as string[];
+                      return (
+                        <li key={entry.slug}>
+                          <RegistryRow
+                            to={`/greenlist/${entry.slug}`}
+                            name={entry.name}
+                            status={pillStatus}
+                            chip={entry.category}
+                            metaLeft={metaParts.join(" · ")}
+                            ariaLabel={`${entry.name}, ${entry.category}`}
+                          />
+                        </li>
+                      );
+                    })}
                   </ul>
 
                   {hasMore && (
