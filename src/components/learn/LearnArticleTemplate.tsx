@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+
+import { FeatureItem } from "@/components/system";
+
+
 
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
@@ -107,26 +110,24 @@ export const EducationArticleTemplate = ({
 
       {relatedResolved.length > 0 && (
         <ArticleSection title="Related questions">
-          <ul style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            {relatedResolved.map((r) => (
-              <li key={r.slug}>
+          <ul className="flex flex-col">
+            {relatedResolved.map((r, i) => (
+              <li
+                key={r.slug}
+                className={i > 0 ? "border-t border-border/40 pt-3 mt-3" : ""}
+              >
                 <Link
                   to={`/learn/education/${r.slug}`}
-                  className="group inline-flex items-center gap-1.5 text-foreground hover:text-primary transition-colors"
-                  style={{ fontSize: "13.5px", lineHeight: "1.4" }}
+                  className="block group"
                 >
-                  <span>{r.question}</span>
-                  <ChevronRight
-                    aria-hidden
-                    style={{ width: "13px", height: "13px", strokeWidth: 1.5 }}
-                    className="opacity-60 group-hover:opacity-100 transition-opacity"
-                  />
+                  <FeatureItem variant="block" title={r.question} />
                 </Link>
               </li>
             ))}
           </ul>
         </ArticleSection>
       )}
+
 
       <NextStep primary={article.nextStep} />
 
@@ -206,26 +207,24 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
 
       {relatedResolved.length > 0 && (
         <ArticleSection title="Related education">
-          <ul style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            {relatedResolved.map((r) => (
-              <li key={r.slug}>
+          <ul className="flex flex-col">
+            {relatedResolved.map((r, i) => (
+              <li
+                key={r.slug}
+                className={i > 0 ? "border-t border-border/40 pt-3 mt-3" : ""}
+              >
                 <Link
                   to={`/learn/education/${r.slug}`}
-                  className="group inline-flex items-center gap-1.5 text-foreground hover:text-primary transition-colors"
-                  style={{ fontSize: "13.5px", lineHeight: "1.4" }}
+                  className="block group"
                 >
-                  <span>{r.question}</span>
-                  <ChevronRight
-                    aria-hidden
-                    style={{ width: "13px", height: "13px", strokeWidth: 1.5 }}
-                    className="opacity-60 group-hover:opacity-100 transition-opacity"
-                  />
+                  <FeatureItem variant="block" title={r.question} />
                 </Link>
               </li>
             ))}
           </ul>
         </ArticleSection>
       )}
+
 
       <NextStep primary={article.nextStep} />
 

@@ -1,80 +1,89 @@
-## Batch 1 — Trust Foundation rollout
+## Batch 2 — Learn & Knowledge System
 
-Migrate four consumer-facing pages onto the homepage's shared design system. Establish the two-mode doctrine (Consumer vs Reference) so later batches inherit it cleanly.
+Rebuild the `/learn` universe onto the Batch 1 shared design system (`PageSection`, `FeatureItem`, `NavCard`, `ProcessSteps`) so the Learn hub becomes the public knowledge center. Consumer Mode throughout. Routes, data, article slugs, and SEO/JSON-LD preserved.
 
-### Design doctrine (locked for all batches)
+---
 
-**Consumer Mode** — About, How Verification Works, Partners (this batch); Learn, Homepage
-- Built from `PageSection`, `FeatureItem`, `NavCard`, `ProcessSteps`
-- No bordered card stacks by default
-- One contextual glyph per section max, following the homepage icon semantics
+### 1. Learn hub — `src/pages/Learn.tsx`
 
-**Reference Mode** — Governance (this batch); later Status Definitions, Vendor Profiles, Facility Records
-- Preserves `RecordHeader`, `DocJumpBar`, doc metadata, `§`-numbered anchors, `BoardCiteFooter`
-- Interior content adopts the new patterns: `FeatureItem` rows replace repeated bordered cards, `ProcessSteps` for workflows, `NavCard` only for real navigation
-- The document chrome stays; the boxed-card interior goes
+Replace the local `PillarCard` grid with shared primitives, then extend the page with guidance sections it currently lacks.
 
-Presentation-to-purpose mapping (applied throughout):
-- Processes → `ProcessSteps`
-- Navigation → `NavCard`
-- Checklists → `FeatureItem` rows with `check` glyph
-- Trust pillars / audiences → `FeatureItem` blocks
-- Reference metadata → RecordHeader / DataStrip
-- Prose → plain paragraphs inside a reading column, never wrapped in a card
+Structure:
+1. `BriefingHero` (kept, copy unchanged).
+2. **Three destinations** — `PageSection` wrapping a 3-up grid of `NavCard`s for Education / News & Insights / FAQ. Meta strings (`{n} articles`, etc.) become the `NavCard` eyebrow, no bordered pillar cards.
+3. **Featured educational categories** — `PageSection titled "Start with the basics"` containing a 2×2 grid of `FeatureItem` blocks, one per `EDUCATION_TOPICS` entry (title = topic label, desc = topic description), each wrapped in a `Link` to `/learn/education#<id>`. Icon glyph limited to one per section — omit glyphs on the cards themselves per doctrine.
+4. **Featured recent updates** — `PageSection titled "Recent updates"` listing the 3 newest `NEWS_ARTICLES` as `FeatureItem` rows (title = headline, desc = standfirst, meta line for date · category). Link each to its article.
+5. **Still have questions?** — `PageSection` linking to `/learn/faq` and `/contact` via two side-by-side `NavCard`s.
+6. `NextStep primary="vendor-registry"` (kept).
 
-### Page-by-page changes
+Removes bordered pillar tiles, adds real guidance — no article walls.
 
-**1. About (`src/pages/About.tsx`) — Consumer Mode**
-- Keep: `BriefingHero`, breadcrumb, `SectionAnchorNav`, all copy, all waypoint IDs (`context`, `boundaries`, `objectives`, `scope`, `principles`)
-- Remove local primitives: `AboutCard`, `AboutRow`, `AboutStatementRow`, `AboutLinkRow`, local `Eyebrow`, `SectionHeader`
-- Rebuild each numbered section as a `PageSection` with the existing question-form heading, intro, and the clause list rendered as `FeatureItem` rows (no borders, no `01 / 04` counters, no per-row cards)
-- §3 Purpose and §9 Institutional Role: unwrap from `AboutCard` into prose paragraphs inside a `PageSection`
-- Principles section keeps its 2-column layout using a plain grid of `FeatureItem` blocks
+---
 
-**2. How Verification Works (`src/pages/HowItWorks.tsx`) — Consumer Mode**
-- Keep: `BriefingHero`, breadcrumb, `PageMeta`, all copy, disclaimer footer
-- Remove local primitives (`Eyebrow`, `SectionTitle`, `Prose`, `SectionDivider`) and the ad-hoc 4-column step grid
-- What Is Verification / Why It Matters → `PageSection` with prose intro
-- 4-step flow → `ProcessSteps` (already the homepage pattern)
-- "What verified means" → `PageSection` with `FeatureItem` rows using `check` glyph
-- "What verified does not mean" → `PageSection` with plain rows using `minus` glyph (semantic contrast, not decorative)
-- Section dividers come from `PageSection`'s built-in `bordered` prop; delete the manual hairlines
+### 2. Education hub — `src/pages/LearnEducation.tsx`
 
-**3. Partners (`src/pages/Partners.tsx`) — Consumer Mode**
-- Keep: `BriefingHero`, `PageMeta`, all copy, Open logo asset
-- Replace all four `Section`+`SectionHeading` blocks with `PageSection`
-- "Why partners?" → `PageSection` with prose intro only
-- Partner categories → `PageSection` with `FeatureItem` blocks (2-col grid), removes the current `border border-border ... p-6` cards
-- Featured Partner (Open) → `PageSection` keeps the logo + prose; the outer bordered container becomes a lightweight framed block only around the logo (destination-worthy content), prose sits below without card chrome
-- "Two Different Questions" → `PageSection` with two `FeatureItem` blocks side by side, no card borders
+Keep search + filter tabs (they are real navigation and already match the pill spec). Rebuild results.
 
-**4. Governance (`src/pages/Governance.tsx`) — Reference Mode**
-- Keep intact: `RecordHeader`, `DocJumpBar`, `BoardSection`, `BoardCiteFooter`, `PageMeta`, breadcrumb, waypoint IDs, doc IDs, `Callout`, all statutory copy and citations, the authorities table structure
-- §1 Advisory: the roster placeholder table stays as a reference table (institutional data)
-- §2 Anchors: statutory table stays as a reference table (institutional data)
-- §3 Neutrality: prose stays as prose in `BoardSection` — no change
-- §4 Read deeper: replace the bordered grid of link tiles with `NavCard`s (navigation → navigation pattern) inside the existing `BoardSection`
-- Icon audit: remove any decorative glyphs inside `BoardSection` bodies; keep `§`-numbering as the reference identifier
+- Wrap controls in the same sticky, backdrop-blurred filter bar pattern used elsewhere; keep pill styling.
+- Replace each topic block:
+  - Section frame becomes a `PageSection` (title = topic label, intro = topic description).
+  - Article list becomes stacked `FeatureItem` rows (title = question, desc = `answersFor`), each wrapped in a `Link` to `/learn/education/<slug>`. No individual bordered `ArticleRow` cards.
+- Empty state stays as a single muted line, no card.
+- Preserve `#topic-id` deep links, hashchange handler, and JSON-LD.
 
-### Shared primitives (no new components this batch)
+---
 
-The current `src/components/system/` primitives already cover Batch 1. If Batches 2–3 surface recurring patterns (verification timeline, evidence panel, facility relationship), they'll be promoted then — not speculatively now.
+### 3. News hub — `src/pages/LearnNews.tsx`
 
-Update `src/components/system/FeatureItem.tsx` doc comment to add the two-mode doctrine so it's the single source of truth future pages read from.
+Feels like a publication — chronological, compact, no giant cards.
 
-### Preserve (non-negotiable)
+- Keep sticky filter chip bar and post count.
+- Replace `NewsRow` bordered cards with a compact list: each item is a link containing a dateline · category meta line, headline, and standfirst, separated by hairline `border-b border-border/40` dividers rather than boxed cards. Rendered inside a single `PageSection` wrapper for spacing.
+- Empty state as a plain muted line.
+- Keep `NextStep primary="learn-education"` and JSON-LD.
 
-Colors, fonts, routes, verification logic, legal disclaimers, all statutory citations, every waypoint ID (deep links must not break), all breadcrumb structure, all `PageMeta`/JSON-LD.
+---
+
+### 4. FAQ hub — `src/pages/LearnFaq.tsx`
+
+- Replace `FaqRow` bordered cards with a `PageSection` containing `FeatureItem` rows (title = label, desc = description), each wrapped in a `Link` to the four Tier D FAQ pages.
+- Preserve routes, order, and JSON-LD.
+- Keep `NextStep primary="contact"`.
+
+---
+
+### 5. Article templates — `src/components/learn/LearnArticleTemplate.tsx`
+
+Small refinements only; do not restructure the article body or break `ArticleHeader` / `ArticleSection`.
+
+- **Related questions** and **Related education** blocks: replace the bare `<ul>` of chevron links with a stacked group of `FeatureItem` rows (title = question, no desc) wrapped in `Link`s, matching sibling hubs. Keep them inside `ArticleSection` so anchor jumps and typography stay intact.
+- No changes to Article/NewsArticle JSON-LD, headers, section numbering, or `NextStep` placement.
+
+Education article body order stays: What this answers → Short answer → Detailed sections → Related questions → Next step. News stays: dateline/category strip → body → Why this matters → Related education → Next step. Both already end on an intentional next step via `NextStep`.
+
+---
+
+### 6. Preserve (non-negotiable)
+
+- Routes: `/learn`, `/learn/education`, `/learn/education/:slug`, `/learn/news`, `/learn/news/:slug`, `/learn/faq`, all legacy `/library/*` and `/education/*` redirects in `src/App.tsx`.
+- All article slugs, deep-link hashes (`#basics`, `#choosing-a-provider`, `#verification`, `#sourcing-and-manufacturing`), Tier D FAQ pages and their content.
+- All `PageMeta` inputs and JSON-LD (`CollectionPage`, `Article`, `NewsArticle`, `FAQPage`), canonical URLs, breadcrumbs.
+- Verification logic, status definitions, `NextStep` targets, legal disclaimers.
+- Data files under `src/data/learn.ts` — content only consumed, not rewritten.
+
+Out of scope: Tier D FAQ page interiors (Batch content freeze), Batch 3 pages, copy rewrites beyond minor clarity fixes on hub intros.
+
+---
+
+### Technical details
+
+- Use only `PageSection`, `FeatureItem`, `NavCard`, `ProcessSteps`, and existing typography tokens from `@/components/system`. Add `Link` wrappers around `FeatureItem`/`NavCard` where interactivity is needed; do not fork the components.
+- No hardcoded colors — HSL semantic tokens only.
+- Sticky filter bars: `sticky top-<nav-offset>` + `backdrop-blur-md` + `bg-background/80`, matching the pattern already used for other filter stacks (per core memory).
+- No new decorative glyphs. `NavCard` glyph slot used only where it communicates meaning (e.g., `check` for verification destination) — not blanketed.
+- No new dependencies. No route additions.
 
 ### Verification
 
-- `bunx tsgo --noEmit`
-- Playwright mobile screenshots (390×1800) of `/about`, `/how-it-works`, `/partners`, `/governance`; verify:
-  - Consumer pages read like the homepage (no bordered card stacks, no `01/04` counters)
-  - Governance retains RecordHeader + DocJumpBar + §-numbering
-  - No spacing/alignment regressions
-  - Anchor jumps still land correctly
-
-### Out of scope (this batch)
-
-Batches 2 (Learn / Status Definitions / education) and 3 (Vendor Profiles / Facility Records / Registry details). Copy rewrites beyond minor clarity fixes. Any homepage changes.
+- `bunx tsgo --noEmit`.
+- Playwright mobile screenshots (390×1800) of `/learn`, `/learn/education`, `/learn/news`, `/learn/faq`, plus one education and one news article, confirming: shared primitives applied, no leftover bordered card stacks on hubs, deep-link hashes still scroll correctly on `/learn/education`, and every hub ends with an intentional next action.
