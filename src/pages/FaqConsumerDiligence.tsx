@@ -1,5 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
-import { Breadcrumb } from "@/components/Breadcrumb";
+import { FaqTopicShell } from "@/components/learn/FaqTopicShell";
 import { FaqPage } from "@/components/library/FaqPage";
 
 const ITEMS = [
@@ -31,17 +31,16 @@ const FaqConsumerDiligence = () => (
       title="What Should I Ask My Provider?"
       description="Questions you can ask your clinic to evaluate sourcing, transparency, and documentation before starting a compounded therapy."
     />
-    <Breadcrumb
-      items={[
-        { label: "Resource Library", to: "/education" },
-        { label: "Consumer Due Diligence" },
-      ]}
-    />
-    <FaqPage
-      title="What Should I Ask My Provider?"
-      intro="Questions you can ask your clinic to evaluate sourcing, transparency, and documentation before starting a compounded therapy."
-      items={ITEMS}
-    />
+    <FaqTopicShell
+      topicLabel="Consumer Diligence"
+      currentPath="/library/faq/consumer-diligence"
+    >
+      <FaqPage
+        title="What Should I Ask My Provider?"
+        intro="Questions you can ask your clinic to evaluate sourcing, transparency, and documentation before starting a compounded therapy."
+        items={ITEMS}
+      />
+    </FaqTopicShell>
   </>
 );
 

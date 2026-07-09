@@ -1,5 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
-import { Breadcrumb } from "@/components/Breadcrumb";
+import { FaqTopicShell } from "@/components/learn/FaqTopicShell";
 import { FaqPage } from "@/components/library/FaqPage";
 
 const ITEMS = [
@@ -31,17 +31,16 @@ const FaqClinicalSafety = () => (
       title="Is a Compounded Therapy Safe?"
       description="What consumers commonly ask about compounded product handling, sourcing, and safety-related claims, and what Source Standard can and cannot tell you."
     />
-    <Breadcrumb
-      items={[
-        { label: "Resource Library", to: "/education" },
-        { label: "Safety & Product" },
-      ]}
-    />
-    <FaqPage
-      title="Is a Compounded Therapy Safe?"
-      intro="What consumers commonly ask about compounded product handling, sourcing, and safety-related claims, and what Source Standard can and cannot tell you."
-      items={ITEMS}
-    />
+    <FaqTopicShell
+      topicLabel="Clinical Safety"
+      currentPath="/library/faq/clinical-safety"
+    >
+      <FaqPage
+        title="Is a Compounded Therapy Safe?"
+        intro="What consumers commonly ask about compounded product handling, sourcing, and safety-related claims, and what Source Standard can and cannot tell you."
+        items={ITEMS}
+      />
+    </FaqTopicShell>
   </>
 );
 
