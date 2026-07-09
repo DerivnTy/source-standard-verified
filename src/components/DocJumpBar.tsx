@@ -400,7 +400,9 @@ const PillContents = ({
                     textShadow: "none",
                   }}
                 >
-                  <span className="tabular-nums text-primary">{w.number.padStart(2, "0")}.</span>
+                  {w.number && (
+                    <span className="tabular-nums text-primary">{w.number.padStart(2, "0")}.</span>
+                  )}
                   <span>{w.label.toUpperCase()}</span>
                 </a>
               </li>
