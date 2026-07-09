@@ -307,7 +307,7 @@ const basics = [
 
 const trustPillars: { icon: "scale" | "handshake" | "graduation-cap"; title: string; desc: string }[] = [
   { icon: "scale", title: "Independent Governance", desc: "Verification standards are set independently of any vendor, manufacturer, or commercial interest." },
-  { icon: "handshake", title: "Advisory Board", desc: "Medical, scientific, and procedural guidance from an independent advisory board." },
+  { icon: "handshake", title: "Advisory Board", desc: "Medical, scientific, and procedural guidance from the independent Medical Advisory Board." },
   { icon: "graduation-cap", title: "Public Standards", desc: "Verification criteria and status definitions are published in full and available for public review." },
 ];
 
