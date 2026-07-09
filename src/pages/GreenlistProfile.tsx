@@ -427,17 +427,10 @@ const GreenlistProfile = () => {
             {/* SECTION 6, Current Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Current Status</SectionLabel>
-              <div
-                className="mt-2 flex items-center font-semibold"
-                style={{ fontSize: "16px", lineHeight: 1.2, color: STATUS_COLOR[status] }}
-              >
-                <span
-                  className="inline-block rounded-full animate-pulse mr-2"
-                  style={{ width: 8, height: 8, backgroundColor: "currentColor" }}
-                />
-                {STATUS_LABEL[status]}
+              <div className="mt-2">
+                <StatusPill status={status as StatusKey} size="md" />
               </div>
-              <p className="mt-5 text-foreground" style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.6 }}>
+              <p className="mt-4 text-foreground" style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.6 }}>
                 {isGreenlisted
                   ? "This facility currently holds Greenlisted status based on successful independent testing activity."
                   : status === "alert"
@@ -453,23 +446,34 @@ const GreenlistProfile = () => {
             {publicRecords.length > 0 && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <SectionLabel>Public Records</SectionLabel>
-                <ul className="mt-3 space-y-2">
+                <ul className="mt-2 divide-y divide-border/60 border-t border-border/60">
                   {publicRecords.map((r) => (
                     <li key={r.url}>
                       <a
                         href={r.url}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="font-sans text-foreground hover:text-primary underline underline-offset-2 decoration-border hover:decoration-foreground"
-                        style={{ fontSize: "16px", fontWeight: 400 }}
+                        className="group flex items-center justify-between gap-4 py-3 -mx-2 px-2 rounded-md transition-colors hover:bg-[hsl(var(--muted))]/40"
                       >
-                        {r.label} →
+                        <span
+                          className="font-sans text-foreground min-w-0 truncate"
+                          style={{ fontSize: "14px", fontWeight: 500 }}
+                        >
+                          {r.label}
+                        </span>
+                        <ArrowRight
+                          aria-hidden
+                          strokeWidth={1.25}
+                          className="shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-[3px] group-hover:text-foreground"
+                          style={{ width: 16, height: 16 }}
+                        />
                       </a>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
+
 
 
 
