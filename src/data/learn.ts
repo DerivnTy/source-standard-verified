@@ -372,7 +372,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "The outcome",
-        body: "When documentation and public records align, the provider receives a Verified record. When they don't, the record reflects the gap, or the provider is not listed.",
+        body: "When documentation and public records align, the vendor receives a Verified record. When they don't, the record reflects the gap, or the vendor does not appear in the registry at all.",
       },
     ],
     relatedQuestions: [
