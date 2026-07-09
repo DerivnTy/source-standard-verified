@@ -8,7 +8,7 @@ import { DefList } from "@/components/DefList";
 type Item = { term: string; description: string };
 
 const CITATION: Item[] = [
-  { term: "Source Standard ID", description: "Include the unique registry identifier associated with the listing, where applicable." },
+  { term: "Source Standard ID", description: "Include the unique registry identifier associated with the record, where applicable." },
   { term: "Status date", description: "Include the date the referenced status was published or last updated." },
   { term: "Attribution", description: "Provide a direct link to the source registry page so the current public record can be reviewed." },
   { term: "Citation integrity", description: "Citations that omit identifying details may misstate the status, scope, or timing of the published record." },

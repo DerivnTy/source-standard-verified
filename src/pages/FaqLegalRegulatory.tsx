@@ -17,7 +17,7 @@ const ITEMS = [
   },
   {
     q: "What actions can Source Standard take regarding a vendor?",
-    a: "Source Standard can update or remove a registry listing based on the information available. It does not have authority over a vendor's ability to operate; that authority rests with regulators.",
+    a: "Source Standard can update or remove a registry record based on the information available. It does not have authority over a vendor's ability to operate; that authority rests with regulators.",
   },
   {
     q: "Does Source Standard provide legal advice?",

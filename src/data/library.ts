@@ -111,7 +111,7 @@ export const librarySeries: LibraryEntry[] = [
     lane: "series",
     title: "What Source Standard Verification Actually Means",
     summary:
-      "The scope, limits, and reviewable evidence behind a verified listing in the Source Standard registry.",
+      "The scope, limits, and reviewable evidence behind a verified record in the Source Standard registry.",
     status: "outlined",
   },
   {
@@ -209,7 +209,7 @@ export const libraryFaqs: FAQEntry[] = [
     id: "SS-FAQ-005",
     group: "verification",
     q: "What is the difference between Verified and Under Review?",
-    a: "Verified indicates the registry has accepted documented evidence supporting the listing. Under Review indicates the file is open and being evaluated, with no determination yet recorded.",
+    a: "Verified indicates the registry has accepted documented evidence supporting the record. Under Review indicates the file is open and being evaluated, with no determination yet recorded.",
   },
   {
     id: "SS-FAQ-006",
@@ -228,7 +228,7 @@ export const libraryFaqs: FAQEntry[] = [
     id: "SS-FAQ-008",
     group: "methodology",
     q: "How often is the registry updated?",
-    a: "The registry is reviewed on a continuous basis. Listings are updated as new documentation, status changes, or reported concerns are processed.",
+    a: "The registry is reviewed on a continuous basis. Records are updated as new documentation, status changes, or reported concerns are processed.",
   },
   {
     id: "SS-FAQ-009",

@@ -161,7 +161,7 @@ export const SiteFooter = () => {
             style={{ color: "rgba(255,255,255,0.40)", fontSize: "11px", lineHeight: 1.6 }}
           >
             Source Standard is an independent public-reference and verification
-            framework for compounded therapy vendor sourcing claims. Listings
+            framework for compounded therapy vendor sourcing claims. Records
             reflect documentation reviewed within a defined scope and at a
             defined point in time. Verification does not constitute medical
             advice, regulatory approval, product approval, treatment

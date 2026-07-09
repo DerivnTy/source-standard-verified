@@ -14,7 +14,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
     <>
       <PageMeta
         title="Understanding Verification Scope · Source Standard"
-        description="What a Verified listing in the Source Standard registry establishes, and what it does not establish."
+        description="What a Verified record in the Source Standard registry establishes, and what it does not establish."
       />
       <Breadcrumb
         items={[
@@ -25,7 +25,7 @@ const LibraryAnalysisMeaningOfVerification = () => {
       <ArticleHeader
         eyebrow="Source Standard · Public Reference"
         title="Understanding Verification Scope"
-        lead="A neutral disclosure of what a Verified listing in the Source Standard registry establishes, what it does not establish, and how status may change over time."
+        lead="A neutral disclosure of what a Verified record in the Source Standard registry establishes, what it does not establish, and how status may change over time."
         metadata={[
           { label: "Updated", value: "04 / 21 / 2026" },
           { label: "Status", value: "Public Reference" },
@@ -76,15 +76,15 @@ const LibraryAnalysisMeaningOfVerification = () => {
           items={[
             { term: "Records may be updated", description: "Registry records may be updated as new information becomes available." },
             { term: "Documentation may change", description: "Supporting documentation, sourcing relationships, or public claims may change over time." },
-            { term: "Status may change", description: "A listing's status may be updated, suspended, or removed based on subsequent review." },
-            { term: "New evidence may affect public records", description: "New information made available to Source Standard may affect the public record associated with a listing." },
+            { term: "Status may change", description: "A record's status may be updated, suspended, or removed based on subsequent review." },
+            { term: "New evidence may affect public records", description: "New information made available to Source Standard may affect the public record associated with a record." },
           ]}
         />
       </ArticleSection>
 
       <ArticleSection title="Key Takeaway">
         <p className="text-foreground font-medium">
-          A Verified listing reflects a documentation and sourcing-claim review at a point in time. It does not establish product safety, clinical effectiveness, regulatory approval, or future compliance. The public record may change as new information becomes available.
+          A Verified record reflects a documentation and sourcing-claim review at a point in time. It does not establish product safety, clinical effectiveness, regulatory approval, or future compliance. The public record may change as new information becomes available.
         </p>
       </ArticleSection>
 

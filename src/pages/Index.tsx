@@ -493,11 +493,11 @@ const Index = () => {
         </div>
       </PageSection>
 
-      {/* Record fields — what a listing shows. Reference material, tight rhythm. */}
+      {/* Record fields — what a record shows. Reference material, tight rhythm. */}
       <PageSection
         id="registry-shows"
         compact
-        title="What Will I See in a Listing?"
+        title="What Will I See in a Record?"
       >
         <dl
           className="divide-y divide-border/60 border-t border-b border-border/60"
