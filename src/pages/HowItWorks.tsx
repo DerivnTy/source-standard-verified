@@ -67,21 +67,6 @@ const HowItWorks = () => {
         docId=""
       />
 
-      {/* Document metadata */}
-      <div className="border-b border-border/60 bg-background">
-        <div className="page-shell">
-          <div
-            className="mx-auto w-standard flex flex-wrap items-center gap-x-8 gap-y-2 py-3 font-mono uppercase text-muted-foreground/80"
-            style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-          >
-            <span>Doc SS-HIW-2026.01</span>
-            <span aria-hidden>·</span>
-            <span>Version 2026.01</span>
-            <span aria-hidden>·</span>
-            <span>Last reviewed 04/20/2026</span>
-          </div>
-        </div>
-      </div>
 
       {/* Movement 1 — Definition. Dictionary-style opening. No section heading. */}
       <section className="border-b border-border bg-background" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
