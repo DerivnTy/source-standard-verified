@@ -43,7 +43,14 @@ export const ArticleSection = ({
       <section id={id} className="scroll-mt-24 bg-background" style={{ paddingTop: "28px" }}>
         <div className="page-shell">
           <div className="mx-auto w-reading-wide">
-            <div style={{ ...cardChrome, padding: "20px 24px" }}>
+            <div
+              style={{
+                border: "0.5px solid hsl(var(--border))",
+                background: "hsl(var(--muted) / 0.35)",
+                borderRadius: "8px",
+                padding: "16px 20px",
+              }}
+            >
               {kind && (
                 <p
                   className="font-mono uppercase text-muted-foreground"
@@ -71,21 +78,18 @@ export const ArticleSection = ({
   // ── Prose (editorial, no card) ──────────────────────────────
   if (variant === "prose") {
     return (
-      <section id={id} className="scroll-mt-24 bg-background" style={{ paddingTop: "28px" }}>
+      <section id={id} className="scroll-mt-24 bg-background" style={{ paddingTop: "24px" }}>
         <div className="page-shell">
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
             {title && (
               <h2
                 className="t-section-title-sm text-foreground"
-                style={{ marginBottom: "10px" }}
+                style={{ marginBottom: "8px" }}
               >
                 {title}
               </h2>
             )}
-            <div
-              className="text-muted-foreground"
-              style={{ fontSize: "15.5px", lineHeight: 1.65 }}
-            >
+            <div className="t-article-prose">
               {children}
             </div>
           </div>
@@ -93,6 +97,7 @@ export const ArticleSection = ({
       </section>
     );
   }
+
 
   // ── Card (default, backward-compatible) ───────────────────────
   return (
