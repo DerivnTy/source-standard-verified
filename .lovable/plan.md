@@ -1,27 +1,32 @@
 
-## Change
+## Changes
 
-Remove per-item icons from the two `FeatureItem variant="block"` sections on the homepage. The section-level glyph next to each heading already establishes context; repeating icons on every child item adds vertical space and visual noise without improving comprehension.
+### 1. Drop the hollow-circle glyph from "What Will I See in a Listing?"
 
-Affected sections in `src/pages/Index.tsx`:
+In `src/pages/Index.tsx`, remove `icon="circle"` from the Registry Fields `PageSection`. The heading text sits alone; the checklist's `check` glyphs remain (they carry meaning: "included in every listing"). No conflicting iconography.
 
-- **"Who Is This For?"** — drop the icons on For consumers · For providers · For the industry.
-- **"Who Stands Behind This?"** — drop the icons on Independent Governance · Advisory Board · Public Standards.
+### 2. Confirm no duplicate section glyphs in Audience / Governance
 
-## Implementation
+The previous pass removed per-item icons from `FeatureItem variant="block"` in the Audience and Governance sections. Re-verify `src/pages/Index.tsx` renders `<FeatureItem title=... desc=... variant="block" />` with **no** `icon` prop for both sections. If any residual `icon={...}` prop remains, remove it. `FeatureItem` already skips the icon slot cleanly when `icon` is absent.
 
-`FeatureItem` currently requires `icon`. Make it optional (`icon?: GlyphName`). When absent:
-- `variant="block"`: skip the top icon slot entirely (no reserved space, no `margin-bottom` gap).
-- `variant="row"`: skip the left gutter — title/desc fill the row.
+## Icon hierarchy (going forward)
 
-Then in `Index.tsx`, drop the `icon` prop from the six items in those two sections. The Registry Fields checklist keeps its `check` icons (they carry meaning — "included in every listing").
+Codify the rule in the `FeatureItem` and `PageSection` doc comments so future work respects it:
+
+- Section headings: at most one contextual glyph, only if it improves recognition.
+- Checklist items: `check` only.
+- Navigation: chevrons/arrows only.
+- Trust pillars: no repeated section glyphs.
+- Never show the same icon twice within a section.
 
 ## Verification
 
 - `bunx tsgo --noEmit` clean.
-- Playwright at 390×779 and 1280×1800: screenshot both sections. Confirm titles now sit flush at the left edge of the block, spacing feels tighter, and the section glyph still provides context in the heading row.
-- Registry Fields checklist unchanged.
+- Playwright at 390×779: screenshot Registry Fields, Audience, Governance sections. Confirm:
+  - Registry Fields heading has no glyph; checklist keeps its checks.
+  - Audience heading shows `handshake` once; child items have no icons.
+  - Governance heading shows `scale` once; child pillars have no icons.
 
 ## Not in scope
 
-Section headings, glyphs, copy, other sections, other pages.
+Other sections, other pages, copy, colors, typography.
