@@ -77,7 +77,7 @@ const HowItWorks = () => {
               className="text-foreground"
               style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
             >
-              <span className="font-semibold">Verification</span> is a public reference standard. It gives consumers a consistent way to see whether a compounding pharmacy or clinic has undergone independent review of the sourcing information it publishes.
+              <span className="font-semibold">Verification</span> is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. <span className="font-semibold">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
             </p>
             <p
               className="text-muted-foreground"
