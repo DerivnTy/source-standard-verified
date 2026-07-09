@@ -1,7 +1,8 @@
 /**
  * Sitemap generator — head-only SEO infra.
  * Writes public/sitemap.xml with absolute URLs for all public routes,
- * vendor profiles, greenlist profiles, advisor profiles, and library entries.
+ * vendor profiles, greenlist profiles, advisor profiles, and Learn
+ * (education + news) articles.
  *
  * Usage: bun scripts/generate-sitemap.ts
  * Wired into npm `prebuild` so production builds always ship a fresh sitemap.
@@ -9,13 +10,14 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const SITE_URL = process.env.VITE_SITE_URL?.replace(/\/$/, "") || "https://sourcestandard.org";
+const SITE_URL = process.env.VITE_SITE_URL?.replace(/\/$/, "") || "https://www.sourcestandard.org";
 
 type Url = { loc: string; changefreq?: string; priority?: string; lastmod?: string };
 
 const today = new Date().toISOString().slice(0, 10);
 
-// Static public routes (mirrors App.tsx)
+// Static public routes (mirrors App.tsx). Retired /education/* and
+// /library/* routes are intentionally omitted — they 301 to /learn/*.
 const staticRoutes: string[] = [
   "/",
   "/about",
@@ -25,28 +27,19 @@ const staticRoutes: string[] = [
   "/verified-vendors",
   "/directory",
   "/for-vendors",
-  "/education",
-  "/education/basics",
-  "/education/guides",
-  "/education/questions",
-  "/library/what-is-compounding",
-  "/library/what-are-peptides",
-  "/library/interpreting-coas",
-  "/library/dual-layer-difference",
-  "/library/sterile-preparation-integrity",
-  "/library/aseptic-technique",
-  "/library/endocrinological-context",
-  "/library/reference-dosing-ranges",
-  "/library/analysis/2026-reclassification",
-  "/library/analysis/questions-for-your-clinic",
-  "/library/analysis/meaning-of-verification",
-  "/library/analysis/undocumented-sourcing-signs",
-  "/library/sourcing",
-  "/library/clinical",
-  "/library/consumer",
+
+  // Learn universe
+  "/learn",
+  "/learn/education",
+  "/learn/news",
+  "/learn/faq",
+
+  // Tier D FAQ pages (still live at their /library/faq paths)
   "/library/faq/legal-regulatory",
   "/library/faq/clinical-safety",
   "/library/faq/verification-process",
+  "/library/faq/consumer-diligence",
+
   "/governance",
   "/contact",
   "/accountability",
@@ -61,11 +54,10 @@ const staticRoutes: string[] = [
 ];
 
 async function main() {
-  // Dynamic data — imported from source modules.
   const { vendors } = await import("../src/data/vendors");
   const { greenlistEntries } = await import("../src/data/greenlist");
   const { advisoryBoard } = await import("../src/data/advisoryBoard");
-  const { librarySeries, libraryGuides } = await import("../src/data/library");
+  const { EDUCATION_ARTICLES, NEWS_ARTICLES } = await import("../src/data/learn");
 
   const urls: Url[] = [];
 
@@ -108,13 +100,21 @@ async function main() {
     });
   }
 
-  for (const e of [...librarySeries, ...libraryGuides]) {
-    if (!e.slug) continue;
+  for (const e of EDUCATION_ARTICLES) {
     urls.push({
-      loc: `${SITE_URL}/education/${e.slug}`,
+      loc: `${SITE_URL}/learn/education/${e.slug}`,
       changefreq: "monthly",
-      priority: "0.5",
-      lastmod: today,
+      priority: "0.6",
+      lastmod: e.updated,
+    });
+  }
+
+  for (const n of NEWS_ARTICLES) {
+    urls.push({
+      loc: `${SITE_URL}/learn/news/${n.slug}`,
+      changefreq: "monthly",
+      priority: "0.6",
+      lastmod: n.dateline,
     });
   }
 
