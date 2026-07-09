@@ -201,8 +201,8 @@ const MedicalAdvisory = () => {
       />
 
       <PageMeta
-        title="Clinical Oversight · Source Standard"
-        description="Independent medical, pharmacy, legal, and procedural advisors supporting the integrity, neutrality, and evidentiary standards of the Source Standard framework."
+        title="Who Advises Source Standard? · Source Standard"
+        description="Independent experts who help ensure Source Standard's verification framework stays objective, consistent, and worthy of public trust."
       />
 
       {/* §1 Hero — restrained */}
@@ -210,8 +210,8 @@ const MedicalAdvisory = () => {
         tone="navy"
         variant="chapter"
         category="Medical Advisory Board"
-        title="Clinical Oversight"
-        statement="Independent medical, pharmacy, legal, and procedural advisors supporting the integrity, neutrality, and evidentiary standards of the Source Standard framework."
+        title="Who Advises Source Standard?"
+        statement="Independent experts who help ensure Source Standard's verification framework stays objective, consistent, and worthy of public trust."
         docId=""
       />
 

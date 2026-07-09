@@ -35,7 +35,7 @@ const waypoints = [
 const Governance = () => (
   <>
     <PageMeta
-      title="Regulatory Alignment & Oversight"
+      title="Who Oversees Source Standard?"
       description="Source Standard governance: statutory anchors, clinical advisory oversight, and the institutional posture of organizational neutrality."
     />
     <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Governance" }]} />
@@ -49,8 +49,8 @@ const Governance = () => (
       ]}
       verifiedOn={VERIFIED_ON}
       eyebrow="Governance & oversight"
-      title="Regulatory Alignment & Oversight"
-      lead="Institutional framework anchored to publicly citable statutory and compendial authorities, maintained under licensed clinical oversight and a posture of organizational neutrality."
+      title="Who Oversees Source Standard?"
+      lead="How Source Standard stays independent, objective, and accountable."
       summary={[
         { label: "Advisory body of record", value: "Clinical" },
         { label: "Anchored authorities", value: authorities.length.toString().padStart(2, "0") },
