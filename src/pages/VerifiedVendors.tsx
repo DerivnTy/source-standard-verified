@@ -661,7 +661,6 @@ const VerifiedVendors = () => {
                             status={vendor.status === "verified" ? "verified" : "unverified"}
                             chip={specialty?.toUpperCase()}
                             metaLeft={metaParts.join(" · ")}
-                            metaRight={vendor.state ?? undefined}
                             ariaLabel={`${vendor.name}${specialty ? `, ${specialty}` : ""}`}
                           />
                         </li>
