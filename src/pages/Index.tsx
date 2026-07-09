@@ -443,7 +443,7 @@ const Index = () => {
       {/* Mission — thesis of the site. Two paragraphs, one heading, one section. */}
       <PageSection
         id="mission"
-        title="Why Does This Exist?"
+        title="Why Do We Exist?"
       >
         <div className="flex flex-col gap-4" style={{ maxWidth: "64ch" }}>
           <p
