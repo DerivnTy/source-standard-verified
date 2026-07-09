@@ -85,9 +85,9 @@ export const SiteFooter = () => {
       <footer
         className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
       >
-        <div className="page-shell pt-6 md:pt-10 lg:pt-12 pb-6 md:pb-12 lg:pb-10">
+        <div className="page-shell pt-10 md:pt-14 lg:pt-16 pb-6 md:pb-12 lg:pb-10">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 lg:gap-x-12 gap-y-9 md:gap-y-12 items-start text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10 md:gap-y-14 items-start text-left">
             <div className="lg:col-span-1">
               <Logo variant="light" className="h-6" />
             </div>
@@ -95,12 +95,12 @@ export const SiteFooter = () => {
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-3 md:mb-4 t-utility-xs"
+                  className="mb-4 md:mb-5 t-utility-xs"
                   style={{ color: "rgba(255,255,255,0.92)" }}
                 >
                   {col.title}
                 </p>
-                <ul className="space-y-2 md:space-y-2.5">
+                <ul className="space-y-1.5 md:space-y-2">
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
