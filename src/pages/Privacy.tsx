@@ -1,443 +1,152 @@
+import { ReactNode } from "react";
 import { PageMeta } from "@/components/PageMeta";
-import { Breadcrumb } from "@/components/Breadcrumb";
-import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
-import { BriefingHero } from "@/components/BriefingHero";
+import { ArticleHeader } from "@/components/ArticleHeader";
+import { ArticleSection } from "@/components/ArticleSection";
 
-const WAYPOINTS = [
-  { id: "partitioning", number: "01", label: "Classification" },
-  { id: "collection", number: "02", label: "Sources" },
-  { id: "retention", number: "03", label: "Retention" },
-  { id: "processing", number: "04", label: "Use" },
-  { id: "inquiries", number: "05", label: "Requests" },
-];
+type Item = { term: string; description: string };
 
-type Clause = { n: string; t: string; d: string };
-
-const PARTITIONING: Clause[] = [
+const PARTITIONING: Item[] = [
   {
-    n: "01",
-    t: "Public registry data",
-    d: "Public registry records may include vendor identity, facility relationships, status classifications, review scope, status history, and other information published to support transparency and public understanding.",
+    term: "Public registry data",
+    description:
+      "Vendor identity, facility relationships, status classifications, review scope, status history, and other information published to support transparency and public understanding.",
   },
   {
-    n: "02",
-    t: "Protected review materials",
-    d: "Protected review materials may include invoices, sourcing records, facility documentation, certificates of analysis, licensing materials, submitted evidence, internal review materials, concern reports, and other records used to support verification activities.",
+    term: "Protected review materials",
+    description:
+      "Invoices, sourcing records, facility documentation, certificates of analysis, licensing materials, submitted evidence, internal review materials, concern reports, and other records used to support verification activities.",
   },
   {
-    n: "03",
-    t: "Independent verification records",
-    d: "Independent verification records may include laboratory testing reports, chain-of-custody records, product acquisition records, manufacturer testing records, facility monitoring records, verification investigations, testing-triggered reviews, and other verification-generated evidence produced by Source Standard.",
+    term: "Independent verification records",
+    description:
+      "Laboratory testing reports, chain-of-custody records, product acquisition records, manufacturer testing records, facility monitoring records, and other verification-generated evidence produced by Source Standard.",
   },
   {
-    n: "04",
-    t: "Access restriction",
-    d: "Protected review materials and independent verification records are maintained within restricted environments and are accessible only to authorized personnel and approved infrastructure partners operating under confidentiality and access-control requirements.",
+    term: "Access restriction",
+    description:
+      "Protected review materials and independent verification records are maintained within restricted environments and are accessible only to authorized personnel and approved infrastructure partners operating under confidentiality and access-control requirements.",
   },
 ];
 
-const COLLECTION: Clause[] = [
-  {
-    n: "01",
-    t: "Vendor intake",
-    d: "Business credentials, operating details, sourcing records, facility relationship documentation, and related materials submitted for verification or review.",
-  },
-  {
-    n: "02",
-    t: "Monitoring data",
-    d: "Records associated with vendor monitoring, facility monitoring, manufacturer monitoring, testing-triggered review activity, public-record monitoring, and supply-chain monitoring conducted under the framework.",
-  },
-  {
-    n: "03",
-    t: "Concern reports",
-    d: "Supporting documentation and contact details submitted through the public reporting channel.",
-  },
-  {
-    n: "04",
-    t: "Verification activity",
-    d: "Records generated through documentation review, evidence assessment, status review, monitoring activity, and registry maintenance processes.",
-  },
-  {
-    n: "05",
-    t: "Site analytics",
-    d: "Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems.",
-  },
-  {
-    n: "06",
-    t: "Independent testing activity",
-    d: "Source Standard may generate records through product acquisition, laboratory analysis, chain-of-custody tracking, facility testing, manufacturer testing, verification investigations, and supply-chain monitoring.",
-  },
+const COLLECTION: Item[] = [
+  { term: "Vendor intake", description: "Business credentials, operating details, sourcing records, facility relationship documentation, and related materials submitted for verification or review." },
+  { term: "Monitoring data", description: "Records associated with vendor monitoring, facility monitoring, manufacturer monitoring, testing-triggered review activity, public-record monitoring, and supply-chain monitoring conducted under the framework." },
+  { term: "Concern reports", description: "Supporting documentation and contact details submitted through the public reporting channel." },
+  { term: "Verification activity", description: "Records generated through documentation review, evidence assessment, status review, monitoring activity, and registry maintenance processes." },
+  { term: "Site analytics", description: "Site usage may be monitored through aggregate, non-identifying signals. Source Standard does not rely on advertising trackers or cross-site identification systems." },
+  { term: "Independent testing activity", description: "Records generated through product acquisition, laboratory analysis, chain-of-custody tracking, facility testing, manufacturer testing, verification investigations, and supply-chain monitoring." },
 ];
 
-const RETENTION: Clause[] = [
-  {
-    n: "01",
-    t: "Active records",
-    d: "Protected review materials may be retained for the duration of an entity's active status in the registry and for the period reasonably necessary to administer review, renewal, record maintenance, and related compliance processes.",
-  },
-  {
-    n: "02",
-    t: "Status history",
-    d: "Public status transitions and related public record history may be retained to preserve the integrity and continuity of the registry timeline.",
-  },
-  {
-    n: "03",
-    t: "Withdrawn or closed submissions",
-    d: "Documentation associated with withdrawn, denied, closed, or incomplete submissions may be held for a limited administrative period before secure disposal.",
-  },
-  {
-    n: "04",
-    t: "Secure disposal",
-    d: "Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to reduce the risk of unauthorized recovery.",
-  },
+const RETENTION: Item[] = [
+  { term: "Active records", description: "Protected review materials may be retained for the duration of an entity's active status in the registry and for the period reasonably necessary to administer review, renewal, record maintenance, and related compliance processes." },
+  { term: "Status history", description: "Public status transitions and related public record history may be retained to preserve the integrity and continuity of the registry timeline." },
+  { term: "Withdrawn or closed submissions", description: "Documentation associated with withdrawn, denied, closed, or incomplete submissions may be held for a limited administrative period before secure disposal." },
+  { term: "Secure disposal", description: "Sensitive records scheduled for deletion are disposed of through documented internal procedures designed to reduce the risk of unauthorized recovery." },
 ];
 
-// --- Local primitives ---
-
-const cardChrome = {
-  backgroundColor: "hsl(var(--card))",
-  border: "0.5px solid hsl(var(--border))",
-  borderRadius: "12px",
-} as const;
-
-const Eyebrow = ({ children }: { children: React.ReactNode }) => (
-  <p
-    className="font-mono uppercase text-muted-foreground"
-    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
+/**
+ * DefList — quiet editorial definition list.
+ * Hairline top/bottom, hairline divider between rows. No card-per-row.
+ */
+export const DefList = ({ items }: { items: { term: ReactNode; description: ReactNode }[] }) => (
+  <dl
+    className="mt-4"
+    style={{
+      borderTop: "0.5px solid hsl(var(--border))",
+      borderBottom: "0.5px solid hsl(var(--border))",
+    }}
   >
-    {children}
-  </p>
-);
-
-const SectionHeader = ({
-  index,
-  title,
-  intro,
-}: {
-  index: string;
-  title: string;
-  intro: string;
-}) => (
-  <div className="mb-5">
-    <div className="flex items-baseline" style={{ gap: "12px" }}>
-      <span
-        className="font-mono tabular-nums shrink-0"
+    {items.map((it, i) => (
+      <div
+        key={i}
         style={{
-          fontSize: "12px",
-          fontWeight: 500,
-          letterSpacing: "0.04em",
-          color: "rgba(0,0,0,0.40)",
+          padding: "14px 0",
+          borderTop: i === 0 ? "none" : "0.5px solid hsl(var(--border) / 0.6)",
         }}
       >
-        {index}
-      </span>
-      <h2
-        className="font-sans text-foreground"
-        style={{
-          fontSize: "24px",
-          fontWeight: 700,
-          lineHeight: 1.15,
-          letterSpacing: "-0.02em",
-          color: "#0A0A0A",
-        }}
-      >
-        {title}
-      </h2>
-    </div>
-    <p
-      className="mt-3 text-muted-foreground"
-      style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
-    >
-      {intro}
-    </p>
-  </div>
+        <dt
+          className="font-sans text-foreground"
+          style={{ fontSize: "15px", fontWeight: 600, lineHeight: 1.35 }}
+        >
+          {it.term}
+        </dt>
+        <dd
+          className="text-muted-foreground"
+          style={{ fontSize: "14.5px", lineHeight: 1.6, marginTop: "4px", marginLeft: 0 }}
+        >
+          {it.description}
+        </dd>
+      </div>
+    ))}
+  </dl>
 );
-
-const PrivacyCard = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ ...cardChrome, padding: "24px" }}>{children}</div>
-);
-
-const PrivacyRow = ({
-  index,
-  total,
-  title,
-  description,
-}: {
-  index: string;
-  total: string;
-  title: string;
-  description: string;
-}) => (
-  <div style={{ ...cardChrome, padding: "14px 16px" }}>
-    <div className="flex items-baseline justify-between gap-4">
-      <h3
-        className="font-sans font-semibold text-foreground min-w-0"
-        style={{ fontSize: "14px", lineHeight: 1.3 }}
-      >
-        {title}
-      </h3>
-      <span
-        className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-      >
-        {index} / {total}
-      </span>
-    </div>
-    <p
-      className="text-muted-foreground"
-      style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
-    >
-      {description}
-    </p>
-  </div>
-);
-
-const ContactLine = ({
-  label,
-  email,
-}: {
-  label: string;
-  email: string;
-}) => (
-  <div
-    style={{ ...cardChrome, padding: "12px 14px", marginTop: "16px" }}
-    className="flex items-center justify-between gap-4 flex-wrap"
-  >
-    <span
-      className="font-mono uppercase text-muted-foreground"
-      style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-    >
-      {label}
-    </span>
-    <a
-      href={`mailto:${email}`}
-      className="font-sans font-semibold text-primary hover:underline"
-      style={{ fontSize: "11px" }}
-    >
-      {email}
-    </a>
-  </div>
-);
-
-// --- Page ---
 
 const Privacy = () => {
-  const heroDescription =
-    "The governance framework governing how Source Standard collects, stores, protects, and administers registry records, review materials, and verification-related information.";
+  const lead =
+    "How Source Standard collects, stores, protects, and administers registry records, review materials, and verification-related information.";
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Legal" }, { label: "Privacy" }]} />
+      <PageMeta title="Privacy" description={lead} />
 
-      <PageMeta title="Privacy" description={heroDescription} />
-
-      {/* Hero */}
-      <BriefingHero
-        tone="navy"
-        variant="chapter"
-        category="Data Governance Protocol"
-        title="Data Governance & Privacy"
-        statement={heroDescription}
-        docId=""
+      <ArticleHeader
+        category="Policy · Privacy"
+        title="Privacy"
+        lead={lead}
+        backHref="/"
+        backLabel="Back to Home"
       />
 
-      {/* Contents nav */}
-      <SectionAnchorNav waypoints={WAYPOINTS} />
+      <ArticleSection variant="prose">
+        <p>
+          Source Standard maintains two distinct information environments: public-reference records that support transparency, and protected review materials that support verification. This policy describes how those records are collected, maintained, protected, and administered throughout the verification lifecycle.
+        </p>
+        <p>
+          The goal of this framework is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.
+        </p>
+      </ArticleSection>
 
-      <div className="bg-background">
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            {/* §1 Purpose */}
-            <section
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "36px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <PrivacyCard>
-                <Eyebrow>Data Governance</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">
-                  How data is handled under the framework
-                </h2>
-                <div
-                  style={{
-                    marginTop: "16px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                  }}
-                >
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Source Standard maintains two distinct information environments: public-reference records that support transparency and protected review materials that support verification. This framework defines how those records are collected, maintained, protected, and administered throughout the verification lifecycle.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    This page explains what is collected, how records are separated, how long materials may be retained, and the limits under which data may be processed.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    The goal of this protocol is to preserve the integrity of the public record while limiting access to sensitive review materials that are not published as part of the registry.
-                  </p>
-                </div>
-              </PrivacyCard>
-            </section>
+      <ArticleSection variant="prose" title="What information we maintain">
+        <p>How public registry information is separated from protected review materials.</p>
+        <DefList items={PARTITIONING} />
+      </ArticleSection>
 
-            {/* §2 Information Classification */}
-            <section
-              id="partitioning"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <SectionHeader
-                index="01"
-                title="Information Classification"
-                intro="How public registry information is separated from protected review materials."
-              />
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {PARTITIONING.map((c) => (
-                  <PrivacyRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
-                ))}
-              </div>
-            </section>
+      <ArticleSection variant="prose" title="How records are collected">
+        <p>Categories of information that may be collected under the framework.</p>
+        <DefList items={COLLECTION} />
+      </ArticleSection>
 
-            {/* §3 Information Sources */}
-            <section
-              id="collection"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <SectionHeader
-                index="02"
-                title="Information Sources"
-                intro="What categories of data may be collected under the framework."
-              />
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {COLLECTION.map((c) => (
-                  <PrivacyRow key={c.n} index={c.n} total="06" title={c.t} description={c.d} />
-                ))}
-              </div>
-            </section>
+      <ArticleSection variant="prose" title="Retention">
+        <p>How long records are maintained under different conditions.</p>
+        <DefList items={RETENTION} />
+      </ArticleSection>
 
-            {/* §4 Data Retention */}
-            <section
-              id="retention"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <SectionHeader
-                index="03"
-                title="Data Retention"
-                intro="How long records are maintained under different conditions."
-              />
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {RETENTION.map((c) => (
-                  <PrivacyRow key={c.n} index={c.n} total="04" title={c.t} description={c.d} />
-                ))}
-              </div>
-            </section>
+      <ArticleSection variant="prose" title="Access and use">
+        <p>
+          Information maintained by Source Standard is used solely to support verification activities, registry administration, monitoring processes, public-reference records, operational infrastructure, and related governance functions. Access is limited to authorized personnel and approved service providers operating under confidentiality obligations.
+        </p>
+      </ArticleSection>
 
-            {/* §5 Authorized Use */}
-            <section
-              id="processing"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <PrivacyCard>
-                <Eyebrow>04 · Authorized Use</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">Authorized Use</h2>
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
-                >
-                  How data may be used in support of the framework.
-                </p>
-                <div
-                  style={{
-                    marginTop: "16px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                  }}
-                >
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Information maintained by Source Standard is used solely to support verification activities, registry administration, monitoring processes, public-reference records, operational infrastructure, and related governance functions. Access is limited to authorized personnel and approved service providers operating under confidentiality obligations.
-                  </p>
-                </div>
-              </PrivacyCard>
-            </section>
+      <ArticleSection variant="prose" title="Privacy requests">
+        <p>
+          Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework&rsquo;s record-retention obligations. Deletion requests are reviewed in light of the organization&rsquo;s need to preserve legitimate administrative, legal, and historical recordkeeping obligations.
+        </p>
+      </ArticleSection>
 
-            {/* §6 Privacy Requests */}
-            <section
-              id="inquiries"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <PrivacyCard>
-                <Eyebrow>05 · Requests</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">Privacy Requests</h2>
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
-                >
-                  How privacy-related requests may be made.
-                </p>
-                <div
-                  style={{
-                    marginTop: "16px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                  }}
-                >
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Individuals may request access to or correction of personal data held by Source Standard where applicable under law and within the limits of the framework's record-retention obligations.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Deletion requests are reviewed in light of the organization's need to preserve legitimate administrative, legal, and historical recordkeeping obligations.
-                  </p>
-                </div>
-                <ContactLine label="Data Privacy Officer" email="privacy@sourcestandard.org" />
-              </PrivacyCard>
-            </section>
+      <ArticleSection variant="callout" kind="Contact" title="Data requests or questions">
+        <p>
+          Privacy inquiries may be directed to{" "}
+          <a
+            href="mailto:privacy@sourcestandard.org"
+            className="text-foreground font-medium hover:text-primary"
+          >
+            privacy@sourcestandard.org
+          </a>
+          .
+        </p>
+      </ArticleSection>
 
-            {/* §7 Closing */}
-            <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
-              <PrivacyCard>
-                <Eyebrow>Information Integrity</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">
-                  Public transparency requires disciplined stewardship.
-                </h2>
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
-                >
-                  The purpose of this framework is to balance transparency with responsible stewardship of sensitive information. Public records exist to improve visibility into sourcing transparency, manufacturer relationships, facility relationships, testing activity, status history, and supply-chain transparency. Protected review materials and independent verification records exist to support evidence-based review while preserving privacy, security, and verification integrity.
-                </p>
-              </PrivacyCard>
-            </section>
-          </div>
-        </div>
-      </div>
+      <div style={{ paddingBottom: "80px" }} />
     </>
   );
 };
