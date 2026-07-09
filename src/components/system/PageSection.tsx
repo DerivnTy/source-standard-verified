@@ -43,6 +43,7 @@ export const PageSection = ({
   bordered?: boolean;
   compact?: boolean;
   className?: string;
+  pb?: string;
 }) => {
   const padY = compact ? "20px" : "28px";
   const introMarginTop = compact ? "8px" : "10px";
