@@ -10,6 +10,7 @@ const HERO_STATEMENT =
   "The public education library from Source Standard. Consumer-first answers to the questions that come up before you choose a provider — and timely updates about what's changing in compounded therapy.";
 
 const PILLARS: {
+  eyebrow: string;
   title: string;
   description: string;
   to: string;
@@ -17,6 +18,7 @@ const PILLARS: {
   meta: string;
 }[] = [
   {
+    eyebrow: "Learn the Basics",
     title: "Education",
     description:
       "Timeless answers to the questions people ask before they choose a provider. Organized by topic, written for consumers, updated when the facts change.",
@@ -25,6 +27,7 @@ const PILLARS: {
     meta: `${EDUCATION_ARTICLES.length} articles`,
   },
   {
+    eyebrow: "Current Updates",
     title: "News & Insights",
     description:
       "Reporting, commentary, and regulatory updates on compounded medications. What changed, what it means, and where it does — and doesn't — affect consumers.",
@@ -33,6 +36,7 @@ const PILLARS: {
     meta: `${NEWS_ARTICLES.length} posts`,
   },
   {
+    eyebrow: "Common Questions",
     title: "Frequently Asked Questions",
     description:
       "Structured answers to the direct questions we receive most often — legal, clinical, verification, and consumer diligence.",
@@ -52,7 +56,13 @@ const PillarCard = ({ p }: { p: (typeof PILLARS)[number] }) => (
       padding: "28px",
     }}
   >
-    <div className="flex items-start justify-end gap-3">
+    <div className="flex items-start justify-between gap-3">
+      <p
+        className="font-sans font-semibold uppercase text-foreground"
+        style={{ fontSize: "11px", letterSpacing: "0.02em" }}
+      >
+        {p.eyebrow}
+      </p>
       <p
         className="font-mono uppercase text-muted-foreground tabular-nums"
         style={{ fontSize: "10px", letterSpacing: "0.06em" }}
