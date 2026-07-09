@@ -424,7 +424,7 @@ const Greenlist = () => {
                         <span className="text-foreground/85" style={{ fontWeight: 600 }}>
                           {s.label}
                         </span>
-                        <span>— {s.body}</span>
+                        <span>{s.body}</span>
                       </li>
                     ))}
                   </ul>
