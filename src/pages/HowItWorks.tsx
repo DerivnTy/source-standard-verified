@@ -70,12 +70,12 @@ const HowItWorks = () => {
 
 
       {/* Movement 1 — Definition. Dictionary-style opening. No section heading. */}
-      <section className="border-b border-border bg-background" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
+      <section className="border-b border-border bg-background" style={{ paddingTop: "32px", paddingBottom: "32px" }}>
         <div className="page-shell">
           <div className="mx-auto w-standard flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
             <p
               className="text-foreground"
-              style={{ fontSize: "19px", lineHeight: 1.55, margin: 0, letterSpacing: "-0.005em" }}
+              style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
             >
               <span className="font-semibold">Verification</span> is a public reference standard. It gives consumers a consistent way to see whether a compounding pharmacy or clinic has undergone independent review of the sourcing information it publishes.
             </p>
@@ -90,7 +90,7 @@ const HowItWorks = () => {
       </section>
 
       {/* Movement 2 — Protocol. Small margin label, ProcessSteps carries the section. */}
-      <section className="border-b border-border bg-background" style={{ paddingTop: "28px", paddingBottom: "36px" }}>
+      <section className="border-b border-border bg-background" style={{ paddingTop: "20px", paddingBottom: "36px" }}>
         <div className="page-shell">
           <div className="mx-auto w-standard">
             <p
@@ -103,6 +103,7 @@ const HowItWorks = () => {
           </div>
         </div>
       </section>
+
 
       {/* Movement 3 — What verification means. One heading, two labeled columns. */}
       <PageSection id="meaning" title="What Verification Means">
