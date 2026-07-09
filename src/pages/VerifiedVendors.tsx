@@ -415,7 +415,7 @@ const VerifiedVendors = () => {
         <div className="page-shell pb-2 md:pb-4">
           <div className="mx-auto w-wide">
             {/* Search, centerpiece, above filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-2 md:pt-4">
+            <div ref={searchRef} className="-mx-5 md:mx-0 px-5 pt-2 md:pt-4">
               <div className="mx-auto w-full md:max-w-[640px]">
                 <div className="relative">
                   <Search
