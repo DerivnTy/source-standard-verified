@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { RecordHeader } from "@/components/RecordHeader";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -173,6 +174,7 @@ const ForVendors = () => {
           </div>
         </div>
       </section>
+    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

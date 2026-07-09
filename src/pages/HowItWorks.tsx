@@ -1,4 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import { PageSection, ProcessSteps } from "@/components/system";
@@ -155,6 +156,7 @@ const HowItWorks = () => {
           Source Standard does not provide medical advice, treatment guidance, or clinical recommendations. Verification reflects only publicly reviewed sourcing information within the Source Standard framework. Unverified status does not imply that a provider is unsafe, unlawful, fraudulent, or clinically inappropriate. Source Standard does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance, and does not replace federal, state, or medical regulatory oversight.
         </p>
       </PageSection>
+    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

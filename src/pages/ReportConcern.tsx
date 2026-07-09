@@ -1,4 +1,5 @@
 import { FormEvent, ReactNode, useState } from "react";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
@@ -232,6 +233,7 @@ const ReportConcern = () => {
           </div>
         </div>
       </section>
+    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

@@ -1,4 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import { PageSection } from "@/components/system";
@@ -156,6 +157,7 @@ const About = () => {
           The public record will expand as the market does. New vendors will be reviewed, existing records kept current, and the framework refined as sourcing practices evolve. The organization's obligation is not to grow the registry for its own sake, but to keep it accurate, independent, and useful to the public it serves.
         </p>
       </PageSection>
+    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

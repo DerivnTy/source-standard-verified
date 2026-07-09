@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { PageMeta } from "@/components/PageMeta";
 import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -424,6 +425,7 @@ const MedicalAdvisory = () => {
           </div>
         </div>
       </div>
+    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };
