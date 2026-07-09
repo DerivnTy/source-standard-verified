@@ -181,7 +181,7 @@ const GreenlistProfile = () => {
 
   // Derive capabilities and therapies from existing free-text fields.
   const searchText = [
-    ...(p.dosageForms ?? [])...(p.specializations ?? []),
+    ...(p.dosageForms ?? []), ...(p.specializations ?? []),
     entry.focus ?? "",
     p.overview ?? p.background ?? "",
   ].join(" | ");
@@ -214,7 +214,7 @@ const GreenlistProfile = () => {
   const publicRecords: { label: string; url: string }[] = p.publicRecords?.length
     ? p.publicRecords
     : [
-        ...(entry.website ? [{ label: "Company Website", url: entry.website }] : [])...(fdaInspectionUrl ? [{ label: "FDA Inspection Records", url: fdaInspectionUrl }] : []),
+        ...(entry.website ? [{ label: "Company Website", url: entry.website }] : []), ...(fdaInspectionUrl ? [{ label: "FDA Inspection Records", url: fdaInspectionUrl }] : []),
       ];
 
 

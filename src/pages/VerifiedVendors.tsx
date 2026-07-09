@@ -52,7 +52,7 @@ const matchesQuery = (vendor: Vendor, query: string): boolean => {
     vendor.name,
     vendor.city,
     vendor.state,
-    vendor.category...(vendor.clinicalFocus ?? []),
+    vendor.category, ...(vendor.clinicalFocus ?? []),
   ]
     .filter(Boolean)
     .join(" ")
@@ -420,7 +420,7 @@ const VerifiedVendors = () => {
                   <input
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
-                    placeholder="Search by provider, clinic, telehealth company, city, or state..."
+                    placeholder="Search by provider, clinic, telehealth company, city, or state, ..."
                     aria-label="Search by provider, clinic, telehealth company, city, or state"
                     className="font-sans w-full text-[14px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
                     style={{

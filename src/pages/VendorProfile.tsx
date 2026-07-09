@@ -612,7 +612,7 @@ const VendorProfile = () => {
     const seen = new Set<string>();
     const out: string[] = [];
     for (const v of [
-      ...(vendor.clinicalFocus ?? [])...(vendor.treatmentCategories ?? [])...(vendor.servicesOffered ?? []),
+      ...(vendor.clinicalFocus ?? []), ...(vendor.treatmentCategories ?? []), ...(vendor.servicesOffered ?? []),
     ]) {
       const key = v.trim().toLowerCase();
       if (!key || seen.has(key)) continue;
@@ -661,7 +661,7 @@ const VendorProfile = () => {
   if (vendor.summary) orgLd.description = vendor.summary;
   if (vendor.address || vendor.city || vendor.state) {
     orgLd.address = {
-      "@type": "PostalAddress"...(vendor.address ? { streetAddress: vendor.address } : {})...(vendor.city ? { addressLocality: vendor.city } : {})...(vendor.state ? { addressRegion: vendor.state } : {})...(vendor.zip ? { postalCode: vendor.zip } : {}),
+      "@type": "PostalAddress", ...(vendor.address ? { streetAddress: vendor.address } : {}), ...(vendor.city ? { addressLocality: vendor.city } : {}), ...(vendor.state ? { addressRegion: vendor.state } : {}), ...(vendor.zip ? { postalCode: vendor.zip } : {}),
       addressCountry: "US",
     };
   }
@@ -675,7 +675,7 @@ const VendorProfile = () => {
     orgLd.employee = [
       {
         "@type": "Person",
-        name: vendor.medicalDirector...(vendor.credentials ? { hasCredential: vendor.credentials } : {}),
+        name: vendor.medicalDirector, ...(vendor.credentials ? { hasCredential: vendor.credentials } : {}),
         jobTitle: "Medical Director",
       },
     ];
@@ -686,7 +686,7 @@ const VendorProfile = () => {
       propertyID: "source-standard-status",
       name: "Source Standard Status",
       value: VENDOR_STATUS_LABEL[status],
-    }...(isVerified && vendor.reviewId
+    }, ...(isVerified && vendor.reviewId
       ? [
           {
             "@type": "PropertyValue",
@@ -863,7 +863,7 @@ const VendorProfile = () => {
                     ? vendor.reviewDate
                     : "Not yet reviewed",
               },
-              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] }...(isVerified && vendor.reviewDate && vendor.nextReviewDate
+              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] }, ...(isVerified && vendor.reviewDate && vendor.nextReviewDate
                 ? [{
                     label: "Verification Period",
                     value: `${vendor.reviewDate} → ${vendor.nextReviewDate}`,
