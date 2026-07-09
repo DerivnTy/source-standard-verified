@@ -1,13 +1,10 @@
-import { Link } from "react-router-dom";
-
-import { FeatureItem } from "@/components/system";
-
-
+import { FeatureLink } from "@/components/system";
 
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection, ArticleFooter } from "@/components/ArticleSection";
 import { NextStep } from "@/components/learn/NextStep";
+
 import {
   EducationArticle,
   NewsArticle,
