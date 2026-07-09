@@ -52,13 +52,7 @@ const PillarCard = ({ p }: { p: (typeof PILLARS)[number] }) => (
       padding: "28px",
     }}
   >
-    <div className="flex items-start justify-between gap-3">
-      <p
-        className="font-mono uppercase text-muted-foreground"
-        style={{ fontSize: "10px", letterSpacing: "0.14em" }}
-      >
-        {p.eyebrow}
-      </p>
+    <div className="flex items-start justify-end gap-3">
       <p
         className="font-mono uppercase text-muted-foreground tabular-nums"
         style={{ fontSize: "10px", letterSpacing: "0.06em" }}
