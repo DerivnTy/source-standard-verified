@@ -456,7 +456,7 @@ const Index = () => {
             className="text-muted-foreground"
             style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, margin: 0 }}
           >
-            Source Standard is an independent verification organization. It does not manufacture, prescribe, or sell therapies. Its role is to evaluate the sourcing claims vendors make every day and to publish factual verification records that distinguish supported claims from unsupported claims.
+            Source Standard is an independent verification organization. It does not manufacture, prescribe, or sell therapies. Its role is to independently review the sourcing claims vendors make, along with any quality-related representations supporting those claims, and to publish factual verification records that distinguish supported claims from unsupported claims.
           </p>
         </div>
       </PageSection>
