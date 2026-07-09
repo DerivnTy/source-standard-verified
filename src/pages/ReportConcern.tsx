@@ -123,7 +123,7 @@ const ReportConcern = () => {
       <section
         id="submit"
         className="scroll-mt-24 bg-background"
-        style={{ paddingTop: "28px", paddingBottom: "80px" }}
+        style={{ paddingTop: "28px", paddingBottom: "0" }}
       >
         <div className="page-shell">
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
