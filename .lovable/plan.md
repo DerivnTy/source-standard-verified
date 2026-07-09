@@ -1,159 +1,157 @@
 
-# Phase 1 — Learn: Education + News & Insights
+# Phase 1 (revised) — Learn: three engines, consumer-first
 
-Two content engines under one Learn parent. Different purposes, different templates, different rhythms — but one coherent system.
+Refines the previously approved plan to reflect the new principles: FAQ becomes a first-class pillar under Learn, article titles are rewritten as consumer questions, the Education topics match how consumers think, and every page ends with a next step — not an explanation of what the library is.
 
-**Learn**
-- **Education** — Evergreen knowledge. Built to rank for years.
-- **News & Insights** — Timely publication. Built to bring people back.
+**One goal:** everything under Learn answers *"What do I need to know before choosing a provider?"*
 
 ---
 
 ## Information architecture
 
 ```text
-/learn                              Learn hub (routes to both engines)
+/learn                          Learn hub — routes to three engines
 │
-├── /learn/education                Education hub
-│   ├── Basics
+├── /learn/education            Evergreen knowledge
+│   ├── Learn the Basics
 │   ├── Choosing a Provider
 │   ├── Verification
 │   └── Sourcing & Manufacturing
-│   └── /learn/education/:slug      Article
+│   └── /learn/education/:slug
 │
-└── /learn/news                     News & Insights hub
-    ├── Industry News
-    ├── Regulatory Updates
-    ├── Scientific Research
-    ├── Source Standard Updates
-    └── Editorial / Analysis
-    └── /learn/news/:slug           Post
+├── /learn/news                 Timely publication
+│   ├── Industry News
+│   ├── Regulatory Updates
+│   ├── Scientific Research
+│   ├── Source Standard Updates
+│   └── Editorial & Analysis
+│   └── /learn/news/:slug
+│
+└── /learn/faq                  Direct questions
+    (surfaces the four existing Tier D FAQ pages, unchanged)
 ```
 
-Existing `/education/*` and `/library/*` routes are consolidated into this structure via the migration map (Step 0). Every retired route gets a 301 to its new home.
+The four `/library/faq/*` pages (Tier D) stay put — the Learn hub links to them, they don't move.
 
 ---
 
-## Step 0 — Pre-Implementation Audit (deliverable, ships first)
+## Step 0 — Migration map (already delivered, minor amendments)
 
-Before any new routes are created:
+The map in `docs/learn-migration-map.md` still stands. Amendments for the new FAQ pillar and consumer-question retitling:
 
-**0.1 Inventory** every existing page under `/education/*` and `/library/*` (excluding the four `/library/faq/*` pages finalized in Tier D — out of scope).
+**FAQ pillar wiring.** `/learn/faq` becomes an index that surfaces the four existing Tier D FAQ pages. No content changes to those four pages.
 
-**0.2 Classify each page** by engine and topic:
-- Education → Basics / Choosing a Provider / Verification / Sourcing & Manufacturing
-- News & Insights → Industry News / Regulatory Updates / Scientific Research / Source Standard Updates / Editorial · Analysis
+**Consumer-question retitles** — the new article `<h1>` and `<title>` for each retained page:
 
-Rule of thumb: if the title answers a timeless question, it's Education. If it reports or interprets something that happened, it's News & Insights.
+| New route | Retitle to |
+|---|---|
+| `/learn/education/what-is-a-compounded-medication` | What Is a Compounded Medication? |
+| `/learn/education/what-are-peptides` | What Are Peptides? |
+| `/learn/education/how-to-read-a-certificate-of-analysis` | How Do I Read a Certificate of Analysis? |
+| `/learn/education/what-does-verified-mean` | What Does Verified Mean? |
+| `/learn/education/why-does-sourcing-matter` | Why Does Sourcing Matter? |
+| `/learn/education/what-is-sterile-compounding` | What Is Sterile Compounding? |
+| `/learn/education/what-is-compounded-hormone-therapy` | What Is Compounded Hormone Therapy? |
+| `/learn/education/what-information-should-a-transparent-provider-share` | What Information Should a Transparent Provider Share? |
+| `/learn/education/what-happens-during-a-verification-review` | What Happens During a Verification Review? |
+| `/learn/education/what-should-i-ask-my-provider` | What Should I Ask My Provider? |
+| `/learn/education/how-do-i-know-if-a-provider-is-trustworthy` | How Do I Know If a Provider Is Trustworthy? |
+| `/learn/news/2026-compounding-reclassification` | 2026 Compounding Reclassification |
 
-**0.3 Disposition** each page as:
-- **Retain & rewrite** into the new template
-- **Merge** into another article (specify target)
-- **Retire** (specify 301 target)
-- **Move** (specify new slug)
+Plus a new Education article: **Why Do Facility Records Matter?** at `/learn/education/why-do-facility-records-matter` (added to the gap list).
 
-**0.4 Gap analysis** — list evergreen questions with no existing counterpart that must be authored new (e.g., "What is a 503A pharmacy?", "How do I know if a provider is trustworthy?").
-
-**0.5 Migration map** — one table:
-
-```text
-Existing route                                            → Engine       → Disposition       → New route
-/library/what-are-peptides                                → Education    → Retain & rewrite  → /learn/education/what-are-peptides
-/library/what-is-compounding                              → Education    → Retain & rewrite  → /learn/education/what-is-a-compounded-medication
-/library/analysis/meaning-of-verification                 → Education    → Merge             → /learn/education/what-does-verified-mean
-/library/analysis/2026-reclassification                   → News         → Retain & rewrite  → /learn/news/2026-compounding-reclassification
-/education/basics                                         → —            → Retire            → 301 → /learn/education#basics
-/education/guides                                         → —            → Retire            → 301 → /learn/education
-/education/questions                                      → —            → Retire            → 301 → /learn/education
-(new)                                                     → Education    → Create            → /learn/education/what-is-a-503b-pharmacy
-...
-```
-
-**No new `/learn/*` routes are created until you approve the map.**
+All redirects from the migration map remain as previously listed.
 
 ---
 
-## Step 1 — Learn hub + two engine hubs
+## Step 1 — Learn hub
 
-- `/learn` — parent hub with two clearly separated entry points and short framing for each.
-- `/learn/education` — grouped by the four topics, question-first titles, template-driven.
-- `/learn/news` — reverse-chronological feed grouped by category, dateline-first.
+`/learn` presents three clearly separated entry points — Education, News & Insights, FAQ — each with a one-line purpose and a link to the engine hub. Layout matches existing site conventions (`BriefingHero`, `w-wide`, hairline borders, filter pills).
 
-Layout, typography, and controls match the existing site (search, filter pills, `w-wide`, `BriefingHero`, `ArticleRow`, etc.).
+## Step 2 — Engine hubs
 
-## Step 2 — Two reusable templates
+- `/learn/education` — grouped by the four consumer topics (Basics, Choosing a Provider, Verification, Sourcing & Manufacturing). Question-first titles. Search + filter pills.
+- `/learn/news` — reverse-chronological, filterable by the five news categories. Datelines first.
+- `/learn/faq` — index that surfaces the four existing FAQ pages with short framing per topic.
 
-**Education article template** (evergreen):
-1. Question headline
+## Step 3 — Two reusable article templates
+
+**Education (evergreen):**
+1. Question headline (`<h1>` matches `<title>`)
 2. What this answers (one sentence)
 3. Short answer (2–3 sentences)
 4. Detailed explanation
 5. Related questions
-6. Related Source Standard resources
+6. **Next step** (see Step 5)
 
-**News & Insights post template** (timely):
+**News & Insights (timely):**
 1. Dateline + category
 2. Headline
 3. Standfirst / lede
 4. Body
-5. Why this matters (Source Standard framing)
-6. Related education articles + related product surfaces
+5. Why this matters
+6. **Next step**
 
-## Step 3 — Execute the migration map
+## Step 4 — Execute the migration
 
-Rewrite retained pages into the correct template, merge where mapped, retire with 301s, create the gap articles. Consistency and internal linking over exhaustive depth — depth compounds over time.
+Rewrite retained pages into the correct template with consumer-question titles, merge where mapped, retire with redirects, create the gap articles (503A, 503B, who manufactures, compounded vs FDA-approved, Greenlisted, facility records). Consistency and internal linking over exhaustive depth.
 
-Initial evergreen seed (Education):
-- What are peptides?
-- What is a compounded medication?
-- What's the difference between compounded and FDA-approved medications?
-- What is a 503A pharmacy?
-- What is a 503B outsourcing facility?
-- Who manufactures compounded medications?
-- Why does sourcing matter?
-- What does Verified mean?
-- What does Greenlisted mean?
-- What should I ask my provider?
-- How do I know if a provider is trustworthy?
-- What information should a transparent provider share?
+## Step 5 — "Next step" closer replaces the current Conclusion
 
-Initial News & Insights seed: whatever qualifies from the current Analysis + Publications set after the audit. No net-new News posts required in Phase 1 beyond migrated ones.
+Every article and every engine hub ends with a **Still have questions?** block — not explanatory copy about what the library is. Standard next-step options, chosen per page for relevance:
 
-## Step 4 — Internal linking
+- Search the Vendor Registry
+- Explore Facility Records
+- Learn How Verification Works
+- Contact Source Standard
 
-Cross-link from Vendor Registry, Vendor Profile, Facility Records, Status Definitions, and How Verification Works into Education. News posts link out to relevant Education articles and product surfaces. Every page closes with a next step — no dead ends.
+Per-article next-step matrix (examples, applied consistently):
 
-## Step 5 — SEO foundation (baked into both templates)
+| Article | Next step |
+|---|---|
+| What Are Peptides? | Search the Vendor Registry |
+| What Does Verified Mean? | Learn How Verification Works |
+| Why Do Facility Records Matter? | Explore Facility Records |
+| What Should I Ask My Provider? | See a transparent provider listing |
+| What Is a 503B Outsourcing Facility? | Explore Facility Records |
+| How Do I Know If a Provider Is Trustworthy? | Search the Vendor Registry |
 
-- Consumer-question `<title>` (Education) / headline `<title>` (News)
-- Meta descriptions
-- Self-referencing canonicals
-- `Article` + `FAQPage` JSON-LD on Education; `NewsArticle` JSON-LD on News
+Also removes the current `Education.tsx` §7 "Editorial Pipeline" and §8 "A working reference, not a content feed" reference notes — replaced by the next-step closer.
+
+## Step 6 — Cross-links from product surfaces
+
+Vendor Registry, Vendor Profile, Facility Records, Status Definitions, and How Verification Works each link into the most relevant Education article(s). Presentation-only — no schema changes.
+
+## Step 7 — SEO foundation
+
+- Consumer-question `<title>` / meta / canonical / og:* per article via `react-helmet-async` (adopt if not already present; wire `HelmetProvider` in `main.tsx` and remove the static canonical from `index.html`)
+- `Article` + `FAQPage` JSON-LD on Education; `NewsArticle` on News
+- `CollectionPage` on all three hubs
 - Question-based slugs on Education; dated, descriptive slugs on News
-- `CollectionPage` schema on both hubs
-- Sitemap regenerated (`scripts/generate-sitemap.ts`)
-- 301s for every retired route
+- `scripts/generate-sitemap.ts` regenerated with the new URLs
+- Client-side `<Navigate replace>` redirects for every retired route
 
 ---
 
 ## Execution order
 
-1. Deliver the audit + migration map → **wait for your approval**
-2. Build `/learn`, `/learn/education`, `/learn/news` hubs
-3. Build both article templates
+1. Confirm the amendments above (FAQ pillar, consumer-question titles, "Why Do Facility Records Matter?" added to gap list)
+2. Build `/learn`, `/learn/education`, `/learn/news`, `/learn/faq` hubs
+3. Build both article templates + next-step closer component
 4. Execute the migration (rewrites, merges, retires, redirects, new pages)
 5. Wire cross-links from product surfaces
-6. Ship SEO foundation + sitemap
+6. Ship SEO foundation + regenerate sitemap
 7. Summary of new routes and redirects → wait before Phase 2
 
 ## Execution rules
 
 - Frontend / presentation / content only
-- `/library/faq/*` (Tier D) is out of scope
+- Tier D FAQ pages content unchanged; only their surfacing under `/learn/faq` changes
 - No changes to product schema, statuses, or refined Tiers A–D pages
 - Consumer voice throughout — no operator methodology drift
-- Every retired route gets a 301; no broken inbound links or sitemap entries
+- Every retired route redirects; no broken inbound links or sitemap entries
+- No page ends with explanatory copy about the library itself — always a next step
 
 ---
 
-**Ship Step 0 (audit + migration map) first?**
+**Ship this revised plan?**
