@@ -94,24 +94,10 @@ const HowItWorks = () => {
         </div>
       </PageSection>
 
-      <PageSection icon="minus" title="What Does Verified Not Mean?">
+      <PageSection title="What Does Verified Not Mean?">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
           {DOES_NOT_MEAN.map((item) => (
-            <div key={item} className="flex items-start gap-3 text-left">
-              <span
-                className="text-muted-foreground/70 shrink-0 inline-flex"
-                style={{ paddingTop: "6px" }}
-                aria-hidden
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25"><line x1="5" y1="12" x2="19" y2="12" /></svg>
-              </span>
-              <p
-                className="text-muted-foreground"
-                style={{ fontSize: "15px", lineHeight: 1.5, fontWeight: 400, margin: 0 }}
-              >
-                {item}
-              </p>
-            </div>
+            <FeatureItem key={item} icon="minus" title={item} variant="row" />
           ))}
         </div>
       </PageSection>

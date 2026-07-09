@@ -106,53 +106,24 @@ const About = () => {
 
       <PageSection
         id="boundaries"
-        icon="minus"
         title="What Does Source Standard Not Do?"
         intro="What Source Standard does not do."
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
           {BOUNDARIES.map((c) => (
-            <div key={c.t} className="flex items-start gap-3 text-left">
-              <span
-                className="text-muted-foreground/70 shrink-0 inline-flex"
-                style={{ paddingTop: "2px" }}
-                aria-hidden
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25"><line x1="5" y1="12" x2="19" y2="12" /></svg>
-              </span>
-              <div className="min-w-0">
-                <h3
-                  className="font-sans text-foreground"
-                  style={{ fontSize: "15px", lineHeight: 1.3, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}
-                >
-                  {c.t}
-                </h3>
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.6, fontWeight: 400, marginTop: "4px" }}
-                >
-                  {c.d}
-                </p>
-              </div>
-            </div>
+            <FeatureItem key={c.t} icon="minus" title={c.t} desc={c.d} variant="row" />
           ))}
         </div>
       </PageSection>
 
       <PageSection
         id="objectives"
-        icon="handshake"
         title="Who Does This Help?"
         intro="Who the framework serves."
       >
-        <div className="flex flex-col divide-y divide-border lg:grid lg:grid-cols-3 lg:gap-8 lg:divide-y-0">
-          {OBJECTIVES.map((c, i) => (
-            <div
-              key={c.t}
-              className={i === 0 ? "pb-4 lg:pb-0" : i === OBJECTIVES.length - 1 ? "pt-4 lg:pt-0" : "py-4 lg:py-0"}
-            >
-              <FeatureItem title={c.t} desc={c.d} variant="block" />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6">
+          {OBJECTIVES.map((c) => (
+            <FeatureItem key={c.t} title={c.t} desc={c.d} variant="block" />
           ))}
         </div>
       </PageSection>
@@ -171,7 +142,6 @@ const About = () => {
 
       <PageSection
         id="principles"
-        icon="scale"
         title="What Guides Source Standard?"
         intro="The principles guiding the framework."
       >

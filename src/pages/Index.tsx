@@ -488,7 +488,6 @@ const Index = () => {
       {/* How it works — process rail */}
       <PageSection
         id="how-it-works"
-        icon="shield-check"
         title="How Does Source Standard Verify?"
         cta={<PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>}
       >
@@ -535,7 +534,7 @@ const Index = () => {
       </PageSection>
 
       {/* Audience — feature blocks */}
-      <PageSection id="why-matters" icon="handshake" title="Who Is This For?">
+      <PageSection id="why-matters" title="Who Is This For?">
         <div className="flex flex-col divide-y divide-border lg:grid lg:grid-cols-3 lg:gap-8 lg:divide-y-0">
           {whyMatters.map((w, i) => (
             <div

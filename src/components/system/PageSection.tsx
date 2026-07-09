@@ -28,7 +28,13 @@ export const PageSection = ({
   className = "",
 }: {
   id?: string;
-  icon?: GlyphName;
+  /**
+   * Section-heading glyphs are semantic only. `minus` is intentionally
+   * excluded — dash decorations before headings read as unfinished UI.
+   * For exclusion / limitation copy, use a plain heading and let the list
+   * items carry the semantics.
+   */
+  icon?: Exclude<GlyphName, "minus" | "check">;
   title: string;
   intro?: ReactNode;
   cta?: ReactNode;
