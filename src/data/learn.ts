@@ -90,22 +90,22 @@ export const EDUCATION_TOPICS: {
       "Start here. Plain-language answers to the questions people ask first.",
   },
   {
-    id: "choosing-a-provider",
-    label: "Choosing a Provider",
-    description:
-      "What to look for, what to ask, and what a trustworthy listing shows.",
-  },
-  {
     id: "verification",
     label: "Verification",
     description:
-      "What Source Standard reviews, what a status means, and how a review works.",
+      "What Source Standard reviews, what verification statuses mean, and how a review works.",
+  },
+  {
+    id: "choosing-a-provider",
+    label: "Choosing a Provider",
+    description:
+      "What to look for, what to ask, and how to interpret a provider listing.",
   },
   {
     id: "sourcing-and-manufacturing",
     label: "Sourcing & Manufacturing",
     description:
-      "Where compounded medications come from, who makes them, and why it matters.",
+      "Where compounded medications come from, who makes them, and why sourcing matters.",
   },
 ];
 
