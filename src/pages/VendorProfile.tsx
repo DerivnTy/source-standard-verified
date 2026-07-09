@@ -887,17 +887,17 @@ const VendorProfile = () => {
 
           {/* ────── 5. VERIFICATION STATUS ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Verification Status</SectionHeading>
+            <SectionHeading>What has been verified?</SectionHeading>
 
             <p
               className="mt-2 text-muted-foreground"
               style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
             >
               {isVerified
-                ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
+                ? `Source Standard reviewed this provider's sourcing information${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""} and assigned Verified status.`
                 : status === "under-review"
-                ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
-                : "This provider has not yet participated in the Source Standard verification process."}
+                ? "This provider's sourcing information is currently under review."
+                : "This provider has not participated in the Source Standard verification process."}
             </p>
 
             {isVerified && vendor.verifiedManufacturers && vendor.verifiedManufacturers.length > 0 && (
@@ -909,7 +909,7 @@ const VendorProfile = () => {
                   className="font-sans font-semibold uppercase text-muted-foreground"
                   style={{ fontSize: "11px", letterSpacing: "0.08em", marginRight: "6px" }}
                 >
-                  Verified Manufacturer{vendor.verifiedManufacturers.length > 1 ? "s" : ""}
+                  Verified Source{vendor.verifiedManufacturers.length > 1 ? "s" : ""}
                 </span>
                 {vendor.verifiedManufacturers.join(" · ")}
               </p>
@@ -924,7 +924,7 @@ const VendorProfile = () => {
               style={{ fontSize: "12px", letterSpacing: "0.05em" }}
             >
 
-              {verificationOpen ? "Hide verification details" : "Learn how verification works"}
+              {verificationOpen ? "Hide details" : "See what this covers"}
               <ChevronDown
                 size={12}
                 strokeWidth={1.5}
@@ -934,6 +934,7 @@ const VendorProfile = () => {
                 }}
               />
             </button>
+
 
             <div
               className="grid"
@@ -982,7 +983,7 @@ const VendorProfile = () => {
                     className="mt-5 pt-5"
                     style={{ borderTop: "0.5px solid hsl(var(--border))" }}
                   >
-                    <Eyebrow>Review Boundary</Eyebrow>
+                    <Eyebrow>What verification does not mean</Eyebrow>
                     <p
                       className="mt-2"
                       style={{
@@ -992,10 +993,11 @@ const VendorProfile = () => {
                         color: "rgba(0,16,33,0.7)",
                       }}
                     >
-                      Verification status reflects only documentation reviewed by Source Standard
-                      within its registry framework. Unverified status does not imply that a vendor
-                      is unsafe, unlawful, fraudulent, or clinically inappropriate.
+                      Verified status reflects only the sourcing information Source Standard
+                      reviewed. Unverified status does not mean a provider is unsafe, unlawful,
+                      fraudulent, or clinically inappropriate.
                     </p>
+
                   </div>
                 </div>
               </div>
@@ -1004,7 +1006,7 @@ const VendorProfile = () => {
 
           {/* ────── 6. CONTACT ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Contact</SectionHeading>
+            <SectionHeading>How to reach them</SectionHeading>
             <dl
               className="mt-3 grid grid-cols-2"
               style={{ columnGap: "20px", rowGap: "16px" }}
@@ -1053,7 +1055,7 @@ const VendorProfile = () => {
 
           {serviceBadges.length > 0 && (
             <article className="mt-4" style={CARD}>
-              <SectionHeading>Services &amp; Clinical Focus</SectionHeading>
+              <SectionHeading>What they offer</SectionHeading>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {serviceBadges.map((tag) => (
                   <Tag
@@ -1072,7 +1074,7 @@ const VendorProfile = () => {
 
           {/* ────── 4. ABOUT THIS VENDOR ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>About This Vendor</SectionHeading>
+            <SectionHeading>Who is this provider?</SectionHeading>
             {hasAbout ? (
               <div className="mt-3">
                 <ReadMore>
@@ -1132,7 +1134,7 @@ const VendorProfile = () => {
             vendor.statesServed?.length ||
             vendor.telehealthAvailability) && (
             <article className="mt-4" style={CARD}>
-              <SectionHeading>Clinical Coverage</SectionHeading>
+              <SectionHeading>Who they treat</SectionHeading>
               <div className="mt-3 grid gap-4">
                 {vendor.conditionsTreated?.length ? (
                   <div>
@@ -1186,7 +1188,7 @@ const VendorProfile = () => {
 
           {/* ────── 7. PROVIDERS ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Providers &amp; Clinical Leadership</SectionHeading>
+            <SectionHeading>Who provides care</SectionHeading>
             {/* Headshot strip — only when available */}
             {vendor.providerHeadshots?.length ? (
               <div className="mt-3 flex flex-wrap gap-3">
