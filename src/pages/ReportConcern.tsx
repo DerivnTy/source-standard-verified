@@ -9,7 +9,7 @@ const REPORTABLE = [
   { term: "Registry information", description: "Report incorrect vendor information, business details, classifications, or public record references." },
   { term: "Sourcing claims", description: "Report sourcing representations that appear inconsistent with available evidence." },
   { term: "Status misrepresentation", description: "Report unauthorized use or inaccurate representation of Source Standard status language." },
-  { term: "Public record changes", description: "Report licensing, registration, enforcement, or public record changes that may affect an existing registry listing." },
+  { term: "Public record changes", description: "Report licensing, registration, enforcement, or public record changes that may affect an existing registry record." },
 ];
 
 const OUT_OF_SCOPE = [
@@ -178,7 +178,7 @@ const ReportConcern = () => {
 
                 <div>
                   <FieldLabel>Registry record</FieldLabel>
-                  <input name="record" type="text" maxLength={120} placeholder="Listing URL or record ID" style={inputBase} />
+                  <input name="record" type="text" maxLength={120} placeholder="Record URL or record ID" style={inputBase} />
                 </div>
 
                 <div>

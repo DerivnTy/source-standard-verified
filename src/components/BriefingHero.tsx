@@ -66,7 +66,7 @@ export const BriefingHero = ({
       return (
         <section
           aria-labelledby="briefing-title"
-          className="relative overflow-hidden bg-[hsl(var(--navy-surface))] lg:min-h-[70vh] lg:max-h-[760px]"
+          className="relative overflow-hidden bg-[hsl(var(--navy-surface))]"
         >
           <div
             aria-hidden
@@ -79,13 +79,13 @@ export const BriefingHero = ({
           <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
           <div
-            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center lg:min-h-[70vh] lg:max-h-[760px]"
+            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center"
             style={{
               paddingTop: "clamp(32px, 4.5vh, 52px)",
-              paddingBottom: "clamp(48px, 6vh, 72px)",
+              paddingBottom: "clamp(48px, 6vh, 64px)",
             }}
           >
-            <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center lg:my-auto">
+            <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center">
             {brandMark && <span className="sr-only">{brandMark}</span>}
             {heroLogo && (
               <div className="flex justify-center" style={{ marginBottom: "20px" }}>
@@ -106,10 +106,11 @@ export const BriefingHero = ({
               <p
                 className="text-white/70 text-left lg:text-center lg:mx-auto"
                 style={{
-                  maxWidth: "520px",
+                  maxWidth: "560px",
                   marginTop: "24px",
                   fontSize: "clamp(18px, 4.2vw, 22px)",
                   lineHeight: "1.4",
+                  textWrap: "balance",
                 }}
               >
                 {statement}
@@ -166,10 +167,11 @@ export const BriefingHero = ({
             <h1
               id="briefing-title"
               className="ss-hero-title !text-white !mt-0 max-w-[22ch]"
+              style={{ textWrap: "balance" }}
             >
               {title}
             </h1>
-            <p className="ss-lead !text-white/70 max-w-[68ch] mt-3">
+            <p className="ss-lead !text-white/70 max-w-[68ch] mt-3" style={{ textWrap: "balance" }}>
               {statement}
             </p>
             {actions && (

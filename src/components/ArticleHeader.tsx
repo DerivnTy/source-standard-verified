@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { HeroPattern } from "./HeroPattern";
 
 export type ArticleMetaItem = { label: string; value: ReactNode };
 
@@ -12,10 +13,10 @@ const cardChrome = {
  * ArticleHeader, consumer-facing article header.
  *
  * Two rendering paths:
- *   • If `category` is passed → continuous editorial masthead on page background.
- *     No card chrome. Category line + title + lead + hairline separator.
- *   • Otherwise → backward-compatible bordered card with optional eyebrow,
- *     title, lead, and metadata lines (used by Library pages).
+ *   • If `category` is passed → navy editorial masthead. Uppercase mono
+ *     category eyebrow, white title, muted-white lead. Consistent with
+ *     every other "meant to read" page across the site.
+ *   • Otherwise → backward-compatible bordered card (Library legacy).
  */
 export const ArticleHeader = ({
   eyebrow: _eyebrow,
@@ -40,39 +41,50 @@ export const ArticleHeader = ({
     (m) => typeof m.label === "string" && m.label.toLowerCase().includes("updated"),
   );
 
-  // ── Editorial masthead (category path) ────────────────────────────
+  // ── Navy editorial masthead (category path) ─────────────────────
   if (category) {
     return (
-      <header className="bg-background">
-        <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "0" }}>
+      <header className="relative overflow-hidden bg-[hsl(var(--navy-surface))] border-b border-white/10">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 80% at 50% 40%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
+          }}
+        />
+        <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
+        <div
+          className="relative z-10 page-shell"
+          style={{ paddingTop: "clamp(48px, 7vh, 72px)", paddingBottom: "clamp(28px, 4vh, 40px)" }}
+        >
           <div className="mx-auto w-reading-wide">
             <p
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+              className="font-mono uppercase"
+              style={{
+                fontSize: "10px",
+                letterSpacing: "0.14em",
+                color: "rgba(255,255,255,0.6)",
+              }}
             >
-              {category}
+              {category.toUpperCase()}
             </p>
 
-
-            <h1 className="t-article-title text-foreground" style={{ marginTop: "10px" }}>
+            <h1
+              className="ss-hero-title !text-white !mt-0"
+              style={{ marginTop: "14px", textWrap: "balance" }}
+            >
               {title}
             </h1>
 
             {lead && (
-              <p className="t-article-standfirst" style={{ marginTop: "12px" }}>
+              <p
+                className="ss-lead !text-white/70 max-w-[68ch]"
+                style={{ marginTop: "14px", textWrap: "balance" }}
+              >
                 {lead}
               </p>
             )}
-
-            <div
-              aria-hidden
-              style={{
-                height: "0.5px",
-                background: "hsl(var(--border))",
-                marginTop: "24px",
-              }}
-            />
-
           </div>
         </div>
       </header>

@@ -11,7 +11,7 @@ const ATTESTATIONS: Item[] = [
   { term: "Submission accuracy", description: "Records, claims, and category descriptions submitted at intake are expected to remain accurate throughout the review term. Material inaccuracies discovered after publication may trigger additional review." },
   { term: "Sourcing transparency", description: "Pharmacy relationships, manufacturer relationships, upstream facilities, and sourcing records tied to reviewed categories are expected to remain documented, supportable, and consistent with the published record." },
   { term: "Renewal and review cooperation", description: "The vendor is expected to respond to renewal requests, clarification requests, and review notices within the published response windows and provide updated records when requested." },
-  { term: "Public-claims alignment", description: "Public-facing representations, including websites, advertising, intake materials, and third-party listings, are expected to remain consistent with the records reviewed during the verification term." },
+  { term: "Public-claims alignment", description: "Public-facing representations, including websites, advertising, intake materials, and third-party records, are expected to remain consistent with the records reviewed during the verification term." },
 ];
 
 const DISCLOSURE: Item[] = [
@@ -40,13 +40,13 @@ const TRIGGERS: Item[] = [
 
 const ACTIONS: Item[] = [
   { term: "Additional review", description: "New information, sourcing updates, public reports, or independent testing results may be reviewed to determine whether any change to the public record is warranted." },
-  { term: "Request for clarification", description: "A written request for updated information or clarification. The listing may remain in its current status while the request is being addressed." },
+  { term: "Request for clarification", description: "A written request for updated information or clarification. The record may remain in its current status while the request is being addressed." },
   { term: "Facility review", description: "A more detailed review of a facility may be undertaken when public records, independent testing, or new information indicate that additional review is warranted." },
   { term: "Manufacturer review", description: "A more detailed review of a manufacturer may be undertaken when public records, independent testing, or new information indicate that additional review is warranted." },
-  { term: "Scope adjustment", description: "The verified scope may be narrowed to the categories that remain supported by current records. Categories no longer supported may be removed from the public listing." },
+  { term: "Scope adjustment", description: "The verified scope may be narrowed to the categories that remain supported by current records. Categories no longer supported may be removed from the public record." },
   { term: "Suspension", description: "Verified status may be temporarily inactive while an unresolved matter is addressed. The vendor may remain in the registry but no longer displays active Verified status." },
   { term: "Removal", description: "The record may be removed from active verification status. Re-entry requires a new submission and a new review." },
-  { term: "Public note", description: "A short factual notation may be attached to a listing when clarification is warranted and supported by verifiable, non-speculative information." },
+  { term: "Public note", description: "A short factual notation may be attached to a record when clarification is warranted and supported by verifiable, non-speculative information." },
 ];
 
 const RELATED = [
@@ -74,7 +74,7 @@ const Accountability = () => {
 
       <ArticleSection variant="prose">
         <p>
-          A Verified record reflects the information supporting a listing at a defined point in time. Standing continues while the underlying sourcing relationships, records, and public information remain consistent with the published scope.
+          A Verified record reflects the information supporting a record at a defined point in time. Standing continues while the underlying sourcing relationships, records, and public information remain consistent with the published scope.
         </p>
         <p>
           This page outlines what vendors are expected to disclose, the conditions under which a record may be revisited, and how public standing may change as new information becomes available.

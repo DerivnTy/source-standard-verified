@@ -115,7 +115,7 @@ export const advisoryBoard: BoardMember[] = [
     shortSummary:
       "Reviews public-facing framework language with emphasis on accuracy, restraint, and informed-consumer clarity.",
     biography:
-      "Dr. Okonkwo is a preventive medicine physician with a public health background focused on health communication and informed consent. Her work has examined how patient-facing materials shape decision-making in fields where regulatory categories are unfamiliar to the general public. She brings that lens to the Source Standard registry, ensuring that public listings, status definitions, and disclaimers represent clinical reality accurately and avoid implying endorsement beyond what the framework actually verifies.",
+      "Dr. Okonkwo is a preventive medicine physician with a public health background focused on health communication and informed consent. Her work has examined how patient-facing materials shape decision-making in fields where regulatory categories are unfamiliar to the general public. She brings that lens to the Source Standard registry, ensuring that public records, status definitions, and disclaimers represent clinical reality accurately and avoid implying endorsement beyond what the framework actually verifies.",
     background: [
       "MD, Emory University School of Medicine",
       "MPH (Health Policy & Management), Johns Hopkins Bloomberg School of Public Health",

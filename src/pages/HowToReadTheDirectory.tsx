@@ -30,7 +30,7 @@ const statusLong: Record<
     meaning:
       "An active Source Standard review is in progress for this vendor.",
     tells:
-      "The listing has formally entered the review pipeline and documentation is being examined.",
+      "The record has formally entered the review pipeline and documentation is being examined.",
     notImply:
       "Does not imply any conclusion about the vendor's records or sourcing.",
   },
@@ -52,7 +52,7 @@ const statusLong: Record<
   },
   removed: {
     meaning:
-      "The listing has been removed from the public directory.",
+      "The record has been removed from the public directory.",
     tells:
       "Either the vendor was withdrawn at request, or removal was warranted under the framework.",
     notImply:
@@ -100,7 +100,7 @@ const HowToReadTheDirectory = () => {
         ]}
         eyebrow="Public registry · Reader's guide"
         title="How to read the directory"
-        lead="Interpreting vendor listings and what each public status does, and does not, say about a vendor."
+        lead="Interpreting vendor records and what each public status does, and does not, say about a vendor."
       />
 
       <Section density="doc">
@@ -114,7 +114,7 @@ const HowToReadTheDirectory = () => {
               /verified-vendors
             </Link>{" "}
             lists vendors operating in peptide, TRT, and hormone optimization that are tracked
-            by Source Standard. Each listing carries a public status indicating whether a
+            by Source Standard. Each record carries a public status indicating whether a
             Source Standard verification has been published for that vendor at the time the
             page is loaded.
           </p>,
@@ -124,8 +124,8 @@ const HowToReadTheDirectory = () => {
       <Section muted density="doc">
         {sectionRow(
           "§2",
-          "Listing structure",
-          "How vendor listings are structured.",
+          "Record structure",
+          "How vendor records are structured.",
           <ul className="space-y-2 list-disc pl-5 text-muted-foreground">
             <li>
               <span className="text-foreground">Name and location:</span> vendor name and the
@@ -206,12 +206,12 @@ const HowToReadTheDirectory = () => {
             <p>
               <span className="text-foreground">Under Review</span> is assigned when an active
               review opens, either at intake of a new application, or when an existing
-              Verified listing is reopened based on new information.
+              Verified record is reopened based on new information.
             </p>
             <p>
               The status changes when the review concludes. Possible outcomes are: Verified
               (review completed and published), Suspended (verification temporarily
-              withdrawn), or Removed (listing taken down).
+              withdrawn), or Removed (record taken down).
             </p>
           </div>,
         )}
@@ -226,10 +226,10 @@ const HowToReadTheDirectory = () => {
             <p>
               <span className="text-foreground">Suspended</span> indicates that a previously
               published verification has been temporarily paused while a matter is being
-              reviewed. The listing remains visible with a Suspended status.
+              reviewed. The record remains visible with a Suspended status.
             </p>
             <p>
-              <span className="text-foreground">Removed</span> indicates that the listing has
+              <span className="text-foreground">Removed</span> indicates that the record has
               been taken down from the public directory. Removal may follow a vendor's
               withdrawal request or a decision made under the Source Standard framework.
             </p>

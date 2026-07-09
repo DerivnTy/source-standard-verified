@@ -144,8 +144,8 @@ const App = () => (
             <Route path="/how-to-read-the-directory" element={<HowToReadTheDirectory />} />
             <Route path="/unsubscribe" element={<Unsubscribe />} />
             <Route path="/partners" element={<Partners />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
         </Routes>
 
       </BrowserRouter>

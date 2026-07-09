@@ -27,7 +27,7 @@ export type NextStepId =
   | "vendor-registry"
   | "facility-records"
   | "how-verification-works"
-  | "transparent-listing"
+  | "transparent-record"
   | "contact"
   | "learn-education"
   | "learn-news";
@@ -54,9 +54,9 @@ export const NEXT_STEPS: Record<NextStepId, NextStep> = {
     label: "Learn how verification works",
     to: "/how-it-works",
   },
-  "transparent-listing": {
-    id: "transparent-listing",
-    label: "See a transparent provider listing",
+  "transparent-record": {
+    id: "transparent-record",
+    label: "See a transparent provider record",
     to: "/verified-vendors",
   },
   contact: {
@@ -99,7 +99,7 @@ export const EDUCATION_TOPICS: {
     id: "choosing-a-provider",
     label: "Choosing a Provider",
     description:
-      "What to look for, what to ask, and how to interpret a provider listing.",
+      "What to look for, what to ask, and how to interpret a provider record.",
   },
   {
     id: "sourcing-and-manufacturing",
@@ -284,7 +284,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       { slug: "what-information-should-a-transparent-provider-share" },
       { slug: "how-to-read-a-certificate-of-analysis" },
     ],
-    nextStep: "transparent-listing",
+    nextStep: "transparent-record",
     updated: "2026-07-09",
   },
   {
@@ -314,7 +314,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       { slug: "how-to-read-a-certificate-of-analysis" },
       { slug: "why-do-facility-records-matter" },
     ],
-    nextStep: "transparent-listing",
+    nextStep: "transparent-record",
     updated: "2026-07-09",
   },
 
@@ -372,7 +372,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "The outcome",
-        body: "When documentation and public records align, the provider receives a Verified listing. When they don't, the listing reflects the gap, or the provider is not listed.",
+        body: "When documentation and public records align, the provider receives a Verified record. When they don't, the record reflects the gap, or the provider is not listed.",
       },
     ],
     relatedQuestions: [
@@ -620,7 +620,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       { slug: "what-is-sterile-compounding" },
       { slug: "what-information-should-a-transparent-provider-share" },
     ],
-    nextStep: "transparent-listing",
+    nextStep: "transparent-record",
     updated: "2026-07-09",
   },
   {

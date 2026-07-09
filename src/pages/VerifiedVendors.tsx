@@ -14,6 +14,7 @@ import {
   getVendorFulfillment,
   VendorFulfillment,
 } from "@/data/vendors";
+import { registryStats } from "@/data/registryStats";
 
 
 
@@ -368,8 +369,8 @@ const VerifiedVendors = () => {
                 }}
               >
                 {[
-                  { label: "Total Indexed", value: vendors.length },
-                  { label: "States Represented", value: stateOptions.length },
+                  { label: "Total Indexed", value: registryStats.providersIndexed },
+                  { label: "States Represented", value: registryStats.statesRepresented },
                 ].map((cell, idx) => (
                   <div
                     key={cell.label}

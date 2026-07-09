@@ -17,7 +17,8 @@ const columns: Column[] = [
     title: "Registry",
     links: [
       { to: "/verified-vendors", label: "Vendor Registry" },
-      { to: "/greenlist", label: "Upstream Registry" },
+      { to: "/greenlist", label: "Facility Records" },
+      { to: "/apply", label: "Apply for Verification" },
       { to: "/report-a-concern", label: "Report a Concern" },
     ],
   },
@@ -81,7 +82,8 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
 export const SiteFooter = () => {
   const now = new Date();
   const { lock } = useSiteAccess();
-  const { pathname } = useLocation();
+
+
 
   return (
     <>
@@ -112,26 +114,6 @@ export const SiteFooter = () => {
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
-                  {col.title === "Registry" && (
-                    <li>
-                      {pathname === "/apply" ? (
-                        <button
-                          type="button"
-                          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                          className="inline-flex items-center gap-1 t-body-sm text-white hover:text-white/80 transition-colors"
-                        >
-                          Begin Verification <span aria-hidden="true">→</span>
-                        </button>
-                      ) : (
-                        <Link
-                          to="/apply"
-                          className="inline-flex items-center gap-1 t-body-sm text-white hover:text-white/80 transition-colors"
-                        >
-                          Begin Verification <span aria-hidden="true">→</span>
-                        </Link>
-                      )}
-                    </li>
-                  )}
                 </ul>
               </div>
             ))}
@@ -179,7 +161,7 @@ export const SiteFooter = () => {
             style={{ color: "rgba(255,255,255,0.40)", fontSize: "11px", lineHeight: 1.6 }}
           >
             Source Standard is an independent public-reference and verification
-            framework for compounded therapy vendor sourcing claims. Listings
+            framework for compounded therapy vendor sourcing claims. Records
             reflect documentation reviewed within a defined scope and at a
             defined point in time. Verification does not constitute medical
             advice, regulatory approval, product approval, treatment

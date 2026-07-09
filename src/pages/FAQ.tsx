@@ -134,12 +134,12 @@ const groups: { title: string; items: QA[] }[] = [
       },
       {
         q: "How is my data handled?",
-        a: "Vendor application materials, contact submissions, and concern reports are handled under the Privacy Policy. Public listing content is published; internal records are retained only for review purposes.",
+        a: "Vendor application materials, contact submissions, and concern reports are handled under the Privacy Policy. Public record content is published; internal records are retained only for review purposes.",
         to: "/privacy",
         toLabel: "Privacy Policy",
       },
       {
-        q: "Can I cite a Source Standard listing?",
+        q: "Can I cite a Source Standard record?",
         a: "Yes. Public registry entries may be cited and referenced. Reuse is governed by the Terms of Use.",
         to: "/terms",
         toLabel: "Terms of Use",
