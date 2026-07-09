@@ -207,14 +207,14 @@ const VerificationDisclaimer = () => {
     <>
       <Breadcrumb items={[{ label: "Framework" }, { label: "Verification Disclaimer" }]} />
 
-      <PageMeta title="Verification Disclaimer" description={heroDescription} />
+      <PageMeta title="What Verification Does — and Doesn't — Mean" description={heroDescription} />
 
       {/* Hero */}
       <BriefingHero
         tone="navy"
         variant="chapter"
         category="Verification Disclaimer"
-        title="Verification Disclaimer"
+        title="What Verification Does — and Doesn't — Mean"
         statement={heroDescription}
         docId=""
       />

@@ -355,7 +355,7 @@ const StatusDefinitions = () => {
       <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Status Definitions" }]} />
 
       <PageMeta
-        title="Status Definitions"
+        title="What Does Each Verification Status Mean?"
         description={heroDescription}
         path="/status-definitions"
         jsonLd={{
@@ -371,7 +371,7 @@ const StatusDefinitions = () => {
         tone="navy"
         variant="chapter"
         category="Registry Standards"
-        title="Status Definitions"
+        title="What Does Each Status Mean?"
         statement={heroDescription}
         docId=""
       />

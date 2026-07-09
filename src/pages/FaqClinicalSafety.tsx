@@ -28,8 +28,8 @@ const ITEMS = [
 const FaqClinicalSafety = () => (
   <>
     <PageMeta
-      title="Safety & Product Questions"
-      description="Common questions about compounded therapies, product handling, sourcing transparency, and safety-related claims."
+      title="Is a Compounded Therapy Safe?"
+      description="What consumers commonly ask about compounded product handling, sourcing, and safety-related claims — and what Source Standard can and cannot tell you."
     />
     <Breadcrumb
       items={[
@@ -38,8 +38,8 @@ const FaqClinicalSafety = () => (
       ]}
     />
     <FaqPage
-      title="Safety & Product Questions"
-      intro="Common questions about compounded therapies, product handling, sourcing transparency, and safety-related claims."
+      title="Is a Compounded Therapy Safe?"
+      intro="What consumers commonly ask about compounded product handling, sourcing, and safety-related claims — and what Source Standard can and cannot tell you."
       items={ITEMS}
     />
   </>

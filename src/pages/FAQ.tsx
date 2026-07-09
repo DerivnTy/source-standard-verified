@@ -151,8 +151,8 @@ const groups: { title: string; items: QA[] }[] = [
 const FAQ = () => (
   <>
     <PageMeta
-      title="Frequently Asked Questions"
-      description="Answers to common questions about Source Standard, the verification framework, and how the public registry operates."
+      title="What Do People Ask About Source Standard?"
+      description="Answers to the questions consumers ask most about provider verification, sourcing transparency, and how to use the registry."
     />
     <Breadcrumb
       items={[
@@ -168,8 +168,8 @@ const FAQ = () => (
         { label: "Jurisdiction", value: "United States" },
       ]}
       eyebrow="Public reference"
-      title="Registry FAQs"
-      lead="Answers to common questions about Source Standard, the verification framework, the Greenlist, and how the public registry should be used."
+      title="What Do People Ask?"
+      lead="Answers to the questions consumers ask most about provider verification, sourcing transparency, and how to use the registry."
     />
 
     {groups.map((g, gi) => (
