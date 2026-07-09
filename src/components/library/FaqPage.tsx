@@ -112,7 +112,7 @@ export const FaqPage = ({
               style={{
                 height: "0.5px",
                 background: "hsl(var(--border))",
-                marginTop: "28px",
+                marginTop: "24px",
               }}
             />
           </div>
@@ -120,30 +120,28 @@ export const FaqPage = ({
       </header>
 
       {/* Flat Q&A */}
-      <section className="bg-background" style={{ paddingTop: "28px" }}>
+      <section className="bg-background" style={{ paddingTop: "24px" }}>
         <div className="page-shell">
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
-            <div className="flex flex-col" style={{ gap: "28px" }}>
+            <div className="flex flex-col" style={{ gap: "24px" }}>
               {items.map((item, i) => (
                 <div key={i}>
                   <h2
                     className="t-section-title-sm text-foreground"
-                    style={{ marginBottom: "8px" }}
+                    style={{ marginBottom: "6px" }}
                   >
                     {item.q}
                   </h2>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "15.5px", lineHeight: 1.65 }}
-                  >
-                    {item.a}
-                  </p>
+                  <div className="t-article-prose">
+                    <p>{item.a}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </section>
+
 
       {/* Still have questions? — single sentence */}
       <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "0" }}>
