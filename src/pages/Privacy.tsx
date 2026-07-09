@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
+import { DefList } from "@/components/DefList";
 
 type Item = { term: string; description: string };
 
