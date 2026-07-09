@@ -326,7 +326,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "What Source Standard's Verified status represents, and what it does not.",
     shortAnswer:
-      "Verified means Source Standard has reviewed a provider's documentation and confirmed the pharmacy or facility they name as their source. It is a sourcing-transparency check, not a clinical endorsement, and it does not evaluate specific products, prices, or outcomes.",
+      "Verification is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. Verified means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review \u2014 not a clinical endorsement, product approval, or guarantee of outcome.",
     sections: [
       {
         title: "What Verified confirms",
