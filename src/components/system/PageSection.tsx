@@ -24,6 +24,7 @@ export const PageSection = ({
   cta,
   children,
   bordered = true,
+  compact = false,
   className = "",
 }: {
   id?: string;
@@ -33,59 +34,67 @@ export const PageSection = ({
   cta?: ReactNode;
   children?: ReactNode;
   bordered?: boolean;
+  compact?: boolean;
   className?: string;
-}) => (
-  <section
-    aria-labelledby={id}
-    className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${className}`}
-    style={{ paddingTop: "28px", paddingBottom: "28px" }}
-  >
-    <div className="page-shell">
-      <div className="mx-auto w-standard">
-        <div className="flex items-center gap-2">
-          {icon && (
-            <span className="text-primary/80">
-              <Glyph name={icon} size="md" />
-            </span>
+}) => {
+  const padY = compact ? "20px" : "28px";
+  const introMarginTop = compact ? "8px" : "10px";
+  const childrenMarginTop = compact ? (intro ? "12px" : "10px") : intro ? "16px" : "14px";
+  const ctaMarginTop = compact ? "12px" : "16px";
+  return (
+    <section
+      aria-labelledby={id}
+      className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${className}`}
+      style={{ paddingTop: padY, paddingBottom: padY }}
+    >
+      <div className="page-shell">
+        <div className="mx-auto w-standard">
+          <div className="flex items-center gap-2">
+            {icon && (
+              <span className="text-primary/80">
+                <Glyph name={icon} size="md" />
+              </span>
+            )}
+            <h2
+              id={id}
+              className="font-sans text-foreground"
+              style={{
+                fontSize: "22px",
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+                fontWeight: 700,
+                margin: 0,
+              }}
+            >
+              {title}
+            </h2>
+          </div>
+
+          {intro && (
+            <p
+              className="text-muted-foreground"
+              style={{
+                fontSize: "15px",
+                lineHeight: 1.65,
+                fontWeight: 400,
+                marginTop: introMarginTop,
+                maxWidth: "64ch",
+              }}
+            >
+              {intro}
+            </p>
           )}
-          <h2
-            id={id}
-            className="font-sans text-foreground"
-            style={{
-              fontSize: "22px",
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-              fontWeight: 700,
-              margin: 0,
-            }}
-          >
-            {title}
-          </h2>
+
+          {children && (
+            <div style={{ marginTop: childrenMarginTop }}>{children}</div>
+          )}
+
+          {cta && <div style={{ marginTop: ctaMarginTop }}>{cta}</div>}
         </div>
-
-        {intro && (
-          <p
-            className="text-muted-foreground"
-            style={{
-              fontSize: "15px",
-              lineHeight: 1.65,
-              fontWeight: 400,
-              marginTop: "10px",
-              maxWidth: "64ch",
-            }}
-          >
-            {intro}
-          </p>
-        )}
-
-        {children && (
-          <div style={{ marginTop: intro ? "16px" : "14px" }}>{children}</div>
-        )}
-
-        {cta && <div style={{ marginTop: "16px" }}>{cta}</div>}
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default PageSection;
+

@@ -10,3 +10,7 @@ export { Stat, StatRow } from "./Stat";
 export { PageSection } from "./PageSection";
 export { DataStrip } from "./DataStrip";
 export { Glyph, type GlyphName } from "./GlyphIcon";
+export { FeatureItem } from "./FeatureItem";
+export { NavCard } from "./NavCard";
+export { ProcessSteps } from "./ProcessSteps";
+

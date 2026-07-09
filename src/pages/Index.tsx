@@ -5,7 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { DocJumpBar } from "@/components/DocJumpBar";
-import { PageSection, DataStrip } from "@/components/system";
+import {
+  PageSection,
+  FeatureItem,
+  NavCard,
+  ProcessSteps,
+} from "@/components/system";
+
 import { vendors } from "@/data/vendors";
 import lockup from "@/assets/source-standard-lockup-dark.png";
 
@@ -316,11 +322,12 @@ const basics = [
   },
 ];
 
-const governanceLinks = [
-  { k: "Advisory Board", to: "/medical-advisory", s: "Independent medical, scientific, and procedural guidance supporting framework development and review standards." },
-  { k: "Verification Framework", to: "/how-it-works", s: "The standards that govern verification and status designations throughout the registry." },
-  { k: "Status Definitions", to: "/status-definitions", s: "Definitions governing every public status displayed throughout the registry." },
+const trustPillars: { icon: "scale" | "handshake" | "graduation-cap"; title: string; desc: string }[] = [
+  { icon: "scale", title: "Independent Governance", desc: "Verification standards are set independently of any vendor, manufacturer, or commercial interest." },
+  { icon: "handshake", title: "Advisory Board", desc: "Medical, scientific, and procedural guidance from an independent advisory board." },
+  { icon: "graduation-cap", title: "Public Standards", desc: "Verification criteria and status definitions are published in full and available for public review." },
 ];
+
 
 /* DataStrip promoted to shared primitive; imported from @/components/system. */
 
@@ -450,59 +457,70 @@ const Index = () => {
 
       <DocJumpBar waypoints={homeWaypoints} />
 
-      {/* Mission */}
+      {/* Mission — editorial, breathing room */}
       <PageSection
         id="mission"
         icon="shield-check"
         title="Why Does This Exist?"
         intro="Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent."
       >
+        <hr
+          className="border-0 bg-border"
+          style={{ height: "0.5px", opacity: 0.6, margin: "18px 0" }}
+        />
         <p
           className="text-muted-foreground"
-          style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, maxWidth: "64ch" }}
+          style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, maxWidth: "64ch", margin: 0 }}
         >
           Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
         </p>
       </PageSection>
 
-      {/* Trust problem */}
+      {/* Trust problem — text + CTA */}
       <PageSection
         id="trust-problem"
         icon="minus"
+        compact
         title="Claims Are Not Verification"
         intro="Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through a structured verification framework and publishes factual verification records designed to distinguish supported claims from unsupported claims."
         cta={<PillPrimary to="/how-it-works">See How Verification Works</PillPrimary>}
       />
 
-      {/* How it works */}
+      {/* How it works — process rail */}
       <PageSection
         id="how-it-works"
         icon="search"
         title="How Does Source Standard Verify?"
         cta={<PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>}
       >
-        <div className="flex flex-col gap-2.5">
-          {howItWorks.map((s) => (
-            <DataStrip key={s.h} icon="check" title={s.h} desc={s.b} />
-          ))}
-        </div>
+        <ProcessSteps
+          steps={howItWorks.map((s) => ({ title: s.h.replace(/\.$/, ""), desc: s.b }))}
+        />
       </PageSection>
 
-      {/* Live registry */}
+      {/* Live registry — navigation pair */}
       <PageSection
         id="live-registry"
         icon="search"
+        compact
         title="What Does the Registry Cover?"
-        intro="The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and facility relationships. Facility records reflect current verification status and recognized upstream sources within the Source Standard framework."
-        cta={
-          <div className="inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
-            <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
-            <PillSecondary to="/greenlist">Explore Facility Records</PillSecondary>
-          </div>
-        }
-      />
+        intro="The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system."
+      >
+        <div className="flex flex-col gap-2.5 sm:grid sm:grid-cols-2 sm:gap-3">
+          <NavCard
+            to="/verified-vendors"
+            title="Vendor Registry"
+            desc="Search vendors by name, state, or verification status."
+          />
+          <NavCard
+            to="/greenlist"
+            title="Facility Records"
+            desc="Recognized upstream sources and current verification status."
+          />
+        </div>
+      </PageSection>
 
-      {/* Registry fields */}
+      {/* Registry fields — checklist */}
       <PageSection
         id="registry-shows"
         icon="circle"
@@ -510,41 +528,60 @@ const Index = () => {
         intro="Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status."
         cta={<PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>}
       >
-        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
           {registryFields.map((f) => (
-            <DataStrip key={f.h} icon="circle" title={f.h} desc={f.b} />
+            <FeatureItem key={f.h} icon="check" title={f.h} desc={f.b} variant="row" />
           ))}
         </div>
       </PageSection>
 
-      {/* Function */}
+      {/* Audience — feature blocks */}
       <PageSection id="why-matters" icon="handshake" title="Who Is This For?">
-        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
-          {whyMatters.map((w) => (
-            <DataStrip key={w.h} title={w.h} desc={w.b} />
-          ))}
+        <div className="flex flex-col divide-y divide-border lg:grid lg:grid-cols-3 lg:gap-8 lg:divide-y-0">
+          {whyMatters.map((w, i) => {
+            const iconName: "handshake" | "shield-check" | "scale" =
+              i === 0 ? "handshake" : i === 1 ? "shield-check" : "scale";
+            return (
+              <div
+                key={w.h}
+                className={i === 0 ? "pb-4 lg:pb-0" : i === whyMatters.length - 1 ? "pt-4 lg:pt-0" : "py-4 lg:py-0"}
+              >
+                <FeatureItem icon={iconName} title={w.h} desc={w.b} variant="block" />
+              </div>
+            );
+          })}
         </div>
       </PageSection>
 
-      {/* Foundational reference */}
+      {/* Learn — navigation */}
       <PageSection
         id="basics"
         icon="graduation-cap"
         title="Where Can I Learn More?"
         cta={<PillSecondary to="/learn">Browse Learn</PillSecondary>}
       >
-        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
+        <div className="flex flex-col gap-2.5">
           {basics.map((b) => (
-            <DataStrip key={b.t} title={b.t} desc={b.s} to={b.to} />
+            <NavCard key={b.t} to={b.to} title={b.t} desc={b.s} />
           ))}
         </div>
       </PageSection>
 
-      {/* Governance */}
-      <PageSection id="governance" icon="scale" title="Who Stands Behind This?">
-        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
-          {governanceLinks.map((g) => (
-            <DataStrip key={g.k} title={g.k} desc={g.s} to={g.to} />
+      {/* Governance — trust pillars */}
+      <PageSection
+        id="governance"
+        icon="scale"
+        title="Who Stands Behind This?"
+        cta={<PillPrimary to="/governance">Explore Governance</PillPrimary>}
+      >
+        <div className="flex flex-col divide-y divide-border lg:grid lg:grid-cols-3 lg:gap-8 lg:divide-y-0">
+          {trustPillars.map((p, i) => (
+            <div
+              key={p.title}
+              className={i === 0 ? "pb-4 lg:pb-0" : i === trustPillars.length - 1 ? "pt-4 lg:pt-0" : "py-4 lg:py-0"}
+            >
+              <FeatureItem icon={p.icon} title={p.title} desc={p.desc} variant="block" />
+            </div>
           ))}
         </div>
       </PageSection>
@@ -555,3 +592,4 @@ const Index = () => {
 };
 
 export default Index;
+
