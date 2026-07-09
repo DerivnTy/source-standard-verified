@@ -60,9 +60,12 @@ export const FeatureItem = ({
 
   return (
     <div className={`flex items-start gap-3 text-left ${className}`}>
-      <span className="text-primary/80 shrink-0" style={{ paddingTop: "2px" }}>
-        <Glyph name={icon} size="sm" />
-      </span>
+      {icon && (
+        <span className="text-primary/80 shrink-0" style={{ paddingTop: "2px" }}>
+          <Glyph name={icon} size="sm" />
+        </span>
+      )}
+
       <div className="min-w-0">
         <h3
           className="font-sans text-foreground"
