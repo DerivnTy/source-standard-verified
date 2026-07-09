@@ -16,7 +16,7 @@ export const FeatureItem = ({
   variant = "row",
   className = "",
 }: {
-  icon: GlyphName;
+  icon?: GlyphName;
   title: string;
   desc: string;
   variant?: "row" | "block";
@@ -25,9 +25,12 @@ export const FeatureItem = ({
   if (variant === "block") {
     return (
       <div className={`text-left ${className}`}>
-        <span className="text-primary/80 inline-flex" style={{ marginBottom: "10px" }}>
-          <Glyph name={icon} size="md" />
-        </span>
+        {icon && (
+          <span className="text-primary/80 inline-flex" style={{ marginBottom: "10px" }}>
+            <Glyph name={icon} size="md" />
+          </span>
+        )}
+
         <h3
           className="font-sans text-foreground"
           style={{
