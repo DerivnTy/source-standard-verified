@@ -48,7 +48,7 @@ export const Section = ({
 );
 
 /**
- * SectionLabel — the in-page filing header. §N chip rendered inline-left
+ * SectionLabel, the in-page filing header. §N chip rendered inline-left
  * of the title, description below at the standard reading measure.
  * Uses the canonical typography tokens so it matches every other heading
  * across the site.
@@ -78,7 +78,7 @@ export const SectionLabel = ({
 );
 
 /**
- * FramedSection — bordered card with optional metadata bar.
+ * FramedSection, bordered card with optional metadata bar.
  * Preserved for legacy callers; uses tokenized typography internally.
  */
 export const FramedSection = ({

@@ -7,7 +7,7 @@ import { NextStep } from "@/components/learn/NextStep";
 import { EDUCATION_ARTICLES, NEWS_ARTICLES } from "@/data/learn";
 
 const HERO_STATEMENT =
-  "The public education library from Source Standard. Consumer-first answers to the questions that come up before you choose a provider — and timely updates about what's changing in compounded therapy.";
+  "The public education library from Source Standard. Consumer-first answers to the questions that come up before you choose a provider, and timely updates about what's changing in compounded therapy.";
 
 const PILLARS: {
   eyebrow: string;
@@ -30,7 +30,7 @@ const PILLARS: {
     eyebrow: "Current Updates",
     title: "News & Insights",
     description:
-      "Reporting, commentary, and regulatory updates on compounded medications. What changed, what it means, and where it does — and doesn't — affect consumers.",
+      "Reporting, commentary, and regulatory updates on compounded medications. What changed, what it means, and where it does, and doesn't, affect consumers.",
     to: "/learn/news",
     cta: "Read News & Insights",
     meta: `${NEWS_ARTICLES.length} posts`,
@@ -39,7 +39,7 @@ const PILLARS: {
     eyebrow: "Common Questions",
     title: "Frequently Asked Questions",
     description:
-      "Structured answers to the direct questions we receive most often — legal, clinical, verification, and consumer diligence.",
+      "Structured answers to the direct questions we receive most often, legal, clinical, verification, and consumer diligence.",
     to: "/learn/faq",
     cta: "See the FAQ",
     meta: "4 topics",
@@ -104,7 +104,7 @@ const Learn = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Learn — Source Standard",
+    name: "Learn, Source Standard",
     description: HERO_STATEMENT,
     url: "https://www.sourcestandard.org/learn",
   };
@@ -112,7 +112,7 @@ const Learn = () => {
   return (
     <>
       <PageMeta
-        title="Learn — Education, News & FAQ"
+        title="Learn, Education, News & FAQ"
         description={HERO_STATEMENT}
         path="/learn"
         jsonLd={jsonLd}

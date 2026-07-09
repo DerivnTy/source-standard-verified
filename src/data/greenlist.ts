@@ -34,7 +34,7 @@ export type GreenlistEntry = {
   profile?: GreenlistProfile;
   regulatoryAlert?: RegulatoryAlert;
   // Discrete location fields (populated at module load by the normalization
-  // pass below — derived from `location`). Filters read from these.
+  // pass below, derived from `location`). Filters read from these.
   city?: string;
   state?: string;
   additionalLocations?: { city?: string; state?: string }[];
@@ -223,7 +223,8 @@ for (const e of greenlistEntries) {
   const parts = loc.split(/\s+and\s+|;\s*/i).map((p) => p.trim()).filter(Boolean);
   if (parts.length === 0) continue;
 
-  const [first, ...rest] = parts;
+  const [first,
+    ...rest] = parts;
   const primary = parseLocationFragment(first);
   if (primary.city) e.city = primary.city;
   if (primary.state) e.state = primary.state;

@@ -29,7 +29,7 @@ const FaqLegalRegulatory = () => (
   <>
     <PageMeta
       title="Who Regulates This, and Where Does Source Standard Fit?"
-      description="How Source Standard relates to the FDA, state boards, and other regulators — and what our role is (and is not) in oversight."
+      description="How Source Standard relates to the FDA, state boards, and other regulators, and what our role is (and is not) in oversight."
     />
     <Breadcrumb
       items={[
@@ -39,7 +39,7 @@ const FaqLegalRegulatory = () => (
     />
     <FaqPage
       title="Who Regulates This, and Where Does Source Standard Fit?"
-      intro="How Source Standard relates to the FDA, state boards, and other regulators — and what our role is (and is not) in oversight."
+      intro="How Source Standard relates to the FDA, state boards, and other regulators, and what our role is (and is not) in oversight."
       items={ITEMS}
     />
   </>

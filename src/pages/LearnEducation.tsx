@@ -19,7 +19,7 @@ type Filter = "all" | EducationTopicId;
 
 const FILTER_TABS: { id: Filter; label: string }[] = [
   { id: "all", label: "All" },
-  ...EDUCATION_TOPICS.map((t) => ({ id: t.id, label: t.label })),
+    ...EDUCATION_TOPICS.map((t) => ({ id: t.id, label: t.label })),
 ];
 
 const ArticleRow = ({
@@ -131,7 +131,7 @@ const LearnEducation = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Education — Source Standard",
+    name: "Education, Source Standard",
     description: HERO_STATEMENT,
     url: "https://www.sourcestandard.org/learn/education",
   };

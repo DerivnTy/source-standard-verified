@@ -9,7 +9,7 @@ interface LogoProps {
 }
 
 /**
- * Logo — horizontal "S Shield + Source Standard" lockup.
+ * Logo, horizontal "S Shield + Source Standard" lockup.
  *
  *   • variant="dark"   → natural navy lockup (for white/light backgrounds).
  *   • variant="light"  → inverted to white (for navy/dark backgrounds).

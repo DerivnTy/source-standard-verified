@@ -52,8 +52,7 @@ const matchesQuery = (vendor: Vendor, query: string): boolean => {
     vendor.name,
     vendor.city,
     vendor.state,
-    vendor.category,
-    ...(vendor.clinicalFocus ?? []),
+    vendor.category...(vendor.clinicalFocus ?? []),
   ]
     .filter(Boolean)
     .join(" ")
@@ -75,7 +74,7 @@ const vendorSpecialties = (v: Vendor): string[] => {
 };
 
 /**
- * SoftPill — Apple-feel pill: light grey wash inactive, solid navy active.
+ * SoftPill, Apple-feel pill: light grey wash inactive, solid navy active.
  * 20px corner radius, tight padding.
  */
 const SoftPill = ({
@@ -113,7 +112,7 @@ const SoftPill = ({
 );
 
 /**
- * FilterSelect — Source Standard styled select.
+ * FilterSelect, Source Standard styled select.
  * Trigger matches the pill/input language (36px, 20px radius, hairline, white).
  * Menu is a white card with hairline border, 16px radius, subtle elevation.
  */
@@ -236,7 +235,7 @@ const VerifiedVendors = () => {
     return map;
   }, []);
 
-  // Dynamic specialty options — dedupe case-insensitively, keep first-seen label,
+  // Dynamic specialty options, dedupe case-insensitively, keep first-seen label,
   // only surface options with >= SPECIALTY_MIN_COUNT vendors.
   const specialtyOptions = useMemo(() => {
     const counts = new Map<string, { label: string; count: number }>();
@@ -257,7 +256,7 @@ const VerifiedVendors = () => {
       .map(([key, v]) => ({ key, label: v.label, count: v.count }));
   }, []);
 
-  // Dynamic state options — only states actually present in the dataset.
+  // Dynamic state options, only states actually present in the dataset.
   const stateOptions = useMemo(() => {
     const set = new Set<string>();
     for (const v of vendors) if (v.state) set.add(v.state);
@@ -335,7 +334,7 @@ const VerifiedVendors = () => {
 
 
 
-      {/* Floating stats card — centered on the navy/gray boundary */}
+      {/* Floating stats card, centered on the navy/gray boundary */}
       <section
         className="relative"
         style={{
@@ -402,7 +401,7 @@ const VerifiedVendors = () => {
       <section className="bg-background">
         <div className="page-shell pb-2 md:pb-4">
           <div className="mx-auto w-wide">
-            {/* Search — centerpiece, above filters */}
+            {/* Search, centerpiece, above filters */}
             <div className="-mx-5 md:mx-0 px-5 pt-2 md:pt-4">
               <div className="mx-auto w-full md:max-w-[640px]">
                 <div className="relative">
@@ -437,7 +436,7 @@ const VerifiedVendors = () => {
               </div>
             </div>
 
-            {/* Grouped filters — collapsible during search */}
+            {/* Grouped filters, collapsible during search */}
             {isSearching && (
               <div className="-mx-5 md:mx-0 px-5 pt-3">
                 <button
@@ -532,7 +531,7 @@ const VerifiedVendors = () => {
                     placeholder="All specialties"
                     options={[
                       { value: "any", label: "All specialties" },
-                      ...specialtyOptions.map((opt) => ({
+    ...specialtyOptions.map((opt) => ({
                         value: opt.key,
                         label: opt.label,
                       })),
@@ -582,7 +581,7 @@ const VerifiedVendors = () => {
                     placeholder="All states"
                     options={[
                       { value: "any", label: "All states" },
-                      ...stateOptions.map((s) => ({ value: s.abbr, label: s.name })),
+    ...stateOptions.map((s) => ({ value: s.abbr, label: s.name })),
                     ]}
                   />
 

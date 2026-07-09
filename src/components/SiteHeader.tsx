@@ -15,7 +15,8 @@ const nav = [
 ];
 
 // Mobile mirrors desktop nav, with Home prepended as the anchor item.
-const mobileNav = [{ to: "/", label: "Home" }, ...nav];
+const mobileNav = [{ to: "/", label: "Home" },
+    ...nav];
 
 
 
@@ -55,7 +56,7 @@ export const SiteHeader = () => {
     };
   }, [open]);
 
-  // Header is always visible — keep global subscribers in sync.
+  // Header is always visible, keep global subscribers in sync.
   useEffect(() => {
     setHeaderVisibleGlobal(true);
   }, [location.pathname]);
@@ -136,7 +137,7 @@ export const SiteHeader = () => {
         </button>
       </div>
 
-      {/* Full-screen mobile overlay — navy surface, light type, edge-to-edge viewport. */}
+      {/* Full-screen mobile overlay, navy surface, light type, edge-to-edge viewport. */}
       {typeof document !== "undefined" &&
         createPortal(
           <div
@@ -153,7 +154,7 @@ export const SiteHeader = () => {
             }}
           >
             <div className="flex h-full w-full flex-col">
-              {/* Top bar — unified lockup + close (matches header height) */}
+              {/* Top bar, unified lockup + close (matches header height) */}
               <div
                 className="flex shrink-0 items-center justify-between"
                 style={{
@@ -183,7 +184,7 @@ export const SiteHeader = () => {
                 </button>
               </div>
 
-              {/* Nav list — left-aligned, 32px gaps, 20px Inter Semi-bold Navy */}
+              {/* Nav list, left-aligned, 32px gaps, 20px Inter Semi-bold Navy */}
               <nav
                 className="flex-1 overflow-y-auto"
                 style={{ paddingLeft: "32px", paddingRight: "32px", paddingTop: "40px" }}

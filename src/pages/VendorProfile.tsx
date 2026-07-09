@@ -29,7 +29,7 @@ import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
 import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
 
 /**
- * VendorProfile — Public clinic identity + verification record.
+ * VendorProfile, Public clinic identity + verification record.
  *
  * Balance (deliberate): ~40% provider directory, ~30% clinic profile,
  * ~30% verification record. Verification is authoritative but no longer
@@ -607,14 +607,12 @@ const VendorProfile = () => {
   const mapsHref = mapsSearchUrl(vendor);
   const dirHref = directionsUrl(vendor);
 
-  // Service badges — merge clinicalFocus + treatmentCategories + servicesOffered (dedupe)
+  // Service badges, merge clinicalFocus + treatmentCategories + servicesOffered (dedupe)
   const serviceBadges = (() => {
     const seen = new Set<string>();
     const out: string[] = [];
     for (const v of [
-      ...(vendor.clinicalFocus ?? []),
-      ...(vendor.treatmentCategories ?? []),
-      ...(vendor.servicesOffered ?? []),
+      ...(vendor.clinicalFocus ?? [])...(vendor.treatmentCategories ?? [])...(vendor.servicesOffered ?? []),
     ]) {
       const key = v.trim().toLowerCase();
       if (!key || seen.has(key)) continue;
@@ -663,11 +661,7 @@ const VendorProfile = () => {
   if (vendor.summary) orgLd.description = vendor.summary;
   if (vendor.address || vendor.city || vendor.state) {
     orgLd.address = {
-      "@type": "PostalAddress",
-      ...(vendor.address ? { streetAddress: vendor.address } : {}),
-      ...(vendor.city ? { addressLocality: vendor.city } : {}),
-      ...(vendor.state ? { addressRegion: vendor.state } : {}),
-      ...(vendor.zip ? { postalCode: vendor.zip } : {}),
+      "@type": "PostalAddress"...(vendor.address ? { streetAddress: vendor.address } : {})...(vendor.city ? { addressLocality: vendor.city } : {})...(vendor.state ? { addressRegion: vendor.state } : {})...(vendor.zip ? { postalCode: vendor.zip } : {}),
       addressCountry: "US",
     };
   }
@@ -681,8 +675,7 @@ const VendorProfile = () => {
     orgLd.employee = [
       {
         "@type": "Person",
-        name: vendor.medicalDirector,
-        ...(vendor.credentials ? { hasCredential: vendor.credentials } : {}),
+        name: vendor.medicalDirector...(vendor.credentials ? { hasCredential: vendor.credentials } : {}),
         jobTitle: "Medical Director",
       },
     ];
@@ -693,8 +686,7 @@ const VendorProfile = () => {
       propertyID: "source-standard-status",
       name: "Source Standard Status",
       value: VENDOR_STATUS_LABEL[status],
-    },
-    ...(isVerified && vendor.reviewId
+    }...(isVerified && vendor.reviewId
       ? [
           {
             "@type": "PropertyValue",
@@ -760,7 +752,7 @@ const VendorProfile = () => {
 
           {/* ────── 1. IDENTITY HEADER ────── */}
           <article className="mt-4 overflow-hidden" style={{ ...CARD, padding: 0 }}>
-            {/* Cover — only when an image is provided */}
+            {/* Cover, only when an image is provided */}
             {vendor.coverImageUrl && (
               <div
                 className="relative w-full overflow-hidden"
@@ -772,9 +764,9 @@ const VendorProfile = () => {
               />
             )}
 
-            {/* Identity body — compressed */}
+            {/* Identity body, compressed */}
             <div style={{ padding: "14px 14px 12px" }}>
-              {/* Status + Service model — record classification */}
+              {/* Status + Service model, record classification */}
               <div
                 className="flex flex-wrap items-center font-sans uppercase"
                 style={{ fontSize: "12px", letterSpacing: "0.06em", lineHeight: 1, gap: "6px" }}
@@ -813,7 +805,7 @@ const VendorProfile = () => {
                 </h1>
               </div>
 
-              {/* Location — aligned with card edge, part of identity */}
+              {/* Location, aligned with card edge, part of identity */}
               {location !== "—" && (
                 <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
                   <span
@@ -828,7 +820,7 @@ const VendorProfile = () => {
 
 
 
-              {/* Contact row — website / phone / email / maps */}
+              {/* Contact row, website / phone / email / maps */}
               {(vendor.website || phoneHref || emailHref || mapsHref) && (
                 <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                   {vendor.website && (
@@ -871,8 +863,7 @@ const VendorProfile = () => {
                     ? vendor.reviewDate
                     : "Not yet reviewed",
               },
-              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
-              ...(isVerified && vendor.reviewDate && vendor.nextReviewDate
+              { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] }...(isVerified && vendor.reviewDate && vendor.nextReviewDate
                 ? [{
                     label: "Verification Period",
                     value: `${vendor.reviewDate} → ${vendor.nextReviewDate}`,
@@ -1184,12 +1175,12 @@ const VendorProfile = () => {
             </article>
           )}
 
-          {/* Location section removed — address now lives in Contact */}
+          {/* Location section removed, address now lives in Contact */}
 
           {/* ────── 7. PROVIDERS ────── */}
           <article className="mt-4" style={CARD}>
             <SectionHeading>Who provides care</SectionHeading>
-            {/* Headshot strip — only when available */}
+            {/* Headshot strip, only when available */}
             {vendor.providerHeadshots?.length ? (
               <div className="mt-3 flex flex-wrap gap-3">
                 {vendor.providerHeadshots.map((p) => (
@@ -1232,7 +1223,7 @@ const VendorProfile = () => {
               </div>
             ) : null}
 
-            {/* Always render the provider grid — missing fields stay visible as
+            {/* Always render the provider grid, missing fields stay visible as
                 "Information Not Submitted" so unclaimed profiles feel intentionally sparse. */}
             <dl
               className="mt-4 grid grid-cols-2"
@@ -1249,7 +1240,7 @@ const VendorProfile = () => {
                         .map(
                           (p) =>
                             [p.name, p.credentials].filter(Boolean).join(", ") +
-                            (p.role ? ` — ${p.role}` : ""),
+                            (p.role ? `, ${p.role}` : ""),
                         )
                         .join(" · ")
                     : undefined

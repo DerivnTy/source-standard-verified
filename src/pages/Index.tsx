@@ -63,7 +63,7 @@ const HeroContent = () => {
         Search the Source Standard Registry to better understand your provider's peptide sourcing transparency and verification status.
       </p>
 
-      {/* Search — primary action */}
+      {/* Search, primary action */}
       <form
         onSubmit={onSubmit}
         role="search"
@@ -130,7 +130,7 @@ const HeroContent = () => {
 
 
 /* ───────────────── Pill buttons (unified) ─────────────────
-   Single pill style — 32px height, 20px radius, 1px hairline.
+   Single pill style, 32px height, 20px radius, 1px hairline.
    Variants: navy primary / white secondary. Mirrors filter-pill geometry. */
 const pillBase =
   "inline-flex items-center justify-center font-sans font-semibold uppercase transition-all active:scale-[0.97]";
@@ -427,7 +427,7 @@ const Index = () => {
         ]}
       />
 
-      {/* §1 — Hero */}
+      {/* §1, Hero */}
       <style>{`
         @keyframes scrollCue {
           0%, 100% { transform: translate(-50%, 0); opacity: 0.35; }
@@ -438,7 +438,7 @@ const Index = () => {
            Mobile is locked. These overrides only kick in on lg+
            to scale type, padding, and centering for desktop. */
         @media (min-width: 1024px) {
-          /* Hero — center the cover content, lift the H1, widen the lead */
+          /* Hero, center the cover content, lift the H1, widen the lead */
           .home-hero h1#briefing-title {
             text-align: center !important;
             margin-left: auto;
@@ -466,7 +466,7 @@ const Index = () => {
             margin-top: 28px !important;
           }
 
-          /* Section rhythm — bump padding and headings on every home section */
+          /* Section rhythm, bump padding and headings on every home section */
           .home-section { padding-top: 56px !important; padding-bottom: 56px !important; }
           .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; font-weight: 500 !important; }
           .home-section .home-h2 {
@@ -493,7 +493,7 @@ const Index = () => {
           .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
           .home-section .home-cta { margin-top: 28px !important; }
 
-          /* DataStrip cards — larger institutional type on desktop */
+          /* DataStrip cards, larger institutional type on desktop */
           .home-section .home-grid > * { padding: 24px 26px !important; }
           .home-section .home-grid h3 { font-size: 20px !important; line-height: 1.3 !important; }
           .home-section .home-grid p { font-size: 16px !important; line-height: 1.75 !important; margin-top: 10px !important; }
@@ -562,7 +562,7 @@ const Index = () => {
 
       <DocJumpBar waypoints={homeWaypoints} />
 
-      {/* §1 — Mission */}
+      {/* §1, Mission */}
       <section
         aria-labelledby="mission"
         className="home-section bg-background border-b border-border text-left"
@@ -595,7 +595,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §2 — The trust problem */}
+      {/* §2, The trust problem */}
       <section
         aria-labelledby="trust-problem"
         className="home-section bg-background border-b border-border text-left"
@@ -630,7 +630,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §3 — How it works */}
+      {/* §3, How it works */}
       <section
         aria-labelledby="how-it-works"
         className="home-section border-b border-border bg-background text-left"
@@ -671,7 +671,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §4 — Live registry */}
+      {/* §4, Live registry */}
       <section
         aria-labelledby="live-registry"
         className="home-section border-b border-border bg-background text-left"
@@ -707,7 +707,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §5 — Registry fields */}
+      {/* §5, Registry fields */}
       <section
         aria-labelledby="registry-shows"
         className="home-section border-b border-border bg-background text-left"
@@ -751,7 +751,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §6 — Function of the framework */}
+      {/* §6, Function of the framework */}
       <section
         aria-labelledby="why-matters"
         className="home-section border-b border-border bg-background text-left"
@@ -788,7 +788,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §7 — Foundational reference */}
+      {/* §7, Foundational reference */}
       <section
         aria-labelledby="basics"
         className="home-section border-b border-border bg-background text-left"
@@ -830,7 +830,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* §8 — Governance & standards */}
+      {/* §8, Governance & standards */}
       <section
         aria-labelledby="governance"
         className="home-section border-b border-border bg-background"

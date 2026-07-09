@@ -30,7 +30,7 @@ const Partners = () => (
       path="/partners"
     />
 
-    {/* Page hero — matches Verification Framework */}
+    {/* Page hero, matches Verification Framework */}
     <BriefingHero
       tone="navy"
       variant="chapter"
@@ -41,7 +41,7 @@ const Partners = () => (
     />
 
 
-    {/* Section 1 — Verification Infrastructure */}
+    {/* Section 1, Verification Infrastructure */}
     <Section>
       <Eyebrow>Section 01</Eyebrow>
       <div className="mt-4">
@@ -62,7 +62,7 @@ const Partners = () => (
 
     </Section>
 
-    {/* Section 2 — Verification Network */}
+    {/* Section 2, Verification Network */}
     <Section>
       <Eyebrow>Section 02</Eyebrow>
       <div className="mt-4">
@@ -114,7 +114,7 @@ const Partners = () => (
       </div>
     </Section>
 
-    {/* Section 3 — Research Infrastructure */}
+    {/* Section 3, Research Infrastructure */}
     <Section>
       <Eyebrow>Section 03</Eyebrow>
       <div className="mt-4">
@@ -156,7 +156,7 @@ const Partners = () => (
       </article>
     </Section>
 
-    {/* Section 4 — Why This Matters */}
+    {/* Section 4, Why This Matters */}
     <Section>
       <Eyebrow>Section 04</Eyebrow>
       <div className="mt-4">

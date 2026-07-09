@@ -1,9 +1,9 @@
 /**
- * Learn — content system for the /learn universe.
+ * Learn, content system for the /learn universe.
  *
  * Two engines:
- *   • Education — timeless questions. `/learn/education/:slug`
- *   • News & Insights — timely reports. `/learn/news/:slug`
+ *   • Education, timeless questions. `/learn/education/:slug`
+ *   • News & Insights, timely reports. `/learn/news/:slug`
  *
  * Articles are data, not per-file pages. Templates render from these
  * records so we can build a library of 100+ pages without a route file
@@ -130,9 +130,9 @@ export interface EducationSection {
 export interface EducationArticle {
   slug: string;
   topic: EducationTopicId;
-  question: string; // The consumer question — used as <h1> and <title>
+  question: string; // The consumer question, used as <h1> and <title>
   shortAnswer: string; // 2–3 sentence answer
-  answersFor: string; // "What this answers" — one sentence
+  answersFor: string; // "What this answers", one sentence
   sections: EducationSection[];
   relatedQuestions: { slug: string }[]; // Other education articles
   nextStep: NextStepId;
@@ -163,7 +163,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "The difference between a compounded medication and one that comes off a pharmaceutical company's production line.",
     shortAnswer:
-      "A compounded medication is one that a licensed pharmacy prepares for a specific prescription, rather than a mass-manufactured product that comes in a sealed retail package. Compounding is legal, regulated, and long-standing — but the responsibility for quality rests on the individual pharmacy.",
+      "A compounded medication is one that a licensed pharmacy prepares for a specific prescription, rather than a mass-manufactured product that comes in a sealed retail package. Compounding is legal, regulated, and long-standing, but the responsibility for quality rests on the individual pharmacy.",
     sections: [
       {
         title: "What compounding is",
@@ -174,7 +174,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "Why it exists",
-        body: "Compounding fills gaps that mass manufacturing doesn't. It also creates a system where quality depends on the pharmacy itself — which is why knowing where a compounded product comes from matters.",
+        body: "Compounding fills gaps that mass manufacturing doesn't. It also creates a system where quality depends on the pharmacy itself, which is why knowing where a compounded product comes from matters.",
       },
       {
         title: "What to look for as a consumer",
@@ -228,7 +228,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "The signals that separate a transparent provider from one that avoids specifics.",
     shortAnswer:
-      "A trustworthy provider will tell you which pharmacy prepares your medication, share supporting documentation on request, and describe its sourcing in specific terms — not marketing language. Vague or evasive answers about sourcing are the clearest sign to look elsewhere.",
+      "A trustworthy provider will tell you which pharmacy prepares your medication, share supporting documentation on request, and describe its sourcing in specific terms, not marketing language. Vague or evasive answers about sourcing are the clearest sign to look elsewhere.",
     sections: [
       {
         title: "The specifics they should be able to name",
@@ -241,7 +241,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "Warning signs",
-        body: "If a provider describes its sourcing only in general terms — 'FDA-registered,' 'premium,' 'medical-grade' — without being able to name the actual pharmacy, that's a gap worth taking seriously.",
+        body: "If a provider describes its sourcing only in general terms, 'FDA-registered,' 'premium,' 'medical-grade', without being able to name the actual pharmacy, that's a gap worth taking seriously.",
       },
       {
         title: "How to verify what you're told",
@@ -298,7 +298,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     sections: [
       {
         title: "Named sourcing",
-        body: "The single most important disclosure is the name of the pharmacy or facility that prepares each compounded product. Not a category, not a claim — a name.",
+        body: "The single most important disclosure is the name of the pharmacy or facility that prepares each compounded product. Not a category, not a claim, a name.",
       },
       {
         title: "Regulatory status",
@@ -324,7 +324,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     topic: "verification",
     question: "What Does Verified Mean?",
     answersFor:
-      "What Source Standard's Verified status represents — and what it does not.",
+      "What Source Standard's Verified status represents, and what it does not.",
     shortAnswer:
       "Verified means Source Standard has reviewed a provider's documentation and confirmed the pharmacy or facility they name as their source. It is a sourcing-transparency check, not a clinical endorsement, and it does not evaluate specific products, prices, or outcomes.",
     sections: [
@@ -342,7 +342,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "Why the distinction matters",
-        body: "A verified sourcing claim narrows what you have to trust. It doesn't replace clinical judgment, but it moves the conversation from 'take our word for it' to 'here's the pharmacy — check it yourself.'",
+        body: "A verified sourcing claim narrows what you have to trust. It doesn't replace clinical judgment, but it moves the conversation from 'take our word for it' to 'here's the pharmacy, check it yourself.'",
       },
     ],
     relatedQuestions: [
@@ -364,7 +364,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     sections: [
       {
         title: "The paperwork step",
-        body: "Providers submit invoices, purchase records, and other documentation that identifies the pharmacies or facilities they source from. Nothing about a provider's sourcing is inferred — it's evidenced.",
+        body: "Providers submit invoices, purchase records, and other documentation that identifies the pharmacies or facilities they source from. Nothing about a provider's sourcing is inferred, it's evidenced.",
       },
       {
         title: "The public-records step",
@@ -372,7 +372,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "The outcome",
-        body: "When documentation and public records align, the provider receives a Verified listing. When they don't, the listing reflects the gap — or the provider is not listed.",
+        body: "When documentation and public records align, the provider receives a Verified listing. When they don't, the listing reflects the gap, or the provider is not listed.",
       },
     ],
     relatedQuestions: [
@@ -390,11 +390,11 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "What it means when a pharmacy or facility appears on Source Standard's Greenlist.",
     shortAnswer:
-      "The Greenlist is the public record of pharmacies and facilities whose regulatory status Source Standard has confirmed. A Greenlisted facility is one whose license and classification match public records — nothing more, nothing less.",
+      "The Greenlist is the public record of pharmacies and facilities whose regulatory status Source Standard has confirmed. A Greenlisted facility is one whose license and classification match public records, nothing more, nothing less.",
     sections: [
       {
         title: "What it confirms",
-        body: "A Greenlisted facility has been checked against the appropriate regulator — the FDA for 503B outsourcing facilities, state boards of pharmacy for 503A pharmacies — and that check matches what the facility itself claims.",
+        body: "A Greenlisted facility has been checked against the appropriate regulator, the FDA for 503B outsourcing facilities, state boards of pharmacy for 503A pharmacies, and that check matches what the facility itself claims.",
       },
       {
         title: "What it doesn't confirm",
@@ -476,7 +476,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     topic: "sourcing-and-manufacturing",
     question: "Who Manufactures Compounded Medications?",
     answersFor:
-      "The organizations that actually prepare the compounded medications a clinic dispenses — which is usually not the clinic itself.",
+      "The organizations that actually prepare the compounded medications a clinic dispenses, which is usually not the clinic itself.",
     shortAnswer:
       "Most clinics do not manufacture their own medications. Compounded products come from 503A pharmacies or 503B outsourcing facilities that operate separately from the clinic. Knowing which facility actually prepared your medication is the starting point for reviewing any sourcing claim.",
     sections: [
@@ -504,11 +504,11 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "How compounded medications differ from the FDA-approved products people are more familiar with.",
     shortAnswer:
-      "FDA-approved medications are mass-manufactured products that have been reviewed by the FDA for safety and effectiveness. Compounded medications are prepared by individual pharmacies against a prescription and are not FDA-approved as products. Both are legal — but the safeguards behind them are different.",
+      "FDA-approved medications are mass-manufactured products that have been reviewed by the FDA for safety and effectiveness. Compounded medications are prepared by individual pharmacies against a prescription and are not FDA-approved as products. Both are legal, but the safeguards behind them are different.",
     sections: [
       {
         title: "FDA-approved products",
-        body: "An FDA-approved medication has been through clinical trials, manufacturing review, and formal labeling approval. The product itself carries an FDA approval — not just the facility that made it.",
+        body: "An FDA-approved medication has been through clinical trials, manufacturing review, and formal labeling approval. The product itself carries an FDA approval, not just the facility that made it.",
       },
       {
         title: "Compounded medications",
@@ -534,7 +534,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "Why the identity of the pharmacy behind a compounded medication is the most useful thing to know about it.",
     shortAnswer:
-      "Compounded medications don't carry a product-level approval. Quality is tied to the specific pharmacy that prepared them. That means the pharmacy's name — not marketing language about it — is the single most useful fact about the product.",
+      "Compounded medications don't carry a product-level approval. Quality is tied to the specific pharmacy that prepared them. That means the pharmacy's name, not marketing language about it, is the single most useful fact about the product.",
     sections: [
       {
         title: "The product isn't approved; the pharmacy is licensed",
@@ -546,7 +546,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "What sterile preparation adds",
-        body: "For injectable compounded medications, sterile preparation is an additional layer of practice that the pharmacy must follow. It is one of the reasons the specific pharmacy — not just 'a pharmacy' — matters.",
+        body: "For injectable compounded medications, sterile preparation is an additional layer of practice that the pharmacy must follow. It is one of the reasons the specific pharmacy, not just 'a pharmacy', matters.",
       },
     ],
     relatedQuestions: [
@@ -564,11 +564,11 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "What sterile compounding is, and why it matters for injectable compounded medications.",
     shortAnswer:
-      "Sterile compounding is the preparation of medications — typically injectables — in an environment designed to keep them free of microbial contamination. Both 503A pharmacies and 503B facilities can perform it, but they must follow specific standards to do so.",
+      "Sterile compounding is the preparation of medications, typically injectables, in an environment designed to keep them free of microbial contamination. Both 503A pharmacies and 503B facilities can perform it, but they must follow specific standards to do so.",
     sections: [
       {
         title: "Why sterility is separate",
-        body: "Any compounded medication that bypasses the digestive system — injections, infusions, some ophthalmic products — must be prepared under sterile conditions. Contamination in these routes is a direct risk.",
+        body: "Any compounded medication that bypasses the digestive system, injections, infusions, some ophthalmic products, must be prepared under sterile conditions. Contamination in these routes is a direct risk.",
       },
       {
         title: "The standards",
@@ -594,7 +594,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "What a certificate of analysis is, what fields matter, and how to use one to check a batch.",
     shortAnswer:
-      "A certificate of analysis is a document from a pharmacy or lab that reports what a specific batch of medication contains and how it was tested. It should identify the product, the batch, the date, and the tests performed — with results.",
+      "A certificate of analysis is a document from a pharmacy or lab that reports what a specific batch of medication contains and how it was tested. It should identify the product, the batch, the date, and the tests performed, with results.",
     sections: [
       {
         title: "What it is",
@@ -606,7 +606,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
           "The product name and formulation, spelled out.",
           "A batch or lot number that ties the document to a specific batch.",
           "The date of preparation or testing.",
-          "The tests performed — identity, potency, sterility for injectables — with the actual results and the acceptance range.",
+          "The tests performed, identity, potency, sterility for injectables, with the actual results and the acceptance range.",
           "The name of the laboratory or facility issuing the COA.",
         ],
       },
@@ -630,7 +630,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "How compounded hormone therapy differs from FDA-approved hormone products, and what to check.",
     shortAnswer:
-      "Compounded hormone therapy is hormone treatment prepared by a compounding pharmacy for a specific prescription, rather than a mass-manufactured FDA-approved hormone product. It exists to fill needs that off-the-shelf products don't — but the same sourcing questions apply.",
+      "Compounded hormone therapy is hormone treatment prepared by a compounding pharmacy for a specific prescription, rather than a mass-manufactured FDA-approved hormone product. It exists to fill needs that off-the-shelf products don't, but the same sourcing questions apply.",
     sections: [
       {
         title: "Why it exists",
@@ -660,11 +660,11 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "Why the pharmacies and facilities behind a compounded product are more informative than the clinic that dispenses it.",
     shortAnswer:
-      "Facility records show you the pharmacy behind the product — its license, its regulatory category, its status. Because compounded medications don't carry product approvals, the facility is where the real accountability lives.",
+      "Facility records show you the pharmacy behind the product, its license, its regulatory category, its status. Because compounded medications don't carry product approvals, the facility is where the real accountability lives.",
     sections: [
       {
         title: "What facility records contain",
-        body: "A facility record shows a pharmacy's regulatory category (503A or 503B), the authority that licenses it, its current status, and — where applicable — its FDA registration.",
+        body: "A facility record shows a pharmacy's regulatory category (503A or 503B), the authority that licenses it, its current status, and, where applicable, its FDA registration.",
       },
       {
         title: "Why they matter more than marketing",
@@ -697,9 +697,9 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     dateline: "2026-04-14",
     location: "Washington, D.C.",
     body: [
-      "The FDA has issued updated guidance affecting how certain compounded medications are classified for regulatory purposes. The change primarily affects the boundary between what a 503A pharmacy and a 503B outsourcing facility can prepare — and how clinics stock those products.",
+      "The FDA has issued updated guidance affecting how certain compounded medications are classified for regulatory purposes. The change primarily affects the boundary between what a 503A pharmacy and a 503B outsourcing facility can prepare, and how clinics stock those products.",
       "For consumers, the practical effect is narrower than the headlines suggest. Compounded medications remain legal. Pharmacies remain licensed. What changes is which category some products fall into, and therefore which set of regulatory standards applies to their preparation.",
-      "The clearest signal for consumers remains unchanged: knowing which specific pharmacy prepares your medication. The reclassification does not change how you check that fact — it only shifts which regulatory record you'll find that pharmacy in.",
+      "The clearest signal for consumers remains unchanged: knowing which specific pharmacy prepares your medication. The reclassification does not change how you check that fact, it only shifts which regulatory record you'll find that pharmacy in.",
     ],
     whyThisMatters:
       "Regulatory reclassifications typically cause more confusion than change. What matters for consumers is the same thing it was before: the pharmacy behind the product and the record that pharmacy carries.",
@@ -742,7 +742,7 @@ export const FAQ_ENTRIES: {
   {
     label: "Clinical Safety",
     description:
-      "What Source Standard covers on sourcing and pharmacy standards — and where clinical judgment belongs.",
+      "What Source Standard covers on sourcing and pharmacy standards, and where clinical judgment belongs.",
     to: "/library/faq/clinical-safety",
   },
   {

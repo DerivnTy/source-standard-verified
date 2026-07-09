@@ -1,7 +1,7 @@
 import { ElementType, ReactNode } from "react";
 
 /**
- * Eyebrow — utility-xs / eyebrow-sm caps label that sits above titles
+ * Eyebrow, utility-xs / eyebrow-sm caps label that sits above titles
  * and section headings. Two sizes only:
  *   size="xs"  → 12px (utility bars, metadata strips, tiny captions)
  *   size="sm"  → 13px (default; section eyebrows above headings)
@@ -23,7 +23,7 @@ export const Eyebrow = ({
 );
 
 /**
- * SectionHeading — H2 inside a page. Two sizes:
+ * SectionHeading, H2 inside a page. Two sizes:
  *   size="sm" → 28/36
  *   size="md" → 32/40 (default)
  *
@@ -51,7 +51,7 @@ export const SectionHeading = ({
 );
 
 /**
- * PageTitle — the locked H1 for every internal page (48/56 desktop).
+ * PageTitle, the locked H1 for every internal page (48/56 desktop).
  * The homepage uses `t-home-title` directly; article pages use ArticleHeader.
  */
 export const PageTitle = ({
@@ -69,7 +69,7 @@ export const PageTitle = ({
 );
 
 /**
- * Lead — dek/subhead paragraph that follows a title. 18/30, muted.
+ * Lead, dek/subhead paragraph that follows a title. 18/30, muted.
  * Honors the sitewide title→dek spacing of 20px.
  */
 export const Lead = ({

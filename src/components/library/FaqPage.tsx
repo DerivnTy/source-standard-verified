@@ -30,7 +30,7 @@ type FaqPageProps = {
 };
 
 /**
- * FaqPage — Consumer-facing common-inquiry layout.
+ * FaqPage, Consumer-facing common-inquiry layout.
  * Eyebrow · Title · Intro · Expandable Q&A. No metadata cards, no record IDs.
  */
 export const FaqPage = ({

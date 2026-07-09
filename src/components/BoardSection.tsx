@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 /**
- * BoardSection — canonical Medical Advisory Board (MAB) chrome.
+ * BoardSection, canonical Medical Advisory Board (MAB) chrome.
  *
  * Full-width band with `border-b border-border` and alternating
  * `bg-background` / `bg-surface-muted`. Inside, a 12-col split:
@@ -60,7 +60,7 @@ export const BoardSection = ({
 );
 
 /**
- * BoardDefList — MAB §3 chrome. Bordered, divided list with mono index
+ * BoardDefList, MAB §3 chrome. Bordered, divided list with mono index
  * in a 2-col gutter and term/description in the 10-col body.
  *
  * `prefix` controls the index format (default `§{parent}.{i+1}`).
@@ -120,7 +120,7 @@ export const BoardDefList = ({
 );
 
 /**
- * BoardFooterNav — bordered footer bar with hairline-divided cells.
+ * BoardFooterNav, bordered footer bar with hairline-divided cells.
  * Mirrors the MAB "Read deeper" pattern.
  */
 export const BoardFooterNav = ({
@@ -155,9 +155,9 @@ export const BoardFooterNav = ({
 );
 
 /**
- * BoardCiteFooter — final "Cite as ·" band shared by every MAB-DNA page.
+ * BoardCiteFooter, final "Cite as ·" band shared by every MAB-DNA page.
  */
 export const BoardCiteFooter = ({ citation: _citation }: { citation?: string }) => {
-  // Citation removed sitewide — doc ID + updated date live in top metadata bar
+  // Citation removed sitewide, doc ID + updated date live in top metadata bar
   return null;
 };

@@ -180,7 +180,7 @@ const LibraryPublications = () => {
         statement={PAGE_SUBTITLE}
       />
 
-      {/* Controls — search + filters */}
+      {/* Controls, search + filters */}
       <div className="bg-background border-b border-border/60">
         <div className="page-shell">
           <div className="mx-auto w-wide">

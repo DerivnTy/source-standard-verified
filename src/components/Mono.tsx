@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 /**
- * Mono — inline mono accent for technical scalars (IDs, dates, versions).
+ * Mono, inline mono accent for technical scalars (IDs, dates, versions).
  */
 export const Mono = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
   <span

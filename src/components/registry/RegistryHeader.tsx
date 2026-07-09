@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { HeroPattern } from "@/components/HeroPattern";
 
 /**
- * RegistryHeader — compact, product-grade page identity for registry surfaces.
+ * RegistryHeader, compact, product-grade page identity for registry surfaces.
  * Uses the same navy hero treatment as the institutional pages so the
  * databases visually belong to the same Source Standard system.
  */
@@ -19,7 +19,7 @@ export const RegistryHeader = ({
   hideRecordPill = false,
   compact = false,
 }: {
-  /** @deprecated — use indexNumber for Geist Mono index. */
+  /** @deprecated, use indexNumber for Geist Mono index. */
   eyebrow?: string;
   /** Geist Mono index number, e.g. "01". The only anchor above the H1. */
   indexNumber?: string;

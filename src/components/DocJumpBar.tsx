@@ -8,11 +8,11 @@ const easeInOut = (t: number) =>
   t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 
 /**
- * DocJumpBar — pill always, with a subtle scroll-scrubbed morph.
+ * DocJumpBar, pill always, with a subtle scroll-scrubbed morph.
  *
  * As the user scrolls past the seam, the pill widens horizontally and
  * minimizes vertically; items spread and slide toward visual center.
- * Border-radius stays 9999px throughout — never becomes a square bar.
+ * Border-radius stays 9999px throughout, never becomes a square bar.
  */
 export const DocJumpBar = ({
   waypoints,
@@ -35,7 +35,7 @@ export const DocJumpBar = ({
 
   void tone;
 
-  // Active section tracking — "closest to viewport center" wins.
+  // Active section tracking, "closest to viewport center" wins.
   // We bypass IntersectionObserver here because IO can't tell us which
   // visible section is *most central*; it only tells us what's intersecting.
   useEffect(() => {
@@ -93,7 +93,7 @@ export const DocJumpBar = ({
 
   // Scroll-scrubbed morph progress (0 at seam, 1 after RUNWAY px) +
   // "armed" gate: pill stays hidden until Section 01's top reaches the
-  // viewport top. Strict binary trigger — no pre-scroll movement.
+  // viewport top. Strict binary trigger, no pre-scroll movement.
   useEffect(() => {
     const RUNWAY = 220;
     const firstId = waypoints[0]?.id;
@@ -145,7 +145,7 @@ export const DocJumpBar = ({
   const flushTop = !headerVisible;
 
   // Measure the bar's actual height so we can pull it up by exactly half
-  // its height — placing its vertical center precisely on the seam line.
+  // its height, placing its vertical center precisely on the seam line.
   useEffect(() => {
     if (!navRef.current) return;
     const update = () => {
@@ -168,7 +168,7 @@ export const DocJumpBar = ({
     : lerp(86, 95, eased);
   const maxWidthPx = lerp(1200, 1600, eased);
 
-  // Fixed internal geometry — never interpolated. Eliminates layout shift.
+  // Fixed internal geometry, never interpolated. Eliminates layout shift.
   const NAV_PAD_Y = 6;
   const NAV_PAD_X = 22;
   const ITEM_GAP = 24; // constant gap-x-6
@@ -303,7 +303,7 @@ const PillContents = ({
       const desired = indicatorLeft + indicatorWidth / 2 - railWidth / 2;
       const tx = Math.max(0, Math.min(maxPan, desired));
 
-      // Direct DOM writes — bypass React for 1:1 scroll sync.
+      // Direct DOM writes, bypass React for 1:1 scroll sync.
       ul.style.transform = `translate3d(${-tx}px, 0, 0)`;
       if (indicatorEl) {
         indicatorEl.style.transform = `translate3d(${indicatorLeft}px, 0, 0)`;
@@ -350,11 +350,11 @@ const PillContents = ({
         overflow: "hidden",
       }}
     >
-      {/* Fixed left anchor — never moves. */}
+      {/* Fixed left anchor, never moves. */}
       <span className="shrink-0 t-label-sm text-foreground/70">
         CONTENTS ·
       </span>
-      {/* Rail viewport — clips overflow; the inner <ul> is panned via
+      {/* Rail viewport, clips overflow; the inner <ul> is panned via
           GPU translate3d in lockstep with page scroll. */}
       <div
         ref={railRef}
@@ -406,7 +406,7 @@ const PillContents = ({
               </li>
             );
           })}
-          {/* Indicator removed — active state is conveyed by chip weight/color only. */}
+          {/* Indicator removed, active state is conveyed by chip weight/color only. */}
           <span ref={indicatorRef} aria-hidden style={{ display: "none" }} />
         </ul>
       </div>

@@ -2,12 +2,12 @@ import { ReactNode } from "react";
 import { HeroPattern } from "./HeroPattern";
 
 /**
- * AnchorHeader — Tier 1, used on front-door anchor pages.
+ * AnchorHeader, Tier 1, used on front-door anchor pages.
  *
  * Default presentation: centered single-column title block (no Reference
  * metadata box). Pages may still pass a custom `aside` (e.g. status legend)
  * to opt back into the split layout. The legacy `reference` prop is accepted
- * but no longer auto-rendered — front-facing pages should not show internal
+ * but no longer auto-rendered, front-facing pages should not show internal
  * Doc IDs / Status codes.
  */
 export const AnchorHeader = ({

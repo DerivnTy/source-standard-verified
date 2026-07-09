@@ -1,7 +1,7 @@
 export type Crumb = { label: string; to?: string };
 
 /**
- * Breadcrumb — retired sitewide.
+ * Breadcrumb, retired sitewide.
  *
  * The thin contextual breadcrumb bar was removed on user request: it
  * served no navigational purpose given the SiteHeader + page-level

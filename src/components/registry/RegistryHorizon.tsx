@@ -1,6 +1,6 @@
 // Compact "Trust Pill" used directly under RegistryHeader on registry pages.
 // One single-line, sharp pill (2px radius) divided into 3 equal columns.
-// No horizontal scroll on any viewport — metrics shrink to fit.
+// No horizontal scroll on any viewport, metrics shrink to fit.
 
 export type HorizonCell = {
   label: string;

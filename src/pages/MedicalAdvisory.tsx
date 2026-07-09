@@ -4,7 +4,7 @@ import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 
-// Local governance primitives — white panel + numbered/structured row.
+// Local governance primitives, white panel + numbered/structured row.
 // Mirrors the homepage public-reference card system.
 const GovCard = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
   <div
@@ -205,7 +205,7 @@ const MedicalAdvisory = () => {
         description="Independent experts who help ensure Source Standard's verification framework stays objective, consistent, and worthy of public trust."
       />
 
-      {/* §1 Hero — restrained */}
+      {/* §1 Hero, restrained */}
       <BriefingHero
         tone="navy"
         variant="chapter"

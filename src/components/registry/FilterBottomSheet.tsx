@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 export type SheetOption = { value: string; label: string };
 
 /**
- * FilterBottomSheet — iOS-style bottom sheet.
+ * FilterBottomSheet, iOS-style bottom sheet.
  * 300ms slide-up from bottom-0, 24px top corners, blurred backdrop, grabber handle.
  */
 export const FilterBottomSheet = ({

@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from "react";
 export type RegistryWaypoint = { id: string; number: string; label: string };
 
 /**
- * RegistryLayout — DocLayout-style sticky rail + wide content column,
+ * RegistryLayout, DocLayout-style sticky rail + wide content column,
  * adapted for data pages (Verified Vendors, Greenlist).
  *
  * Caller is responsible for rendering the AnchorHeader above this.
@@ -115,7 +115,7 @@ export const RegistryLayout = ({
 };
 
 /**
- * RegistrySection — section primitive used inside RegistryLayout.
+ * RegistrySection, section primitive used inside RegistryLayout.
  * Carries the scroll-anchor id and a §N + title block, then renders
  * arbitrary content (cards, tables, prose).
  */

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 /**
- * Stat — registry/summary cell. Label uses utility-xs caps; value is the
+ * Stat, registry/summary cell. Label uses utility-xs caps; value is the
  * locked 20/28 weight-500 numeric. Min-height 120px per the section
  * template spec; numbers stay disciplined (no oversized hero numerals).
  */
@@ -29,7 +29,7 @@ export const Stat = ({
 );
 
 /**
- * StatRow — six-cell registry summary row per the section template.
+ * StatRow, six-cell registry summary row per the section template.
  * Children are typically <Stat> elements.
  */
 export const StatRow = ({ children }: { children: ReactNode }) => (

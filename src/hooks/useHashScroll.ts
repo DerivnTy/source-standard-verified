@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 /**
- * useHashScroll — smoothly scrolls to the element matching location.hash
+ * useHashScroll, smoothly scrolls to the element matching location.hash
  * on mount and whenever the hash changes. Uses requestAnimationFrame to
  * defer until after the route's content has rendered.
  */

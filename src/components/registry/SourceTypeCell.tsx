@@ -13,7 +13,7 @@ const CATEGORY_LABEL: Record<GreenlistCategory, string> = {
 };
 
 /**
- * SourceTypeCell — locked source-type rendering for the registry table and
+ * SourceTypeCell, locked source-type rendering for the registry table and
  * upcoming profile pages. 2px vertical tick + uppercase 11px tracking-wide
  * category label, with an optional muted type detail line beneath.
  *

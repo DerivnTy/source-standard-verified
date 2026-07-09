@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 export type FocusOption = { value: string; label: string };
 
 /**
- * FocusFilter — custom popover dropdown (no native <select>).
+ * FocusFilter, custom popover dropdown (no native <select>).
  * Anchored, absolutely-positioned menu with blurred backdrop, sharp 2px corners.
  */
 export const FocusFilter = ({

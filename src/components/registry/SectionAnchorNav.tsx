@@ -4,7 +4,7 @@ import { useHeaderVisible } from "@/components/SiteHeader";
 export type AnchorWaypoint = { id: string; number: string; label: string };
 
 /**
- * SectionAnchorNav — flat, institutional contents bar.
+ * SectionAnchorNav, flat, institutional contents bar.
  *
  * Sits flush as a structural seam between the hero and the first content
  * section. No pill, no floating shadow, no scroll-driven morph. It is a

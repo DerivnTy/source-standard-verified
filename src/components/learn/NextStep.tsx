@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { NEXT_STEPS, NextStepId } from "@/data/learn";
 
 /**
- * NextStep — the "Still have questions?" closer that ends every Learn page.
+ * NextStep, the "Still have questions?" closer that ends every Learn page.
  * Presents one primary next step and a set of secondary options so the page
  * never dead-ends.
  */

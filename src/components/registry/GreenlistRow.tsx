@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { GreenlistEntry } from "@/data/greenlist";
 
 /**
- * GreenlistRow — Surgical Database Strip.
+ * GreenlistRow, Surgical Database Strip.
  *   Row 1: Facility Name (left) · Status (right; semantic color)
  *   Row 2: [Category Pill] · [Facility Type] · [Location] (left) · VIEW › (right)
  */
@@ -33,7 +33,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
   return (
     <Link
       to={`/greenlist/${entry.slug}`}
-      aria-label={`${entry.name} — ${category}`}
+      aria-label={`${entry.name}, ${category}`}
       data-pill
       className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.99]"
       style={{
@@ -44,7 +44,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
       }}
     >
       <div className="flex flex-col" style={{ gap: "8px" }}>
-        {/* Row 1 — Name (left) · Status (right) */}
+        {/* Row 1, Name (left) · Status (right) */}
         <div className="flex items-start justify-between" style={{ gap: "12px" }}>
           <h3
             className="font-sans text-foreground truncate"
@@ -83,7 +83,7 @@ export const GreenlistRow = ({ entry, index = 0 }: { entry: GreenlistEntry; inde
           </span>
         </div>
 
-        {/* Row 2 — Pill · Facility Type · Location (left) · View (right) */}
+        {/* Row 2, Pill · Facility Type · Location (left) · View (right) */}
         <div className="flex items-center justify-between" style={{ gap: "12px" }}>
           <div
             className="min-w-0 flex items-center"

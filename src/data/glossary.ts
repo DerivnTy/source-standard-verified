@@ -5,7 +5,7 @@ export type GlossaryTermDef = {
 };
 
 /**
- * Authoritative glossary — referenced by <GlossaryTerm> tooltips.
+ * Authoritative glossary, referenced by <GlossaryTerm> tooltips.
  * Keys are lowercased term identifiers.
  */
 export const GLOSSARY: Record<string, GlossaryTermDef> = {

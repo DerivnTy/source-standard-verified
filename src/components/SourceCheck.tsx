@@ -1,5 +1,5 @@
 /**
- * SourceCheck — universal trust glyph.
+ * SourceCheck, universal trust glyph.
  *
  * Safety-Blue circle + white check, used everywhere trust is asserted:
  * status badges, "Reviewed by" labels, registry summary cards, list

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 /**
- * ProfileHeader — Tier 3, used on individual record pages
+ * ProfileHeader, Tier 3, used on individual record pages
  * (Vendor profile, Greenlist profile, Advisor profile, Library entry).
  *
  * Leads with the entity (eyebrow + name), with a compact identity row
  * (status badge, location, credential, category) directly underneath.
- * The doc ID/version/updated date is intentionally NOT shown here —
+ * The doc ID/version/updated date is intentionally NOT shown here,
  * it belongs in a `ProfileFootnote` at the bottom of the record.
  */
 export const ProfileHeader = ({
@@ -28,7 +28,7 @@ export const ProfileHeader = ({
   identity?: ReactNode;
   title: string;
   lead?: string;
-  /** Right-aligned slot — photo, status card, or quick-glance facts. */
+  /** Right-aligned slot, photo, status card, or quick-glance facts. */
   rightSlot?: ReactNode;
   children?: ReactNode;
 }) => {
@@ -62,7 +62,7 @@ export const ProfileHeader = ({
 };
 
 /**
- * ProfileFootnote — Citation strip for record pages.
+ * ProfileFootnote, Citation strip for record pages.
  * Houses the doc ID / version / updated date that used to live
  * in a top metadata bar. Place at the bottom of the record.
  */

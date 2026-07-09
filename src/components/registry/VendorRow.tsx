@@ -4,7 +4,7 @@ import { Vendor, VendorFulfillment } from "@/data/vendors";
 import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
 
 /**
- * VendorRow — Final Two-Row Surgical Card.
+ * VendorRow, Final Two-Row Surgical Card.
  *   Row 1: Name (left) · Status text (right)
  *   Row 2: [Specialty pill + Location] (left) · VIEW › (right)
  */
@@ -40,7 +40,7 @@ export const VendorRow = ({
   return (
     <Link
       to={`/directory/${vendor.slug}`}
-      aria-label={`${vendor.name}${focus ? ` — ${focus.label}` : ""}`}
+      aria-label={`${vendor.name}${focus ? `, ${focus.label}` : ""}`}
       data-pill
       className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 hover:border-[hsl(var(--foreground))]/20 active:scale-[0.99] relative"
       style={{
@@ -49,7 +49,7 @@ export const VendorRow = ({
         padding: "9px 14px 8px",
       }}
     >
-      {/* Status — pinned top-right */}
+      {/* Status, pinned top-right */}
       <span
         className="absolute inline-flex items-center font-sans"
         style={{
@@ -79,7 +79,7 @@ export const VendorRow = ({
         )}
       </span>
 
-      {/* View — pinned bottom-right */}
+      {/* View, pinned bottom-right */}
       <span
         className="absolute font-sans text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
         style={{

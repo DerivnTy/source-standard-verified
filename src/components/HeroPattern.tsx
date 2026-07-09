@@ -1,5 +1,5 @@
 /**
- * HeroPattern — faint geometric data-grid mesh.
+ * HeroPattern, faint geometric data-grid mesh.
  * Pure SVG, ~8% opacity navy lines on a 32px square grid,
  * radial-masked so it fades to transparent at the edges.
  *

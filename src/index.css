@@ -10,14 +10,14 @@ html {
   scroll-padding-top: 144px;
 }
 
-/* Source Standard — institutional verification authority.
+/* Source Standard, institutional verification authority.
    Calmer typography: Inter for prose/UI, Plex Mono for technical IDs only.
    Authority through clarity, not stylization.
 */
 
 @layer base {
   :root {
-    /* Pass 4 — System Gray floor (#F2F2F7) with pure white cards on top.
+    /* Pass 4, System Gray floor (#F2F2F7) with pure white cards on top.
        Background = 240 23% 97% in HSL ≈ #F2F2F7 (Apple System Gray 6). */
     --background: 240 23% 97%;
     --foreground: 222 14% 12%;
@@ -33,7 +33,7 @@ html {
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Hero Navy — primary interactive accent (matches --navy-surface) */
+    /* Hero Navy, primary interactive accent (matches --navy-surface) */
     --primary: 222 47% 11%;
     --primary-foreground: 40 30% 96%;
     --primary-hover: 222 40% 16%;
@@ -44,30 +44,30 @@ html {
     --secondary-foreground: 222 47% 11%;
 
     --muted: 210 40% 96%;
-    /* Pass 5 — System Gray (#8E8E93) for metadata / Geist Mono text */
+    /* Pass 5, System Gray (#8E8E93) for metadata / Geist Mono text */
     --muted-foreground: 240 2% 57%;
 
     --accent: 210 40% 96%;
     --accent-foreground: 222 47% 11%;
 
-    /* Pass 5 — Interactive System Blue (#007AFF) for non-primary links / active */
+    /* Pass 5, Interactive System Blue (#007AFF) for non-primary links / active */
     --interactive: 211 100% 50%;
     --interactive-foreground: 0 0% 100%;
 
-    /* Pass 5 — Surgical System Green (#34C759) for status dots / thin strokes only */
+    /* Pass 5, Surgical System Green (#34C759) for status dots / thin strokes only */
     --verified: 145 63% 49%;
     --verified-foreground: 0 0% 100%;
     --verified-soft: 145 50% 95%;
 
-    /* Under Review — frosted blue, calm and in-process */
+    /* Under Review, frosted blue, calm and in-process */
     --under-review: 210 55% 42%;
     --under-review-soft: 210 50% 96%;
 
-    /* Suspended — restrained orange, distinct from destructive red */
+    /* Suspended, restrained orange, distinct from destructive red */
     --suspended: 28 70% 42%;
     --suspended-soft: 30 70% 95%;
 
-    /* Unverified — soft, faded institutional red (not alarmist) */
+    /* Unverified, soft, faded institutional red (not alarmist) */
     --unverified: 0 50% 45%;
     --unverified-soft: 0 55% 96%;
 
@@ -78,21 +78,21 @@ html {
     --destructive: 0 60% 38%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Pass 2 — Hairline border standard. #E5E5EA in HSL = 240 6% 91%. */
+    /* Pass 2, Hairline border standard. #E5E5EA in HSL = 240 6% 91%. */
     --border: 240 6% 91%;
     --border-strong: 240 6% 82%;
     --input: 240 6% 91%;
     --ring: 222 47% 11%;
 
-    /* Pass 2 — Soft-Tech radius. 20px uniform for cards/containers/pills. */
+    /* Pass 2, Soft-Tech radius. 20px uniform for cards/containers/pills. */
     --radius: 1.25rem;
 
-    /* Pass 2 — Drop shadows removed. Depth comes from hairlines + blur. */
+    /* Pass 2, Drop shadows removed. Depth comes from hairlines + blur. */
     --shadow-sm: 0 0 0 0 transparent;
     --shadow-md: 0 0 0 0 transparent;
     --shadow-lg: 0 0 0 0 transparent;
 
-    /* Greenlist source-type accents — muted, professional */
+    /* Greenlist source-type accents, muted, professional */
     --src-503b: 152 32% 32%;
     --src-503b-soft: 152 28% 94%;
     --src-503a: 35 48% 38%;
@@ -226,14 +226,14 @@ html {
   .h-sub         { @apply t-h3; }
   .h-card        { @apply t-h4; }
 
-  /* Helper text — table cells, identity rows, field helper text. */
+  /* Helper text, table cells, identity rows, field helper text. */
   .text-helper {
     @apply text-[11px] leading-[1.55];
   }
 }
 
 /* ============================================================
-   Sitewide Design System — canonical tokens
+   Sitewide Design System, canonical tokens
    Build pages from these classes. Do not invent new sizes.
    ------------------------------------------------------------
    CANONICAL ROLE → TOKEN MAP (apply sitewide; no exceptions)
@@ -261,7 +261,7 @@ html {
    DO NOT (in pages or components):
      • Use text-[Npx] arbitrary sizes
      • Use raw Tailwind sizes (text-xs/sm/base/lg/xl/2xl/3xl…)
-       for visible app text — use a t-* token
+       for visible app text, use a t-* token
      • Stack font-semibold / font-bold on top of a t-* token
        (tokens already set weight)
      • Set inline style fontSize / fontWeight / lineHeight /
@@ -308,12 +308,12 @@ html {
     @apply mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-12;
   }
 
-  /* New canonical page shell — preferred over container-wide for new work. */
+  /* New canonical page shell, preferred over container-wide for new work. */
   .page-shell {
     @apply mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12;
   }
 
-  /* Width tokens — apply to inner content blocks. */
+  /* Width tokens, apply to inner content blocks. */
   .w-page-shell    { max-width: 1440px; }
   .w-standard      { max-width: 1120px; }
   .w-wide          { max-width: 1240px; }
@@ -323,7 +323,7 @@ html {
   .w-two-col       { max-width: 520px;  }
 
   /* ────────────────────────────────────────────────────────────
-     GLOBAL TYPOGRAPHY SYSTEM (10 types — applied sitewide).
+     GLOBAL TYPOGRAPHY SYSTEM (10 types, applied sitewide).
      Mobile-first values per spec. Headings/eyebrows scale up modestly
      at md+ but never break the institutional hierarchy.
      ──────────────────────────────────────────────────────────── */
@@ -331,12 +331,8 @@ html {
   .font-serif { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
   .font-mono  { font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important; letter-spacing: 0.04em !important; }
 
-  /* TYPE 01 — Primary Hero Titles */
-  .t-page-title,
-  .t-chapter-title,
-  .t-home-title,
-  .t-article-title,
-  .ss-hero-title {
+  /* TYPE 01, Primary Hero Titles */
+  .t-page-title.t-chapter-title.t-home-title.t-article-title.ss-hero-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 40px !important;
     line-height: 1.05 !important;
@@ -346,21 +342,20 @@ html {
     max-width: 18ch;
   }
   @media (min-width: 768px) {
-    .t-page-title, .t-chapter-title, .t-home-title, .t-article-title, .ss-hero-title {
+    .t-page-title.t-chapter-title.t-home-title.t-article-title.ss-hero-title {
       font-size: 54px !important;
       letter-spacing: -0.035em !important;
       max-width: 20ch;
     }
   }
   @media (min-width: 1024px) {
-    .t-page-title, .t-chapter-title, .t-home-title, .t-article-title, .ss-hero-title {
+    .t-page-title.t-chapter-title.t-home-title.t-article-title.ss-hero-title {
       font-size: 66px !important;
     }
   }
 
-  /* TYPE 02 — Hero Description */
-  .ss-lead,
-  .t-hero-lead {
+  /* TYPE 02, Hero Description */
+  .ss-lead.t-hero-lead {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 16px;
     line-height: 1.6;
@@ -371,15 +366,11 @@ html {
     margin-top: 16px;
   }
   @media (min-width: 768px) {
-    .ss-lead, .t-hero-lead { font-size: 18px !important; max-width: 38ch; }
+    .ss-lead.t-hero-lead { font-size: 18px !important; max-width: 38ch; }
   }
 
-  /* TYPE 03 — Section Labels / Eyebrows */
-  .t-eyebrow-sm,
-  .t-utility-xs,
-  .t-micro,
-  .t-label-sm,
-  .ss-eyebrow {
+  /* TYPE 03, Section Labels / Eyebrows */
+  .t-eyebrow-sm.t-utility-xs.t-micro.t-label-sm.ss-eyebrow {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 11px;
     line-height: 1.2;
@@ -389,10 +380,8 @@ html {
     color: rgba(0, 0, 0, 0.45);
   }
 
-  /* TYPE 04 — Major Section Titles */
-  .t-section-title-sm,
-  .t-section-title-md,
-  .ss-section-title {
+  /* TYPE 04, Major Section Titles */
+  .t-section-title-sm.t-section-title-md.ss-section-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 24px !important;
     line-height: 1.15 !important;
@@ -402,14 +391,13 @@ html {
     margin-top: 12px;
   }
   @media (min-width: 768px) {
-    .t-section-title-sm, .t-section-title-md, .ss-section-title {
+    .t-section-title-sm.t-section-title-md.ss-section-title {
       font-size: 30px !important;
     }
   }
 
-  /* TYPE 05 — Section Intro Copy */
-  .t-section-intro,
-  .t-body-lg {
+  /* TYPE 05, Section Intro Copy */
+  .t-section-intro.t-body-lg {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 15px;
     line-height: 1.7;
@@ -419,10 +407,8 @@ html {
     max-width: 40ch;
   }
 
-  /* TYPE 06 — Card Titles */
-  .t-h3,
-  .t-h4,
-  .ss-card-title {
+  /* TYPE 06, Card Titles */
+  .t-h3.t-h4.ss-card-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 16px;
     line-height: 1.3;
@@ -431,11 +417,8 @@ html {
     color: #111111;
   }
 
-  /* TYPE 07 — Card Body Copy (dominant reading size) */
-  .t-body-md,
-  .t-body-sm,
-  .t-body-strong,
-  .ss-body {
+  /* TYPE 07, Card Body Copy (dominant reading size) */
+  .t-body-md.t-body-sm.t-body-strong.ss-body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 14px;
     line-height: 1.75;
@@ -445,10 +428,8 @@ html {
   }
   .t-body-strong { font-weight: 600 !important; color: #111111; }
 
-  /* TYPE 08 — Article Body Text (publications, library, FAQ) */
-  .t-article-body,
-  .prose-article p,
-  .prose-article li {
+  /* TYPE 08, Article Body Text (publications, library, FAQ) */
+  .t-article-body.prose-article p.prose-article li {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 16px;
     line-height: 1.85;
@@ -458,11 +439,8 @@ html {
     max-width: 72ch;
   }
 
-  /* TYPE 09 — Metadata */
-  .t-meta,
-  .t-meta-note,
-  .t-nav,
-  .ss-card-meta {
+  /* TYPE 09, Metadata */
+  .t-meta.t-meta-note.t-nav.ss-card-meta {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
     font-size: 10px;
     line-height: 1.4;
@@ -473,9 +451,8 @@ html {
   }
   .t-nav { text-transform: none; letter-spacing: -0.005em !important; font-size: 12px !important; }
 
-  /* TYPE 10 — Numerical System (IBM Plex Mono) */
-  .t-numeric,
-  .t-button {
+  /* TYPE 10, Numerical System (IBM Plex Mono) */
+  .t-numeric.t-button {
     font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important;
     font-size: 11px;
     line-height: 1.2;
@@ -493,8 +470,7 @@ html {
     padding: 8px 18px 12px;
     margin-top: 16px;
   }
-  .ss-lead-card > .ss-lead,
-  .ss-lead-card > p {
+  .ss-lead-card > .ss-lead.ss-lead-card > p {
     margin-top: 0;
   }
 
@@ -505,9 +481,9 @@ html {
        2. Every subsequent section uses the Home page tight rhythm so the
           page does not develop dead zones between later blocks.
      Tokens:
-       section-pad — top/bottom of standard sections
-       section-gap — gap between adjacent sections in same page
-       hero-gap    — gap from hero to first body section */
+       section-pad, top/bottom of standard sections
+       section-gap, gap between adjacent sections in same page
+       hero-gap   , gap from hero to first body section */
   .section-pad   { padding-top: 80px; padding-bottom: 32px; }
   .section-gap   { margin-top: 32px; }
   .hero-gap      { margin-top: 56px; }
@@ -520,7 +496,7 @@ html {
     .section-pad { padding-top: 64px; padding-bottom: 52px; }
     .section-gap { margin-top: 56px; }
     .hero-gap    { margin-top: 80px; }
-    /* Desktop unified content boundary — every major section (standard
+    /* Desktop unified content boundary, every major section (standard
        long-form, registry/index surfaces, hero content blocks) shares the
        same 1200px max-width so the page reads as one aligned institutional
        document rather than alternating wide/narrow bands. */
@@ -532,21 +508,18 @@ html {
      Matches the Home page where Section 01 → 02 → 03 sit on the same
      compact cadence rather than the larger hero→first-card spacing. */
   section + section > .section-pad,
-  section + section .page-shell.section-pad,
-  .section-pad + .section-pad {
+  section + section .page-shell.section-pad.section-pad + .section-pad {
     padding-top: 24px;
   }
   @media (min-width: 768px) {
     section + section > .section-pad,
-    section + section .page-shell.section-pad,
-    .section-pad + .section-pad {
+    section + section .page-shell.section-pad.section-pad + .section-pad {
       padding-top: 32px;
     }
   }
   @media (min-width: 1024px) {
     section + section > .section-pad,
-    section + section .page-shell.section-pad,
-    .section-pad + .section-pad {
+    section + section .page-shell.section-pad.section-pad + .section-pad {
       padding-top: 40px;
     }
   }
@@ -555,21 +528,19 @@ html {
      The final content section before the <footer> locks its
      padding-bottom to match the Home page terminal rhythm so every
      page ends with the same cadence. */
-  section:has(+ footer),
-  .section-pad:has(+ footer),
+  section:has(+ footer).section-pad:has(+ footer),
   *:has(> footer) > section:last-of-type,
   *:has(> footer) > .section-pad:last-of-type {
     padding-bottom: 24px !important;
   }
   @media (min-width: 1024px) {
-    section:has(+ footer),
-    .section-pad:has(+ footer),
+    section:has(+ footer).section-pad:has(+ footer),
     *:has(> footer) > section:last-of-type,
     *:has(> footer) > .section-pad:last-of-type {
       padding-bottom: 52px !important;
     }
   }
-  /* Article pages use a lightweight ArticleFooter — neutralize the
+  /* Article pages use a lightweight ArticleFooter, neutralize the
      Hard-Stop bottom padding so the final article card sits tight
      to the divider/back-link rhythm. */
   section:has(+ footer.article-footer) {
@@ -582,8 +553,7 @@ html {
   p { line-height: 1.6; }
 
   @media (max-width: 767px) {
-    section p,
-    .section-pad p {
+    section p.section-pad p {
       max-width: 48ch;
       padding-right: 10%;
     }
@@ -604,15 +574,14 @@ html {
   section h2 + p { margin-top: 14px !important; }
   /* When an H2 directly follows the mono index utility line, lock to 8px. */
   .section-pad .t-utility-xs + h2,
-  section .t-utility-xs + h2,
-  .section-pad .font-mono + h2,
+  section .t-utility-xs + h2.section-pad .font-mono + h2,
   section .font-mono + h2 { margin-top: 8px !important; }
 
   .prose-readable {
     max-width: 65ch;
   }
 
-  /* Unified eyebrow — aliased to canonical t-eyebrow-sm. Legacy callers
+  /* Unified eyebrow, aliased to canonical t-eyebrow-sm. Legacy callers
      now inherit the locked 13/18 spec automatically. */
   .eyebrow        { @apply t-eyebrow-sm text-muted-foreground; }
   .eyebrow-muted  { @apply t-eyebrow-sm text-muted-foreground; }
@@ -625,7 +594,7 @@ html {
     text-decoration-color: hsl(var(--primary));
   }
 
-  /* Descriptive metadata — sentence case, no caps. Use .meta-mono for technical IDs. */
+  /* Descriptive metadata, sentence case, no caps. Use .meta-mono for technical IDs. */
   .meta {
     font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     @apply text-[10px] font-normal tracking-[0.02em] text-muted-foreground/90;
@@ -636,7 +605,7 @@ html {
     @apply text-[10px] font-normal tracking-[0.02em] text-muted-foreground/90;
   }
 
-  /* Technical identifiers — doc IDs, version strings, status codes.
+  /* Technical identifiers, doc IDs, version strings, status codes.
      Aligned to the t-utility-xs spec but retains the mono face. */
   .meta-mono {
     font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -651,7 +620,7 @@ html {
     @apply border-b border-border;
   }
 
-  /* Vertical rhythm — single 3-step ladder used across the site.
+  /* Vertical rhythm, single 3-step ladder used across the site.
      section-band        → premium ~100px+ band, primary rhythm
      space-section       → major sections on anchor pages
      space-section-doc   → sections on doc / policy pages
@@ -670,7 +639,7 @@ html {
     @apply py-12 md:py-16;
   }
 
-  /* Legacy aliases — keep old class names working until callers migrate. */
+  /* Legacy aliases, keep old class names working until callers migrate. */
   .section {
     @apply py-20 md:py-28;
   }
@@ -678,7 +647,7 @@ html {
     @apply py-12 md:py-16;
   }
 
-  /* Trust list — replaces bullet markers with the SourceCheck glyph
+  /* Trust list, replaces bullet markers with the SourceCheck glyph
      for the institutional list pattern. Wrap each <li> with
      <SourceCheck/> manually for full control. */
   .trust-list {
@@ -688,7 +657,7 @@ html {
     @apply flex items-start gap-3 text-[12px] leading-[1.6] text-foreground;
   }
 
-  /* Elevated card chrome — institutional depth without Material flatness. */
+  /* Elevated card chrome, institutional depth without Material flatness. */
   .card-elevated {
     @apply bg-surface border border-border/60 rounded-xl shadow-sm transition-all duration-200;
   }
@@ -696,7 +665,7 @@ html {
     @apply shadow-md border-border-strong/50 -translate-y-0.5;
   }
 
-  /* Soft surface band — replacement for flat gray separators. */
+  /* Soft surface band, replacement for flat gray separators. */
   .surface-band {
     background-color: hsl(var(--surface-sunken) / 0.6);
   }
@@ -706,10 +675,9 @@ html {
 }
 
 @layer components {
-  /* Filing prose — institutional body. Generous line-height for premium feel.
+  /* Filing prose, institutional body. Generous line-height for premium feel.
      Inline links pick up Safety Blue with subtle underline. */
-  .prose-filing p,
-  .prose-filing li {
+  .prose-filing p.prose-filing li {
     font-size: 14px;
     line-height: 1.75;
   }
@@ -728,20 +696,18 @@ html {
   .prose-filing a:hover {
     text-decoration-color: hsl(var(--primary));
   }
-  .prose-filing strong,
-  .prose-filing b {
+  .prose-filing strong.prose-filing b {
     @apply text-foreground font-semibold;
   }
 }
 
-/* ============= Print stylesheet — institutional PDF export ============= */
+/* ============= Print stylesheet, institutional PDF export ============= */
 @media print {
   .no-print,
   nav[aria-label="Breadcrumb"],
   footer { display: none !important; }
   body { background: #fff !important; color: #000 !important; }
-  .container-wide,
-  .container-narrow { max-width: 100% !important; padding: 0 1.5rem !important; }
+  .container-wide.container-narrow { max-width: 100% !important; padding: 0 1.5rem !important; }
   section { break-inside: avoid; page-break-inside: avoid; }
   a { color: #000 !important; text-decoration: underline; }
 }
@@ -764,48 +730,28 @@ html {
   .text-5xl  { font-size: 42px !important; line-height: 1.08 !important; letter-spacing: -0.03em !important; }
   .text-6xl  { font-size: 54px !important; line-height: 1.06 !important; letter-spacing: -0.032em !important; }
 
-  /* Mono utility — IBM Plex Mono per TYPE 10 */
+  /* Mono utility, IBM Plex Mono per TYPE 10 */
   .font-mono { font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important; letter-spacing: 0.04em !important; }
 
-  /* Serif utility — preserved for any editorial accents */
+  /* Serif utility, preserved for any editorial accents */
   .font-serif { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
 }
 
 /* ============================================================
-   Pass 2 — Soft-Tech Geometry Override
+   Pass 2, Soft-Tech Geometry Override
    • Uniform 20px radius for cards / containers / pills / inputs.
    • 0.5px hairline borders (#E5E5EA).
-   • All drop shadows neutralized — depth = hairline + blur only.
+   • All drop shadows neutralized, depth = hairline + blur only.
    • Pills (rounded-full) preserved as true pills.
    ------------------------------------------------------------ */
 @layer utilities {
   /* Snap small/medium radii up to the 20px Soft-Tech standard. */
-  .rounded,
-  .rounded-sm,
-  .rounded-md,
-  .rounded-lg,
-  .rounded-xl,
-  .rounded-2xl,
-  .rounded-3xl,
-  .rounded-\[4px\],
-  .rounded-\[6px\],
-  .rounded-\[8px\],
-  .rounded-\[10px\],
-  .rounded-\[12px\],
-  .rounded-\[14px\],
-  .rounded-\[16px\],
-  .rounded-\[18px\] {
+  .rounded.rounded-sm.rounded-md.rounded-lg.rounded-xl.rounded-2xl.rounded-3xl.rounded-\[4px\].rounded-\[6px\].rounded-\[8px\].rounded-\[10px\].rounded-\[12px\].rounded-\[14px\].rounded-\[16px\].rounded-\[18px\] {
     border-radius: 20px !important;
   }
 
-  /* Hairline border standard — 0.5px, muted #E5E5EA. */
-  .border,
-  .border-t,
-  .border-r,
-  .border-b,
-  .border-l,
-  .border-x,
-  .border-y {
+  /* Hairline border standard, 0.5px, muted #E5E5EA. */
+  .border.border-t.border-r.border-b.border-l.border-x.border-y {
     border-color: #E5E5EA !important;
   }
   .border    { border-width: 0.5px !important; }
@@ -816,8 +762,8 @@ html {
   .border-x  { border-left-width: 0.5px !important; border-right-width: 0.5px !important; }
   .border-y  { border-top-width: 0.5px !important; border-bottom-width: 0.5px !important; }
 
-  /* Kill drop shadows globally — keep ring-* (focus rings) intact. */
-  .shadow-sm, .shadow, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl, .shadow-inner { box-shadow: none !important; }
+  /* Kill drop shadows globally, keep ring-* (focus rings) intact. */
+  .shadow-sm.shadow.shadow-md.shadow-lg.shadow-xl.shadow-2xl.shadow-inner { box-shadow: none !important; }
 }
 
 /* Inputs and form controls inherit Soft-Tech geometry. */
@@ -828,7 +774,7 @@ input, select, textarea, button {
 .rounded-full { border-radius: 9999px !important; }
 
 /* ============================================================
-   Pass 3 — Motion, Transitions & Interactive Physics
+   Pass 3, Motion, Transitions & Interactive Physics
    • iOS Spring curve: cubic-bezier(0.4, 0, 0.2, 1) @ 400ms.
    • Tactile active:scale(0.97) for all interactive elements.
    • Hover = subtle background value shift only (desktop).
@@ -846,18 +792,13 @@ input, select, textarea, button {
      via Tailwind utilities. We do NOT touch `*` because that forces a
      transition on every property change (including initial mount), which
      can leave components stuck mid-animation and render the page blank. */
-  .transition,
-  .transition-all,
-  .transition-colors,
-  .transition-opacity,
-  .transition-transform,
-  .transition-shadow {
+  .transition.transition-all.transition-colors.transition-opacity.transition-transform.transition-shadow {
     transition-timing-function: var(--ease-ios) !important;
     transition-duration: var(--dur-ios) !important;
   }
 }
 
-/* Tactile feedback — universal active:scale on interactive surfaces.
+/* Tactile feedback, universal active:scale on interactive surfaces.
    Excludes form fields (no scale on text inputs / selects / textareas). */
 button,
 a,
@@ -865,9 +806,7 @@ a,
 [role="link"],
 [role="tab"],
 [role="option"],
-[role="menuitem"],
-.pill,
-.chip,
+[role="menuitem"].pill.chip,
 [data-pill],
 [data-chip] {
   transition:
@@ -886,16 +825,14 @@ a:active,
 [role="link"]:active,
 [role="tab"]:active,
 [role="option"]:active,
-[role="menuitem"]:active,
-.pill:active,
-.chip:active,
+[role="menuitem"]:active.pill:active.chip:active,
 [data-pill]:active,
 [data-chip]:active {
   transform: scale(0.97) !important;
   transition-duration: 120ms !important;
 }
 
-/* Desktop-only hover — subtle background value shift, never dramatic. */
+/* Desktop-only hover, subtle background value shift, never dramatic. */
 @media (hover: hover) and (pointer: fine) {
   button:hover:not(:disabled),
   a:hover,
@@ -929,7 +866,7 @@ a:active,
 .ios-return    { animation: ios-return var(--dur-ios-slow) var(--ease-ios) both; }
 .ios-unfold    { animation: ios-unfold var(--dur-ios-slow) var(--ease-ios) both; }
 
-/* Glass-Unfold for nav menus — slide-down + fade with sustained blur. */
+/* Glass-Unfold for nav menus, slide-down + fade with sustained blur. */
 .ios-glass-unfold {
   animation: ios-unfold var(--dur-ios-slow) var(--ease-ios) both;
   backdrop-filter: blur(40px) saturate(160%);
@@ -946,14 +883,14 @@ a:active,
 }
 
 /* ============================================================
-   Pass 4 — Surface, Lighting & Glassmorphism
+   Pass 4, Surface, Lighting & Glassmorphism
    • Glass headers + nav: backdrop-blur(20px), 0.85 translucent.
    • Hairline definition: 1px borders, no shadows (Pass 2 already cleared).
    • System Gray floor (#F2F2F7) with pure white cards (token shift above).
    • Thin-stroke iconography: Lucide SVG strokes snapped to 1.25px.
    ------------------------------------------------------------ */
 
-/* Glass surface utility — apply to sticky headers, nav bars, popovers. */
+/* Glass surface utility, apply to sticky headers, nav bars, popovers. */
 .glass-surface {
   background-color: hsl(0 0% 100% / 0.85) !important;
   backdrop-filter: blur(20px) saturate(180%);
@@ -967,7 +904,7 @@ a:active,
   border-bottom: 1px solid hsl(0 0% 100% / 0.10);
 }
 
-/* Pass 5 — Force every sticky header on the site into NAVY glass mode.
+/* Pass 5, Force every sticky header on the site into NAVY glass mode.
    Translucent navy (rgba(2,6,23,0.85)) with 40px blur + faint white hairline. */
 header.sticky,
 header[class*="sticky"] {
@@ -984,20 +921,20 @@ header[class*="sticky"] button {
   color: inherit;
 }
 
-/* Card surface — pure white over the system-gray floor. */
+/* Card surface, pure white over the system-gray floor. */
 .card,
 [class*="bg-card"],
 [class*="bg-surface"]:not([class*="bg-surface-sunken"]):not([class*="bg-surface-muted"]) {
   background-color: #ffffff !important;
 }
 
-/* Pass 5 — Hairline 0.5px on cards, color #E5E5EA. */
+/* Pass 5, Hairline 0.5px on cards, color #E5E5EA. */
 .card,
 [class*="bg-card"] {
   border: 0.5px solid #E5E5EA !important;
 }
 
-/* Pass 5 — Thin-stroke icons. Lucide ships at 2; snap to 1.5 (fine-tip pen). */
+/* Pass 5, Thin-stroke icons. Lucide ships at 2; snap to 1.5 (fine-tip pen). */
 svg {
   stroke-width: 1.5;
 }
@@ -1006,10 +943,9 @@ svg.keep-stroke {
   stroke-width: inherit;
 }
 
-/* Pass 5 — Mechanical feedback: pills darken 5% instantly on press
+/* Pass 5, Mechanical feedback: pills darken 5% instantly on press
    (combines with scale(0.97) from Pass 3). */
-.pill:active,
-.chip:active,
+.pill:active.chip:active,
 [data-pill]:active,
 [data-chip]:active,
 button[class*="rounded-full"]:active {
@@ -1017,7 +953,7 @@ button[class*="rounded-full"]:active {
   transition-duration: 0ms !important;
 }
 
-/* Kill any lingering loud gradients on body / page wrappers — System Gray floor wins. */
+/* Kill any lingering loud gradients on body / page wrappers, System Gray floor wins. */
 body {
   background: hsl(var(--background)) !important;
 }
@@ -1039,7 +975,7 @@ body {
   }
 }
 
-/* Source Standard — live status dot pulse (registry green dots only). */
+/* Source Standard, live status dot pulse (registry green dots only). */
 @keyframes source-standard-live-pulse {
   0%, 100% {
     opacity: 0.45;
@@ -1068,29 +1004,13 @@ body {
   }
 }
 
-/* Vendor Intake form — formal document feel */
-.intake-form input:not([type="checkbox"]):not([type="radio"]),
-.intake-form textarea,
-.intake-form select,
-.intake-form [role="combobox"],
-.intake-form button[role="combobox"],
-.intake-form input[type="file"] {
+/* Vendor Intake form, formal document feel */
+.intake-form input:not([type="checkbox"]):not([type="radio"]).intake-form textarea.intake-form select.intake-form [role="combobox"].intake-form button[role="combobox"].intake-form input[type="file"] {
   background: #ffffff !important;
   border: 1px solid rgba(0, 16, 33, 0.28) !important;
   box-shadow: none !important;
 }
-.intake-form input:not([type="checkbox"]):not([type="radio"]):focus,
-.intake-form input:not([type="checkbox"]):not([type="radio"]):focus-visible,
-.intake-form textarea:focus,
-.intake-form textarea:focus-visible,
-.intake-form select:focus,
-.intake-form select:focus-visible,
-.intake-form [role="combobox"]:focus,
-.intake-form [role="combobox"]:focus-visible,
-.intake-form button[role="combobox"]:focus,
-.intake-form button[role="combobox"]:focus-visible,
-.intake-form input[type="file"]:focus,
-.intake-form input[type="file"]:focus-visible {
+.intake-form input:not([type="checkbox"]):not([type="radio"]):focus.intake-form input:not([type="checkbox"]):not([type="radio"]):focus-visible.intake-form textarea:focus.intake-form textarea:focus-visible.intake-form select:focus.intake-form select:focus-visible.intake-form [role="combobox"]:focus.intake-form [role="combobox"]:focus-visible.intake-form button[role="combobox"]:focus.intake-form button[role="combobox"]:focus-visible.intake-form input[type="file"]:focus.intake-form input[type="file"]:focus-visible {
   border: 1px solid #001021 !important;
   box-shadow: 0 0 0 2px rgba(0, 16, 33, 0.08) !important;
   outline: none !important;
@@ -1100,12 +1020,10 @@ body {
   border-top: 1px solid rgba(0, 16, 33, 0.12) !important;
   padding-top: 16px !important;
 }
-.intake-form fieldset > legend + div,
-.intake-form fieldset > legend + p {
+.intake-form fieldset > legend + div.intake-form fieldset > legend + p {
   margin-top: 6px !important;
 }
-.intake-form input::placeholder,
-.intake-form textarea::placeholder {
+.intake-form input::placeholder.intake-form textarea::placeholder {
   color: rgba(0, 16, 33, 0.42) !important;
   opacity: 1;
 }

@@ -1,5 +1,5 @@
 /**
- * GlobalUtilityBar — Tier 0
+ * GlobalUtilityBar, Tier 0
  *
  * A thin, permanent white announcement strip that sits above the SiteHeader
  * on every route. Single-line, never wrapping, never cut off.

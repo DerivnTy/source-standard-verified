@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 /**
- * PageHeader — Source Standard institutional page intro band.
+ * PageHeader, Source Standard institutional page intro band.
  * Uses the Home-page typography system (ss-section-title + ss-lead)
  * so every page reads with the same hierarchy.
  */
