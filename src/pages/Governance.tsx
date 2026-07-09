@@ -7,6 +7,7 @@ import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { NavCard } from "@/components/system";
+import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const DOC_ID = "SS-GOV-2026.01";
 const VERIFIED_ON = "04/20/2026";
@@ -24,13 +25,30 @@ const deeper = [
   { to: "/medical-advisory", label: "Medical Advisory Board", desc: "Independent clinical oversight of the framework." },
   { to: "/how-it-works", label: "Verification Protocol", desc: "The process behind each verification decision." },
   { to: "/status-definitions", label: "Status Definitions", desc: "What each public verification status means." },
+  { to: "/greenlist", label: "Facility Records", desc: "Documented sourcing and standing of upstream facilities." },
+];
+
+const ecosystemCategories = [
+  {
+    t: "Independent laboratories",
+    d: "Independent laboratory testing, including quality and potency analysis where applicable. Results, when provided, inform Source Standard's review of sourcing claims and facility standing.",
+  },
+  {
+    t: "Healthcare organizations",
+    d: "Organizations that contribute professional expertise and promote transparent healthcare practices.",
+  },
+  {
+    t: "Research partners",
+    d: "Organizations that contribute research, evidence, and industry knowledge supporting transparency.",
+  },
 ];
 
 const waypoints = [
   { id: "advisory", number: "1", label: "Advisory" },
   { id: "anchors", number: "2", label: "Anchors" },
   { id: "neutrality", number: "3", label: "Neutrality" },
-  { id: "deeper", number: "4", label: "Read deeper" },
+  { id: "ecosystem", number: "4", label: "Ecosystem" },
+  { id: "deeper", number: "5", label: "Read deeper" },
 ];
 
 const Governance = () => (
@@ -150,13 +168,57 @@ const Governance = () => (
       </p>
     </BoardSection>
 
-    <BoardSection id="deeper" n="4" category="Read deeper" title="Cross-references" muted>
+    <BoardSection
+      id="ecosystem"
+      n="4"
+      category="Ecosystem"
+      title="Independent organizations supporting the framework"
+      rationale="Source Standard operates within a broader ecosystem of independent organizations while remaining operationally independent."
+      muted
+    >
+      <dl className="divide-y divide-border/60 border-t border-b border-border/60">
+        {ecosystemCategories.map((c) => (
+          <div
+            key={c.t}
+            className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-x-8 gap-y-1 py-3.5"
+          >
+            <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
+              {c.t}
+            </dt>
+            <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
+              {c.d}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="flex flex-col gap-4 pt-8" style={{ maxWidth: "68ch" }}>
+        <p className="ss-eyebrow">Clinical intelligence · Open</p>
+        <img
+          src={openLogo.url}
+          alt="Open"
+          className="h-10 w-auto md:h-12"
+          loading="lazy"
+          style={{ marginLeft: "-2px" }}
+        />
+        <p className="t-body-sm text-foreground leading-relaxed">
+          Open is an independent physician-focused clinical intelligence organization.
+        </p>
+        <p className="t-body-sm text-muted-foreground leading-relaxed">
+          Source Standard documents sourcing and verification records. Open studies clinical response patterns.
+          The two organizations address different layers of transparency.
+        </p>
+      </div>
+    </BoardSection>
+
+    <BoardSection id="deeper" n="5" category="Read deeper" title="Cross-references" muted={false}>
       <div className="grid gap-2.5 sm:grid-cols-2">
         {deeper.map((d) => (
           <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />
         ))}
       </div>
     </BoardSection>
+
 
     <BoardCiteFooter
       citation={`Source Standard. Regulatory Alignment & Oversight. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
