@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
-import { useSiteAccess } from "@/hooks/useSiteAccess";
 
 type LinkRow = {
   to: string;
@@ -23,27 +22,19 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "Standards",
+    title: "Framework",
     links: [
       { to: "/how-it-works", label: "Verification Framework" },
       { to: "/status-definitions", label: "Status Definitions" },
-      { to: "/accountability", label: "Compliance" },
+      { to: "/governance", label: "Governance" },
       { to: "/medical-advisory", label: "Advisory Board" },
     ],
   },
   {
-    title: "Learn",
+    title: "Source Standard",
     links: [
-      { to: "/learn", label: "Learn" },
-      { to: "/learn/education", label: "Education" },
-      { to: "/learn/news", label: "News & Insights" },
-      { to: "/learn/faq", label: "Frequently Asked Questions" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { to: "/about", label: "About Source Standard" },
+      { to: "/about", label: "About" },
+      { to: "/contact", label: "Contact" },
       { to: "/privacy", label: "Privacy" },
       { to: "/terms", label: "Terms" },
       { to: "/verification-disclaimer", label: "Disclaimer" },
@@ -81,7 +72,6 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
 
 export const SiteFooter = () => {
   const now = new Date();
-  const { lock } = useSiteAccess();
 
 
 
@@ -95,9 +85,9 @@ export const SiteFooter = () => {
       <footer
         className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
       >
-        <div className="page-shell pt-6 md:pt-10 lg:pt-12 pb-6 md:pb-12 lg:pb-10">
+        <div className="page-shell pt-10 md:pt-14 lg:pt-16 pb-6 md:pb-12 lg:pb-10">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-8 lg:gap-x-12 gap-y-9 md:gap-y-12 items-start text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10 md:gap-y-14 items-start text-left">
             <div className="lg:col-span-1">
               <Logo variant="light" className="h-6" />
             </div>
@@ -105,12 +95,12 @@ export const SiteFooter = () => {
             {columns.map((col) => (
               <div key={col.title} className="text-left">
                 <p
-                  className="mb-3 md:mb-4 t-utility-xs"
+                  className="mb-4 md:mb-5 t-utility-xs"
                   style={{ color: "rgba(255,255,255,0.92)" }}
                 >
                   {col.title}
                 </p>
-                <ul className="space-y-2 md:space-y-2.5">
+                <ul className="space-y-1.5 md:space-y-2">
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
@@ -139,26 +129,17 @@ export const SiteFooter = () => {
                 style={{ backgroundColor: "#22C55E" }}
               />
               <span
-                className="t-numeric uppercase"
+                className="t-numeric"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
                 System Status: Operational
               </span>
-              <span aria-hidden style={{ color: "rgba(255,255,255,0.40)" }}>·</span>
-              <button
-                type="button"
-                onClick={lock}
-                className="t-numeric uppercase hover:opacity-100 transition-opacity opacity-70"
-                style={{ color: "rgba(255,255,255,0.50)" }}
-              >
-                Lock
-              </button>
             </div>
           </div>
 
           <p
-            className="mt-4 md:mt-5 max-w-[900px] font-sans"
-            style={{ color: "rgba(255,255,255,0.40)", fontSize: "11px", lineHeight: 1.6 }}
+            className="mt-5 md:mt-6 font-sans"
+            style={{ color: "rgba(255,255,255,0.32)", fontSize: "10px", lineHeight: 1.7, maxWidth: "60ch" }}
           >
             Source Standard is an independent public-reference and verification
             framework for compounded therapy vendor sourcing claims. Records

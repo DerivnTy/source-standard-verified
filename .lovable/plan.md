@@ -1,47 +1,70 @@
-## Governance final cleanup — editorial rewrite
+# Footer Cleanup Plan
 
-Bring `/governance` in line with the rest of the site: public editorial voice, no fake document chrome, no empty tables.
+## Scope
+Simplify the information architecture of `src/components/SiteFooter.tsx` to match the site's editorial style — calmer, less dense, no redundancy.
 
-### 1. Hero — strip document metadata (`src/pages/Governance.tsx`)
-Replace `RecordHeader` with `PageHeader` (same primitive used elsewhere).
+## Changes
 
-- Eyebrow: `GOVERNANCE & OVERSIGHT`
-- Title: `Who Oversees Source Standard?`
-- Description: `How Source Standard stays independent, objective, and accountable.`
+### 1. Remove duplicate navigation
+- Delete the entire **Learn** column and all its links (Learn, Education, News & Insights, Frequently Asked Questions).
 
-Remove:
-- `DOC_ID`, `VERIFIED_ON` constants
-- The `metadata` array (Doc, Version, Status, Updated)
-- The `summary` table (Advisory body of record, Anchored authorities, Initial roster filing, Neutrality posture)
-- `DocJumpBar` and its `waypoints` array (jump bar reinforces the "filing" feel)
-- `BoardCiteFooter` at the bottom (controlled-copy citation line)
+### 2. Rename Standards → Framework
+- Change column heading from `Standards` to `Framework`.
+- Update links:
+  - Verification Framework (`/how-it-works`)
+  - Status Definitions (`/status-definitions`)
+  - **Governance** (`/governance`) — add this page
+  - Advisory Board (`/medical-advisory`)
+- Remove the old `Compliance` (`/accountability`) link.
 
-### 2. Advisory (§1) — rewrite as prose
-Delete the `Callout` administrative notice and the `ROSTER UPDATES…` mono line. Replace `BoardSection` (which prints numbered filing eyebrows + "Rationale") with `PageSection` used across other consumer pages.
+### 3. Simplify Company → Source Standard
+- Change column heading from `Company` to `Source Standard`.
+- Update links:
+  - About (`/about`)
+  - Contact (`/contact`) — add this page
+  - Privacy (`/privacy`)
+  - Terms (`/terms`)
+  - Disclaimer (`/verification-disclaimer`)
+- Remove the old `About Source Standard` link (replaced by plain `About`).
 
-- Title: `Framework criteria maintained under clinical oversight`
-- Paragraph 1: "Licensed clinicians and advisors help review the scope definitions, evidence standards, and renewal intervals used by the Source Standard framework. Advisory participation supports the integrity of the framework, but does not turn Source Standard into a medical provider."
-- Paragraph 2: "Advisors do not diagnose, treat, prescribe, or evaluate individual patients through Source Standard."
+### 4. Reduce legal copy prominence
+- Smaller font size, increased line-height.
+- Constrain width to approximately `60ch`.
+- Use muted foreground color (`text-muted-foreground` or equivalent token).
+- Ensure it reads as fine print, not a primary paragraph.
 
-### 3. Anchored standards (§2)
-Convert to `PageSection`. Keep the responsive stacked-record `<ul>` (mobile stack, `md:` 12-col grid) as-is — that structure works. Soften wording of the header row from `STATUTORY / COMPENDIAL REFERENCE` intact (already public-facing). Remove the `n="2"` filing number and `rationale` prop by dropping `BoardSection`; use plain intro text: "Source Standard does not originate criteria. Each framework requirement is anchored to a statutory provision or compendial standard issued by the public authorities listed below."
+### 5. Simplify system status
+- Change from `● SYSTEM STATUS: OPERATIONAL · LOCK` to `● System Status: Operational`.
+- Remove the `Lock` button entirely.
 
-### 4. Organizational neutrality (§3)
-Convert to `PageSection`. Title: `Organizational neutrality`. Keep both existing paragraphs verbatim. Drop the "Strict separation of interests" rationale line.
+### 6. Improve spacing
+- Slightly increase vertical spacing between the four remaining footer groups (Registry, Framework, Source Standard, brand column).
+- Reduce spacing between individual links within each group for a tighter, calmer rhythm.
 
-### 5. Independent organizations supporting the framework (§4)
-Convert to `PageSection`. Title unchanged. Keep the `<dl>` with the three categories (Independent laboratories, Healthcare organizations, Research partners). No Open, no Compounding Facilities, no Medical Advisors.
+### 7. Remove redundancy
+- Footer now contains only:
+  - Registry links
+  - Framework links
+  - Source Standard links
+  - Copyright
+  - System status
+  - Legal disclaimer
+- Everything else removed.
 
-### 6. Read deeper (§5)
-Convert to `PageSection` titled `Read deeper`. Keep the existing `NavCard` grid with the five cross-references.
+### 8. Preserve existing styling
+- Keep navy background (`bg-[hsl(var(--navy-surface))]`).
+- Keep existing typography tokens and colors.
+- Keep hairline border styling.
+- No redesign of visual style — only information architecture simplification.
 
-### 7. Footer
-End with `EditorialBackLink to="/" label="Back to Home"`. Remove `BoardCiteFooter`.
+## Out of scope
+- No changes to header navigation.
+- No changes to routes or page components.
+- No changes to the `Logo` component or `useSiteAccess` hook usage.
 
-### Files touched
-- `src/pages/Governance.tsx` — full rewrite of composition (imports, constants, JSX)
-
-### Out of scope
-- No changes to `SiteHeader`, `PageHeader`, `PageSection`, `BoardSection`, or any shared primitive
-- No route, SEO metadata, or authority-data changes
-- No changes to Advisory Board, About, or other pages
+## Verification
+- `/governance` appears in the Framework footer column.
+- No Learn column remains.
+- No Lock button remains.
+- Legal disclaimer is visually subdued.
+- Footer renders cleanly on mobile and desktop.
