@@ -20,13 +20,21 @@ const asParagraphs = (body: string | string[]) =>
 // ── Shared editorial closer ──────────────────────────────────────
 
 const ContinueLearning = ({ nextStep }: { nextStep: string }) => {
-  const labels: Record<string, { label: string; to: string }> = {
-    "vendor-registry": NEXT_STEPS["vendor-registry"],
-    "facility-records": NEXT_STEPS["facility-records"],
-    "how-verification-works": NEXT_STEPS["how-verification-works"],
+  const seen = new Set<string>();
+  const links: { label: string; to: string }[] = [];
+
+  const add = (id: string) => {
+    const step = NEXT_STEPS[id as keyof typeof NEXT_STEPS];
+    if (step && !seen.has(step.to)) {
+      seen.add(step.to);
+      links.push(step);
+    }
   };
 
-  const next = labels[nextStep] ?? NEXT_STEPS["vendor-registry"];
+  add(nextStep);
+  add("how-verification-works");
+  add("facility-records");
+  add("vendor-registry");
 
   return (
     <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "48px" }}>
@@ -34,60 +42,26 @@ const ContinueLearning = ({ nextStep }: { nextStep: string }) => {
         <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
           <h2 className="t-section-title-sm text-foreground">Continue Learning</h2>
           <ul className="flex flex-col mt-4 divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            <li>
-              <Link
-                to={next.to}
-                className="group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
-                style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
-              >
-                <span className="font-sans text-foreground group-hover:text-primary transition-colors" style={{ fontSize: "14px", fontWeight: 600 }}>
-                  {next.label}
-                </span>
-                <span
-                  aria-hidden
-                  className="text-muted-foreground/60 group-hover:text-foreground transition-colors font-mono"
-                  style={{ fontSize: "14px" }}
+            {links.slice(0, 3).map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  className="group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
+                  style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
                 >
-                  →
-                </span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={NEXT_STEPS["how-verification-works"].to}
-                className="group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
-                style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
-              >
-                <span className="font-sans text-foreground group-hover:text-primary transition-colors" style={{ fontSize: "14px", fontWeight: 600 }}>
-                  {NEXT_STEPS["how-verification-works"].label}
-                </span>
-                <span
-                  aria-hidden
-                  className="text-muted-foreground/60 group-hover:text-foreground transition-colors font-mono"
-                  style={{ fontSize: "14px" }}
-                >
-                  →
-                </span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={NEXT_STEPS["facility-records"].to}
-                className="group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
-                style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
-              >
-                <span className="font-sans text-foreground group-hover:text-primary transition-colors" style={{ fontSize: "14px", fontWeight: 600 }}>
-                  {NEXT_STEPS["facility-records"].label}
-                </span>
-                <span
-                  aria-hidden
-                  className="text-muted-foreground/60 group-hover:text-foreground transition-colors font-mono"
-                  style={{ fontSize: "14px" }}
-                >
-                  →
-                </span>
-              </Link>
-            </li>
+                  <span className="font-sans text-foreground group-hover:text-primary transition-colors" style={{ fontSize: "14px", fontWeight: 600 }}>
+                    {link.label}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="text-muted-foreground/60 group-hover:text-foreground transition-colors font-mono"
+                    style={{ fontSize: "14px" }}
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
