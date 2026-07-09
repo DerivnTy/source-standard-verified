@@ -206,6 +206,19 @@ const VerifiedVendors = () => {
   const [stateFilter, setStateFilter] = useState<string>("any"); // 2-letter abbr or "any"
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [filtersOpen, setFiltersOpen] = useState(true);
+  const searchRef = useRef<HTMLDivElement | null>(null);
+  const [stickyVisible, setStickyVisible] = useState(false);
+
+  useEffect(() => {
+    const el = searchRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setStickyVisible(!entry.isIntersecting),
+      { rootMargin: "-8px 0px 0px 0px", threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const isSearching = query.trim().length > 0;
 
