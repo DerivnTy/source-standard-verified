@@ -489,7 +489,7 @@ const Index = () => {
       {/* How it works — process rail */}
       <PageSection
         id="how-it-works"
-        icon="search"
+        icon="shield-check"
         title="How Does Source Standard Verify?"
         cta={<PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>}
       >

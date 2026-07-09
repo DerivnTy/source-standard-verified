@@ -9,13 +9,21 @@ import { Glyph, type GlyphName } from "./GlyphIcon";
  *   variant="row"   icon left, text right   (checklists, dense lists)
  *   variant="block" icon top,  text below  (audience tiles, trust pillars)
  *
- * Icon is optional. Homepage icon hierarchy:
- *   • Section headings: at most one contextual glyph.
- *   • Checklist items: `check` only.
- *   • Navigation: chevrons/arrows only.
- *   • Trust pillars / audience blocks: no per-item glyph — the section
- *     heading already establishes context.
- * Never render the same icon twice within one section.
+ * Icon is optional. Homepage icon hierarchy (semantic usage):
+ *   • `search`     — discovery, lookup, registry browsing.
+ *   • `shield-check` — verification, trust, validation.
+ *   • `check`      — checklist items or included attributes.
+ *   • `scale`      — governance, standards, accountability.
+ *   • `graduation-cap` — education and learning resources.
+ *   • `handshake`  — audiences, partners, collaboration.
+ *
+ * Principles:
+ *   • Section glyphs provide context for the section, not decoration.
+ *   • Interactive elements use arrows or chevrons, not contextual glyphs.
+ *   • Checklist items use checkmarks only.
+ *   • Avoid repeating the same contextual glyph in adjacent sections
+ *     unless the repeated meaning is intentional.
+ *   • Never render the same icon twice within one section.
  */
 
 export const FeatureItem = ({
