@@ -100,20 +100,13 @@ export const FaqPage = ({
       <header className="bg-background">
         <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "0" }}>
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
-            <h1 className="t-page-title text-foreground">{title}</h1>
+            <h1 className="t-article-title text-foreground">{title}</h1>
             {intro && (
-              <p
-                className="text-muted-foreground"
-                style={{
-                  fontSize: "17px",
-                  lineHeight: 1.55,
-                  marginTop: "12px",
-                  letterSpacing: "-0.005em",
-                }}
-              >
+              <p className="t-article-standfirst" style={{ marginTop: "12px" }}>
                 {intro}
               </p>
             )}
+
             <div
               aria-hidden
               style={{
