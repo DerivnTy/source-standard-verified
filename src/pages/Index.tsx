@@ -408,7 +408,7 @@ const Index = () => {
     <>
       <PageMeta
         title="Source Standard · Verify the source."
-        description="Source Standard is an independent public-reference organization providing verification and transparency around vendor sourcing claims and pharmacy relationships across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
+        description="Search the Source Standard Registry to check whether your provider is verified and understand the sourcing behind compounded therapies."
         path="/"
         jsonLd={[
           {
