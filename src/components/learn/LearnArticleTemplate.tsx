@@ -1,9 +1,9 @@
+import { Link } from "react-router-dom";
 import { FeatureLink } from "@/components/system";
 
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
-import { ArticleSection, ArticleFooter } from "@/components/ArticleSection";
-import { NextStep } from "@/components/learn/NextStep";
+import { ArticleSection } from "@/components/ArticleSection";
 
 import {
   EducationArticle,
@@ -11,12 +11,65 @@ import {
   EDUCATION_TOPICS,
   NEWS_CATEGORIES,
   getEducationArticle,
+  NEXT_STEPS,
 } from "@/data/learn";
 
 const asParagraphs = (body: string | string[]) =>
   Array.isArray(body) ? body : [body];
 
-// ── Education article template ──────────────────────────────────────
+// ── Shared editorial closer ──────────────────────────────────────
+
+const ContinueLearning = ({ nextStep }: { nextStep: string }) => {
+  const seen = new Set<string>();
+  const links: { label: string; to: string }[] = [];
+
+  const add = (id: string) => {
+    const step = NEXT_STEPS[id as keyof typeof NEXT_STEPS];
+    if (step && !seen.has(step.to)) {
+      seen.add(step.to);
+      links.push(step);
+    }
+  };
+
+  add(nextStep);
+  add("how-verification-works");
+  add("facility-records");
+  add("vendor-registry");
+
+  return (
+    <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "48px" }}>
+      <div className="page-shell">
+        <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <h2 className="t-section-title-sm text-foreground">Continue Learning</h2>
+          <ul className="flex flex-col mt-4 divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {links.slice(0, 3).map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  className="group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
+                  style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
+                >
+                  <span className="font-sans text-foreground group-hover:text-primary transition-colors" style={{ fontSize: "14px", fontWeight: 600 }}>
+                    {link.label}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="text-muted-foreground/60 group-hover:text-foreground transition-colors font-mono"
+                    style={{ fontSize: "14px" }}
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Education article template ────────────────────────────────────
 
 export const EducationArticleTemplate = ({
   article,
@@ -70,35 +123,13 @@ export const EducationArticleTemplate = ({
       <ArticleHeader
         title={article.question}
         lead={article.shortAnswer}
-        metadata={[{ label: "Updated", value: article.updated }]}
+        category={topic ? `Education · ${topic.label}` : "Education"}
         backHref="/learn/education"
         backLabel="Back to Education"
       />
 
-      {/* Topic tag row */}
-      {topic && (
-        <div className="page-shell" style={{ paddingTop: "16px" }}>
-          <div className="mx-auto w-reading-wide">
-            <p
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-            >
-              Education · {topic.label}
-            </p>
-          </div>
-        </div>
-      )}
-
-      <ArticleSection n={0} title="What this answers">
-        <p>{article.answersFor}</p>
-      </ArticleSection>
-
-      <ArticleSection n={1} title="Short answer">
-        <p className="text-foreground font-medium">{article.shortAnswer}</p>
-      </ArticleSection>
-
       {article.sections.map((s, i) => (
-        <ArticleSection key={i} n={i + 2} title={s.title}>
+        <ArticleSection key={i} variant="prose" title={s.title}>
           {asParagraphs(s.body).map((p, j) => (
             <p key={j}>{p}</p>
           ))}
@@ -106,8 +137,8 @@ export const EducationArticleTemplate = ({
       ))}
 
       {relatedResolved.length > 0 && (
-        <ArticleSection title="Related questions">
-          <ul className="flex flex-col">
+        <ArticleSection variant="callout" kind="Continue reading" title="Related Education">
+          <ul className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {relatedResolved.map((r, i) => (
               <li
                 key={r.slug}
@@ -120,19 +151,15 @@ export const EducationArticleTemplate = ({
               </li>
             ))}
           </ul>
-
         </ArticleSection>
       )}
 
-
-      <NextStep primary={article.nextStep} />
-
-      <ArticleFooter back={{ to: "/learn/education", label: "Back to Education" }} />
+      <ContinueLearning nextStep={article.nextStep} />
     </>
   );
 };
 
-// ── News article template ──────────────────────────────────────────
+// ── News article template ─────────────────────────────────────────
 
 export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
   const category = NEWS_CATEGORIES.find((c) => c.id === article.category);
@@ -141,6 +168,16 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
   const relatedResolved = article.relatedEducation
     .map((r) => getEducationArticle(r.slug))
     .filter((a): a is EducationArticle => Boolean(a));
+
+  const dateLabel = new Date(article.dateline).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const metaParts = [dateLabel, article.location, category?.label].filter(
+    Boolean
+  );
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -153,12 +190,6 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
     publisher: { "@type": "Organization", name: "Source Standard" },
     mainEntityOfPage: `https://www.sourcestandard.org${path}`,
   };
-
-  const dateLabel = new Date(article.dateline).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 
   return (
     <>
@@ -173,37 +204,24 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
       <ArticleHeader
         title={article.headline}
         lead={article.standfirst}
-        metadata={[{ label: "Updated", value: dateLabel }]}
+        category={metaParts.join(" · ")}
         backHref="/learn/news"
         backLabel="Back to News & Insights"
       />
 
-      <div className="page-shell" style={{ paddingTop: "16px" }}>
-        <div className="mx-auto w-reading-wide">
-          <p
-            className="font-mono uppercase text-muted-foreground"
-            style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-          >
-            {dateLabel}
-            {article.location ? ` · ${article.location}` : ""}
-            {category ? ` · ${category.label}` : ""}
-          </p>
-        </div>
-      </div>
+      <ArticleSection variant="prose">
+        {article.body.map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+      </ArticleSection>
 
-      {article.body.map((p, i) => (
-        <ArticleSection key={i} n={i + 1}>
-          <p>{p}</p>
-        </ArticleSection>
-      ))}
-
-      <ArticleSection title="Why this matters">
+      <ArticleSection variant="prose" title="Why this matters">
         <p className="text-foreground font-medium">{article.whyThisMatters}</p>
       </ArticleSection>
 
       {relatedResolved.length > 0 && (
-        <ArticleSection title="Related education">
-          <ul className="flex flex-col">
+        <ArticleSection variant="callout" kind="Continue reading" title="Related Education">
+          <ul className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {relatedResolved.map((r, i) => (
               <li
                 key={r.slug}
@@ -216,14 +234,10 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
               </li>
             ))}
           </ul>
-
         </ArticleSection>
       )}
 
-
-      <NextStep primary={article.nextStep} />
-
-      <ArticleFooter back={{ to: "/learn/news", label: "Back to News & Insights" }} />
+      <ContinueLearning nextStep={article.nextStep} />
     </>
   );
 };
