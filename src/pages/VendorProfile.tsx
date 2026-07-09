@@ -1134,7 +1134,7 @@ const VendorProfile = () => {
             vendor.statesServed?.length ||
             vendor.telehealthAvailability) && (
             <article className="mt-4" style={CARD}>
-              <SectionHeading>Clinical Coverage</SectionHeading>
+              <SectionHeading>Who they treat</SectionHeading>
               <div className="mt-3 grid gap-4">
                 {vendor.conditionsTreated?.length ? (
                   <div>
