@@ -35,11 +35,6 @@ const STATUS_LABEL: Record<StatusTier, string> = {
   alert: "Status Alert",
 };
 
-const STATUS_COLOR: Record<StatusTier, string> = {
-  greenlisted: "#34C759",
-  monitoring: "#FF3B30",
-  alert: "#FF3B30",
-};
 
 const manufacturerTypeLabel = (raw?: string): string => {
   if (!raw) return "Manufacturer";
