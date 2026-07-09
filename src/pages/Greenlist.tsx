@@ -403,29 +403,39 @@ const Greenlist = () => {
                 </div>
 
                 {/* Compact status guide legend */}
-                <div className="mt-2.5">
+                <div className="mt-3">
                   <p
-                    className="font-sans font-semibold uppercase text-muted-foreground mb-1"
+                    className="font-sans font-semibold uppercase text-muted-foreground mb-1.5"
                     style={{ fontSize: "10px", letterSpacing: "0.12em" }}
                   >
                     Status Guide
                   </p>
-                  <ul className="flex flex-col" style={{ gap: "2px" }}>
+                  <ul className="flex flex-col" style={{ gap: "5px" }}>
                     {STATUS_DEFINITIONS.map((s) => (
-                      <li
-                        key={s.label}
-                        className="flex items-center text-muted-foreground"
-                        style={{ fontSize: "11.5px", lineHeight: 1.4, gap: "6px" }}
-                      >
+                      <li key={s.label} className="flex flex-col">
+                        <div className="flex items-center" style={{ gap: "6px" }}>
+                          <span
+                            aria-hidden
+                            className="inline-block rounded-full shrink-0"
+                            style={{ width: "5px", height: "5px", backgroundColor: s.color }}
+                          />
+                          <span
+                            className="font-sans text-foreground/80"
+                            style={{ fontSize: "11px", fontWeight: 600, lineHeight: 1.3 }}
+                          >
+                            {s.label}
+                          </span>
+                        </div>
                         <span
-                          aria-hidden
-                          className="inline-block rounded-full shrink-0"
-                          style={{ width: "6px", height: "6px", backgroundColor: s.color }}
-                        />
-                        <span className="text-foreground/85" style={{ fontWeight: 600 }}>
-                          {s.label}
+                          className="font-sans text-muted-foreground"
+                          style={{
+                            fontSize: "11px",
+                            lineHeight: 1.35,
+                            paddingLeft: "11px",
+                          }}
+                        >
+                          {s.body}
                         </span>
-                        <span>{s.body}</span>
                       </li>
                     ))}
                   </ul>
