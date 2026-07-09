@@ -1074,7 +1074,7 @@ const VendorProfile = () => {
 
           {/* ────── 4. ABOUT THIS VENDOR ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>About This Vendor</SectionHeading>
+            <SectionHeading>Who is this provider?</SectionHeading>
             {hasAbout ? (
               <div className="mt-3">
                 <ReadMore>
