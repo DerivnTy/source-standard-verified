@@ -136,7 +136,9 @@ const App = () => (
             <Route path="/medical-advisory" element={<MedicalAdvisory />} />
             <Route path="/medical-advisory/:slug" element={<AdvisorProfile />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/report-a-concern" element={<ReportConcern />} />
+            <Route path="/report-concern" element={<ReportConcern />} />
+            <Route path="/report-a-concern" element={<Navigate to="/report-concern" replace />} />
+
             <Route path="/status-definitions" element={<StatusDefinitions />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
