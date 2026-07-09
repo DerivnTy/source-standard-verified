@@ -1,5 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
-import { Breadcrumb } from "@/components/Breadcrumb";
+import { FaqTopicShell } from "@/components/learn/FaqTopicShell";
 import { FaqPage } from "@/components/library/FaqPage";
 
 const ITEMS = [
@@ -31,17 +31,16 @@ const FaqVerificationProcess = () => (
       title="How Does Verification Work?"
       description="What verification means, how registry statuses are assigned, and how consumers should interpret Source Standard records."
     />
-    <Breadcrumb
-      items={[
-        { label: "Resource Library", to: "/education" },
-        { label: "Verification" },
-      ]}
-    />
-    <FaqPage
-      title="How Does Verification Work?"
-      intro="What verification means, how registry statuses are assigned, and how consumers should interpret Source Standard records."
-      items={ITEMS}
-    />
+    <FaqTopicShell
+      topicLabel="Verification Process"
+      currentPath="/library/faq/verification-process"
+    >
+      <FaqPage
+        title="How Does Verification Work?"
+        intro="What verification means, how registry statuses are assigned, and how consumers should interpret Source Standard records."
+        items={ITEMS}
+      />
+    </FaqTopicShell>
   </>
 );
 
