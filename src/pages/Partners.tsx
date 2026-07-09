@@ -61,7 +61,6 @@ const Partners = () => (
     </PageSection>
 
     <PageSection
-      icon="handshake"
       title="Who are Source Standard's partners?"
       intro="Source Standard collaborates with a range of independent organizations to support transparent verification across the therapy supply chain."
     >
