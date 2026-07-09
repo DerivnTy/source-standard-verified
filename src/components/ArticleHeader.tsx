@@ -56,13 +56,13 @@ export const ArticleHeader = ({
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
         <div
           className="relative z-10 page-shell"
-          style={{ paddingTop: "clamp(48px, 7vh, 72px)", paddingBottom: "clamp(28px, 4vh, 40px)" }}
+          style={{ paddingTop: "clamp(44px, 6.5vh, 68px)", paddingBottom: "clamp(28px, 4vh, 40px)" }}
         >
           <div className="mx-auto w-reading-wide">
             <p
               className="font-mono uppercase"
               style={{
-                fontSize: "10px",
+                fontSize: "12px",
                 letterSpacing: "0.14em",
                 color: "rgba(255,255,255,0.6)",
               }}
@@ -72,7 +72,7 @@ export const ArticleHeader = ({
 
             <h1
               className="t-article-title !text-white !mt-0"
-              style={{ marginTop: "18px", textWrap: "balance" }}
+              style={{ marginTop: "20px", textWrap: "balance" }}
             >
               {title}
             </h1>

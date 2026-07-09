@@ -110,7 +110,7 @@ export const RecordHeader = ({
         style={
           compact
             ? undefined
-            : { paddingTop: "clamp(48px, 7vh, 72px)", paddingBottom: "clamp(28px, 4vh, 40px)" }
+            : { paddingTop: "clamp(44px, 6.5vh, 68px)", paddingBottom: "clamp(28px, 4vh, 40px)" }
         }
       >
         <div className="grid md:grid-cols-12 gap-10">
@@ -119,7 +119,7 @@ export const RecordHeader = ({
               <p
                 className="font-mono uppercase"
                 style={{
-                  fontSize: "10px",
+                  fontSize: "12px",
                   letterSpacing: "0.14em",
                   color: "rgba(255,255,255,0.6)",
                 }}
@@ -130,7 +130,7 @@ export const RecordHeader = ({
             {title && (
               <h1
                 className="ss-hero-title !text-white max-w-3xl !mt-0"
-                style={{ marginTop: eyebrow ? "14px" : "0", textWrap: "balance" }}
+                style={{ marginTop: eyebrow ? "20px" : "0", textWrap: "balance" }}
               >
                 {title}
               </h1>
