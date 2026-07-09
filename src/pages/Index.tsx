@@ -352,18 +352,16 @@ const Index = () => {
         ]}
       />
 
-      {/* §1, Hero */}
+      {/* Hero */}
       <style>{`
         @keyframes scrollCue {
           0%, 100% { transform: translate(-50%, 0); opacity: 0.35; }
           50% { transform: translate(-50%, 5px); opacity: 0.7; }
         }
 
-        /* ────────────── Desktop polish (≥1024px) ──────────────
-           Mobile is locked. These overrides only kick in on lg+
-           to scale type, padding, and centering for desktop. */
+        /* Desktop hero polish only. Consumer sections below the hero
+           inherit their rhythm from PageSection, not from overrides here. */
         @media (min-width: 1024px) {
-          /* Hero, center the cover content, lift the H1, widen the lead */
           .home-hero h1#briefing-title {
             text-align: center !important;
             margin-left: auto;
@@ -390,44 +388,9 @@ const Index = () => {
             justify-content: center !important;
             margin-top: 28px !important;
           }
-
-          /* Section rhythm, bump padding and headings on every home section */
-          .home-section { padding-top: 56px !important; padding-bottom: 56px !important; }
-          .home-section .home-eyebrow { font-size: 11px !important; letter-spacing: 0.12em !important; font-weight: 500 !important; }
-          .home-section .home-h2 {
-            font-size: 34px !important;
-            line-height: 1.15 !important;
-            letter-spacing: -0.02em !important;
-            font-weight: 700 !important;
-            margin-top: 14px !important;
-          }
-          .home-section .home-lead {
-            font-size: 17px !important;
-            line-height: 1.7 !important;
-            margin-top: 20px !important;
-            max-width: 68ch !important;
-          }
-          .home-section .home-lead-pill {
-            margin-top: 0 !important;
-            max-width: none !important;
-          }
-          .home-section .home-lead-card {
-            margin-top: 16px !important;
-            padding: 12px 22px 16px !important;
-          }
-          .home-section .home-grid { margin-top: 36px !important; gap: 20px !important; }
-          .home-section .home-cta { margin-top: 28px !important; }
-
-          /* DataStrip cards, larger institutional type on desktop */
-          .home-section .home-grid > * { padding: 24px 26px !important; }
-          .home-section .home-grid h3 { font-size: 20px !important; line-height: 1.3 !important; }
-          .home-section .home-grid p { font-size: 16px !important; line-height: 1.75 !important; margin-top: 10px !important; }
-        }
-
-        @media (min-width: 1280px) {
-          .home-section .home-h2 { font-size: 36px !important; }
         }
       `}</style>
+
       <div
         className="
           home-hero
