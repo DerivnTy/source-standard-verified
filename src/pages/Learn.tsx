@@ -10,7 +10,6 @@ const HERO_STATEMENT =
   "The public education library from Source Standard. Consumer-first answers to the questions that come up before you choose a provider — and timely updates about what's changing in compounded therapy.";
 
 const PILLARS: {
-  eyebrow: string;
   title: string;
   description: string;
   to: string;
@@ -18,7 +17,6 @@ const PILLARS: {
   meta: string;
 }[] = [
   {
-    eyebrow: "Evergreen",
     title: "Education",
     description:
       "Timeless answers to the questions people ask before they choose a provider. Organized by topic, written for consumers, updated when the facts change.",
@@ -27,7 +25,6 @@ const PILLARS: {
     meta: `${EDUCATION_ARTICLES.length} articles`,
   },
   {
-    eyebrow: "Timely",
     title: "News & Insights",
     description:
       "Reporting, commentary, and regulatory updates on compounded medications. What changed, what it means, and where it does — and doesn't — affect consumers.",
@@ -36,7 +33,6 @@ const PILLARS: {
     meta: `${NEWS_ARTICLES.length} posts`,
   },
   {
-    eyebrow: "Direct",
     title: "Frequently Asked Questions",
     description:
       "Structured answers to the direct questions we receive most often — legal, clinical, verification, and consumer diligence.",
