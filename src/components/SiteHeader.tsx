@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 const nav = [
   { to: "/verified-vendors", label: "Vendor Registry" },
   { to: "/greenlist", label: "Facility Records" },
-  { to: "/how-it-works", label: "Verification Framework" },
+  { to: "/how-it-works", label: "How Verification Works" },
   { to: "/partners", label: "Partners" },
   { to: "/medical-advisory", label: "Advisory Board" },
   { to: "/education", label: "Resource Library" },
-  { to: "/about", label: "About Source Standard" },
+  { to: "/about", label: "About" },
 ];
 
 // Mobile mirrors desktop nav, with Home prepended as the anchor item.
