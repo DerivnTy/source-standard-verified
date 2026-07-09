@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import { FOOTER_COLUMNS, type NavRoute } from "@/config/navigation";
 
 type LinkRow = {
   to: string;
@@ -11,36 +12,11 @@ type Column = {
   links: LinkRow[];
 };
 
-const columns: Column[] = [
-  {
-    title: "Registry",
-    links: [
-      { to: "/verified-vendors", label: "Vendor Registry" },
-      { to: "/greenlist", label: "Facility Records" },
-      { to: "/apply", label: "Apply for Verification" },
-      { to: "/report-a-concern", label: "Report a Concern" },
-    ],
-  },
-  {
-    title: "Framework",
-    links: [
-      { to: "/how-it-works", label: "Verification Framework" },
-      { to: "/status-definitions", label: "Status Definitions" },
-      { to: "/governance", label: "Governance" },
-      { to: "/medical-advisory", label: "Advisory Board" },
-    ],
-  },
-  {
-    title: "Source Standard",
-    links: [
-      { to: "/about", label: "About" },
-      { to: "/contact", label: "Contact" },
-      { to: "/privacy", label: "Privacy" },
-      { to: "/terms", label: "Terms" },
-      { to: "/verification-disclaimer", label: "Disclaimer" },
-    ],
-  },
-];
+const columns: Column[] = FOOTER_COLUMNS.map((c) => ({
+  title: c.title,
+  links: c.links.map((l: NavRoute) => ({ to: l.path, label: l.label })),
+}));
+
 
 const HAIRLINE = "rgba(148, 163, 184, 0.18)";
 
