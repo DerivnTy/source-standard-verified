@@ -182,22 +182,17 @@ const LearnEducation = () => {
                   {entries.map((a, i) => (
                     <li
                       key={a.slug}
-                      className={i > 0 ? "border-t border-border/40 pt-4 mt-4" : ""}
+                      className={i > 0 ? "border-t border-border/40 mt-2 pt-2" : ""}
                     >
-                      <Link
+                      <FeatureLink
                         to={`/learn/education/${a.slug}`}
-                        aria-label={a.question}
-                        className="block group"
-                      >
-                        <FeatureItem
-                          variant="block"
-                          title={a.question}
-                          desc={a.answersFor}
-                        />
-                      </Link>
+                        title={a.question}
+                        desc={a.answersFor}
+                      />
                     </li>
                   ))}
                 </ul>
+
               )}
             </PageSection>
           </div>
