@@ -102,6 +102,14 @@ html {
     --src-unverified: 0 55% 38%;
     --src-unverified-soft: 0 60% 95%;
 
+    /* Facility record status tokens */
+    --greenlisted: 145 63% 40%;
+    --greenlisted-soft: 145 55% 94%;
+    --monitoring: 38 92% 45%;
+    --monitoring-soft: 38 100% 96%;
+    --alert: 0 74% 50%;
+    --alert-soft: 0 90% 96%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
