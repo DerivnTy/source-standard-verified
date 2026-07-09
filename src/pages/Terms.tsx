@@ -1,93 +1,31 @@
 import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
-import { Breadcrumb } from "@/components/Breadcrumb";
-import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
-import { BriefingHero } from "@/components/BriefingHero";
+import { ArticleHeader } from "@/components/ArticleHeader";
+import { ArticleSection } from "@/components/ArticleSection";
+import { DefList } from "@/components/DefList";
 
-const WAYPOINTS = [
-  { id: "acceptance", number: "01", label: "Acceptance" },
-  { id: "citation", number: "02", label: "Citation" },
-  { id: "integrity", number: "03", label: "Integrity" },
-  { id: "warranty", number: "04", label: "Warranty" },
-  { id: "jurisdiction", number: "05", label: "Jurisdiction" },
-  { id: "related", number: "06", label: "Related Framework Documents" },
+type Item = { term: string; description: string };
+
+const CITATION: Item[] = [
+  { term: "Source Standard ID", description: "Include the unique registry identifier associated with the listing, where applicable." },
+  { term: "Status date", description: "Include the date the referenced status was published or last updated." },
+  { term: "Attribution", description: "Provide a direct link to the source registry page so the current public record can be reviewed." },
+  { term: "Citation integrity", description: "Citations that omit identifying details may misstate the status, scope, or timing of the published record." },
 ];
 
-type Clause = { n: string; t: string; d: string };
-
-const CITATION: Clause[] = [
-  {
-    n: "01",
-    t: "Source Standard ID",
-    d: "Include the unique registry identifier associated with the listing, where applicable.",
-  },
-  {
-    n: "02",
-    t: "Status date",
-    d: "Include the date the referenced status was published or last updated.",
-  },
-  {
-    n: "03",
-    t: "Attribution",
-    d: "Provide a direct link to the source registry page so the current public record can be reviewed.",
-  },
-  {
-    n: "04",
-    t: "Citation integrity",
-    d: "Citations that omit identifying details may misstate the status, scope, or timing of the published record.",
-  },
+const INTEGRITY: Item[] = [
+  { term: "Bulk extraction", description: "No automated extraction, scraping, crawling, replication, or aggregation of registry content for resale, republication, or creation of derivative databases without authorization." },
+  { term: "Status misrepresentation", description: "No display or implication of Verified status for any entity not currently published under that status in the registry." },
+  { term: "Unauthorized use of marks", description: "No use of Source Standard names, marks, or badge artwork in a way that implies an uncontracted partnership, endorsement, verified status, or formal relationship." },
+  { term: "Registry interference", description: "No activity intended to disrupt, falsify, manipulate, or degrade the integrity of public records or related framework materials." },
+  { term: "Policy response", description: "Confirmed violations may be addressed under the applicable Source Standard operating policies, registry access controls, badge-use rules, or legal remedies." },
 ];
 
-const INTEGRITY: Clause[] = [
-  {
-    n: "01",
-    t: "Bulk extraction",
-    d: "No automated extraction, scraping, crawling, replication, or aggregation of registry content for resale, republication, or creation of derivative databases without authorization.",
-  },
-  {
-    n: "02",
-    t: "Status misrepresentation",
-    d: "No display or implication of Verified status for any entity not currently published under that status in the registry.",
-  },
-  {
-    n: "03",
-    t: "Unauthorized use of marks",
-    d: "No use of Source Standard names, marks, or badge artwork in a way that implies an uncontracted partnership, endorsement, verified status, or formal relationship.",
-  },
-  {
-    n: "04",
-    t: "Registry interference",
-    d: "No activity intended to disrupt, falsify, manipulate, or degrade the integrity of public records or related framework materials.",
-  },
-  {
-    n: "05",
-    t: "Policy response",
-    d: "Confirmed violations may be addressed under the applicable Source Standard operating policies, registry access controls, badge-use rules, or legal remedies.",
-  },
-];
-
-const WARRANTY: Clause[] = [
-  {
-    n: "01",
-    t: "Reference basis",
-    d: "The registry reflects Source Standard's review of available documentation, sourcing evidence, facility relationships, public records, and related materials within a defined scope and at a defined point in time.",
-  },
-  {
-    n: "02",
-    t: "As-is publication",
-    d: "Registry data is provided as a public reference only and is not warranted as fit for any specific medical, legal, commercial, regulatory, or investment purpose.",
-  },
-  {
-    n: "03",
-    t: "Reliance limits",
-    d: "Use of registry data is at the user's discretion. Medical decisions should be made with licensed clinicians and not on the basis of registry information alone.",
-  },
-  {
-    n: "04",
-    t: "No guarantee",
-    d: "Source Standard does not guarantee product safety, treatment effectiveness, clinical outcomes, vendor quality, regulatory compliance, or the completeness of third-party information.",
-  },
+const WARRANTY: Item[] = [
+  { term: "Reference basis", description: "The registry reflects Source Standard's review of available documentation, sourcing evidence, facility relationships, public records, and related materials within a defined scope and at a defined point in time." },
+  { term: "As-is publication", description: "Registry data is provided as a public reference only and is not warranted as fit for any specific medical, legal, commercial, regulatory, or investment purpose." },
+  { term: "Reliance limits", description: "Use of registry data is at the user's discretion. Medical decisions should be made with licensed clinicians and not on the basis of registry information alone." },
+  { term: "No guarantee", description: "Source Standard does not guarantee product safety, treatment effectiveness, clinical outcomes, vendor quality, regulatory compliance, or the completeness of third-party information." },
 ];
 
 const RELATED = [
@@ -97,399 +35,79 @@ const RELATED = [
   { to: "/status-definitions", label: "Status Definitions" },
 ];
 
-// --- Local primitives ---
-
-const cardChrome = {
-  backgroundColor: "hsl(var(--card))",
-  border: "0.5px solid hsl(var(--border))",
-  borderRadius: "12px",
-} as const;
-
-const Eyebrow = ({ children }: { children: React.ReactNode }) => (
-  <p
-    className="font-mono uppercase text-muted-foreground"
-    style={{ fontSize: "11px", letterSpacing: "0.12em" }}
-  >
-    {children}
-  </p>
-);
-
-const SectionHeader = ({
-  index,
-  title,
-  intro,
-}: {
-  index: string;
-  title: string;
-  intro: string;
-}) => (
-  <div className="mb-5">
-    <div className="flex items-baseline" style={{ gap: "12px" }}>
-      <span
-        className="font-mono tabular-nums shrink-0"
-        style={{
-          fontSize: "12px",
-          fontWeight: 500,
-          letterSpacing: "0.04em",
-          color: "rgba(0,0,0,0.40)",
-        }}
-      >
-        {index}
-      </span>
-      <h2
-        className="font-sans text-foreground"
-        style={{
-          fontSize: "24px",
-          fontWeight: 700,
-          lineHeight: 1.15,
-          letterSpacing: "-0.02em",
-          color: "#0A0A0A",
-        }}
-      >
-        {title}
-      </h2>
-    </div>
-    <p
-      className="mt-3 text-muted-foreground"
-      style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, maxWidth: "68ch" }}
-    >
-      {intro}
-    </p>
-  </div>
-);
-
-const TermsCard = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ ...cardChrome, padding: "24px" }}>{children}</div>
-);
-
-const TermsRow = ({
-  index,
-  total,
-  title,
-  description,
-}: {
-  index: string;
-  total: string;
-  title: string;
-  description: string;
-}) => (
-  <div style={{ ...cardChrome, padding: "14px 16px" }}>
-    <div className="flex items-baseline justify-between gap-4">
-      <h3
-        className="font-sans font-semibold text-foreground min-w-0"
-        style={{ fontSize: "14px", lineHeight: 1.3 }}
-      >
-        {title}
-      </h3>
-      <span
-        className="font-mono tabular-nums text-muted-foreground/70 shrink-0 uppercase"
-        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-      >
-        {index} / {total}
-      </span>
-    </div>
-    <p
-      className="text-muted-foreground"
-      style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "6px" }}
-    >
-      {description}
-    </p>
-  </div>
-);
-
-const RelatedLinkRow = ({ to, label }: { to: string; label: string }) => (
-  <Link
-    to={to}
-    className="group block hover:bg-surface-muted/40 transition-colors"
-    style={{ ...cardChrome, padding: "14px 16px" }}
-  >
-    <div className="flex items-center justify-between gap-4">
-      <h3
-        className="font-sans font-semibold text-foreground group-hover:text-primary transition-colors min-w-0"
-        style={{ fontSize: "14px", lineHeight: 1.3 }}
-      >
-        {label}
-      </h3>
-      <span
-        className="shrink-0 inline-flex items-center gap-0.5 font-sans font-semibold uppercase text-primary"
-        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-      >
-        View
-        <ChevronRight style={{ width: "12px", height: "12px" }} />
-      </span>
-    </div>
-  </Link>
-);
-
-// --- Page ---
-
 const Terms = () => {
-  const heroDescription =
+  const lead =
     "The terms governing access to, use of, citation of, and reliance upon Source Standard registry records, publications, and framework materials.";
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Legal" }, { label: "Terms" }]} />
+      <PageMeta title="Terms of Use" description={lead} />
 
-      <PageMeta title="Terms of Use" description={heroDescription} />
-
-      {/* Hero */}
-      <BriefingHero
-        tone="navy"
-        variant="chapter"
-        category="Registry User Agreement"
+      <ArticleHeader
+        category="Policy · Terms of Use"
         title="Terms of Use"
-        statement={heroDescription}
-        docId=""
+        lead={lead}
+        backHref="/"
+        backLabel="Back to Home"
       />
 
-      {/* Contents nav */}
-      <SectionAnchorNav waypoints={WAYPOINTS} />
+      <ArticleSection variant="prose">
+        <p>
+          These terms govern public access to Source Standard registry records, publications, framework materials, and public-reference resources. They establish the rules governing access, the permitted use of registry information, citation requirements, prohibited conduct, and the limits under which Source Standard information may be relied upon.
+        </p>
+      </ArticleSection>
 
-      <div className="bg-background">
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            {/* §1 Purpose */}
-            <section
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "36px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <TermsCard>
-                <Eyebrow>Terms Purpose</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">
-                  How this agreement applies
-                </h2>
-                <div
-                  style={{
-                    marginTop: "16px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                  }}
-                >
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    These terms govern public access to Source Standard registry records, publications, framework materials, and public-reference resources.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    They establish the rules governing access to Source Standard materials, the permitted use of registry information, citation requirements, prohibited conduct, and the limits under which Source Standard information may be relied upon.
-                  </p>
-                </div>
-              </TermsCard>
-            </section>
+      <ArticleSection variant="prose" title="Registry access and acceptance">
+        <p>
+          Access to Source Standard registry records, publications, and framework materials constitutes acceptance of these terms and the related policies referenced on this page. If a user does not accept these terms, use of Source Standard materials should be discontinued.
+        </p>
+      </ArticleSection>
 
-            {/* §2 Registry Access & Acceptance */}
-            <section
-              id="acceptance"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <TermsCard>
-                <Eyebrow>01 · Acceptance</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">
-                  Registry Access & Acceptance
-                </h2>
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
-                >
-                  What use of the registry means.
-                </p>
-                <div
-                  style={{
-                    marginTop: "16px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                  }}
-                >
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Access to Source Standard registry records, publications, and framework materials constitutes acceptance of these terms and the related policies referenced on this page.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    If a user does not accept these terms, use of Source Standard materials should be discontinued.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Continued access and use of Source Standard materials constitutes acceptance of the terms, limitations, and responsibilities described on this page.
-                  </p>
-                </div>
-              </TermsCard>
-            </section>
+      <ArticleSection variant="prose" title="Citation and reference use">
+        <p>
+          Registry records may be cited in journalistic, academic, clinical, or commercial contexts provided the citation preserves enough detail for the reader to identify the referenced record accurately.
+        </p>
+        <DefList items={CITATION} />
+      </ArticleSection>
 
-            {/* §3 Citation & Data Use */}
-            <section
-              id="citation"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
+      <ArticleSection variant="prose" title="Integrity and prohibitions">
+        <p>
+          Conduct that is not permitted in connection with Source Standard registry records, publications, framework materials, and public-reference resources.
+        </p>
+        <DefList items={INTEGRITY} />
+      </ArticleSection>
+
+      <ArticleSection variant="prose" title="Warranty and liability">
+        <p>How registry information should be understood and relied upon.</p>
+        <DefList items={WARRANTY} />
+      </ArticleSection>
+
+      <ArticleSection variant="prose" title="Jurisdiction">
+        <p>
+          These terms are governed by the laws of the State of Florida and applicable laws of the United States. Any dispute arising under these terms is subject to the jurisdiction of the appropriate state and federal courts located in Florida.
+        </p>
+      </ArticleSection>
+
+      <ArticleSection variant="callout" kind="Continue reading" title="Related framework documents">
+        <ul className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {RELATED.map((r, i) => (
+            <li
+              key={r.to}
+              className={i > 0 ? "border-t border-border/40 mt-1 pt-1" : ""}
             >
-              <SectionHeader
-                index="02"
-                title="Citation & Reference Use"
-                intro="How registry records may be referenced publicly."
-              />
-              <p
-                className="text-muted-foreground"
-                style={{ fontSize: "14px", lineHeight: 1.75, marginBottom: "16px", maxWidth: "62ch" }}
+              <Link
+                to={r.to}
+                className="group flex items-center justify-between gap-3 py-2 text-foreground hover:text-primary transition-colors"
               >
-                Registry records may be cited in journalistic, academic, clinical, or commercial contexts provided the citation preserves enough detail for the reader to identify the referenced record accurately.
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {CITATION.map((c) => (
-                  <TermsRow
-                    key={c.n}
-                    index={c.n}
-                    total="04"
-                    title={c.t}
-                    description={c.d}
-                  />
-                ))}
-              </div>
-            </section>
+                <span style={{ fontSize: "14.5px", fontWeight: 500 }}>{r.label}</span>
+                <span aria-hidden className="font-mono text-muted-foreground/60 group-hover:text-foreground transition-colors" style={{ fontSize: "14px" }}>→</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </ArticleSection>
 
-            {/* §4 Integrity & Prohibitions */}
-            <section
-              id="integrity"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <SectionHeader
-                index="03"
-                title="Integrity & Prohibitions"
-                intro="Conduct that is not permitted in connection with Source Standard registry records, publications, framework materials, and public-reference resources."
-              />
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {INTEGRITY.map((c) => (
-                  <TermsRow
-                    key={c.n}
-                    index={c.n}
-                    total="05"
-                    title={c.t}
-                    description={c.d}
-                  />
-                ))}
-              </div>
-            </section>
-
-            {/* §5 Warranty & Liability */}
-            <section
-              id="warranty"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <SectionHeader
-                index="04"
-                title="Warranty & Liability"
-                intro="How registry information should be understood and relied upon."
-              />
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {WARRANTY.map((c) => (
-                  <TermsRow
-                    key={c.n}
-                    index={c.n}
-                    total="04"
-                    title={c.t}
-                    description={c.d}
-                  />
-                ))}
-              </div>
-            </section>
-
-            {/* §6 Jurisdiction */}
-            <section
-              id="jurisdiction"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <TermsCard>
-                <Eyebrow>05 · Jurisdiction</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">Jurisdiction</h2>
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "13px", lineHeight: 1.7, marginTop: "8px" }}
-                >
-                  The governing law applied to this agreement.
-                </p>
-                <div
-                  style={{
-                    marginTop: "16px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                  }}
-                >
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    These terms are governed by the laws of the State of Florida and applicable laws of the United States.
-                  </p>
-                  <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.75 }}>
-                    Any dispute arising under these terms is subject to the jurisdiction of the appropriate state and federal courts located in Florida.
-                  </p>
-                </div>
-              </TermsCard>
-            </section>
-
-            {/* §7 Related Policies */}
-            <section
-              id="related"
-              className="scroll-mt-24"
-              style={{
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom: "0.5px solid hsl(var(--border))",
-              }}
-            >
-              <SectionHeader
-                index="06"
-                title="Related Framework Documents"
-                intro="Further reading on privacy, verification scope, operating boundaries, and public status meanings."
-              />
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {RELATED.map((r) => (
-                  <RelatedLinkRow key={r.to} to={r.to} label={r.label} />
-                ))}
-              </div>
-            </section>
-
-            {/* §8 Closing */}
-            <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
-              <TermsCard>
-                <Eyebrow>Responsible Use</Eyebrow>
-                <h2 className="t-section-title-sm text-foreground mt-2">
-                  Responsible use preserves the integrity of the registry.
-                </h2>
-                <p
-                  className="text-muted-foreground"
-                  style={{ fontSize: "14px", lineHeight: 1.75, marginTop: "16px" }}
-                >
-                  These terms exist to preserve the integrity of the registry, promote accurate public reference, and establish the limits under which Source Standard information may be accessed, cited, and relied upon.
-                </p>
-              </TermsCard>
-            </section>
-          </div>
-        </div>
-      </div>
+      <div style={{ paddingBottom: "80px" }} />
     </>
   );
 };
