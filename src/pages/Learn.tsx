@@ -92,12 +92,12 @@ const Learn = () => {
           <NavCard
             to="/learn/education"
             title="Education"
-            desc={`Evergreen answers to the questions people ask before choosing a provider. ${EDUCATION_ARTICLES.length} ${EDUCATION_ARTICLES.length === 1 ? "article" : "articles"}.`}
+            desc="Evergreen answers to the questions people ask before choosing a provider."
           />
           <NavCard
             to="/learn/news"
             title="News & Insights"
-            desc={`Reporting, commentary, and regulatory updates. ${NEWS_ARTICLES.length} ${NEWS_ARTICLES.length === 1 ? "post" : "posts"}.`}
+            desc="Reporting, commentary, and regulatory updates."
           />
           <NavCard
             to="/learn/faq"
