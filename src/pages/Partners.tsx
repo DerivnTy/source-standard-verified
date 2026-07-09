@@ -6,8 +6,9 @@ import { PageSection } from "@/components/system";
 import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const PARTNER_CATEGORIES = [
-  { t: "Independent Laboratories", d: "Perform independent testing that informs review of sourcing claims and facility standing." },
+  { t: "Independent Laboratories", d: "Perform independent laboratory testing, including quality and potency analysis where applicable. Results, when provided, inform Source Standard's review of sourcing claims and facility standing." },
   { t: "Healthcare Organizations", d: "Provide clinical expertise and guidance supporting transparent healthcare practice." },
+  { t: "Compounding Facilities", d: "The 503A pharmacies, 503B outsourcing facilities, and manufacturers whose documented sourcing and quality standards may inform Facility Records." },
   { t: "Medical Advisors", d: "External clinical reviewers distinct from the Medical Advisory Board who support objective, evidence-based review." },
   { t: "Research Partners", d: "Contribute data and insights that improve transparency across the supply chain." },
 ];

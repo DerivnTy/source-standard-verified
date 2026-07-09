@@ -329,7 +329,7 @@ const VerifiedVendors = () => {
     <>
       <PageMeta
         title="Is Your Provider Verified? · Vendor Registry"
-        description="Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their sourcing transparency."
+        description="Search the Source Standard Registry to see whether your provider has been independently verified and to review the documented sourcing information associated with their peptide and compounded therapy offerings."
         path="/verified-vendors"
         jsonLd={{
           "@context": "https://schema.org",
@@ -342,7 +342,7 @@ const VerifiedVendors = () => {
       <RegistryHeader
         indexNumber="01"
         title="Is Your Provider Verified?"
-        description="Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their sourcing transparency."
+        description="Search the Source Standard Registry to see whether your provider has been independently verified and to review the documented sourcing information associated with their peptide and compounded therapy offerings."
         recordCount={vendors.length}
       />
 
