@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
@@ -6,6 +5,7 @@ import { Callout } from "@/components/Callout";
 import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { NavCard } from "@/components/system";
 
 const DOC_ID = "SS-GOV-2026.01";
 const VERIFIED_ON = "04/20/2026";
@@ -19,10 +19,10 @@ const AUTHORITY_REFERENCE_OVERRIDES: Record<string, string> = {
 };
 
 const deeper = [
-  { to: "/accountability", label: "Accountability & Enforcement" },
-  { to: "/medical-advisory", label: "Medical Advisory Board" },
-  { to: "/how-it-works", label: "Verification Protocol" },
-  { to: "/status-definitions", label: "Status Definitions" },
+  { to: "/accountability", label: "Accountability & Enforcement", desc: "How Source Standard responds when integrity is questioned." },
+  { to: "/medical-advisory", label: "Medical Advisory Board", desc: "Independent clinical oversight of the framework." },
+  { to: "/how-it-works", label: "Verification Protocol", desc: "The process behind each verification decision." },
+  { to: "/status-definitions", label: "Status Definitions", desc: "What each public verification status means." },
 ];
 
 const waypoints = [
@@ -150,19 +150,11 @@ const Governance = () => (
     </BoardSection>
 
     <BoardSection id="deeper" n="4" category="Read deeper" title="Cross-references" muted>
-      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
-        {deeper.map((d, i) => (
-          <li key={d.to} className="bg-background">
-            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
-              <div>
-                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
-                <p className="t-body-sm font-semibold text-foreground leading-snug">{d.label}</p>
-              </div>
-              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
-            </Link>
-          </li>
+      <div className="grid gap-2.5 sm:grid-cols-2">
+        {deeper.map((d) => (
+          <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />
         ))}
-      </ul>
+      </div>
     </BoardSection>
 
     <BoardCiteFooter

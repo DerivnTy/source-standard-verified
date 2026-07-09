@@ -9,19 +9,43 @@ import { Glyph, type GlyphName } from "./GlyphIcon";
  *   variant="row"   icon left, text right   (checklists, dense lists)
  *   variant="block" icon top,  text below  (audience tiles, trust pillars)
  *
- * Icon is optional. Homepage icon hierarchy (semantic usage):
- *   • `search`     — discovery, lookup, registry browsing.
- *   • `shield-check` — verification, trust, validation.
- *   • `check`      — checklist items or included attributes.
- *   • `scale`      — governance, standards, accountability.
+ * Icon and desc are both optional.
+ *
+ * Sitewide two-mode doctrine (Consumer vs Reference):
+ *
+ *   Consumer Mode — Homepage, About, Partners, How Verification Works, Learn.
+ *   Built from PageSection + FeatureItem + NavCard + ProcessSteps.
+ *   No bordered card stacks. Prose sits in a reading column, not a card.
+ *
+ *   Reference Mode — Governance, Status Definitions, Vendor Profiles,
+ *   Facility Records, Registry detail pages. Keeps institutional chrome
+ *   (RecordHeader, DocJumpBar, §-numbered anchors, doc metadata) so
+ *   visitors read them as public records. Interior content still uses
+ *   FeatureItem rows, ProcessSteps, and NavCard — the record chrome
+ *   stays, the boxed-card interior goes.
+ *
+ * Presentation matches purpose:
+ *   Processes → ProcessSteps.  Navigation → NavCard.  Checklists →
+ *   FeatureItem rows w/ `check`.  Trust/audience pillars →
+ *   FeatureItem blocks.  Reference metadata → RecordHeader / DataStrip.
+ *   Prose → paragraphs, never wrapped in a card.
+ *
+ * Icon hierarchy (semantic, one meaning per glyph sitewide):
+ *   • `search`         — discovery, lookup, registry browsing.
+ *   • `shield-check`   — verification, trust, validation.
+ *   • `check`          — checklist items / included attributes.
+ *   • `minus`          — exclusion / limitation / does-not-mean.
+ *   • `scale`          — governance, standards, accountability.
  *   • `graduation-cap` — education and learning resources.
- *   • `handshake`  — audiences, partners, collaboration.
+ *   • `handshake`      — audiences, partners, collaboration.
  *
  * Principles:
  *   • Section glyphs provide context for the section, not decoration.
  *   • Remove decorative symbols that do not communicate meaning.
  *   • Interactive elements use arrows or chevrons, not contextual glyphs.
  *   • Checklist items use checkmarks only.
+ *   • Cards are reserved for destinations, interactions, or genuinely
+ *     high-value information — never as default containers for prose.
  *   • Avoid repeating the same contextual glyph in adjacent sections
  *     unless the repeated meaning is intentional.
  *   • Never render the same icon twice within one section.
@@ -36,7 +60,7 @@ export const FeatureItem = ({
 }: {
   icon?: GlyphName;
   title: string;
-  desc: string;
+  desc?: string;
   variant?: "row" | "block";
   className?: string;
 }) => {
@@ -61,17 +85,19 @@ export const FeatureItem = ({
         >
           {title}
         </h3>
-        <p
-          className="text-muted-foreground"
-          style={{
-            fontSize: "14px",
-            lineHeight: 1.65,
-            fontWeight: 400,
-            marginTop: "6px",
-          }}
-        >
-          {desc}
-        </p>
+        {desc && (
+          <p
+            className="text-muted-foreground"
+            style={{
+              fontSize: "14px",
+              lineHeight: 1.65,
+              fontWeight: 400,
+              marginTop: "6px",
+            }}
+          >
+            {desc}
+          </p>
+        )}
       </div>
     );
   }
@@ -97,17 +123,19 @@ export const FeatureItem = ({
         >
           {title}
         </h3>
-        <p
-          className="text-muted-foreground"
-          style={{
-            fontSize: "14px",
-            lineHeight: 1.6,
-            fontWeight: 400,
-            marginTop: "4px",
-          }}
-        >
-          {desc}
-        </p>
+        {desc && (
+          <p
+            className="text-muted-foreground"
+            style={{
+              fontSize: "14px",
+              lineHeight: 1.6,
+              fontWeight: 400,
+              marginTop: "4px",
+            }}
+          >
+            {desc}
+          </p>
+        )}
       </div>
     </div>
   );
