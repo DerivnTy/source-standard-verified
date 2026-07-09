@@ -71,8 +71,8 @@ export const ArticleHeader = ({
             </p>
 
             <h1
-              className="ss-hero-title !text-white !mt-0"
-              style={{ marginTop: "14px", textWrap: "balance" }}
+              className="t-article-title !text-white !mt-0"
+              style={{ marginTop: "18px", textWrap: "balance" }}
             >
               {title}
             </h1>
@@ -101,7 +101,7 @@ export const ArticleHeader = ({
           <div style={{ ...cardChrome, padding: "24px" }}>
 
             <h1
-              className="t-page-title text-foreground max-w-[26ch]"
+              className="t-article-title text-foreground max-w-[26ch]"
               style={{ marginTop: "12px" }}
             >
               {title}
