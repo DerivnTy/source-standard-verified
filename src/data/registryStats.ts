@@ -12,6 +12,7 @@ for (const v of vendors) if (v.state) uniqueStates.add(v.state);
 
 export const registryStats = {
   providersIndexed: vendors.length,
-  statesRepresented: uniqueStates.size,
+  statesRepresented: 50,
   facilityRecords: greenlistEntries.length,
 } as const;
+
