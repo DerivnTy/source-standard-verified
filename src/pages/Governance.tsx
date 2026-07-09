@@ -7,6 +7,7 @@ import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { NavCard } from "@/components/system";
+import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const DOC_ID = "SS-GOV-2026.01";
 const VERIFIED_ON = "04/20/2026";
@@ -24,13 +25,30 @@ const deeper = [
   { to: "/medical-advisory", label: "Medical Advisory Board", desc: "Independent clinical oversight of the framework." },
   { to: "/how-it-works", label: "Verification Protocol", desc: "The process behind each verification decision." },
   { to: "/status-definitions", label: "Status Definitions", desc: "What each public verification status means." },
+  { to: "/greenlist", label: "Facility Records", desc: "Documented sourcing and standing of upstream facilities." },
+];
+
+const ecosystemCategories = [
+  {
+    t: "Independent laboratories",
+    d: "Independent laboratory testing, including quality and potency analysis where applicable. Results, when provided, inform Source Standard's review of sourcing claims and facility standing.",
+  },
+  {
+    t: "Healthcare organizations",
+    d: "Organizations that contribute professional expertise and promote transparent healthcare practices.",
+  },
+  {
+    t: "Research partners",
+    d: "Organizations that contribute research, evidence, and industry knowledge supporting transparency.",
+  },
 ];
 
 const waypoints = [
   { id: "advisory", number: "1", label: "Advisory" },
   { id: "anchors", number: "2", label: "Anchors" },
   { id: "neutrality", number: "3", label: "Neutrality" },
-  { id: "deeper", number: "4", label: "Read deeper" },
+  { id: "ecosystem", number: "4", label: "Ecosystem" },
+  { id: "deeper", number: "5", label: "Read deeper" },
 ];
 
 const Governance = () => (
