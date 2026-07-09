@@ -538,19 +538,16 @@ const Index = () => {
       {/* Audience — feature blocks */}
       <PageSection id="why-matters" icon="handshake" title="Who Is This For?">
         <div className="flex flex-col divide-y divide-border lg:grid lg:grid-cols-3 lg:gap-8 lg:divide-y-0">
-          {whyMatters.map((w, i) => {
-            const iconName: "handshake" | "shield-check" | "scale" =
-              i === 0 ? "handshake" : i === 1 ? "shield-check" : "scale";
-            return (
-              <div
-                key={w.h}
-                className={i === 0 ? "pb-4 lg:pb-0" : i === whyMatters.length - 1 ? "pt-4 lg:pt-0" : "py-4 lg:py-0"}
-              >
-                <FeatureItem icon={iconName} title={w.h} desc={w.b} variant="block" />
-              </div>
-            );
-          })}
+          {whyMatters.map((w, i) => (
+            <div
+              key={w.h}
+              className={i === 0 ? "pb-4 lg:pb-0" : i === whyMatters.length - 1 ? "pt-4 lg:pt-0" : "py-4 lg:py-0"}
+            >
+              <FeatureItem title={w.h} desc={w.b} variant="block" />
+            </div>
+          ))}
         </div>
+
       </PageSection>
 
       {/* Learn — navigation */}
