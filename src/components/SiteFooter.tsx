@@ -129,7 +129,7 @@ export const SiteFooter = () => {
                 style={{ backgroundColor: "#22C55E" }}
               />
               <span
-                className="t-numeric uppercase"
+                className="t-numeric"
                 style={{ color: "rgba(255,255,255,0.50)" }}
               >
                 System Status: Operational
