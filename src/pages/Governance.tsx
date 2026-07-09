@@ -1,16 +1,9 @@
-import { RecordHeader } from "@/components/RecordHeader";
+import { PageHeader } from "@/components/PageHeader";
 import { EditorialBackLink } from "@/components/EditorialBackLink";
-import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
-import { DocJumpBar } from "@/components/DocJumpBar";
-import { Callout } from "@/components/Callout";
 import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { NavCard } from "@/components/system";
-
-
-const DOC_ID = "SS-GOV-2026.01";
-const VERIFIED_ON = "04/20/2026";
+import { NavCard, PageSection } from "@/components/system";
 
 const AUTHORITY_REFERENCE_OVERRIDES: Record<string, string> = {
   FDA: "Section 501(a)(2)(B) of the FD&C Act (21 U.S.C. § 351(a)(2)(B)); 503A/503B registration and establishment records; recall and warning-letter history.",
@@ -43,14 +36,6 @@ const ecosystemCategories = [
   },
 ];
 
-const waypoints = [
-  { id: "advisory", number: "1", label: "Advisory" },
-  { id: "anchors", number: "2", label: "Anchors" },
-  { id: "neutrality", number: "3", label: "Neutrality" },
-  { id: "ecosystem", number: "4", label: "Ecosystem" },
-  { id: "deeper", number: "5", label: "Read deeper" },
-];
-
 const Governance = () => (
   <>
     <PageMeta
@@ -59,57 +44,37 @@ const Governance = () => (
     />
     <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Governance" }]} />
 
-    <RecordHeader
-      metadata={[
-        { label: "Doc", value: DOC_ID },
-        { label: "Version", value: "2026.01" },
-        { label: "Status", value: "Active" },
-        { label: "Updated", value: "04/20/26" },
-      ]}
-      verifiedOn={VERIFIED_ON}
+    <PageHeader
       eyebrow="Governance & oversight"
       title="Who Oversees Source Standard?"
-      lead="How Source Standard stays independent, objective, and accountable."
-      summary={[
-        { label: "Advisory body of record", value: "Medical Advisory Board" },
-        { label: "Anchored authorities", value: authorities.length.toString().padStart(2, "0") },
-        { label: "Initial roster filing", value: "Q1 2026" },
-        { label: "Neutrality posture", value: "Affirmed" },
-      ]}
+      description="How Source Standard stays independent, objective, and accountable."
     />
 
-    <DocJumpBar waypoints={waypoints} />
-
-    <BoardSection
+    <PageSection
       id="advisory"
-      n="1"
-      category="Advisory"
-      title="Framework criteria maintained under licensed clinical oversight"
-      rationale="Licensed clinicians review scope definitions, evidentiary standards, and renewal intervals applied by the framework. The advisory body does not evaluate, diagnose, or treat patients through Source Standard."
+      title="Framework criteria maintained under clinical oversight"
     >
-      <Callout tone="info" eyebrow={`Administrative notice · ${DOC_ID} · §1.A`}>
-        <p className="t-body-sm text-foreground leading-relaxed">
-          Initial advisory roster pending publication.
+      <div className="space-y-4 max-w-[68ch]">
+        <p className="t-body-sm text-muted-foreground leading-relaxed">
+          Licensed clinicians and advisors help review the scope definitions, evidence standards, and renewal
+          intervals used by the Source Standard framework. Advisory participation supports the integrity of the
+          framework, but does not turn Source Standard into a medical provider.
         </p>
-        <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW, Q1 2026.</p>
-      </Callout>
-      <p className="meta-mono text-foreground/70">
-        ROSTER UPDATES ARE ISSUED UNDER CONTROLLED REVISION AND RECORDED IN THIS DOCUMENT.
-      </p>
-    </BoardSection>
+        <p className="t-body-sm text-muted-foreground leading-relaxed">
+          Advisors do not diagnose, treat, prescribe, or evaluate individual patients through Source Standard.
+        </p>
+      </div>
+    </PageSection>
 
-    <BoardSection
+    <PageSection
       id="anchors"
-      n="2"
-      category="Anchors"
-      title="Statutory & compendial anchors"
-      rationale="Source Standard does not originate criteria. Each framework requirement is anchored to a statutory provision or compendial standard issued by the public authorities listed below."
-      muted
+      title="Anchored standards"
+      intro="Source Standard does not originate criteria. Each framework requirement is anchored to a statutory provision or compendial standard issued by the public authorities listed below."
     >
       <div className="hidden md:grid grid-cols-12 gap-3 pb-2.5 border-b border-border">
         <div className="col-span-2 meta-mono text-foreground/70">ANCHOR</div>
         <div className="col-span-4 meta-mono text-foreground/70">ISSUING AUTHORITY</div>
-        <div className="col-span-6 meta-mono text-foreground/70">STATUTORY / COMPENDIAL REFERENCE</div>
+        <div className="col-span-6 meta-mono text-foreground/70">REFERENCE</div>
       </div>
       <ul className="divide-y divide-border border-t border-border md:border-t-0">
         {authorities.map((a) => (
@@ -135,35 +100,28 @@ const Governance = () => (
           </li>
         ))}
       </ul>
-    </BoardSection>
+    </PageSection>
 
-    <BoardSection
-      id="neutrality"
-      n="3"
-      category="Neutrality"
-      title="Organizational neutrality & ethical boundaries"
-      rationale="Strict separation of interests."
-    >
-      <p className="t-body-sm text-muted-foreground leading-relaxed">
-        Source Standard does not manufacture, distribute, prescribe, dispense, or sell products in the categories it
-        evaluates, and holds no equity, royalty, or revenue-share interest in any vendor or upstream source under
-        review. The organization is structured to remain immune to commercial influence from the entities it
-        examines.
-      </p>
-      <p className="t-body-sm text-muted-foreground leading-relaxed">
-        Verification fees, where applicable, are uniform, disclosed at intake, and do not vary based on outcome,
-        category, or reviewer determination. All reviewer determinations are recorded with written rationale and
-        remain subject to internal audit.
-      </p>
-    </BoardSection>
+    <PageSection id="neutrality" title="Organizational neutrality">
+      <div className="space-y-4 max-w-[68ch]">
+        <p className="t-body-sm text-muted-foreground leading-relaxed">
+          Source Standard does not manufacture, distribute, prescribe, dispense, or sell products in the categories
+          it evaluates, and holds no equity, royalty, or revenue-share interest in any vendor or upstream source
+          under review. The organization is structured to remain immune to commercial influence from the entities
+          it examines.
+        </p>
+        <p className="t-body-sm text-muted-foreground leading-relaxed">
+          Verification fees, where applicable, are uniform, disclosed at intake, and do not vary based on outcome,
+          category, or reviewer determination. All reviewer determinations are recorded with written rationale and
+          remain subject to internal audit.
+        </p>
+      </div>
+    </PageSection>
 
-    <BoardSection
+    <PageSection
       id="ecosystem"
-      n="4"
-      category="Ecosystem"
       title="Independent organizations supporting the framework"
-      rationale="Source Standard operates within a broader ecosystem of independent organizations while remaining operationally independent."
-      muted
+      intro="Source Standard operates within a broader ecosystem of independent organizations while remaining operationally independent."
     >
       <dl className="divide-y divide-border/60 border-t border-b border-border/60">
         {ecosystemCategories.map((c) => (
@@ -180,22 +138,18 @@ const Governance = () => (
           </div>
         ))}
       </dl>
-    </BoardSection>
+    </PageSection>
 
-    <BoardSection id="deeper" n="5" category="Read deeper" title="Cross-references" muted={false}>
+    <PageSection id="deeper" title="Read deeper" bordered={false}>
       <div className="grid gap-2.5 sm:grid-cols-2">
         {deeper.map((d) => (
           <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />
         ))}
       </div>
-    </BoardSection>
+    </PageSection>
 
-
-    <BoardCiteFooter
-      citation={`Source Standard. Regulatory Alignment & Oversight. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
-    />
-  <EditorialBackLink to="/" label="Back to Home" />
-    </>
+    <EditorialBackLink to="/" label="Back to Home" />
+  </>
 );
 
 export default Governance;
