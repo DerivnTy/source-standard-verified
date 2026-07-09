@@ -26,6 +26,7 @@ export const PageSection = ({
   bordered = true,
   compact = false,
   className = "",
+  pb,
 }: {
   id?: string;
   /**
@@ -42,6 +43,7 @@ export const PageSection = ({
   bordered?: boolean;
   compact?: boolean;
   className?: string;
+  pb?: string;
 }) => {
   const padY = compact ? "20px" : "28px";
   const introMarginTop = compact ? "8px" : "10px";
@@ -51,7 +53,7 @@ export const PageSection = ({
     <section
       aria-labelledby={id}
       className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${className}`}
-      style={{ paddingTop: padY, paddingBottom: padY }}
+      style={{ paddingTop: padY, paddingBottom: pb ?? padY }}
     >
       <div className="page-shell">
         <div className="mx-auto w-standard">
