@@ -28,8 +28,8 @@ const ITEMS = [
 const FaqVerificationProcess = () => (
   <>
     <PageMeta
-      title="Verification Questions"
-      description="Common questions about how verification works, what evidence is reviewed, and what registry status means."
+      title="How Does Verification Work?"
+      description="What verification means, how registry statuses are assigned, and how consumers should interpret Source Standard records."
     />
     <Breadcrumb
       items={[
@@ -38,8 +38,8 @@ const FaqVerificationProcess = () => (
       ]}
     />
     <FaqPage
-      title="Verification Questions"
-      intro="Common questions about how verification works, what evidence is reviewed, and what registry status means."
+      title="How Does Verification Work?"
+      intro="What verification means, how registry statuses are assigned, and how consumers should interpret Source Standard records."
       items={ITEMS}
     />
   </>

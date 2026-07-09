@@ -28,8 +28,8 @@ const ITEMS = [
 const FaqConsumerDiligence = () => (
   <>
     <PageMeta
-      title="Consumer Due Diligence"
-      description="Questions consumers can ask when evaluating sourcing claims, vendor transparency, and documentation quality."
+      title="What Should I Ask My Provider?"
+      description="Questions you can ask your clinic to evaluate sourcing, transparency, and documentation before starting a compounded therapy."
     />
     <Breadcrumb
       items={[
@@ -38,8 +38,8 @@ const FaqConsumerDiligence = () => (
       ]}
     />
     <FaqPage
-      title="Consumer Due Diligence"
-      intro="Questions consumers can ask when evaluating sourcing claims, vendor transparency, and documentation quality."
+      title="What Should I Ask My Provider?"
+      intro="Questions you can ask your clinic to evaluate sourcing, transparency, and documentation before starting a compounded therapy."
       items={ITEMS}
     />
   </>
