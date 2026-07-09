@@ -28,7 +28,7 @@ type FaqPageProps = {
 /* ── Continue Learning (shared closer pattern) ─────────────────── */
 
 const ContinueLearning = () => (
-  <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "48px" }}>
+  <section className="bg-background" style={{ paddingTop: "40px", paddingBottom: "80px" }}>
     <div className="page-shell">
       <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
         <h2 className="t-section-title-sm text-foreground">Continue Learning</h2>
@@ -100,26 +100,19 @@ export const FaqPage = ({
       <header className="bg-background">
         <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "0" }}>
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
-            <h1 className="t-page-title text-foreground">{title}</h1>
+            <h1 className="t-article-title text-foreground">{title}</h1>
             {intro && (
-              <p
-                className="text-muted-foreground"
-                style={{
-                  fontSize: "17px",
-                  lineHeight: 1.55,
-                  marginTop: "12px",
-                  letterSpacing: "-0.005em",
-                }}
-              >
+              <p className="t-article-standfirst" style={{ marginTop: "12px" }}>
                 {intro}
               </p>
             )}
+
             <div
               aria-hidden
               style={{
                 height: "0.5px",
                 background: "hsl(var(--border))",
-                marginTop: "28px",
+                marginTop: "24px",
               }}
             />
           </div>
@@ -127,30 +120,28 @@ export const FaqPage = ({
       </header>
 
       {/* Flat Q&A */}
-      <section className="bg-background" style={{ paddingTop: "28px" }}>
+      <section className="bg-background" style={{ paddingTop: "24px" }}>
         <div className="page-shell">
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
-            <div className="flex flex-col" style={{ gap: "28px" }}>
+            <div className="flex flex-col" style={{ gap: "24px" }}>
               {items.map((item, i) => (
                 <div key={i}>
                   <h2
                     className="t-section-title-sm text-foreground"
-                    style={{ marginBottom: "8px" }}
+                    style={{ marginBottom: "6px" }}
                   >
                     {item.q}
                   </h2>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: "15.5px", lineHeight: 1.65 }}
-                  >
-                    {item.a}
-                  </p>
+                  <div className="t-article-prose">
+                    <p>{item.a}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </section>
+
 
       {/* Still have questions? — single sentence */}
       <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "0" }}>

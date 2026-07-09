@@ -467,6 +467,48 @@ html {
     max-width: 72ch;
   }
 
+  /* ── Article-scoped editorial typography (news / education / FAQ) ──
+     Overrides the shared .t-page-title mobile scale and defines the
+     editorial standfirst + prose paragraph rhythm. */
+  .t-article-title.t-article-title {
+    font-size: 34px !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.03em !important;
+    max-width: 20ch;
+  }
+  @media (min-width: 768px) {
+    .t-article-title.t-article-title {
+      font-size: 56px !important;
+      line-height: 1.08 !important;
+      letter-spacing: -0.035em !important;
+    }
+  }
+  @media (min-width: 1024px) {
+    .t-article-title.t-article-title { font-size: 64px !important; }
+  }
+
+  .t-article-standfirst {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    font-weight: 400;
+    color: hsl(var(--muted-foreground));
+    max-width: 68ch;
+  }
+
+  .t-article-prose {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    letter-spacing: -0.005em;
+    font-weight: 400;
+    color: hsl(var(--foreground));
+    max-width: 68ch;
+  }
+  .t-article-prose > p { margin: 0; }
+  .t-article-prose > p + p { margin-top: 1.1em; }
+
   /* TYPE 09, Metadata */
   .t-meta.t-meta-note.t-nav.ss-card-meta {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;

@@ -66,21 +66,12 @@ export const ArticleHeader = ({
               {category}
             </p>
 
-            <h1 className="t-page-title text-foreground" style={{ marginTop: "10px" }}>
+            <h1 className="t-article-title text-foreground" style={{ marginTop: "10px" }}>
               {title}
             </h1>
 
             {lead && (
-              <p
-                className="text-muted-foreground"
-                style={{
-                  fontSize: "17px",
-                  lineHeight: 1.55,
-                  marginTop: "12px",
-                  maxWidth: "68ch",
-                  letterSpacing: "-0.005em",
-                }}
-              >
+              <p className="t-article-standfirst" style={{ marginTop: "12px" }}>
                 {lead}
               </p>
             )}
@@ -90,9 +81,10 @@ export const ArticleHeader = ({
               style={{
                 height: "0.5px",
                 background: "hsl(var(--border))",
-                marginTop: "28px",
+                marginTop: "24px",
               }}
             />
+
           </div>
         </div>
       </header>

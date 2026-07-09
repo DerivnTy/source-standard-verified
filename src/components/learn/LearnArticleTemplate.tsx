@@ -37,7 +37,7 @@ const ContinueLearning = ({ nextStep }: { nextStep: string }) => {
   add("vendor-registry");
 
   return (
-    <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "48px" }}>
+    <section className="bg-background" style={{ paddingTop: "40px", paddingBottom: "80px" }}>
       <div className="page-shell">
         <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
           <h2 className="t-section-title-sm text-foreground">Continue Learning</h2>
