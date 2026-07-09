@@ -1,57 +1,60 @@
-## Interactive Feature Row — new navigation primitive
 
-Introduce a second navigation pattern that sits between static `FeatureItem` and full `NavCard`: a lightweight, no-chrome row that reads as interactive. Apply it to the four Batch 2 hubs where `FeatureItem` blocks are wrapped in `<Link>`s.
+## Vendor Registry Row Polish
 
-### 1. New primitive — `src/components/system/FeatureLink.tsx`
+Fix the compressed, spreadsheet feel of the registry rows by re-ordering the row hierarchy so vendor name is the anchor and category chip becomes supporting context.
 
-Thin interactive wrapper that composes `FeatureItem` + affordances. Keeps `FeatureItem` itself purely informational.
+### 1. `src/components/system/RegistryRow.tsx` — restructure
 
-Props: `to: string`, plus the same `title`, `desc`, `icon`, `variant` (`"row" | "block"`, defaults to `"block"`) as `FeatureItem`.
+Replace the current three-column layout (chip · name · status+chevron) with a name-first stack. Chevron becomes a true right rail, vertically centered.
 
-Behavior:
-- Renders a `react-router-dom` `Link` wrapping the `FeatureItem` and an `ArrowRight` (lucide, `strokeWidth={1.25}`, 16px).
-- Layout: `group flex items-center justify-between gap-4 cursor-pointer`, min-height `44px` (mobile touch target), horizontal padding `px-3 md:px-4`, vertical padding `py-3`, negative horizontal margin so the row visually flushes with surrounding `PageSection` copy (`-mx-3 md:-mx-4`).
-- No border. No radius chrome beyond a subtle `rounded-lg` for the hover tint.
-- Hover: `hover:bg-muted/40`, title darkens via `group-hover:text-foreground` (base already `text-foreground` — use `text-foreground/90` at rest so the shift is perceptible), arrow translates `group-hover:translate-x-[3px]` and shifts to `text-foreground` from `text-muted-foreground`.
-- Transitions: `transition-colors duration-200`, arrow `transition-transform duration-200`. Active state: `active:scale-[0.995]`.
-- Focus-visible: `focus-visible:outline-none focus-visible:bg-muted/40` plus `focus-visible:ring-1 focus-visible:ring-border`.
-- Accessibility: `aria-label={title}`.
+New mobile layout:
 
-Small internal tweak: to darken the title on hover without forking `FeatureItem`, `FeatureLink` overrides via wrapper class `[&_h3]:transition-colors group-hover:[&_h3]:text-foreground` and sets an at-rest `[&_h3]:text-foreground/85`. This keeps `FeatureItem` untouched.
+```text
+Vendor Name ..................... StatusPill   ›
+Vendor Type · Location                          
+Specialty chip                                  
+```
 
-Export from `src/components/system/index.ts`.
+Concrete changes:
+- Outer flex: `items-center` on the chevron column, but the content column stacks vertically.
+- Row 1: `flex items-baseline justify-between gap-3` → `name` (truncate, `text-[15px]` on mobile, semibold, `-0.01em`) on the left; `StatusPill` on the right. Status pill uses the shared `StatusPill` — no red uppercase text floating in the row.
+- Row 2 (metaLeft): `mt-1`, `text-[12.5px]`, `text-muted-foreground`, no truncation forced; renders "Vendor Type · Location".
+- Row 3 (chip): `mt-2`, small uppercase pill using existing chip styling (10px, 600, `letterSpacing 0.04em`, muted background) — but only rendered when `chip` prop is present. Sits below the meta, not before the name.
+- Chevron: separate right-side column, `self-center`, subtle (`text-muted-foreground/60`, 14px, translates 3px on hover).
+- Remove `metaRight` from mobile primary layout (kept as optional prop for desktop-only use, right-aligned on `md:` breakpoints).
+- Vertical padding: bump to `py-4` so name/meta/chip stack breathes; still hits 44px min-height.
+- Keep hairline dividers (parent applies `divide-y divide-border/60`), hover tint `bg-muted/40`, focus-visible ring, `active:scale-[0.998]`.
 
-### 2. Doctrine update — `src/components/system/FeatureItem.tsx`
+Desktop (`md:` and up):
+- Switch Row 1 to a wider table-feel: name column flexes, meta shows inline to the right of the name column, chip appears as a small trailing chip, status pill + chevron pinned right. Keep it denser than mobile but do not sacrifice the name-first read.
+- Approach: single flex row on `md:` with `name (flex-1 truncate)` · `metaLeft (muted, shrink)` · `chip (shrink)` · `StatusPill` · chevron. Mobile falls back to the stacked layout via `flex-col md:flex-row` on an inner wrapper.
 
-Extend the header doc block:
-- **`FeatureItem`** — informational, static. Never wrap in a Link.
-- **`FeatureLink`** — lightweight navigational row. Same visual language, adds hover tint, chevron nudge, cursor, 44px touch target. Use inside educational and reference content.
-- **`NavCard`** — high-emphasis destination card with hairline border. Use for top-level or hero-level navigation.
+### 2. `src/pages/VerifiedVendors.tsx`
 
-Rule: "If something navigates somewhere, it must visibly behave like navigation."
+Adjust how vendor rows are populated (the row itself is where the fix lives; the page only feeds props):
+- `chip` prop → `vendor.category` (specialty) — unchanged prop, but now renders below.
+- `metaLeft` → `"{Fulfillment type} · {City, ST}"` where fulfillment is `In-person` / `Online` / `Hybrid` from `getVendorFulfillment`. Currently metaLeft mixes different fields — normalize to type · location.
+- `metaRight` → drop on mobile (was contributing to wrap). Keep only if used on desktop.
+- `status` → continues to feed `StatusPill` via RegistryRow.
 
-### 3. Apply to Batch 2 hubs
+### 3. `src/pages/Greenlist.tsx` — parity check
 
-Replace every `<Link>`-wrapped `FeatureItem` with `FeatureLink`. No copy or data changes.
+Facility rows already use `RegistryRow`. After the restructure they automatically inherit the name-first hierarchy. Verify:
+- `chip` = facility category (503A / 503B / Manufacturer) reads as supporting context below.
+- `metaLeft` = "{Facility type} · {Location}" reads on second line.
+- `StatusPill` (`greenlisted` / `monitoring` / `alert`) sits top-right, not competing with name.
 
-- **`src/pages/Learn.tsx`** — "Start with the basics" 2×2 grid of `EDUCATION_TOPICS` and "Recent updates" list. (Recent updates keeps its meta line above via a small wrapper — see technical note.)
-- **`src/pages/LearnEducation.tsx`** — every topic block's article list.
-- **`src/pages/LearnFaq.tsx`** — the four FAQ topic rows.
-- **`src/components/learn/LearnArticleTemplate.tsx`** — "Related questions" and "Related education" lists.
+No structural changes expected in Greenlist beyond confirming meta content matches the "type · location" pattern; adjust the string if it currently concatenates differently.
 
-Informational `FeatureItem` uses elsewhere (About principles, HowItWorks verified-mean blocks, Partners category grid, etc.) are unchanged — they are content, not navigation.
+### Preserved
 
-### 4. Technical notes
+- Search, filter, sort, pagination, "load more" behavior on both pages.
+- Routes, IDs, `to` props, aria labels.
+- Status semantics via shared `StatusPill`.
+- Hairline dividers between rows, dense registry feel.
+- All colors via semantic HSL tokens (no hardcoded hex).
 
-- Recent updates rows on `/learn` currently render a meta line (`APRIL 14 · REGULATORY UPDATES`) above the `FeatureItem`. `FeatureLink` renders one row; to keep the meta strip, pass it as an optional `eyebrow?: string` prop on `FeatureLink` rendered above the title inside the link so the whole area stays a single clickable target. Adds minimal surface to the API without a second primitive.
-- Grid `FeatureLink`s (2-col categories on `/learn`) get the full-cell hit area for free because they are the grid child.
-- No new dependencies. Uses existing `lucide-react` `ArrowRight`, `react-router-dom` `Link`, and Tailwind tokens only. No hardcoded colors.
-
-### 5. Preserve
-
-Routes, copy, JSON-LD, deep-link hashes, existing `NavCard` usage, all informational `FeatureItem` sites.
-
-### 6. Verification
+### Verification
 
 - `bunx tsgo --noEmit`.
-- Playwright mobile screenshots (390×1800) of `/learn` (hover + rest via CSS not needed on mobile — capture rest state) and `/learn/education`. Confirm rows show chevron affordance, adequate spacing, no bordered chrome, and 44px min height.
+- Playwright at 390×844 (mobile) and 1280×1800 (desktop) on `/verified-vendors` and `/greenlist`. Confirm: name is the visual anchor, status pill reads as a status not floating text, specialty chip sits below meta, chevron is centered, rows feel like public records not table rows.
