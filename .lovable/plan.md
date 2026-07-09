@@ -1,158 +1,105 @@
+# Final Launch Language Audit
 
-# Final Launch QA — Implementation Plan
+## Objective
 
-Scoped to the items you approved. No new components, no new pages, no visual redesign. Every change reuses existing tokens and existing patterns.
+Produce one canonical editorial + messaging audit for Source Standard as a single document. No site copy is changed in this pass. The output becomes the reference all future writing must follow.
 
----
+## Deliverable
 
-## 1 · Data reconciliation (Critical)
+A new file: `.lovable/language-audit.md`
 
-**Problem:** `/` shows "50 states". `/verified-vendors` shows "51 states". Same registry.
+No changes to any `src/**` file. No changes to routes, components, or data. `tsgo` is not needed — this pass writes prose only.
 
-**Fix:**
-- Create a single source: `src/data/registryStats.ts` exporting `{ providersIndexed: 4180, statesRepresented: <N>, facilityRecords: 120, lastUpdated: "07/09/2026" }`.
-- Import into `Index.tsx`, `VerifiedVendors.tsx`, `Greenlist.tsx`. Delete inline literals.
-- Verification: `bunx tsgo --noEmit`, then Playwright at 1280 to confirm both pages show the same state count and the same "records" number where displayed.
+## Scope
 
----
+Every public route currently mounted in `src/App.tsx`, read in full:
 
-## 2 · Canonical page names
+- Home, About, Governance, Accountability, Advisory Board (+ profile), Partners, Contact
+- Vendor Registry (+ vendor profile), Facility Records (+ facility profile)
+- Apply, Report a Concern, How Verification Works, How to Read the Directory, Status Definitions, Verification Disclaimer
+- Learn hub, Education (index + basics/guides/questions + article), News (index + article), FAQ (hub + 4 category pages)
+- Library entries (all `Library*.tsx` pages) and publications index
+- Terms, Privacy, Unsubscribe, 404
+- Shared chrome: `SiteHeader`, `SiteFooter`, `BriefingHero`, `ArticleHeader`, `UtilityHeader`, `RecordHeader`, `PageHeader`, `EditorialBackLink`, filter pills, status chips, CTA blocks
 
-**Rule:** one noun per concept, everywhere the concept is *named* (header nav, footer, cross-reference cards, editorial back-link labels, breadcrumb eyebrows). Consumer-question H1s stay as-is.
+Every heading, subhead, eyebrow, body paragraph, helper text, button label, chip label, sidebar metadata, empty state, and definition is in scope.
 
-**Canon:**
-| Concept | Label everywhere |
-|---|---|
-| /verified-vendors | Vendor Registry |
-| /greenlist | Facility Records |
-| /how-it-works | How Verification Works |
-| /medical-advisory | Advisory Board |
-| /partners | Partners |
-| /learn | Learn |
-| /about | About |
-| /contact | Contact |
-| /apply | Apply for Verification |
-| /report-concern | Report a Concern |
+## Method
 
-**Files touched:**
-- `SiteHeader.tsx`, `SiteFooter.tsx` — confirm labels match canon.
-- Cross-reference cards on Governance, Accountability, HowItWorks, Learn, About, VerificationDisclaimer — retire any remaining "Greenlist" / "Medical Advisory" as page *names* (the words remain valid as a status or a category, just not as the page identity).
-- `EditorialBackLink` usages — normalize `label` prop to canon.
+1. Read all pages and shared chrome in batches.
+2. Extract every unique explanation for each core concept (verification, monitoring, independence, Facility Records, Vendor Registry, statuses, provider vs vendor vs facility vs pharmacy vs manufacturer).
+3. Compare explanations across pages. Flag drift, duplication, contradiction, unintended regulatory/certification/endorsement implication, and tone breaks.
+4. Categorize findings as Critical / Recommended / Optional per the rubric in the request.
+5. Write the canonical messaging standard section last, derived from the strongest existing phrasings on the site rather than invented ones.
 
----
+## Document structure
 
-## 3 · Hero system (your rule, not mine)
+```text
+.lovable/language-audit.md
+├── 1. Executive summary
+│     — overall state of the voice, top 5 risks, one-paragraph verdict
+├── 2. Positioning check
+│     — what Source Standard is / is not, drift instances found
+├── 3. Terminology audit
+│     — table: term · canonical definition · where used · inconsistencies · recommendation
+│     — covers: provider, vendor, facility, pharmacy, manufacturer,
+│       verification, verified, verification status, record, review,
+│       monitoring, greenlisted, under review, suspended, removed,
+│       public reference, independent verification
+├── 4. Explanation audit
+│     — per concept: current phrasings across pages, gaps, contradictions,
+│       recommended single explanation
+│     — concepts: why SS exists, what SS does, how verification works,
+│       what verification means / does not mean, why Facility Records exist,
+│       why Vendor Registry exists, why consumers should care,
+│       why providers participate, why manufacturers appear,
+│       what independence means, what monitoring means
+├── 5. Page-by-page findings
+│     — one subsection per public route
+│     — each finding: Page · Current wording · Why it should change ·
+│       Recommended direction · Severity (Critical / Recommended / Optional)
+├── 6. Tone audit
+│     — instances flagged as promotional, defensive, startup-oriented,
+│       over-simplified, over-technical, repetitive, or off-voice
+├── 7. Misleading-language register
+│     — every phrase that could imply regulatory authority, certification,
+│       product approval, medical advice, endorsement, guarantee,
+│       lab ownership, or legal authority — with fix direction
+├── 8. Consistency register
+│     — button labels, chip labels, eyebrow patterns, sidebar metadata,
+│       CTA phrasings, sentence-case vs title-case, punctuation of
+│       separators, use of arrows, etc.
+└── 9. Canonical Messaging Standard
+      — Who Source Standard is
+      — Why Source Standard exists
+      — What Source Standard does
+      — What Source Standard does not do
+      — Canonical explanation of Verification
+      — Canonical explanation of Facility Records
+      — Canonical explanation of Vendor Registry
+      — Canonical explanation of Independence
+      — Canonical explanation of Monitoring
+      — Voice + tone rules (sentence rhythm, forbidden words,
+        preferred cadence, restraint principles)
+      — Terminology reference card (one-line canonical definitions)
+```
 
-**Rule:** Navy = a page you're meant to read. Light = a record you're meant to inspect.
+## Ground rules for the audit itself
 
-**Navy hero (read):** Home, About, Learn, Learn/Education, Learn/Faq, Learn/News, HowItWorks, Governance, Accountability, MedicalAdvisory, Partners, Contact, ReportConcern, Terms, Privacy, VerificationDisclaimer, StatusDefinitions, ForVendors/Apply, HowToReadTheDirectory.
+- Recommend directions, not full rewrites, unless a phrase is short and a rewrite is the clearest way to convey the fix.
+- Never invent new claims about what Source Standard does. When existing language is ambiguous, flag it and ask rather than assert a new meaning.
+- Prefer surfacing the strongest existing phrasing on the site as the canonical version rather than authoring new voice from scratch.
+- Do not recommend changes solely for variation. Consistency outranks novelty.
+- Do not recommend visual, layout, or component changes. Language only.
 
-**Light hero (inspect):** VerifiedVendors index, Greenlist index, VendorProfile, GreenlistProfile, AdvisorProfile, LibraryEntry, and all search-result surfaces.
+## Explicitly out of scope
 
-**Fix:**
-- Extend the existing `BriefingHero` (navy variant) to Governance, Accountability, StatusDefinitions, VerificationDisclaimer, Terms, Privacy, Apply, Contact, ReportConcern — pages that currently render on a light background.
-- The `Reference` metadata card that currently appears on Governance and Apply moves *inside* the navy hero as a right-column card (white surface, 1px hairline, existing typography). Only pages with a real `SS-…` doc ID keep the card. Do not fabricate IDs.
-- Remove the light-hero header block from the affected pages once `BriefingHero` is in place.
+- Any edits to `src/**`, `public/**`, `index.html`, or data files
+- Any new routes, components, or CSS
+- SEO metadata rewrites (separate pass)
+- Legal review of Terms / Privacy (flag risky phrasing but do not redraft)
+- Educational article factual review (flag claims that need SME review; do not silently reword clinical statements)
 
-**Verification:** Playwright at 1280 and 390 for each converted page — confirm hero, eyebrow, subtitle, and reference card (where present) render without layout shift.
+## Approval gate
 
----
-
-## 4 · Eyebrow (kicker) system
-
-**Rule:** one component, one casing. Uppercase mono tracked (`text-xs tracking-[0.14em] uppercase font-mono`), single dot separator (` · `) when two parts. Pages without a category simply omit the eyebrow.
-
-**Fix:**
-- Consolidate on the existing `POLICY · TERMS OF USE` style used by Terms / Privacy / VerificationDisclaimer / StatusDefinitions.
-- Replace sentence-case eyebrows on Governance ("Governance & oversight"), Apply ("Vendor onboarding"), Contact ("Get in touch"), Accountability ("GOVERNANCE · COMPLIANCE" — already fine, verify), MedicalAdvisory (add "GOVERNANCE · ADVISORY BOARD").
-- About, Partners, HowItWorks, Learn, Education, Home: omit eyebrow (they open with the H1 directly).
-
----
-
-## 5 · Homepage hero spacing
-
-**Problem:** ~250–300px of empty navy below the stats block before the "Contents" strip.
-
-**Fix:** In `Index.tsx`, reduce the hero section's `paddingBottom` to `64px` desktop / `48px` mobile, matching the editorial rhythm on About and HowItWorks. Nothing else changes.
-
----
-
-## 6 · 404 wrapped in SiteLayout
-
-**Fix:** In `App.tsx` (or wherever routing lives), ensure the catch-all `<NotFound />` renders inside the same `<SiteLayout>` used by all other routes. Keep the existing "Page not found" card and "Return Home" link inside.
-
----
-
-## 7 · Hero subtitle orphans (balanced wrapping)
-
-**Fix:** In `BriefingHero.tsx` (and any hero subtitle rendering), apply `style={{ textWrap: "balance" }}` and cap `max-width` at `52ch` on the subtitle paragraph. Verify no single-word last line on Home, About, Learn, Education, HowItWorks, MedicalAdvisory at both 1280 and 390.
-
----
-
-## 8 · Homepage / VerifiedVendors subtitle canon
-
-**Fix:** Choose one canonical sentence and use it on both:
-
-> "Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their peptide sourcing transparency."
-
-Remove the divergent Home variant.
-
----
-
-## 9 · Footer "Begin Verification →"
-
-**Fix:** Remove the arrow. Let it sit as a peer link in the Registry column, matching every other footer link's weight and casing. (You already have the header `APPLY FOR VERIFICATION` pill for the CTA.)
-
----
-
-## 10 · Microcopy consistency sweep
-
-**Rule set (one definition per term, used consistently):**
-
-| Term | Meaning | Do not use for |
-|---|---|---|
-| **Provider** | The clinic, telehealth company, or prescriber a consumer chooses. | Pharmacies, facilities, manufacturers. |
-| **Vendor** | The registered entity in the Vendor Registry (same as provider, in the registry context). | Facilities. |
-| **Facility** | A 503A pharmacy, 503B outsourcing facility, or manufacturer in the Facility Records. | Providers, vendors. |
-| **Pharmacy** | A 503A compounding pharmacy specifically. | 503B facilities, manufacturers. |
-| **Verification** | The Source Standard review process. | Individual clinical acts. |
-| **Verified** | The public status assigned after review. | Any looser sense of "checked". |
-| **Verification status** | The named classification (Verified / Unverified / etc.). | Never shortened to just "status" mid-sentence. |
-| **Record** | A public entry in the registry (provider record, facility record). | Internal review materials. |
-| **Listing** | Not used. Retire in favor of **record**. | — |
-
-**Execution:**
-- One pass across `src/pages/**` and `src/components/**` searching each term.
-- Replace "listing" → "record" everywhere it appears in public copy.
-- Where "status" appears without a qualifier, promote to "verification status" unless the context is a facility (then "facility status").
-- Where "pharmacy" is used generically to mean any facility, replace with "facility".
-- Where "vendor" and "provider" are used interchangeably within the same paragraph, pick the one that matches the surrounding page (Vendor Registry surfaces → "vendor"; consumer-facing prose → "provider").
-- No sentence rewriting for style. Terminology swaps only.
-
-**Verification:** ripgrep each term after the sweep and spot-check the top hits per page.
-
----
-
-## Explicitly not doing
-
-- Continue Exploring block on Learn — keep as-is.
-- Greenlisted status card parity with Verified Vendors — keep as-is.
-- Filter pill height normalization — not launch-blocking.
-- Governance notice divider — not launch-blocking.
-
----
-
-## Implementation order
-
-1. Data reconciliation (#1)
-2. 404 wrap (#6)
-3. Homepage hero spacing (#5)
-4. Hero subtitle balancing (#7)
-5. Home ↔ Vendor Registry subtitle canon (#8)
-6. Canonical page names sweep (#2)
-7. Eyebrow normalization (#4)
-8. Hero system migration to navy for the "read" pages (#3)
-9. Footer "Begin Verification" (#9)
-10. Microcopy sweep (#10)
-
-Each step lands independently. Between steps 3 and 8 I'll run `bunx tsgo --noEmit` and a Playwright pass at 1280 + 390 on every page touched by that step.
+After you approve this plan, the next turn produces only `.lovable/language-audit.md`. Site copy revisions happen in a later, separately approved pass that works from this document.
