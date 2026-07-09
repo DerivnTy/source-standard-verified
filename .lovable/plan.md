@@ -1,39 +1,63 @@
-## Objective
-Rebalance the mobile vertical rhythm of every dark navy hero so the larger H1 feels intentional rather than stretched. Tighten padding and inter-element gaps while preserving the new title size, description size, metadata pill size, colors, typography, and desktop behavior.
+## Partners Page — Consumer-First Rewrite
 
-## Scope
-Two components share the dark navy hero treatment and both need the same spacing pass:
+Rewrite `src/pages/Partners.tsx` to reframe every section around one consumer question. Preserve the existing visual system, components, and spacing exactly.
 
-1. **BriefingHero** (navy `chapter` variant) — used on content pages such as How It Works, About, Learn, Governance, Partners, Advisory Board, Status Definitions.
-2. **RegistryHeader** — used on registry/data surfaces such as Verified Vendors, Greenlist, and Facility Records. This is the component that renders the metadata pill (Live, date, record count) and sits directly above the floating stats card.
+### Hero
+- Update `BriefingHero` props:
+  - **title:** "Who Helps Keep Source Standard Independent?"
+  - **statement:** "Learn about the independent organizations, laboratories, physicians, and partners that support the Source Standard verification ecosystem."
+- Keep navy chapter variant, category label, and existing metadata.
 
-## Proposed changes
+### Section 1 — Why does Source Standard have partners?
+- **Eyebrow:** remove "Section 01" entirely (or replace with a short phrase if the component requires one; otherwise remove).
+- **Heading:** "Why does Source Standard have partners?"
+- **Body:** 2–3 short paragraphs in plain language explaining that transparency is stronger when multiple independent parties contribute. Cover that lab testing, clinical guidance, and infrastructure are intentionally independent to preserve objectivity.
+- Keep using the same `<Section>` wrapper, spacing, and text styles as other content pages.
 
-### 1. BriefingHero — navy chapter variant
-- Replace the generic `page-shell section-pad` container with hero-specific padding so the section can be tightened without affecting `.section-pad` elsewhere.
-- **Mobile top padding:** reduce from 80px (`.section-pad`) to ~56px.
-- **Mobile bottom padding:** reduce from 32px (`.section-pad`) to ~12px.
-- **H1 → description gap:** add an explicit `mt-3` (12px) to the description paragraph, overriding any browser heading margin that currently enlarges the gap.
-- **Description → actions gap:** if actions are present, reduce from `mt-8` (32px) to `mt-6` (24px).
-- **Desktop:** keep current `md`/`lg` padding values or scale them modestly; do not shrink the desktop hero.
+### Section 2 — Who are Source Standard's partners?
+- **Eyebrow:** remove "Section 02".
+- **Heading:** "Who are Source Standard's partners?"
+- **Body:** a brief 1-sentence intro.
+- **Cards:** replace the current numbered horizontal/vertical flow with clean cards (same card style used elsewhere on the site, e.g. `<AboutCard>` or equivalent bordered card component) for each category:
+  1. Independent Laboratories
+  2. Healthcare Organizations
+  3. Compounding Facilities
+  4. Medical Advisors
+  5. Research Partners
+- Each card heading is the category name. Each card body is one short sentence answering: "What role does this partner type play?"
+- Preserve existing card border, radius, and padding tokens.
 
-### 2. RegistryHeader
-- **Mobile top padding:** reduce from `clamp(72px, 9vh, 96px)` to `clamp(48px, 7vh, 72px)`.
-- **Mobile bottom padding:** reduce from `clamp(40px, 5vh, 56px)` to `clamp(20px, 3vh, 32px)`.
-- **H1 → description gap:** add an explicit `mt-3` (12px) to the description paragraph, overriding browser defaults.
-- **Description → metadata pill gap:** on mobile the pill sits below the text block in a flex column with `gap-4` (16px). After tightening the description margins, adjust the flex gap to `gap-5` or `gap-6` (20–24px) so the total spacing lands in the 22–28px target.
-- **Floating stats card:** the card is rendered in the next section on registry pages. It uses a 50%/50% linear-gradient overlay to straddle the hero boundary. Ensure the reduced bottom padding does not break that visual continuity; the card position should remain consistent.
-- **Compact mode:** apply the same proportional reductions to the `compact={true}` path used on some registry pages.
+### Section 3 — Featured Partner: Open
+- **Eyebrow:** remove "Section 03".
+- **Heading:** "Open"
+- **Subtitle line (or card label):** "Clinical Intelligence Partner"
+- Keep the Open logo image asset.
+- Replace the current `<FieldRow>` table with a single bordered card containing 2–3 short paragraphs in consumer language:
+  - Source Standard verifies where therapies come from.
+  - Open studies what happens after they're used.
+  - Together they provide different layers of transparency.
+- No internal architecture language (e.g. "source layer," "response layer").
 
-### 3. No changes to
-- H1 font size, weight, color, letter-spacing, or line-height
-- Description font size, weight, color, or line-height
-- Metadata pill size, shape, color, or typography
-- Desktop breakpoints (≥768px, ≥1024px) beyond modest proportional scaling
-- Floating stats card structure, border radius, or internal padding
-- Any non-hero `.section-pad` usage on the rest of the site
+### Section 4 — Two Different Questions
+- **Eyebrow:** remove "Section 04".
+- **Heading:** "Two Different Questions"
+- Replace the current split-card layout with two side-by-side cards (same card component) answering:
+  1. **"Can I trust where it came from?"** — Source Standard provides independent verification and sourcing transparency.
+  2. **"What happened after it was used?"** — Open helps healthcare professionals better understand clinical outcomes and response patterns.
+- Below the two cards, add one short closing sentence about how both organizations provide different layers of transparency.
+- Remove the italic closing line and its top-border container.
 
-## Verification
-After implementation, visually inspect on mobile (390px viewport):
-- Verified Vendors page: hero title dominates, metadata pill sits closer, stats card transition feels tight.
-- How It Works page: hero title dominates, description sits closer, no awkward empty space before the first body section.
+### Removals
+- Delete the `PROCESS` array and the horizontal/vertical numbered flow markup.
+- Delete all `<Eyebrow>Section 0X</Eyebrow>` labels.
+- Remove the `<FieldRow>` local component (or simplify if still needed for Open).
+- Strip all internal infrastructure language: "source layer / response layer," "infrastructure," "framework," and organizational-chart phrasing.
+
+### Preservation checklist
+- Keep `<BriefingHero>`, `<Section>`, `<PageMeta>`, `<SectionHeading>`, `<Lead>`, `<Eyebrow>` usage exactly as styled.
+- Keep existing CSS tokens: border, bg-background, text sizes, padding, margins.
+- Keep Open logo import and lazy-loading.
+- Do not touch `index.css`, Tailwind config, or any other page.
+
+### Outcome
+A visitor landing on `/partners` should immediately read "Who Helps Keep Source Standard Independent?" and, within 30 seconds, see that independent organizations — labs, healthcare groups, advisors, and Open — are what make the verification trustworthy.
