@@ -226,13 +226,13 @@ const MedicalAdvisory = () => {
             <div>
               <GovCard>
                 <p className="font-mono text-[11px] tracking-[0.14em] uppercase text-muted-foreground/70">Purpose</p>
-                <h2 className="mt-2 t-section-title-sm text-foreground">Why Clinical Oversight exists</h2>
+                <h2 className="mt-2 t-section-title-sm text-foreground">Why the Medical Advisory Board exists</h2>
                 <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
                     Source Standard operates within a complex environment involving healthcare providers, pharmacies, manufacturers, regulators, and consumers. Maintaining public trust requires clear boundaries, consistent standards, and independent review of the framework itself.
                   </p>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    Clinical Oversight exists to support the integrity of the standards behind the registry. It provides independent advisory guidance to help maintain independence, consistency, and public trust in the framework.
+                    the Medical Advisory Board exists to support the integrity of the standards behind the registry. It provides independent advisory guidance to help maintain independence, consistency, and public trust in the framework.
                   </p>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
                     Its responsibility is not to determine which vendors succeed or fail. Its responsibility is to help ensure that the framework itself remains consistent, neutral, and evidence-driven.
@@ -255,7 +255,7 @@ const MedicalAdvisory = () => {
                   <div className="md:sticky md:top-32">
                     <SectionHeadingInline n="01" title={<>Institutional Mandate</>} />
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      The operating principles governing Clinical Oversight.
+                      The operating principles governing the Medical Advisory Board.
                     </p>
                   </div>
                 </div>
@@ -278,7 +278,7 @@ const MedicalAdvisory = () => {
                   <div className="md:sticky md:top-32">
                     <SectionHeadingInline n="02" title={<>Governance Functions</>} />
                     <p className="mt-4 t-body-sm text-muted-foreground max-w-[36ch]">
-                      How Clinical Oversight supports the framework.
+                      How the Medical Advisory Board supports the framework.
                     </p>
                   </div>
                 </div>
@@ -300,7 +300,7 @@ const MedicalAdvisory = () => {
                 <SectionHeadingInline n="03" title="Advisory Structure" />
                 <div className="mt-4 flex flex-col" style={{ gap: "12px" }}>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
-                    Clinical Oversight may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework.
+                    the Medical Advisory Board may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework.
                   </p>
                   <p className="t-body-sm text-muted-foreground leading-relaxed">
                     Appointments are made based on relevant experience, professional standing, and alignment with the framework's independence requirements.
@@ -365,7 +365,7 @@ const MedicalAdvisory = () => {
               <div className="max-w-2xl mb-6">
                 <SectionHeadingInline n="04" title="Scope & Boundaries" />
                 <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed">
-                  What Clinical Oversight does and does not do.
+                  What the Medical Advisory Board does and does not do.
                 </p>
               </div>
               <ul className="space-y-2">
@@ -412,7 +412,7 @@ const MedicalAdvisory = () => {
                   </h2>
                   <div className="mt-4 flex flex-col" style={{ gap: "14px" }}>
                     <p className="t-body-sm text-muted-foreground leading-relaxed">
-                      Clinical Oversight exists to strengthen the integrity and independence of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
+                      the Medical Advisory Board exists to strengthen the integrity and independence of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
                     </p>
                     <p className="t-body-sm text-muted-foreground leading-relaxed">
                       Its role is governance. Its responsibility is framework integrity.

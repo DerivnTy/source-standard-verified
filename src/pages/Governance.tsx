@@ -53,7 +53,7 @@ const Governance = () => (
       title="Who Oversees Source Standard?"
       lead="How Source Standard stays independent, objective, and accountable."
       summary={[
-        { label: "Advisory body of record", value: "Clinical" },
+        { label: "Advisory body of record", value: "Medical Advisory Board" },
         { label: "Anchored authorities", value: authorities.length.toString().padStart(2, "0") },
         { label: "Initial roster filing", value: "Q1 2026" },
         { label: "Neutrality posture", value: "Affirmed" },
