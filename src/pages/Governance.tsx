@@ -7,7 +7,7 @@ import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { NavCard } from "@/components/system";
-import openLogo from "@/assets/open-logo-transparent.png.asset.json";
+
 
 const DOC_ID = "SS-GOV-2026.01";
 const VERIFIED_ON = "04/20/2026";
@@ -87,27 +87,15 @@ const Governance = () => (
       title="Framework criteria maintained under licensed clinical oversight"
       rationale="Licensed clinicians review scope definitions, evidentiary standards, and renewal intervals applied by the framework. The advisory body does not evaluate, diagnose, or treat patients through Source Standard."
     >
-      <div className="border border-border bg-background">
-        <div className="grid grid-cols-12 px-5 py-2.5 bg-surface-muted border-b border-border">
-          <div className="col-span-4 meta-mono text-foreground/70">NAME</div>
-          <div className="col-span-3 meta-mono text-foreground/70">CREDENTIAL</div>
-          <div className="col-span-3 meta-mono text-foreground/70">ROLE</div>
-          <div className="col-span-2 meta-mono text-foreground/70 text-right">JURISDICTION</div>
-        </div>
-        <div className="p-5">
-          <Callout tone="info" eyebrow={`Administrative notice · ${DOC_ID} · §1.A`}>
-            <p className="t-body-sm text-foreground leading-relaxed">
-              Initial advisory roster pending publication.
-            </p>
-            <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW, Q1 2026.</p>
-          </Callout>
-        </div>
-        <div className="px-5 py-3 border-t border-border">
-          <p className="meta-mono text-foreground/70">
-            ROSTER UPDATES ARE ISSUED UNDER CONTROLLED REVISION AND RECORDED IN THIS DOCUMENT.
-          </p>
-        </div>
-      </div>
+      <Callout tone="info" eyebrow={`Administrative notice · ${DOC_ID} · §1.A`}>
+        <p className="t-body-sm text-foreground leading-relaxed">
+          Initial advisory roster pending publication.
+        </p>
+        <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW, Q1 2026.</p>
+      </Callout>
+      <p className="meta-mono text-foreground/70">
+        ROSTER UPDATES ARE ISSUED UNDER CONTROLLED REVISION AND RECORDED IN THIS DOCUMENT.
+      </p>
     </BoardSection>
 
     <BoardSection
