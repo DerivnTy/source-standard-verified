@@ -11,63 +11,34 @@ import {
   EDUCATION_TOPICS,
   NEWS_CATEGORIES,
   getEducationArticle,
-  NEXT_STEPS,
 } from "@/data/learn";
 
 const asParagraphs = (body: string | string[]) =>
   Array.isArray(body) ? body : [body];
 
-// ── Shared editorial closer ──────────────────────────────────────
+// ── Shared editorial back link ────────────────────────────────────
 
-const ContinueLearning = ({ nextStep }: { nextStep: string }) => {
-  const seen = new Set<string>();
-  const links: { label: string; to: string }[] = [];
-
-  const add = (id: string) => {
-    const step = NEXT_STEPS[id as keyof typeof NEXT_STEPS];
-    if (step && !seen.has(step.to)) {
-      seen.add(step.to);
-      links.push(step);
-    }
-  };
-
-  add(nextStep);
-  add("how-verification-works");
-  add("facility-records");
-  add("vendor-registry");
-
-  return (
-    <section className="bg-background" style={{ paddingTop: "40px", paddingBottom: "80px" }}>
-      <div className="page-shell">
-        <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
-          <h2 className="t-section-title-sm text-foreground">Continue Learning</h2>
-          <ul className="flex flex-col mt-4 divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {links.slice(0, 3).map((link) => (
-              <li key={link.to}>
-                <Link
-                  to={link.to}
-                  className="group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
-                  style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
-                >
-                  <span className="font-sans text-foreground group-hover:text-primary transition-colors" style={{ fontSize: "14px", fontWeight: 600 }}>
-                    {link.label}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="text-muted-foreground/60 group-hover:text-foreground transition-colors font-mono"
-                    style={{ fontSize: "14px" }}
-                  >
-                    →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+const BackToLibrary = () => (
+  <section className="bg-background" style={{ paddingTop: "40px", paddingBottom: "80px" }}>
+    <div className="page-shell">
+      <div className="mx-auto w-reading-wide">
+        <Link
+          to="/learn"
+          className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
+          style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+        >
+          <span
+            aria-hidden
+            className="transition-transform group-hover:-translate-x-0.5"
+          >
+            ←
+          </span>
+          <span>Back to Learn Library</span>
+        </Link>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // ── Education article template ────────────────────────────────────
 
@@ -154,7 +125,7 @@ export const EducationArticleTemplate = ({
         </ArticleSection>
       )}
 
-      <ContinueLearning nextStep={article.nextStep} />
+      <BackToLibrary />
     </>
   );
 };
@@ -175,9 +146,7 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
     day: "numeric",
   });
 
-  const metaParts = [dateLabel, article.location, category?.label].filter(
-    Boolean
-  );
+  const metaParts = [dateLabel, category?.label].filter(Boolean);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -237,7 +206,7 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         </ArticleSection>
       )}
 
-      <ContinueLearning nextStep={article.nextStep} />
+      <BackToLibrary />
     </>
   );
 };
