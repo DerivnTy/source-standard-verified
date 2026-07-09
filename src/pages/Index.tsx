@@ -479,7 +479,6 @@ const Index = () => {
       {/* Trust problem — text + CTA */}
       <PageSection
         id="trust-problem"
-        icon="minus"
         compact
         title="Claims Are Not Verification"
         intro="Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through a structured verification framework and publishes factual verification records designed to distinguish supported claims from unsupported claims."
