@@ -38,7 +38,7 @@ export const UtilityHeader = ({
       <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
       <div
         className="relative z-10 page-shell"
-        style={{ paddingTop: "clamp(48px, 7vh, 72px)", paddingBottom: "clamp(28px, 4vh, 40px)" }}
+        style={{ paddingTop: "clamp(44px, 6.5vh, 68px)", paddingBottom: "clamp(28px, 4vh, 40px)" }}
       >
         <div className="mx-auto w-standard">
           {backHref && (
@@ -55,7 +55,7 @@ export const UtilityHeader = ({
               <p
                 className="font-mono uppercase"
                 style={{
-                  fontSize: "10px",
+                  fontSize: "12px",
                   letterSpacing: "0.14em",
                   color: "rgba(255,255,255,0.6)",
                 }}
@@ -65,7 +65,7 @@ export const UtilityHeader = ({
             )}
             <h1
               className="ss-hero-title !text-white !mt-0 max-w-3xl"
-              style={{ marginTop: eyebrow ? "14px" : "0", textWrap: "balance" }}
+              style={{ marginTop: eyebrow ? "20px" : "0", textWrap: "balance" }}
             >
               {title}
             </h1>
