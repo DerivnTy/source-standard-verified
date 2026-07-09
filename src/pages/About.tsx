@@ -1,53 +1,59 @@
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SectionAnchorNav } from "@/components/registry/SectionAnchorNav";
 import { BriefingHero } from "@/components/BriefingHero";
-import { PageSection, FeatureItem } from "@/components/system";
-
-const WAYPOINTS = [
-  { id: "context", number: "01", label: "Context" },
-  { id: "boundaries", number: "02", label: "Boundaries" },
-  { id: "objectives", number: "03", label: "Objectives" },
-  { id: "scope", number: "04", label: "Components" },
-  { id: "principles", number: "05", label: "Principles" },
-];
+import { PageSection } from "@/components/system";
 
 type Clause = { t: string; d: string };
 
-const CONTEXT: Clause[] = [
-  { t: "Information asymmetry", d: "Consumers often have limited visibility into vendor sourcing claims, making informed decisions difficult." },
-  { t: "Verification challenges", d: "Many sourcing claims are difficult for the public to independently confirm through available records alone." },
-  { t: "Documentation complexity", d: "Publicly available sourcing information is often incomplete or difficult for consumers to access and evaluate independently." },
-  { t: "Transparency gap", d: "The framework exists to improve transparency by helping consumers better understand vendor sourcing claims." },
+const SCOPE: Clause[] = [
+  { t: "Vendor Registry", d: "Public-reference records that improve transparency around vendor sourcing." },
+  { t: "Facility Records", d: "Public-reference records for upstream organizations in the compounded therapy supply chain." },
+  { t: "Verification Framework", d: "The principles that guide the framework and its verification standards." },
+  { t: "Educational Resources", d: "Materials explaining sourcing transparency, verification concepts, and public terminology." },
 ];
 
 const BOUNDARIES: Clause[] = [
-  { t: "Medical advice", d: "Does not diagnose, treat, recommend therapies, or provide individualized medical guidance." },
+  { t: "Medical advice", d: "Does not diagnose, treat, recommend therapies, or provide individualized guidance." },
   { t: "Regulatory authority", d: "Does not replace federal, state, pharmacy, or medical regulatory oversight." },
   { t: "Commercial endorsement", d: "Does not market, promote, rank, endorse, or recommend vendors." },
-  { t: "Product certification", d: "Does not certify product safety, potency, sterility, efficacy, manufacturing quality, or clinical performance." },
+  { t: "Product certification", d: "Does not certify safety, potency, sterility, efficacy, or manufacturing quality." },
   { t: "Clinical outcomes", d: "Does not evaluate patient outcomes or treatment effectiveness." },
 ];
 
-const OBJECTIVES: Clause[] = [
-  { t: "Consumers", d: "Provides a structured public-reference system that helps consumers better understand sourcing transparency." },
-  { t: "Providers", d: "Provides a trusted, independent framework for demonstrating sourcing transparency." },
-  { t: "Industry", d: "Supports greater transparency and accountability across the compounded therapy market." },
-];
-
-const SCOPE: Clause[] = [
-  { t: "Vendor Registry", d: "Maintains public-reference records that improve transparency around vendor sourcing." },
-  { t: "Facility Records", d: "Maintains public-reference records relating to upstream organizations within the compounded therapy supply chain." },
-  { t: "Verification Framework", d: "Explains the principles that guide Source Standard's public-reference framework and verification standards." },
-  { t: "Educational Resources", d: "Provides educational materials explaining sourcing transparency, verification concepts, and public terminology." },
+const CONTEXT = [
+  "Consumers often have limited visibility into vendor sourcing claims, making informed decisions difficult.",
+  "Many sourcing claims are difficult for the public to independently confirm through available records alone.",
+  "Publicly available sourcing information is often incomplete or difficult for consumers to access and evaluate.",
+  "The framework exists to close that gap by helping consumers better understand vendor sourcing claims.",
 ];
 
 const PRINCIPLES: Clause[] = [
-  { t: "Evidence before representation", d: "Public claims should be evaluated against supporting evidence whenever possible." },
+  { t: "Evidence before representation", d: "Public claims are evaluated against supporting evidence whenever possible." },
   { t: "Transparency over promotion", d: "The framework exists to increase transparency, not to market vendors." },
   { t: "Consistency over discretion", d: "Status determinations are guided by consistent public standards." },
-  { t: "Public clarity", d: "Information should be organized in a way that is understandable, reviewable, and accessible to the public." },
+  { t: "Public clarity", d: "Information is organized to be understandable, reviewable, and accessible to the public." },
 ];
+
+/**
+ * DefinitionRow — inline reference-list row used across recomposed pages.
+ * Not a shared component (per plan). Local to About.
+ */
+const DefinitionRow = ({ term, def }: { term: string; def: string }) => (
+  <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-x-8 gap-y-1 py-3.5">
+    <dt
+      className="font-sans text-foreground"
+      style={{ fontSize: "14px", fontWeight: 600, letterSpacing: "-0.005em", margin: 0 }}
+    >
+      {term}
+    </dt>
+    <dd
+      className="text-muted-foreground"
+      style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}
+    >
+      {def}
+    </dd>
+  </div>
+);
 
 const About = () => {
   const heroDescription =
@@ -78,92 +84,138 @@ const About = () => {
         docId=""
       />
 
-      <SectionAnchorNav waypoints={WAYPOINTS} />
+      {/* Document metadata — quiet institutional marker */}
+      <div className="border-b border-border/60 bg-background">
+        <div className="page-shell">
+          <div
+            className="mx-auto w-standard flex flex-wrap items-center gap-x-8 gap-y-2 py-3 font-mono uppercase text-muted-foreground/80"
+            style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+          >
+            <span>Doc SS-ABT-2026.01</span>
+            <span aria-hidden>·</span>
+            <span>Version 2026.01</span>
+            <span aria-hidden>·</span>
+            <span>Last reviewed 04/20/2026</span>
+          </div>
+        </div>
+      </div>
 
-      <PageSection
-        title="Why Source Standard exists"
-        intro="Compounded therapy vendors frequently make claims about sourcing relationships, facility and manufacturer partnerships, quality standards, manufacturing practices, and supply-chain integrity. For consumers, determining whether those claims are supported by evidence can be difficult."
-      >
+      {/* Movement 1 — Opening statement. No section heading. Foreground body. */}
+      <section className="border-b border-border bg-background" style={{ paddingTop: "40px", paddingBottom: "40px" }}>
+        <div className="page-shell">
+          <div className="mx-auto w-standard flex flex-col gap-5" style={{ maxWidth: "68ch" }}>
+            <p
+              className="text-foreground"
+              style={{ fontSize: "19px", lineHeight: 1.55, fontWeight: 400, margin: 0, letterSpacing: "-0.005em" }}
+            >
+              Compounded therapy vendors frequently make claims about sourcing relationships, facility partnerships, quality standards, and supply-chain integrity. For consumers, determining whether those claims are supported by evidence is often difficult.
+            </p>
+            <p
+              className="text-muted-foreground"
+              style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
+            >
+              Source Standard was established to improve sourcing transparency, maintain trusted public-reference records, and help consumers better understand sourcing claims within a complex and rapidly growing market. The objective is not to decide which treatments are best or to replace physicians, regulators, or pharmacists — it is to make sourcing legible.
+            </p>
+            <p
+              className="text-muted-foreground"
+              style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
+            >
+              The framework does not replace clinical judgment, regulatory oversight, or personal decision-making. Its role is focused but important: improving sourcing transparency within a market where that information is often difficult to evaluate independently.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Movement 2 — Scope. Two labeled columns, one comparative block. */}
+      <PageSection id="scope" title="Scope" intro="What Source Standard does — and does not do.">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+          <div>
+            <h3
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "8px" }}
+            >
+              What it does
+            </h3>
+            <dl className="divide-y divide-border/60 border-t border-b border-border/60">
+              {SCOPE.map((c) => (
+                <DefinitionRow key={c.t} term={c.t} def={c.d} />
+              ))}
+            </dl>
+          </div>
+          <div>
+            <h3
+              className="font-mono uppercase text-muted-foreground"
+              style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "8px" }}
+            >
+              What it does not do
+            </h3>
+            <dl className="divide-y divide-border/60 border-t border-b border-border/60">
+              {BOUNDARIES.map((c) => (
+                <DefinitionRow key={c.t} term={c.t} def={c.d} />
+              ))}
+            </dl>
+          </div>
+        </div>
+      </PageSection>
+
+      {/* Movement 3 — Context. Numbered prose. Audience sentence. */}
+      <PageSection id="context" compact title="Context">
+        <ol className="flex flex-col gap-3" style={{ maxWidth: "68ch", listStyle: "none", padding: 0, margin: 0 }}>
+          {CONTEXT.map((line, i) => (
+            <li
+              key={i}
+              className="grid grid-cols-[28px_1fr] gap-x-3 text-muted-foreground"
+              style={{ fontSize: "15px", lineHeight: 1.65 }}
+            >
+              <span
+                className="font-mono tabular-nums text-muted-foreground/70"
+                style={{ fontSize: "12px", letterSpacing: "0.08em", paddingTop: "3px" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ol>
         <p
           className="text-muted-foreground"
-          style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, maxWidth: "64ch", margin: 0 }}
+          style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "68ch", marginTop: "28px", marginBottom: 0 }}
         >
-          Source Standard was established to improve sourcing transparency, create trusted public-reference records, increase accountability, and help consumers better understand sourcing claims within a complex and rapidly growing market. The objective is not to decide which treatments are best or to replace physicians, regulators, or pharmacists — it is to make sourcing legible.
+          The framework serves <span className="text-foreground font-medium">consumers</span> who need to understand sourcing before choosing a provider, <span className="text-foreground font-medium">providers</span> seeking an independent way to demonstrate sourcing transparency, and <span className="text-foreground font-medium">the industry</span> as a shared reference point for accountability across the compounded therapy market.
         </p>
       </PageSection>
 
-      <PageSection
-        id="context"
-        title="Why Is This Needed?"
-        intro="Why the framework is needed."
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-          {CONTEXT.map((c) => (
-            <FeatureItem key={c.t} icon="check" title={c.t} desc={c.d} variant="row" />
+      {/* Movement 4 — Principles. Numbered list, no grid, no icons. */}
+      <PageSection id="principles" compact title="Principles" bordered={false}>
+        <ol className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0, maxWidth: "68ch" }}>
+          {PRINCIPLES.map((p, i) => (
+            <li
+              key={p.t}
+              className="grid grid-cols-[40px_1fr] gap-x-4 py-3.5 border-t border-border/60 last:border-b"
+            >
+              <span
+                className="font-mono tabular-nums text-muted-foreground/70"
+                style={{ fontSize: "11px", letterSpacing: "0.08em", paddingTop: "3px" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3
+                  className="font-sans text-foreground"
+                  style={{ fontSize: "15px", fontWeight: 600, letterSpacing: "-0.005em", margin: 0 }}
+                >
+                  {p.t}
+                </h3>
+                <p
+                  className="text-muted-foreground"
+                  style={{ fontSize: "14px", lineHeight: 1.6, marginTop: "4px", marginBottom: 0 }}
+                >
+                  {p.d}
+                </p>
+              </div>
+            </li>
           ))}
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="boundaries"
-        title="What Does Source Standard Not Do?"
-        intro="What Source Standard does not do."
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-          {BOUNDARIES.map((c) => (
-            <FeatureItem key={c.t} icon="minus" title={c.t} desc={c.d} variant="row" />
-          ))}
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="objectives"
-        title="Who Does This Help?"
-        intro="Who the framework serves."
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6">
-          {OBJECTIVES.map((c) => (
-            <FeatureItem key={c.t} title={c.t} desc={c.d} variant="block" />
-          ))}
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="scope"
-        title="What Does Source Standard Do?"
-        intro="The systems maintained by Source Standard."
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-          {SCOPE.map((c) => (
-            <FeatureItem key={c.t} icon="check" title={c.t} desc={c.d} variant="row" />
-          ))}
-        </div>
-      </PageSection>
-
-      <PageSection
-        id="principles"
-        title="What Guides Source Standard?"
-        intro="The principles guiding the framework."
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-          {PRINCIPLES.map((c) => (
-            <FeatureItem key={c.t} title={c.t} desc={c.d} variant="block" />
-          ))}
-        </div>
-      </PageSection>
-
-      <PageSection
-        title="A transparency framework with defined limits"
-        bordered={false}
-      >
-        <div className="flex flex-col gap-3">
-          <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.65, maxWidth: "64ch", margin: 0 }}>
-            Source Standard operates as an independent public-reference system focused on sourcing transparency within the compounded therapy market. Its role is to improve sourcing transparency, maintain trusted public-reference records, help consumers better understand sourcing claims, and increase accountability across the market.
-          </p>
-          <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.65, maxWidth: "64ch", margin: 0 }}>
-            The framework does not replace clinical judgment, regulatory oversight, or personal decision-making. Its role is focused but important: improving sourcing transparency and helping consumers better understand sourcing claims within a market where that information is often difficult to evaluate independently.
-          </p>
-        </div>
+        </ol>
       </PageSection>
     </>
   );
