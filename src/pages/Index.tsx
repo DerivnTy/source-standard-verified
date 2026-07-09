@@ -726,7 +726,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Search. Review. Verify status.
+              What Will I See in a Listing?
             </h2>
             <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400 }}>
               Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status.
