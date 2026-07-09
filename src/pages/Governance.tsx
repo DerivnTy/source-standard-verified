@@ -19,10 +19,10 @@ const AUTHORITY_REFERENCE_OVERRIDES: Record<string, string> = {
 };
 
 const deeper = [
-  { to: "/accountability", label: "Accountability & Enforcement" },
-  { to: "/medical-advisory", label: "Medical Advisory Board" },
-  { to: "/how-it-works", label: "Verification Protocol" },
-  { to: "/status-definitions", label: "Status Definitions" },
+  { to: "/accountability", label: "Accountability & Enforcement", desc: "How Source Standard responds when integrity is questioned." },
+  { to: "/medical-advisory", label: "Medical Advisory Board", desc: "Independent clinical oversight of the framework." },
+  { to: "/how-it-works", label: "Verification Protocol", desc: "The process behind each verification decision." },
+  { to: "/status-definitions", label: "Status Definitions", desc: "What each public verification status means." },
 ];
 
 const waypoints = [
