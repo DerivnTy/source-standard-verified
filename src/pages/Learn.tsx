@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
-
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { NextStep } from "@/components/learn/NextStep";
-import { PageSection, NavCard, FeatureItem } from "@/components/system";
+import { PageSection, NavCard, FeatureLink } from "@/components/system";
+
 import {
   EDUCATION_ARTICLES,
   EDUCATION_TOPICS,
@@ -79,21 +78,17 @@ const Learn = () => {
         title="Start with the basics"
         intro="Four consumer-first categories cover everything from what compounding is to how verification works."
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
           {EDUCATION_TOPICS.map((t) => (
-            <Link
+            <FeatureLink
               key={t.id}
               to={`/learn/education#${t.id}`}
-              className="block group"
-            >
-              <FeatureItem
-                variant="block"
-                title={t.label}
-                desc={t.description}
-              />
-            </Link>
+              title={t.label}
+              desc={t.description}
+            />
           ))}
         </div>
+
       </PageSection>
 
       <PageSection
@@ -106,27 +101,19 @@ const Learn = () => {
             return (
               <li
                 key={a.slug}
-                className={i > 0 ? "border-t border-border/40 pt-4 mt-4" : ""}
+                className={i > 0 ? "border-t border-border/40 mt-2 pt-2" : ""}
               >
-                <Link to={`/learn/news/${a.slug}`} className="block group">
-                  <p
-                    className="font-mono uppercase text-muted-foreground tabular-nums"
-                    style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-                  >
-                    {formatDate(a.dateline)} · {cat?.label ?? ""}
-                  </p>
-                  <div style={{ marginTop: "4px" }}>
-                    <FeatureItem
-                      variant="block"
-                      title={a.headline}
-                      desc={a.standfirst}
-                    />
-                  </div>
-                </Link>
+                <FeatureLink
+                  to={`/learn/news/${a.slug}`}
+                  eyebrow={`${formatDate(a.dateline)} · ${cat?.label ?? ""}`}
+                  title={a.headline}
+                  desc={a.standfirst}
+                />
               </li>
             );
           })}
         </ul>
+
       </PageSection>
 
       <PageSection
