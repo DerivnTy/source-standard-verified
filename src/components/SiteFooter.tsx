@@ -82,7 +82,8 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
 export const SiteFooter = () => {
   const now = new Date();
   const { lock } = useSiteAccess();
-  const { pathname } = useLocation();
+
+
 
   return (
     <>
