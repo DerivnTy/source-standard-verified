@@ -111,17 +111,16 @@ export const EducationArticleTemplate = ({
             {relatedResolved.map((r, i) => (
               <li
                 key={r.slug}
-                className={i > 0 ? "border-t border-border/40 pt-3 mt-3" : ""}
+                className={i > 0 ? "border-t border-border/40 mt-1 pt-1" : ""}
               >
-                <Link
+                <FeatureLink
                   to={`/learn/education/${r.slug}`}
-                  className="block group"
-                >
-                  <FeatureItem variant="block" title={r.question} />
-                </Link>
+                  title={r.question}
+                />
               </li>
             ))}
           </ul>
+
         </ArticleSection>
       )}
 
