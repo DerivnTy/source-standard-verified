@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { NextStep } from "@/components/learn/NextStep";
-import { PageSection, FeatureItem } from "@/components/system";
+import { PageSection, FeatureLink } from "@/components/system";
 import {
   EDUCATION_ARTICLES,
   EDUCATION_TOPICS,
   EducationTopicId,
   educationArticlesByTopic,
 } from "@/data/learn";
+
 
 const HERO_STATEMENT =
   "Evergreen answers to the questions people ask before choosing a provider. Every article answers one question, plainly, and points you to the next useful step.";
