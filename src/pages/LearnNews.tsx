@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
 
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { NextStep } from "@/components/learn/NextStep";
+import { PageSection } from "@/components/system";
 import { NEWS_ARTICLES, NEWS_CATEGORIES, NewsCategoryId } from "@/data/learn";
 
 const HERO_STATEMENT =
@@ -14,7 +14,7 @@ type Filter = "all" | NewsCategoryId;
 
 const FILTER_TABS: { id: Filter; label: string }[] = [
   { id: "all", label: "All" },
-    ...NEWS_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
+  ...NEWS_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
 ];
 
 const formatDate = (iso: string) =>
@@ -23,67 +23,6 @@ const formatDate = (iso: string) =>
     month: "long",
     day: "numeric",
   });
-
-const NewsRow = ({
-  slug,
-  headline,
-  standfirst,
-  dateline,
-  category,
-}: {
-  slug: string;
-  headline: string;
-  standfirst: string;
-  dateline: string;
-  category: string;
-}) => (
-  <Link
-    to={`/learn/news/${slug}`}
-    aria-label={headline}
-    className="group block bg-card transition-all hover:bg-[hsl(var(--muted))]/40 active:scale-[0.99]"
-    style={{
-      border: "0.5px solid hsl(var(--border))",
-      borderRadius: "12px",
-      padding: "16px",
-    }}
-  >
-    <p
-      className="font-mono uppercase text-muted-foreground tabular-nums"
-      style={{ fontSize: "10px", letterSpacing: "0.08em" }}
-    >
-      {formatDate(dateline)} · {category}
-    </p>
-    <h3
-      className="font-sans font-semibold text-foreground"
-      style={{
-        marginTop: "6px",
-        fontSize: "14.5px",
-        lineHeight: "1.3",
-        letterSpacing: "-0.01em",
-      }}
-    >
-      {headline}
-    </h3>
-    <p
-      className="text-muted-foreground"
-      style={{
-        marginTop: "6px",
-        fontSize: "12.5px",
-        lineHeight: "1.5",
-        maxWidth: "70ch",
-      }}
-    >
-      {standfirst}
-    </p>
-    <span
-      className="inline-flex items-center gap-0.5 font-sans font-bold uppercase text-[hsl(var(--primary))] group-hover:opacity-80 transition-opacity"
-      style={{ marginTop: "10px", fontSize: "10px", letterSpacing: "0.06em" }}
-    >
-      Read
-      <ChevronRight aria-hidden style={{ width: "11px", height: "11px", strokeWidth: 1.5 }} />
-    </span>
-  </Link>
-);
 
 const LearnNews = () => {
   const [filter, setFilter] = useState<Filter>("all");
@@ -124,9 +63,12 @@ const LearnNews = () => {
         docId=""
       />
 
-      <div className="bg-background border-b border-border/60">
+      <div
+        className="sticky z-30 bg-background/80 backdrop-blur-md border-b border-border/60"
+        style={{ top: 0 }}
+      >
         <div className="page-shell">
-          <div className="mx-auto w-wide">
+          <div className="mx-auto w-standard">
             <div className="flex items-center justify-between gap-3 py-3 flex-wrap">
               <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground tabular-nums">
                 {filtered.length} {filtered.length === 1 ? "post" : "posts"}
@@ -148,7 +90,7 @@ const LearnNews = () => {
                         padding: "0 12px",
                         borderRadius: "20px",
                         border: "1px solid hsl(var(--border))",
-                        backgroundColor: active ? "hsl(var(--foreground))" : "#FFFFFF",
+                        backgroundColor: active ? "hsl(var(--foreground))" : "hsl(var(--card))",
                         color: active ? "hsl(var(--background))" : "hsl(var(--foreground) / 0.75)",
                       }}
                     >
@@ -162,41 +104,61 @@ const LearnNews = () => {
         </div>
       </div>
 
-      <section style={{ paddingTop: "32px", paddingBottom: "24px" }}>
-        <div className="page-shell">
-          <div className="mx-auto w-wide">
-            {filtered.length === 0 ? (
-              <div
-                className="bg-card text-center t-body-sm text-muted-foreground"
-                style={{
-                  border: "0.5px solid hsl(var(--border))",
-                  borderRadius: "12px",
-                  padding: "40px 20px",
-                }}
-              >
-                No posts in this category yet.
-              </div>
-            ) : (
-              <ul className="flex flex-col gap-3">
-                {filtered.map((a) => {
-                  const cat = NEWS_CATEGORIES.find((c) => c.id === a.category);
-                  return (
-                    <li key={a.slug}>
-                      <NewsRow
-                        slug={a.slug}
-                        headline={a.headline}
-                        standfirst={a.standfirst}
-                        dateline={a.dateline}
-                        category={cat?.label ?? ""}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
-        </div>
-      </section>
+      <PageSection title="Latest" intro="Newest first. Reporting, analysis, and platform updates.">
+        {filtered.length === 0 ? (
+          <p className="text-muted-foreground" style={{ fontSize: "14px" }}>
+            No posts in this category yet.
+          </p>
+        ) : (
+          <ul className="flex flex-col">
+            {filtered.map((a, i) => {
+              const cat = NEWS_CATEGORIES.find((c) => c.id === a.category);
+              return (
+                <li
+                  key={a.slug}
+                  className={i > 0 ? "border-t border-border/40 pt-5 mt-5" : ""}
+                >
+                  <Link
+                    to={`/learn/news/${a.slug}`}
+                    aria-label={a.headline}
+                    className="block group"
+                  >
+                    <p
+                      className="font-mono uppercase text-muted-foreground tabular-nums"
+                      style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+                    >
+                      {formatDate(a.dateline)} · {cat?.label ?? ""}
+                    </p>
+                    <h3
+                      className="font-sans text-foreground group-hover:text-primary transition-colors"
+                      style={{
+                        marginTop: "6px",
+                        fontSize: "16px",
+                        lineHeight: 1.3,
+                        fontWeight: 600,
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
+                      {a.headline}
+                    </h3>
+                    <p
+                      className="text-muted-foreground"
+                      style={{
+                        marginTop: "6px",
+                        fontSize: "14px",
+                        lineHeight: 1.6,
+                        maxWidth: "70ch",
+                      }}
+                    >
+                      {a.standfirst}
+                    </p>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </PageSection>
 
       <NextStep primary="learn-education" eyebrow="Want the fundamentals?" />
     </>
