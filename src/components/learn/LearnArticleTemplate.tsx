@@ -1,13 +1,10 @@
-import { Link } from "react-router-dom";
-
-import { FeatureItem } from "@/components/system";
-
-
+import { FeatureLink } from "@/components/system";
 
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection, ArticleFooter } from "@/components/ArticleSection";
 import { NextStep } from "@/components/learn/NextStep";
+
 import {
   EducationArticle,
   NewsArticle,
@@ -114,17 +111,16 @@ export const EducationArticleTemplate = ({
             {relatedResolved.map((r, i) => (
               <li
                 key={r.slug}
-                className={i > 0 ? "border-t border-border/40 pt-3 mt-3" : ""}
+                className={i > 0 ? "border-t border-border/40 mt-1 pt-1" : ""}
               >
-                <Link
+                <FeatureLink
                   to={`/learn/education/${r.slug}`}
-                  className="block group"
-                >
-                  <FeatureItem variant="block" title={r.question} />
-                </Link>
+                  title={r.question}
+                />
               </li>
             ))}
           </ul>
+
         </ArticleSection>
       )}
 
@@ -211,17 +207,16 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
             {relatedResolved.map((r, i) => (
               <li
                 key={r.slug}
-                className={i > 0 ? "border-t border-border/40 pt-3 mt-3" : ""}
+                className={i > 0 ? "border-t border-border/40 mt-1 pt-1" : ""}
               >
-                <Link
+                <FeatureLink
                   to={`/learn/education/${r.slug}`}
-                  className="block group"
-                >
-                  <FeatureItem variant="block" title={r.question} />
-                </Link>
+                  title={r.question}
+                />
               </li>
             ))}
           </ul>
+
         </ArticleSection>
       )}
 

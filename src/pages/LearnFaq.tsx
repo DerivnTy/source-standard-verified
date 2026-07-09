@@ -1,9 +1,7 @@
-import { Link } from "react-router-dom";
-
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { NextStep } from "@/components/learn/NextStep";
-import { PageSection, FeatureItem } from "@/components/system";
+import { PageSection, FeatureLink } from "@/components/system";
 import { FAQ_ENTRIES } from "@/data/learn";
 
 const HERO_STATEMENT =
@@ -44,15 +42,9 @@ const LearnFaq = () => {
           {FAQ_ENTRIES.map((f, i) => (
             <li
               key={f.to}
-              className={i > 0 ? "border-t border-border/40 pt-4 mt-4" : ""}
+              className={i > 0 ? "border-t border-border/40 mt-2 pt-2" : ""}
             >
-              <Link to={f.to} aria-label={f.label} className="block group">
-                <FeatureItem
-                  variant="block"
-                  title={f.label}
-                  desc={f.description}
-                />
-              </Link>
+              <FeatureLink to={f.to} title={f.label} desc={f.description} />
             </li>
           ))}
         </ul>

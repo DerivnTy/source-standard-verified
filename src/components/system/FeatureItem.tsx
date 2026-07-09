@@ -1,15 +1,24 @@
 import { Glyph, type GlyphName } from "./GlyphIcon";
 
 /**
- * FeatureItem — lightweight information item.
+ * FeatureItem — lightweight informational item. Static, no interaction.
  *
- * No border, no background. Reads as content, not as a card. Use for
- * supporting information where card chrome would over-weight the copy.
+ * Never wrap a FeatureItem in a Link — if it navigates, use FeatureLink
+ * so users can tell it is interactive at a glance (hover tint, chevron,
+ * cursor, 44px touch target).
+ *
+ * Navigation hierarchy:
+ *   FeatureItem  → informational, static.
+ *   FeatureLink  → lightweight destination row within content.
+ *   NavCard      → high-emphasis destination with hairline border.
+ *
+ * No border, no background. Reads as content, not as a card.
  *
  *   variant="row"   icon left, text right   (checklists, dense lists)
  *   variant="block" icon top,  text below  (audience tiles, trust pillars)
  *
  * Icon and desc are both optional.
+
  *
  * Sitewide two-mode doctrine (Consumer vs Reference):
  *
