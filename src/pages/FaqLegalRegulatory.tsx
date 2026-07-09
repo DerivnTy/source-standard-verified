@@ -1,5 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
-import { Breadcrumb } from "@/components/Breadcrumb";
+import { FaqTopicShell } from "@/components/learn/FaqTopicShell";
 import { FaqPage } from "@/components/library/FaqPage";
 
 const ITEMS = [
@@ -31,17 +31,16 @@ const FaqLegalRegulatory = () => (
       title="Who Regulates This, and Where Does Source Standard Fit?"
       description="How Source Standard relates to the FDA, state boards, and other regulators, and what our role is (and is not) in oversight."
     />
-    <Breadcrumb
-      items={[
-        { label: "Resource Library", to: "/education" },
-        { label: "Legal & Regulatory" },
-      ]}
-    />
-    <FaqPage
-      title="Who Regulates This, and Where Does Source Standard Fit?"
-      intro="How Source Standard relates to the FDA, state boards, and other regulators, and what our role is (and is not) in oversight."
-      items={ITEMS}
-    />
+    <FaqTopicShell
+      topicLabel="Legal & Regulatory"
+      currentPath="/library/faq/legal-regulatory"
+    >
+      <FaqPage
+        title="Who Regulates This, and Where Does Source Standard Fit?"
+        intro="How Source Standard relates to the FDA, state boards, and other regulators, and what our role is (and is not) in oversight."
+        items={ITEMS}
+      />
+    </FaqTopicShell>
   </>
 );
 
