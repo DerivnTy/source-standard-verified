@@ -887,17 +887,17 @@ const VendorProfile = () => {
 
           {/* ────── 5. VERIFICATION STATUS ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Verification Status</SectionHeading>
+            <SectionHeading>What has been verified?</SectionHeading>
 
             <p
               className="mt-2 text-muted-foreground"
               style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
             >
               {isVerified
-                ? `Reviewed under SS-FRAMEWORK-2026.01${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""}.`
+                ? `Source Standard reviewed this provider's sourcing information${vendor.reviewDate ? ` on ${vendor.reviewDate}` : ""} and assigned Verified status.`
                 : status === "under-review"
-                ? "An application is currently undergoing review under SS-FRAMEWORK-2026.01."
-                : "This provider has not yet participated in the Source Standard verification process."}
+                ? "This provider's sourcing information is currently under review."
+                : "This provider has not participated in the Source Standard verification process."}
             </p>
 
             {isVerified && vendor.verifiedManufacturers && vendor.verifiedManufacturers.length > 0 && (
@@ -909,7 +909,7 @@ const VendorProfile = () => {
                   className="font-sans font-semibold uppercase text-muted-foreground"
                   style={{ fontSize: "11px", letterSpacing: "0.08em", marginRight: "6px" }}
                 >
-                  Verified Manufacturer{vendor.verifiedManufacturers.length > 1 ? "s" : ""}
+                  Verified Source{vendor.verifiedManufacturers.length > 1 ? "s" : ""}
                 </span>
                 {vendor.verifiedManufacturers.join(" · ")}
               </p>
@@ -924,7 +924,7 @@ const VendorProfile = () => {
               style={{ fontSize: "12px", letterSpacing: "0.05em" }}
             >
 
-              {verificationOpen ? "Hide verification details" : "Learn how verification works"}
+              {verificationOpen ? "Hide details" : "See what this covers"}
               <ChevronDown
                 size={12}
                 strokeWidth={1.5}
@@ -934,6 +934,7 @@ const VendorProfile = () => {
                 }}
               />
             </button>
+
 
             <div
               className="grid"
