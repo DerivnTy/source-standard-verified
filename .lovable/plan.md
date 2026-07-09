@@ -1,43 +1,37 @@
-Audit findings
-- EditorialBackLink currently adds 32px top + 56px bottom padding.
-- ArticleSection variants (prose/callout/card) have no bottom padding, so ArticleSection-based pages already have ~32px of gap before the back link.
-- PageSection adds symmetric 28px bottom padding (20px when compact), creating 48–60px of gap before the back link on PageSection-based pages.
-- Contact.tsx last section uses `py-12 md:py-16`, adding 48–64px of bottom padding before the back link.
+Global eyebrow cleanup
 
-Changes
+Problem
+Eyebrows above hero/page titles are too large (12px), too close to the title (20px), and visually compete with the heading instead of reading as quiet metadata.
 
-1. EditorialBackLink spacing
-   File: `src/components/EditorialBackLink.tsx`
-   - Change `paddingTop` from `32px` to `24px`.
-   - Change `paddingBottom` from `56px` to `40px`.
+Goal
+Shrink and space every shared eyebrow so it feels like editorial metadata, not part of the headline. Do not change copy, colors, fonts, layout, or page structure.
 
-2. Contact page bottom padding
-   File: `src/pages/Contact.tsx`
-   - The final `<section className="container-wide py-12 md:py-16">` carries too much bottom padding.
-   - Change to asymmetric padding: retain top padding, reduce bottom padding to `pb-6 md:pb-8` so the back link sits closer to the form without touching it.
+Files to change
+1. PageHeader.tsx
+2. ArticleHeader.tsx
+3. RecordHeader.tsx
+4. UtilityHeader.tsx
 
-3. PageSection-based pages — remove bottom padding from the last section
-   Files:
-   - `src/pages/Governance.tsx` — last `PageSection` (`id="deeper"`)
-   - `src/pages/About.tsx` — last `PageSection` (`id="looking-ahead"`)
-   - `src/pages/HowItWorks.tsx` — last `PageSection` (`id="meaning"`)
+Standard for hero/page eyebrows
+- font-size: 10px (was 12px)
+- letter-spacing: 0.14em (unchanged)
+- color: rgba(255,255,255,0.6) (unchanged)
+- margin-top from eyebrow to title: 22px (was 20px)
+- still uppercase mono
 
-   To do this safely, add a minimal `pb` prop override to `PageSection`:
-   - File: `src/components/system/PageSection.tsx`
-   - Add optional `pb?: string` prop.
-   - When `pb` is provided, use it for `paddingBottom` instead of `padY`.
-   - Then set `pb="0"` on the last `PageSection` of each of the three files above.
-
-   This leaves all other PageSection usages unchanged and avoids a global rhythm shift on consumer pages.
-
-4. ArticleSection-based pages
-   Files: `src/pages/VerificationDisclaimer.tsx`, `src/pages/Privacy.tsx`, `src/pages/Terms.tsx`, `src/pages/Accountability.tsx`, `src/pages/StatusDefinitions.tsx`, `src/pages/ReportConcern.tsx`
-   - No changes needed. ArticleSection variants have no bottom padding; after the EditorialBackLink fix the gap from final content to back link becomes ~24px, which is within target.
+Standard for section/card eyebrows
+- ArticleSection callout kind: already 10px / 0.12em / 8px margin — leave as-is
+- ArticleSection card ordinal: already 11px / 0.08em / 6px margin — leave as-is
+- These already meet the "smaller section eyebrow" target.
 
 Verification
-- Preview at 390px on:
-  - `/verification-disclaimer`
-  - `/privacy`
-  - `/terms`
-  - `/governance`
-- Confirm the final section, back link, and footer read as one continuous ending with no dead zone.
+Check at 390px mobile and desktop:
+- /verification-disclaimer (PageHeader)
+- /privacy (PageHeader)
+- /terms (PageHeader)
+- /governance (PageHeader or RecordHeader)
+- /learn/education/* (ArticleHeader category path)
+- /learn/news/* (ArticleHeader category path)
+- /learn/faq (PageHeader or UtilityHeader)
+
+Confirm every eyebrow now reads as quiet metadata and no longer crowds the heading. Spacing is consistent across every page type.
