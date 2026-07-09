@@ -7,7 +7,7 @@ import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { NavCard } from "@/components/system";
-import openLogo from "@/assets/open-logo-transparent.png.asset.json";
+
 
 const DOC_ID = "SS-GOV-2026.01";
 const VERIFIED_ON = "04/20/2026";
@@ -87,27 +87,15 @@ const Governance = () => (
       title="Framework criteria maintained under licensed clinical oversight"
       rationale="Licensed clinicians review scope definitions, evidentiary standards, and renewal intervals applied by the framework. The advisory body does not evaluate, diagnose, or treat patients through Source Standard."
     >
-      <div className="border border-border bg-background">
-        <div className="grid grid-cols-12 px-5 py-2.5 bg-surface-muted border-b border-border">
-          <div className="col-span-4 meta-mono text-foreground/70">NAME</div>
-          <div className="col-span-3 meta-mono text-foreground/70">CREDENTIAL</div>
-          <div className="col-span-3 meta-mono text-foreground/70">ROLE</div>
-          <div className="col-span-2 meta-mono text-foreground/70 text-right">JURISDICTION</div>
-        </div>
-        <div className="p-5">
-          <Callout tone="info" eyebrow={`Administrative notice · ${DOC_ID} · §1.A`}>
-            <p className="t-body-sm text-foreground leading-relaxed">
-              Initial advisory roster pending publication.
-            </p>
-            <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW, Q1 2026.</p>
-          </Callout>
-        </div>
-        <div className="px-5 py-3 border-t border-border">
-          <p className="meta-mono text-foreground/70">
-            ROSTER UPDATES ARE ISSUED UNDER CONTROLLED REVISION AND RECORDED IN THIS DOCUMENT.
-          </p>
-        </div>
-      </div>
+      <Callout tone="info" eyebrow={`Administrative notice · ${DOC_ID} · §1.A`}>
+        <p className="t-body-sm text-foreground leading-relaxed">
+          Initial advisory roster pending publication.
+        </p>
+        <p className="meta-mono text-foreground/70 mt-1.5">FILING WINDOW, Q1 2026.</p>
+      </Callout>
+      <p className="meta-mono text-foreground/70">
+        ROSTER UPDATES ARE ISSUED UNDER CONTROLLED REVISION AND RECORDED IN THIS DOCUMENT.
+      </p>
     </BoardSection>
 
     <BoardSection
@@ -118,34 +106,35 @@ const Governance = () => (
       rationale="Source Standard does not originate criteria. Each framework requirement is anchored to a statutory provision or compendial standard issued by the public authorities listed below."
       muted
     >
-      <div className="border border-border bg-background">
-        <div className="grid grid-cols-12 px-5 py-2.5 bg-surface-muted border-b border-border">
-          <div className="col-span-2 meta-mono text-foreground/70">ANCHOR</div>
-          <div className="col-span-4 meta-mono text-foreground/70">ISSUING AUTHORITY</div>
-          <div className="col-span-6 meta-mono text-foreground/70">STATUTORY / COMPENDIAL REFERENCE</div>
-        </div>
-        <ul className="divide-y divide-border">
-          {authorities.map((a) => (
-            <li key={a.code} className="grid grid-cols-12 gap-3 px-5 py-4 items-baseline">
-              <div className="col-span-2 meta text-primary font-semibold">{a.code}</div>
-              <div className="col-span-4">
-                <p className="t-body-sm font-semibold text-foreground">{a.full}</p>
-                <a
-                  href={a.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="meta-mono text-foreground/70 hover:text-primary transition-colors"
-                >
-                  {a.url.replace(/^https?:\/\//, "")} ↗
-                </a>
-              </div>
-              <p className="col-span-6 t-body-sm text-muted-foreground leading-relaxed">
-                {AUTHORITY_REFERENCE_OVERRIDES[a.code] ?? a.references}
-              </p>
-            </li>
-          ))}
-        </ul>
+      <div className="hidden md:grid grid-cols-12 gap-3 pb-2.5 border-b border-border">
+        <div className="col-span-2 meta-mono text-foreground/70">ANCHOR</div>
+        <div className="col-span-4 meta-mono text-foreground/70">ISSUING AUTHORITY</div>
+        <div className="col-span-6 meta-mono text-foreground/70">STATUTORY / COMPENDIAL REFERENCE</div>
       </div>
+      <ul className="divide-y divide-border border-t border-border md:border-t-0">
+        {authorities.map((a) => (
+          <li
+            key={a.code}
+            className="flex flex-col gap-2 py-4 md:grid md:grid-cols-12 md:gap-3 md:items-baseline"
+          >
+            <div className="md:col-span-2 meta text-primary font-semibold">{a.code}</div>
+            <div className="md:col-span-4">
+              <p className="t-body-sm font-semibold text-foreground">{a.full}</p>
+              <a
+                href={a.url}
+                target="_blank"
+                rel="noreferrer"
+                className="meta-mono text-foreground/70 hover:text-primary transition-colors break-all"
+              >
+                {a.url.replace(/^https?:\/\//, "")} ↗
+              </a>
+            </div>
+            <p className="md:col-span-6 t-body-sm text-muted-foreground leading-relaxed">
+              {AUTHORITY_REFERENCE_OVERRIDES[a.code] ?? a.references}
+            </p>
+          </li>
+        ))}
+      </ul>
     </BoardSection>
 
     <BoardSection
@@ -191,24 +180,6 @@ const Governance = () => (
           </div>
         ))}
       </dl>
-
-      <div className="flex flex-col gap-4 pt-8" style={{ maxWidth: "68ch" }}>
-        <p className="ss-eyebrow">Clinical intelligence · Open</p>
-        <img
-          src={openLogo.url}
-          alt="Open"
-          className="h-10 w-auto md:h-12"
-          loading="lazy"
-          style={{ marginLeft: "-2px" }}
-        />
-        <p className="t-body-sm text-foreground leading-relaxed">
-          Open is an independent physician-focused clinical intelligence organization.
-        </p>
-        <p className="t-body-sm text-muted-foreground leading-relaxed">
-          Source Standard documents sourcing and verification records. Open studies clinical response patterns.
-          The two organizations address different layers of transparency.
-        </p>
-      </div>
     </BoardSection>
 
     <BoardSection id="deeper" n="5" category="Read deeper" title="Cross-references" muted={false}>
