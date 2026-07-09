@@ -115,7 +115,8 @@ const HeroContent = () => {
   );
 };
 
-const _removedTrustChips = () => null;
+
+
 
 
 
