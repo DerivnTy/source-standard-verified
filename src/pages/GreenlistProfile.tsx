@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
+import { StatusPill, type StatusKey } from "@/components/system";
 import {
   getGreenlistEntry,
   GreenlistProfile as GLProfile,
