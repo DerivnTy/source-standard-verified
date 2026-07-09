@@ -67,7 +67,7 @@ const HeroContent = () => {
           textWrap: "balance",
         }}
       >
-        Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their peptide sourcing transparency.
+        Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their sourcing transparency.
       </p>
 
       {/* Search, primary action */}
