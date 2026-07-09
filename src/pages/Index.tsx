@@ -807,7 +807,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Foundational reference
+              Where Can I Learn More?
             </h2>
 
             <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
