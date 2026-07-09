@@ -52,7 +52,7 @@ const statusLong: Record<
   },
   removed: {
     meaning:
-      "The record has been removed from the public directory.",
+      "The record has been removed from the public registry.",
     tells:
       "Either the vendor was withdrawn at request, or removal was warranted under the framework.",
     notImply:
@@ -80,7 +80,7 @@ const HowToReadTheDirectory = () => {
   return (
     <>
       <PageMeta
-        title="How to Read the Directory"
+        title="How to Read the Registry"
         description="Reference guide for interpreting the Source Standard registry: status definitions, scope categories, and citation discipline."
       />
       <Breadcrumb
@@ -99,7 +99,7 @@ const HowToReadTheDirectory = () => {
           { label: "Jurisdiction", value: "US" },
         ]}
         eyebrow="Public registry · Reader's guide"
-        title="How to read the directory"
+        title="How to read the registry"
         lead="Interpreting vendor records and what each public status does, and does not, say about a vendor."
       />
 
@@ -107,9 +107,9 @@ const HowToReadTheDirectory = () => {
         {sectionRow(
           "§1",
           "Scope",
-          "What this directory shows.",
+          "What this registry shows.",
           <p>
-            The public directory at{" "}
+            The public registry at{" "}
             <Link to="/verified-vendors" className="underline underline-offset-4">
               /verified-vendors
             </Link>{" "}
@@ -230,7 +230,7 @@ const HowToReadTheDirectory = () => {
             </p>
             <p>
               <span className="text-foreground">Removed</span> indicates that the record has
-              been taken down from the public directory. Removal may follow a vendor's
+              been taken down from the public registry. Removal may follow a vendor's
               withdrawal request or a decision made under the Source Standard framework.
             </p>
           </div>,
@@ -265,7 +265,7 @@ const HowToReadTheDirectory = () => {
           <ul className="space-y-2">
             <li>
               <Link to="/verified-vendors" className="underline underline-offset-4">
-                Verified Vendors directory
+                Vendor Registry
               </Link>
             </li>
             <li>
