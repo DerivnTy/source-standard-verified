@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Search, Check, ChevronDown } from "lucide-react";
 import * as SelectPrimitive from "@radix-ui/react-select";
@@ -6,7 +6,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { PageMeta } from "@/components/PageMeta";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 
-import { VendorRow } from "@/components/registry/VendorRow";
+import { RegistryRow } from "@/components/system";
 import { resolveStateAbbr, US_STATE_TO_ABBR } from "@/lib/usStates";
 import {
   vendors,
