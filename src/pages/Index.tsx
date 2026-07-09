@@ -322,85 +322,9 @@ const governanceLinks = [
   { k: "Status Definitions", to: "/status-definitions", s: "Definitions governing every public status displayed throughout the registry." },
 ];
 
-/* ───────────────── Data Strip primitive ───────────────── */
+/* DataStrip promoted to shared primitive; imported from @/components/system. */
 
-const DataStrip = ({
-  index,
-  total,
-  title,
-  desc,
-  to,
-}: {
-  index: number;
-  total: number;
-  title: string;
-  desc: string;
-  to?: string;
-}) => {
-  const indexLabel = `${(index + 1).toString().padStart(2, "0")} / ${total
-    .toString()
-    .padStart(2, "0")}`;
-  const Inner = (
-    <>
-      <div className="flex items-start justify-between gap-x-3">
-        <h3
-          className="font-sans text-foreground"
-          style={{ fontSize: "16px", lineHeight: 1.3, fontWeight: 600, letterSpacing: "-0.01em", margin: 0 }}
-        >
-          {title}
-        </h3>
-        <span
-          className="font-mono tabular-nums shrink-0"
-          style={{
-            fontSize: "11px",
-            fontWeight: 500,
-            lineHeight: 1,
-            letterSpacing: "0.06em",
-            color: "rgba(0,0,0,0.38)",
-            whiteSpace: "nowrap",
-            paddingTop: "2px",
-          }}
-        >
-          {indexLabel}
-        </span>
-      </div>
-      <p
-        className="text-muted-foreground"
-        style={{ fontSize: "14px", lineHeight: 1.75, fontWeight: 400, marginTop: "8px" }}
-      >
-        {desc}
-      </p>
-      {to && (
-        <div className="mt-2">
-          <span
-            className="font-sans font-bold uppercase text-primary"
-            style={{ fontSize: "10px", letterSpacing: "0.06em" }}
-          >
-            View ›
-          </span>
-        </div>
-      )}
-    </>
-  );
-  const baseStyle = {
-    border: "0.5px solid hsl(var(--border))",
-    borderRadius: "12px",
-    padding: "16px 18px",
-  };
-  return to ? (
-    <Link
-      to={to}
-      className="group block bg-card transition-all active:scale-[0.97] hover:bg-muted"
-      style={baseStyle}
-    >
-      {Inner}
-    </Link>
-  ) : (
-    <div className="bg-card" style={baseStyle}>
-      {Inner}
-    </div>
-  );
-};
+
 
 /* ───────────────── Page ───────────────── */
 
