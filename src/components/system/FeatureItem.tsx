@@ -36,7 +36,7 @@ export const FeatureItem = ({
 }: {
   icon?: GlyphName;
   title: string;
-  desc: string;
+  desc?: string;
   variant?: "row" | "block";
   className?: string;
 }) => {
