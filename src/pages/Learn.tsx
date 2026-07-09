@@ -3,10 +3,10 @@ import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { NextStep } from "@/components/learn/NextStep";
+import { LearnShell } from "@/components/learn/LearnShell";
 import { PageSection, NavCard } from "@/components/system";
 
 import {
-  EDUCATION_ARTICLES,
   EDUCATION_TOPICS,
   NEWS_ARTICLES,
   NEWS_CATEGORIES,
@@ -44,6 +44,11 @@ const Learn = () => {
         jsonLd={jsonLd}
       />
 
+      <LearnShell
+        section="home"
+        showNav
+        crumbs={[{ label: "Learn" }]}
+      >
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -175,6 +180,7 @@ const Learn = () => {
 
       {/* 5 — Continue Exploring */}
       <NextStep primary="vendor-registry" eyebrow="Continue Exploring" />
+      </LearnShell>
     </>
   );
 };
