@@ -15,7 +15,8 @@ const nav = [
 ];
 
 // Mobile mirrors desktop nav, with Home prepended as the anchor item.
-const mobileNav = [{ to: "/", label: "Home" }...nav];
+const mobileNav = [{ to: "/", label: "Home" },
+    ...nav];
 
 
 

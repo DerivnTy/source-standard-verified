@@ -176,7 +176,8 @@ const Greenlist = () => {
   const stateOptions = useMemo(() => {
     const states = getGreenlistStates();
     return [
-      { value: ALL, label: "All states" }...states.map((abbr) => ({ value: abbr, label: ABBR_TO_STATE_NAME[abbr] ?? abbr })),
+      { value: ALL, label: "All states" },
+    ...states.map((abbr) => ({ value: abbr, label: ABBR_TO_STATE_NAME[abbr] ?? abbr })),
     ];
   }, []);
 

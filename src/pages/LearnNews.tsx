@@ -13,7 +13,8 @@ const HERO_STATEMENT =
 type Filter = "all" | NewsCategoryId;
 
 const FILTER_TABS: { id: Filter; label: string }[] = [
-  { id: "all", label: "All" }...NEWS_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
+  { id: "all", label: "All" },
+    ...NEWS_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
 ];
 
 const formatDate = (iso: string) =>

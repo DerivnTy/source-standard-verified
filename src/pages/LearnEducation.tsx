@@ -18,7 +18,8 @@ const HERO_STATEMENT =
 type Filter = "all" | EducationTopicId;
 
 const FILTER_TABS: { id: Filter; label: string }[] = [
-  { id: "all", label: "All" }...EDUCATION_TOPICS.map((t) => ({ id: t.id, label: t.label })),
+  { id: "all", label: "All" },
+    ...EDUCATION_TOPICS.map((t) => ({ id: t.id, label: t.label })),
 ];
 
 const ArticleRow = ({

@@ -530,7 +530,8 @@ const VerifiedVendors = () => {
                     ariaLabel="Filter by specialty"
                     placeholder="All specialties"
                     options={[
-                      { value: "any", label: "All specialties" }...specialtyOptions.map((opt) => ({
+                      { value: "any", label: "All specialties" },
+    ...specialtyOptions.map((opt) => ({
                         value: opt.key,
                         label: opt.label,
                       })),
@@ -579,7 +580,8 @@ const VerifiedVendors = () => {
                     ariaLabel="Filter by state"
                     placeholder="All states"
                     options={[
-                      { value: "any", label: "All states" }...stateOptions.map((s) => ({ value: s.abbr, label: s.name })),
+                      { value: "any", label: "All states" },
+    ...stateOptions.map((s) => ({ value: s.abbr, label: s.name })),
                     ]}
                   />
 
