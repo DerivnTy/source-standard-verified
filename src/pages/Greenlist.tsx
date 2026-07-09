@@ -222,7 +222,7 @@ const Greenlist = () => {
   }, [query, stateFilter, facilityType, status]);
 
   const heroDescription =
-    "Search manufacturers and compounding pharmacies recognized within the Source Standard Registry.";
+    "Search the manufacturers and compounding pharmacies behind your provider's compounded therapies.";
 
   // Sticky compact bar — appears once the original search scrolls out of view.
   const searchRef = useRef<HTMLDivElement | null>(null);
@@ -247,7 +247,7 @@ const Greenlist = () => {
   return (
     <>
       <PageMeta
-        title="Facility Records · Source Standard"
+        title="Who Compounds Your Medication? · Facility Records"
         description={heroDescription}
         path="/greenlist"
         jsonLd={{
@@ -260,7 +260,7 @@ const Greenlist = () => {
 
       <RegistryHeader
         indexNumber="02"
-        title="Facility Records"
+        title="Who Compounds Your Medication?"
         description={heroDescription}
         recordCount={counts.total}
       />
