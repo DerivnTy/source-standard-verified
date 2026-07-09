@@ -57,7 +57,7 @@ export const RegistryHeader = ({
 
       >
         <div className="mx-auto w-wide">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-8">
             <div className="min-w-0 flex-1">
               <h1 className="ss-hero-title !text-white text-left !mt-0">
                 {title}
@@ -74,7 +74,7 @@ export const RegistryHeader = ({
                   </span>
                 </div>
               ) : description ? (
-                <p className="ss-lead !text-white/70 max-w-[600px]">
+                <p className="ss-lead !text-white/70 max-w-[600px] mt-3">
                   {description}
                 </p>
               ) : null}
