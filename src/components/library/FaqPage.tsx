@@ -47,11 +47,11 @@ export const FaqPage = ({
         <div className="page-shell py-3">
           <div className="mx-auto w-wide">
             <Link
-              to="/education"
+              to="/learn/faq"
               className="inline-flex items-center gap-1.5 t-body-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
             >
               <ChevronLeft className="h-4 w-4" aria-hidden />
-              Back to Resource Library
+              Back to FAQ
             </Link>
           </div>
         </div>

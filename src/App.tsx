@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -14,31 +14,21 @@ import Greenlist from "./pages/Greenlist.tsx";
 import GreenlistProfile from "./pages/GreenlistProfile.tsx";
 import VerifiedVendors from "./pages/VerifiedVendors.tsx";
 import ForVendors from "./pages/ForVendors.tsx";
-import Education from "./pages/Education.tsx";
-import EducationBasics from "./pages/EducationBasics.tsx";
-import EducationGuides from "./pages/EducationGuides.tsx";
-import EducationQuestions from "./pages/EducationQuestions.tsx";
-import LibraryEntry from "./pages/LibraryEntry.tsx";
-import LibraryWhatIsCompounding from "./pages/LibraryWhatIsCompounding.tsx";
-import LibraryWhatArePeptides from "./pages/LibraryWhatArePeptides.tsx";
-import LibraryInterpretingCoAs from "./pages/LibraryInterpretingCoAs.tsx";
-import LibraryDualLayerDifference from "./pages/LibraryDualLayerDifference.tsx";
-import LibrarySterilePreparationIntegrity from "./pages/LibrarySterilePreparationIntegrity.tsx";
-import LibraryAsepticTechnique from "./pages/LibraryAsepticTechnique.tsx";
-import LibraryEndocrinologicalContext from "./pages/LibraryEndocrinologicalContext.tsx";
-import LibraryWhyVendorTransparencyMatters from "./pages/LibraryWhyVendorTransparencyMatters.tsx";
-import LibraryWhatHappensDuringVerificationReview from "./pages/LibraryWhatHappensDuringVerificationReview.tsx";
 
-import LibraryAnalysis2026Reclassification from "./pages/LibraryAnalysis2026Reclassification.tsx";
-import LibraryAnalysisQuestionsForYourClinic from "./pages/LibraryAnalysisQuestionsForYourClinic.tsx";
-import LibraryAnalysisMeaningOfVerification from "./pages/LibraryAnalysisMeaningOfVerification.tsx";
-import LibraryAnalysisUndocumentedSourcingSigns from "./pages/LibraryAnalysisUndocumentedSourcingSigns.tsx";
-import LibraryCategory from "./pages/LibraryCategory.tsx";
-import LibraryPublications from "./pages/LibraryPublications.tsx";
+// Learn universe (new)
+import Learn from "./pages/Learn.tsx";
+import LearnEducation from "./pages/LearnEducation.tsx";
+import LearnEducationArticle from "./pages/LearnEducationArticle.tsx";
+import LearnNews from "./pages/LearnNews.tsx";
+import LearnNewsArticle from "./pages/LearnNewsArticle.tsx";
+import LearnFaq from "./pages/LearnFaq.tsx";
+
+// FAQ pillar pages (Tier D, out of scope for content changes)
 import FaqLegalRegulatory from "./pages/FaqLegalRegulatory.tsx";
 import FaqClinicalSafety from "./pages/FaqClinicalSafety.tsx";
 import FaqVerificationProcess from "./pages/FaqVerificationProcess.tsx";
 import FaqConsumerDiligence from "./pages/FaqConsumerDiligence.tsx";
+
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
 import Apply from "./pages/Apply.tsx";
@@ -60,6 +50,43 @@ import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
 
+/**
+ * Legacy-route map for the Learn migration. Each retired route
+ * client-side redirects (replace) to its successor. Kept in one place so
+ * the sitemap generator and the router stay in sync.
+ */
+const LEARN_REDIRECTS: [string, string][] = [
+  ["/education", "/learn"],
+  ["/education/basics", "/learn/education#basics"],
+  ["/education/guides", "/learn/education"],
+  ["/education/questions", "/learn/education"],
+  ["/library/core", "/learn/education"],
+  ["/library/latest", "/learn/news"],
+  ["/library/publications", "/learn/news"],
+  ["/library/sourcing", "/learn/education#sourcing-and-manufacturing"],
+  ["/library/clinical", "/learn/education#verification"],
+  ["/library/consumer", "/learn/education#choosing-a-provider"],
+
+  // Core Reference articles
+  ["/library/what-is-compounding", "/learn/education/what-is-a-compounded-medication"],
+  ["/library/what-are-peptides", "/learn/education/what-are-peptides"],
+  ["/library/interpreting-coas", "/learn/education/how-to-read-a-certificate-of-analysis"],
+  ["/library/dual-layer-difference", "/learn/education/what-does-verified-mean"],
+  ["/library/sterile-preparation-integrity", "/learn/education/why-does-sourcing-matter"],
+  ["/library/aseptic-technique", "/learn/education/what-is-sterile-compounding"],
+  ["/library/endocrinological-context", "/learn/education/what-is-compounded-hormone-therapy"],
+  ["/library/why-vendor-transparency-matters", "/learn/education/what-information-should-a-transparent-provider-share"],
+  ["/library/what-happens-during-a-verification-review", "/learn/education/what-happens-during-a-verification-review"],
+
+  // Analysis (Education targets)
+  ["/library/analysis/questions-for-your-clinic", "/learn/education/what-should-i-ask-my-provider"],
+  ["/library/analysis/meaning-of-verification", "/learn/education/what-does-verified-mean"],
+  ["/library/analysis/undocumented-sourcing-signs", "/learn/education/how-do-i-know-if-a-provider-is-trustworthy"],
+
+  // Analysis (News target)
+  ["/library/analysis/2026-reclassification", "/learn/news/2026-compounding-reclassification"],
+];
+
 const App = () => (
   <HelmetProvider>
   <QueryClientProvider client={queryClient}>
@@ -68,7 +95,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        
+
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path="/" element={<Index />} />
@@ -78,36 +105,28 @@ const App = () => (
             <Route path="/greenlist/:slug" element={<GreenlistProfile />} />
             <Route path="/verified-vendors" element={<VerifiedVendors />} />
             <Route path="/for-vendors" element={<ForVendors />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/education/basics" element={<EducationBasics />} />
-            <Route path="/education/guides" element={<EducationGuides />} />
-            <Route path="/education/questions" element={<EducationQuestions />} />
-            <Route path="/education/:slug" element={<LibraryEntry />} />
-            <Route path="/library/what-is-compounding" element={<LibraryWhatIsCompounding />} />
-            <Route path="/library/what-are-peptides" element={<LibraryWhatArePeptides />} />
-            <Route path="/library/interpreting-coas" element={<LibraryInterpretingCoAs />} />
-            <Route path="/library/dual-layer-difference" element={<LibraryDualLayerDifference />} />
-            <Route path="/library/sterile-preparation-integrity" element={<LibrarySterilePreparationIntegrity />} />
-            <Route path="/library/aseptic-technique" element={<LibraryAsepticTechnique />} />
-            <Route path="/library/endocrinological-context" element={<LibraryEndocrinologicalContext />} />
-            <Route path="/library/why-vendor-transparency-matters" element={<LibraryWhyVendorTransparencyMatters />} />
-            <Route path="/library/what-happens-during-a-verification-review" element={<LibraryWhatHappensDuringVerificationReview />} />
-            
-            <Route path="/library/analysis/2026-reclassification" element={<LibraryAnalysis2026Reclassification />} />
-            <Route path="/library/analysis/questions-for-your-clinic" element={<LibraryAnalysisQuestionsForYourClinic />} />
-            <Route path="/library/analysis/meaning-of-verification" element={<LibraryAnalysisMeaningOfVerification />} />
-            <Route path="/library/analysis/undocumented-sourcing-signs" element={<LibraryAnalysisUndocumentedSourcingSigns />} />
-            <Route path="/library/core" element={<LibraryCategory />} />
-            <Route path="/library/latest" element={<LibraryPublications />} />
-            <Route path="/library/publications" element={<LibraryPublications />} />
-            {/* Legacy category routes — redirect to new structure */}
-            <Route path="/library/sourcing" element={<LibraryCategory />} />
-            <Route path="/library/clinical" element={<LibraryCategory />} />
-            <Route path="/library/consumer" element={<LibraryCategory />} />
+
+            {/* Learn — three-engine content system */}
+            <Route path="/learn" element={<Learn />} />
+            <Route path="/learn/education" element={<LearnEducation />} />
+            <Route path="/learn/education/:slug" element={<LearnEducationArticle />} />
+            <Route path="/learn/news" element={<LearnNews />} />
+            <Route path="/learn/news/:slug" element={<LearnNewsArticle />} />
+            <Route path="/learn/faq" element={<LearnFaq />} />
+
+            {/* Legacy → Learn redirects */}
+            {LEARN_REDIRECTS.map(([from, to]) => (
+              <Route key={from} path={from} element={<Navigate to={to} replace />} />
+            ))}
+            {/* Catch-all for old /education/:slug dynamic route */}
+            <Route path="/education/:slug" element={<Navigate to="/learn/education" replace />} />
+
+            {/* Tier D FAQ pages — unchanged, surfaced through /learn/faq */}
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
             <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />
             <Route path="/library/faq/consumer-diligence" element={<FaqConsumerDiligence />} />
+
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
@@ -128,7 +147,7 @@ const App = () => (
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
-        
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

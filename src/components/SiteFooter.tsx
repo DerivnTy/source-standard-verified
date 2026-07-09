@@ -31,11 +31,12 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "Resource Library",
+    title: "Learn",
     links: [
-      { to: "/education", label: "Resource Library" },
-      { to: "/library/publications", label: "Publications" },
-      { to: "/education#common-inquiries", label: "Common Inquiries" },
+      { to: "/learn", label: "Learn" },
+      { to: "/learn/education", label: "Education" },
+      { to: "/learn/news", label: "News & Insights" },
+      { to: "/learn/faq", label: "Frequently Asked Questions" },
     ],
   },
   {
