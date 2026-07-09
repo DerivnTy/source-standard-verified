@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
-import { useSiteAccess } from "@/hooks/useSiteAccess";
 
 type LinkRow = {
   to: string;
@@ -23,27 +22,19 @@ const columns: Column[] = [
     ],
   },
   {
-    title: "Standards",
+    title: "Framework",
     links: [
       { to: "/how-it-works", label: "Verification Framework" },
       { to: "/status-definitions", label: "Status Definitions" },
-      { to: "/accountability", label: "Compliance" },
+      { to: "/governance", label: "Governance" },
       { to: "/medical-advisory", label: "Advisory Board" },
     ],
   },
   {
-    title: "Learn",
+    title: "Source Standard",
     links: [
-      { to: "/learn", label: "Learn" },
-      { to: "/learn/education", label: "Education" },
-      { to: "/learn/news", label: "News & Insights" },
-      { to: "/learn/faq", label: "Frequently Asked Questions" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { to: "/about", label: "About Source Standard" },
+      { to: "/about", label: "About" },
+      { to: "/contact", label: "Contact" },
       { to: "/privacy", label: "Privacy" },
       { to: "/terms", label: "Terms" },
       { to: "/verification-disclaimer", label: "Disclaimer" },
