@@ -150,19 +150,11 @@ const Governance = () => (
     </BoardSection>
 
     <BoardSection id="deeper" n="4" category="Read deeper" title="Cross-references" muted>
-      <ul className="grid sm:grid-cols-2 gap-px bg-border border border-border">
-        {deeper.map((d, i) => (
-          <li key={d.to} className="bg-background">
-            <Link to={d.to} className="group flex items-start justify-between gap-3 p-5 hover:bg-surface-muted transition-colors">
-              <div>
-                <p className="meta text-primary mb-1">REF · {String(i + 1).padStart(2, "0")}</p>
-                <p className="t-body-sm font-semibold text-foreground leading-snug">{d.label}</p>
-              </div>
-              <span className="text-primary t-body-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
-            </Link>
-          </li>
+      <div className="grid gap-2.5 sm:grid-cols-2">
+        {deeper.map((d) => (
+          <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />
         ))}
-      </ul>
+      </div>
     </BoardSection>
 
     <BoardCiteFooter
