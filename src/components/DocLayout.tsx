@@ -5,7 +5,7 @@ export type Waypoint = { id: string; number: string; label: string };
 type Variant = "default" | "certificate";
 
 /**
- * DocLayout — Dashboard/Report layout for institutional doc pages.
+ * DocLayout, Dashboard/Report layout for institutional doc pages.
  *
  * Asymmetric 12-col grid: sticky waypoint rail (left) + wide content (right).
  * Replaces the centered prose column for About/Privacy/Terms/Disclaimer/etc.
@@ -137,7 +137,7 @@ export const DocLayout = ({
 };
 
 /**
- * DocSection — section primitive used inside DocLayout.
+ * DocSection, section primitive used inside DocLayout.
  */
 export const DocSection = ({
   id,

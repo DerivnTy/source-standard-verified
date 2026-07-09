@@ -7,7 +7,7 @@ import {
 } from "@/data/vendors";
 
 /**
- * Audit Status Label — clean, consumer-facing.
+ * Audit Status Label, clean, consumer-facing.
  * Verified → green check + "Verified". Otherwise → muted status word.
  */
 const AuditStatusLabel = ({ status }: { status: Vendor["status"] }) => {
@@ -85,14 +85,14 @@ export const VendorAuditCard = ({
     vendor.status === "suspended" ||
     vendor.status === "removed";
 
-  // Paper-thin surgical-red whisper — suggests warning, not error.
+  // Paper-thin surgical-red whisper, suggests warning, not error.
   const unverifiedWash = "#FFF9F9";
 
   if (view === "list") {
     return (
       <Link
         to={`/directory/${vendor.slug}`}
-        aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
+        aria-label={`${vendor.name}, ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
         className="group grid items-center gap-3 h-[48px] px-4 text-left bg-card transition-colors hover:bg-[#F8FAFC]"
         style={{
           ...(isUnverified ? { backgroundColor: unverifiedWash } : {}),
@@ -142,7 +142,7 @@ export const VendorAuditCard = ({
   return (
     <Link
       to={`/directory/${vendor.slug}`}
-      aria-label={`${vendor.name} — ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
+      aria-label={`${vendor.name}, ${VENDOR_STATUS_LABEL[vendor.status]}, ${location}`}
       className="group block h-full text-left rounded-[2px] border border-border bg-card hover:border-foreground/30 hover:shadow-[0_8px_24px_-12px_hsl(0_0%_0%/0.18)] transition-all"
       style={isUnverified ? { backgroundColor: unverifiedWash } : undefined}
     >

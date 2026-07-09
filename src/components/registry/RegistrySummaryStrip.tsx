@@ -12,7 +12,7 @@ export type SummaryCell = {
 };
 
 /**
- * RegistrySummaryStrip — six-cell live summary row for registry surfaces.
+ * RegistrySummaryStrip, six-cell live summary row for registry surfaces.
  * Mono numerals at the locked 20/28 weight-500. Each cell shows a 2px tick,
  * a utility-xs label, the value, and a thin share bar showing % of total.
  *

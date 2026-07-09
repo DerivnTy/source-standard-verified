@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 /**
- * PageShell — the canonical outer container for every page in the
+ * PageShell, the canonical outer container for every page in the
  * sitewide design system.
  *
  * Locks horizontal gutters to the spec:
@@ -9,7 +9,7 @@ import { ReactNode } from "react";
  * Locks max page width to 1440px.
  *
  * Inside a PageShell, content widths come from the `width-*` token
- * classes (.w-standard, .w-wide, .w-reading-wide, etc.) applied to a
+ * classes (.w-standard.w-wide.w-reading-wide, etc.) applied to a
  * child wrapper. PageShell itself never sets content max-width.
  */
 export const PageShell = ({

@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /**
- * RegistryPagination — product-grade pager for registry surfaces.
+ * RegistryPagination, product-grade pager for registry surfaces.
  * Left: showing-range + page count. Right: prev / numbered / next + page-size.
  */
 export const RegistryPagination = ({

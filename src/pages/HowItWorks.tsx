@@ -140,7 +140,7 @@ const HowItWorks = () => {
 
             <SectionDivider />
 
-            {/* §2 · How Verification Works — 4-step flow */}
+            {/* §2 · How Verification Works, 4-step flow */}
             <section>
               <Eyebrow>How it works</Eyebrow>
               <SectionTitle>How Does Verification Work?</SectionTitle>
@@ -155,8 +155,7 @@ const HowItWorks = () => {
                     className="relative"
                     style={{
                       padding: "16px 0 16px 0",
-                      borderTop: "0.5px solid hsl(var(--border))",
-                      ...(i > 0
+                      borderTop: "0.5px solid hsl(var(--border))"...(i > 0
                         ? {
                             // Vertical hairline connector on desktop
                           }

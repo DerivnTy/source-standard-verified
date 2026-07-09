@@ -1,5 +1,5 @@
 /**
- * VerifiedShieldMark — inline SVG shield used in Verified status groups.
+ * VerifiedShieldMark, inline SVG shield used in Verified status groups.
  * Renders without an image request to avoid late-loading flashes.
  * Sized via height (default 22px); width auto-derives from viewBox.
  */

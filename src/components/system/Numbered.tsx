@@ -1,7 +1,7 @@
 import { ElementType, ReactNode } from "react";
 
 /**
- * NumberedCard — sitewide standard card:
+ * NumberedCard, sitewide standard card:
  *   ┌──────────────────────────────────────────┐
  *   │ Title                          01 / 03   │
  *   │ Body copy…                               │
@@ -110,7 +110,7 @@ export const NumberedCard = ({
 };
 
 /**
- * NumberedSectionHeader — inline section-number + section-title on the same baseline.
+ * NumberedSectionHeader, inline section-number + section-title on the same baseline.
  *
  *   01  Institutional Mandate
  *

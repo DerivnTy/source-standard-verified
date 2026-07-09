@@ -63,7 +63,7 @@ const LearnFaq = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Frequently Asked Questions — Source Standard",
+    name: "Frequently Asked Questions, Source Standard",
     description: HERO_STATEMENT,
     url: "https://www.sourcestandard.org/learn/faq",
   };

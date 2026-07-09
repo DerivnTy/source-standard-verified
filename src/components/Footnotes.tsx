@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 /**
- * Footnote — inline superscript reference, links to #fn-{n}.
+ * Footnote, inline superscript reference, links to #fn-{n}.
  */
 export const Footnote = ({ n }: { n: number }) => (
   <sup id={`fnref-${n}`} className="ml-0.5">
@@ -16,7 +16,7 @@ export const Footnote = ({ n }: { n: number }) => (
 );
 
 /**
- * FootnoteList — academic-style footnote band at page bottom.
+ * FootnoteList, academic-style footnote band at page bottom.
  */
 export const FootnoteList = ({
   items,

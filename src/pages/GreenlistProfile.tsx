@@ -7,7 +7,7 @@ import {
 } from "@/data/greenlist";
 
 /**
- * GreenlistProfile — Manufacturer Intelligence Profile.
+ * GreenlistProfile, Manufacturer Intelligence Profile.
  * Public reference record. Excludes proprietary supply-chain intelligence
  * (vendor relationships, network mappings, internal risk scoring, etc.).
  */
@@ -181,8 +181,7 @@ const GreenlistProfile = () => {
 
   // Derive capabilities and therapies from existing free-text fields.
   const searchText = [
-    ...(p.dosageForms ?? []),
-    ...(p.specializations ?? []),
+    ...(p.dosageForms ?? [])...(p.specializations ?? []),
     entry.focus ?? "",
     p.overview ?? p.background ?? "",
   ].join(" | ");
@@ -205,7 +204,7 @@ const GreenlistProfile = () => {
     ? "This facility is currently under a Status Alert based on regulatory activity or supply-chain signals identified through ongoing monitoring."
     : "This facility has been identified within the Source Standard database and is currently under monitoring. Greenlisted status will be assigned through Source Standard independent testing activity.";
 
-  // Public records — prefer data-driven, fallback to derived FDA inspection link.
+  // Public records, prefer data-driven, fallback to derived FDA inspection link.
   const fdaInspectionUrl = p.feiNumber
     ? `https://www.accessdata.fda.gov/scripts/inspsearch/index.cfm?action=Search.ShowInspectionsTable&FEINumber=${encodeURIComponent(
         p.feiNumber,
@@ -215,8 +214,7 @@ const GreenlistProfile = () => {
   const publicRecords: { label: string; url: string }[] = p.publicRecords?.length
     ? p.publicRecords
     : [
-        ...(entry.website ? [{ label: "Company Website", url: entry.website }] : []),
-        ...(fdaInspectionUrl ? [{ label: "FDA Inspection Records", url: fdaInspectionUrl }] : []),
+        ...(entry.website ? [{ label: "Company Website", url: entry.website }] : [])...(fdaInspectionUrl ? [{ label: "FDA Inspection Records", url: fdaInspectionUrl }] : []),
       ];
 
 
@@ -289,7 +287,7 @@ const GreenlistProfile = () => {
           >
             {/* HEADER */}
             <header>
-              {/* Row 1 — Facility name (left) · Status (right) */}
+              {/* Row 1, Facility name (left) · Status (right) */}
               <div className="flex items-center justify-between gap-4">
                 <h1
                   className="min-w-0 font-sans text-foreground"
@@ -309,7 +307,7 @@ const GreenlistProfile = () => {
                 </span>
               </div>
 
-              {/* Row 2 — Location • Facility Type */}
+              {/* Row 2, Location • Facility Type */}
               <div
                 className="mt-1.5 font-sans text-muted-foreground"
                 style={{ fontSize: "14px", lineHeight: 1.4 }}
@@ -326,7 +324,7 @@ const GreenlistProfile = () => {
               </div>
             </header>
 
-            {/* SECTION 1 — Overview */}
+            {/* SECTION 1, Overview */}
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Overview</SectionLabel>
               <p className="mt-2 text-foreground" style={{ fontSize: "16px", fontWeight: 400, lineHeight: 1.6 }}>
@@ -335,7 +333,7 @@ const GreenlistProfile = () => {
               </p>
             </div>
 
-            {/* SECTION 2 — Facility Snapshot */}
+            {/* SECTION 2, Facility Snapshot */}
             {(() => {
               const headquarters = p.headquarters ?? entry.location;
               const founded = p.yearFounded ?? p.initialRegistrationYear;
@@ -408,7 +406,7 @@ const GreenlistProfile = () => {
               );
             })()}
 
-            {/* SECTION 4 — Compounding Capabilities */}
+            {/* SECTION 4, Compounding Capabilities */}
             {capabilities.length > 0 && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <SectionLabel>Compounding Capabilities</SectionLabel>
@@ -420,7 +418,7 @@ const GreenlistProfile = () => {
               </div>
             )}
 
-            {/* SECTION 5 — Therapy Categories */}
+            {/* SECTION 5, Therapy Categories */}
             {therapies.length > 0 && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <SectionLabel>Therapy Categories</SectionLabel>
@@ -432,7 +430,7 @@ const GreenlistProfile = () => {
               </div>
             )}
 
-            {/* SECTION 6 — Current Status */}
+            {/* SECTION 6, Current Status */}
             <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <SectionLabel>Current Status</SectionLabel>
               <div
@@ -457,7 +455,7 @@ const GreenlistProfile = () => {
               </p>
             </div>
 
-            {/* SECTION 7 — Public Records */}
+            {/* SECTION 7, Public Records */}
             {publicRecords.length > 0 && (
               <div className="mt-6 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
                 <SectionLabel>Public Records</SectionLabel>
@@ -483,7 +481,7 @@ const GreenlistProfile = () => {
 
 
 
-            {/* SECTION 8 — Registry Framework */}
+            {/* SECTION 8, Registry Framework */}
             <div className="mt-5 pt-4" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <p className="text-muted-foreground" style={{ fontSize: "10px", lineHeight: 1.55, letterSpacing: "0.01em" }}>
                 <span className="font-semibold uppercase" style={{ letterSpacing: "0.08em" }}>Registry Framework · </span>

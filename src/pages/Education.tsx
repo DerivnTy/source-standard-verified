@@ -15,7 +15,7 @@ import {
   sortArticles,
 } from "@/data/resourceLibrary";
 
-// Local non-exported primitives — Source Standard reference-database language.
+// Local non-exported primitives, Source Standard reference-database language.
 const LibraryCard = ({
   children,
   padded = true,
@@ -151,7 +151,7 @@ const COMMON_INQUIRIES: {
   {
     label: "Safety",
     description:
-      "What Source Standard covers on sourcing, pharmacy standards, and product claims — and where clinical judgment belongs.",
+      "What Source Standard covers on sourcing, pharmacy standards, and product claims, and where clinical judgment belongs.",
     to: "/library/faq/clinical-safety",
   },
   {

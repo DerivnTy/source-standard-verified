@@ -15,7 +15,7 @@ export type ActiveChip = {
 };
 
 /**
- * QueryBar — razor-thin single-row registry control.
+ * QueryBar, razor-thin single-row registry control.
  * Row 1: search (1px hairline) + Sort + Filters trigger.
  * Filters open in a side sheet so the surface stays clean and uniform.
  */
@@ -159,7 +159,7 @@ export const QueryBar = ({
 };
 
 /**
- * FacetSelect — used inside the filter Sheet. Full-width labeled select.
+ * FacetSelect, used inside the filter Sheet. Full-width labeled select.
  */
 export const FacetSelect = ({
   value,
@@ -193,7 +193,7 @@ export const FacetSelect = ({
 );
 
 /**
- * SortControl — compact text-style select used inline in the QueryBar row.
+ * SortControl, compact text-style select used inline in the QueryBar row.
  */
 export const SortControl = ({
   value,
@@ -221,7 +221,7 @@ export const SortControl = ({
 );
 
 /**
- * FacetGroup — legacy: groups related toggle buttons inside the filter sheet.
+ * FacetGroup, legacy: groups related toggle buttons inside the filter sheet.
  */
 export const FacetGroup = ({
   children,
@@ -239,7 +239,7 @@ export const FacetGroup = ({
 );
 
 /**
- * FacetToggle — legacy: single sharp toggle button.
+ * FacetToggle, legacy: single sharp toggle button.
  */
 export const FacetToggle = ({
   active,

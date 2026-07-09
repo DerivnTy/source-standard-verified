@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 /**
- * UtilityHeader — Tier 4, used on forms, sub-indexes, and short utility pages
+ * UtilityHeader, Tier 4, used on forms, sub-indexes, and short utility pages
  * (Apply, Contact, Report a Concern form, NotFound, Education sub-indexes).
  *
  * Lightweight: small eyebrow, body-large title (no oversized H1),

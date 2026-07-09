@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 /**
- * EmptyState — institutional zero-result block for registries.
+ * EmptyState, institutional zero-result block for registries.
  */
 export const EmptyState = ({
   eyebrow = "No Verified Entities Found",

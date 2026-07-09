@@ -6,7 +6,7 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { advisoryBoard } from "@/data/advisoryBoard";
 
 /* ------------------------------------------------------------------
- * Local primitives — shared across ALL board-member profiles.
+ * Local primitives, shared across ALL board-member profiles.
  * Mirror the GovCard / GovRow language used on MedicalAdvisory.tsx
  * so the profile detail pages read as one unified governance record.
  * ------------------------------------------------------------------ */

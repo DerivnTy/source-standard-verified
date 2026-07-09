@@ -8,13 +8,12 @@ import { NextStep } from "@/components/learn/NextStep";
 import { NEWS_ARTICLES, NEWS_CATEGORIES, NewsCategoryId } from "@/data/learn";
 
 const HERO_STATEMENT =
-  "Timely reporting and analysis on compounded medications — regulatory changes, industry developments, and updates from Source Standard.";
+  "Timely reporting and analysis on compounded medications, regulatory changes, industry developments, and updates from Source Standard.";
 
 type Filter = "all" | NewsCategoryId;
 
 const FILTER_TABS: { id: Filter; label: string }[] = [
-  { id: "all", label: "All" },
-  ...NEWS_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
+  { id: "all", label: "All" }...NEWS_CATEGORIES.map((c) => ({ id: c.id, label: c.label })),
 ];
 
 const formatDate = (iso: string) =>
@@ -101,7 +100,7 @@ const LearnNews = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "News & Insights — Source Standard",
+    name: "News & Insights, Source Standard",
     description: HERO_STATEMENT,
     url: "https://www.sourcestandard.org/learn/news",
   };

@@ -3,7 +3,7 @@ import { MetadataItem } from "./MetadataBar";
 import { DownloadPdfLink } from "./DownloadPdfLink";
 
 /**
- * RecordHeader — Tier 2, used on regulatory / policy documents.
+ * RecordHeader, Tier 2, used on regulatory / policy documents.
  *
  * Split-header standard:
  *  - Left: eyebrow + title + lead + optional children
@@ -11,7 +11,7 @@ import { DownloadPdfLink } from "./DownloadPdfLink";
  *           with optional Summary list stacked below.
  *
  * `verifiedOn` renders a dedicated DATA VERIFIED row inside the Reference box.
- * `downloadable` defaults to false — opt in only when a real PDF is attached.
+ * `downloadable` defaults to false, opt in only when a real PDF is attached.
  */
 export const RecordHeader = ({
   metadata,

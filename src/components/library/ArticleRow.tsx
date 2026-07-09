@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { Article, routeForArticle } from "@/data/resourceLibrary";
 
 /**
- * ArticleRow — Surgical Data Strip (2-row architecture).
+ * ArticleRow, Surgical Data Strip (2-row architecture).
  *   Row 1: Title (left) · Meta (right, Geist Mono)
  *   Row 2: Blurb (left) · VIEW › (right)
  * Mirrors VendorRow / GreenlistRow density and geometry.
@@ -21,7 +21,7 @@ export const ArticleRow = ({ entry }: { entry: Article }) => (
     }}
   >
     <div className="flex flex-col" style={{ rowGap: "2px" }}>
-      {/* Row 1 — Title (left) · Meta (right) */}
+      {/* Row 1, Title (left) · Meta (right) */}
       <div className="flex items-start justify-between gap-x-3">
         <h3
           className="min-w-0 truncate font-sans font-semibold text-foreground"
@@ -43,7 +43,7 @@ export const ArticleRow = ({ entry }: { entry: Article }) => (
         )}
       </div>
 
-      {/* Row 2 — Blurb (left) · VIEW › (right) */}
+      {/* Row 2, Blurb (left) · VIEW › (right) */}
       <div className="flex items-center justify-between gap-x-3">
         <p
           className="min-w-0 truncate font-sans text-muted-foreground"

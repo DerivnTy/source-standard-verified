@@ -1,7 +1,7 @@
 import { ShieldCheck } from "lucide-react";
 
 /**
- * VerificationShield — premium product treatment for verified vendors.
+ * VerificationShield, premium product treatment for verified vendors.
  * Dense, restrained, mono-tagged. Used in result rows and on profile pages.
  *
  * Hovering reveals a brief explanation of what verification means.

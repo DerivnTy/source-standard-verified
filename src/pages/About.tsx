@@ -317,7 +317,7 @@ const About = () => {
         }}
       />
 
-      {/* §1 Hero — untouched */}
+      {/* §1 Hero, untouched */}
       <BriefingHero
         tone="navy"
         variant="chapter"
@@ -490,7 +490,7 @@ const About = () => {
               </div>
             </section>
 
-            {/* §9 Closing — Institutional Role */}
+            {/* §9 Closing, Institutional Role */}
             <section style={{ paddingTop: "24px", paddingBottom: "64px" }}>
               <AboutCard>
                 <Eyebrow>Institutional Role</Eyebrow>

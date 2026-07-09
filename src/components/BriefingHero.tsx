@@ -4,20 +4,20 @@ import type { MetadataItem } from "./MetadataBar";
 import logoLight from "@/assets/source-standard-logo-light.png";
 
 /**
- * BriefingHero — Tiered first-section system.
+ * BriefingHero, Tiered first-section system.
  *
  * Two-tier hierarchy across the site:
- *   • variant="cover"    — Homepage only. Full 100svh, larger brand wordmark
+ *   • variant="cover"   , Homepage only. Full 100svh, larger brand wordmark
  *                          above the H1, scroll cue, the "book cover".
- *   • variant="chapter"  — All other major pages. ~55vh, tighter rhythm, no
- *                          scroll cue, no oversized brand mark — a disciplined
+ *   • variant="chapter" , All other major pages. ~55vh, tighter rhythm, no
+ *                          scroll cue, no oversized brand mark, a disciplined
  *                          chapter opening that orients quickly.
  *
  * Tone:
- *   • tone="navy"     — Deep navy surface, white type. Used for both cover
+ *   • tone="navy"    , Deep navy surface, white type. Used for both cover
  *                       (homepage) and chapter (major pages) for brand
  *                       continuity.
- *   • tone="default"  — White surface, dense two-rail layout when `rightRail`
+ *   • tone="default" , White surface, dense two-rail layout when `rightRail`
  *                       is provided. Always behaves like a "chapter" intro.
  */
 export interface BriefingHeroProps {
@@ -184,7 +184,7 @@ export const BriefingHero = ({
     );
   }
 
-  // ─── DEFAULT (white surface) — always chapter-weight ─────────────────
+  // ─── DEFAULT (white surface), always chapter-weight ─────────────────
   return (
     <section
       aria-labelledby="briefing-title"

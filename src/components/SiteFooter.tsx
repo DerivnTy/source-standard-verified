@@ -138,7 +138,7 @@ export const SiteFooter = () => {
           </div>
         </div>
 
-        {/* Legal band — hard-cut hairline, no gradients */}
+        {/* Legal band, hard-cut hairline, no gradients */}
         <div
           className="mt-9 md:mt-14 pt-5 md:pt-6"
           style={{ borderTop: `1px solid ${HAIRLINE}` }}

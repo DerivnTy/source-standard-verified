@@ -20,7 +20,7 @@ const WIDTH: Record<Width, string> = {
 };
 
 /**
- * Section — canonical page section primitive.
+ * Section, canonical page section primitive.
  *
  * - Applies the sitewide vertical rhythm (.section-pad).
  * - Composes PageShell for horizontal gutters.
@@ -58,7 +58,7 @@ export const Section = ({
 );
 
 /**
- * ReadingColumn — locked editorial measure (820px) used for long-form prose
+ * ReadingColumn, locked editorial measure (820px) used for long-form prose
  * inside Library articles, analyses, and education guides. Never widens past
  * the comfortable ~70-character measure.
  */

@@ -106,7 +106,7 @@ const App = () => (
             <Route path="/verified-vendors" element={<VerifiedVendors />} />
             <Route path="/for-vendors" element={<ForVendors />} />
 
-            {/* Learn — three-engine content system */}
+            {/* Learn, three-engine content system */}
             <Route path="/learn" element={<Learn />} />
             <Route path="/learn/education" element={<LearnEducation />} />
             <Route path="/learn/education/:slug" element={<LearnEducationArticle />} />
@@ -121,7 +121,7 @@ const App = () => (
             {/* Catch-all for old /education/:slug dynamic route */}
             <Route path="/education/:slug" element={<Navigate to="/learn/education" replace />} />
 
-            {/* Tier D FAQ pages — unchanged, surfaced through /learn/faq */}
+            {/* Tier D FAQ pages, unchanged, surfaced through /learn/faq */}
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
             <Route path="/library/faq/clinical-safety" element={<FaqClinicalSafety />} />
             <Route path="/library/faq/verification-process" element={<FaqVerificationProcess />} />

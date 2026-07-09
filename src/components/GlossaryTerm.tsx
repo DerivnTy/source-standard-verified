@@ -8,7 +8,7 @@ import {
 import { getGlossaryEntry } from "@/data/glossary";
 
 /**
- * GlossaryTerm — inline term with dotted underline + tooltip definition.
+ * GlossaryTerm, inline term with dotted underline + tooltip definition.
  * Pulls from src/data/glossary.ts.
  */
 export const GlossaryTerm = ({

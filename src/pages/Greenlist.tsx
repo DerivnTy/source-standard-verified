@@ -63,7 +63,7 @@ const SoftPill = ({
 );
 
 /**
- * FilterSelect — Source Standard styled select, matching Vendor Registry.
+ * FilterSelect, Source Standard styled select, matching Vendor Registry.
  */
 const FilterSelect = ({
   value,
@@ -176,8 +176,7 @@ const Greenlist = () => {
   const stateOptions = useMemo(() => {
     const states = getGreenlistStates();
     return [
-      { value: ALL, label: "All states" },
-      ...states.map((abbr) => ({ value: abbr, label: ABBR_TO_STATE_NAME[abbr] ?? abbr })),
+      { value: ALL, label: "All states" }...states.map((abbr) => ({ value: abbr, label: ABBR_TO_STATE_NAME[abbr] ?? abbr })),
     ];
   }, []);
 
@@ -224,7 +223,7 @@ const Greenlist = () => {
   const heroDescription =
     "Search the manufacturers and compounding pharmacies behind your provider's compounded therapies.";
 
-  // Sticky compact bar — appears once the original search scrolls out of view.
+  // Sticky compact bar, appears once the original search scrolls out of view.
   const searchRef = useRef<HTMLDivElement | null>(null);
   const filtersAnchorRef = useRef<HTMLDivElement | null>(null);
   const [stickyVisible, setStickyVisible] = useState(false);
@@ -268,7 +267,7 @@ const Greenlist = () => {
       <section className="bg-background">
         <div className="page-shell pt-4 md:pt-6 pb-10 md:pb-14">
           <div className="mx-auto w-wide">
-            {/* Search — first interactive element */}
+            {/* Search, first interactive element */}
             <div ref={searchRef} className="-mx-5 md:mx-0 px-5">
               <div className="mx-auto w-full md:max-w-[640px]">
                 <div className="relative">
@@ -303,7 +302,7 @@ const Greenlist = () => {
               </div>
             </div>
 
-            {/* Compact Greenlisted context strip — hidden during search */}
+            {/* Compact Greenlisted context strip, hidden during search */}
             {!isSearching && (
               <div className="-mx-5 md:mx-0 px-5 pt-2">
                 <div
@@ -343,7 +342,7 @@ const Greenlist = () => {
               </div>
             )}
 
-            {/* Filters — compact toggle during search */}
+            {/* Filters, compact toggle during search */}
             {isSearching && (
               <div className="-mx-5 md:mx-0 px-5 pt-3">
                 <button
@@ -511,7 +510,7 @@ const Greenlist = () => {
         </div>
       </section>
 
-      {/* Compact sticky bar — appears after the original search scrolls out of view */}
+      {/* Compact sticky bar, appears after the original search scrolls out of view */}
       <div
         aria-hidden={!stickyVisible}
         className="fixed left-0 right-0 top-0 z-40"

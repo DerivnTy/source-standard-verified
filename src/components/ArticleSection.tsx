@@ -10,7 +10,7 @@ const cardChrome = {
 } as const;
 
 /**
- * ArticleSection — institutional section card for Library article pages.
+ * ArticleSection, institutional section card for Library article pages.
  *
  * Renders each section as a bordered white card with mono `§N` index,
  * `t-section-title-sm` heading, and 13.5px / 1.6 muted body. Stacks at
@@ -76,7 +76,7 @@ export const ArticleSection = ({
 );
 
 /**
- * ArticleFooter — lightweight article navigation for Library pages.
+ * ArticleFooter, lightweight article navigation for Library pages.
  *
  * Renders a single divider + back link directly on the page background
  * with no card chrome. Next-article and citation props accepted for

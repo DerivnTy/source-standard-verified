@@ -1,7 +1,7 @@
 import { Download } from "lucide-react";
 
 /**
- * DownloadPdfLink — print-stylesheet driven "Download · PDF" link.
+ * DownloadPdfLink, print-stylesheet driven "Download · PDF" link.
  * Phase 1: triggers window.print(); CSS @media print handles formatting.
  */
 export const DownloadPdfLink = ({ className = "" }: { className?: string }) => (

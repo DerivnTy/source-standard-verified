@@ -4,7 +4,7 @@ import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
 type JsonLd = Record<string, unknown>;
 
 /**
- * PageMeta — standardized <title>, meta description, canonical, OG/Twitter,
+ * PageMeta, standardized <title>, meta description, canonical, OG/Twitter,
  * and optional JSON-LD for every page.
  *
  * This component is non-visible. It only writes into <head>. Existing
@@ -25,7 +25,7 @@ export const PageMeta = ({
   path?: string;
   /** Absolute or site-relative image URL for OG/Twitter cards. */
   image?: string;
-  /** og:type — "website" | "article" | "profile" | etc. */
+  /** og:type, "website" | "article" | "profile" | etc. */
   type?: string;
   /** When true, emits <meta name="robots" content="noindex,follow">. */
   noindex?: boolean;
