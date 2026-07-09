@@ -179,24 +179,6 @@ const Governance = () => (
           </div>
         ))}
       </dl>
-
-      <div className="flex flex-col gap-4 pt-8" style={{ maxWidth: "68ch" }}>
-        <p className="ss-eyebrow">Clinical intelligence · Open</p>
-        <img
-          src={openLogo.url}
-          alt="Open"
-          className="h-10 w-auto md:h-12"
-          loading="lazy"
-          style={{ marginLeft: "-2px" }}
-        />
-        <p className="t-body-sm text-foreground leading-relaxed">
-          Open is an independent physician-focused clinical intelligence organization.
-        </p>
-        <p className="t-body-sm text-muted-foreground leading-relaxed">
-          Source Standard documents sourcing and verification records. Open studies clinical response patterns.
-          The two organizations address different layers of transparency.
-        </p>
-      </div>
     </BoardSection>
 
     <BoardSection id="deeper" n="5" category="Read deeper" title="Cross-references" muted={false}>
