@@ -17,7 +17,8 @@ const columns: Column[] = [
     title: "Registry",
     links: [
       { to: "/verified-vendors", label: "Vendor Registry" },
-      { to: "/greenlist", label: "Upstream Registry" },
+      { to: "/greenlist", label: "Facility Records" },
+      { to: "/apply", label: "Apply for Verification" },
       { to: "/report-a-concern", label: "Report a Concern" },
     ],
   },
@@ -112,26 +113,6 @@ export const SiteFooter = () => {
                   {col.links.map((l) => (
                     <FooterLink key={l.label} row={l} />
                   ))}
-                  {col.title === "Registry" && (
-                    <li>
-                      {pathname === "/apply" ? (
-                        <button
-                          type="button"
-                          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                          className="inline-flex items-center gap-1 t-body-sm text-white hover:text-white/80 transition-colors"
-                        >
-                          Begin Verification <span aria-hidden="true">→</span>
-                        </button>
-                      ) : (
-                        <Link
-                          to="/apply"
-                          className="inline-flex items-center gap-1 t-body-sm text-white hover:text-white/80 transition-colors"
-                        >
-                          Begin Verification <span aria-hidden="true">→</span>
-                        </Link>
-                      )}
-                    </li>
-                  )}
                 </ul>
               </div>
             ))}
