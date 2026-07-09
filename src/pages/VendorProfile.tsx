@@ -983,7 +983,7 @@ const VendorProfile = () => {
                     className="mt-5 pt-5"
                     style={{ borderTop: "0.5px solid hsl(var(--border))" }}
                   >
-                    <Eyebrow>Review Boundary</Eyebrow>
+                    <Eyebrow>What verification does not mean</Eyebrow>
                     <p
                       className="mt-2"
                       style={{
@@ -993,10 +993,11 @@ const VendorProfile = () => {
                         color: "rgba(0,16,33,0.7)",
                       }}
                     >
-                      Verification status reflects only documentation reviewed by Source Standard
-                      within its registry framework. Unverified status does not imply that a vendor
-                      is unsafe, unlawful, fraudulent, or clinically inappropriate.
+                      Verified status reflects only the sourcing information Source Standard
+                      reviewed. Unverified status does not mean a provider is unsafe, unlawful,
+                      fraudulent, or clinically inappropriate.
                     </p>
+
                   </div>
                 </div>
               </div>
