@@ -12,7 +12,7 @@ import {
   ProcessSteps,
 } from "@/components/system";
 
-import { vendors } from "@/data/vendors";
+import { registryStats } from "@/data/registryStats";
 import lockup from "@/assets/source-standard-lockup-dark.png";
 
 const homeWaypoints = [
@@ -64,9 +64,10 @@ const HeroContent = () => {
           maxWidth: "520px",
           fontSize: "clamp(15px, 3.6vw, 17px)",
           lineHeight: 1.5,
+          textWrap: "balance",
         }}
       >
-        Search the Source Standard Registry to better understand your provider's peptide sourcing transparency and verification status.
+        Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their peptide sourcing transparency.
       </p>
 
       {/* Search, primary action */}
@@ -182,10 +183,9 @@ const HeroActions = () => (
 /* ───────────────── Hero Meta Strip ─────────────────
    Compact 3-column institutional readout anchoring the bottom of the navy hero. */
 const HeroMeta = () => {
-  const total = vendors.length;
   const items: { label: string; value: string }[] = [
-    { label: "Providers Indexed", value: total.toLocaleString("en-US") },
-    { label: "States Represented", value: "50" },
+    { label: "Providers Indexed", value: registryStats.providersIndexed.toLocaleString("en-US") },
+    { label: "States Represented", value: String(registryStats.statesRepresented) },
   ];
   return (
     <div
