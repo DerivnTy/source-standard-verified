@@ -1,21 +1,25 @@
-import { FeatureLink } from "@/components/system";
-
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
-import { EditorialBackLink } from "@/components/EditorialBackLink";
+
+import { LearnShell } from "./LearnShell";
+import { KeyTakeaway } from "./KeyTakeaway";
+import { RelatedArticles, RelatedItem } from "./RelatedArticles";
+import { BrowseStrip } from "./BrowseStrip";
+
+import { readingTimeMinutes, formatReadingTime } from "@/lib/readingTime";
 
 import {
   EducationArticle,
   NewsArticle,
   EDUCATION_TOPICS,
   NEWS_CATEGORIES,
+  EDUCATION_ARTICLES,
   getEducationArticle,
 } from "@/data/learn";
 
 const asParagraphs = (body: string | string[]) =>
   Array.isArray(body) ? body : [body];
-
 
 // ── Education article template ────────────────────────────────────
 
@@ -26,10 +30,39 @@ export const EducationArticleTemplate = ({
 }) => {
   const topic = EDUCATION_TOPICS.find((t) => t.id === article.topic);
   const path = `/learn/education/${article.slug}`;
+  const readTime = formatReadingTime(readingTimeMinutes(article.sections));
 
-  const relatedResolved = article.relatedQuestions
+  // Resolve related. If fewer than 3 explicit, fill from same topic.
+  const explicit = article.relatedQuestions
     .map((r) => getEducationArticle(r.slug))
-    .filter((a): a is EducationArticle => Boolean(a));
+    .filter((a): a is EducationArticle => Boolean(a) && a!.slug !== article.slug);
+
+  const filler = EDUCATION_ARTICLES.filter(
+    (a) =>
+      a.topic === article.topic &&
+      a.slug !== article.slug &&
+      !explicit.some((e) => e.slug === a.slug),
+  );
+
+  const relatedResolved = [...explicit, ...filler].slice(0, 4);
+
+  const relatedItems: RelatedItem[] = relatedResolved.map((r) => ({
+    to: `/learn/education/${r.slug}`,
+    title: r.question,
+    description: r.answersFor,
+    meta: formatReadingTime(readingTimeMinutes(r.sections)),
+  }));
+
+  const siblingLinks = topic
+    ? EDUCATION_ARTICLES.filter(
+        (a) => a.topic === topic.id && a.slug !== article.slug,
+      )
+        .slice(0, 3)
+        .map((a) => ({
+          to: `/learn/education/${a.slug}`,
+          label: a.question,
+        }))
+    : [];
 
   const jsonLd: Record<string, unknown>[] = [
     {
@@ -68,41 +101,56 @@ export const EducationArticleTemplate = ({
         jsonLd={jsonLd}
       />
 
-      <ArticleHeader
-        title={article.question}
-        lead={article.shortAnswer}
-        category={topic ? `Education · ${topic.label}` : "Education"}
-        backHref="/learn/education"
-        backLabel="Back to Education"
-      />
+      <LearnShell
+        section="education"
+        crumbs={[
+          { label: "Learn", to: "/learn" },
+          { label: "Education", to: "/learn/education" },
+          ...(topic
+            ? [{ label: topic.label, to: `/learn/education#${topic.id}` }]
+            : []),
+          { label: article.question },
+        ]}
+      >
+        <ArticleHeader
+          title={article.question}
+          lead={article.shortAnswer}
+          category={topic ? `Education · ${topic.label} · ${readTime}` : `Education · ${readTime}`}
+        />
 
-      {article.sections.map((s, i) => (
-        <ArticleSection key={i} variant="prose" title={s.title}>
-          {asParagraphs(s.body).map((p, j) => (
-            <p key={j}>{p}</p>
-          ))}
-        </ArticleSection>
-      ))}
+        <KeyTakeaway>{article.shortAnswer}</KeyTakeaway>
 
-      {relatedResolved.length > 0 && (
-        <ArticleSection variant="callout" kind="Continue reading" title="Related Education">
-          <ul className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {relatedResolved.map((r, i) => (
-              <li
-                key={r.slug}
-                className={i > 0 ? "border-t border-border/40 mt-1 pt-1" : ""}
-              >
-                <FeatureLink
-                  to={`/learn/education/${r.slug}`}
-                  title={r.question}
-                />
-              </li>
+        {article.sections.map((s, i) => (
+          <ArticleSection key={i} variant="prose" title={s.title}>
+            {asParagraphs(s.body).map((p, j) => (
+              <p key={j}>{p}</p>
             ))}
-          </ul>
-        </ArticleSection>
-      )}
+          </ArticleSection>
+        ))}
 
-      <EditorialBackLink to="/learn" label="Back to Learn" />
+        <RelatedArticles items={relatedItems} />
+
+        {topic && (
+          <BrowseStrip
+            eyebrow={`More in ${topic.label}`}
+            primary={{
+              to: `/learn/education#${topic.id}`,
+              label: `Browse ${topic.label}`,
+            }}
+            secondary={siblingLinks}
+          />
+        )}
+
+        <BrowseStrip
+          eyebrow="Browse Learn"
+          primary={{ to: "/learn/education", label: "All Education" }}
+          secondary={[
+            { to: "/learn/faq", label: "FAQ" },
+            { to: "/learn/news", label: "News & Insights" },
+            { to: "/learn", label: "Learn overview" },
+          ]}
+        />
+      </LearnShell>
     </>
   );
 };
@@ -116,6 +164,13 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
   const relatedResolved = article.relatedEducation
     .map((r) => getEducationArticle(r.slug))
     .filter((a): a is EducationArticle => Boolean(a));
+
+  const relatedItems: RelatedItem[] = relatedResolved.map((r) => ({
+    to: `/learn/education/${r.slug}`,
+    title: r.question,
+    description: r.answersFor,
+    meta: formatReadingTime(readingTimeMinutes(r.sections)),
+  }));
 
   const dateLabel = new Date(article.dateline).toLocaleDateString("en-US", {
     year: "numeric",
@@ -147,43 +202,52 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         jsonLd={jsonLd}
       />
 
-      <ArticleHeader
-        title={article.headline}
-        lead={article.standfirst}
-        category={metaParts.join(" · ")}
-        backHref="/learn/news"
-        backLabel="Back to News & Insights"
-      />
+      <LearnShell
+        section="news"
+        crumbs={[
+          { label: "Learn", to: "/learn" },
+          { label: "News & Insights", to: "/learn/news" },
+          { label: article.headline },
+        ]}
+      >
+        <ArticleHeader
+          title={article.headline}
+          lead={article.standfirst}
+          category={metaParts.join(" · ")}
+        />
 
-      <ArticleSection variant="prose">
-        {article.body.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </ArticleSection>
+        <KeyTakeaway>{article.standfirst}</KeyTakeaway>
 
-      <ArticleSection variant="prose" title="Why this matters">
-        <p className="text-foreground font-medium">{article.whyThisMatters}</p>
-      </ArticleSection>
-
-      {relatedResolved.length > 0 && (
-        <ArticleSection variant="callout" kind="Continue reading" title="Related Education">
-          <ul className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-            {relatedResolved.map((r, i) => (
-              <li
-                key={r.slug}
-                className={i > 0 ? "border-t border-border/40 mt-1 pt-1" : ""}
-              >
-                <FeatureLink
-                  to={`/learn/education/${r.slug}`}
-                  title={r.question}
-                />
-              </li>
-            ))}
-          </ul>
+        <ArticleSection variant="prose">
+          {article.body.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
         </ArticleSection>
-      )}
 
-      <EditorialBackLink to="/learn" label="Back to Learn" />
+        <ArticleSection variant="prose" title="Why this matters">
+          <p className="text-foreground font-medium">{article.whyThisMatters}</p>
+        </ArticleSection>
+
+        <RelatedArticles
+          title="Related education"
+          eyebrow="Continue reading"
+          items={relatedItems}
+        />
+
+        <BrowseStrip
+          eyebrow="More news"
+          primary={{ to: "/learn/news", label: "All News & Insights" }}
+        />
+
+        <BrowseStrip
+          eyebrow="Browse Learn"
+          primary={{ to: "/learn/education", label: "Browse Education" }}
+          secondary={[
+            { to: "/learn/faq", label: "FAQ" },
+            { to: "/learn", label: "Learn overview" },
+          ]}
+        />
+      </LearnShell>
     </>
   );
 };

@@ -1,7 +1,9 @@
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-import { NextStep } from "@/components/learn/NextStep";
-import { PageSection, FeatureLink } from "@/components/system";
+import { LearnShell } from "@/components/learn/LearnShell";
+import { ArticleCard } from "@/components/learn/ArticleCard";
+import { BrowseStrip } from "@/components/learn/BrowseStrip";
+import { PageSection } from "@/components/system";
 import { FAQ_ENTRIES } from "@/data/learn";
 
 const HERO_STATEMENT =
@@ -25,32 +27,49 @@ const LearnFaq = () => {
         jsonLd={jsonLd}
       />
 
-      <BriefingHero
-        tone="navy"
-        variant="chapter"
-        category="Learn · FAQ"
-        title="Frequently Asked Questions"
-        statement={HERO_STATEMENT}
-        docId=""
-      />
-
-      <PageSection
-        title="Browse by topic"
-        intro="Four topic sets cover the questions we hear most often."
+      <LearnShell
+        section="faq"
+        showNav
+        crumbs={[
+          { label: "Learn", to: "/learn" },
+          { label: "FAQ" },
+        ]}
       >
-        <ul className="flex flex-col">
-          {FAQ_ENTRIES.map((f, i) => (
-            <li
-              key={f.to}
-              className={i > 0 ? "border-t border-border/40 mt-2 pt-2" : ""}
-            >
-              <FeatureLink to={f.to} title={f.label} desc={f.description} />
-            </li>
-          ))}
-        </ul>
-      </PageSection>
+        <BriefingHero
+          tone="navy"
+          variant="chapter"
+          category="Learn · FAQ"
+          title="Frequently Asked Questions"
+          statement={HERO_STATEMENT}
+          docId=""
+        />
 
-      <NextStep primary="contact" eyebrow="Don't see your question?" />
+        <PageSection
+          title="Browse by topic"
+          intro="Four topic sets cover the questions we hear most often."
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {FAQ_ENTRIES.map((f) => (
+              <ArticleCard
+                key={f.to}
+                to={f.to}
+                eyebrow="FAQ Topic"
+                title={f.label}
+                description={f.description}
+              />
+            ))}
+          </div>
+        </PageSection>
+
+        <BrowseStrip
+          eyebrow="Still have questions?"
+          primary={{ to: "/contact", label: "Contact Source Standard" }}
+          secondary={[
+            { to: "/learn/education", label: "Browse Education" },
+            { to: "/learn/news", label: "News & Insights" },
+          ]}
+        />
+      </LearnShell>
     </>
   );
 };
