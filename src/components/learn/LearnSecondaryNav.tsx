@@ -20,7 +20,7 @@ export const LearnSecondaryNav = ({ active }: { active: LearnSection }) => (
       <div className="mx-auto w-standard">
         <nav
           aria-label="Learn sections"
-          className="flex items-center gap-2 overflow-x-auto no-scrollbar"
+          className="flex items-center gap-2 overflow-x-auto"
           style={{ paddingTop: "10px", paddingBottom: "10px" }}
         >
           {LINKS.map((l) => {
