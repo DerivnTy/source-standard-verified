@@ -6,16 +6,16 @@ import { PageSection, ProcessSteps } from "@/components/system";
 
 const STEPS = [
   {
-    title: "Provider enters the registry",
-    desc: "A compounding pharmacy or clinic is added to the Source Standard public registry.",
+    title: "Vendor enters the registry",
+    desc: "A vendor \u2014 typically a clinic, telehealth company, or hybrid provider \u2014 is added to the Source Standard public registry.",
   },
   {
     title: "Review of available information",
-    desc: "Source Standard reviews available information for providers undergoing verification.",
+    desc: "Source Standard reviews the documentation and public information supporting the vendor's sourcing claims within the framework.",
   },
   {
     title: "Public verification status",
-    desc: "A public verification status is assigned and shown on the provider's profile.",
+    desc: "A public verification status is assigned and shown on the vendor's profile.",
   },
   {
     title: "Ongoing record maintenance",
