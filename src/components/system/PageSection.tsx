@@ -26,6 +26,7 @@ export const PageSection = ({
   bordered = true,
   compact = false,
   className = "",
+  pb,
 }: {
   id?: string;
   /**

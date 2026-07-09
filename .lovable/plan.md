@@ -1,42 +1,43 @@
-## Objective
-Refine the shared article hero across all educational content detail pages (Education, News, FAQ, Library) to reduce visual weight on mobile while preserving desktop authority.
+Audit findings
+- EditorialBackLink currently adds 32px top + 56px bottom padding.
+- ArticleSection variants (prose/callout/card) have no bottom padding, so ArticleSection-based pages already have ~32px of gap before the back link.
+- PageSection adds symmetric 28px bottom padding (20px when compact), creating 48–60px of gap before the back link on PageSection-based pages.
+- Contact.tsx last section uses `py-12 md:py-16`, adding 48–64px of bottom padding before the back link.
 
-## Problem
-- Eyebrow sits too close to title (14px gap)
-- Mobile article H1 is 40px (`ss-hero-title`) — dominates the viewport
-- Reading experience feels like a landing page, not editorial content
+Changes
 
-## Solution
-The `.t-article-title` token already exists at 34px mobile / 1.12 line-height, which satisfies the 10–15% size reduction and line-height targets. The fix is to make `ArticleHeader` use this token and increase eyebrow breathing room.
+1. EditorialBackLink spacing
+   File: `src/components/EditorialBackLink.tsx`
+   - Change `paddingTop` from `32px` to `24px`.
+   - Change `paddingBottom` from `56px` to `40px`.
 
-### Changes
+2. Contact page bottom padding
+   File: `src/pages/Contact.tsx`
+   - The final `<section className="container-wide py-12 md:py-16">` carries too much bottom padding.
+   - Change to asymmetric padding: retain top padding, reduce bottom padding to `pb-6 md:pb-8` so the back link sits closer to the form without touching it.
 
-#### 1. `src/components/ArticleHeader.tsx`
-- **Navy masthead path** (Education + News articles):
-  - Change `<h1>` class from `ss-hero-title` → `t-article-title`
-  - Increase eyebrow→title `marginTop` from `14px` → `18px`
-  - Preserve `!text-white`, `textWrap: "balance"`, and all other styling
-- **Card path** (Library legacy):
-  - Change `<h1>` class from `t-page-title` → `t-article-title`
-  - Preserve existing card chrome and metadata layout
+3. PageSection-based pages — remove bottom padding from the last section
+   Files:
+   - `src/pages/Governance.tsx` — last `PageSection` (`id="deeper"`)
+   - `src/pages/About.tsx` — last `PageSection` (`id="looking-ahead"`)
+   - `src/pages/HowItWorks.tsx` — last `PageSection` (`id="meaning"`)
 
-#### 2. `src/index.css`
-- No changes needed. `.t-article-title` is already 34px mobile / 1.12 line-height / 56px md+ / 64px lg+, which matches the requested mobile reduction and editorial line-height.
+   To do this safely, add a minimal `pb` prop override to `PageSection`:
+   - File: `src/components/system/PageSection.tsx`
+   - Add optional `pb?: string` prop.
+   - When `pb` is provided, use it for `paddingBottom` instead of `padY`.
+   - Then set `pb="0"` on the last `PageSection` of each of the three files above.
 
-## Verification
-After implementation, verify at 390px mobile width on:
-1. `/learn/education/what-does-verified-mean`
-2. One news article
-3. One FAQ long-form page (`/learn/faq/*` or similar)
-4. One library article page (`/education/*`)
+   This leaves all other PageSection usages unchanged and avoids a global rhythm shift on consumer pages.
 
-Confirm:
-- Eyebrow has ~18px breathing room before title
-- H1 is smaller and more readable (34px mobile)
-- Hero no longer dominates the first screen
-- Desktop remains unchanged and professional
+4. ArticleSection-based pages
+   Files: `src/pages/VerificationDisclaimer.tsx`, `src/pages/Privacy.tsx`, `src/pages/Terms.tsx`, `src/pages/Accountability.tsx`, `src/pages/StatusDefinitions.tsx`, `src/pages/ReportConcern.tsx`
+   - No changes needed. ArticleSection variants have no bottom padding; after the EditorialBackLink fix the gap from final content to back link becomes ~24px, which is within target.
 
-## Out of Scope
-- No page copy changes
-- No color, font, layout system, or branding changes
-- No changes to non-article pages (Governance, About, Registry, etc.) that use `PageHeader` or `ss-hero-title` directly
+Verification
+- Preview at 390px on:
+  - `/verification-disclaimer`
+  - `/privacy`
+  - `/terms`
+  - `/governance`
+- Confirm the final section, back link, and footer read as one continuous ending with no dead zone.

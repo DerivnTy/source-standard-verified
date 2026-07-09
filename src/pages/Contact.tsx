@@ -42,7 +42,7 @@ const Contact = () => {
       />
 
       <section className="bg-background">
-        <div className="container-wide py-12 md:py-16">
+        <div className="container-wide pt-12 md:pt-16 pb-6 md:pb-8">
           <div className="grid md:grid-cols-12 gap-8">
             <aside className="md:col-span-4">
               <div className="card-elevated overflow-hidden">
