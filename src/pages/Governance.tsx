@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { RecordHeader } from "@/components/RecordHeader";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
@@ -6,6 +5,7 @@ import { Callout } from "@/components/Callout";
 import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { NavCard } from "@/components/system";
 
 const DOC_ID = "SS-GOV-2026.01";
 const VERIFIED_ON = "04/20/2026";
