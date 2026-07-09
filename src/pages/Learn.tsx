@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { NextStep } from "@/components/learn/NextStep";
@@ -52,65 +53,62 @@ const Learn = () => {
         docId=""
       />
 
-      {/* Directory — primary navigation, directly under the hero, no heading. */}
-      <section className="border-b border-border bg-background" style={{ paddingTop: "24px", paddingBottom: "28px" }}>
-        <div className="page-shell">
-          <div className="mx-auto w-standard grid grid-cols-1 md:grid-cols-3 gap-3">
-            <NavCard
-              to="/learn/education"
-              title="Education"
-              desc={`Evergreen answers to the questions people ask before choosing a provider. ${EDUCATION_ARTICLES.length} ${EDUCATION_ARTICLES.length === 1 ? "article" : "articles"}.`}
-            />
-            <NavCard
-              to="/learn/news"
-              title="News & Insights"
-              desc={`Reporting, commentary, and regulatory updates. ${NEWS_ARTICLES.length} ${NEWS_ARTICLES.length === 1 ? "post" : "posts"}.`}
-            />
-            <NavCard
-              to="/learn/faq"
-              title="Frequently Asked Questions"
-              desc="Direct answers to the questions we receive most often, organized by topic."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Education topics — vertical definition list, not a feature grid. */}
-      <PageSection title="Start with the basics" compact>
+      {/* 1 — Start Here: primary learning path */}
+      <PageSection title="Start Here">
         <dl className="divide-y divide-border/60 border-t border-b border-border/60">
           {EDUCATION_TOPICS.map((t) => (
             <Link
               key={t.id}
               to={`/learn/education#${t.id}`}
-              className="group grid grid-cols-1 md:grid-cols-[240px_1fr_auto] gap-x-6 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 transition-colors"
+              className="group grid grid-cols-[1fr_auto] md:grid-cols-[240px_1fr_auto] gap-x-6 gap-y-1 py-4 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
               style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
             >
               <dt
-                className="font-sans text-foreground group-hover:text-primary transition-colors"
+                className="font-sans text-foreground group-hover:text-primary transition-colors col-span-1"
                 style={{ fontSize: "15px", fontWeight: 600, letterSpacing: "-0.005em", margin: 0 }}
               >
                 {t.label}
               </dt>
               <dd
-                className="text-muted-foreground"
+                className="text-muted-foreground col-span-2 md:col-span-1 md:col-start-2"
                 style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}
               >
                 {t.description}
               </dd>
               <span
                 aria-hidden
-                className="text-muted-foreground/60 group-hover:text-foreground group-hover:translate-x-0.5 transition-all font-mono hidden md:inline"
-                style={{ fontSize: "14px" }}
+                className="text-muted-foreground/60 group-hover:text-foreground group-hover:translate-x-0.5 transition-all inline-flex items-center row-start-1 col-start-2 md:col-start-3 self-center"
               >
-                ›
+                <ChevronRight style={{ width: "14px", height: "14px", strokeWidth: 1.75 }} />
               </span>
             </Link>
           ))}
         </dl>
       </PageSection>
 
-      {/* Recent updates — chronological. Dateline in mono margin. */}
-      <PageSection title="Recent updates" compact>
+      {/* 2 — Browse by Resource: secondary browse layer */}
+      <PageSection title="Browse by Resource" compact>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <NavCard
+            to="/learn/education"
+            title="Education"
+            desc={`Evergreen answers to the questions people ask before choosing a provider. ${EDUCATION_ARTICLES.length} ${EDUCATION_ARTICLES.length === 1 ? "article" : "articles"}.`}
+          />
+          <NavCard
+            to="/learn/news"
+            title="News & Insights"
+            desc={`Reporting, commentary, and regulatory updates. ${NEWS_ARTICLES.length} ${NEWS_ARTICLES.length === 1 ? "post" : "posts"}.`}
+          />
+          <NavCard
+            to="/learn/faq"
+            title="Frequently Asked Questions"
+            desc="Direct answers to the questions we receive most often, organized by topic."
+          />
+        </div>
+      </PageSection>
+
+      {/* 3 — Recent Updates */}
+      <PageSection title="Recent Updates" compact>
         <ul className="flex flex-col divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {recent.map((a) => {
             const cat = NEWS_CATEGORIES.find((c) => c.id === a.category);
@@ -118,7 +116,7 @@ const Learn = () => {
               <li key={a.slug}>
                 <Link
                   to={`/learn/news/${a.slug}`}
-                  className="group grid grid-cols-1 md:grid-cols-[160px_1fr] gap-x-6 gap-y-1 py-4 hover:bg-muted/40 transition-colors"
+                  className="group grid grid-cols-1 md:grid-cols-[160px_1fr] gap-x-6 gap-y-1 py-4 hover:bg-muted/40 active:bg-muted/60 transition-colors"
                   style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
                 >
                   <div
@@ -149,37 +147,34 @@ const Learn = () => {
         </ul>
       </PageSection>
 
-      {/* Footer sentence — collapsed from a section. */}
-      <section className="border-b border-border bg-background" style={{ paddingTop: "20px", paddingBottom: "24px" }}>
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="text-muted-foreground"
-              style={{ fontSize: "14px", lineHeight: 1.65, margin: 0 }}
-            >
-              Still have questions? Browse the{" "}
-              <Link
-                to="/learn/faq"
-                className="text-foreground hover:text-primary transition-colors"
-                style={{ textDecoration: "underline", textDecorationThickness: "0.5px", textUnderlineOffset: "3px" }}
-              >
-                FAQ
-              </Link>{" "}
-              or{" "}
-              <Link
-                to="/contact"
-                className="text-foreground hover:text-primary transition-colors"
-                style={{ textDecoration: "underline", textDecorationThickness: "0.5px", textUnderlineOffset: "3px" }}
-              >
-                contact Source Standard
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* 4 — Still Have Questions? */}
+      <PageSection title="Still Have Questions?" compact>
+        <p
+          className="text-muted-foreground"
+          style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "68ch", margin: 0 }}
+        >
+          Browse the{" "}
+          <Link
+            to="/learn/faq"
+            className="text-foreground hover:text-primary transition-colors"
+            style={{ textDecoration: "underline", textDecorationThickness: "0.5px", textUnderlineOffset: "3px" }}
+          >
+            FAQ
+          </Link>{" "}
+          or{" "}
+          <Link
+            to="/contact"
+            className="text-foreground hover:text-primary transition-colors"
+            style={{ textDecoration: "underline", textDecorationThickness: "0.5px", textUnderlineOffset: "3px" }}
+          >
+            contact Source Standard
+          </Link>
+          .
+        </p>
+      </PageSection>
 
-      <NextStep primary="vendor-registry" eyebrow="Ready to check a provider?" />
+      {/* 5 — Continue Exploring */}
+      <NextStep primary="vendor-registry" eyebrow="Continue Exploring" />
     </>
   );
 };
