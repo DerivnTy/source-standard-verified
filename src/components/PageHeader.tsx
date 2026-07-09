@@ -35,7 +35,7 @@ export const PageHeader = ({
           <p
             className="font-mono uppercase"
             style={{
-              fontSize: "12px",
+              fontSize: "10px",
               letterSpacing: "0.14em",
               color: "rgba(255,255,255,0.6)",
             }}
