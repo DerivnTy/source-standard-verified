@@ -1055,7 +1055,7 @@ const VendorProfile = () => {
 
           {serviceBadges.length > 0 && (
             <article className="mt-4" style={CARD}>
-              <SectionHeading>Services &amp; Clinical Focus</SectionHeading>
+              <SectionHeading>What they offer</SectionHeading>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {serviceBadges.map((tag) => (
                   <Tag
