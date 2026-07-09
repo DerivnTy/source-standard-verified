@@ -134,15 +134,6 @@ export const SiteFooter = () => {
               >
                 System Status: Operational
               </span>
-              <span aria-hidden style={{ color: "rgba(255,255,255,0.40)" }}>·</span>
-              <button
-                type="button"
-                onClick={lock}
-                className="t-numeric uppercase hover:opacity-100 transition-opacity opacity-70"
-                style={{ color: "rgba(255,255,255,0.50)" }}
-              >
-                Lock
-              </button>
             </div>
           </div>
 
