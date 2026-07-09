@@ -67,7 +67,7 @@ const HeroContent = () => {
           textWrap: "balance",
         }}
       >
-        Search the Source Standard Registry to see whether your provider has been independently verified and to review the documented sourcing information associated with their peptide and compounded therapy offerings.
+        Search the Source Standard Registry to verify your provider's status and review the documented sourcing behind the compounded therapies they provide.
       </p>
 
       {/* Search, primary action */}
