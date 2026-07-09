@@ -6,16 +6,16 @@ import { PageSection, ProcessSteps } from "@/components/system";
 
 const STEPS = [
   {
-    title: "Provider enters the registry",
-    desc: "A compounding pharmacy or clinic is added to the Source Standard public registry.",
+    title: "Vendor enters the registry",
+    desc: "A vendor \u2014 typically a clinic, telehealth company, or hybrid provider \u2014 is added to the Source Standard public registry.",
   },
   {
     title: "Review of available information",
-    desc: "Source Standard reviews available information for providers undergoing verification.",
+    desc: "Source Standard reviews the documentation and public information supporting the vendor's sourcing claims within the framework.",
   },
   {
     title: "Public verification status",
-    desc: "A public verification status is assigned and shown on the provider's profile.",
+    desc: "A public verification status is assigned and shown on the vendor's profile.",
   },
   {
     title: "Ongoing record maintenance",
@@ -77,7 +77,7 @@ const HowItWorks = () => {
               className="text-foreground"
               style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
             >
-              <span className="font-semibold">Verification</span> is a public reference standard. It gives consumers a consistent way to see whether a compounding pharmacy or clinic has undergone independent review of the sourcing information it publishes.
+              <span className="font-semibold">Verification</span> is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. <span className="font-semibold">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
             </p>
             <p
               className="text-muted-foreground"

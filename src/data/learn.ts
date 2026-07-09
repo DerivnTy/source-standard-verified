@@ -326,7 +326,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     answersFor:
       "What Source Standard's Verified status represents, and what it does not.",
     shortAnswer:
-      "Verified means Source Standard has reviewed a provider's documentation and confirmed the pharmacy or facility they name as their source. It is a sourcing-transparency check, not a clinical endorsement, and it does not evaluate specific products, prices, or outcomes.",
+      "Verification is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. Verified means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review \u2014 not a clinical endorsement, product approval, or guarantee of outcome.",
     sections: [
       {
         title: "What Verified confirms",
@@ -372,7 +372,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
       },
       {
         title: "The outcome",
-        body: "When documentation and public records align, the provider receives a Verified record. When they don't, the record reflects the gap, or the provider is not listed.",
+        body: "When documentation and public records align, the vendor receives a Verified record. When they don't, the record reflects the gap, or the vendor does not appear in the registry at all.",
       },
     ],
     relatedQuestions: [
@@ -388,17 +388,17 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     topic: "verification",
     question: "What Does Greenlisted Mean?",
     answersFor:
-      "What it means when a pharmacy or facility appears on Source Standard's Greenlist.",
+      "What it means when a pharmacy or facility appears in Facility Records with Greenlisted status.",
     shortAnswer:
-      "The Greenlist is the public record of pharmacies and facilities whose regulatory status Source Standard has confirmed. A Greenlisted facility is one whose license and classification match public records, nothing more, nothing less.",
+      "Facility Records list the compounding pharmacies, outsourcing facilities, and manufacturers followed by Source Standard. Facilities enter the record in Monitoring status. Greenlisted is a status a facility may earn under the framework when its records and supporting information support that designation \u2014 it is not a registration check.",
     sections: [
       {
-        title: "What it confirms",
-        body: "A Greenlisted facility has been checked against the appropriate regulator, the FDA for 503B outsourcing facilities, state boards of pharmacy for 503A pharmacies, and that check matches what the facility itself claims.",
+        title: "Monitoring vs. Greenlisted",
+        body: "Every facility in Facility Records is followed against public records under Monitoring, the default state. Greenlisted is an additional designation applied only when a facility's records and supporting information currently support Greenlisted status under the Source Standard framework. At launch, no facility carries Greenlisted status.",
       },
       {
-        title: "What it doesn't confirm",
-        body: "Greenlisting confirms regulatory identity, not clinical quality or specific product outcomes. It is a starting point for consumers, not a substitute for the review a clinician performs.",
+        title: "What Greenlisted does not confirm",
+        body: "Greenlisted does not certify clinical quality, product safety, potency, sterility, or specific outcomes. It is a framework determination about documentation and public records, not a substitute for the review a clinician performs.",
       },
     ],
     relatedQuestions: [

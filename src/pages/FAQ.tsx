@@ -66,7 +66,7 @@ const groups: { title: string; items: QA[] }[] = [
       },
       {
         q: "What public statuses exist?",
-        a: "Verified, Pending Review, Under Review, Suspended, Removed, Greenlisted, and Not Listed. Each is defined on the Status Definitions page.",
+        a: "Vendors carry one of five statuses: Verified, Under Review, Unverified, Suspended, or Removed. Facilities carry one of three: Monitoring, Greenlisted, or Status Alert. Each is defined on the Status Definitions page.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
@@ -78,24 +78,24 @@ const groups: { title: string; items: QA[] }[] = [
       },
       {
         q: "What does verification cost?",
-        a: "Fees are disclosed during the application process and vary by category.",
-        to: "/for-vendors",
-        toLabel: "Vendor Submission Standard",
+        a: "Fees, where applicable, are uniform and disclosed at intake. They do not vary based on outcome, category, or reviewer determination. See Governance for details.",
+        to: "/governance",
+        toLabel: "Governance",
       },
     ],
   },
   {
-    title: "The Greenlist",
+    title: "Facility Records",
     items: [
       {
-        q: "What is the Greenlist?",
-        a: "The Greenlist is a registry of upstream sources \u2014 primarily 503A compounding pharmacies, 503B outsourcing facilities, and other qualified suppliers \u2014 documented as legitimate operating entities under recognized regulatory categories.",
+        q: "What are Facility Records?",
+        a: "Facility Records list the compounding pharmacies, outsourcing facilities, and manufacturers followed by Source Standard. Each record shows the facility's current status within the framework. Facilities enter the record in Monitoring status.",
         to: "/greenlist",
-        toLabel: "Greenlist",
+        toLabel: "Facility Records",
       },
       {
         q: "Does \u201CGreenlisted\u201D mean Source Standard endorses the supplier?",
-        a: "No. Greenlisted indicates the source is documented and registered under a recognized regulatory category. It does not imply contract, affiliation, or endorsement of any specific product.",
+        a: "No. Greenlisted indicates that the facility's records and supporting information currently support Greenlisted status under the Source Standard framework. It is not a registration check and does not imply contract, affiliation, or endorsement of any specific product.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
@@ -109,8 +109,8 @@ const groups: { title: string; items: QA[] }[] = [
         a: "As a structured reference to check whether a vendor has been reviewed under the framework, what scope was reviewed, and the current public status. The registry does not replace consultation with a licensed clinician.",
       },
       {
-        q: "What if a vendor is \u201CNot Listed\u201D?",
-        a: "Not Listed means the entity does not appear in the registry. It is not a finding against the entity; the entity may simply not have entered the verification process.",
+        q: "What if a vendor doesn\u2019t appear in the registry?",
+        a: "The absence of a record is not a finding. Many vendors have simply not entered the review process. Use the registry as a reference alongside consultation with a licensed clinician.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },

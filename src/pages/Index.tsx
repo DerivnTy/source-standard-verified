@@ -67,7 +67,7 @@ const HeroContent = () => {
           textWrap: "balance",
         }}
       >
-        Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their peptide sourcing transparency.
+        Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their sourcing transparency.
       </p>
 
       {/* Search, primary action */}
@@ -307,7 +307,7 @@ const basics = [
 
 const trustPillars: { icon: "scale" | "handshake" | "graduation-cap"; title: string; desc: string }[] = [
   { icon: "scale", title: "Independent Governance", desc: "Verification standards are set independently of any vendor, manufacturer, or commercial interest." },
-  { icon: "handshake", title: "Advisory Board", desc: "Medical, scientific, and procedural guidance from an independent advisory board." },
+  { icon: "handshake", title: "Advisory Board", desc: "Medical, scientific, and procedural guidance from the independent Medical Advisory Board." },
   { icon: "graduation-cap", title: "Public Standards", desc: "Verification criteria and status definitions are published in full and available for public review." },
 ];
 
@@ -456,7 +456,7 @@ const Index = () => {
             className="text-muted-foreground"
             style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, margin: 0 }}
           >
-            Source Standard is an independent verification organization. It does not manufacture, prescribe, or sell therapies. Its role is to evaluate the sourcing and quality claims vendors make every day and to publish factual verification records that distinguish supported claims from unsupported claims.
+            Source Standard is an independent verification organization. It does not manufacture, prescribe, or sell therapies. Its role is to evaluate the sourcing claims vendors make every day and to publish factual verification records that distinguish supported claims from unsupported claims.
           </p>
         </div>
       </PageSection>

@@ -17,9 +17,9 @@ const CITATION: Item[] = [
 const INTEGRITY: Item[] = [
   { term: "Bulk extraction", description: "No automated extraction, scraping, crawling, replication, or aggregation of registry content for resale, republication, or creation of derivative databases without authorization." },
   { term: "Status misrepresentation", description: "No display or implication of Verified status for any entity not currently published under that status in the registry." },
-  { term: "Unauthorized use of marks", description: "No use of Source Standard names, marks, or badge artwork in a way that implies an uncontracted partnership, endorsement, verified status, or formal relationship." },
+  { term: "Unauthorized use of marks", description: "No use of Source Standard names or marks in a way that implies an uncontracted partnership, endorsement, verified status, or formal relationship." },
   { term: "Registry interference", description: "No activity intended to disrupt, falsify, manipulate, or degrade the integrity of public records or related framework materials." },
-  { term: "Policy response", description: "Confirmed violations may be addressed under the applicable Source Standard operating policies, registry access controls, badge-use rules, or legal remedies." },
+  { term: "Policy response", description: "Confirmed violations may be addressed under the applicable Source Standard operating policies, registry access controls, or legal remedies." },
 ];
 
 const WARRANTY: Item[] = [

@@ -146,8 +146,8 @@ const FilterSelect = ({
 );
 
 const STATUS_DEFINITIONS: { label: string; body: string; color: string }[] = [
-  { label: "Greenlisted", body: "Currently recognized", color: "#22C55E" },
-  { label: "Monitoring", body: "Under additional review", color: "#F59E0B" },
+  { label: "Monitoring", body: "Included in the database and followed against public records", color: "#F59E0B" },
+  { label: "Greenlisted", body: "Records currently support Greenlisted status under the framework", color: "#22C55E" },
   { label: "Status Alert", body: "Additional information requires review", color: "#FF3B30" },
 ];
 
@@ -318,19 +318,19 @@ const Greenlist = () => {
                     className="font-sans font-semibold uppercase text-muted-foreground"
                     style={{ fontSize: "10.5px", letterSpacing: "0.12em" }}
                   >
-                    Greenlisted Status
+                    Facility Records
                   </p>
                   <p
                     className="mt-1 text-foreground"
                     style={{ fontSize: "13.5px", lineHeight: 1.45, fontWeight: 500 }}
                   >
-                    Greenlisted facilities are currently recognized within the Source Standard framework.
+                    Facility Records list the compounding pharmacies, outsourcing facilities, and manufacturers followed by Source Standard. Each record shows the facility's current status within the framework.
                   </p>
                   <p
                     className="mt-0.5 text-muted-foreground"
                     style={{ fontSize: "12px", lineHeight: 1.45 }}
                   >
-                    Recognition is based on Source Standard's review and may change as new information becomes available.
+                    Facilities enter the record in Monitoring status. Greenlisted is a status a facility may earn under the framework; it is not a registration check.
                   </p>
                   <Link
                     to="/how-it-works"

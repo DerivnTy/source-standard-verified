@@ -15,17 +15,38 @@ type Status = {
 const VENDOR_STATUSES: Status[] = [
   {
     title: "Verified",
-    meaning: "Available information supported the vendor's sourcing representations within the defined review scope at the time of review.",
+    meaning: "The vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.",
     notImply: "It does not imply product approval, treatment recommendation, guaranteed safety, future performance, or regulatory endorsement.",
     issued: "Issued when review under the framework is successfully completed.",
     revised: "Revised when new information, material changes, or updated records indicate the current record no longer supports the published scope.",
   },
   {
+    title: "Under Review",
+    meaning: "A Source Standard review of the vendor's record is currently in progress.",
+    notImply: "It does not imply any conclusion, positive or adverse, about the vendor.",
+    issued: "Issued when an active review has opened for the vendor's record.",
+    revised: "Resolved to Verified, Unverified, Suspended, or Removed at the conclusion of review.",
+  },
+  {
     title: "Unverified",
-    meaning: "The registry does not currently contain sufficient reviewed information to support the vendor's sourcing representations.",
-    notImply: "It does not imply fraud, misconduct, regulatory violations, product quality concerns, or patient risk.",
+    meaning: "No Source Standard verification is currently published for the vendor. The registry does not contain sufficient reviewed information to support the vendor's sourcing representations.",
+    notImply: "It does not by itself imply that the vendor is unsafe, noncompliant, illegitimate, or the subject of any finding. Many vendors have simply not entered the review process.",
     issued: "Issued when a vendor record exists without sufficient completed review under the framework.",
     revised: "Revised when additional review or new information becomes available.",
+  },
+  {
+    title: "Suspended",
+    meaning: "A previously published verification has been temporarily withdrawn while a specific matter is clarified.",
+    notImply: "It does not constitute a final adverse finding, regulatory action, or product-quality determination.",
+    issued: "Issued when new information warrants pausing the current published status pending further review.",
+    revised: "Revised when the underlying matter is resolved, returning the record to Verified, Unverified, or Removed as appropriate.",
+  },
+  {
+    title: "Removed",
+    meaning: "The vendor record has been withdrawn from active verification within the Source Standard framework.",
+    notImply: "It does not constitute a regulatory finding or adjudication of wrongdoing.",
+    issued: "Issued when a record is withdrawn from active verification.",
+    revised: "Re-entry into an active verification status requires a new submission and review.",
   },
 ];
 
