@@ -146,8 +146,8 @@ const FilterSelect = ({
 );
 
 const STATUS_DEFINITIONS: { label: string; body: string; color: string }[] = [
-  { label: "Greenlisted", body: "Currently recognized", color: "#22C55E" },
-  { label: "Monitoring", body: "Under additional review", color: "#F59E0B" },
+  { label: "Monitoring", body: "Included in the database and followed against public records", color: "#F59E0B" },
+  { label: "Greenlisted", body: "Records currently support Greenlisted status under the framework", color: "#22C55E" },
   { label: "Status Alert", body: "Additional information requires review", color: "#FF3B30" },
 ];
 
