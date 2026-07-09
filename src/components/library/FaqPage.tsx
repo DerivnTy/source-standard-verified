@@ -2,13 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -16,9 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
+import { NEXT_STEPS } from "@/data/learn";
 
 export type FaqItem = { q: string; a: string };
 
@@ -29,9 +25,49 @@ type FaqPageProps = {
   items: FaqItem[];
 };
 
+/* ── Continue Learning (shared closer pattern) ─────────────────── */
+
+const ContinueLearning = () => (
+  <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "48px" }}>
+    <div className="page-shell">
+      <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+        <h2 className="t-section-title-sm text-foreground">Continue Learning</h2>
+        <ul className="flex flex-col mt-4 divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {["vendor-registry", "how-verification-works", "facility-records"].map((key) => {
+            const step = NEXT_STEPS[key as keyof typeof NEXT_STEPS];
+            return (
+              <li key={key}>
+                <Link
+                  to={step.to}
+                  className="group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-3.5 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
+                  style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
+                >
+                  <span className="font-sans text-foreground group-hover:text-primary transition-colors" style={{ fontSize: "14px", fontWeight: 600 }}>
+                    {step.label}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="text-muted-foreground/60 group-hover:text-foreground transition-colors font-mono"
+                    style={{ fontSize: "14px" }}
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  </section>
+);
+
 /**
- * FaqPage, Consumer-facing common-inquiry layout.
- * Eyebrow · Title · Intro · Expandable Q&A. No metadata cards, no record IDs.
+ * FaqPage, flat editorial Q&A.
+ *
+ * No accordion. Questions render as h2 headings, answers as prose.
+ * Header sits on page background with a hairline separator.
+ * Closes with a single-sentence "Still have questions?" and Continue Learning.
  */
 export const FaqPage = ({
   title,
@@ -42,141 +78,154 @@ export const FaqPage = ({
 
   return (
     <article className="bg-background">
-      {/* Back link */}
-      <div className="bg-background border-b border-border/60">
+      {/* Back link + hairline */}
+      <div className="border-b border-border/60 bg-background">
         <div className="page-shell py-3">
-          <div className="mx-auto w-wide">
+          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
             <Link
               to="/learn/faq"
-              className="inline-flex items-center gap-1.5 t-body-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
+              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
             >
-              <ChevronLeft className="h-4 w-4" aria-hidden />
-              Back to FAQ
+              <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">
+                ←
+              </span>
+              <span>Back to FAQ</span>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Header */}
-      <header className="page-shell pt-5 pb-8">
-        <div className="mx-auto w-wide max-w-[68ch]">
-          <h1
-            className="font-serif text-foreground"
-            style={{
-              fontSize: "clamp(34px, 5vw, 48px)",
-              lineHeight: "1.08",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            {title}
-          </h1>
-          <p
-            className="mt-4 text-muted-foreground"
-            style={{ fontSize: "14px", lineHeight: "1.6" }}
-          >
-            {intro}
-          </p>
+      {/* Masthead */}
+      <header className="bg-background">
+        <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "0" }}>
+          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+            <h1 className="t-page-title text-foreground">{title}</h1>
+            {intro && (
+              <p
+                className="text-muted-foreground"
+                style={{
+                  fontSize: "17px",
+                  lineHeight: 1.55,
+                  marginTop: "12px",
+                  letterSpacing: "-0.005em",
+                }}
+              >
+                {intro}
+              </p>
+            )}
+            <div
+              aria-hidden
+              style={{
+                height: "0.5px",
+                background: "hsl(var(--border))",
+                marginTop: "28px",
+              }}
+            />
+          </div>
         </div>
       </header>
 
-      {/* FAQ list */}
-      <section className="page-shell pb-0">
-        <div className="mx-auto w-wide max-w-[68ch]">
-          <Accordion
-            type="single"
-            collapsible
-            className="border-t border-border/60"
-          >
-            {items.map((item, i) => (
-              <AccordionItem
-                key={i}
-                value={`q-${i}`}
-                className="border-b border-border/60"
-              >
-                <AccordionTrigger className="py-5 hover:no-underline text-left">
-                  <span
-                    className="font-sans font-semibold text-foreground"
-                    style={{ fontSize: "14px", lineHeight: "1.4" }}
+      {/* Flat Q&A */}
+      <section className="bg-background" style={{ paddingTop: "28px" }}>
+        <div className="page-shell">
+          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+            <div className="flex flex-col" style={{ gap: "28px" }}>
+              {items.map((item, i) => (
+                <div key={i}>
+                  <h2
+                    className="t-section-title-sm text-foreground"
+                    style={{ marginBottom: "8px" }}
                   >
                     {item.q}
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6">
+                  </h2>
                   <p
                     className="text-muted-foreground"
-                    style={{ fontSize: "13px", lineHeight: "1.65" }}
+                    style={{ fontSize: "15.5px", lineHeight: 1.65 }}
                   >
                     {item.a}
                   </p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
-      {/* Still Have a Question? */}
-      <section className="page-shell py-8">
-        <div className="mx-auto w-wide max-w-[68ch]">
-          <div className="bg-card border border-border/60 rounded-xl p-6 md:p-8">
-            <h2 className="font-sans font-semibold text-foreground" style={{ fontSize: "16px", lineHeight: "1.3" }}>
-              Still Have a Question?
-            </h2>
-            <p
-              className="mt-2 text-muted-foreground"
-              style={{ fontSize: "12px", lineHeight: "1.6" }}
-            >
-              Can&apos;t find the answer you&apos;re looking for? Submit a question to the Source Standard team. Common questions may be reviewed and added to the public Resource Library and Common Inquiry database.
-            </p>
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger asChild>
-                <Button className="mt-5" size="sm">
-                  Submit a Question
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[480px]">
-                <DialogHeader>
-                  <DialogTitle className="font-sans font-semibold text-foreground" style={{ fontSize: "16px", lineHeight: "1.3" }}>
-                    Submit a Question
-                  </DialogTitle>
-                  <DialogDescription className="text-muted-foreground" style={{ fontSize: "12px", lineHeight: "1.6" }}>
-                    Common questions may be reviewed and added to the public Resource Library.
-                  </DialogDescription>
-                </DialogHeader>
-                <form
-                  className="mt-4 space-y-4"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setOpen(false);
-                  }}
-                >
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="t-label-sm text-foreground">
-                      Name
-                    </Label>
-                    <Input id="name" placeholder="Your name" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="t-label-sm text-foreground">
-                      Email
-                    </Label>
-                    <Input id="email" type="email" placeholder="you@example.com" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="question" className="t-label-sm text-foreground">
-                      Question
-                    </Label>
-                    <Textarea id="question" placeholder="What would you like to know?" className="min-h-[100px]" />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    Submit
-                  </Button>
-                </form>
-              </DialogContent>
-            </Dialog>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Still have questions? — single sentence */}
+      <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "0" }}>
+        <div className="page-shell">
+          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+            <p
+              className="text-muted-foreground"
+              style={{ fontSize: "15px", lineHeight: 1.7 }}
+            >
+              Still have questions?{" "}
+              <Dialog open={open} onOpenChange={setOpen}>
+                <DialogTrigger asChild>
+                  <button
+                    type="button"
+                    className="text-foreground hover:text-primary transition-colors cursor-pointer"
+                    style={{
+                      textDecoration: "underline",
+                      textDecorationThickness: "0.5px",
+                      textUnderlineOffset: "3px",
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      font: "inherit",
+                    }}
+                  >
+                    Submit a question
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[480px]">
+                  <DialogHeader>
+                    <DialogTitle className="font-sans font-semibold text-foreground" style={{ fontSize: "16px", lineHeight: "1.3" }}>
+                      Submit a Question
+                    </DialogTitle>
+                    <DialogDescription className="text-muted-foreground" style={{ fontSize: "12px", lineHeight: "1.6" }}>
+                      Common questions may be reviewed and added to the public Resource Library.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form
+                    className="mt-4 space-y-4"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                    }}
+                  >
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="t-label-sm text-foreground">
+                        Name
+                      </Label>
+                      <Input id="name" placeholder="Your name" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="t-label-sm text-foreground">
+                        Email
+                      </Label>
+                      <Input id="email" type="email" placeholder="you@example.com" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="question" className="t-label-sm text-foreground">
+                        Question
+                      </Label>
+                      <Textarea id="question" placeholder="What would you like to know?" className="min-h-[100px]" />
+                    </div>
+                    <Button type="submit" className="w-full">
+                      Submit
+                    </Button>
+                  </form>
+                </DialogContent>
+              </Dialog>{" "}
+              to the Source Standard team.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <ContinueLearning />
     </article>
   );
 };
