@@ -140,7 +140,7 @@ const Governance = () => (
       </dl>
     </PageSection>
 
-    <PageSection id="deeper" title="Read deeper" bordered={false}>
+    <PageSection id="deeper" title="Read deeper" bordered={false} pb="0">
       <div className="grid gap-2.5 sm:grid-cols-2">
         {deeper.map((d) => (
           <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />

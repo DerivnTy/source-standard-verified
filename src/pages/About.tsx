@@ -149,7 +149,7 @@ const About = () => {
       </PageSection>
 
       {/* 6 — Looking Ahead */}
-      <PageSection id="looking-ahead" compact title="Looking Ahead" bordered={false}>
+      <PageSection id="looking-ahead" compact title="Looking Ahead" bordered={false} pb="0">
         <p
           className="text-muted-foreground"
           style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "68ch", margin: 0 }}
