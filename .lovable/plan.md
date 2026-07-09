@@ -1,60 +1,92 @@
+## Site-Wide Editorial Refinement Pass
 
-## Vendor Registry Row Polish
+Nine principles from the brief, applied page by page. Homepage is polish-only; internal pages get real editorial recomposition. No new components, no branding changes, no new hero concepts.
 
-Fix the compressed, spreadsheet feel of the registry rows by re-ordering the row hierarchy so vendor name is the anchor and category chip becomes supporting context.
+---
 
-### 1. `src/components/system/RegistryRow.tsx` — restructure
+## Global rules (applied to every edited page)
 
-Replace the current three-column layout (chip · name · status+chevron) with a name-first stack. Chevron becomes a true right rail, vertically centered.
+1. **One primary action per page.** Everything else is an inline cross-reference (underlined text link with the same body-color, not a pill, not a filled button).
+2. **Buttons to remove sitewide** (replace with inline "See how verification works ›" style links, or delete outright when the same link already exists in nav): "See How Verification Works", "Search the Registry" (kept only in the hero), "Open the Registry", "Browse Learn", "Explore Governance", any duplicate "Read more" CTAs.
+3. **Break the PageSection rhythm.** A page should not consist of N identically-shaped `PageSection`s. Vary: prose-only, heading+list, definition list, comparison block, navigation strip, footer sentence. `PageSection` becomes one tool among several, not the default answer.
+4. **Emphasis budget.** On any given page: one H1, at most three H2s, minimal bold, no pills unless status-bearing, no icons on section headings, no eyebrow labels unless they carry document structure (chapter number, doc id).
+5. **Delete anything decorative.** Any glyph, chip, divider, or eyebrow that doesn't aid comprehension is cut. Dividers only at true section boundaries, never as intra-section decoration.
+6. **Spacing is intentional, not defaulted.** Sections don't inherit uniform vertical padding; padding follows role. Lead sections breathe; reference sections tighten.
+7. **Document register.** Every consumer page carries a light metadata line (last reviewed · doc id) in the same place, quietly. Signals institution without adopting full `RecordHeader` chrome.
 
-New mobile layout:
+---
 
-```text
-Vendor Name ..................... StatusPill   ›
-Vendor Type · Location                          
-Specialty chip                                  
-```
+## Page-by-page
 
-Concrete changes:
-- Outer flex: `items-center` on the chevron column, but the content column stacks vertically.
-- Row 1: `flex items-baseline justify-between gap-3` → `name` (truncate, `text-[15px]` on mobile, semibold, `-0.01em`) on the left; `StatusPill` on the right. Status pill uses the shared `StatusPill` — no red uppercase text floating in the row.
-- Row 2 (metaLeft): `mt-1`, `text-[12.5px]`, `text-muted-foreground`, no truncation forced; renders "Vendor Type · Location".
-- Row 3 (chip): `mt-2`, small uppercase pill using existing chip styling (10px, 600, `letterSpacing 0.04em`, muted background) — but only rendered when `chip` prop is present. Sits below the meta, not before the name.
-- Chevron: separate right-side column, `self-center`, subtle (`text-muted-foreground/60`, 14px, translates 3px on hover).
-- Remove `metaRight` from mobile primary layout (kept as optional prop for desktop-only use, right-aligned on `md:` breakpoints).
-- Vertical padding: bump to `py-4` so name/meta/chip stack breathes; still hits 44px min-height.
-- Keep hairline dividers (parent applies `divide-y divide-border/60`), hover tint `bg-muted/40`, focus-visible ring, `active:scale-[0.998]`.
+### Homepage (`Index.tsx`) — polish only
 
-Desktop (`md:` and up):
-- Switch Row 1 to a wider table-feel: name column flexes, meta shows inline to the right of the name column, chip appears as a small trailing chip, status pill + chevron pinned right. Keep it denser than mobile but do not sacrifice the name-first read.
-- Approach: single flex row on `md:` with `name (flex-1 truncate)` · `metaLeft (muted, shrink)` · `chip (shrink)` · `StatusPill` · chevron. Mobile falls back to the stacked layout via `flex-col md:flex-row` on an inner wrapper.
+- Delete "Where Can I Learn More?" section. Redundant with `/learn` in nav.
+- Merge "Why Does This Exist?" and "Claims Are Not Verification" into one section with two paragraphs. They argue the same point.
+- Remove section CTAs: "See How Verification Works", "Search the Registry", "Open the Registry", "Browse Learn", "Explore Governance". The registry search input in the hero is the page's one primary action. Section navigation becomes inline cross-references ("More on the protocol ›").
+- Remove the three trust-chip pills under the search ("Independent Verification · Public Reference Registry · Evidence-Informed"). They read as marketing badges.
+- Tighten vertical rhythm ~20% between sections; keep the mission section spacious as the lead.
+- Keep: hero, registry search, registry NavCard pair, process steps, listing checklist, "Who Is This For?" (converted from tiles to inline prose naming the three audiences), Governance trust pillars.
 
-### 2. `src/pages/VerifiedVendors.tsx`
+### About (`About.tsx`)
 
-Adjust how vendor rows are populated (the row itself is where the fix lives; the page only feeds props):
-- `chip` prop → `vendor.category` (specialty) — unchanged prop, but now renders below.
-- `metaLeft` → `"{Fulfillment type} · {City, ST}"` where fulfillment is `In-person` / `Online` / `Hybrid` from `getVendorFulfillment`. Currently metaLeft mixes different fields — normalize to type · location.
-- `metaRight` → drop on mobile (was contributing to wrap). Keep only if used on desktop.
-- `status` → continues to feed `StatusPill` via RegistryRow.
+Recompose as four movements, not six sections:
 
-### 3. `src/pages/Greenlist.tsx` — parity check
+1. **Opening statement (no section heading).** Merge the current "Why Source Standard exists" and the trailing "A transparency framework with defined limits" into a single 2–3 paragraph lead directly under the hero. Foreground body text, not muted intro-tone.
+2. **Scope (one section, two labeled columns).** Left = what Source Standard does (current SCOPE items). Right = what it does not do (current BOUNDARIES items). Rendered as definition-list rows (term — one-line definition, hairline separators). No checkmark or minus glyphs — column labels carry semantics. This is the page's central artifact.
+3. **Context (one section, prose).** CONTEXT list becomes a short numbered paragraph list (four short numbered items, each one sentence). OBJECTIVES 3-up block becomes one sentence inline naming consumers, providers, and industry as the three audiences.
+4. **Principles (numbered list).** Four items with mono ordinals (01–04) in the margin, one-line title, one-line definition. No icons, no grid, no eyebrow.
 
-Facility rows already use `RegistryRow`. After the restructure they automatically inherit the name-first hierarchy. Verify:
-- `chip` = facility category (503A / 503B / Manufacturer) reads as supporting context below.
-- `metaLeft` = "{Facility type} · {Location}" reads on second line.
-- `StatusPill` (`greenlisted` / `monitoring` / `alert`) sits top-right, not competing with name.
+`SectionAnchorNav` collapses from 5 to 4 waypoints. Add a metadata line below the hero: `Last reviewed · Document ID · Version`.
 
-No structural changes expected in Greenlist beyond confirming meta content matches the "type · location" pattern; adjust the string if it currently concatenates differently.
+### How Verification Works (`HowItWorks.tsx`)
 
-### Preserved
+Recompose as three movements:
 
-- Search, filter, sort, pagination, "load more" behavior on both pages.
-- Routes, IDs, `to` props, aria labels.
-- Status semantics via shared `StatusPill`.
-- Hairline dividers between rows, dense registry feel.
-- All colors via semantic HSL tokens (no hardcoded hex).
+1. **Definition (no heading).** Open with a dictionary-style paragraph: **Verification** — its definition sentence, then a second sentence stating what it is not. Replaces the current "What Is Verification?" `PageSection`.
+2. **Protocol.** `ProcessSteps` carries the section without an H2 above it. A small margin label ("Protocol") replaces the heading.
+3. **What verification means.** One heading, two labeled columns: "Means" (MEANS list) and "Does not mean" (DOES_NOT_MEAN list). Definition rows with hairline separators. Drop icons on both sides.
 
-### Verification
+Delete the closing "Why Does This Matter?" section. Fold its useful sentence into the disclaimer paragraph at the bottom of the "Means" block.
 
-- `bunx tsgo --noEmit`.
-- Playwright at 390×844 (mobile) and 1280×1800 (desktop) on `/verified-vendors` and `/greenlist`. Confirm: name is the visual anchor, status pill reads as a status not floating text, specialty chip sits below meta, chevron is centered, rows feel like public records not table rows.
+### Partners (`Partners.tsx`)
+
+Recompose as three movements:
+
+1. **Statement (no heading).** One paragraph, body-foreground, wide margin. Combines the current opening rationale and the trailing "Two Different Questions" framing.
+2. **Categories.** One small heading. PARTNER_CATEGORIES rendered as a vertical definition list, not a 2-column feature grid.
+3. **Open (partner spotlight).** Remove the bordered card around the logo. Logo mark inline at editorial size, one paragraph on the relationship, one small quiet cross-reference link. Delete the entire "Two Different Questions" section — it paraphrases the paragraph directly above it.
+
+### Learn (`Learn.tsx`)
+
+Learn is a directory. Compose it as one:
+
+1. **Directory (no heading).** The current "Where do you want to start?" NavCard row moves directly under the hero. It *is* the page's primary nav.
+2. **Education topics.** Keep the heading. Render EDUCATION_TOPICS as a single-column definition list with hairline separators — not a 2-column feature grid.
+3. **Recent updates.** Keep as chronological list. Small tightening: dateline in mono margin, headline as underlined link, one-line dek.
+4. **Footer sentence.** "Still have questions?" collapses from a section into one sentence with two inline underlined links (`FAQ` and `Contact`). No NavCard pair, no section heading.
+
+`NextStep` remains at the bottom.
+
+---
+
+## Registry and profiles
+
+Explicitly deferred. Handled in a separate pass after the four consumer pages land. Target register: modern public records, not directory listings. Not scoped here.
+
+---
+
+## Not doing
+
+- No color, type, logo, or component-library changes.
+- No new components. Definition lists and comparison blocks render inline with `dl`/`dt`/`dd` and hairline rules. If a pattern repeats across pages later, extract then — not now.
+- No new hero concepts.
+- No route changes.
+- No copy rewrites beyond removing repetition and demoting marketing tone.
+
+---
+
+## Verification (per page, then whole-site read-through)
+
+1. `bunx tsgo --noEmit` after each page's edits.
+2. Mobile 390 + desktop 1280 screenshots per edited page. View them against the pre-pass captures.
+3. **First-time-visitor read-through.** For each page, read top to bottom asking: does this read as one composed document, or as N stacked components? If the latter, demote or delete the section that breaks it and re-verify. Do not stop because components are consistent; stop when the page feels effortless.
