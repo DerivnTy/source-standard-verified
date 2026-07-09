@@ -665,7 +665,7 @@ const Index = () => {
             </div>
 
             <div className="home-cta mt-3">
-              <PillPrimary to="/verified-vendors">Access the Registry</PillPrimary>
+              <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
             </div>
           </div>
         </div>
