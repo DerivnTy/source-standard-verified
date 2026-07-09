@@ -523,9 +523,9 @@ const Index = () => {
       {/* Registry fields — checklist */}
       <PageSection
         id="registry-shows"
-        icon="circle"
         title="What Will I See in a Listing?"
         intro="Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status."
+
         cta={<PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
