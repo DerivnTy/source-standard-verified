@@ -3,20 +3,11 @@ import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
+import { PRIMARY_NAV, MOBILE_NAV, PRIMARY_CTA } from "@/config/navigation";
 
-const nav = [
-  { to: "/verified-vendors", label: "Vendor Registry" },
-  { to: "/greenlist", label: "Facility Records" },
-  { to: "/how-it-works", label: "How Verification Works" },
-  { to: "/governance", label: "Governance" },
-  { to: "/medical-advisory", label: "Advisory Board" },
-  { to: "/learn", label: "Learn" },
-  { to: "/about", label: "About" },
-];
+const nav = PRIMARY_NAV.map((r) => ({ to: r.path, label: r.label }));
+const mobileNav = MOBILE_NAV.map((r) => ({ to: r.path, label: r.label }));
 
-// Mobile mirrors desktop nav, with Home prepended as the anchor item.
-const mobileNav = [{ to: "/", label: "Home" },
-    ...nav];
 
 
 
@@ -102,8 +93,9 @@ export const SiteHeader = () => {
             size="sm"
             className="h-9 px-4 rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
           >
-            <Link to="/apply">Apply for Verification</Link>
+            <Link to={PRIMARY_CTA.path}>{PRIMARY_CTA.label}</Link>
           </Button>
+
         </div>
         <button
           className="lg:hidden p-2 -mr-2 relative h-10 w-10 transition-colors"
@@ -210,7 +202,7 @@ export const SiteHeader = () => {
                 </ul>
 
                 <Link
-                  to="/apply"
+                  to={PRIMARY_CTA.path}
                   onClick={() => setOpen(false)}
                   className="mt-10 w-full inline-flex items-center justify-center px-8 text-white transition-colors hover:bg-white/[0.06]"
                   style={{
@@ -226,8 +218,9 @@ export const SiteHeader = () => {
                     textTransform: "uppercase",
                   }}
                 >
-                  Apply for Verification
+                  {PRIMARY_CTA.label}
                 </Link>
+
               </nav>
 
               {/* Footer brand tag */}
