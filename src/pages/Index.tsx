@@ -17,14 +17,13 @@ import lockup from "@/assets/source-standard-lockup-dark.png";
 
 const homeWaypoints = [
   { id: "mission", number: "", label: "Mission" },
-  { id: "trust-problem", number: "", label: "Problem" },
-  { id: "how-it-works", number: "", label: "How it works" },
+  { id: "how-it-works", number: "", label: "Protocol" },
   { id: "live-registry", number: "", label: "Registry" },
-  { id: "registry-shows", number: "", label: "Fields" },
-  { id: "why-matters", number: "", label: "Function" },
-  { id: "basics", number: "", label: "Reference" },
+  { id: "registry-shows", number: "", label: "Record fields" },
+  { id: "why-matters", number: "", label: "Audience" },
   { id: "governance", number: "", label: "Governance" },
 ];
+
 
 /* ───────────────── Hero Content ─────────────────
    Consumer-first hero: headline answers the visitor's question, a
@@ -441,52 +440,44 @@ const Index = () => {
 
       <DocJumpBar waypoints={homeWaypoints} />
 
-      {/* Mission — editorial, breathing room */}
+      {/* Mission — thesis of the site. Two paragraphs, one heading, one section. */}
       <PageSection
         id="mission"
-        icon="shield-check"
         title="Why Does This Exist?"
-        intro="Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent."
       >
-        <hr
-          className="border-0 bg-border"
-          style={{ height: "0.5px", opacity: 0.6, margin: "18px 0" }}
-        />
-        <p
-          className="text-muted-foreground"
-          style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, maxWidth: "64ch", margin: 0 }}
-        >
-          Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
-        </p>
+        <div className="flex flex-col gap-4" style={{ maxWidth: "64ch" }}>
+          <p
+            className="text-foreground"
+            style={{ fontSize: "17px", lineHeight: 1.6, fontWeight: 400, margin: 0 }}
+          >
+            Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent.
+          </p>
+          <p
+            className="text-muted-foreground"
+            style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, margin: 0 }}
+          >
+            Source Standard is an independent verification organization. It does not manufacture, prescribe, or sell therapies. Its role is to evaluate the sourcing and quality claims vendors make every day and to publish factual verification records that distinguish supported claims from unsupported claims.
+          </p>
+        </div>
       </PageSection>
 
-      {/* Trust problem — text + CTA */}
-      <PageSection
-        id="trust-problem"
-        compact
-        title="Claims Are Not Verification"
-        intro="Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through a structured verification framework and publishes factual verification records designed to distinguish supported claims from unsupported claims."
-        cta={<PillPrimary to="/how-it-works">See How Verification Works</PillPrimary>}
-      />
-
-      {/* How it works — process rail */}
+      {/* Protocol — process rail, no CTA */}
       <PageSection
         id="how-it-works"
+        compact
         title="How Does Source Standard Verify?"
-        cta={<PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>}
       >
         <ProcessSteps
           steps={howItWorks.map((s) => ({ title: s.h.replace(/\.$/, ""), desc: s.b }))}
         />
       </PageSection>
 
-      {/* Live registry — navigation pair */}
+      {/* Registry — the product. Navigation pair. */}
       <PageSection
         id="live-registry"
-        icon="search"
         compact
         title="What Does the Registry Cover?"
-        intro="The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system."
+        intro="Vendors and compounding facilities tracked within a unified public-reference system."
       >
         <div className="flex flex-col gap-2.5 sm:grid sm:grid-cols-2 sm:gap-3">
           <NavCard
@@ -502,56 +493,53 @@ const Index = () => {
         </div>
       </PageSection>
 
-      {/* Registry fields — checklist */}
+      {/* Record fields — what a listing shows. Reference material, tight rhythm. */}
       <PageSection
         id="registry-shows"
+        compact
         title="What Will I See in a Listing?"
-        intro="Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status."
-
-        cta={<PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+        <dl
+          className="divide-y divide-border/60 border-t border-b border-border/60"
+        >
           {registryFields.map((f) => (
-            <FeatureItem key={f.h} icon="check" title={f.h} desc={f.b} variant="row" />
-          ))}
-        </div>
-      </PageSection>
-
-      {/* Audience — feature blocks */}
-      <PageSection id="why-matters" title="Who Is This For?">
-        <div className="flex flex-col divide-y divide-border lg:grid lg:grid-cols-3 lg:gap-8 lg:divide-y-0">
-          {whyMatters.map((w, i) => (
             <div
-              key={w.h}
-              className={i === 0 ? "pb-4 lg:pb-0" : i === whyMatters.length - 1 ? "pt-4 lg:pt-0" : "py-4 lg:py-0"}
+              key={f.h}
+              className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-x-8 gap-y-1 py-3.5"
             >
-              <FeatureItem title={w.h} desc={w.b} variant="block" />
+              <dt
+                className="font-sans text-foreground"
+                style={{ fontSize: "14px", fontWeight: 600, letterSpacing: "-0.005em" }}
+              >
+                {f.h}
+              </dt>
+              <dd
+                className="text-muted-foreground"
+                style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}
+              >
+                {f.b}
+              </dd>
             </div>
           ))}
-        </div>
-
+        </dl>
       </PageSection>
 
-      {/* Learn — navigation */}
-      <PageSection
-        id="basics"
-        icon="graduation-cap"
-        title="Where Can I Learn More?"
-        cta={<PillSecondary to="/learn">Browse Learn</PillSecondary>}
-      >
-        <div className="flex flex-col gap-2.5">
-          {basics.map((b) => (
-            <NavCard key={b.t} to={b.to} title={b.t} desc={b.s} />
-          ))}
-        </div>
+      {/* Audience — prose, not tiles. */}
+      <PageSection id="why-matters" compact title="Who Is This For?">
+        <p
+          className="text-muted-foreground"
+          style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "64ch", margin: 0 }}
+        >
+          <span className="text-foreground font-medium">Consumers</span> use the registry to understand sourcing transparency before choosing a provider.{" "}
+          <span className="text-foreground font-medium">Providers</span> use verification to demonstrate that transparency independently.{" "}
+          <span className="text-foreground font-medium">The industry</span> uses the public record as a reference point for accountability across the compounded therapy market.
+        </p>
       </PageSection>
 
-      {/* Governance — trust pillars */}
+      {/* Governance — trust pillars, no CTA */}
       <PageSection
         id="governance"
-        icon="scale"
         title="Who Stands Behind This?"
-        cta={<PillPrimary to="/governance">Explore Governance</PillPrimary>}
       >
         <div className="flex flex-col divide-y divide-border lg:grid lg:grid-cols-3 lg:gap-8 lg:divide-y-0">
           {trustPillars.map((p, i) => (
@@ -562,8 +550,19 @@ const Index = () => {
               <FeatureItem title={p.title} desc={p.desc} variant="block" />
             </div>
           ))}
+          <div className="lg:col-span-3 pt-4 lg:pt-6">
+            <Link
+              to="/governance"
+              className="font-sans text-foreground hover:text-primary transition-colors"
+              style={{ fontSize: "14px", fontWeight: 500, textDecoration: "underline", textDecorationThickness: "0.5px", textUnderlineOffset: "4px" }}
+            >
+              Read the governance record ›
+            </Link>
+          </div>
         </div>
       </PageSection>
+
+
 
 
     </>
