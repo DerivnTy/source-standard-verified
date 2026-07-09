@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Search, Check, ChevronDown } from "lucide-react";
 import * as SelectPrimitive from "@radix-ui/react-select";
@@ -6,7 +6,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { PageMeta } from "@/components/PageMeta";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 
-import { VendorRow } from "@/components/registry/VendorRow";
+import { RegistryRow } from "@/components/system";
 import { resolveStateAbbr, US_STATE_TO_ABBR } from "@/lib/usStates";
 import {
   vendors,
@@ -206,6 +206,19 @@ const VerifiedVendors = () => {
   const [stateFilter, setStateFilter] = useState<string>("any"); // 2-letter abbr or "any"
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [filtersOpen, setFiltersOpen] = useState(true);
+  const searchRef = useRef<HTMLDivElement | null>(null);
+  const [stickyVisible, setStickyVisible] = useState(false);
+
+  useEffect(() => {
+    const el = searchRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setStickyVisible(!entry.isIntersecting),
+      { rootMargin: "-8px 0px 0px 0px", threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const isSearching = query.trim().length > 0;
 
@@ -402,7 +415,7 @@ const VerifiedVendors = () => {
         <div className="page-shell pb-2 md:pb-4">
           <div className="mx-auto w-wide">
             {/* Search, centerpiece, above filters */}
-            <div className="-mx-5 md:mx-0 px-5 pt-2 md:pt-4">
+            <div ref={searchRef} className="-mx-5 md:mx-0 px-5 pt-2 md:pt-4">
               <div className="mx-auto w-full md:max-w-[640px]">
                 <div className="relative">
                   <Search
@@ -591,17 +604,10 @@ const VerifiedVendors = () => {
             )}
 
             {/* Result list */}
-            <div key={fadeKey} className="mt-3 animate-fade-in">
+            <div key={fadeKey} className="mt-4 animate-fade-in">
               {sorted.length === 0 ? (
                 hasActiveFilters ? (
-                  <div
-                    className="bg-white text-center"
-                    style={{
-                      border: "1px solid hsl(var(--border))",
-                      borderRadius: "16px",
-                      padding: "28px 20px",
-                    }}
-                  >
+                  <div className="py-8 md:py-10 text-center">
                     <p
                       className="font-sans font-semibold text-foreground"
                       style={{ fontSize: "14px", lineHeight: 1.35 }}
@@ -610,41 +616,53 @@ const VerifiedVendors = () => {
                     </p>
                     <p
                       className="mt-1.5 text-muted-foreground mx-auto"
-                      style={{ fontSize: "13px", lineHeight: 1.55, maxWidth: "420px" }}
+                      style={{ fontSize: "13px", lineHeight: 1.6, maxWidth: "440px" }}
                     >
                       Let us know so we can add them to the registry for review.
                     </p>
                     <Link
                       to="/contact?topic=request-provider-review"
-                      className="mt-4 inline-flex items-center gap-1.5 px-5 h-10 border border-foreground text-foreground text-[12px] font-medium rounded-full hover:bg-foreground hover:text-background transition-colors duration-150"
+                      className="mt-4 inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
+                      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
                     >
-                      Request Provider Review
+                      Request Provider Review →
                     </Link>
                   </div>
                 ) : (
                   <div
-                    className="bg-white text-center text-muted-foreground"
-                    style={{
-                      border: "1px solid hsl(var(--border))",
-                      borderRadius: "16px",
-                      padding: "28px 20px",
-                      fontSize: "13px",
-                    }}
+                    className="py-8 text-center text-muted-foreground"
+                    style={{ fontSize: "13px" }}
                   >
                     Directory pending population.
                   </div>
                 )
               ) : (
                 <>
-                  <ul className="flex flex-col gap-1 md:gap-1.5">
+                  <ul className="divide-y divide-border/60 border-t border-border/60">
                     {visibleItems.map((vendor) => {
                       const fulfillment = fulfillmentByVendor.get(vendor.slug)!;
+                      const loc = formatLocation(vendor);
+                      const modelLabel =
+                        fulfillment === "online"
+                          ? "Online"
+                          : fulfillment === "in-person"
+                          ? "In-person"
+                          : "Hybrid";
+                      const specialty =
+                        vendor.clinicalFocus?.[0] ?? vendor.category ?? undefined;
+                      const metaParts = [modelLabel, loc !== "—" ? loc : null].filter(
+                        Boolean,
+                      ) as string[];
                       return (
                         <li key={vendor.slug}>
-                          <VendorRow
-                            vendor={vendor}
-                            fulfillment={fulfillment}
-                            location={formatLocation(vendor)}
+                          <RegistryRow
+                            to={`/directory/${vendor.slug}`}
+                            name={vendor.name}
+                            status={vendor.status === "verified" ? "verified" : "unverified"}
+                            chip={specialty?.toUpperCase()}
+                            metaLeft={metaParts.join(" · ")}
+                            metaRight={vendor.state ?? undefined}
+                            ariaLabel={`${vendor.name}${specialty ? `, ${specialty}` : ""}`}
                           />
                         </li>
                       );
@@ -672,6 +690,55 @@ const VerifiedVendors = () => {
           </div>
         </div>
       </section>
+
+      {/* Compact sticky search, appears once primary search scrolls out */}
+      <div
+        aria-hidden={!stickyVisible}
+        className="fixed left-0 right-0 top-0 z-40"
+        style={{
+          transform: stickyVisible ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 220ms ease-out",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          backgroundColor: "hsl(var(--background) / 0.85)",
+          borderBottom: "1px solid hsl(var(--border))",
+          pointerEvents: stickyVisible ? "auto" : "none",
+        }}
+      >
+        <div className="page-shell" style={{ paddingTop: "8px", paddingBottom: "8px" }}>
+          <div className="mx-auto w-wide flex items-center" style={{ gap: "8px" }}>
+            <div className="relative flex-1 min-w-0">
+              <Search
+                aria-hidden
+                className="pointer-events-none absolute text-muted-foreground/70"
+                style={{
+                  top: "50%",
+                  left: "14px",
+                  width: "14px",
+                  height: "14px",
+                  strokeWidth: 1.75,
+                  transform: "translateY(-50%)",
+                }}
+              />
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search provider..."
+                aria-label="Search vendor registry"
+                className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+                style={{
+                  height: "40px",
+                  borderRadius: "20px",
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid hsl(var(--border))",
+                  paddingLeft: "36px",
+                  paddingRight: "14px",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

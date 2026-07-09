@@ -14,5 +14,7 @@ export { FeatureItem } from "./FeatureItem";
 export { FeatureLink } from "./FeatureLink";
 export { NavCard } from "./NavCard";
 export { ProcessSteps } from "./ProcessSteps";
+export { StatusPill, type StatusKey } from "./StatusPill";
+export { RegistryRow } from "./RegistryRow";
 
 
