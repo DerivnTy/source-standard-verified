@@ -577,7 +577,7 @@ const Index = () => {
               key={p.title}
               className={i === 0 ? "pb-4 lg:pb-0" : i === trustPillars.length - 1 ? "pt-4 lg:pt-0" : "py-4 lg:py-0"}
             >
-              <FeatureItem icon={p.icon} title={p.title} desc={p.desc} variant="block" />
+              <FeatureItem title={p.title} desc={p.desc} variant="block" />
             </div>
           ))}
         </div>
