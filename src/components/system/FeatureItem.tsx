@@ -61,17 +61,19 @@ export const FeatureItem = ({
         >
           {title}
         </h3>
-        <p
-          className="text-muted-foreground"
-          style={{
-            fontSize: "14px",
-            lineHeight: 1.65,
-            fontWeight: 400,
-            marginTop: "6px",
-          }}
-        >
-          {desc}
-        </p>
+        {desc && (
+          <p
+            className="text-muted-foreground"
+            style={{
+              fontSize: "14px",
+              lineHeight: 1.65,
+              fontWeight: 400,
+              marginTop: "6px",
+            }}
+          >
+            {desc}
+          </p>
+        )}
       </div>
     );
   }
