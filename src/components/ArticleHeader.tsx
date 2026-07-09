@@ -23,15 +23,17 @@ export const ArticleHeader = ({
   lead,
   category,
   metadata = [],
-  backHref = "/learn/education",
-  backLabel = "Back to Education",
+  backHref: _backHref,
+  backLabel: _backLabel,
 }: {
   eyebrow?: string;
   title: string;
   lead?: string;
   category?: string;
   metadata?: ArticleMetaItem[];
+  /** @deprecated Top-of-page back link removed. Render <EditorialBackLink /> at the page footer instead. */
   backHref?: string;
+  /** @deprecated Top-of-page back link removed. Render <EditorialBackLink /> at the page footer instead. */
   backLabel?: string;
 }) => {
   const updated = metadata.find(
