@@ -1006,7 +1006,7 @@ const VendorProfile = () => {
 
           {/* ────── 6. CONTACT ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Contact</SectionHeading>
+            <SectionHeading>How to reach them</SectionHeading>
             <dl
               className="mt-3 grid grid-cols-2"
               style={{ columnGap: "20px", rowGap: "16px" }}
