@@ -62,17 +62,17 @@ export const ArticleHeader = ({
             <p
               className="font-mono uppercase"
               style={{
-                fontSize: "12px",
-                letterSpacing: "0.14em",
-                color: "rgba(255,255,255,0.6)",
-              }}
-            >
-              {category.toUpperCase()}
-            </p>
+              fontSize: "10px",
+              letterSpacing: "0.14em",
+              color: "rgba(255,255,255,0.6)",
+            }}
+          >
+            {category.toUpperCase()}
+          </p>
 
             <h1
               className="t-article-title !text-white !mt-0"
-              style={{ marginTop: "20px", textWrap: "balance" }}
+              style={{ marginTop: "22px", textWrap: "balance" }}
             >
               {title}
             </h1>

@@ -119,7 +119,7 @@ export const RecordHeader = ({
               <p
                 className="font-mono uppercase"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "10px",
                   letterSpacing: "0.14em",
                   color: "rgba(255,255,255,0.6)",
                 }}
@@ -130,7 +130,7 @@ export const RecordHeader = ({
             {title && (
               <h1
                 className="ss-hero-title !text-white max-w-3xl !mt-0"
-                style={{ marginTop: eyebrow ? "20px" : "0", textWrap: "balance" }}
+                style={{ marginTop: eyebrow ? "22px" : "0", textWrap: "balance" }}
               >
                 {title}
               </h1>

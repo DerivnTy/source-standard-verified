@@ -45,7 +45,7 @@ export const PageHeader = ({
         )}
         <h1
           className="ss-hero-title !text-white max-w-[36ch] !mt-0"
-          style={{ marginTop: eyebrow ? "20px" : "0", textWrap: "balance" }}
+          style={{ marginTop: eyebrow ? "22px" : "0", textWrap: "balance" }}
         >
           {title}
         </h1>
