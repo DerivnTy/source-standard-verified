@@ -19,6 +19,7 @@ import { Glyph, type GlyphName } from "./GlyphIcon";
  *
  * Principles:
  *   • Section glyphs provide context for the section, not decoration.
+ *   • Remove decorative symbols that do not communicate meaning.
  *   • Interactive elements use arrows or chevrons, not contextual glyphs.
  *   • Checklist items use checkmarks only.
  *   • Avoid repeating the same contextual glyph in adjacent sections
