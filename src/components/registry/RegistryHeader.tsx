@@ -51,8 +51,8 @@ export const RegistryHeader = ({
       <div
         className="relative z-10 page-shell"
         style={{
-          paddingTop: compact ? "clamp(32px, 4.5vh, 44px)" : "clamp(72px, 9vh, 96px)",
-          paddingBottom: compact ? "clamp(24px, 3vh, 38px)" : "clamp(40px, 5vh, 56px)",
+          paddingTop: compact ? "clamp(20px, 3vh, 32px)" : "clamp(48px, 7vh, 72px)",
+          paddingBottom: compact ? "clamp(12px, 2vh, 24px)" : "clamp(20px, 3vh, 32px)",
         }}
 
       >

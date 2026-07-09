@@ -161,7 +161,7 @@ export const BriefingHero = ({
         />
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
-        <div className="relative z-10 page-shell section-pad">
+        <div className="relative z-10 page-shell pt-14 pb-3 md:pt-[72px] md:pb-9 lg:pt-16 lg:pb-[52px]">
           <div className="w-hero">
             <h1
               id="briefing-title"
@@ -169,11 +169,11 @@ export const BriefingHero = ({
             >
               {title}
             </h1>
-            <p className="ss-lead !text-white/70 max-w-[68ch]">
+            <p className="ss-lead !text-white/70 max-w-[68ch] mt-3">
               {statement}
             </p>
             {actions && (
-              <div className="mt-8 flex flex-col sm:flex-row items-start gap-3">
+              <div className="mt-6 flex flex-col sm:flex-row items-start gap-3">
                 {actions}
               </div>
             )}
