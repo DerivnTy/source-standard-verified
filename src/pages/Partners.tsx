@@ -6,10 +6,9 @@ import { PageSection } from "@/components/system";
 import openLogo from "@/assets/open-logo-transparent.png.asset.json";
 
 const PARTNER_CATEGORIES = [
-  { t: "Independent Laboratories", d: "Perform independent testing to verify the quality and integrity of compounded therapies." },
+  { t: "Independent Laboratories", d: "Perform independent testing that informs review of sourcing claims and facility standing." },
   { t: "Healthcare Organizations", d: "Provide clinical expertise and guidance supporting transparent healthcare practice." },
-  { t: "Compounding Facilities", d: "Supply therapies manufactured to established quality and sourcing standards." },
-  { t: "Medical Advisors", d: "Offer independent clinical oversight that keeps verification objective and evidence-based." },
+  { t: "Medical Advisors", d: "External clinical reviewers distinct from the Medical Advisory Board who support objective, evidence-based review." },
   { t: "Research Partners", d: "Contribute data and insights that improve transparency across the supply chain." },
 ];
 
