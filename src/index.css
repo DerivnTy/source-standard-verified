@@ -332,25 +332,37 @@ html {
   .font-mono  { font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important; letter-spacing: 0.04em !important; }
 
   /* TYPE 01, Primary Hero Titles */
-  .t-page-title.t-chapter-title.t-home-title.t-article-title.ss-hero-title {
+  .t-page-title,
+  .t-chapter-title,
+  .t-home-title,
+  .t-article-title,
+  .ss-hero-title {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 46px !important;
-    line-height: 1.05 !important;
+    font-size: 40px !important;
+    line-height: 1.1 !important;
     letter-spacing: -0.03em !important;
     font-weight: 700 !important;
     color: #0A0A0A;
     max-width: 18ch;
   }
   @media (min-width: 768px) {
-    .t-page-title.t-chapter-title.t-home-title.t-article-title.ss-hero-title {
-      font-size: 62px !important;
+    .t-page-title,
+    .t-chapter-title,
+    .t-home-title,
+    .t-article-title,
+    .ss-hero-title {
+      font-size: 56px !important;
       letter-spacing: -0.035em !important;
       max-width: 20ch;
     }
   }
   @media (min-width: 1024px) {
-    .t-page-title.t-chapter-title.t-home-title.t-article-title.ss-hero-title {
-      font-size: 76px !important;
+    .t-page-title,
+    .t-chapter-title,
+    .t-home-title,
+    .t-article-title,
+    .ss-hero-title {
+      font-size: 68px !important;
     }
   }
 
