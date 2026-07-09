@@ -102,7 +102,7 @@ export const EducationArticleTemplate = ({
         </ArticleSection>
       )}
 
-      <BackToLibrary />
+      <EditorialBackLink to="/learn" label="Back to Learn" />
     </>
   );
 };
@@ -183,7 +183,7 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         </ArticleSection>
       )}
 
-      <BackToLibrary />
+      <EditorialBackLink to="/learn" label="Back to Learn" />
     </>
   );
 };
