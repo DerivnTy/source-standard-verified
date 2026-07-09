@@ -23,8 +23,8 @@ export const ArticleHeader = ({
   title,
   lead,
   metadata = [],
-  backHref = "/education",
-  backLabel = "Back to Resource Library",
+  backHref = "/learn/education",
+  backLabel = "Back to Education",
 }: {
   eyebrow?: string;
   title: string;

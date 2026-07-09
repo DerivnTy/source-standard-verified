@@ -10,7 +10,7 @@ const nav = [
   { to: "/how-it-works", label: "How Verification Works" },
   { to: "/partners", label: "Partners" },
   { to: "/medical-advisory", label: "Advisory Board" },
-  { to: "/education", label: "Resource Library" },
+  { to: "/learn", label: "Learn" },
   { to: "/about", label: "About" },
 ];
 

@@ -824,7 +824,7 @@ const Index = () => {
             </div>
 
             <div className="home-cta mt-3">
-              <PillSecondary to="/education">Browse Resource Library</PillSecondary>
+              <PillSecondary to="/learn">Browse Learn</PillSecondary>
             </div>
           </div>
         </div>
