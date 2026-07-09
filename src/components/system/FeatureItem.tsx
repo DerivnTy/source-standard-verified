@@ -8,7 +8,16 @@ import { Glyph, type GlyphName } from "./GlyphIcon";
  *
  *   variant="row"   icon left, text right   (checklists, dense lists)
  *   variant="block" icon top,  text below  (audience tiles, trust pillars)
+ *
+ * Icon is optional. Homepage icon hierarchy:
+ *   • Section headings: at most one contextual glyph.
+ *   • Checklist items: `check` only.
+ *   • Navigation: chevrons/arrows only.
+ *   • Trust pillars / audience blocks: no per-item glyph — the section
+ *     heading already establishes context.
+ * Never render the same icon twice within one section.
  */
+
 export const FeatureItem = ({
   icon,
   title,
