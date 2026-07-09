@@ -408,7 +408,7 @@ const Index = () => {
     <>
       <PageMeta
         title="Source Standard · Verify the source."
-        description="Source Standard is an independent public-reference organization providing verification and transparency around vendor sourcing claims and pharmacy relationships across peptides, TRT, HRT, GLP-1, longevity compounds, and other compounded therapies."
+        description="Search the Source Standard Registry to check whether your provider is verified and understand the sourcing behind compounded therapies."
         path="/"
         jsonLd={[
           {
@@ -581,7 +581,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Why Source Standard Exists
+              Why Does This Exist?
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "64ch" }}>
@@ -624,7 +624,7 @@ const Index = () => {
               </p>
             </div>
             <div className="home-cta mt-3">
-              <PillPrimary to="/how-it-works">View Verification Framework</PillPrimary>
+              <PillPrimary to="/how-it-works">See How Verification Works</PillPrimary>
             </div>
           </div>
         </div>
@@ -649,7 +649,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              How Source Standard Works
+              How Does Source Standard Verify?
             </h2>
 
             <div className="home-grid mt-5 flex flex-col gap-2.5">
@@ -665,7 +665,7 @@ const Index = () => {
             </div>
 
             <div className="home-cta mt-3">
-              <PillPrimary to="/verified-vendors">Access the Registry</PillPrimary>
+              <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
             </div>
           </div>
         </div>
@@ -691,7 +691,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Visibility across the supply chain
+              What Does the Registry Cover?
             </h2>
             <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
               <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
@@ -726,7 +726,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Search. Review. Verify status.
+              What Will I See in a Listing?
             </h2>
             <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400 }}>
               Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status.
@@ -770,7 +770,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Function of the framework
+              Who Is This For?
             </h2>
 
             <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
@@ -807,7 +807,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Foundational reference
+              Where Can I Learn More?
             </h2>
 
             <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
@@ -849,7 +849,7 @@ const Index = () => {
               className="home-h2 mt-3 font-sans text-foreground"
               style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
             >
-              Governance and standards
+              Who Stands Behind This?
             </h2>
 
             <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
