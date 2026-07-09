@@ -1188,7 +1188,7 @@ const VendorProfile = () => {
 
           {/* ────── 7. PROVIDERS ────── */}
           <article className="mt-4" style={CARD}>
-            <SectionHeading>Providers &amp; Clinical Leadership</SectionHeading>
+            <SectionHeading>Who provides care</SectionHeading>
             {/* Headshot strip — only when available */}
             {vendor.providerHeadshots?.length ? (
               <div className="mt-3 flex flex-wrap gap-3">
