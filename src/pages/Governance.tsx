@@ -106,34 +106,35 @@ const Governance = () => (
       rationale="Source Standard does not originate criteria. Each framework requirement is anchored to a statutory provision or compendial standard issued by the public authorities listed below."
       muted
     >
-      <div className="border border-border bg-background">
-        <div className="grid grid-cols-12 px-5 py-2.5 bg-surface-muted border-b border-border">
-          <div className="col-span-2 meta-mono text-foreground/70">ANCHOR</div>
-          <div className="col-span-4 meta-mono text-foreground/70">ISSUING AUTHORITY</div>
-          <div className="col-span-6 meta-mono text-foreground/70">STATUTORY / COMPENDIAL REFERENCE</div>
-        </div>
-        <ul className="divide-y divide-border">
-          {authorities.map((a) => (
-            <li key={a.code} className="grid grid-cols-12 gap-3 px-5 py-4 items-baseline">
-              <div className="col-span-2 meta text-primary font-semibold">{a.code}</div>
-              <div className="col-span-4">
-                <p className="t-body-sm font-semibold text-foreground">{a.full}</p>
-                <a
-                  href={a.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="meta-mono text-foreground/70 hover:text-primary transition-colors"
-                >
-                  {a.url.replace(/^https?:\/\//, "")} ↗
-                </a>
-              </div>
-              <p className="col-span-6 t-body-sm text-muted-foreground leading-relaxed">
-                {AUTHORITY_REFERENCE_OVERRIDES[a.code] ?? a.references}
-              </p>
-            </li>
-          ))}
-        </ul>
+      <div className="hidden md:grid grid-cols-12 gap-3 pb-2.5 border-b border-border">
+        <div className="col-span-2 meta-mono text-foreground/70">ANCHOR</div>
+        <div className="col-span-4 meta-mono text-foreground/70">ISSUING AUTHORITY</div>
+        <div className="col-span-6 meta-mono text-foreground/70">STATUTORY / COMPENDIAL REFERENCE</div>
       </div>
+      <ul className="divide-y divide-border border-t border-border md:border-t-0">
+        {authorities.map((a) => (
+          <li
+            key={a.code}
+            className="flex flex-col gap-2 py-4 md:grid md:grid-cols-12 md:gap-3 md:items-baseline"
+          >
+            <div className="md:col-span-2 meta text-primary font-semibold">{a.code}</div>
+            <div className="md:col-span-4">
+              <p className="t-body-sm font-semibold text-foreground">{a.full}</p>
+              <a
+                href={a.url}
+                target="_blank"
+                rel="noreferrer"
+                className="meta-mono text-foreground/70 hover:text-primary transition-colors break-all"
+              >
+                {a.url.replace(/^https?:\/\//, "")} ↗
+              </a>
+            </div>
+            <p className="md:col-span-6 t-body-sm text-muted-foreground leading-relaxed">
+              {AUTHORITY_REFERENCE_OVERRIDES[a.code] ?? a.references}
+            </p>
+          </li>
+        ))}
+      </ul>
     </BoardSection>
 
     <BoardSection
