@@ -138,8 +138,8 @@ export const SiteFooter = () => {
           </div>
 
           <p
-            className="mt-4 md:mt-5 max-w-[900px] font-sans"
-            style={{ color: "rgba(255,255,255,0.40)", fontSize: "11px", lineHeight: 1.6 }}
+            className="mt-5 md:mt-6 font-sans"
+            style={{ color: "rgba(255,255,255,0.32)", fontSize: "10px", lineHeight: 1.7, maxWidth: "60ch" }}
           >
             Source Standard is an independent public-reference and verification
             framework for compounded therapy vendor sourcing claims. Records
