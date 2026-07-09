@@ -109,8 +109,8 @@ const groups: { title: string; items: QA[] }[] = [
         a: "As a structured reference to check whether a vendor has been reviewed under the framework, what scope was reviewed, and the current public status. The registry does not replace consultation with a licensed clinician.",
       },
       {
-        q: "What if a vendor is \u201CNot Listed\u201D?",
-        a: "Not Listed means the entity does not appear in the registry. It is not a finding against the entity; the entity may simply not have entered the verification process.",
+        q: "What if a vendor doesn\u2019t appear in the registry?",
+        a: "The absence of a record is not a finding. Many vendors have simply not entered the review process. Use the registry as a reference alongside consultation with a licensed clinician.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
