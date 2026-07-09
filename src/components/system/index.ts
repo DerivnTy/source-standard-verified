@@ -7,3 +7,6 @@ export { PageShell } from "./PageShell";
 export { Section, ReadingColumn } from "./Section";
 export { Eyebrow, SectionHeading, PageTitle, Lead } from "./Typography";
 export { Stat, StatRow } from "./Stat";
+export { PageSection } from "./PageSection";
+export { DataStrip } from "./DataStrip";
+export { Glyph, type GlyphName } from "./GlyphIcon";
