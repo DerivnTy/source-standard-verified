@@ -487,311 +487,105 @@ const Index = () => {
 
       <DocJumpBar waypoints={homeWaypoints} />
 
-      {/* §1, Mission */}
-      <section
-        aria-labelledby="mission"
-        className="home-section bg-background border-b border-border text-left"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      {/* Mission */}
+      <PageSection
+        id="mission"
+        icon="shield-check"
+        title="Why Does This Exist?"
+        intro="Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent."
       >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              00 · Mission
-            </p>
-            <h2
-              id="mission"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              Why Does This Exist?
-            </h2>
-            <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
-              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "64ch" }}>
-                Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to improve transparency by providing independent verification and factual public-reference records that help make those claims more transparent.
-              </p>
-              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: "16px", maxWidth: "64ch" }}>
-                Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+        <p
+          className="text-muted-foreground"
+          style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, maxWidth: "64ch" }}
+        >
+          Source Standard is an independent verification organization. We do not manufacture, prescribe, or sell therapies. Our role is to provide objective, documentation-based verification through a public reference system.
+        </p>
+      </PageSection>
 
-      {/* §2, The trust problem */}
-      <section
-        aria-labelledby="trust-problem"
-        className="home-section bg-background border-b border-border text-left"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      {/* Trust problem */}
+      <PageSection
+        id="trust-problem"
+        icon="minus"
+        title="Claims Are Not Verification"
+        intro="Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through a structured verification framework and publishes factual verification records designed to distinguish supported claims from unsupported claims."
+        cta={<PillPrimary to="/how-it-works">See How Verification Works</PillPrimary>}
+      />
+
+      {/* How it works */}
+      <PageSection
+        id="how-it-works"
+        icon="search"
+        title="How Does Source Standard Verify?"
+        cta={<PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>}
       >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-
-
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              01 · Problem
-            </p>
-            <h2
-              id="trust-problem"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              Claims are not verification
-            </h2>
-            <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
-              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
-                Compounded therapy vendors make sourcing and quality claims every day. Source Standard evaluates those claims through a structured verification framework and publishes factual verification records designed to distinguish supported claims from unsupported claims.
-              </p>
-            </div>
-            <div className="home-cta mt-3">
-              <PillPrimary to="/how-it-works">See How Verification Works</PillPrimary>
-            </div>
-          </div>
+        <div className="flex flex-col gap-2.5">
+          {howItWorks.map((s) => (
+            <DataStrip key={s.h} icon="check" title={s.h} desc={s.b} />
+          ))}
         </div>
-      </section>
+      </PageSection>
 
-      {/* §3, How it works */}
-      <section
-        aria-labelledby="how-it-works"
-        className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      {/* Live registry */}
+      <PageSection
+        id="live-registry"
+        icon="search"
+        title="What Does the Registry Cover?"
+        intro="The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and facility relationships. Facility records reflect current verification status and recognized upstream sources within the Source Standard framework."
+        cta={
+          <div className="inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
+            <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
+            <PillSecondary to="/greenlist">Explore Facility Records</PillSecondary>
+          </div>
+        }
+      />
+
+      {/* Registry fields */}
+      <PageSection
+        id="registry-shows"
+        icon="circle"
+        title="What Will I See in a Listing?"
+        intro="Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status."
+        cta={<PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>}
       >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              02 · Methodology
-            </p>
-            <h2
-              id="how-it-works"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              How Does Source Standard Verify?
-            </h2>
-
-            <div className="home-grid mt-5 flex flex-col gap-2.5">
-              {howItWorks.map((s, i) => (
-                <DataStrip
-                  key={s.h}
-                  index={i}
-                  total={howItWorks.length}
-                  title={s.h}
-                  desc={s.b}
-                />
-              ))}
-            </div>
-
-            <div className="home-cta mt-3">
-              <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
-            </div>
-          </div>
+        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
+          {registryFields.map((f) => (
+            <DataStrip key={f.h} icon="circle" title={f.h} desc={f.b} />
+          ))}
         </div>
-      </section>
+      </PageSection>
 
-      {/* §4, Live registry */}
-      <section
-        aria-labelledby="live-registry"
-        className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      {/* Function */}
+      <PageSection id="why-matters" icon="handshake" title="Who Is This For?">
+        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
+          {whyMatters.map((w) => (
+            <DataStrip key={w.h} title={w.h} desc={w.b} />
+          ))}
+        </div>
+      </PageSection>
+
+      {/* Foundational reference */}
+      <PageSection
+        id="basics"
+        icon="graduation-cap"
+        title="Where Can I Learn More?"
+        cta={<PillSecondary to="/learn">Browse Learn</PillSecondary>}
       >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              03 · Registry
-            </p>
-            <h2
-              id="live-registry"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              What Does the Registry Cover?
-            </h2>
-            <div className="home-lead-card bg-card mt-4 w-full" style={{ border: "0.5px solid hsl(var(--border))", borderRadius: "12px", padding: "8px 18px 12px" }}>
-              <p className="home-lead home-lead-pill text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400, marginTop: 0, maxWidth: "none" }}>
-                The Source Standard registry tracks vendors and compounding facilities within a unified public-reference system. Vendor records focus on sourcing transparency and facility relationships. Facility records reflect current verification status and recognized upstream sources within the Source Standard framework.
-              </p>
-            </div>
-
-            <div className="mt-5 inline-flex flex-col gap-2 items-start [&>a]:w-[245px] [&>a]:max-w-full [&>a]:justify-center [&>a]:text-center">
-              <PillPrimary to="/verified-vendors">Search the Registry</PillPrimary>
-              <PillSecondary to="/greenlist">Explore Facility Records</PillSecondary>
-            </div>
-          </div>
+        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
+          {basics.map((b) => (
+            <DataStrip key={b.t} title={b.t} desc={b.s} to={b.to} />
+          ))}
         </div>
-      </section>
+      </PageSection>
 
-      {/* §5, Registry fields */}
-      <section
-        aria-labelledby="registry-shows"
-        className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
-      >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              04 · Fields
-            </p>
-            <h2
-              id="registry-shows"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              What Will I See in a Listing?
-            </h2>
-            <p className="home-lead mt-4 text-muted-foreground max-w-[64ch]" style={{ fontSize: "15px", lineHeight: 1.7, fontWeight: 400 }}>
-              Each listing provides a structured snapshot of sourcing transparency, facility relationships, and review status.
-            </p>
-
-            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-2 lg:gap-3">
-              {registryFields.map((f, i) => (
-                <DataStrip
-                  key={f.h}
-                  index={i}
-                  total={registryFields.length}
-                  title={f.h}
-                  desc={f.b}
-                />
-              ))}
-            </div>
-
-            <div className="home-cta mt-3">
-              <PillSecondary to="/verified-vendors">Open the Registry</PillSecondary>
-            </div>
-          </div>
+      {/* Governance */}
+      <PageSection id="governance" icon="scale" title="Who Stands Behind This?">
+        <div className="flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
+          {governanceLinks.map((g) => (
+            <DataStrip key={g.k} title={g.k} desc={g.s} to={g.to} />
+          ))}
         </div>
-      </section>
+      </PageSection>
 
-      {/* §6, Function of the framework */}
-      <section
-        aria-labelledby="why-matters"
-        className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
-      >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              05 · Function
-            </p>
-            <h2
-              id="why-matters"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              Who Is This For?
-            </h2>
-
-            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
-              {whyMatters.map((w, i) => (
-                <DataStrip
-                  key={w.h}
-                  index={i}
-                  total={whyMatters.length}
-                  title={w.h}
-                  desc={w.b}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §7, Foundational reference */}
-      <section
-        aria-labelledby="basics"
-        className="home-section border-b border-border bg-background text-left"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
-      >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              06 · Reference
-            </p>
-            <h2
-              id="basics"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              Where Can I Learn More?
-            </h2>
-
-            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
-              {basics.map((b, i) => (
-                <DataStrip
-                  key={b.t}
-                  index={i}
-                  total={basics.length}
-                  title={b.t}
-                  desc={b.s}
-                  to={b.to}
-                />
-              ))}
-            </div>
-
-            <div className="home-cta mt-3">
-              <PillSecondary to="/learn">Browse Learn</PillSecondary>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §8, Governance & standards */}
-      <section
-        aria-labelledby="governance"
-        className="home-section border-b border-border bg-background"
-        style={{ paddingTop: "24px", paddingBottom: "24px" }}
-      >
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="home-eyebrow font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", fontWeight: 500 }}
-            >
-              07 · Governance
-            </p>
-            <h2
-              id="governance"
-              className="home-h2 mt-3 font-sans text-foreground"
-              style={{ fontSize: "24px", lineHeight: 1.15, letterSpacing: "-0.02em", fontWeight: 700 }}
-            >
-              Who Stands Behind This?
-            </h2>
-
-            <div className="home-grid mt-5 flex flex-col gap-2.5 lg:grid lg:grid-cols-3 lg:gap-3">
-              {governanceLinks.map((g, i) => (
-                <DataStrip
-                  key={g.k}
-                  index={i}
-                  total={governanceLinks.length}
-                  title={g.k}
-                  desc={g.s}
-                  to={g.to}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
     </>
   );
