@@ -1,89 +1,57 @@
-## Batch 2 — Learn & Knowledge System
+## Interactive Feature Row — new navigation primitive
 
-Rebuild the `/learn` universe onto the Batch 1 shared design system (`PageSection`, `FeatureItem`, `NavCard`, `ProcessSteps`) so the Learn hub becomes the public knowledge center. Consumer Mode throughout. Routes, data, article slugs, and SEO/JSON-LD preserved.
+Introduce a second navigation pattern that sits between static `FeatureItem` and full `NavCard`: a lightweight, no-chrome row that reads as interactive. Apply it to the four Batch 2 hubs where `FeatureItem` blocks are wrapped in `<Link>`s.
 
----
+### 1. New primitive — `src/components/system/FeatureLink.tsx`
 
-### 1. Learn hub — `src/pages/Learn.tsx`
+Thin interactive wrapper that composes `FeatureItem` + affordances. Keeps `FeatureItem` itself purely informational.
 
-Replace the local `PillarCard` grid with shared primitives, then extend the page with guidance sections it currently lacks.
+Props: `to: string`, plus the same `title`, `desc`, `icon`, `variant` (`"row" | "block"`, defaults to `"block"`) as `FeatureItem`.
 
-Structure:
-1. `BriefingHero` (kept, copy unchanged).
-2. **Three destinations** — `PageSection` wrapping a 3-up grid of `NavCard`s for Education / News & Insights / FAQ. Meta strings (`{n} articles`, etc.) become the `NavCard` eyebrow, no bordered pillar cards.
-3. **Featured educational categories** — `PageSection titled "Start with the basics"` containing a 2×2 grid of `FeatureItem` blocks, one per `EDUCATION_TOPICS` entry (title = topic label, desc = topic description), each wrapped in a `Link` to `/learn/education#<id>`. Icon glyph limited to one per section — omit glyphs on the cards themselves per doctrine.
-4. **Featured recent updates** — `PageSection titled "Recent updates"` listing the 3 newest `NEWS_ARTICLES` as `FeatureItem` rows (title = headline, desc = standfirst, meta line for date · category). Link each to its article.
-5. **Still have questions?** — `PageSection` linking to `/learn/faq` and `/contact` via two side-by-side `NavCard`s.
-6. `NextStep primary="vendor-registry"` (kept).
+Behavior:
+- Renders a `react-router-dom` `Link` wrapping the `FeatureItem` and an `ArrowRight` (lucide, `strokeWidth={1.25}`, 16px).
+- Layout: `group flex items-center justify-between gap-4 cursor-pointer`, min-height `44px` (mobile touch target), horizontal padding `px-3 md:px-4`, vertical padding `py-3`, negative horizontal margin so the row visually flushes with surrounding `PageSection` copy (`-mx-3 md:-mx-4`).
+- No border. No radius chrome beyond a subtle `rounded-lg` for the hover tint.
+- Hover: `hover:bg-muted/40`, title darkens via `group-hover:text-foreground` (base already `text-foreground` — use `text-foreground/90` at rest so the shift is perceptible), arrow translates `group-hover:translate-x-[3px]` and shifts to `text-foreground` from `text-muted-foreground`.
+- Transitions: `transition-colors duration-200`, arrow `transition-transform duration-200`. Active state: `active:scale-[0.995]`.
+- Focus-visible: `focus-visible:outline-none focus-visible:bg-muted/40` plus `focus-visible:ring-1 focus-visible:ring-border`.
+- Accessibility: `aria-label={title}`.
 
-Removes bordered pillar tiles, adds real guidance — no article walls.
+Small internal tweak: to darken the title on hover without forking `FeatureItem`, `FeatureLink` overrides via wrapper class `[&_h3]:transition-colors group-hover:[&_h3]:text-foreground` and sets an at-rest `[&_h3]:text-foreground/85`. This keeps `FeatureItem` untouched.
 
----
+Export from `src/components/system/index.ts`.
 
-### 2. Education hub — `src/pages/LearnEducation.tsx`
+### 2. Doctrine update — `src/components/system/FeatureItem.tsx`
 
-Keep search + filter tabs (they are real navigation and already match the pill spec). Rebuild results.
+Extend the header doc block:
+- **`FeatureItem`** — informational, static. Never wrap in a Link.
+- **`FeatureLink`** — lightweight navigational row. Same visual language, adds hover tint, chevron nudge, cursor, 44px touch target. Use inside educational and reference content.
+- **`NavCard`** — high-emphasis destination card with hairline border. Use for top-level or hero-level navigation.
 
-- Wrap controls in the same sticky, backdrop-blurred filter bar pattern used elsewhere; keep pill styling.
-- Replace each topic block:
-  - Section frame becomes a `PageSection` (title = topic label, intro = topic description).
-  - Article list becomes stacked `FeatureItem` rows (title = question, desc = `answersFor`), each wrapped in a `Link` to `/learn/education/<slug>`. No individual bordered `ArticleRow` cards.
-- Empty state stays as a single muted line, no card.
-- Preserve `#topic-id` deep links, hashchange handler, and JSON-LD.
+Rule: "If something navigates somewhere, it must visibly behave like navigation."
 
----
+### 3. Apply to Batch 2 hubs
 
-### 3. News hub — `src/pages/LearnNews.tsx`
+Replace every `<Link>`-wrapped `FeatureItem` with `FeatureLink`. No copy or data changes.
 
-Feels like a publication — chronological, compact, no giant cards.
+- **`src/pages/Learn.tsx`** — "Start with the basics" 2×2 grid of `EDUCATION_TOPICS` and "Recent updates" list. (Recent updates keeps its meta line above via a small wrapper — see technical note.)
+- **`src/pages/LearnEducation.tsx`** — every topic block's article list.
+- **`src/pages/LearnFaq.tsx`** — the four FAQ topic rows.
+- **`src/components/learn/LearnArticleTemplate.tsx`** — "Related questions" and "Related education" lists.
 
-- Keep sticky filter chip bar and post count.
-- Replace `NewsRow` bordered cards with a compact list: each item is a link containing a dateline · category meta line, headline, and standfirst, separated by hairline `border-b border-border/40` dividers rather than boxed cards. Rendered inside a single `PageSection` wrapper for spacing.
-- Empty state as a plain muted line.
-- Keep `NextStep primary="learn-education"` and JSON-LD.
+Informational `FeatureItem` uses elsewhere (About principles, HowItWorks verified-mean blocks, Partners category grid, etc.) are unchanged — they are content, not navigation.
 
----
+### 4. Technical notes
 
-### 4. FAQ hub — `src/pages/LearnFaq.tsx`
+- Recent updates rows on `/learn` currently render a meta line (`APRIL 14 · REGULATORY UPDATES`) above the `FeatureItem`. `FeatureLink` renders one row; to keep the meta strip, pass it as an optional `eyebrow?: string` prop on `FeatureLink` rendered above the title inside the link so the whole area stays a single clickable target. Adds minimal surface to the API without a second primitive.
+- Grid `FeatureLink`s (2-col categories on `/learn`) get the full-cell hit area for free because they are the grid child.
+- No new dependencies. Uses existing `lucide-react` `ArrowRight`, `react-router-dom` `Link`, and Tailwind tokens only. No hardcoded colors.
 
-- Replace `FaqRow` bordered cards with a `PageSection` containing `FeatureItem` rows (title = label, desc = description), each wrapped in a `Link` to the four Tier D FAQ pages.
-- Preserve routes, order, and JSON-LD.
-- Keep `NextStep primary="contact"`.
+### 5. Preserve
 
----
+Routes, copy, JSON-LD, deep-link hashes, existing `NavCard` usage, all informational `FeatureItem` sites.
 
-### 5. Article templates — `src/components/learn/LearnArticleTemplate.tsx`
-
-Small refinements only; do not restructure the article body or break `ArticleHeader` / `ArticleSection`.
-
-- **Related questions** and **Related education** blocks: replace the bare `<ul>` of chevron links with a stacked group of `FeatureItem` rows (title = question, no desc) wrapped in `Link`s, matching sibling hubs. Keep them inside `ArticleSection` so anchor jumps and typography stay intact.
-- No changes to Article/NewsArticle JSON-LD, headers, section numbering, or `NextStep` placement.
-
-Education article body order stays: What this answers → Short answer → Detailed sections → Related questions → Next step. News stays: dateline/category strip → body → Why this matters → Related education → Next step. Both already end on an intentional next step via `NextStep`.
-
----
-
-### 6. Preserve (non-negotiable)
-
-- Routes: `/learn`, `/learn/education`, `/learn/education/:slug`, `/learn/news`, `/learn/news/:slug`, `/learn/faq`, all legacy `/library/*` and `/education/*` redirects in `src/App.tsx`.
-- All article slugs, deep-link hashes (`#basics`, `#choosing-a-provider`, `#verification`, `#sourcing-and-manufacturing`), Tier D FAQ pages and their content.
-- All `PageMeta` inputs and JSON-LD (`CollectionPage`, `Article`, `NewsArticle`, `FAQPage`), canonical URLs, breadcrumbs.
-- Verification logic, status definitions, `NextStep` targets, legal disclaimers.
-- Data files under `src/data/learn.ts` — content only consumed, not rewritten.
-
-Out of scope: Tier D FAQ page interiors (Batch content freeze), Batch 3 pages, copy rewrites beyond minor clarity fixes on hub intros.
-
----
-
-### Technical details
-
-- Use only `PageSection`, `FeatureItem`, `NavCard`, `ProcessSteps`, and existing typography tokens from `@/components/system`. Add `Link` wrappers around `FeatureItem`/`NavCard` where interactivity is needed; do not fork the components.
-- No hardcoded colors — HSL semantic tokens only.
-- Sticky filter bars: `sticky top-<nav-offset>` + `backdrop-blur-md` + `bg-background/80`, matching the pattern already used for other filter stacks (per core memory).
-- No new decorative glyphs. `NavCard` glyph slot used only where it communicates meaning (e.g., `check` for verification destination) — not blanketed.
-- No new dependencies. No route additions.
-
-### Verification
+### 6. Verification
 
 - `bunx tsgo --noEmit`.
-- Playwright mobile screenshots (390×1800) of `/learn`, `/learn/education`, `/learn/news`, `/learn/faq`, plus one education and one news article, confirming: shared primitives applied, no leftover bordered card stacks on hubs, deep-link hashes still scroll correctly on `/learn/education`, and every hub ends with an intentional next action.
+- Playwright mobile screenshots (390×1800) of `/learn` (hover + rest via CSS not needed on mobile — capture rest state) and `/learn/education`. Confirm rows show chevron affordance, adequate spacing, no bordered chrome, and 44px min height.

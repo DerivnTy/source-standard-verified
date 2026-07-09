@@ -11,6 +11,8 @@ export { PageSection } from "./PageSection";
 export { DataStrip } from "./DataStrip";
 export { Glyph, type GlyphName } from "./GlyphIcon";
 export { FeatureItem } from "./FeatureItem";
+export { FeatureLink } from "./FeatureLink";
 export { NavCard } from "./NavCard";
 export { ProcessSteps } from "./ProcessSteps";
+
 
