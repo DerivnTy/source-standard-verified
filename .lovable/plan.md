@@ -1,58 +1,47 @@
-## How Verification Works — Consumer Rewrite (approved)
+# Tier A · Vendor Registry — Consumer-First Pass
 
-Rewrite `src/pages/HowItWorks.tsx` end-to-end as a five-section consumer guide. Preserve routing (`/how-it-works`), color palette, typography, `BriefingHero`, `Breadcrumb`, `PageMeta`, and site chrome.
+Primary question the page must answer: **"Is my provider verified?"**
 
-### Removed
-- Internal waypoints and `SectionAnchorNav`.
-- Numbered `Clause` cards (`AUDIT_CLAUSES`, `SURVEILLANCE_CLAUSES`, etc.).
-- Long procedural methodology paragraphs.
+Nav label stays **"Vendor Registry"** per the governing plan. Only the page-level headline, supporting copy, and header microcopy shift to consumer framing. Filters, results, search, routing, JSON-LD, and business logic are untouched.
 
-### New page structure
+## Scope of changes (surgical, header band only)
 
-1. **BriefingHero** (kept)
-   - Eyebrow: "Public Guide"
-   - Title: "How Verification Works"
-   - Deck: one plain-language sentence.
+### 1. `src/pages/VerifiedVendors.tsx`
 
-2. **What is Verification?** — short 2–3 sentence lead. Consumer-focused, no internal methodology.
+Two edits:
 
-3. **How Verification Works** — 4-step visual flow
-   - Horizontal on desktop, vertical on mobile. Hairline connector, no cards.
-   - Steps:
-     1. Provider enters the registry
-     2. **Source Standard reviews available information for providers undergoing verification** — worded so it does not imply every registry entry has been reviewed.
-     3. A public verification status is assigned
-     4. Records are periodically reviewed and updated
+- **`<PageMeta title>`** — change from `"Vendor Registry"` to `"Is Your Provider Verified? · Vendor Registry"`. Keeps the institutional destination name in the tab/SERP while leading with the consumer question.
+- **`<RegistryHeader title>`** — change from `"Vendor Registry"` to `"Is Your Provider Verified?"`. This is the on-page headline; per the principle, headlines answer consumer questions.
+- **Description prop** (used for both meta and header) — tighten to:
+  *"Search the Source Standard Registry to see whether your provider has been independently verified and to better understand their peptide sourcing transparency."*
+  (One-word swap: "find out" → "see". Everything else already reads consumer-first.)
 
-4. **What Verification Means** — compact checklist, Lucide `Check` (14px, foreground):
-   - Public sourcing transparency
-   - Independent review within the Source Standard framework
-   - Public verification status
-   - Ongoing record maintenance
+No changes to the `indexNumber="01"` label, record-count pill, floating stats card, search input, filter pills, results grid, or pagination.
 
-5. **What Verification Does Not Mean** — same layout, neutral glyph (Lucide `Minus`, muted):
-   - Medical advice
-   - FDA approval
-   - Product approval
-   - Safety guarantee
-   - Treatment recommendation
-   - Future outcome guarantee
+### 2. No other files touched
 
-6. **Why It Matters** — 2–3 sentence close about helping consumers make more informed decisions about compounded peptide providers through public verification and transparency.
+`RegistryHeader.tsx` stays as-is — it's a shared primitive; the page controls what strings flow in.
 
-7. **Disclaimer footer** — keep existing legal / positioning paragraph verbatim.
+## What is deliberately not changed
 
-### Visual treatment
-- `container-narrow` layout, existing `Eyebrow` / small-caps pattern.
-- Section spacing tightened to `mt-10`/`mt-12`.
-- 0.5px `hsl(var(--border))` hairlines between §2–§6.
-- Lucide `Check`, `Minus` at 14px, `strokeWidth={1.75}`. No badges, no gradients, no new tokens.
+- Filter labels ("Verification Status", "Delivery", "State", "Specialty") — these are operator-flavored but they're the actual filter dimensions; renaming them risks confusion. Revisit in the Phase 3 polish pass if the 30-second test flags them.
+- The `RegistryHeader` "Live · date · N records" pill — institutional signal, consumer-neutral.
+- Search placeholder — already consumer-phrased.
+- JSON-LD name (`"Vendor Registry"`) — matches the institutional destination for SEO/schema.
 
-### Files
-- Edit `src/pages/HowItWorks.tsx` only. Remove unused imports.
+## 30-second test after the change
 
-### Preserved
-- Route `/how-it-works`, `BriefingHero`, `Breadcrumb`, `PageMeta`, palette, typography, legal disclaimer copy.
+A first-time visitor lands on `/verified-vendors` and sees, in order:
+1. Headline: **Is Your Provider Verified?**
+2. One-line description telling them to search.
+3. Live record count.
+4. Search field.
+5. Results.
 
-### Out of scope
-- `FaqVerificationProcess`, `VendorProfile` verification toggle, `FAQ` links, new routes/images.
+Primary question answered before the fold. Institutional framing preserved via the nav label, JSON-LD, and record-count pill.
+
+## Files edited
+
+- `src/pages/VerifiedVendors.tsx` (title + description strings only, ~3 lines total)
+
+Confirm and I'll ship it.
