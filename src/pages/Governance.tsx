@@ -1,4 +1,5 @@
 import { RecordHeader } from "@/components/RecordHeader";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { BoardSection, BoardCiteFooter } from "@/components/BoardSection";
 import { DocJumpBar } from "@/components/DocJumpBar";
 import { Callout } from "@/components/Callout";
@@ -160,7 +161,8 @@ const Governance = () => (
     <BoardCiteFooter
       citation={`Source Standard. Regulatory Alignment & Oversight. Document ${DOC_ID}. Issued ${VERIFIED_ON}. Controlled copy on file with the issuing organization.`}
     />
-  </>
+  <EditorialBackLink to="/" label="Back to Home" />
+    </>
 );
 
 export default Governance;

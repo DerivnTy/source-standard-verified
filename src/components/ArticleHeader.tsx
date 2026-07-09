@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
 
 export type ArticleMetaItem = { label: string; value: ReactNode };
 
@@ -24,15 +23,17 @@ export const ArticleHeader = ({
   lead,
   category,
   metadata = [],
-  backHref = "/learn/education",
-  backLabel = "Back to Education",
+  backHref: _backHref,
+  backLabel: _backLabel,
 }: {
   eyebrow?: string;
   title: string;
   lead?: string;
   category?: string;
   metadata?: ArticleMetaItem[];
+  /** @deprecated Top-of-page back link removed. Render <EditorialBackLink /> at the page footer instead. */
   backHref?: string;
+  /** @deprecated Top-of-page back link removed. Render <EditorialBackLink /> at the page footer instead. */
   backLabel?: string;
 }) => {
   const updated = metadata.find(
@@ -45,26 +46,13 @@ export const ArticleHeader = ({
       <header className="bg-background">
         <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "0" }}>
           <div className="mx-auto w-reading-wide">
-            <Link
-              to={backHref}
-              className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
-              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-            >
-              <span
-                aria-hidden
-                className="transition-transform group-hover:-translate-x-0.5"
-              >
-                ←
-              </span>
-              <span>{backLabel}</span>
-            </Link>
-
             <p
               className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "10px", letterSpacing: "0.12em", marginTop: "14px" }}
+              style={{ fontSize: "10px", letterSpacing: "0.12em" }}
             >
               {category}
             </p>
+
 
             <h1 className="t-article-title text-foreground" style={{ marginTop: "10px" }}>
               {title}
@@ -98,18 +86,8 @@ export const ArticleHeader = ({
     <header className="bg-background">
       <div className="page-shell pt-5">
         <div className="mx-auto w-reading-wide">
-          <Link
-            to={backHref}
-            className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
-            style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-          >
-            <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">
-              ←
-            </span>
-            <span>{backLabel}</span>
-          </Link>
+          <div style={{ ...cardChrome, padding: "24px" }}>
 
-          <div style={{ ...cardChrome, padding: "24px", marginTop: "16px" }}>
             <h1
               className="t-page-title text-foreground max-w-[26ch]"
               style={{ marginTop: "12px" }}

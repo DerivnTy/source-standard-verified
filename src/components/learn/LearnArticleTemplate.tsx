@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import { FeatureLink } from "@/components/system";
 
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 
 import {
   EducationArticle,
@@ -16,29 +16,6 @@ import {
 const asParagraphs = (body: string | string[]) =>
   Array.isArray(body) ? body : [body];
 
-// ── Shared editorial back link ────────────────────────────────────
-
-const BackToLibrary = () => (
-  <section className="bg-background" style={{ paddingTop: "40px", paddingBottom: "80px" }}>
-    <div className="page-shell">
-      <div className="mx-auto w-reading-wide">
-        <Link
-          to="/learn"
-          className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
-          style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-        >
-          <span
-            aria-hidden
-            className="transition-transform group-hover:-translate-x-0.5"
-          >
-            ←
-          </span>
-          <span>Back to Learn Library</span>
-        </Link>
-      </div>
-    </div>
-  </section>
-);
 
 // ── Education article template ────────────────────────────────────
 
@@ -125,7 +102,7 @@ export const EducationArticleTemplate = ({
         </ArticleSection>
       )}
 
-      <BackToLibrary />
+      <EditorialBackLink to="/learn" label="Back to Learn" />
     </>
   );
 };
@@ -206,7 +183,7 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         </ArticleSection>
       )}
 
-      <BackToLibrary />
+      <EditorialBackLink to="/learn" label="Back to Learn" />
     </>
   );
 };

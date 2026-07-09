@@ -1,4 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { Link } from "react-router-dom";
 import { BriefingHero } from "@/components/BriefingHero";
 import { PageSection } from "@/components/system";
@@ -89,7 +90,8 @@ const Partners = () => (
         </div>
       </div>
     </PageSection>
-  </>
+  <EditorialBackLink to="/" label="Back to Home" />
+    </>
 );
 
 export default Partners;

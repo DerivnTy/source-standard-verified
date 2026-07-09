@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { UtilityHeader } from "@/components/UtilityHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -113,6 +114,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
+    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

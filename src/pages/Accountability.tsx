@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { PageMeta } from "@/components/PageMeta";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
@@ -135,7 +136,7 @@ const Accountability = () => {
         </ul>
       </ArticleSection>
 
-      <div style={{ paddingBottom: "80px" }} />
+      <EditorialBackLink to="/about" label="Back to About" />
     </>
   );
 };

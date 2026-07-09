@@ -1,107 +1,65 @@
-## Global editorial harmony pass on subpages
+# Editorial Navigation Cleanup
 
-Bring older subpages into the same restrained editorial system used on the homepage and article templates. No branding, color, or typography redesign — a consistency pass only.
+Move the back link out of every long-form page's header and standardize it as a quiet editorial footer link at the bottom.
 
-### Editorial rules (applied uniformly)
+## New shared component
 
-**Prose sections (default):**
-- Plain text on the page background — no card chrome
-- Body: `text-foreground`, ~16px, line-height 1.6–1.65, `max-width: 68ch`
-- Paragraph spacing via `p + p { margin-top: 1.1em }` (already available via `.t-article-prose`)
-- Section headings guide the reader; no oversized restart bars
-- Hairline separators (`0.5px solid hsl(var(--border))`) between major sections when a divider is needed
+Create `src/components/EditorialBackLink.tsx`:
 
-**Cards allowed ONLY for:**
-- Navigation cards (page → page)
-- Related-links blocks
-- Definition/glossary blocks (subtle bordered list, not one card per item)
-- Warning/callout blocks
-- Comparison blocks
-- Registry / listing records
+- Props: `to: string`, `label: string` (default `"Back to Home"`)
+- Renders a single `<Link>` inside a `<nav>` wrapper, centered inside `w-reading-wide` on `page-shell`.
+- Styling matches the existing `BackToLibrary` in `LearnArticleTemplate.tsx`:
+  - `font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group`
+  - `fontSize: 11px`, `letterSpacing: 0.08em`
+  - Arrow `←` in a `<span aria-hidden>` that nudges left on hover
+  - No border, no button chrome
+- Spacing: `marginTop: 48px`, `marginBottom: 80px`
 
-**Removed patterns:**
-- `01 / 04` numbered counters on prose sections
-- One-card-per-paragraph stacks
-- Oversized muted body text
-- Landing-page module rhythm inside institutional docs
-- Local `cardChrome` primitives around every clause
+The existing `BackToLibrary` inside `LearnArticleTemplate.tsx` is replaced by this component (used with `label="Back to Learn Library"` and `to="/learn"`).
 
-**Reused primitives:**
-- `ArticleHeader` (masthead path — `category` prop) for page headers
-- `ArticleSection variant="prose"` for body sections
-- `ArticleSection variant="callout"` for genuine callouts / related links
-- `BoardDefList` for term/description lists where appropriate
+## Header changes (`src/components/ArticleHeader.tsx`)
 
-### Pages in scope (phased)
+- Remove the top back link from BOTH rendering paths (category masthead and backward-compatible card path).
+- Keep the `backHref` / `backLabel` props in the type signature but mark them as ignored/deprecated so existing callers don't break; they will no longer render anything.
+- Page must open with: Category → Title → Standfirst → hairline → content. No exit link before the article begins.
 
-**Phase 1 — Legal / policy (highest priority, worst offenders):**
-- `src/pages/Privacy.tsx`
-- `src/pages/Terms.tsx`
-- `src/pages/VerificationDisclaimer.tsx`
+## Pages that get the new footer link
 
-**Phase 2 — Institutional:**
-- `src/pages/Governance.tsx`
-- `src/pages/Accountability.tsx`
-- `src/pages/MedicalAdvisory.tsx`
-- `src/pages/About.tsx`
+For each page below, remove the pre-header back link (already handled by `ArticleHeader` change) and render `<EditorialBackLink />` as the last child of the page, after the final section.
 
-**Phase 3 — Operational / informational:**
-- `src/pages/HowItWorks.tsx`
-- `src/pages/StatusDefinitions.tsx`
-- `src/pages/ForVendors.tsx`
-- `src/pages/Partners.tsx`
-- `src/pages/ReportConcern.tsx`
-- `src/pages/Contact.tsx`
+Default footer target is `to="/"` with `label="Back to Home"` unless noted.
 
-Out of scope for this pass: Home, Learn index/article/news/FAQ pages (already aligned), Registry / Greenlist / Vendor / Advisor / Library-article pages (those have their own record/listing chrome and are correct).
+| Page | Footer target |
+|---|---|
+| `src/pages/Terms.tsx` | `/` – "Back to Home" |
+| `src/pages/Privacy.tsx` | `/` – "Back to Home" |
+| `src/pages/VerificationDisclaimer.tsx` | `/` – "Back to Home" |
+| `src/pages/Governance.tsx` | `/` – "Back to Home" |
+| `src/pages/Accountability.tsx` | `/about` – "Back to About" (currently uses this backLabel; keep the semantic target) |
+| `src/pages/MedicalAdvisory.tsx` | `/` – "Back to Home" |
+| `src/pages/About.tsx` | `/` – "Back to Home" |
+| `src/pages/HowItWorks.tsx` | `/` – "Back to Home" |
+| `src/pages/StatusDefinitions.tsx` | `/about` – "Back to About" |
+| `src/pages/Partners.tsx` | `/` – "Back to Home" |
+| `src/pages/Contact.tsx` | `/` – "Back to Home" |
+| `src/pages/ForVendors.tsx` | `/` – "Back to Home" |
+| `src/pages/ReportConcern.tsx` | `/` – "Back to Home" (currently "Back to Registry" at the top; institutional page → home is correct per spec) |
 
-### Recomposition template (illustrated with Privacy)
+For any page that doesn't currently use `ArticleHeader` (e.g. Governance, MedicalAdvisory, About, HowItWorks, Partners, Contact, ForVendors — verified they have no existing back link), only the footer link is added; nothing else changes.
 
-Current: `BriefingHero` + `SectionAnchorNav` + per-clause `PrivacyRow` cards + `01 / 04` counters + local `SectionHeader` with muted intro.
+## Learn / article templates (`src/components/learn/LearnArticleTemplate.tsx`)
 
-New:
-```
-ArticleHeader
-  category = "Policy · Privacy"
-  title    = "Privacy"
-  lead     = <one-sentence purpose>
+- `EducationArticleTemplate` and `NewsArticleTemplate` already render `<BackToLibrary />` at the end. Replace that local component with `<EditorialBackLink to="/learn" label="Back to Learn" />` so it uses the shared primitive and the "Back to Learn" wording specified.
+- Because `ArticleHeader` no longer renders a top back link, the pre-article exit link disappears from every Learn article as well — matching the spec ("← Back to Learn for Learn articles" at the bottom only).
 
-ArticleSection variant="prose"
-  <intro paragraphs, plain>
+## Out of scope
 
-ArticleSection variant="prose" title="What information we maintain"
-  <lead paragraph>
-  <BoardDefList items=PARTITIONING>   // term/description, no card-per-row
+- Library detail pages (`src/pages/Library*.tsx`) and profile pages (`VendorProfile`, `GreenlistProfile`, `AdvisorProfile`) — these are registry/reference records with their own established navigation pattern, not long-form institutional documents. Not part of this pass.
+- No design token, color, typography, copy (other than back-link labels), route, or data-model changes.
 
-ArticleSection variant="prose" title="How records are collected"
-  <BoardDefList items=COLLECTION>
+## Verification
 
-ArticleSection variant="prose" title="Retention"
-  <BoardDefList items=RETENTION>
-
-ArticleSection variant="prose" title="Access and use">
-  <prose>
-
-ArticleSection variant="callout" title="Data requests or questions">
-  <contact lines>
-
-<Back to Home>  // optional quiet link, same pattern as article footer
-```
-
-Drop: `WAYPOINTS` / `SectionAnchorNav` (not needed on a linear editorial doc), `Eyebrow`, `SectionHeader`, `PrivacyCard`, `PrivacyRow`, `cardChrome`, all `n:` counter fields (unused after refactor — leave the data shape as `{ t, d }`).
-
-Apply the same recomposition pattern page-by-page across Phase 1–3. Where a page already has a legitimate content object (e.g. AdvisoryBoard member cards, StatusDefinition status legend), keep the card — that's a "genuine object" per the rules.
-
-### Verification
-- `bunx tsgo --noEmit` passes after each phase.
-- Visual spot-check at 390×844 and 1280×800 for one page per phase (Privacy, Governance, HowItWorks) to confirm: plain prose on bg, no `01/04` counters, no boxed paragraphs, callouts only where semantically real.
-- No route or SEO changes; `PageMeta` retained.
-
-### Delivery
-Ship in three PR-sized commits (one per phase) so review is tractable, but execute end-to-end in this session unless the user pauses.
-
-### Explicitly not changed
-- Design tokens, colors, fonts
-- Component APIs of `ArticleHeader` / `ArticleSection` / `BoardDefList`
-- Routes, data models, or copy (only trimming counter fields no longer rendered)
-- Registry, Greenlist, Vendor, Advisor, Library-article pages
+- `bunx tsgo --noEmit`
+- Headless screenshot spot-check at 390×844 for `Terms`, `Privacy`, `Governance`, `About`, `ReportConcern`, and one Learn article, confirming:
+  - Page opens with Category / Title / Standfirst (no top back link).
+  - Page ends with a quiet `← BACK TO HOME` (or `BACK TO LEARN`) with ~48px top / ~80px bottom breathing room.
