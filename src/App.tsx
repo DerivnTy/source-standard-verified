@@ -57,7 +57,7 @@ const queryClient = new QueryClient();
  */
 const LEARN_REDIRECTS: [string, string][] = [
   ["/education", "/learn"],
-  ["/education/basics", "/learn/education#basics"],
+  ["/education/basics", "/learn/education#learn-the-basics"],
   ["/education/guides", "/learn/education"],
   ["/education/questions", "/learn/education"],
   ["/library/core", "/learn/education"],

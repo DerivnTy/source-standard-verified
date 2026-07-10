@@ -11,7 +11,7 @@
  */
 
 export type EducationTopicId =
-  | "basics"
+  | "learn-the-basics"
   | "choosing-a-provider"
   | "verification"
   | "sourcing-and-manufacturing";
@@ -84,7 +84,7 @@ export const EDUCATION_TOPICS: {
   description: string;
 }[] = [
   {
-    id: "basics",
+    id: "learn-the-basics",
     label: "Learn the Basics",
     description:
       "Start here. Plain-language answers to the questions people ask first.",
@@ -158,7 +158,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
   // ── Basics ────────────────────────────────────────────────────────
   {
     slug: "what-is-a-compounded-medication",
-    topic: "basics",
+    topic: "learn-the-basics",
     question: "What Is a Compounded Medication?",
     answersFor:
       "The difference between a compounded medication and one that comes off a pharmaceutical company's production line.",
@@ -191,7 +191,7 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
   },
   {
     slug: "what-are-peptides",
-    topic: "basics",
+    topic: "learn-the-basics",
     question: "What Are Peptides?",
     answersFor:
       "What peptides are, why they're used in medicine, and why the pharmacy that prepares them matters.",
