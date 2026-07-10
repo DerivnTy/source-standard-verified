@@ -118,9 +118,6 @@ export const EducationArticleTemplate = ({
           category="education"
         />
 
-        <KeyTakeaway>{article.shortAnswer}</KeyTakeaway>
-
-
         {article.sections.map((s, i) => (
           <ArticleSection key={i} variant="prose" title={s.title}>
             {asParagraphs(s.body).map((p, j) => (
@@ -129,7 +126,10 @@ export const EducationArticleTemplate = ({
           </ArticleSection>
         ))}
 
+        <KeyTakeaway>{article.shortAnswer}</KeyTakeaway>
+
         <RelatedArticles items={relatedItems} />
+
 
         <ContinueLearning exclude="/learn/education" />
       </LearnShell>
@@ -211,9 +211,6 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
           </div>
         )}
 
-        <KeyTakeaway>{article.standfirst}</KeyTakeaway>
-
-
         <ArticleSection variant="prose">
           {article.body.map((p, i) => (
             <p key={i}>{p}</p>
@@ -223,6 +220,9 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         <ArticleSection variant="prose" title="Why this matters">
           <p className="text-foreground font-medium">{article.whyThisMatters}</p>
         </ArticleSection>
+
+        <KeyTakeaway>{article.standfirst}</KeyTakeaway>
+
 
         <RelatedArticles
           title="Related education"
