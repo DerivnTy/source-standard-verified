@@ -77,6 +77,13 @@ const BOUNDARIES = [
   "Does not participate in marketing, promotion, or commercial endorsement activity.",
 ];
 
+const BOARD_MEMBERS = [
+  { role: "Clinical Oversight" },
+  { role: "Pharmacy Standards" },
+  { role: "Regulatory Interpretation" },
+  { role: "Evidence Review" },
+];
+
 const RESPONSIBILITIES: Item[] = [
   {
     term: "Framework consistency",
