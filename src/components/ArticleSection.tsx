@@ -45,9 +45,6 @@ export const ArticleSection = ({
           <div className="mx-auto w-reading-wide">
             <div
               style={{
-                border: "0.5px solid hsl(var(--border))",
-                background: "hsl(var(--muted) / 0.35)",
-                borderRadius: "8px",
                 padding: "16px 20px",
               }}
             >
