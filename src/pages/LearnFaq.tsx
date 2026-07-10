@@ -43,7 +43,7 @@ const LearnFaq = () => {
           docId=""
         />
 
-        <PageSection>
+        <PageSection first>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {FAQ_ENTRIES.map((f) => (
               <ArticleCard
