@@ -80,14 +80,14 @@ export const FaqPage = ({
     <article className="bg-background">
       {/* Back link + hairline */}
       <div className="border-b border-border/60 bg-background">
-        <div className="page-shell py-3">
+        <div className="page-shell" style={{ paddingTop: "14px", paddingBottom: "14px" }}>
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
             <Link
               to="/learn/faq"
-              className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
-              style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+              className="inline-flex items-center gap-2 font-sans text-muted-foreground hover:text-foreground transition-all duration-200 group"
+              style={{ fontSize: "14px", fontWeight: 500, letterSpacing: "0.06em" }}
             >
-              <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">
+              <span aria-hidden className="transition-transform duration-200 group-hover:-translate-x-0.5">
                 ←
               </span>
               <span>Back to FAQ</span>

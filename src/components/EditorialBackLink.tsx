@@ -21,12 +21,12 @@ export const EditorialBackLink = ({
       <div className="mx-auto w-reading-wide">
         <Link
           to={to}
-          className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors group"
-          style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+          className="inline-flex items-center gap-2 font-sans text-muted-foreground hover:text-foreground transition-all duration-200 group"
+          style={{ fontSize: "14px", fontWeight: 500, letterSpacing: "0.06em" }}
         >
           <span
             aria-hidden
-            className="transition-transform group-hover:-translate-x-0.5"
+            className="transition-transform duration-200 group-hover:-translate-x-0.5"
           >
             ←
           </span>
