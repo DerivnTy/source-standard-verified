@@ -1,41 +1,45 @@
-# Simplify the editorial hero
+## Goal
 
-Apply cleanly across every page that uses the shared navy article masthead (Education articles, News articles, Library entries, Privacy, Terms, Verification Disclaimer, Accountability, Status Definitions, Report Concern, Medical Advisory, and any future editorial page).
+Every Learn page follows the same rhythm — Hero → Editorial content → Related content → Continue reading — with no chip navigation, filter bars, or "Browse by…" controls between the hero and the content.
 
-## 1. `src/components/ArticleHeader.tsx` — navy masthead path
+## Changes by page
 
-- Remove the uppercase mono category eyebrow (`{category.toUpperCase()}`) and its `<p>` wrapper entirely. The `category` prop stays in the signature (still used as the switch that selects the navy path so existing callsites keep working) but is no longer rendered.
-- Tighten the vertical rhythm inside the navy hero container:
-  - `paddingTop`: `clamp(24px, 5vh, 48px)` → `clamp(8px, 2.5vh, 20px)` (≈24–32px removal, matching the request).
-  - `paddingBottom`: `clamp(28px, 4vh, 40px)` → `clamp(20px, 3vh, 32px)` so the hero closes tighter above the metadata / Key Takeaway.
-  - Title `marginTop`: `22px` → `0` (no eyebrow above it anymore).
-  - Lead `marginTop`: `14px` → `10px` for a slightly denser title→lead gap.
-- Typography (font sizes, weights, colors, `text-wrap: balance`, `max-w-[68ch]`) is preserved exactly.
-- The card-path (Library legacy, no `category`) is untouched.
+### 1. News & Insights (`src/pages/LearnNews.tsx`)
 
-## 2. `src/components/learn/LearnArticleTemplate.tsx` — Education
+- Remove the entire filter bar (the sticky-style strip with post count + `All / Industry / Regulatory / Scientific / Source Standard / Editorial` pills).
+- Remove `useState`, the `Filter` type, the `FILTER_TABS` array, and all filter state / logic.
+- Replace the single "Latest" `PageSection` with one `PageSection` per category, in this order (matching the user's example, aligned to `NEWS_CATEGORIES`):
+  1. Regulatory Updates
+  2. Industry News
+  3. Scientific Research
+  4. Source Standard Updates
+  5. Editorial
+- Within each section, render that category's articles sorted newest-first as `ArticleCard`s (same 2-column grid, same card props, no eyebrow since the section heading already carries the category).
+- If a category has zero articles, omit the section entirely. If it has one, still render it as a section (no chrome added).
+- Drop the intro copy that referenced filtering ("Newest first. Reporting, analysis, and platform updates.") — section headings speak for themselves.
 
-- Stop composing the reading-time / topic string. Continue passing a non-empty `category` prop so `ArticleHeader` still renders the navy path, but the value is inert (e.g. `category="education"`). No visible eyebrow, no metadata row — Education heroes show title + lead only.
-- Reading time already appears on listing cards and related-article cards; nothing else moves.
+### 2. Education (`src/pages/LearnEducation.tsx`)
 
-## 3. `src/components/learn/LearnArticleTemplate.tsx` — News
+- No topic pills currently remain, but confirm the page flows directly from `BriefingHero` into the first `EDUCATION_TOPICS` section. No changes needed beyond verification.
 
-- Remove the eyebrow the same way (pass an inert `category="news"` to keep the navy path).
-- Add a new small muted metadata row **immediately below the hero and above `<KeyTakeaway>`**, inside `page-shell` / `w-reading-wide` so it aligns with body copy. It renders `dateLabel · category.label` using the existing values already computed in the template.
-  - Style: `font-mono uppercase`, `10px`, letter-spacing `0.14em`, `text-muted-foreground`, top padding ~`20px`, bottom padding ~`8px`. Matches the muted regulatory tone used elsewhere on the site.
-  - Only rendered when at least one meta part exists.
+### 3. FAQ (`src/pages/LearnFaq.tsx`)
 
-## 4. Other pages passing `category` to `ArticleHeader`
+- Remove the `PageSection` wrapper's "Browse by topic" heading and intro copy, which frames the topics as a filter step.
+- Render the four `FAQ_ENTRIES` cards directly under the hero as an editorial grid (same `ArticleCard` grid, wrapped in a plain `PageSection` with no title/intro, or a lightweight section container consistent with other Learn pages).
 
-Library entries, Privacy, Terms, Verification Disclaimer, Accountability, Status Definitions, Report Concern, and Medical Advisory currently pass a `category` string that produced the eyebrow. After the change, these pages simply render title + lead in the navy hero — consistent with the request and with the editorial system. No per-page edits required.
+### 4. Learn landing (`src/pages/Learn.tsx`)
+
+- Contains no chips or filters today. `Start Here`, `Browse by Resource` (NavCards), `Recent Updates`, and `Still Have Questions?` are editorial sections, not filter controls. No changes.
 
 ## Out of scope
 
-- FAQ topic pages (`FaqPage` / `FaqTopicShell`) don't use `ArticleHeader`; their heroes already differ and aren't in the request's "hero" definition. Not modified.
-- Breadcrumb bar, HeroPattern, related articles, Continue Learning, Key Takeaway styling — all unchanged.
-- Card-based legacy `ArticleHeader` path — unchanged.
+- `ArticleCard`, `CategoryHeader`, `LearnShell`, `ContinueLearning`, and article templates are untouched.
+- No data model changes in `src/data/learn`.
+- Future Learn pages should not reintroduce filters or segmented controls; scrolling remains the navigation.
 
-## Verification
+## Technical notes
 
-- `bunx tsc --noEmit`.
-- Playwright screenshots at 1280×1800 and 390×844 of one Education article and one News article to confirm: eyebrow gone, hero visibly tighter (≈24–32px), News metadata row visible directly under the navy hero, Education hero shows only title + lead.
+- `LearnNews.tsx` becomes a pure render: import `NEWS_ARTICLES` and `NEWS_CATEGORIES`, precompute `articlesByCategory` with a single sort+group pass, then `NEWS_CATEGORIES.map` → `PageSection`.
+- Remove now-unused imports (`useMemo`, `useState`, `NewsCategoryId`) in `LearnNews.tsx`.
+- Keep `formatDate` for the card `meta` field.
+- Update the `LearnFaq` JSON-LD/description unchanged; only the visible section header is removed.
