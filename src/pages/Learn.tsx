@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-import { ContinueLearning } from "@/components/learn/ContinueLearning";
+
 import { LearnShell } from "@/components/learn/LearnShell";
 import { PageSection, NavCard } from "@/components/system";
 
@@ -169,8 +169,6 @@ const Learn = () => {
         </p>
       </PageSection>
 
-      {/* 5 — Continue Learning */}
-      <ContinueLearning />
       </LearnShell>
     </>
   );
