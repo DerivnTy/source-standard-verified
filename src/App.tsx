@@ -111,18 +111,19 @@ const App = () => (
 
             {/* Learn, three-engine content system */}
             <Route path="/learn" element={<Learn />} />
-            <Route path="/learn/education" element={<LearnEducation />} />
-            <Route path="/learn/education/:slug" element={<LearnEducationArticle />} />
+            <Route path="/learn/education" element={<LearnEducationRedirect />} />
+            <Route path="/learn/education/:slug" element={<LearnEducationArticleRedirect />} />
             <Route path="/learn/news" element={<LearnNews />} />
             <Route path="/learn/news/:slug" element={<LearnNewsArticle />} />
             <Route path="/learn/faq" element={<LearnFaq />} />
+            <Route path="/learn/:topicId" element={<LearnGuide />} />
 
             {/* Legacy → Learn redirects */}
             {LEARN_REDIRECTS.map(([from, to]) => (
               <Route key={from} path={from} element={<Navigate to={to} replace />} />
             ))}
             {/* Catch-all for old /education/:slug dynamic route */}
-            <Route path="/education/:slug" element={<Navigate to="/learn/education" replace />} />
+            <Route path="/education/:slug" element={<Navigate to="/learn" replace />} />
 
             {/* Tier D FAQ pages, unchanged, surfaced through /learn/faq */}
             <Route path="/library/faq/legal-regulatory" element={<FaqLegalRegulatory />} />
