@@ -61,9 +61,9 @@ export const SiteFooter = () => {
       <footer
         className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
       >
-        <div className="page-shell pt-10 md:pt-14 lg:pt-16 pb-6 md:pb-12 lg:pb-10">
+        <div className="page-shell pt-10 md:pt-12 lg:pt-12 pb-6 md:pb-8 lg:pb-8">
         <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10 md:gap-y-14 items-start text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10 md:gap-y-10 items-start text-left">
             <div className="lg:col-span-1">
               <Logo variant="light" className="h-6" />
             </div>
@@ -88,7 +88,7 @@ export const SiteFooter = () => {
 
         {/* Legal band, hard-cut hairline, no gradients */}
         <div
-          className="mt-9 md:mt-14 pt-5 md:pt-6"
+          className="mt-8 md:mt-10 pt-5"
           style={{ borderTop: `1px solid ${HAIRLINE}` }}
         >
           <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">

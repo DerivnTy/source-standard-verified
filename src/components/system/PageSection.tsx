@@ -59,12 +59,12 @@ export const PageSection = ({
   const ctaMarginTop = compact ? "12px" : "16px";
   // Mobile values (locked): first pt=40px, non-first py matches inline `padY`.
   // md/lg breathe more; when `pb` is set we defer to caller.
-  const firstClass = first ? "pt-10 md:pt-14 lg:pt-20" : "";
-  const firstBottomClass = first && !pb ? "pb-10 md:pb-12 lg:pb-16" : "";
+  const firstClass = first ? "pt-10 md:pt-12 lg:pt-14" : "";
+  const firstBottomClass = first && !pb ? "pb-10 md:pb-10 lg:pb-12" : "";
   const responsivePadClass = !first && !pb
     ? compact
-      ? "md:!py-10 lg:!py-14"
-      : "md:!py-12 lg:!py-20"
+      ? "md:!py-8 lg:!py-10"
+      : "md:!py-10 lg:!py-14"
     : "";
   const inlineStyle: CSSProperties = first
     ? pb

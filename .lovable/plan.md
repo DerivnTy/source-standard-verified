@@ -1,67 +1,76 @@
+## Goal
 
-# Tablet & Desktop Optimization Pass
+Rework desktop (and `xl:`) spacing so it feels editorial and dense like Stripe/Linear/Vercel — not an enlarged mobile layout. Mobile stays pixel-identical. No changes to typography, colors, components, or copy.
 
-Mobile is locked. This work only adds `md:` (≥768px) and `lg:` (≥1024px) / `xl:` (≥1280px) modifiers on top of existing classes — no mobile class is edited, no copy changes, no components restyled, no colors/typography tokens changed. All existing semantic tokens, spacing scale, and component variants stay exactly as they are.
+## Where the excess comes from
 
-## Approach
+The last pass grew every `lg:`/`xl:` padding token upward (heroes to `lg:pt-20 lg:pb-16`, sections to `lg:!py-20`, `section-pad` to `py-72` at xl, chapter heroes doubling), and content containers stayed narrow (`w-standard` 1120 / `w-reading-wide` ~720). Net effect on desktop: tall heroes, huge gaps between sections, narrow prose columns.
 
-Rather than rewrite each page, we standardize four shared layout primitives first, then sweep pages to opt into them at breakpoints. This keeps the mobile DOM identical and confines desktop behavior to a small surface.
+The fix is to pull those `lg:`/`xl:` values back down and slightly widen the content containers — all in shared primitives so every page benefits from one edit.
 
-### 1. Shared layout primitives (additive only)
+## Changes
 
-- **`Section.tsx`** — extend `container` prop so `tight | narrow | wide` map to responsive max widths:
-  - tight: `max-w-[680px]` (editorial reading)
-  - narrow: `md:max-w-[860px] lg:max-w-[960px]`
-  - wide: `md:max-w-[1080px] lg:max-w-[1240px] xl:max-w-[1320px]`
-  Add responsive vertical rhythm: `py-12 md:py-16 lg:py-24` where currently a single mobile value is used. Horizontal padding: `px-5 md:px-8 lg:px-12`.
-- **`SiteHeader.tsx`** — widen inner container `md:px-8 lg:px-12`, allow nav row to breathe at `lg:` (increase gap between links); mobile menu untouched.
-- **`SiteFooter.tsx`** — already has `md:` row; add `lg:max-w-[1240px]` and `lg:px-12` on the outer container, `lg:grid-cols-4` for the link columns if currently stacked.
-- **`BriefingHero.tsx` / `PageHeader.tsx`** — hero title scales via `md:text-[…] lg:text-[…]` using the existing `ss-hero-title` size ladder (add a `lg:` step only — no new token). Lead paragraph max width bumps to `lg:max-w-[72ch]`. Hero vertical padding grows `md:py-20 lg:py-28`.
+### 1. Vertical rhythm (tighten desktop, keep mobile)
 
-### 2. Grid / card sweeps
+- `src/components/system/PageSection.tsx`
+  - `first` block: `pt-10 md:pt-14 lg:pt-20 pb-10 md:pb-12 lg:pb-16` → `pt-10 md:pt-12 lg:pt-14 pb-10 md:pb-10 lg:pb-12`
+  - Default non-first: `md:!py-12 lg:!py-20` → `md:!py-10 lg:!py-14`
+  - Compact non-first: `md:!py-10 lg:!py-14` → `md:!py-8 lg:!py-10`
 
-For pages listing cards or records, add responsive grid columns only:
-- `Learn.tsx`, `Education*.tsx`, `LibraryPublications.tsx`, `LibraryCategory.tsx`, `LearnNews.tsx`, `LearnFaq.tsx`, `MedicalAdvisory.tsx`, `BoardSection.tsx` → `md:grid-cols-2 lg:grid-cols-3` (or `lg:grid-cols-2` for wider editorial cards).
-- `VerifiedVendors.tsx` / `Greenlist.tsx` registry rows → keep single-column table feel; widen container to `lg:max-w-[1240px]` and let the query bar spread with `lg:grid-cols-[1fr_auto_auto]`.
-- `Index.tsx` hero + feature strip → 2-up on `md`, 3-up on `lg` where currently stacked.
+- `src/components/BriefingHero.tsx` (navy chapter hero)
+  - `pt-6 pb-6 md:pt-12 md:pb-10 lg:pt-20 lg:pb-16` → `pt-6 pb-6 md:pt-10 md:pb-8 lg:pt-14 lg:pb-10`
 
-### 3. Editorial pages (guides, articles, library entries, docs)
+- `src/components/PageHeader.tsx`
+  - Inline `paddingTop: clamp(44px, 5vh, 64px)` and `paddingBottom: 24px` → add `lg:` cap so hero never exceeds ~72px top / 28px bottom on desktop.
 
-`LearnGuide.tsx` + `LearnGuideTemplate.tsx`, `ArticleSection.tsx`, `LibraryEntry.tsx`, `LibraryAnalysis*`, `DocLayout.tsx`, `HowItWorks.tsx`, `HowToReadTheDirectory.tsx`, `Governance.tsx`, `Accountability.tsx`, `StatusDefinitions.tsx`, `VerificationDisclaimer.tsx`, `Terms.tsx`, `Privacy.tsx`, `About.tsx`:
-- Body text column: `lg:max-w-[720px]` centered.
-- On `lg:`, `LearnGuideTemplate` and `DocLayout` switch to a two-column shell with sticky TOC:
-  `lg:grid lg:grid-cols-[220px_minmax(0,720px)] lg:gap-16 xl:grid-cols-[240px_minmax(0,760px)_1fr]`
-  Mobile keeps current single-column inline TOC.
-- Callouts, footnotes, `MetadataBar`, `KeyTakeaway` inherit the same reading column width.
+- `src/index.css`
+  - `.section-pad` at `xl`: `py-72 px-56` → `py-56 px-48` (roughly 96px vertical instead of 120px).
+  - `.section-pad` at `lg`: reduce ~15%.
 
-### 4. Profile & record pages
+- `src/components/DocLayout.tsx` / `RegistryLayout.tsx`
+  - Drop `xl:py-24` back to `xl:py-16`.
 
-`VendorProfile.tsx`, `GreenlistProfile.tsx`, `AdvisorProfile.tsx`, `RecordHeader.tsx`, `ProfileHeader.tsx`:
-- `lg:` two-column shell: primary column `minmax(0,780px)` + right rail `320px` for status badges / integrity summary that currently stack below on mobile.
-- Widen `RegistryLayout` container at `lg:` and `xl:`.
+### 2. Content width (widen desktop reading measure)
 
-### 5. Forms & utility pages
+- `src/index.css`
+  - `w-standard`: keep 1120 at `lg`, 1240 at `xl` (unchanged).
+  - `w-reading-wide`: raise from ~720px to `820px` at `lg` and `860px` at `xl`. This is the editorial column used by Library/Learn prose.
+  - `w-hero`: raise hero text max-width so headings can occupy 60–72ch on desktop instead of wrapping like mobile.
 
-`Apply.tsx`, `Contact.tsx`, `ReportConcern.tsx`, `Unsubscribe.tsx`, `FAQ.tsx`, `Faq*` subpages:
-- Center form at `md:max-w-[640px] lg:max-w-[720px]`.
-- FAQ list gets `lg:grid-cols-[240px_minmax(0,760px)]` with a sticky category rail; on mobile the rail hides (existing behavior).
+### 3. Header/footer compaction
 
-### 6. Verification pass
+- `src/components/SiteHeader.tsx`
+  - Reduce `lg:` vertical padding by one step; tighten nav-item gap (`lg:gap-6` → `lg:gap-4`).
 
-For each of Mobile / Tablet (768, 1024-adjacent) / Desktop (1280, 1440) we visually verify with Playwright screenshots on: `/`, `/verified`, `/greenlist`, a vendor profile, `/learn`, a `/learn/:topic` guide, a library entry, `/apply`, `/contact`, `/how-it-works`, `/status-definitions`, `/about`, `/faq`. Mobile must be pixel-identical to current output; tablet and desktop show the new breathing room and grids.
+- `src/components/SiteFooter.tsx`
+  - `pt-10 md:pt-14 lg:pt-16 pb-6 md:pb-12 lg:pb-10` → `pt-10 md:pt-12 lg:pt-12 pb-6 md:pb-8 lg:pb-8`.
+  - Row gap: `gap-y-10 md:gap-y-14` → `gap-y-10 md:gap-y-10`.
+  - Legal band: `mt-9 md:mt-14 pt-5 md:pt-6` → `mt-8 md:mt-10 pt-5`.
+
+### 4. Hero shape
+
+Consumer/homepage cover hero already uses `clamp()` so it stays fine. Chapter heroes are the main offender and are handled in §1. No copy/structure changes.
 
 ## Non-goals
 
-- No copy edits, no new sections, no icon or color changes.
-- No changes to `index.css` tokens beyond (optionally) adding one `lg:` step to the existing hero size utility.
-- No refactor of components' internal structure — only class list additions gated by `md:` / `lg:` / `xl:`.
-- Mobile menu, mobile hero, mobile nav, mobile card stack all untouched.
+- No copy, colors, component structure, or typography changes.
+- No mobile changes — every edit is gated behind `md:`/`lg:`/`xl:` or applies to values that were only introduced for those breakpoints.
+- No new components; only edits to shared primitives + `index.css` + header/footer.
+
+## Verification
+
+Playwright screenshots at 390 / 1024 / 1440 / 1680 on: `/`, `/about`, `/verified`, `/learn`, `/library/faq/verification-process`, a vendor profile, `/apply`. Confirm:
+
+- Mobile (390) diff = 0 against current.
+- Desktop hero height drops ~30%.
+- Gap between hero and first section drops ~40%.
+- Prose column widens to ~820–860px on desktop.
+- Footer height drops ~25%.
 
 ## Rollout order
 
-1. Primitives: `Section`, `SiteHeader`, `SiteFooter`, `BriefingHero`, `PageHeader`, `DocLayout`, `RegistryLayout`.
-2. Home + directory pages (`Index`, `VerifiedVendors`, `Greenlist`, profile pages).
-3. Editorial system (`LearnGuideTemplate`, `ArticleSection`, `LibraryEntry`, library analyses).
-4. Learn hub + news + FAQ.
-5. Forms + policy pages.
-6. Full multi-viewport Playwright sweep, then fix regressions.
+1. `PageSection` + `BriefingHero` + `PageHeader` (biggest visible win).
+2. `index.css` tokens (`.section-pad`, `w-reading-wide`, `w-hero`).
+3. `SiteHeader` + `SiteFooter`.
+4. `DocLayout` / `RegistryLayout` xl trim.
+5. Playwright sweep at 4 viewports.

@@ -162,7 +162,7 @@ export const BriefingHero = ({
         />
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
-        <div className="relative z-10 page-shell pt-6 pb-6 md:pt-12 md:pb-10 lg:pt-20 lg:pb-16">
+        <div className="relative z-10 page-shell pt-6 pb-6 md:pt-10 md:pb-8 lg:pt-14 lg:pb-10">
           <div className="w-hero">
             <h1
               id="briefing-title"
