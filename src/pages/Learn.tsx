@@ -89,12 +89,7 @@ const Learn = () => {
 
       {/* 2 — Browse by Resource: secondary browse layer */}
       <PageSection title="Browse by Resource" compact>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <NavCard
-            to="/learn/education"
-            title="Education"
-            desc="Evergreen answers to the questions people ask before choosing a provider."
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <NavCard
             to="/learn/news"
             title="News & Insights"
