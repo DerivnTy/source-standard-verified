@@ -29,7 +29,7 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
     .filter((a): a is EducationArticle => Boolean(a));
 
   const relatedItems: RelatedItem[] = relatedResolved.map((r) => ({
-    to: `/learn/education/${r.slug}`,
+    to: `/learn/${r.topic}#${r.slug}`,
     title: r.question,
     description: r.answersFor,
     meta: formatReadingTime(readingTimeMinutes(r.sections)),
