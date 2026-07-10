@@ -44,10 +44,7 @@ const Learn = () => {
         jsonLd={jsonLd}
       />
 
-      <LearnShell
-        section="home"
-        crumbs={[{ label: "Learn" }]}
-      >
+      <LearnShell section="home" crumbs={[]}>
       <BriefingHero
         tone="navy"
         variant="chapter"
