@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { LearnBreadcrumbs, LearnCrumb } from "./LearnBreadcrumbs";
-import { LearnSection } from "./LearnSecondaryNav";
+
+export type LearnSection = "education" | "faq" | "news" | "home";
 
 /**
  * LearnShell — persistent frame for every /learn/* surface. Renders the
