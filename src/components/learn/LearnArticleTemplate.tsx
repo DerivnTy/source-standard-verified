@@ -30,7 +30,7 @@ export const EducationArticleTemplate = ({
 }) => {
   const topic = EDUCATION_TOPICS.find((t) => t.id === article.topic);
   const path = `/learn/education/${article.slug}`;
-  const readTime = formatReadingTime(readingTimeMinutes(article.sections));
+  
 
   // Resolve related. If fewer than 3 explicit, fill from same topic.
   const explicit = article.relatedQuestions
