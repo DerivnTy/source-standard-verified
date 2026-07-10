@@ -39,7 +39,7 @@ export const RegistryLayout = ({
 
   return (
     <section className="bg-background">
-      <div className="container-wide py-12 md:py-16 lg:py-20 xl:py-24">
+      <div className="container-wide py-10 md:py-12 lg:py-14 xl:py-16">
         {/* Mobile waypoint pills */}
         <nav
           aria-label="Registry sections"
