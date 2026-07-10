@@ -321,8 +321,9 @@ html {
   }
 
   .container-wide {
-    @apply mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-[1200px] xl:max-w-[1320px] px-5 md:px-8 lg:px-12;
   }
+
 
   /* New canonical page shell, preferred over container-wide for new work. */
   .page-shell {
