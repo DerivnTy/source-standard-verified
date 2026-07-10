@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 
 /**
  * useHashScroll, smoothly scrolls to the element matching location.hash
- * on mount and whenever the hash changes. Uses requestAnimationFrame to
- * defer until after the route's content has rendered.
+ * on mount and whenever the hash changes. Waits briefly so the destination
+ * page/section has mounted, then centers the section in the viewport.
  */
 export const useHashScroll = () => {
   const { hash, pathname } = useLocation();
@@ -14,13 +14,12 @@ export const useHashScroll = () => {
     const id = hash.slice(1);
     if (!id) return;
 
-    const raf = requestAnimationFrame(() => {
-      // double-RAF to ensure layout is complete after route swap
-      requestAnimationFrame(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-    return () => cancelAnimationFrame(raf);
+    const scrollToSection = () => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+
+    const timeout = window.setTimeout(scrollToSection, 150);
+    return () => window.clearTimeout(timeout);
   }, [hash, pathname]);
 };
