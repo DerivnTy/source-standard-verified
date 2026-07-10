@@ -57,7 +57,7 @@ export const PageSection = ({
   const introMarginTop = compact ? "8px" : "10px";
   const childrenMarginTop = compact ? (intro ? "20px" : "16px") : intro ? "24px" : "20px";
   const ctaMarginTop = compact ? "12px" : "16px";
-  const firstClass = first ? "pt-8 md:pt-10" : "";
+  const firstClass = first ? "pt-6 md:pt-8" : "";
   const firstBottomClass = first && !pb ? "pb-8 md:pb-10" : "";
   const inlineStyle: CSSProperties = first
     ? pb

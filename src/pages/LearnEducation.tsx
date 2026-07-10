@@ -55,7 +55,7 @@ const LearnEducation = () => {
             <section
               key={topic.id}
               id={topic.id}
-              className={`scroll-mt-24 bg-background border-b border-border ${isFirst ? "pt-8 pb-8 md:pt-10 md:pb-10" : "section-pad"}`}
+              className={`scroll-mt-24 bg-background border-b border-border ${isFirst ? "pt-6 pb-8 md:pt-8 md:pb-10" : "section-pad"}`}
             >
               <div className="page-shell">
                 <div className="mx-auto w-standard">
