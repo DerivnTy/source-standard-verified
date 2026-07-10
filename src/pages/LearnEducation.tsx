@@ -54,8 +54,7 @@ const LearnEducation = () => {
             <section
               key={topic.id}
               id={topic.id}
-              className="scroll-mt-24 bg-background border-b border-border"
-              style={{ paddingTop: "36px", paddingBottom: "36px" }}
+              className="scroll-mt-24 bg-background border-b border-border section-pad"
             >
               <div className="page-shell">
                 <div className="mx-auto w-standard">
@@ -65,7 +64,7 @@ const LearnEducation = () => {
                     description={topic.description}
                     count={entries.length}
                   />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {entries.map((a) => (
                       <ArticleCard
                         key={a.slug}

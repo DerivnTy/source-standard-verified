@@ -76,7 +76,7 @@ const LearnNews = () => {
 
         {sections.map((section) => (
           <PageSection key={section.id} title={section.label}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {section.articles.map((a) => (
                 <ArticleCard
                   key={a.slug}

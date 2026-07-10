@@ -28,7 +28,7 @@ export const PageHeader = ({
     <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
     <div
       className="relative z-10 page-shell"
-      style={{ paddingTop: "clamp(44px, 6.5vh, 68px)", paddingBottom: "clamp(28px, 4vh, 40px)" }}
+      style={{ paddingTop: "clamp(32px, 5vh, 52px)", paddingBottom: "clamp(24px, 3.5vh, 36px)" }}
     >
       <div className="mx-auto w-standard">
         {eyebrow && (

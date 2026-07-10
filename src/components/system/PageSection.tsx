@@ -36,7 +36,7 @@ export const PageSection = ({
    * items carry the semantics.
    */
   icon?: Exclude<GlyphName, "minus" | "check">;
-  title: string;
+  title?: string;
   intro?: ReactNode;
   cta?: ReactNode;
   children?: ReactNode;
@@ -45,9 +45,9 @@ export const PageSection = ({
   className?: string;
   pb?: string;
 }) => {
-  const padY = compact ? "20px" : "28px";
+  const padY = compact ? "24px" : "32px";
   const introMarginTop = compact ? "8px" : "10px";
-  const childrenMarginTop = compact ? (intro ? "12px" : "10px") : intro ? "16px" : "14px";
+  const childrenMarginTop = compact ? (intro ? "20px" : "16px") : intro ? "24px" : "20px";
   const ctaMarginTop = compact ? "12px" : "16px";
   return (
     <section
@@ -57,26 +57,28 @@ export const PageSection = ({
     >
       <div className="page-shell">
         <div className="mx-auto w-standard">
-          <div className="flex items-center gap-2">
-            {icon && (
-              <span className="text-primary/80">
-                <Glyph name={icon} size="md" />
-              </span>
-            )}
-            <h2
-              id={id}
-              className="font-sans text-foreground"
-              style={{
-                fontSize: "22px",
-                lineHeight: 1.15,
-                letterSpacing: "-0.02em",
-                fontWeight: 700,
-                margin: 0,
-              }}
-            >
-              {title}
-            </h2>
-          </div>
+          {title && (
+            <div className="flex items-center gap-2">
+              {icon && (
+                <span className="text-primary/80">
+                  <Glyph name={icon} size="md" />
+                </span>
+              )}
+              <h2
+                id={id}
+                className="font-sans text-foreground"
+                style={{
+                  fontSize: "22px",
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.02em",
+                  fontWeight: 700,
+                  margin: 0,
+                }}
+              >
+                {title}
+              </h2>
+            </div>
+          )}
 
           {intro && (
             <p
