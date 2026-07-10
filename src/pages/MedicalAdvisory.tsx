@@ -3,7 +3,7 @@ import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
 import { DefList } from "@/components/DefList";
-import { Shield } from "lucide-react";
+
 
 type Item = { term: string; description: string };
 
