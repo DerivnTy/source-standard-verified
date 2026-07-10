@@ -619,7 +619,7 @@ html {
     section:has(+ footer).section-pad:has(+ footer),
     *:has(> footer) > section:last-of-type,
     *:has(> footer) > .section-pad:last-of-type {
-      padding-bottom: 52px !important;
+      padding-bottom: 36px !important;
     }
   }
   /* Article pages use a lightweight ArticleFooter, neutralize the
