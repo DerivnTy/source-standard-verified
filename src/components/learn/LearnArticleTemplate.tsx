@@ -195,10 +195,24 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         <ArticleHeader
           title={article.headline}
           lead={article.standfirst}
-          category={metaParts.join(" · ")}
+          category="news"
         />
 
+        {metaParts.length > 0 && (
+          <div className="page-shell" style={{ paddingTop: "20px", paddingBottom: "8px" }}>
+            <div className="mx-auto w-reading-wide">
+              <p
+                className="font-mono uppercase text-muted-foreground"
+                style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+              >
+                {metaParts.join(" · ")}
+              </p>
+            </div>
+          </div>
+        )}
+
         <KeyTakeaway>{article.standfirst}</KeyTakeaway>
+
 
         <ArticleSection variant="prose">
           {article.body.map((p, i) => (
