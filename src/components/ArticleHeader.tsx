@@ -56,23 +56,12 @@ export const ArticleHeader = ({
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
         <div
           className="relative z-10 page-shell"
-          style={{ paddingTop: "clamp(24px, 5vh, 48px)", paddingBottom: "clamp(28px, 4vh, 40px)" }}
+          style={{ paddingTop: "clamp(8px, 2.5vh, 20px)", paddingBottom: "clamp(20px, 3vh, 32px)" }}
         >
           <div className="mx-auto w-reading-wide">
-            <p
-              className="font-mono uppercase"
-              style={{
-              fontSize: "10px",
-              letterSpacing: "0.14em",
-              color: "rgba(255,255,255,0.6)",
-            }}
-          >
-            {category.toUpperCase()}
-          </p>
-
             <h1
               className="t-article-title !text-white !mt-0"
-              style={{ marginTop: "22px", textWrap: "balance" }}
+              style={{ marginTop: "0px", textWrap: "balance" }}
             >
               {title}
             </h1>
@@ -80,13 +69,14 @@ export const ArticleHeader = ({
             {lead && (
               <p
                 className="ss-lead !text-white/70 max-w-[68ch]"
-                style={{ marginTop: "14px", textWrap: "balance" }}
+                style={{ marginTop: "10px", textWrap: "balance" }}
               >
                 {lead}
               </p>
             )}
           </div>
         </div>
+
       </header>
     );
   }

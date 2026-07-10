@@ -1,33 +1,41 @@
-## Goal
+# Simplify the editorial hero
 
-Densify the article header experience across every Learn page (Education, News & Insights, FAQ, and future content) by merging the breadcrumb bar into the navy masthead and pulling the hero closer to the global navigation.
+Apply cleanly across every page that uses the shared navy article masthead (Education articles, News articles, Library entries, Privacy, Terms, Verification Disclaimer, Accountability, Status Definitions, Report Concern, Medical Advisory, and any future editorial page).
 
-## Changes
+## 1. `src/components/ArticleHeader.tsx` — navy masthead path
 
-### 1. Unify the breadcrumb bar with the navy masthead
+- Remove the uppercase mono category eyebrow (`{category.toUpperCase()}`) and its `<p>` wrapper entirely. The `category` prop stays in the signature (still used as the switch that selects the navy path so existing callsites keep working) but is no longer rendered.
+- Tighten the vertical rhythm inside the navy hero container:
+  - `paddingTop`: `clamp(24px, 5vh, 48px)` → `clamp(8px, 2.5vh, 20px)` (≈24–32px removal, matching the request).
+  - `paddingBottom`: `clamp(28px, 4vh, 40px)` → `clamp(20px, 3vh, 32px)` so the hero closes tighter above the metadata / Key Takeaway.
+  - Title `marginTop`: `22px` → `0` (no eyebrow above it anymore).
+  - Lead `marginTop`: `14px` → `10px` for a slightly denser title→lead gap.
+- Typography (font sizes, weights, colors, `text-wrap: balance`, `max-w-[68ch]`) is preserved exactly.
+- The card-path (Library legacy, no `category`) is untouched.
 
-**File:** `src/components/learn/LearnBreadcrumbs.tsx`
+## 2. `src/components/learn/LearnArticleTemplate.tsx` — Education
 
-- Change the bar background from `bg-background/70` to `bg-[hsl(var(--navy-surface))]` so it matches the `ArticleHeader` hero.
-- Change breadcrumb text color from `text-muted-foreground` to white at ~80% opacity (`text-white/80`). The final (current-page) crumb should be `text-white`.
-- Remove the bottom border (`border-b border-border/50`) so the bar and the hero read as one continuous masthead with no visual seam.
-- Remove the `backdrop-filter: blur(14px)` since it is no longer needed on a solid surface.
-- Apply the same white/white-80% color treatment to the mobile parent link.
+- Stop composing the reading-time / topic string. Continue passing a non-empty `category` prop so `ArticleHeader` still renders the navy path, but the value is inert (e.g. `category="education"`). No visible eyebrow, no metadata row — Education heroes show title + lead only.
+- Reading time already appears on listing cards and related-article cards; nothing else moves.
 
-### 2. Reduce spacing above the hero
+## 3. `src/components/learn/LearnArticleTemplate.tsx` — News
 
-**File:** `src/components/ArticleHeader.tsx`
+- Remove the eyebrow the same way (pass an inert `category="news"` to keep the navy path).
+- Add a new small muted metadata row **immediately below the hero and above `<KeyTakeaway>`**, inside `page-shell` / `w-reading-wide` so it aligns with body copy. It renders `dateLabel · category.label` using the existing values already computed in the template.
+  - Style: `font-mono uppercase`, `10px`, letter-spacing `0.14em`, `text-muted-foreground`, top padding ~`20px`, bottom padding ~`8px`. Matches the muted regulatory tone used elsewhere on the site.
+  - Only rendered when at least one meta part exists.
 
-- On the navy editorial masthead path (`category` prop), reduce the top padding from `clamp(44px, 6.5vh, 68px)` down by approximately 16–24 px. Target: `clamp(24px, 5vh, 48px)`.
-- This tightens the transition from global navigation → breadcrumb → hero so the masthead begins sooner without changing any other header metrics (title size, lead spacing, bottom padding, etc.).
+## 4. Other pages passing `category` to `ArticleHeader`
 
-### 3. Verify continuity
-
-- Confirm that `ArticleHeader`’s navy path has no top border that would re-introduce a seam after the breadcrumb border is removed. (It currently does not.)
-- Type-check and visually verify on Education, News, and FAQ routes that the breadcrumb and hero form a single uninterrupted navy block.
+Library entries, Privacy, Terms, Verification Disclaimer, Accountability, Status Definitions, Report Concern, and Medical Advisory currently pass a `category` string that produced the eyebrow. After the change, these pages simply render title + lead in the navy hero — consistent with the request and with the editorial system. No per-page edits required.
 
 ## Out of scope
 
-- No changes to the legacy card-style `ArticleHeader` path (used by retired Library pages).
-- No changes to non-Learn editorial pages (About, Governance, Privacy, Terms, etc.) unless they happen to reuse `LearnBreadcrumbs`.
-- No changes to the global `SiteLayout` `HEADER_STACK_HEIGHT` or `main` padding.
+- FAQ topic pages (`FaqPage` / `FaqTopicShell`) don't use `ArticleHeader`; their heroes already differ and aren't in the request's "hero" definition. Not modified.
+- Breadcrumb bar, HeroPattern, related articles, Continue Learning, Key Takeaway styling — all unchanged.
+- Card-based legacy `ArticleHeader` path — unchanged.
+
+## Verification
+
+- `bunx tsc --noEmit`.
+- Playwright screenshots at 1280×1800 and 390×844 of one Education article and one News article to confirm: eyebrow gone, hero visibly tighter (≈24–32px), News metadata row visible directly under the navy hero, Education hero shows only title + lead.

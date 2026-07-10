@@ -30,7 +30,7 @@ export const EducationArticleTemplate = ({
 }) => {
   const topic = EDUCATION_TOPICS.find((t) => t.id === article.topic);
   const path = `/learn/education/${article.slug}`;
-  const readTime = formatReadingTime(readingTimeMinutes(article.sections));
+  
 
   // Resolve related. If fewer than 3 explicit, fill from same topic.
   const explicit = article.relatedQuestions
@@ -115,10 +115,11 @@ export const EducationArticleTemplate = ({
         <ArticleHeader
           title={article.question}
           lead={article.shortAnswer}
-          category={topic ? `Education · ${topic.label} · ${readTime}` : `Education · ${readTime}`}
+          category="education"
         />
 
         <KeyTakeaway>{article.shortAnswer}</KeyTakeaway>
+
 
         {article.sections.map((s, i) => (
           <ArticleSection key={i} variant="prose" title={s.title}>
@@ -194,10 +195,24 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         <ArticleHeader
           title={article.headline}
           lead={article.standfirst}
-          category={metaParts.join(" · ")}
+          category="news"
         />
 
+        {metaParts.length > 0 && (
+          <div className="page-shell" style={{ paddingTop: "20px", paddingBottom: "8px" }}>
+            <div className="mx-auto w-reading-wide">
+              <p
+                className="font-mono uppercase text-muted-foreground"
+                style={{ fontSize: "10px", letterSpacing: "0.14em" }}
+              >
+                {metaParts.join(" · ")}
+              </p>
+            </div>
+          </div>
+        )}
+
         <KeyTakeaway>{article.standfirst}</KeyTakeaway>
+
 
         <ArticleSection variant="prose">
           {article.body.map((p, i) => (
