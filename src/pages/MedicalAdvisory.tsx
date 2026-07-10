@@ -170,22 +170,17 @@ const MedicalAdvisory = () => {
           {BOARD_MEMBERS.map((m) => (
             <div
               key={m.role}
-              className="group flex flex-col rounded-2xl bg-[hsl(var(--navy-surface))] p-7 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[hsl(var(--navy-surface-2))]"
+              className="group rounded-2xl bg-[hsl(var(--navy-surface))] p-5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[hsl(var(--navy-surface-2))]"
               style={{ border: "1px solid hsl(0 0% 100% / 0.06)" }}
             >
-              <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-                <Shield className="h-5 w-5 text-white/50" strokeWidth={1.5} />
+              <div className="text-[15px] font-medium text-white/95">
+                To Be Announced
               </div>
-              <div className="mt-auto">
-                <div className="text-[16px] font-medium text-white/95">
-                  To Be Announced
-                </div>
-                <div className="mt-1.5 text-[14px] text-white/55">
-                  {m.role}
-                </div>
-                <div className="mt-4 text-[11px] font-medium uppercase tracking-[0.08em] text-white/35">
-                  Appointments in Progress
-                </div>
+              <div className="mt-1 text-[13px] text-white/55">
+                {m.role}
+              </div>
+              <div className="mt-2.5 text-[11px] font-medium uppercase tracking-[0.08em] text-white/35">
+                Appointments in Progress
               </div>
             </div>
           ))}
