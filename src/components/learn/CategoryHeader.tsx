@@ -15,7 +15,7 @@ export const CategoryHeader = ({
 }) => (
   <header
     className="flex items-baseline justify-between gap-6 border-b border-border/50"
-    style={{ paddingBottom: "12px", marginBottom: "20px" }}
+    style={{ paddingBottom: "12px", marginBottom: "24px" }}
   >
     <div className="min-w-0">
       {eyebrow && (

@@ -15,7 +15,7 @@ export const EditorialBackLink = ({
   <nav
     aria-label="Page footer navigation"
     className="bg-background"
-    style={{ paddingTop: "24px", paddingBottom: "40px" }}
+    style={{ paddingTop: "20px", paddingBottom: "32px" }}
   >
     <div className="page-shell">
       <div className="mx-auto w-reading-wide">

@@ -31,7 +31,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
       <div className="page-shell">
         <div
           className="mx-auto w-standard flex items-center"
-          style={{ minHeight: "40px", paddingTop: "14px", paddingBottom: "14px" }}
+          style={{ paddingTop: "20px", paddingBottom: "8px" }}
         >
           {/* Mobile: single parent link */}
           <div className="md:hidden">

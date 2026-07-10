@@ -23,12 +23,12 @@ export const RelatedArticles = ({
 }) => {
   if (!items || items.length === 0) return null;
   return (
-    <section className="bg-background" style={{ paddingTop: "36px" }}>
+    <section className="bg-background pt-8 md:pt-10">
       <div className="page-shell">
         <div className="mx-auto w-reading-wide">
           <header
             className="flex items-baseline justify-between gap-4 border-b border-border/50"
-            style={{ paddingBottom: "10px", marginBottom: "16px" }}
+            style={{ paddingBottom: "10px", marginBottom: "20px" }}
           >
             <div>
               <p

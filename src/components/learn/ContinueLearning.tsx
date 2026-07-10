@@ -45,7 +45,7 @@ export const ContinueLearning = ({ exclude }: { exclude?: string }) => {
   return (
     <section
       className="bg-background border-t border-border/60"
-      style={{ paddingTop: "40px", paddingBottom: "48px" }}
+      style={{ paddingTop: "32px", paddingBottom: "40px" }}
     >
       <div className="page-shell">
         <div className="mx-auto w-standard">
