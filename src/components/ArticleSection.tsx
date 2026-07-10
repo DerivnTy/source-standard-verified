@@ -45,7 +45,8 @@ export const ArticleSection = ({
   children: ReactNode;
 }) => {
   const firstClass = first ? "pt-8 md:pt-10" : "";
-  const topStyle = first ? undefined : { paddingTop: "" };
+
+
 
   // ── Callout ─────────────────────────────────────────────────
   if (variant === "callout") {
