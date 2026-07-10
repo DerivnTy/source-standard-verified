@@ -46,7 +46,6 @@ const Learn = () => {
 
       <LearnShell
         section="home"
-        showNav
         crumbs={[{ label: "Learn" }]}
       >
       <BriefingHero

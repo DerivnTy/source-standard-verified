@@ -33,7 +33,6 @@ const LearnEducation = () => {
 
       <LearnShell
         section="education"
-        showNav
         crumbs={[
           { label: "Learn", to: "/learn" },
           { label: "Education" },

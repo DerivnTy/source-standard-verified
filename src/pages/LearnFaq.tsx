@@ -29,7 +29,6 @@ const LearnFaq = () => {
 
       <LearnShell
         section="faq"
-        showNav
         crumbs={[
           { label: "Learn", to: "/learn" },
           { label: "FAQ" },
