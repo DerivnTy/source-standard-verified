@@ -60,7 +60,7 @@ const Learn = () => {
           {EDUCATION_TOPICS.map((t) => (
             <Link
               key={t.id}
-              to={`/learn/education#${t.id}`}
+              to={`/learn/${t.id}`}
               className="group grid grid-cols-[1fr_auto] md:grid-cols-[240px_1fr_auto] gap-x-6 gap-y-1 py-4 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
               style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
             >
