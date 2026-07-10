@@ -77,6 +77,13 @@ const BOUNDARIES = [
   "Does not participate in marketing, promotion, or commercial endorsement activity.",
 ];
 
+const BOARD_MEMBERS = [
+  { role: "Clinical Oversight" },
+  { role: "Pharmacy Standards" },
+  { role: "Regulatory Interpretation" },
+  { role: "Evidence Review" },
+];
+
 const RESPONSIBILITIES: Item[] = [
   {
     term: "Framework consistency",
@@ -152,6 +159,28 @@ const MedicalAdvisory = () => {
           All advisory participation exists to support standards development, governance review, and public-reference integrity.
         </p>
         <DefList items={ROLES} />
+      </ArticleSection>
+
+      <ArticleSection variant="prose" title="Advisory Board Members">
+        <p>Board member profiles will be published as appointments are finalized.</p>
+        <div className="not-prose mt-6 grid gap-3 sm:grid-cols-2">
+          {BOARD_MEMBERS.map((m) => (
+            <div
+              key={m.role}
+              className="rounded-[12px] border border-border bg-background p-4"
+            >
+              <div className="text-[15px] font-medium text-foreground">
+                To Be Announced
+              </div>
+              <div className="mt-1 text-[13px] text-muted-foreground">
+                {m.role}
+              </div>
+              <div className="mt-3 text-[12px] uppercase tracking-wide text-muted-foreground">
+                Status: Pending publication
+              </div>
+            </div>
+          ))}
+        </div>
       </ArticleSection>
 
       <ArticleSection variant="prose" title="Scope & Boundaries">
