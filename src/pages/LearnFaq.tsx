@@ -43,16 +43,12 @@ const LearnFaq = () => {
           docId=""
         />
 
-        <PageSection
-          title="Browse by topic"
-          intro="Four topic sets cover the questions we hear most often."
-        >
+        <PageSection>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {FAQ_ENTRIES.map((f) => (
               <ArticleCard
                 key={f.to}
                 to={f.to}
-                eyebrow="FAQ Topic"
                 title={f.label}
                 description={f.description}
               />
