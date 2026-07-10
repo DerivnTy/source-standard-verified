@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-import { NextStep } from "@/components/learn/NextStep";
+import { ContinueLearning } from "@/components/learn/ContinueLearning";
 import { LearnShell } from "@/components/learn/LearnShell";
 import { PageSection, NavCard } from "@/components/system";
 
@@ -46,7 +46,6 @@ const Learn = () => {
 
       <LearnShell
         section="home"
-        showNav
         crumbs={[{ label: "Learn" }]}
       >
       <BriefingHero
@@ -178,8 +177,8 @@ const Learn = () => {
         </p>
       </PageSection>
 
-      {/* 5 — Continue Exploring */}
-      <NextStep primary="vendor-registry" eyebrow="Continue Exploring" />
+      {/* 5 — Continue Learning */}
+      <ContinueLearning />
       </LearnShell>
     </>
   );

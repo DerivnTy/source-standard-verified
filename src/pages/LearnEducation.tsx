@@ -3,7 +3,7 @@ import { BriefingHero } from "@/components/BriefingHero";
 import { LearnShell } from "@/components/learn/LearnShell";
 import { ArticleCard } from "@/components/learn/ArticleCard";
 import { CategoryHeader } from "@/components/learn/CategoryHeader";
-import { BrowseStrip } from "@/components/learn/BrowseStrip";
+import { ContinueLearning } from "@/components/learn/ContinueLearning";
 import { readingTimeMinutes, formatReadingTime } from "@/lib/readingTime";
 import {
   EDUCATION_TOPICS,
@@ -33,7 +33,6 @@ const LearnEducation = () => {
 
       <LearnShell
         section="education"
-        showNav
         crumbs={[
           { label: "Learn", to: "/learn" },
           { label: "Education" },
@@ -125,14 +124,7 @@ const LearnEducation = () => {
           );
         })}
 
-        <BrowseStrip
-          eyebrow="Continue in Learn"
-          primary={{ to: "/learn/faq", label: "Frequently Asked Questions" }}
-          secondary={[
-            { to: "/learn/news", label: "News & Insights" },
-            { to: "/learn", label: "Learn overview" },
-          ]}
-        />
+        <ContinueLearning exclude="/learn/education" />
       </LearnShell>
     </>
   );

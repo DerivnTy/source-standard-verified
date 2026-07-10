@@ -4,7 +4,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { LearnShell } from "@/components/learn/LearnShell";
 import { ArticleCard } from "@/components/learn/ArticleCard";
-import { BrowseStrip } from "@/components/learn/BrowseStrip";
+import { ContinueLearning } from "@/components/learn/ContinueLearning";
 import { PageSection } from "@/components/system";
 import { NEWS_ARTICLES, NEWS_CATEGORIES, NewsCategoryId } from "@/data/learn";
 
@@ -57,7 +57,6 @@ const LearnNews = () => {
 
       <LearnShell
         section="news"
-        showNav
         crumbs={[
           { label: "Learn", to: "/learn" },
           { label: "News & Insights" },
@@ -134,14 +133,7 @@ const LearnNews = () => {
           )}
         </PageSection>
 
-        <BrowseStrip
-          eyebrow="Continue in Learn"
-          primary={{ to: "/learn/education", label: "Browse Education" }}
-          secondary={[
-            { to: "/learn/faq", label: "FAQ" },
-            { to: "/learn", label: "Learn overview" },
-          ]}
-        />
+        <ContinueLearning exclude="/learn/news" />
       </LearnShell>
     </>
   );
