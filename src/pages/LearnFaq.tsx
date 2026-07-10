@@ -43,18 +43,25 @@ const LearnFaq = () => {
           docId=""
         />
 
-        <PageSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {FAQ_ENTRIES.map((f) => (
-              <ArticleCard
-                key={f.to}
-                to={f.to}
-                title={f.label}
-                description={f.description}
-              />
-            ))}
+        <section
+          className="bg-background text-left border-b border-border"
+          style={{ paddingTop: "28px", paddingBottom: "28px" }}
+        >
+          <div className="page-shell">
+            <div className="mx-auto w-standard">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {FAQ_ENTRIES.map((f) => (
+                  <ArticleCard
+                    key={f.to}
+                    to={f.to}
+                    title={f.label}
+                    description={f.description}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </PageSection>
+        </section>
 
         <ContinueLearning exclude="/learn/faq" />
       </LearnShell>

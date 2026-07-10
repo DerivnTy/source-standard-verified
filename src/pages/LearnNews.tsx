@@ -4,19 +4,19 @@ import { LearnShell } from "@/components/learn/LearnShell";
 import { ArticleCard } from "@/components/learn/ArticleCard";
 import { ContinueLearning } from "@/components/learn/ContinueLearning";
 import { PageSection } from "@/components/system";
-import { NEWS_ARTICLES, NEWS_CATEGORIES } from "@/data/learn";
+import { NEWS_ARTICLES, NEWS_CATEGORIES, type NewsCategoryId } from "@/data/learn";
 
 const HERO_STATEMENT =
   "Timely reporting and analysis on compounded medications, regulatory changes, industry developments, and updates from Source Standard.";
 
 // Editorial section order (curated, independent of NEWS_CATEGORIES declaration order)
-const SECTION_ORDER = [
+const SECTION_ORDER: NewsCategoryId[] = [
   "regulatory",
   "industry",
   "scientific",
   "source-standard",
   "editorial",
-] as const;
+];
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", {
@@ -47,7 +47,7 @@ const LearnNews = () => {
       if (articles.length === 0) return null;
       return { id, label: cat.label, articles };
     })
-    .filter((s): s is { id: string; label: string; articles: typeof NEWS_ARTICLES } => s !== null);
+    .filter((s): s is { id: NewsCategoryId; label: string; articles: typeof NEWS_ARTICLES } => s !== null);
 
   return (
     <>
