@@ -6,8 +6,8 @@ export type LearnCrumb = { label: string; to?: string };
 
 /**
  * LearnBreadcrumbs — persistent contextual trail rendered above every
- * Learn page. Reads as quiet metadata: mono uppercase, hairline underline,
- * blur backdrop. Never a decorative element.
+ * Learn page. Clear editorial navigation: sans-serif, medium weight,
+ * generous padding. Never tiny utility metadata.
  *
  * Desktop: full trail with chevrons. Mobile: parent-only "← Parent" so
  * it never wraps or steals height on 390px.
@@ -17,6 +17,12 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
 
   const parent = items.length > 1 ? items[items.length - 2] : items[0];
 
+  const linkStyle = {
+    fontSize: "14px",
+    fontWeight: 500,
+    letterSpacing: "0.06em",
+  } as const;
+
   return (
     <nav
       aria-label="Breadcrumb"
@@ -25,23 +31,25 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
       <div className="page-shell">
         <div
           className="mx-auto w-standard flex items-center"
-          style={{ minHeight: "40px", paddingTop: "8px", paddingBottom: "8px" }}
+          style={{ minHeight: "40px", paddingTop: "14px", paddingBottom: "14px" }}
         >
           {/* Mobile: single parent link */}
           <div className="md:hidden">
             {parent.to ? (
               <Link
                 to={parent.to}
-                className="inline-flex items-center gap-1.5 font-mono uppercase text-white/80 hover:text-white transition-colors"
-                style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                className="inline-flex items-center gap-2 font-sans text-white/80 hover:text-white transition-all duration-200 group"
+                style={linkStyle}
               >
-                <span aria-hidden>←</span>
+                <span aria-hidden className="transition-transform duration-200 group-hover:-translate-x-0.5">
+                  ←
+                </span>
                 <span>{parent.label}</span>
               </Link>
             ) : (
               <span
-                className="font-mono uppercase text-white/80"
-                style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                className="font-sans text-white/80"
+                style={linkStyle}
               >
                 {parent.label}
               </span>
@@ -61,17 +69,17 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
                     {c.to && !last ? (
                       <Link
                         to={c.to}
-                        className="font-mono uppercase text-white/80 hover:text-white transition-colors"
-                        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                        className="font-sans text-white/80 hover:text-white transition-all duration-200"
+                        style={linkStyle}
                       >
                         {c.label}
                       </Link>
                     ) : (
                       <span
-                        className={`font-mono uppercase ${
+                        className={`font-sans ${
                           last ? "text-white" : "text-white/80"
                         }`}
-                        style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                        style={linkStyle}
                         aria-current={last ? "page" : undefined}
                       >
                         {c.label}
@@ -80,7 +88,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
                   </li>
                   {!last && (
                     <li aria-hidden className="inline-flex items-center text-white/40">
-                      <ChevronRight style={{ width: 11, height: 11, strokeWidth: 1.5 }} />
+                      <ChevronRight style={{ width: 14, height: 14, strokeWidth: 1.5 }} />
                     </li>
                   )}
                 </Fragment>
