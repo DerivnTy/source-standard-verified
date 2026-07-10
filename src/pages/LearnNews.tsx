@@ -74,8 +74,8 @@ const LearnNews = () => {
           docId=""
         />
 
-        {sections.map((section) => (
-          <PageSection key={section.id} title={section.label}>
+        {sections.map((section, i) => (
+          <PageSection key={section.id} title={section.label} first={i === 0}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {section.articles.map((a) => (
                 <ArticleCard
