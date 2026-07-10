@@ -568,11 +568,18 @@ html {
     .hero-gap    { margin-top: 80px; }
     /* Desktop unified content boundary, every major section (standard
        long-form, registry/index surfaces, hero content blocks) shares the
-       same 1200px max-width so the page reads as one aligned institutional
+       same max-width so the page reads as one aligned institutional
        document rather than alternating wide/narrow bands. */
     .w-standard  { max-width: 1180px; }
     .w-wide      { max-width: 1180px; }
   }
+  @media (min-width: 1280px) {
+    .section-pad { padding-top: 72px; padding-bottom: 56px; }
+    /* XL viewports (1280+) breathe a little more, still institutional. */
+    .w-standard  { max-width: 1240px; }
+    .w-wide      { max-width: 1280px; }
+  }
+
 
   /* Tighten the gap between consecutive content sections (post-hero rhythm).
      Matches the Home page where Section 01 → 02 → 03 sit on the same
