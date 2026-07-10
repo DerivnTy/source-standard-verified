@@ -17,8 +17,11 @@ import ForVendors from "./pages/ForVendors.tsx";
 
 // Learn universe (new)
 import Learn from "./pages/Learn.tsx";
-import LearnEducation from "./pages/LearnEducation.tsx";
-import LearnEducationArticle from "./pages/LearnEducationArticle.tsx";
+import LearnGuide from "./pages/LearnGuide.tsx";
+import {
+  LearnEducationRedirect,
+  LearnEducationArticleRedirect,
+} from "./pages/LearnEducationRedirect.tsx";
 import LearnNews from "./pages/LearnNews.tsx";
 import LearnNewsArticle from "./pages/LearnNewsArticle.tsx";
 import LearnFaq from "./pages/LearnFaq.tsx";
