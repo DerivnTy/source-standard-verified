@@ -1,58 +1,100 @@
 ## Goal
 
-Make Learn topic navigation land the destination section in the **vertical center** of the viewport, consistently across desktop and mobile, whether the user is already on the Learn page or navigating in from another page.
+Restructure `/learn` around **four comprehensive guides** instead of a category listing plus twelve individual articles. Each topic opens directly into one long, well‑structured guide with an in‑page table of contents. The intermediate `/learn/education` listing and the twelve `/learn/education/:slug` article pages are retired.
 
-## Scope
+## New information architecture
 
-The Learn topic navigation currently lives at `/learn/education` (the Resource Library) and uses hashes like `#basics`, `#verification`, `#choosing-a-provider`, `#sourcing-and-manufacturing`. It has two competing scroll behaviors: the global `useHashScroll` hook and a local `hashchange`/tab‑click handler in `Education.tsx` — both use `block: "start"`.
+```text
+/learn                                       Learn landing (unchanged shell)
+  ├─ /learn/learn-the-basics                 Learn the Basics — guide
+  ├─ /learn/verification                     Verification Guide
+  ├─ /learn/choosing-a-provider              Provider Guide
+  ├─ /learn/sourcing-and-manufacturing       Sourcing Guide
+  ├─ /learn/news                             News & Insights (unchanged)
+  ├─ /learn/news/:slug                       News article (unchanged)
+  └─ /learn/faq                              FAQ (unchanged)
+```
 
-## Changes
+No more `/learn/education` and no more `/learn/education/:slug`.
 
-### 1. Rename topic ID `basics` → `learn-the-basics`
+## Guide composition (content is preserved, not rewritten)
 
-In `src/data/learn.ts`, update `EducationTopicId` and the topic entry so the hash matches the label. Update every downstream reference:
+Each guide is assembled from the existing `EDUCATION_ARTICLES` records that share its `topic`. Each article becomes one **section** inside the guide, with the article's `question` as the section heading and its existing `sections[]` body rendered underneath. Nothing is discarded; only navigation changes.
 
-- `src/pages/Learn.tsx` (topic card links)
-- `src/pages/Education.tsx` (section `id`, category list, `Filter` type, `CATEGORIES` map)
-- `src/components/learn/LearnArticleTemplate.tsx` (breadcrumb link)
-- `src/App.tsx` legacy redirect map: add `["/learn/education#basics", "/learn/education#learn-the-basics"]` (plus keep the existing `/education/basics` redirect target updated)
-- Any article `topic: "basics"` entries in `src/data/learn.ts`
-- `public/sitemap.xml` if a `#basics` URL is listed
+- **Learn the Basics** — sections: What Is a Compounded Medication?, What Are Peptides? (plus a short intro para).
+- **Verification Guide** — sections: What Does Verified Mean?, What Happens During a Verification Review?, What Does Greenlisted Mean?, Why Do Facility Records Matter?
+- **Provider Guide** — sections: How Do I Know If a Provider Is Trustworthy?, What Should I Ask My Provider?, What Information Should a Transparent Provider Share?
+- **Sourcing Guide** — sections: What Is a 503A Pharmacy?, What Is a 503B Outsourcing Facility?, Who Manufactures Compounded Medications?, Compounded vs FDA-Approved, Why Does Sourcing Matter?, What Is Sterile Compounding?, How Do I Read a Certificate of Analysis?, What Is Compounded Hormone Therapy?
 
-Sections on `/learn/education` will then expose these stable IDs:
-`#learn-the-basics`, `#verification`, `#choosing-a-provider`, `#sourcing-and-manufacturing`.
+Each section keeps a stable anchor equal to the current article slug (e.g. `#what-does-verified-mean`) so external links and search results still land in the right place.
 
-### 2. Center-align hash scroll globally
+## Page structure for `/learn/:topicId`
 
-Update `src/hooks/useHashScroll.ts`:
+- `PageMeta` with per-guide title / description / JSON-LD (`Article` schema for the guide plus one `FAQPage` entity aggregating all section questions).
+- `LearnShell` breadcrumbs: `Learn > {Guide Title}`.
+- `BriefingHero` (`tone="navy"`, `variant="chapter"`) with guide title + one-line description from `EDUCATION_TOPICS`.
+- **In-page table of contents**: an editorial hairline `<nav>` listing each section title. Clicking a TOC row uses the existing `useHashScroll` behavior (center-aligned smooth scroll). Sticky on desktop (`lg:sticky lg:top-24`), inline card at the top on mobile — no drawer, no modal, matching the site's in‑place interaction rule.
+- Long-form body: for each section render `<section id={slug}>` with an `<h2>` (question), followed by the article's short answer as a lead paragraph, then its `sections[]` rendered through the existing `ArticleSection` prose styles. Renders as one continuous editorial document.
+- `KeyTakeaway` (per section, optional) → dropped in favor of a single guide-level takeaway at the end using the topic description.
+- `ContinueLearning` at the bottom, excluding the current guide path.
 
-- Change `block: "start"` → `block: "center"`.
-- Replace the current `requestAnimationFrame` timing with a `setTimeout(scrollToSection, 150)` (matches the spec and gives the destination page time to mount its sections after route change).
-- Re‑run on `[pathname, hash]` (already does).
+## Files changed
 
-This hook already runs on every route, so it covers cross‑page navigation into `/learn/education#...` from anywhere on the site.
+**New**
+- `src/pages/LearnGuide.tsx` — resolves `:topicId` against `EDUCATION_TOPICS`, 404-redirects to `/learn` when unknown, renders the guide via a new template.
+- `src/components/learn/LearnGuideTemplate.tsx` — the shell + hero + TOC + section renderer described above.
+- `src/components/learn/GuideTOC.tsx` — sticky/inline table-of-contents component (semantic `<nav aria-label="On this page">`).
 
-### 3. Remove the competing top‑aligned scroll in `Education.tsx`
+**Edited**
+- `src/App.tsx`
+  - Replace the `/learn/education` + `/learn/education/:slug` routes with `/learn/:topicId` → `<LearnGuide />`.
+  - Extend `LEARN_REDIRECTS` (client-side `<Navigate replace>` entries the app already generates from this map):
+    - `/learn/education` → `/learn`
+    - `/learn/education#learn-the-basics` → `/learn/learn-the-basics`
+    - `/learn/education#verification` → `/learn/verification`
+    - `/learn/education#choosing-a-provider` → `/learn/choosing-a-provider`
+    - `/learn/education#sourcing-and-manufacturing` → `/learn/sourcing-and-manufacturing`
+    - For each of the 12 `/learn/education/:slug` articles → the correct guide URL plus `#slug` anchor (e.g. `/learn/education/what-does-verified-mean` → `/learn/verification#what-does-verified-mean`).
+  - Update the existing `/library/*` and `/education/*` legacy redirects that currently point at `/learn/education/...` so they now target the corresponding guide URL + anchor.
+- `src/pages/Learn.tsx` — "Start Here" list links change from `/learn/education#${topic.id}` to `/learn/${topic.id}`. Remove the "Education" NavCard from the "Browse by Resource" section (education no longer has a landing page); keep "News & Insights" and "FAQ".
+- `src/config/navigation.ts` — remove `ROUTES.education`; where it appears in header/footer link groups, drop it. UtilityHeader link map updated accordingly.
+- `src/components/UtilityHeader.tsx` and any nav that surfaces "Education" — remove the entry.
+- `src/components/learn/ContinueLearning.tsx` — replace any "Browse Education" card with links to the four guides (or the Learn hub, depending on current copy).
+- `src/data/learn.ts`
+  - Add helper `EDUCATION_GUIDES = EDUCATION_TOPICS.map(t => ({ ...t, articles: educationArticlesByTopic(t.id) }))` and a per-topic `guideIntro` map (one short paragraph per guide, drawn from existing topic descriptions).
+  - Remove the `NextStepId` / `NEXT_STEPS` entry `learn-education` (no longer a real page) and any references; replace call sites with `learn-news` or `contact` as appropriate.
+- `public/sitemap.xml` — remove the 12 `/learn/education/*` article URLs and the `/learn/education` listing; add `/learn/learn-the-basics`, `/learn/verification`, `/learn/choosing-a-provider`, `/learn/sourcing-and-manufacturing`.
 
-In `src/pages/Education.tsx`:
+**Deleted**
+- `src/pages/LearnEducation.tsx`
+- `src/pages/LearnEducationArticle.tsx`
+- `src/components/learn/CategoryHeader.tsx` (only used by the retired listing).
+- `src/components/learn/ArticleCard.tsx` if no other page consumes it after the change (verified before deletion).
+- The `EducationArticleTemplate` export inside `src/components/learn/LearnArticleTemplate.tsx`; the file is kept for `NewsArticleTemplate`, which is still in use.
 
-- Delete the `hashchange` `useEffect` (lines ~300–314) that calls `scrollIntoView({ block: "start" })`.
-- In `handleTabClick`, keep the filter + `history.replaceState` logic, but remove the local `scrollIntoView` call and instead dispatch through the hash so `useHashScroll` handles centering — simplest form: after `replaceState`, call `el?.scrollIntoView({ behavior: "smooth", block: "center" })` directly using the same centering rule. No `block: "start"` remains anywhere on this page.
-- Keep `initialFilter` logic (reads the hash to preselect the category filter) — that is filter state, not scroll behavior.
+Article records themselves stay in `learn.ts` as the content source for the guides — they just no longer render as standalone pages.
 
-### 4. Leave `ScrollToTop` alone
+## SEO handling
 
-`src/components/ScrollToTop.tsx` already bails out when a hash is present, so it does not compete with the centered hash scroll.
+- Guide pages get fresh titles/descriptions in `PageMeta` (e.g. "Verification Guide — Source Standard").
+- Each guide emits an `Article` JSON-LD plus a `FAQPage` JSON-LD whose `mainEntity` array covers every section question, so the twelve consumer questions still show up in structured data.
+- Client-side 301-equivalent redirects (`<Navigate replace>`) preserve inbound links; anchors carry through because `useHashScroll` centers on the section on mount.
+- `sitemap.xml` updated in the same commit to avoid stranded URLs.
 
 ## Verification
 
-After changes, test on desktop and mobile viewport:
-
-1. From `/`, click a Learn topic → lands on `/learn/education#<id>` with the section vertically centered.
-2. Already on `/learn/education`, click each topic tab → section re‑centers smoothly, URL hash updates.
-3. Direct load of `/learn/education#verification` (and each other topic) → section is centered after paint.
-4. Legacy URLs (`/education/basics`, `/library/sourcing`, etc.) redirect and still land centered on the new IDs.
+1. `/learn` — clicking each of the four "Start Here" rows lands directly on the corresponding guide (no intermediate category page).
+2. `/learn/verification` (and each other guide) — hero, sticky TOC, all sections render in order, hairline dividers between them, no cards.
+3. Deep link `/learn/verification#what-does-greenlisted-mean` — page loads, section scrolls to viewport center.
+4. Every retired URL redirects:
+   - `/learn/education` → `/learn`
+   - `/learn/education/what-does-verified-mean` → `/learn/verification#what-does-verified-mean`
+   - `/library/clinical` → `/learn/verification`
+5. Header, footer, breadcrumbs, and `ContinueLearning` no longer expose "Education" as a destination.
+6. Build passes; no dead imports.
 
 ## Out of scope
 
-No visual, typography, or content changes. No changes to the global hero/section padding rules established previously.
+- News (`/learn/news`, `/learn/news/:slug`) and FAQ (`/learn/faq`) are unchanged.
+- No visual/token changes to hero, section padding, or typography — this is pure IA plus a new guide template built from existing components.
+- No new content is written; guides are composed from existing article copy.

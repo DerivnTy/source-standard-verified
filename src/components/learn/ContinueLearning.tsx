@@ -10,11 +10,11 @@ type Destination = {
 
 const DESTINATIONS: Destination[] = [
   {
-    to: "/learn/education",
-    title: "Education",
+    to: "/learn",
+    title: "Learn",
     description:
-      "Plain-language articles explaining sourcing, verification, facilities, and providers.",
-    cta: "Browse Education",
+      "Comprehensive guides on the basics, verification, choosing a provider, and sourcing.",
+    cta: "Browse Guides",
   },
   {
     to: "/learn/faq",

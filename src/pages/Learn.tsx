@@ -60,7 +60,7 @@ const Learn = () => {
           {EDUCATION_TOPICS.map((t) => (
             <Link
               key={t.id}
-              to={`/learn/education#${t.id}`}
+              to={`/learn/${t.id}`}
               className="group grid grid-cols-[1fr_auto] md:grid-cols-[240px_1fr_auto] gap-x-6 gap-y-1 py-4 items-baseline hover:bg-muted/40 active:bg-muted/60 transition-colors"
               style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
             >
@@ -89,12 +89,7 @@ const Learn = () => {
 
       {/* 2 — Browse by Resource: secondary browse layer */}
       <PageSection title="Browse by Resource" compact>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <NavCard
-            to="/learn/education"
-            title="Education"
-            desc="Evergreen answers to the questions people ask before choosing a provider."
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <NavCard
             to="/learn/news"
             title="News & Insights"

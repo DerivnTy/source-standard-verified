@@ -66,8 +66,8 @@ export const NEXT_STEPS: Record<NextStepId, NextStep> = {
   },
   "learn-education": {
     id: "learn-education",
-    label: "Browse Education",
-    to: "/learn/education",
+    label: "Browse Learn",
+    to: "/learn",
   },
   "learn-news": {
     id: "learn-news",

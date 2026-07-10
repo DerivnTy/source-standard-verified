@@ -24,7 +24,6 @@ export const ROUTES = {
   governance: { path: "/governance", label: "Governance" },
   advisory: { path: "/medical-advisory", label: "Advisory Board" },
   learn: { path: "/learn", label: "Learn" },
-  education: { path: "/learn/education", label: "Education" },
   news: { path: "/learn/news", label: "News & Insights" },
   faq: { path: "/learn/faq", label: "Frequently Asked Questions" },
   about: { path: "/about", label: "About" },
@@ -66,7 +65,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Learn",
-    links: [ROUTES.learn, ROUTES.education, ROUTES.news, ROUTES.faq],
+    links: [ROUTES.learn, ROUTES.news, ROUTES.faq],
   },
   {
     title: "Source Standard",
