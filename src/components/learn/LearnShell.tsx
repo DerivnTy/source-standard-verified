@@ -1,29 +1,26 @@
 import { ReactNode } from "react";
 import { LearnBreadcrumbs, LearnCrumb } from "./LearnBreadcrumbs";
-import { LearnSecondaryNav, LearnSection } from "./LearnSecondaryNav";
+import { LearnSection } from "./LearnSecondaryNav";
 
 /**
- * LearnShell — persistent frame for every /learn/* surface. Provides:
- *   • Breadcrumb rail (always)
- *   • Section pill nav (optional, landing pages only)
+ * LearnShell — persistent frame for every /learn/* surface. Renders the
+ * breadcrumb rail above whatever the page provides. Pill navigation was
+ * removed: Learn is meant to read like a publication, not a filtered
+ * database, and the breadcrumbs plus site header already cover wayfinding.
  *
- * Places its chrome above whatever the page renders. Pages continue to
- * own their own hero, sections, and footer strips.
+ * The `section` prop is retained for future contextual affordances
+ * (analytics, closer variants) but no longer drives visible nav.
  */
 export const LearnShell = ({
   crumbs,
-  section,
-  showNav = false,
   children,
 }: {
   crumbs: LearnCrumb[];
   section: LearnSection;
-  showNav?: boolean;
   children: ReactNode;
 }) => (
   <>
     <LearnBreadcrumbs items={crumbs} />
-    {showNav && <LearnSecondaryNav active={section} />}
     {children}
   </>
 );
