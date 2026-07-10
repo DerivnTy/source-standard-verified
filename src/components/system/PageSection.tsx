@@ -59,7 +59,7 @@ export const PageSection = ({
   const ctaMarginTop = compact ? "12px" : "16px";
   const firstClass = first ? "pt-8 md:pt-10" : "";
   const firstBottomClass = first && !pb ? "pb-8 md:pb-10" : "";
-  const inlineStyle: React.CSSProperties = first
+  const inlineStyle: CSSProperties = first
     ? pb
       ? { paddingBottom: pb }
       : {}
