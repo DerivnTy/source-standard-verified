@@ -119,7 +119,7 @@ export const EducationArticleTemplate = ({
         />
 
         {article.sections.map((s, i) => (
-          <ArticleSection key={i} variant="prose" title={s.title}>
+          <ArticleSection key={i} variant="prose" title={s.title} first={i === 0}>
             {asParagraphs(s.body).map((p, j) => (
               <p key={j}>{p}</p>
             ))}
