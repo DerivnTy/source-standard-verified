@@ -82,7 +82,7 @@ export const BriefingHero = ({
             className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center"
             style={{
               paddingTop: "clamp(32px, 4.5vh, 52px)",
-              paddingBottom: "clamp(48px, 6vh, 64px)",
+              paddingBottom: "0px",
             }}
           >
             <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center">
