@@ -14,15 +14,15 @@ const PRINCIPLES: Item[] = [
 
 const VerificationDisclaimer = () => {
   const lead =
-    "The scope and limits of Source Standard verification, public statuses, and public-reference records.";
+    "Source Standard verification is an independent review of a vendor's published sourcing information.";
 
   return (
     <>
-      <PageMeta title="What Verification Does, and Doesn't, Mean" description={lead} />
+      <PageMeta title="What Does Source Standard Verification Mean?" description={lead} />
 
       <ArticleHeader
         category="Framework · Verification Disclaimer"
-        title="What Verification Does, and Doesn't, Mean"
+        title="What Does Source Standard Verification Mean?"
         lead={lead}
         backHref="/"
         backLabel="Back to Home"
@@ -30,47 +30,70 @@ const VerificationDisclaimer = () => {
 
       <ArticleSection variant="prose">
         <p>
-          Source Standard exists to improve transparency around sourcing claims and the pharmacies, facilities, and manufacturers that vendors rely on within the compounded therapy market. Verification is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework.
+          Source Standard verification is an independent review of a vendor's published sourcing information. A Verified status means the sourcing representations reviewed were supported by the documentation and public records available within the defined scope of the review at that point in time.
         </p>
         <p>
-          Because verification statuses may be viewed by consumers, providers, vendors, and third parties, it is important that the framework be interpreted within its intended scope. This document defines what Source Standard verification establishes, what it does not establish, and the limits under which registry information should be interpreted.
-        </p>
-      </ArticleSection>
-
-      <ArticleSection variant="prose" title="What verification establishes">
-        <p>
-          A Verified status indicates that the information available to Source Standard supported the reviewed sourcing representations within the defined review scope at the time of review. Verification establishes only the state of reviewed information within that scope. It does not establish facts beyond what was available at the time of review.
-        </p>
-        <DefList items={ESTABLISHES} />
-      </ArticleSection>
-
-      <ArticleSection variant="prose" title="What verification does not establish">
-        <p>Verification has defined limits.</p>
-        <DefList items={DOES_NOT_ESTABLISH} />
-      </ArticleSection>
-
-      <ArticleSection variant="prose" title="Institutional boundaries">
-        <p>What Source Standard is not.</p>
-        <DefList items={BOUNDARIES} />
-      </ArticleSection>
-
-      <ArticleSection variant="prose" title="Reliance on registry information">
-        <p>
-          Registry records are intended to improve transparency and public understanding. Users should not rely on Source Standard records as a substitute for medical advice, legal advice, regulatory guidance, or independent due diligence.
-        </p>
-        <p>Medical decisions should be made with licensed healthcare professionals.</p>
-        <p>Legal and regulatory decisions should be made with qualified professionals and appropriate authorities.</p>
-      </ArticleSection>
-
-      <ArticleSection variant="prose" title="Framework interpretation">
-        <p>
-          Source Standard verification should be interpreted as a transparency determination made within a defined public review framework. It is not a certification program, a guarantee program, a regulatory designation, or a medical recommendation. Its purpose is to improve public visibility into sourcing claims and the pharmacies, facilities, and manufacturers that vendors rely on.
+          Verification is designed to improve transparency. It is not a certification, an endorsement, a guarantee, or regulatory approval.
         </p>
       </ArticleSection>
 
-      <ArticleSection variant="callout" kind="Key takeaway" title="Verification is an evidence determination, not a guarantee">
+      <ArticleSection variant="prose" title="What Verification Means">
         <p>
-          The purpose of the Source Standard framework is to create a clearer public record around sourcing transparency. Verification reflects reviewed information within a defined scope and should always be interpreted within the limits of that scope.
+          A Verified status indicates that Source Standard reviewed a vendor's sourcing claims and found that the available documentation supported those claims within the published review scope.
+        </p>
+        <p>Every verification is based on three principles.</p>
+        <DefList items={PRINCIPLES} />
+      </ArticleSection>
+
+      <ArticleSection variant="prose" title="What Verification Does Not Mean">
+        <p>A Verified status should never be interpreted as a guarantee.</p>
+        <p>Source Standard does not determine:</p>
+        <ul className="list-disc pl-5 t-article-prose">
+          <li>Product safety, potency, purity, or sterility.</li>
+          <li>Clinical effectiveness or patient outcomes.</li>
+          <li>Whether a treatment is appropriate for an individual.</li>
+          <li>Future compliance or future business practices.</li>
+          <li>Regulatory approval or legal compliance beyond the reviewed scope.</li>
+        </ul>
+        <p>Verification reflects reviewed evidence, not future performance.</p>
+      </ArticleSection>
+
+      <ArticleSection variant="prose" title="What Source Standard Is">
+        <p>
+          Source Standard is an independent public reference organization focused on sourcing transparency.
+        </p>
+        <p>
+          Our role is to review sourcing documentation, compare it with public records and framework standards, and publish transparent status determinations.
+        </p>
+        <p>Source Standard is not:</p>
+        <ul className="list-disc pl-5 t-article-prose">
+          <li>A government regulator.</li>
+          <li>A medical practice.</li>
+          <li>A pharmacy or manufacturer.</li>
+          <li>An analytical testing laboratory.</li>
+          <li>An accreditation or certification body.</li>
+          <li>A vendor endorsement organization.</li>
+        </ul>
+      </ArticleSection>
+
+      <ArticleSection variant="prose" title="How Registry Information Should Be Used">
+        <p>
+          Registry records are intended to improve transparency and support informed decision making.
+        </p>
+        <p>They should be considered alongside:</p>
+        <ul className="list-disc pl-5 t-article-prose">
+          <li>Guidance from licensed healthcare professionals.</li>
+          <li>Official regulatory information.</li>
+          <li>Independent due diligence.</li>
+        </ul>
+        <p>
+          No registry record should be interpreted as the sole basis for a medical, legal, or purchasing decision.
+        </p>
+      </ArticleSection>
+
+      <ArticleSection variant="callout" kind="Key Takeaway" title="Verification is an evidence based transparency determination, not a guarantee">
+        <p>
+          A Source Standard verification indicates that reviewed sourcing claims were supported by the evidence available within a defined scope at the time of review. Every verification reflects the information available during that review and should always be interpreted within those boundaries.
         </p>
       </ArticleSection>
 
