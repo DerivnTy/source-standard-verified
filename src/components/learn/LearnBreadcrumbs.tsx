@@ -20,8 +20,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="bg-background/70 border-b border-border/50"
-      style={{ backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }}
+      className="bg-[hsl(var(--navy-surface))]"
     >
       <div className="page-shell">
         <div
@@ -33,7 +32,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
             {parent.to ? (
               <Link
                 to={parent.to}
-                className="inline-flex items-center gap-1.5 font-mono uppercase text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-1.5 font-mono uppercase text-white/80 hover:text-white transition-colors"
                 style={{ fontSize: "10px", letterSpacing: "0.12em" }}
               >
                 <span aria-hidden>←</span>
@@ -41,7 +40,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
               </Link>
             ) : (
               <span
-                className="font-mono uppercase text-muted-foreground"
+                className="font-mono uppercase text-white/80"
                 style={{ fontSize: "10px", letterSpacing: "0.12em" }}
               >
                 {parent.label}
@@ -62,7 +61,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
                     {c.to && !last ? (
                       <Link
                         to={c.to}
-                        className="font-mono uppercase text-muted-foreground hover:text-foreground transition-colors"
+                        className="font-mono uppercase text-white/80 hover:text-white transition-colors"
                         style={{ fontSize: "10px", letterSpacing: "0.12em" }}
                       >
                         {c.label}
@@ -70,7 +69,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
                     ) : (
                       <span
                         className={`font-mono uppercase ${
-                          last ? "text-foreground" : "text-muted-foreground"
+                          last ? "text-white" : "text-white/80"
                         }`}
                         style={{ fontSize: "10px", letterSpacing: "0.12em" }}
                         aria-current={last ? "page" : undefined}
@@ -80,7 +79,7 @@ export const LearnBreadcrumbs = ({ items }: { items: LearnCrumb[] }) => {
                     )}
                   </li>
                   {!last && (
-                    <li aria-hidden className="inline-flex items-center text-muted-foreground/50">
+                    <li aria-hidden className="inline-flex items-center text-white/40">
                       <ChevronRight style={{ width: 11, height: 11, strokeWidth: 1.5 }} />
                     </li>
                   )}
