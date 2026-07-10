@@ -6,28 +6,10 @@ import { DefList } from "@/components/DefList";
 
 type Item = { term: string; description: string };
 
-const ESTABLISHES: Item[] = [
-  { term: "Reviewed information", description: "Verification reflects the information considered at the time of review, which may include documentation, sourcing records, public records, and other supporting materials." },
-  { term: "Defined scope", description: "Verification applies only to the categories, facilities, relationships, and records included within the published review scope." },
-  { term: "Point-in-time determination", description: "Verification reflects conditions at the time of review and may change as new information becomes available." },
-  { term: "Status-based framework", description: "Verification exists within a status framework that allows records to be updated, suspended, revised, or removed when circumstances change." },
-];
-
-const DOES_NOT_ESTABLISH: Item[] = [
-  { term: "Product safety", description: "Source Standard does not guarantee product safety, potency, purity, sterility, or future quality." },
-  { term: "Clinical outcomes", description: "Source Standard does not evaluate treatment effectiveness, patient outcomes, or biological response." },
-  { term: "Medical appropriateness", description: "Source Standard does not determine whether a therapy, medication, protocol, or provider is appropriate for any individual." },
-  { term: "Regulatory compliance", description: "Source Standard does not replace or perform the functions of federal, state, medical, pharmacy, or regulatory authorities." },
-  { term: "Future performance", description: "Verification is not a guarantee of future conduct, future documentation accuracy, future sourcing relationships, or future compliance." },
-];
-
-const BOUNDARIES: Item[] = [
-  { term: "Not a regulator", description: "Source Standard does not possess governmental or enforcement authority." },
-  { term: "Not a medical practice", description: "Source Standard does not diagnose, prescribe, dispense, or provide medical care." },
-  { term: "Not a pharmacy", description: "Source Standard does not compound, manufacture, distribute, or supply medications." },
-  { term: "Not a testing laboratory", description: "Source Standard does not operate an analytical laboratory. Independent testing results, when referenced, come from qualified third-party laboratories." },
-  { term: "Not an endorsement organization", description: "Verification does not constitute vendor endorsement, product endorsement, treatment recommendation, ranking, or promotional approval." },
-  { term: "Not a certifying authority", description: "Source Standard assigns statuses under its own framework and is not a government certification body, accreditation organization, or regulatory authority." },
+const PRINCIPLES: Item[] = [
+  { term: "Evidence", description: "Verification is based on reviewed documentation, public records, and other supporting information." },
+  { term: "Defined Scope", description: "Only the facilities, sourcing relationships, and records included in the review are evaluated." },
+  { term: "Point in Time Review", description: "Verification reflects the information available when the review was completed. Records may change if new information becomes available." },
 ];
 
 const VerificationDisclaimer = () => {
