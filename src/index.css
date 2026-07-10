@@ -602,7 +602,7 @@ html {
   @media (min-width: 1024px) {
     section + section > .section-pad,
     section + section .page-shell.section-pad.section-pad + .section-pad {
-      padding-top: 40px;
+      padding-top: 28px;
     }
   }
 
