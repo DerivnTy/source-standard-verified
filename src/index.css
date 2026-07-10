@@ -338,6 +338,10 @@ html {
   .w-reading-wide  { max-width: 820px;  }
   .w-hero          { max-width: 720px;  }
   .w-two-col       { max-width: 520px;  }
+  @media (min-width: 1024px) {
+    .w-reading-wide { max-width: 860px; }
+    .w-hero         { max-width: 820px; }
+  }
 
   /* ────────────────────────────────────────────────────────────
      GLOBAL TYPOGRAPHY SYSTEM (10 types, applied sitewide).
