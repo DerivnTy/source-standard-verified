@@ -49,7 +49,7 @@ export const DocLayout = ({
           : "bg-background"
       }
     >
-      <div className="container-wide py-12 md:py-16">
+      <div className="container-wide py-12 md:py-16 lg:py-20 xl:py-24">
         {/* Mobile waypoint pills */}
         <nav
           aria-label="Document sections"
