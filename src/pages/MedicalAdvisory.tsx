@@ -81,7 +81,7 @@ const BOUNDARIES = [
 const BOARD_MEMBERS = [
   { role: "Clinical Oversight" },
   { role: "Pharmacy Standards" },
-  { role: "Regulatory Interpretation" },
+  { role: "Regulatory Affairs" },
   { role: "Evidence Review" },
 ];
 
