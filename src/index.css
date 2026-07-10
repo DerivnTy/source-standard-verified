@@ -568,9 +568,9 @@ html {
     .hero-gap    { margin-top: 64px; }
   }
   @media (min-width: 1024px) {
-    .section-pad { padding-top: 56px; padding-bottom: 44px; }
-    .section-gap { margin-top: 56px; }
-    .hero-gap    { margin-top: 80px; }
+    .section-pad { padding-top: 44px; padding-bottom: 32px; }
+    .section-gap { margin-top: 48px; }
+    .hero-gap    { margin-top: 56px; }
     /* Desktop unified content boundary, every major section (standard
        long-form, registry/index surfaces, hero content blocks) shares the
        same max-width so the page reads as one aligned institutional
@@ -579,7 +579,7 @@ html {
     .w-wide      { max-width: 1180px; }
   }
   @media (min-width: 1280px) {
-    .section-pad { padding-top: 72px; padding-bottom: 56px; }
+    .section-pad { padding-top: 56px; padding-bottom: 40px; }
     /* XL viewports (1280+) breathe a little more, still institutional. */
     .w-standard  { max-width: 1240px; }
     .w-wide      { max-width: 1280px; }
