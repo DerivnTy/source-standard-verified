@@ -118,9 +118,6 @@ export const EducationArticleTemplate = ({
           category="education"
         />
 
-        <KeyTakeaway>{article.shortAnswer}</KeyTakeaway>
-
-
         {article.sections.map((s, i) => (
           <ArticleSection key={i} variant="prose" title={s.title}>
             {asParagraphs(s.body).map((p, j) => (
@@ -129,7 +126,10 @@ export const EducationArticleTemplate = ({
           </ArticleSection>
         ))}
 
+        <KeyTakeaway>{article.shortAnswer}</KeyTakeaway>
+
         <RelatedArticles items={relatedItems} />
+
 
         <ContinueLearning exclude="/learn/education" />
       </LearnShell>
