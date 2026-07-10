@@ -68,7 +68,7 @@ export const SiteHeader = () => {
         style={{ height: "63px", paddingLeft: "24px", paddingRight: "24px" }}
       >
         <Logo />
-        <nav className="hidden lg:flex items-center gap-7 h-full">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 h-full">
           {nav.map((n) => (
             <NavLink
               key={n.to}
