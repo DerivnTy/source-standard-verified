@@ -55,7 +55,7 @@ const Learn = () => {
       />
 
       {/* 1 — Start Here: primary learning path */}
-      <PageSection title="Start Here">
+      <PageSection title="Start Here" first>
         <dl className="divide-y divide-border/60 border-t border-b border-border/60">
           {EDUCATION_TOPICS.map((t) => (
             <Link

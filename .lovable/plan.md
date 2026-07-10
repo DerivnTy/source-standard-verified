@@ -1,95 +1,85 @@
-## Root cause
+## Objective
 
-Vertical space between blocks currently comes from **every** shared component declaring its own padding/margin. When they stack — Breadcrumb + Hero + PageSection + CategoryHeader + Card grid + RelatedArticles + ContinueLearning + Footer — the values compound into the dead bands the user sees. The fix is one rhythm, applied at the shared-component and token layer, not per page.
+One shared rule owns the hero → first-section transition. Every page ends its hero flush, and the first section adds exactly 32px mobile / 40px desktop of top padding. No page sets its own top spacing under a hero.
 
-Note on `/learn/news`: the filter block described in the message was already removed from `LearnNews.tsx` in the previous turn (there is no filter markup left in that file). The user is likely viewing a stale preview; a hard refresh will show the current state. No new code change is needed there beyond the global spacing work below.
+## Findings from audit
 
-## Global vertical rhythm (single source of truth)
+Three hero components and two section components each add their own bottom/top spacing, and several pages layer inline `paddingTop` on top of that:
 
-Applied consistently to every public page.
+- `BriefingHero` (chapter variant) uses `pb-9 md:pb-9 lg:pb-11` (36–44px bottom).
+- `BriefingHero` (briefing variant, line 84–85) still uses `paddingBottom: clamp(48px, 6vh, 64px)` — the source of the largest gaps.
+- `PageHeader` uses `paddingBottom: clamp(24px, 3.5vh, 36px)`.
+- `ArticleHeader` uses `paddingBottom: clamp(20px, 3vh, 32px)`.
+- `PageSection` defaults to `padY = 32px` (compact 24px).
+- `ArticleSection` first variant uses `paddingTop: 28px` / `24px` / `20px` depending on variant.
+- `HowItWorks.tsx` hardcodes its own first `<section>` at `paddingTop: 32px` instead of using a shared component.
 
-| Gap | Mobile | Desktop |
+That's four+ layers stacking under one hero, which is why gaps differ page to page.
+
+## Rule (single source of truth)
+
+Hero → first section transition is owned entirely by the first section:
+
+| Surface | Mobile | Desktop |
 |---|---|---|
-| Site header → hero (no light strip) | 0 | 0 |
-| Breadcrumb top pad | 20 | 20 |
-| Breadcrumb bottom pad | 8 | 8 |
-| Hero title top (inside hero band) | 12 | 20 |
-| Title → lead | 20 | 24 |
-| Hero bottom pad | 36 | 44 |
-| Hero → first section | 28 | 36 |
-| Section top/bottom (standard) | 32 | 40 |
-| H2 → intro paragraph | 14 (already enforced) | 14 |
-| Intro → first content item | 24 | 24 |
-| Card grid gap | 16 | 16 |
-| Section → RelatedArticles / ContinueLearning | 32 | 40 |
-| Last section → footer | 32 | 48 |
+| Hero bottom padding | 0 | 0 |
+| First section top padding | 32px | 40px |
+| First section bottom padding | 32px | 40px |
 
-## Shared-component changes
+Hero components stop adding bottom padding entirely. Every section directly beneath a hero gets the same top rhythm — regardless of whether the page uses `PageSection`, `ArticleSection`, or a custom `<section>`.
 
-### `src/components/BriefingHero.tsx` (chapter variant, line 165)
-`pt-14 pb-3 md:pt-[72px] md:pb-9 lg:pt-16 lg:pb-[52px]`
-→ `pt-3 pb-9 md:pt-4 md:pb-9 lg:pt-6 lg:pb-11`
-Removes the large navy gap between the breadcrumb and the H1. Lead `marginTop` stays at 20–24.
+## Implementation
 
-### `src/components/learn/LearnBreadcrumbs.tsx` (line 34)
-`minHeight: 40px, paddingTop: 14, paddingBottom: 14` → `paddingTop: 20, paddingBottom: 8` (drop `minHeight`).
-Combined with the tighter hero top, back-link → title lands at 40–48px.
+### 1. Zero out hero bottom padding
 
-### `src/components/system/PageSection.tsx`
-- `padY`: `28px` / `20px` → `32px` / `24px`.
-- `childrenMarginTop`: `14 / 16` → `20 / 24` (no-intro / with-intro).
-- `introMarginTop`: keep at 10 (matches the 12–16 target after H2 kerning).
+- `BriefingHero.tsx`
+  - Briefing variant (line 85): drop `paddingBottom` to `0`.
+  - Chapter variant (line 165): change `pb-9 md:pb-9 lg:pb-11` → `pb-0`.
+- `PageHeader.tsx` (line 31): drop `paddingBottom` to `0`.
+- `ArticleHeader.tsx` (line 59): drop `paddingBottom` to `0`. Keep the small `pt-5` variant untouched (it's used inside layouts, not as a hero).
 
-### `src/components/learn/CategoryHeader.tsx`
-`paddingBottom: 12, marginBottom: 20` → `paddingBottom: 12, marginBottom: 24`.
+Internal spacing inside the hero (title → lead) is unchanged. Only the outer bottom padding goes to 0.
 
-### `src/components/learn/RelatedArticles.tsx`
-`paddingTop: 36` → `paddingTop: 32` (mobile) with a `md:pt-10` variant; header `marginBottom: 16` → `20`.
+### 2. Add a `first` prop to shared section components
 
-### `src/components/learn/ContinueLearning.tsx`
-`paddingTop: 40, paddingBottom: 48` → `paddingTop: 32, paddingBottom: 40`. Terminal `!important` rule in `index.css` continues to lock the footer-adjacent bottom.
+- `PageSection` — add `first?: boolean`. When `first`, override `padY` to `32px` mobile / `40px` desktop via a class (`pt-8 pb-8 md:pt-10 md:pb-10`) instead of the inline `padY` var. Keeps `compact` and `pb` overrides working for non-first sections.
+- `ArticleSection` — same `first?: boolean` addition. When `first`, use `pt-8 md:pt-10` instead of the current 20/24/28px inline top.
 
-### `src/components/EditorialBackLink.tsx`
-`paddingTop: 24, paddingBottom: 40` → `paddingTop: 20, paddingBottom: 32`.
+Rationale: one API, zero per-page math. Pages just mark the first section with `first`.
 
-### `src/components/PageHeader.tsx` (institutional hero)
-`paddingTop: clamp(44px, 6.5vh, 68px)` → `clamp(32px, 5vh, 52px)`.
-`paddingBottom: clamp(28px, 4vh, 40px)` → `clamp(24px, 3.5vh, 36px)`.
+### 3. Apply `first` on the pages that begin with a hero
 
-### `src/components/ArticleHeader.tsx` (navy masthead)
-Already `pt: clamp(8, 2.5vh, 20), pb: clamp(20, 3vh, 32)` — leave as is; matches the new rhythm.
+- `Learn.tsx` — first `PageSection title="Start Here"` gets `first`.
+- `MedicalAdvisory.tsx`, `Privacy.tsx`, `VerificationDisclaimer.tsx` — first `ArticleSection variant="prose"` gets `first`.
+- `LearnEducation.tsx`, `LearnNews.tsx`, `LearnFaq.tsx` — first `PageSection` gets `first`.
+- Education / News article templates (`LearnArticleTemplate`) — verify the first content section under the hero uses `first`.
 
-### `src/index.css` — `.section-pad` token (institutional pages)
-Currently: mobile 80/32, md 72/36, lg 64/52.
-Change to: mobile **40/32**, md **48/36**, lg **56/44**. The `section + section > .section-pad` reducer rule (24/32/40) and the terminal `*:has(> footer)` hard-stop rule stay unchanged, so subsequent sections and the last-before-footer band still align.
+### 4. Remove ad-hoc first-section spacing on `HowItWorks.tsx`
 
-### `src/components/SiteFooter.tsx`
-No padding change. The `margin-top: 0 !important` rule on `footer` already prevents a double band; verify no page-level `mb-*` is stacked on the last section.
+- Replace the hand-rolled `<section style={{ paddingTop: "32px", paddingBottom: "32px" }}>` (line 73) with `<PageSection first bordered>` wrapping the same prose. Its two-paragraph intro renders identically inside `PageSection` because `PageSection` already provides `page-shell` + `w-standard`.
+- The second hand-rolled `<section>` (line 93, "Protocol") becomes a normal `<PageSection>` (no `first`) so it inherits standard 32/40 rhythm.
 
-## Page-level cleanups (only where they duplicate shared spacing)
+### 5. Internal first-section rhythm (already partially in place)
 
-- `src/pages/LearnEducation.tsx` line 58 — remove `paddingTop: 36, paddingBottom: 36` and let the wrapper inherit the standard 32/40 pattern (replace the raw `<section>` with `PageSection` scoped by `id={topic.id}` so category rhythm is owned centrally).
-- `src/pages/LearnFaq.tsx` — the raw `<section>` currently sets `paddingTop/paddingBottom: 28`; drop those in favor of `PageSection`'s new 32 default. If a titleless section is still required, expose `PageSection` `title` as optional (single small API change) rather than duplicating the wrapper.
-- `src/components/learn/LearnArticleTemplate.tsx` line 202 — News meta strip `paddingTop: 20, paddingBottom: 8` stays; it is smaller than any shared token and is the correct place for that value.
-- Grep pass across `src/pages/Learn*.tsx`, `src/pages/Faq*.tsx`, `src/pages/Library*.tsx`, `src/pages/VerificationDisclaimer.tsx`, `src/pages/Privacy.tsx`, `src/pages/Terms.tsx`, `src/pages/Governance.tsx`, `src/pages/MedicalAdvisory.tsx`, `src/pages/HowItWorks.tsx`, `src/pages/About.tsx` for local `paddingTop|paddingBottom|marginTop|marginBottom|py-|pt-|pb-` on wrappers immediately around heroes, sections, related, and continue-learning blocks. Where the value duplicates a shared component's own padding, delete it. Where the page adds spacing that the shared component already owns, delete it. No negative margins introduced anywhere.
+Confirm inside the first section:
+- Prose paragraph line-height / size unchanged (16px / 1.65, max-width 68ch).
+- If the first section has a heading, existing `PageSection` heading→children margin (20px compact / 24px default) already matches the spec — no change.
+- Paragraph → paragraph 1.1em, heading → body 12–16px — already handled by prose defaults; no change.
+
+### 6. Grep sweep for stragglers
+
+After the shared changes, `rg -n "paddingTop|pt-8|pt-10|pt-12|pt-14|pt-16" src/pages src/components` and remove any remaining inline top padding on a section that directly follows a hero. Institutional legal pages (`Terms`, `Governance`, `Accountability`, `Apply`, `Contact`, `ReportConcern`, `StatusDefinitions`, `HowToReadTheDirectory`) get the same treatment as Privacy.
 
 ## Verification
 
-Playwright at 390 and 1280:
-- `/learn`, `/learn/news`, `/learn/education`, `/learn/faq`
-- one Education article, one News article, one FAQ topic page
-- `/verification-disclaimer`, `/medical-advisory`, `/privacy`, `/terms`
+Playwright at 390px and 1280px on:
+`/how-it-works`, `/medical-advisory`, `/learn`, `/learn/education`, `/learn/news`, `/learn/faq`, `/privacy`, `/verification-disclaimer`, one Education article, one News article.
 
-Confirm on each:
-- No light strip between SiteHeader and hero.
-- Back-link → title reads as 40–48px.
-- First section begins ~28–36px below hero, not 60+.
-- Section rhythm is uniform (no page pulls ahead or lags).
-- Last content block sits 32–48px above the footer with no doubled band.
-- No filter/chip UI remains on any Learn surface.
+Confirm the pixel distance from the last hero baseline to the first section's heading (or first line of prose) is identical across all pages — 32px mobile, 40px desktop.
 
-## Out of scope
+## Non-goals
 
-- No color, typography, copy, or component-API changes beyond making `PageSection.title` optional.
-- No changes to `SiteHeader.tsx`, `SiteFooter.tsx` internal padding.
-- No changes to Registry, Directory, or Home page rhythm — they already ride on the `.section-pad` tokens and inherit the new values automatically.
+- No negative margins.
+- No per-page overrides.
+- No changes to internal hero typography or to section-to-section rhythm below the first section.
+- No new wrapper components — the `first` prop lives on existing `PageSection` and `ArticleSection`.

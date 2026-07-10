@@ -62,7 +62,7 @@ const Privacy = () => {
         backLabel="Back to Home"
       />
 
-      <ArticleSection variant="prose">
+      <ArticleSection variant="prose" first>
         <p>
           Source Standard maintains two distinct information environments: public-reference records that support transparency, and protected review materials that support verification. This policy describes how those records are collected, maintained, protected, and administered throughout the verification lifecycle.
         </p>

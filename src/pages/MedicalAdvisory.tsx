@@ -125,7 +125,7 @@ const MedicalAdvisory = () => {
         lead={lead}
       />
 
-      <ArticleSection variant="prose">
+      <ArticleSection variant="prose" first>
         <p>
           Source Standard operates within a complex environment involving healthcare providers, pharmacies, manufacturers, regulators, and consumers. Maintaining public trust requires clear boundaries, consistent standards, and independent review of the framework itself.
         </p>

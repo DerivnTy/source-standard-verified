@@ -70,39 +70,34 @@ const HowItWorks = () => {
 
 
       {/* Movement 1 — Definition. Dictionary-style opening. No section heading. */}
-      <section className="border-b border-border bg-background" style={{ paddingTop: "32px", paddingBottom: "32px" }}>
-        <div className="page-shell">
-          <div className="mx-auto w-standard flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
-            <p
-              className="text-foreground"
-              style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
-            >
-              <span className="font-semibold">Verification</span> is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. <span className="font-semibold">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
-            </p>
-            <p
-              className="text-muted-foreground"
-              style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
-            >
-              Verification is not a clinical, medical, or regulatory certification. It is a transparency signal about publicly available sourcing information.
-            </p>
-          </div>
+      <PageSection first>
+        <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+          <p
+            className="text-foreground"
+            style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
+          >
+            <span className="font-semibold">Verification</span> is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. <span className="font-semibold">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
+          </p>
+          <p
+            className="text-muted-foreground"
+            style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
+          >
+            Verification is not a clinical, medical, or regulatory certification. It is a transparency signal about publicly available sourcing information.
+          </p>
         </div>
-      </section>
+      </PageSection>
 
       {/* Movement 2 — Protocol. Small margin label, ProcessSteps carries the section. */}
-      <section className="border-b border-border bg-background" style={{ paddingTop: "20px", paddingBottom: "36px" }}>
-        <div className="page-shell">
-          <div className="mx-auto w-standard">
-            <p
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "20px" }}
-            >
-              Protocol
-            </p>
-            <ProcessSteps steps={STEPS} />
-          </div>
-        </div>
-      </section>
+      <PageSection>
+        <p
+          className="font-mono uppercase text-muted-foreground"
+          style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "20px" }}
+        >
+          Protocol
+        </p>
+        <ProcessSteps steps={STEPS} />
+      </PageSection>
+
 
 
       {/* Movement 3 — What verification means. One heading, two labeled columns. */}

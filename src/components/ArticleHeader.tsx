@@ -56,7 +56,7 @@ export const ArticleHeader = ({
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
         <div
           className="relative z-10 page-shell"
-          style={{ paddingTop: "clamp(8px, 2.5vh, 20px)", paddingBottom: "clamp(20px, 3vh, 32px)" }}
+          style={{ paddingTop: "clamp(8px, 2.5vh, 20px)", paddingBottom: "0px" }}
         >
           <div className="mx-auto w-reading-wide">
             <h1

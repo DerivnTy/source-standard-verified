@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { Glyph, type GlyphName } from "./GlyphIcon";
 
 /**
@@ -25,6 +25,7 @@ export const PageSection = ({
   children,
   bordered = true,
   compact = false,
+  first = false,
   className = "",
   pb,
 }: {
@@ -42,6 +43,13 @@ export const PageSection = ({
   children?: ReactNode;
   bordered?: boolean;
   compact?: boolean;
+  /**
+   * Mark this as the first content section directly under a hero. Applies
+   * the shared hero → first-section rhythm (32px mobile / 40px desktop
+   * top + bottom padding). Overrides `compact` for the top padding so
+   * every page shares the same visual distance below the hero.
+   */
+  first?: boolean;
   className?: string;
   pb?: string;
 }) => {
@@ -49,11 +57,18 @@ export const PageSection = ({
   const introMarginTop = compact ? "8px" : "10px";
   const childrenMarginTop = compact ? (intro ? "20px" : "16px") : intro ? "24px" : "20px";
   const ctaMarginTop = compact ? "12px" : "16px";
+  const firstClass = first ? "pt-8 md:pt-10" : "";
+  const firstBottomClass = first && !pb ? "pb-8 md:pb-10" : "";
+  const inlineStyle: CSSProperties = first
+    ? pb
+      ? { paddingBottom: pb }
+      : {}
+    : { paddingTop: padY, paddingBottom: pb ?? padY };
   return (
     <section
       aria-labelledby={id}
-      className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${className}`}
-      style={{ paddingTop: padY, paddingBottom: pb ?? padY }}
+      className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${firstClass} ${firstBottomClass} ${className}`}
+      style={inlineStyle}
     >
       <div className="page-shell">
         <div className="mx-auto w-standard">

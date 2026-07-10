@@ -48,13 +48,14 @@ const LearnEducation = () => {
         />
 
         {/* Topic sections */}
-        {EDUCATION_TOPICS.map((topic) => {
+        {EDUCATION_TOPICS.map((topic, i) => {
           const entries = educationArticlesByTopic(topic.id);
+          const isFirst = i === 0;
           return (
             <section
               key={topic.id}
               id={topic.id}
-              className="scroll-mt-24 bg-background border-b border-border section-pad"
+              className={`scroll-mt-24 bg-background border-b border-border ${isFirst ? "pt-8 pb-8 md:pt-10 md:pb-10" : "section-pad"}`}
             >
               <div className="page-shell">
                 <div className="mx-auto w-standard">
