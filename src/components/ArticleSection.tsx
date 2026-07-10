@@ -44,7 +44,7 @@ export const ArticleSection = ({
   first?: boolean;
   children: ReactNode;
 }) => {
-  const firstClass = first ? "pt-6 md:pt-8" : "";
+  const firstClass = first ? "pt-10 md:pt-12" : "";
 
 
 
