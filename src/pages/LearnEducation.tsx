@@ -60,10 +60,8 @@ const LearnEducation = () => {
               <div className="page-shell">
                 <div className="mx-auto w-standard">
                   <CategoryHeader
-                    eyebrow="Education"
                     title={topic.label}
                     description={topic.description}
-                    count={entries.length}
                   />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {entries.map((a) => (
