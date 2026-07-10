@@ -2,7 +2,7 @@ import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
 import { LearnShell } from "@/components/learn/LearnShell";
 import { ArticleCard } from "@/components/learn/ArticleCard";
-import { BrowseStrip } from "@/components/learn/BrowseStrip";
+import { ContinueLearning } from "@/components/learn/ContinueLearning";
 import { PageSection } from "@/components/system";
 import { FAQ_ENTRIES } from "@/data/learn";
 
@@ -60,14 +60,7 @@ const LearnFaq = () => {
           </div>
         </PageSection>
 
-        <BrowseStrip
-          eyebrow="Still have questions?"
-          primary={{ to: "/contact", label: "Contact Source Standard" }}
-          secondary={[
-            { to: "/learn/education", label: "Browse Education" },
-            { to: "/learn/news", label: "News & Insights" },
-          ]}
-        />
+        <ContinueLearning exclude="/learn/faq" />
       </LearnShell>
     </>
   );

@@ -5,7 +5,7 @@ import { ArticleSection } from "@/components/ArticleSection";
 import { LearnShell } from "./LearnShell";
 import { KeyTakeaway } from "./KeyTakeaway";
 import { RelatedArticles, RelatedItem } from "./RelatedArticles";
-import { BrowseStrip } from "./BrowseStrip";
+import { ContinueLearning } from "./ContinueLearning";
 
 import { readingTimeMinutes, formatReadingTime } from "@/lib/readingTime";
 
@@ -130,26 +130,7 @@ export const EducationArticleTemplate = ({
 
         <RelatedArticles items={relatedItems} />
 
-        {topic && (
-          <BrowseStrip
-            eyebrow={`More in ${topic.label}`}
-            primary={{
-              to: `/learn/education#${topic.id}`,
-              label: `Browse ${topic.label}`,
-            }}
-            secondary={siblingLinks}
-          />
-        )}
-
-        <BrowseStrip
-          eyebrow="Browse Learn"
-          primary={{ to: "/learn/education", label: "All Education" }}
-          secondary={[
-            { to: "/learn/faq", label: "FAQ" },
-            { to: "/learn/news", label: "News & Insights" },
-            { to: "/learn", label: "Learn overview" },
-          ]}
-        />
+        <ContinueLearning exclude="/learn/education" />
       </LearnShell>
     </>
   );
@@ -234,19 +215,7 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
           items={relatedItems}
         />
 
-        <BrowseStrip
-          eyebrow="More news"
-          primary={{ to: "/learn/news", label: "All News & Insights" }}
-        />
-
-        <BrowseStrip
-          eyebrow="Browse Learn"
-          primary={{ to: "/learn/education", label: "Browse Education" }}
-          secondary={[
-            { to: "/learn/faq", label: "FAQ" },
-            { to: "/learn", label: "Learn overview" },
-          ]}
-        />
+        <ContinueLearning exclude="/learn/news" />
       </LearnShell>
     </>
   );
