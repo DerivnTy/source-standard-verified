@@ -60,31 +60,31 @@ const queryClient = new QueryClient();
  */
 const LEARN_REDIRECTS: [string, string][] = [
   ["/education", "/learn"],
-  ["/education/basics", "/learn/education#learn-the-basics"],
-  ["/education/guides", "/learn/education"],
-  ["/education/questions", "/learn/education"],
-  ["/library/core", "/learn/education"],
+  ["/education/basics", "/learn/learn-the-basics"],
+  ["/education/guides", "/learn"],
+  ["/education/questions", "/learn"],
+  ["/library/core", "/learn"],
   ["/library/latest", "/learn/news"],
   ["/library/publications", "/learn/news"],
-  ["/library/sourcing", "/learn/education#sourcing-and-manufacturing"],
-  ["/library/clinical", "/learn/education#verification"],
-  ["/library/consumer", "/learn/education#choosing-a-provider"],
+  ["/library/sourcing", "/learn/sourcing-and-manufacturing"],
+  ["/library/clinical", "/learn/verification"],
+  ["/library/consumer", "/learn/choosing-a-provider"],
 
-  // Core Reference articles
-  ["/library/what-is-compounding", "/learn/education/what-is-a-compounded-medication"],
-  ["/library/what-are-peptides", "/learn/education/what-are-peptides"],
-  ["/library/interpreting-coas", "/learn/education/how-to-read-a-certificate-of-analysis"],
-  ["/library/dual-layer-difference", "/learn/education/what-does-verified-mean"],
-  ["/library/sterile-preparation-integrity", "/learn/education/why-does-sourcing-matter"],
-  ["/library/aseptic-technique", "/learn/education/what-is-sterile-compounding"],
-  ["/library/endocrinological-context", "/learn/education/what-is-compounded-hormone-therapy"],
-  ["/library/why-vendor-transparency-matters", "/learn/education/what-information-should-a-transparent-provider-share"],
-  ["/library/what-happens-during-a-verification-review", "/learn/education/what-happens-during-a-verification-review"],
+  // Core Reference articles → guide anchors
+  ["/library/what-is-compounding", "/learn/learn-the-basics#what-is-a-compounded-medication"],
+  ["/library/what-are-peptides", "/learn/learn-the-basics#what-are-peptides"],
+  ["/library/interpreting-coas", "/learn/sourcing-and-manufacturing#how-to-read-a-certificate-of-analysis"],
+  ["/library/dual-layer-difference", "/learn/verification#what-does-verified-mean"],
+  ["/library/sterile-preparation-integrity", "/learn/sourcing-and-manufacturing#why-does-sourcing-matter"],
+  ["/library/aseptic-technique", "/learn/sourcing-and-manufacturing#what-is-sterile-compounding"],
+  ["/library/endocrinological-context", "/learn/sourcing-and-manufacturing#what-is-compounded-hormone-therapy"],
+  ["/library/why-vendor-transparency-matters", "/learn/choosing-a-provider#what-information-should-a-transparent-provider-share"],
+  ["/library/what-happens-during-a-verification-review", "/learn/verification#what-happens-during-a-verification-review"],
 
   // Analysis (Education targets)
-  ["/library/analysis/questions-for-your-clinic", "/learn/education/what-should-i-ask-my-provider"],
-  ["/library/analysis/meaning-of-verification", "/learn/education/what-does-verified-mean"],
-  ["/library/analysis/undocumented-sourcing-signs", "/learn/education/how-do-i-know-if-a-provider-is-trustworthy"],
+  ["/library/analysis/questions-for-your-clinic", "/learn/choosing-a-provider#what-should-i-ask-my-provider"],
+  ["/library/analysis/meaning-of-verification", "/learn/verification#what-does-verified-mean"],
+  ["/library/analysis/undocumented-sourcing-signs", "/learn/choosing-a-provider#how-do-i-know-if-a-provider-is-trustworthy"],
 
   // Analysis (News target)
   ["/library/analysis/2026-reclassification", "/learn/news/2026-compounding-reclassification"],
