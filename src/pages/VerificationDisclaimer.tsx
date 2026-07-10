@@ -29,7 +29,7 @@ const VerificationDisclaimer = () => {
         backLabel="Back to Home"
       />
 
-      <ArticleSection variant="prose">
+      <ArticleSection variant="prose" first>
         <p>
           Source Standard verification is an independent review of a vendor's published sourcing information. A Verified status means the sourcing representations reviewed were supported by the documentation and public records available within the defined scope of the review at that point in time.
         </p>
