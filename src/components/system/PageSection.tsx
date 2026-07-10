@@ -57,8 +57,15 @@ export const PageSection = ({
   const introMarginTop = compact ? "8px" : "10px";
   const childrenMarginTop = compact ? (intro ? "20px" : "16px") : intro ? "24px" : "20px";
   const ctaMarginTop = compact ? "12px" : "16px";
-  const firstClass = first ? "pt-10 md:pt-12" : "";
-  const firstBottomClass = first && !pb ? "pb-10 md:pb-12" : "";
+  // Mobile values (locked): first pt=40px, non-first py matches inline `padY`.
+  // md/lg breathe more; when `pb` is set we defer to caller.
+  const firstClass = first ? "pt-10 md:pt-14 lg:pt-20" : "";
+  const firstBottomClass = first && !pb ? "pb-10 md:pb-12 lg:pb-16" : "";
+  const responsivePadClass = !first && !pb
+    ? compact
+      ? "md:!py-10 lg:!py-14"
+      : "md:!py-12 lg:!py-20"
+    : "";
   const inlineStyle: CSSProperties = first
     ? pb
       ? { paddingBottom: pb }
@@ -67,7 +74,7 @@ export const PageSection = ({
   return (
     <section
       aria-labelledby={id}
-      className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${firstClass} ${firstBottomClass} ${className}`}
+      className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${firstClass} ${firstBottomClass} ${responsivePadClass} ${className}`}
       style={inlineStyle}
     >
       <div className="page-shell">
