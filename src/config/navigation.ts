@@ -70,6 +70,6 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Source Standard",
-    links: [ROUTES.about, ROUTES.contact, ROUTES.privacy, ROUTES.terms, ROUTES.disclaimer],
+    links: [ROUTES.about, ROUTES.contact, ROUTES.privacy, ROUTES.terms],
   },
 ];
