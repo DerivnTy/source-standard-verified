@@ -3,6 +3,7 @@ import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
 import { DefList } from "@/components/DefList";
+import { KeyTakeaway } from "@/components/learn/KeyTakeaway";
 
 type Item = { term: string; description: string };
 
@@ -48,7 +49,7 @@ const VerificationDisclaimer = () => {
       <ArticleSection variant="prose" title="What Verification Does Not Mean">
         <p>A Verified status should never be interpreted as a guarantee.</p>
         <p>Source Standard does not determine:</p>
-        <ul className="list-disc pl-5 t-article-prose">
+        <ul className="list-disc pl-5">
           <li>Product safety, potency, purity, or sterility.</li>
           <li>Clinical effectiveness or patient outcomes.</li>
           <li>Whether a treatment is appropriate for an individual.</li>
@@ -66,7 +67,7 @@ const VerificationDisclaimer = () => {
           Our role is to review sourcing documentation, compare it with public records and framework standards, and publish transparent status determinations.
         </p>
         <p>Source Standard is not:</p>
-        <ul className="list-disc pl-5 t-article-prose">
+        <ul className="list-disc pl-5">
           <li>A government regulator.</li>
           <li>A medical practice.</li>
           <li>A pharmacy or manufacturer.</li>
@@ -81,7 +82,7 @@ const VerificationDisclaimer = () => {
           Registry records are intended to improve transparency and support informed decision making.
         </p>
         <p>They should be considered alongside:</p>
-        <ul className="list-disc pl-5 t-article-prose">
+        <ul className="list-disc pl-5">
           <li>Guidance from licensed healthcare professionals.</li>
           <li>Official regulatory information.</li>
           <li>Independent due diligence.</li>
@@ -91,11 +92,9 @@ const VerificationDisclaimer = () => {
         </p>
       </ArticleSection>
 
-      <ArticleSection variant="callout" kind="Key Takeaway" title="Verification is an evidence based transparency determination, not a guarantee">
-        <p>
-          A Source Standard verification indicates that reviewed sourcing claims were supported by the evidence available within a defined scope at the time of review. Every verification reflects the information available during that review and should always be interpreted within those boundaries.
-        </p>
-      </ArticleSection>
+      <KeyTakeaway>
+        A Source Standard verification indicates that reviewed sourcing claims were supported by the evidence available within a defined scope at the time of review. Every verification reflects the information available during that review and should always be interpreted within those boundaries.
+      </KeyTakeaway>
 
       <EditorialBackLink to="/" label="Back to Home" />
     </>

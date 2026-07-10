@@ -42,10 +42,13 @@ export const ArticleSection = ({
     return (
       <section id={id} className="scroll-mt-24 bg-background" style={{ paddingTop: "28px" }}>
         <div className="page-shell">
-          <div>
+          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
             <div
               style={{
-                padding: "16px 0px",
+                border: "0.5px solid hsl(var(--border))",
+                borderRadius: "8px",
+                background: "hsl(var(--muted) / 0.35)",
+                padding: "16px 20px",
               }}
             >
               {kind && (
