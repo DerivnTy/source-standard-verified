@@ -65,7 +65,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Learn",
-    links: [ROUTES.learn, ROUTES.education, ROUTES.news, ROUTES.faq],
+    links: [ROUTES.learn, ROUTES.news, ROUTES.faq],
   },
   {
     title: "Source Standard",
