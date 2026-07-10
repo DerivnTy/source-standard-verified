@@ -1,9 +1,9 @@
 import { PageMeta } from "@/components/PageMeta";
 import { EditorialBackLink } from "@/components/EditorialBackLink";
-import { ArticleHeader } from "@/components/ArticleHeader";
-import { ArticleSection } from "@/components/ArticleSection";
+import { PageHeader } from "@/components/PageHeader";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { PageSection } from "@/components/system";
 import { DefList } from "@/components/DefList";
-
 
 type Item = { term: string; description: string };
 
@@ -118,97 +118,121 @@ const MedicalAdvisory = () => {
         title="Who Advises Source Standard? · Source Standard"
         description={lead}
       />
-
-      <ArticleHeader
-        category="Governance · Medical Advisory Board"
-        title="Who Advises Source Standard?"
-        lead={lead}
+      <Breadcrumb
+        items={[
+          { label: "Governance", to: "/governance" },
+          { label: "Medical Advisory Board" },
+        ]}
       />
 
-      <ArticleSection variant="prose" first>
-        <p>
-          Source Standard operates within a complex environment involving healthcare providers, pharmacies, manufacturers, regulators, and consumers. Maintaining public trust requires clear boundaries, consistent standards, and independent review of the framework itself.
-        </p>
-        <p>
-          The Medical Advisory Board exists to support the integrity of the standards behind the registry. It provides independent advisory guidance to help maintain independence, consistency, and public trust in the framework.
-        </p>
-        <p>
-          Its responsibility is not to determine which vendors succeed or fail. Its responsibility is to help ensure that the framework itself remains consistent, neutral, and evidence-driven.
-        </p>
-      </ArticleSection>
+      <PageHeader
+        eyebrow="Governance · Medical Advisory Board"
+        title="Who Advises Source Standard?"
+        description={lead}
+      />
 
-      <ArticleSection variant="prose" title="Institutional Mandate">
-        <p>
-          The Medical Advisory Board exists to help maintain consistency and public trust throughout the framework.
-        </p>
+      <PageSection first>
+        <div className="space-y-4 max-w-[68ch]">
+          <p className="t-body-sm text-muted-foreground leading-relaxed">
+            Source Standard operates within a complex environment involving healthcare providers, pharmacies, manufacturers, regulators, and consumers. Maintaining public trust requires clear boundaries, consistent standards, and independent review of the framework itself.
+          </p>
+          <p className="t-body-sm text-muted-foreground leading-relaxed">
+            The Medical Advisory Board exists to support the integrity of the standards behind the registry. It provides independent advisory guidance to help maintain independence, consistency, and public trust in the framework.
+          </p>
+          <p className="t-body-sm text-muted-foreground leading-relaxed">
+            Its responsibility is not to determine which vendors succeed or fail. Its responsibility is to help ensure that the framework itself remains consistent, neutral, and evidence-driven.
+          </p>
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="mandate"
+        title="Institutional mandate"
+        intro="The Medical Advisory Board exists to help maintain consistency and public trust throughout the framework."
+      >
         <DefList items={MANDATE} />
-      </ArticleSection>
+      </PageSection>
 
-      <ArticleSection variant="prose" title="Governance Functions">
-        <p>How the Medical Advisory Board supports the framework.</p>
+      <PageSection
+        id="functions"
+        title="Governance functions"
+        intro="How the Medical Advisory Board supports the framework."
+      >
         <DefList items={FUNCTIONS} />
-      </ArticleSection>
+      </PageSection>
 
-      <ArticleSection variant="prose" title="Advisory Structure">
-        <p>
-          The Medical Advisory Board may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework.
-        </p>
-        <p>
-          Appointments are made based on relevant experience, professional standing, and alignment with the framework's independence requirements.
-        </p>
-        <p>
-          All advisory participation exists to support standards development, governance review, and public-reference integrity.
-        </p>
+      <PageSection
+        id="structure"
+        title="Advisory structure"
+        intro="The Medical Advisory Board may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework."
+      >
+        <div className="space-y-4 max-w-[68ch]">
+          <p className="t-body-sm text-muted-foreground leading-relaxed">
+            Appointments are made based on relevant experience, professional standing, and alignment with the framework's independence requirements.
+          </p>
+          <p className="t-body-sm text-muted-foreground leading-relaxed">
+            All advisory participation exists to support standards development, governance review, and public-reference integrity.
+          </p>
+        </div>
         <DefList items={ROLES} />
-      </ArticleSection>
+      </PageSection>
 
-      <ArticleSection variant="prose" title="Advisory Board Members">
-        <p>
-          Board member profiles will be published as appointments are finalized. The structure below reflects the planned composition of the Medical Advisory Board.
-        </p>
-        <div className="not-prose mt-8 grid gap-4 sm:grid-cols-2">
+      <PageSection
+        id="members"
+        title="Advisory board members"
+        intro="Board member profiles will be published as appointments are finalized. The structure below reflects the planned composition of the Medical Advisory Board."
+      >
+        <dl className="divide-y divide-border/60 border-t border-b border-border/60">
           {BOARD_MEMBERS.map((m) => (
             <div
               key={m.role}
-              className="group rounded-2xl bg-[hsl(var(--navy-surface))] p-5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[hsl(var(--navy-surface-2))]"
-              style={{ border: "1px solid hsl(0 0% 100% / 0.06)" }}
+              className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-x-8 gap-y-1 py-3.5"
             >
-              <div className="text-[15px] font-medium text-white/95">
-                To Be Announced
-              </div>
-              <div className="mt-1 text-[13px] text-white/55">
+              <dt
+                className="font-sans text-foreground"
+                style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}
+              >
                 {m.role}
-              </div>
-              <div className="mt-2.5 text-[11px] font-medium uppercase tracking-[0.08em] text-white/35">
-                Appointments in Progress
-              </div>
+              </dt>
+              <dd
+                className="text-muted-foreground"
+                style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}
+              >
+                To be announced · Appointments in progress
+              </dd>
             </div>
           ))}
-        </div>
-      </ArticleSection>
+        </dl>
+      </PageSection>
 
-      <ArticleSection variant="prose" title="Scope & Boundaries">
-        <p>What the Medical Advisory Board does and does not do.</p>
-        <ul className="list-disc pl-5">
+      <PageSection id="boundaries" title="Scope & boundaries" intro="What the Medical Advisory Board does and does not do.">
+        <ul className="max-w-[68ch] space-y-2 list-disc pl-5 t-body-sm text-muted-foreground leading-relaxed">
           {BOUNDARIES.map((b) => (
             <li key={b}>{b}</li>
           ))}
         </ul>
-      </ArticleSection>
+      </PageSection>
 
-      <ArticleSection variant="prose" title="Core Responsibilities">
-        <p>The recurring functions supporting framework integrity.</p>
+      <PageSection
+        id="responsibilities"
+        title="Core responsibilities"
+        intro="The recurring functions supporting framework integrity."
+      >
         <DefList items={RESPONSIBILITIES} />
-      </ArticleSection>
+      </PageSection>
 
-      <ArticleSection variant="prose" title="Framework Integrity">
-        <p>
-          The Medical Advisory Board exists to strengthen the integrity and independence of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
-        </p>
-        <p>Its role is governance. Its responsibility is framework integrity.</p>
-      </ArticleSection>
+      <PageSection id="integrity" title="Framework integrity" bordered={false}>
+        <div className="space-y-4 max-w-[68ch]">
+          <p className="t-body-sm text-muted-foreground leading-relaxed">
+            The Medical Advisory Board exists to strengthen the integrity and independence of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
+          </p>
+          <p className="t-body-sm text-muted-foreground leading-relaxed">
+            Its role is governance. Its responsibility is framework integrity.
+          </p>
+        </div>
+      </PageSection>
 
-      <EditorialBackLink to="/" label="Back to Home" />
+      <EditorialBackLink to="/governance" label="Back to Governance" />
     </>
   );
 };
