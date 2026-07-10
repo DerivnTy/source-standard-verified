@@ -115,10 +115,11 @@ export const EducationArticleTemplate = ({
         <ArticleHeader
           title={article.question}
           lead={article.shortAnswer}
-          category={topic ? `Education · ${topic.label} · ${readTime}` : `Education · ${readTime}`}
+          category="education"
         />
 
         <KeyTakeaway>{article.shortAnswer}</KeyTakeaway>
+
 
         {article.sections.map((s, i) => (
           <ArticleSection key={i} variant="prose" title={s.title}>
