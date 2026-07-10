@@ -10,43 +10,40 @@ const MANDATE: Item[] = [
   {
     term: "Independence",
     description:
-      "Helps maintain the independence of the Source Standard framework from vendor, pharmacy, or commercial interests.",
+      "Supports the independence of the framework from vendor, pharmacy, and commercial interests.",
   },
   {
     term: "Consistency",
-    description:
-      "Supports consistent application of standards across the registry and public-reference materials.",
+    description: "Supports consistent application of framework standards.",
   },
   {
     term: "Objectivity",
-    description:
-      "Promotes objective evaluation of framework boundaries, scope, and stated purpose.",
+    description: "Promotes objective evaluation of framework boundaries.",
   },
   {
     term: "Public Trust",
-    description:
-      "Supports public confidence by helping keep the framework independent, consistent, and appropriately scoped.",
+    description: "Supports public confidence in the framework.",
   },
 ];
 
 const FUNCTIONS: Item[] = [
   {
-    term: "Framework guidance",
+    term: "Framework Guidance",
     description:
       "Provides independent perspective on the structure, scope, and public communication of the Source Standard framework.",
   },
   {
-    term: "Standards consistency",
+    term: "Standards Consistency",
     description:
       "Supports the consistent application of framework principles across registry materials and public-reference content.",
   },
   {
-    term: "Public clarity",
+    term: "Public Clarity",
     description:
       "Helps ensure that public-facing language remains clear, accurate, and aligned with the framework's purpose.",
   },
   {
-    term: "Independent perspective",
+    term: "Independent Perspective",
     description:
       "Offers independent review of framework boundaries, standards, and educational materials.",
   },
@@ -133,7 +130,9 @@ const MedicalAdvisory = () => {
       </ArticleSection>
 
       <ArticleSection variant="prose" title="Institutional Mandate">
-        <p>The operating principles governing the Medical Advisory Board.</p>
+        <p>
+          The Medical Advisory Board exists to help maintain consistency and public trust throughout the framework.
+        </p>
         <DefList items={MANDATE} />
       </ArticleSection>
 
