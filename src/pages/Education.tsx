@@ -302,10 +302,10 @@ const Education = () => {
       const hash = window.location.hash.replace("#", "");
       if (CATEGORIES.some((c) => c.id === hash)) {
         setFilter(hash as Filter);
-        requestAnimationFrame(() => {
+        window.setTimeout(() => {
           const el = document.getElementById(hash);
-          el?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
+          el?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 150);
       }
     };
 
@@ -319,10 +319,10 @@ const Education = () => {
       history.replaceState(null, "", window.location.pathname);
     } else {
       history.replaceState(null, "", `#${id}`);
-      requestAnimationFrame(() => {
+      window.setTimeout(() => {
         const el = document.getElementById(id);
-        el?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 150);
     }
   };
 
