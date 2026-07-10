@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { Glyph, type GlyphName } from "./GlyphIcon";
 
 /**
