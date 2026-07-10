@@ -211,9 +211,6 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
           </div>
         )}
 
-        <KeyTakeaway>{article.standfirst}</KeyTakeaway>
-
-
         <ArticleSection variant="prose">
           {article.body.map((p, i) => (
             <p key={i}>{p}</p>
@@ -223,6 +220,9 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
         <ArticleSection variant="prose" title="Why this matters">
           <p className="text-foreground font-medium">{article.whyThisMatters}</p>
         </ArticleSection>
+
+        <KeyTakeaway>{article.standfirst}</KeyTakeaway>
+
 
         <RelatedArticles
           title="Related education"
