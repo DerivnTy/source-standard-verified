@@ -28,6 +28,7 @@ export const ArticleSection = ({
   id,
   variant = "card",
   kind,
+  first = false,
   children,
 }: {
   n?: string | number;
@@ -35,12 +36,25 @@ export const ArticleSection = ({
   id?: string;
   variant?: "card" | "prose" | "callout";
   kind?: string;
+  /**
+   * Mark this as the first content section directly under a hero. Applies
+   * the shared hero → first-section rhythm (32px mobile / 40px desktop
+   * top padding) so every page shares one transition below the hero.
+   */
+  first?: boolean;
   children: ReactNode;
 }) => {
+  const firstClass = first ? "pt-8 md:pt-10" : "";
+  const topStyle = first ? undefined : { paddingTop: "" };
+
   // ── Callout ─────────────────────────────────────────────────
   if (variant === "callout") {
     return (
-      <section id={id} className="scroll-mt-24 bg-background" style={{ paddingTop: "28px" }}>
+      <section
+        id={id}
+        className={`scroll-mt-24 bg-background ${firstClass}`}
+        style={first ? undefined : { paddingTop: "28px" }}
+      >
         <div className="page-shell">
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
             <div
@@ -78,7 +92,11 @@ export const ArticleSection = ({
   // ── Prose (editorial, no card) ──────────────────────────────
   if (variant === "prose") {
     return (
-      <section id={id} className="scroll-mt-24 bg-background" style={{ paddingTop: "24px" }}>
+      <section
+        id={id}
+        className={`scroll-mt-24 bg-background ${firstClass}`}
+        style={first ? undefined : { paddingTop: "24px" }}
+      >
         <div className="page-shell">
           <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
             {title && (
@@ -101,7 +119,11 @@ export const ArticleSection = ({
 
   // ── Card (default, backward-compatible) ───────────────────────
   return (
-    <section id={id} className="scroll-mt-24 bg-background" style={{ paddingTop: "20px" }}>
+    <section
+      id={id}
+      className={`scroll-mt-24 bg-background ${firstClass}`}
+      style={first ? undefined : { paddingTop: "20px" }}
+    >
       <div className="page-shell">
         <div className="mx-auto w-reading-wide">
           <div style={{ ...cardChrome, padding: "24px" }}>
