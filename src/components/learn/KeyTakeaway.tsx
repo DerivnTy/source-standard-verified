@@ -8,7 +8,7 @@ import { ReactNode } from "react";
 export const KeyTakeaway = ({ children }: { children: ReactNode }) => (
   <section className="bg-background" style={{ paddingTop: "24px" }}>
     <div className="page-shell">
-      <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+      <div className="mx-auto w-reading-wide">
         <div
           style={{
             border: "0.5px solid hsl(var(--border))",

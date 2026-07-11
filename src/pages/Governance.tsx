@@ -54,7 +54,7 @@ const Governance = () => (
       id="advisory"
       title="Framework criteria maintained under clinical oversight"
     >
-      <div className="space-y-4 max-w-[68ch]">
+      <div className="space-y-4">
         <p className="t-body-sm text-muted-foreground leading-relaxed">
           Licensed clinicians and advisors help review the scope definitions, evidence standards, and renewal
           intervals used by the Source Standard framework. Advisory participation supports the integrity of the
@@ -103,7 +103,7 @@ const Governance = () => (
     </PageSection>
 
     <PageSection id="neutrality" title="Organizational neutrality">
-      <div className="space-y-4 max-w-[68ch]">
+      <div className="space-y-4">
         <p className="t-body-sm text-muted-foreground leading-relaxed">
           Source Standard does not manufacture, distribute, prescribe, dispense, or sell products in the categories
           it evaluates, and holds no equity, royalty, or revenue-share interest in any vendor or upstream source

@@ -57,7 +57,7 @@ export const ArticleSection = ({
         style={first ? undefined : { paddingTop: "28px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <div className="mx-auto w-reading-wide">
             <div
               style={{
                 border: "0.5px solid hsl(var(--border))",
@@ -99,7 +99,7 @@ export const ArticleSection = ({
         style={first ? undefined : { paddingTop: "24px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <div className="mx-auto w-reading-wide">
             {title && (
               <h2
                 className="t-section-title-sm text-foreground"
