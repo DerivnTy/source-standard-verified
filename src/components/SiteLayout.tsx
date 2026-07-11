@@ -65,7 +65,7 @@ export const SiteLayout = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SmartHeader />
-      <main style={{ paddingTop: `${HEADER_STACK_HEIGHT}px` }}>
+      <main className="flex-1 flex flex-col" style={{ paddingTop: `${HEADER_STACK_HEIGHT}px` }}>
         <Outlet />
       </main>
       <SiteFooter />

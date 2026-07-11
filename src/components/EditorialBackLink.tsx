@@ -15,10 +15,10 @@ export const EditorialBackLink = ({
   <nav
     aria-label="Page footer navigation"
     className="bg-background"
-    style={{ paddingTop: "20px", paddingBottom: "32px" }}
+    style={{ paddingTop: "16px", paddingBottom: "20px" }}
   >
     <div className="page-shell">
-      <div className="mx-auto w-reading-wide">
+      <div className="mx-auto w-wide">
         <Link
           to={to}
           className="inline-flex items-center gap-2 font-sans text-muted-foreground hover:text-foreground transition-all duration-200 group"

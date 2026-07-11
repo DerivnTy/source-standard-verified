@@ -162,8 +162,8 @@ export const BriefingHero = ({
         />
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
-        <div className="relative z-10 page-shell pt-6 pb-6 md:pt-10 md:pb-8 lg:pt-14 lg:pb-10">
-          <div className="w-hero">
+        <div className="relative z-10 page-shell pt-6 pb-6 md:pt-10 md:pb-8 lg:pt-12 lg:pb-9">
+          <div className="mx-auto w-wide">
             <h1
               id="briefing-title"
               className="ss-hero-title !text-white !mt-0 max-w-[22ch]"
@@ -219,7 +219,7 @@ export const BriefingHero = ({
         </div>
       ) : (
         <div className="relative page-shell section-pad">
-          <div className="w-hero">
+          <div className="mx-auto w-wide">
             <h1
               id="briefing-title"
               className="ss-hero-title text-foreground !mt-0 max-w-[22ch]"

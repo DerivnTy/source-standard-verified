@@ -30,7 +30,7 @@ type FaqPageProps = {
 const ContinueLearning = () => (
   <section className="bg-background" style={{ paddingTop: "40px", paddingBottom: "80px" }}>
     <div className="page-shell">
-      <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+      <div className="mx-auto w-reading-wide">
         <h2 className="t-section-title-sm text-foreground">Continue Learning</h2>
         <ul className="flex flex-col mt-4 divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {["vendor-registry", "how-verification-works", "facility-records"].map((key) => {
@@ -81,7 +81,7 @@ export const FaqPage = ({
       {/* Back link + hairline */}
       <div className="border-b border-border/60 bg-background">
         <div className="page-shell" style={{ paddingTop: "14px", paddingBottom: "14px" }}>
-          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <div className="mx-auto w-reading-wide">
             <Link
               to="/learn/faq"
               className="inline-flex items-center gap-2 font-sans text-muted-foreground hover:text-foreground transition-all duration-200 group"
@@ -99,7 +99,7 @@ export const FaqPage = ({
       {/* Masthead */}
       <header className="bg-background">
         <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "0" }}>
-          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <div className="mx-auto w-reading-wide">
             <h1 className="t-article-title text-foreground">{title}</h1>
             {intro && (
               <p className="t-article-standfirst" style={{ marginTop: "12px" }}>
@@ -122,7 +122,7 @@ export const FaqPage = ({
       {/* Flat Q&A */}
       <section className="bg-background" style={{ paddingTop: "24px" }}>
         <div className="page-shell">
-          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <div className="mx-auto w-reading-wide">
             <div className="flex flex-col" style={{ gap: "24px" }}>
               {items.map((item, i) => (
                 <div key={i}>
@@ -146,7 +146,7 @@ export const FaqPage = ({
       {/* Still have questions? — single sentence */}
       <section className="bg-background" style={{ paddingTop: "28px", paddingBottom: "0" }}>
         <div className="page-shell">
-          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <div className="mx-auto w-reading-wide">
             <p
               className="text-muted-foreground"
               style={{ fontSize: "15px", lineHeight: 1.7 }}

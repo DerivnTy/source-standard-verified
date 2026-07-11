@@ -122,7 +122,7 @@ export const LearnGuideTemplate = ({ topicId }: { topicId: EducationTopicId }) =
           style={{ paddingTop: "32px", paddingBottom: "8px" }}
         >
           <div className="page-shell">
-            <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+            <div className="mx-auto w-reading-wide">
               <GuideTOC items={toc} basePath={path} />
             </div>
           </div>

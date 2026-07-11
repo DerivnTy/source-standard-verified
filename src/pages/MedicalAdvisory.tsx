@@ -132,7 +132,7 @@ const MedicalAdvisory = () => {
       />
 
       <PageSection first>
-        <div className="space-y-4 max-w-[68ch]">
+        <div className="space-y-4">
           <p className="t-body-sm text-muted-foreground leading-relaxed">
             Source Standard operates within a complex environment involving healthcare providers, pharmacies, manufacturers, regulators, and consumers. Maintaining public trust requires clear boundaries, consistent standards, and independent review of the framework itself.
           </p>
@@ -166,7 +166,7 @@ const MedicalAdvisory = () => {
         title="Advisory structure"
         intro="The Medical Advisory Board may include physicians, pharmacists, legal professionals, compliance specialists, regulatory advisors, and subject-matter experts whose expertise supports the framework."
       >
-        <div className="space-y-4 max-w-[68ch]">
+        <div className="space-y-4">
           <p className="t-body-sm text-muted-foreground leading-relaxed">
             Appointments are made based on relevant experience, professional standing, and alignment with the framework's independence requirements.
           </p>
@@ -206,7 +206,7 @@ const MedicalAdvisory = () => {
       </PageSection>
 
       <PageSection id="boundaries" title="Scope & boundaries" intro="What the Medical Advisory Board does and does not do.">
-        <ul className="max-w-[68ch] space-y-2 list-disc pl-5 t-body-sm text-muted-foreground leading-relaxed">
+        <ul className="space-y-2 list-disc pl-5 t-body-sm text-muted-foreground leading-relaxed">
           {BOUNDARIES.map((b) => (
             <li key={b}>{b}</li>
           ))}
@@ -222,7 +222,7 @@ const MedicalAdvisory = () => {
       </PageSection>
 
       <PageSection id="integrity" title="Framework integrity" bordered={false}>
-        <div className="space-y-4 max-w-[68ch]">
+        <div className="space-y-4">
           <p className="t-body-sm text-muted-foreground leading-relaxed">
             The Medical Advisory Board exists to strengthen the integrity and independence of the Source Standard framework. Its purpose is to support the standards behind the registry, not to promote vendors, influence commercial activity, recommend treatment, or replace regulatory authority.
           </p>

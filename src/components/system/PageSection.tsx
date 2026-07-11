@@ -58,13 +58,13 @@ export const PageSection = ({
   const childrenMarginTop = compact ? (intro ? "20px" : "16px") : intro ? "24px" : "20px";
   const ctaMarginTop = compact ? "12px" : "16px";
   // Mobile values (locked): first pt=40px, non-first py matches inline `padY`.
-  // md/lg breathe more; when `pb` is set we defer to caller.
-  const firstClass = first ? "pt-10 md:pt-12 lg:pt-14" : "";
-  const firstBottomClass = first && !pb ? "pb-10 md:pb-10 lg:pb-12" : "";
+  // md/lg tightened for institutional desktop density.
+  const firstClass = first ? "pt-10 md:pt-11 lg:pt-11" : "";
+  const firstBottomClass = first && !pb ? "pb-10 md:pb-9 lg:pb-9" : "";
   const responsivePadClass = !first && !pb
     ? compact
-      ? "md:!py-8 lg:!py-10"
-      : "md:!py-10 lg:!py-14"
+      ? "md:!py-7 lg:!py-8"
+      : "md:!py-9 lg:!py-10"
     : "";
   const inlineStyle: CSSProperties = first
     ? pb
@@ -78,7 +78,7 @@ export const PageSection = ({
       style={inlineStyle}
     >
       <div className="page-shell">
-        <div className="mx-auto w-standard">
+        <div className="mx-auto w-wide">
           {title && (
             <div className="flex items-center gap-2">
               {icon && (

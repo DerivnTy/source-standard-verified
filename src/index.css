@@ -339,8 +339,12 @@ html {
   .w-hero          { max-width: 720px;  }
   .w-two-col       { max-width: 520px;  }
   @media (min-width: 1024px) {
-    .w-reading-wide { max-width: 860px; }
-    .w-hero         { max-width: 820px; }
+    .w-reading-wide { max-width: 1120px; }
+    .w-hero         { max-width: 1120px; }
+  }
+  @media (min-width: 1280px) {
+    .w-reading-wide { max-width: 1200px; }
+    .w-hero         { max-width: 1200px; }
   }
 
   /* ────────────────────────────────────────────────────────────
@@ -568,20 +572,20 @@ html {
     .hero-gap    { margin-top: 64px; }
   }
   @media (min-width: 1024px) {
-    .section-pad { padding-top: 44px; padding-bottom: 32px; }
-    .section-gap { margin-top: 48px; }
-    .hero-gap    { margin-top: 56px; }
+    .section-pad { padding-top: 36px; padding-bottom: 28px; }
+    .section-gap { margin-top: 40px; }
+    .hero-gap    { margin-top: 40px; }
     /* Desktop unified content boundary, every major section (standard
        long-form, registry/index surfaces, hero content blocks) shares the
        same max-width so the page reads as one aligned institutional
        document rather than alternating wide/narrow bands. */
-    .w-standard  { max-width: 1180px; }
-    .w-wide      { max-width: 1180px; }
+    .w-standard  { max-width: 1240px; }
+    .w-wide      { max-width: 1240px; }
   }
   @media (min-width: 1280px) {
-    .section-pad { padding-top: 56px; padding-bottom: 40px; }
+    .section-pad { padding-top: 44px; padding-bottom: 32px; }
     /* XL viewports (1280+) breathe a little more, still institutional. */
-    .w-standard  { max-width: 1240px; }
+    .w-standard  { max-width: 1280px; }
     .w-wide      { max-width: 1280px; }
   }
 
@@ -609,17 +613,18 @@ html {
   /* ─── Hard-Stop protocol (sitewide) ───
      The final content section before the <footer> locks its
      padding-bottom to match the Home page terminal rhythm so every
-     page ends with the same cadence. */
+     page ends with the same cadence. Kept tight on desktop so the
+     footer sits directly under content, no artificial gap above. */
   section:has(+ footer).section-pad:has(+ footer),
   *:has(> footer) > section:last-of-type,
   *:has(> footer) > .section-pad:last-of-type {
-    padding-bottom: 24px !important;
+    padding-bottom: 20px !important;
   }
   @media (min-width: 1024px) {
     section:has(+ footer).section-pad:has(+ footer),
     *:has(> footer) > section:last-of-type,
     *:has(> footer) > .section-pad:last-of-type {
-      padding-bottom: 36px !important;
+      padding-bottom: 24px !important;
     }
   }
   /* Article pages use a lightweight ArticleFooter, neutralize the

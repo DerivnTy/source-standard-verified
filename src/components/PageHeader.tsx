@@ -30,7 +30,7 @@ export const PageHeader = ({
       className="relative z-10 page-shell"
       style={{ paddingTop: "clamp(44px, 5vh, 64px)", paddingBottom: "24px" }}
     >
-      <div className="mx-auto w-standard">
+      <div className="mx-auto w-wide">
         {eyebrow && (
           <p
             className="font-mono uppercase"

@@ -1,76 +1,67 @@
-## Goal
+Plan: Site-wide desktop layout density fix
 
-Rework desktop (and `xl:`) spacing so it feels editorial and dense like Stripe/Linear/Vercel — not an enlarged mobile layout. Mobile stays pixel-identical. No changes to typography, colors, components, or copy.
+Scope
+- Fix the desktop/tablet layout globally, not just `/medical-advisory`.
+- Preserve locked mobile experience and existing visual identity: no typography, color, component, or copy redesigns.
+- Applies to all informational/documentation pages: How Verification Works, Governance, Medical Advisory, About, Learn (index + articles + FAQ), Status Definitions, and any future doc pages that use the shared primitives.
 
-## Where the excess comes from
+1. One shared desktop content boundary
+- Update the global width tokens so the primary informational content boundary sits at ~1200–1280px on desktop (roughly 1240px at `lg`, 1280px at `xl`).
+- Keep comfortable page-shell padding: ~48px at `lg`, up to ~64px at `xl`.
+- Collapse the current "narrow standard vs. wide" split so `w-standard` and `w-wide` resolve to the same institutional width at `lg`+. This is the single source of truth every informational page inherits.
 
-The last pass grew every `lg:`/`xl:` padding token upward (heroes to `lg:pt-20 lg:pb-16`, sections to `lg:!py-20`, `section-pad` to `py-72` at xl, chapter heroes doubling), and content containers stayed narrow (`w-standard` 1120 / `w-reading-wide` ~720). Net effect on desktop: tall heroes, huge gaps between sections, narrow prose columns.
+2. Fix shared section primitives (this is the global lever)
+- `PageSection`: switch its inner column from `w-standard` to the shared institutional container so every section built with it (Governance, Medical Advisory, How It Works, About, Status pages, Learn shells, and future docs) automatically uses the wider desktop width. Keep mobile identical.
+- Remove the local `max-w-[68ch]` wrapper that pages currently place around bulleted lists, DefLists, grouped cards, dividers, and accordion groups when they sit inside `PageSection`. Preserve `68ch` only for true long-form paragraph runs (the readability constraint), applied at the paragraph level rather than the section level.
+- `ArticleSection` (`variant="prose" | "callout" | "card"`): keep the reading measure for paragraph prose, but widen the section chrome (borders, DefList rows, status rows, related-links callouts, card grids) to the shared institutional container at `lg`+ so dividers and grouped content align with the rest of the page.
+- `PageHeader` / `BriefingHero` inner columns: align to the same institutional width so hero, body, and dividers share one left/right edge on desktop.
 
-The fix is to pull those `lg:`/`xl:` values back down and slightly widen the content containers — all in shared primitives so every page benefits from one edit.
+3. White sections + dividers align to the container
+- Every hairline, top/bottom border, DefList, accordion group, status row, and card grid inside `PageSection` / `ArticleSection` inherits the shared width automatically once step 2 lands. No per-page edits required for the pages that already use these primitives.
+- Spot-fix only where a page hardcodes a narrower wrapper around a divider/list block (e.g. `max-w-[68ch]` around `<DefList>` or `<ul>` in `MedicalAdvisory.tsx`, `Governance.tsx`, `HowItWorks.tsx`).
 
-## Changes
+4. Footer sits directly under content
+- `SiteLayout`: keep the outer `min-h-screen flex flex-col` and add `flex: 1` to `<main>` so the footer is pushed to the bottom only when the page is short, and sits directly under content on tall pages.
+- Remove any bottom padding/margin above the footer that produces artificial whitespace on short pages (the `Hard-Stop` `padding-bottom` protocol in `index.css`, the `pb-` values on `EditorialBackLink`, and the `mt-*` before the footer). Keep terminal rhythm tight.
+- Footer already spans full browser width via `bg-[hsl(var(--navy-surface))]` on the `<footer>` element and the fixed navy backdrop; verify nothing constrains it.
 
-### 1. Vertical rhythm (tighten desktop, keep mobile)
+5. Desktop vertical rhythm (tighten only at `lg`/`xl`)
+- Reduce oversized desktop-only values in `index.css` and `PageSection`:
+  - `.section-pad` at `lg`/`xl`: cut top/bottom padding.
+  - `PageSection` `first` and non-first `lg:`/`xl:` padding: cut further.
+  - Section-to-section `pt` at `lg`+: cut.
+  - `BriefingHero` chapter/navy hero `lg:` top/bottom padding: cut.
+- Mobile and `md` values remain untouched.
 
-- `src/components/system/PageSection.tsx`
-  - `first` block: `pt-10 md:pt-14 lg:pt-20 pb-10 md:pb-12 lg:pb-16` → `pt-10 md:pt-12 lg:pt-14 pb-10 md:pb-10 lg:pb-12`
-  - Default non-first: `md:!py-12 lg:!py-20` → `md:!py-10 lg:!py-14`
-  - Compact non-first: `md:!py-10 lg:!py-14` → `md:!py-8 lg:!py-10`
+6. Verification
+Playwright at 390 / 768 / 1280 / 1440 / 1680 on:
+- `/how-it-works`
+- `/governance`
+- `/medical-advisory`
+- `/about`
+- `/learn`, `/learn/faq`, and one `/learn/:topicId` article
+- `/status-definitions`
 
-- `src/components/BriefingHero.tsx` (navy chapter hero)
-  - `pt-6 pb-6 md:pt-12 md:pb-10 lg:pt-20 lg:pb-16` → `pt-6 pb-6 md:pt-10 md:pb-8 lg:pt-14 lg:pb-10`
+Confirm:
+- Mobile pixel-identical to current baseline.
+- Desktop content boundary is ~1200–1280px, consistent across every listed page.
+- Section dividers, DefList borders, status rows, callouts, and card grids span the shared container edge-to-edge on desktop.
+- Long-form paragraph runs remain readable (measure preserved at paragraph level).
+- Footer sits directly under content on short pages (no large blank gap) and follows content naturally on long pages; navy band spans full viewport width.
+- No changes to typography, colors, components, or copy.
 
-- `src/components/PageHeader.tsx`
-  - Inline `paddingTop: clamp(44px, 5vh, 64px)` and `paddingBottom: 24px` → add `lg:` cap so hero never exceeds ~72px top / 28px bottom on desktop.
+Non-goals
+- No copy, color, typography, or component visual redesign.
+- No mobile layout changes.
+- No routing, data, or backend changes.
 
-- `src/index.css`
-  - `.section-pad` at `xl`: `py-72 px-56` → `py-56 px-48` (roughly 96px vertical instead of 120px).
-  - `.section-pad` at `lg`: reduce ~15%.
-
-- `src/components/DocLayout.tsx` / `RegistryLayout.tsx`
-  - Drop `xl:py-24` back to `xl:py-16`.
-
-### 2. Content width (widen desktop reading measure)
-
-- `src/index.css`
-  - `w-standard`: keep 1120 at `lg`, 1240 at `xl` (unchanged).
-  - `w-reading-wide`: raise from ~720px to `820px` at `lg` and `860px` at `xl`. This is the editorial column used by Library/Learn prose.
-  - `w-hero`: raise hero text max-width so headings can occupy 60–72ch on desktop instead of wrapping like mobile.
-
-### 3. Header/footer compaction
-
-- `src/components/SiteHeader.tsx`
-  - Reduce `lg:` vertical padding by one step; tighten nav-item gap (`lg:gap-6` → `lg:gap-4`).
-
-- `src/components/SiteFooter.tsx`
-  - `pt-10 md:pt-14 lg:pt-16 pb-6 md:pb-12 lg:pb-10` → `pt-10 md:pt-12 lg:pt-12 pb-6 md:pb-8 lg:pb-8`.
-  - Row gap: `gap-y-10 md:gap-y-14` → `gap-y-10 md:gap-y-10`.
-  - Legal band: `mt-9 md:mt-14 pt-5 md:pt-6` → `mt-8 md:mt-10 pt-5`.
-
-### 4. Hero shape
-
-Consumer/homepage cover hero already uses `clamp()` so it stays fine. Chapter heroes are the main offender and are handled in §1. No copy/structure changes.
-
-## Non-goals
-
-- No copy, colors, component structure, or typography changes.
-- No mobile changes — every edit is gated behind `md:`/`lg:`/`xl:` or applies to values that were only introduced for those breakpoints.
-- No new components; only edits to shared primitives + `index.css` + header/footer.
-
-## Verification
-
-Playwright screenshots at 390 / 1024 / 1440 / 1680 on: `/`, `/about`, `/verified`, `/learn`, `/library/faq/verification-process`, a vendor profile, `/apply`. Confirm:
-
-- Mobile (390) diff = 0 against current.
-- Desktop hero height drops ~30%.
-- Gap between hero and first section drops ~40%.
-- Prose column widens to ~820–860px on desktop.
-- Footer height drops ~25%.
-
-## Rollout order
-
-1. `PageSection` + `BriefingHero` + `PageHeader` (biggest visible win).
-2. `index.css` tokens (`.section-pad`, `w-reading-wide`, `w-hero`).
-3. `SiteHeader` + `SiteFooter`.
-4. `DocLayout` / `RegistryLayout` xl trim.
-5. Playwright sweep at 4 viewports.
+Technical notes (for engineering)
+- Files most likely to change:
+  - `src/index.css` — width tokens (`.w-standard`, `.w-wide`, `.page-shell` padding), `.section-pad` at `lg`/`xl`, Hard-Stop bottom padding, section+section `pt`.
+  - `src/components/system/PageSection.tsx` — inner container width; `firstBottomClass` / `responsivePadClass` desktop values.
+  - `src/components/ArticleSection.tsx` — widen section chrome for non-prose blocks; keep `68ch` on paragraph text.
+  - `src/components/PageHeader.tsx`, `src/components/BriefingHero.tsx` — inner width alignment + `lg:` padding cut.
+  - `src/components/SiteLayout.tsx` — `<main className="flex-1">`.
+  - `src/components/SiteFooter.tsx` — remove any residual gap above; keep full-bleed navy.
+  - `src/components/EditorialBackLink.tsx` — trim `pb` at desktop.
+  - Spot fixes in `MedicalAdvisory.tsx`, `Governance.tsx`, `HowItWorks.tsx` to drop `max-w-[68ch]` from list/DefList wrappers (paragraph-level readability preserved).
