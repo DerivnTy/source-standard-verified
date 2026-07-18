@@ -88,7 +88,7 @@ const HowItWorks = () => {
       </PageSection>
 
       {/* Movement 2 — Protocol. Small margin label, ProcessSteps carries the section. */}
-      <PageSection>
+      <PageSection className="!py-6 md:!py-7 lg:!py-7">
         <p
           className="font-mono uppercase text-muted-foreground"
           style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "20px" }}
@@ -101,8 +101,8 @@ const HowItWorks = () => {
 
 
       {/* Movement 3 — What verification means. One heading, two labeled columns. */}
-      <PageSection id="meaning" title="What Verification Means" pb="0">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+      <PageSection id="meaning" title="What Verification Means" className="!py-6 md:!py-7 lg:!py-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
           <div>
             <h3
               className="font-mono uppercase text-muted-foreground"
@@ -147,7 +147,7 @@ const HowItWorks = () => {
 
         <p
           className="text-muted-foreground"
-          style={{ fontSize: "12px", lineHeight: 1.6, marginTop: "28px", marginBottom: 0, maxWidth: "68ch" }}
+          style={{ fontSize: "12px", lineHeight: 1.6, marginTop: "20px", marginBottom: 0, maxWidth: "68ch" }}
         >
           Source Standard does not provide medical advice, treatment guidance, or clinical recommendations. Verification reflects only publicly reviewed sourcing information within the Source Standard framework. Unverified status does not imply that a provider is unsafe, unlawful, fraudulent, or clinically inappropriate. Source Standard does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance, and does not replace federal, state, or medical regulatory oversight.
         </p>
