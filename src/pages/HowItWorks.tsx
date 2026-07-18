@@ -72,7 +72,8 @@ const HowItWorks = () => {
           top: "clamp(48px, 7vh, 80px)",
           bottom: "clamp(56px, 8vh, 96px)",
         }}
-        statementClassName="!text-[15px] md:!text-[16px] !leading-[1.75] !font-normal !text-white/65"
+        titleClassName="max-w-[18ch]"
+        statementClassName="!text-[15px] md:!text-[16px] !leading-[1.75] !font-normal !text-white/65 max-w-[52ch]"
       />
 
       {/* What verification is */}
