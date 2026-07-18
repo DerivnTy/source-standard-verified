@@ -1,90 +1,84 @@
-Plan: Redesign "How Verification Works" page
 
-Goal: Transform the current text-heavy /how-it-works page into a premium, institutional explanation page with better whitespace, clearer typography hierarchy, and a visual callout, while keeping the dark navy hero and all existing content.
+# Redesign: How Verification Works
 
-Current state verified
-- File: src/pages/HowItWorks.tsx
-- Existing components: BriefingHero, PageSection, ProcessSteps, EditorialBackLink
-- Design system: Inter headings, navy hero, semantic HSL tokens, radius = 1.25rem
-- The current page has three sections: definition, protocol, and "What Verification Means"
-- The long disclaimer at the bottom of the page will be promoted to a proper informational callout
+Goal: make `/how-it-works` look like a natural sibling of `/about` and `/governance` — typography-led, section-based, no stacked card containers. Content stays the same; only presentation changes. All edits are frontend/presentation.
 
-Scope: presentation-only changes to /how-it-works and its supporting components. No new data, no route changes, no backend work.
+## Diagnosis
 
-----
+The current page fights the site's own conventions: every block is wrapped in a `rounded-xl bg-surface border` card, so the eye reads "SaaS docs page." About and Governance use `PageSection` with `title`/`intro` slots and simple bordered `dl` reference lists instead. That is the language we adopt here.
 
-1. Hero redesign
+## 1. Hero — align with About
 
-File: src/pages/HowItWorks.tsx / src/components/BriefingHero.tsx
+File: `src/pages/HowItWorks.tsx`
 
-- Increase hero vertical padding to give the title and subtitle more breathing room (target: ~50% more top/bottom than current chapter variant).
-- Constrain the hero text block to a narrower width (~64ch for title, ~52ch for subtitle) so the headline does not span the full mobile width.
-- Reduce the subtitle font size and weight so it reads as supporting copy, not a secondary headline.
-- Keep the navy background and the subtle radial gradient/HeroPattern; do not change the color.
-- Consider adding a small eyebrow label above the H1 (e.g., "Public Guide") for hierarchy, but keep it minimal.
+- Use `BriefingHero` with defaults matching About (no `heroPadding` override, no bespoke `titleClassName` / `statementClassName`). Keep `category="Public Guide"` and drop the duplicate `eyebrow` prop.
+- Result: same hero height, weight, and rhythm as About/Governance so the page visually joins the set.
 
-2. Intro content restructuring
+## 2. Intro — plain typography, no card
 
-File: src/pages/HowItWorks.tsx
+File: `src/pages/HowItWorks.tsx`
 
-- Split the current two-paragraph intro into two distinct sections:
-  a) "What Verification Is" — definition paragraph
-  b) "What Verification Is Not" — the transparency-signal paragraph
-- Use two separate PageSection instances with consistent spacing between them.
-- Increase whitespace between paragraphs and around each section.
-- Increase body line height slightly (from 1.65 to ~1.75).
-- Limit paragraph width to a reading-friendly measure (max-w-reading or ~64ch).
-- Remove bold styling except for the key terms "Verification" and "Verified".
-- Apply `.t-body-md` or a refined body token instead of inline styles.
+- Replace the two custom `PageSection` blocks that centered narrow paragraphs with the About pattern: a single `PageSection` titled "What Verification Is" containing one lead paragraph (17px/1.6, foreground) + one supporting paragraph (15px/1.65, muted), both `max-w-[68ch]`, left-aligned.
+- Add a second `PageSection` (compact) titled "What Verification Is Not" with one muted paragraph, same width.
+- Keep the two key terms ("Verification", "Verified") bold; strip other emphasis.
+- No centered text, no `bg-*` containers.
 
-3. New informational callout
+## 3. Informational notice — compact inline callout
 
-File: src/components/InfoCallout.tsx (new) + src/pages/HowItWorks.tsx
+Files: `src/components/InfoCallout.tsx`, `src/pages/HowItWorks.tsx`
 
-- Replace the bottom-of-page disclaimer paragraph with a dedicated `InfoCallout` component.
-- Background: subtle light blue/gray using existing semantic tokens (e.g., `hsl(var(--under-review-soft))` or `hsl(var(--surface-muted))`).
-- No border that resembles an input field; use a 1px hairline only if needed for contrast, or none.
-- Add a small `Info` icon from lucide-react at the top-left of the callout.
-- Increase padding to match the site radius (rounded-xl / 1.25rem).
-- Text should be left-aligned, slightly smaller than body, and read as a notice, not editable content.
-- Position the callout after the intro sections and before the Protocol section, so it acts as a credibility gate before the process.
+- Rework `InfoCallout` into a compact, editorial notice consistent with `Callout.tsx`:
+  - Left 2px hairline accent bar in `hsl(var(--under-review))`.
+  - Background `hsl(var(--under-review-soft))`, rounded `lg` (matches `Callout.tsx`), no heavy border.
+  - Small mono uppercase eyebrow "Important" (11px, 0.12em tracking) in the accent color.
+  - Body copy at 14px / 1.65, muted-foreground.
+  - Icon-optional; drop the large Info glyph — the eyebrow carries the semantics.
+- Shorten displayed copy to the essential sentence:
+  > "Source Standard verification is a transparency review, not a medical, clinical, or regulatory certification. Unverified status does not imply that a provider is unsafe or noncompliant."
+- Move the full legal scope into a native `<details>` disclosure ("Read full scope") rendered underneath the summary, using the existing muted paragraph tokens.
+- Constrain to `max-w-[68ch]` and place inside a `PageSection` (compact, no title).
 
-4. Protocol section redesign
+## 4. Protocol timeline — no card wrapper, more room
 
-File: src/pages/HowItWorks.tsx + src/components/system/ProcessSteps.tsx
+Files: `src/pages/HowItWorks.tsx`, `src/components/system/ProcessSteps.tsx`
 
-- Add more vertical spacing before the Protocol section so the transition from intro/callout feels intentional.
-- Replace the uppercase mono "Protocol" label with a more refined, smaller section eyebrow using `.t-eyebrow-sm` styling.
-- Wrap the protocol content in a subtle visual container (soft background or hairline card) to separate it from the surrounding text sections.
-- Increase spacing between each step in ProcessSteps (target ~24–28px between steps).
-- Ensure step titles and descriptions have consistent alignment and hierarchy.
-- Keep the check-gutter rail but allow more vertical breathing room.
+- Remove the `rounded-xl bg-surface border` wrapper and the inline "Protocol" mono label. Use a standard `PageSection` with `title="Protocol"` and a short `intro`.
+- Constrain the list to `max-w-[68ch]`.
+- In `ProcessSteps.tsx`:
+  - Increase per-step `paddingBottom` from 28px to 36px.
+  - Bump title from 15px → 16px, description from 14px → 14.5px with `lineHeight: 1.65`.
+  - Nudge the glyph size up one step (`size="md"`) and widen the gutter to 20px for better balance.
+- No card, no fill — the hairline connector and glyphs carry the structure.
 
-5. "What Verification Means" section cleanup
+## 5. "What Verification Means" — two clean columns, no card
 
-File: src/pages/HowItWorks.tsx
+File: `src/pages/HowItWorks.tsx`
 
-- Keep the two-column "Means / Does Not Mean" definition lists.
-- Tighten the label spacing and ensure the section title uses the same heading token as the rest of the page.
-- Remove the bottom disclaimer paragraph (it moves to the InfoCallout).
-- Ensure consistent internal spacing between list items.
+- Remove the `rounded-xl bg-surface border` container and the duplicated inline `<h2>`. Use `PageSection title="What Verification Means"` like About uses `PageSection title="What We Don't Do"`.
+- Render two side-by-side definition lists (`grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8`), each with:
+  - A small header row: a 14px semibold label ("Verification means" / "Verification does not mean") preceded by a `check` / `x` glyph from `GlyphIcon`.
+  - A `dl` with items styled like the About `DefinitionRow` (14px semibold term + 14px/1.6 muted description), separated by `divide-y divide-border/60` and framed by `border-t border-b border-border/60`.
+- Keep existing MEANS/DOES_NOT_MEAN copy verbatim.
 
-6. Global spacing and typography consistency
+## 6. Vertical rhythm — inherit from PageSection
 
-File: src/pages/HowItWorks.tsx + minor tokens if needed
+File: `src/pages/HowItWorks.tsx`
 
-- Apply consistent section padding across all page sections; use PageSection tokens rather than one-off overrides.
-- Ensure every section has a clear heading + body rhythm.
-- Audit mobile widths: no paragraph should stretch to the full 100% mobile width; cap at reading width.
-- Use existing semantic tokens only (no raw hex colors). Backgrounds, borders, and text must use CSS variables.
-- Final check: verify the page still feels like a single scrolling narrative, not fragmented blocks.
+- Remove all `!pt-*` / `!pb-*` overrides. Let each `PageSection` (`first`, then default, then `compact` where appropriate) supply the standard rhythm used by About and Governance.
+- Order: Hero → PageSection first "What Verification Is" → compact "What Verification Is Not" → compact InfoCallout section → default "Protocol" → default "What Verification Means" (`bordered={false}`, `pb="0"`) → `EditorialBackLink`.
 
-7. Verification
+## 7. Verification
 
-- Build the app and capture mobile + desktop screenshots of /how-it-works.
-- Confirm: no horizontal overflow, no color hardcoding, no console errors, and all content remains readable.
+- Type-check builds cleanly.
+- Playwright screenshots of `/how-it-works` at 390px and 1280px:
+  - No card-in-card stacking.
+  - Section widths match About/Governance.
+  - Callout reads as a compact notice, not a wall.
+  - Protocol steps have visible breathing room between them.
 
-Out of scope
-- No new routes, no data changes, no backend or auth changes.
-- No changes to other pages unless shared component fixes are required.
-- No changes to navigation or footer.
+## Technical notes
+
+- No new tokens, no new colors — every value comes from existing HSL semantic tokens (`--under-review`, `--under-review-soft`, `--border`, `--foreground`, `--muted-foreground`).
+- `BriefingHero.tsx` keeps the extended props added earlier; this redesign simply stops overriding them, so other pages using those props are unaffected.
+- `ProcessSteps.tsx` change is site-wide (used only on this page today per current codebase); if any other page starts using it, it'll inherit the roomier rhythm — acceptable given the direction.
+- Out of scope: routes, navigation, data, copy other than the callout summary sentence.
