@@ -108,39 +108,6 @@ const HowItWorks = () => {
         </p>
       </PageSection>
 
-      {/* Informational notice */}
-      <PageSection compact bordered>
-        <div style={{ maxWidth: "68ch" }}>
-          <InfoCallout>
-            <p style={{ margin: 0 }}>
-              Source Standard verification is a transparency review, not a medical, clinical, or regulatory certification. Unverified status does not imply that a provider is unsafe or noncompliant.
-            </p>
-            <details className="group" style={{ marginTop: "12px" }}>
-              <summary
-                className="cursor-pointer select-none font-mono uppercase text-[hsl(var(--under-review))] hover:text-[hsl(var(--under-review))]/80 transition-colors"
-                style={{
-                  fontSize: "11px",
-                  letterSpacing: "0.12em",
-                  fontWeight: 600,
-                  listStyle: "none",
-                }}
-              >
-                <span className="inline-block group-open:hidden">Read full scope →</span>
-                <span className="hidden group-open:inline-block">Hide full scope ↑</span>
-              </summary>
-              <div
-                className="text-muted-foreground"
-                style={{ fontSize: "14px", lineHeight: 1.7, marginTop: "12px" }}
-              >
-                <p style={{ margin: 0 }}>
-                  Source Standard does not provide medical advice, treatment guidance, or clinical recommendations. Verification reflects only publicly reviewed sourcing information within the Source Standard framework. Source Standard does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance, and does not replace federal, state, or medical regulatory oversight.
-                </p>
-              </div>
-            </details>
-          </InfoCallout>
-        </div>
-      </PageSection>
-
       {/* Protocol */}
       <PageSection
         id="protocol"
