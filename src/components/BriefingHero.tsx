@@ -174,16 +174,33 @@ export const BriefingHero = ({
         />
         <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
-        <div className="relative z-10 page-shell pt-6 pb-6 md:pt-10 md:pb-8 lg:pt-12 lg:pb-9">
+        <div
+          className="relative z-10 page-shell"
+          style={{
+            paddingTop: heroPadding?.top ?? "clamp(28px, 5vh, 48px)",
+            paddingBottom: heroPadding?.bottom ?? "clamp(40px, 6vh, 64px)",
+          }}
+        >
           <div className="mx-auto w-wide">
+            {eyebrow && (
+              <p
+                className="t-eyebrow-sm text-white/50 mb-3"
+                style={{ fontSize: "11px", letterSpacing: "0.14em" }}
+              >
+                {eyebrow}
+              </p>
+            )}
             <h1
               id="briefing-title"
-              className="ss-hero-title !text-white !mt-0 max-w-[22ch]"
+              className={`ss-hero-title !text-white !mt-0 max-w-[18ch] ${titleClassName}`}
               style={{ textWrap: "balance" }}
             >
               {title}
             </h1>
-            <p className="ss-lead !text-white/70 max-w-[68ch] mt-3" style={{ textWrap: "balance" }}>
+            <p
+              className={`ss-lead !text-white/70 max-w-[52ch] mt-4 ${statementClassName}`}
+              style={{ textWrap: "balance" }}
+            >
               {statement}
             </p>
             {actions && (
