@@ -45,7 +45,6 @@ const Governance = () => (
     <Breadcrumb items={[{ label: "About", to: "/about" }, { label: "Governance" }]} />
 
     <PageHeader
-      eyebrow="Governance & oversight"
       title="Who Oversees Source Standard?"
       description="How Source Standard stays independent, objective, and accountable."
     />
