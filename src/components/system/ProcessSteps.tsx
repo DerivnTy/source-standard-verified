@@ -35,7 +35,7 @@ export const ProcessSteps = ({
               <span
                 aria-hidden
                 className="bg-border"
-                style={{ width: "1px", flex: 1, marginTop: "2px", marginBottom: "2px" }}
+                style={{ width: "1px", flex: 1, marginTop: "4px", marginBottom: "4px" }}
               />
             )}
           </div>
@@ -43,7 +43,7 @@ export const ProcessSteps = ({
           {/* Step body */}
           <div
             className="min-w-0 flex-1"
-            style={{ paddingBottom: isLast ? 0 : "18px" }}
+            style={{ paddingBottom: isLast ? 0 : "28px" }}
           >
             <h3
               className="font-sans text-foreground"

@@ -2,12 +2,13 @@ import { PageMeta } from "@/components/PageMeta";
 import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
+import { InfoCallout } from "@/components/InfoCallout";
 import { PageSection, ProcessSteps } from "@/components/system";
 
 const STEPS = [
   {
     title: "Vendor enters the registry",
-    desc: "A vendor \u2014 typically a clinic, telehealth company, or hybrid provider \u2014 is added to the Source Standard public registry.",
+    desc: "A vendor — typically a clinic, telehealth company, or hybrid provider — is added to the Source Standard public registry.",
   },
   {
     title: "Review of available information",
@@ -66,93 +67,118 @@ const HowItWorks = () => {
         title="How Verification Works"
         statement={heroDescription}
         docId=""
+        eyebrow="Public Guide"
+        heroPadding={{
+          top: "clamp(48px, 7vh, 80px)",
+          bottom: "clamp(56px, 8vh, 96px)",
+        }}
+        titleClassName="max-w-[18ch]"
+        statementClassName="!text-[15px] md:!text-[16px] !leading-[1.75] !font-normal !text-white/65 max-w-[52ch]"
       />
 
-
-      {/* Movement 1 — Definition. Dictionary-style opening. No section heading. */}
-      <PageSection first className="!pt-6 !pb-6 md:!pt-7 md:!pb-7 lg:!pt-7 lg:!pb-7">
-        <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
-          <p
-            className="text-foreground"
-            style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
-          >
+      {/* What verification is */}
+      <PageSection first className="!pt-10 !pb-8 md:!pt-12 md:!pb-10 lg:!pt-14 lg:!pb-12">
+        <div className="mx-auto max-w-[45ch] sm:max-w-[52ch] md:max-w-reading">
+          <p className="t-body-md text-foreground" style={{ lineHeight: 1.75 }}>
             <span className="font-semibold">Verification</span> is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. <span className="font-semibold">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
           </p>
-          <p
-            className="text-muted-foreground"
-            style={{ fontSize: "16px", lineHeight: 1.65, margin: 0 }}
-          >
+        </div>
+      </PageSection>
+
+      {/* What verification is not */}
+      <PageSection className="!pt-8 !pb-10 md:!pt-10 md:!pb-12 lg:!pt-10 lg:!pb-14">
+        <div className="mx-auto max-w-[45ch] sm:max-w-[52ch] md:max-w-reading">
+          <p className="t-body-md text-muted-foreground" style={{ lineHeight: 1.75 }}>
             Verification is not a clinical, medical, or regulatory certification. It is a transparency signal about publicly available sourcing information.
           </p>
         </div>
       </PageSection>
 
-      {/* Movement 2 — Protocol. Small margin label, ProcessSteps carries the section. */}
-      <PageSection className="!pt-4 !pb-6 md:!pt-5 md:!pb-7 lg:!pt-5 lg:!pb-7">
-        <p
-          className="font-mono uppercase text-muted-foreground"
-          style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "20px" }}
-        >
-          Protocol
-        </p>
-        <ProcessSteps steps={STEPS} />
+      {/* Informational notice */}
+      <PageSection className="!pt-0 !pb-10 md:!pb-12 lg:!pb-14">
+        <InfoCallout>
+          Source Standard does not provide medical advice, treatment guidance, or clinical recommendations. Verification reflects only publicly reviewed sourcing information within the Source Standard framework. Unverified status does not imply that a provider is unsafe, unlawful, fraudulent, or clinically inappropriate. Source Standard does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance, and does not replace federal, state, or medical regulatory oversight.
+        </InfoCallout>
       </PageSection>
 
+      {/* Protocol */}
+      <PageSection className="!pt-10 !pb-10 md:!pt-12 md:!pb-12 lg:!pt-14 lg:!pb-14">
+        <div className="rounded-xl bg-surface border border-border p-5 md:p-6 lg:p-7">
+          <p
+            className="t-eyebrow-sm text-muted-foreground mb-5"
+            style={{ fontSize: "11px", letterSpacing: "0.12em" }}
+          >
+            Protocol
+          </p>
+          <ProcessSteps steps={STEPS} />
+        </div>
+      </PageSection>
 
-
-      {/* Movement 3 — What verification means. One heading, two labeled columns. */}
-      <PageSection id="meaning" title="What Verification Means" className="!py-6 md:!py-7 lg:!py-7">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-          <div>
-            <h3
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "8px" }}
-            >
-              Means
-            </h3>
-            <dl className="divide-y divide-border/60 border-t border-b border-border/60">
-              {MEANS.map((item) => (
-                <div key={item.t} className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-x-6 gap-y-1 py-3.5">
-                  <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
-                    {item.t}
-                  </dt>
-                  <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
-                    {item.d}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div>
-            <h3
-              className="font-mono uppercase text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "8px" }}
-            >
-              Does not mean
-            </h3>
-            <dl className="divide-y divide-border/60 border-t border-b border-border/60">
-              {DOES_NOT_MEAN.map((item) => (
-                <div key={item.t} className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-x-6 gap-y-1 py-3.5">
-                  <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
-                    {item.t}
-                  </dt>
-                  <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
-                    {item.d}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+      {/* What verification means */}
+      <PageSection
+        id="meaning"
+        bordered={false}
+        className="!pt-10 !pb-10 md:!pt-12 md:!pb-12 lg:!pt-14 lg:!pb-14"
+      >
+        <div className="rounded-xl bg-surface border border-border p-5 md:p-6 lg:p-7">
+          <h2
+            className="text-foreground"
+            style={{
+              fontSize: "22px",
+              lineHeight: 1.15,
+              letterSpacing: "-0.02em",
+              fontWeight: 700,
+              marginBottom: "24px",
+            }}
+          >
+            What Verification Means
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
+            <div>
+              <h3
+                className="t-eyebrow-sm text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.12em", marginBottom: "14px" }}
+              >
+                Means
+              </h3>
+              <dl className="space-y-4">
+                {MEANS.map((item) => (
+                  <div key={item.t} className="grid grid-cols-1 gap-y-0.5">
+                    <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
+                      {item.t}
+                    </dt>
+                    <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
+                      {item.d}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div>
+              <h3
+                className="t-eyebrow-sm text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.12em", marginBottom: "14px" }}
+              >
+                Does not mean
+              </h3>
+              <dl className="space-y-4">
+                {DOES_NOT_MEAN.map((item) => (
+                  <div key={item.t} className="grid grid-cols-1 gap-y-0.5">
+                    <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
+                      {item.t}
+                    </dt>
+                    <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
+                      {item.d}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </div>
-
-        <p
-          className="text-muted-foreground"
-          style={{ fontSize: "12px", lineHeight: 1.6, marginTop: "20px", marginBottom: 0, maxWidth: "68ch" }}
-        >
-          Source Standard does not provide medical advice, treatment guidance, or clinical recommendations. Verification reflects only publicly reviewed sourcing information within the Source Standard framework. Unverified status does not imply that a provider is unsafe, unlawful, fraudulent, or clinically inappropriate. Source Standard does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance, and does not replace federal, state, or medical regulatory oversight.
-        </p>
       </PageSection>
-    <EditorialBackLink to="/" label="Back to Home" />
+
+      <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };
