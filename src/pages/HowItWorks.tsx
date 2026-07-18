@@ -92,8 +92,8 @@ const HowItWorks = () => {
           <p className="text-foreground" style={{ fontSize: "17px", lineHeight: 1.6, margin: 0 }}>
             <span className="font-semibold">Verification</span> is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework.
           </p>
-          <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.65, margin: 0 }}>
-            <span className="font-semibold text-foreground">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
+          <p className="text-foreground" style={{ fontSize: "17px", lineHeight: 1.6, margin: 0 }}>
+            <span className="font-semibold">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
           </p>
         </div>
       </PageSection>
