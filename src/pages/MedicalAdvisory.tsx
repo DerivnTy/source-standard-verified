@@ -126,7 +126,6 @@ const MedicalAdvisory = () => {
       />
 
       <PageHeader
-        eyebrow="Governance · Medical Advisory Board"
         title="Who Advises Source Standard?"
         description={lead}
       />
