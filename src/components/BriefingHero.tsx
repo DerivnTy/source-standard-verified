@@ -40,6 +40,14 @@ export interface BriefingHeroProps {
   heroMetrics?: ReactNode;
   /** Optional metadata strip rendered below the actions (cover variant). */
   heroMeta?: ReactNode;
+  /** Optional eyebrow shown above the chapter title. */
+  eyebrow?: string;
+  /** Override chapter hero padding. */
+  heroPadding?: { top?: string; bottom?: string };
+  /** Optional className applied to the chapter title. */
+  titleClassName?: string;
+  /** Optional className applied to the chapter statement. */
+  statementClassName?: string;
 }
 
 export const BriefingHero = ({
