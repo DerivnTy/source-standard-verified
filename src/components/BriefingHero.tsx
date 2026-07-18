@@ -192,13 +192,13 @@ export const BriefingHero = ({
             )}
             <h1
               id="briefing-title"
-              className={`ss-hero-title !text-white !mt-0 max-w-[18ch] ${titleClassName}`}
+              className={`ss-hero-title !text-white !mt-0 max-w-[22ch] ${titleClassName}`}
               style={{ textWrap: "balance" }}
             >
               {title}
             </h1>
             <p
-              className={`ss-lead !text-white/70 max-w-[52ch] mt-4 ${statementClassName}`}
+              className={`ss-lead !text-white/70 max-w-[68ch] mt-4 ${statementClassName}`}
               style={{ textWrap: "balance" }}
             >
               {statement}
