@@ -114,47 +114,65 @@ const HowItWorks = () => {
       </PageSection>
 
       {/* What verification means */}
-      <PageSection id="meaning" title="What Verification Means" className="!pt-10 !pb-10 md:!pt-12 md:!pb-12 lg:!pt-14 lg:!pb-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-          <div>
-            <h3
-              className="t-eyebrow-sm text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", marginBottom: "12px" }}
-            >
-              Means
-            </h3>
-            <dl className="divide-y divide-border/60 border-t border-b border-border/60">
-              {MEANS.map((item) => (
-                <div key={item.t} className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-x-6 gap-y-1 py-3.5">
-                  <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
-                    {item.t}
-                  </dt>
-                  <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
-                    {item.d}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div>
-            <h3
-              className="t-eyebrow-sm text-muted-foreground"
-              style={{ fontSize: "11px", letterSpacing: "0.12em", marginBottom: "12px" }}
-            >
-              Does not mean
-            </h3>
-            <dl className="divide-y divide-border/60 border-t border-b border-border/60">
-              {DOES_NOT_MEAN.map((item) => (
-                <div key={item.t} className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-x-6 gap-y-1 py-3.5">
-                  <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
-                    {item.t}
-                  </dt>
-                  <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
-                    {item.d}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+      <PageSection
+        id="meaning"
+        bordered={false}
+        className="!pt-10 !pb-10 md:!pt-12 md:!pb-12 lg:!pt-14 lg:!pb-14"
+      >
+        <div className="rounded-xl bg-surface border border-border p-5 md:p-6 lg:p-7">
+          <h2
+            className="text-foreground"
+            style={{
+              fontSize: "22px",
+              lineHeight: 1.15,
+              letterSpacing: "-0.02em",
+              fontWeight: 700,
+              marginBottom: "24px",
+            }}
+          >
+            What Verification Means
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
+            <div>
+              <h3
+                className="t-eyebrow-sm text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.12em", marginBottom: "14px" }}
+              >
+                Means
+              </h3>
+              <dl className="space-y-4">
+                {MEANS.map((item) => (
+                  <div key={item.t} className="grid grid-cols-1 gap-y-0.5">
+                    <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
+                      {item.t}
+                    </dt>
+                    <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
+                      {item.d}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div>
+              <h3
+                className="t-eyebrow-sm text-muted-foreground"
+                style={{ fontSize: "11px", letterSpacing: "0.12em", marginBottom: "14px" }}
+              >
+                Does not mean
+              </h3>
+              <dl className="space-y-4">
+                {DOES_NOT_MEAN.map((item) => (
+                  <div key={item.t} className="grid grid-cols-1 gap-y-0.5">
+                    <dt className="font-sans text-foreground" style={{ fontSize: "14px", fontWeight: 600, margin: 0 }}>
+                      {item.t}
+                    </dt>
+                    <dd className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
+                      {item.d}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </div>
       </PageSection>
