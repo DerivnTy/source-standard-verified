@@ -19,23 +19,23 @@ export const ProcessSteps = ({
     {steps.map((step, i) => {
       const isLast = i === steps.length - 1;
       return (
-        <li key={step.title} className="flex gap-3">
+        <li key={step.title} className="flex gap-4">
           {/* Gutter: glyph + connecting hairline */}
           <div
             className="flex flex-col items-center shrink-0"
-            style={{ width: "16px" }}
+            style={{ width: "20px" }}
           >
             <span
               className="text-primary/80 inline-flex items-center justify-center"
-              style={{ height: "18px" }}
+              style={{ height: "20px" }}
             >
-              <Glyph name="check" size="sm" />
+              <Glyph name="check" size="md" />
             </span>
             {!isLast && (
               <span
                 aria-hidden
                 className="bg-border"
-                style={{ width: "1px", flex: 1, marginTop: "4px", marginBottom: "4px" }}
+                style={{ width: "1px", flex: 1, marginTop: "6px", marginBottom: "6px" }}
               />
             )}
           </div>
@@ -43,12 +43,12 @@ export const ProcessSteps = ({
           {/* Step body */}
           <div
             className="min-w-0 flex-1"
-            style={{ paddingBottom: isLast ? 0 : "28px" }}
+            style={{ paddingBottom: isLast ? 0 : "36px" }}
           >
             <h3
               className="font-sans text-foreground"
               style={{
-                fontSize: "15px",
+                fontSize: "16px",
                 lineHeight: 1.3,
                 fontWeight: 600,
                 letterSpacing: "-0.01em",
@@ -60,10 +60,10 @@ export const ProcessSteps = ({
             <p
               className="text-muted-foreground"
               style={{
-                fontSize: "14px",
-                lineHeight: 1.6,
+                fontSize: "14.5px",
+                lineHeight: 1.65,
                 fontWeight: 400,
-                marginTop: "4px",
+                marginTop: "6px",
               }}
             >
               {step.desc}
