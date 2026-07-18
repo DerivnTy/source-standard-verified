@@ -102,7 +102,7 @@ const HowItWorks = () => {
 
       {/* Movement 3 — What verification means. One heading, two labeled columns. */}
       <PageSection id="meaning" title="What Verification Means" className="!py-6 md:!py-7 lg:!py-7">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
           <div>
             <h3
               className="font-mono uppercase text-muted-foreground"
