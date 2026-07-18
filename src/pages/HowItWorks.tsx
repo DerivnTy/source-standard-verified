@@ -77,7 +77,7 @@ const HowItWorks = () => {
 
       {/* What verification is */}
       <PageSection first className="!pt-10 !pb-8 md:!pt-12 md:!pb-10 lg:!pt-14 lg:!pb-12">
-        <div className="max-w-reading">
+        <div className="mx-auto max-w-[45ch] sm:max-w-[52ch] md:max-w-reading">
           <p className="t-body-md text-foreground" style={{ lineHeight: 1.75 }}>
             <span className="font-semibold">Verification</span> is a documented review of the sourcing information a vendor publishes, conducted within the Source Standard framework. <span className="font-semibold">Verified</span> means the vendor's sourcing representations were supported by the information reviewed within a defined scope at the time of review.
           </p>
@@ -86,7 +86,7 @@ const HowItWorks = () => {
 
       {/* What verification is not */}
       <PageSection className="!pt-8 !pb-10 md:!pt-10 md:!pb-12 lg:!pt-10 lg:!pb-14">
-        <div className="max-w-reading">
+        <div className="mx-auto max-w-[45ch] sm:max-w-[52ch] md:max-w-reading">
           <p className="t-body-md text-muted-foreground" style={{ lineHeight: 1.75 }}>
             Verification is not a clinical, medical, or regulatory certification. It is a transparency signal about publicly available sourcing information.
           </p>
