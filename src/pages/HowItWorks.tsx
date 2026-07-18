@@ -88,7 +88,7 @@ const HowItWorks = () => {
       </PageSection>
 
       {/* Movement 2 — Protocol. Small margin label, ProcessSteps carries the section. */}
-      <PageSection className="!py-6 md:!py-7 lg:!py-7">
+      <PageSection className="!pt-4 !pb-6 md:!pt-5 md:!pb-7 lg:!pt-5 lg:!pb-7">
         <p
           className="font-mono uppercase text-muted-foreground"
           style={{ fontSize: "11px", letterSpacing: "0.14em", marginBottom: "20px" }}
