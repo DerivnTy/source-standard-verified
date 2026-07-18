@@ -63,6 +63,10 @@ export const BriefingHero = ({
   actions,
   heroMetrics,
   heroMeta,
+  eyebrow,
+  heroPadding,
+  titleClassName = "",
+  statementClassName = "",
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
