@@ -70,7 +70,7 @@ const HowItWorks = () => {
 
 
       {/* Movement 1 — Definition. Dictionary-style opening. No section heading. */}
-      <PageSection first>
+      <PageSection first className="!pt-6 !pb-6 md:!pt-7 md:!pb-7 lg:!pt-7 lg:!pb-7">
         <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
           <p
             className="text-foreground"
