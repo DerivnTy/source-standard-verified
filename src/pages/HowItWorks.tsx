@@ -147,7 +147,7 @@ const HowItWorks = () => {
 
         <p
           className="text-muted-foreground"
-          style={{ fontSize: "12px", lineHeight: 1.6, marginTop: "28px", marginBottom: 0, maxWidth: "68ch" }}
+          style={{ fontSize: "12px", lineHeight: 1.6, marginTop: "20px", marginBottom: 0, maxWidth: "68ch" }}
         >
           Source Standard does not provide medical advice, treatment guidance, or clinical recommendations. Verification reflects only publicly reviewed sourcing information within the Source Standard framework. Unverified status does not imply that a provider is unsafe, unlawful, fraudulent, or clinically inappropriate. Source Standard does not certify product potency, sterility, safety, efficacy, manufacturing quality, or future performance, and does not replace federal, state, or medical regulatory oversight.
         </p>
