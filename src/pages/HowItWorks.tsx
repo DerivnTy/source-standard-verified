@@ -3,7 +3,6 @@ import { PageMeta } from "@/components/PageMeta";
 import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
-import { InfoCallout } from "@/components/InfoCallout";
 import { PageSection, ProcessSteps } from "@/components/system";
 
 const STEPS = [
