@@ -182,29 +182,6 @@ const normalizeWebsite = (url: string): string => {
 
 const vendorsRaw = [
   {
-    slug: "northline-health-hormone-institute",
-    name: "Northline Health & Hormone Institute",
-    status: "verified",
-    city: "Tampa",
-    state: "FL",
-    website: normalizeWebsite("northlinehealth.example"),
-    clinicalFocus: ["Hormone Optimization", "TRT", "HRT", "Peptides", "GLP-1", "Longevity"],
-    category: "Hormone Optimization",
-    reviewId: "SS-V-26-001",
-    reviewDate: "2026-04-24",
-    verifiedCategories: [
-      "Testosterone Replacement Therapy",
-      "Hormone Replacement Therapy",
-      "Peptide Therapies",
-      "GLP-1 Medications",
-      "Longevity Compounds",
-    ],
-    publicNote:
-      "Documentation reviewed. Source claims were supported by submitted or public records at the time of review.",
-    summary:
-      "Hybrid physical clinic with telehealth follow-up. Verification reflects documentation reviewed within a defined scope and at a defined point in time. It does not constitute medical advice, product approval, vendor recommendation, regulatory approval, or a guarantee of safety, efficacy, potency, sterility, or outcome.",
-  },
-  {
     slug: "mattr-biowellness-club",
     name: "MATTR Biowellness Club",
     status: "unverified",
