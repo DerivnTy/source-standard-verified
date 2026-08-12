@@ -1122,3 +1122,34 @@ body {
   border-color: rgba(0, 16, 33, 0.85) !important;
 }
 
+
+/* ============================================================
+   iOS auto-zoom prevention.
+   Touch browsers (Safari, Instagram/Facebook in-app) zoom the page
+   when a focused form control renders below 16px. Force 16px on
+   coarse-pointer devices only; desktop keeps its compact sizing.
+   Visual size is preserved by scaling the text back down with a
+   transform-free approach: 16px base + tighter line-height so the
+   control heights (h-9 etc.) stay identical.
+   ============================================================ */
+@media (pointer: coarse) {
+  input,
+  select,
+  textarea,
+  input[type="search"],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"] {
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* No horizontal drift after focus or overlay transitions. */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
