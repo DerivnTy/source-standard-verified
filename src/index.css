@@ -1193,3 +1193,12 @@ body {
   overflow-x: hidden;
   max-width: 100%;
 }
+
+/* Hero registry search: taller caret + comfortable text metrics.
+   Caret height follows the line box, so a taller line-height gives a
+   more substantial, better-proportioned blinking cursor. */
+.hero-search-input {
+  font-size: 16px !important;
+  line-height: 32px !important;
+  caret-color: rgba(255, 255, 255, 0.9) !important;
+}
