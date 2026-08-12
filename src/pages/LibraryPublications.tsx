@@ -199,7 +199,7 @@ const LibraryPublications = () => {
               >
                 <Search aria-hidden style={{ width: "14px", height: "14px", strokeWidth: 1.5 }} className="text-muted-foreground shrink-0" />
                 <input
-                  type="search"
+                  type="text" inputMode="search"
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);

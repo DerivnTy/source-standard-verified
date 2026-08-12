@@ -349,7 +349,7 @@ const Education = () => {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 py-3">
               <div className="flex items-center gap-3 flex-1 min-w-0 md:max-w-md">
                 <input
-                  type="search"
+                  type="text" inputMode="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search library…"
