@@ -91,17 +91,30 @@ const HeroContent = () => {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          type="search"
+          type="text"
+          inputMode="search"
+          enterKeyHint="search"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="none"
+          spellCheck={false}
           aria-label="Search by provider, clinic, or telehealth company"
           placeholder="Search by provider, clinic, or telehealth company…"
-          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0 text-[14px] md:text-[14px]"
+          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0 truncate"
           style={{
             minWidth: 0,
             paddingRight: "12px",
-            caretColor: "rgba(255,255,255,0.7)",
+            fontSize: "16px",
+            caretColor: "rgba(255,255,255,0.75)",
             backgroundColor: "transparent",
+            appearance: "none",
+            WebkitAppearance: "none",
+            border: "none",
+            boxShadow: "none",
+            WebkitTapHighlightColor: "transparent",
           }}
         />
+
         <button
           type="submit"
           className="inline-flex items-center justify-center font-sans font-semibold uppercase transition-all active:scale-[0.97] bg-white text-[hsl(var(--navy-surface))] hover:bg-white/90 shrink-0"
