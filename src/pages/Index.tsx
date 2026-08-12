@@ -93,8 +93,9 @@ const HeroContent = () => {
           type="search"
           aria-label="Search by provider, clinic, or telehealth company"
           placeholder="Search by provider, clinic, or telehealth company…"
-          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0"
-          style={{ fontSize: "14px", minWidth: 0 }}
+          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0 text-[14px] md:text-[14px]"
+          style={{ minWidth: 0 }}
+
         />
         <button
           type="submit"
