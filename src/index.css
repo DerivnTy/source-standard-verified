@@ -1155,7 +1155,7 @@ body {
    transform-free approach: 16px base + tighter line-height so the
    control heights (h-9 etc.) stay identical.
    ============================================================ */
-@media (pointer: coarse) {
+@media (max-width: 1023px), (pointer: coarse) {
   input,
   select,
   textarea,
@@ -1169,6 +1169,23 @@ body {
     line-height: 1.2 !important;
   }
 }
+
+/* No native search chrome anywhere: no clear (X), no decoration,
+   no tap highlight, no focus ring line. */
+input::-webkit-search-cancel-button,
+input::-webkit-search-decoration,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration,
+input::-webkit-textfield-decoration-container {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  display: none !important;
+}
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
 
 /* No horizontal drift after focus or overlay transitions. */
 html,
