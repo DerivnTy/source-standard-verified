@@ -860,6 +860,27 @@ input, select, textarea, button {
 /* Preserve true pill shapes (rounded-full) and icon-only square buttons handled separately. */
 .rounded-full { border-radius: 9999px !important; }
 
+/* Strip native search-input chrome site-wide: removes the clear (X) button,
+   the native search decoration, and the iOS focus/tap highlight line so
+   search fields render as plain text inputs. */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+input[type="search"]:focus,
+input[type="search"]:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
 /* ============================================================
    Pass 3, Motion, Transitions & Interactive Physics
    • iOS Spring curve: cubic-bezier(0.4, 0, 0.2, 1) @ 400ms.
