@@ -85,6 +85,7 @@ const HeroContent = () => {
           border: "1px solid rgba(255,255,255,0.30)",
           backgroundColor: "rgba(255,255,255,0.06)",
           backdropFilter: "blur(12px)",
+          overflow: "hidden",
         }}
       >
         <input
@@ -94,8 +95,12 @@ const HeroContent = () => {
           aria-label="Search by provider, clinic, or telehealth company"
           placeholder="Search by provider, clinic, or telehealth company…"
           className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0 text-[14px] md:text-[14px]"
-          style={{ minWidth: 0 }}
-
+          style={{
+            minWidth: 0,
+            paddingRight: "12px",
+            caretColor: "rgba(255,255,255,0.7)",
+            backgroundColor: "transparent",
+          }}
         />
         <button
           type="submit"
