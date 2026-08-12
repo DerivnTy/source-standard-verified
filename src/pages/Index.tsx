@@ -100,7 +100,7 @@ const HeroContent = () => {
           spellCheck={false}
           aria-label="Search by provider, clinic, or telehealth company"
           placeholder="Search by provider, clinic, or telehealth company…"
-          className="font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0 truncate"
+          className="hero-search-input font-sans flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none focus:ring-0 truncate"
           style={{
             minWidth: 0,
             paddingRight: "12px",
