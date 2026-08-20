@@ -4,6 +4,7 @@ import {
   VendorFulfillment,
   VENDOR_FULFILLMENT_LABEL,
   VENDOR_STATUS_LABEL,
+  VENDOR_STATUS_LABEL_SHORT,
 } from "@/data/vendors";
 
 /**
