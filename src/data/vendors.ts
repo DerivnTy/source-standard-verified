@@ -8,8 +8,22 @@ export type VendorPublicStatus =
   | "verified"
   | "unverified"
   | "under-review"
+  | "active"
   | "suspended"
+  | "expired"
   | "removed";
+
+// Statuses that only apply to organizations that have actually entered the
+// Source Standard verification program. A record that has never participated
+// can only ever be "unverified" (Not Source Standard Verified).
+export const PARTICIPATION_STATUSES: VendorPublicStatus[] = [
+  "verified",
+  "under-review",
+  "active",
+  "suspended",
+  "expired",
+  "removed",
+];
 
 export type VendorCategory =
   | "TRT Clinic"
