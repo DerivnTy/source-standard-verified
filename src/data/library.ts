@@ -194,8 +194,8 @@ export const libraryFaqs: FAQEntry[] = [
   {
     id: "SS-FAQ-003",
     group: "verification",
-    q: "Why are some vendors listed as Unverified?",
-    a: "Unverified means a vendor has not completed the Source Standard review process, or that the available documentation did not establish a verified status. It is descriptive of review state, not an accusation.",
+    q: "Why are some clinics listed as Not Source Standard Verified?",
+    a: "It means the clinic has not completed Source Standard's independent sourcing verification process, which is voluntary. It does not indicate that Source Standard has evaluated or reached any conclusion about the clinic's sourcing, product quality, or safety.",
     relatedSlug: "what-source-standard-verification-actually-means",
   },
   {

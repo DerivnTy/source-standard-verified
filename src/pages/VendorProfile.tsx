@@ -332,14 +332,18 @@ const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => {
 const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
   const copy: Record<VendorPublicStatus, string> = {
     verified:
-      "This provider has completed the Source Standard verification process and currently maintains Verified status.",
+      "This clinic has voluntarily completed Source Standard's independent sourcing verification process.",
     unverified:
-      "This provider has not completed the Source Standard verification process.",
-    "under-review": "This provider is currently under Source Standard review.",
+      "This clinic has not completed Source Standard's independent sourcing verification process. This status does not indicate that Source Standard has evaluated or reached a conclusion regarding the clinic's sourcing, product quality, or safety.",
+    "under-review":
+      "This clinic has applied and its submission is currently under review. No conclusion has been reached.",
+    active: "Verification for this clinic is current and in good standing.",
     suspended:
-      "This provider's Source Standard status is currently suspended.",
+      "A previously issued verification for this clinic is temporarily withdrawn pending clarification. This is not a final finding.",
+    expired:
+      "A previously issued verification for this clinic has lapsed and has not been renewed.",
     removed:
-      "This provider has been removed from the Source Standard registry.",
+      "This record has been withdrawn from active verification within the Source Standard framework.",
   };
   return (
     <p
@@ -558,9 +562,14 @@ const VendorProfile = () => {
       Exclude<VendorPublicStatus, "verified">,
       { label: string; color: string }
     > = {
-      unverified: { label: "UNVERIFIED", color: "#FF3B30" },
+      unverified: {
+        label: "NOT SOURCE STANDARD VERIFIED",
+        color: "hsl(var(--muted-foreground))",
+      },
       "under-review": { label: "UNDER REVIEW", color: "#FF9500" },
+      active: { label: "ACTIVE", color: "hsl(var(--verified))" },
       suspended: { label: "SUSPENDED", color: "hsl(var(--muted-foreground))" },
+      expired: { label: "EXPIRED", color: "hsl(var(--muted-foreground))" },
       removed: { label: "REMOVED", color: "hsl(var(--muted-foreground))" },
     };
     const { label, color } = FALLBACK[status];
@@ -984,9 +993,11 @@ const VendorProfile = () => {
                         color: "rgba(0,16,33,0.7)",
                       }}
                     >
-                      Verified status reflects only the sourcing information Source Standard
-                      reviewed. Unverified status does not mean a provider is unsafe, unlawful,
-                      fraudulent, or clinically inappropriate.
+                      Source Standard Verified reflects only the sourcing information Source
+                      Standard reviewed, within a defined scope. Not Source Standard Verified
+                      means the clinic has not completed the process, and does not indicate
+                      that Source Standard has evaluated or reached any conclusion regarding
+                      the clinic's sourcing, product quality, or safety.
                     </p>
 
                   </div>

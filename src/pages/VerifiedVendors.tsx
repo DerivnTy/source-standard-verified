@@ -24,8 +24,8 @@ type DeliveryKey = "any" | "online" | "in-person" | "hybrid";
 const PAGE_SIZE = 10;
 
 const STATUS_PILLS: { value: StatusKey; label: string }[] = [
-  { value: "verified", label: "VERIFIED" },
-  { value: "unverified", label: "UNVERIFIED" },
+  { value: "verified", label: "SOURCE STANDARD VERIFIED" },
+  { value: "unverified", label: "NOT SS VERIFIED" },
 ];
 
 const DELIVERY_PILLS: { value: DeliveryKey; label: string }[] = [

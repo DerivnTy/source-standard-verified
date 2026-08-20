@@ -275,7 +275,7 @@ const howItWorks = [
 const registryFields = [
   {
     h: "Verification status",
-    b: "Whether a vendor is Verified, Unverified, Under Review, Suspended, Removed, or otherwise designated within the registry.",
+    b: "Whether a clinic is Source Standard Verified or Not Source Standard Verified, plus participation statuses such as Under Review, Active, Suspended, or Expired.",
   },
   {
     h: "Vendor type",
@@ -314,7 +314,7 @@ const basics = [
   },
   {
     t: "Status Definitions",
-    s: "Definitions for Verified, Unverified, Under Review, Suspended, Removed, Greenlisted, Monitoring, and Status Alert.",
+    s: "Definitions for Source Standard Verified, Not Source Standard Verified, Under Review, Active, Suspended, Expired, Removed, Greenlisted, Monitoring, and Status Alert.",
     to: "/status-definitions",
   },
   {
