@@ -18,7 +18,7 @@ export type FooterColumn = {
 /** Canonical label for every public route. */
 export const ROUTES = {
   home: { path: "/", label: "Home" },
-  vendors: { path: "/verified-vendors", label: "Vendor Registry" },
+  vendors: { path: "/verified-vendors", label: "Search Clinics" },
   facilities: { path: "/greenlist", label: "Facility Records" },
   howItWorks: { path: "/how-it-works", label: "How Verification Works" },
   governance: { path: "/governance", label: "Governance" },
@@ -42,7 +42,6 @@ export const PRIMARY_NAV: NavRoute[] = [
   ROUTES.facilities,
   ROUTES.howItWorks,
   ROUTES.governance,
-  ROUTES.advisory,
   ROUTES.learn,
   ROUTES.about,
 ];
@@ -61,7 +60,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Framework",
-    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.advisory, ROUTES.statusDefinitions],
+    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.statusDefinitions],
   },
   {
     title: "Learn",
