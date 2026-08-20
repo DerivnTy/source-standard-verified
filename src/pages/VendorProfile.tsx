@@ -993,9 +993,11 @@ const VendorProfile = () => {
                         color: "rgba(0,16,33,0.7)",
                       }}
                     >
-                      Verified status reflects only the sourcing information Source Standard
-                      reviewed. Unverified status does not mean a provider is unsafe, unlawful,
-                      fraudulent, or clinically inappropriate.
+                      Source Standard Verified reflects only the sourcing information Source
+                      Standard reviewed, within a defined scope. Not Source Standard Verified
+                      means the clinic has not completed the process, and does not indicate
+                      that Source Standard has evaluated or reached any conclusion regarding
+                      the clinic's sourcing, product quality, or safety.
                     </p>
 
                   </div>
