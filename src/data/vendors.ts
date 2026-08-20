@@ -134,39 +134,58 @@ export type Vendor = {
 // ---------- Status presentation ----------
 
 export const VENDOR_STATUS_LABEL: Record<VendorPublicStatus, string> = {
-  verified: "Verified",
-  unverified: "Unverified",
+  verified: "Source Standard Verified",
+  unverified: "Not Source Standard Verified",
   "under-review": "Under Review",
+  active: "Active",
   suspended: "Suspended",
+  expired: "Expired",
+  removed: "Removed",
+};
+
+// Compact label for dense table rows where the full label does not fit.
+export const VENDOR_STATUS_LABEL_SHORT: Record<VendorPublicStatus, string> = {
+  verified: "SS Verified",
+  unverified: "Not SS Verified",
+  "under-review": "Under Review",
+  active: "Active",
+  suspended: "Suspended",
+  expired: "Expired",
   removed: "Removed",
 };
 
 // Short consumer-facing definition (used in tooltips, registry legend)
 export const VENDOR_STATUS_SHORT: Record<VendorPublicStatus, string> = {
   verified:
-    "Source Standard has published a completed verification for this vendor.",
+    "This clinic has voluntarily completed Source Standard's independent sourcing verification process.",
   unverified:
-    "Source Standard verification is not currently published for this vendor. This does not mean unsafe, noncompliant, or illegitimate.",
+    "This clinic has not completed Source Standard's independent sourcing verification process.",
   "under-review":
-    "An application is currently undergoing review under SS-FRAMEWORK-2026.01.",
+    "This clinic has applied and its submission is currently under review. No conclusion has been reached.",
+  active: "Verification is current and in good standing.",
   suspended:
-    "A previously published verification has been suspended pending further review.",
-  removed:
-    "This record has been removed from the public directory.",
+    "A previously issued verification is temporarily withdrawn pending clarification. This is not a final finding.",
+  expired:
+    "A previously issued verification has lapsed and has not been renewed.",
+  removed: "This record has been withdrawn from active verification.",
 };
 
 // Long disclaimer (used on individual vendor profile pages)
 export const VENDOR_STATUS_DISCLOSURE: Record<VendorPublicStatus, string> = {
   verified:
-    "This record reflects documentation reviewed at the time of verification. Verification is time-bound and tied to a public Review ID.",
+    "Source Standard has reviewed evidence supporting defined sourcing claims for this clinic. Verification is time-bound, limited to the reviewed scope, and tied to a public Review ID. It is not an endorsement, a product approval, or a guarantee of safety.",
   unverified:
-    'This record appears in the Source Standard public directory. "Unverified" means Source Standard has not published a completed verification for this vendor. It does not indicate that the vendor is unsafe, noncompliant, or illegitimate. It indicates only that Source Standard verification is not currently on file as a published record.',
+    "This clinic has not completed Source Standard's independent sourcing verification process. This status does not indicate that Source Standard has evaluated or reached a conclusion regarding the clinic's sourcing, product quality, or safety.",
   "under-review":
-    "This vendor has an application currently under review. No completed verification has been published yet. Status will update when review is complete.",
+    "This clinic has applied and its submission is currently under review. No conclusion has been reached and no verification has been issued.",
+  active:
+    "Verification for this clinic is current and in good standing within the reviewed scope. It is not an endorsement, a product approval, or a guarantee of safety.",
   suspended:
-    "A previously published verification for this vendor has been suspended. The record remains public for transparency. Refer to the public note for context where available.",
+    "A previously issued verification for this clinic is temporarily withdrawn while a specific matter is clarified. This is not a final finding or a determination about sourcing, product quality, or safety.",
+  expired:
+    "A previously issued verification for this clinic has lapsed and has not been renewed. Lapse alone does not indicate any change in the clinic's sourcing, product quality, or safety.",
   removed:
-    "This record has been removed from the public directory. The record is preserved for transparency.",
+    "This record has been withdrawn from active verification within the Source Standard framework. It is not a regulatory finding or an adjudication of wrongdoing.",
 };
 
 // ---------- Short neutral profile note ----------
@@ -174,15 +193,16 @@ export const VENDOR_STATUS_DISCLOSURE: Record<VendorPublicStatus, string> = {
 // needed. The full definition lives once on the directory index.
 export const VENDOR_STATUS_PROFILE_NOTE: Record<VendorPublicStatus, string> = {
   verified:
-    "Source Standard has published a completed verification for this vendor.",
+    "This clinic has voluntarily completed Source Standard's independent sourcing verification process.",
   unverified:
-    "Source Standard verification is not currently published for this vendor.",
+    "This clinic has not completed Source Standard's independent sourcing verification process.",
   "under-review":
-    "An application for this vendor is currently under review.",
+    "This clinic has applied and its submission is currently under review.",
+  active: "Verification is current and in good standing.",
   suspended:
-    "A previously published verification for this vendor has been suspended.",
-  removed:
-    "This record has been removed from the public directory.",
+    "A previously issued verification is temporarily withdrawn pending clarification.",
+  expired: "A previously issued verification has lapsed.",
+  removed: "This record has been withdrawn from active verification.",
 };
 
 // ---------- Initial dataset ----------
