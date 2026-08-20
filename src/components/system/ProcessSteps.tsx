@@ -12,7 +12,7 @@ export const ProcessSteps = ({
   steps,
   className = "",
 }: {
-  steps: { title: string; desc: string }[];
+  steps: { title: string; desc?: string }[];
   className?: string;
 }) => (
   <ol className={`m-0 p-0 list-none ${className}`}>
@@ -57,17 +57,19 @@ export const ProcessSteps = ({
             >
               {step.title}
             </h3>
-            <p
-              className="text-muted-foreground"
-              style={{
-                fontSize: "14.5px",
-                lineHeight: 1.65,
-                fontWeight: 400,
-                marginTop: "6px",
-              }}
-            >
-              {step.desc}
-            </p>
+            {step.desc ? (
+              <p
+                className="text-muted-foreground"
+                style={{
+                  fontSize: "14.5px",
+                  lineHeight: 1.65,
+                  fontWeight: 400,
+                  marginTop: "6px",
+                }}
+              >
+                {step.desc}
+              </p>
+            ) : null}
           </div>
         </li>
       );

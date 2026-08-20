@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { FOOTER_COLUMNS, type NavRoute } from "@/config/navigation";
+import { HOME_DISCLAIMER } from "@/data/publicLanguage";
 
 type LinkRow = {
   to: string;
@@ -117,12 +118,7 @@ export const SiteFooter = () => {
             className="mt-5 md:mt-6 font-sans"
             style={{ color: "rgba(255,255,255,0.32)", fontSize: "10px", lineHeight: 1.7, maxWidth: "60ch" }}
           >
-            Source Standard is an independent public-reference and verification
-            framework for compounded therapy vendor sourcing claims. Records
-            reflect documentation reviewed within a defined scope and at a
-            defined point in time. Verification does not constitute medical
-            advice, regulatory approval, product approval, treatment
-            recommendation, or a guarantee of safety, efficacy, or outcome.
+            {HOME_DISCLAIMER}
           </p>
         </div>
       </div>
