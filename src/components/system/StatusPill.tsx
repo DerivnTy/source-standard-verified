@@ -14,7 +14,9 @@ export type StatusKey =
   | "verified"
   | "unverified"
   | "under-review"
+  | "active"
   | "suspended"
+  | "expired"
   | "removed"
   | "greenlisted"
   | "monitoring"
@@ -28,10 +30,12 @@ type Variant = {
 };
 
 const VARIANTS: Record<StatusKey, Variant> = {
-  verified: { label: "Verified", token: "verified" },
-  unverified: { label: "Unverified", token: "unverified" },
+  verified: { label: "Source Standard Verified", token: "verified" },
+  unverified: { label: "Not Source Standard Verified", token: "muted-foreground" },
   "under-review": { label: "Under Review", token: "under-review", withDot: true, pulse: true },
+  active: { label: "Active", token: "verified" },
   suspended: { label: "Suspended", token: "suspended" },
+  expired: { label: "Expired", token: "muted-foreground" },
   removed: { label: "Removed", token: "muted-foreground" },
   greenlisted: { label: "Greenlisted", token: "greenlisted" },
   monitoring: { label: "Monitoring", token: "monitoring", withDot: true, pulse: true },
