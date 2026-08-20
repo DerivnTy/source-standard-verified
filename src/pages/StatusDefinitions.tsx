@@ -185,9 +185,9 @@ const StatusDefinitions = () => {
         </div>
       </ArticleSection>
 
-      <ArticleSection variant="prose" title="Facility statuses">
+      <ArticleSection variant="prose" title="Facility statuses (Greenlist)">
         <p>
-          Public statuses applied to facilities monitored within the framework, including 503A pharmacies, 503B outsourcing facilities, and related manufacturing operations.
+          Facilities carry a separate designation from clinics. Greenlisted facilities have completed the applicable Source Standard evaluation process and met the defined criteria. Payment for evaluation never guarantees Greenlist status. Statuses apply to facilities monitored within the framework, including 503A pharmacies, 503B outsourcing facilities, and related manufacturing operations.
         </p>
         <div
           className="mt-4"
