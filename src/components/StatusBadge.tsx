@@ -4,10 +4,15 @@ import {
 } from "@/data/vendors";
 
 // Stamp-style variants per status: background tint + border + text color.
+// "unverified" is deliberately neutral, it is a statement of non-participation,
+// never a negative finding.
 const stampFor: Record<VendorPublicStatus, string> = {
   verified: "bg-verified-soft border-verified/30 text-verified",
   "under-review": "bg-under-review-soft border-under-review/30 text-under-review",
+  active: "bg-verified-soft border-verified/30 text-verified",
   suspended: "bg-suspended-soft border-suspended/30 text-suspended",
+  expired:
+    "bg-foreground/[0.04] border-foreground/20 text-foreground/70",
   unverified:
     "bg-foreground/[0.04] border-foreground/20 text-foreground/70",
   removed:
@@ -15,10 +20,7 @@ const stampFor: Record<VendorPublicStatus, string> = {
 };
 
 // Override display labels for the registry-tone language.
-const stampLabel: Partial<Record<VendorPublicStatus, string>> = {
-  verified: "Verified Sourcing",
-  unverified: "No Records on File",
-};
+const stampLabel: Partial<Record<VendorPublicStatus, string>> = {};
 
 // Accept either the new VendorPublicStatus or the legacy strings, so existing
 // callers (e.g., older verified-vendor data) continue to render.
