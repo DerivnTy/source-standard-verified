@@ -161,13 +161,16 @@ const StatusDefinitions = () => {
           Status labels provide a standardized public language for understanding the current state of a sourcing record without requiring users to review underlying documentation.
         </p>
         <p>
-          Each status has a defined public meaning and a defined limit. A status indicates the current documentation review state. It does not imply clinical recommendation, vendor approval, product approval, or regulatory endorsement.
+          The core distinction is participation. <strong>Source Standard Verified</strong> means a clinic has voluntarily completed the verification process and Source Standard has reviewed evidence supporting defined sourcing claims. <strong>Not Source Standard Verified</strong> means the clinic has not completed that process, and Source Standard is making no determination about its sourcing or quality.
+        </p>
+        <p>
+          Verification is voluntary, and fees cover the evaluation process only. Payment never guarantees a favorable outcome, a Verified status, or Greenlist designation.
         </p>
       </ArticleSection>
 
-      <ArticleSection variant="prose" title="Vendor statuses">
+      <ArticleSection variant="prose" title="Clinic statuses">
         <p>
-          Public statuses applied to vendors within the Source Standard registry. Each status has a public meaning, a limitation, and a defined path for assignment or revision.
+          Public statuses applied to clinics within the Source Standard directory. Only clinics that have entered the verification program can carry Under Review, Active, Suspended, Expired, or Removed. A clinic that has never participated is always Not Source Standard Verified, and nothing more is implied.
         </p>
         <div
           className="mt-4"
