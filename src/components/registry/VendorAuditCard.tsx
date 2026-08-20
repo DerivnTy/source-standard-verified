@@ -96,11 +96,11 @@ export const VendorAuditCard = ({
         <span
           aria-hidden
           className={`h-1.5 w-1.5 rounded-full ${
-            vendor.status === "verified"
+            vendor.status === "verified" || vendor.status === "active"
               ? "bg-verified live-dot"
               : vendor.status === "under-review"
               ? "bg-amber-500"
-              : "bg-red-400"
+              : "bg-muted-foreground/40"
           }`}
         />
         <h3
@@ -120,14 +120,10 @@ export const VendorAuditCard = ({
           {location}
         </span>
         <span
-          className="font-mono leading-none uppercase"
+          className="font-mono leading-none uppercase whitespace-nowrap"
           style={{ fontSize: "10px", letterSpacing: "0.08em", color: "#64748B" }}
         >
-          {vendor.status === "verified"
-            ? "Verified"
-            : vendor.status === "under-review"
-            ? "Pending"
-            : "Unverified"}
+          {VENDOR_STATUS_LABEL_SHORT[vendor.status]}
         </span>
       </Link>
     );
