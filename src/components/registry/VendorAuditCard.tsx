@@ -77,13 +77,10 @@ export const VendorAuditCard = ({
       ? vendor.clinicalFocus.join(" · ")
       : vendor.category;
   const vendorId = buildVendorId(vendor);
-  const isUnverified =
-    vendor.status === "unverified" ||
-    vendor.status === "suspended" ||
-    vendor.status === "removed";
+  const isUnverified = false;
 
-  // Paper-thin surgical-red whisper, suggests warning, not error.
-  const unverifiedWash = "#FFF9F9";
+  // Neutral surface, non-participation is never visually flagged.
+  const unverifiedWash = "transparent";
 
   if (view === "list") {
     return (
