@@ -193,23 +193,22 @@ const HowToReadTheDirectory = () => {
         {sectionRow(
           "§4",
           "Clarification",
-          "What “Unverified” does and does not mean.",
+          "What “Not Source Standard Verified” does and does not mean.",
           <div className="space-y-3 text-muted-foreground">
             <p>
-              <span className="text-foreground">Unverified</span> means that Source Standard
-              verification is not currently published for the vendor. This may be because the
-              vendor has not entered the verification process, or because a previously
-              published verification is no longer current.
+              <span className="text-foreground">Not Source Standard Verified</span> means the
+              clinic has not completed Source Standard's independent sourcing verification
+              process.
             </p>
             <p>
-              It does <span className="text-foreground">not</span> by itself indicate that the
-              vendor is unsafe, noncompliant, or illegitimate. Many lawful and well-operated
-              vendors may carry an Unverified status simply because they have not been
-              reviewed under this framework.
+              It does <span className="text-foreground">not</span> indicate that Source
+              Standard has evaluated or reached a conclusion regarding the clinic's sourcing,
+              product quality, or safety. It is not a failed verification. Many lawful and
+              well-operated clinics have simply never entered the process, which is voluntary.
             </p>
             <p>
-              Consumers should treat Unverified as the absence of a Source Standard signal,
-              not the presence of a negative one.
+              Read it as the absence of a Source Standard signal, not the presence of a
+              negative one.
             </p>
           </div>,
         )}
