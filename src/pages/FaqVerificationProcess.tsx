@@ -5,7 +5,7 @@ import { FaqPage } from "@/components/library/FaqPage";
 const ITEMS = [
   {
     q: "What does Verified mean?",
-    a: "Verified means Source Standard reviewed evidence supporting a vendor's stated sourcing claims and assigned status within the framework.",
+    a: "Source Standard Verified means the clinic voluntarily completed our verification process and Source Standard reviewed evidence supporting defined sourcing claims within a stated scope.",
   },
   {
     q: "Does Verified mean the vendor is the best option?",
@@ -21,7 +21,7 @@ const ITEMS = [
   },
   {
     q: "Are all vendors in the registry Verified?",
-    a: "No. The registry includes multiple status categories, including Verified, Unverified, Under Review, Suspended, and Removed.",
+    a: "No. Most clinics are Not Source Standard Verified, meaning they have not completed the voluntary process. That is not a finding about their sourcing or quality.",
   },
 ];
 

@@ -66,7 +66,7 @@ const groups: { title: string; items: QA[] }[] = [
       },
       {
         q: "What public statuses exist?",
-        a: "Vendors carry one of five statuses: Verified, Under Review, Unverified, Suspended, or Removed. Facilities carry one of three: Monitoring, Greenlisted, or Status Alert. Each is defined on the Status Definitions page.",
+        a: "Clinics are either Source Standard Verified or Not Source Standard Verified. Clinics that have entered the program may also show Under Review, Active, Suspended, Expired, or Removed. Facilities carry Monitoring, Greenlisted, or Status Alert. Each is defined on the Status Definitions page.",
         to: "/status-definitions",
         toLabel: "Status Definitions",
       },
