@@ -562,9 +562,14 @@ const VendorProfile = () => {
       Exclude<VendorPublicStatus, "verified">,
       { label: string; color: string }
     > = {
-      unverified: { label: "UNVERIFIED", color: "#FF3B30" },
+      unverified: {
+        label: "NOT SOURCE STANDARD VERIFIED",
+        color: "hsl(var(--muted-foreground))",
+      },
       "under-review": { label: "UNDER REVIEW", color: "#FF9500" },
+      active: { label: "ACTIVE", color: "hsl(var(--verified))" },
       suspended: { label: "SUSPENDED", color: "hsl(var(--muted-foreground))" },
+      expired: { label: "EXPIRED", color: "hsl(var(--muted-foreground))" },
       removed: { label: "REMOVED", color: "hsl(var(--muted-foreground))" },
     };
     const { label, color } = FALLBACK[status];
