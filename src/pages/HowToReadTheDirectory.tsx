@@ -8,9 +8,11 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 
 const STATUS_ORDER: VendorPublicStatus[] = [
   "verified",
-  "under-review",
   "unverified",
+  "under-review",
+  "active",
   "suspended",
+  "expired",
   "removed",
 ];
 
@@ -20,43 +22,59 @@ const statusLong: Record<
 > = {
   verified: {
     meaning:
-      "A documented Source Standard review has been completed and published for this vendor.",
+      "This clinic has voluntarily completed Source Standard's independent sourcing verification process.",
     tells:
-      "Records, licensing, and sourcing documentation were reviewed and found consistent with public claims within the listed scope at the time of publication.",
+      "Source Standard reviewed evidence supporting defined sourcing claims within a stated scope, recorded under a public Review ID.",
     notImply:
-      "Does not imply endorsement of clinical outcomes, individual prescriptions, or product safety guarantees.",
-  },
-  "under-review": {
-    meaning:
-      "An active Source Standard review is in progress for this vendor.",
-    tells:
-      "The record has formally entered the review pipeline and documentation is being examined.",
-    notImply:
-      "Does not imply any conclusion about the vendor's records or sourcing.",
+      "Does not imply endorsement, product approval, clinical recommendation, or a guarantee of safety.",
   },
   unverified: {
     meaning:
-      "No Source Standard verification is currently published for this vendor.",
+      "This clinic has not completed Source Standard's independent sourcing verification process.",
     tells:
-      "Either the vendor has not entered the verification process, or a previously published verification is no longer current.",
+      "The clinic is listed in the directory as a public record. No Source Standard verification exists for it.",
     notImply:
-      "Does not by itself indicate that the vendor is unsafe, noncompliant, or illegitimate.",
+      "Does not indicate that Source Standard has evaluated or reached a conclusion regarding the clinic's sourcing, product quality, or safety. It is not a failed verification.",
+  },
+  "under-review": {
+    meaning:
+      "This clinic has applied and its submission is currently under review.",
+    tells:
+      "The record has formally entered the review pipeline and documentation is being examined.",
+    notImply:
+      "Does not imply any conclusion, positive or adverse, about the clinic.",
+  },
+  active: {
+    meaning:
+      "Verification for this clinic is current and in good standing within the reviewed scope.",
+    tells:
+      "The clinic completed verification and its record remains current as of the listed review date.",
+    notImply:
+      "Does not imply endorsement, product approval, or a guarantee of safety.",
   },
   suspended: {
     meaning:
-      "A previously published verification has been temporarily withdrawn while a matter is being clarified.",
+      "A previously issued verification is temporarily withdrawn while a specific matter is clarified.",
     tells:
-      "New information has paused the public verification while additional review takes place.",
+      "New information paused the published verification while additional review takes place.",
     notImply:
-      "Does not constitute a final adverse finding against the vendor.",
+      "Does not constitute a final adverse finding or a determination about sourcing or product quality.",
+  },
+  expired: {
+    meaning:
+      "A previously issued verification has lapsed and has not been renewed.",
+    tells:
+      "The verification period ended without a completed renewal review.",
+    notImply:
+      "Lapse alone does not indicate any change in the clinic's sourcing, product quality, or safety.",
   },
   removed: {
     meaning:
-      "The record has been removed from the public registry.",
+      "The record has been withdrawn from active verification within the framework.",
     tells:
-      "Either the vendor was withdrawn at request, or removal was warranted under the framework.",
+      "Either the clinic was withdrawn at request, or removal was warranted under the framework.",
     notImply:
-      "Reasons for removal are not always disclosed publicly.",
+      "Does not constitute a regulatory finding or an adjudication of wrongdoing.",
   },
 };
 
