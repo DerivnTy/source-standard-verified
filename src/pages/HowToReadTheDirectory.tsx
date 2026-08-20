@@ -266,9 +266,10 @@ const HowToReadTheDirectory = () => {
               evaluation of a vendor's services, or independent due diligence by a consumer.
             </p>
             <p>
-              Verified does not guarantee outcomes. Unverified does not condemn. Under Review
-              does not prejudge. Status should be read in combination with the linked review
-              record (when present) and the vendor's own disclosures.
+              Source Standard Verified does not guarantee outcomes. Not Source Standard
+              Verified does not condemn. Under Review does not prejudge. Status should be
+              read in combination with the linked review record (when present) and the
+              clinic's own disclosures.
             </p>
           </div>,
         )}
