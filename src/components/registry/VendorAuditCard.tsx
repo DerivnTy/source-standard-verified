@@ -8,10 +8,11 @@ import {
 
 /**
  * Audit Status Label, clean, consumer-facing.
- * Verified → green check + "Verified". Otherwise → muted status word.
+ * Verified → green check + "Source Standard Verified".
+ * Non-participants → neutral "Not Source Standard Verified", never alarmist.
  */
 const AuditStatusLabel = ({ status }: { status: Vendor["status"] }) => {
-  const isVerified = status === "verified";
+  const isVerified = status === "verified" || status === "active";
   const isPending = status === "under-review";
 
   const tone = isVerified
@@ -20,11 +21,7 @@ const AuditStatusLabel = ({ status }: { status: Vendor["status"] }) => {
     ? "text-amber-600"
     : "text-muted-foreground";
 
-  const word = isVerified
-    ? "Verified"
-    : isPending
-    ? "Pending"
-    : VENDOR_STATUS_LABEL[status];
+  const word = VENDOR_STATUS_LABEL[status];
 
   return (
     <span
