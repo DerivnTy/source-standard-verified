@@ -43,7 +43,7 @@ const NotFound = () => {
                 textWrap: "balance",
               }}
             >
-              The page you requested isn't part of the public registry. It may have been moved, retired, or never existed.
+              This address is not a published Source Standard page. It may have been moved, retired, or never existed.
             </p>
             <Link
               to="/"

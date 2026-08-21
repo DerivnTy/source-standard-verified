@@ -32,7 +32,7 @@ export const PageMeta = ({
   /** One or more schema.org JSON-LD objects. */
   jsonLd?: JsonLd | JsonLd[];
 }) => {
-  const fullTitle = `${title} | Source Standard · The Clinical Transparency Framework`;
+  const fullTitle = /source standard/i.test(title) ? title : `${title} · Source Standard`;
   const canonical = absoluteUrl(path);
   const ogImage = image ? absoluteUrl(image) : `${SITE_URL}/placeholder.svg`;
   const ldArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];

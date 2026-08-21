@@ -64,11 +64,6 @@ export const RegistryHeader = ({
               </h1>
               {statusLine ? (
                 <div className="mt-3 inline-flex items-center" style={{ gap: "12px" }}>
-                  <span
-                    aria-hidden
-                    className="rounded-full bg-[#22C55E] animate-pulse"
-                    style={{ height: "6px", width: "6px" }}
-                  />
                   <span className="ss-eyebrow !text-white/70">
                     {statusLine}
                   </span>
@@ -89,26 +84,14 @@ export const RegistryHeader = ({
             </div>
 
             {!hideRecordPill && (
-              <div className="shrink-0 text-center md:pt-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/15 rounded-full bg-white/5 backdrop-blur-sm">
-                  <span
-                    aria-hidden
-                    className="inline-flex items-center justify-center shrink-0"
-                    style={{ height: "0.75em", width: "0.375rem", transform: "translateY(0.5px)" }}
-                  >
-                    <span
-                      className="h-1.5 w-1.5 rounded-full live-dot live-dot--cadence-2"
-                      style={{ backgroundColor: "#FF3B30", display: "inline-block" }}
-                    />
-                  </span>
-                  <span className="t-utility-xs text-white/70">
-                    Live ·{" "}
-                    <span className="text-white tabular-nums">{updated}</span>
-                    <span className="mx-1.5 text-white/30">·</span>
-                    <span className="text-white tabular-nums">{recordCount}</span>{" "}
-                    records
-                  </span>
-                </div>
+              <div className="shrink-0 text-left md:text-right md:pt-2">
+                <p className="t-utility-xs text-white/70">
+                  <span className="text-white tabular-nums">{recordCount}</span>{" "}
+                  indexed records
+                </p>
+                <p className="t-meta text-white/50" style={{ marginTop: "4px" }}>
+                  Updated {updated}
+                </p>
               </div>
             )}
           </div>

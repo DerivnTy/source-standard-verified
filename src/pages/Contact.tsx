@@ -26,19 +26,19 @@ const Contact = () => {
     <>
       <PageMeta
         title="Contact"
-        description="Reach Source Standard for verification inquiries, partnership questions, or general correspondence."
+        description="Reach Source Standard for verification inquiries, record questions, or general correspondence."
       />
       <Breadcrumb
         items={[
-          { label: "Vendors", to: "/for-vendors" },
+          { label: "About", to: "/about" },
           { label: "Contact" },
         ]}
       />
 
       <UtilityHeader
-        eyebrow="Get in touch"
-        title="Reach Source Standard"
-        description="For verification inquiries, partnership questions, or general correspondence."
+        eyebrow="Correspondence"
+        title="Contact Source Standard"
+        description="For verification inquiries, record questions, or general correspondence."
       />
 
       <section className="bg-background">
@@ -53,7 +53,7 @@ const Contact = () => {
                   {[
                     { l: "General", v: "contact@sourcestandard.org" },
                     { l: "Vendor Verification", v: "verification@sourcestandard.org" },
-                    { l: "Press & Partnerships", v: "press@sourcestandard.org" },
+                    { l: "Press", v: "press@sourcestandard.org" },
                   ].map((c) => (
                     <div key={c.l} className="px-5 py-3.5">
                       <p className="meta-label text-foreground">{c.l}</p>
@@ -91,7 +91,7 @@ const Contact = () => {
                     <Label htmlFor="topic" className="meta-label text-foreground">Topic</Label>
                     <Input
                       id="topic"
-                      placeholder="Verification, partnership, press"
+                      placeholder="Verification, records, press"
                       className="h-10 focus-visible:ring-primary/30"
                     />
                   </div>

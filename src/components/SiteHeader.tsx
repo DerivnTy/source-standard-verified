@@ -68,7 +68,7 @@ export const SiteHeader = () => {
         style={{ height: "63px", paddingLeft: "24px", paddingRight: "24px" }}
       >
         <Logo />
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 h-full">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-5 h-full flex-wrap justify-end">
           {nav.map((n) => (
             <NavLink
               key={n.to}
@@ -77,7 +77,7 @@ export const SiteHeader = () => {
               className={({ isActive }) =>
                 `relative inline-flex items-center h-10 t-nav transition-colors ${
                   isActive
-                    ? "text-foreground font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
+                    ? "text-foreground after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-px after:bg-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`
               }
@@ -87,12 +87,7 @@ export const SiteHeader = () => {
           ))}
         </nav>
         <div className="hidden lg:flex items-center">
-          <Button
-            asChild
-            variant="outline"
-            size="sm"
-            className="h-9 px-4 rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
-          >
+          <Button asChild variant="outline" size="sm">
             <Link to={PRIMARY_CTA.path}>{PRIMARY_CTA.label}</Link>
           </Button>
 

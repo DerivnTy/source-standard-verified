@@ -1,184 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth in-page anchor jumps; padding accounts for sticky header + DocJumpBar */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 144px;
+  scroll-padding-top: 72px;
 }
 
-/* Source Standard, institutional verification authority.
-   Calmer typography: Inter for prose/UI, Plex Mono for technical IDs only.
-   Authority through clarity, not stylization.
+/*
+  Source Standard design system.
+  Institutional, scientific, restrained. Authority through hierarchy,
+  density, and plain type. Not Soft-Tech, not SaaS, not wellness.
 */
 
 @layer base {
   :root {
-    /* Pass 4, System Gray floor (#F2F2F7) with pure white cards on top.
-       Background = 240 23% 97% in HSL ≈ #F2F2F7 (Apple System Gray 6). */
-    --background: 240 23% 97%;
-    --foreground: 222 14% 12%;
+    --background: 210 16% 97%;
+    --foreground: 222 40% 10%;
 
-    /* Cards / inputs / popovers stay pure white #FFFFFF for the layered Apple look. */
     --surface: 0 0% 100%;
-    --surface-muted: 240 20% 98%;
-    --surface-sunken: 240 23% 95%;
+    --surface-muted: 210 16% 95%;
+    --surface-sunken: 210 14% 93%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 222 40% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 222 40% 10%;
 
-    /* Hero Navy, primary interactive accent (matches --navy-surface) */
     --primary: 222 47% 11%;
-    --primary-foreground: 40 30% 96%;
+    --primary-foreground: 40 20% 96%;
     --primary-hover: 222 40% 16%;
-    --accent-soft: 222 35% 94%;
-    --cream: 40 30% 96%;
+    --accent-soft: 214 22% 93%;
+    --cream: 40 20% 96%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 210 16% 94%;
+    --secondary-foreground: 222 40% 10%;
 
-    --muted: 210 40% 96%;
-    /* Pass 5, System Gray (#8E8E93) for metadata / Geist Mono text */
-    --muted-foreground: 240 2% 57%;
+    --muted: 210 16% 94%;
+    --muted-foreground: 215 12% 34%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 210 16% 94%;
+    --accent-foreground: 222 40% 10%;
 
-    /* Pass 5, Interactive System Blue (#007AFF) for non-primary links / active */
-    --interactive: 211 100% 50%;
+    --interactive: 215 28% 32%;
     --interactive-foreground: 0 0% 100%;
 
-    /* Pass 5, Surgical System Green (#34C759) for status dots / thin strokes only */
-    --verified: 145 63% 49%;
+    --verified: 152 28% 32%;
     --verified-foreground: 0 0% 100%;
-    --verified-soft: 145 50% 95%;
+    --verified-soft: 152 20% 94%;
 
-    /* Under Review, frosted blue, calm and in-process */
-    --under-review: 210 55% 42%;
-    --under-review-soft: 210 50% 96%;
+    --under-review: 210 28% 36%;
+    --under-review-soft: 210 24% 94%;
 
-    /* Suspended, restrained orange, distinct from destructive red */
-    --suspended: 28 70% 42%;
-    --suspended-soft: 30 70% 95%;
+    --suspended: 28 40% 36%;
+    --suspended-soft: 30 36% 94%;
 
-    /* Unverified, soft, faded institutional red (not alarmist) */
-    --unverified: 0 50% 45%;
-    --unverified-soft: 0 55% 96%;
+    --unverified: 0 28% 38%;
+    --unverified-soft: 0 24% 95%;
 
-    /* Legacy pending kept for any non-status callers; mirrors under-review */
-    --pending: 210 55% 42%;
-    --pending-soft: 210 50% 96%;
+    --pending: 210 28% 36%;
+    --pending-soft: 210 24% 94%;
 
-    --destructive: 0 60% 38%;
+    --destructive: 0 48% 36%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Pass 2, Hairline border standard. #E5E5EA in HSL = 240 6% 91%. */
-    --border: 240 6% 91%;
-    --border-strong: 240 6% 82%;
-    --input: 240 6% 91%;
+    --border: 214 14% 86%;
+    --border-strong: 214 12% 74%;
+    --input: 214 14% 86%;
     --ring: 222 47% 11%;
 
-    /* Pass 2, Soft-Tech radius. 20px uniform for cards/containers/pills. */
-    --radius: 1.25rem;
+    --radius: 0.125rem;
 
-    /* Pass 2, Drop shadows removed. Depth comes from hairlines + blur. */
     --shadow-sm: 0 0 0 0 transparent;
     --shadow-md: 0 0 0 0 transparent;
     --shadow-lg: 0 0 0 0 transparent;
 
-    /* Greenlist source-type accents, muted, professional */
-    --src-503b: 152 32% 32%;
-    --src-503b-soft: 152 28% 94%;
-    --src-503a: 35 48% 38%;
-    --src-503a-soft: 38 55% 94%;
-    --src-other: 215 18% 42%;
-    --src-other-soft: 215 18% 94%;
-    --src-unverified: 0 55% 38%;
-    --src-unverified-soft: 0 60% 95%;
+    --src-503b: 152 24% 30%;
+    --src-503b-soft: 152 18% 94%;
+    --src-503a: 32 28% 36%;
+    --src-503a-soft: 36 28% 94%;
+    --src-other: 215 12% 38%;
+    --src-other-soft: 215 12% 94%;
+    --src-unverified: 0 32% 36%;
+    --src-unverified-soft: 0 28% 95%;
 
-    /* Facility record status tokens */
-    --greenlisted: 145 63% 40%;
-    --greenlisted-soft: 145 55% 94%;
-    --monitoring: 38 92% 45%;
-    --monitoring-soft: 38 100% 96%;
-    --alert: 0 74% 50%;
-    --alert-soft: 0 90% 96%;
+    --greenlisted: 152 28% 32%;
+    --greenlisted-soft: 152 20% 94%;
+    --monitoring: 36 40% 38%;
+    --monitoring-soft: 36 40% 95%;
+    --alert: 0 48% 40%;
+    --alert-soft: 0 40% 95%;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-foreground: 222 20% 24%;
+    --sidebar-primary: 222 47% 11%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 16% 95%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 14% 86%;
+    --sidebar-ring: 222 47% 11%;
 
-    /* Sovereign navy plaque (home hero) */
     --navy-surface: 222 47% 11%;
-    --navy-surface-2: 222 40% 16%;
+    --navy-surface-2: 222 40% 15%;
   }
 
   .dark {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 96%;
-    --surface: 222 40% 9%;
-    --surface-muted: 222 36% 11%;
-    --surface-sunken: 222 36% 13%;
-    --card: 222 40% 9%;
-    --card-foreground: 210 40% 96%;
-    --popover: 222 40% 9%;
-    --popover-foreground: 210 40% 96%;
-    --primary: 222 47% 11%;
-    --primary-foreground: 40 30% 96%;
-    --primary-hover: 222 40% 22%;
-    --accent-soft: 222 30% 18%;
-    --cream: 40 30% 96%;
-    --secondary: 215 22% 14%;
+    --background: 222 40% 7%;
+    --foreground: 210 20% 96%;
+    --surface: 222 36% 10%;
+    --surface-muted: 222 32% 12%;
+    --surface-sunken: 222 32% 14%;
+    --card: 222 36% 10%;
+    --card-foreground: 210 20% 96%;
+    --popover: 222 36% 10%;
+    --popover-foreground: 210 20% 96%;
+    --primary: 210 20% 96%;
+    --primary-foreground: 222 47% 11%;
+    --primary-hover: 210 16% 88%;
+    --accent-soft: 222 24% 16%;
+    --cream: 40 20% 96%;
+    --secondary: 215 18% 14%;
     --secondary-foreground: 0 0% 96%;
-    --muted: 215 22% 14%;
-    --muted-foreground: 215 12% 64%;
-    --accent: 215 22% 14%;
+    --muted: 215 18% 14%;
+    --muted-foreground: 215 10% 70%;
+    --accent: 215 18% 14%;
     --accent-foreground: 0 0% 96%;
-    --verified: 152 38% 58%;
+    --verified: 152 28% 52%;
     --verified-foreground: 215 28% 9%;
-    --verified-soft: 152 22% 16%;
-    --under-review: 210 55% 65%;
-    --under-review-soft: 210 30% 16%;
-    --suspended: 28 70% 60%;
-    --suspended-soft: 28 30% 16%;
-    --unverified: 0 55% 65%;
-    --unverified-soft: 0 30% 16%;
-    --pending: 210 55% 65%;
-    --pending-soft: 210 30% 16%;
-    --destructive: 0 55% 50%;
+    --verified-soft: 152 18% 16%;
+    --under-review: 210 32% 62%;
+    --under-review-soft: 210 24% 16%;
+    --suspended: 28 40% 58%;
+    --suspended-soft: 28 24% 16%;
+    --unverified: 0 36% 62%;
+    --unverified-soft: 0 24% 16%;
+    --pending: 210 32% 62%;
+    --pending-soft: 210 24% 16%;
+    --destructive: 0 48% 50%;
     --destructive-foreground: 0 0% 96%;
-    --border: 215 18% 22%;
-    --border-strong: 215 18% 32%;
-    --input: 215 18% 22%;
-    --ring: 222 47% 11%;
-
-    --src-503b: 152 35% 60%;
-    --src-503b-soft: 152 25% 16%;
-    --src-503a: 35 55% 60%;
-    --src-503a-soft: 35 25% 16%;
-    --src-other: 215 14% 64%;
-    --src-other-soft: 215 18% 18%;
-    --src-unverified: 0 65% 65%;
-    --src-unverified-soft: 0 35% 16%;
-
-    /* Facility record status tokens (dark) */
-    --greenlisted: 145 50% 55%;
-    --greenlisted-soft: 145 30% 16%;
-    --monitoring: 38 85% 60%;
-    --monitoring-soft: 38 30% 16%;
-    --alert: 0 65% 62%;
-    --alert-soft: 0 30% 16%;
+    --border: 215 14% 22%;
+    --border-strong: 215 14% 32%;
+    --input: 215 14% 22%;
+    --ring: 210 20% 80%;
   }
 }
 
@@ -194,12 +160,12 @@ html {
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 15px;
-    line-height: 1.6;
-    letter-spacing: -0.01em !important;
-    color: #0A0A0A;
+    @apply bg-background text-foreground;
+    font-family: "Inter", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    letter-spacing: -0.011em;
+    color: hsl(var(--foreground));
   }
 
   button,
@@ -211,658 +177,343 @@ html {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-weight: 700;
-    letter-spacing: -0.02em !important;
-    color: #0A0A0A;
+    color: hsl(var(--foreground));
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
-  h1 { line-height: 1.08; }
-  h2 { line-height: 1.15; }
+  h1 { line-height: 1.15; }
+  h2 { line-height: 1.2; }
   h3 { line-height: 1.3; }
   h4 { line-height: 1.35; }
 
-  p { line-height: 1.6; }
-}
+  p { line-height: 1.65; }
 
-@layer components {
-  /* ── Legacy heading aliases ────────────────────────────────────────
-     These class names are preserved for backward compatibility but now
-     redirect to the canonical t-* tokens. Any straggler markup snaps
-     into the locked sitewide spec automatically. New code MUST use
-     t-page-title / t-section-title-sm / t-h3 / t-h4 directly. */
-  .display-1     { @apply t-page-title; }
-  .display-2     { @apply t-page-title; }
-  .title-page    { @apply t-page-title; }
-  .title-doc     { @apply t-page-title; }
-  .title-record  { @apply t-page-title; }
-  .h-section     { @apply t-section-title-sm; }
-  .section-heading { @apply t-section-title-sm; }
-  .h-sub         { @apply t-h3; }
-  .h-card        { @apply t-h4; }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
 
-  /* Helper text, table cells, identity rows, field helper text. */
-  .text-helper {
-    @apply text-[11px] leading-[1.55];
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 }
 
-/* ============================================================
-   Sitewide Design System, canonical tokens
-   Build pages from these classes. Do not invent new sizes.
-   ------------------------------------------------------------
-   CANONICAL ROLE → TOKEN MAP (apply sitewide; no exceptions)
-     H1 hero / page / chapter / article title  → .t-page-title
-                                                 (or .t-home-title on / only)
-     H2 major section title                    → .t-section-title-sm
-     H3 card / profile / registry title        → .t-h3
-     H3 compact (list rows, sub-cards)         → .t-h4
-     Section intro / hero lead                 → .t-section-intro / .t-hero-lead
-     Body default                              → .t-body-md
-     Body compact (cards, dense rows)          → .t-body-sm
-     Body emphasized                           → .t-body-strong
-     Long-form article / FAQ / library copy    → .t-article-body / .prose-article
-     Form labels                               → .t-label-sm
-     Eyebrow above section title               → .t-eyebrow-sm
-     Status / tags / IDs / section numbers     → .t-utility-xs
-     Dates / metadata / supporting info        → .t-meta / .ss-card-meta
-     Navigation labels                         → .t-nav
-     Footer link rows                          → .t-body-sm
-     Footer column titles + legal              → .t-utility-xs / .t-meta
-     Button label (default / sm)               → .t-label-sm / .t-utility-xs
-     Modal/dialog title                        → .t-h4
-     Modal/dialog description                  → .t-body-sm
-   ------------------------------------------------------------
-   DO NOT (in pages or components):
-     • Use text-[Npx] arbitrary sizes
-     • Use raw Tailwind sizes (text-xs/sm/base/lg/xl/2xl/3xl…)
-       for visible app text, use a t-* token
-     • Stack font-semibold / font-bold on top of a t-* token
-       (tokens already set weight)
-     • Set inline style fontSize / fontWeight / lineHeight /
-       letterSpacing on visible app text
-   Visual consistency wins: if a component uses the right token
-   but still looks off, adjust the component until it matches
-   the platform standard.
-   ------------------------------------------------------------
-   TYPE TOKENS
-     .t-utility-xs         12 / 16, 0.16em, 500, uppercase
-     .t-eyebrow-sm         13 / 18, 0.14em, 500, uppercase
-     .t-label-sm           14 / 20, 0.08em, 500
-     .t-body-sm            16 / 26, 400
-     .t-body-md            18 / 30, 400      (default body)
-     .t-body-lg            19 / 32, 400      (long-form articles)
-     .t-body-strong        18 / 30, 500
-     .t-section-title-sm   28 / 36, 600
-     .t-section-title-md   32 / 40, 600
-     .t-page-title         48 / 56, 600
-     .t-chapter-title      56 / 64, 600
-     .t-home-title         72 / 80, 600      (homepage only)
-     .t-article-title      48 / 56, 600
-     .t-h3                 24 / 32, 600
-     .t-h4                 20 / 28, 600
-   WIDTH TOKENS
-     .w-page-shell         1440px
-     .w-standard           1120px
-     .w-wide               1240px
-     .w-reading            760px
-     .w-reading-wide       820px
-     .w-hero               720px
-     .w-two-col            520px
-   ============================================================ */
 @layer components {
+  .display-1,
+  .display-2,
+  .title-page,
+  .title-doc,
+  .title-record { @apply t-page-title; }
+  .h-section,
+  .section-heading { @apply t-section-title-sm; }
+  .h-sub { @apply t-h3; }
+  .h-card { @apply t-h4; }
+
+  .text-helper {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
   .container-tight {
-    @apply mx-auto w-full max-w-6xl px-6 md:px-10;
+    @apply mx-auto w-full max-w-6xl px-5 md:px-8;
   }
 
   .container-narrow {
-    @apply mx-auto w-full max-w-3xl px-6 md:px-10;
+    @apply mx-auto w-full max-w-3xl px-5 md:px-8;
   }
 
   .container-wide {
-    @apply mx-auto w-full max-w-[1200px] xl:max-w-[1320px] px-5 md:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-[1120px] px-5 md:px-8 lg:px-10;
   }
 
-
-  /* New canonical page shell, preferred over container-wide for new work. */
   .page-shell {
-    @apply mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-[1120px] px-5 md:px-8 lg:px-10;
   }
 
-  /* Width tokens, apply to inner content blocks. */
-  .w-page-shell    { max-width: 1440px; }
-  .w-standard      { max-width: 1120px; }
-  .w-wide          { max-width: 1240px; }
-  .w-reading       { max-width: 760px;  }
-  .w-reading-wide  { max-width: 820px;  }
-  .w-hero          { max-width: 720px;  }
-  .w-two-col       { max-width: 520px;  }
-  @media (min-width: 1024px) {
-    .w-reading-wide { max-width: 1120px; }
-    .w-hero         { max-width: 1120px; }
+  .w-page-shell   { max-width: 1120px; }
+  .w-standard     { max-width: 1120px; }
+  .w-wide         { max-width: 1120px; }
+  .w-reading      { max-width: 680px; }
+  .w-reading-wide { max-width: 720px; }
+  .w-hero         { max-width: 640px; }
+  .w-two-col      { max-width: 520px; }
+
+  .font-sans {
+    font-family: "Inter", "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+    letter-spacing: -0.011em;
   }
-  @media (min-width: 1280px) {
-    .w-reading-wide { max-width: 1200px; }
-    .w-hero         { max-width: 1200px; }
+  .font-serif {
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+  }
+  .font-mono {
+    font-family: "IBM Plex Mono", "SF Mono", Menlo, ui-monospace, monospace;
+    letter-spacing: 0.02em;
   }
 
-  /* ────────────────────────────────────────────────────────────
-     GLOBAL TYPOGRAPHY SYSTEM (10 types, applied sitewide).
-     Mobile-first values per spec. Headings/eyebrows scale up modestly
-     at md+ but never break the institutional hierarchy.
-     ──────────────────────────────────────────────────────────── */
-  .font-sans  { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important; letter-spacing: -0.01em !important; }
-  .font-serif { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
-  .font-mono  { font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important; letter-spacing: 0.04em !important; }
-
-  /* TYPE 01, Primary Hero Titles */
+  /* Page / article titles. Editorial, not display advertising. */
   .t-page-title,
   .t-chapter-title,
   .t-home-title,
   .t-article-title,
   .ss-hero-title {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 40px !important;
-    line-height: 1.1 !important;
-    letter-spacing: -0.03em !important;
-    font-weight: 700 !important;
-    color: #0A0A0A;
-    max-width: 18ch;
-  }
-  @media (min-width: 768px) {
-    .t-page-title,
-    .t-chapter-title,
-    .t-home-title,
-    .t-article-title,
-    .ss-hero-title {
-      font-size: 56px !important;
-      letter-spacing: -0.035em !important;
-      max-width: 20ch;
-    }
-  }
-  @media (min-width: 1024px) {
-    .t-page-title,
-    .t-chapter-title,
-    .t-home-title,
-    .t-article-title,
-    .ss-hero-title {
-      font-size: 68px !important;
-    }
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    max-width: 22ch;
   }
 
-  /* TYPE 02, Hero Description */
-  .ss-lead.t-hero-lead {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 16px;
+  .ss-lead,
+  .t-hero-lead,
+  .t-section-intro {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.0625rem;
     line-height: 1.6;
-    letter-spacing: -0.01em !important;
     font-weight: 400;
-    color: rgba(0, 0, 0, 0.60);
-    max-width: 36ch;
-    margin-top: 16px;
-  }
-  @media (min-width: 768px) {
-    .ss-lead.t-hero-lead { font-size: 18px !important; max-width: 38ch; }
+    color: hsl(var(--muted-foreground));
+    max-width: 62ch;
   }
 
-  /* TYPE 03, Section Labels / Eyebrows */
-  .t-eyebrow-sm.t-utility-xs.t-micro.t-label-sm.ss-eyebrow {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 11px;
-    line-height: 1.2;
-    letter-spacing: 0.12em !important;
+  .t-eyebrow-sm,
+  .t-utility-xs,
+  .t-micro,
+  .t-label-sm,
+  .ss-eyebrow,
+  .eyebrow,
+  .eyebrow-muted {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
     font-weight: 500;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.45);
+    color: hsl(var(--muted-foreground));
   }
 
-  /* TYPE 04, Major Section Titles */
-  .t-section-title-sm.t-section-title-md.ss-section-title {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 24px !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.02em !important;
-    font-weight: 700 !important;
-    color: #0A0A0A;
-    margin-top: 12px;
-  }
-  @media (min-width: 768px) {
-    .t-section-title-sm.t-section-title-md.ss-section-title {
-      font-size: 30px !important;
-    }
-  }
-
-  /* TYPE 05, Section Intro Copy */
-  .t-section-intro.t-body-lg {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 15px;
-    line-height: 1.7;
-    letter-spacing: -0.005em !important;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.60);
-    max-width: 40ch;
-  }
-
-  /* TYPE 06, Card Titles */
-  .t-h3.t-h4.ss-card-title {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 16px;
-    line-height: 1.3;
-    letter-spacing: -0.01em !important;
+  .t-section-title-sm,
+  .t-section-title-md,
+  .ss-section-title {
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+    line-height: 1.25;
+    letter-spacing: -0.018em;
     font-weight: 600;
-    color: #111111;
+    color: hsl(var(--foreground));
   }
 
-  /* TYPE 07, Card Body Copy (dominant reading size) */
-  .t-body-md.t-body-sm.t-body-strong.ss-body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 14px;
-    line-height: 1.75;
-    letter-spacing: -0.005em !important;
+  .t-h3,
+  .ss-card-title {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+
+  .t-h4 {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+
+  .t-body-md,
+  .t-body-sm,
+  .ss-body {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    letter-spacing: -0.011em;
     font-weight: 400;
-    color: rgba(0, 0, 0, 0.62);
-  }
-  .t-body-strong { font-weight: 600 !important; color: #111111; }
-
-  /* TYPE 08, Article Body Text (publications, library, FAQ) */
-  .t-article-body.prose-article p.prose-article li {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 16px;
-    line-height: 1.85;
-    letter-spacing: -0.005em !important;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.72);
-    max-width: 72ch;
+    color: hsl(var(--foreground));
   }
 
-  /* ── Article-scoped editorial typography (news / education / FAQ) ──
-     Overrides the shared .t-page-title mobile scale and defines the
-     editorial standfirst + prose paragraph rhythm. */
-  .t-article-title.t-article-title {
-    font-size: 34px !important;
-    line-height: 1.12 !important;
-    letter-spacing: -0.03em !important;
-    max-width: 20ch;
+  .t-body-lg {
+    font-size: 1.0625rem;
+    line-height: 1.65;
   }
-  @media (min-width: 768px) {
-    .t-article-title.t-article-title {
-      font-size: 56px !important;
-      line-height: 1.08 !important;
-      letter-spacing: -0.035em !important;
-    }
+
+  .t-body-strong {
+    font-weight: 600;
+    color: hsl(var(--foreground));
   }
-  @media (min-width: 1024px) {
-    .t-article-title.t-article-title { font-size: 64px !important; }
+
+  .t-article-body,
+  .prose-article,
+  .t-article-prose {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: hsl(var(--foreground));
+    max-width: 68ch;
   }
+
+  .t-article-prose > p { margin: 0; }
+  .t-article-prose > p + p { margin-top: 1.1em; }
 
   .t-article-standfirst {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-    letter-spacing: -0.005em;
-    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.55;
     color: hsl(var(--muted-foreground));
     max-width: 68ch;
   }
 
-  .t-article-prose {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-    font-size: 16px;
-    line-height: 1.65;
-    letter-spacing: -0.005em;
-    font-weight: 400;
-    color: hsl(var(--foreground));
-    max-width: 68ch;
-  }
-  .t-article-prose > p { margin: 0; }
-  .t-article-prose > p + p { margin-top: 1.1em; }
-
-  /* TYPE 09, Metadata */
-  .t-meta.t-meta-note.t-nav.ss-card-meta {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
-    font-size: 10px;
-    line-height: 1.4;
-    letter-spacing: 0.08em !important;
+  .t-meta,
+  .t-meta-note,
+  .ss-card-meta {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    letter-spacing: 0.04em;
     font-weight: 500;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.42);
+    color: hsl(var(--muted-foreground));
   }
-  .t-nav { text-transform: none; letter-spacing: -0.005em !important; font-size: 12px !important; }
 
-  /* TYPE 10, Numerical System (IBM Plex Mono) */
-  .t-numeric.t-button {
-    font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important;
-    font-size: 11px;
-    line-height: 1.2;
-    letter-spacing: 0.04em !important;
+  .t-nav {
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
     font-weight: 500;
-    color: rgba(0, 0, 0, 0.40);
-  }
-  .t-button { text-transform: uppercase; color: inherit; font-size: 10px !important; }
-
-  /* ── Legacy lead-card chrome (kept for layout, types inherit from above) ── */
-  .ss-lead-card {
-    background: hsl(var(--card));
-    border: 0.5px solid hsl(var(--border));
-    border-radius: 12px;
-    padding: 8px 18px 12px;
-    margin-top: 16px;
-  }
-  .ss-lead-card > .ss-lead.ss-lead-card > p {
-    margin-top: 0;
+    text-transform: none;
   }
 
-  /* Section vertical rhythm (sitewide constitution).
-     Two-tier model that mirrors the Home page cadence:
-       1. First content section after the hero keeps the original generous
-          top padding (hero → first card breathing room).
-       2. Every subsequent section uses the Home page tight rhythm so the
-          page does not develop dead zones between later blocks.
-     Tokens:
-       section-pad, top/bottom of standard sections
-       section-gap, gap between adjacent sections in same page
-       hero-gap   , gap from hero to first body section */
-  .section-pad   { padding-top: 40px; padding-bottom: 32px; }
-  .section-gap   { margin-top: 32px; }
-  .hero-gap      { margin-top: 56px; }
+  .t-numeric,
+  .t-button {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  .section-pad { padding-top: 2.25rem; padding-bottom: 2.25rem; }
+  .section-gap { margin-top: 1.75rem; }
+  .hero-gap    { margin-top: 2rem; }
+
   @media (min-width: 768px) {
-    .section-pad { padding-top: 48px; padding-bottom: 36px; }
-    .section-gap { margin-top: 44px; }
-    .hero-gap    { margin-top: 64px; }
-  }
-  @media (min-width: 1024px) {
-    .section-pad { padding-top: 36px; padding-bottom: 28px; }
-    .section-gap { margin-top: 40px; }
-    .hero-gap    { margin-top: 40px; }
-    /* Desktop unified content boundary, every major section (standard
-       long-form, registry/index surfaces, hero content blocks) shares the
-       same max-width so the page reads as one aligned institutional
-       document rather than alternating wide/narrow bands. */
-    .w-standard  { max-width: 1240px; }
-    .w-wide      { max-width: 1240px; }
-  }
-  @media (min-width: 1280px) {
-    .section-pad { padding-top: 44px; padding-bottom: 32px; }
-    /* XL viewports (1280+) breathe a little more, still institutional. */
-    .w-standard  { max-width: 1280px; }
-    .w-wide      { max-width: 1280px; }
+    .section-pad { padding-top: 2.75rem; padding-bottom: 2.5rem; }
+    .section-gap { margin-top: 2rem; }
+    .hero-gap    { margin-top: 2.25rem; }
   }
 
-
-  /* Tighten the gap between consecutive content sections (post-hero rhythm).
-     Matches the Home page where Section 01 → 02 → 03 sit on the same
-     compact cadence rather than the larger hero→first-card spacing. */
-  section + section > .section-pad,
-  section + section .page-shell.section-pad.section-pad + .section-pad {
-    padding-top: 24px;
-  }
-  @media (min-width: 768px) {
-    section + section > .section-pad,
-    section + section .page-shell.section-pad.section-pad + .section-pad {
-      padding-top: 32px;
-    }
-  }
-  @media (min-width: 1024px) {
-    section + section > .section-pad,
-    section + section .page-shell.section-pad.section-pad + .section-pad {
-      padding-top: 28px;
-    }
+  section + section > .section-pad {
+    padding-top: 1.75rem;
   }
 
-  /* ─── Hard-Stop protocol (sitewide) ───
-     The final content section before the <footer> locks its
-     padding-bottom to match the Home page terminal rhythm so every
-     page ends with the same cadence. Kept tight on desktop so the
-     footer sits directly under content, no artificial gap above. */
-  section:has(+ footer).section-pad:has(+ footer),
-  *:has(> footer) > section:last-of-type,
-  *:has(> footer) > .section-pad:last-of-type {
-    padding-bottom: 20px !important;
-  }
-  @media (min-width: 1024px) {
-    section:has(+ footer).section-pad:has(+ footer),
-    *:has(> footer) > section:last-of-type,
-    *:has(> footer) > .section-pad:last-of-type {
-      padding-bottom: 24px !important;
-    }
-  }
-  /* Article pages use a lightweight ArticleFooter, neutralize the
-     Hard-Stop bottom padding so the final article card sits tight
-     to the divider/back-link rhythm. */
-  section:has(+ footer.article-footer) {
-    padding-bottom: 0 !important;
-  }
-  footer { margin-top: 0 !important; }
+  footer { margin-top: 0; }
 
-  /* ─── Final typography refinement (sitewide) ───
-     Body breathes at 1.6. Heading tracking is owned by base layer (-0.022em). */
-  p { line-height: 1.6; }
-
-  @media (max-width: 767px) {
-    section p.section-pad p {
-      max-width: 48ch;
-      padding-right: 10%;
-    }
-  }
-
-  /* ─── Section heading rhythm protocol (locked, sitewide) ───
-     Mono index number → H2  :  8px
-     H2 → intro paragraph    : 14px   (only when H2 is followed directly by a <p>)
-     H2 → first card / stack : 20px   (any non-paragraph content)
-     Enforced with !important so per-page mt-* utilities cannot
-     drift the rhythm. Applies inside any <section> or .section-pad block. */
-  .section-pad h2 + *,
-  section h2 + * { margin-top: 20px !important; }
-  /* Intro-paragraph case: H2 immediately followed by a paragraph element.
-     Scoped specifically to <p> so card stacks, row stacks, CTA blocks, and
-     section modules continue to use the 20px rule above. */
-  .section-pad h2 + p,
-  section h2 + p { margin-top: 14px !important; }
-  /* When an H2 directly follows the mono index utility line, lock to 8px. */
-  .section-pad .t-utility-xs + h2,
-  section .t-utility-xs + h2.section-pad .font-mono + h2,
-  section .font-mono + h2 { margin-top: 8px !important; }
-
-  .prose-readable {
-    max-width: 65ch;
-  }
-
-  /* Unified eyebrow, aliased to canonical t-eyebrow-sm. Legacy callers
-     now inherit the locked 13/18 spec automatically. */
-  .eyebrow        { @apply t-eyebrow-sm text-muted-foreground; }
-  .eyebrow-muted  { @apply t-eyebrow-sm text-muted-foreground; }
+  .prose-readable { max-width: 65ch; }
 
   .link-accent {
-    @apply text-primary hover:text-primary-hover underline-offset-4;
-    text-decoration-color: hsl(var(--primary) / 0.3);
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: hsl(var(--primary) / 0.35);
   }
   .link-accent:hover {
     text-decoration-color: hsl(var(--primary));
   }
 
-  /* Descriptive metadata, sentence case, no caps. Use .meta-mono for technical IDs. */
-  .meta {
-    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    @apply text-[10px] font-normal tracking-[0.02em] text-muted-foreground/90;
-  }
-
-  .meta-label {
-    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    @apply text-[10px] font-normal tracking-[0.02em] text-muted-foreground/90;
-  }
-
-  /* Technical identifiers, doc IDs, version strings, status codes.
-     Aligned to the t-utility-xs spec but retains the mono face. */
+  .meta,
+  .meta-label,
   .meta-mono {
-    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    @apply t-utility-xs tabular-nums text-muted-foreground;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    color: hsl(var(--muted-foreground));
   }
 
-  .rule {
-    @apply h-px w-full bg-border;
-  }
+  .rule { @apply h-px w-full bg-border; }
+  .hairline { @apply border-b border-border; }
 
-  .hairline {
-    @apply border-b border-border;
-  }
-
-  /* Vertical rhythm, single 3-step ladder used across the site.
-     section-band        → premium ~100px+ band, primary rhythm
-     space-section       → major sections on anchor pages
-     space-section-doc   → sections on doc / policy pages
-     space-section-tight → helper bands, status legends, scope notes,
-                            cite-as strips, form sections */
-  .section-band {
-    @apply py-24 md:py-28 lg:py-32;
-  }
-  .space-section {
-    @apply py-20 md:py-28;
-  }
-  .space-section-doc {
-    @apply py-16 md:py-20;
-  }
-  .space-section-tight {
-    @apply py-12 md:py-16;
-  }
-
-  /* Legacy aliases, keep old class names working until callers migrate. */
+  .section-band,
+  .space-section,
   .section {
-    @apply py-20 md:py-28;
-  }
-  .section-tight {
     @apply py-12 md:py-16;
   }
+  .space-section-doc,
+  .space-section-tight,
+  .section-tight {
+    @apply py-8 md:py-12;
+  }
 
-  /* Trust list, replaces bullet markers with the SourceCheck glyph
-     for the institutional list pattern. Wrap each <li> with
-     <SourceCheck/> manually for full control. */
   .trust-list {
     @apply list-none pl-0 space-y-2.5;
   }
-  .trust-list > li {
-    @apply flex items-start gap-3 text-[12px] leading-[1.6] text-foreground;
-  }
 
-  /* Elevated card chrome, institutional depth without Material flatness. */
   .card-elevated {
-    @apply bg-surface border border-border/60 rounded-xl shadow-sm transition-all duration-200;
-  }
-  .card-elevated:hover {
-    @apply shadow-md border-border-strong/50 -translate-y-0.5;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 2px;
   }
 
-  /* Soft surface band, replacement for flat gray separators. */
   .surface-band {
-    background-color: hsl(var(--surface-sunken) / 0.6);
+    background-color: hsl(var(--surface-sunken));
   }
 
-  /* Cream text on navy plates (badges/chips opting into bg-primary outside Button). */
   .on-navy { color: hsl(var(--cream)); }
-}
 
-@layer components {
-  /* Filing prose, institutional body. Generous line-height for premium feel.
-     Inline links pick up Safety Blue with subtle underline. */
-  .prose-filing p.prose-filing li {
-    font-size: 14px;
-    line-height: 1.75;
+  .prose-filing p,
+  .prose-filing li {
+    font-size: 0.9375rem;
+    line-height: 1.7;
   }
-  .prose-filing p {
-    @apply text-foreground;
-    margin-block: 1.1em;
-  }
+  .prose-filing p { margin-block: 1em; }
   .prose-filing p:first-child { margin-top: 0; }
   .prose-filing p:last-child { margin-bottom: 0; }
   .prose-filing a {
-    @apply text-primary underline-offset-4;
-    text-decoration-line: underline;
-    text-decoration-color: hsl(var(--primary) / 0.4);
-    transition: text-decoration-color 0.15s ease;
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
-  .prose-filing a:hover {
-    text-decoration-color: hsl(var(--primary));
-  }
-  .prose-filing strong.prose-filing b {
-    @apply text-foreground font-semibold;
+
+  .ss-lead-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 2px;
+    padding: 12px 16px;
+    margin-top: 16px;
   }
 }
 
-/* ============= Print stylesheet, institutional PDF export ============= */
 @media print {
   .no-print,
   nav[aria-label="Breadcrumb"],
   footer { display: none !important; }
   body { background: #fff !important; color: #000 !important; }
-  .container-wide.container-narrow { max-width: 100% !important; padding: 0 1.5rem !important; }
-  section { break-inside: avoid; page-break-inside: avoid; }
-  a { color: #000 !important; text-decoration: underline; }
 }
 
-/* ============================================================
-   Global Typography Utility Mapping
-   Maps Tailwind text-* utilities to the 10-type institutional scale.
-   Lets ad-hoc page markup inherit the system without page rewrites.
-   ------------------------------------------------------------ */
 @layer utilities {
-  /* Tailwind preset sizes → institutional scale */
-  .text-xs   { font-size: 10px !important; line-height: 1.2 !important; letter-spacing: 0.12em !important; }
-  .text-sm   { font-size: 11px !important; line-height: 1.5 !important; letter-spacing: -0.005em !important; }
-  .text-base { font-size: 15px !important; line-height: 1.75 !important; letter-spacing: -0.005em !important; }
-  .text-lg   { font-size: 16px !important; line-height: 1.6 !important; letter-spacing: -0.005em !important; }
-  .text-xl   { font-size: 18px !important; line-height: 1.3 !important; letter-spacing: -0.01em !important; }
-  .text-2xl  { font-size: 22px !important; line-height: 1.25 !important; letter-spacing: -0.015em !important; }
-  .text-3xl  { font-size: 26px !important; line-height: 1.15 !important; letter-spacing: -0.02em !important; }
-  .text-4xl  { font-size: 32px !important; line-height: 1.12 !important; letter-spacing: -0.025em !important; }
-  .text-5xl  { font-size: 42px !important; line-height: 1.08 !important; letter-spacing: -0.03em !important; }
-  .text-6xl  { font-size: 54px !important; line-height: 1.06 !important; letter-spacing: -0.032em !important; }
-
-  /* Mono utility, IBM Plex Mono per TYPE 10 */
-  .font-mono { font-family: 'IBM Plex Mono', 'SF Mono', Menlo, ui-monospace, monospace !important; letter-spacing: 0.04em !important; }
-
-  /* Serif utility, preserved for any editorial accents */
-  .font-serif { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif !important; }
-}
-
-/* ============================================================
-   Pass 2, Soft-Tech Geometry Override
-   • Uniform 20px radius for cards / containers / pills / inputs.
-   • 0.5px hairline borders (#E5E5EA).
-   • All drop shadows neutralized, depth = hairline + blur only.
-   • Pills (rounded-full) preserved as true pills.
-   ------------------------------------------------------------ */
-@layer utilities {
-  /* Snap small/medium radii up to the 20px Soft-Tech standard. */
-  .rounded.rounded-sm.rounded-md.rounded-lg.rounded-xl.rounded-2xl.rounded-3xl.rounded-\[4px\].rounded-\[6px\].rounded-\[8px\].rounded-\[10px\].rounded-\[12px\].rounded-\[14px\].rounded-\[16px\].rounded-\[18px\] {
-    border-radius: 20px !important;
+  .font-mono {
+    font-family: "IBM Plex Mono", "SF Mono", Menlo, ui-monospace, monospace;
+    letter-spacing: 0.02em;
   }
-
-  /* Hairline border standard, 0.5px, muted #E5E5EA. */
-  .border.border-t.border-r.border-b.border-l.border-x.border-y {
-    border-color: #E5E5EA !important;
+  .font-serif {
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
   }
-  .border    { border-width: 0.5px !important; }
-  .border-t  { border-top-width: 0.5px !important; }
-  .border-r  { border-right-width: 0.5px !important; }
-  .border-b  { border-bottom-width: 0.5px !important; }
-  .border-l  { border-left-width: 0.5px !important; }
-  .border-x  { border-left-width: 0.5px !important; border-right-width: 0.5px !important; }
-  .border-y  { border-top-width: 0.5px !important; border-bottom-width: 0.5px !important; }
-
-  /* Kill drop shadows globally, keep ring-* (focus rings) intact. */
-  .shadow-sm.shadow.shadow-md.shadow-lg.shadow-xl.shadow-2xl.shadow-inner { box-shadow: none !important; }
 }
 
-/* Inputs and form controls inherit Soft-Tech geometry. */
-input, select, textarea, button {
-  border-radius: 20px;
+input,
+select,
+textarea,
+button {
+  border-radius: 2px;
 }
-/* Preserve true pill shapes (rounded-full) and icon-only square buttons handled separately. */
+
 .rounded-full { border-radius: 9999px !important; }
 
-/* Strip native search-input chrome site-wide: removes the clear (X) button,
-   the native search decoration, and the iOS focus/tap highlight line so
-   search fields render as plain text inputs. */
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-results-button,
@@ -870,335 +521,82 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
   appearance: none;
 }
+
 input[type="search"] {
   -webkit-appearance: none;
   appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  background-image: none;
-  caret-color: currentColor;
-}
-input[type="search"]:focus,
-input[type="search"]:focus-visible {
-  outline: none;
-  box-shadow: none;
 }
 
-/* ============================================================
-   Pass 3, Motion, Transitions & Interactive Physics
-   • iOS Spring curve: cubic-bezier(0.4, 0, 0.2, 1) @ 400ms.
-   • Tactile active:scale(0.97) for all interactive elements.
-   • Hover = subtle background value shift only (desktop).
-   • Glass nav unfold preserved via custom keyframes.
-   ------------------------------------------------------------ */
-:root {
-  --ease-ios: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-ios: 400ms;
-  --dur-ios-fast: 250ms;
-  --dur-ios-slow: 350ms;
-}
-
-@layer utilities {
-  /* iOS spring applied ONLY to elements that already declare a transition
-     via Tailwind utilities. We do NOT touch `*` because that forces a
-     transition on every property change (including initial mount), which
-     can leave components stuck mid-animation and render the page blank. */
-  .transition.transition-all.transition-colors.transition-opacity.transition-transform.transition-shadow {
-    transition-timing-function: var(--ease-ios) !important;
-    transition-duration: var(--dur-ios) !important;
-  }
-}
-
-/* Tactile feedback, universal active:scale on interactive surfaces.
-   Excludes form fields (no scale on text inputs / selects / textareas). */
-button,
-a,
-[role="button"],
-[role="link"],
-[role="tab"],
-[role="option"],
-[role="menuitem"].pill.chip,
-[data-pill],
-[data-chip] {
-  transition:
-    transform var(--dur-ios) var(--ease-ios),
-    background-color var(--dur-ios) var(--ease-ios),
-    border-color var(--dur-ios) var(--ease-ios),
-    color var(--dur-ios) var(--ease-ios),
-    opacity var(--dur-ios) var(--ease-ios) !important;
-  transform-origin: center;
-  will-change: transform;
-}
-
-button:active,
-a:active,
-[role="button"]:active,
-[role="link"]:active,
-[role="tab"]:active,
-[role="option"]:active,
-[role="menuitem"]:active.pill:active.chip:active,
-[data-pill]:active,
-[data-chip]:active {
-  transform: scale(0.97) !important;
-  transition-duration: 120ms !important;
-}
-
-/* Desktop-only hover, subtle background value shift, never dramatic. */
-@media (hover: hover) and (pointer: fine) {
-  button:hover:not(:disabled),
-  a:hover,
-  [role="button"]:hover,
-  [role="menuitem"]:hover,
-  [role="option"]:hover {
-    transition-duration: var(--dur-ios-fast) !important;
-  }
-}
-
-/* ─── Cross-Fade Morph keyframes ─── */
-@keyframes ios-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes ios-fade-out {
-  from { opacity: 1; }
-  to   { opacity: 0; }
-}
-@keyframes ios-return {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes ios-unfold {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.ios-fade-in   { animation: ios-fade-in var(--dur-ios) var(--ease-ios) both; }
-.ios-fade-out  { animation: ios-fade-out var(--dur-ios) var(--ease-ios) both; }
-.ios-return    { animation: ios-return var(--dur-ios-slow) var(--ease-ios) both; }
-.ios-unfold    { animation: ios-unfold var(--dur-ios-slow) var(--ease-ios) both; }
-
-/* Glass-Unfold for nav menus, slide-down + fade with sustained blur. */
-.ios-glass-unfold {
-  animation: ios-unfold var(--dur-ios-slow) var(--ease-ios) both;
-  backdrop-filter: blur(40px) saturate(160%);
-  -webkit-backdrop-filter: blur(40px) saturate(160%);
-}
-
-/* Reduce-motion respect. */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  button:active, a:active, [role="button"]:active { transform: none !important; }
 }
 
-/* ============================================================
-   Pass 4, Surface, Lighting & Glassmorphism
-   • Glass headers + nav: backdrop-blur(20px), 0.85 translucent.
-   • Hairline definition: 1px borders, no shadows (Pass 2 already cleared).
-   • System Gray floor (#F2F2F7) with pure white cards (token shift above).
-   • Thin-stroke iconography: Lucide SVG strokes snapped to 1.25px.
-   ------------------------------------------------------------ */
-
-/* Glass surface utility, apply to sticky headers, nav bars, popovers. */
 .glass-surface {
-  background-color: hsl(0 0% 100% / 0.85) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid hsl(0 0% 0% / 0.06);
-}
-.glass-surface-navy {
-  background-color: hsl(var(--navy-surface) / 0.85) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid hsl(0 0% 100% / 0.10);
+  background-color: #ffffff;
+  border-bottom: 1px solid hsl(var(--border));
 }
 
-/* Pass 5, Force every sticky header on the site into NAVY glass mode.
-   Translucent navy (rgba(2,6,23,0.85)) with 40px blur + faint white hairline. */
 header.sticky,
 header[class*="sticky"] {
-  background-color: hsl(222 47% 5% / 0.85) !important;
-  backdrop-filter: blur(40px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
-  border-bottom: 1px solid hsl(0 0% 100% / 0.10) !important;
-  color: hsl(0 0% 100%) !important;
-}
-header.sticky a,
-header.sticky button,
-header[class*="sticky"] a,
-header[class*="sticky"] button {
-  color: inherit;
-}
-
-/* Card surface, pure white over the system-gray floor. */
-.card,
-[class*="bg-card"],
-[class*="bg-surface"]:not([class*="bg-surface-sunken"]):not([class*="bg-surface-muted"]) {
   background-color: #ffffff !important;
+  color: hsl(var(--foreground)) !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  backdrop-filter: none !important;
 }
 
-/* Pass 5, Hairline 0.5px on cards, color #E5E5EA. */
-.card,
-[class*="bg-card"] {
-  border: 0.5px solid #E5E5EA !important;
+.live-dot { animation: none; }
+
+.intake-form input:not([type="checkbox"]):not([type="radio"]),
+.intake-form textarea,
+.intake-form select {
+  background: #ffffff;
+  border: 1px solid hsl(var(--border-strong));
+  border-radius: 2px;
 }
 
-/* Pass 5, Thin-stroke icons. Lucide ships at 2; snap to 1.5 (fine-tip pen). */
-svg {
-  stroke-width: 1.5;
-}
-svg[data-keep-stroke],
-svg.keep-stroke {
-  stroke-width: inherit;
+.intake-form input:focus,
+.intake-form textarea:focus,
+.intake-form select:focus {
+  border-color: hsl(var(--primary));
+  outline: 2px solid hsl(var(--ring) / 0.2);
 }
 
-/* Pass 5, Mechanical feedback: pills darken 5% instantly on press
-   (combines with scale(0.97) from Pass 3). */
-.pill:active.chip:active,
-[data-pill]:active,
-[data-chip]:active,
-button[class*="rounded-full"]:active {
-  filter: brightness(0.95) !important;
-  transition-duration: 0ms !important;
-}
-
-/* Kill any lingering loud gradients on body / page wrappers, System Gray floor wins. */
-body {
-  background: hsl(var(--background)) !important;
-}
-
-/* Hide the page-level scrollbar on mobile/tablet viewports.
-   The page still scrolls; only the visual track/thumb/arrows are suppressed.
-   Desktop keeps the native scrollbar for usability. */
-@media (max-width: 1023px) {
-  html,
-  body {
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* IE/Edge legacy */
-  }
-  html::-webkit-scrollbar,
-  body::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-    display: none;                /* WebKit (Safari/Chrome) */
-  }
-}
-
-/* Source Standard, live status dot pulse (registry green dots only). */
-@keyframes source-standard-live-pulse {
-  0%, 100% {
-    opacity: 0.45;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.12);
-  }
-}
-.live-dot {
-  animation-name: source-standard-live-pulse;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-duration: 2.8s;
-  transform-origin: center;
-  will-change: opacity, transform;
-}
-.live-dot--cadence-1 { animation-duration: 2.6s;  animation-delay: 0s; }
-.live-dot--cadence-2 { animation-duration: 3.1s;  animation-delay: 0.35s; }
-.live-dot--cadence-3 { animation-duration: 2.85s; animation-delay: 0.7s; }
-.live-dot--cadence-4 { animation-duration: 3.35s; animation-delay: 1.05s; }
-@media (prefers-reduced-motion: reduce) {
-  .live-dot {
-    animation: none;
-  }
-}
-
-/* Vendor Intake form, formal document feel */
-.intake-form input:not([type="checkbox"]):not([type="radio"]).intake-form textarea.intake-form select.intake-form [role="combobox"].intake-form button[role="combobox"].intake-form input[type="file"] {
-  background: #ffffff !important;
-  border: 1px solid rgba(0, 16, 33, 0.28) !important;
-  box-shadow: none !important;
-}
-.intake-form input:not([type="checkbox"]):not([type="radio"]):focus.intake-form input:not([type="checkbox"]):not([type="radio"]):focus-visible.intake-form textarea:focus.intake-form textarea:focus-visible.intake-form select:focus.intake-form select:focus-visible.intake-form [role="combobox"]:focus.intake-form [role="combobox"]:focus-visible.intake-form button[role="combobox"]:focus.intake-form button[role="combobox"]:focus-visible.intake-form input[type="file"]:focus.intake-form input[type="file"]:focus-visible {
-  border: 1px solid #001021 !important;
-  box-shadow: 0 0 0 2px rgba(0, 16, 33, 0.08) !important;
-  outline: none !important;
-}
-.intake-form fieldset + fieldset {
-  margin-top: 40px !important;
-  border-top: 1px solid rgba(0, 16, 33, 0.12) !important;
-  padding-top: 16px !important;
-}
-.intake-form fieldset > legend + div.intake-form fieldset > legend + p {
-  margin-top: 6px !important;
-}
-.intake-form input::placeholder.intake-form textarea::placeholder {
-  color: rgba(0, 16, 33, 0.42) !important;
-  opacity: 1;
-}
-.intake-form button[role="checkbox"] {
-  border-color: rgba(0, 16, 33, 0.55) !important;
-  border-width: 1.5px !important;
-}
-.intake-form button[role="checkbox"]:hover {
-  border-color: rgba(0, 16, 33, 0.85) !important;
-}
-
-
-/* ============================================================
-   iOS auto-zoom prevention.
-   Touch browsers (Safari, Instagram/Facebook in-app) zoom the page
-   when a focused form control renders below 16px. Force 16px on
-   coarse-pointer devices only; desktop keeps its compact sizing.
-   Visual size is preserved by scaling the text back down with a
-   transform-free approach: 16px base + tighter line-height so the
-   control heights (h-9 etc.) stay identical.
-   ============================================================ */
 @media (max-width: 1023px), (pointer: coarse) {
   input,
   select,
-  textarea,
-  input[type="search"],
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="number"],
-  input[type="password"] {
+  textarea {
     font-size: 16px !important;
-    line-height: 1.2 !important;
   }
 }
 
-/* No native search chrome anywhere: no clear (X), no decoration,
-   no tap highlight, no focus ring line. */
-input::-webkit-search-cancel-button,
-input::-webkit-search-decoration,
-input::-webkit-search-results-button,
-input::-webkit-search-results-decoration,
-input::-webkit-textfield-decoration-container {
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  display: none !important;
-}
-input,
-textarea {
-  -webkit-tap-highlight-color: transparent;
-}
-
-
-/* No horizontal drift after focus or overlay transitions. */
 html,
 body {
   overflow-x: hidden;
   max-width: 100%;
 }
 
-/* Hero registry search: taller caret + comfortable text metrics.
-   Caret height follows the line box, so a taller line-height gives a
-   more substantial, better-proportioned blinking cursor. */
 .hero-search-input {
   font-size: 16px !important;
-  line-height: 32px !important;
+  line-height: 1.4 !important;
   caret-color: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 2px !important;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -40px;
+  z-index: 100;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.skip-link:focus {
+  top: 12px;
 }

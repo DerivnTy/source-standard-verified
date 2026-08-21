@@ -23,6 +23,11 @@ import {
   RESULT_VERIFIED_DISCLAIMER,
   RESULT_VERIFIED_LABEL,
 } from "@/data/publicLanguage";
+import {
+  INDEX_VS_VERIFIED,
+  METHODOLOGY_TESTING,
+  WHAT_WE_DO_TODAY,
+} from "@/data/institutionalCopy";
 
 const wrap = (ui: ReactNode) =>
   render(
@@ -53,6 +58,9 @@ describe("locked public language", () => {
     expect(screen.queryByText(/unsupported claims/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Vendor Registry/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/^Unverified$/)).not.toBeInTheDocument();
+    expect(screen.getByText(WHAT_WE_DO_TODAY)).toBeInTheDocument();
+    expect(screen.getByText(INDEX_VS_VERIFIED)).toBeInTheDocument();
+    expect(screen.getByText(METHODOLOGY_TESTING)).toBeInTheDocument();
   });
 
   it("renders How Verification Works as apply-then-review, not index-then-review", () => {
@@ -63,6 +71,8 @@ describe("locked public language", () => {
     }
     expect(screen.getByText(HOW_IT_WORKS_FACILITY)).toBeInTheDocument();
     expect(screen.getAllByText(HOW_IT_WORKS_SEARCH_PURPOSE).length).toBeGreaterThan(0);
+    expect(screen.getByText(WHAT_WE_DO_TODAY)).toBeInTheDocument();
+    expect(screen.getByText(METHODOLOGY_TESTING)).toBeInTheDocument();
     expect(screen.queryByText(/Vendor enters the registry/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/public information/i)).not.toBeInTheDocument();
   });

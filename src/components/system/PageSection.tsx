@@ -88,12 +88,8 @@ export const PageSection = ({
               )}
               <h2
                 id={id}
-                className="font-sans text-foreground"
+                className="t-section-title-sm text-foreground"
                 style={{
-                  fontSize: "22px",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  fontWeight: 700,
                   margin: 0,
                 }}
               >

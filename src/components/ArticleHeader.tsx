@@ -5,7 +5,7 @@ export type ArticleMetaItem = { label: string; value: ReactNode };
 
 const cardChrome = {
   border: "0.5px solid hsl(var(--border))",
-  borderRadius: "12px",
+  borderRadius: "2px",
   background: "hsl(var(--card))",
 } as const;
 
@@ -45,15 +45,7 @@ export const ArticleHeader = ({
   if (category) {
     return (
       <header className="relative overflow-hidden bg-[hsl(var(--navy-surface))] border-b border-white/10">
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 80% at 50% 40%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
-          }}
-        />
-        <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
+        <HeroPattern opacity={0.015} stroke="white" cellSize={32} />
         <div
           className="relative z-10 page-shell"
           style={{ paddingTop: "clamp(20px, 2.5vh, 32px)", paddingBottom: "24px" }}

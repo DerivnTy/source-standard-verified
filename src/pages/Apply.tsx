@@ -18,10 +18,10 @@ import { toast } from "@/components/ui/sonner";
 
 
 const VENDOR_TYPES = [
-  "In-person vendor",
-  "Telehealth vendor",
-  "Hybrid vendor",
-  "Online vendor",
+  "In-person clinic",
+  "Telehealth clinic",
+  "Hybrid clinic",
+  "Online clinic",
   "Pharmacy / supplier",
   "Other",
 ];
@@ -39,7 +39,7 @@ const ACK_TEXT =
   "I understand this intake does not approve, certify, or verify this organization. Source Standard will confirm eligibility before any review begins. Verified status is only issued after review under the Source Standard framework is completed.";
 
 const SUBTITLE =
-  "Submit your operating profile to begin the Source Standard verification process. This form does not create verified status.";
+  "Submit an operating profile to request Source Standard review. This form does not create verified status.";
 
 type GroupProps = {
   legend: string;
@@ -131,21 +131,21 @@ const Apply = () => {
   return (
     <>
       <PageMeta
-        title="Vendor Verification Intake"
+        title="Apply for Verification"
         description={SUBTITLE}
       />
       <Breadcrumb
         items={[
-          { label: "Vendors", to: "/for-vendors" },
+          { label: "How It Works", to: "/how-it-works" },
           { label: "Apply" },
         ]}
       />
 
       <BriefingHero
         tone="navy"
-        category="Vendor intake"
+        category="Intake"
         docId=""
-        title="Vendor Verification Intake"
+        title="Apply for Verification"
         statement={SUBTITLE}
       />
 
@@ -189,10 +189,10 @@ const Apply = () => {
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
-                          <Label>Vendor type</Label>
+                          <Label>Organization type</Label>
                           <Select value={vendorType} onValueChange={setVendorType}>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select vendor type" />
+                              <SelectValue placeholder="Select organization type" />
                             </SelectTrigger>
                             <SelectContent>
                               {VENDOR_TYPES.map((t) => (

@@ -99,24 +99,18 @@ export const SiteFooter = () => {
             >
               © {now.getFullYear()} Source Standard. All Rights Reserved.
             </p>
-            <div className="flex items-center gap-2">
-              <span
-                aria-hidden
-                className="inline-flex h-1.5 w-1.5 rounded-full animate-pulse"
-                style={{ backgroundColor: "#22C55E" }}
-              />
-              <span
-                className="t-numeric"
-                style={{ color: "rgba(255,255,255,0.50)" }}
-              >
-                System Status: Operational
-              </span>
-            </div>
+            <Link
+              to="/verification-disclaimer"
+              className="t-utility-xs hover:text-white transition-colors"
+              style={{ color: "rgba(255,255,255,0.50)" }}
+            >
+              Verification limits
+            </Link>
           </div>
 
           <p
             className="mt-5 md:mt-6 font-sans"
-            style={{ color: "rgba(255,255,255,0.32)", fontSize: "10px", lineHeight: 1.7, maxWidth: "60ch" }}
+            style={{ color: "rgba(255,255,255,0.48)", fontSize: "12px", lineHeight: 1.65, maxWidth: "68ch" }}
           >
             {HOME_DISCLAIMER}
           </p>

@@ -81,7 +81,7 @@ const VerifiedVendors = () => {
                     className="font-sans w-full text-[14px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
                     style={{
                       height: "52px",
-                      borderRadius: "24px",
+                      borderRadius: "2px",
                       backgroundColor: "#FFFFFF",
                       border: "1px solid hsl(var(--border))",
                       paddingLeft: "44px",
@@ -156,7 +156,7 @@ const VerifiedVendors = () => {
                 className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
-                  borderRadius: "20px",
+                  borderRadius: "2px",
                   backgroundColor: "#FFFFFF",
                   border: "1px solid hsl(var(--border))",
                   paddingLeft: "36px",

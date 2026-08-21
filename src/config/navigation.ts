@@ -20,7 +20,7 @@ export const ROUTES = {
   home: { path: "/", label: "Home" },
   vendors: { path: "/verified-vendors", label: "Search Clinics" },
   facilities: { path: "/greenlist", label: "Facility Records" },
-  howItWorks: { path: "/how-it-works", label: "How Verification Works" },
+  howItWorks: { path: "/how-it-works", label: "How It Works" },
   governance: { path: "/governance", label: "Governance" },
   advisory: { path: "/medical-advisory", label: "Advisory Board" },
   learn: { path: "/learn", label: "Learn" },
@@ -60,7 +60,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Framework",
-    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.statusDefinitions],
+    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.statusDefinitions, ROUTES.disclaimer],
   },
   {
     title: "Learn",

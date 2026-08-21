@@ -52,7 +52,7 @@ const SoftPill = ({
       letterSpacing: "0.06em",
       height: "32px",
       padding: "0 14px",
-      borderRadius: "20px",
+      borderRadius: "2px",
       border: "1px solid hsl(var(--border))",
       backgroundColor: active ? "hsl(var(--foreground))" : "#FFFFFF",
       color: active ? "hsl(var(--background))" : "hsl(var(--foreground) / 0.75)",
@@ -87,7 +87,7 @@ const FilterSelect = ({
         fontWeight: 500,
         letterSpacing: "0.02em",
         height: "36px",
-        borderRadius: "20px",
+        borderRadius: "2px",
         border: "1px solid hsl(var(--border))",
         backgroundColor: "#FFFFFF",
         padding: "0 14px",
@@ -222,7 +222,7 @@ const Greenlist = () => {
   }, [query, stateFilter, facilityType, status]);
 
   const heroDescription =
-    "Search the manufacturers and compounding pharmacies behind your provider's compounded therapies.";
+    "Indexed records for compounding pharmacies, outsourcing facilities, and manufacturers followed by Source Standard. An indexed record is not a Greenlisted designation.";
 
   // Sticky compact bar, appears once the original search scrolls out of view.
   const searchRef = useRef<HTMLDivElement | null>(null);
@@ -247,7 +247,7 @@ const Greenlist = () => {
   return (
     <>
       <PageMeta
-        title="Who Compounds Your Medication? · Facility Records"
+        title="Facility Records"
         description={heroDescription}
         path="/greenlist"
         jsonLd={{
@@ -260,7 +260,7 @@ const Greenlist = () => {
 
       <RegistryHeader
         indexNumber="02"
-        title="Who Compounds Your Medication?"
+        title="Facility Records"
         description={heroDescription}
         recordCount={counts.total}
       />
@@ -292,7 +292,7 @@ const Greenlist = () => {
                     className="font-sans w-full text-[14px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
                     style={{
                       height: "52px",
-                      borderRadius: "24px",
+                      borderRadius: "2px",
                       backgroundColor: "#FFFFFF",
                       border: "1px solid hsl(var(--border))",
                       paddingLeft: "44px",
@@ -310,7 +310,7 @@ const Greenlist = () => {
                   className="bg-white"
                   style={{
                     border: "1px solid hsl(var(--border))",
-                    borderRadius: "16px",
+                    borderRadius: "2px",
                     padding: "12px 14px",
                   }}
                 >
@@ -356,7 +356,7 @@ const Greenlist = () => {
                     fontWeight: 600,
                     letterSpacing: "0.02em",
                     height: "36px",
-                    borderRadius: "20px",
+                    borderRadius: "2px",
                     border: "1px solid hsl(var(--border))",
                     backgroundColor: "#FFFFFF",
                     padding: "0 14px",
@@ -572,7 +572,7 @@ const Greenlist = () => {
                 className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
                 style={{
                   height: "40px",
-                  borderRadius: "20px",
+                  borderRadius: "2px",
                   backgroundColor: "#FFFFFF",
                   border: "1px solid hsl(var(--border))",
                   paddingLeft: "36px",
@@ -589,7 +589,7 @@ const Greenlist = () => {
                 letterSpacing: "0.06em",
                 height: "40px",
                 padding: "0 14px",
-                borderRadius: "20px",
+                borderRadius: "2px",
                 border: "1px solid hsl(var(--border))",
                 backgroundColor: "#FFFFFF",
               }}

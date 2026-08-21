@@ -22,28 +22,28 @@ const GUIDE_META: Record<
   { title: string; lead: string; takeaway: string }
 > = {
   "learn-the-basics": {
-    title: "Learn the Basics",
-    lead: "The starting point for compounded medication. Plain-language answers to what compounding is, what peptides are, and why the pharmacy behind a product matters more than the marketing around it.",
+    title: "Compounded Therapy Basics",
+    lead: "What compounding is, how it differs from an FDA-approved product, and why the preparing pharmacy is the accountable party.",
     takeaway:
-      "Compounded medications are not FDA-approved products. Quality rests on the pharmacy that prepares them, and the pharmacy's name is the single most useful fact about any compounded product.",
+      "Compounded medications are not FDA-approved products. Quality depends on the pharmacy that prepares them. The pharmacy name is the fact that makes the rest of the record checkable.",
   },
   verification: {
-    title: "Verification Guide",
-    lead: "Everything Source Standard's verification covers, in one place. What Verified means, what a review looks like, how Greenlisted status works, and why facility records are the accountable layer.",
+    title: "Verification",
+    lead: "What Source Standard reviews, what Verified and Greenlisted mean, and what a review does not establish.",
     takeaway:
-      "Verification narrows what you have to trust. It documents the pharmacy behind a product against public records — it does not endorse the product itself or replace clinical judgment.",
+      "Verification records what was reviewed, against what requirements, and when. It does not endorse a product or replace clinical judgment.",
   },
   "choosing-a-provider": {
-    title: "Provider Guide",
-    lead: "How to identify a trustworthy provider. The four questions to ask, the specifics they should be able to name, the documentation you should expect, and the warning signs when they can't.",
+    title: "Reviewing a Clinic",
+    lead: "Questions a clinic should be able to answer, the documents to request, and how to read a published Source Standard record.",
     takeaway:
-      "A trustworthy provider names the pharmacy behind your medication, discloses its regulatory category, and produces documentation on request. Vague sourcing language is itself an answer.",
+      "A clinic that can name the preparing pharmacy, its regulatory category, and supporting documents has given you something that can be checked. Vague sourcing language has not.",
   },
   "sourcing-and-manufacturing": {
-    title: "Sourcing Guide",
-    lead: "Where compounded medications actually come from. The regulatory categories (503A and 503B), how sterile compounding differs, how to read a certificate of analysis, and why sourcing is the most useful reference point for any compounded product.",
+    title: "Sourcing and Facilities",
+    lead: "503A and 503B categories, sterile compounding, certificates of analysis, and why facility records sit behind clinic claims.",
     takeaway:
-      "The clinic is usually not the maker. The pharmacy that prepares a compounded medication is the accountable party, and its regulatory category, license, and documentation are the layer worth checking.",
+      "The clinic is usually not the maker. The preparing pharmacy's category, license, and documentation are the layer a sourcing review can address.",
   },
 };
 
@@ -93,7 +93,7 @@ export const LearnGuideTemplate = ({ topicId }: { topicId: EducationTopicId }) =
   return (
     <>
       <PageMeta
-        title={`${meta.title} — Source Standard`}
+        title={meta.title}
         description={meta.lead}
         path={path}
         type="article"
@@ -115,6 +115,13 @@ export const LearnGuideTemplate = ({ topicId }: { topicId: EducationTopicId }) =
           statement={meta.lead}
           docId=""
         />
+        <div className="page-shell" style={{ paddingTop: "16px" }}>
+          <div className="mx-auto w-reading-wide">
+            <p className="t-meta">
+              Source Standard · Updated {articles[0]?.updated ?? "2026-07-10"}
+            </p>
+          </div>
+        </div>
 
         {/* Table of contents — inline on mobile, sticky on desktop */}
         <section

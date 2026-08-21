@@ -81,7 +81,7 @@ const About = () => {
             className="text-muted-foreground"
             style={{ fontSize: "15px", lineHeight: 1.65, margin: 0 }}
           >
-            Source Standard was founded to close that gap. It exists so that patients, providers, and the wider industry have a single independent reference for sourcing transparency — not a marketing surface, and not a substitute for regulation, but a durable public record.
+            Source Standard was founded to close that gap. It exists so that patients, providers, and the wider industry have a single independent reference for sourcing transparency. It is not a marketing surface and not a substitute for regulation.
           </p>
         </div>
       </PageSection>
@@ -148,13 +148,12 @@ const About = () => {
         </p>
       </PageSection>
 
-      {/* 6 — Looking Ahead */}
-      <PageSection id="looking-ahead" compact title="Looking Ahead" bordered={false} pb="0">
+      <PageSection id="looking-ahead" compact title="Scope of the record" bordered={false} pb="0">
         <p
           className="text-muted-foreground"
           style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "68ch", margin: 0 }}
         >
-          The public record will expand as the market does. New vendors will be reviewed, existing records kept current, and the framework refined as sourcing practices evolve. The organization's obligation is not to grow the registry for its own sake, but to keep it accurate, independent, and useful to the public it serves.
+          Records are updated as reviews are completed and as new information is received. The obligation is to keep published records accurate and limited to what the review actually covered, not to grow an index for its own sake.
         </p>
       </PageSection>
     <EditorialBackLink to="/" label="Back to Home" />

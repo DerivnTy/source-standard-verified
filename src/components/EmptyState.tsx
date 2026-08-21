@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
  * EmptyState, institutional zero-result block for registries.
  */
 export const EmptyState = ({
-  eyebrow = "No Verified Entities Found",
-  body = "Source Standard has not yet audited a facility matching these filters.",
-  ctaLabel = "Suggest a Facility for Audit",
-  ctaTo = "/report-a-concern",
+  eyebrow = "No matching records",
+  body = "No facility in this list matches the current filters.",
+  ctaLabel = "Report a concern",
+  ctaTo = "/report-concern",
 }: {
   eyebrow?: string;
   body?: string;

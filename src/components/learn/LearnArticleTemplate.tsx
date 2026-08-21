@@ -86,7 +86,7 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
                 className="font-mono uppercase text-muted-foreground"
                 style={{ fontSize: "10px", letterSpacing: "0.14em" }}
               >
-                {metaParts.join(" · ")}
+                Source Standard · {metaParts.join(" · ")}
               </p>
             </div>
           </div>

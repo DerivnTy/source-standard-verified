@@ -80,15 +80,7 @@ export const BriefingHero = ({
           aria-labelledby="briefing-title"
           className="relative overflow-hidden bg-[hsl(var(--navy-surface))]"
         >
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none z-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 60% at 50% 35%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
-            }}
-          />
-          <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
+          <HeroPattern opacity={0.015} stroke="white" cellSize={32} />
 
           <div
             className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center"
@@ -164,15 +156,7 @@ export const BriefingHero = ({
         aria-labelledby="briefing-title"
         className="relative border-b border-white/10 overflow-hidden bg-[hsl(var(--navy-surface))]"
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 80% at 50% 40%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
-          }}
-        />
-        <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
+        <HeroPattern opacity={0.015} stroke="white" cellSize={32} />
 
         <div
           className="relative z-10 page-shell"

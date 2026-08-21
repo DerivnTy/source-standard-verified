@@ -85,27 +85,27 @@ export const EDUCATION_TOPICS: {
 }[] = [
   {
     id: "learn-the-basics",
-    label: "Learn the Basics",
+    label: "Compounded Therapy Basics",
     description:
-      "Start here. Plain-language answers to the questions people ask first.",
+      "What compounding is, how it differs from FDA-approved products, and why the preparing facility matters.",
   },
   {
     id: "verification",
     label: "Verification",
     description:
-      "What Source Standard reviews, what verification statuses mean, and how a review works.",
+      "What Source Standard reviews, what each status means, and the limits of a review.",
   },
   {
     id: "choosing-a-provider",
-    label: "Choosing a Provider",
+    label: "Reviewing a Clinic",
     description:
-      "What to look for, what to ask, and how to interpret a provider record.",
+      "What to ask a clinic, what documentation to request, and how to read a published record.",
   },
   {
     id: "sourcing-and-manufacturing",
-    label: "Sourcing & Manufacturing",
+    label: "Sourcing and Facilities",
     description:
-      "Where compounded medications come from, who makes them, and why sourcing matters.",
+      "503A and 503B categories, sterile compounding, certificates of analysis, and facility records.",
   },
 ];
 
@@ -752,9 +752,9 @@ export const FAQ_ENTRIES: {
     to: "/library/faq/verification-process",
   },
   {
-    label: "Consumer Diligence",
+    label: "Checking a Clinic",
     description:
-      "Public-facing checks a consumer can make before relying on a vendor's sourcing claim.",
+      "Checks a reader can make before relying on a clinic's sourcing claim.",
     to: "/library/faq/consumer-diligence",
   },
 ];

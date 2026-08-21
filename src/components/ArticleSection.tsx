@@ -5,7 +5,7 @@ export { BoardDefList } from "@/components/BoardSection";
 
 const cardChrome = {
   border: "0.5px solid hsl(var(--border))",
-  borderRadius: "12px",
+  borderRadius: "2px",
   background: "hsl(var(--card))",
 } as const;
 
