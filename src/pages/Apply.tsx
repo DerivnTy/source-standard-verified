@@ -49,7 +49,7 @@ type GroupProps = {
 
 const Group = ({ legend, children, first }: GroupProps) => (
   <fieldset className={first ? "" : "border-t border-border pt-5"}>
-    <legend className="t-body-md font-semibold text-foreground mb-0 pb-0">
+    <legend className="t-body-md font-semibold text-foreground mb-4 pb-0 px-0">
       {legend}
     </legend>
     {children}
