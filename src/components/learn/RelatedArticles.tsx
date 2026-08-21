@@ -25,7 +25,7 @@ export const RelatedArticles = ({
   return (
     <section className="bg-background pt-8 md:pt-10">
       <div className="page-shell">
-        <div className="w-reading-wide">
+        <div className="mx-auto w-reading-wide">
           <header
             className="flex items-baseline justify-between gap-4 border-b border-border/50"
             style={{ paddingBottom: "10px", marginBottom: "20px" }}

@@ -62,7 +62,7 @@ export const RegistryRow = ({
     <Link
       to={to}
       aria-label={ariaLabel ?? name}
-      className="group block px-1 py-4 md:px-2 md:py-3.5 -mx-1 md:-mx-2 transition-colors hover:bg-[hsl(var(--muted))]/40 focus-visible:outline-none focus-visible:bg-[hsl(var(--muted))]/40"
+      className="group block px-2 md:px-3 py-4 md:py-3.5 -mx-2 md:-mx-3 rounded-md transition-colors hover:bg-[hsl(var(--muted))]/40 active:scale-[0.998] focus-visible:outline-none focus-visible:bg-[hsl(var(--muted))]/40"
       style={{ minHeight: "44px" }}
     >
       <div className="flex items-center gap-3">
@@ -96,31 +96,27 @@ export const RegistryRow = ({
             {chipEl && <div className="mt-2">{chipEl}</div>}
           </div>
 
-          {/* DESKTOP: name + meta grouped, status at the trailing edge */}
-          <div className="hidden md:flex md:items-center md:gap-6">
-            <div className="min-w-0 flex-1">
-              <div className="flex min-w-0 items-baseline gap-3">
-                <h3
-                  className="font-sans text-foreground truncate"
-                  style={{
-                    fontSize: "14.5px",
-                    fontWeight: 600,
-                    lineHeight: 1.25,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {name}
-                </h3>
-                {metaLeft && (
-                  <span
-                    className="min-w-0 truncate text-muted-foreground"
-                    style={{ fontSize: "12.5px", lineHeight: 1.35 }}
-                  >
-                    {metaLeft}
-                  </span>
-                )}
-              </div>
-            </div>
+          {/* DESKTOP: single-line ledger */}
+          <div className="hidden md:flex md:items-center md:gap-4">
+            <h3
+              className="font-sans text-foreground truncate min-w-0 flex-1"
+              style={{
+                fontSize: "14.5px",
+                fontWeight: 600,
+                lineHeight: 1.25,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {name}
+            </h3>
+            {metaLeft && (
+              <span
+                className="shrink-0 text-muted-foreground truncate max-w-[38%]"
+                style={{ fontSize: "12.5px", lineHeight: 1.35 }}
+              >
+                {metaLeft}
+              </span>
+            )}
             {metaRight && (
               <span
                 className="shrink-0 font-mono tabular-nums text-muted-foreground"

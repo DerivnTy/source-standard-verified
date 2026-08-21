@@ -21,10 +21,10 @@ export const NavCard = ({
 }) => (
   <Link
     to={to}
-    className={`group flex items-center gap-3 bg-card hover:bg-muted ${className}`}
+    className={`group flex items-center gap-3 bg-card transition-all active:scale-[0.98] hover:bg-muted ${className}`}
     style={{
-      border: "1px solid hsl(var(--border))",
-      borderRadius: "2px",
+      border: "0.5px solid hsl(var(--border))",
+      borderRadius: "12px",
       padding: "14px 16px",
     }}
   >

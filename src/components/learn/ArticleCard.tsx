@@ -25,7 +25,7 @@ export const ArticleCard = ({
     className="group relative flex flex-col bg-card hover:bg-muted/50 transition-colors h-full"
     style={{
       border: "0.5px solid hsl(var(--border))",
-      borderRadius: "2px",
+      borderRadius: "12px",
       padding: "18px 20px",
     }}
   >

@@ -242,7 +242,7 @@ const StatusDefinitions = () => {
         </ul>
       </ArticleSection>
 
-      <EditorialBackLink />
+      <EditorialBackLink to="/about" label="Back to About" />
     </>
   );
 };

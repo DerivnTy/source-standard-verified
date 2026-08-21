@@ -1,6 +1,25 @@
 import { type ReactNode } from "react";
+import { HeroPattern } from "./HeroPattern";
 import type { MetadataItem } from "./MetadataBar";
+import logoLight from "@/assets/source-standard-logo-light.png";
 
+/**
+ * BriefingHero, Tiered first-section system.
+ *
+ * Two-tier hierarchy across the site:
+ *   • variant="cover"   , Homepage only. Full 100svh, larger brand wordmark
+ *                          above the H1, scroll cue, the "book cover".
+ *   • variant="chapter" , All other major pages. ~55vh, tighter rhythm, no
+ *                          scroll cue, no oversized brand mark, a disciplined
+ *                          chapter opening that orients quickly.
+ *
+ * Tone:
+ *   • tone="navy"    , Deep navy surface, white type. Used for both cover
+ *                       (homepage) and chapter (major pages) for brand
+ *                       continuity.
+ *   • tone="default" , White surface, dense two-rail layout when `rightRail`
+ *                       is provided. Always behaves like a "chapter" intro.
+ */
 export interface BriefingHeroProps {
   category: string;
   docId: string;
@@ -12,19 +31,27 @@ export interface BriefingHeroProps {
   rightRail?: ReactNode;
   tone?: "default" | "navy";
   variant?: "cover" | "chapter";
+  /** Large brand/identity word displayed above the H1. Cover variant only. */
   brandMark?: string;
+  /** Optional logo/image rendered above the title. Cover variant only. */
   heroLogo?: ReactNode;
   actions?: ReactNode;
+  /** Optional metrics row rendered between the statement and the actions (cover variant). */
   heroMetrics?: ReactNode;
+  /** Optional metadata strip rendered below the actions (cover variant). */
   heroMeta?: ReactNode;
+  /** Optional eyebrow shown above the chapter title. */
   eyebrow?: string;
+  /** Override chapter hero padding. */
   heroPadding?: { top?: string; bottom?: string };
+  /** Optional className applied to the chapter title. */
   titleClassName?: string;
+  /** Optional className applied to the chapter statement. */
   statementClassName?: string;
-  children?: ReactNode;
 }
 
 export const BriefingHero = ({
+  category,
   title,
   statement,
   rationale,
@@ -40,84 +67,201 @@ export const BriefingHero = ({
   heroPadding,
   titleClassName = "",
   statementClassName = "",
-  children,
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
-  const padTop = heroPadding?.top ?? (isCover ? "72px" : "56px");
-  const padBottom = heroPadding?.bottom ?? (isCover ? "72px" : "56px");
+  const isDense = !isNavy && Boolean(rightRail);
 
-  return (
-    <section
-      aria-labelledby="briefing-title"
-      className={
-        isNavy
-          ? "relative bg-[hsl(var(--navy-surface))]"
-          : "relative border-b border-border bg-background"
-      }
-    >
-      <div
-        className="relative page-shell"
-        style={{ paddingTop: padTop, paddingBottom: padBottom }}
+  if (isNavy) {
+    // ─── COVER (homepage) ───────────────────────────────────────────────
+    if (isCover) {
+      return (
+        <section
+          aria-labelledby="briefing-title"
+          className="relative overflow-hidden bg-[hsl(var(--navy-surface))]"
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 60% at 50% 35%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
+            }}
+          />
+          <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
+
+          <div
+            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center"
+            style={{
+              paddingTop: "clamp(32px, 4.5vh, 52px)",
+              paddingBottom: "clamp(48px, 6vh, 64px)",
+            }}
+          >
+            <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center">
+            {brandMark && <span className="sr-only">{brandMark}</span>}
+            {heroLogo && (
+              <div className="flex justify-center" style={{ marginBottom: "20px" }}>
+                {heroLogo}
+              </div>
+            )}
+
+            {heroMetrics && (
+              <div
+                className="flex justify-start lg:justify-center"
+                style={{ marginTop: "0px" }}
+              >
+                {heroMetrics}
+              </div>
+            )}
+
+            {statement && (
+              <p
+                className="text-white/70 text-left lg:text-center lg:mx-auto"
+                style={{
+                  maxWidth: "560px",
+                  marginTop: "24px",
+                  fontSize: "clamp(18px, 4.2vw, 22px)",
+                  lineHeight: "1.4",
+                  textWrap: "balance",
+                }}
+              >
+                {statement}
+              </p>
+            )}
+
+
+            {actions && (
+              <div
+                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-center [&>*]:w-full sm:[&>*]:w-auto"
+                style={{ marginTop: "clamp(20px, 3vh, 32px)", gap: "16px" }}
+              >
+                {actions}
+              </div>
+            )}
+
+              {heroMeta && (
+                <div
+                  className="mx-auto w-full"
+                  style={{
+                    marginTop: "clamp(40px, 6vh, 64px)",
+                    paddingTop: "22px",
+                    maxWidth: "560px",
+                    borderTop: "1px solid rgba(255,255,255,0.16)",
+                  }}
+                >
+                  {heroMeta}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // ─── CHAPTER (navy major-page intro) ────────────────────────────────
+    return (
+      <section
+        aria-labelledby="briefing-title"
+        className="relative border-b border-white/10 overflow-hidden bg-[hsl(var(--navy-surface))]"
       >
-        <div className="flex w-full flex-col items-start text-left">
-          {brandMark && <span className="sr-only">{brandMark}</span>}
-          {heroLogo && <div style={{ marginBottom: "16px" }}>{heroLogo}</div>}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 80% at 50% 40%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
+          }}
+        />
+        <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
 
-          {eyebrow && (
-            <p
-              className="t-eyebrow-sm"
-              style={{
-                color: isNavy ? "rgba(255,255,255,0.55)" : undefined,
-                marginBottom: "14px",
-              }}
-            >
-              {eyebrow}
-            </p>
-          )}
-
-          {!heroMetrics && (
+        <div
+          className="relative z-10 page-shell"
+          style={{
+            paddingTop: heroPadding?.top ?? "clamp(28px, 5vh, 48px)",
+            paddingBottom: heroPadding?.bottom ?? "clamp(40px, 6vh, 64px)",
+          }}
+        >
+          <div className="mx-auto w-wide">
+            {eyebrow && (
+              <p
+                className="t-eyebrow-sm text-white/50 mb-3"
+                style={{ fontSize: "11px", letterSpacing: "0.14em" }}
+              >
+                {eyebrow}
+              </p>
+            )}
             <h1
               id="briefing-title"
-              className={`ss-hero-title !mt-0 ${isNavy ? "!text-white" : "text-foreground"} ${titleClassName}`}
-              style={{ color: isNavy ? "#ffffff" : undefined }}
+              className={`ss-hero-title !text-white !mt-0 max-w-[22ch] ${titleClassName}`}
+              style={{ textWrap: "balance" }}
             >
               {title}
             </h1>
-          )}
-
-          {heroMetrics}
-
-          {statement && (
             <p
-              className={`ss-lead ${statementClassName}`}
-              style={{
-                marginTop: heroMetrics ? "0" : "14px",
-                color: isNavy ? "rgba(255,255,255,0.74)" : undefined,
-              }}
+              className={`ss-lead !text-white/70 max-w-[68ch] mt-4 ${statementClassName}`}
+              style={{ textWrap: "balance" }}
             >
               {statement}
             </p>
-          )}
-
-          {rationale && (
-            <div className="mt-6 w-full max-w-[40rem] border border-border p-4 text-left">
-              <p className="t-eyebrow-sm text-muted-foreground mb-2">Rationale</p>
-              <p className="t-body-md text-foreground">{rationale}</p>
-            </div>
-          )}
-
-          {actions && (
-            <div className="mt-6 flex w-full flex-wrap items-center gap-2">
-              {actions}
-            </div>
-          )}
-
-          {heroMeta && <div className="mt-5 w-full">{heroMeta}</div>}
-          {children && <div className="mt-5 w-full">{children}</div>}
-          {rightRail && <div className="mt-6 w-full">{rightRail}</div>}
+            {actions && (
+              <div className="mt-6 flex flex-col sm:flex-row items-start gap-3">
+                {actions}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+
+      </section>
+    );
+  }
+
+  // ─── DEFAULT (white surface), always chapter-weight ─────────────────
+  return (
+    <section
+      aria-labelledby="briefing-title"
+      className="relative border-b border-border bg-background overflow-hidden"
+    >
+      <HeroPattern opacity={0.04} />
+
+      {isDense ? (
+        <div className="relative page-shell section-pad">
+          <div className="grid grid-cols-12 gap-8 md:gap-12 w-full">
+            <div className="col-span-12 md:col-span-7">
+              <h1
+                id="briefing-title"
+                className="ss-hero-title text-foreground !mt-0 max-w-[22ch]"
+              >
+                {title}
+              </h1>
+              <p className="ss-lead max-w-[68ch]">
+                {statement}
+              </p>
+              {rationale && (
+                <div className="mt-7 max-w-[68ch] border border-border p-5">
+                  <p className="t-eyebrow-sm text-muted-foreground mb-2">Rationale</p>
+                  <p className="t-body-md text-foreground">{rationale}</p>
+                </div>
+              )}
+            </div>
+            <div className="col-span-12 md:col-span-5">{rightRail}</div>
+          </div>
+        </div>
+      ) : (
+        <div className="relative page-shell section-pad">
+          <div className="mx-auto w-wide">
+            <h1
+              id="briefing-title"
+              className="ss-hero-title text-foreground !mt-0 max-w-[22ch]"
+            >
+              {title}
+            </h1>
+            <p className="ss-lead max-w-[68ch]">
+              {statement}
+            </p>
+          </div>
+        </div>
+      )}
+
     </section>
   );
 };

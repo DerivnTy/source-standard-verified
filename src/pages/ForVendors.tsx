@@ -173,7 +173,7 @@ const ForVendors = () => {
           </div>
         </div>
       </section>
-    <EditorialBackLink />
+    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

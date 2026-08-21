@@ -1,4 +1,5 @@
 import { PageMeta } from "@/components/PageMeta";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { ArticleHeader } from "@/components/ArticleHeader";
 import { ArticleSection } from "@/components/ArticleSection";
 import { DefList } from "@/components/DefList";
@@ -110,7 +111,7 @@ const Privacy = () => {
         </p>
       </ArticleSection>
 
-      <EditorialBackLink />
+      <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

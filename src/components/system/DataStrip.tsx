@@ -67,7 +67,7 @@ export const DataStrip = ({
   );
   const baseStyle: React.CSSProperties = {
     border: "0.5px solid hsl(var(--border))",
-    borderRadius: "2px",
+    borderRadius: "12px",
     padding: "14px 16px",
   };
   return to ? (

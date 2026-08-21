@@ -5,7 +5,7 @@ export { BoardDefList } from "@/components/BoardSection";
 
 const cardChrome = {
   border: "0.5px solid hsl(var(--border))",
-  borderRadius: "2px",
+  borderRadius: "12px",
   background: "hsl(var(--card))",
 } as const;
 
@@ -44,7 +44,7 @@ export const ArticleSection = ({
   first?: boolean;
   children: ReactNode;
 }) => {
-  const firstClass = first ? "pt-10" : "";
+  const firstClass = first ? "pt-10 md:pt-12" : "";
 
 
 
@@ -57,11 +57,11 @@ export const ArticleSection = ({
         style={first ? undefined : { paddingTop: "28px" }}
       >
         <div className="page-shell">
-          <div className="w-reading-wide text-left">
+          <div className="mx-auto w-reading-wide">
             <div
               style={{
                 border: "0.5px solid hsl(var(--border))",
-                borderRadius: "2px",
+                borderRadius: "8px",
                 background: "hsl(var(--muted) / 0.35)",
                 padding: "16px 20px",
               }}
@@ -99,7 +99,7 @@ export const ArticleSection = ({
         style={first ? undefined : { paddingTop: "24px" }}
       >
         <div className="page-shell">
-          <div className="w-reading-wide text-left">
+          <div className="mx-auto w-reading-wide">
             {title && (
               <h2
                 className="t-section-title-sm text-foreground"
@@ -126,7 +126,7 @@ export const ArticleSection = ({
       style={first ? undefined : { paddingTop: "20px" }}
     >
       <div className="page-shell">
-        <div className="w-reading-wide text-left">
+        <div className="mx-auto w-reading-wide">
           <div style={{ ...cardChrome, padding: "24px" }}>
             {(n !== undefined || title) && (
               <header style={{ marginBottom: "14px" }}>
@@ -191,7 +191,7 @@ export const ArticleFooter = ({
       style={{ paddingTop: "24px", paddingBottom: "32px" }}
     >
       <div className="page-shell">
-        <div className="w-reading-wide text-left">
+        <div className="mx-auto w-reading-wide">
           <div
             aria-hidden
             style={{

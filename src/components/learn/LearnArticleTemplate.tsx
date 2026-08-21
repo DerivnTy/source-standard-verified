@@ -81,12 +81,12 @@ export const NewsArticleTemplate = ({ article }: { article: NewsArticle }) => {
 
         {metaParts.length > 0 && (
           <div className="page-shell" style={{ paddingTop: "20px", paddingBottom: "8px" }}>
-            <div className="w-reading-wide">
+            <div className="mx-auto w-reading-wide">
               <p
                 className="font-mono uppercase text-muted-foreground"
                 style={{ fontSize: "10px", letterSpacing: "0.14em" }}
               >
-                Source Standard · {metaParts.join(" · ")}
+                {metaParts.join(" · ")}
               </p>
             </div>
           </div>

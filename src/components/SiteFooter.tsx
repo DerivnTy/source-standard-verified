@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { FOOTER_COLUMNS, type NavRoute } from "@/config/navigation";
-import { HOME_DISCLAIMER, HOME_TAGLINE } from "@/data/publicLanguage";
+import { HOME_DISCLAIMER } from "@/data/publicLanguage";
 
 type LinkRow = {
   to: string;
@@ -18,7 +18,8 @@ const columns: Column[] = FOOTER_COLUMNS.map((c) => ({
   links: c.links.map((l: NavRoute) => ({ to: l.path, label: l.label })),
 }));
 
-const HAIRLINE = "rgba(255,255,255,0.12)";
+
+const HAIRLINE = "rgba(148, 163, 184, 0.18)";
 
 const FooterLink = ({ row }: { row: LinkRow }) => {
   const { pathname } = useLocation();
@@ -37,13 +38,8 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
       <Link
         to={row.to}
         onClick={handleClick}
-        className="block hover:text-white"
-        style={{
-          color: "rgba(255,255,255,0.78)",
-          fontSize: "14px",
-          lineHeight: 1.45,
-          padding: "5px 0",
-        }}
+        className="block t-body-sm hover:text-white transition-colors"
+        style={{ color: "rgba(255,255,255,0.62)" }}
       >
         {row.label}
       </Link>
@@ -54,96 +50,79 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
 export const SiteFooter = () => {
   const now = new Date();
 
-  return (
-    <footer className="relative bg-[hsl(var(--navy-surface))] text-white">
-      <div className="page-shell" style={{ paddingTop: "56px", paddingBottom: "36px" }}>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-12">
-          <div className="col-span-2 lg:col-span-4">
-            <Logo variant="light" />
-            <p
-              className="font-sans"
-              style={{
-                color: "rgba(255,255,255,0.7)",
-                fontSize: "15px",
-                lineHeight: 1.5,
-                margin: "14px 0 0",
-                maxWidth: "28ch",
-              }}
-            >
-              {HOME_TAGLINE}
-            </p>
-          </div>
 
-          {columns.map((col) => (
-            <div key={col.title} className="lg:col-span-2">
-              <p
-                className="font-sans"
-                style={{
-                  color: "#ffffff",
-                  fontSize: "12px",
-                  fontWeight: 600,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  marginBottom: "12px",
-                }}
-              >
-                {col.title}
-              </p>
-              <ul className="m-0 p-0" style={{ listStyle: "none" }}>
-                {col.links.map((l) => (
-                  <FooterLink key={l.label} row={l} />
-                ))}
-              </ul>
+
+  return (
+    <>
+      {/* Paints navy behind any overscroll bounce so the page never reveals cream below the footer. */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-x-0 bottom-0 h-[50vh] -z-10 pointer-events-none bg-[hsl(var(--navy-surface))]"
+      />
+      <footer
+        className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
+      >
+        <div className="page-shell pt-10 md:pt-12 lg:pt-12 pb-6 md:pb-8 lg:pb-8">
+        <div className="mx-auto w-wide">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10 md:gap-y-10 items-start text-left">
+            <div className="lg:col-span-1">
+              <Logo variant="light" className="h-6" />
             </div>
-          ))}
+
+            {columns.map((col) => (
+              <div key={col.title} className="text-left">
+                <p
+                  className="mb-4 md:mb-5 t-utility-xs"
+                  style={{ color: "rgba(255,255,255,0.92)" }}
+                >
+                  {col.title}
+                </p>
+                <ul className="space-y-1.5 md:space-y-2">
+                  {col.links.map((l) => (
+                    <FooterLink key={l.label} row={l} />
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* Legal band, hard-cut hairline, no gradients */}
         <div
-          style={{
-            marginTop: "40px",
-            paddingTop: "24px",
-            borderTop: `1px solid ${HAIRLINE}`,
-          }}
+          className="mt-8 md:mt-10 pt-5"
+          style={{ borderTop: `1px solid ${HAIRLINE}` }}
         >
+          <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
+            <p
+              className="t-utility-xs"
+              style={{ color: "rgba(255,255,255,0.48)" }}
+            >
+              © {now.getFullYear()} Source Standard. All Rights Reserved.
+            </p>
+            <div className="flex items-center gap-2">
+              <span
+                aria-hidden
+                className="inline-flex h-1.5 w-1.5 rounded-full animate-pulse"
+                style={{ backgroundColor: "#22C55E" }}
+              />
+              <span
+                className="t-numeric"
+                style={{ color: "rgba(255,255,255,0.50)" }}
+              >
+                System Status: Operational
+              </span>
+            </div>
+          </div>
+
           <p
-            className="font-sans"
-            style={{
-              color: "rgba(255,255,255,0.7)",
-              fontSize: "13.5px",
-              lineHeight: 1.65,
-              maxWidth: "62ch",
-              margin: 0,
-            }}
+            className="mt-5 md:mt-6 font-sans"
+            style={{ color: "rgba(255,255,255,0.32)", fontSize: "10px", lineHeight: 1.7, maxWidth: "60ch" }}
           >
             {HOME_DISCLAIMER}
           </p>
-          <div
-            className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
-            style={{ marginTop: "20px" }}
-          >
-            <p
-              className="font-sans"
-              style={{
-                color: "rgba(255,255,255,0.46)",
-                fontSize: "12px",
-                margin: 0,
-              }}
-            >
-              © {now.getFullYear()} Source Standard
-            </p>
-            <Link
-              to="/verification-disclaimer"
-              className="hover:text-white"
-              style={{
-                color: "rgba(255,255,255,0.56)",
-                fontSize: "12px",
-              }}
-            >
-              Verification limits
-            </Link>
-          </div>
         </div>
       </div>
-    </footer>
+      </footer>
+    </>
   );
 };

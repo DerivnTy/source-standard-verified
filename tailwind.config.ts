@@ -94,9 +94,9 @@ export default {
         },
       },
       borderRadius: {
-        lg: "2px",
-        md: "2px",
-        sm: "2px",
+        lg: "var(--radius)",
+        md: "calc(var(--radius))",
+        sm: "calc(var(--radius))",
       },
       boxShadow: {
         sm: "var(--shadow-sm)",

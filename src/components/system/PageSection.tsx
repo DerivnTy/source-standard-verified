@@ -1,12 +1,20 @@
 import { CSSProperties, ReactNode } from "react";
 import { Glyph, type GlyphName } from "./GlyphIcon";
 
-type SectionLayout = "split" | "reading" | "wide";
-
 /**
- * Page section. Default composition is a split editorial block:
- * title on the left axis, body on the right. That fills the 1120 shell
- * instead of stacking a narrow centered column.
+ * PageSection, the canonical consumer-page section pattern.
+ *
+ *   [optional glyph]  Question heading
+ *   Short supporting sentence (optional)
+ *   Content block
+ *   Optional CTA row
+ *
+ * Owns its own compact vertical rhythm so tightening consumer pages
+ * does NOT require changing global .section-pad tokens. Framework and
+ * legal doc pages continue to inherit the sitewide rhythm untouched.
+ *
+ * No numbered eyebrows. Pages that need §-style numbering keep their
+ * existing scaffolding.
  */
 export const PageSection = ({
   id,
@@ -18,12 +26,16 @@ export const PageSection = ({
   bordered = true,
   compact = false,
   first = false,
-  last = false,
-  layout = "split",
   className = "",
   pb,
 }: {
   id?: string;
+  /**
+   * Section-heading glyphs are semantic only. `minus` is intentionally
+   * excluded — dash decorations before headings read as unfinished UI.
+   * For exclusion / limitation copy, use a plain heading and let the list
+   * items carry the semantics.
+   */
   icon?: Exclude<GlyphName, "minus" | "check">;
   title?: string;
   intro?: ReactNode;
@@ -31,95 +43,90 @@ export const PageSection = ({
   children?: ReactNode;
   bordered?: boolean;
   compact?: boolean;
+  /**
+   * Mark this as the first content section directly under a hero. Applies
+   * the shared hero → first-section rhythm (32px mobile / 40px desktop
+   * top + bottom padding). Overrides `compact` for the top padding so
+   * every page shares the same visual distance below the hero.
+   */
   first?: boolean;
-  last?: boolean;
-  layout?: SectionLayout;
   className?: string;
   pb?: string;
 }) => {
-  const padTop = first ? 56 : compact ? 40 : 52;
-  const padBottom = last ? 64 : compact ? 40 : 52;
-
-  const inlineStyle: CSSProperties = {
-    paddingTop: pb && first ? undefined : padTop,
-    paddingBottom: pb ?? padBottom,
-  };
-
-  const heading = title ? (
-    <div className="flex items-start gap-2">
-      {icon && (
-        <span className="text-primary/80 mt-1">
-          <Glyph name={icon} size="md" />
-        </span>
-      )}
-      <h2 id={id} className="t-section-title-sm text-foreground" style={{ margin: 0 }}>
-        {title}
-      </h2>
-    </div>
-  ) : null;
-
-  const introEl = intro ? (
-    <p
-      className="text-muted-foreground"
-      style={{
-        fontSize: "16px",
-        lineHeight: 1.65,
-        fontWeight: 400,
-        marginTop: title && layout !== "split" ? "12px" : 0,
-        maxWidth: "40rem",
-      }}
-    >
-      {intro}
-    </p>
-  ) : null;
-
-  const body = (
-    <>
-      {layout === "split" ? introEl : null}
-      {children && (
-        <div style={{ marginTop: layout === "split" && intro ? "16px" : 0 }}>{children}</div>
-      )}
-      {cta && <div className="flex flex-wrap gap-2" style={{ marginTop: "24px" }}>{cta}</div>}
-    </>
-  );
-
+  const padY = compact ? "24px" : "32px";
+  const introMarginTop = compact ? "8px" : "10px";
+  const childrenMarginTop = compact ? (intro ? "20px" : "16px") : intro ? "24px" : "20px";
+  const ctaMarginTop = compact ? "12px" : "16px";
+  // Mobile values (locked): first pt=40px, non-first py matches inline `padY`.
+  // md/lg tightened for institutional desktop density.
+  const firstClass = first ? "pt-10 md:pt-11 lg:pt-11" : "";
+  const firstBottomClass = first && !pb ? "pb-10 md:pb-9 lg:pb-9" : "";
+  const responsivePadClass = !first && !pb
+    ? compact
+      ? "md:!py-7 lg:!py-8"
+      : "md:!py-9 lg:!py-10"
+    : "";
+  const inlineStyle: CSSProperties = first
+    ? pb
+      ? { paddingBottom: pb }
+      : {}
+    : { paddingTop: padY, paddingBottom: pb ?? padY };
   return (
-    <section aria-labelledby={id} className={`bg-background ${className}`}>
-      <div className="page-shell" style={inlineStyle}>
-        {layout === "split" ? (
-          <div className="grid items-start gap-5 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
-            <div className="min-w-0">
-              {heading}
+    <section
+      aria-labelledby={id}
+      className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${firstClass} ${firstBottomClass} ${responsivePadClass} ${className}`}
+      style={inlineStyle}
+    >
+      <div className="page-shell">
+        <div className="mx-auto w-wide">
+          {title && (
+            <div className="flex items-center gap-2">
+              {icon && (
+                <span className="text-primary/80">
+                  <Glyph name={icon} size="md" />
+                </span>
+              )}
+              <h2
+                id={id}
+                className="font-sans text-foreground"
+                style={{
+                  fontSize: "22px",
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.02em",
+                  fontWeight: 700,
+                  margin: 0,
+                }}
+              >
+                {title}
+              </h2>
             </div>
-            <div className="min-w-0 max-w-[40rem] text-left">
-              {body}
-            </div>
-          </div>
-        ) : layout === "wide" ? (
-          <div className="text-left">
-            {heading}
-            {introEl}
-            <div style={{ marginTop: title || intro ? "20px" : 0 }}>{children}</div>
-            {cta && <div className="flex flex-wrap gap-2" style={{ marginTop: "24px" }}>{cta}</div>}
-          </div>
-        ) : (
-          <div className="w-reading text-left">
-            {heading}
-            {introEl}
-            {children && (
-              <div style={{ marginTop: title || intro ? "16px" : 0 }}>{children}</div>
-            )}
-            {cta && <div className="flex flex-wrap gap-2" style={{ marginTop: "24px" }}>{cta}</div>}
-          </div>
-        )}
-      </div>
-      {bordered && !last && (
-        <div className="page-shell">
-          <div className="border-t border-border" />
+          )}
+
+          {intro && (
+            <p
+              className="text-muted-foreground"
+              style={{
+                fontSize: "15px",
+                lineHeight: 1.65,
+                fontWeight: 400,
+                marginTop: introMarginTop,
+                maxWidth: "64ch",
+              }}
+            >
+              {intro}
+            </p>
+          )}
+
+          {children && (
+            <div style={{ marginTop: childrenMarginTop }}>{children}</div>
+          )}
+
+          {cta && <div style={{ marginTop: ctaMarginTop }}>{cta}</div>}
         </div>
-      )}
+      </div>
     </section>
   );
 };
 
 export default PageSection;
+

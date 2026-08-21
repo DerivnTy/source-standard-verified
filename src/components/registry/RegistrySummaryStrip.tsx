@@ -27,7 +27,7 @@ export const RegistrySummaryStrip = ({
 }) => {
   return (
     <section className="bg-background border-b border-border">
-      <div className="page-shell" style={{ paddingTop: "16px", paddingBottom: "16px" }}>
+      <div className="page-shell pt-8 md:pt-11 pb-10 md:pb-12">
         <div className="mx-auto w-wide">
           <div className="grid grid-cols-2 md:grid-cols-6 md:divide-x md:divide-border/60">
             {cells.map((cell) => {
@@ -39,7 +39,7 @@ export const RegistrySummaryStrip = ({
               return (
                 <div
                   key={cell.label}
-                  className="flex flex-col px-3 py-3 first:md:pl-0 last:md:pr-0 md:px-5"
+                  className="px-4 md:px-6 py-5 md:py-6 first:md:pl-0 last:md:pr-0 min-h-[124px] flex flex-col"
                 >
                   <div className="flex items-center gap-2.5 mb-3">
                     <span

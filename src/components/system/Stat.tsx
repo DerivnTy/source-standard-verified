@@ -15,7 +15,7 @@ export const Stat = ({
   /** Optional left tick swatch (e.g., "bg-verified"). */
   tickClassName?: string;
 }) => (
-  <div className="flex flex-col px-0 py-3 first:md:pl-0 last:md:pr-0 md:px-5">
+  <div className="px-0 md:px-5 py-4 first:md:pl-0 last:md:pr-0 min-h-[120px] flex flex-col">
     <div className="flex items-center gap-2 mb-2">
       {tickClassName && (
         <span aria-hidden className={`inline-block w-[2px] h-[10px] ${tickClassName}`} />

@@ -96,7 +96,7 @@ const VerificationDisclaimer = () => {
         A Source Standard verification indicates that reviewed sourcing claims were supported by the evidence available within a defined scope at the time of review. Every verification reflects the information available during that review and should always be interpreted within those boundaries.
       </KeyTakeaway>
 
-      <EditorialBackLink />
+      <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

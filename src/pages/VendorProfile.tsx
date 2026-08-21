@@ -50,7 +50,7 @@ import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
 
 const CARD: React.CSSProperties = {
   border: "0.5px solid hsl(var(--border))",
-  borderRadius: "2px",
+  borderRadius: "12px",
   padding: "20px",
   background: "hsl(var(--card))",
 };

@@ -48,7 +48,7 @@ export const ContinueLearning = ({ exclude }: { exclude?: string }) => {
       style={{ paddingTop: "32px", paddingBottom: "40px" }}
     >
       <div className="page-shell">
-        <div className="w-standard">
+        <div className="mx-auto w-standard">
           <header style={{ marginBottom: "20px" }}>
             <h2
               className="font-sans text-foreground"
@@ -84,7 +84,7 @@ export const ContinueLearning = ({ exclude }: { exclude?: string }) => {
                 className="group flex flex-col bg-card hover:bg-muted/50 transition-colors h-full"
                 style={{
                   border: "0.5px solid hsl(var(--border))",
-                  borderRadius: "2px",
+                  borderRadius: "12px",
                   padding: "20px 22px",
                 }}
               >

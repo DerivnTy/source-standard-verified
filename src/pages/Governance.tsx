@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/PageHeader";
+import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -27,11 +28,11 @@ const ecosystemCategories = [
   },
   {
     t: "Healthcare organizations",
-    d: "Licensed organizations whose published standards or professional materials may be cited when they are relevant to a review.",
+    d: "Organizations that contribute professional expertise and promote transparent healthcare practices.",
   },
   {
-    t: "Research references",
-    d: "Published research or technical literature may be cited when it is relevant to a review. Citation is not a partnership or endorsement.",
+    t: "Research partners",
+    d: "Organizations that contribute research, evidence, and industry knowledge supporting transparency.",
   },
 ];
 
@@ -45,7 +46,7 @@ const Governance = () => (
 
     <PageHeader
       title="Who Oversees Source Standard?"
-      description="How Source Standard publishes its criteria, keeps review independent of outcome, and records determinations."
+      description="How Source Standard stays independent, objective, and accountable."
     />
 
     <PageSection
@@ -67,8 +68,7 @@ const Governance = () => (
     <PageSection
       id="anchors"
       title="Anchored standards"
-      layout="wide"
-      intro="Where a requirement references a statute or compendial standard, the source is listed below. Source Standard still defines how those references are applied in its own published review criteria."
+      intro="Source Standard does not originate criteria. Each framework requirement is anchored to a statutory provision or compendial standard issued by the public authorities listed below."
     >
       <div className="hidden md:grid grid-cols-12 gap-3 pb-2.5 border-b border-border">
         <div className="col-span-2 meta-mono text-foreground/70">ANCHOR</div>
@@ -105,12 +105,14 @@ const Governance = () => (
       <div className="space-y-4">
         <p className="t-body-sm text-muted-foreground leading-relaxed">
           Source Standard does not manufacture, distribute, prescribe, dispense, or sell products in the categories
-          it evaluates, and holds no equity, royalty, or revenue-share interest in any clinic or facility
-          under review.
+          it evaluates, and holds no equity, royalty, or revenue-share interest in any vendor or upstream source
+          under review. The organization is structured to remain immune to commercial influence from the entities
+          it examines.
         </p>
         <p className="t-body-sm text-muted-foreground leading-relaxed">
-          Evaluation fees, where applicable, are disclosed at intake and do not vary based on outcome.
-          Reviewer determinations are recorded with written rationale. Payment buys the evaluation, never the grade.
+          Verification fees, where applicable, are uniform, disclosed at intake, and do not vary based on outcome,
+          category, or reviewer determination. All reviewer determinations are recorded with written rationale and
+          remain subject to internal audit.
         </p>
       </div>
     </PageSection>
@@ -137,13 +139,15 @@ const Governance = () => (
       </dl>
     </PageSection>
 
-    <PageSection last id="deeper" title="Read deeper" layout="wide" bordered={false}>
-      <div className="grid gap-2 sm:grid-cols-2">
+    <PageSection id="deeper" title="Read deeper" bordered={false} pb="0">
+      <div className="grid gap-2.5 sm:grid-cols-2">
         {deeper.map((d) => (
           <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />
         ))}
       </div>
     </PageSection>
+
+    <EditorialBackLink to="/" label="Back to Home" />
   </>
 );
 

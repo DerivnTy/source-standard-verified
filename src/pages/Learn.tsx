@@ -11,9 +11,9 @@ import {
   NEWS_ARTICLES,
   NEWS_CATEGORIES,
 } from "@/data/learn";
-import { LEARN_HUB_LEAD, LEARN_HUB_TITLE } from "@/data/institutionalCopy";
 
-const HERO_STATEMENT = LEARN_HUB_LEAD;
+const HERO_STATEMENT =
+  "Consumer-first answers to the questions that come up before you choose a provider, and timely updates about what's changing in compounded therapy.";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-US", {
@@ -38,7 +38,7 @@ const Learn = () => {
   return (
     <>
       <PageMeta
-        title="Learn"
+        title="Learn, Education, News & FAQ"
         description={HERO_STATEMENT}
         path="/learn"
         jsonLd={jsonLd}
@@ -49,13 +49,13 @@ const Learn = () => {
         tone="navy"
         variant="chapter"
         category="Learn"
-        title={LEARN_HUB_TITLE}
+        title="What do I need to know before choosing a provider?"
         statement={HERO_STATEMENT}
         docId=""
       />
 
       {/* 1 — Start Here: primary learning path */}
-      <PageSection title="Guides" first layout="wide">
+      <PageSection title="Start Here" first>
         <dl className="divide-y divide-border/60 border-t border-b border-border/60">
           {EDUCATION_TOPICS.map((t) => (
             <Link
@@ -88,23 +88,23 @@ const Learn = () => {
       </PageSection>
 
       {/* 2 — Browse by Resource: secondary browse layer */}
-      <PageSection title="Other reference" compact layout="wide">
+      <PageSection title="Browse by Resource" compact>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <NavCard
             to="/learn/news"
             title="News & Insights"
-            desc="Dated notes on regulatory and industry changes."
+            desc="Reporting, commentary, and regulatory updates."
           />
           <NavCard
             to="/learn/faq"
             title="Frequently Asked Questions"
-            desc="Short answers organized by legal, clinical, verification, and diligence topics."
+            desc="Direct answers to the questions we receive most often, organized by topic."
           />
         </div>
       </PageSection>
 
       {/* 3 — Recent Updates */}
-      <PageSection title="Recent Updates" compact layout="wide">
+      <PageSection title="Recent Updates" compact>
         <ul className="flex flex-col divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {recent.map((a) => {
             const cat = NEWS_CATEGORIES.find((c) => c.id === a.category);
@@ -144,7 +144,7 @@ const Learn = () => {
       </PageSection>
 
       {/* 4 — Still Have Questions? */}
-      <PageSection last title="Further questions">
+      <PageSection title="Still Have Questions?" compact>
         <p
           className="text-muted-foreground"
           style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "68ch", margin: 0 }}

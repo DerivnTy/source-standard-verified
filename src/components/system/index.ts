@@ -16,6 +16,5 @@ export { NavCard } from "./NavCard";
 export { ProcessSteps } from "./ProcessSteps";
 export { StatusPill, type StatusKey } from "./StatusPill";
 export { RegistryRow } from "./RegistryRow";
-export { SearchField } from "./SearchField";
 
 
