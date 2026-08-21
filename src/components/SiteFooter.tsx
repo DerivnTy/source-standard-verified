@@ -56,8 +56,8 @@ export const SiteFooter = () => {
 
   return (
     <footer className="relative bg-[hsl(var(--navy-surface))] text-white">
-      <div className="page-shell" style={{ paddingTop: "28px", paddingBottom: "20px" }}>
-        <div className="flex flex-col gap-1" style={{ marginBottom: "20px" }}>
+      <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "18px" }}>
+        <div className="flex flex-col gap-1" style={{ marginBottom: "18px" }}>
           <Logo variant="light" />
           <p
             className="font-sans"

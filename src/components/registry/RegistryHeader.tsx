@@ -37,7 +37,7 @@ export const RegistryHeader = ({
     <section className="relative bg-[hsl(var(--navy-surface))]">
       <div
         className="relative page-shell"
-        style={{ paddingTop: "24px", paddingBottom: children ? "20px" : "22px" }}
+        style={{ paddingTop: "28px", paddingBottom: children ? "22px" : "24px" }}
       >
         <div className="mx-auto w-wide">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">

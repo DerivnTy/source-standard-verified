@@ -75,7 +75,7 @@ const HeroContent = () => {
         onSubmit={onSubmit}
         role="search"
         aria-label="Search a clinic"
-        className="mx-auto flex w-full items-stretch gap-2"
+        className="mx-auto flex w-full flex-col items-stretch gap-2 min-[380px]:flex-row"
         style={{ marginTop: "16px", maxWidth: "480px" }}
       >
         <input

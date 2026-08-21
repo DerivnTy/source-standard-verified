@@ -55,7 +55,7 @@ export const PRIMARY_CTA: NavRoute = ROUTES.apply;
 /** Footer information architecture. */
 export const FOOTER_COLUMNS: FooterColumn[] = [
   {
-    title: "Registry",
+    title: "Records",
     links: [ROUTES.vendors, ROUTES.facilities, ROUTES.apply, ROUTES.reportConcern],
   },
   {

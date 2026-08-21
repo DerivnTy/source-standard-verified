@@ -76,24 +76,31 @@ const VerifiedVendors = () => {
         <div className="page-shell" style={{ paddingTop: "20px", paddingBottom: "28px" }}>
           <div className="mx-auto w-wide">
             {!isSearching ? (
-              <div className="max-w-[62ch]">
+              <div>
                 <p
-                  className="text-muted-foreground"
+                  className="max-w-[62ch] text-muted-foreground"
                   style={{ fontSize: "15px", lineHeight: 1.6, margin: 0 }}
                 >
                   {HOW_IT_WORKS_SEARCH_PURPOSE}
                 </p>
-                <p className="mt-4 text-[13.5px] leading-relaxed text-muted-foreground">
-                  <Link to="/how-it-works" className="font-medium text-foreground underline-offset-2 hover:underline">
-                    How verification works
-                  </Link>
-                  <span aria-hidden className="mx-2 text-border-strong">
-                    ·
-                  </span>
-                  <Link to="/apply" className="font-medium text-foreground underline-offset-2 hover:underline">
-                    Apply for review
-                  </Link>
-                </p>
+                <ul className="mt-6 max-w-[62ch] list-none divide-y divide-border border-t border-border p-0">
+                  {[
+                    { to: "/how-it-works", label: "How verification works" },
+                    { to: "/apply", label: "Apply for review" },
+                    { to: "/status-definitions", label: "Status definitions" },
+                    { to: "/greenlist", label: "Facility records" },
+                  ].map((row) => (
+                    <li key={row.to}>
+                      <Link
+                        to={row.to}
+                        className="flex items-center justify-between gap-3 py-2.5 text-foreground hover:text-primary"
+                      >
+                        <span className="t-body-sm">{row.label}</span>
+                        <span aria-hidden className="text-muted-foreground">→</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ) : (
               <ul className="m-0 list-none divide-y divide-border border-t border-border p-0">

@@ -42,12 +42,8 @@ export const PageSection = ({
   };
 
   return (
-    <section
-      aria-labelledby={id}
-      className={`bg-background text-left ${bordered && !last ? "border-b border-border" : ""} ${className}`}
-      style={inlineStyle}
-    >
-      <div className="page-shell">
+    <section aria-labelledby={id} className={`bg-background text-left ${className}`}>
+      <div className="page-shell" style={inlineStyle}>
         <div className="mx-auto w-wide">
           {title && (
             <div className="flex items-center gap-2">
@@ -88,6 +84,11 @@ export const PageSection = ({
           {cta && <div style={{ marginTop: "14px" }}>{cta}</div>}
         </div>
       </div>
+      {bordered && !last && (
+        <div className="page-shell">
+          <div className="mx-auto w-wide border-t border-border" />
+        </div>
+      )}
     </section>
   );
 };
