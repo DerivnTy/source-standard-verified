@@ -320,6 +320,11 @@ const Apply = () => {
                       >
                         {submitting ? "Submitting" : "Submit Intake"}
                       </Button>
+                      {!acknowledged && (
+                        <p className="mt-2 text-[13px] text-muted-foreground">
+                          Confirm the acknowledgment above to submit.
+                        </p>
+                      )}
                     </div>
                   </form>
                 ) : (

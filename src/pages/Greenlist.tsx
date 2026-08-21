@@ -351,13 +351,15 @@ const Greenlist = () => {
                 >
                   State
                 </p>
-                <FilterSelect
-                  value={stateFilter}
-                  onValueChange={setStateFilter}
-                  ariaLabel="Filter by state"
-                  placeholder="All states"
-                  options={stateOptions}
-                />
+                <div className="max-w-[16rem]">
+                  <FilterSelect
+                    value={stateFilter}
+                    onValueChange={setStateFilter}
+                    ariaLabel="Filter by state"
+                    placeholder="All states"
+                    options={stateOptions}
+                  />
+                </div>
               </div>
             </div>
             )}

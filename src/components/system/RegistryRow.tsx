@@ -96,27 +96,31 @@ export const RegistryRow = ({
             {chipEl && <div className="mt-2">{chipEl}</div>}
           </div>
 
-          {/* DESKTOP: single-line ledger */}
-          <div className="hidden md:flex md:items-center md:gap-4">
-            <h3
-              className="font-sans text-foreground truncate min-w-0 flex-1"
-              style={{
-                fontSize: "14.5px",
-                fontWeight: 600,
-                lineHeight: 1.25,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {name}
-            </h3>
-            {metaLeft && (
-              <span
-                className="shrink-0 text-muted-foreground truncate max-w-[38%]"
-                style={{ fontSize: "12.5px", lineHeight: 1.35 }}
-              >
-                {metaLeft}
-              </span>
-            )}
+          {/* DESKTOP: name + meta grouped, status at the trailing edge */}
+          <div className="hidden md:flex md:items-center md:gap-6">
+            <div className="min-w-0 flex-1">
+              <div className="flex min-w-0 items-baseline gap-3">
+                <h3
+                  className="font-sans text-foreground truncate"
+                  style={{
+                    fontSize: "14.5px",
+                    fontWeight: 600,
+                    lineHeight: 1.25,
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {name}
+                </h3>
+                {metaLeft && (
+                  <span
+                    className="min-w-0 truncate text-muted-foreground"
+                    style={{ fontSize: "12.5px", lineHeight: 1.35 }}
+                  >
+                    {metaLeft}
+                  </span>
+                )}
+              </div>
+            </div>
             {metaRight && (
               <span
                 className="shrink-0 font-mono tabular-nums text-muted-foreground"

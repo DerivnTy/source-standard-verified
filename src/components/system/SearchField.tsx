@@ -76,14 +76,14 @@ export const SearchField = ({
       onSubmit={onSubmit}
       role="search"
       aria-label={ariaLabel}
-      className="flex w-full flex-col items-stretch gap-2 min-[400px]:flex-row"
+      className="flex w-full flex-row items-stretch gap-2"
     >
       {field}
       {submitLabel && (
         <button
           type="submit"
-          className="inline-flex h-12 shrink-0 items-center justify-center bg-white px-5 font-sans text-[13px] font-medium text-[hsl(var(--navy-surface))] hover:bg-white/90"
-          style={{ borderRadius: "2px" }}
+          className="inline-flex h-12 shrink-0 items-center justify-center bg-white px-4 font-sans text-[13px] font-medium hover:bg-white/90 sm:px-5"
+          style={{ borderRadius: "2px", color: "#0c1424" }}
         >
           {submitLabel}
         </button>
