@@ -1,25 +1,6 @@
 import { type ReactNode } from "react";
-import { HeroPattern } from "./HeroPattern";
 import type { MetadataItem } from "./MetadataBar";
-import logoLight from "@/assets/source-standard-logo-light.png";
 
-/**
- * BriefingHero, Tiered first-section system.
- *
- * Two-tier hierarchy across the site:
- *   • variant="cover"   , Homepage only. Full 100svh, larger brand wordmark
- *                          above the H1, scroll cue, the "book cover".
- *   • variant="chapter" , All other major pages. ~55vh, tighter rhythm, no
- *                          scroll cue, no oversized brand mark, a disciplined
- *                          chapter opening that orients quickly.
- *
- * Tone:
- *   • tone="navy"    , Deep navy surface, white type. Used for both cover
- *                       (homepage) and chapter (major pages) for brand
- *                       continuity.
- *   • tone="default" , White surface, dense two-rail layout when `rightRail`
- *                       is provided. Always behaves like a "chapter" intro.
- */
 export interface BriefingHeroProps {
   category: string;
   docId: string;
@@ -31,27 +12,19 @@ export interface BriefingHeroProps {
   rightRail?: ReactNode;
   tone?: "default" | "navy";
   variant?: "cover" | "chapter";
-  /** Large brand/identity word displayed above the H1. Cover variant only. */
   brandMark?: string;
-  /** Optional logo/image rendered above the title. Cover variant only. */
   heroLogo?: ReactNode;
   actions?: ReactNode;
-  /** Optional metrics row rendered between the statement and the actions (cover variant). */
   heroMetrics?: ReactNode;
-  /** Optional metadata strip rendered below the actions (cover variant). */
   heroMeta?: ReactNode;
-  /** Optional eyebrow shown above the chapter title. */
   eyebrow?: string;
-  /** Override chapter hero padding. */
   heroPadding?: { top?: string; bottom?: string };
-  /** Optional className applied to the chapter title. */
   titleClassName?: string;
-  /** Optional className applied to the chapter statement. */
   statementClassName?: string;
+  children?: ReactNode;
 }
 
 export const BriefingHero = ({
-  category,
   title,
   statement,
   rationale,
@@ -67,53 +40,58 @@ export const BriefingHero = ({
   heroPadding,
   titleClassName = "",
   statementClassName = "",
+  children,
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
   const isDense = !isNavy && Boolean(rightRail);
+  const padTop = heroPadding?.top ?? (isCover ? "28px" : "24px");
+  const padBottom = heroPadding?.bottom ?? (isCover ? "32px" : "26px");
 
   if (isNavy) {
-    // ─── COVER (homepage) ───────────────────────────────────────────────
-    if (isCover) {
-      return (
-        <section
-          aria-labelledby="briefing-title"
-          className="relative overflow-hidden bg-[hsl(var(--navy-surface))]"
+    return (
+      <section
+        aria-labelledby="briefing-title"
+        className="relative bg-[hsl(var(--navy-surface))]"
+      >
+        <div
+          className="relative page-shell"
+          style={{ paddingTop: padTop, paddingBottom: padBottom }}
         >
-          <HeroPattern opacity={0.015} stroke="white" cellSize={32} />
-
-          <div
-            className="relative z-30 page-shell flex flex-col justify-start lg:justify-center lg:items-center"
-            style={{
-              paddingTop: "clamp(32px, 4.5vh, 52px)",
-              paddingBottom: "clamp(48px, 6vh, 64px)",
-            }}
-          >
-            <div className="relative w-full lg:flex lg:flex-col lg:items-center lg:text-center">
+          <div className={`mx-auto w-wide ${isCover ? "flex flex-col items-center text-center" : ""}`}>
             {brandMark && <span className="sr-only">{brandMark}</span>}
             {heroLogo && (
-              <div className="flex justify-center" style={{ marginBottom: "20px" }}>
+              <div className="flex justify-center" style={{ marginBottom: "12px" }}>
                 {heroLogo}
               </div>
             )}
 
-            {heroMetrics && (
-              <div
-                className="flex justify-start lg:justify-center"
-                style={{ marginTop: "0px" }}
+            {eyebrow && (
+              <p
+                className="t-eyebrow-sm"
+                style={{ color: "rgba(255,255,255,0.5)", marginBottom: "8px" }}
               >
-                {heroMetrics}
-              </div>
+                {eyebrow}
+              </p>
             )}
+
+            {!heroMetrics && (
+              <h1
+                id="briefing-title"
+                className={`ss-hero-title !text-white !mt-0 ${isCover ? "text-center" : ""} ${titleClassName}`}
+                style={{ textWrap: "balance" }}
+              >
+                {title}
+              </h1>
+            )}
+
+            {heroMetrics}
 
             {statement && (
               <p
-                className="text-white/70 text-left lg:text-center lg:mx-auto"
+                className={`ss-lead !text-white/70 ${isCover ? "mx-auto" : ""} ${statementClassName}`}
                 style={{
-                  maxWidth: "560px",
-                  marginTop: "24px",
-                  fontSize: "clamp(18px, 4.2vw, 22px)",
-                  lineHeight: "1.4",
+                  marginTop: heroMetrics ? "0" : "10px",
                   textWrap: "balance",
                 }}
               >
@@ -121,107 +99,37 @@ export const BriefingHero = ({
               </p>
             )}
 
-
             {actions && (
-              <div
-                className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start lg:justify-center [&>*]:w-full sm:[&>*]:w-auto"
-                style={{ marginTop: "clamp(20px, 3vh, 32px)", gap: "16px" }}
-              >
+              <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 {actions}
               </div>
             )}
 
-              {heroMeta && (
-                <div
-                  className="mx-auto w-full"
-                  style={{
-                    marginTop: "clamp(40px, 6vh, 64px)",
-                    paddingTop: "22px",
-                    maxWidth: "560px",
-                    borderTop: "1px solid rgba(255,255,255,0.16)",
-                  }}
-                >
-                  {heroMeta}
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    // ─── CHAPTER (navy major-page intro) ────────────────────────────────
-    return (
-      <section
-        aria-labelledby="briefing-title"
-        className="relative border-b border-white/10 overflow-hidden bg-[hsl(var(--navy-surface))]"
-      >
-        <HeroPattern opacity={0.015} stroke="white" cellSize={32} />
-
-        <div
-          className="relative z-10 page-shell"
-          style={{
-            paddingTop: heroPadding?.top ?? "clamp(28px, 5vh, 48px)",
-            paddingBottom: heroPadding?.bottom ?? "clamp(40px, 6vh, 64px)",
-          }}
-        >
-          <div className="mx-auto w-wide">
-            {eyebrow && (
-              <p
-                className="t-eyebrow-sm text-white/50 mb-3"
-                style={{ fontSize: "11px", letterSpacing: "0.14em" }}
-              >
-                {eyebrow}
-              </p>
-            )}
-            <h1
-              id="briefing-title"
-              className={`ss-hero-title !text-white !mt-0 max-w-[22ch] ${titleClassName}`}
-              style={{ textWrap: "balance" }}
-            >
-              {title}
-            </h1>
-            <p
-              className={`ss-lead !text-white/70 max-w-[68ch] mt-4 ${statementClassName}`}
-              style={{ textWrap: "balance" }}
-            >
-              {statement}
-            </p>
-            {actions && (
-              <div className="mt-6 flex flex-col sm:flex-row items-start gap-3">
-                {actions}
-              </div>
-            )}
+            {heroMeta && <div className="mt-4">{heroMeta}</div>}
+            {children && <div className="mt-4 w-full">{children}</div>}
           </div>
         </div>
-
       </section>
     );
   }
 
-  // ─── DEFAULT (white surface), always chapter-weight ─────────────────
   return (
     <section
       aria-labelledby="briefing-title"
-      className="relative border-b border-border bg-background overflow-hidden"
+      className="relative border-b border-border bg-background"
     >
-      <HeroPattern opacity={0.04} />
-
       {isDense ? (
-        <div className="relative page-shell section-pad">
-          <div className="grid grid-cols-12 gap-8 md:gap-12 w-full">
+        <div className="relative page-shell" style={{ paddingTop: padTop, paddingBottom: padBottom }}>
+          <div className="grid grid-cols-12 gap-6 md:gap-10 w-full">
             <div className="col-span-12 md:col-span-7">
-              <h1
-                id="briefing-title"
-                className="ss-hero-title text-foreground !mt-0 max-w-[22ch]"
-              >
+              <h1 id="briefing-title" className="ss-hero-title text-foreground !mt-0">
                 {title}
               </h1>
-              <p className="ss-lead max-w-[68ch]">
+              <p className="ss-lead" style={{ marginTop: "10px" }}>
                 {statement}
               </p>
               {rationale && (
-                <div className="mt-7 max-w-[68ch] border border-border p-5">
+                <div className="mt-5 max-w-[68ch] border border-border p-4">
                   <p className="t-eyebrow-sm text-muted-foreground mb-2">Rationale</p>
                   <p className="t-body-md text-foreground">{rationale}</p>
                 </div>
@@ -231,21 +139,17 @@ export const BriefingHero = ({
           </div>
         </div>
       ) : (
-        <div className="relative page-shell section-pad">
+        <div className="relative page-shell" style={{ paddingTop: padTop, paddingBottom: padBottom }}>
           <div className="mx-auto w-wide">
-            <h1
-              id="briefing-title"
-              className="ss-hero-title text-foreground !mt-0 max-w-[22ch]"
-            >
+            <h1 id="briefing-title" className="ss-hero-title text-foreground !mt-0">
               {title}
             </h1>
-            <p className="ss-lead max-w-[68ch]">
+            <p className="ss-lead" style={{ marginTop: "10px" }}>
               {statement}
             </p>
           </div>
         </div>
       )}
-
     </section>
   );
 };

@@ -136,7 +136,7 @@ const Accountability = () => {
         </ul>
       </ArticleSection>
 
-      <EditorialBackLink to="/about" label="Back to About" />
+      <EditorialBackLink />
     </>
   );
 };

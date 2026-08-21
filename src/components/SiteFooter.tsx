@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { FOOTER_COLUMNS, type NavRoute } from "@/config/navigation";
-import { HOME_DISCLAIMER } from "@/data/publicLanguage";
+import { HOME_DISCLAIMER, HOME_TAGLINE } from "@/data/publicLanguage";
 
 type LinkRow = {
   to: string;
@@ -18,8 +18,7 @@ const columns: Column[] = FOOTER_COLUMNS.map((c) => ({
   links: c.links.map((l: NavRoute) => ({ to: l.path, label: l.label })),
 }));
 
-
-const HAIRLINE = "rgba(148, 163, 184, 0.18)";
+const HAIRLINE = "rgba(255,255,255,0.12)";
 
 const FooterLink = ({ row }: { row: LinkRow }) => {
   const { pathname } = useLocation();
@@ -38,8 +37,13 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
       <Link
         to={row.to}
         onClick={handleClick}
-        className="block t-body-sm hover:text-white transition-colors"
-        style={{ color: "rgba(255,255,255,0.62)" }}
+        className="block hover:text-white"
+        style={{
+          color: "rgba(255,255,255,0.64)",
+          fontSize: "13px",
+          lineHeight: 1.45,
+          padding: "3px 0",
+        }}
       >
         {row.label}
       </Link>
@@ -50,73 +54,94 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
 export const SiteFooter = () => {
   const now = new Date();
 
-
-
   return (
-    <>
-      {/* Paints navy behind any overscroll bounce so the page never reveals cream below the footer. */}
-      <div
-        aria-hidden="true"
-        className="fixed inset-x-0 bottom-0 h-[50vh] -z-10 pointer-events-none bg-[hsl(var(--navy-surface))]"
-      />
-      <footer
-        className="relative mt-0 mb-0 bg-[hsl(var(--navy-surface))]"
-      >
-        <div className="page-shell pt-10 md:pt-12 lg:pt-12 pb-6 md:pb-8 lg:pb-8">
-        <div className="mx-auto w-wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-10 md:gap-y-10 items-start text-left">
-            <div className="lg:col-span-1">
-              <Logo variant="light" className="h-6" />
-            </div>
-
-            {columns.map((col) => (
-              <div key={col.title} className="text-left">
-                <p
-                  className="mb-4 md:mb-5 t-utility-xs"
-                  style={{ color: "rgba(255,255,255,0.92)" }}
-                >
-                  {col.title}
-                </p>
-                <ul className="space-y-1.5 md:space-y-2">
-                  {col.links.map((l) => (
-                    <FooterLink key={l.label} row={l} />
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+    <footer className="relative bg-[hsl(var(--navy-surface))] text-white">
+      <div className="page-shell" style={{ paddingTop: "28px", paddingBottom: "20px" }}>
+        <div className="flex flex-col gap-1" style={{ marginBottom: "20px" }}>
+          <Logo variant="light" />
+          <p
+            className="font-sans"
+            style={{
+              color: "rgba(255,255,255,0.52)",
+              fontSize: "12.5px",
+              lineHeight: 1.4,
+              margin: 0,
+              maxWidth: "36ch",
+            }}
+          >
+            {HOME_TAGLINE}
+          </p>
         </div>
 
-        {/* Legal band, hard-cut hairline, no gradients */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-6 md:gap-y-0">
+          {columns.map((col) => (
+            <div key={col.title}>
+              <p
+                className="font-sans"
+                style={{
+                  color: "rgba(255,255,255,0.88)",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  marginBottom: "8px",
+                }}
+              >
+                {col.title}
+              </p>
+              <ul className="m-0 p-0" style={{ listStyle: "none" }}>
+                {col.links.map((l) => (
+                  <FooterLink key={l.label} row={l} />
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
         <div
-          className="mt-8 md:mt-10 pt-5"
-          style={{ borderTop: `1px solid ${HAIRLINE}` }}
+          className="flex flex-col gap-3"
+          style={{
+            marginTop: "22px",
+            paddingTop: "16px",
+            borderTop: `1px solid ${HAIRLINE}`,
+          }}
         >
-          <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-y-3">
+          <p
+            className="font-sans"
+            style={{
+              color: "rgba(255,255,255,0.52)",
+              fontSize: "12.5px",
+              lineHeight: 1.55,
+              maxWidth: "62ch",
+              margin: 0,
+            }}
+          >
+            {HOME_DISCLAIMER}
+          </p>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <p
-              className="t-utility-xs"
-              style={{ color: "rgba(255,255,255,0.48)" }}
+              className="font-sans"
+              style={{
+                color: "rgba(255,255,255,0.46)",
+                fontSize: "12px",
+                margin: 0,
+              }}
             >
-              © {now.getFullYear()} Source Standard. All Rights Reserved.
+              © {now.getFullYear()} Source Standard
             </p>
             <Link
               to="/verification-disclaimer"
-              className="t-utility-xs hover:text-white transition-colors"
-              style={{ color: "rgba(255,255,255,0.50)" }}
+              className="hover:text-white"
+              style={{
+                color: "rgba(255,255,255,0.56)",
+                fontSize: "12px",
+              }}
             >
               Verification limits
             </Link>
           </div>
-
-          <p
-            className="mt-5 md:mt-6 font-sans"
-            style={{ color: "rgba(255,255,255,0.48)", fontSize: "12px", lineHeight: 1.65, maxWidth: "68ch" }}
-          >
-            {HOME_DISCLAIMER}
-          </p>
         </div>
       </div>
-      </footer>
-    </>
+    </footer>
   );
 };

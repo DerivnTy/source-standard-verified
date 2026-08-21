@@ -49,7 +49,7 @@ const documentedSources = (vendor: Vendor): string | undefined => {
 
 const ResultName = ({ name, to }: { name: string; to?: string }) => {
   const style = {
-    fontSize: "20px",
+    fontSize: "18px",
     fontWeight: 600,
     lineHeight: 1.25,
     letterSpacing: "-0.02em",

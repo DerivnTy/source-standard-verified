@@ -1,5 +1,4 @@
 import { PageHeader } from "@/components/PageHeader";
-import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -137,15 +136,13 @@ const Governance = () => (
       </dl>
     </PageSection>
 
-    <PageSection id="deeper" title="Read deeper" bordered={false} pb="0">
-      <div className="grid gap-2.5 sm:grid-cols-2">
+    <PageSection last id="deeper" title="Read deeper" bordered={false}>
+      <div className="grid gap-2 sm:grid-cols-2">
         {deeper.map((d) => (
           <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />
         ))}
       </div>
     </PageSection>
-
-    <EditorialBackLink to="/" label="Back to Home" />
   </>
 );
 

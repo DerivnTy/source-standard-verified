@@ -1,10 +1,5 @@
 import { ReactNode } from "react";
-import { HeroPattern } from "./HeroPattern";
 
-/**
- * PageHeader, Source Standard institutional page intro band.
- * Navy hero. Uppercase mono eyebrow, white H1, muted-white lead.
- */
 export const PageHeader = ({
   eyebrow,
   title,
@@ -16,35 +11,30 @@ export const PageHeader = ({
   description?: string;
   children?: ReactNode;
 }) => (
-  <section className="relative overflow-hidden bg-[hsl(var(--navy-surface))] border-b border-white/10">
-    <HeroPattern opacity={0.015} stroke="white" cellSize={32} />
+  <section className="relative bg-[hsl(var(--navy-surface))]">
     <div
-      className="relative z-10 page-shell"
-      style={{ paddingTop: "clamp(44px, 5vh, 64px)", paddingBottom: "24px" }}
+      className="relative page-shell"
+      style={{ paddingTop: "24px", paddingBottom: "26px" }}
     >
       <div className="mx-auto w-wide">
         {eyebrow && (
           <p
-            className="font-mono uppercase"
-            style={{
-              fontSize: "10px",
-              letterSpacing: "0.14em",
-              color: "rgba(255,255,255,0.6)",
-            }}
+            className="t-eyebrow-sm"
+            style={{ color: "rgba(255,255,255,0.5)", marginBottom: "8px" }}
           >
-            {eyebrow.toUpperCase()}
+            {eyebrow}
           </p>
         )}
         <h1
-          className="ss-hero-title !text-white max-w-[36ch] !mt-0"
-          style={{ marginTop: eyebrow ? "22px" : "0", textWrap: "balance" }}
+          className="ss-hero-title !text-white !mt-0"
+          style={{ textWrap: "balance" }}
         >
           {title}
         </h1>
         {description && (
           <p
-            className="ss-lead !text-white/70 max-w-[68ch]"
-            style={{ marginTop: "14px", textWrap: "balance" }}
+            className="ss-lead !text-white/70"
+            style={{ marginTop: "10px", textWrap: "balance" }}
           >
             {description}
           </p>

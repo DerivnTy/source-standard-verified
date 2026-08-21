@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { Search, Check, ChevronDown } from "lucide-react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 
@@ -110,8 +109,8 @@ const FilterSelect = ({
           minWidth: "var(--radix-select-trigger-width)",
           maxHeight: "min(60vh, 320px)",
           border: "1px solid hsl(var(--border))",
-          borderRadius: "16px",
-          boxShadow: "0 8px 24px -12px rgba(0,16,33,0.18)",
+          borderRadius: "2px",
+          boxShadow: "none",
         }}
       >
         <SelectPrimitive.Viewport style={{ padding: "6px" }}>
@@ -126,7 +125,7 @@ const FilterSelect = ({
                 letterSpacing: "0.01em",
                 color: "#001021",
                 padding: "8px 12px",
-                borderRadius: "10px",
+                borderRadius: "2px",
                 lineHeight: 1.35,
               }}
             >
@@ -224,25 +223,7 @@ const Greenlist = () => {
   const heroDescription =
     "Indexed records for compounding pharmacies, outsourcing facilities, and manufacturers followed by Source Standard. An indexed record is not a Greenlisted designation.";
 
-  // Sticky compact bar, appears once the original search scrolls out of view.
-  const searchRef = useRef<HTMLDivElement | null>(null);
   const filtersAnchorRef = useRef<HTMLDivElement | null>(null);
-  const [stickyVisible, setStickyVisible] = useState(false);
-
-  useEffect(() => {
-    const el = searchRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setStickyVisible(!entry.isIntersecting),
-      { rootMargin: "-8px 0px 0px 0px", threshold: 0 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const scrollToFilters = () => {
-    filtersAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   return (
     <>
@@ -263,89 +244,43 @@ const Greenlist = () => {
         title="Facility Records"
         description={heroDescription}
         recordCount={counts.total}
-      />
+      >
+        <div className="relative w-full md:max-w-[520px]">
+          <Search
+            aria-hidden
+            className="pointer-events-none absolute text-white/50"
+            style={{
+              top: "50%",
+              left: "12px",
+              width: "15px",
+              height: "15px",
+              strokeWidth: 1.75,
+              transform: "translateY(-50%)",
+            }}
+          />
+          <input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Facility name"
+            aria-label="Search Facility Records"
+            className="hero-search-input font-sans w-full text-white placeholder:text-white/45 focus:outline-none"
+            style={{
+              height: "42px",
+              borderRadius: "2px",
+              backgroundColor: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.26)",
+              paddingLeft: "36px",
+              paddingRight: "12px",
+            }}
+          />
+        </div>
+      </RegistryHeader>
 
       <section className="bg-background">
-        <div className="page-shell pt-4 md:pt-6 pb-10 md:pb-14">
+        <div className="page-shell" style={{ paddingTop: "18px", paddingBottom: "28px" }}>
           <div className="mx-auto w-wide">
-            {/* Search, first interactive element */}
-            <div ref={searchRef} className="-mx-5 md:mx-0 px-5">
-              <div className="mx-auto w-full md:max-w-[640px]">
-                <div className="relative">
-                  <Search
-                    aria-hidden
-                    className="pointer-events-none absolute text-muted-foreground/70"
-                    style={{
-                      top: "50%",
-                      left: "18px",
-                      width: "16px",
-                      height: "16px",
-                      strokeWidth: 1.75,
-                      transform: "translateY(-50%)",
-                    }}
-                  />
-                  <input
-                    value={query}
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder="Search manufacturer, pharmacy, or facility..."
-                    aria-label="Search Facility Records"
-                    className="font-sans w-full text-[14px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
-                    style={{
-                      height: "52px",
-                      borderRadius: "2px",
-                      backgroundColor: "#FFFFFF",
-                      border: "1px solid hsl(var(--border))",
-                      paddingLeft: "44px",
-                      paddingRight: "18px",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Compact Greenlisted context strip, hidden during search */}
-            {!isSearching && (
-              <div className="-mx-5 md:mx-0 px-5 pt-2">
-                <div
-                  className="bg-white"
-                  style={{
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "2px",
-                    padding: "12px 14px",
-                  }}
-                >
-                  <p
-                    className="font-sans font-semibold uppercase text-muted-foreground"
-                    style={{ fontSize: "10.5px", letterSpacing: "0.12em" }}
-                  >
-                    Facility Records
-                  </p>
-                  <p
-                    className="mt-1 text-foreground"
-                    style={{ fontSize: "13.5px", lineHeight: 1.45, fontWeight: 500 }}
-                  >
-                    Facility Records list the compounding pharmacies, outsourcing facilities, and manufacturers followed by Source Standard. Each record shows the facility's current status within the framework.
-                  </p>
-                  <p
-                    className="mt-0.5 text-muted-foreground"
-                    style={{ fontSize: "12px", lineHeight: 1.45 }}
-                  >
-                    Facilities enter the record in Monitoring status. Greenlisted is a status a facility may earn under the framework; it is not a registration check.
-                  </p>
-                  <Link
-                    to="/how-it-works"
-                    className="mt-1.5 inline-flex items-center gap-1 font-sans text-foreground/80 hover:text-foreground underline-offset-4 hover:underline transition-colors"
-                    style={{ fontSize: "12px", fontWeight: 500 }}
-                  >
-                    Learn more <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </div>
-            )}
-
-            {/* Filters, compact toggle during search */}
             {isSearching && (
-              <div className="-mx-5 md:mx-0 px-5 pt-3">
+              <div className="pb-3">
                 <button
                   type="button"
                   onClick={() => setFiltersOpen((o) => !o)}
@@ -386,7 +321,7 @@ const Greenlist = () => {
             )}
 
             {(!isSearching || filtersOpen) && (
-            <div ref={filtersAnchorRef} className="-mx-5 md:mx-0 px-5 pt-3 space-y-3 scroll-mt-16 animate-fade-in">
+            <div ref={filtersAnchorRef} className="space-y-3 scroll-mt-16">
               {/* Status */}
               <div>
                 <p
@@ -402,44 +337,16 @@ const Greenlist = () => {
                   <SoftPill label="Status Alert" active={status === "alert"} fullWidth onClick={() => setStatus("alert")} />
                 </div>
 
-                {/* Compact status guide legend */}
-                <div className="mt-3">
-                  <p
-                    className="font-sans font-semibold uppercase text-muted-foreground mb-1.5"
-                    style={{ fontSize: "10px", letterSpacing: "0.12em" }}
-                  >
-                    Status Guide
-                  </p>
-                  <ul className="flex flex-col" style={{ gap: "5px" }}>
-                    {STATUS_DEFINITIONS.map((s) => (
-                      <li key={s.label} className="flex flex-col">
-                        <div className="flex items-center" style={{ gap: "6px" }}>
-                          <span
-                            aria-hidden
-                            className="inline-block rounded-full shrink-0"
-                            style={{ width: "5px", height: "5px", backgroundColor: s.color }}
-                          />
-                          <span
-                            className="font-sans text-foreground/80"
-                            style={{ fontSize: "11px", fontWeight: 600, lineHeight: 1.3 }}
-                          >
-                            {s.label}
-                          </span>
-                        </div>
-                        <span
-                          className="font-sans text-muted-foreground"
-                          style={{
-                            fontSize: "11px",
-                            lineHeight: 1.35,
-                            paddingLeft: "11px",
-                          }}
-                        >
-                          {s.body}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  {STATUS_DEFINITIONS.map((s, i) => (
+                    <span key={s.label}>
+                      {i > 0 ? " · " : ""}
+                      <span className="font-medium text-foreground/80">{s.label}</span>
+                      {": "}
+                      {s.body}
+                    </span>
+                  ))}
+                </p>
               </div>
 
               {/* Facility Type */}
@@ -516,15 +423,15 @@ const Greenlist = () => {
                   </ul>
 
                   {hasMore && (
-                    <div className="mt-6 flex justify-center">
+                    <div className="mt-4">
                       <button
                         type="button"
                         onClick={() =>
                           setVisibleCount((n) => Math.min(n + PAGE_SIZE, sorted.length))
                         }
-                        className="inline-flex h-11 items-center justify-center rounded-full border border-foreground/15 bg-background px-6 font-sans text-[13.5px] font-medium text-foreground transition-colors hover:border-foreground/40 hover:bg-[hsl(var(--muted))]/40"
+                        className="inline-flex h-10 items-center justify-center rounded-[2px] border border-border bg-card px-4 font-sans text-[13px] font-medium text-foreground hover:bg-muted"
                       >
-                        Load More
+                        Load more
                       </button>
                     </div>
                   )}
@@ -534,71 +441,6 @@ const Greenlist = () => {
           </div>
         </div>
       </section>
-
-      {/* Compact sticky bar, appears after the original search scrolls out of view */}
-      <div
-        aria-hidden={!stickyVisible}
-        className="fixed left-0 right-0 top-0 z-40"
-        style={{
-          transform: stickyVisible ? "translateY(0)" : "translateY(-100%)",
-          transition: "transform 220ms ease-out",
-          backdropFilter: "blur(14px)",
-          WebkitBackdropFilter: "blur(14px)",
-          backgroundColor: "hsl(var(--background) / 0.85)",
-          borderBottom: "1px solid hsl(var(--border))",
-          pointerEvents: stickyVisible ? "auto" : "none",
-        }}
-      >
-        <div className="page-shell" style={{ paddingTop: "8px", paddingBottom: "8px" }}>
-          <div className="mx-auto w-wide flex items-center" style={{ gap: "8px" }}>
-            <div className="relative flex-1 min-w-0">
-              <Search
-                aria-hidden
-                className="pointer-events-none absolute text-muted-foreground/70"
-                style={{
-                  top: "50%",
-                  left: "14px",
-                  width: "14px",
-                  height: "14px",
-                  strokeWidth: 1.75,
-                  transform: "translateY(-50%)",
-                }}
-              />
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search facility..."
-                aria-label="Search Facility Records"
-                className="font-sans w-full text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
-                style={{
-                  height: "40px",
-                  borderRadius: "2px",
-                  backgroundColor: "#FFFFFF",
-                  border: "1px solid hsl(var(--border))",
-                  paddingLeft: "36px",
-                  paddingRight: "14px",
-                }}
-              />
-            </div>
-            <button
-              type="button"
-              onClick={scrollToFilters}
-              className="font-sans font-semibold uppercase text-foreground/80 hover:text-foreground transition-colors shrink-0"
-              style={{
-                fontSize: "11px",
-                letterSpacing: "0.06em",
-                height: "40px",
-                padding: "0 14px",
-                borderRadius: "2px",
-                border: "1px solid hsl(var(--border))",
-                backgroundColor: "#FFFFFF",
-              }}
-            >
-              Filters
-            </button>
-          </div>
-        </div>
-      </div>
     </>
 
   );

@@ -6,7 +6,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 72px;
+  scroll-padding-top: 64px;
 }
 
 /*
@@ -233,7 +233,7 @@ html {
   }
 
   .page-shell {
-    @apply mx-auto w-full max-w-[1120px] px-5 md:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[1080px] px-4 sm:px-5 md:px-8;
   }
 
   .w-page-shell   { max-width: 1120px; }
@@ -263,20 +263,20 @@ html {
   .t-article-title,
   .ss-hero-title {
     font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
-    font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
-    line-height: 1.18;
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.125rem);
+    line-height: 1.2;
     letter-spacing: -0.02em;
     font-weight: 600;
     color: hsl(var(--foreground));
-    max-width: 22ch;
+    max-width: 32ch;
   }
 
   .ss-lead,
   .t-hero-lead,
   .t-section-intro {
     font-family: "Inter", system-ui, sans-serif;
-    font-size: 1.0625rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.55;
     font-weight: 400;
     color: hsl(var(--muted-foreground));
     max-width: 62ch;
@@ -302,7 +302,7 @@ html {
   .t-section-title-md,
   .ss-section-title {
     font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
-    font-size: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+    font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
     line-height: 1.25;
     letter-spacing: -0.018em;
     font-weight: 600;
@@ -441,12 +441,12 @@ html {
   .section-band,
   .space-section,
   .section {
-    @apply py-12 md:py-16;
+    @apply py-7 md:py-8;
   }
   .space-section-doc,
   .space-section-tight,
   .section-tight {
-    @apply py-8 md:py-12;
+    @apply py-5 md:py-6;
   }
 
   .trust-list {

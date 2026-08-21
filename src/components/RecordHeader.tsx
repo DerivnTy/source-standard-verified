@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { MetadataItem } from "./MetadataBar";
 import { DownloadPdfLink } from "./DownloadPdfLink";
-import { HeroPattern } from "./HeroPattern";
 
 /**
  * RecordHeader, Tier 2, used on regulatory / policy documents.
@@ -44,15 +43,14 @@ export const RecordHeader = ({
   const cardStyle = {
     background: "rgba(255,255,255,0.04)",
     border: "1px solid rgba(255,255,255,0.14)",
-    borderRadius: "10px",
+    borderRadius: "2px",
     padding: "16px",
   } as const;
 
   if (compact && !hasLeftContent) {
     return (
       <header className="relative overflow-hidden bg-[hsl(var(--navy-surface))] border-b border-white/10">
-        <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
-        <div className="relative z-10 page-shell py-6 md:py-8">
+        <div className="relative z-10 page-shell py-5">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-2">
               <p
@@ -100,20 +98,11 @@ export const RecordHeader = ({
             "radial-gradient(ellipse 70% 80% at 50% 40%, hsl(var(--navy-surface-2)) 0%, transparent 70%)",
         }}
       />
-      <HeroPattern opacity={0.02} stroke="white" cellSize={32} />
       <div
-        className={
-          compact
-            ? "relative z-10 page-shell py-6 md:py-8"
-            : "relative z-10 page-shell"
-        }
-        style={
-          compact
-            ? undefined
-            : { paddingTop: "clamp(44px, 6.5vh, 68px)", paddingBottom: "clamp(28px, 4vh, 40px)" }
-        }
+        className="relative z-10 page-shell"
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
       >
-        <div className="grid md:grid-cols-12 gap-10">
+        <div className="grid gap-6 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-8">
             {eyebrow && (
               <p
@@ -130,7 +119,7 @@ export const RecordHeader = ({
             {title && (
               <h1
                 className="ss-hero-title !text-white max-w-3xl !mt-0"
-                style={{ marginTop: eyebrow ? "22px" : "0", textWrap: "balance" }}
+                style={{ marginTop: eyebrow ? "8px" : "0", textWrap: "balance" }}
               >
                 {title}
               </h1>

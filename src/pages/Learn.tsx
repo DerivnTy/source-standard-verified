@@ -144,7 +144,7 @@ const Learn = () => {
       </PageSection>
 
       {/* 4 — Still Have Questions? */}
-      <PageSection title="Further questions" compact>
+      <PageSection last title="Further questions">
         <p
           className="text-muted-foreground"
           style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "68ch", margin: 0 }}

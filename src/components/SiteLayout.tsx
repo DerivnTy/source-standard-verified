@@ -4,12 +4,8 @@ import { SiteFooter } from "./SiteFooter";
 import { useHashScroll } from "@/hooks/useHashScroll";
 import { useEffect } from "react";
 
-const HEADER_STACK_HEIGHT = 60;
+const HEADER_HEIGHT = 56;
 
-/**
- * Fixed institutional header. Always visible. Hide-on-scroll belongs to
- * product apps, not a public standards record.
- */
 const StaticHeader = () => {
   useEffect(() => {
     setHeaderVisibleGlobal(true);
@@ -26,12 +22,12 @@ const StaticHeader = () => {
 export const SiteLayout = () => {
   useHashScroll();
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="flex flex-col bg-background">
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
       <StaticHeader />
-      <main id="main-content" className="flex-1 flex flex-col" style={{ paddingTop: `${HEADER_STACK_HEIGHT}px` }}>
+      <main id="main-content" className="flex flex-col" style={{ paddingTop: `${HEADER_HEIGHT}px` }}>
         <Outlet />
       </main>
       <SiteFooter />

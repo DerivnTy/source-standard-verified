@@ -44,7 +44,7 @@ export const ArticleSection = ({
   first?: boolean;
   children: ReactNode;
 }) => {
-  const firstClass = first ? "pt-10 md:pt-12" : "";
+  const firstClass = first ? "pt-7" : "";
 
 
 
@@ -61,7 +61,7 @@ export const ArticleSection = ({
             <div
               style={{
                 border: "0.5px solid hsl(var(--border))",
-                borderRadius: "8px",
+                borderRadius: "2px",
                 background: "hsl(var(--muted) / 0.35)",
                 padding: "16px 20px",
               }}

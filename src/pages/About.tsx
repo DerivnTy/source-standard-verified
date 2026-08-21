@@ -1,5 +1,4 @@
 import { PageMeta } from "@/components/PageMeta";
-import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import { PageSection } from "@/components/system";
@@ -70,7 +69,7 @@ const About = () => {
 
       {/* 1 — Why We Exist */}
       <PageSection id="why-we-exist" title="Why We Exist">
-        <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+        <div className="flex flex-col gap-3" style={{ maxWidth: "68ch" }}>
           <p
             className="text-foreground"
             style={{ fontSize: "17px", lineHeight: 1.6, margin: 0 }}
@@ -148,15 +147,14 @@ const About = () => {
         </p>
       </PageSection>
 
-      <PageSection id="looking-ahead" compact title="Scope of the record" bordered={false} pb="0">
+      <PageSection id="looking-ahead" last title="Scope of the record" bordered={false}>
         <p
           className="text-muted-foreground"
-          style={{ fontSize: "15px", lineHeight: 1.7, maxWidth: "68ch", margin: 0 }}
+          style={{ fontSize: "15px", lineHeight: 1.65, maxWidth: "68ch", margin: 0 }}
         >
           Records are updated as reviews are completed and as new information is received. The obligation is to keep published records accurate and limited to what the review actually covered, not to grow an index for its own sake.
         </p>
       </PageSection>
-    <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

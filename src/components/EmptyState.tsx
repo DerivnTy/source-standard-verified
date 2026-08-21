@@ -14,16 +14,16 @@ export const EmptyState = ({
   ctaLabel?: string;
   ctaTo?: string;
 }) => (
-  <div className="border border-border bg-surface-muted px-6 py-10 text-center rounded-[4px]">
+  <div className="border-t border-border py-6">
     <p className="t-utility-xs font-mono text-foreground mb-3">
       {eyebrow}
     </p>
-    <p className="t-body-sm text-muted-foreground max-w-xl mx-auto">
+    <p className="t-body-sm max-w-[62ch] text-muted-foreground">
       {body}
     </p>
     <Link
       to={ctaTo}
-      className="mt-5 inline-block t-utility-xs font-mono text-primary hover:text-primary-hover"
+      className="mt-3 inline-block text-[13px] font-medium text-foreground underline-offset-2 hover:underline"
     >
       {ctaLabel} →
     </Link>

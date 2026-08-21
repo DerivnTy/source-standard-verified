@@ -64,8 +64,8 @@ export const SiteHeader = () => {
       }}
     >
       <div
-        className="relative flex items-center justify-between"
-        style={{ height: "63px", paddingLeft: "24px", paddingRight: "24px" }}
+        className="page-shell relative flex items-center justify-between"
+        style={{ height: "56px", paddingTop: 0, paddingBottom: 0 }}
       >
         <Logo />
         <nav className="hidden lg:flex items-center gap-4 xl:gap-5 h-full flex-wrap justify-end">
@@ -145,9 +145,9 @@ export const SiteHeader = () => {
               <div
                 className="flex shrink-0 items-center justify-between"
                 style={{
-                  height: "63px",
-                  paddingLeft: "24px",
-                  paddingRight: "24px",
+                  height: "56px",
+                  paddingLeft: "20px",
+                  paddingRight: "20px",
                   borderBottom: "0.5px solid rgba(255,255,255,0.10)",
                 }}
               >
@@ -174,9 +174,9 @@ export const SiteHeader = () => {
               {/* Nav list, left-aligned, 32px gaps, 20px Inter Semi-bold Navy */}
               <nav
                 className="flex-1 overflow-y-auto"
-                style={{ paddingLeft: "32px", paddingRight: "32px", paddingTop: "40px" }}
+                style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "24px" }}
               >
-                <ul className="flex flex-col" style={{ rowGap: "32px" }}>
+                <ul className="flex flex-col" style={{ rowGap: "18px" }}>
                   {mobileNav.map((n) => (
                     <li key={n.to}>
                       <NavLink
@@ -199,9 +199,9 @@ export const SiteHeader = () => {
                 <Link
                   to={PRIMARY_CTA.path}
                   onClick={() => setOpen(false)}
-                  className="mt-10 w-full inline-flex items-center justify-center px-8 text-white transition-colors hover:bg-white/[0.06]"
+                  className="mt-8 w-full inline-flex items-center justify-center px-6 text-white transition-colors hover:bg-white/[0.06]"
                   style={{
-                    height: "52px",
+                    height: "44px",
                     border: "1px solid rgba(255,255,255,0.22)",
                     backgroundColor: "rgba(255,255,255,0.03)",
                     borderRadius: "0px",

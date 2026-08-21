@@ -1,5 +1,4 @@
 import { PageMeta } from "@/components/PageMeta";
-import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { PageHeader } from "@/components/PageHeader";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { PageSection } from "@/components/system";
@@ -76,15 +75,13 @@ const MedicalAdvisory = () => {
         <DefList items={ROLES} />
       </PageSection>
 
-      <PageSection id="boundaries" title="Boundaries" intro="What advisory participation does and does not include.">
-        <ul className="space-y-2 list-disc pl-5 t-body-sm text-muted-foreground leading-relaxed">
+      <PageSection last id="boundaries" title="Boundaries" intro="What advisory participation does and does not include.">
+        <ul className="list-disc space-y-2 pl-5 t-body-sm leading-relaxed text-muted-foreground">
           {BOUNDARIES.map((b) => (
             <li key={b}>{b}</li>
           ))}
         </ul>
       </PageSection>
-
-      <EditorialBackLink to="/governance" label="Back to Governance" />
     </>
   );
 };

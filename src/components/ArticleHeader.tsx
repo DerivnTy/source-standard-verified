@@ -1,66 +1,54 @@
 import { ReactNode } from "react";
-import { HeroPattern } from "./HeroPattern";
 
 export type ArticleMetaItem = { label: string; value: ReactNode };
-
-const cardChrome = {
-  border: "0.5px solid hsl(var(--border))",
-  borderRadius: "2px",
-  background: "hsl(var(--card))",
-} as const;
 
 /**
  * ArticleHeader, consumer-facing article header.
  *
- * Two rendering paths:
- *   • If `category` is passed → navy editorial masthead. Uppercase mono
- *     category eyebrow, white title, muted-white lead. Consistent with
- *     every other "meant to read" page across the site.
- *   • Otherwise → backward-compatible bordered card (Library legacy).
+ * Navy masthead when `category` is passed. Otherwise a plain reading header
+ * on the page canvas. No pattern mesh, no viewport-height padding.
  */
 export const ArticleHeader = ({
-  eyebrow: _eyebrow,
   title,
   lead,
   category,
   metadata = [],
-  backHref: _backHref,
-  backLabel: _backLabel,
 }: {
   eyebrow?: string;
   title: string;
   lead?: string;
   category?: string;
   metadata?: ArticleMetaItem[];
-  /** @deprecated Top-of-page back link removed. Render <EditorialBackLink /> at the page footer instead. */
   backHref?: string;
-  /** @deprecated Top-of-page back link removed. Render <EditorialBackLink /> at the page footer instead. */
   backLabel?: string;
 }) => {
   const updated = metadata.find(
     (m) => typeof m.label === "string" && m.label.toLowerCase().includes("updated"),
   );
 
-  // ── Navy editorial masthead (category path) ─────────────────────
   if (category) {
     return (
-      <header className="relative overflow-hidden bg-[hsl(var(--navy-surface))] border-b border-white/10">
-        <HeroPattern opacity={0.015} stroke="white" cellSize={32} />
+      <header className="relative bg-[hsl(var(--navy-surface))]">
         <div
-          className="relative z-10 page-shell"
-          style={{ paddingTop: "clamp(20px, 2.5vh, 32px)", paddingBottom: "24px" }}
+          className="relative page-shell"
+          style={{ paddingTop: "24px", paddingBottom: "24px" }}
         >
           <div className="mx-auto w-reading-wide">
+            <p
+              className="t-eyebrow-sm"
+              style={{ color: "rgba(255,255,255,0.5)", marginBottom: "8px" }}
+            >
+              {category}
+            </p>
             <h1
-              className="t-article-title !text-white !mt-0"
-              style={{ marginTop: "0px", textWrap: "balance" }}
+              className="t-article-title !mt-0 !text-white"
+              style={{ textWrap: "balance" }}
             >
               {title}
             </h1>
-
             {lead && (
               <p
-                className="ss-lead !text-white/70 max-w-[68ch]"
+                className="ss-lead !text-white/70"
                 style={{ marginTop: "10px", textWrap: "balance" }}
               >
                 {lead}
@@ -68,53 +56,33 @@ export const ArticleHeader = ({
             )}
           </div>
         </div>
-
       </header>
     );
   }
 
-  // ── Backward-compatible card path (Library pages) ───────────────
-  void _eyebrow;
-
   return (
     <header className="bg-background">
-      <div className="page-shell pt-5">
+      <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "8px" }}>
         <div className="mx-auto w-reading-wide">
-          <div style={{ ...cardChrome, padding: "24px" }}>
-
-            <h1
-              className="t-article-title text-foreground max-w-[26ch]"
-              style={{ marginTop: "12px" }}
+          <h1 className="t-article-title text-foreground !mt-0">{title}</h1>
+          {lead && (
+            <p
+              className="text-muted-foreground"
+              style={{
+                fontSize: "15px",
+                lineHeight: "1.55",
+                marginTop: "10px",
+                maxWidth: "68ch",
+              }}
             >
-              {title}
-            </h1>
-
-            {lead && (
-              <p
-                className="text-muted-foreground"
-                style={{
-                  fontSize: "13.5px",
-                  lineHeight: "1.6",
-                  marginTop: "12px",
-                  maxWidth: "68ch",
-                }}
-              >
-                {lead}
-              </p>
-            )}
-
-            {updated && (
-              <p
-                className="text-muted-foreground"
-                style={{
-                  fontSize: "10px",
-                  marginTop: "12px",
-                }}
-              >
-                Updated {updated.value}
-              </p>
-            )}
-          </div>
+              {lead}
+            </p>
+          )}
+          {updated && (
+            <p className="t-meta" style={{ marginTop: "10px" }}>
+              Updated {updated.value}
+            </p>
+          )}
         </div>
       </div>
     </header>

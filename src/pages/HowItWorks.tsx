@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
-import { EditorialBackLink } from "@/components/EditorialBackLink";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { BriefingHero } from "@/components/BriefingHero";
 import { PageSection, ProcessSteps } from "@/components/system";
@@ -54,7 +53,7 @@ const HowItWorks = () => {
       />
 
       <PageSection first title="What is reviewed">
-        <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+        <div className="flex max-w-[68ch] flex-col gap-3">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {WHAT_WE_DO_TODAY}
           </p>
@@ -65,7 +64,7 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="Clinic review">
-        <div style={{ maxWidth: "68ch" }}>
+        <div className="max-w-[68ch]">
           <ProcessSteps
             steps={HOW_IT_WORKS_STEPS.map((sentence) => ({ title: sentence }))}
           />
@@ -73,7 +72,7 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="Facility evaluation">
-        <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+        <div className="flex max-w-[68ch] flex-col gap-3">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {HOW_IT_WORKS_FACILITY}
           </p>
@@ -84,7 +83,7 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="Independent testing">
-        <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+        <div className="flex max-w-[68ch] flex-col gap-3">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {METHODOLOGY_TESTING}
           </p>
@@ -98,7 +97,7 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="What is operational">
-        <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+        <div className="flex max-w-[68ch] flex-col gap-3">
           <p className="t-body-sm" style={{ margin: 0 }}>
             {DEVELOPING_WORK}
           </p>
@@ -114,13 +113,13 @@ const HowItWorks = () => {
         </div>
       </PageSection>
 
-      <PageSection compact bordered={false} title="Related records">
-        <ul className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0, maxWidth: "68ch" }}>
+      <PageSection last bordered={false} title="Related records">
+        <ul className="m-0 max-w-[68ch] list-none p-0">
           {RELATED.map((r, i) => (
             <li key={r.to} className={i > 0 ? "border-t border-border" : ""}>
               <Link
                 to={r.to}
-                className="flex items-center justify-between gap-3 py-3 text-foreground hover:text-primary"
+                className="flex items-center justify-between gap-3 py-2.5 text-foreground hover:text-primary"
               >
                 <span className="t-body-sm">{r.label}</span>
                 <span aria-hidden className="text-muted-foreground">→</span>
@@ -129,8 +128,6 @@ const HowItWorks = () => {
           ))}
         </ul>
       </PageSection>
-
-      <EditorialBackLink to="/" label="Back to Home" />
     </>
   );
 };

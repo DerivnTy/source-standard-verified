@@ -48,7 +48,7 @@ type GroupProps = {
 };
 
 const Group = ({ legend, children, first }: GroupProps) => (
-  <fieldset className={first ? "" : "border-t border-border pt-7"}>
+  <fieldset className={first ? "" : "border-t border-border pt-5"}>
     <legend className="t-body-md font-semibold text-foreground mb-0 pb-0">
       {legend}
     </legend>
@@ -147,15 +147,14 @@ const Apply = () => {
         docId=""
         title="Apply for Verification"
         statement={SUBTITLE}
+        heroPadding={{ top: "24px", bottom: "24px" }}
       />
 
-      <section className="bg-background border-b border-border">
-        <div className="page-shell pt-9 pb-9">
-          <div className="mx-auto w-full">
-            <div>
-              <div className="bg-card border border-border rounded-xl p-6">
+      <section className="bg-background">
+        <div className="page-shell" style={{ paddingTop: "22px", paddingBottom: "28px" }}>
+          <div className="mx-auto w-wide max-w-[720px]">
                 {!filed ? (
-                  <form onSubmit={onSubmit} className="intake-form space-y-7">
+                  <form onSubmit={onSubmit} className="intake-form space-y-5">
                     {/* Business Profile */}
                     <Group legend="Business Profile" first>
                       <div className="grid sm:grid-cols-2 gap-[18px]">
@@ -313,11 +312,10 @@ const Apply = () => {
                       </label>
                     </Group>
 
-                    <div className="flex sm:justify-end mt-6">
+                    <div className="mt-5">
                       <Button
                         type="submit"
                         disabled={submitting || !acknowledged}
-                        size="lg"
                         className="w-full sm:w-auto"
                       >
                         {submitting ? "Submitting" : "Submit Intake"}
@@ -325,24 +323,22 @@ const Apply = () => {
                     </div>
                   </form>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="max-w-[62ch] space-y-3">
                     <h3 className="t-h3 text-foreground">Intake received</h3>
                     <p className="t-body-md text-muted-foreground">
                       Thank you. Source Standard will be in touch with next steps at the administrative contact provided.
                     </p>
-                    <p className="t-body-md text-muted-foreground pt-2">
+                    <p className="t-body-md text-muted-foreground">
                       Reference:{" "}
-                      <span className="text-foreground font-medium">{reference}</span>
+                      <span className="font-medium text-foreground">{reference}</span>
                     </p>
-                    <div className="pt-2">
-                      <Button type="button" variant="ghost" onClick={fileAnother}>
+                    <div className="pt-1">
+                      <Button type="button" variant="outline" onClick={fileAnother}>
                         Submit another intake
                       </Button>
                     </div>
                   </div>
                 )}
-              </div>
-            </div>
           </div>
         </div>
       </section>

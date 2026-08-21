@@ -60,7 +60,7 @@ const FieldLabel = ({ children, required }: { children: ReactNode; required?: bo
 const inputBase: React.CSSProperties = {
   width: "100%",
   border: "0.5px solid hsl(var(--border))",
-  borderRadius: "8px",
+  borderRadius: "2px",
   padding: "10px 12px",
   fontSize: "14px",
   fontWeight: 400,
@@ -139,7 +139,7 @@ const ReportConcern = () => {
                 style={{
                   border: "0.5px solid hsl(var(--border))",
                   background: "hsl(var(--muted) / 0.35)",
-                  borderRadius: "8px",
+                  borderRadius: "2px",
                   padding: "16px 20px",
                 }}
               >
@@ -233,7 +233,7 @@ const ReportConcern = () => {
           </div>
         </div>
       </section>
-    <EditorialBackLink to="/" label="Back to Home" />
+    <EditorialBackLink />
     </>
   );
 };

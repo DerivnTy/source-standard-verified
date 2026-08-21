@@ -2,19 +2,9 @@ import { CSSProperties, ReactNode } from "react";
 import { Glyph, type GlyphName } from "./GlyphIcon";
 
 /**
- * PageSection, the canonical consumer-page section pattern.
- *
- *   [optional glyph]  Question heading
- *   Short supporting sentence (optional)
- *   Content block
- *   Optional CTA row
- *
- * Owns its own compact vertical rhythm so tightening consumer pages
- * does NOT require changing global .section-pad tokens. Framework and
- * legal doc pages continue to inherit the sitewide rhythm untouched.
- *
- * No numbered eyebrows. Pages that need §-style numbering keep their
- * existing scaffolding.
+ * Page section. Tight heading-to-body, modest vertical rhythm.
+ * Compose pages by choosing first / compact / last rather than
+ * stacking identical airy bands.
  */
 export const PageSection = ({
   id,
@@ -26,16 +16,11 @@ export const PageSection = ({
   bordered = true,
   compact = false,
   first = false,
+  last = false,
   className = "",
   pb,
 }: {
   id?: string;
-  /**
-   * Section-heading glyphs are semantic only. `minus` is intentionally
-   * excluded — dash decorations before headings read as unfinished UI.
-   * For exclusion / limitation copy, use a plain heading and let the list
-   * items carry the semantics.
-   */
   icon?: Exclude<GlyphName, "minus" | "check">;
   title?: string;
   intro?: ReactNode;
@@ -43,38 +28,23 @@ export const PageSection = ({
   children?: ReactNode;
   bordered?: boolean;
   compact?: boolean;
-  /**
-   * Mark this as the first content section directly under a hero. Applies
-   * the shared hero → first-section rhythm (32px mobile / 40px desktop
-   * top + bottom padding). Overrides `compact` for the top padding so
-   * every page shares the same visual distance below the hero.
-   */
   first?: boolean;
+  last?: boolean;
   className?: string;
   pb?: string;
 }) => {
-  const padY = compact ? "24px" : "32px";
-  const introMarginTop = compact ? "8px" : "10px";
-  const childrenMarginTop = compact ? (intro ? "20px" : "16px") : intro ? "24px" : "20px";
-  const ctaMarginTop = compact ? "12px" : "16px";
-  // Mobile values (locked): first pt=40px, non-first py matches inline `padY`.
-  // md/lg tightened for institutional desktop density.
-  const firstClass = first ? "pt-10 md:pt-11 lg:pt-11" : "";
-  const firstBottomClass = first && !pb ? "pb-10 md:pb-9 lg:pb-9" : "";
-  const responsivePadClass = !first && !pb
-    ? compact
-      ? "md:!py-7 lg:!py-8"
-      : "md:!py-9 lg:!py-10"
-    : "";
-  const inlineStyle: CSSProperties = first
-    ? pb
-      ? { paddingBottom: pb }
-      : {}
-    : { paddingTop: padY, paddingBottom: pb ?? padY };
+  const padTop = first ? 28 : compact ? 20 : 24;
+  const padBottom = last ? 28 : compact ? 20 : 24;
+
+  const inlineStyle: CSSProperties = {
+    paddingTop: pb && first ? undefined : padTop,
+    paddingBottom: pb ?? padBottom,
+  };
+
   return (
     <section
       aria-labelledby={id}
-      className={`bg-background text-left ${bordered ? "border-b border-border" : ""} ${firstClass} ${firstBottomClass} ${responsivePadClass} ${className}`}
+      className={`bg-background text-left ${bordered && !last ? "border-b border-border" : ""} ${className}`}
       style={inlineStyle}
     >
       <div className="page-shell">
@@ -89,9 +59,7 @@ export const PageSection = ({
               <h2
                 id={id}
                 className="t-section-title-sm text-foreground"
-                style={{
-                  margin: 0,
-                }}
+                style={{ margin: 0 }}
               >
                 {title}
               </h2>
@@ -103,9 +71,9 @@ export const PageSection = ({
               className="text-muted-foreground"
               style={{
                 fontSize: "15px",
-                lineHeight: 1.65,
+                lineHeight: 1.6,
                 fontWeight: 400,
-                marginTop: introMarginTop,
+                marginTop: title ? "8px" : 0,
                 maxWidth: "64ch",
               }}
             >
@@ -114,10 +82,10 @@ export const PageSection = ({
           )}
 
           {children && (
-            <div style={{ marginTop: childrenMarginTop }}>{children}</div>
+            <div style={{ marginTop: title || intro ? "10px" : 0 }}>{children}</div>
           )}
 
-          {cta && <div style={{ marginTop: ctaMarginTop }}>{cta}</div>}
+          {cta && <div style={{ marginTop: "14px" }}>{cta}</div>}
         </div>
       </div>
     </section>
@@ -125,4 +93,3 @@ export const PageSection = ({
 };
 
 export default PageSection;
-

@@ -13,7 +13,7 @@ const NotFound = () => {
     <>
       <PageMeta title="Page not found" description="The requested page is not part of the Source Standard public registry." />
       <section className="bg-background">
-        <div className="page-shell" style={{ paddingTop: "96px", paddingBottom: "128px" }}>
+        <div className="page-shell" style={{ paddingTop: "40px", paddingBottom: "48px" }}>
           <div className="mx-auto text-center" style={{ maxWidth: "560px" }}>
             <p
               className="font-mono uppercase text-muted-foreground"
