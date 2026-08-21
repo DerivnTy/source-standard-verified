@@ -8,12 +8,12 @@ import { ReactNode } from "react";
 export const KeyTakeaway = ({ children }: { children: ReactNode }) => (
   <section className="bg-background" style={{ paddingTop: "24px" }}>
     <div className="page-shell">
-      <div className="mx-auto w-reading-wide">
+      <div className="w-reading-wide">
         <div
           style={{
-            border: "0.5px solid hsl(var(--border))",
-            borderLeft: "2px solid hsl(var(--primary) / 0.55)",
-            borderRadius: "8px",
+            border: "1px solid hsl(var(--border))",
+            borderLeft: "2px solid hsl(var(--primary))",
+            borderRadius: "2px",
             background: "hsl(var(--muted) / 0.35)",
             padding: "16px 20px",
           }}

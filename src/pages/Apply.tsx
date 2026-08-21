@@ -152,7 +152,7 @@ const Apply = () => {
 
       <section className="bg-background">
         <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "48px" }}>
-          <div className="mx-auto w-reading text-left">
+          <div className="w-full max-w-[40rem] text-left">
                 {!filed ? (
                   <form onSubmit={onSubmit} className="intake-form space-y-5">
                     {/* Business Profile */}

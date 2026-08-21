@@ -126,7 +126,7 @@ const ReportConcern = () => {
         style={{ paddingTop: "28px", paddingBottom: "0" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-reading-wide" style={{ maxWidth: "68ch" }}>
+          <div className="w-reading-wide text-left" style={{ maxWidth: "40rem" }}>
             <h2 className="t-section-title-sm text-foreground" style={{ marginBottom: "8px" }}>
               Submit registry information
             </h2>

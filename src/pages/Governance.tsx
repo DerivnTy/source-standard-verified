@@ -67,6 +67,7 @@ const Governance = () => (
     <PageSection
       id="anchors"
       title="Anchored standards"
+      layout="wide"
       intro="Where a requirement references a statute or compendial standard, the source is listed below. Source Standard still defines how those references are applied in its own published review criteria."
     >
       <div className="hidden md:grid grid-cols-12 gap-3 pb-2.5 border-b border-border">
@@ -136,7 +137,7 @@ const Governance = () => (
       </dl>
     </PageSection>
 
-    <PageSection last id="deeper" title="Read deeper" bordered={false}>
+    <PageSection last id="deeper" title="Read deeper" layout="wide" bordered={false}>
       <div className="grid gap-2 sm:grid-cols-2">
         {deeper.map((d) => (
           <NavCard key={d.to} to={d.to} title={d.label} desc={d.desc} />

@@ -64,13 +64,11 @@ export const SiteHeader = () => {
       }}
     >
       <div
-        className="page-shell relative grid grid-cols-[1fr_auto] items-center lg:grid-cols-[1fr_auto_1fr]"
+        className="page-shell relative flex items-center"
         style={{ height: "64px", paddingTop: 0, paddingBottom: 0 }}
       >
-        <div className="justify-self-start">
-          <Logo />
-        </div>
-        <nav className="hidden lg:flex items-center justify-center gap-6 h-full">
+        <Logo />
+        <nav className="hidden lg:flex items-center gap-5 h-full" style={{ marginLeft: "32px" }}>
           {nav.map((n) => (
             <NavLink
               key={n.to}
@@ -88,13 +86,13 @@ export const SiteHeader = () => {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden lg:flex items-center justify-self-end">
-          <Button asChild variant="outline" size="sm">
+        <div className="hidden lg:flex items-center ml-auto">
+          <Button asChild size="sm">
             <Link to={PRIMARY_CTA.path}>{PRIMARY_CTA.label}</Link>
           </Button>
         </div>
         <button
-          className="lg:hidden p-2 -mr-2 relative h-10 w-10 transition-colors"
+          className="lg:hidden ml-auto p-2 -mr-2 relative h-10 w-10 transition-colors"
           style={{
             zIndex: open ? 70 : undefined,
             color: open ? "#FFFFFF" : "hsl(var(--foreground))",

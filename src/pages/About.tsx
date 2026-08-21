@@ -96,7 +96,7 @@ const About = () => {
       </PageSection>
 
       {/* 3 — Our Principles */}
-      <PageSection id="principles" compact title="Our Principles">
+      <PageSection id="principles" compact title="Our Principles" layout="wide">
         <ol className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0, maxWidth: "68ch" }}>
           {PRINCIPLES.map((p, i) => (
             <li
@@ -129,7 +129,7 @@ const About = () => {
       </PageSection>
 
       {/* 4 — What We Don't Do */}
-      <PageSection id="what-we-dont-do" compact title="What We Don't Do">
+      <PageSection id="what-we-dont-do" compact title="What We Don't Do" layout="wide">
         <dl className="divide-y divide-border/60 border-t border-b border-border/60" style={{ maxWidth: "68ch" }}>
           {BOUNDARIES.map((c) => (
             <DefinitionRow key={c.t} term={c.t} def={c.d} />

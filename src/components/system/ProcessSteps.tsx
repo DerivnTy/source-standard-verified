@@ -15,7 +15,7 @@ export const ProcessSteps = ({
   steps: { title: string; desc?: string }[];
   className?: string;
 }) => (
-  <ol className={`mx-auto m-0 max-w-[42em] list-none p-0 text-left ${className}`}>
+  <ol className={`m-0 list-none p-0 text-left ${className}`}>
     {steps.map((step, i) => {
       const isLast = i === steps.length - 1;
       return (

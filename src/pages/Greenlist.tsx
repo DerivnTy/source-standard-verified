@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Search, Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 
 import { PageMeta } from "@/components/PageMeta";
 import { EmptyState } from "@/components/EmptyState";
 import { RegistryHeader } from "@/components/registry/RegistryHeader";
 
-import { RegistryRow, type StatusKey as PillStatusKey } from "@/components/system";
+import { RegistryRow, SearchField, type StatusKey as PillStatusKey } from "@/components/system";
 import {
   greenlistEntries,
   getGreenlistCounts,
@@ -43,18 +43,19 @@ const SoftPill = ({
     onClick={onClick}
     data-pill
     aria-pressed={active}
-    className={`inline-flex items-center justify-center font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97] ${
+    className={`inline-flex items-center justify-center font-sans whitespace-nowrap ${
       fullWidth ? "w-full" : ""
     }`}
     style={{
-      fontSize: "11px",
-      letterSpacing: "0.06em",
-      height: "32px",
-      padding: "0 14px",
+      fontSize: "13px",
+      fontWeight: active ? 600 : 500,
+      letterSpacing: "-0.01em",
+      height: "36px",
+      padding: "0 12px",
       borderRadius: "2px",
       border: "1px solid hsl(var(--border))",
       backgroundColor: active ? "hsl(var(--foreground))" : "#FFFFFF",
-      color: active ? "hsl(var(--background))" : "hsl(var(--foreground) / 0.75)",
+      color: active ? "hsl(var(--background))" : "hsl(var(--foreground))",
     }}
   >
     {label}
@@ -82,10 +83,10 @@ const FilterSelect = ({
       aria-label={ariaLabel}
       className="font-sans w-full text-foreground focus:outline-none focus:ring-0 inline-flex items-center justify-between"
       style={{
-        fontSize: "12px",
+        fontSize: "13px",
         fontWeight: 500,
-        letterSpacing: "0.02em",
-        height: "36px",
+        letterSpacing: "-0.01em",
+        height: "44px",
         borderRadius: "2px",
         border: "1px solid hsl(var(--border))",
         backgroundColor: "#FFFFFF",
@@ -245,40 +246,17 @@ const Greenlist = () => {
         description={heroDescription}
         recordCount={counts.total}
       >
-        <div className="relative w-full md:max-w-[520px]">
-          <Search
-            aria-hidden
-            className="pointer-events-none absolute text-white/50"
-            style={{
-              top: "50%",
-              left: "12px",
-              width: "15px",
-              height: "15px",
-              strokeWidth: 1.75,
-              transform: "translateY(-50%)",
-            }}
-          />
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Facility name"
-            aria-label="Search Facility Records"
-            className="hero-search-input font-sans w-full text-white placeholder:text-white/45 focus:outline-none"
-            style={{
-              height: "42px",
-              borderRadius: "2px",
-              backgroundColor: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.26)",
-              paddingLeft: "36px",
-              paddingRight: "12px",
-            }}
-          />
-        </div>
+        <SearchField
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Facility name"
+          ariaLabel="Search Facility Records"
+        />
       </RegistryHeader>
 
       <section className="bg-background">
-        <div className="page-shell" style={{ paddingTop: "32px", paddingBottom: "48px" }}>
-          <div className="mx-auto w-reading-wide">
+        <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "72px" }}>
+          <div>
             {isSearching && (
               <div className="pb-3">
                 <button
@@ -325,8 +303,8 @@ const Greenlist = () => {
               {/* Status */}
               <div>
                 <p
-                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                  className="font-sans text-muted-foreground mb-2"
+                  style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.04em" }}
                 >
                   Status
                 </p>
@@ -337,25 +315,25 @@ const Greenlist = () => {
                   <SoftPill label="Status Alert" active={status === "alert"} fullWidth onClick={() => setStatus("alert")} />
                 </div>
 
-                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-                  {STATUS_DEFINITIONS.map((s, i) => (
-                    <span key={s.label}>
-                      {i > 0 ? " · " : ""}
-                      <span className="font-medium text-foreground/80">{s.label}</span>
-                      {": "}
-                      {s.body}
-                    </span>
+                <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+                  {STATUS_DEFINITIONS.map((s) => (
+                    <div key={s.label}>
+                      <dt className="font-sans text-[13px] font-semibold text-foreground">{s.label}</dt>
+                      <dd className="mt-1 text-[13px] leading-relaxed text-muted-foreground" style={{ marginLeft: 0 }}>
+                        {s.body}
+                      </dd>
+                    </div>
                   ))}
-                </p>
+                </dl>
               </div>
 
               {/* Facility Type */}
               <div>
                 <p
-                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                  className="font-sans text-muted-foreground mb-2"
+                  style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.04em" }}
                 >
-                  Facility Type
+                  Facility type
                 </p>
                 <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
                   <SoftPill label="All" active={facilityType === "all"} fullWidth onClick={() => setFacilityType("all")} />
@@ -368,8 +346,8 @@ const Greenlist = () => {
               {/* State */}
               <div>
                 <p
-                  className="font-sans font-semibold uppercase text-muted-foreground mb-2"
-                  style={{ fontSize: "10px", letterSpacing: "0.12em" }}
+                  className="font-sans text-muted-foreground mb-2"
+                  style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.04em" }}
                 >
                   State
                 </p>

@@ -25,25 +25,22 @@ export const ArticleHeader = ({
       <header className="relative bg-[hsl(var(--navy-surface))]">
         <div
           className="relative page-shell"
-          style={{ paddingTop: "48px", paddingBottom: "48px" }}
+          style={{ paddingTop: "56px", paddingBottom: "56px" }}
         >
-          <div className="mx-auto flex w-reading flex-col items-center text-center">
+          <div className="flex w-full flex-col items-start text-left">
             <p
               className="t-eyebrow-sm"
-              style={{ color: "rgba(255,255,255,0.55)", marginBottom: "12px" }}
+              style={{ color: "rgba(255,255,255,0.55)", marginBottom: "14px" }}
             >
               {category}
             </p>
-            <h1
-              className="t-article-title !mt-0"
-              style={{ color: "#ffffff", textWrap: "balance" }}
-            >
+            <h1 className="t-article-title !mt-0" style={{ color: "#ffffff" }}>
               {title}
             </h1>
             {lead && (
               <p
                 className="ss-lead"
-                style={{ marginTop: "14px", color: "rgba(255,255,255,0.74)", textWrap: "balance" }}
+                style={{ marginTop: "14px", color: "rgba(255,255,255,0.74)" }}
               >
                 {lead}
               </p>
@@ -56,8 +53,8 @@ export const ArticleHeader = ({
 
   return (
     <header className="bg-background">
-      <div className="page-shell" style={{ paddingTop: "40px", paddingBottom: "16px" }}>
-        <div className="mx-auto w-reading text-center">
+      <div className="page-shell" style={{ paddingTop: "48px", paddingBottom: "20px" }}>
+        <div className="w-reading text-left">
           <h1 className="t-article-title text-foreground !mt-0">{title}</h1>
           {lead && (
             <p

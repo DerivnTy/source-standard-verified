@@ -30,11 +30,11 @@ export const NextStep = ({
       style={{ paddingTop: "24px", paddingBottom: "48px" }}
     >
       <div className="page-shell">
-        <div className="mx-auto w-reading-wide">
+        <div className="w-reading-wide">
           <div
             style={{
-              border: "0.5px solid hsl(var(--border))",
-              borderRadius: "12px",
+              border: "1px solid hsl(var(--border))",
+              borderRadius: "2px",
               background: "hsl(var(--card))",
               padding: "24px",
             }}
@@ -57,13 +57,13 @@ export const NextStep = ({
             >
               <Link
                 to={primaryStep.to}
-                className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97]"
+                className="inline-flex items-center gap-1 font-sans font-medium whitespace-nowrap"
                 style={{
-                  fontSize: "11px",
-                  letterSpacing: "0.06em",
-                  height: "32px",
+                  fontSize: "13px",
+                  letterSpacing: "-0.01em",
+                  height: "36px",
                   padding: "0 14px",
-                  borderRadius: "20px",
+                  borderRadius: "2px",
                   border: "1px solid hsl(var(--foreground))",
                   backgroundColor: "hsl(var(--foreground))",
                   color: "hsl(var(--background))",
@@ -79,16 +79,16 @@ export const NextStep = ({
                   <Link
                     key={id}
                     to={step.to}
-                    className="inline-flex items-center gap-1 font-sans font-semibold uppercase whitespace-nowrap transition-all active:scale-[0.97] hover:bg-[hsl(var(--muted))]/40"
+                    className="inline-flex items-center gap-1 font-sans font-medium whitespace-nowrap hover:bg-[hsl(var(--muted))]/40"
                     style={{
-                      fontSize: "11px",
-                      letterSpacing: "0.06em",
-                      height: "32px",
+                      fontSize: "13px",
+                      letterSpacing: "-0.01em",
+                      height: "36px",
                       padding: "0 14px",
-                      borderRadius: "20px",
+                      borderRadius: "2px",
                       border: "1px solid hsl(var(--border))",
                       backgroundColor: "#FFFFFF",
-                      color: "hsl(var(--foreground) / 0.85)",
+                      color: "hsl(var(--foreground))",
                     }}
                   >
                     {step.label}

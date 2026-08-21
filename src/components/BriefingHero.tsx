@@ -44,8 +44,8 @@ export const BriefingHero = ({
 }: BriefingHeroProps) => {
   const isNavy = tone === "navy";
   const isCover = variant === "cover";
-  const padTop = heroPadding?.top ?? (isCover ? "56px" : "48px");
-  const padBottom = heroPadding?.bottom ?? (isCover ? "56px" : "48px");
+  const padTop = heroPadding?.top ?? (isCover ? "72px" : "56px");
+  const padBottom = heroPadding?.bottom ?? (isCover ? "72px" : "56px");
 
   return (
     <section
@@ -60,7 +60,7 @@ export const BriefingHero = ({
         className="relative page-shell"
         style={{ paddingTop: padTop, paddingBottom: padBottom }}
       >
-        <div className="mx-auto flex w-reading flex-col items-center text-center">
+        <div className="flex w-full flex-col items-start text-left">
           {brandMark && <span className="sr-only">{brandMark}</span>}
           {heroLogo && <div style={{ marginBottom: "16px" }}>{heroLogo}</div>}
 
@@ -69,7 +69,7 @@ export const BriefingHero = ({
               className="t-eyebrow-sm"
               style={{
                 color: isNavy ? "rgba(255,255,255,0.55)" : undefined,
-                marginBottom: "12px",
+                marginBottom: "14px",
               }}
             >
               {eyebrow}
@@ -80,7 +80,7 @@ export const BriefingHero = ({
             <h1
               id="briefing-title"
               className={`ss-hero-title !mt-0 ${isNavy ? "!text-white" : "text-foreground"} ${titleClassName}`}
-              style={{ color: isNavy ? "#ffffff" : undefined, textWrap: "balance" }}
+              style={{ color: isNavy ? "#ffffff" : undefined }}
             >
               {title}
             </h1>
@@ -94,7 +94,6 @@ export const BriefingHero = ({
               style={{
                 marginTop: heroMetrics ? "0" : "14px",
                 color: isNavy ? "rgba(255,255,255,0.74)" : undefined,
-                textWrap: "balance",
               }}
             >
               {statement}
@@ -102,14 +101,14 @@ export const BriefingHero = ({
           )}
 
           {rationale && (
-            <div className="mt-6 w-full border border-border p-4 text-left">
+            <div className="mt-6 w-full max-w-[40rem] border border-border p-4 text-left">
               <p className="t-eyebrow-sm text-muted-foreground mb-2">Rationale</p>
               <p className="t-body-md text-foreground">{rationale}</p>
             </div>
           )}
 
           {actions && (
-            <div className="mt-6 flex w-full flex-col items-center justify-center gap-2 sm:flex-row">
+            <div className="mt-6 flex w-full flex-wrap items-center gap-2">
               {actions}
             </div>
           )}

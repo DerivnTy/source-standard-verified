@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { PageMeta } from "@/components/PageMeta";
 import { BriefingHero } from "@/components/BriefingHero";
-import { PageSection } from "@/components/system";
+import { SearchField } from "@/components/system";
 import { Button } from "@/components/ui/button";
 import {
   CTA_APPLY,
@@ -41,81 +41,91 @@ const HeroContent = () => {
   };
 
   return (
-    <div className="flex w-full flex-col items-stretch sm:mx-auto sm:max-w-[540px]">
-      <h1
-        id="briefing-title"
-        className="font-serif text-center text-white !mt-0"
-        style={{
-          fontSize: "clamp(28px, 6vw, 44px)",
-          lineHeight: 1.2,
-          fontWeight: 600,
-          letterSpacing: "-0.02em",
-          maxWidth: "18ch",
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
-      >
-        {HOME_TAGLINE}
-      </h1>
-
-      <p
-        className="mx-auto text-center text-white/72"
-        style={{
-          marginTop: "14px",
-          maxWidth: "46ch",
-          fontSize: "17px",
-          lineHeight: 1.5,
-          textWrap: "balance",
-        }}
-      >
-        {HOME_SEARCH_LEAD}
-      </p>
-
-      <form
-        onSubmit={onSubmit}
-        role="search"
-        aria-label="Search a clinic"
-        className="mx-auto flex w-full flex-col items-stretch gap-2 min-[380px]:flex-row"
-        style={{ marginTop: "22px", maxWidth: "480px" }}
-      >
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          type="text"
-          inputMode="search"
-          enterKeyHint="search"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="none"
-          spellCheck={false}
-          aria-label="Search a clinic"
-          placeholder="Clinic name, city, or state"
-          className="hero-search-input font-sans min-w-0 flex-1 bg-transparent text-white placeholder:text-white/50 focus:outline-none"
+    <div className="grid w-full items-end gap-10 lg:grid-cols-12 lg:gap-16">
+      <div className="lg:col-span-7">
+        <h1
+          id="briefing-title"
+          className="font-serif text-white !mt-0"
           style={{
-            height: "42px",
-            padding: "0 12px",
-            fontSize: "16px",
-            border: "1px solid rgba(255,255,255,0.28)",
-            backgroundColor: "rgba(255,255,255,0.07)",
-            borderRadius: "2px",
-          }}
-        />
-        <button
-          type="submit"
-          className="inline-flex shrink-0 items-center justify-center bg-white font-sans font-medium text-[hsl(var(--navy-surface))] hover:bg-white/90"
-          style={{
-            height: "42px",
-            padding: "0 14px",
-            borderRadius: "2px",
-            fontSize: "13px",
+            fontSize: "clamp(30px, 4.4vw, 48px)",
+            lineHeight: 1.15,
+            fontWeight: 600,
+            letterSpacing: "-0.028em",
+            maxWidth: "14ch",
           }}
         >
-          {CTA_SEARCH}
-        </button>
-      </form>
+          {HOME_TAGLINE}
+        </h1>
+
+        <p
+          className="text-white/72"
+          style={{
+            marginTop: "16px",
+            maxWidth: "38ch",
+            fontSize: "17px",
+            lineHeight: 1.55,
+          }}
+        >
+          {HOME_SEARCH_LEAD}
+        </p>
+
+        <div className="w-full max-w-[34rem]" style={{ marginTop: "28px" }}>
+          <SearchField
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onSubmit={onSubmit}
+            placeholder="Clinic name, city, or state"
+            ariaLabel="Search a clinic"
+            submitLabel={CTA_SEARCH}
+          />
+        </div>
+      </div>
+
+      <div
+        className="lg:col-span-5 lg:border-l lg:border-white/15 lg:pl-10"
+        style={{ maxWidth: "40rem" }}
+      >
+        <p
+          className="font-sans"
+          style={{
+            color: "rgba(255,255,255,0.7)",
+            fontSize: "14px",
+            lineHeight: 1.65,
+            margin: 0,
+          }}
+        >
+          {HOME_STATUS_RULE}
+        </p>
+      </div>
     </div>
   );
 };
+
+const SplitBlock = ({
+  title,
+  children,
+  last = false,
+}: {
+  title: string;
+  children: React.ReactNode;
+  last?: boolean;
+}) => (
+  <>
+    <div className="page-shell" style={{ paddingTop: last ? 56 : 56, paddingBottom: last ? 64 : 56 }}>
+      <div className="grid items-start gap-5 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
+        <h2 className="t-section-title-sm text-foreground" style={{ margin: 0 }}>
+          {title}
+        </h2>
+        <div className="min-w-0 max-w-[40rem] flex flex-col gap-3.5">{children}</div>
+      </div>
+    </div>
+    {!last && (
+      <div className="page-shell">
+        <div className="border-t border-border" />
+      </div>
+    )}
+  </>
+);
 
 const Index = () => {
   return (
@@ -151,8 +161,8 @@ const Index = () => {
         heroMetrics={<HeroContent />}
       />
 
-      <PageSection first title="What Source Standard does">
-        <div className="flex max-w-[68ch] flex-col gap-3">
+      <section className="bg-background">
+        <SplitBlock title="What Source Standard does">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {WHAT_WE_DO_TODAY}
           </p>
@@ -162,25 +172,18 @@ const Index = () => {
           <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
             {INDEX_VS_VERIFIED}
           </p>
-        </div>
-      </PageSection>
+        </SplitBlock>
 
-      <PageSection compact title="What verification means">
-        <div className="flex max-w-[68ch] flex-col gap-3">
-          <p className="t-body-lg" style={{ margin: 0 }}>
-            {HOME_STATUS_RULE}
-          </p>
+        <SplitBlock title="What verification means">
           <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
             {VERIFICATION_LIMITS}
           </p>
           <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
             {HOME_DISCLAIMER}
           </p>
-        </div>
-      </PageSection>
+        </SplitBlock>
 
-      <PageSection compact title="How testing works">
-        <div className="flex max-w-[68ch] flex-col gap-3">
+        <SplitBlock title="How testing works">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {METHODOLOGY_TESTING}
           </p>
@@ -193,34 +196,40 @@ const Index = () => {
           <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
             {DEVELOPING_WORK}
           </p>
-        </div>
-      </PageSection>
+        </SplitBlock>
 
-      <PageSection last title="Who this is for">
-        <ul className="m-0 max-w-[68ch] list-none divide-y divide-border p-0">
-          {[HOME_AUDIENCE_CLINICS, HOME_AUDIENCE_FACILITIES, HOME_AUDIENCE_PATIENTS].map((line) => (
-            <li key={line} className="py-3 first:pt-0 last:pb-0">
-              <p className="t-body-sm" style={{ margin: 0 }}>
-                {line}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <p className="t-body-sm text-muted-foreground" style={{ marginTop: "14px", maxWidth: "68ch" }}>
-          {HOW_TO_PARTICIPATE}
-        </p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-2 sm:flex-row sm:flex-wrap">
-          <Button asChild>
-            <Link to="/how-it-works">{CTA_HOW_IT_WORKS}</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link to="/apply">{CTA_APPLY}</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link to="/status-definitions">Status definitions</Link>
-          </Button>
+        <div className="page-shell" style={{ paddingTop: 56, paddingBottom: 72 }}>
+          <h2 className="t-section-title-sm text-foreground" style={{ margin: 0 }}>
+            Who this is for
+          </h2>
+          <ul className="m-0 mt-8 grid list-none grid-cols-1 gap-0 p-0 md:grid-cols-3 md:gap-10">
+            {[HOME_AUDIENCE_CLINICS, HOME_AUDIENCE_FACILITIES, HOME_AUDIENCE_PATIENTS].map((line) => (
+              <li
+                key={line}
+                className="border-t border-border py-5 first:pt-5 md:py-0 md:pt-5"
+              >
+                <p className="t-body-sm" style={{ margin: 0, maxWidth: "36ch" }}>
+                  {line}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <p className="t-body-sm text-muted-foreground" style={{ marginTop: "28px", maxWidth: "58ch" }}>
+            {HOW_TO_PARTICIPATE}
+          </p>
+          <div className="mt-8 flex flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap">
+            <Button asChild>
+              <Link to="/how-it-works">{CTA_HOW_IT_WORKS}</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/apply">{CTA_APPLY}</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/status-definitions">Status definitions</Link>
+            </Button>
+          </div>
         </div>
-      </PageSection>
+      </section>
     </>
   );
 };

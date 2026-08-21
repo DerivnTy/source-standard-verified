@@ -55,7 +55,7 @@ const Learn = () => {
       />
 
       {/* 1 — Start Here: primary learning path */}
-      <PageSection title="Guides" first>
+      <PageSection title="Guides" first layout="wide">
         <dl className="divide-y divide-border/60 border-t border-b border-border/60">
           {EDUCATION_TOPICS.map((t) => (
             <Link
@@ -88,7 +88,7 @@ const Learn = () => {
       </PageSection>
 
       {/* 2 — Browse by Resource: secondary browse layer */}
-      <PageSection title="Other reference" compact>
+      <PageSection title="Other reference" compact layout="wide">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <NavCard
             to="/learn/news"
@@ -104,7 +104,7 @@ const Learn = () => {
       </PageSection>
 
       {/* 3 — Recent Updates */}
-      <PageSection title="Recent Updates" compact>
+      <PageSection title="Recent Updates" compact layout="wide">
         <ul className="flex flex-col divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {recent.map((a) => {
             const cat = NEWS_CATEGORIES.find((c) => c.id === a.category);

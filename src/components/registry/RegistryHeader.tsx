@@ -37,18 +37,18 @@ export const RegistryHeader = ({
     <section className="relative bg-[hsl(var(--navy-surface))]">
       <div
         className="relative page-shell"
-        style={{ paddingTop: "48px", paddingBottom: children ? "36px" : "48px" }}
+        style={{ paddingTop: "56px", paddingBottom: children ? "40px" : "56px" }}
       >
-        <div className="mx-auto flex w-reading flex-col items-center text-center">
-          <h1 className="ss-hero-title !mt-0" style={{ color: "#ffffff", textWrap: "balance" }}>
+        <div className="flex w-full flex-col items-start text-left">
+          <h1 className="ss-hero-title !mt-0" style={{ color: "#ffffff" }}>
             {title}
           </h1>
           {statusLine ? (
-            <p className="ss-eyebrow" style={{ marginTop: "12px", color: "rgba(255,255,255,0.7)" }}>
+            <p className="ss-eyebrow" style={{ marginTop: "14px", color: "rgba(255,255,255,0.7)" }}>
               {statusLine}
             </p>
           ) : description ? (
-            <p className="ss-lead" style={{ marginTop: "14px", color: "rgba(255,255,255,0.74)", textWrap: "balance" }}>
+            <p className="ss-lead" style={{ marginTop: "14px", color: "rgba(255,255,255,0.74)" }}>
               {description}
             </p>
           ) : null}
@@ -62,14 +62,14 @@ export const RegistryHeader = ({
             </Link>
           )}
           {!hideRecordPill && (
-            <p className="t-utility-xs" style={{ marginTop: "14px", color: "rgba(255,255,255,0.62)" }}>
+            <p className="t-utility-xs" style={{ marginTop: "16px", color: "rgba(255,255,255,0.62)" }}>
               <span className="tabular-nums" style={{ color: "#ffffff" }}>{recordCount}</span>
               {" "}indexed records
               <span style={{ color: "rgba(255,255,255,0.4)" }}> · </span>
               Updated {updated}
             </p>
           )}
-          {children && <div className="w-full" style={{ marginTop: "20px" }}>{children}</div>}
+          {children && <div className="w-full max-w-[36rem]" style={{ marginTop: "24px" }}>{children}</div>}
         </div>
       </div>
     </section>

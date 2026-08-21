@@ -116,7 +116,7 @@ export const LearnGuideTemplate = ({ topicId }: { topicId: EducationTopicId }) =
           docId=""
         />
         <div className="page-shell" style={{ paddingTop: "16px" }}>
-          <div className="mx-auto w-reading-wide">
+          <div className="w-reading-wide">
             <p className="t-meta">
               Source Standard · Updated {articles[0]?.updated ?? "2026-07-10"}
             </p>
@@ -129,7 +129,7 @@ export const LearnGuideTemplate = ({ topicId }: { topicId: EducationTopicId }) =
           style={{ paddingTop: "32px", paddingBottom: "8px" }}
         >
           <div className="page-shell">
-            <div className="mx-auto w-reading-wide">
+            <div className="w-reading-wide">
               <GuideTOC items={toc} basePath={path} />
             </div>
           </div>

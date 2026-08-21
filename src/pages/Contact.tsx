@@ -42,7 +42,7 @@ const Contact = () => {
 
       <section className="bg-background">
         <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "48px" }}>
-          <div className="mx-auto grid w-reading-wide gap-8 text-center md:grid-cols-12 md:gap-10">
+          <div className="grid gap-10 text-left md:grid-cols-12 md:gap-16">
             <aside className="md:col-span-4">
               <div className="divide-y divide-border border-t border-b border-border">
                 {[
@@ -65,22 +65,21 @@ const Contact = () => {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" required className="h-10" />
+                  <Input id="name" required />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="org">Organization</Label>
-                  <Input id="org" className="h-10" />
+                  <Input id="org" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" required className="h-10" />
+                  <Input id="email" type="email" required />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="topic">Topic</Label>
                   <Input
                     id="topic"
                     placeholder="Review, records, press"
-                    className="h-10"
                   />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">

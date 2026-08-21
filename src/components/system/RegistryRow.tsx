@@ -62,7 +62,7 @@ export const RegistryRow = ({
     <Link
       to={to}
       aria-label={ariaLabel ?? name}
-      className="group block px-2 md:px-3 py-4 md:py-3.5 -mx-2 md:-mx-3 rounded-md transition-colors hover:bg-[hsl(var(--muted))]/40 active:scale-[0.998] focus-visible:outline-none focus-visible:bg-[hsl(var(--muted))]/40"
+      className="group block px-1 py-4 md:px-2 md:py-3.5 -mx-1 md:-mx-2 transition-colors hover:bg-[hsl(var(--muted))]/40 focus-visible:outline-none focus-visible:bg-[hsl(var(--muted))]/40"
       style={{ minHeight: "44px" }}
     >
       <div className="flex items-center gap-3">
