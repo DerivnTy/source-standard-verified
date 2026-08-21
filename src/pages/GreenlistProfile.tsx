@@ -84,7 +84,7 @@ const Pill = ({ children, muted = false }: { children: ReactNode; muted?: boolea
       fontSize: "12px",
       letterSpacing: "0.06em",
       padding: "4px 9px",
-      borderRadius: "20px",
+      borderRadius: "2px",
       border: "1px solid hsl(var(--border))",
     }}
   >
@@ -278,7 +278,7 @@ const GreenlistProfile = () => {
             className="mt-4 bg-card"
             style={{
               border: "0.5px solid hsl(var(--border))",
-              borderRadius: "10px",
+              borderRadius: "2px",
               padding: "28px",
             }}
           >
