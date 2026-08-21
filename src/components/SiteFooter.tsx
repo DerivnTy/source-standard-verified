@@ -39,7 +39,7 @@ const FooterLink = ({ row }: { row: LinkRow }) => {
         onClick={handleClick}
         className="block hover:text-white"
         style={{
-          color: "rgba(255,255,255,0.64)",
+          color: "rgba(255,255,255,0.78)",
           fontSize: "13px",
           lineHeight: 1.45,
           padding: "3px 0",
@@ -56,15 +56,15 @@ export const SiteFooter = () => {
 
   return (
     <footer className="relative bg-[hsl(var(--navy-surface))] text-white">
-      <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "18px" }}>
-        <div className="flex flex-col gap-1" style={{ marginBottom: "18px" }}>
+      <div className="page-shell" style={{ paddingTop: "40px", paddingBottom: "28px" }}>
+        <div className="flex flex-col items-center gap-2 text-center md:items-start md:text-left" style={{ marginBottom: "28px" }}>
           <Logo variant="light" />
           <p
             className="font-sans"
             style={{
-              color: "rgba(255,255,255,0.52)",
-              fontSize: "12.5px",
-              lineHeight: 1.4,
+              color: "rgba(255,255,255,0.7)",
+              fontSize: "14px",
+              lineHeight: 1.45,
               margin: 0,
               maxWidth: "36ch",
             }}
@@ -73,18 +73,18 @@ export const SiteFooter = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-6 md:gap-y-0">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-8 md:gap-y-0 text-center md:text-left">
           {columns.map((col) => (
             <div key={col.title}>
               <p
                 className="font-sans"
                 style={{
-                  color: "rgba(255,255,255,0.88)",
-                  fontSize: "11px",
+                  color: "#ffffff",
+                  fontSize: "12px",
                   fontWeight: 600,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  marginBottom: "8px",
+                  marginBottom: "10px",
                 }}
               >
                 {col.title}
@@ -99,26 +99,26 @@ export const SiteFooter = () => {
         </div>
 
         <div
-          className="flex flex-col gap-3"
+          className="flex flex-col items-center gap-3 text-center md:items-stretch md:text-left"
           style={{
-            marginTop: "22px",
-            paddingTop: "16px",
+            marginTop: "28px",
+            paddingTop: "20px",
             borderTop: `1px solid ${HAIRLINE}`,
           }}
         >
           <p
-            className="font-sans"
+            className="font-sans mx-auto md:mx-0"
             style={{
-              color: "rgba(255,255,255,0.52)",
-              fontSize: "12.5px",
-              lineHeight: 1.55,
+              color: "rgba(255,255,255,0.7)",
+              fontSize: "13.5px",
+              lineHeight: 1.6,
               maxWidth: "62ch",
               margin: 0,
             }}
           >
             {HOME_DISCLAIMER}
           </p>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-2">
             <p
               className="font-sans"
               style={{

@@ -46,7 +46,7 @@ const HeroContent = () => {
         id="briefing-title"
         className="font-serif text-center text-white !mt-0"
         style={{
-          fontSize: "clamp(22px, 5.2vw, 34px)",
+          fontSize: "clamp(28px, 6vw, 44px)",
           lineHeight: 1.2,
           fontWeight: 600,
           letterSpacing: "-0.02em",
@@ -61,9 +61,9 @@ const HeroContent = () => {
       <p
         className="mx-auto text-center text-white/72"
         style={{
-          marginTop: "10px",
+          marginTop: "14px",
           maxWidth: "46ch",
-          fontSize: "15px",
+          fontSize: "17px",
           lineHeight: 1.5,
           textWrap: "balance",
         }}
@@ -76,7 +76,7 @@ const HeroContent = () => {
         role="search"
         aria-label="Search a clinic"
         className="mx-auto flex w-full flex-col items-stretch gap-2 min-[380px]:flex-row"
-        style={{ marginTop: "16px", maxWidth: "480px" }}
+        style={{ marginTop: "22px", maxWidth: "480px" }}
       >
         <input
           value={query}
@@ -148,7 +148,6 @@ const Index = () => {
         title={HOME_TAGLINE}
         statement=""
         tone="navy"
-        heroPadding={{ top: "28px", bottom: "30px" }}
         heroMetrics={<HeroContent />}
       />
 
@@ -210,7 +209,7 @@ const Index = () => {
         <p className="t-body-sm text-muted-foreground" style={{ marginTop: "14px", maxWidth: "68ch" }}>
           {HOW_TO_PARTICIPATE}
         </p>
-        <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap md:items-start">
           <Button asChild>
             <Link to="/how-it-works">{CTA_HOW_IT_WORKS}</Link>
           </Button>

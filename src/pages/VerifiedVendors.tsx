@@ -73,8 +73,8 @@ const VerifiedVendors = () => {
       </RegistryHeader>
 
       <section className="bg-background">
-        <div className="page-shell" style={{ paddingTop: "20px", paddingBottom: "28px" }}>
-          <div className="mx-auto w-wide">
+        <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "48px" }}>
+          <div className="mx-auto w-reading text-center md:text-left">
             {!isSearching ? (
               <div>
                 <p

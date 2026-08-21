@@ -4,7 +4,7 @@ import { SiteFooter } from "./SiteFooter";
 import { useHashScroll } from "@/hooks/useHashScroll";
 import { useEffect } from "react";
 
-const HEADER_HEIGHT = 56;
+const HEADER_HEIGHT = 64;
 
 const StaticHeader = () => {
   useEffect(() => {

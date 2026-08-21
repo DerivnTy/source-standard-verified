@@ -147,12 +147,12 @@ const Apply = () => {
         docId=""
         title="Apply for Verification"
         statement={SUBTITLE}
-        heroPadding={{ top: "24px", bottom: "24px" }}
+        heroPadding={{ top: "48px", bottom: "48px" }}
       />
 
       <section className="bg-background">
-        <div className="page-shell" style={{ paddingTop: "22px", paddingBottom: "28px" }}>
-          <div className="mx-auto w-wide max-w-[720px]">
+        <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "48px" }}>
+          <div className="mx-auto w-reading">
                 {!filed ? (
                   <form onSubmit={onSubmit} className="intake-form space-y-5">
                     {/* Business Profile */}

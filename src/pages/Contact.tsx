@@ -41,8 +41,8 @@ const Contact = () => {
       />
 
       <section className="bg-background">
-        <div className="page-shell" style={{ paddingTop: "22px", paddingBottom: "28px" }}>
-          <div className="mx-auto grid w-wide gap-8 md:grid-cols-12 md:gap-10">
+        <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "48px" }}>
+          <div className="mx-auto grid w-reading-wide gap-8 text-center md:grid-cols-12 md:gap-10 md:text-left">
             <aside className="md:col-span-4">
               <div className="divide-y divide-border border-t border-b border-border">
                 {[

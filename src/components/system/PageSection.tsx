@@ -2,9 +2,8 @@ import { CSSProperties, ReactNode } from "react";
 import { Glyph, type GlyphName } from "./GlyphIcon";
 
 /**
- * Page section. Tight heading-to-body, modest vertical rhythm.
- * Compose pages by choosing first / compact / last rather than
- * stacking identical airy bands.
+ * Centered reading section. Desktop column is centered on the page.
+ * Mobile type is centered. Desktop type is left-aligned inside the column.
  */
 export const PageSection = ({
   id,
@@ -33,8 +32,8 @@ export const PageSection = ({
   className?: string;
   pb?: string;
 }) => {
-  const padTop = first ? 28 : compact ? 20 : 24;
-  const padBottom = last ? 28 : compact ? 20 : 24;
+  const padTop = first ? 40 : compact ? 32 : 40;
+  const padBottom = last ? 48 : compact ? 32 : 40;
 
   const inlineStyle: CSSProperties = {
     paddingTop: pb && first ? undefined : padTop,
@@ -42,11 +41,11 @@ export const PageSection = ({
   };
 
   return (
-    <section aria-labelledby={id} className={`bg-background text-left ${className}`}>
+    <section aria-labelledby={id} className={`bg-background ${className}`}>
       <div className="page-shell" style={inlineStyle}>
-        <div className="mx-auto w-wide">
+        <div className="mx-auto w-reading text-center md:text-left">
           {title && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center gap-2 md:justify-start">
               {icon && (
                 <span className="text-primary/80">
                   <Glyph name={icon} size="md" />
@@ -66,11 +65,10 @@ export const PageSection = ({
             <p
               className="text-muted-foreground"
               style={{
-                fontSize: "15px",
-                lineHeight: 1.6,
+                fontSize: "16px",
+                lineHeight: 1.65,
                 fontWeight: 400,
-                marginTop: title ? "8px" : 0,
-                maxWidth: "64ch",
+                marginTop: title ? "12px" : 0,
               }}
             >
               {intro}
@@ -78,15 +76,19 @@ export const PageSection = ({
           )}
 
           {children && (
-            <div style={{ marginTop: title || intro ? "10px" : 0 }}>{children}</div>
+            <div style={{ marginTop: title || intro ? "16px" : 0 }}>{children}</div>
           )}
 
-          {cta && <div style={{ marginTop: "14px" }}>{cta}</div>}
+          {cta && (
+            <div className="flex justify-center md:justify-start" style={{ marginTop: "20px" }}>
+              {cta}
+            </div>
+          )}
         </div>
       </div>
       {bordered && !last && (
         <div className="page-shell">
-          <div className="mx-auto w-wide border-t border-border" />
+          <div className="mx-auto w-reading border-t border-border" />
         </div>
       )}
     </section>

@@ -44,7 +44,7 @@ export const ArticleSection = ({
   first?: boolean;
   children: ReactNode;
 }) => {
-  const firstClass = first ? "pt-7" : "";
+  const firstClass = first ? "pt-10" : "";
 
 
 
@@ -57,7 +57,7 @@ export const ArticleSection = ({
         style={first ? undefined : { paddingTop: "28px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-reading-wide">
+          <div className="mx-auto w-reading-wide text-center md:text-left">
             <div
               style={{
                 border: "0.5px solid hsl(var(--border))",
@@ -99,7 +99,7 @@ export const ArticleSection = ({
         style={first ? undefined : { paddingTop: "24px" }}
       >
         <div className="page-shell">
-          <div className="mx-auto w-reading-wide">
+          <div className="mx-auto w-reading-wide text-center md:text-left">
             {title && (
               <h2
                 className="t-section-title-sm text-foreground"
@@ -126,7 +126,7 @@ export const ArticleSection = ({
       style={first ? undefined : { paddingTop: "20px" }}
     >
       <div className="page-shell">
-        <div className="mx-auto w-reading-wide">
+        <div className="mx-auto w-reading-wide text-center md:text-left">
           <div style={{ ...cardChrome, padding: "24px" }}>
             {(n !== undefined || title) && (
               <header style={{ marginBottom: "14px" }}>
@@ -191,7 +191,7 @@ export const ArticleFooter = ({
       style={{ paddingTop: "24px", paddingBottom: "32px" }}
     >
       <div className="page-shell">
-        <div className="mx-auto w-reading-wide">
+        <div className="mx-auto w-reading-wide text-center md:text-left">
           <div
             aria-hidden
             style={{

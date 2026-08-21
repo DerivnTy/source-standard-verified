@@ -233,12 +233,12 @@ html {
   }
 
   .page-shell {
-    @apply mx-auto w-full max-w-[1080px] px-4 sm:px-5 md:px-8;
+    @apply mx-auto w-full max-w-[1120px] px-5 sm:px-8 lg:px-10;
   }
 
   .w-page-shell   { max-width: 1120px; }
   .w-standard     { max-width: 1120px; }
-  .w-wide         { max-width: 1120px; }
+  .w-wide         { max-width: 720px; }
   .w-reading      { max-width: 680px; }
   .w-reading-wide { max-width: 720px; }
   .w-hero         { max-width: 640px; }
@@ -263,23 +263,27 @@ html {
   .t-article-title,
   .ss-hero-title {
     font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
-    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.125rem);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
     font-weight: 600;
     color: hsl(var(--foreground));
-    max-width: 32ch;
+    max-width: 22em;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .ss-lead,
   .t-hero-lead,
   .t-section-intro {
     font-family: "Inter", system-ui, sans-serif;
-    font-size: 1rem;
-    line-height: 1.55;
+    font-size: 1.0625rem;
+    line-height: 1.6;
     font-weight: 400;
     color: hsl(var(--muted-foreground));
-    max-width: 62ch;
+    max-width: 40em;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .t-eyebrow-sm,
@@ -302,9 +306,9 @@ html {
   .t-section-title-md,
   .ss-section-title {
     font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
-    font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
     line-height: 1.25;
-    letter-spacing: -0.018em;
+    letter-spacing: -0.02em;
     font-weight: 600;
     color: hsl(var(--foreground));
   }
@@ -585,6 +589,31 @@ body {
   line-height: 1.4 !important;
   caret-color: rgba(255, 255, 255, 0.9) !important;
   border-radius: 2px !important;
+  color: #ffffff !important;
+}
+
+/*
+  Navy surfaces inherit body ink (navy). Force cream/white so titles,
+  leads, and metadata never disappear into the background.
+*/
+[class*="navy-surface"],
+footer {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+[class*="navy-surface"] :is(h1, h2, h3, h4, p, a, li, span, label, dt, dd),
+footer :is(h1, h2, h3, h4, p, a, li, span) {
+  color: inherit;
+}
+
+[class*="navy-surface"] :is(.ss-hero-title, .t-page-title, .t-article-title, .t-chapter-title, .t-home-title),
+footer :is(.ss-hero-title, .t-page-title) {
+  color: #ffffff !important;
+}
+
+[class*="navy-surface"] :is(.ss-lead, .t-hero-lead, .t-eyebrow-sm, .t-utility-xs, .t-meta, .ss-eyebrow, .t-section-intro),
+footer :is(.ss-lead, .t-eyebrow-sm, .t-utility-xs, .t-meta) {
+  color: rgba(255, 255, 255, 0.72) !important;
 }
 
 .skip-link {

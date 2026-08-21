@@ -53,7 +53,7 @@ const HowItWorks = () => {
       />
 
       <PageSection first title="What is reviewed">
-        <div className="flex max-w-[68ch] flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {WHAT_WE_DO_TODAY}
           </p>
@@ -72,7 +72,7 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="Facility evaluation">
-        <div className="flex max-w-[68ch] flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {HOW_IT_WORKS_FACILITY}
           </p>
@@ -83,7 +83,7 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="Independent testing">
-        <div className="flex max-w-[68ch] flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <p className="t-body-lg" style={{ margin: 0 }}>
             {METHODOLOGY_TESTING}
           </p>
@@ -97,7 +97,7 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="What is operational">
-        <div className="flex max-w-[68ch] flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <p className="t-body-sm" style={{ margin: 0 }}>
             {DEVELOPING_WORK}
           </p>

@@ -2,12 +2,6 @@ import { ReactNode } from "react";
 
 export type ArticleMetaItem = { label: string; value: ReactNode };
 
-/**
- * ArticleHeader, consumer-facing article header.
- *
- * Navy masthead when `category` is passed. Otherwise a plain reading header
- * on the page canvas. No pattern mesh, no viewport-height padding.
- */
 export const ArticleHeader = ({
   title,
   lead,
@@ -31,25 +25,25 @@ export const ArticleHeader = ({
       <header className="relative bg-[hsl(var(--navy-surface))]">
         <div
           className="relative page-shell"
-          style={{ paddingTop: "24px", paddingBottom: "24px" }}
+          style={{ paddingTop: "48px", paddingBottom: "48px" }}
         >
-          <div className="mx-auto w-reading-wide">
+          <div className="mx-auto flex w-reading flex-col items-center text-center">
             <p
               className="t-eyebrow-sm"
-              style={{ color: "rgba(255,255,255,0.5)", marginBottom: "8px" }}
+              style={{ color: "rgba(255,255,255,0.55)", marginBottom: "12px" }}
             >
               {category}
             </p>
             <h1
-              className="t-article-title !mt-0 !text-white"
-              style={{ textWrap: "balance" }}
+              className="t-article-title !mt-0"
+              style={{ color: "#ffffff", textWrap: "balance" }}
             >
               {title}
             </h1>
             {lead && (
               <p
-                className="ss-lead !text-white/70"
-                style={{ marginTop: "10px", textWrap: "balance" }}
+                className="ss-lead"
+                style={{ marginTop: "14px", color: "rgba(255,255,255,0.74)", textWrap: "balance" }}
               >
                 {lead}
               </p>
@@ -62,24 +56,23 @@ export const ArticleHeader = ({
 
   return (
     <header className="bg-background">
-      <div className="page-shell" style={{ paddingTop: "24px", paddingBottom: "8px" }}>
-        <div className="mx-auto w-reading-wide">
+      <div className="page-shell" style={{ paddingTop: "40px", paddingBottom: "16px" }}>
+        <div className="mx-auto w-reading text-center md:text-left">
           <h1 className="t-article-title text-foreground !mt-0">{title}</h1>
           {lead && (
             <p
               className="text-muted-foreground"
               style={{
-                fontSize: "15px",
-                lineHeight: "1.55",
-                marginTop: "10px",
-                maxWidth: "68ch",
+                fontSize: "16px",
+                lineHeight: "1.6",
+                marginTop: "12px",
               }}
             >
               {lead}
             </p>
           )}
           {updated && (
-            <p className="t-meta" style={{ marginTop: "10px" }}>
+            <p className="t-meta" style={{ marginTop: "12px" }}>
               Updated {updated.value}
             </p>
           )}

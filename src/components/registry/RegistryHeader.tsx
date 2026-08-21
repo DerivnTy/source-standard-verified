@@ -37,46 +37,39 @@ export const RegistryHeader = ({
     <section className="relative bg-[hsl(var(--navy-surface))]">
       <div
         className="relative page-shell"
-        style={{ paddingTop: "28px", paddingBottom: children ? "22px" : "24px" }}
+        style={{ paddingTop: "48px", paddingBottom: children ? "36px" : "48px" }}
       >
-        <div className="mx-auto w-wide">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-            <div className="min-w-0 flex-1">
-              <h1 className="ss-hero-title !text-white text-left !mt-0">
-                {title}
-              </h1>
-              {statusLine ? (
-                <p className="ss-eyebrow !text-white/70" style={{ marginTop: "8px" }}>
-                  {statusLine}
-                </p>
-              ) : description ? (
-                <p className="ss-lead !text-white/70" style={{ marginTop: "8px" }}>
-                  {description}
-                </p>
-              ) : null}
-              {scopeText && scopeHref && (
-                <Link
-                  to={scopeHref}
-                  className="mt-2 inline-flex items-center gap-1 ss-body !text-white/70 hover:!text-white underline-offset-4 hover:underline"
-                >
-                  {scopeText} <span aria-hidden>→</span>
-                </Link>
-              )}
-            </div>
-
-            {!hideRecordPill && (
-              <div className="shrink-0 text-left sm:text-right">
-                <p className="t-utility-xs text-white/70">
-                  <span className="text-white tabular-nums">{recordCount}</span>{" "}
-                  indexed records
-                </p>
-                <p className="t-meta text-white/50" style={{ marginTop: "2px" }}>
-                  Updated {updated}
-                </p>
-              </div>
-            )}
-          </div>
-          {children && <div style={{ marginTop: "16px" }}>{children}</div>}
+        <div className="mx-auto flex w-reading flex-col items-center text-center">
+          <h1 className="ss-hero-title !mt-0" style={{ color: "#ffffff", textWrap: "balance" }}>
+            {title}
+          </h1>
+          {statusLine ? (
+            <p className="ss-eyebrow" style={{ marginTop: "12px", color: "rgba(255,255,255,0.7)" }}>
+              {statusLine}
+            </p>
+          ) : description ? (
+            <p className="ss-lead" style={{ marginTop: "14px", color: "rgba(255,255,255,0.74)", textWrap: "balance" }}>
+              {description}
+            </p>
+          ) : null}
+          {scopeText && scopeHref && (
+            <Link
+              to={scopeHref}
+              className="mt-3 inline-flex items-center gap-1 underline-offset-4 hover:underline"
+              style={{ color: "rgba(255,255,255,0.74)" }}
+            >
+              {scopeText} <span aria-hidden>→</span>
+            </Link>
+          )}
+          {!hideRecordPill && (
+            <p className="t-utility-xs" style={{ marginTop: "14px", color: "rgba(255,255,255,0.62)" }}>
+              <span className="tabular-nums" style={{ color: "#ffffff" }}>{recordCount}</span>
+              {" "}indexed records
+              <span style={{ color: "rgba(255,255,255,0.4)" }}> · </span>
+              Updated {updated}
+            </p>
+          )}
+          {children && <div className="w-full" style={{ marginTop: "20px" }}>{children}</div>}
         </div>
       </div>
     </section>

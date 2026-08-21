@@ -64,11 +64,13 @@ export const SiteHeader = () => {
       }}
     >
       <div
-        className="page-shell relative flex items-center justify-between"
-        style={{ height: "56px", paddingTop: 0, paddingBottom: 0 }}
+        className="page-shell relative grid grid-cols-[1fr_auto] items-center lg:grid-cols-[1fr_auto_1fr]"
+        style={{ height: "64px", paddingTop: 0, paddingBottom: 0 }}
       >
-        <Logo />
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-5 h-full flex-wrap justify-end">
+        <div className="justify-self-start">
+          <Logo />
+        </div>
+        <nav className="hidden lg:flex items-center justify-center gap-6 h-full">
           {nav.map((n) => (
             <NavLink
               key={n.to}
@@ -77,7 +79,7 @@ export const SiteHeader = () => {
               className={({ isActive }) =>
                 `relative inline-flex items-center h-10 t-nav transition-colors ${
                   isActive
-                    ? "text-foreground after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-px after:bg-foreground"
+                    ? "text-foreground after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-16px] after:h-px after:bg-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`
               }
@@ -86,11 +88,10 @@ export const SiteHeader = () => {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden lg:flex items-center">
+        <div className="hidden lg:flex items-center justify-self-end">
           <Button asChild variant="outline" size="sm">
             <Link to={PRIMARY_CTA.path}>{PRIMARY_CTA.label}</Link>
           </Button>
-
         </div>
         <button
           className="lg:hidden p-2 -mr-2 relative h-10 w-10 transition-colors"
@@ -145,7 +146,7 @@ export const SiteHeader = () => {
               <div
                 className="flex shrink-0 items-center justify-between"
                 style={{
-                  height: "56px",
+                  height: "64px",
                   paddingLeft: "20px",
                   paddingRight: "20px",
                   borderBottom: "0.5px solid rgba(255,255,255,0.10)",

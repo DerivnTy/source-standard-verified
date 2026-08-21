@@ -277,8 +277,8 @@ const Greenlist = () => {
       </RegistryHeader>
 
       <section className="bg-background">
-        <div className="page-shell" style={{ paddingTop: "18px", paddingBottom: "28px" }}>
-          <div className="mx-auto w-wide">
+        <div className="page-shell" style={{ paddingTop: "32px", paddingBottom: "48px" }}>
+          <div className="mx-auto w-reading-wide">
             {isSearching && (
               <div className="pb-3">
                 <button
