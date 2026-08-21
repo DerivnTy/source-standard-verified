@@ -52,7 +52,7 @@ export const Section = ({
     className={`${SURFACE[surface]} ${bordered ? "border-b border-border" : ""} ${className}`}
   >
     <PageShell className="section-pad">
-      <div className={`mx-auto w-full ${WIDTH[width]} ${contentClassName}`}>{children}</div>
+      <div className={`w-full ${WIDTH[width]} ${contentClassName}`}>{children}</div>
     </PageShell>
   </section>
 );
@@ -71,7 +71,7 @@ export const ReadingColumn = ({
   className?: string;
   width?: "reading" | "reading-wide";
 }) => (
-  <div className={`mx-auto w-full ${width === "reading" ? "w-reading" : "w-reading-wide"} ${className}`}>
+  <div className={`w-full ${width === "reading" ? "w-reading" : "w-reading-wide"} ${className}`}>
     {children}
   </div>
 );

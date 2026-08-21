@@ -15,7 +15,7 @@ export const ProcessSteps = ({
   steps: { title: string; desc?: string }[];
   className?: string;
 }) => (
-  <ol className={`m-0 p-0 list-none ${className}`}>
+  <ol className={`m-0 list-none p-0 text-left ${className}`}>
     {steps.map((step, i) => {
       const isLast = i === steps.length - 1;
       return (
@@ -43,14 +43,14 @@ export const ProcessSteps = ({
           {/* Step body */}
           <div
             className="min-w-0 flex-1"
-            style={{ paddingBottom: isLast ? 0 : "36px" }}
+            style={{ paddingBottom: isLast ? 0 : "14px" }}
           >
             <h3
               className="font-sans text-foreground"
               style={{
-                fontSize: "16px",
-                lineHeight: 1.3,
-                fontWeight: 600,
+                fontSize: "15px",
+                lineHeight: 1.45,
+                fontWeight: 500,
                 letterSpacing: "-0.01em",
                 margin: 0,
               }}

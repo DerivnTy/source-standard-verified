@@ -41,7 +41,7 @@ export const FeatureLink = ({
   <Link
     to={to}
     aria-label={title}
-    className={`group flex items-center justify-between gap-4 -mx-3 md:-mx-4 px-3 md:px-4 py-3 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-muted/40 focus-visible:outline-none focus-visible:bg-muted/40 focus-visible:ring-1 focus-visible:ring-border active:scale-[0.995] [&_h3]:transition-colors [&_h3]:text-foreground/85 group-hover:[&_h3]:text-foreground hover:[&_h3]:text-foreground ${className}`}
+    className={`group flex items-center justify-between gap-4 -mx-3 md:-mx-4 px-3 md:px-4 py-3 rounded-[2px] cursor-pointer transition-colors duration-200 hover:bg-muted/40 focus-visible:outline-none focus-visible:bg-muted/40 focus-visible:ring-1 focus-visible:ring-border [&_h3]:transition-colors [&_h3]:text-foreground/85 group-hover:[&_h3]:text-foreground hover:[&_h3]:text-foreground ${className}`}
     style={{ minHeight: "44px" }}
   >
     <div className="min-w-0 flex-1">

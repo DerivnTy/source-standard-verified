@@ -11,6 +11,9 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { ClinicSearchResult } from "@/components/registry/ClinicSearchResult";
 import type { Vendor } from "@/data/vendors";
 import {
+  HOME_AUDIENCE_CLINICS,
+  HOME_AUDIENCE_FACILITIES,
+  HOME_AUDIENCE_PATIENTS,
   HOME_DISCLAIMER,
   HOME_SEARCH_LEAD,
   HOME_STATUS_RULE,
@@ -23,6 +26,12 @@ import {
   RESULT_VERIFIED_DISCLAIMER,
   RESULT_VERIFIED_LABEL,
 } from "@/data/publicLanguage";
+import {
+  METHODOLOGY_TESTING,
+  TESTING_DOES,
+  WHAT_WE_DO_TODAY,
+  WHAT_WE_DO_TODAY_DETAIL,
+} from "@/data/institutionalCopy";
 
 const wrap = (ui: ReactNode) =>
   render(
@@ -38,14 +47,13 @@ describe("locked public language", () => {
     expect(screen.getByRole("heading", { name: HOME_TAGLINE })).toBeInTheDocument();
     expect(screen.getByText(HOME_SEARCH_LEAD)).toBeInTheDocument();
     expect(screen.getByText(HOME_STATUS_RULE)).toBeInTheDocument();
-    expect(screen.getByText(HOME_DISCLAIMER)).toBeInTheDocument();
-    expect(screen.getByText("Clinics: apply to have defined sourcing claims reviewed.")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Facilities: a separate Greenlist. You can pay for an evaluation. You cannot pay for the result.",
-      ),
-    ).toBeInTheDocument();
-    expect(screen.getByText("Patients: use the search. Read the scope on the record.")).toBeInTheDocument();
+    expect(screen.getByText(HOME_AUDIENCE_CLINICS)).toBeInTheDocument();
+    expect(screen.getByText(HOME_AUDIENCE_FACILITIES)).toBeInTheDocument();
+    expect(screen.getByText(HOME_AUDIENCE_PATIENTS)).toBeInTheDocument();
+    expect(screen.getByText(WHAT_WE_DO_TODAY)).toBeInTheDocument();
+    expect(screen.getByText(WHAT_WE_DO_TODAY_DETAIL)).toBeInTheDocument();
+    expect(screen.getByText(METHODOLOGY_TESTING)).toBeInTheDocument();
+    expect(screen.getByText(TESTING_DOES)).toBeInTheDocument();
 
     expect(screen.queryByText(/4,179/)).not.toBeInTheDocument();
     expect(screen.queryByText(/Providers Indexed/i)).not.toBeInTheDocument();
@@ -53,6 +61,11 @@ describe("locked public language", () => {
     expect(screen.queryByText(/unsupported claims/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Vendor Registry/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/^Unverified$/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Nothing else is implied/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/We have reached no conclusion/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Developing work is not described/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/index count is not a count/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Patients: use the search/i)).not.toBeInTheDocument();
   });
 
   it("renders How Verification Works as apply-then-review, not index-then-review", () => {
@@ -63,8 +76,12 @@ describe("locked public language", () => {
     }
     expect(screen.getByText(HOW_IT_WORKS_FACILITY)).toBeInTheDocument();
     expect(screen.getAllByText(HOW_IT_WORKS_SEARCH_PURPOSE).length).toBeGreaterThan(0);
+    expect(screen.getByText(WHAT_WE_DO_TODAY)).toBeInTheDocument();
+    expect(screen.getByText(METHODOLOGY_TESTING)).toBeInTheDocument();
     expect(screen.queryByText(/Vendor enters the registry/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/public information/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Developing work is not described/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/We do not investigate clinics/i)).not.toBeInTheDocument();
   });
 
   it("removes Advisory Board from shared chrome and aligns the footer disclaimer", () => {

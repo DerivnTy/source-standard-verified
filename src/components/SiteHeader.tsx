@@ -64,11 +64,11 @@ export const SiteHeader = () => {
       }}
     >
       <div
-        className="relative flex items-center justify-between"
-        style={{ height: "63px", paddingLeft: "24px", paddingRight: "24px" }}
+        className="page-shell relative flex items-center"
+        style={{ height: "64px", paddingTop: 0, paddingBottom: 0 }}
       >
         <Logo />
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 h-full">
+        <nav className="hidden lg:flex items-center gap-5 h-full" style={{ marginLeft: "32px" }}>
           {nav.map((n) => (
             <NavLink
               key={n.to}
@@ -77,7 +77,7 @@ export const SiteHeader = () => {
               className={({ isActive }) =>
                 `relative inline-flex items-center h-10 t-nav transition-colors ${
                   isActive
-                    ? "text-foreground font-medium after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-14px] after:h-[1.5px] after:bg-foreground"
+                    ? "text-foreground after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-16px] after:h-px after:bg-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`
               }
@@ -86,19 +86,13 @@ export const SiteHeader = () => {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden lg:flex items-center">
-          <Button
-            asChild
-            variant="outline"
-            size="sm"
-            className="h-9 px-4 rounded-[2px] border border-foreground/30 bg-transparent text-foreground hover:bg-foreground/[0.03] hover:text-foreground hover:border-foreground"
-          >
+        <div className="hidden lg:flex items-center ml-auto">
+          <Button asChild size="sm">
             <Link to={PRIMARY_CTA.path}>{PRIMARY_CTA.label}</Link>
           </Button>
-
         </div>
         <button
-          className="lg:hidden p-2 -mr-2 relative h-10 w-10 transition-colors"
+          className="lg:hidden ml-auto p-2 -mr-2 relative h-10 w-10 transition-colors"
           style={{
             zIndex: open ? 70 : undefined,
             color: open ? "#FFFFFF" : "hsl(var(--foreground))",
@@ -150,9 +144,9 @@ export const SiteHeader = () => {
               <div
                 className="flex shrink-0 items-center justify-between"
                 style={{
-                  height: "63px",
-                  paddingLeft: "24px",
-                  paddingRight: "24px",
+                  height: "64px",
+                  paddingLeft: "20px",
+                  paddingRight: "20px",
                   borderBottom: "0.5px solid rgba(255,255,255,0.10)",
                 }}
               >
@@ -179,9 +173,9 @@ export const SiteHeader = () => {
               {/* Nav list, left-aligned, 32px gaps, 20px Inter Semi-bold Navy */}
               <nav
                 className="flex-1 overflow-y-auto"
-                style={{ paddingLeft: "32px", paddingRight: "32px", paddingTop: "40px" }}
+                style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "24px" }}
               >
-                <ul className="flex flex-col" style={{ rowGap: "32px" }}>
+                <ul className="flex flex-col" style={{ rowGap: "18px" }}>
                   {mobileNav.map((n) => (
                     <li key={n.to}>
                       <NavLink
@@ -204,9 +198,9 @@ export const SiteHeader = () => {
                 <Link
                   to={PRIMARY_CTA.path}
                   onClick={() => setOpen(false)}
-                  className="mt-10 w-full inline-flex items-center justify-center px-8 text-white transition-colors hover:bg-white/[0.06]"
+                  className="mt-8 w-full inline-flex items-center justify-center px-6 text-white transition-colors hover:bg-white/[0.06]"
                   style={{
-                    height: "52px",
+                    height: "44px",
                     border: "1px solid rgba(255,255,255,0.22)",
                     backgroundColor: "rgba(255,255,255,0.03)",
                     borderRadius: "0px",

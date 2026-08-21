@@ -108,7 +108,7 @@ const Terms = () => {
         </ul>
       </ArticleSection>
 
-      <EditorialBackLink to="/" label="Back to Home" />
+      <EditorialBackLink />
     </>
   );
 };

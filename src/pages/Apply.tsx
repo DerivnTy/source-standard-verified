@@ -18,10 +18,10 @@ import { toast } from "@/components/ui/sonner";
 
 
 const VENDOR_TYPES = [
-  "In-person vendor",
-  "Telehealth vendor",
-  "Hybrid vendor",
-  "Online vendor",
+  "In-person clinic",
+  "Telehealth clinic",
+  "Hybrid clinic",
+  "Online clinic",
   "Pharmacy / supplier",
   "Other",
 ];
@@ -39,7 +39,7 @@ const ACK_TEXT =
   "I understand this intake does not approve, certify, or verify this organization. Source Standard will confirm eligibility before any review begins. Verified status is only issued after review under the Source Standard framework is completed.";
 
 const SUBTITLE =
-  "Submit your operating profile to begin the Source Standard verification process. This form does not create verified status.";
+  "Submit an operating profile to request Source Standard review. This form does not create verified status.";
 
 type GroupProps = {
   legend: string;
@@ -48,8 +48,8 @@ type GroupProps = {
 };
 
 const Group = ({ legend, children, first }: GroupProps) => (
-  <fieldset className={first ? "" : "border-t border-border pt-7"}>
-    <legend className="t-body-md font-semibold text-foreground mb-0 pb-0">
+  <fieldset className={first ? "" : "border-t border-border pt-5"}>
+    <legend className="t-body-md font-semibold text-foreground mb-4 pb-0 px-0">
       {legend}
     </legend>
     {children}
@@ -131,31 +131,30 @@ const Apply = () => {
   return (
     <>
       <PageMeta
-        title="Vendor Verification Intake"
+        title="Apply for Verification"
         description={SUBTITLE}
       />
       <Breadcrumb
         items={[
-          { label: "Vendors", to: "/for-vendors" },
+          { label: "How It Works", to: "/how-it-works" },
           { label: "Apply" },
         ]}
       />
 
       <BriefingHero
         tone="navy"
-        category="Vendor intake"
+        category="Intake"
         docId=""
-        title="Vendor Verification Intake"
+        title="Apply for Verification"
         statement={SUBTITLE}
+        heroPadding={{ top: "48px", bottom: "48px" }}
       />
 
-      <section className="bg-background border-b border-border">
-        <div className="page-shell pt-9 pb-9">
-          <div className="mx-auto w-full">
-            <div>
-              <div className="bg-card border border-border rounded-xl p-6">
+      <section className="bg-background">
+        <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "48px" }}>
+          <div className="w-full max-w-[40rem] text-left">
                 {!filed ? (
-                  <form onSubmit={onSubmit} className="intake-form space-y-7">
+                  <form onSubmit={onSubmit} className="intake-form space-y-5">
                     {/* Business Profile */}
                     <Group legend="Business Profile" first>
                       <div className="grid sm:grid-cols-2 gap-[18px]">
@@ -189,10 +188,10 @@ const Apply = () => {
                           />
                         </div>
                         <div className="space-y-2 sm:col-span-2">
-                          <Label>Vendor type</Label>
+                          <Label>Organization type</Label>
                           <Select value={vendorType} onValueChange={setVendorType}>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select vendor type" />
+                              <SelectValue placeholder="Select organization type" />
                             </SelectTrigger>
                             <SelectContent>
                               {VENDOR_TYPES.map((t) => (
@@ -313,36 +312,38 @@ const Apply = () => {
                       </label>
                     </Group>
 
-                    <div className="flex sm:justify-end mt-6">
+                    <div className="mt-5">
                       <Button
                         type="submit"
                         disabled={submitting || !acknowledged}
-                        size="lg"
                         className="w-full sm:w-auto"
                       >
                         {submitting ? "Submitting" : "Submit Intake"}
                       </Button>
+                      {!acknowledged && (
+                        <p className="mt-2 text-[13px] text-muted-foreground">
+                          Confirm the acknowledgment above to submit.
+                        </p>
+                      )}
                     </div>
                   </form>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="max-w-[62ch] space-y-3">
                     <h3 className="t-h3 text-foreground">Intake received</h3>
                     <p className="t-body-md text-muted-foreground">
                       Thank you. Source Standard will be in touch with next steps at the administrative contact provided.
                     </p>
-                    <p className="t-body-md text-muted-foreground pt-2">
+                    <p className="t-body-md text-muted-foreground">
                       Reference:{" "}
-                      <span className="text-foreground font-medium">{reference}</span>
+                      <span className="font-medium text-foreground">{reference}</span>
                     </p>
-                    <div className="pt-2">
-                      <Button type="button" variant="ghost" onClick={fileAnother}>
+                    <div className="pt-1">
+                      <Button type="button" variant="outline" onClick={fileAnother}>
                         Submit another intake
                       </Button>
                     </div>
                   </div>
                 )}
-              </div>
-            </div>
           </div>
         </div>
       </section>

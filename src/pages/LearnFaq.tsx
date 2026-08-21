@@ -7,7 +7,7 @@ import { PageSection } from "@/components/system";
 import { FAQ_ENTRIES } from "@/data/learn";
 
 const HERO_STATEMENT =
-  "Direct answers to the questions we receive most often, organized by topic. If you don't find your question here, contact us.";
+  "Short answers on legal and regulatory context, clinical limits, the verification process, and how to check a clinic record.";
 
 const LearnFaq = () => {
   const jsonLd = {
@@ -43,7 +43,7 @@ const LearnFaq = () => {
           docId=""
         />
 
-        <PageSection first>
+        <PageSection first layout="wide">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {FAQ_ENTRIES.map((f) => (
               <ArticleCard
