@@ -1,37 +1,37 @@
 /**
- * Phase 1 institutional copy used around the locked public-language strings.
+ * Phase 1 institutional copy used around the public-language strings.
  * Do not invent metrics, named advisors, or scale that is not operational.
  */
 
 export const WHAT_WE_DO_TODAY =
-  "Source Standard conducts independent review of clinic sourcing claims, third-party product testing of materials from relevant facilities, review of sourcing documentation, facility accountability records, and provider verification against defined requirements.";
+  "Source Standard independently reviews clinic sourcing claims, tests product from relevant facilities, reviews sourcing documentation, and verifies providers against published requirements.";
 
 export const WHAT_WE_DO_TODAY_DETAIL =
-  "A clinic is reviewed only after it applies and provides sourcing records. Facilities are evaluated on a separate track. Search exists so a person can ask whether a named clinic has completed that process. Listing in the searchable index is not verification.";
+  "A clinic is reviewed only after it applies and provides sourcing records. Facilities are evaluated on a separate track. The searchable list includes clinics that have not been reviewed, and being listed is not verification.";
 
 export const METHODOLOGY_TESTING =
-  "Products from relevant facilities are independently tested on an ongoing, randomized cycle. The current design uses approximately 60 to 90 day intervals where applicable. Participating clinics must show that they actually source from the facilities being evaluated.";
+  "Products from relevant facilities are independently tested on an ongoing, randomized cycle, designed around 60 to 90 day intervals where applicable. Participating clinics must show that they source from the facilities being evaluated.";
 
 export const METHODOLOGY_SCOPE =
-  "Review is limited to the claims, facilities, and records included in the submission. Status is current only while those requirements continue to be met.";
+  "Review is limited to the claims, facilities, and records included in the submission. Status remains current only while those requirements continue to be met.";
 
 export const TESTING_DOES =
-  "Independent testing can support or challenge a sourcing claim for the samples reviewed, at the time they were tested, against predetermined criteria.";
+  "Testing can support or challenge a sourcing claim for the samples reviewed, at the time they were tested, against predetermined criteria. It does not certify a product as safe, establish that later lots will match, or replace regulatory oversight.";
 
 export const TESTING_DOES_NOT =
   "Testing does not certify a product as safe, prove that later lots will match, establish clinical effectiveness, or replace regulatory oversight or clinical judgment.";
 
 export const DEVELOPING_WORK =
-  "Some parts of this work are operational today. Others are still being built. Developing work is not described here as if it already exists at scale.";
+  "Some parts of this work are operational today. Others remain in development.";
 
 export const VERIFICATION_LIMITS =
-  "Verification states what was reviewed, against what requirements, and when. It is not an FDA approval, a safety guarantee, an endorsement, or a recommendation to use a clinic or product.";
+  "Verification records what was reviewed, against what requirements, and when.";
 
 export const INDEPENDENCE_LINE =
   "A clinic or facility may pay for an evaluation. Payment does not buy a result. Review criteria and status definitions are published.";
 
 export const INDEX_VS_VERIFIED =
-  "The searchable clinic list is an index of listed records. An index count is not a count of verified clinics, paying participants, or tests performed.";
+  "The searchable list includes clinics that have not been reviewed. Being listed is not verification.";
 
 export const HOW_TO_PARTICIPATE =
   "Clinics apply for review of defined sourcing claims. Facilities may request a separate Greenlist evaluation. Anyone can search a clinic name and read the scope on the record.";

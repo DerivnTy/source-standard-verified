@@ -9,13 +9,9 @@ import {
   HOW_IT_WORKS_STEPS,
 } from "@/data/publicLanguage";
 import {
-  DEVELOPING_WORK,
-  INDEPENDENCE_LINE,
   METHODOLOGY_SCOPE,
   METHODOLOGY_TESTING,
   TESTING_DOES,
-  TESTING_DOES_NOT,
-  VERIFICATION_LIMITS,
   WHAT_WE_DO_TODAY,
 } from "@/data/institutionalCopy";
 
@@ -64,11 +60,9 @@ const HowItWorks = () => {
       </PageSection>
 
       <PageSection compact title="Clinic review">
-        <div className="max-w-[68ch]">
-          <ProcessSteps
-            steps={HOW_IT_WORKS_STEPS.map((sentence) => ({ title: sentence }))}
-          />
-        </div>
+        <ProcessSteps
+          steps={HOW_IT_WORKS_STEPS.map((sentence) => ({ title: sentence }))}
+        />
       </PageSection>
 
       <PageSection compact title="Facility evaluation">
@@ -89,26 +83,6 @@ const HowItWorks = () => {
           </p>
           <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
             {TESTING_DOES}
-          </p>
-          <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
-            {TESTING_DOES_NOT}
-          </p>
-        </div>
-      </PageSection>
-
-      <PageSection compact title="What is operational">
-        <div className="flex flex-col gap-3">
-          <p className="t-body-sm" style={{ margin: 0 }}>
-            {DEVELOPING_WORK}
-          </p>
-          <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
-            {INDEPENDENCE_LINE}
-          </p>
-          <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
-            {VERIFICATION_LIMITS}
-          </p>
-          <p className="t-body-sm text-muted-foreground" style={{ margin: 0 }}>
-            {HOW_IT_WORKS_SEARCH_PURPOSE}
           </p>
         </div>
       </PageSection>
