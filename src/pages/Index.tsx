@@ -209,7 +209,7 @@ const Index = () => {
         <p className="t-body-sm text-muted-foreground" style={{ marginTop: "14px", maxWidth: "68ch" }}>
           {HOW_TO_PARTICIPATE}
         </p>
-        <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap md:items-start">
+        <div className="mt-6 flex flex-col items-center justify-center gap-2 sm:flex-row sm:flex-wrap">
           <Button asChild>
             <Link to="/how-it-works">{CTA_HOW_IT_WORKS}</Link>
           </Button>

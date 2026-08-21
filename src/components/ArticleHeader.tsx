@@ -57,7 +57,7 @@ export const ArticleHeader = ({
   return (
     <header className="bg-background">
       <div className="page-shell" style={{ paddingTop: "40px", paddingBottom: "16px" }}>
-        <div className="mx-auto w-reading text-center md:text-left">
+        <div className="mx-auto w-reading text-center">
           <h1 className="t-article-title text-foreground !mt-0">{title}</h1>
           {lead && (
             <p

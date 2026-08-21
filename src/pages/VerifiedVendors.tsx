@@ -74,7 +74,7 @@ const VerifiedVendors = () => {
 
       <section className="bg-background">
         <div className="page-shell" style={{ paddingTop: "36px", paddingBottom: "48px" }}>
-          <div className="mx-auto w-reading text-center md:text-left">
+          <div className="mx-auto w-reading text-center">
             {!isSearching ? (
               <div>
                 <p
@@ -93,7 +93,7 @@ const VerifiedVendors = () => {
                     <li key={row.to}>
                       <Link
                         to={row.to}
-                        className="flex items-center justify-between gap-3 py-2.5 text-foreground hover:text-primary"
+                        className="inline-flex items-center justify-center gap-2 py-2.5 text-foreground hover:text-primary"
                       >
                         <span className="t-body-sm">{row.label}</span>
                         <span aria-hidden className="text-muted-foreground">→</span>

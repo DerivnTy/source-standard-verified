@@ -43,9 +43,9 @@ export const PageSection = ({
   return (
     <section aria-labelledby={id} className={`bg-background ${className}`}>
       <div className="page-shell" style={inlineStyle}>
-        <div className="mx-auto w-reading text-center md:text-left">
+        <div className="mx-auto w-reading text-center">
           {title && (
-            <div className="flex items-center justify-center gap-2 md:justify-start">
+            <div className="flex items-center justify-center gap-2">
               {icon && (
                 <span className="text-primary/80">
                   <Glyph name={icon} size="md" />
@@ -80,7 +80,7 @@ export const PageSection = ({
           )}
 
           {cta && (
-            <div className="flex justify-center md:justify-start" style={{ marginTop: "20px" }}>
+            <div className="flex justify-center" style={{ marginTop: "20px" }}>
               {cta}
             </div>
           )}

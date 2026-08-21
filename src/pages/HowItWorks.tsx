@@ -119,7 +119,7 @@ const HowItWorks = () => {
             <li key={r.to} className={i > 0 ? "border-t border-border" : ""}>
               <Link
                 to={r.to}
-                className="flex items-center justify-between gap-3 py-2.5 text-foreground hover:text-primary"
+                className="inline-flex items-center justify-center gap-2 py-2.5 text-foreground hover:text-primary"
               >
                 <span className="t-body-sm">{r.label}</span>
                 <span aria-hidden className="text-muted-foreground">→</span>
