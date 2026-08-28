@@ -396,6 +396,59 @@ const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
   );
 };
 
+/**
+ * RelatedProviders, crawl-path + reader utility. Links out to other records
+ * in the same state (falling back to the same category), so every profile
+ * sits inside a dense internal link graph without manual configuration.
+ */
+const RelatedProviders = ({ vendor }: { vendor: Vendor }) => {
+  const pool = vendors.filter((v) => v.slug !== vendor.slug);
+  const sameState = vendor.state ? pool.filter((v) => v.state === vendor.state) : [];
+  const sameCategory = vendor.category ? pool.filter((v) => v.category === vendor.category) : [];
+  const picks = (sameState.length >= 4 ? sameState : [...sameState, ...sameCategory])
+    .filter((v, i, arr) => arr.findIndex((x) => x.slug === v.slug) === i)
+    .slice(0, 8);
+
+  if (picks.length === 0) return null;
+
+  const heading = sameState.length >= 4 && vendor.state
+    ? `Other providers in ${vendor.state}`
+    : "Other providers in the directory";
+
+  return (
+    <section className="mt-6" aria-label={heading}>
+      <h2
+        className="font-sans font-semibold uppercase text-muted-foreground"
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      >
+        {heading}
+      </h2>
+      <ul className="mt-2 grid gap-x-6 sm:grid-cols-2">
+        {picks.map((v) => (
+          <li key={v.slug} style={{ padding: "6px 0" }}>
+            <Link
+              to={`/directory/${v.slug}`}
+              className="text-foreground hover:text-primary transition-colors"
+              style={{ fontSize: "15px", lineHeight: 1.45 }}
+            >
+              {v.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link
+        to="/directory/browse"
+        className="mt-3 inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      >
+        Browse the full provider index →
+      </Link>
+    </section>
+  );
+};
+
+
+
 
 type QuickFactRow = { label: string; value: string };
 
