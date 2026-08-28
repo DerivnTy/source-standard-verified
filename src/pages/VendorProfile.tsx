@@ -1349,7 +1349,11 @@ const VendorProfile = () => {
             ]}
           />
 
+          {/* ────── 9b. RELATED RECORDS (internal linking) ────── */}
+          <RelatedProviders vendor={vendor} />
+
           {/* ────── 10. CLAIM YOUR PROFILE (elevated CTA) ────── */}
+
           {!claimed && (
             <article
               className="mt-6"
