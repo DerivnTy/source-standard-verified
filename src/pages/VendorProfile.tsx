@@ -329,12 +329,22 @@ const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => {
 
 // ─── Transparency helpers ─────────────────────────────────────────────────────
 
+const STATUS_HEADLINE: Record<VendorPublicStatus, string> = {
+  verified: "Verified by Source Standard",
+  unverified: "Not currently verified by Source Standard",
+  "under-review": "Under review by Source Standard",
+  active: "Verification active with Source Standard",
+  suspended: "Verification suspended by Source Standard",
+  expired: "Verification expired",
+  removed: "Record withdrawn from active verification",
+};
+
 const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
   const copy: Record<VendorPublicStatus, string> = {
     verified:
       "This clinic has voluntarily completed Source Standard's independent sourcing verification process.",
     unverified:
-      "This clinic has not completed Source Standard's independent sourcing verification process. This status does not indicate that Source Standard has evaluated or reached a conclusion regarding the clinic's sourcing, product quality, or safety.",
+      "This status means Source Standard has not completed its verification process for this provider. It does not indicate that the provider failed verification or that its products or sourcing practices are deficient.",
     "under-review":
       "This clinic has applied and its submission is currently under review. No conclusion has been reached.",
     active: "Verification for this clinic is current and in good standing.",
@@ -346,14 +356,44 @@ const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
       "This record has been withdrawn from active verification within the Source Standard framework.",
   };
   return (
-    <p
-      className="mt-3 text-muted-foreground"
-      style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+    <section
+      aria-label="Source Standard Verification Status"
+      className="mt-4"
+      style={{
+        border: "0.5px solid hsl(var(--border))",
+        borderRadius: "12px",
+        padding: "16px",
+      }}
     >
-      {copy[status]}
-    </p>
+      <h2
+        className="font-sans font-semibold uppercase text-muted-foreground"
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      >
+        Source Standard Verification Status
+      </h2>
+      <p
+        className="mt-2 font-sans text-foreground"
+        style={{ fontSize: "18px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+      >
+        {STATUS_HEADLINE[status]}
+      </p>
+      <p
+        className="mt-2 text-muted-foreground"
+        style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+      >
+        {copy[status]}
+      </p>
+      <Link
+        to="/status-definitions"
+        className="mt-3 inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      >
+        What these statuses mean →
+      </Link>
+    </section>
   );
 };
+
 
 type QuickFactRow = { label: string; value: string };
 
