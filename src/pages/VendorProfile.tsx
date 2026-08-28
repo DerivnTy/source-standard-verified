@@ -757,26 +757,19 @@ const VendorProfile = () => {
     ],
   };
 
-  const metaDescription = [
-    `${vendor.name}.`,
-    vendor.category ? `${vendor.category}.` : "",
-    location !== "—" ? `${location}.` : "",
-    serviceBadges.length ? `Services: ${serviceBadges.slice(0, 6).join(", ")}.` : "",
-    `Source Standard status: ${VENDOR_STATUS_LABEL[status]}.`,
-  ]
-    .filter(Boolean)
-    .join(" ")
-    .slice(0, 300);
+  const metaDescription = `Independent sourcing transparency information for ${vendor.name}. View its current Source Standard verification status.`;
 
   return (
     <>
       <PageMeta
-        title={`${vendor.name} · ${vendor.category ?? "Vendor"}${location !== "—" ? " · " + location : ""}`}
+        title={`${vendor.name} | Source Standard`}
+        rawTitle
         description={metaDescription}
         path={canonicalPath}
         type="profile"
         jsonLd={[orgLd, breadcrumbLd]}
       />
+
       <Breadcrumb
         items={[
           { label: "Directory", to: "/verified-vendors" },
