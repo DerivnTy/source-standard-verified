@@ -17,12 +17,14 @@ import {
 } from "lucide-react";
 import {
   getVendor,
+  vendors,
   Vendor,
   VendorPublicStatus,
   VENDOR_STATUS_LABEL,
   VENDOR_FULFILLMENT_LABEL,
   getVendorFulfillment,
 } from "@/data/vendors";
+
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
