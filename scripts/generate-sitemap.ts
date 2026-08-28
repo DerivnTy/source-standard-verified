@@ -71,7 +71,16 @@ async function main() {
       loc: `${SITE_URL}${path}`,
       changefreq: path === "/" ? "weekly" : "monthly",
       priority: path === "/" ? "1.0" : "0.7",
-      lastmod: today,
+    });
+  }
+
+  // Crawlable provider index pages (/directory/browse[/n])
+  const browsePages = Math.max(1, Math.ceil(vendors.length / BROWSE_PAGE_SIZE));
+  for (let p = 1; p <= browsePages; p++) {
+    urls.push({
+      loc: `${SITE_URL}/directory/browse${p === 1 ? "" : `/${p}`}`,
+      changefreq: "weekly",
+      priority: "0.5",
     });
   }
 
@@ -81,7 +90,6 @@ async function main() {
       loc: `${SITE_URL}/directory/${v.slug}`,
       changefreq: "monthly",
       priority: "0.6",
-      lastmod: today,
     });
   }
 
@@ -91,7 +99,6 @@ async function main() {
       loc: `${SITE_URL}/greenlist/${g.slug}`,
       changefreq: "monthly",
       priority: "0.5",
-      lastmod: today,
     });
   }
 
@@ -101,7 +108,6 @@ async function main() {
       loc: `${SITE_URL}/medical-advisory/${a.slug}`,
       changefreq: "yearly",
       priority: "0.4",
-      lastmod: today,
     });
   }
 
