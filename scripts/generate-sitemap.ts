@@ -14,7 +14,12 @@ const SITE_URL = process.env.VITE_SITE_URL?.replace(/\/$/, "") || "https://www.s
 
 type Url = { loc: string; changefreq?: string; priority?: string; lastmod?: string };
 
-const today = new Date().toISOString().slice(0, 10);
+// NOTE: <lastmod> is emitted only where a real, page-specific timestamp
+// exists (Learn articles). Static routes and directory records have no
+// authoritative change timestamp, so they omit it rather than advertise
+// the build date.
+const BROWSE_PAGE_SIZE = 250;
+
 
 // Static public routes (mirrors App.tsx). Retired /education/* and
 // /library/* routes are intentionally omitted — they 301 to /learn/*.
