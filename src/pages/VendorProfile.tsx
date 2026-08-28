@@ -17,12 +17,14 @@ import {
 } from "lucide-react";
 import {
   getVendor,
+  vendors,
   Vendor,
   VendorPublicStatus,
   VENDOR_STATUS_LABEL,
   VENDOR_FULFILLMENT_LABEL,
   getVendorFulfillment,
 } from "@/data/vendors";
+
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
@@ -329,12 +331,22 @@ const LogoBlock = ({ vendor, size }: { vendor: Vendor; size: number }) => {
 
 // ─── Transparency helpers ─────────────────────────────────────────────────────
 
+const STATUS_HEADLINE: Record<VendorPublicStatus, string> = {
+  verified: "Verified by Source Standard",
+  unverified: "Not currently verified by Source Standard",
+  "under-review": "Under review by Source Standard",
+  active: "Verification active with Source Standard",
+  suspended: "Verification suspended by Source Standard",
+  expired: "Verification expired",
+  removed: "Record withdrawn from active verification",
+};
+
 const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
   const copy: Record<VendorPublicStatus, string> = {
     verified:
       "This clinic has voluntarily completed Source Standard's independent sourcing verification process.",
     unverified:
-      "This clinic has not completed Source Standard's independent sourcing verification process. This status does not indicate that Source Standard has evaluated or reached a conclusion regarding the clinic's sourcing, product quality, or safety.",
+      "This status means Source Standard has not completed its verification process for this provider. It does not indicate that the provider failed verification or that its products or sourcing practices are deficient.",
     "under-review":
       "This clinic has applied and its submission is currently under review. No conclusion has been reached.",
     active: "Verification for this clinic is current and in good standing.",
@@ -346,14 +358,97 @@ const StatusSummary = ({ status }: { status: VendorPublicStatus }) => {
       "This record has been withdrawn from active verification within the Source Standard framework.",
   };
   return (
-    <p
-      className="mt-3 text-muted-foreground"
-      style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+    <section
+      aria-label="Source Standard Verification Status"
+      className="mt-4"
+      style={{
+        border: "0.5px solid hsl(var(--border))",
+        borderRadius: "12px",
+        padding: "16px",
+      }}
     >
-      {copy[status]}
-    </p>
+      <h2
+        className="font-sans font-semibold uppercase text-muted-foreground"
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      >
+        Source Standard Verification Status
+      </h2>
+      <p
+        className="mt-2 font-sans text-foreground"
+        style={{ fontSize: "18px", fontWeight: 600, lineHeight: 1.3, letterSpacing: "-0.01em" }}
+      >
+        {STATUS_HEADLINE[status]}
+      </p>
+      <p
+        className="mt-2 text-muted-foreground"
+        style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.55 }}
+      >
+        {copy[status]}
+      </p>
+      <Link
+        to="/status-definitions"
+        className="mt-3 inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      >
+        What these statuses mean →
+      </Link>
+    </section>
   );
 };
+
+/**
+ * RelatedProviders, crawl-path + reader utility. Links out to other records
+ * in the same state (falling back to the same category), so every profile
+ * sits inside a dense internal link graph without manual configuration.
+ */
+const RelatedProviders = ({ vendor }: { vendor: Vendor }) => {
+  const pool = vendors.filter((v) => v.slug !== vendor.slug);
+  const sameState = vendor.state ? pool.filter((v) => v.state === vendor.state) : [];
+  const sameCategory = vendor.category ? pool.filter((v) => v.category === vendor.category) : [];
+  const picks = (sameState.length >= 4 ? sameState : [...sameState, ...sameCategory])
+    .filter((v, i, arr) => arr.findIndex((x) => x.slug === v.slug) === i)
+    .slice(0, 8);
+
+  if (picks.length === 0) return null;
+
+  const heading = sameState.length >= 4 && vendor.state
+    ? `Other providers in ${vendor.state}`
+    : "Other providers in the directory";
+
+  return (
+    <section className="mt-6" aria-label={heading}>
+      <h2
+        className="font-sans font-semibold uppercase text-muted-foreground"
+        style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+      >
+        {heading}
+      </h2>
+      <ul className="mt-2 grid gap-x-6 sm:grid-cols-2">
+        {picks.map((v) => (
+          <li key={v.slug} style={{ padding: "6px 0" }}>
+            <Link
+              to={`/directory/${v.slug}`}
+              className="text-foreground hover:text-primary transition-colors"
+              style={{ fontSize: "15px", lineHeight: 1.45 }}
+            >
+              {v.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link
+        to="/directory/browse"
+        className="mt-3 inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
+        style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+      >
+        Browse the full provider index →
+      </Link>
+    </section>
+  );
+};
+
+
+
 
 type QuickFactRow = { label: string; value: string };
 
@@ -717,26 +812,19 @@ const VendorProfile = () => {
     ],
   };
 
-  const metaDescription = [
-    `${vendor.name}.`,
-    vendor.category ? `${vendor.category}.` : "",
-    location !== "—" ? `${location}.` : "",
-    serviceBadges.length ? `Services: ${serviceBadges.slice(0, 6).join(", ")}.` : "",
-    `Source Standard status: ${VENDOR_STATUS_LABEL[status]}.`,
-  ]
-    .filter(Boolean)
-    .join(" ")
-    .slice(0, 300);
+  const metaDescription = `Independent sourcing transparency information for ${vendor.name}. View its current Source Standard verification status.`;
 
   return (
     <>
       <PageMeta
-        title={`${vendor.name} · ${vendor.category ?? "Vendor"}${location !== "—" ? " · " + location : ""}`}
+        title={`${vendor.name} | Source Standard`}
+        rawTitle
         description={metaDescription}
         path={canonicalPath}
         type="profile"
         jsonLd={[orgLd, breadcrumbLd]}
       />
+
       <Breadcrumb
         items={[
           { label: "Directory", to: "/verified-vendors" },
@@ -1314,7 +1402,11 @@ const VendorProfile = () => {
             ]}
           />
 
+          {/* ────── 9b. RELATED RECORDS (internal linking) ────── */}
+          <RelatedProviders vendor={vendor} />
+
           {/* ────── 10. CLAIM YOUR PROFILE (elevated CTA) ────── */}
+
           {!claimed && (
             <article
               className="mt-6"

@@ -8,7 +8,7 @@ export const SITE_URL: string =
   (import.meta as { env?: { VITE_SITE_URL?: string } }).env?.VITE_SITE_URL?.replace(
     /\/$/,
     "",
-  ) || "https://sourcestandard.org";
+  ) || "https://www.sourcestandard.org";
 
 export const absoluteUrl = (path?: string): string => {
   if (!path) return SITE_URL + "/";

@@ -19,6 +19,8 @@ export type FooterColumn = {
 export const ROUTES = {
   home: { path: "/", label: "Home" },
   vendors: { path: "/verified-vendors", label: "Search Clinics" },
+  providerIndex: { path: "/directory/browse", label: "Provider Index" },
+
   facilities: { path: "/greenlist", label: "Facility Records" },
   howItWorks: { path: "/how-it-works", label: "How Verification Works" },
   governance: { path: "/governance", label: "Governance" },
@@ -56,7 +58,7 @@ export const PRIMARY_CTA: NavRoute = ROUTES.apply;
 export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Registry",
-    links: [ROUTES.vendors, ROUTES.facilities, ROUTES.apply, ROUTES.reportConcern],
+    links: [ROUTES.vendors, ROUTES.providerIndex, ROUTES.facilities, ROUTES.apply, ROUTES.reportConcern],
   },
   {
     title: "Framework",

@@ -14,7 +14,12 @@ const SITE_URL = process.env.VITE_SITE_URL?.replace(/\/$/, "") || "https://www.s
 
 type Url = { loc: string; changefreq?: string; priority?: string; lastmod?: string };
 
-const today = new Date().toISOString().slice(0, 10);
+// NOTE: <lastmod> is emitted only where a real, page-specific timestamp
+// exists (Learn articles). Static routes and directory records have no
+// authoritative change timestamp, so they omit it rather than advertise
+// the build date.
+const BROWSE_PAGE_SIZE = 250;
+
 
 // Static public routes (mirrors App.tsx). Retired /education/* and
 // /library/* routes are intentionally omitted — they 301 to /learn/*.
@@ -66,7 +71,16 @@ async function main() {
       loc: `${SITE_URL}${path}`,
       changefreq: path === "/" ? "weekly" : "monthly",
       priority: path === "/" ? "1.0" : "0.7",
-      lastmod: today,
+    });
+  }
+
+  // Crawlable provider index pages (/directory/browse[/n])
+  const browsePages = Math.max(1, Math.ceil(vendors.length / BROWSE_PAGE_SIZE));
+  for (let p = 1; p <= browsePages; p++) {
+    urls.push({
+      loc: `${SITE_URL}/directory/browse${p === 1 ? "" : `/${p}`}`,
+      changefreq: "weekly",
+      priority: "0.5",
     });
   }
 
@@ -76,7 +90,6 @@ async function main() {
       loc: `${SITE_URL}/directory/${v.slug}`,
       changefreq: "monthly",
       priority: "0.6",
-      lastmod: today,
     });
   }
 
@@ -86,7 +99,6 @@ async function main() {
       loc: `${SITE_URL}/greenlist/${g.slug}`,
       changefreq: "monthly",
       priority: "0.5",
-      lastmod: today,
     });
   }
 
@@ -96,7 +108,6 @@ async function main() {
       loc: `${SITE_URL}/medical-advisory/${a.slug}`,
       changefreq: "yearly",
       priority: "0.4",
-      lastmod: today,
     });
   }
 

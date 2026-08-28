@@ -4,6 +4,8 @@ class IntersectionObserverStub implements IntersectionObserver {
   readonly root: Element | Document | null = null;
   readonly rootMargin = "";
   readonly thresholds: ReadonlyArray<number> = [];
+  readonly scrollMargin = "";
+
   disconnect(): void {}
   observe(): void {}
   takeRecords(): IntersectionObserverEntry[] {

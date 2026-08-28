@@ -34,6 +34,8 @@ import FaqConsumerDiligence from "./pages/FaqConsumerDiligence.tsx";
 
 import Governance from "./pages/Governance.tsx";
 import VendorProfile from "./pages/VendorProfile.tsx";
+import DirectoryBrowse from "./pages/DirectoryBrowse.tsx";
+
 import Apply from "./pages/Apply.tsx";
 import Contact from "./pages/Contact.tsx";
 import Accountability from "./pages/Accountability.tsx";
@@ -133,7 +135,10 @@ const App = () => (
 
             <Route path="/governance" element={<Governance />} />
             <Route path="/directory" element={<VerifiedVendors />} />
+            <Route path="/directory/browse" element={<DirectoryBrowse />} />
+            <Route path="/directory/browse/:page" element={<DirectoryBrowse />} />
             <Route path="/directory/:slug" element={<VendorProfile />} />
+
             <Route path="/apply" element={<Apply />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/accountability" element={<Accountability />} />
