@@ -12,6 +12,7 @@ type JsonLd = Record<string, unknown>;
  */
 export const PageMeta = ({
   title,
+  rawTitle,
   description,
   path,
   image,
@@ -20,6 +21,8 @@ export const PageMeta = ({
   jsonLd,
 }: {
   title: string;
+  /** When true, `title` is used verbatim (no sitewide suffix appended). */
+  rawTitle?: boolean;
   description?: string;
   /** Site-relative path (e.g. "/directory/acme"). Drives canonical + og:url. */
   path?: string;
@@ -32,10 +35,13 @@ export const PageMeta = ({
   /** One or more schema.org JSON-LD objects. */
   jsonLd?: JsonLd | JsonLd[];
 }) => {
-  const fullTitle = `${title} | Source Standard · The Clinical Transparency Framework`;
+  const fullTitle = rawTitle
+    ? title
+    : `${title} | Source Standard · The Clinical Transparency Framework`;
   const canonical = absoluteUrl(path);
   const ogImage = image ? absoluteUrl(image) : `${SITE_URL}/placeholder.svg`;
   const ldArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
 
   return (
     <Helmet>

@@ -1,3 +1,8 @@
-## Site is in private preview. Do not index any content.
 User-agent: *
-Disallow: /
+Allow: /
+
+# Non-indexable utility routes
+Disallow: /unsubscribe
+Disallow: /apply?
+
+Sitemap: https://www.sourcestandard.org/sitemap.xml
