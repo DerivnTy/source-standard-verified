@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { LegacyPathRedirect } from "@/components/LegacyPathRedirect";
+import { Analytics } from "@/components/seo/Analytics";
 
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
@@ -107,6 +108,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <Analytics />
 
         <Routes>
           <Route element={<SiteLayout />}>
