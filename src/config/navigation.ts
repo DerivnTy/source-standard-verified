@@ -68,8 +68,17 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.statusDefinitions],
   },
   {
+    // Topic-cluster hubs sit in the footer so every page links into them,
+    // giving the clusters a sitewide internal-link path.
     title: "Learn",
-    links: [ROUTES.learn, ROUTES.news, ROUTES.faq],
+    links: [
+      ROUTES.learn,
+      ROUTES.articles,
+      ROUTES.peptides,
+      ROUTES.compounding,
+      ROUTES.news,
+      ROUTES.faq,
+    ],
   },
   {
     title: "Source Standard",
