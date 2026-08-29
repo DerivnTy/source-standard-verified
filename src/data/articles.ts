@@ -648,7 +648,9 @@ export const ARTICLES: Article[] = [
       { to: "/status-definitions", label: "Status definitions" },
     ],
   },
+  ...INTEL_ARTICLES,
 ];
+
 
 export const getArticle = (slug: string): Article | undefined =>
   ARTICLES.find((a) => a.slug === slug);
