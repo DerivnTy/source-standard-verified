@@ -1,6 +1,5 @@
 import { PageHeader } from "@/components/PageHeader";
 import { EditorialBackLink } from "@/components/EditorialBackLink";
-import { authorities } from "@/data/authorities";
 import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import {
@@ -203,10 +202,6 @@ const Governance = () => (
       <p className="mt-4 t-body-sm text-muted-foreground leading-relaxed" style={{ maxWidth: "68ch" }}>
         Anchors are cited per requirement. An authority appearing in this table is not a partner of
         Source Standard and has not reviewed, endorsed, or approved the framework.
-      </p>
-      <p className="mt-3 t-body-sm text-muted-foreground leading-relaxed" style={{ maxWidth: "68ch" }}>
-        Legacy reference notes for these authorities remain available in the record data:{" "}
-        {authorities.map((a) => a.code).join(", ")}.
       </p>
     </PageSection>
 
