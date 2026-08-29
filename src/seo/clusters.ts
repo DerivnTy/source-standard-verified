@@ -174,6 +174,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
       "purity-testing-vs-sterility-testing",
       "what-is-endotoxin-testing",
       "what-does-a-peptide-coa-actually-prove",
+      "peptide-vendor-sentenced-false-testing-sourcing-claims",
     ],
   },
   {
@@ -341,6 +342,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
       "how-peptide-sourcing-works",
       "does-the-pharmacy-compound-the-peptide-itself",
       "how-can-you-verify-where-a-compounded-peptide-came-from",
+      "peptide-vendor-sentenced-false-testing-sourcing-claims",
     ],
   },
 
@@ -426,7 +428,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
         ],
       },
     ],
-    relatedArticles: ["what-is-a-503a-compounding-pharmacy", "503a-vs-503b-whats-the-difference"],
+    relatedArticles: ["what-is-a-503a-compounding-pharmacy", "503a-vs-503b-whats-the-difference", "503b-registration-does-not-mean-verified-quality"],
   },
   {
     path: "/compounding/503b",
@@ -464,7 +466,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
         ],
       },
     ],
-    relatedArticles: ["what-is-a-503b-outsourcing-facility", "503a-vs-503b-whats-the-difference", "who-manufactures-compounded-peptides"],
+    relatedArticles: ["503b-registration-does-not-mean-verified-quality", "what-is-a-503b-outsourcing-facility", "503a-vs-503b-whats-the-difference", "who-manufactures-compounded-peptides"],
   },
   {
     path: "/compounding/503a-vs-503b",

@@ -50,10 +50,10 @@ export const articlesForVendor = (v: Vendor, limit = 4): SiteLink[] => {
 
   const priority: string[] = [];
   if (pharmacyish) {
-    priority.push("503a-vs-503b-whats-the-difference", "what-is-a-503b-outsourcing-facility", "does-the-pharmacy-compound-the-peptide-itself");
+    priority.push("503b-registration-does-not-mean-verified-quality", "503a-vs-503b-whats-the-difference", "what-is-a-503b-outsourcing-facility", "does-the-pharmacy-compound-the-peptide-itself");
   }
   if (peptideish) {
-    priority.push("where-do-peptide-clinics-source-their-products", "what-should-patients-ask-a-peptide-clinic", "what-does-a-peptide-coa-actually-prove");
+    priority.push("peptide-vendor-sentenced-false-testing-sourcing-claims", "where-do-peptide-clinics-source-their-products", "what-should-patients-ask-a-peptide-clinic", "what-does-a-peptide-coa-actually-prove");
   }
   priority.push(
     "how-to-evaluate-a-peptide-clinic",
@@ -92,6 +92,7 @@ export const articlesForFacility = (g: GreenlistEntry, limit = 4): SiteLink[] =>
   const is503b = g.category === "503B" || /503B/i.test(g.type);
   const slugs = is503b
     ? [
+        "503b-registration-does-not-mean-verified-quality",
         "what-is-a-503b-outsourcing-facility",
         "503a-vs-503b-whats-the-difference",
         "who-manufactures-compounded-peptides",
@@ -102,6 +103,7 @@ export const articlesForFacility = (g: GreenlistEntry, limit = 4): SiteLink[] =>
         "503a-vs-503b-whats-the-difference",
         "does-the-pharmacy-compound-the-peptide-itself",
         "what-does-a-peptide-coa-actually-prove",
+        "503b-registration-does-not-mean-verified-quality",
       ];
   return articleLinks(slugs.slice(0, limit));
 };
