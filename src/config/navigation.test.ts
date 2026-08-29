@@ -8,15 +8,16 @@ describe("public navigation", () => {
     expect(PRIMARY_NAV.some((item) => item.label === "Vendor Registry")).toBe(false);
   });
 
-  it("removes Advisory Board from header, footer, and mobile nav", () => {
-    const labels = [
+  it("keeps Advisory Board out of header and mobile nav but in the footer framework column", () => {
+    const headerLabels = [
       ...PRIMARY_NAV.map((item) => item.label),
       ...MOBILE_NAV.map((item) => item.label),
-      ...FOOTER_COLUMNS.flatMap((column) => column.links.map((link) => link.label)),
     ];
-    expect(labels).not.toContain("Advisory Board");
+    expect(headerLabels).not.toContain("Advisory Board");
     expect(PRIMARY_NAV).not.toContainEqual(ROUTES.advisory);
     expect(MOBILE_NAV).not.toContainEqual(ROUTES.advisory);
+    const footerLabels = FOOTER_COLUMNS.flatMap((c) => c.links.map((l) => l.label));
+    expect(footerLabels).toContain("Advisory Board");
   });
 
   it("keeps Apply", () => {
