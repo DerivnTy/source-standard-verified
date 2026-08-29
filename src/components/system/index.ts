@@ -18,3 +18,10 @@ export { StatusPill, type StatusKey } from "./StatusPill";
 export { RegistryRow } from "./RegistryRow";
 
 
+export { KeyFacts, NOT_ESTABLISHED, type KeyFact } from "./KeyFacts";
+export { EvidencePanel, type EvidenceItem } from "./EvidencePanel";
+export { DefinitionCallout } from "./DefinitionCallout";
+export { DataTable, type DataColumn } from "./DataTable";
+export { Timeline, type TimelineEvent } from "./Timeline";
+export { RelatedRail, type RelatedLink } from "./RelatedRail";
+export { MethodologyNote } from "./MethodologyNote";
