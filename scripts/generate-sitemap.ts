@@ -158,8 +158,7 @@ async function main() {
 
   // ── Articles ──────────────────────────────────────────────────────
   const articleUrls: Url[] = [
-    { loc: `${SITE_URL}/articles`, changefreq: "weekly", priority: "0.8" },
-    { loc: `${SITE_URL}/intelligence`, changefreq: "weekly", priority: "0.8" },
+    { loc: `${SITE_URL}/learn/news`, changefreq: "weekly", priority: "0.8" },
   ];
 
   for (const a of ARTICLES) {

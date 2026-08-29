@@ -26,8 +26,9 @@ export const ROUTES = {
   governance: { path: "/governance", label: "Governance" },
   advisory: { path: "/medical-advisory", label: "Advisory Board" },
   learn: { path: "/learn", label: "Learn" },
-  articles: { path: "/articles", label: "Articles" },
-  intelligence: { path: "/intelligence", label: "Intelligence" },
+  /** Legacy destinations. Redirect to the unified library; not shown in nav. */
+  articles: { path: "/learn/news", label: "News & Insights" },
+  intelligence: { path: "/learn/news", label: "News & Insights" },
   peptides: { path: "/peptides", label: "Peptides" },
   compounding: { path: "/compounding", label: "Compounding" },
   news: { path: "/learn/news", label: "News & Insights" },
@@ -58,7 +59,15 @@ export const MOBILE_NAV: NavRoute[] = [ROUTES.home, ...PRIMARY_NAV];
 /** Primary header CTA. */
 export const PRIMARY_CTA: NavRoute = ROUTES.apply;
 
-/** Footer information architecture. */
+/**
+ * Footer information architecture.
+ *
+ * Deliberately short. Topic clusters (/peptides, /compounding, …) and the
+ * article library's internal categories still exist and still rank; they are
+ * reached contextually from Learn, articles, search, and related-content
+ * modules rather than occupying permanent footer slots. The footer orients
+ * people; it does not expose the taxonomy.
+ */
 export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Registry",
@@ -66,21 +75,11 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Framework",
-    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.advisory, ROUTES.statusDefinitions, ROUTES.disclaimer],
+    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.advisory, ROUTES.statusDefinitions],
   },
   {
-    // Topic-cluster hubs sit in the footer so every page links into them,
-    // giving the clusters a sitewide internal-link path.
     title: "Learn",
-    links: [
-      ROUTES.learn,
-      ROUTES.articles,
-      ROUTES.intelligence,
-      ROUTES.peptides,
-      ROUTES.compounding,
-      ROUTES.news,
-      ROUTES.faq,
-    ],
+    links: [ROUTES.learn, ROUTES.news, ROUTES.faq],
   },
   {
     title: "Source Standard",

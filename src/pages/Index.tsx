@@ -498,7 +498,7 @@ const Index = () => {
             links={[
               { to: "/how-it-works", label: "Verification protocol", description: "The process behind each verification decision." },
               { to: "/medical-advisory", label: "Medical Advisory Board", description: "Clinical and scientific guidance on the framework." },
-              { to: "/intelligence", label: "Research & intelligence", description: "Regulatory updates, recalls, testing and sourcing analysis." },
+              { to: "/learn/news", label: "News & Insights", description: "Regulatory updates, recalls, testing and sourcing analysis." },
               { to: "/learn", label: "Learn", description: "Plain-language explanations of compounding, testing, and sourcing." },
               { to: "/report-concern", label: "Report a concern", description: "Submit information relevant to a published record." },
             ]}
