@@ -25,3 +25,4 @@ export { DataTable, type DataColumn } from "./DataTable";
 export { Timeline, type TimelineEvent } from "./Timeline";
 export { RelatedRail, type RelatedLink } from "./RelatedRail";
 export { MethodologyNote } from "./MethodologyNote";
+export { ContentsNav, type ContentsEntry } from "./ContentsNav";
