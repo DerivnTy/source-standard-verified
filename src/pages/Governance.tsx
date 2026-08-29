@@ -269,7 +269,7 @@ const Governance = () => (
         <RelatedRail
           title="Registry"
           links={[
-            { to: "/clinics", label: "Vendor registry", description: "Search providers by name, state, or status." },
+            { to: "/clinics", label: "Search clinics", description: "Search providers by name, state, or status." },
             { to: "/facilities", label: "Facility records", description: "Upstream sources and current standing." },
             { to: "/apply", label: "Apply for verification", description: "Submit sourcing documentation for review." },
             { to: "/report-concern", label: "Report a concern", description: "Submit information relevant to a record." },

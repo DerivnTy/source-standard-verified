@@ -407,7 +407,7 @@ const Index = () => {
         <div className="grid gap-2.5 sm:grid-cols-2">
           <NavCard
             to="/clinics"
-            title="Vendor registry"
+            title="Search clinics"
             desc="Search vendors and providers by name, state, or verification status."
           />
           <NavCard
