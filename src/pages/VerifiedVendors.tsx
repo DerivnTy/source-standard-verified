@@ -37,7 +37,8 @@ const VerifiedVendors = () => {
   return (
     <>
       <PageMeta
-        title="Search a clinic · Source Standard"
+        title="Search a Clinic: Sourcing Verification Status | Source Standard"
+        rawTitle
         description={HOME_SEARCH_LEAD}
         path="/clinics"
         jsonLd={{

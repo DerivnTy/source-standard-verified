@@ -247,7 +247,8 @@ const Greenlist = () => {
   return (
     <>
       <PageMeta
-        title="Who Compounds Your Medication? · Facility Records"
+        title="Compounding Facility Records | Source Standard"
+        rawTitle
         description={heroDescription}
         path="/facilities"
         jsonLd={{

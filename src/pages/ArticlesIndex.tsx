@@ -18,7 +18,8 @@ const ArticlesIndex = () => {
   return (
     <>
       <PageMeta
-        title="Articles: Peptide Sourcing, Testing and Compounding"
+        title="Articles: Peptide Sourcing, Testing and Compounding | Source Standard"
+        rawTitle
         description="Plain-language answers to the questions people ask about peptide sourcing, testing, certificates of analysis, and compounding pharmacy regulation."
         path="/articles"
         jsonLd={[
