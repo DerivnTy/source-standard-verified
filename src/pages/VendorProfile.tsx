@@ -577,6 +577,60 @@ const ReadMore = ({ children }: { children: ReactNode }) => {
 
 
 
+/**
+ * RecordFile, the institutional record grid at the foot of a profile.
+ * Every field is stated explicitly, including fields Source Standard has
+ * not established, so a record reads as a filing rather than a stub.
+ */
+const RecordFile = ({ vendor, isVerified }: { vendor: Vendor; isVerified: boolean }) => (
+  <section className="mt-6" aria-label="Record file">
+    <h2
+      className="font-sans font-semibold uppercase text-muted-foreground"
+      style={{ fontSize: "11px", letterSpacing: "0.08em" }}
+    >
+      Record file
+    </h2>
+    <KeyFacts
+      className="mt-2"
+      columns={2}
+      facts={[
+        { label: "Record type", value: "Clinic / provider" },
+        { label: "Directory listing", value: "Included in the public Source Standard directory" },
+        {
+          label: "Sourcing documentation reviewed",
+          value: isVerified && vendor.documentation?.length
+            ? vendor.documentation
+                .filter((d) => d.status !== "Not provided")
+                .map((d) => d.label)
+                .join(" · ")
+            : undefined,
+          note: isVerified ? undefined : "No documentation has been submitted for review.",
+        },
+        {
+          label: "Upstream sources",
+          value: isVerified && vendor.verifiedManufacturers?.length
+            ? vendor.verifiedManufacturers.join(" · ")
+            : undefined,
+        },
+        {
+          label: "Independent product testing",
+          value: undefined,
+          note: "Source Standard reviews sourcing documentation, not laboratory results.",
+        },
+        {
+          label: "Regulatory actions",
+          value: undefined,
+          note: "Source Standard does not publish regulatory history for clinic records.",
+        },
+      ]}
+    />
+    <p className="mt-3 text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6 }}>
+      Fields marked as not independently established indicate the absence of a Source Standard
+      finding, not an adverse finding.
+    </p>
+  </section>
+);
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const VendorProfile = () => {
