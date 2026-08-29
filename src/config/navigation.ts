@@ -27,6 +27,7 @@ export const ROUTES = {
   advisory: { path: "/medical-advisory", label: "Advisory Board" },
   learn: { path: "/learn", label: "Learn" },
   articles: { path: "/articles", label: "Articles" },
+  intelligence: { path: "/intelligence", label: "Intelligence" },
   peptides: { path: "/peptides", label: "Peptides" },
   compounding: { path: "/compounding", label: "Compounding" },
   news: { path: "/learn/news", label: "News & Insights" },
@@ -74,6 +75,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     links: [
       ROUTES.learn,
       ROUTES.articles,
+      ROUTES.intelligence,
       ROUTES.peptides,
       ROUTES.compounding,
       ROUTES.news,

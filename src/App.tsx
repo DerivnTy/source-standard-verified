@@ -57,6 +57,7 @@ import NotFound from "./pages/NotFound.tsx";
 // Topic clusters + article library (programmatic SEO surfaces)
 import ClusterPageView from "./pages/ClusterPageView.tsx";
 import ArticlesIndex from "./pages/ArticlesIndex.tsx";
+import Intelligence from "./pages/Intelligence.tsx";
 import ArticlePage from "./pages/ArticlePage.tsx";
 import { CLUSTER_PAGES } from "@/seo/clusters";
 
@@ -133,6 +134,7 @@ const App = () => (
             ))}
 
             {/* Article library */}
+            <Route path="/intelligence" element={<Intelligence />} />
             <Route path="/articles" element={<ArticlesIndex />} />
             <Route path="/articles/:slug" element={<ArticlePage />} />
 
