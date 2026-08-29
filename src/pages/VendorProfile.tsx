@@ -32,6 +32,7 @@ import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
 import { vendorSeo } from "@/seo/entitySeo";
 import { articlesForVendor, clustersForVendor } from "@/seo/internalLinks";
 import { ContextualLinks } from "@/components/seo/ContextualLinks";
+import { DefinitionCallout, KeyFacts, NOT_ESTABLISHED } from "@/components/system";
 
 /**
  * VendorProfile, Public clinic identity + verification record.
@@ -842,8 +843,8 @@ const VendorProfile = () => {
 
       <section className="bg-background">
         <div
-          className="mx-auto px-4"
-          style={{ maxWidth: "760px", paddingTop: "12px", paddingBottom: "24px" }}
+          className="mx-auto px-4 w-full max-w-[760px] lg:max-w-[1180px]"
+          style={{ paddingTop: "12px", paddingBottom: "24px" }}
         >
           {/* Back link */}
           <Link
@@ -853,6 +854,9 @@ const VendorProfile = () => {
           >
             ← Back to Registry
           </Link>
+
+          <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_324px] lg:gap-10 lg:items-start">
+          <div className="min-w-0">
 
           {/* ────── 1. IDENTITY HEADER ────── */}
           <article className="mt-4 overflow-hidden" style={{ ...CARD, padding: 0 }}>
@@ -955,7 +959,9 @@ const VendorProfile = () => {
           {/* ────── 2. STATUS SUMMARY ────── */}
           <StatusSummary status={status} />
 
-          {/* ────── 3. QUICK FACTS (summary table) ────── */}
+          {/* Record metadata. Sidebar on desktop, inline here on mobile so it
+              stays high on the page instead of collapsing to the bottom. */}
+          <div className="lg:hidden">
           <QuickFactsTable
             rows={[
               { label: "Profile Status", value: claimed ? "Claimed" : "Unclaimed" },
@@ -975,6 +981,7 @@ const VendorProfile = () => {
                 : []),
             ]}
           />
+          </div>
 
           {/* ────── 4. ABOUT THIS PROFILE (unclaimed / claimed-but-unverified only) ────── */}
           {!isVerified && <AboutThisProfileCard claimed={claimed} />}
@@ -1383,39 +1390,8 @@ const VendorProfile = () => {
           )}
 
 
-          {/* ────── 9. ACTIVITY ────── */}
-          <Activity
-            rows={[
-              {
-                label: "Profile Created",
-                value: vendor.profileCreatedDate ?? "—",
-                provided: Boolean(vendor.profileCreatedDate),
-              },
-              {
-                label: "Last Reviewed",
-                value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet reviewed",
-                provided: Boolean(isVerified && vendor.reviewDate),
-              },
-              {
-                label: "Verification Status Issued",
-                value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet issued",
-                provided: Boolean(isVerified && vendor.reviewDate),
-              },
-              {
-                label: "Last Updated",
-                value: vendor.lastUpdatedDate ?? "—",
-                provided: Boolean(vendor.lastUpdatedDate),
-              },
-            ]}
-          />
-
-          {/* ────── 9b. RELATED RECORDS (internal linking) ────── */}
-          <RelatedProviders vendor={vendor} />
-
-          <ContextualLinks
-            title="Understand what this status means"
-            links={[...articlesForVendor(vendor, 4), ...clustersForVendor(vendor)]}
-          />
+          {/* ────── 9. RECORD FILE ────── */}
+          <RecordFile vendor={vendor} isVerified={isVerified} />
 
           {/* ────── 10. CLAIM YOUR PROFILE (elevated CTA) ────── */}
 
@@ -1466,6 +1442,69 @@ const VendorProfile = () => {
               </div>
             </article>
           )}
+
+          </div>
+
+          <aside className="mt-8 lg:mt-4 lg:sticky lg:top-[76px] lg:self-start">
+            <div className="hidden lg:block">
+              <QuickFactsTable
+                rows={[
+                  { label: "Profile Status", value: claimed ? "Claimed" : "Unclaimed" },
+                  { label: "Verification", value: VENDOR_STATUS_LABEL[status] },
+                  {
+                    label: "Last Reviewed",
+                    value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet reviewed",
+                  },
+                  { label: "Provider Type", value: VENDOR_FULFILLMENT_LABEL[fulfillment] },
+                  ...(isVerified && vendor.reviewDate && vendor.nextReviewDate
+                    ? [
+                        {
+                          label: "Verification Period",
+                          value: `${vendor.reviewDate} → ${vendor.nextReviewDate}`,
+                        },
+                      ]
+                    : []),
+                ]}
+              />
+            </div>
+
+            <Activity
+              rows={[
+                {
+                  label: "Profile Created",
+                  value: vendor.profileCreatedDate ?? "—",
+                  provided: Boolean(vendor.profileCreatedDate),
+                },
+                {
+                  label: "Last Reviewed",
+                  value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet reviewed",
+                  provided: Boolean(isVerified && vendor.reviewDate),
+                },
+                {
+                  label: "Verification Status Issued",
+                  value: isVerified && vendor.reviewDate ? vendor.reviewDate : "Not yet issued",
+                  provided: Boolean(isVerified && vendor.reviewDate),
+                },
+                {
+                  label: "Last Updated",
+                  value: vendor.lastUpdatedDate ?? "—",
+                  provided: Boolean(vendor.lastUpdatedDate),
+                },
+              ]}
+            />
+
+            <DefinitionCallout term="verification-status" className="mt-4" />
+
+            <div className="mt-4">
+              <RelatedProviders vendor={vendor} />
+            </div>
+
+            <ContextualLinks
+              title="Understand what this status means"
+              links={[...articlesForVendor(vendor, 4), ...clustersForVendor(vendor)]}
+            />
+          </aside>
+          </div>
 
         </div>
       </section>
