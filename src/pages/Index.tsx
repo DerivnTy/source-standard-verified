@@ -352,9 +352,8 @@ const Index = () => {
           <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
             <p className="text-foreground" style={{ fontSize: "15.5px", lineHeight: 1.7, margin: 0 }}>
               Source Standard is an independent verification organization. It does not manufacture,
-              prescribe, or sell therapies. Its role is to review the sourcing claims vendors make,
-              along with the quality-related representations supporting those claims, and to publish
-              factual verification records that distinguish supported claims from unsupported claims.
+              prescribe, or sell therapies. Its role is to review the sourcing documentation a clinic
+              provides and to publish a factual record of what that documentation establishes.
             </p>
             <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
               A record states what was reviewed, within what scope, and as of when. It does not state
