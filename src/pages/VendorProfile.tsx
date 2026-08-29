@@ -32,7 +32,7 @@ import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
 import { vendorSeo } from "@/seo/entitySeo";
 import { articlesForVendor, clustersForVendor } from "@/seo/internalLinks";
 import { ContextualLinks } from "@/components/seo/ContextualLinks";
-import { DefinitionCallout, KeyFacts, NOT_ESTABLISHED } from "@/components/system";
+import { DefinitionCallout, KeyFacts } from "@/components/system";
 
 /**
  * VendorProfile, Public clinic identity + verification record.
