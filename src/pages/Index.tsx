@@ -4,7 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { websiteLd } from "@/seo/entitySeo";
 import { BriefingHero } from "@/components/BriefingHero";
-import { PageSection } from "@/components/system";
+import {
+  PageSection,
+  ContentsNav,
+  MethodologyNote,
+  NavCard,
+  ProcessSteps,
+  RelatedRail,
+  type ContentsEntry,
+} from "@/components/system";
 import {
   CTA_APPLY,
   CTA_HOW_IT_WORKS,
@@ -18,6 +26,75 @@ import {
   HOME_TAGLINE,
 } from "@/data/publicLanguage";
 import lockup from "@/assets/source-standard-lockup-dark.png";
+
+const CONTENTS: ContentsEntry[] = [
+  { id: "mission", label: "Mission", desc: "Why Source Standard exists." },
+  { id: "protocol", label: "Protocol", desc: "How verification is carried out." },
+  { id: "registry", label: "Registry", desc: "What the public record covers." },
+  { id: "record-fields", label: "Record fields", desc: "What each record contains." },
+  { id: "audience", label: "Audience", desc: "Who uses the record, and how." },
+  { id: "governance", label: "Governance", desc: "Independence and oversight." },
+];
+
+const RECORD_FIELDS = [
+  {
+    term: "Verification status",
+    desc: "Whether a provider is Source Standard Verified or Not Source Standard Verified, alongside any applicable participation status such as Under Review, Active, Suspended, or Expired.",
+  },
+  {
+    term: "Vendor type",
+    desc: "Whether the organization operates as a telehealth provider, in-person clinic, hybrid practice, online platform, or another applicable provider type.",
+  },
+  {
+    term: "Therapy category",
+    desc: "The compounded therapy categories associated with the provider record.",
+  },
+  {
+    term: "Facility relationships",
+    desc: "Recognized upstream sources associated with the record and their relevant Source Standard standing.",
+  },
+  {
+    term: "Regulatory context",
+    desc: "Publicly available registration, licensure, and enforcement context relevant to the record, cited to its issuing authority.",
+  },
+  {
+    term: "Record provenance",
+    desc: "The scope of what was reviewed, the evidence relied on, and the date the record was last reviewed.",
+  },
+];
+
+const AUDIENCES = [
+  {
+    title: "Consumers",
+    body: HOME_AUDIENCE_PATIENTS,
+    note: "Use the registry to understand sourcing transparency before choosing a provider, and read the scope stated on each record.",
+  },
+  {
+    title: "Providers",
+    body: HOME_AUDIENCE_CLINICS,
+    note: "Verification lets a provider demonstrate sourcing transparency through independent review rather than self-assertion.",
+  },
+  {
+    title: "Industry",
+    body: HOME_AUDIENCE_FACILITIES,
+    note: "The public record functions as a reference point for accountability across the compounded therapy market.",
+  },
+];
+
+const GOVERNANCE_POINTS = [
+  {
+    term: "Independent governance",
+    desc: "Verification standards are maintained independently of any vendor, manufacturer, or commercial interest being evaluated.",
+  },
+  {
+    term: "Advisory board",
+    desc: "Medical, scientific, and procedural guidance is provided by the Medical Advisory Board. Advisors do not diagnose, treat, prescribe, or evaluate individual patients through Source Standard.",
+  },
+  {
+    term: "Public standards",
+    desc: "Verification criteria, methodology, and status definitions are published for review rather than held privately.",
+  },
+];
 
 const HeroContent = () => {
   const navigate = useNavigate();
@@ -265,29 +342,167 @@ const Index = () => {
             {HOME_DISCLAIMER}
           </p>
         </div>
+        <div style={{ marginTop: "28px" }}>
+          <ContentsNav entries={CONTENTS} />
+        </div>
       </PageSection>
 
-      <PageSection compact>
-        <div
-          className="flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-8"
-          style={{ maxWidth: "100%" }}
-        >
-          {[HOME_AUDIENCE_CLINICS, HOME_AUDIENCE_FACILITIES, HOME_AUDIENCE_PATIENTS].map((line) => (
-            <p
-              key={line}
-              className="text-foreground"
-              style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, margin: 0 }}
-            >
-              {line}
+      <PageSection id="mission" title="Why do we exist?" intro="Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to make those claims more transparent through independent review and factual public-reference records.">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 items-start">
+          <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+            <p className="text-foreground" style={{ fontSize: "15.5px", lineHeight: 1.7, margin: 0 }}>
+              Source Standard is an independent verification organization. It does not manufacture,
+              prescribe, or sell therapies. Its role is to review the sourcing documentation a clinic
+              provides and to publish a factual record of what that documentation establishes.
             </p>
+            <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
+              A record states what was reviewed, within what scope, and as of when. It does not state
+              a conclusion Source Standard has not reached. Where an organization has never
+              participated, the record says so plainly and says nothing further.
+            </p>
+          </div>
+          <MethodologyNote
+            means="Source Standard reviews documented sourcing claims against a published standard and publishes the result as a public-reference record."
+            doesNotMean="A record is not FDA approval, product approval, medical advice, a treatment recommendation, or a guarantee of safety, efficacy, or outcome."
+            to="/verification-disclaimer"
+            linkLabel="Read the scope disclaimer"
+          />
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="protocol"
+        title="How does Source Standard verify?"
+        intro="Verification follows a defined sequence. Each step is documented, scoped, and reviewable."
+        cta={
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <PillSecondary to="/how-it-works">{CTA_HOW_IT_WORKS}</PillSecondary>
+            <PillSecondary to="/status-definitions">Status definitions</PillSecondary>
+          </div>
+        }
+      >
+        <ProcessSteps
+          steps={[
+            {
+              title: "Map the market",
+              desc: "Identify and maintain records for compounded therapy vendors and compounding facilities operating throughout the supply chain.",
+            },
+            {
+              title: "Verify sourcing claims",
+              desc: "Review documentation and available evidence supporting a vendor's sourcing claims, within a defined scope and against a published standard.",
+            },
+            {
+              title: "Maintain the public record",
+              desc: "Publish verification standing and keep records current as new information becomes available. Standing can lapse, be suspended, or be withdrawn.",
+            },
+          ]}
+        />
+      </PageSection>
+
+      <PageSection
+        id="registry"
+        title="What does the registry cover?"
+        intro="Vendors and compounding facilities tracked within a single public-reference system."
+      >
+        <div className="grid gap-2.5 sm:grid-cols-2">
+          <NavCard
+            to="/clinics"
+            title="Search clinics"
+            desc="Search vendors and providers by name, state, or verification status."
+          />
+          <NavCard
+            to="/facilities"
+            title="Facility records"
+            desc="Recognized upstream sources, facility information, regulatory context, and current Source Standard standing."
+          />
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="record-fields"
+        title="What will I see in a record?"
+        intro="Every record uses the same fields, so two records can be read against each other."
+      >
+        <dl className="divide-y divide-border border-t border-b border-border">
+          {RECORD_FIELDS.map((f) => (
+            <div
+              key={f.term}
+              className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-x-8 gap-y-1 py-3.5"
+            >
+              <dt
+                className="font-sans uppercase text-foreground"
+                style={{ fontSize: "12px", letterSpacing: "0.09em", fontWeight: 700, margin: 0 }}
+              >
+                {f.term}
+              </dt>
+              <dd className="text-muted-foreground" style={{ fontSize: "14.5px", lineHeight: 1.65, margin: 0 }}>
+                {f.desc}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <MethodologyNote
+          className="mt-5"
+          means="Verification status answers one question: has this organization completed Source Standard verification? Participation status (Under Review, Active, Suspended, Expired) describes where a participating organization sits in the workflow."
+          doesNotMean="Participation status is never a substitute for verification status, and an absent participation status does not indicate a negative finding."
+          to="/status-definitions"
+          linkLabel="Read the status definitions"
+        />
+      </PageSection>
+
+      <PageSection id="audience" title="Who is this for?">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-border border border-border rounded-[2px] overflow-hidden">
+          {AUDIENCES.map((a) => (
+            <div key={a.title} className="bg-background px-4 py-4">
+              <p className="t-utility-xs text-muted-foreground">{a.title}</p>
+              <p className="text-foreground" style={{ fontSize: "14.5px", lineHeight: 1.65, marginTop: "8px" }}>
+                {a.body}
+              </p>
+              <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, marginTop: "8px" }}>
+                {a.note}
+              </p>
+            </div>
           ))}
         </div>
       </PageSection>
 
-      <PageSection compact bordered={false}>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <PillSecondary to="/how-it-works">{CTA_HOW_IT_WORKS}</PillSecondary>
-          <PillPrimary to="/apply">{CTA_APPLY}</PillPrimary>
+      <PageSection
+        id="governance"
+        title="Who stands behind this?"
+        intro="Independence is a structural requirement of the framework, not a claim made about it."
+        cta={
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <PillSecondary to="/governance">Read the governance record</PillSecondary>
+            <PillPrimary to="/apply">{CTA_APPLY}</PillPrimary>
+          </div>
+        }
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 items-start">
+          <dl className="divide-y divide-border border-t border-b border-border">
+            {GOVERNANCE_POINTS.map((g) => (
+              <div key={g.term} className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-x-8 gap-y-1 py-3.5">
+                <dt
+                  className="font-sans uppercase text-foreground"
+                  style={{ fontSize: "12px", letterSpacing: "0.09em", fontWeight: 700, margin: 0 }}
+                >
+                  {g.term}
+                </dt>
+                <dd className="text-muted-foreground" style={{ fontSize: "14.5px", lineHeight: 1.65, margin: 0 }}>
+                  {g.desc}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <RelatedRail
+            title="Continue"
+            links={[
+              { to: "/how-it-works", label: "Verification protocol", description: "The process behind each verification decision." },
+              { to: "/medical-advisory", label: "Medical Advisory Board", description: "Clinical and scientific guidance on the framework." },
+              { to: "/intelligence", label: "Research & intelligence", description: "Regulatory updates, recalls, testing and sourcing analysis." },
+              { to: "/learn", label: "Learn", description: "Plain-language explanations of compounding, testing, and sourcing." },
+              { to: "/report-concern", label: "Report a concern", description: "Submit information relevant to a published record." },
+            ]}
+          />
         </div>
       </PageSection>
     </>

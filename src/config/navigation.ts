@@ -66,7 +66,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Framework",
-    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.statusDefinitions],
+    links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.advisory, ROUTES.statusDefinitions, ROUTES.disclaimer],
   },
   {
     // Topic-cluster hubs sit in the footer so every page links into them,
