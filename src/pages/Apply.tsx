@@ -104,13 +104,8 @@ const Apply = () => {
     };
 
     try {
-      const { error } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "vendor-intake-notification",
-          recipientEmail: "info@sourcestandard.org",
-          idempotencyKey: `vendor-intake-${referenceId}`,
-          templateData,
-        },
+      const { error } = await supabase.functions.invoke("send-vendor-intake-notification", {
+        body: { templateData },
       });
       if (error) throw error;
       setReference(referenceId);
