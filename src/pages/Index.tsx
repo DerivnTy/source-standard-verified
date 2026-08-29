@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { PageMeta } from "@/components/PageMeta";
+import { websiteLd } from "@/seo/entitySeo";
 import { BriefingHero } from "@/components/BriefingHero";
 import { PageSection } from "@/components/system";
 import {
@@ -158,12 +159,7 @@ const Index = () => {
         description={HOME_SEARCH_LEAD}
         path="/"
         jsonLd={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "Source Standard",
-            url: "https://sourcestandard.org/",
-          },
+          websiteLd(),
           {
             "@context": "https://schema.org",
             "@type": "Organization",

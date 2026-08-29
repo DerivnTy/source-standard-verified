@@ -2,6 +2,9 @@ import { Link, useParams } from "react-router-dom";
 import { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { PageMeta } from "@/components/PageMeta";
+import { ContextualLinks } from "@/components/seo/ContextualLinks";
+import { facilitySeo } from "@/seo/entitySeo";
+import { articlesForFacility, clustersForFacility } from "@/seo/internalLinks";
 import { StatusPill, type StatusKey } from "@/components/system";
 import {
   getGreenlistEntry,
@@ -219,13 +222,17 @@ const GreenlistProfile = () => {
 
 
 
+  const seo = facilitySeo(entry);
+
   return (
     <>
       <PageMeta
-        title={`${entry.name} · Manufacturer Profile`}
-        description={`Source Standard manufacturer intelligence profile for ${entry.name}.`}
+        title={seo.title}
+        rawTitle={seo.rawTitle}
+        description={seo.description}
         path={`/facilities/${entry.slug}`}
         type="profile"
+        noindex={seo.noindex}
         jsonLd={[
           {
             "@context": "https://schema.org",
