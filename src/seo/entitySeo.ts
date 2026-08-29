@@ -175,7 +175,19 @@ export const articleSeo = (a: Article): EntitySeo => {
     publisher: publisherLd,
     inLanguage: "en-US",
     mainEntityOfPage: absoluteUrl(path),
+    ...(a.category ? { articleSection: a.category } : {}),
+    ...(a.source
+      ? {
+          citation: {
+            "@type": "CreativeWork",
+            name: a.source.name,
+            ...(a.source.date ? { datePublished: a.source.date } : {}),
+            ...(a.source.url ? { url: a.source.url } : {}),
+          },
+        }
+      : {}),
   };
+
 
   const jsonLd: Record<string, unknown>[] = [articleLd, breadcrumbLd(crumbs)];
 
