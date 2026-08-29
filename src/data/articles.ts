@@ -13,7 +13,7 @@
  */
 
 import type { ClusterId } from "@/seo/clusters";
-import type { IntelCategory } from "@/data/intelArticles";
+import { INTEL_ARTICLES, type IntelCategory } from "@/data/intelArticles";
 
 export type ArticleSectionData = {
   id: string;
