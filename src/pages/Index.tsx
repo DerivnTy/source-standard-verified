@@ -265,29 +265,176 @@ const Index = () => {
             {HOME_DISCLAIMER}
           </p>
         </div>
+        <div style={{ marginTop: "28px" }}>
+          <ContentsNav entries={CONTENTS} />
+        </div>
       </PageSection>
 
-      <PageSection compact>
-        <div
-          className="flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-8"
-          style={{ maxWidth: "100%" }}
-        >
-          {[HOME_AUDIENCE_CLINICS, HOME_AUDIENCE_FACILITIES, HOME_AUDIENCE_PATIENTS].map((line) => (
-            <p
-              key={line}
-              className="text-foreground"
-              style={{ fontSize: "15px", lineHeight: 1.65, fontWeight: 400, margin: 0 }}
-            >
-              {line}
+      <PageSection id="mission" title="Why do we exist?" intro="Consumers increasingly rely on sourcing claims they cannot independently verify. Source Standard exists to make those claims more transparent through independent review and factual public-reference records.">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 items-start">
+          <div className="flex flex-col gap-4" style={{ maxWidth: "68ch" }}>
+            <p className="text-foreground" style={{ fontSize: "15.5px", lineHeight: 1.7, margin: 0 }}>
+              Source Standard is an independent verification organization. It does not manufacture,
+              prescribe, or sell therapies. Its role is to review the sourcing claims vendors make,
+              along with the quality-related representations supporting those claims, and to publish
+              factual verification records that distinguish supported claims from unsupported claims.
             </p>
+            <p className="text-muted-foreground" style={{ fontSize: "15px", lineHeight: 1.7, margin: 0 }}>
+              A record states what was reviewed, within what scope, and as of when. It does not state
+              a conclusion Source Standard has not reached. Where an organization has never
+              participated, the record says so plainly and says nothing further.
+            </p>
+          </div>
+          <MethodologyNote
+            means="Source Standard reviews documented sourcing claims against a published standard and publishes the result as a public-reference record."
+            doesNotMean="A record is not FDA approval, product approval, medical advice, a treatment recommendation, or a guarantee of safety, efficacy, or outcome."
+            to="/verification-disclaimer"
+            linkLabel="Read the scope disclaimer"
+          />
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="protocol"
+        title="How does Source Standard verify?"
+        intro="Verification follows a defined sequence. Each step is documented, scoped, and reviewable."
+        cta={
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <PillSecondary to="/how-it-works">{CTA_HOW_IT_WORKS}</PillSecondary>
+            <PillSecondary to="/status-definitions">Status definitions</PillSecondary>
+          </div>
+        }
+      >
+        <ProcessSteps
+          steps={[
+            {
+              title: "Map the market",
+              desc: "Identify and maintain records for compounded therapy vendors and compounding facilities operating throughout the supply chain.",
+            },
+            {
+              title: "Verify sourcing claims",
+              desc: "Review documentation and available evidence supporting a vendor's sourcing claims, within a defined scope and against a published standard.",
+            },
+            {
+              title: "Maintain the public record",
+              desc: "Publish verification standing and keep records current as new information becomes available. Standing can lapse, be suspended, or be withdrawn.",
+            },
+          ]}
+        />
+      </PageSection>
+
+      <PageSection
+        id="registry"
+        title="What does the registry cover?"
+        intro="Vendors and compounding facilities tracked within a single public-reference system."
+      >
+        <KeyFacts
+          columns={3}
+          facts={[
+            { label: "Provider records", value: registryStats.providersIndexed.toLocaleString() },
+            { label: "States represented", value: registryStats.statesRepresented },
+            { label: "Facility records", value: registryStats.facilityRecords.toLocaleString() },
+          ]}
+        />
+        <div className="grid gap-2.5 sm:grid-cols-2" style={{ marginTop: "16px" }}>
+          <NavCard
+            to="/clinics"
+            title="Vendor registry"
+            desc="Search vendors and providers by name, state, or verification status."
+          />
+          <NavCard
+            to="/facilities"
+            title="Facility records"
+            desc="Recognized upstream sources, facility information, regulatory context, and current Source Standard standing."
+          />
+        </div>
+      </PageSection>
+
+      <PageSection
+        id="record-fields"
+        title="What will I see in a record?"
+        intro="Every record uses the same fields, so two records can be read against each other."
+      >
+        <dl className="divide-y divide-border border-t border-b border-border">
+          {RECORD_FIELDS.map((f) => (
+            <div
+              key={f.term}
+              className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-x-8 gap-y-1 py-3.5"
+            >
+              <dt
+                className="font-sans uppercase text-foreground"
+                style={{ fontSize: "12px", letterSpacing: "0.09em", fontWeight: 700, margin: 0 }}
+              >
+                {f.term}
+              </dt>
+              <dd className="text-muted-foreground" style={{ fontSize: "14.5px", lineHeight: 1.65, margin: 0 }}>
+                {f.desc}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <MethodologyNote
+          className="mt-5"
+          means="Verification status answers one question: has this organization completed Source Standard verification? Participation status (Under Review, Active, Suspended, Expired) describes where a participating organization sits in the workflow."
+          doesNotMean="Participation status is never a substitute for verification status, and an absent participation status does not indicate a negative finding."
+          to="/status-definitions"
+          linkLabel="Read the status definitions"
+        />
+      </PageSection>
+
+      <PageSection id="audience" title="Who is this for?">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-border border border-border rounded-[2px] overflow-hidden">
+          {AUDIENCES.map((a) => (
+            <div key={a.title} className="bg-background px-4 py-4">
+              <p className="t-utility-xs text-muted-foreground">{a.title}</p>
+              <p className="text-foreground" style={{ fontSize: "14.5px", lineHeight: 1.65, marginTop: "8px" }}>
+                {a.body}
+              </p>
+              <p className="text-muted-foreground" style={{ fontSize: "14px", lineHeight: 1.6, marginTop: "8px" }}>
+                {a.note}
+              </p>
+            </div>
           ))}
         </div>
       </PageSection>
 
-      <PageSection compact bordered={false}>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <PillSecondary to="/how-it-works">{CTA_HOW_IT_WORKS}</PillSecondary>
-          <PillPrimary to="/apply">{CTA_APPLY}</PillPrimary>
+      <PageSection
+        id="governance"
+        title="Who stands behind this?"
+        intro="Independence is a structural requirement of the framework, not a claim made about it."
+        cta={
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <PillSecondary to="/governance">Read the governance record</PillSecondary>
+            <PillPrimary to="/apply">{CTA_APPLY}</PillPrimary>
+          </div>
+        }
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 items-start">
+          <dl className="divide-y divide-border border-t border-b border-border">
+            {GOVERNANCE_POINTS.map((g) => (
+              <div key={g.term} className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-x-8 gap-y-1 py-3.5">
+                <dt
+                  className="font-sans uppercase text-foreground"
+                  style={{ fontSize: "12px", letterSpacing: "0.09em", fontWeight: 700, margin: 0 }}
+                >
+                  {g.term}
+                </dt>
+                <dd className="text-muted-foreground" style={{ fontSize: "14.5px", lineHeight: 1.65, margin: 0 }}>
+                  {g.desc}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <RelatedRail
+            title="Continue"
+            links={[
+              { to: "/how-it-works", label: "Verification protocol", description: "The process behind each verification decision." },
+              { to: "/medical-advisory", label: "Medical Advisory Board", description: "Clinical and scientific guidance on the framework." },
+              { to: "/intelligence", label: "Research & intelligence", description: "Regulatory updates, recalls, testing and sourcing analysis." },
+              { to: "/learn", label: "Learn", description: "Plain-language explanations of compounding, testing, and sourcing." },
+              { to: "/report-concern", label: "Report a concern", description: "Submit information relevant to a published record." },
+            ]}
+          />
         </div>
       </PageSection>
     </>
