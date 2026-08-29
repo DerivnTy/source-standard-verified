@@ -21,6 +21,13 @@ const ArticlePage = () => {
   ];
 
   const contextual: SiteLink[] = [];
+  if (article.category) {
+    contextual.push({
+      to: "/intelligence",
+      label: `${article.category} — Source Standard Intelligence`,
+      description: "Regulatory updates, research, recalls, testing, and sourcing analysis.",
+    });
+  }
   if (article.cluster) {
     const c = CLUSTERS[article.cluster];
     contextual.push({ to: c.path, label: `${c.label} overview`, description: c.blurb });
@@ -34,12 +41,16 @@ const ArticlePage = () => {
   rails.push({ title: "Go deeper", links: contextual });
 
   const metaLine = [
+    article.category,
     `Published ${fmt(article.published)}`,
     article.updated !== article.published ? `Updated ${fmt(article.updated)}` : null,
-    "Source Standard editorial",
+    article.source
+      ? `Source: ${article.source.name}${article.source.date ? `, ${article.source.date}` : ""}`
+      : "Source Standard editorial",
   ]
     .filter(Boolean)
     .join(" · ");
+
 
   return (
     <EditorialPage
