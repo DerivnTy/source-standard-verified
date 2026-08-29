@@ -13,12 +13,21 @@
  */
 
 import type { ClusterId } from "@/seo/clusters";
+import type { IntelCategory } from "@/data/intelArticles";
 
 export type ArticleSectionData = {
   id: string;
   heading: string;
   body: string[];
   bullets?: string[];
+};
+
+export type ArticleSource = {
+  /** Primary source organisation or publication. */
+  name: string;
+  /** Publication or update date, as stated by the source. */
+  date?: string;
+  url?: string;
 };
 
 export type Article = {
@@ -29,6 +38,10 @@ export type Article = {
   metaDescription: string;
   standfirst: string;
   cluster?: ClusterId;
+  /** Research & Insights category. Present on intelligence articles. */
+  category?: IntelCategory;
+  /** Primary source attribution, shown on the page and in schema. */
+  source?: ArticleSource;
   published: string;
   updated: string;
   sections: ArticleSectionData[];
@@ -37,6 +50,7 @@ export type Article = {
   /** Extra in-site destinations surfaced at the foot of the article. */
   relatedPaths?: { to: string; label: string }[];
 };
+
 
 const AUTHORED = { published: "2026-08-29", updated: "2026-08-29" };
 
