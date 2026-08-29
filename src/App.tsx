@@ -162,6 +162,7 @@ const App = () => (
             <Route path="/directory" element={<LegacyPathRedirect from="/directory" to="/clinics" />} />
             <Route path="/greenlist/*" element={<LegacyPathRedirect from="/greenlist" to="/facilities" />} />
             <Route path="/greenlist" element={<LegacyPathRedirect from="/greenlist" to="/facilities" />} />
+            <Route path="/verified-vendors" element={<Navigate to="/clinics" replace />} />
 
             <Route path="/apply" element={<Apply />} />
             <Route path="/contact" element={<Contact />} />
