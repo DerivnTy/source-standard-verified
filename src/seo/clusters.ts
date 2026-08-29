@@ -426,7 +426,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
         ],
       },
     ],
-    relatedArticles: ["what-is-a-503a-compounding-pharmacy", "503a-vs-503b-whats-the-difference"],
+    relatedArticles: ["what-is-a-503a-compounding-pharmacy", "503a-vs-503b-whats-the-difference", "503b-registration-does-not-mean-verified-quality"],
   },
   {
     path: "/compounding/503b",
@@ -464,7 +464,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
         ],
       },
     ],
-    relatedArticles: ["what-is-a-503b-outsourcing-facility", "503a-vs-503b-whats-the-difference", "who-manufactures-compounded-peptides"],
+    relatedArticles: ["503b-registration-does-not-mean-verified-quality", "what-is-a-503b-outsourcing-facility", "503a-vs-503b-whats-the-difference", "who-manufactures-compounded-peptides"],
   },
   {
     path: "/compounding/503a-vs-503b",

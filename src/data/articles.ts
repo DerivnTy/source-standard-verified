@@ -218,7 +218,7 @@ export const ARTICLES: Article[] = [
         ],
       },
     ],
-    relatedArticles: ["503a-vs-503b-whats-the-difference", "who-manufactures-compounded-peptides"],
+    relatedArticles: ["503b-registration-does-not-mean-verified-quality", "503a-vs-503b-whats-the-difference", "who-manufactures-compounded-peptides"],
     relatedPaths: [
       { to: "/compounding/503b", label: "503B outsourcing facilities — full overview" },
       { to: "/facilities", label: "Browse facility records" },
@@ -269,7 +269,7 @@ export const ARTICLES: Article[] = [
         a: "Not automatically. 503B facilities carry cGMP obligations and federal inspection, which generates more documentation, but outcomes depend on the individual entity rather than the category.",
       },
     ],
-    relatedArticles: ["what-is-a-503a-compounding-pharmacy", "what-is-a-503b-outsourcing-facility"],
+    relatedArticles: ["what-is-a-503a-compounding-pharmacy", "what-is-a-503b-outsourcing-facility", "503b-registration-does-not-mean-verified-quality"],
     relatedPaths: [{ to: "/compounding/503a-vs-503b", label: "Full 503A vs 503B comparison" }],
   },
 
@@ -313,7 +313,7 @@ export const ARTICLES: Article[] = [
         ],
       },
     ],
-    relatedArticles: ["what-does-peptide-purity-testing-tell-you", "how-can-you-verify-where-a-compounded-peptide-came-from"],
+    relatedArticles: ["what-does-peptide-purity-testing-tell-you", "how-can-you-verify-where-a-compounded-peptide-came-from", "peptide-vendor-sentenced-false-testing-sourcing-claims"],
     relatedPaths: [{ to: "/peptides/testing", label: "Peptide testing overview" }],
   },
 
@@ -437,7 +437,7 @@ export const ARTICLES: Article[] = [
         ],
       },
     ],
-    relatedArticles: ["what-does-a-peptide-coa-actually-prove", "does-the-pharmacy-compound-the-peptide-itself"],
+    relatedArticles: ["what-does-a-peptide-coa-actually-prove", "does-the-pharmacy-compound-the-peptide-itself", "peptide-vendor-sentenced-false-testing-sourcing-claims"],
     relatedPaths: [
       { to: "/how-it-works", label: "How Source Standard verification works" },
       { to: "/status-definitions", label: "What each directory status means" },
