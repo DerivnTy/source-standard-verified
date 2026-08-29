@@ -691,4 +691,185 @@ export const INTEL_ARTICLES: Article[] = [
     ],
     relatedPaths: [{ to: "/peptides", label: "Peptides overview" }],
   },
+
+  // 10 ────────────────────────────────────────────────────────────────
+  {
+    slug: "503b-registration-does-not-mean-verified-quality",
+    question: "Does 503B registration mean a facility's quality is verified?",
+    metaTitle: "503B Registration Does Not Mean Verified Quality",
+    metaDescription:
+      "Are 503B outsourcing facilities FDA approved? Registration, inspection history, recalls, documentation, sourcing, and independent testing each answer a different question.",
+    standfirst:
+      "FDA states that registering as a Section 503B outsourcing facility does not mean the agency has determined the facility complies with cGMP requirements or all conditions applicable under Section 503B.",
+    category: "Guides",
+    cluster: "compounding",
+    published: "2026-08-29",
+    updated: "2026-08-29",
+    source: {
+      name: "U.S. Food and Drug Administration",
+    },
+    sections: [
+      {
+        id: "what-registration-establishes",
+        heading: "What 503B registration establishes",
+        body: [
+          "503B registration provides meaningful regulatory information about an outsourcing facility, but registration alone is not the same as FDA approval, a clean inspection history, or independent verification.",
+          "FDA states that registering as a Section 503B outsourcing facility does not mean the agency has determined that the facility complies with current good manufacturing practice requirements or all conditions applicable under Section 503B.",
+          "Compounded drugs produced by outsourcing facilities are also not FDA-approved drugs.",
+        ],
+      },
+      {
+        id: "regulatory-record",
+        heading: "The wider regulatory record",
+        body: [
+          "FDA's outsourcing facility information provides additional context that can be evaluated when assessing a facility. Depending on the facility, this can include inspection history, Form FDA 483 observations, recalls, FDA actions, registration history, and other regulatory information.",
+          "Some registered facilities may have open inspection findings or previous warning letters. Other facilities may not yet have been inspected.",
+          "For clinics evaluating potential suppliers, 503B registration is therefore an important starting point, but it should not be treated as the end of due diligence.",
+        ],
+      },
+      {
+        id: "different-questions",
+        heading: "Different evidence answers different questions",
+        body: [
+          "The most common error in evaluating an outsourcing facility is collapsing separate categories of evidence into a single claim of \"quality\". Each of the following answers a different question:",
+        ],
+        bullets: [
+          "503B registration tells you about the facility's regulatory registration and status.",
+          "Inspection history provides information about FDA's previous observations and interactions with the facility.",
+          "Recalls and regulatory actions provide additional historical context.",
+          "Documentation can provide evidence concerning specific products and processes.",
+          "Sourcing information can help establish where active ingredients originated.",
+          "Independent testing can provide evidence concerning specific attributes of a sampled product.",
+        ],
+      },
+      {
+        id: "how-to-evaluate",
+        heading: "How to evaluate a 503B facility",
+        body: [
+          "Evaluation works best when each question is asked and answered on its own terms rather than inferred from registration status. Confirm current registration; review inspection history and any Form FDA 483 observations; check for recalls and other FDA actions; ask for documentation covering the specific product and process in question; establish where the active ingredient originated; and treat independent testing as evidence about the sampled product, not about the facility as a whole.",
+          "None of these substitutes for another. A facility with current registration and no inspection findings has a different evidentiary record than a facility that has never been inspected, and both differ from a facility whose specific product has independent test results attached to it.",
+        ],
+      },
+      {
+        id: "principle",
+        heading: "The principle",
+        body: [
+          "The broader principle is that registration, inspection history, regulatory status, documentation, sourcing, and independent verification answer different questions.",
+          "Understanding those distinctions can contribute to a more transparent and accountable pharmaceutical supply chain.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Are 503B outsourcing facilities FDA approved?",
+        a: "No. FDA states that registering as a Section 503B outsourcing facility does not mean the agency has determined the facility complies with cGMP requirements or all conditions applicable under Section 503B. Compounded drugs produced by outsourcing facilities are also not FDA-approved drugs.",
+      },
+      {
+        q: "Does FDA inspect 503B facilities?",
+        a: "FDA's outsourcing facility information can include inspection history, Form FDA 483 observations, recalls, FDA actions, and registration history. Some registered facilities may have open inspection findings or previous warning letters, and other facilities may not yet have been inspected.",
+      },
+      {
+        q: "How do you verify a 503B outsourcing facility?",
+        a: "Registration is the starting point. Inspection history, recalls and regulatory actions, product and process documentation, ingredient sourcing information, and independent testing each add evidence about a different question, and should not be collapsed into a single claim of quality.",
+      },
+    ],
+    relatedArticles: [
+      "what-is-a-503b-outsourcing-facility",
+      "503a-vs-503b-whats-the-difference",
+      "drug-quality-starts-before-the-pharmacy",
+      "pharmacy-may-not-be-the-manufacturer",
+    ],
+    relatedPaths: [
+      { to: "/compounding/503b", label: "503B outsourcing facilities" },
+      { to: "/compounding/503a-vs-503b", label: "503A vs 503B compared" },
+      { to: "/facilities", label: "Facility records" },
+      { to: "/how-it-works", label: "Source Standard verification methodology" },
+      { to: "/status-definitions", label: "What each status means" },
+    ],
+  },
+
+  // 11 ────────────────────────────────────────────────────────────────
+  {
+    slug: "peptide-vendor-sentenced-false-testing-sourcing-claims",
+    question: "What did the Paradigm Peptides sentencing establish about vendor claims?",
+    metaTitle: "Peptide Vendor Sentenced After False Testing and U.S. Sourcing Claims",
+    metaDescription:
+      "DOJ: Paradigm Peptides owner Matthew Kawa sentenced to 70 months after false claims that products were U.S. made, lab tested, and FDA associated. What it means for verification.",
+    standfirst:
+      "Marketing claims such as \"tested\", \"pharmaceutical quality\", and \"made in the USA\" can create confidence. The existence of a claim does not establish that it is accurate.",
+    category: "Regulatory Updates",
+    cluster: "peptides",
+    published: "2026-07-30",
+    updated: "2026-08-29",
+    source: {
+      name: "U.S. Department of Justice, Northern District of Indiana",
+      date: "July 30, 2026",
+    },
+    sections: [
+      {
+        id: "the-sentencing",
+        heading: "The sentencing",
+        body: [
+          "On 30 July 2026, Matthew Kawa, owner of Paradigm Peptides, was sentenced to 70 months in federal prison. Co-defendant Jennifer Stechkober was sentenced to 16 months.",
+        ],
+      },
+      {
+        id: "doj-findings",
+        heading: "What the Department of Justice stated",
+        body: [
+          "According to the U.S. Department of Justice, the company falsely represented that its products were manufactured in the United States, laboratory tested for quality, safe and pure, and associated with FDA registration or legitimacy.",
+          "Federal investigators found that products were sourced internationally, including from China and India.",
+          "Investigators also determined that many products advertised and labelled as containing SARMs actually contained testosterone.",
+        ],
+      },
+      {
+        id: "why-it-matters",
+        heading: "Why the case matters beyond one company",
+        body: [
+          "The significance of the case extends beyond one company. Marketing claims can create consumer confidence, but the existence of those claims does not itself establish that they are accurate.",
+        ],
+        bullets: [
+          "\"tested\"",
+          "\"pharmaceutical quality\"",
+          "\"made in the USA\"",
+          "\"FDA registered\"",
+        ],
+      },
+      {
+        id: "how-claims-are-checked",
+        heading: "How a claim can be checked",
+        body: [
+          "Independent testing, documentation review, and source verification provide ways to evaluate whether claims about a product are actually supported by evidence.",
+          "Each answers a different question. Testing speaks to attributes of a sampled product. Documentation speaks to a specific product and process. Source verification speaks to where a material originated. A registration reference speaks only to a registration, not to approval or to quality.",
+          "The broader Source Standard principle is simple: transparency requires evidence.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What did DOJ say Paradigm Peptides claimed?",
+        a: "According to the U.S. Department of Justice, the company falsely represented that its products were manufactured in the United States, laboratory tested for quality, safe and pure, and associated with FDA registration or legitimacy.",
+      },
+      {
+        q: "Does \"FDA registered\" mean a product is approved?",
+        a: "No. A registration reference speaks to a registration only. It is not an FDA determination of approval, compliance, or quality.",
+      },
+      {
+        q: "How can a peptide vendor's testing claim be verified?",
+        a: "Independent testing, documentation review, and source verification provide ways to evaluate whether claims about a product are supported by evidence. A stated claim on its own is not that evidence.",
+      },
+    ],
+    relatedArticles: [
+      "before-you-trust-a-peptide-product-ask-these-4-questions",
+      "pharmacy-may-not-be-the-manufacturer",
+      "what-does-a-peptide-coa-actually-prove",
+      "503b-registration-does-not-mean-verified-quality",
+    ],
+    relatedPaths: [
+      { to: "/peptides/testing", label: "Peptide testing" },
+      { to: "/peptides/sourcing", label: "Peptide sourcing" },
+      { to: "/how-it-works", label: "Source Standard verification methodology" },
+      { to: "/clinics", label: "Clinic directory" },
+    ],
+  },
 ];
