@@ -12,7 +12,7 @@ const fmt = (iso: string) =>
 const ArticlePage = () => {
   const { slug = "" } = useParams();
   const article = getArticle(slug);
-  if (!article) return <Navigate to="/articles" replace />;
+  if (!article) return <Navigate to="/learn/news" replace />;
 
   const seo = articleSeo(article);
 
@@ -23,8 +23,8 @@ const ArticlePage = () => {
   const contextual: SiteLink[] = [];
   if (article.category) {
     contextual.push({
-      to: "/intelligence",
-      label: `${article.category} — Source Standard Intelligence`,
+      to: "/learn/news",
+      label: `More ${article.category.toLowerCase()} coverage`,
       description: "Regulatory updates, research, recalls, testing, and sourcing analysis.",
     });
   }

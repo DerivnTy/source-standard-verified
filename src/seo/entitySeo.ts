@@ -158,7 +158,8 @@ export const articleSeo = (a: Article): EntitySeo => {
   const path = `/articles/${a.slug}`;
   const crumbs: Crumb[] = [
     { name: "Home", path: "/" },
-    { name: "Articles", path: "/articles" },
+    { name: "Learn", path: "/learn" },
+    { name: "News & Insights", path: "/learn/news" },
     ...(a.cluster ? [{ name: CLUSTERS[a.cluster].label, path: CLUSTERS[a.cluster].path }] : []),
     { name: a.question, path },
   ];

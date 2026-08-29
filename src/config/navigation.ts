@@ -26,8 +26,9 @@ export const ROUTES = {
   governance: { path: "/governance", label: "Governance" },
   advisory: { path: "/medical-advisory", label: "Advisory Board" },
   learn: { path: "/learn", label: "Learn" },
-  articles: { path: "/articles", label: "Articles" },
-  intelligence: { path: "/intelligence", label: "Intelligence" },
+  /** Legacy destinations. Redirect to the unified library; not shown in nav. */
+  articles: { path: "/learn/news", label: "News & Insights" },
+  intelligence: { path: "/learn/news", label: "News & Insights" },
   peptides: { path: "/peptides", label: "Peptides" },
   compounding: { path: "/compounding", label: "Compounding" },
   news: { path: "/learn/news", label: "News & Insights" },

@@ -127,7 +127,7 @@ const deeper = [
   { to: "/how-it-works", label: "Verification Protocol", desc: "The process behind each verification decision." },
   { to: "/status-definitions", label: "Status Definitions", desc: "What each public verification status means." },
   { to: "/facilities", label: "Facility Records", desc: "Documented sourcing and standing of upstream facilities." },
-  { to: "/intelligence", label: "Research & Intelligence", desc: "Regulatory updates, enforcement actions, and testing analysis." },
+  { to: "/learn/news", label: "News & Insights", desc: "Regulatory updates, enforcement actions, research, and testing analysis." },
 ];
 
 const ecosystemCategories = [
