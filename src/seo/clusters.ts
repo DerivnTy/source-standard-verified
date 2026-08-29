@@ -174,6 +174,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
       "purity-testing-vs-sterility-testing",
       "what-is-endotoxin-testing",
       "what-does-a-peptide-coa-actually-prove",
+      "peptide-vendor-sentenced-false-testing-sourcing-claims",
     ],
   },
   {
@@ -341,6 +342,7 @@ export const CLUSTER_PAGES: ClusterPage[] = [
       "how-peptide-sourcing-works",
       "does-the-pharmacy-compound-the-peptide-itself",
       "how-can-you-verify-where-a-compounded-peptide-came-from",
+      "peptide-vendor-sentenced-false-testing-sourcing-claims",
     ],
   },
 
