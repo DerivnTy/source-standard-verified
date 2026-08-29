@@ -595,7 +595,7 @@ const VendorProfile = () => {
           <p className="eyebrow mb-3">Not Found</p>
           <h1 className="title-page mb-4">No vendor profile found.</h1>
           <Link
-            to="/verified-vendors"
+            to="/clinics"
             className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
           >
             ← Back to Directory
@@ -810,7 +810,7 @@ const VendorProfile = () => {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL + "/" },
-      { "@type": "ListItem", position: 2, name: "Directory", item: absoluteUrl("/verified-vendors") },
+      { "@type": "ListItem", position: 2, name: "Directory", item: absoluteUrl("/clinics") },
       { "@type": "ListItem", position: 3, name: vendor.name, item: canonicalUrl },
     ],
   };
@@ -834,7 +834,7 @@ const VendorProfile = () => {
 
       <Breadcrumb
         items={[
-          { label: "Directory", to: "/verified-vendors" },
+          { label: "Directory", to: "/clinics" },
           { label: vendor.category ?? "Vendor" },
           { label: vendor.name },
         ]}
@@ -847,7 +847,7 @@ const VendorProfile = () => {
         >
           {/* Back link */}
           <Link
-            to="/verified-vendors"
+            to="/clinics"
             className="inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
             style={{ fontSize: "10px", letterSpacing: "0.08em" }}
           >
@@ -1157,7 +1157,7 @@ const VendorProfile = () => {
                 {serviceBadges.map((tag) => (
                   <Tag
                     key={tag}
-                    href={`/verified-vendors?focus=${encodeURIComponent(tag.toLowerCase())}`}
+                    href={`/clinics?focus=${encodeURIComponent(tag.toLowerCase())}`}
                   >
                     {tag}
                   </Tag>

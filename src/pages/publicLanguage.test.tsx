@@ -93,7 +93,7 @@ describe("locked public language", () => {
   it("does not browse indexed clinics until a name is searched", () => {
     render(
       <HelmetProvider>
-        <MemoryRouter initialEntries={["/verified-vendors"]}>
+        <MemoryRouter initialEntries={["/clinics"]}>
           <VerifiedVendors />
         </MemoryRouter>
       </HelmetProvider>,
@@ -110,7 +110,7 @@ describe("locked public language", () => {
   it("shows the Not Verified result for a searched indexed name instead of a directory dump", () => {
     render(
       <HelmetProvider>
-        <MemoryRouter initialEntries={["/verified-vendors?q=MATTR%20Biowellness%20Club"]}>
+        <MemoryRouter initialEntries={["/clinics?q=MATTR%20Biowellness%20Club"]}>
           <VerifiedVendors />
         </MemoryRouter>
       </HelmetProvider>,

@@ -26,7 +26,7 @@ const HeroContent = () => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const q = query.trim();
-    navigate(q ? `/verified-vendors?q=${encodeURIComponent(q)}` : "/verified-vendors");
+    navigate(q ? `/clinics?q=${encodeURIComponent(q)}` : "/clinics");
   };
 
   return (
@@ -155,7 +155,8 @@ const Index = () => {
   return (
     <>
       <PageMeta
-        title="Source Standard"
+        title="Source Standard · The Clinical Transparency Framework"
+        rawTitle
         description={HOME_SEARCH_LEAD}
         path="/"
         jsonLd={[

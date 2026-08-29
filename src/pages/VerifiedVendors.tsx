@@ -37,14 +37,15 @@ const VerifiedVendors = () => {
   return (
     <>
       <PageMeta
-        title="Search a clinic · Source Standard"
+        title="Search a Clinic: Sourcing Verification Status | Source Standard"
+        rawTitle
         description={HOME_SEARCH_LEAD}
-        path="/verified-vendors"
+        path="/clinics"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: "Search a clinic",
-          url: "https://sourcestandard.org/verified-vendors",
+          url: "https://sourcestandard.org/clinics",
         }}
       />
 

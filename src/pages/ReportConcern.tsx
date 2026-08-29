@@ -96,7 +96,7 @@ const ReportConcern = () => {
         category="Public Intake Channel"
         title="Report a Concern"
         lead={lead}
-        backHref="/verified-vendors"
+        backHref="/clinics"
         backLabel="Back to Registry"
       />
 

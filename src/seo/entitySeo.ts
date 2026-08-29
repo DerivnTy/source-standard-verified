@@ -192,8 +192,11 @@ export const articleSeo = (a: Article): EntitySeo => {
   }
 
   return {
-    title: a.metaTitle,
-    rawTitle: false,
+    // Titles are authored to SERP length already; the long sitewide
+    // suffix would truncate them, so they render verbatim with a short
+    // brand tail.
+    title: `${a.metaTitle} | Source Standard`,
+    rawTitle: true,
     description: a.metaDescription,
     path,
     noindex: false,
@@ -241,8 +244,8 @@ export const clusterSeo = (p: ClusterPage): EntitySeo => {
   }
 
   return {
-    title: p.metaTitle,
-    rawTitle: false,
+    title: `${p.metaTitle} | Source Standard`,
+    rawTitle: true,
     description: p.metaDescription,
     path: p.path,
     noindex: false,
