@@ -18,14 +18,17 @@ export type FooterColumn = {
 /** Canonical label for every public route. */
 export const ROUTES = {
   home: { path: "/", label: "Home" },
-  vendors: { path: "/verified-vendors", label: "Search Clinics" },
-  providerIndex: { path: "/directory/browse", label: "Provider Index" },
+  vendors: { path: "/clinics", label: "Search Clinics" },
+  providerIndex: { path: "/clinics/browse", label: "Provider Index" },
 
-  facilities: { path: "/greenlist", label: "Facility Records" },
+  facilities: { path: "/facilities", label: "Facility Records" },
   howItWorks: { path: "/how-it-works", label: "How Verification Works" },
   governance: { path: "/governance", label: "Governance" },
   advisory: { path: "/medical-advisory", label: "Advisory Board" },
   learn: { path: "/learn", label: "Learn" },
+  articles: { path: "/articles", label: "Articles" },
+  peptides: { path: "/peptides", label: "Peptides" },
+  compounding: { path: "/compounding", label: "Compounding" },
   news: { path: "/learn/news", label: "News & Insights" },
   faq: { path: "/learn/faq", label: "Frequently Asked Questions" },
   about: { path: "/about", label: "About" },
@@ -65,8 +68,17 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     links: [ROUTES.howItWorks, ROUTES.governance, ROUTES.statusDefinitions],
   },
   {
+    // Topic-cluster hubs sit in the footer so every page links into them,
+    // giving the clusters a sitewide internal-link path.
     title: "Learn",
-    links: [ROUTES.learn, ROUTES.news, ROUTES.faq],
+    links: [
+      ROUTES.learn,
+      ROUTES.articles,
+      ROUTES.peptides,
+      ROUTES.compounding,
+      ROUTES.news,
+      ROUTES.faq,
+    ],
   },
   {
     title: "Source Standard",

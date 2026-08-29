@@ -4,5 +4,6 @@ Allow: /
 # Non-indexable utility routes
 Disallow: /unsubscribe
 Disallow: /apply?
+Disallow: /report-concern?
 
 Sitemap: https://www.sourcestandard.org/sitemap.xml

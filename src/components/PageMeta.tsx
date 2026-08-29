@@ -24,7 +24,7 @@ export const PageMeta = ({
   /** When true, `title` is used verbatim (no sitewide suffix appended). */
   rawTitle?: boolean;
   description?: string;
-  /** Site-relative path (e.g. "/directory/acme"). Drives canonical + og:url. */
+  /** Site-relative path (e.g. "/clinics/acme"). Drives canonical + og:url. */
   path?: string;
   /** Absolute or site-relative image URL for OG/Twitter cards. */
   image?: string;

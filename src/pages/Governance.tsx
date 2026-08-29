@@ -18,7 +18,7 @@ const deeper = [
   { to: "/medical-advisory", label: "Medical Advisory Board", desc: "Independent clinical oversight of the framework." },
   { to: "/how-it-works", label: "Verification Protocol", desc: "The process behind each verification decision." },
   { to: "/status-definitions", label: "Status Definitions", desc: "What each public verification status means." },
-  { to: "/greenlist", label: "Facility Records", desc: "Documented sourcing and standing of upstream facilities." },
+  { to: "/facilities", label: "Facility Records", desc: "Documented sourcing and standing of upstream facilities." },
 ];
 
 const ecosystemCategories = [

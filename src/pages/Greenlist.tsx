@@ -249,12 +249,12 @@ const Greenlist = () => {
       <PageMeta
         title="Who Compounds Your Medication? · Facility Records"
         description={heroDescription}
-        path="/greenlist"
+        path="/facilities"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "Facility Records",
-          url: "https://sourcestandard.org/greenlist",
+          url: "https://sourcestandard.org/facilities",
         }}
       />
 
@@ -503,7 +503,7 @@ const Greenlist = () => {
                       return (
                         <li key={entry.slug}>
                           <RegistryRow
-                            to={`/greenlist/${entry.slug}`}
+                            to={`/facilities/${entry.slug}`}
                             name={entry.name}
                             status={pillStatus}
                             chip={entry.category}

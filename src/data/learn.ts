@@ -47,7 +47,7 @@ export const NEXT_STEPS: Record<NextStepId, NextStep> = {
   "facility-records": {
     id: "facility-records",
     label: "Explore Facility Records",
-    to: "/greenlist",
+    to: "/facilities",
   },
   "how-verification-works": {
     id: "how-verification-works",

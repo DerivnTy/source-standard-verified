@@ -7,9 +7,9 @@ import { absoluteUrl } from "@/lib/siteUrl";
 /**
  * Crawlable A–Z index of every provider record in the directory.
  *
- * The main registry surface (/directory) is filter-driven and paginates in
+ * The main registry surface (/clinics) is filter-driven and paginates in
  * component state, so its rows are not reliably discoverable by crawlers.
- * This surface exists purely so every /directory/:slug page is reachable
+ * This surface exists purely so every /clinics/:slug page is reachable
  * through static <a href> links from a small, stable set of URLs.
  * New records inherit it automatically — nothing to configure per page.
  */
@@ -30,7 +30,7 @@ const DirectoryBrowse = () => {
   const all = sorted();
   const start = (page - 1) * BROWSE_PAGE_SIZE;
   const slice = all.slice(start, start + BROWSE_PAGE_SIZE);
-  const path = page === 1 ? "/directory/browse" : `/directory/browse/${page}`;
+  const path = page === 1 ? "/clinics/browse" : `/clinics/browse/${page}`;
 
   return (
     <>
@@ -47,7 +47,7 @@ const DirectoryBrowse = () => {
         }}
       />
 
-      <Breadcrumb items={[{ label: "Directory", to: "/directory" }, { label: "Provider index" }]} />
+      <Breadcrumb items={[{ label: "Directory", to: "/clinics" }, { label: "Provider index" }]} />
 
       <section className="bg-background">
         <div className="mx-auto px-4" style={{ maxWidth: "980px", paddingTop: "12px", paddingBottom: "48px" }}>
@@ -73,7 +73,7 @@ const DirectoryBrowse = () => {
                 style={{ borderTop: "0.5px solid hsl(var(--border) / 0.6)", padding: "8px 0" }}
               >
                 <Link
-                  to={`/directory/${v.slug}`}
+                  to={`/clinics/${v.slug}`}
                   className="text-foreground hover:text-primary transition-colors"
                   style={{ fontSize: "15px", lineHeight: 1.45 }}
                 >
@@ -93,7 +93,7 @@ const DirectoryBrowse = () => {
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
               <Link
                 key={p}
-                to={p === 1 ? "/directory/browse" : `/directory/browse/${p}`}
+                to={p === 1 ? "/clinics/browse" : `/clinics/browse/${p}`}
                 aria-current={p === page ? "page" : undefined}
                 className="inline-flex items-center justify-center font-sans font-semibold transition-colors"
                 style={{

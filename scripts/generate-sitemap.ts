@@ -1,11 +1,21 @@
 /**
- * Sitemap generator — head-only SEO infra.
- * Writes public/sitemap.xml with absolute URLs for all public routes,
- * vendor profiles, greenlist profiles, advisor profiles, and Learn
- * (education + news) articles.
+ * Sitemap generator.
  *
- * Usage: bun scripts/generate-sitemap.ts
- * Wired into npm `prebuild` so production builds always ship a fresh sitemap.
+ * Emits a sitemap index plus four child sitemaps:
+ *   sitemap-static.xml     public marketing / policy / cluster / article routes
+ *   sitemap-clinics.xml    clinic records that clear the indexation gate
+ *   sitemap-facilities.xml facility records that clear the gate
+ *   sitemap-articles.xml   the article library and Learn content
+ *
+ * The clinic and facility files are filtered through the SAME
+ * indexability module the page components use, so the sitemap and the
+ * robots meta tag can never disagree.
+ *
+ * <lastmod> is emitted only where a real, page-specific timestamp
+ * exists. Static routes and directory records have no authoritative
+ * change timestamp, so they omit it rather than advertise the build date.
+ *
+ * Usage: bun scripts/generate-sitemap.ts  (wired to predev + prebuild)
  */
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -14,23 +24,18 @@ const SITE_URL = process.env.VITE_SITE_URL?.replace(/\/$/, "") || "https://www.s
 
 type Url = { loc: string; changefreq?: string; priority?: string; lastmod?: string };
 
-// NOTE: <lastmod> is emitted only where a real, page-specific timestamp
-// exists (Learn articles). Static routes and directory records have no
-// authoritative change timestamp, so they omit it rather than advertise
-// the build date.
 const BROWSE_PAGE_SIZE = 250;
 
-
-// Static public routes (mirrors App.tsx). Retired /education/* and
-// /library/* routes are intentionally omitted — they 301 to /learn/*.
+// Static public routes (mirrors App.tsx). Retired /education/*, /library/*,
+// /directory/* and /greenlist/* routes are intentionally omitted — they
+// redirect to their successors.
 const staticRoutes: string[] = [
   "/",
   "/about",
   "/how-it-works",
-  
-  "/greenlist",
-  "/verified-vendors",
-  "/directory",
+
+  "/facilities",
+  "/clinics",
   "/for-vendors",
 
   // Learn universe
@@ -58,61 +63,115 @@ const staticRoutes: string[] = [
   "/how-to-read-the-directory",
 ];
 
+const renderUrlset = (urls: Url[]) =>
+  `<?xml version="1.0" encoding="UTF-8"?>\n` +
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+  urls
+    .map(
+      (u) =>
+        `  <url>\n` +
+        `    <loc>${u.loc}</loc>\n` +
+        (u.lastmod ? `    <lastmod>${u.lastmod}</lastmod>\n` : "") +
+        (u.changefreq ? `    <changefreq>${u.changefreq}</changefreq>\n` : "") +
+        (u.priority ? `    <priority>${u.priority}</priority>\n` : "") +
+        `  </url>`,
+    )
+    .join("\n") +
+  `\n</urlset>\n`;
+
+const renderIndex = (files: string[]) =>
+  `<?xml version="1.0" encoding="UTF-8"?>\n` +
+  `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+  files.map((f) => `  <sitemap>\n    <loc>${SITE_URL}/${f}</loc>\n  </sitemap>`).join("\n") +
+  `\n</sitemapindex>\n`;
+
+const write = (file: string, xml: string) => {
+  writeFileSync(resolve(process.cwd(), "public", file), xml, "utf8");
+};
+
 async function main() {
   const { vendors } = await import("../src/data/vendors");
   const { greenlistEntries } = await import("../src/data/greenlist");
   const { advisoryBoard } = await import("../src/data/advisoryBoard");
   const { EDUCATION_ARTICLES, NEWS_ARTICLES } = await import("../src/data/learn");
+  const { ARTICLES } = await import("../src/data/articles");
+  const { CLUSTER_PAGES } = await import("../src/seo/clusters");
+  const { isVendorIndexable, isFacilityIndexable, vendorIndexationReport } = await import(
+    "../src/seo/indexability"
+  );
 
-  const urls: Url[] = [];
+  // ── Static + cluster ──────────────────────────────────────────────
+  const staticUrls: Url[] = staticRoutes.map((path) => ({
+    loc: `${SITE_URL}${path}`,
+    changefreq: path === "/" ? "weekly" : "monthly",
+    priority: path === "/" ? "1.0" : "0.7",
+  }));
 
-  for (const path of staticRoutes) {
-    urls.push({
-      loc: `${SITE_URL}${path}`,
-      changefreq: path === "/" ? "weekly" : "monthly",
-      priority: path === "/" ? "1.0" : "0.7",
-    });
-  }
-
-  // Crawlable provider index pages (/directory/browse[/n])
-  const browsePages = Math.max(1, Math.ceil(vendors.length / BROWSE_PAGE_SIZE));
-  for (let p = 1; p <= browsePages; p++) {
-    urls.push({
-      loc: `${SITE_URL}/directory/browse${p === 1 ? "" : `/${p}`}`,
-      changefreq: "weekly",
-      priority: "0.5",
-    });
-  }
-
-  for (const v of vendors) {
-    if (!v.slug) continue;
-    urls.push({
-      loc: `${SITE_URL}/directory/${v.slug}`,
+  for (const p of CLUSTER_PAGES) {
+    staticUrls.push({
+      loc: `${SITE_URL}${p.path}`,
       changefreq: "monthly",
-      priority: "0.6",
-    });
-  }
-
-  for (const g of greenlistEntries) {
-    if (!g.slug) continue;
-    urls.push({
-      loc: `${SITE_URL}/greenlist/${g.slug}`,
-      changefreq: "monthly",
-      priority: "0.5",
+      priority: p.isHub ? "0.9" : "0.8",
+      lastmod: p.updated,
     });
   }
 
   for (const a of advisoryBoard) {
     if (!a.slug) continue;
-    urls.push({
+    staticUrls.push({
       loc: `${SITE_URL}/medical-advisory/${a.slug}`,
       changefreq: "yearly",
       priority: "0.4",
     });
   }
 
+  // ── Clinics ───────────────────────────────────────────────────────
+  const indexableVendors = vendors.filter((v) => v.slug && isVendorIndexable(v));
+  const clinicUrls: Url[] = [];
+
+  const browsePages = Math.max(1, Math.ceil(indexableVendors.length / BROWSE_PAGE_SIZE));
+  for (let p = 1; p <= browsePages; p++) {
+    clinicUrls.push({
+      loc: `${SITE_URL}/clinics/browse${p === 1 ? "" : `/${p}`}`,
+      changefreq: "weekly",
+      priority: "0.5",
+    });
+  }
+
+  for (const v of indexableVendors) {
+    clinicUrls.push({
+      loc: `${SITE_URL}/clinics/${v.slug}`,
+      changefreq: "monthly",
+      priority: v.status === "unverified" ? "0.5" : "0.7",
+      lastmod: v.lastUpdatedDate,
+    });
+  }
+
+  // ── Facilities ────────────────────────────────────────────────────
+  const facilityUrls: Url[] = greenlistEntries
+    .filter((g) => g.slug && isFacilityIndexable(g))
+    .map((g) => ({
+      loc: `${SITE_URL}/facilities/${g.slug}`,
+      changefreq: "monthly",
+      priority: "0.6",
+    }));
+
+  // ── Articles ──────────────────────────────────────────────────────
+  const articleUrls: Url[] = [
+    { loc: `${SITE_URL}/articles`, changefreq: "weekly", priority: "0.8" },
+  ];
+
+  for (const a of ARTICLES) {
+    articleUrls.push({
+      loc: `${SITE_URL}/articles/${a.slug}`,
+      changefreq: "monthly",
+      priority: "0.7",
+      lastmod: a.updated,
+    });
+  }
+
   for (const e of EDUCATION_ARTICLES) {
-    urls.push({
+    articleUrls.push({
       loc: `${SITE_URL}/learn/education/${e.slug}`,
       changefreq: "monthly",
       priority: "0.6",
@@ -121,7 +180,7 @@ async function main() {
   }
 
   for (const n of NEWS_ARTICLES) {
-    urls.push({
+    articleUrls.push({
       loc: `${SITE_URL}/learn/news/${n.slug}`,
       changefreq: "monthly",
       priority: "0.6",
@@ -129,26 +188,32 @@ async function main() {
     });
   }
 
-  const xml =
-    `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    urls
-      .map(
-        (u) =>
-          `  <url>\n` +
-          `    <loc>${u.loc}</loc>\n` +
-          (u.lastmod ? `    <lastmod>${u.lastmod}</lastmod>\n` : "") +
-          (u.changefreq ? `    <changefreq>${u.changefreq}</changefreq>\n` : "") +
-          (u.priority ? `    <priority>${u.priority}</priority>\n` : "") +
-          `  </url>`,
-      )
-      .join("\n") +
-    `\n</urlset>\n`;
+  write("sitemap-static.xml", renderUrlset(staticUrls));
+  write("sitemap-clinics.xml", renderUrlset(clinicUrls));
+  write("sitemap-facilities.xml", renderUrlset(facilityUrls));
+  write("sitemap-articles.xml", renderUrlset(articleUrls));
+  write(
+    "sitemap.xml",
+    renderIndex([
+      "sitemap-static.xml",
+      "sitemap-clinics.xml",
+      "sitemap-facilities.xml",
+      "sitemap-articles.xml",
+    ]),
+  );
 
-  const out = resolve(process.cwd(), "public/sitemap.xml");
-  writeFileSync(out, xml, "utf8");
+  const report = vendorIndexationReport(vendors);
+  const total =
+    staticUrls.length + clinicUrls.length + facilityUrls.length + articleUrls.length;
+
   // eslint-disable-next-line no-console
-  console.log(`sitemap: wrote ${urls.length} urls -> ${out}`);
+  console.log(
+    `sitemap: ${total} urls across 4 files ` +
+      `(static ${staticUrls.length}, clinics ${clinicUrls.length}, ` +
+      `facilities ${facilityUrls.length}, articles ${articleUrls.length})\n` +
+      `indexation gate: ${report.indexable}/${report.total} clinic records qualify ` +
+      `(threshold ${report.threshold}); ${report.excluded} held back as thin`,
+  );
 }
 
 main().catch((err) => {

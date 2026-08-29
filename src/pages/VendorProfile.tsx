@@ -29,6 +29,9 @@ import { PageMeta } from "@/components/PageMeta";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { VerifiedShieldMark } from "@/components/registry/VerifiedShieldMark";
 import { absoluteUrl, SITE_URL } from "@/lib/siteUrl";
+import { vendorSeo } from "@/seo/entitySeo";
+import { articlesForVendor, clustersForVendor } from "@/seo/internalLinks";
+import { ContextualLinks } from "@/components/seo/ContextualLinks";
 
 /**
  * VendorProfile, Public clinic identity + verification record.
@@ -427,7 +430,7 @@ const RelatedProviders = ({ vendor }: { vendor: Vendor }) => {
         {picks.map((v) => (
           <li key={v.slug} style={{ padding: "6px 0" }}>
             <Link
-              to={`/directory/${v.slug}`}
+              to={`/clinics/${v.slug}`}
               className="text-foreground hover:text-primary transition-colors"
               style={{ fontSize: "15px", lineHeight: 1.45 }}
             >
@@ -437,7 +440,7 @@ const RelatedProviders = ({ vendor }: { vendor: Vendor }) => {
         ))}
       </ul>
       <Link
-        to="/directory/browse"
+        to="/clinics/browse"
         className="mt-3 inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
         style={{ fontSize: "10px", letterSpacing: "0.08em" }}
       >
@@ -746,7 +749,7 @@ const VendorProfile = () => {
     !!vendor.state &&
     !!vendor.website;
   const orgType = isClinicalEntity ? "MedicalBusiness" : "Organization";
-  const canonicalPath = `/directory/${vendor.slug}`;
+  const canonicalPath = `/clinics/${vendor.slug}`;
   const canonicalUrl = absoluteUrl(canonicalPath);
   const sameAs = [ig, fb, li, yt, vendor.googleBusinessUrl].filter(Boolean) as string[];
 
@@ -812,16 +815,20 @@ const VendorProfile = () => {
     ],
   };
 
-  const metaDescription = `Independent sourcing transparency information for ${vendor.name}. View its current Source Standard verification status.`;
+  // Title, description and indexability all come from the shared entity-SEO
+  // layer, so every clinic record inherits the same rules (including the
+  // thin-content gate and any per-record override) with no per-page config.
+  const seo = vendorSeo(vendor);
 
   return (
     <>
       <PageMeta
-        title={`${vendor.name} | Source Standard`}
-        rawTitle
-        description={metaDescription}
+        title={seo.title}
+        rawTitle={seo.rawTitle}
+        description={seo.description}
         path={canonicalPath}
         type="profile"
+        noindex={seo.noindex}
         jsonLd={[orgLd, breadcrumbLd]}
       />
 
@@ -1404,6 +1411,11 @@ const VendorProfile = () => {
 
           {/* ────── 9b. RELATED RECORDS (internal linking) ────── */}
           <RelatedProviders vendor={vendor} />
+
+          <ContextualLinks
+            title="Understand what this status means"
+            links={[...articlesForVendor(vendor, 4), ...clustersForVendor(vendor)]}
+          />
 
           {/* ────── 10. CLAIM YOUR PROFILE (elevated CTA) ────── */}
 

@@ -138,7 +138,7 @@ const VerifiedResult = ({ vendor }: { vendor: Vendor }) => {
 
   return (
     <article>
-      <ResultName name={vendor.name} to={`/directory/${vendor.slug}`} />
+      <ResultName name={vendor.name} to={`/clinics/${vendor.slug}`} />
       <StatusLabel>{RESULT_VERIFIED_LABEL}</StatusLabel>
       {lastReview && <Field label="Last review" value={lastReview} />}
       {scope && <Field label="Scope" value={scope} />}
@@ -163,7 +163,7 @@ export const ClinicSearchResult = ({
   return (
     <NotVerifiedResult
       name={vendor?.name ?? name}
-      to={vendor ? `/directory/${vendor.slug}` : undefined}
+      to={vendor ? `/clinics/${vendor.slug}` : undefined}
     />
   );
 };
