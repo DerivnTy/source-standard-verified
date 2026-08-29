@@ -28,9 +28,9 @@ const staticRoutes: string[] = [
   "/about",
   "/how-it-works",
   
-  "/greenlist",
+  "/facilities",
   "/verified-vendors",
-  "/directory",
+  "/clinics",
   "/for-vendors",
 
   // Learn universe
@@ -74,11 +74,11 @@ async function main() {
     });
   }
 
-  // Crawlable provider index pages (/directory/browse[/n])
+  // Crawlable provider index pages (/clinics/browse[/n])
   const browsePages = Math.max(1, Math.ceil(vendors.length / BROWSE_PAGE_SIZE));
   for (let p = 1; p <= browsePages; p++) {
     urls.push({
-      loc: `${SITE_URL}/directory/browse${p === 1 ? "" : `/${p}`}`,
+      loc: `${SITE_URL}/clinics/browse${p === 1 ? "" : `/${p}`}`,
       changefreq: "weekly",
       priority: "0.5",
     });
@@ -87,7 +87,7 @@ async function main() {
   for (const v of vendors) {
     if (!v.slug) continue;
     urls.push({
-      loc: `${SITE_URL}/directory/${v.slug}`,
+      loc: `${SITE_URL}/clinics/${v.slug}`,
       changefreq: "monthly",
       priority: "0.6",
     });
@@ -96,7 +96,7 @@ async function main() {
   for (const g of greenlistEntries) {
     if (!g.slug) continue;
     urls.push({
-      loc: `${SITE_URL}/greenlist/${g.slug}`,
+      loc: `${SITE_URL}/facilities/${g.slug}`,
       changefreq: "monthly",
       priority: "0.5",
     });

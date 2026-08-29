@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { LegacyPathRedirect } from "@/components/LegacyPathRedirect";
 
 import Index from "./pages/Index.tsx";
 import About from "./pages/About.tsx";
@@ -52,6 +53,12 @@ import HowToReadTheDirectory from "./pages/HowToReadTheDirectory.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
 
 import NotFound from "./pages/NotFound.tsx";
+
+// Topic clusters + article library (programmatic SEO surfaces)
+import ClusterPageView from "./pages/ClusterPageView.tsx";
+import ArticlesIndex from "./pages/ArticlesIndex.tsx";
+import ArticlePage from "./pages/ArticlePage.tsx";
+import { CLUSTER_PAGES } from "@/seo/clusters";
 
 const queryClient = new QueryClient();
 
@@ -106,9 +113,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/greenlist" element={<Greenlist />} />
-            <Route path="/greenlist/:slug" element={<GreenlistProfile />} />
-            <Route path="/verified-vendors" element={<VerifiedVendors />} />
+            <Route path="/facilities" element={<Greenlist />} />
+            <Route path="/facilities/:slug" element={<GreenlistProfile />} />
             <Route path="/for-vendors" element={<ForVendors />} />
 
             {/* Learn, three-engine content system */}
@@ -119,6 +125,15 @@ const App = () => (
             <Route path="/learn/news/:slug" element={<LearnNewsArticle />} />
             <Route path="/learn/faq" element={<LearnFaq />} />
             <Route path="/learn/:topicId" element={<LearnGuide />} />
+
+            {/* Topic clusters — hubs and spokes, one renderer, data-driven */}
+            {CLUSTER_PAGES.map((p) => (
+              <Route key={p.path} path={p.path} element={<ClusterPageView />} />
+            ))}
+
+            {/* Article library */}
+            <Route path="/articles" element={<ArticlesIndex />} />
+            <Route path="/articles/:slug" element={<ArticlePage />} />
 
             {/* Legacy → Learn redirects */}
             {LEARN_REDIRECTS.map(([from, to]) => (
@@ -134,10 +149,18 @@ const App = () => (
             <Route path="/library/faq/consumer-diligence" element={<FaqConsumerDiligence />} />
 
             <Route path="/governance" element={<Governance />} />
-            <Route path="/directory" element={<VerifiedVendors />} />
-            <Route path="/directory/browse" element={<DirectoryBrowse />} />
-            <Route path="/directory/browse/:page" element={<DirectoryBrowse />} />
-            <Route path="/directory/:slug" element={<VendorProfile />} />
+            <Route path="/clinics" element={<VerifiedVendors />} />
+            <Route path="/clinics/browse" element={<DirectoryBrowse />} />
+            <Route path="/clinics/browse/:page" element={<DirectoryBrowse />} />
+            <Route path="/clinics/:slug" element={<VendorProfile />} />
+
+            {/* Retired URL prefixes → canonical homes. Preserves the rest
+                of the path so old links and crawled URLs never 404. */}
+            <Route path="/directory/*" element={<LegacyPathRedirect from="/directory" to="/clinics" />} />
+            <Route path="/directory" element={<LegacyPathRedirect from="/directory" to="/clinics" />} />
+            <Route path="/greenlist/*" element={<LegacyPathRedirect from="/greenlist" to="/facilities" />} />
+            <Route path="/greenlist" element={<LegacyPathRedirect from="/greenlist" to="/facilities" />} />
+            <Route path="/verified-vendors" element={<Navigate to="/clinics" replace />} />
 
             <Route path="/apply" element={<Apply />} />
             <Route path="/contact" element={<Contact />} />

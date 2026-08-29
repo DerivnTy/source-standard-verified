@@ -90,7 +90,7 @@ const groups: { title: string; items: QA[] }[] = [
       {
         q: "What are Facility Records?",
         a: "Facility Records list the compounding pharmacies, outsourcing facilities, and manufacturers followed by Source Standard. Each record shows the facility's current status within the framework. Facilities enter the record in Monitoring status.",
-        to: "/greenlist",
+        to: "/facilities",
         toLabel: "Facility Records",
       },
       {

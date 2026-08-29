@@ -161,7 +161,7 @@ const GreenlistProfile = () => {
         <p className="eyebrow mb-3">Not Found</p>
         <h1 className="title-page mb-4">No manufacturer profile found.</h1>
         <Link
-          to="/greenlist"
+          to="/facilities"
           className="t-utility-xs font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary-hover"
         >
           ← Back to Manufacturer Registry
@@ -224,7 +224,7 @@ const GreenlistProfile = () => {
       <PageMeta
         title={`${entry.name} · Manufacturer Profile`}
         description={`Source Standard manufacturer intelligence profile for ${entry.name}.`}
-        path={`/greenlist/${entry.slug}`}
+        path={`/facilities/${entry.slug}`}
         type="profile"
         jsonLd={[
           {
@@ -232,8 +232,8 @@ const GreenlistProfile = () => {
             "@type": "Organization",
             name: entry.name,
             url:
-              entry.website || `https://sourcestandard.org/greenlist/${entry.slug}`,
-            mainEntityOfPage: `https://sourcestandard.org/greenlist/${entry.slug}`,
+              entry.website || `https://sourcestandard.org/facilities/${entry.slug}`,
+            mainEntityOfPage: `https://sourcestandard.org/facilities/${entry.slug}`,
             additionalProperty: [
               {
                 "@type": "PropertyValue",
@@ -254,8 +254,8 @@ const GreenlistProfile = () => {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://sourcestandard.org/" },
-              { "@type": "ListItem", position: 2, name: "Manufacturer Registry", item: "https://sourcestandard.org/greenlist" },
-              { "@type": "ListItem", position: 3, name: entry.name, item: `https://sourcestandard.org/greenlist/${entry.slug}` },
+              { "@type": "ListItem", position: 2, name: "Manufacturer Registry", item: "https://sourcestandard.org/facilities" },
+              { "@type": "ListItem", position: 3, name: entry.name, item: `https://sourcestandard.org/facilities/${entry.slug}` },
             ],
           },
         ]}
@@ -267,7 +267,7 @@ const GreenlistProfile = () => {
           style={{ maxWidth: "720px", paddingTop: "16px", paddingBottom: "56px" }}
         >
           <Link
-            to="/greenlist"
+            to="/facilities"
             className="inline-flex items-center font-sans font-semibold uppercase text-muted-foreground hover:text-foreground transition-colors"
             style={{ fontSize: "10px", letterSpacing: "0.08em" }}
           >
@@ -485,7 +485,7 @@ const GreenlistProfile = () => {
             {/* Bottom CTA */}
             <div className="mt-7 pt-6" style={{ borderTop: "0.5px solid hsl(var(--border))" }}>
               <Link
-                to="/greenlist"
+                to="/facilities"
                 className="inline-flex items-center font-sans font-semibold uppercase text-foreground hover:text-primary transition-colors underline underline-offset-4 decoration-border hover:decoration-foreground"
                 style={{ fontSize: "11px", letterSpacing: "0.08em" }}
               >

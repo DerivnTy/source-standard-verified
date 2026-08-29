@@ -19,9 +19,9 @@ export type FooterColumn = {
 export const ROUTES = {
   home: { path: "/", label: "Home" },
   vendors: { path: "/verified-vendors", label: "Search Clinics" },
-  providerIndex: { path: "/directory/browse", label: "Provider Index" },
+  providerIndex: { path: "/clinics/browse", label: "Provider Index" },
 
-  facilities: { path: "/greenlist", label: "Facility Records" },
+  facilities: { path: "/facilities", label: "Facility Records" },
   howItWorks: { path: "/how-it-works", label: "How Verification Works" },
   governance: { path: "/governance", label: "Governance" },
   advisory: { path: "/medical-advisory", label: "Advisory Board" },
