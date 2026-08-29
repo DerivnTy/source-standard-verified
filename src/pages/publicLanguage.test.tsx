@@ -75,7 +75,8 @@ describe("locked public language", () => {
       </>,
     );
 
-    expect(screen.queryByRole("link", { name: "Advisory Board" })).not.toBeInTheDocument();
+    // Advisory Board is intentionally footer-only chrome (Framework column).
+    expect(screen.getAllByRole("link", { name: "Advisory Board" }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "Search Clinics" }).length).toBeGreaterThan(0);
     expect(screen.getByText(HOME_DISCLAIMER)).toBeInTheDocument();
     expect(screen.queryByText(/vendor sourcing claims/i)).not.toBeInTheDocument();

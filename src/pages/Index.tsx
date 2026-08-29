@@ -7,14 +7,12 @@ import { BriefingHero } from "@/components/BriefingHero";
 import {
   PageSection,
   ContentsNav,
-  KeyFacts,
   MethodologyNote,
   NavCard,
   ProcessSteps,
   RelatedRail,
   type ContentsEntry,
 } from "@/components/system";
-import { registryStats } from "@/data/registryStats";
 import {
   CTA_APPLY,
   CTA_HOW_IT_WORKS,
@@ -407,15 +405,7 @@ const Index = () => {
         title="What does the registry cover?"
         intro="Vendors and compounding facilities tracked within a single public-reference system."
       >
-        <KeyFacts
-          columns={3}
-          facts={[
-            { label: "Provider records", value: registryStats.providersIndexed.toLocaleString() },
-            { label: "States represented", value: registryStats.statesRepresented },
-            { label: "Facility records", value: registryStats.facilityRecords.toLocaleString() },
-          ]}
-        />
-        <div className="grid gap-2.5 sm:grid-cols-2" style={{ marginTop: "16px" }}>
+        <div className="grid gap-2.5 sm:grid-cols-2">
           <NavCard
             to="/clinics"
             title="Vendor registry"
