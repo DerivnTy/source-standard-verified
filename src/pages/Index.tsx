@@ -4,7 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { PageMeta } from "@/components/PageMeta";
 import { websiteLd } from "@/seo/entitySeo";
 import { BriefingHero } from "@/components/BriefingHero";
-import { PageSection } from "@/components/system";
+import {
+  PageSection,
+  ContentsNav,
+  KeyFacts,
+  MethodologyNote,
+  NavCard,
+  ProcessSteps,
+  RelatedRail,
+  type ContentsEntry,
+} from "@/components/system";
+import { registryStats } from "@/data/registryStats";
 import {
   CTA_APPLY,
   CTA_HOW_IT_WORKS,
@@ -18,6 +28,75 @@ import {
   HOME_TAGLINE,
 } from "@/data/publicLanguage";
 import lockup from "@/assets/source-standard-lockup-dark.png";
+
+const CONTENTS: ContentsEntry[] = [
+  { id: "mission", label: "Mission", desc: "Why Source Standard exists." },
+  { id: "protocol", label: "Protocol", desc: "How verification is carried out." },
+  { id: "registry", label: "Registry", desc: "What the public record covers." },
+  { id: "record-fields", label: "Record fields", desc: "What each record contains." },
+  { id: "audience", label: "Audience", desc: "Who uses the record, and how." },
+  { id: "governance", label: "Governance", desc: "Independence and oversight." },
+];
+
+const RECORD_FIELDS = [
+  {
+    term: "Verification status",
+    desc: "Whether a provider is Source Standard Verified or Not Source Standard Verified, alongside any applicable participation status such as Under Review, Active, Suspended, or Expired.",
+  },
+  {
+    term: "Vendor type",
+    desc: "Whether the organization operates as a telehealth provider, in-person clinic, hybrid practice, online platform, or another applicable provider type.",
+  },
+  {
+    term: "Therapy category",
+    desc: "The compounded therapy categories associated with the provider record.",
+  },
+  {
+    term: "Facility relationships",
+    desc: "Recognized upstream sources associated with the record and their relevant Source Standard standing.",
+  },
+  {
+    term: "Regulatory context",
+    desc: "Publicly available registration, licensure, and enforcement context relevant to the record, cited to its issuing authority.",
+  },
+  {
+    term: "Record provenance",
+    desc: "The scope of what was reviewed, the evidence relied on, and the date the record was last reviewed.",
+  },
+];
+
+const AUDIENCES = [
+  {
+    title: "Consumers",
+    body: HOME_AUDIENCE_PATIENTS,
+    note: "Use the registry to understand sourcing transparency before choosing a provider, and read the scope stated on each record.",
+  },
+  {
+    title: "Providers",
+    body: HOME_AUDIENCE_CLINICS,
+    note: "Verification lets a provider demonstrate sourcing transparency through independent review rather than self-assertion.",
+  },
+  {
+    title: "Industry",
+    body: HOME_AUDIENCE_FACILITIES,
+    note: "The public record functions as a reference point for accountability across the compounded therapy market.",
+  },
+];
+
+const GOVERNANCE_POINTS = [
+  {
+    term: "Independent governance",
+    desc: "Verification standards are maintained independently of any vendor, manufacturer, or commercial interest being evaluated.",
+  },
+  {
+    term: "Advisory board",
+    desc: "Medical, scientific, and procedural guidance is provided by the Medical Advisory Board. Advisors do not diagnose, treat, prescribe, or evaluate individual patients through Source Standard.",
+  },
+  {
+    term: "Public standards",
+    desc: "Verification criteria, methodology, and status definitions are published for review rather than held privately.",
+  },
+];
 
 const HeroContent = () => {
   const navigate = useNavigate();
