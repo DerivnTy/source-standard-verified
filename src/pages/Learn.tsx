@@ -6,11 +6,8 @@ import { BriefingHero } from "@/components/BriefingHero";
 import { LearnShell } from "@/components/learn/LearnShell";
 import { PageSection, NavCard } from "@/components/system";
 
-import {
-  EDUCATION_TOPICS,
-  NEWS_ARTICLES,
-  NEWS_CATEGORIES,
-} from "@/data/learn";
+import { EDUCATION_TOPICS } from "@/data/learn";
+import { LIBRARY_ITEMS, recentLibraryItems } from "@/data/contentLibrary";
 
 const HERO_STATEMENT =
   "Consumer-first answers to the questions that come up before you choose a provider, and timely updates about what's changing in compounded therapy.";
@@ -23,9 +20,7 @@ const formatDate = (iso: string) =>
   });
 
 const Learn = () => {
-  const recent = [...NEWS_ARTICLES]
-    .sort((a, b) => new Date(b.dateline).getTime() - new Date(a.dateline).getTime())
-    .slice(0, 3);
+  const recent = recentLibraryItems(6);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -93,7 +88,7 @@ const Learn = () => {
           <NavCard
             to="/learn/news"
             title="News & Insights"
-            desc="Reporting, commentary, and regulatory updates."
+            desc={`Every Source Standard article in one library — reporting, research, regulatory developments, recalls, testing, and sourcing. ${LIBRARY_ITEMS.length} entries, filterable by topic.`}
           />
           <NavCard
             to="/learn/faq"
@@ -106,41 +101,47 @@ const Learn = () => {
       {/* 3 — Recent Updates */}
       <PageSection title="Recent Updates" compact>
         <ul className="flex flex-col divide-y divide-border/60 border-t border-b border-border/60" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          {recent.map((a) => {
-            const cat = NEWS_CATEGORIES.find((c) => c.id === a.category);
-            return (
-              <li key={a.slug}>
-                <Link
-                  to={`/learn/news/${a.slug}`}
-                  className="group grid grid-cols-1 md:grid-cols-[160px_1fr] gap-x-6 gap-y-1 py-4 hover:bg-muted/40 active:bg-muted/60 transition-colors"
-                  style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
+          {recent.map((a) => (
+            <li key={a.to}>
+              <Link
+                to={a.to}
+                className="group grid grid-cols-1 md:grid-cols-[190px_1fr] gap-x-6 gap-y-1 py-4 hover:bg-muted/40 active:bg-muted/60 transition-colors"
+                style={{ paddingLeft: "8px", paddingRight: "8px", marginLeft: "-8px", marginRight: "-8px" }}
+              >
+                <div
+                  className="font-mono uppercase text-muted-foreground/80"
+                  style={{ fontSize: "10px", letterSpacing: "0.12em", paddingTop: "4px" }}
                 >
-                  <div
-                    className="font-mono uppercase text-muted-foreground/80"
-                    style={{ fontSize: "10px", letterSpacing: "0.12em", paddingTop: "4px" }}
+                  {formatDate(a.date)}
+                  <span> · {a.topic}</span>
+                </div>
+                <div>
+                  <h3
+                    className="font-sans text-foreground group-hover:text-primary transition-colors"
+                    style={{ fontSize: "15px", fontWeight: 600, letterSpacing: "-0.005em", margin: 0, lineHeight: 1.35 }}
                   >
-                    {formatDate(a.dateline)}
-                    {cat?.label ? <span> · {cat.label}</span> : null}
-                  </div>
-                  <div>
-                    <h3
-                      className="font-sans text-foreground group-hover:text-primary transition-colors"
-                      style={{ fontSize: "15px", fontWeight: 600, letterSpacing: "-0.005em", margin: 0, lineHeight: 1.35 }}
-                    >
-                      {a.headline}
-                    </h3>
-                    <p
-                      className="text-muted-foreground"
-                      style={{ fontSize: "14px", lineHeight: 1.55, marginTop: "4px", marginBottom: 0 }}
-                    >
-                      {a.standfirst}
-                    </p>
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
+                    {a.title}
+                  </h3>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontSize: "14px", lineHeight: 1.55, marginTop: "4px", marginBottom: 0 }}
+                  >
+                    {a.summary}
+                  </p>
+                </div>
+              </Link>
+            </li>
+          ))}
         </ul>
+        <p className="mt-4" style={{ margin: "16px 0 0" }}>
+          <Link
+            to="/learn/news"
+            className="t-utility-xs text-foreground hover:text-primary transition-colors"
+            style={{ textDecoration: "underline", textDecorationThickness: "0.5px", textUnderlineOffset: "4px" }}
+          >
+            Browse all {LIBRARY_ITEMS.length} articles
+          </Link>
+        </p>
       </PageSection>
 
       {/* 4 — Still Have Questions? */}
