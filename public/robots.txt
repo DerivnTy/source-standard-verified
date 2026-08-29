@@ -4,5 +4,11 @@ Allow: /
 # Non-indexable utility routes
 Disallow: /unsubscribe
 Disallow: /apply?
+Disallow: /report-concern?
+
+# Retired prefixes redirect to /clinics and /facilities; crawlers should
+# spend budget on the canonical paths instead.
+Disallow: /directory/
+Disallow: /greenlist/
 
 Sitemap: https://www.sourcestandard.org/sitemap.xml
