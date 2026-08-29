@@ -42,7 +42,7 @@ export const NEXT_STEPS: Record<NextStepId, NextStep> = {
   "vendor-registry": {
     id: "vendor-registry",
     label: "Search the Vendor Registry",
-    to: "/verified-vendors",
+    to: "/clinics",
   },
   "facility-records": {
     id: "facility-records",
@@ -57,7 +57,7 @@ export const NEXT_STEPS: Record<NextStepId, NextStep> = {
   "transparent-record": {
     id: "transparent-record",
     label: "See a transparent provider record",
-    to: "/verified-vendors",
+    to: "/clinics",
   },
   contact: {
     id: "contact",

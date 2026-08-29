@@ -103,7 +103,7 @@ const HowToReadTheDirectory = () => {
       />
       <Breadcrumb
         items={[
-          { label: "Registry", to: "/verified-vendors" },
+          { label: "Registry", to: "/clinics" },
           { label: "How to Read" },
         ]}
       />
@@ -128,8 +128,8 @@ const HowToReadTheDirectory = () => {
           "What this registry shows.",
           <p>
             The public registry at{" "}
-            <Link to="/verified-vendors" className="underline underline-offset-4">
-              /verified-vendors
+            <Link to="/clinics" className="underline underline-offset-4">
+              /clinics
             </Link>{" "}
             lists vendors operating in peptide, TRT, and hormone optimization that are tracked
             by Source Standard. Each record carries a public status indicating whether a
@@ -282,7 +282,7 @@ const HowToReadTheDirectory = () => {
           "Related references.",
           <ul className="space-y-2">
             <li>
-              <Link to="/verified-vendors" className="underline underline-offset-4">
+              <Link to="/clinics" className="underline underline-offset-4">
                 Vendor Registry
               </Link>
             </li>
